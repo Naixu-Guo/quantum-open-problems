@@ -51,13 +51,19 @@ Smolin, which together leave the general Pauli-channel capacity undetermined
   \sourcecite{ref:p1-renes-2015}{RSDR15}.
 
   \item In the depolarizing case, write $p_I=f$ and
-  $p_X=p_Y=p_Z=(1-f)/3$, where $f$ is the channel-fidelity parameter.
-  Concatenating a nonrandom inner code with a random outer code gives
-  $\mathcal{Q}(\Lambda_{\mathbf p})>0$ for $f>0.80944$, whereas the hashing
-  rate in Eq.~\eqref{eq:p1-hashing-bound} becomes positive only for
-  $f>0.81071$.  Thus, for $0.80944<f<0.81071$ (around $f=0.81$), the channel
-  has positive quantum capacity even though $1-H(\mathbf p)<0$
-  \sourcecite{ref:p1-divincenzo}{DSS98}.
+  $p_X=p_Y=p_Z=(1-f)/3$, and let $r:=(1-f)/3$ be the per-Pauli error
+  probability.  Krohn-Grimberghe constructed an explicit rank-two,
+  permutation-symmetric input across $45$ channel uses and certified in exact
+  rational arithmetic that its coherent information is positive at
+  $r=16239/250000=0.064956$.  Monotonicity under channel post-processing
+  therefore gives $\mathcal Q(\Lambda_{\mathbf p})>0$ whenever
+  $f\ge201283/250000=0.805132$.  In particular, throughout
+  $0.805132\le f<0.81071$ the capacity is positive although the hashing
+  expression in Eq.~\eqref{eq:p1-hashing-bound} is negative.  Table~1 of the
+  paper lists the preceding best printed positivity point as $r=0.064657$,
+  obtained from a floating-point eigensolver; the new point is
+  machine-checkable but is not claimed to be the exact capacity threshold
+  \sourcecite{ref:p1-krohn-grimberghe}{KG26}.
 
   \item For the qubit depolarizing subfamily, numerical optimization over
   channel extensions parameterized by the Stiefel manifold produces upper
@@ -74,7 +80,7 @@ Smolin, which together leave the general Pauli-channel capacity undetermined
 \subsection*{References}
 
 \begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
-  \footnotesize
+  \scriptsize
   \item[\textup{[BDSW96]}]\label{ref:p1-bennett}
   C. H. Bennett, D. P. DiVincenzo, J. A. Smolin, and W. K. Wootters,
   ``Mixed-State Entanglement and Quantum Error Correction,''
@@ -110,11 +116,17 @@ Smolin, which together leave the general Pauli-channel capacity undetermined
   (1998). \href{https://doi.org/10.1103/PhysRevA.57.830}{doi:10.1103/PhysRevA.57.830};
   \href{https://arxiv.org/abs/quant-ph/9706061}{arXiv:quant-ph/9706061}.
 
+  \item[\textup{[KG26]}]\label{ref:p1-krohn-grimberghe}
+  A. Krohn-Grimberghe,
+  ``A Certified Lower Bound on the Quantum-Capacity Threshold of the
+  Depolarizing Channel,'' arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2608.15870}{arXiv:2608.15870v2}.
+
   \item[\textup{[ZMFW25]}]\label{ref:p1-zhu-mao-fang-wang}
   C. Zhu, H. Mao, K. Fang, and X. Wang,
   ``Geometric Optimization for Quantum Communication,'' arXiv preprint
   (2025).
-  \href{https://arxiv.org/abs/2509.15106v1}{arXiv:2509.15106v1}.
+  \href{https://arxiv.org/abs/2509.15106v1}{arXiv:2509.15106}.
 \end{enumerate}
 
 \subsection*{Comment}
