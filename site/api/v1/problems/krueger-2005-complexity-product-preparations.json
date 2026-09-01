@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "krueger-2005-complexity-product-preparations",
+  "title": "Complexity of product preparations",
+  "status": "open",
+  "dates": {
+    "proposed": "2003-01-31",
+    "latestEvidence": "2005-04-21",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "quantum-complexity",
+      "label": "Quantum complexity"
+    }
+  },
+  "collection": {
+    "id": "krueger-2005",
+    "label": "Krueger–Werner",
+    "title": "Some open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Asymptotic complexity",
+    "summary": "No general asymptotic formula is known for the weighted Pauli-rotation cost of preparing many copies of a pure state.",
+    "importance": "The answer decides whether state-preparation complexity is extensive or whether a collective circuit can amortize the cost of producing repeated quantum resources.",
+    "unresolved": "Determine the scaling of the weighted rotation cost for many copies and whether collective preparation gives a strict asymptotic saving per copy."
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $\\lvert\\psi\\rangle$ | A pure quantum state of $m$ qubits |\n| $\\lvert\\phi\\rangle$ | An $m$-qubit \"starting\" state, taken to be $\\lvert 0\\rangle^{\\otimes m}$ in this problem |\n| $m$ | Number of qubits per copy of the state $\\lvert\\psi\\rangle$ |\n| $n$ | Number of identical copies of $\\lvert\\psi\\rangle$ that are to be prepared |\n| $\\lvert\\psi\\rangle^{\\otimes n}$ | The $n$-fold tensor product $\\lvert\\psi\\rangle\\otimes\\cdots\\otimes\\lvert\\psi\\rangle$ ($n$ factors) |\n| $\\sigma_u$ | A tensor product of Pauli matrices acting on (some subset of) the $m$ qubits |\n| $e^{i\\phi\\sigma_u}$ | One of the allowed gates: an exponential of a Pauli string with a real phase $\\phi$ |\n| $C(\\lvert\\Psi\\rangle)$ | Infimum of the weighted rotation cost $\\sum_j|\\phi_j|$ over preparations of $\\lvert\\Psi\\rangle$ from the reference state |\n| $\\varepsilon$ | Optional approximation parameter (target fidelity / accuracy of preparation) |",
+    "statement": "Fix a state $\\lvert\\psi\\rangle$ of $m$ qubits and the gate set\n$$\\mathcal{G} = \\{\\, e^{i\\phi\\sigma_u} : \\phi \\in \\mathbb{R},\\ \\sigma_u\\text{ a tensor product of Pauli matrices}\\,\\}.$$\nFor a target pure state $\\lvert\\Psi\\rangle$, let\n$$C(\\lvert\\Psi\\rangle)=\\inf\\left\\{\\sum_j|\\phi_j|:\\prod_j e^{i\\phi_j\\sigma_{u_j}}\\lvert0\\rangle^{\\otimes(\\text{number of qubits})}=\\lvert\\Psi\\rangle\\right\\}.$$\n\nDetermine, as a function of $n$ and $C(\\lvert\\psi\\rangle)$, the asymptotic behaviour of\n$$C\\!\\bigl(\\lvert\\psi\\rangle^{\\otimes n}\\bigr).$$\nIn particular, is the cost per copy $C(\\lvert\\psi\\rangle^{\\otimes n})/n$ bounded above by a function strictly smaller than $C(\\lvert\\psi\\rangle)$ as $n \\to \\infty$?\n\nAn approximate version is also of interest: for a tolerance $\\varepsilon > 0$, characterize the minimum weighted rotation cost needed to produce a state $\\lvert\\Phi\\rangle$ with $\\lvert\\langle\\Phi\\,\\vert\\,\\psi^{\\otimes n}\\rangle\\rvert^2 \\ge 1 - \\varepsilon$."
+  },
+  "source": {
+    "title": "Some open problems in quantum information theory",
+    "authors": [
+      "O. Krüger",
+      "R. F. Werner"
+    ],
+    "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+    "locator": "p. 50 (Problem 16)",
+    "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2005-04-21",
+        "title": "The archived weighted-cost problem remains unresolved",
+        "detail": "The cost is the infimum of the sum of absolute rotation angles. Modern Clifford-plus-T gate counts use a different resource measure.",
+        "maturity": "Archived source",
+        "strength": "Open formulation",
+        "url": "https://arxiv.org/abs/quant-ph/0504166",
+        "label": "Source problem"
+      }
+    ],
+    "cautions": [],
+    "interpretation": "Do not substitute gate count for the source's weighted continuous-angle cost.",
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "state preparation",
+      "Pauli rotations",
+      "asymptotic cost",
+      "collective preparation"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/krueger-2005-complexity-product-preparations.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Complexity+of+product+preparations",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/contribution.schema.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/krueger-2005-complexity-product-preparations.json",
+    "human": "https://naixu-guo.github.io/quantum-information-open-problems/problems/krueger-2005-complexity-product-preparations/",
+    "explorer": "https://naixu-guo.github.io/quantum-information-open-problems/#krueger-2005-complexity-product-preparations",
+    "markdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/krueger-2005-complexity-product-preparations.md",
+    "schema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/krueger-2005-complexity-product-preparations.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/open_prob/krueger-2005-complexity-product-preparations/problem.md"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "696f49146182ed87d0365d1af35ca45baf5d2fde6fcaeeaa783f8d2081573eda",
+    "statementDigest": "4acb313cb6f1b572d00ddad662e1104fee42dcdb741ac70267da14380f3cd2a0"
+  }
+}

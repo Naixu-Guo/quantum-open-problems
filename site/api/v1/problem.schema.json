@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problem.schema.json",
+  "title": "Quantum Open Problem",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "title",
+    "status",
+    "dates",
+    "taxonomy",
+    "question",
+    "formulation",
+    "source",
+    "evidence",
+    "research",
+    "links",
+    "revision"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "kind": {
+      "const": "quantum-open-problem"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "open",
+        "partial"
+      ]
+    },
+    "dates": {
+      "type": "object"
+    },
+    "taxonomy": {
+      "type": "object"
+    },
+    "collection": {
+      "type": "object"
+    },
+    "question": {
+      "type": "object",
+      "required": [
+        "type",
+        "summary",
+        "importance",
+        "unresolved"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "importance": {
+          "type": "string"
+        },
+        "unresolved": {
+          "type": "string"
+        }
+      }
+    },
+    "formulation": {
+      "type": "object",
+      "required": [
+        "notation",
+        "statement"
+      ],
+      "properties": {
+        "notation": {
+          "type": "string"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "source": {
+      "type": "object"
+    },
+    "evidence": {
+      "type": "object"
+    },
+    "relations": {
+      "type": "object"
+    },
+    "discovery": {
+      "type": "object"
+    },
+    "research": {
+      "type": "object"
+    },
+    "links": {
+      "type": "object"
+    },
+    "revision": {
+      "type": "object",
+      "required": [
+        "algorithm",
+        "projection",
+        "recordDigest",
+        "statementDigest"
+      ],
+      "properties": {
+        "algorithm": {
+          "const": "sha256"
+        },
+        "projection": {
+          "const": "content-v1"
+        },
+        "recordDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "statementDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    }
+  }
+}

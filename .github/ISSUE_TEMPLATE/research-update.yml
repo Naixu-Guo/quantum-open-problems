@@ -1,0 +1,116 @@
+name: Research update
+description: Submit a result, computation, correction, or failed route for an existing problem.
+title: "[Research update] "
+body:
+  - type: input
+    id: record_id
+    attributes:
+      label: Record ID
+      description: Copy the stable record ID from the problem detail page or AI research brief.
+      placeholder: horodecki-2020-npt-bound-entanglement
+    validations:
+      required: true
+
+  - type: input
+    id: record_revision
+    attributes:
+      label: Record revision
+      description: Copy the SHA-256 record revision from the AI research brief or problem API.
+      placeholder: 64-character SHA-256 digest
+    validations:
+      required: true
+
+  - type: input
+    id: statement_digest
+    attributes:
+      label: Formal statement digest
+      description: Copy the SHA-256 formal statement digest from the AI research brief or problem API.
+      placeholder: 64-character SHA-256 digest
+    validations:
+      required: true
+
+  - type: dropdown
+    id: contribution_kind
+    attributes:
+      label: Contribution type
+      options:
+        - Exact proof or counterexample
+        - Partial theorem
+        - Computation or finite certificate
+        - Numerical evidence
+        - Failed approach
+        - Status or source correction
+    validations:
+      required: true
+
+  - type: dropdown
+    id: research_workflow
+    attributes:
+      label: Research workflow
+      options:
+        - Human research
+        - AI-assisted research with human checks
+        - Agent-generated research with human checks
+        - Agent-generated research awaiting human checks
+    validations:
+      required: true
+
+  - type: textarea
+    id: ai_systems
+    attributes:
+      label: AI systems and human checks
+      description: Write “None” for human-only work. Otherwise name the models or agents, their roles, and the checks a person performed.
+    validations:
+      required: true
+
+  - type: textarea
+    id: exact_claim
+    attributes:
+      label: Exact claim
+      description: State the theorem, counterexample, computation, or correction with its hypotheses and quantifiers.
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope_match
+    attributes:
+      label: Match to the open problem
+      description: Identify the part of the formal statement addressed and explain whether the result is full or partial.
+    validations:
+      required: true
+
+  - type: textarea
+    id: sources
+    attributes:
+      label: Primary sources
+      description: Give links and theorem, page, equation, or version locators when available.
+    validations:
+      required: true
+
+  - type: textarea
+    id: artifacts
+    attributes:
+      label: Argument and reproducible artifacts
+      description: Provide the proof outline and links to code, data, proof files, logs, or certificates.
+    validations:
+      required: true
+
+  - type: textarea
+    id: remaining_gap
+    attributes:
+      label: Remaining gap
+      description: State what remains unresolved if reviewers accept this contribution.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submission checks
+      options:
+        - label: I opened and checked the cited sources.
+          required: true
+        - label: I compared the claim with the cataloged formal statement and its quantifiers.
+          required: true
+        - label: I labeled conditional, numerical, and conjectural steps as such.
+          required: true

@@ -1,0 +1,74 @@
+name: New quantum open problem
+description: Propose a sourced, checkable open problem for the catalog.
+title: "[New problem] "
+body:
+  - type: input
+    id: problem_title
+    attributes:
+      label: Problem title
+    validations:
+      required: true
+
+  - type: input
+    id: field_topic
+    attributes:
+      label: Quantum field and topic
+      placeholder: Quantum sensing / quantum metrology
+    validations:
+      required: true
+
+  - type: textarea
+    id: formal_statement
+    attributes:
+      label: Formal statement
+      description: Define the objects, domain, quantifiers, and proof or counterexample target. TeX is welcome.
+    validations:
+      required: true
+
+  - type: textarea
+    id: importance
+    attributes:
+      label: Why resolving it matters
+      description: Name the mathematical, physical, computational, or operational consequence.
+    validations:
+      required: true
+
+  - type: textarea
+    id: primary_source
+    attributes:
+      label: Primary source
+      description: Link the paper or authoritative problem list and give a locator for the statement.
+    validations:
+      required: true
+
+  - type: textarea
+    id: open_status
+    attributes:
+      label: Evidence that the problem remains open
+      description: Cite a current source or explain the literature check and its cutoff date.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: research_workflow
+    attributes:
+      label: Preparation workflow
+      options:
+        - Human research
+        - AI-assisted research with human checks
+        - Agent-generated research with human checks
+        - Agent-generated research awaiting human checks
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Proposal checks
+      options:
+        - label: I searched the current catalog for duplicates and equivalent formulations.
+          required: true
+        - label: I opened and checked the cited source.
+          required: true
+        - label: The problem has a checkable resolution criterion.
+          required: true

@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "krueger-2005-mutually-unbiased-bases",
+  "title": "Mutually unbiased bases in general dimensions",
+  "status": "open",
+  "dates": {
+    "proposed": "2003-01-31",
+    "latestEvidence": "2026-04-01",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "quantum-designs",
+      "label": "Quantum designs"
+    }
+  },
+  "collection": {
+    "id": "krueger-2005",
+    "label": "Krueger–Werner",
+    "title": "Some open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Existence and classification",
+    "summary": "Complete sets exist in prime-power dimensions, but the maximum number is unknown in general composite dimensions. Dimension six is the first unresolved case.",
+    "importance": "MUBs supply complementary measurements for tomography and uncertainty relations. Their existence pattern also tests how far finite-field constructions extend into composite dimensions.",
+    "unresolved": "Determine the maximum number of MUBs in non-prime-power dimensions, beginning with dimension six."
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $D$ | Dimension of the complex Hilbert space, $D \\geq 2$ |\n| $\\mathbb{C}^D$ | Complex $D$-dimensional Hilbert space |\n| $K$ | Number of orthonormal bases under consideration |\n| $\\{e_i^k\\}_{i=1}^D$ | Orthonormal basis indexed by $k$ ($k = 1, \\ldots, K$), with the $i$th vector denoted $e_i^k$ |\n| $\\langle e_i^k, e_j^n\\rangle$ | Inner product between basis vectors from bases $k$ and $n$ |\n| $\\lvert\\cdot\\rvert$ | Absolute value |\n| MUB | Mutually unbiased bases |\n| $\\sigma_x, \\sigma_y, \\sigma_z$ | Pauli matrices (the three MUBs in dimension $D = 2$) |",
+    "statement": "Let $D \\geq 2$ be an integer. Determine\n$$N(D) \\;=\\; \\max\\bigl\\{ K \\,:\\, \\text{there exist } K \\text{ pairwise mutually unbiased orthonormal bases in } \\mathbb{C}^D \\bigr\\},$$\nwhere two orthonormal bases $\\{e_i^k\\}_{i=1}^D$ and $\\{e_j^n\\}_{j=1}^D$ ($k \\neq n$) are *mutually unbiased* iff\n$$\\bigl|\\langle e_i^k,\\, e_j^n\\rangle\\bigr| \\;=\\; D^{-1/2} \\qquad \\text{for all } i, j \\in \\{1, \\ldots, D\\}.$$\n\nIt is known that $N(D) \\leq D + 1$ always, with equality whenever $D$ is the power of a prime. The problem is to determine $N(D)$ for non-prime-power $D$.\n\n**Special case (smallest open instance).** Decide whether $N(6) = 7$, i.e. whether there exist $K = 7$ mutually unbiased bases in $D = 6$ dimensions."
+  },
+  "source": {
+    "title": "Some open problems in quantum information theory",
+    "authors": [
+      "O. Krüger",
+      "R. F. Werner"
+    ],
+    "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+    "locator": "pp. 43-45 (Problem 13)",
+    "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2026-04-01",
+        "title": "Current review confirms the composite-dimension gap",
+        "detail": "The peer-reviewed review records no general formula and keeps dimension six open.",
+        "maturity": "Peer reviewed",
+        "strength": "Status review",
+        "url": "https://doi.org/10.22331/q-2026-04-01-2051",
+        "label": "Quantum 2026"
+      },
+      {
+        "date": "2026-01-22",
+        "title": "A dimension-six impossibility claim is not accepted",
+        "detail": "The claimed MUB-to-Latin-square reduction loses essential phase and projector structure and does not establish the advertised result.",
+        "maturity": "Preprint",
+        "strength": "Unaccepted claim",
+        "url": "https://arxiv.org/abs/2511.03537",
+        "label": "Claim preprint"
+      }
+    ],
+    "cautions": [
+      {
+        "label": "Recent claim",
+        "text": "The 2025-2026 dimension-six claim does not supply an accepted solution to the general MUB problem.",
+        "url": "https://arxiv.org/abs/2511.03537"
+      }
+    ],
+    "interpretation": null,
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": [
+      "horodecki-2020-mubs-dimension-six"
+    ]
+  },
+  "discovery": {
+    "keywords": [
+      "MUB",
+      "prime powers",
+      "composite dimensions",
+      "complex Hadamard matrices"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/krueger-2005-mutually-unbiased-bases.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Mutually+unbiased+bases+in+general+dimensions",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/contribution.schema.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/krueger-2005-mutually-unbiased-bases.json",
+    "human": "https://naixu-guo.github.io/quantum-information-open-problems/problems/krueger-2005-mutually-unbiased-bases/",
+    "explorer": "https://naixu-guo.github.io/quantum-information-open-problems/#krueger-2005-mutually-unbiased-bases",
+    "markdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/krueger-2005-mutually-unbiased-bases.md",
+    "schema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/krueger-2005-mutually-unbiased-bases.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/open_prob/krueger-2005-mutually-unbiased-bases/problem.md"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "e46fbc8423adddad4c87955e07ec4ced9c22c436cd1670b5ccacd444e0d845ec",
+    "statementDigest": "6f4ea34d63cfff702c8f4ba68306ed6c371565b4d52124c13a201af7ec126184"
+  }
+}

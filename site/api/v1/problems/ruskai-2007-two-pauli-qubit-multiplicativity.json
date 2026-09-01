@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "ruskai-2007-two-pauli-qubit-multiplicativity",
+  "title": "A direct proof for the two-Pauli qubit channel",
+  "status": "open",
+  "dates": {
+    "proposed": "2007",
+    "latestEvidence": "2006",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "quantum-channels",
+      "label": "Quantum channels"
+    }
+  },
+  "collection": {
+    "id": "ruskai-2007",
+    "label": "Ruskai",
+    "title": "Open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Proof-method request",
+    "summary": "Multiplicativity for this channel follows from King's unital-qubit theorem, but that proof uses exactly the negative-multiplier equivalence that the problem asks to avoid.",
+    "importance": "A direct proof would isolate the property of the two-Pauli channel that enforces multiplicativity. That mechanism could apply beyond reductions to the full unital-qubit theorem.",
+    "unresolved": "Give a proof for the two-Pauli channel that does not pass through unitary equivalence to channels with negative multipliers."
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_2$ | Algebra of complex $2\\times 2$ matrices (qubit observables) |\n| $I, X, Y, Z$ | The four Pauli matrices: $X=\\sigma_x$, $Y=\\sigma_y$, $Z=\\sigma_z$ |\n| $\\rho$, $\\gamma$ | Density matrices on a qubit Hilbert space |\n| $\\Phi$, $\\Omega$ | CPT (completely positive trace-preserving) linear maps (qubit quantum channels) |\n| $\\|M\\|_p$ | Schatten $p$-norm of an operator, $\\|M\\|_p=(\\operatorname{Tr}\\lvert M\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | Maximal output $p$-norm, $\\sup_\\gamma\\|\\Phi(\\gamma)\\|_p$ |\n| Pauli channel | $\\Phi(\\rho)=\\sum_{j=0}^3 q_j\\,\\sigma_j\\rho\\sigma_j$ with probabilities $q_j\\ge 0$ summing to $1$ ($\\sigma_0=I$) |\n| Two-Pauli channel | The one-parameter Bennett-Fuchs-Smolin channel supported on two nonidentity Pauli errors and the identity |\n| \"Multipliers\" | The coefficients (eigenvalues) describing a unital qubit channel in the Bloch picture; can be made non-negative or negative depending on representation |\n| Unital channel | $\\Phi(I)=I$ |\n| MUB | Mutually unbiased bases |",
+    "statement": "Let $\\Phi:M_2\\to M_2$ be a two-Pauli qubit channel of the one-parameter form above.\n**Problem 13.** Find a proof of the multiplicativity identity\n$$\\nu_p(\\Phi\\otimes\\Omega)=\\nu_p(\\Phi)\\,\\nu_p(\\Omega) \\tag{24}$$\nfor arbitrary CPT $\\Omega$ and the relevant range of $p$, that does **not** use a unitary equivalence to channels having negative multipliers."
+  },
+  "source": {
+    "title": "Open problems in quantum information theory",
+    "authors": [
+      "Mary Beth Ruskai"
+    ],
+    "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+    "locator": "p. 13 (Problem 13)",
+    "url": "https://doi.org/10.48550/arXiv.0708.1902",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2006",
+        "title": "A nearby entropy proof does not establish the requested norm theorem",
+        "detail": "Amosov proves minimum-output-entropy additivity for the channel, not the direct maximal-output p-norm argument requested here.",
+        "maturity": "Preprint",
+        "strength": "Different quantity",
+        "url": "https://arxiv.org/abs/quant-ph/0605177",
+        "label": "Entropy result"
+      },
+      {
+        "date": "2002",
+        "title": "The theorem itself is known for every unital qubit channel",
+        "detail": "King proves multiplicativity broadly, but via the sign-changing unitary-equivalence route excluded by this method-specific problem.",
+        "maturity": "Peer reviewed",
+        "strength": "Theorem with excluded method",
+        "url": "https://doi.org/10.1063/1.1500791",
+        "label": "Unital-qubit theorem"
+      }
+    ],
+    "cautions": [],
+    "interpretation": "This remains open only as a request for a different proof. The underlying multiplicativity statement is already known.",
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "two-Pauli channel",
+      "qubit channels",
+      "multiplicativity",
+      "proof method"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/ruskai-2007-two-pauli-qubit-multiplicativity.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+A+direct+proof+for+the+two-Pauli+qubit+channel",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/contribution.schema.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/ruskai-2007-two-pauli-qubit-multiplicativity.json",
+    "human": "https://naixu-guo.github.io/quantum-information-open-problems/problems/ruskai-2007-two-pauli-qubit-multiplicativity/",
+    "explorer": "https://naixu-guo.github.io/quantum-information-open-problems/#ruskai-2007-two-pauli-qubit-multiplicativity",
+    "markdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/ruskai-2007-two-pauli-qubit-multiplicativity.md",
+    "schema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/ruskai-2007-two-pauli-qubit-multiplicativity.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/open_prob/ruskai-2007-two-pauli-qubit-multiplicativity/problem.md"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "e753e6f47d0614292be1010ec25a96239d1c8420dd8a0cb5b19d3fa742e3b417",
+    "statementDigest": "f7f54016d4e6b6bfcd7a00aae45e348223c79c077d3a68c6cb8baca564ee8859"
+  }
+}

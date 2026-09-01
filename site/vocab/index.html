@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Definitions for the qop: JSON-LD properties used by Quantum Open Problems structured data.">
+    <meta name="theme-color" content="#0d1b2a">
+    <title>Vocabulary · Quantum Open Problems</title>
+    <link rel="canonical" href="https://naixu-guo.github.io/quantum-information-open-problems/vocab/">
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="alternate" href="../feed.xml" type="application/atom+xml" title="Quantum Open Problems evidence feed">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Quantum Open Problems">
+    <meta property="og:title" content="Vocabulary">
+    <meta property="og:description" content="Definitions for the qop: JSON-LD properties used by Quantum Open Problems structured data.">
+    <meta property="og:url" content="https://naixu-guo.github.io/quantum-information-open-problems/vocab/">
+    <meta name="twitter:card" content="summary">
+    <script>
+      try {
+        const theme = localStorage.getItem("quantum-open-problems-theme");
+        if (theme === "dark") document.documentElement.dataset.theme = "dark";
+      } catch {}
+    </script>
+
+  </head>
+  <body class="problem-page">
+    <header class="site-header">
+      <a class="brand" href="../" aria-label="Quantum Open Problems home">
+        <span class="brand-mark" aria-hidden="true">Q</span>
+        <span class="brand-copy">
+          <strong>Open Problems</strong>
+          <span>Across quantum science</span>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="../problems/">Problems</a>
+        <a href="../#claim-watch">Claim watch</a>
+        <a href="../ai/">For AI</a>
+        <a href="https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/CONTRIBUTING.md" rel="noreferrer">Contribute ↗</a>
+      </nav>
+      <button class="theme-button" id="theme-toggle" type="button" aria-label="Switch color theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3v2.25M12 18.75V21M21 12h-2.25M5.25 12H3M18.36 5.64l-1.59 1.59M7.23 16.77l-1.59 1.59M18.36 18.36l-1.59-1.59M7.23 7.23 5.64 5.64M16.25 12A4.25 4.25 0 1 1 7.75 12a4.25 4.25 0 0 1 8.5 0Z"/>
+        </svg>
+      </button>
+    </header>
+    <main class="page-shell">
+      <article>
+        <h1>Structured-data vocabulary</h1>
+        <p class="dialog-summary">Problem pages embed JSON-LD using Schema.org plus the project properties below, namespaced as <code>qop:</code> under <code>https://naixu-guo.github.io/quantum-information-open-problems/vocab#</code>. Schema.org's <code>creativeWorkStatus</code> describes a publication lifecycle, so the mathematical status uses a project property instead.</p>
+
+        <section class="dialog-section" aria-labelledby="problemStatus">
+          <h2 class="list-area-heading" id="problemStatus"><code>qop:problemStatus</code></h2>
+          <p>The editorial mathematical status of the archived question on the verification date. One of:</p>
+          <ul>
+            <li><code>open</code> — the archived statement lacks a proof or counterexample.</li>
+            <li><code>partially-solved</code> — a named subproblem or major precise subclass is settled.</li>
+            <li><code>solved</code> — a proof or counterexample settles the archived statement.</li>
+          </ul>
+        </section>
+
+        <section class="dialog-section" aria-labelledby="verified">
+          <h2 class="list-area-heading" id="verified"><code>qop:verified</code></h2>
+          <p>The ISO 8601 date when editors last checked the record's status against primary sources.</p>
+        </section>
+
+        <section class="dialog-section" aria-labelledby="recordDigest">
+          <h2 class="list-area-heading" id="recordDigest"><code>qop:recordDigest</code></h2>
+          <p>The SHA-256 digest of the record's research content, prefixed <code>sha256:</code>. It excludes catalog-wide dates and hypermedia URLs, so it changes only when the record's content changes. Contributions cite it to pin the version they address.</p>
+        </section>
+      </article>
+    </main>
+    <footer class="site-footer">
+      <p>Quantum Open Problems</p>
+      <p>A dated research index. Verify a result before citing the status.</p>
+      <a href="../">Back to the catalog ↖</a>
+    </footer>
+    <script>
+      (() => {
+        const button = document.querySelector("#theme-toggle");
+        if (!button) return;
+        const sync = (dark) => {
+          button.setAttribute("aria-pressed", String(dark));
+          button.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+        };
+        sync(document.documentElement.dataset.theme === "dark");
+        button.addEventListener("click", () => {
+          const dark = document.documentElement.dataset.theme !== "dark";
+          document.documentElement.dataset.theme = dark ? "dark" : "light";
+          sync(dark);
+          try { localStorage.setItem("quantum-open-problems-theme", dark ? "dark" : "light"); } catch {}
+        });
+      })();
+    </script>
+  </body>
+</html>

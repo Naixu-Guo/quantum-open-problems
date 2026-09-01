@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="How AI research agents use the Quantum Open Problems catalog: MCP server setup, HTTP interfaces, catalog watching, and the contribution contract.">
+    <meta name="theme-color" content="#0d1b2a">
+    <title>For AI agents · Quantum Open Problems</title>
+    <link rel="canonical" href="https://naixu-guo.github.io/quantum-information-open-problems/ai/">
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="alternate" href="../feed.xml" type="application/atom+xml" title="Quantum Open Problems evidence feed">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Quantum Open Problems">
+    <meta property="og:title" content="For AI agents">
+    <meta property="og:description" content="How AI research agents use the Quantum Open Problems catalog: MCP server setup, HTTP interfaces, catalog watching, and the contribution contract.">
+    <meta property="og:url" content="https://naixu-guo.github.io/quantum-information-open-problems/ai/">
+    <meta name="twitter:card" content="summary">
+    <script>
+      try {
+        const theme = localStorage.getItem("quantum-open-problems-theme");
+        if (theme === "dark") document.documentElement.dataset.theme = "dark";
+      } catch {}
+    </script>
+
+  </head>
+  <body class="problem-page">
+    <header class="site-header">
+      <a class="brand" href="../" aria-label="Quantum Open Problems home">
+        <span class="brand-mark" aria-hidden="true">Q</span>
+        <span class="brand-copy">
+          <strong>Open Problems</strong>
+          <span>Across quantum science</span>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="../problems/">Problems</a>
+        <a href="../#claim-watch">Claim watch</a>
+        <a href="../ai/" aria-current="page">For AI</a>
+        <a href="https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/CONTRIBUTING.md" rel="noreferrer">Contribute ↗</a>
+      </nav>
+      <button class="theme-button" id="theme-toggle" type="button" aria-label="Switch color theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3v2.25M12 18.75V21M21 12h-2.25M5.25 12H3M18.36 5.64l-1.59 1.59M7.23 16.77l-1.59 1.59M18.36 18.36l-1.59-1.59M7.23 7.23 5.64 5.64M16.25 12A4.25 4.25 0 1 1 7.75 12a4.25 4.25 0 0 1 8.5 0Z"/>
+        </svg>
+      </button>
+    </header>
+    <main class="page-shell">
+      <article>
+        <header class="directory-head">
+          <p class="section-index">Machine interfaces</p>
+          <h1>Built for AI research agents</h1>
+          <p class="dialog-summary">Every record in this catalog is designed to be read, cited, and worked on by AI systems under the same evidence rules as human researchers. Connect through MCP for tool access, or use the plain HTTP interfaces below.</p>
+        </header>
+
+        <section class="dialog-section" aria-labelledby="mcp-heading">
+          <span class="dialog-section-label">Tool access</span>
+          <h2 class="list-area-heading" id="mcp-heading">MCP server</h2>
+          <p class="ai-copy">The repository ships a zero-dependency MCP server (stdio transport, Node 18+). It reads the published catalog, so it never goes stale. Add it to your agent:</p>
+          <pre class="code-block"><code># Claude Code
+claude mcp add quantum-open-problems -- npx -y github:Naixu-Guo/quantum-information-open-problems
+
+# Codex CLI
+codex mcp add quantum-open-problems -- npx -y github:Naixu-Guo/quantum-information-open-problems
+
+# From a repository checkout (uses your local build)
+claude mcp add quantum-open-problems -- node mcp/server.mjs</code></pre>
+          <p class="ai-copy">Point the server at another deployment with <code>QOP_SITE_URL</code>. Tools:</p>
+          <div class="notation-table-wrap">
+            <table class="notation-table">
+              <thead><tr><th scope="col">Tool</th><th scope="col">Purpose</th></tr></thead>
+              <tbody>
+                <tr><td><code>search_problems</code></td><td>Search active problems by free text, status, field, or topic.</td></tr>
+                <tr><td><code>get_problem</code></td><td>Fetch one complete JSON record with the formal statement and evidence ledger.</td></tr>
+                <tr><td><code>get_research_brief</code></td><td>Fetch the Markdown research brief — the recommended working context.</td></tr>
+                <tr><td><code>list_fields</code></td><td>List research fields and topics with active-problem counts.</td></tr>
+                <tr><td><code>get_catalog_status</code></td><td>Poll the release manifest: catalog date, digest, and counts.</td></tr>
+                <tr><td><code>list_evidence</code></td><td>List dated evidence events, newest first, with stable content-hash IDs.</td></tr>
+                <tr><td><code>how_to_contribute</code></td><td>Get the evidence contract, contribution schema, and prefilled submission link.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="dialog-section" aria-labelledby="loop-heading">
+          <span class="dialog-section-label">Research loop</span>
+          <h2 class="list-area-heading" id="loop-heading">The intended agent workflow</h2>
+          <ol class="ai-steps">
+            <li><strong>Discover.</strong> Call <code>search_problems</code> or fetch <code>llms.txt</code>, then pick a record by field, status, and latest evidence.</li>
+            <li><strong>Load context.</strong> Call <code>get_research_brief</code>. The brief carries the formal statement, exact unresolved remainder, checked evidence, scope cautions, and the requested output contract. Keep the record revision digest.</li>
+            <li><strong>Work.</strong> Match every claimed result against the statement's quantifiers and domain. Record failed routes that rule out a reusable approach.</li>
+            <li><strong>Submit.</strong> Call <code>how_to_contribute</code> and file the result through the research-update form, quoting the record revision you worked from. Human and AI contributions follow one evidence contract, and editors review both the same way.</li>
+          </ol>
+        </section>
+
+        <section class="dialog-section" aria-labelledby="http-heading">
+          <span class="dialog-section-label">No MCP required</span>
+          <h2 class="list-area-heading" id="http-heading">HTTP interfaces</h2>
+          <p class="ai-copy">Everything the MCP server exposes is also plain static HTTPS under <code>https://naixu-guo.github.io/quantum-information-open-problems</code> — no authentication, no rate keys.</p>
+          <div class="notation-table-wrap">
+            <table class="notation-table">
+              <thead><tr><th scope="col">Interface</th><th scope="col">Path</th><th scope="col">Use</th></tr></thead>
+              <tbody>
+            <tr>
+              <td><strong>llms.txt</strong></td>
+              <td><code>/llms.txt</code></td>
+              <td>Short interface guide for LLM agents.</td>
+            </tr>
+            <tr>
+              <td><strong>Full catalog text</strong></td>
+              <td><code>/llms-full.txt</code></td>
+              <td>Every research brief in one Markdown file.</td>
+            </tr>
+            <tr>
+              <td><strong>Release manifest</strong></td>
+              <td><code>/api/v1/release.json</code></td>
+              <td>Catalog date, active-snapshot digest, counts. Poll this first.</td>
+            </tr>
+            <tr>
+              <td><strong>Compact index</strong></td>
+              <td><code>/api/v1/index.json</code></td>
+              <td>Discovery metadata for every active problem.</td>
+            </tr>
+            <tr>
+              <td><strong>Problem record</strong></td>
+              <td><code>/api/v1/problems/&lt;record-id&gt;.json</code></td>
+              <td>One complete structured record.</td>
+            </tr>
+            <tr>
+              <td><strong>Research brief</strong></td>
+              <td><code>/packets/&lt;record-id&gt;.md</code></td>
+              <td>One Markdown brief per active problem.</td>
+            </tr>
+            <tr>
+              <td><strong>Bulk snapshot</strong></td>
+              <td><code>/api/v1/problems.jsonl</code></td>
+              <td>One JSON record per line for batch indexing.</td>
+            </tr>
+            <tr>
+              <td><strong>Evidence log</strong></td>
+              <td><code>/api/v1/evidence.json</code></td>
+              <td>Every dated evidence event, newest first.</td>
+            </tr>
+            <tr>
+              <td><strong>Feeds</strong></td>
+              <td><code>/feed.xml · /feed.json</code></td>
+              <td>Atom and JSON Feed views of the latest evidence.</td>
+            </tr>
+            <tr>
+              <td><strong>Schemas</strong></td>
+              <td><code>/api/v1/problem.schema.json · /api/v1/contribution.schema.json</code></td>
+              <td>Read and write contracts.</td>
+            </tr>
+            <tr>
+              <td><strong>Vocabulary</strong></td>
+              <td><code>/vocab/</code></td>
+              <td>Definitions of the qop: JSON-LD properties.</td>
+            </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="dialog-section" aria-labelledby="watch-heading">
+          <span class="dialog-section-label">Staying current</span>
+          <h2 class="list-area-heading" id="watch-heading">Watching the catalog</h2>
+          <p class="ai-copy">Poll <code>/api/v1/release.json</code>; if <code>activeSnapshotDigest</code> is unchanged, stop. Otherwise diff <code>/api/v1/evidence.json</code> by event ID, or subscribe to the Atom or JSON feed. Event IDs are content hashes, so a changed event appears as a new ID.</p>
+        </section>
+
+        <section class="dialog-section" aria-labelledby="contract-heading">
+          <span class="dialog-section-label">Writes</span>
+          <h2 class="list-area-heading" id="contract-heading">Contribution contract</h2>
+          <p class="ai-copy">Reads need no account. A research result, correction, or failed route enters through the <a href="https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml" rel="noreferrer">research-update form ↗</a> and must state the exact claim and hypotheses, primary sources with locators, reproducible artifacts, declared AI involvement with human checks, and the remaining gap — see the <a href="../api/v1/contribution.schema.json">contribution schema</a> and <a href="https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/CONTRIBUTING.md" rel="noreferrer">contributing guide ↗</a>. Editors review human and AI work by one standard.</p>
+        </section>
+      </article>
+    </main>
+    <footer class="site-footer">
+      <p>Quantum Open Problems</p>
+      <p>A dated research index. Verify a result before citing the status.</p>
+      <a href="../">Back to the catalog ↖</a>
+    </footer>
+    <script>
+      (() => {
+        const button = document.querySelector("#theme-toggle");
+        if (!button) return;
+        const sync = (dark) => {
+          button.setAttribute("aria-pressed", String(dark));
+          button.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+        };
+        sync(document.documentElement.dataset.theme === "dark");
+        button.addEventListener("click", () => {
+          const dark = document.documentElement.dataset.theme !== "dark";
+          document.documentElement.dataset.theme = dark ? "dark" : "light";
+          sync(dark);
+          try { localStorage.setItem("quantum-open-problems-theme", dark ? "dark" : "light"); } catch {}
+        });
+      })();
+    </script>
+  </body>
+</html>

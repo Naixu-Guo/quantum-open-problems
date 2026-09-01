@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "krueger-2005-undistillability-implies-ppt",
+  "title": "Does undistillability imply PPT?",
+  "status": "open",
+  "dates": {
+    "proposed": "2000-03-02",
+    "latestEvidence": "2026-08-09",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "entanglement-theory",
+      "label": "Entanglement theory"
+    }
+  },
+  "collection": {
+    "id": "krueger-2005",
+    "label": "Krueger–Werner",
+    "title": "Some open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Universal dichotomy",
+    "summary": "The converse of PPT implies undistillable is unresolved in general finite dimensions. This is equivalent to the NPT bound-entanglement problem.",
+    "importance": "The implication would make the partial-transpose test the exact criterion for whether bipartite entanglement can yield singlets. A counterexample would establish NPT bound entanglement.",
+    "unresolved": "Prove that every NPT state is distillable, or construct an NPT state undistillable for all copy numbers."
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $\\rho$ | A density operator on a bipartite Hilbert space $\\mathcal{H}_A \\otimes \\mathcal{H}_B$ |\n| $\\rho^{T_A}$ | Partial transpose of $\\rho$ over Alice's subsystem, defined in a product basis by $\\langle ij\\vert\\rho^{T_A}\\vert kl\\rangle = \\langle kj\\vert\\rho\\vert il\\rangle$ |\n| PPT | $\\rho$ has positive partial transpose, i.e., $\\rho^{T_A} \\ge 0$ |\n| NPT | $\\rho$ has non-positive partial transpose, i.e., $\\rho^{T_A}$ has at least one negative eigenvalue |\n| $\\rho^{\\otimes n}$ | $n$-fold tensor power of $\\rho$ |\n| $P, Q$ | Two-dimensional projectors acting on $\\mathcal{H}_A^{\\otimes n}$ and $\\mathcal{H}_B^{\\otimes n}$, respectively |\n| LOCC | Local operations and classical communication |\n| $S$ | A completely positive map |\n| $T$ | The transposition map |\n| $\\mathrm{id}_2$ | Identity map on $2\\times 2$ matrices |\n| $TS$ | Composition of transposition with $S$ |\n| $n$-distillable | $\\rho^{\\otimes n}$ can be locally projected onto an entangled two-qubit subspace |\n| distillable | $n$-distillable for some $n \\ge 1$ |\n| Werner state | Bipartite state invariant under $U \\otimes U$ for all unitaries $U$ |",
+    "statement": "Decide the following implication for bipartite density operators on a finite-dimensional Hilbert space:\n\n$$\\text{$\\rho$ undistillable} \\;\\Longrightarrow\\; \\text{$\\rho$ is PPT.}$$\n\nEquivalently, decide whether there exists a bipartite state $\\rho$ such that $\\rho^{T_A}$ has a negative eigenvalue but $\\rho$ is not distillable, i.e., there exist no integer $n$ and rank-2 projectors $P$ on $\\mathcal{H}_A^{\\otimes n}$ and $Q$ on $\\mathcal{H}_B^{\\otimes n}$ for which\n\n$$\\bigl((P \\otimes Q)\\,\\rho^{\\otimes n}\\,(P \\otimes Q)\\bigr)^{T_A}$$\n\nhas a negative eigenvalue.\n\nAn equivalent operator-theoretic reformulation (Horodecki; restated in DiVincenzo–Shor–Smolin–Terhal–Thapliyal): given a completely positive map $S$ such that $TS$ is 2-positive (equivalently, $\\mathrm{id}_2 \\otimes TS$ is positive), decide whether $TS \\otimes TS$ is necessarily 2-positive."
+  },
+  "source": {
+    "title": "Some open problems in quantum information theory",
+    "authors": [
+      "O. Krüger",
+      "R. F. Werner"
+    ],
+    "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+    "locator": "pp. 15-17 (Problem 2)",
+    "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2026-08-09",
+        "title": "Selected NPT candidates fail at two copies",
+        "detail": "An exact all-dimension theorem proves two-copy distillability for selected one-copy-undistillable candidates.",
+        "maturity": "Preprint",
+        "strength": "Exact restricted theorem",
+        "url": "https://arxiv.org/abs/2608.08836",
+        "label": "Candidate elimination"
+      },
+      {
+        "date": "2026-07-27",
+        "title": "Two-copy Werner distillability is completely classified",
+        "detail": "Four concurrent proofs settle two copies in every dimension but do not control three or more copies.",
+        "maturity": "Preprint",
+        "strength": "Exact two-copy theorem",
+        "url": "https://arxiv.org/abs/2607.24479",
+        "label": "Two-copy boundary"
+      }
+    ],
+    "cautions": [
+      {
+        "label": "Quantifier",
+        "text": "One-copy, two-copy and restricted three-copy results do not settle undistillability for all tensor powers.",
+        "url": "https://arxiv.org/abs/2608.08836"
+      }
+    ],
+    "interpretation": null,
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": [
+      "horodecki-2020-npt-bound-entanglement"
+    ]
+  },
+  "discovery": {
+    "keywords": [
+      "NPT",
+      "PPT",
+      "distillability",
+      "bound entanglement",
+      "Werner states"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/krueger-2005-undistillability-implies-ppt.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Does+undistillability+imply+PPT%3F",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/contribution.schema.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/krueger-2005-undistillability-implies-ppt.json",
+    "human": "https://naixu-guo.github.io/quantum-information-open-problems/problems/krueger-2005-undistillability-implies-ppt/",
+    "explorer": "https://naixu-guo.github.io/quantum-information-open-problems/#krueger-2005-undistillability-implies-ppt",
+    "markdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/krueger-2005-undistillability-implies-ppt.md",
+    "schema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/krueger-2005-undistillability-implies-ppt.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/open_prob/krueger-2005-undistillability-implies-ppt/problem.md"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "86613e211818dd34dc368b509bfa38cfd37a3395d881f0039d4a3e16befd416e",
+    "statementDigest": "3fc4dffa1562ff4d7f3c75ff6da78b1aff1ad1707f3c80923ce1f5c174aa70ae"
+  }
+}

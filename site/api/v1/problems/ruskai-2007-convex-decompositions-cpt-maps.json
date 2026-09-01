@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "ruskai-2007-convex-decompositions-cpt-maps",
+  "title": "Audenaert-Ruskai decompositions of CPT maps",
+  "status": "partial",
+  "dates": {
+    "proposed": "2007",
+    "latestEvidence": "2026-07-25",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "quantum-channels",
+      "label": "Quantum channels"
+    }
+  },
+  "collection": {
+    "id": "ruskai-2007",
+    "label": "Ruskai",
+    "title": "Open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Convex decomposition",
+    "summary": "The strong equal-weight conjecture holds for every qubit-input channel, cq and qc channels, and a positive-measure set in all dimensions. The weak form holds for qutrit endomorphisms.",
+    "importance": "The conjecture is a channel analogue of decomposing a matrix into controlled low-rank pieces. A proof would reduce arbitrary channels to equal mixtures of low-Choi-rank maps and sharpen the convex geometry of quantum operations.",
+    "unresolved": "Prove or refute the strong decomposition conjecture for arbitrary input and output dimensions."
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | algebra of $d \\times d$ complex matrices |\n| $\\Phi : M_{d_1} \\mapsto M_{d_2}$ | a CPT (completely positive, trace-preserving) quantum channel |\n| CPT | completely positive and trace preserving |\n| $A_k$ | a Kraus operator for $\\Phi$ |\n| Choi rank of $\\Phi$ | rank of the Choi state $\\Phi(\\lvert\\beta\\rangle\\langle\\beta\\rvert)$ |\n| $\\Phi_m$ | the $m$-th CPT (or unital CP) summand in a convex decomposition |\n| $\\overline{\\mathcal{E}(d_1,d_2)}$ | closure of extreme CPT maps $M_{d_1}\\mapsto M_{d_2}$ |\n| $\\Phi^*$ (adjoint) | unital CP map adjoint of $\\Phi$ in the Hilbert–Schmidt inner product |\n| $\\mathbf{A}$ | a $d_1d_2 \\times d_1d_2$ positive semi-definite matrix viewed as a $d_2 \\times d_2$ block matrix |\n| $A_{jk}$ | the $d_1 \\times d_1$ block in position $(j,k)$ of $\\mathbf{A}$ |\n| $\\sum_j A_{jj} = M$ | the partial trace / sum of diagonal blocks |\n| $\\mathbf{B}_m$ | a $d_1d_2 \\times d_1d_2$ block matrix summand, each of rank at most $d_1$ |\n| $\\mathbf{X}_m$ | a \"tall\" $d_1d_2 \\times d_1$ matrix composed of $d_2$ blocks $X_{jm}$ of size $d_1 \\times d_1$ |\n| $X_{jm}$ | the $j$-th $d_1 \\times d_1$ block of $\\mathbf{X}_m$ |\n| $\\lambda_k,\\,a_{kk}$ | eigenvalues and diagonal entries of a Hermitian matrix (in Horn's lemma) |\n| $\\lvert\\beta\\rangle$ | the maximally entangled Bell state on $\\mathbb{C}^{d_1}\\otimes\\mathbb{C}^{d_1}$ |",
+    "statement": "The source states four closely related formulations. Its printed Conjecture 2 uses a Choi-rank bound $d_2$, but that conflicts with Choi's generalized-extreme bound, its own later formulations, and the modern RA statement. The corrected rank bound is $d_1$.\n\n**Conjecture 2 (Audenaert–Ruskai, corrected rank).** *Let $\\Phi : M_{d_1}\\mapsto M_{d_2}$ be a CPT map. There exist $d_2$ CPT maps $\\Phi_m$ each with Choi rank at most $d_1$ such that*\n$$\\Phi \\;=\\; \\sum_{m=1}^{d_2} \\tfrac{1}{d_2}\\,\\Phi_m.$$\n\n**Conjecture 3 (adjoint/unital form).** *Let $\\Phi : M_{d_2}\\mapsto M_{d_1}$ be a CP map with $\\Phi(I_2) = I_1$ (unital). There exist $d_2$ unital CP maps $\\Phi_m$ each with Choi rank at most $d_1$ such that*\n$$\\Phi \\;=\\; \\sum_{m=1}^{d_2} \\tfrac{1}{d_2}\\,\\Phi_m.$$\n\n**Conjecture 4 (block-matrix form, generalizing Horn's lemma).** *Let $\\mathbf{A}$ be a $d_1 d_2 \\times d_1 d_2$ positive semi-definite matrix viewed as a $d_2 \\times d_2$ array of $d_1 \\times d_1$ blocks $A_{jk}$ with $\\sum_j A_{jj} = M$. Then there exist $d_2$ block matrices $\\mathbf{B}_m$, each of rank at most $d_1$, such that $\\sum_j (\\mathbf{B}_m)_{jj} = M$ for all $m$ and*\n$$\\mathbf{A} \\;=\\; \\sum_{m=1}^{d_2} \\tfrac{1}{d_2}\\,\\mathbf{B}_m.$$\n\n**Conjecture 5 (vectorized block form).** *Let $\\mathbf{A}$ be as in Conjecture 4. There exist $d_2$ vectors $\\mathbf{X}_m$, each composed of $d_2$ blocks $X_{jm}$ of size $d_1 \\times d_1$, such that*\n$$\\mathbf{A} \\;=\\; \\sum_{m=1}^{d_2} \\tfrac{1}{d_2}\\,\\mathbf{X}_m \\mathbf{X}_m^\\dagger, \\qquad \\sum_{k} X_{km} X_{km}^\\dagger \\;=\\; M \\quad \\forall\\,m.$$\n\n**Logical relations.** The source gives Conjecture 4 $\\Rightarrow$ Conjecture 3 $\\Rightarrow$ Conjecture 2 and treats Conjectures 4 and 5 as equivalent through factorization of the positive summands. These relations do not by themselves make all four statements equivalent."
+  },
+  "source": {
+    "title": "Open problems in quantum information theory",
+    "authors": [
+      "Mary Beth Ruskai"
+    ],
+    "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+    "locator": "p. 4-6 (Conjectures 2-5)",
+    "url": "https://doi.org/10.48550/arXiv.0708.1902",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2026-07-25",
+        "title": "Large channel classes satisfy the conjectured decomposition",
+        "detail": "Kumar and Wolf prove the strong form for qubit input, cq and qc channels, and a nonzero-measure set in every dimension; the general case remains open.",
+        "maturity": "Preprint",
+        "strength": "Exact major subclasses",
+        "url": "https://arxiv.org/abs/2607.23066",
+        "label": "Kumar-Wolf"
+      }
+    ],
+    "cautions": [
+      {
+        "label": "Very recent",
+        "text": "This substantial advance was an unrefereed first-version preprint at the audit cutoff and does not prove the arbitrary-dimensional conjecture.",
+        "url": "https://arxiv.org/abs/2607.23066"
+      }
+    ],
+    "interpretation": null,
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "CPT maps",
+      "convex decomposition",
+      "Horn lemma",
+      "Choi rank"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/ruskai-2007-convex-decompositions-cpt-maps.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Audenaert-Ruskai+decompositions+of+CPT+maps",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/contribution.schema.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/ruskai-2007-convex-decompositions-cpt-maps.json",
+    "human": "https://naixu-guo.github.io/quantum-information-open-problems/problems/ruskai-2007-convex-decompositions-cpt-maps/",
+    "explorer": "https://naixu-guo.github.io/quantum-information-open-problems/#ruskai-2007-convex-decompositions-cpt-maps",
+    "markdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/ruskai-2007-convex-decompositions-cpt-maps.md",
+    "schema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/ruskai-2007-convex-decompositions-cpt-maps.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/open_prob/ruskai-2007-convex-decompositions-cpt-maps/problem.md"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "cb12c3dde9eb01909360e16953de105d85e10b1bedc831178679b49511ddcaaf",
+    "statementDigest": "b90fc2a4038554c27b5437e4e3b5e0d01caf97e48c8f6caa5a43daea0897ec00"
+  }
+}

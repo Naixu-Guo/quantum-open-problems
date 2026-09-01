@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "horodecki-2020-sic-povm-infinite-dimensions",
+  "title": "SIC POVMs in infinitely many dimensions",
+  "status": "open",
+  "dates": {
+    "proposed": "2020",
+    "latestEvidence": "2026-05-31",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "quantum-designs",
+      "label": "Quantum designs"
+    }
+  },
+  "collection": {
+    "id": "horodecki-2020",
+    "label": "Horodecki",
+    "title": "Five open problems in theory of quantum information",
+    "url": null
+  },
+  "question": {
+    "type": "Construction",
+    "summary": "Exact SICs are known in many individual dimensions, but no unconditional construction covers an infinite sequence of dimensions.",
+    "importance": "A SIC gives a minimal d²-outcome scheme for quantum-state tomography and forms a complex projective 2-design. An infinite exact family would expose the arithmetic mechanism behind known examples.",
+    "unresolved": "Give an unconditional exact SIC construction in infinitely many dimensions."
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $N$ | Dimension of a complex Hilbert space |\n| $\\mathcal{H}_N$ | $N$-dimensional complex Hilbert space |\n| $\\lvert\\psi_j\\rangle$ | Pure state vector in $\\mathcal{H}_N$, with $j=1,\\dots,N^2$ |\n| $\\langle\\psi_j\\vert\\psi_k\\rangle$ | Inner product of two state vectors |\n| $\\delta_{jk}$ | Kronecker delta: $1$ if $j=k$, $0$ otherwise |\n| $N_1, N_2, N_3, \\dots$ | An infinite sequence of dimensions in which SICs are sought |\n| $\\mathbb{Z}$ | The integers (used for the Weyl–Heisenberg index group) |\n| $F_N$ | Discrete Fourier matrix of size $N$ |",
+    "statement": "**Problem 1:** *Construct SIC POVMs in an infinite sequence of dimensions, $N_1, N_2, N_3, \\dots$.*\n\nA symmetric informationally complete positive operator valued measure associated with $\\mathcal{H}_N$ is a set of $N^2$ vectors $\\lvert\\psi_j\\rangle\\in\\mathcal{H}_N$ satisfying the overlap relations\n$$|\\langle\\psi_j|\\psi_k\\rangle|^2 = \\frac{N\\,\\delta_{jk}+1}{N+1}, \\qquad j,k=1,\\dots,N^2.$$\nThe task is to exhibit an infinite increasing sequence of dimensions $N_1<N_2<\\dots$ together with explicit SIC POVMs in each $\\mathcal{H}_{N_i}$. Equivalently, prove Zauner's conjecture (existence of a SIC in $\\mathcal{H}_N$ for every $N\\geq 2$) along an infinite family of dimensions."
+  },
+  "source": {
+    "title": "Five open problems in theory of quantum information",
+    "authors": [
+      "Paweł Horodecki",
+      "Łukasz Rudnicki",
+      "Karol Życzkowski"
+    ],
+    "venue": "PRX Quantum 3, 010101 (2022); arXiv:2002.03233 [quant-ph]",
+    "locator": "p. 2-3 (Problem 1)",
+    "url": "https://doi.org/10.1103/PRXQuantum.3.010101",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2026-05-31",
+        "title": "Claimed all-dimension proof was withdrawn",
+        "detail": "The arXiv withdrawal notice for Joka's manuscript states that the proof is incorrect.",
+        "maturity": "Withdrawn",
+        "strength": "Incorrect claim",
+        "url": "https://arxiv.org/abs/2601.13475",
+        "label": "Withdrawal notice"
+      },
+      {
+        "date": "2025-03-17",
+        "title": "Uniform construction remains conditional",
+        "detail": "Appleby, Flammia and Kopp obtain all dimensions only under two unproved arithmetic and special-value conjectures.",
+        "maturity": "Preprint",
+        "strength": "Conditional theorem",
+        "url": "https://arxiv.org/abs/2501.03970",
+        "label": "Conditional construction"
+      }
+    ],
+    "cautions": [
+      {
+        "label": "Withdrawn claim",
+        "text": "The 2026 all-dimension claim is explicitly withdrawn as incorrect. The 2025 construction is conditional, so neither closes this problem.",
+        "url": "https://arxiv.org/abs/2601.13475"
+      }
+    ],
+    "interpretation": null,
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": [
+      "krueger-2005-sic-povm-zauner-conjecture"
+    ]
+  },
+  "discovery": {
+    "keywords": [
+      "SIC-POVM",
+      "Zauner conjecture",
+      "equiangular lines",
+      "Stark conjectures"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/horodecki-2020-sic-povm-infinite-dimensions.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+SIC+POVMs+in+infinitely+many+dimensions",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/contribution.schema.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/horodecki-2020-sic-povm-infinite-dimensions.json",
+    "human": "https://naixu-guo.github.io/quantum-information-open-problems/problems/horodecki-2020-sic-povm-infinite-dimensions/",
+    "explorer": "https://naixu-guo.github.io/quantum-information-open-problems/#horodecki-2020-sic-povm-infinite-dimensions",
+    "markdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/horodecki-2020-sic-povm-infinite-dimensions.md",
+    "schema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/horodecki-2020-sic-povm-infinite-dimensions.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/open_prob/horodecki-2020-sic-povm-infinite-dimensions/problem.md"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "66aa45d9392755bea77803c546dd115f67d825cbee90a8737f41ded3755e9e26",
+    "statementDigest": "5bd2d0214053ad35b60a5e61a53884f7d170480303e967561094798ef63031f0"
+  }
+}

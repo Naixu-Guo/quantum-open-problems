@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "horodecki-2020-npt-bound-entanglement",
+  "title": "NPT bound entanglement",
+  "status": "open",
+  "dates": {
+    "proposed": "2020",
+    "latestEvidence": "2026-08-09",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "entanglement-theory",
+      "label": "Entanglement theory"
+    }
+  },
+  "collection": {
+    "id": "horodecki-2020",
+    "label": "Horodecki",
+    "title": "Five open problems in theory of quantum information",
+    "url": null
+  },
+  "question": {
+    "type": "Existence",
+    "summary": "No negative-partial-transpose state has been proved undistillable for every finite number of copies.",
+    "importance": "The answer determines whether the PPT test marks the exact boundary between distillable and bound entanglement. It also controls tensor-stable positivity questions for quantum maps.",
+    "unresolved": "Construct an NPT state that is undistillable for all tensor powers, or prove that every NPT state is distillable."
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $d$ | Local Hilbert-space dimension of each subsystem |\n| $\\mathcal{H}_d$ | $d$-dimensional complex Hilbert space |\n| $\\mathcal{H}_d\\otimes\\mathcal{H}_d$ | Bipartite Hilbert space with two $d$-level parties |\n| $\\rho$ | Bipartite density operator (mixed quantum state) |\n| $\\rho_{ij,lm}=\\langle ij\\vert\\rho\\vert lm\\rangle$ | Matrix elements of $\\rho$ in the product computational basis |\n| $\\rho^\\Gamma$ | Partial transpose of $\\rho$: $\\langle ij\\vert\\rho^\\Gamma\\vert lm\\rangle=\\langle im\\vert\\rho\\vert lj\\rangle$ |\n| PPT | Positive partial transpose (all eigenvalues of $\\rho^\\Gamma$ are $\\geq 0$) |\n| NPT | Negative partial transpose (some eigenvalue of $\\rho^\\Gamma$ is $<0$) |\n| $n$ | Number of independent copies of $\\rho$ used in a distillation protocol |\n| $P,Q$ | Rank-two local projectors acting on $(\\mathcal{H}_d)^{\\otimes n}$ |\n| $\\Lambda$ | A linear map $M_d(\\mathbb{C})\\to M_d(\\mathbb{C})$ |\n| $M_k(\\mathbb{C})$ | Algebra of complex $k\\times k$ matrices |\n| $\\mathbb{1}_k$ | Identity map on $M_k(\\mathbb{C})$ |\n| $T$ | Transposition map |\n| $\\Lambda^{\\otimes n}$ | $n$-fold tensor power of $\\Lambda$ |",
+    "statement": "**Problem 4:** *Establish whether there exist bound entangled states with negative partial transpose.*\n\nSetup: Fix $d>2$ and consider bipartite states on $\\mathcal{H}_d\\otimes\\mathcal{H}_d$. A state $\\rho$ is called $n$-copy distillable if there exist two-dimensional (i.e. rank two) projectors $P$ and $Q$ acting on $(\\mathcal{H}_d)^{\\otimes n}$ such that the matrix\n$$(P\\otimes Q)\\,(\\rho^\\Gamma)^{\\otimes n}\\,(P\\otimes Q)$$\nhas a negative eigenvalue. The state is distillable if it is $n$-copy distillable for some finite $n$. The problem asks: do there exist NPT states $\\rho$ on $\\mathcal{H}_d\\otimes\\mathcal{H}_d$ (some $d>2$) that are not distillable, i.e. for which no such $n$, $P$, $Q$ exist?\n\nIn the Choi-map formulation, if $S$ is the completely positive map associated with a state, $n$-copy nondistillability is equivalent to $S^{\\otimes n}$ being 2-copositive, or $(T\\circ S)^{\\otimes n}$ being 2-positive. A related but logically distinct sufficient route is to construct a tensor-stable positive map that is neither completely positive nor completely copositive. These formulations should not be collapsed into one condition on an arbitrary positive map."
+  },
+  "source": {
+    "title": "Five open problems in theory of quantum information",
+    "authors": [
+      "Paweł Horodecki",
+      "Łukasz Rudnicki",
+      "Karol Życzkowski"
+    ],
+    "venue": "PRX Quantum 3, 010101 (2022); arXiv:2002.03233 [quant-ph]",
+    "locator": "p. 6-8 (Problem 4)",
+    "url": "https://doi.org/10.1103/PRXQuantum.3.010101",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2026-08-09",
+        "title": "A candidate family is two-copy distillable in every dimension",
+        "detail": "Tabia, Chen and Hsieh prove two-copy distillability for selected one-copy-undistillable NPT states in every local dimension at least three. This removes candidates rather than producing bound entanglement.",
+        "maturity": "Preprint",
+        "strength": "Exact restricted theorem",
+        "url": "https://arxiv.org/abs/2608.08836",
+        "label": "Candidate ruled out"
+      },
+      {
+        "date": "2026-07-27",
+        "title": "The two-copy Werner threshold is exact",
+        "detail": "Four concurrent preprints prove that a Werner state is two-copy distillable exactly when it is one-copy distillable. Three-copy and all-copy distillability remain unresolved.",
+        "maturity": "Preprint",
+        "strength": "Exact two-copy theorem",
+        "url": "https://arxiv.org/abs/2607.24479",
+        "label": "Two-copy result"
+      }
+    ],
+    "cautions": [
+      {
+        "label": "Scope",
+        "text": "Finite-copy theorems do not settle all-copy undistillability. The July and August 2026 manuscripts are recent preprints at the audit cutoff.",
+        "url": "https://arxiv.org/abs/2608.08836"
+      }
+    ],
+    "interpretation": null,
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": [
+      "krueger-2005-undistillability-implies-ppt"
+    ]
+  },
+  "discovery": {
+    "keywords": [
+      "NPT",
+      "bound entanglement",
+      "distillability",
+      "Werner states"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/horodecki-2020-npt-bound-entanglement.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+NPT+bound+entanglement",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/contribution.schema.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/horodecki-2020-npt-bound-entanglement.json",
+    "human": "https://naixu-guo.github.io/quantum-information-open-problems/problems/horodecki-2020-npt-bound-entanglement/",
+    "explorer": "https://naixu-guo.github.io/quantum-information-open-problems/#horodecki-2020-npt-bound-entanglement",
+    "markdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/horodecki-2020-npt-bound-entanglement.md",
+    "schema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/horodecki-2020-npt-bound-entanglement.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/open_prob/horodecki-2020-npt-bound-entanglement/problem.md"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "c03605e5446dc0ee317291e0bb84e97a95faa5d14da5e82685ca7bc3d953f0ed",
+    "statementDigest": "5794ecb4f03e16ec60ebf8314d595902bd5bdce3ecbd4d0c9d7186bec31b51aa"
+  }
+}

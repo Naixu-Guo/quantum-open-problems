@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#0d1b2a">
-    <title>Page not found · Quantum Information Open Problems</title>
+    <title>Page not found · Quantum Open Problems</title>
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <style>
       :root { color-scheme: light dark; }
@@ -30,8 +30,22 @@
     <main>
       <p>404 / no such state</p>
       <h1>This page is not in the index.</h1>
-      <p>The research catalog may have moved, or the link may be incomplete.</p>
-      <a href="./">Return to the problem explorer</a>
+      <p>The research catalog may have moved, the record may have been retired, or the link may be incomplete.</p>
+      <a href="./" id="home-link">Return to the problem explorer</a>
     </main>
+    <script>
+      // GitHub Pages serves this file at any depth, so resolve the site root
+      // before the relative home link points back into the missing directory.
+      (() => {
+        const path = window.location.pathname;
+        for (const segment of ["/problems/", "/packets/", "/api/"]) {
+          const index = path.indexOf(segment);
+          if (index >= 0) {
+            document.querySelector("#home-link").href = `${path.slice(0, index)}/`;
+            return;
+          }
+        }
+      })();
+    </script>
   </body>
 </html>

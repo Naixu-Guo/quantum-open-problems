@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Unconditional SIC existence, Weyl-Heisenberg-covariant existence and Zauner-symmetric existence remain unproved in arbitrary dimension.">
+    <meta name="theme-color" content="#0d1b2a">
+    <title>SIC POVMs and Zauner&#039;s conjecture · Quantum Open Problems</title>
+    <link rel="canonical" href="https://naixu-guo.github.io/quantum-information-open-problems/problems/krueger-2005-sic-povm-zauner-conjecture/">
+    <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="alternate" href="../../feed.xml" type="application/atom+xml" title="Quantum Open Problems evidence feed">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Quantum Open Problems">
+    <meta property="og:title" content="SIC POVMs and Zauner&#039;s conjecture">
+    <meta property="og:description" content="Unconditional SIC existence, Weyl-Heisenberg-covariant existence and Zauner-symmetric existence remain unproved in arbitrary dimension.">
+    <meta property="og:url" content="https://naixu-guo.github.io/quantum-information-open-problems/problems/krueger-2005-sic-povm-zauner-conjecture/">
+    <meta name="twitter:card" content="summary">
+    <script>
+      try {
+        const theme = localStorage.getItem("quantum-open-problems-theme");
+        if (theme === "dark") document.documentElement.dataset.theme = "dark";
+      } catch {}
+    </script>
+    <link rel="alternate" href="../../api/v1/problems/krueger-2005-sic-povm-zauner-conjecture.json" type="application/json" title="Problem record (JSON)">
+    <link rel="alternate" href="../../packets/krueger-2005-sic-povm-zauner-conjecture.md" type="text/markdown" title="AI research brief (Markdown)">
+    <script>window.MathJax = { svg: { fontCache: "global" } };</script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-svg.js" integrity="sha384-my9P1jDckpHD+5LZsLQ0gaiCl/RMO32HaqwBtbo/25QIMVr6xXIUCg1jvdSRcvb4" crossorigin="anonymous" defer></script>
+    <script type="application/ld+json">{
+  "@context": [
+    "https://schema.org",
+    {
+      "qop": "https://naixu-guo.github.io/quantum-information-open-problems/vocab#"
+    }
+  ],
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://naixu-guo.github.io/quantum-information-open-problems/problems/krueger-2005-sic-povm-zauner-conjecture/#page",
+      "url": "https://naixu-guo.github.io/quantum-information-open-problems/problems/krueger-2005-sic-povm-zauner-conjecture/",
+      "name": "SIC POVMs and Zauner's conjecture",
+      "dateModified": "2026-08-12",
+      "isPartOf": {
+        "@type": "Dataset",
+        "@id": "https://naixu-guo.github.io/quantum-information-open-problems/#dataset",
+        "name": "Quantum Open Problems",
+        "url": "https://naixu-guo.github.io/quantum-information-open-problems/"
+      },
+      "breadcrumb": {
+        "@id": "https://naixu-guo.github.io/quantum-information-open-problems/problems/krueger-2005-sic-povm-zauner-conjecture/#breadcrumb"
+      },
+      "mainEntity": {
+        "@id": "https://naixu-guo.github.io/quantum-information-open-problems/problems/krueger-2005-sic-povm-zauner-conjecture/#problem"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://naixu-guo.github.io/quantum-information-open-problems/problems/krueger-2005-sic-povm-zauner-conjecture/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Catalog",
+          "item": "https://naixu-guo.github.io/quantum-information-open-problems/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Problems",
+          "item": "https://naixu-guo.github.io/quantum-information-open-problems/problems/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SIC POVMs and Zauner's conjecture"
+        }
+      ]
+    },
+    {
+      "@type": "Question",
+      "@id": "https://naixu-guo.github.io/quantum-information-open-problems/problems/krueger-2005-sic-povm-zauner-conjecture/#problem",
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "Quantum Open Problems",
+        "value": "krueger-2005-sic-povm-zauner-conjecture"
+      },
+      "name": "SIC POVMs and Zauner's conjecture",
+      "abstract": "Unconditional SIC existence, Weyl-Heisenberg-covariant existence and Zauner-symmetric existence remain unproved in arbitrary dimension.",
+      "text": "The problem is stated in three nested variants, each strictly stronger than its predecessor.\n\n**Problem 1 (SIC-POVMs).** For every dimension $d\\ge 2$, decide whether there exists a family $\\{|\\phi_i\\rangle\\}_{i=1}^{d^2}$ of normalised vectors in $\\mathbb{C}^d$ such that\n$$|\\langle\\phi_i|\\phi_j\\rangle|^2 \\;=\\; \\text{const} \\qquad \\text{for all } i\\neq j .$$\nEquivalently, decide whether SIC-POVMs—the POVMs $\\{|\\phi_i\\rangle\\langle\\phi_i|/d\\}_{i=1}^{d^2}$ associated with such equiangular line configurations—exist in every dimension $d$.\n\n**Problem 2 (Covariant SIC-POVMs).** With $X|q\\rangle = |q+1\\rangle$, $Z|q\\rangle = e^{i 2\\pi q/d}|q\\rangle$ (arithmetic mod $d$), and Weyl operators\n$$w(p,q) \\;=\\; Z(p)\\,X(q), \\qquad p,q\\in\\mathbf{Z}_d , \\tag{23.1}$$\ndecide for which $d$ there exists a fiducial vector $|\\phi\\rangle\\in\\mathbb{C}^d$ such that\n$$\\bigl\\{\\,w(p,q)\\,|\\phi\\rangle\\langle\\phi|\\,w(p,q)^*\\,\\bigr\\}_{p,q=0,\\dots,d-1} \\tag{23.2}$$\nis a SIC-POVM (i.e. a group-covariant SIC under the Heisenberg group).\n\n**Problem 3 (Zauner's Conjecture).** Let $z\\in U(d)$ be the element of the Clifford group characterised by\n$$z\\,w(p,q)\\,z^* \\;=\\; w(q-p,\\,-p) .$$\nZauner's conjecture asserts that in any dimension $d$, a fiducial vector $|\\phi\\rangle$ for a Heisenberg-covariant SIC-POVM can be chosen among the eigenvectors of $z$.",
+      "inLanguage": "en",
+      "qop:problemStatus": "open",
+      "qop:verified": "2026-08-12",
+      "keywords": [
+        "SIC-POVM",
+        "Zauner conjecture",
+        "Weyl-Heisenberg covariance",
+        "Stark units"
+      ],
+      "about": [
+        "Quantum designs",
+        "Quantum information"
+      ],
+      "mainEntityOfPage": {
+        "@id": "https://naixu-guo.github.io/quantum-information-open-problems/problems/krueger-2005-sic-povm-zauner-conjecture/#page"
+      },
+      "qop:recordDigest": "sha256:66be964458a51cfc68967b5745c09817b72bef2bc23472bbc204a10746337ded",
+      "isBasedOn": {
+        "@type": "ScholarlyArticle",
+        "name": "Some open problems in quantum information theory",
+        "author": [
+          {
+            "@type": "Person",
+            "name": "O. Krüger"
+          },
+          {
+            "@type": "Person",
+            "name": "R. F. Werner"
+          }
+        ],
+        "identifier": [
+          {
+            "@type": "PropertyValue",
+            "propertyID": "DOI",
+            "value": "10.48550/arXiv.quant-ph/0504166"
+          },
+          {
+            "@type": "PropertyValue",
+            "propertyID": "arXiv",
+            "value": "quant-ph/0504166"
+          }
+        ],
+        "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
+      },
+      "encoding": [
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/krueger-2005-sic-povm-zauner-conjecture.json"
+        },
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "text/markdown",
+          "contentUrl": "https://naixu-guo.github.io/quantum-information-open-problems/packets/krueger-2005-sic-povm-zauner-conjecture.md"
+        }
+      ]
+    }
+  ]
+}</script>
+  </head>
+  <body class="problem-page">
+    <header class="site-header">
+      <a class="brand" href="../../" aria-label="Quantum Open Problems home">
+        <span class="brand-mark" aria-hidden="true">Q</span>
+        <span class="brand-copy">
+          <strong>Open Problems</strong>
+          <span>Across quantum science</span>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="../../problems/">Problems</a>
+        <a href="../../#claim-watch">Claim watch</a>
+        <a href="../../ai/">For AI</a>
+        <a href="https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/CONTRIBUTING.md" rel="noreferrer">Contribute ↗</a>
+      </nav>
+      <button class="theme-button" id="theme-toggle" type="button" aria-label="Switch color theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3v2.25M12 18.75V21M21 12h-2.25M5.25 12H3M18.36 5.64l-1.59 1.59M7.23 16.77l-1.59 1.59M18.36 18.36l-1.59-1.59M7.23 7.23 5.64 5.64M16.25 12A4.25 4.25 0 1 1 7.75 12a4.25 4.25 0 0 1 8.5 0Z"/>
+        </svg>
+      </button>
+    </header>
+
+    <main class="page-shell">
+
+      <nav class="page-breadcrumb" aria-label="Breadcrumb">
+        <a href="../../">Catalog</a>
+        <span aria-hidden="true">/</span>
+        <a href="../">Problems</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">SIC POVMs and Zauner&#039;s conjecture</span>
+      </nav>
+
+      <article aria-labelledby="page-title">
+        <div class="dialog-meta">
+          <span class="status-badge ">Open</span>
+          <span class="area-badge">Quantum information</span>
+          <span class="meta-badge">Quantum designs</span>
+          <span class="meta-badge">Proposed 2005-02-17</span>
+          <span class="meta-badge">Verified 12 Aug 2026</span>
+        </div>
+        <h1 id="page-title">SIC POVMs and Zauner&#039;s conjecture</h1>
+        <p class="dialog-summary">Unconditional SIC existence, Weyl-Heisenberg-covariant existence and Zauner-symmetric existence remain unproved in arbitrary dimension.</p>
+
+        <nav class="page-jump" aria-label="On this page">
+          <span>On this page</span>
+          <a href="#formal-heading">Statement</a>
+          <a href="#remaining">What remains</a>
+          <a href="#progress-heading">Progress</a>
+          <a href="#machine-heading">Interfaces</a>
+          <a href="#cite-heading">Cite</a>
+        </nav>
+        <div class="problem-framing">
+          <section class="framing-row" aria-labelledby="importance-heading">
+            <h2 id="importance-heading">Why it matters</h2>
+            <p>SICs give minimal tomography and optimal projective designs. Zauner symmetry links their existence to finite groups and algebraic number theory, offering a route to exact constructions.</p>
+          </section>
+          <section class="framing-row" aria-labelledby="source-heading">
+            <h2 id="source-heading">Problem source</h2>
+            <div class="problem-source-record">
+              <strong>Some open problems in quantum information theory</strong>
+              <p>O. Krüger, R. F. Werner</p>
+              <p>arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/</p>
+              <div class="problem-source-scope">
+                <span>The source states the cataloged problem.</span>
+                <span>Statement locator: p. 60-63 (Problem 23)</span>
+              </div>
+              <a href="https://doi.org/10.48550/arXiv.quant-ph/0504166" rel="noreferrer">Read problem source ↗</a>
+            </div>
+          </section>
+        </div>
+
+        <section class="formal-statement" aria-labelledby="formal-heading">
+          <div class="formal-heading">
+            <div>
+              <span class="dialog-section-label">Verified formulation</span>
+              <h2 id="formal-heading">Formal statement</h2>
+            </div>
+            <span class="formal-source">Matched to the source and locator above</span>
+          </div>
+
+          <details class="formal-notation">
+            <summary>Notation <span>Definitions used by the source statement</span></summary>
+            <div class="formal-notation-body">
+        <div class="notation-table-wrap">
+          <table class="notation-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody><tr><td>\(d\)</td><td>Dimension of the underlying complex Hilbert space</td></tr><tr><td>\(\mathcal{H}\)</td><td>A \(d\)-dimensional complex Hilbert space</td></tr><tr><td>\(\{\vert\phi_i\rangle\}_{i=1}^{d^2}\)</td><td>A family of \(d^2\) normalised vectors in \(\mathcal{H}\)</td></tr><tr><td>\(\lvert\langle\phi_i\vert\phi_j\rangle\rvert^2\)</td><td>Squared modulus of the inner product (constant for \(i\neq j\) for equiangular lines)</td></tr><tr><td>\(p_i\)</td><td>Measurement probability \(\mathrm{tr}(\vert\phi_i\rangle\langle\phi_i\vert\rho)\)</td></tr><tr><td>\(\rho\)</td><td>A density operator (quantum state) on \(\mathcal{H}\)</td></tr><tr><td>\(\mathbf{Z}_d\)</td><td>The cyclic group/ring of integers modulo \(d\)</td></tr><tr><td>\(\vert q\rangle\)</td><td>Computational basis vectors, \(q=0,\dots,d-1\)</td></tr><tr><td>\(X\)</td><td>Shift operator: \(X\vert q\rangle = \vert q+1\rangle\) (arithmetic mod \(d\))</td></tr><tr><td>\(Z\)</td><td>Clock operator: \(Z\vert q\rangle = e^{i\,2\pi q/d}\,\vert q\rangle\)</td></tr><tr><td>\(w(p,q)\)</td><td>Weyl/Heisenberg operator \(Z(p)X(q)\), with \(p,q\in\mathbf{Z}_d\)</td></tr><tr><td>Heisenberg group</td><td>Group generated by \(\{w(p,q)\}\); also called Weyl–Heisenberg or generalised Pauli group</td></tr><tr><td>\(\vert\phi\rangle\)</td><td>A fiducial vector: orbit under the Heisenberg group yields a SIC-POVM</td></tr><tr><td>\(U(d)\)</td><td>Group of \(d\times d\) unitary operators</td></tr><tr><td>Clifford group</td><td>Normaliser of the Heisenberg group inside \(U(d)\)</td></tr><tr><td>\(z\)</td><td>A specific order-3 element of the Clifford group acting as \(z\,w(p,q)\,z^* = w(q-p,-p)\)</td></tr><tr><td>SIC-POVM</td><td>Symmetric informationally complete POVM (the \(d^2\) rank-one operators arising from equiangular lines)</td></tr></tbody>
+          </table>
+        </div></div>
+          </details>
+          <div class="formal-body"><p>The problem is stated in three nested variants, each strictly stronger than its predecessor.</p><p><strong>Problem 1 (SIC-POVMs).</strong> For every dimension \(d\ge 2\), decide whether there exists a family \(\{|\phi_i\rangle\}_{i=1}^{d^2}\) of normalised vectors in \(\mathbb{C}^d\) such that</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[|\langle\phi_i|\phi_j\rangle|^2 \;=\; \text{const} \qquad \text{for all } i\neq j .\]</div><p>Equivalently, decide whether SIC-POVMs—the POVMs \(\{|\phi_i\rangle\langle\phi_i|/d\}_{i=1}^{d^2}\) associated with such equiangular line configurations—exist in every dimension \(d\).</p><p><strong>Problem 2 (Covariant SIC-POVMs).</strong> With \(X|q\rangle = |q+1\rangle\), \(Z|q\rangle = e^{i 2\pi q/d}|q\rangle\) (arithmetic mod \(d\)), and Weyl operators</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[w(p,q) \;=\; Z(p)\,X(q), \qquad p,q\in\mathbf{Z}_d , \tag{23.1}\]</div><p>decide for which \(d\) there exists a fiducial vector \(|\phi\rangle\in\mathbb{C}^d\) such that</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\bigl\{\,w(p,q)\,|\phi\rangle\langle\phi|\,w(p,q)^*\,\bigr\}_{p,q=0,\dots,d-1} \tag{23.2}\]</div><p>is a SIC-POVM (i.e. a group-covariant SIC under the Heisenberg group).</p><p><strong>Problem 3 (Zauner&#039;s Conjecture).</strong> Let \(z\in U(d)\) be the element of the Clifford group characterised by</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[z\,w(p,q)\,z^* \;=\; w(q-p,\,-p) .\]</div><p>Zauner&#039;s conjecture asserts that in any dimension \(d\), a fiducial vector \(|\phi\rangle\) for a Heisenberg-covariant SIC-POVM can be chosen among the eigenvectors of \(z\).</p></div>
+        </section>
+
+        <div class="remaining-question " id="remaining">
+          <span>What remains</span>
+          <p>Prove or refute the nested all-dimension SIC, covariance and Zauner-symmetry conjectures without unproved arithmetic assumptions.</p>
+        </div>
+
+
+
+        <section class="dialog-section" aria-labelledby="progress-heading">
+          <span class="dialog-section-label">Evidence ledger</span>
+          <h2 id="progress-heading">Recent progress</h2>
+          <ol class="timeline">
+
+            <li id="qop-evt-d18a5a7dd320ecb8">
+              <time datetime="2026-05-31">31 May 2026</time>
+              <div>
+                <h3>An unconditional proof claim was withdrawn as incorrect</h3>
+                <p>The arXiv record for Joka&#039;s claimed all-dimension construction explicitly says the proof is not correct.</p>
+                <div class="dialog-source-meta">
+                  <span class="maturity-badge">Withdrawn</span>
+                  <span class="maturity-badge">Incorrect claim</span>
+                  <a href="https://arxiv.org/abs/2601.13475" rel="noreferrer">Withdrawal notice ↗</a>
+                </div>
+              </div>
+            </li>
+            <li id="qop-evt-3c69f007a97fb1bf">
+              <time datetime="2025-03-17">17 Mar 2025</time>
+              <div>
+                <h3>A uniform construction is conditional on two conjectures</h3>
+                <p>Appleby, Flammia and Kopp require an order-one abelian Stark conjecture and a special-value identity for a modular cocycle.</p>
+                <div class="dialog-source-meta">
+                  <span class="maturity-badge">Preprint</span>
+                  <span class="maturity-badge">Conditional theorem</span>
+                  <a href="https://arxiv.org/abs/2501.03970" rel="noreferrer">Conditional construction ↗</a>
+                </div>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+
+        <section class="dialog-section" aria-labelledby="cautions-heading">
+          <span class="dialog-section-label">Claim watch</span>
+          <h2 id="cautions-heading">Scope and cautions</h2>
+
+          <div class="watch-note">
+            <span class="note-icon" aria-hidden="true">!</span>
+            <div>
+              <strong>Claim status</strong>
+              <p>A withdrawn proof and a theorem conditional on two open conjectures do not establish Zauner&#039;s conjecture. <a href="https://arxiv.org/abs/2601.13475" rel="noreferrer">Source ↗</a></p>
+            </div>
+          </div>
+        </section>
+
+
+
+
+        <section class="dialog-section" aria-labelledby="related-heading">
+          <span class="dialog-section-label">Related entries</span>
+          <h2 id="related-heading">Related problems</h2>
+          <div class="related-links">
+            <a href="../horodecki-2020-sic-povm-infinite-dimensions/">SIC POVMs in infinitely many dimensions</a>
+          </div>
+        </section>
+
+        <section class="dialog-section" aria-labelledby="machine-heading">
+          <span class="dialog-section-label">Work on this problem</span>
+          <h2 id="machine-heading">Research interfaces</h2>
+          <ul class="machine-links">
+            <li><a href="../../packets/krueger-2005-sic-povm-zauner-conjecture.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-sic-povm-zauner-conjecture.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+SIC+POVMs+and+Zauner%27s+conjecture" rel="noreferrer">Submit a research update ↗</a> — the evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/open_prob/krueger-2005-sic-povm-zauner-conjecture/problem.md" rel="noreferrer">Source article ↗</a> — the canonical statement and notes in the repository.</li>
+          </ul>
+        </section>
+
+        <section class="dialog-section" aria-labelledby="cite-heading">
+          <span class="dialog-section-label">Citation</span>
+          <h2 id="cite-heading">How to cite</h2>
+          <div class="cite-block">
+
+            <p class="cite-label">The original problem</p>
+            <p class="cite-text">O. Krüger, R. F. Werner. Some open problems in quantum information theory. arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/. p. 60-63 (Problem 23). https://doi.org/10.48550/arXiv.quant-ph/0504166</p>
+            <p class="cite-label">This catalog assessment</p>
+            <p class="cite-text">Quantum Open Problems, record krueger-2005-sic-povm-zauner-conjecture, revision 66be964458a5, verified 2026-08-12. https://naixu-guo.github.io/quantum-information-open-problems/problems/krueger-2005-sic-povm-zauner-conjecture/</p>
+          </div>
+        </section>
+        <footer class="page-record-footer">
+          <p>Record <code>krueger-2005-sic-povm-zauner-conjecture</code></p>
+          <p>Record revision <code>66be964458a51cfc68967b5745c09817b72bef2bc23472bbc204a10746337ded</code></p>
+          <p>Statement digest <code>e0991467568bc4b352565352ff7f374dcbd7d34afee814ae2bc09f2ef06a781a</code></p>
+          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+        </footer>
+      </article>
+
+      <nav class="page-pager" aria-label="Adjacent problems">
+        <a class="pager-link prev" href="../krueger-2005-separability-from-spectrum/"><span>← Previous</span><strong>Separability from spectrum</strong></a>
+        <a class="pager-link next" href="../horodecki-2020-sic-povm-infinite-dimensions/"><span>Next →</span><strong>SIC POVMs in infinitely many dimensions</strong></a>
+      </nav>
+    </main>
+    <footer class="site-footer">
+      <p>Quantum Open Problems</p>
+      <p>A dated research index. Verify a result before citing the status.</p>
+      <a href="../../">Back to the catalog ↖</a>
+    </footer>
+    <script>
+      (() => {
+        const button = document.querySelector("#theme-toggle");
+        if (!button) return;
+        const sync = (dark) => {
+          button.setAttribute("aria-pressed", String(dark));
+          button.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+        };
+        sync(document.documentElement.dataset.theme === "dark");
+        button.addEventListener("click", () => {
+          const dark = document.documentElement.dataset.theme !== "dark";
+          document.documentElement.dataset.theme = dark ? "dark" : "light";
+          sync(dark);
+          try { localStorage.setItem("quantum-open-problems-theme", dark ? "dark" : "light"); } catch {}
+        });
+      })();
+    </script>
+  </body>
+</html>

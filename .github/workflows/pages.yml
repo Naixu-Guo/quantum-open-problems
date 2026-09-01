@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "site/**"
+      - "open_prob/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -30,8 +31,8 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
 
-      - name: Validate research catalog
-        run: node site/validate.mjs
+      - name: Build and validate research catalog
+        run: node site/build.mjs
 
       - name: Upload static site
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1

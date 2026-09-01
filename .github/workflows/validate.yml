@@ -1,0 +1,26 @@
+name: Validate catalog contribution
+
+on:
+  pull_request:
+    paths:
+      - "open_prob/**"
+      - "site/**"
+      - "CONTRIBUTING.md"
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/workflows/validate.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Build and validate catalog
+        run: node site/build.mjs
+
+      - name: Check generated files
+        run: git diff --exit-code -- site

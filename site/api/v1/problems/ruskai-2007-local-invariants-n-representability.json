@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "ruskai-2007-local-invariants-n-representability",
+  "title": "Local invariants and N-representability",
+  "status": "partial",
+  "dates": {
+    "proposed": "2007",
+    "latestEvidence": "2011",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "quantum-invariants",
+      "label": "Quantum invariants and representability"
+    }
+  },
+  "collection": {
+    "id": "ruskai-2007",
+    "label": "Ruskai",
+    "title": "Open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Invariant classification",
+    "summary": "Graph-indexed complete invariant families and a free stable invariant algebra are known. A finite-dimensional minimal set for arbitrary mixed two-particle states and the full N-representability constraints remain unknown.",
+    "importance": "Local invariants provide basis-independent coordinates for two-particle states. Expressing N-representability in those coordinates would connect orbit classification to the quantum marginal problem.",
+    "unresolved": "Find a finite-dimensional minimal complete invariant set for mixed symmetric or antisymmetric two-particle states and express N-representability in those invariants."
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $N$ | total number of particles |\n| $p$ | number of particles retained in the reduced density matrix; $p<N$ |\n| $\\rho=\\rho_{1,2,\\dots,N}$ | $N$-particle density matrix on the (anti-)symmetric subspace of the single-particle Hilbert space $\\mathcal{H}^{\\otimes N}$ |\n| $\\rho_{1,2,\\dots,p}$ | $p$-particle reduced density matrix, $\\rho_{1,2,\\dots,p}=\\operatorname{Tr}_{p+1,\\dots,N}\\rho$ |\n| $\\rho_1$ | 1-particle reduced density matrix |\n| $\\rho_{12}$ | 2-particle reduced density matrix (the \"2-matrix\") |\n| $U$ | unitary on the single-particle space $\\mathcal{H}$ |\n| $U^{\\otimes p}$ | $p$-fold tensor product unitary $U\\otimes U\\otimes\\cdots\\otimes U$ |\n| local invariant | function of $\\rho_{1,2,\\dots,p}$ invariant under $\\rho_{1,2,\\dots,p}\\mapsto U^{\\otimes p}\\,\\rho_{1,2,\\dots,p}\\,U^{\\otimes p\\,\\dagger}$ |\n| QMA | the quantum analogue of NP (Merlin-Arthur with quantum witness) |",
+    "statement": "**Problem 24 (Ruskai 2007).** Find a *minimal complete set of local invariants* for an antisymmetric (or symmetric) 2-particle density matrix $\\rho_{12}$. That is, exhibit a finite set of polynomial (or otherwise tractable) functionals\n$$I_1(\\rho_{12}),\\, I_2(\\rho_{12}),\\, \\dots,\\, I_K(\\rho_{12})$$\neach invariant under the action $\\rho_{12}\\mapsto (U\\otimes U)\\,\\rho_{12}\\,(U\\otimes U)^\\dagger$ for every unitary $U$ on the single-particle space, with the properties:\n1. (Completeness) $I_j(\\rho_{12})=I_j(\\sigma_{12})$ for all $j$ if and only if $\\sigma_{12}=(U\\otimes U)\\,\\rho_{12}\\,(U\\otimes U)^\\dagger$ for some unitary $U$.\n2. (Minimality) $K$ is the smallest cardinality with property (1).\nThe desired set should be such that the $N$-representability constraints for the antisymmetric (resp. symmetric) 2-matrix can be expressed in terms of these invariants."
+  },
+  "source": {
+    "title": "Open problems in quantum information theory",
+    "authors": [
+      "Mary Beth Ruskai"
+    ],
+    "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+    "locator": "p. 17 (Problem 24, Section 7)",
+    "url": "https://doi.org/10.48550/arXiv.0708.1902",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2011",
+        "title": "The stable invariant algebra has graph-indexed generators",
+        "detail": "Vrana constructs systematic complete families and a free stable algebra, without solving the finite-dimensional minimal mixed-state problem.",
+        "maturity": "Mixed",
+        "strength": "Stable-regime characterization",
+        "url": "https://arxiv.org/abs/1107.2438",
+        "label": "Stable invariant algebra"
+      },
+      {
+        "date": "2007",
+        "title": "General two-body N-representability is QMA-complete",
+        "detail": "The complexity theorem gives a strong obstruction to any efficient general criterion, but does not identify the requested minimal invariants.",
+        "maturity": "Peer reviewed",
+        "strength": "Complexity classification",
+        "url": "https://arxiv.org/abs/quant-ph/0609125",
+        "label": "QMA-completeness"
+      }
+    ],
+    "cautions": [],
+    "interpretation": null,
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "local invariants",
+      "N-representability",
+      "fermions",
+      "symmetric states",
+      "QMA"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/ruskai-2007-local-invariants-n-representability.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Local+invariants+and+N-representability",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/contribution.schema.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/ruskai-2007-local-invariants-n-representability.json",
+    "human": "https://naixu-guo.github.io/quantum-information-open-problems/problems/ruskai-2007-local-invariants-n-representability/",
+    "explorer": "https://naixu-guo.github.io/quantum-information-open-problems/#ruskai-2007-local-invariants-n-representability",
+    "markdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/ruskai-2007-local-invariants-n-representability.md",
+    "schema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/ruskai-2007-local-invariants-n-representability.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/open_prob/ruskai-2007-local-invariants-n-representability/problem.md"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "a76b701a4b5cbe62b23f7b16e91498fcac68d566b78fbada579b178d145164d5",
+    "statementDigest": "6216d9a5a0c63e0a378bda6ff4533f7de05da02a40f5ae590b188e41eccabf61"
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "ruskai-2007-random-subunitary-multiplicativity-p2",
+  "title": "Random sub-unitary multiplicativity at p = 2",
+  "status": "open",
+  "dates": {
+    "proposed": "2007",
+    "latestEvidence": "2007",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "quantum-channels",
+      "label": "Quantum channels"
+    }
+  },
+  "collection": {
+    "id": "ruskai-2007",
+    "label": "Ruskai",
+    "title": "Open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Structured multiplicativity",
+    "summary": "General 2-norm multiplicativity is false, but no proof or counterexample settles the intended random sub-unitary subclass.",
+    "importance": "At p = 2 the output norm measures purity and often permits matrix methods unavailable at other p. This subclass can reveal which Kraus structures preserve purity under tensor products.",
+    "unresolved": "Prove maximal-output 2-norm multiplicativity for every channel in the corrected family, or exhibit a family-specific counterexample."
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | Algebra of complex $d\\times d$ matrices |\n| $\\rho$, $\\gamma$ | Density matrices on a finite-dimensional Hilbert space |\n| $\\Phi$, $\\Omega$ | CPT (completely positive trace-preserving) linear maps (quantum channels) |\n| $\\{A_k\\}$ | Kraus operators of a channel, $\\Phi(\\rho)=\\sum_k A_k\\rho A_k^{\\dagger}$, $\\sum_k A_k^{\\dagger}A_k=I$ |\n| $X$ | Cyclic shift operator on $\\mathbb{C}^d$, $X\\lvert e_j\\rangle=\\lvert e_{j+1}\\rangle$ |\n| $U_k$ | A $(d-1)\\times(d-1)$ unitary in the $k$-th Kraus operator |\n| $\\|M\\|_p$ | Schatten $p$-norm, $(\\operatorname{Tr}\\lvert M\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | Maximal output $p$-norm, $\\sup_\\gamma\\|\\Phi(\\gamma)\\|_p$ |\n| WH channel | Werner–Holevo channel |\n| $\\mathcal E(d,d)$, $\\overline{\\mathcal E}(d,d)$ | Set of extreme CPT maps with $d$ Kraus operators on $M_d$ and its closure |",
+    "statement": "Interpreting equation (22) as the intended normalized cyclic random-sub-unitary construction, let $\\Phi:M_d\\to M_d$ belong to that CPT family. The source prints\n$$A_k=\\tfrac{1}{d-1}X^k\\begin{pmatrix}U_k & 0\\\\ 0 & 0\\end{pmatrix},\\qquad k=0,1,\\dots,d-1,$$\nwith $X$ the cyclic shift on $\\mathbb C^d$ and each $U_k$ a $(d-1)\\times(d-1)$ unitary, but this formula is not CPT as written.\n\n**Problem 15.** Prove the multiplicativity conjecture (24),\n$$\\nu_p(\\Phi\\otimes\\Omega)=\\nu_p(\\Phi)\\,\\nu_p(\\Omega),$$\nfor such channels $\\Phi$ (tensored with arbitrary CPT $\\Omega$) at least in the case $p=2$. If this is not possible, exhibit a member of the family (22) that provides an additional counterexample to (24)."
+  },
+  "source": {
+    "title": "Open problems in quantum information theory",
+    "authors": [
+      "Mary Beth Ruskai"
+    ],
+    "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+    "locator": "p. 14 (Problem 15)",
+    "url": "https://doi.org/10.48550/arXiv.0708.1902",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2007",
+        "title": "The closest positive theorem concerns another family",
+        "detail": "Michalakis proves the p equals two case for identical polarized Werner-Holevo channels, not for arbitrary random sub-unitary channels.",
+        "maturity": "Peer reviewed",
+        "strength": "Different structured class",
+        "url": "https://arxiv.org/abs/0707.1722",
+        "label": "Polarized WH theorem"
+      }
+    ],
+    "cautions": [],
+    "interpretation": "The archived Kraus formula is malformed. This entry tracks the intended normalized cyclic family rather than the literal non-channel formula.",
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "sub-unitary channels",
+      "p=2",
+      "multiplicativity",
+      "maximal output norm"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/ruskai-2007-random-subunitary-multiplicativity-p2.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Random+sub-unitary+multiplicativity+at+p+%3D+2",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/contribution.schema.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/ruskai-2007-random-subunitary-multiplicativity-p2.json",
+    "human": "https://naixu-guo.github.io/quantum-information-open-problems/problems/ruskai-2007-random-subunitary-multiplicativity-p2/",
+    "explorer": "https://naixu-guo.github.io/quantum-information-open-problems/#ruskai-2007-random-subunitary-multiplicativity-p2",
+    "markdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/ruskai-2007-random-subunitary-multiplicativity-p2.md",
+    "schema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/ruskai-2007-random-subunitary-multiplicativity-p2.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/open_prob/ruskai-2007-random-subunitary-multiplicativity-p2/problem.md"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "9aef639cd5dbc39993f49a27ffe4fd45ea9dfcde6407a496f2371107d0c81d5d",
+    "statementDigest": "2f2c6f68e3f5dad0373ea47278680d5f33a589b70ce8bf84b887f6f397727ac5"
+  }
+}

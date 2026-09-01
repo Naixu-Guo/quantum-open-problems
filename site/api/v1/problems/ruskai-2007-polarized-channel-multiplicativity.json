@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "ruskai-2007-polarized-channel-multiplicativity",
+  "title": "Polarized near-maximally-mixed channels",
+  "status": "open",
+  "dates": {
+    "proposed": "2007",
+    "latestEvidence": "2007",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "quantum-channels",
+      "label": "Quantum channels"
+    }
+  },
+  "collection": {
+    "id": "ruskai-2007",
+    "label": "Ruskai",
+    "title": "Open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Structured multiplicativity",
+    "summary": "General random-channel counterexamples do not settle the polarized family xI + (1-x)M_epsilon or give the requested parameter bounds.",
+    "importance": "This family tests the stability of multiplicativity near the maximally mixed output channel. Parameter bounds would show how much polarization a positive tensor-product law can tolerate.",
+    "unresolved": "Determine ranges of polarization, deviation and p that guarantee or violate multiplicativity for this structured near-mixed family."
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | algebra of $d \\times d$ complex matrices |\n| $\\rho$ | a density matrix on $\\mathbb{C}^d$ |\n| $I$ | identity matrix on $\\mathbb{C}^d$ |\n| $\\Phi$ | a generic CPT (quantum channel) on $M_d$ |\n| $\\mathcal{I}$ | the identity channel ($\\mathcal{I}(\\rho) = \\rho$) |\n| $\\mathcal{M}_\\epsilon$ | a CPT map whose output is close to maximally mixed, $\\lVert \\mathcal{M}_\\epsilon(\\rho) - \\tfrac{1}{d}I \\rVert < \\epsilon$ for all $\\rho$ |\n| $\\epsilon$ | small positivity parameter controlling how close $\\mathcal{M}_\\epsilon$ is to the completely-noisy map |\n| $x$ | mixing weight in $[0,1]$ for the polarization |\n| $\\Phi_{x,\\epsilon}$ | the polarized channel $\\Phi_{x,\\epsilon} = x\\mathcal{I} + (1-x)\\mathcal{M}_\\epsilon$ |\n| $\\lVert\\cdot\\rVert_p$ | Schatten $p$-norm, $\\lVert A\\rVert_p = (\\mathrm{Tr}\\lvert A\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | maximal output $p$-norm, $\\nu_p(\\Phi) = \\sup_\\rho \\lVert\\Phi(\\rho)\\rVert_p$ |\n| $p$ | Schatten exponent (the range of interest is $1\\le p\\le 2$) |\n| $\\lVert \\cdot \\rVert$ | (in the definition of $\\mathcal{M}_\\epsilon$) operator/trace norm on $M_d$ |",
+    "statement": "**Problem 7 (Ruskai, 2007).** *Let $\\mathcal{M}_\\epsilon : M_d \\to M_d$ be a CPT map satisfying $\\lVert\\mathcal{M}_\\epsilon(\\rho) - \\tfrac{1}{d}I\\rVert < \\epsilon$ for every density matrix $\\rho$, and let*\n$$\\Phi_{x,\\epsilon} \\;=\\; x\\,\\mathcal{I} + (1-x)\\,\\mathcal{M}_\\epsilon, \\qquad x\\in[0,1].$$\n*Does $\\Phi_{x,\\epsilon}$ satisfy multiplicativity,*\n$$\\nu_p(\\Phi_{x,\\epsilon} \\otimes \\Phi_{x,\\epsilon}) \\;=\\; [\\nu_p(\\Phi_{x,\\epsilon})]^2 \\quad \\text{for } 1\\le p \\le 2,$$\n*for sufficiently small $\\epsilon$? If not, for what values of $x$ and/or $p$ does multiplicativity hold, and how do these depend on $\\epsilon$?*"
+  },
+  "source": {
+    "title": "Open problems in quantum information theory",
+    "authors": [
+      "Mary Beth Ruskai"
+    ],
+    "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+    "locator": "p. 8 (Problem 7)",
+    "url": "https://doi.org/10.48550/arXiv.0708.1902",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2007",
+        "title": "Random-channel violations motivate but do not settle the family",
+        "detail": "Winter and Hayden disprove general multiplicativity for p greater than one using random constructions, without analyzing the specified polarized interpolation.",
+        "maturity": "Peer reviewed",
+        "strength": "General counterexamples",
+        "url": "https://arxiv.org/abs/0707.3291",
+        "label": "Random-channel result"
+      }
+    ],
+    "cautions": [],
+    "interpretation": "The source does not specify the norm used to define near-maximally-mixed channels; a modern formulation should fix that convention.",
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "polarized channels",
+      "near maximally mixed",
+      "multiplicativity",
+      "random channels"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/ruskai-2007-polarized-channel-multiplicativity.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Polarized+near-maximally-mixed+channels",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/contribution.schema.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/ruskai-2007-polarized-channel-multiplicativity.json",
+    "human": "https://naixu-guo.github.io/quantum-information-open-problems/problems/ruskai-2007-polarized-channel-multiplicativity/",
+    "explorer": "https://naixu-guo.github.io/quantum-information-open-problems/#ruskai-2007-polarized-channel-multiplicativity",
+    "markdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/ruskai-2007-polarized-channel-multiplicativity.md",
+    "schema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/ruskai-2007-polarized-channel-multiplicativity.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/open_prob/ruskai-2007-polarized-channel-multiplicativity/problem.md"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "a13b0b2c37cc84b0cc75f8b68dbaed00b0168cbe715cd502a793b4febcb74ceb",
+    "statementDigest": "6fffa1a864c29f79b4cdf6612d0ef75fdfe3ffc5a29cd6b29a82244702dfa903"
+  }
+}

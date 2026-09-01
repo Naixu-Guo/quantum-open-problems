@@ -1,0 +1,29 @@
+# Quantum Open Problems
+
+> A source-audited catalog of formal open problems across quantum science. Records separate the formal target, original source, unresolved remainder, dated evidence, and editorial status.
+
+Use the compact index for discovery, then fetch one problem record or Markdown research brief. Each active problem has three representations: an HTML page at `/problems/<record-id>/`, a JSON record at `/api/v1/problems/<record-id>.json`, and a Markdown research brief at `/packets/<record-id>.md`. Check the verification date and source relationship before relying on a status. Human and AI contributions use the same evidence contract.
+
+## Machine interfaces
+
+- [Agent guide](https://naixu-guo.github.io/quantum-information-open-problems/ai/): MCP server setup, endpoint map, research loop, and contribution contract.
+- [MCP server](https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/mcp/server.mjs): Zero-dependency stdio server; add with `claude mcp add quantum-open-problems -- npx -y github:Naixu-Guo/quantum-information-open-problems`.
+- [API guide](https://naixu-guo.github.io/quantum-information-open-problems/api/v1/README.md): Endpoint map and interpretation rules.
+- [Release manifest](https://naixu-guo.github.io/quantum-information-open-problems/api/v1/release.json): Catalog date, digest, and counts; poll this before downloading more.
+- [Compact catalog](https://naixu-guo.github.io/quantum-information-open-problems/api/v1/index.json): Discovery metadata for active problems.
+- [Full snapshot](https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems.jsonl): One complete JSON problem record per line.
+- [Evidence log](https://naixu-guo.github.io/quantum-information-open-problems/api/v1/evidence.json): Every dated evidence event, newest first.
+- [Evidence feed](https://naixu-guo.github.io/quantum-information-open-problems/feed.xml): Atom feed of the latest evidence events; [JSON Feed](https://naixu-guo.github.io/quantum-information-open-problems/feed.json) carries the same entries.
+- [Full catalog text](https://naixu-guo.github.io/quantum-information-open-problems/llms-full.txt): Every research brief concatenated in one Markdown file.
+- [Problem schema](https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problem.schema.json): Versioned JSON Schema for problem records.
+- [Contribution schema](https://naixu-guo.github.io/quantum-information-open-problems/api/v1/contribution.schema.json): Evidence contract for human and AI research results.
+
+## Research and contribution
+
+- [Human explorer](https://naixu-guo.github.io/quantum-information-open-problems/): Browse fields, status, sources, formal statements, and progress.
+- [Problem directory](https://naixu-guo.github.io/quantum-information-open-problems/problems/): One stable HTML page per record, including archived solved problems.
+- [Contribution guide](https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/CONTRIBUTING.md): Review rules and required evidence.
+
+## Optional
+
+- [Source repository](https://github.com/Naixu-Guo/quantum-information-open-problems): Canonical articles, metadata, generators, and validation.

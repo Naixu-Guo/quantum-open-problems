@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "krueger-2005-reversible-entanglement-manipulation",
+  "title": "Reversible entanglement manipulation",
+  "status": "partial",
+  "dates": {
+    "proposed": "2005-02-08",
+    "latestEvidence": "2023-01-20",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "entanglement-theory",
+      "label": "Entanglement theory"
+    }
+  },
+  "collection": {
+    "id": "krueger-2005",
+    "label": "Krueger–Werner",
+    "title": "Some open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Operational characterization",
+    "summary": "Universal reversibility under PPT operations is false, and irreversibility survives even for exact non-entangling maps. The smallest meaningful reversible operation class is unknown.",
+    "importance": "A reversible class would give mixed-state entanglement a single exchange rate analogous to entropy for pure states. Its operation set would mark the cost of removing irreversibility.",
+    "unresolved": "Identify the smallest physically meaningful class of operations that makes asymptotic mixed-state entanglement manipulation reversible."
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $\\mathcal{H}_A\\otimes\\mathcal{H}_B$ | Bipartite Hilbert space for parties $A$ and $B$ |\n| $\\rho$ | A bipartite density operator on $\\mathcal{H}_A\\otimes\\mathcal{H}_B$ |\n| LOCC | The class of local operations and classical communication (the standard free operations of bipartite entanglement) |\n| PPT operations | Completely positive maps that preserve the set of PPT (positive partial transpose) states |\n| Hyper-set | A class of operations introduced in [HOH02], strictly larger than LOCC and strictly smaller than PPT operations |\n| $\\lvert\\Phi^+\\rangle$ | The maximally entangled (singlet) state of two qubits |\n| $E_{\\mathrm{D}}(\\rho)$ | Distillable entanglement of $\\rho$ under a given class of operations |\n| $E_{\\mathrm{C}}(\\rho)$ | Entanglement cost of $\\rho$ under a given class of operations |\n| Asymptotic reversibility | The condition $E_{\\mathrm{D}}(\\rho) = E_{\\mathrm{C}}(\\rho)$ for every $\\rho$, under a fixed class of operations |\n| $n$ | Number of i.i.d. copies of $\\rho$ used in the asymptotic conversion |",
+    "statement": "Two open questions stated in the source:\n\n(Q1) **Are PPT operations sufficient for asymptotic reversibility?** Is it the case that, for every bipartite density operator $\\rho$ (pure or mixed), the distillable entanglement and the entanglement cost under PPT operations coincide,\n$$E_{\\mathrm{D}}^{\\,\\mathrm{PPT}}(\\rho) \\;=\\; E_{\\mathrm{C}}^{\\,\\mathrm{PPT}}(\\rho)\\,?$$\nThis is the conjecture known in some circles as the \"Big-Fat-Conjecture\" ([BFC]).\n\n(Q2) **The smallest reversible class.** What is the smallest non-trivial class of operations $\\mathcal{O}$ (containing LOCC) such that asymptotic interconversion of *all* bipartite entangled states — pure and mixed — is reversible under $\\mathcal{O}$?\n\nBoth questions seek a single asymptotic entanglement measure that would play the role of entropy in a thermodynamics of entanglement."
+  },
+  "source": {
+    "title": "Some open problems in quantum information theory",
+    "authors": [
+      "O. Krüger",
+      "R. F. Werner"
+    ],
+    "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+    "locator": "pp. 55-56 (Problem 20)",
+    "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2023-01-20",
+        "title": "Exact non-entangling maps remain irreversible",
+        "detail": "Lami and Regula prove a separation between entanglement cost and distillation even under operations that generate no entanglement exactly.",
+        "maturity": "Peer reviewed",
+        "strength": "Exact no-go theorem",
+        "url": "https://arxiv.org/abs/2111.02438",
+        "label": "Nature Physics"
+      },
+      {
+        "date": "2017-10-06",
+        "title": "PPT-assisted universal reversibility is refuted",
+        "detail": "Wang and Duan exhibit states whose PPT entanglement cost exceeds PPT distillable entanglement.",
+        "maturity": "Peer reviewed",
+        "strength": "Exact counterexample",
+        "url": "https://arxiv.org/abs/1606.09421",
+        "label": "PPT counterexample"
+      }
+    ],
+    "cautions": [],
+    "interpretation": null,
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "reversibility",
+      "PPT operations",
+      "non-entangling maps",
+      "entanglement cost"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/krueger-2005-reversible-entanglement-manipulation.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Reversible+entanglement+manipulation",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/contribution.schema.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/krueger-2005-reversible-entanglement-manipulation.json",
+    "human": "https://naixu-guo.github.io/quantum-information-open-problems/problems/krueger-2005-reversible-entanglement-manipulation/",
+    "explorer": "https://naixu-guo.github.io/quantum-information-open-problems/#krueger-2005-reversible-entanglement-manipulation",
+    "markdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/krueger-2005-reversible-entanglement-manipulation.md",
+    "schema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/krueger-2005-reversible-entanglement-manipulation.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/open_prob/krueger-2005-reversible-entanglement-manipulation/problem.md"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "ac70eb5513ec3d58674c7a69b15cadec09fa95dd9446daa1e5176c857017f678",
+    "statementDigest": "aa17c9dd4d706ce6936db709ab0a87f86bdc077b4193df993e55d82ea45379d0"
+  }
+}

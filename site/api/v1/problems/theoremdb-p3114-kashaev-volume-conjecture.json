@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "theoremdb-p3114-kashaev-volume-conjecture",
+  "title": "Kashaev volume conjecture for hyperbolic knots",
+  "status": "open",
+  "dates": {
+    "proposed": "1997",
+    "latestEvidence": "2026-08-01",
+    "verified": "2026-08-31",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-topology",
+      "label": "Quantum topology"
+    },
+    "topic": {
+      "id": "quantum-knot-invariants",
+      "label": "Quantum knot invariants"
+    }
+  },
+  "collection": {
+    "id": "theoremdb-2026",
+    "label": "TheoremDB",
+    "title": "TheoremDB quantum entries accepted after primary-source review",
+    "url": "https://www.theoremdb.org/"
+  },
+  "question": {
+    "type": "Asymptotic identity",
+    "summary": "Kashaev's quantum knot invariant is conjectured to grow at a rate fixed by the hyperbolic volume of the knot complement.",
+    "importance": "The conjecture would let quantum knot invariants recover a geometric quantity of the knot complement. It links representation-theoretic data to three-dimensional hyperbolic geometry.",
+    "unresolved": "Prove the volume-limit identity for every hyperbolic knot, or give a hyperbolic knot for which the limit fails or has the wrong value."
+  },
+  "formulation": {
+    "notation": "",
+    "statement": "Let $K\\subset S^3$ be a hyperbolic knot and let $\\langle K\\rangle_N$ be Kashaev's $N$th invariant. Prove that the limit exists and satisfies\n$$\n\\lim_{N\\to\\infty}\\frac{2\\pi}{N}\\log\\left|\\langle K\\rangle_N\\right|\n=\\operatorname{Vol}(S^3\\setminus K).\n$$\n\nA counterexample must give a hyperbolic knot for which the limit fails to exist or differs from the hyperbolic volume."
+  },
+  "source": {
+    "title": "The Hyperbolic Volume of Knots from the Quantum Dilogarithm",
+    "authors": [
+      "Rinat M. Kashaev"
+    ],
+    "venue": "Letters in Mathematical Physics 39, 269-275 (1997)",
+    "locator": "Sec. 1, Eq. (1.1)",
+    "url": "https://doi.org/10.1023/A:1007364912784",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2026-08-01",
+        "title": "The universal hyperbolic-knot statement remains open",
+        "detail": "TheoremDB's dated review found proofs for selected knots and families but no proof or counterexample for every hyperbolic knot.",
+        "maturity": "Reviewed database record",
+        "strength": "Dated status audit",
+        "url": "https://www.theoremdb.org/statements/P3114/",
+        "label": "TheoremDB P3114"
+      },
+      {
+        "date": "2001",
+        "title": "Colored Jones polynomials give an equivalent formulation",
+        "detail": "Murakami and Murakami identify Kashaev's invariant with a root-of-unity specialization of the colored Jones polynomial and state the volume conjecture in that language.",
+        "maturity": "Peer reviewed",
+        "strength": "Equivalent formulation",
+        "url": "https://doi.org/10.1007/BF02392716",
+        "label": "Acta Mathematica"
+      }
+    ],
+    "cautions": [],
+    "interpretation": null,
+    "provenance": {
+      "kind": "source-stated",
+      "label": "Source-stated question",
+      "note": "TheoremDB P3114 records Kashaev's universal hyperbolic-knot conjecture and cites the original papers."
+    }
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "Kashaev invariant",
+      "volume conjecture",
+      "colored Jones polynomial",
+      "hyperbolic knots",
+      "quantum topology"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/theoremdb-p3114-kashaev-volume-conjecture.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Kashaev+volume+conjecture+for+hyperbolic+knots",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/contribution.schema.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/theoremdb-p3114-kashaev-volume-conjecture.json",
+    "human": "https://naixu-guo.github.io/quantum-information-open-problems/problems/theoremdb-p3114-kashaev-volume-conjecture/",
+    "explorer": "https://naixu-guo.github.io/quantum-information-open-problems/#theoremdb-p3114-kashaev-volume-conjecture",
+    "markdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/theoremdb-p3114-kashaev-volume-conjecture.md",
+    "schema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/theoremdb-p3114-kashaev-volume-conjecture.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/open_prob/theoremdb-p3114-kashaev-volume-conjecture/problem.md"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "b1d04ae357c94df359859925e152c0330052f6964aa7c015fc33bebb5548bf9a",
+    "statementDigest": "68efefcb7a0d2174d7361e1ef6419aec49679ce23efbe2cae36ba3c649725a32"
+  }
+}

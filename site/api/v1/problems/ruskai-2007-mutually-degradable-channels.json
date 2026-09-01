@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "ruskai-2007-mutually-degradable-channels",
+  "title": "Nontrivial mutually degradable channel pairs",
+  "status": "open",
+  "dates": {
+    "proposed": "2007",
+    "latestEvidence": "2008",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "quantum-channels",
+      "label": "Quantum channels"
+    }
+  },
+  "collection": {
+    "id": "ruskai-2007",
+    "label": "Ruskai",
+    "title": "Open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Existence",
+    "summary": "Trivial identity and identical-degradable pairs exist, but no distinct genuinely nontrivial pair of the intended kind has been identified.",
+    "importance": "Mutual degradability means that each channel output can simulate the other channel's environment. Nontrivial examples would expose new structures governing coherent information and capacity.",
+    "unresolved": "Construct distinct mutually degradable channels, preferably with neither channel individually degradable, or prove such pairs cannot exist under natural rank conditions."
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | algebra of $d\\times d$ complex matrices |\n| $\\mathcal{M},\\mathcal{N}$ | quantum channels (CPT maps) |\n| $\\mathcal{X},\\mathcal{Y}$ | auxiliary quantum channels |\n| $\\mathcal{M}^C$ | complementary channel of $\\mathcal{M}$ (defined via the Stinespring dilation) |\n| $\\circ$ | composition of channels, $(\\mathcal{X}\\circ\\mathcal{M})(\\rho)=\\mathcal{X}[\\mathcal{M}(\\rho)]$ |\n| $\\mathcal{I}$ | identity channel |\n| $\\operatorname{Tr}$ | trace channel, $\\rho\\mapsto\\operatorname{Tr}\\rho$ |\n| Choi rank of $\\mathcal{M}$ | rank of the Choi matrix $(\\mathcal{I}\\otimes\\mathcal{M})(\\lvert\\Omega\\rangle\\langle\\Omega\\rvert)$, equivalently the minimum number of Kraus operators |\n| $d$ | dimension of the input/output Hilbert spaces (here taken equal) |\n| eq. (32) | the mutual-degradability condition $\\mathcal{X}\\circ\\mathcal{M}=\\mathcal{N}^C$ and $\\mathcal{Y}\\circ\\mathcal{N}=\\mathcal{M}^C$ |",
+    "statement": "**Problem 23 (Ruskai 2007), intended nontrivial form.** Find distinct quantum channels $\\mathcal{M},\\mathcal{N}$ beyond the identity and individually degradable constructions that are *mutually degradable*, meaning that there exist CPT maps $\\mathcal{X},\\mathcal{Y}$ with\n$$\\mathcal{X}\\circ\\mathcal{M} \\;=\\; \\mathcal{N}^C, \\qquad \\mathcal{Y}\\circ\\mathcal{N} \\;=\\; \\mathcal{M}^C. \\tag{32}$$\nOf particular interest are examples in which:\n- both $\\mathcal{M}$ and $\\mathcal{N}$ have Choi rank strictly less than $d^2$;\n- and (most interestingly) both have Choi rank exactly $d$, but neither $\\mathcal{M}$ nor $\\mathcal{N}$ is *individually* degradable."
+  },
+  "source": {
+    "title": "Open problems in quantum information theory",
+    "authors": [
+      "Mary Beth Ruskai"
+    ],
+    "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+    "locator": "p. 16-17 (Problem 23)",
+    "url": "https://doi.org/10.48550/arXiv.0708.1902",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2008",
+        "title": "Structural theory sharply constrains degradable channels",
+        "detail": "Cubitt, Ruskai and Smith formalize the relevant channel structure and rank restrictions without producing the requested nontrivial pair.",
+        "maturity": "Peer reviewed",
+        "strength": "Structural constraints",
+        "url": "https://arxiv.org/abs/0802.1360",
+        "label": "Degradable-channel structure"
+      }
+    ],
+    "cautions": [],
+    "interpretation": "Without a nontriviality qualifier, identity/arbitrary and identical-degradable pairs answer the literal wording.",
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "degradable channels",
+      "complementary channels",
+      "quantum capacity",
+      "Choi rank"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/ruskai-2007-mutually-degradable-channels.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Nontrivial+mutually+degradable+channel+pairs",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/contribution.schema.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/ruskai-2007-mutually-degradable-channels.json",
+    "human": "https://naixu-guo.github.io/quantum-information-open-problems/problems/ruskai-2007-mutually-degradable-channels/",
+    "explorer": "https://naixu-guo.github.io/quantum-information-open-problems/#ruskai-2007-mutually-degradable-channels",
+    "markdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/ruskai-2007-mutually-degradable-channels.md",
+    "schema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/ruskai-2007-mutually-degradable-channels.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/open_prob/ruskai-2007-mutually-degradable-channels/problem.md"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "346859af0c52cc6a7fbbd11d9417837d43b889cec23cac2d500118e229a9f2c1",
+    "statementDigest": "65117e0d24210dbc6cef187270d9a8c5963fe3e1102f181a6040e42aca3b7110"
+  }
+}

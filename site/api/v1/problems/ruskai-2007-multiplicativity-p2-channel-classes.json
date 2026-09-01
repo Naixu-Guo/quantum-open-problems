@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "ruskai-2007-multiplicativity-p2-channel-classes",
+  "title": "Channel classes with multiplicativity at p = 2",
+  "status": "partial",
+  "dates": {
+    "proposed": "2007",
+    "latestEvidence": "2008",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "quantum-channels",
+      "label": "Quantum channels"
+    }
+  },
+  "collection": {
+    "id": "ruskai-2007",
+    "label": "Ruskai",
+    "title": "Open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Positive-class program",
+    "summary": "Many nontrivial channel classes have multiplicative maximal output 2-norm, including PPT-inducing channels tensored with arbitrary channels. No exhaustive characterization exists.",
+    "importance": "A structural classification would locate the boundary where tensor products preserve maximal output purity. That boundary organizes the positive cases left after general multiplicativity failed.",
+    "unresolved": "Identify further positive classes or give an exhaustive structural characterization of channels satisfying multiplicativity at p equals two."
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | Algebra of complex $d\\times d$ matrices |\n| $\\rho$, $\\gamma$ | Density matrices on a finite-dimensional Hilbert space |\n| $\\Phi$, $\\Omega$ | CPT (completely positive trace-preserving) linear maps (quantum channels) |\n| $\\lVert M\\rVert_p$ | Schatten $p$-norm, $\\lVert M\\rVert_p=(\\operatorname{Tr}\\lvert M\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | Maximal output $p$-norm, $\\sup_\\gamma\\lVert\\Phi(\\gamma)\\rVert_p$ |\n| WH channel | Werner–Holevo channel |\n| Mutually unbiased bases (MUB) | Orthonormal bases $\\{\\lvert e_j^{(a)}\\rangle\\}$ such that $\\lvert\\langle e_j^{(a)}\\vert e_k^{(b)}\\rangle\\rvert^2=1/d$ for $a\\ne b$ |\n| Depolarized channel | $\\Phi_{x,\\epsilon}=x\\mathcal I+(1-x)\\mathcal M_\\epsilon$ for some $\\mathcal M_\\epsilon$ near a fully depolarizing map |",
+    "statement": "**Problem 12.** For what classes of quantum channels $\\Phi,\\Omega$ can the multiplicativity identity\n$$\\nu_p(\\Phi\\otimes\\Omega)=\\nu_p(\\Phi)\\,\\nu_p(\\Omega) \\tag{24}$$\nbe proved at $p=2$?"
+  },
+  "source": {
+    "title": "Open problems in quantum information theory",
+    "authors": [
+      "Mary Beth Ruskai"
+    ],
+    "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+    "locator": "p. 13 (Problem 12)",
+    "url": "https://doi.org/10.48550/arXiv.0708.1902",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2008",
+        "title": "PPT-inducing channels form a broad positive class",
+        "detail": "Dierckx, Fannes and Vandenplas prove 2-norm multiplicativity when one tensor factor is PPT-inducing and the other is arbitrary.",
+        "maturity": "Peer reviewed",
+        "strength": "Exact channel class",
+        "url": "https://arxiv.org/abs/0803.0479",
+        "label": "PPT-inducing class"
+      }
+    ],
+    "cautions": [],
+    "interpretation": null,
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "maximal output norm",
+      "multiplicativity",
+      "PPT-inducing channels",
+      "p=2"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/ruskai-2007-multiplicativity-p2-channel-classes.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Channel+classes+with+multiplicativity+at+p+%3D+2",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/contribution.schema.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/ruskai-2007-multiplicativity-p2-channel-classes.json",
+    "human": "https://naixu-guo.github.io/quantum-information-open-problems/problems/ruskai-2007-multiplicativity-p2-channel-classes/",
+    "explorer": "https://naixu-guo.github.io/quantum-information-open-problems/#ruskai-2007-multiplicativity-p2-channel-classes",
+    "markdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/ruskai-2007-multiplicativity-p2-channel-classes.md",
+    "schema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/ruskai-2007-multiplicativity-p2-channel-classes.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/open_prob/ruskai-2007-multiplicativity-p2-channel-classes/problem.md"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "d3ad4d71bbf8f031c2157cb57cedb3e99e1a4492475a1839b4a879e5e07aec90",
+    "statementDigest": "50a635b5b3cefe16616539241d4f6b5a1ae3facaae125f4f2434590b9a5973b0"
+  }
+}

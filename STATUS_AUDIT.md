@@ -1,8 +1,42 @@
-# Quantum information open-problem status audit
+# Quantum open-problem status audit
 
 **Cutoff:** 12 August 2026
-**Scope:** all 53 entries in `open_prob/`
-**Result:** 20 solved, 10 partially solved, 23 open
+**Scope:** the original 53-entry quantum-information corpus
+**Baseline result:** 20 solved, 10 partially solved, 23 open
+
+## Additions after the baseline audit
+
+On 31 August 2026, the GaugeForge catalog comparison found two problems absent from this repository. Both concern quantum sensing and remain open after a check of the primary papers and later results.
+
+| Added entry | Provenance | Audit finding |
+|---|---|---|
+| `kurdzialek-2024-correlated-noise-bound-tightness` | Derived question | Kurdziałek, Albarelli, and Demkowicz-Dobrzański state that their correlated-noise bounds need not be tight and that larger blocks improve them. The added entry asks whether the block hierarchy converges to the achievable asymptotic precision. This narrower statement is an audit formulation, not a conjecture quoted from the authors ([Phys. Rev. Lett. 135, 130801](https://doi.org/10.1103/jy3v-wkcb)). |
+| `mothe-2023-indefinite-causal-order-asymptotic-metrology` | Source-stated question | Mothe, Branciard, and Abbott explicitly leave open whether quantum-controlled causal order can retain a metrological advantage asymptotically. Their strict separation uses three channel calls and does not settle the large-use limit ([Phys. Rev. A 109, 062435](https://doi.org/10.1103/PhysRevA.109.062435)). |
+
+After the GaugeForge additions, the catalog had 55 entries: 25 open, 10 partially solved, and 20 solved. These additions do not change the 12 August baseline classifications below.
+
+## TheoremDB review and taxonomy correction
+
+The 31 August review searched TheoremDB's full 2,124-entry public index, then checked each quantum candidate against its linked sources. Three entries met the catalog's source and status requirements:
+
+| Added entry | Field | Audit finding |
+|---|---|---|
+| `theoremdb-p42-quantum-pcp-conjecture` | Quantum computation | The standard constant-gap Local Hamiltonian conjecture remains open. NLTS is proved, but it does not give the required QMA-hardness theorem ([Buhrman, Helsen, and Weggemans](https://arxiv.org/abs/2403.04841); [Anshu, Breuckmann, and Nirkhe](https://arxiv.org/abs/2206.13228)). |
+| `theoremdb-p36-yang-mills-mass-gap` | Quantum field theory | Clay lists the official existence-and-mass-gap problem as unsolved. The June 2026 arXiv resolution claim has not completed journal or Clay review ([Clay Mathematics Institute](https://www.claymath.org/millennium/yang-mills-the-maths-gap/); [arXiv:2606.19362](https://arxiv.org/abs/2606.19362)). |
+| `theoremdb-p3114-kashaev-volume-conjecture` | Quantum topology | Kashaev's volume formula is proved for selected knots and families, but no universal proof or counterexample for hyperbolic knots was located ([Kashaev](https://doi.org/10.1023/A:1007364912784); [TheoremDB P3114](https://www.theoremdb.org/statements/P3114/)). |
+
+Four candidates were not imported:
+
+| TheoremDB entry | Decision |
+|---|---|
+| `P46` Zauner's conjecture | Duplicate of `krueger-2005-sic-povm-zauner-conjecture`. |
+| `P3566` Uniform Exponential Quantum Parallel Repetition | TheoremDB records a complete answer awaiting independent review and gives no external mathematical reference. |
+| `P11578` Twice-prime XX-chain momentum sums | The record gives no external mathematical reference. |
+| `P3668` Petersen-graph Heisenberg ground polynomial | The record says its status remains unverified and gives no external mathematical reference. |
+
+The earlier field split also overstated the source material. All active entries inherited from the Horodecki, Krueger–Werner, and Ruskai quantum-information lists now belong to `Quantum information`. Their topic labels remain available for filtering. Entries from separate sensing, computation, field-theory, and quantum-topology sources use their respective fields.
+
+The current catalog has 58 entries: 28 open, 10 partially solved, and 20 solved. The website displays 38 active entries across five research fields.
 
 ## How the labels were assigned
 

@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "ruskai-2007-werner-holevo-channel-multiplicativity",
+  "title": "Polarized Werner-Holevo multiplicativity",
+  "status": "partial",
+  "dates": {
+    "proposed": "2007",
+    "latestEvidence": "2007",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "quantum-channels",
+      "label": "Quantum channels"
+    }
+  },
+  "collection": {
+    "id": "ruskai-2007",
+    "label": "Ruskai",
+    "title": "Open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Structured multiplicativity",
+    "summary": "The identical polarized family is settled at p equals two, and the unpolarized endpoint is settled for one through two. The full polarized parameter range remains open.",
+    "importance": "Werner-Holevo channels are a canonical stress test for output-norm conjectures. Resolving the polarized family would map the positive and negative regions of a central example.",
+    "unresolved": "Prove or refute multiplicativity for polarized Werner-Holevo channels throughout the remaining x and p values in the interval from one to two."
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | algebra of $d \\times d$ complex matrices |\n| $\\rho$ | a density matrix (positive, trace-one) on $\\mathbb{C}^d$ |\n| $\\mathrm{Tr}\\,\\rho$ | trace of $\\rho$ |\n| $\\rho^T$ | transpose of $\\rho$ in a fixed basis |\n| $I$ | identity matrix on $\\mathbb{C}^d$ |\n| $\\mathcal{W}$ | the Werner–Holevo channel $\\mathcal{W}(\\rho) = \\tfrac{1}{d-1}\\bigl((\\mathrm{Tr}\\,\\rho)I - \\rho^T\\bigr)$ on $M_d$ |\n| $\\mathcal{I}$ | the identity channel ($\\mathcal{I}(\\rho) = \\rho$) |\n| $x$ | mixing parameter in $[0,1]$ |\n| $\\Phi_x$ | the *polarized* (or depolarized) Werner–Holevo channel $\\Phi_x = x\\mathcal{I} + (1-x)\\mathcal{W}$ |\n| $\\Phi_x \\otimes \\Phi_x$ | tensor product (parallel two uses) of $\\Phi_x$ |\n| $\\lVert\\cdot\\rVert_p$ | Schatten $p$-norm on matrices, $\\lVert A\\rVert_p = (\\mathrm{Tr}\\lvert A\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | maximal output $p$-norm, $\\nu_p(\\Phi) = \\sup_\\rho \\lVert\\Phi(\\rho)\\rVert_p$ |\n| $p$ | the Schatten norm exponent, here $1 \\le p \\le 2$ |\n| EB | entanglement breaking (a channel whose Choi state is separable) |",
+    "statement": "**Problem 6 (Ruskai, 2007).** *Show that the polarized Werner–Holevo channel*\n$$\\Phi_x \\;=\\; x\\,\\mathcal{I} + (1-x)\\,\\mathcal{W}, \\qquad x \\in [0,1],$$\n*on $M_d$ satisfies the multiplicativity property*\n$$\\nu_p(\\Phi_x \\otimes \\Phi_x) \\;=\\; [\\nu_p(\\Phi_x)]^2 \\qquad \\text{for } 1 \\le p \\le 2.$$"
+  },
+  "source": {
+    "title": "Open problems in quantum information theory",
+    "authors": [
+      "Mary Beth Ruskai"
+    ],
+    "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+    "locator": "p. 7-8 (Problem 6)",
+    "url": "https://doi.org/10.48550/arXiv.0708.1902",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2007",
+        "title": "Every polarization is settled at p = 2",
+        "detail": "Michalakis proves maximal-output 2-norm multiplicativity for two identical depolarized Werner-Holevo channels in all dimensions.",
+        "maturity": "Peer reviewed",
+        "strength": "Exact parameter slice",
+        "url": "https://arxiv.org/abs/0707.1722",
+        "label": "p = 2 theorem"
+      },
+      {
+        "date": "2004",
+        "title": "The unpolarized endpoint is settled through p = 2",
+        "detail": "Datta proves multiplicativity for the Werner-Holevo endpoint throughout the interval from one to two.",
+        "maturity": "Peer reviewed",
+        "strength": "Exact endpoint",
+        "url": "https://arxiv.org/abs/quant-ph/0410063",
+        "label": "Unpolarized theorem"
+      }
+    ],
+    "cautions": [],
+    "interpretation": null,
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "Werner-Holevo channel",
+      "polarization",
+      "multiplicativity",
+      "maximal output norm"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/ruskai-2007-werner-holevo-channel-multiplicativity.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Polarized+Werner-Holevo+multiplicativity",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/contribution.schema.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/ruskai-2007-werner-holevo-channel-multiplicativity.json",
+    "human": "https://naixu-guo.github.io/quantum-information-open-problems/problems/ruskai-2007-werner-holevo-channel-multiplicativity/",
+    "explorer": "https://naixu-guo.github.io/quantum-information-open-problems/#ruskai-2007-werner-holevo-channel-multiplicativity",
+    "markdown": "https://naixu-guo.github.io/quantum-information-open-problems/packets/ruskai-2007-werner-holevo-channel-multiplicativity.md",
+    "schema": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/ruskai-2007-werner-holevo-channel-multiplicativity.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/open_prob/ruskai-2007-werner-holevo-channel-multiplicativity/problem.md"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "d664414576b2612a20350632726143735c30409919006d017f8d8fe8400da9bb",
+    "statementDigest": "04ce0a79ef13c7db3a88cb48214666af64a1687126f330722ce5327bade5d77d"
+  }
+}
