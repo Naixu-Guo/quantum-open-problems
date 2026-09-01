@@ -15,7 +15,7 @@ Then open `http://localhost:8000/`.
 
 ## Publish as a GitHub project site
 
-1. Create a new repository, for example `quantum-information-open-problems`. Do not name it `<username>.github.io`; that name is reserved for your account homepage.
+1. Create a new repository, for example `quantum-open-problems`. Do not name it `<username>.github.io`; that name is reserved for your account homepage.
 2. Put this project on the repository's `main` branch.
 3. In the repository, open **Settings → Pages** and select **GitHub Actions** under **Build and deployment → Source**.
 4. Push to `main`, or run the **Deploy research index to GitHub Pages** workflow manually from the Actions tab.
@@ -23,7 +23,7 @@ Then open `http://localhost:8000/`.
 The included [Pages workflow](.github/workflows/pages.yml) publishes only `site/`. This repository uses the following project URL:
 
 ```text
-https://naixu-guo.github.io/quantum-information-open-problems/
+https://naixu-guo.github.io/quantum-open-problems/
 ```
 
 All site paths are relative, so the same files also work at a custom domain or another repository name.

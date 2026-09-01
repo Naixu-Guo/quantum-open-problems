@@ -333,7 +333,7 @@ Use the compact index for discovery, then fetch one problem record or Markdown r
 ## Machine interfaces
 
 - [Agent guide](${siteUrl}/ai/): MCP server setup, endpoint map, research loop, and contribution contract.
-- [MCP server](${repositoryUrl}/blob/main/mcp/server.mjs): Zero-dependency stdio server; add with \`claude mcp add quantum-open-problems -- npx -y github:Naixu-Guo/quantum-information-open-problems\`.
+- [MCP server](${repositoryUrl}/blob/main/mcp/server.mjs): Zero-dependency stdio server; add with \`claude mcp add quantum-open-problems -- npx -y github:Naixu-Guo/quantum-open-problems\`.
 - [API guide](${siteUrl}/api/v1/README.md): Endpoint map and interpretation rules.
 - [Release manifest](${siteUrl}/api/v1/release.json): Catalog date, digest, and counts; poll this before downloading more.
 - [Compact catalog](${siteUrl}/api/v1/index.json): Discovery metadata for active problems.

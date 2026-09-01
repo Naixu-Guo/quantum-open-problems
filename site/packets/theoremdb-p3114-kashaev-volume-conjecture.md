@@ -8,9 +8,9 @@
 - Topic: Quantum knot invariants
 - Collection: TheoremDB
 - Verified: 2026-08-31
-- Catalog entry: https://naixu-guo.github.io/quantum-information-open-problems/problems/theoremdb-p3114-kashaev-volume-conjecture/
-- JSON record: https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/theoremdb-p3114-kashaev-volume-conjecture.json
-- Propose an update: https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Kashaev+volume+conjecture+for+hyperbolic+knots
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/theoremdb-p3114-kashaev-volume-conjecture/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/theoremdb-p3114-kashaev-volume-conjecture.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Kashaev+volume+conjecture+for+hyperbolic+knots
 
 ## Problem source
 

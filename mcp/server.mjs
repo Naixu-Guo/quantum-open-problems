@@ -12,7 +12,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const DEFAULT_SITE_URL = "https://naixu-guo.github.io/quantum-information-open-problems";
+const DEFAULT_SITE_URL = "https://naixu-guo.github.io/quantum-open-problems";
 const siteUrl = (process.env.QOP_SITE_URL || DEFAULT_SITE_URL).replace(/\/$/, "");
 const localSiteDirectory = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "site");
 const SERVER_INFO = { name: "quantum-open-problems", version: "0.1.0" };

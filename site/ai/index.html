@@ -6,7 +6,7 @@
     <meta name="description" content="How AI research agents use the Quantum Open Problems catalog: MCP server setup, HTTP interfaces, catalog watching, and the contribution contract.">
     <meta name="theme-color" content="#0d1b2a">
     <title>For AI agents · Quantum Open Problems</title>
-    <link rel="canonical" href="https://naixu-guo.github.io/quantum-information-open-problems/ai/">
+    <link rel="canonical" href="https://naixu-guo.github.io/quantum-open-problems/ai/">
     <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../styles.css">
     <link rel="alternate" href="../feed.xml" type="application/atom+xml" title="Quantum Open Problems evidence feed">
@@ -14,7 +14,7 @@
     <meta property="og:site_name" content="Quantum Open Problems">
     <meta property="og:title" content="For AI agents">
     <meta property="og:description" content="How AI research agents use the Quantum Open Problems catalog: MCP server setup, HTTP interfaces, catalog watching, and the contribution contract.">
-    <meta property="og:url" content="https://naixu-guo.github.io/quantum-information-open-problems/ai/">
+    <meta property="og:url" content="https://naixu-guo.github.io/quantum-open-problems/ai/">
     <meta name="twitter:card" content="summary">
     <script>
       try {
@@ -37,7 +37,7 @@
         <a href="../problems/">Problems</a>
         <a href="../#claim-watch">Claim watch</a>
         <a href="../ai/" aria-current="page">For AI</a>
-        <a href="https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/CONTRIBUTING.md" rel="noreferrer">Contribute ↗</a>
+        <a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/CONTRIBUTING.md" rel="noreferrer">Contribute ↗</a>
       </nav>
       <button class="theme-button" id="theme-toggle" type="button" aria-label="Switch color theme" aria-pressed="false">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -58,10 +58,10 @@
           <h2 class="list-area-heading" id="mcp-heading">MCP server</h2>
           <p class="ai-copy">The repository ships a zero-dependency MCP server (stdio transport, Node 18+). It reads the published catalog, so it never goes stale. Add it to your agent:</p>
           <pre class="code-block"><code># Claude Code
-claude mcp add quantum-open-problems -- npx -y github:Naixu-Guo/quantum-information-open-problems
+claude mcp add quantum-open-problems -- npx -y github:Naixu-Guo/quantum-open-problems
 
 # Codex CLI
-codex mcp add quantum-open-problems -- npx -y github:Naixu-Guo/quantum-information-open-problems
+codex mcp add quantum-open-problems -- npx -y github:Naixu-Guo/quantum-open-problems
 
 # From a repository checkout (uses your local build)
 claude mcp add quantum-open-problems -- node mcp/server.mjs</code></pre>
@@ -96,7 +96,7 @@ claude mcp add quantum-open-problems -- node mcp/server.mjs</code></pre>
         <section class="dialog-section" aria-labelledby="http-heading">
           <span class="dialog-section-label">No MCP required</span>
           <h2 class="list-area-heading" id="http-heading">HTTP interfaces</h2>
-          <p class="ai-copy">Everything the MCP server exposes is also plain static HTTPS under <code>https://naixu-guo.github.io/quantum-information-open-problems</code> — no authentication, no rate keys.</p>
+          <p class="ai-copy">Everything the MCP server exposes is also plain static HTTPS under <code>https://naixu-guo.github.io/quantum-open-problems</code> — no authentication, no rate keys.</p>
           <div class="notation-table-wrap">
             <table class="notation-table">
               <thead><tr><th scope="col">Interface</th><th scope="col">Path</th><th scope="col">Use</th></tr></thead>
@@ -170,7 +170,7 @@ claude mcp add quantum-open-problems -- node mcp/server.mjs</code></pre>
         <section class="dialog-section" aria-labelledby="contract-heading">
           <span class="dialog-section-label">Writes</span>
           <h2 class="list-area-heading" id="contract-heading">Contribution contract</h2>
-          <p class="ai-copy">Reads need no account. A research result, correction, or failed route enters through the <a href="https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml" rel="noreferrer">research-update form ↗</a> and must state the exact claim and hypotheses, primary sources with locators, reproducible artifacts, declared AI involvement with human checks, and the remaining gap — see the <a href="../api/v1/contribution.schema.json">contribution schema</a> and <a href="https://github.com/Naixu-Guo/quantum-information-open-problems/blob/main/CONTRIBUTING.md" rel="noreferrer">contributing guide ↗</a>. Editors review human and AI work by one standard.</p>
+          <p class="ai-copy">Reads need no account. A research result, correction, or failed route enters through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml" rel="noreferrer">research-update form ↗</a> and must state the exact claim and hypotheses, primary sources with locators, reproducible artifacts, declared AI involvement with human checks, and the remaining gap — see the <a href="../api/v1/contribution.schema.json">contribution schema</a> and <a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/CONTRIBUTING.md" rel="noreferrer">contributing guide ↗</a>. Editors review human and AI work by one standard.</p>
         </section>
       </article>
     </main>

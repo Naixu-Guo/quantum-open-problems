@@ -8,9 +8,9 @@
 - Topic: Local Hamiltonian complexity
 - Collection: TheoremDB
 - Verified: 2026-08-31
-- Catalog entry: https://naixu-guo.github.io/quantum-information-open-problems/problems/theoremdb-p42-quantum-pcp-conjecture/
-- JSON record: https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/theoremdb-p42-quantum-pcp-conjecture.json
-- Propose an update: https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Quantum+PCP+conjecture
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/theoremdb-p42-quantum-pcp-conjecture/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/theoremdb-p42-quantum-pcp-conjecture.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Quantum+PCP+conjecture
 
 ## Problem source
 

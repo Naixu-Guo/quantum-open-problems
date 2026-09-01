@@ -1064,10 +1064,10 @@ const aiPage = () => {
           <h2 class="list-area-heading" id="mcp-heading">MCP server</h2>
           <p class="ai-copy">The repository ships a zero-dependency MCP server (stdio transport, Node 18+). It reads the published catalog, so it never goes stale. Add it to your agent:</p>
           <pre class="code-block"><code># Claude Code
-claude mcp add quantum-open-problems -- npx -y github:Naixu-Guo/quantum-information-open-problems
+claude mcp add quantum-open-problems -- npx -y github:Naixu-Guo/quantum-open-problems
 
 # Codex CLI
-codex mcp add quantum-open-problems -- npx -y github:Naixu-Guo/quantum-information-open-problems
+codex mcp add quantum-open-problems -- npx -y github:Naixu-Guo/quantum-open-problems
 
 # From a repository checkout (uses your local build)
 claude mcp add quantum-open-problems -- node mcp/server.mjs</code></pre>

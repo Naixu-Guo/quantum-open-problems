@@ -8,9 +8,9 @@
 - Topic: Quantum designs
 - Collection: Horodecki
 - Verified: 2026-08-12
-- Catalog entry: https://naixu-guo.github.io/quantum-information-open-problems/problems/horodecki-2020-sic-povm-infinite-dimensions/
-- JSON record: https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/horodecki-2020-sic-povm-infinite-dimensions.json
-- Propose an update: https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+SIC+POVMs+in+infinitely+many+dimensions
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/horodecki-2020-sic-povm-infinite-dimensions/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/horodecki-2020-sic-povm-infinite-dimensions.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+SIC+POVMs+in+infinitely+many+dimensions
 
 ## Problem source
 

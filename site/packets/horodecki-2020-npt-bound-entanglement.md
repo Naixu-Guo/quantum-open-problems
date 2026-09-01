@@ -8,9 +8,9 @@
 - Topic: Entanglement theory
 - Collection: Horodecki
 - Verified: 2026-08-12
-- Catalog entry: https://naixu-guo.github.io/quantum-information-open-problems/problems/horodecki-2020-npt-bound-entanglement/
-- JSON record: https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/horodecki-2020-npt-bound-entanglement.json
-- Propose an update: https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+NPT+bound+entanglement
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/horodecki-2020-npt-bound-entanglement/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/horodecki-2020-npt-bound-entanglement.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+NPT+bound+entanglement
 
 ## Problem source
 

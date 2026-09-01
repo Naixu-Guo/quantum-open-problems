@@ -8,9 +8,9 @@
 - Topic: Quantum designs
 - Collection: Krueger–Werner
 - Verified: 2026-08-12
-- Catalog entry: https://naixu-guo.github.io/quantum-information-open-problems/problems/krueger-2005-mutually-unbiased-bases/
-- JSON record: https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/krueger-2005-mutually-unbiased-bases.json
-- Propose an update: https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Mutually+unbiased+bases+in+general+dimensions
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-mutually-unbiased-bases/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-mutually-unbiased-bases.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Mutually+unbiased+bases+in+general+dimensions
 
 ## Problem source
 

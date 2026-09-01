@@ -8,9 +8,9 @@
 - Topic: Quantum Yang–Mills theory
 - Collection: TheoremDB
 - Verified: 2026-08-31
-- Catalog entry: https://naixu-guo.github.io/quantum-information-open-problems/problems/theoremdb-p36-yang-mills-mass-gap/
-- JSON record: https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/theoremdb-p36-yang-mills-mass-gap.json
-- Propose an update: https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Yang-Mills+existence+and+mass+gap
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/theoremdb-p36-yang-mills-mass-gap/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/theoremdb-p36-yang-mills-mass-gap.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Yang-Mills+existence+and+mass+gap
 
 ## Problem source
 

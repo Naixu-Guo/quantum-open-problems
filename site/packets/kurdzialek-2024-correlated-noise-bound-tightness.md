@@ -8,9 +8,9 @@
 - Topic: Quantum metrology
 - Collection: GaugeForge
 - Verified: 2026-08-31
-- Catalog entry: https://naixu-guo.github.io/quantum-information-open-problems/problems/kurdzialek-2024-correlated-noise-bound-tightness/
-- JSON record: https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/kurdzialek-2024-correlated-noise-bound-tightness.json
-- Propose an update: https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Tightness+of+metrology+bounds+under+correlated+noise
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/kurdzialek-2024-correlated-noise-bound-tightness/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/kurdzialek-2024-correlated-noise-bound-tightness.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Tightness+of+metrology+bounds+under+correlated+noise
 
 ## Problem source
 

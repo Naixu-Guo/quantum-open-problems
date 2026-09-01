@@ -8,9 +8,9 @@
 - Topic: Quantum metrology
 - Collection: GaugeForge
 - Verified: 2026-08-31
-- Catalog entry: https://naixu-guo.github.io/quantum-information-open-problems/problems/mothe-2023-indefinite-causal-order-asymptotic-metrology/
-- JSON record: https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/mothe-2023-indefinite-causal-order-asymptotic-metrology.json
-- Propose an update: https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Asymptotic+metrology+with+quantum-controlled+causal+order
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/mothe-2023-indefinite-causal-order-asymptotic-metrology/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/mothe-2023-indefinite-causal-order-asymptotic-metrology.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Asymptotic+metrology+with+quantum-controlled+causal+order
 
 ## Problem source
 

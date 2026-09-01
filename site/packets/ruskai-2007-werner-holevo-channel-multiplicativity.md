@@ -8,9 +8,9 @@
 - Topic: Quantum channels
 - Collection: Ruskai
 - Verified: 2026-08-12
-- Catalog entry: https://naixu-guo.github.io/quantum-information-open-problems/problems/ruskai-2007-werner-holevo-channel-multiplicativity/
-- JSON record: https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/ruskai-2007-werner-holevo-channel-multiplicativity.json
-- Propose an update: https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Polarized+Werner-Holevo+multiplicativity
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-werner-holevo-channel-multiplicativity/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-werner-holevo-channel-multiplicativity.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Polarized+Werner-Holevo+multiplicativity
 
 ## Problem source
 

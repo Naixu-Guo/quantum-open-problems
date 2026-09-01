@@ -8,9 +8,9 @@
 - Topic: Quantum channels
 - Collection: Ruskai
 - Verified: 2026-08-12
-- Catalog entry: https://naixu-guo.github.io/quantum-information-open-problems/problems/ruskai-2007-extreme-points-cpt-maps/
-- JSON record: https://naixu-guo.github.io/quantum-information-open-problems/api/v1/problems/ruskai-2007-extreme-points-cpt-maps.json
-- Propose an update: https://github.com/Naixu-Guo/quantum-information-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Extreme+CPT+maps+beyond+qubit+input
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-extreme-points-cpt-maps/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-extreme-points-cpt-maps.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Extreme+CPT+maps+beyond+qubit+input
 
 ## Problem source
 

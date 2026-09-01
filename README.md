@@ -2,7 +2,7 @@
 
 An index of open problems across quantum science, checked against primary papers and recent claims.
 
-**[Browse the research index](https://naixu-guo.github.io/quantum-information-open-problems/)**
+**[Browse the research index](https://naixu-guo.github.io/quantum-open-problems/)**
 
 The baseline audit covers 53 questions from the Horodecki, Krueger–Werner, and Ruskai quantum-information lists. The 33 active questions inherited from those lists stay in the `Quantum information` field; their topic labels do not promote them into other research fields.
 
@@ -46,7 +46,7 @@ Each problem stores stable topic and collection IDs. The topic registry assigns 
 
 The website generates `site/data/formal-statements.js` from the `## Notation` and `## Formal statement` sections of each active article. It generates `site/data/problem-sources.js` from each record's source metadata, including the paper or problem list, authors, statement locator, and primary URL. The validator compares the generated data with its sources.
 
-Agents can connect through MCP: `claude mcp add quantum-open-problems -- npx -y github:Naixu-Guo/quantum-information-open-problems` (or `codex mcp add …`) runs [`mcp/server.mjs`](mcp/server.mjs), which exposes search, records, research briefs, evidence watching, and the contribution contract as tools over the published catalog. The [agent guide](site/ai/) documents the full research loop. Without MCP, agents can discover the catalog through [`site/llms.txt`](site/llms.txt), read individual records under `site/api/v1/problems/`, or download the JSONL snapshot. `site/llms-full.txt` concatenates every research brief for one-fetch ingestion. An agent should poll `site/api/v1/release.json` for the catalog date, digest, and counts, then read `site/api/v1/evidence.json` or the Atom/JSON feeds (`site/feed.xml`, `site/feed.json`) for dated evidence events with stable content-hash IDs. `site/sitemap.xml` lists the stable problem pages for crawlers. The browser loads the compact discovery index and fetches complete records on demand. See [ARCHITECTURE.md](ARCHITECTURE.md) for the canonical-record migration and contribution model.
+Agents can connect through MCP: `claude mcp add quantum-open-problems -- npx -y github:Naixu-Guo/quantum-open-problems` (or `codex mcp add …`) runs [`mcp/server.mjs`](mcp/server.mjs), which exposes search, records, research briefs, evidence watching, and the contribution contract as tools over the published catalog. The [agent guide](site/ai/) documents the full research loop. Without MCP, agents can discover the catalog through [`site/llms.txt`](site/llms.txt), read individual records under `site/api/v1/problems/`, or download the JSONL snapshot. `site/llms-full.txt` concatenates every research brief for one-fetch ingestion. An agent should poll `site/api/v1/release.json` for the catalog date, digest, and counts, then read `site/api/v1/evidence.json` or the Atom/JSON feeds (`site/feed.xml`, `site/feed.json`) for dated evidence events with stable content-hash IDs. `site/sitemap.xml` lists the stable problem pages for crawlers. The browser loads the compact discovery index and fetches complete records on demand. See [ARCHITECTURE.md](ARCHITECTURE.md) for the canonical-record migration and contribution model.
 
 ## AI research packets
 
