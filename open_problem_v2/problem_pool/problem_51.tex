@@ -1,0 +1,182 @@
+% Problem-section file following ../_template.tex.
+\section{Energy-constrained quantum capacity of a thermal attenuator}
+\label{sec:problem-51}
+
+\paragraph{Problem.}
+For $0<\eta<1$ and $0<\nu<\infty$, let the single-mode bosonic thermal
+attenuator be
+\begin{equation}
+  \Phi_{\eta,\nu}(\rho_A)
+  :=\operatorname{Tr}_{E'}\!\left[
+     U_\eta(\rho_A\otimes\tau_{\nu,E})U_\eta^\dagger
+  \right],
+  \qquad
+  \tau_\nu:=\sum_{k=0}^{\infty}
+     \frac{\nu^k}{(\nu+1)^{k+1}}|k\rangle\!\langle k|,
+  \label{eq:p51-thermal-attenuator}
+\end{equation}
+where $U_\eta$ is a beam-splitter unitary.  For a finite mean input photon
+number $0<N_{\rm S}<\infty$, define the energy-constrained unassisted quantum
+capacity by
+\begin{equation}
+  \mathcal Q(\Phi_{\eta,\nu},N_{\rm S})
+  :=\lim_{n\to\infty}\frac1n
+  \sup_{\substack{\rho_{A^n}:\\
+       \operatorname{Tr}[\rho_{A^n}\sum_{j=1}^n\hat n_j]
+       \leq nN_{\rm S}}}
+       I_{\rm c}(\rho_{A^n},\Phi_{\eta,\nu}^{\otimes n}),
+  \label{eq:p51-energy-constrained-capacity}
+\end{equation}
+where $\hat n_j$ is the photon-number operator of the $j$th mode and
+$I_{\rm c}(\rho,\mathcal N)
+:=S(\mathcal N(\rho))-S(\mathcal N^{\rm c}(\rho))$.  Determine
+Eq.~\eqref{eq:p51-energy-constrained-capacity} for the thermal channel in
+Eq.~\eqref{eq:p51-thermal-attenuator}.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+The problem is implicit in the nonmatching energy-constrained bounds of
+Sharma et al. and the strict multimode achievable-rate improvements of Noh,
+Pirandola, and Jiang \sourcecite{ref:p51-sharma-et-al}{SWA+18},
+\sourcecite{ref:p51-noh-pirandola-jiang}{NPJ20}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item For the zero-temperature pure-loss channel, the constrained capacity
+  is known exactly:
+  \begin{equation}
+    \mathcal Q(\Phi_{\eta,0},N_{\rm S})
+    =\left[g(\eta N_{\rm S})-g((1-\eta)N_{\rm S})\right]_+,
+    \qquad
+    g(x):=(x+1)\log_2(x+1)-x\log_2x.
+    \label{eq:p51-pure-loss-capacity}
+  \end{equation}
+  Equation~\eqref{eq:p51-pure-loss-capacity} does not extend directly to a
+  thermal environment \sourcecite{ref:p51-wilde-qi}{WQ18}.
+
+  \item For $\nu>0$, a thermal input of mean photon number $N_{\rm S}$ gives
+  \begin{equation}
+    \mathcal Q(\Phi_{\eta,\nu},N_{\rm S})
+    \geq[L(\eta,\nu,N_{\rm S})]_+,
+    \label{eq:p51-thermal-lower-bound}
+  \end{equation}
+  where the rate in Eq.~\eqref{eq:p51-thermal-lower-bound} is
+  \begin{equation}
+    \begin{aligned}
+    L(\eta,\nu,N_{\rm S})
+      &:={}
+      g(\eta N_{\rm S}+(1-\eta)\nu)\\
+      &\quad-g\!\left(
+        \frac{\Delta+(1-\eta)N_{\rm S}-(1-\eta)\nu-1}{2}
+      \right)\\
+      &\quad-g\!\left(
+        \frac{\Delta-(1-\eta)N_{\rm S}+(1-\eta)\nu-1}{2}
+      \right),\\
+    \Delta
+      &:=\sqrt{[(1+\eta)N_{\rm S}+(1-\eta)\nu+1]^2
+                -4\eta N_{\rm S}(N_{\rm S}+1)}.
+    \end{aligned}
+    \label{eq:p51-thermal-rate}
+  \end{equation}
+  The expression in Eq.~\eqref{eq:p51-thermal-rate} is a one-use achievable
+  rate, not an exact capacity formula
+  \sourcecite{ref:p51-holevo-werner}{HW01},
+  \sourcecite{ref:p51-sharma-et-al}{SWA+18}.
+
+  \item Multimode Gaussian constructions improve the raw thermal-input rate
+  through the convexified bound
+  \begin{equation}
+    \mathcal Q(\Phi_{\eta,\nu},N_{\rm S})
+    \geq\sup_{0<x\leq1}
+      xI_{\rm c}(\tau_{N_{\rm S}/x},\Phi_{\eta,\nu})
+    \geq[L(\eta,\nu,N_{\rm S})]_+.
+    \label{eq:p51-convexified-achievable-rate}
+  \end{equation}
+  For $\nu=N_{\rm S}=1$, this construction numerically improves the
+  single-mode thermal rate in a nontrivial loss regime
+  \sourcecite{ref:p51-noh-pirandola-jiang}{NPJ20}.
+
+  \item A data-processing decomposition gives, for $1/2\leq\eta<1$,
+  \begin{equation}
+    \mathcal Q(\Phi_{\eta,\nu},N_{\rm S})
+    \leq[U(\eta,\nu,N_{\rm S})]_+,
+    \qquad
+    U:=g(\eta'N_{\rm S})-g((1-\eta')N_{\rm S}),
+    \quad
+    \eta':=\frac{\eta}{1+(1-\eta)\nu}.
+    \label{eq:p51-data-processing-upper-bound}
+  \end{equation}
+  The upper bound in Eq.~\eqref{eq:p51-data-processing-upper-bound} generally
+  does not meet Eq.~\eqref{eq:p51-convexified-achievable-rate}
+  \sourcecite{ref:p51-sharma-et-al}{SWA+18}.
+
+  \item The unconstrained optimization over all single-mode Gaussian inputs
+  is known, but its proof fixes output entropy rather than input energy and
+  explicitly does not establish thermal-state optimality at fixed
+  $N_{\rm S}$ \sourcecite{ref:p51-mele-et-al}{MCF+26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[WQ18]}]\label{ref:p51-wilde-qi}
+  M. M. Wilde and H. Qi,
+  ``Energy-Constrained Private and Quantum Capacities of Quantum Channels,''
+  \emph{IEEE Transactions on Information Theory} \textbf{64}, 7802--7827
+  (2018).
+  \href{https://doi.org/10.1109/TIT.2018.2854766}%
+       {doi:10.1109/TIT.2018.2854766};
+  \href{https://arxiv.org/abs/1609.01997}{arXiv:1609.01997}.
+
+  \item[\textup{[HW01]}]\label{ref:p51-holevo-werner}
+  A. S. Holevo and R. F. Werner,
+  ``Evaluating Capacities of Bosonic Gaussian Channels,''
+  \emph{Physical Review A} \textbf{63}, 032312 (2001).
+  \href{https://doi.org/10.1103/PhysRevA.63.032312}%
+       {doi:10.1103/PhysRevA.63.032312};
+  \href{https://arxiv.org/abs/quant-ph/9912067}{arXiv:quant-ph/9912067}.
+
+  \item[\textup{[SWA+18]}]\label{ref:p51-sharma-et-al}
+  K. Sharma, M. M. Wilde, S. Adhikari, and M. Takeoka,
+  ``Bounding the Energy-Constrained Quantum and Private Capacities of
+  Phase-Insensitive Bosonic Gaussian Channels,''
+  \emph{New Journal of Physics} \textbf{20}, 063025 (2018).
+  \href{https://doi.org/10.1088/1367-2630/aac11a}%
+       {doi:10.1088/1367-2630/aac11a};
+  \href{https://arxiv.org/abs/1708.07257}{arXiv:1708.07257}.
+
+  \item[\textup{[NPJ20]}]\label{ref:p51-noh-pirandola-jiang}
+  K. Noh, S. Pirandola, and L. Jiang,
+  ``Enhanced Energy-Constrained Quantum Communication over Bosonic Gaussian
+  Channels,'' \emph{Nature Communications} \textbf{11}, 457 (2020).
+  \href{https://doi.org/10.1038/s41467-020-14329-6}%
+       {doi:10.1038/s41467-020-14329-6};
+  \href{https://arxiv.org/abs/1811.06988}{arXiv:1811.06988}.
+
+  \item[\textup{[MCF+26]}]\label{ref:p51-mele-et-al}
+  F. A. Mele, G. Catalano, M. Fanizza, V. Giovannetti, and L. Lami,
+  ``Bosonic Quantum Communication Beyond the Thermal Threshold,''
+  arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2607.27449}{arXiv:2607.27449}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+For finite $\nu>0$ and finite $N_{\rm S}$, neither the optimal one-use input
+nor the necessity of regularization is known.  This constrained problem is
+distinct from the unconstrained capacity in Problem~49.
+
+\subsection*{Tag}
+
+Bosonic channels; Quantum capacity; Coherent information;
+Gaussian quantum information; Continuous-variable systems
+
+\subsection*{ID}
+
+\texttt{op\_b65cf15705065d81}

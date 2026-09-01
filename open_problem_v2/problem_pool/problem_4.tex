@@ -1,0 +1,84 @@
+% Problem-section file following ../_template.tex.
+\section{Achievability of the Rains bound under PPT-preserving channels}
+\label{sec:problem-4}
+
+\paragraph{Problem.}
+Consider distilling the bipartite Bell-diagonal state
+\begin{equation}
+  \rho_{\mathbf p}
+  =p_I\lvert\Phi^+\rangle\!\langle\Phi^+\rvert
+  +p_X\lvert\Psi^+\rangle\!\langle\Psi^+\rvert
+  +p_Y\lvert\Psi^-\rangle\!\langle\Psi^-\rvert
+  +p_Z\lvert\Phi^-\rangle\!\langle\Phi^-\rvert,
+  \label{eq:p4-bell-diagonal-state}
+\end{equation}
+where $p_i>0$ and $p_I+p_X+p_Y+p_Z=1$, and
+$\lvert\Phi^\pm\rangle:=(\lvert00\rangle\pm\lvert11\rangle)/\sqrt2$ and
+$\lvert\Psi^\pm\rangle:=(\lvert01\rangle\pm\lvert10\rangle)/\sqrt2$.
+Is the Rains bound of the state in Eq.~\eqref{eq:p4-bell-diagonal-state}
+achievable by a positive-partial-transpose-state-preserving
+(PPT-state-preserving, or PPT-preserving) quantum channel?  If so, what is the
+constructive quantum channel?  A channel is PPT-state-preserving if every PPT
+input state is mapped to a PPT output state.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Rains introduced the PPT-preserving distillation framework and its
+semidefinite-programming bound; the present Bell-diagonal achievability
+question is an implicit specialization of that work
+\sourcecite{ref:p4-rains-1999}{Rai99},
+\sourcecite{ref:p4-rains-2001}{Rai01}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Rains showed that the Rains bound $R(\rho_{\mathbf p})$ upper-bounds
+  the entanglement distillable from $\rho_{\mathbf p}$ by PPT-preserving
+  operations:
+  \begin{equation}
+    D_{\mathrm{PPT}}(\rho_{\mathbf p})\le R(\rho_{\mathbf p}).
+    \label{eq:p4-rains-upper-bound}
+  \end{equation}
+  Equation~\eqref{eq:p4-rains-upper-bound} is the relevant converse bound for
+  the operational class in this problem
+  \sourcecite{ref:p4-rains-1999}{Rai99},
+  \sourcecite{ref:p4-rains-2001}{Rai01}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Rai99]}]\label{ref:p4-rains-1999}
+  E. M. Rains, ``An Improved Bound on Distillable Entanglement,''
+  \emph{Physical Review A} \textbf{60}, 179--184 (1999).
+  \newline
+  \href{https://doi.org/10.1103/PhysRevA.60.179}{doi:10.1103/PhysRevA.60.179};
+  \href{https://arxiv.org/abs/quant-ph/9809082}{arXiv:quant-ph/9809082}.
+
+  \item[\textup{[Rai01]}]\label{ref:p4-rains-2001}
+  E. M. Rains, ``A Semidefinite Program for Distillable Entanglement,''
+  \emph{IEEE Transactions on Information Theory} \textbf{47}, 2921--2933
+  (2001). \href{https://doi.org/10.1109/18.959270}{doi:10.1109/18.959270};
+  \href{https://arxiv.org/abs/quant-ph/0008047}{arXiv:quant-ph/0008047}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The problem asks whether the upper bound in
+Eq.~\eqref{eq:p4-rains-upper-bound} is achievable for the Bell-diagonal family
+in Eq.~\eqref{eq:p4-bell-diagonal-state}, and, if so, for an explicit
+construction of a PPT-preserving channel attaining it.
+
+\subsection*{Tag}
+
+Bell-diagonal states; Rains bound; PPT-preserving operations;
+Entanglement distillation; Semidefinite programming; Entanglement measures
+
+\subsection*{ID}
+
+\texttt{op\_4cf3e7b8663b1d41}

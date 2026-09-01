@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.1",
+  "content_format": "latex",
+  "text_encoding": "UTF-8",
+  "representation": {
+    "latex_fields": "LaTeX is preserved verbatim in all keys ending in _latex.",
+    "round_trip_field": "source_tex",
+    "json_escaping": "Backslashes and control characters use standard JSON string escaping."
+  },
+  "source": {
+    "file": "../problem_pool/problem_25.tex",
+    "sha256": "7daa3dfcfed27c38f82a2dcc07687f83ad71c65b02de0c32daebb2bd59a2ca1c"
+  },
+  "problem_number": 25,
+  "title": "Statistical strength of CGLMP measurements",
+  "section_label": "sec:problem-25",
+  "id": "op_a34f0e2d6489068f",
+  "status": "Unsolved",
+  "tags": [
+    "Bell nonlocality",
+    "Convex optimization",
+    "Measurement theory",
+    "Qudit systems",
+    "Quantum foundations"
+  ],
+  "sections": {
+    "problem_statement": {
+      "latex": "For every $d\\geq3$, do the standard CGLMP Fourier--phase measurements maximize\nthe relative-entropy statistical strength against local realism among all\nprojective $d$-outcome measurements on the fixed state\n$\\lvert\\Phi_d\\rangle=d^{-1/2}\\sum_{j=0}^{d-1}\\lvert j,j\\rangle$, when the\nsetting distribution is also optimized?  For a behavior $p(a,b\\mid x,y)$, a\ndistribution $\\mu(x,y)$ on the four setting pairs, and the local polytope\n$\\mathcal L$, define\n\\begin{equation}\n  S(p;\\mu)\n  :=\\inf_{\\ell\\in\\mathcal L}\n    \\sum_{a,b,x,y}\\mu(x,y)p(a,b\\mid x,y)\n    \\log_2\\!\\frac{p(a,b\\mid x,y)}{\\ell(a,b\\mid x,y)},\n  \\label{eq:p25-statistical-strength}\n\\end{equation}\nSet $S^\\star(p):=\\sup_{\\mu\\in\\Delta(\\{0,1\\}^2)}S(p;\\mu)$; by\nEq.~\\eqref{eq:p25-statistical-strength}, this is the optimized asymptotic\nevidence rate against the best local model.  The candidate bases are\n\\begin{equation}\n  \\begin{aligned}\n    \\lvert a;x\\rangle\n      &=\\frac{1}{\\sqrt d}\\sum_{j=0}^{d-1}\n        \\exp\\!\\left(\\frac{2\\pi i}{d}j(a+\\alpha_x)\\right)\\lvert j\\rangle,\\\\\n    \\lvert b;y\\rangle\n      &=\\frac{1}{\\sqrt d}\\sum_{j=0}^{d-1}\n        \\exp\\!\\left(\\frac{2\\pi i}{d}j(-b+\\beta_y)\\right)\\lvert j\\rangle,\n  \\end{aligned}\n  \\label{eq:p25-cglmp-bases}\n\\end{equation}\nwhere $\\alpha_0=0$, $\\alpha_1=-1/2$, $\\beta_0=1/4$, and $\\beta_1=3/4$.\nLet $p_{\\mathrm{CGLMP}}$ denote the behavior produced on\n$\\lvert\\Phi_d\\rangle$ by the bases in Eq.~\\eqref{eq:p25-cglmp-bases}, and\nwrite $p_M$ for the behavior produced by any other measurement choice $M$ on\n$\\lvert\\Phi_d\\rangle$.  The conjectured optimality of\nEq.~\\eqref{eq:p25-cglmp-bases} is\n\\begin{equation}\n  S^\\star(p_{\\mathrm{CGLMP}})\n  =\\sup_M S^\\star(p_M),\n  \\label{eq:p25-cglmp-statistical-optimum}\n\\end{equation}\nwhere the supremum is over two projective $d$-outcome measurements per party.\nEquation~\\eqref{eq:p25-cglmp-statistical-optimum} is the question to be\nresolved."
+    },
+    "status": {
+      "value": "Unsolved",
+      "latex": "Unsolved"
+    },
+    "source": {
+      "latex": "Gill explicitly proposes the global statistical-strength optimality of the\nCGLMP measurement construction for a fixed maximally entangled state\n\\sourcecite{ref:p25-gill}{Gil07}.",
+      "citations": [
+        {
+          "label": "ref:p25-gill",
+          "alpha_key": "Gil07"
+        }
+      ]
+    },
+    "progress": {
+      "latex": "\\begin{itemize}\n  \\item Van Dam, Gill, and Grünwald established the operational interpretation\n  of Eq.~\\eqref{eq:p25-statistical-strength} as the asymptotic evidence rate of\n  a Bell experiment and formulated the joint optimization problem\n  \\sourcecite{ref:p25-statistical-strength}{DGG05}.\n\n  \\item Acín, Gill, and Gisin numerically found the CGLMP measurement bases for\n  their relative-entropy searches at $d=3$ and $d=4$.  Their globally best\n  state was not maximally entangled, so this does not resolve the fixed-state\n  equality in Eq.~\\eqref{eq:p25-cglmp-statistical-optimum}\n  \\sourcecite{ref:p25-acin}{AGG05}.\n\n  \\item Gill reports that numerical searches with the maximally entangled\n  state fixed found only the CGLMP measurements for both Euclidean and\n  relative-entropy criteria, but treats optimality as conjectural; the search\n  does not prove Eq.~\\eqref{eq:p25-cglmp-statistical-optimum} for arbitrary\n  $d$\n  \\sourcecite{ref:p25-gill}{Gil07}.\n\\end{itemize}",
+      "items": [
+        {
+          "index": 1,
+          "latex": "Van Dam, Gill, and Grünwald established the operational interpretation\n  of Eq.~\\eqref{eq:p25-statistical-strength} as the asymptotic evidence rate of\n  a Bell experiment and formulated the joint optimization problem\n  \\sourcecite{ref:p25-statistical-strength}{DGG05}."
+        },
+        {
+          "index": 2,
+          "latex": "Acín, Gill, and Gisin numerically found the CGLMP measurement bases for\n  their relative-entropy searches at $d=3$ and $d=4$.  Their globally best\n  state was not maximally entangled, so this does not resolve the fixed-state\n  equality in Eq.~\\eqref{eq:p25-cglmp-statistical-optimum}\n  \\sourcecite{ref:p25-acin}{AGG05}."
+        },
+        {
+          "index": 3,
+          "latex": "Gill reports that numerical searches with the maximally entangled\n  state fixed found only the CGLMP measurements for both Euclidean and\n  relative-entropy criteria, but treats optimality as conjectural; the search\n  does not prove Eq.~\\eqref{eq:p25-cglmp-statistical-optimum} for arbitrary\n  $d$\n  \\sourcecite{ref:p25-gill}{Gil07}."
+        }
+      ]
+    },
+    "references": {
+      "latex": "\\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]\n  \\footnotesize\n  \\item[\\textup{[DGG05]}]\\label{ref:p25-statistical-strength}\n  W. van Dam, R. D. Gill, and P. D. Grünwald,\n  ``The Statistical Strength of Nonlocality Proofs,''\n  \\emph{IEEE Transactions on Information Theory} \\textbf{51}, 2812--2835\n  (2005).\n  \\href{https://doi.org/10.1109/TIT.2005.851738}{doi:10.1109/TIT.2005.851738};\n  \\href{https://arxiv.org/abs/quant-ph/0307125}{arXiv:quant-ph/0307125}.\n\n  \\item[\\textup{[AGG05]}]\\label{ref:p25-acin}\n  A. Acín, R. Gill, and N. Gisin,\n  ``Optimal Bell Tests Do Not Require Maximally Entangled States,''\n  \\emph{Physical Review Letters} \\textbf{95}, 210402 (2005).\n  \\href{https://doi.org/10.1103/PhysRevLett.95.210402}{doi:10.1103/PhysRevLett.95.210402};\n  \\href{https://arxiv.org/abs/quant-ph/0506225}{arXiv:quant-ph/0506225}.\n\n  \\item[\\textup{[Gil07]}]\\label{ref:p25-gill}\n  R. D. Gill, ``Better Bell Inequalities (Passion at a Distance),'' in\n  \\emph{Asymptotics: Particles, Processes and Inverse Problems}, IMS Lecture\n  Notes--Monograph Series \\textbf{55}, 135--148 (2007).\n  \\href{https://doi.org/10.1214/074921707000000328}{doi:10.1214/074921707000000328};\n  \\href{https://arxiv.org/abs/math/0610115}{arXiv:math/0610115}.\n\\end{enumerate}",
+      "entries": [
+        {
+          "alpha_key": "DGG05",
+          "label": "ref:p25-statistical-strength",
+          "entry_latex": "W. van Dam, R. D. Gill, and P. D. Grünwald,\n  ``The Statistical Strength of Nonlocality Proofs,''\n  \\emph{IEEE Transactions on Information Theory} \\textbf{51}, 2812--2835\n  (2005).\n  \\href{https://doi.org/10.1109/TIT.2005.851738}{doi:10.1109/TIT.2005.851738};\n  \\href{https://arxiv.org/abs/quant-ph/0307125}{arXiv:quant-ph/0307125}.",
+          "item_latex": "  \\item[\\textup{[DGG05]}]\\label{ref:p25-statistical-strength}\n  W. van Dam, R. D. Gill, and P. D. Grünwald,\n  ``The Statistical Strength of Nonlocality Proofs,''\n  \\emph{IEEE Transactions on Information Theory} \\textbf{51}, 2812--2835\n  (2005).\n  \\href{https://doi.org/10.1109/TIT.2005.851738}{doi:10.1109/TIT.2005.851738};\n  \\href{https://arxiv.org/abs/quant-ph/0307125}{arXiv:quant-ph/0307125}."
+        },
+        {
+          "alpha_key": "AGG05",
+          "label": "ref:p25-acin",
+          "entry_latex": "A. Acín, R. Gill, and N. Gisin,\n  ``Optimal Bell Tests Do Not Require Maximally Entangled States,''\n  \\emph{Physical Review Letters} \\textbf{95}, 210402 (2005).\n  \\href{https://doi.org/10.1103/PhysRevLett.95.210402}{doi:10.1103/PhysRevLett.95.210402};\n  \\href{https://arxiv.org/abs/quant-ph/0506225}{arXiv:quant-ph/0506225}.",
+          "item_latex": "  \\item[\\textup{[AGG05]}]\\label{ref:p25-acin}\n  A. Acín, R. Gill, and N. Gisin,\n  ``Optimal Bell Tests Do Not Require Maximally Entangled States,''\n  \\emph{Physical Review Letters} \\textbf{95}, 210402 (2005).\n  \\href{https://doi.org/10.1103/PhysRevLett.95.210402}{doi:10.1103/PhysRevLett.95.210402};\n  \\href{https://arxiv.org/abs/quant-ph/0506225}{arXiv:quant-ph/0506225}."
+        },
+        {
+          "alpha_key": "Gil07",
+          "label": "ref:p25-gill",
+          "entry_latex": "R. D. Gill, ``Better Bell Inequalities (Passion at a Distance),'' in\n  \\emph{Asymptotics: Particles, Processes and Inverse Problems}, IMS Lecture\n  Notes--Monograph Series \\textbf{55}, 135--148 (2007).\n  \\href{https://doi.org/10.1214/074921707000000328}{doi:10.1214/074921707000000328};\n  \\href{https://arxiv.org/abs/math/0610115}{arXiv:math/0610115}.",
+          "item_latex": "  \\item[\\textup{[Gil07]}]\\label{ref:p25-gill}\n  R. D. Gill, ``Better Bell Inequalities (Passion at a Distance),'' in\n  \\emph{Asymptotics: Particles, Processes and Inverse Problems}, IMS Lecture\n  Notes--Monograph Series \\textbf{55}, 135--148 (2007).\n  \\href{https://doi.org/10.1214/074921707000000328}{doi:10.1214/074921707000000328};\n  \\href{https://arxiv.org/abs/math/0610115}{arXiv:math/0610115}."
+        }
+      ]
+    },
+    "comment": {
+      "latex": "The remaining gap is a global proof or counterexample to\nEq.~\\eqref{eq:p25-cglmp-statistical-optimum} for arbitrary $d$.  The shared\nstate is fixed; this differs from joint state--measurement optimization and\nfrom maximizing the linear CGLMP violation in Problem~24."
+    },
+    "tag": {
+      "values": [
+        "Bell nonlocality",
+        "Convex optimization",
+        "Measurement theory",
+        "Qudit systems",
+        "Quantum foundations"
+      ],
+      "latex": "Bell nonlocality; Convex optimization; Measurement theory; Qudit systems;\nQuantum foundations"
+    },
+    "id": {
+      "value": "op_a34f0e2d6489068f",
+      "latex": "\\texttt{op\\_a34f0e2d6489068f}"
+    }
+  },
+  "equations": [
+    {
+      "index": 1,
+      "label": "eq:p25-statistical-strength",
+      "latex": "\\begin{equation}\n  S(p;\\mu)\n  :=\\inf_{\\ell\\in\\mathcal L}\n    \\sum_{a,b,x,y}\\mu(x,y)p(a,b\\mid x,y)\n    \\log_2\\!\\frac{p(a,b\\mid x,y)}{\\ell(a,b\\mid x,y)},\n  \\label{eq:p25-statistical-strength}\n\\end{equation}"
+    },
+    {
+      "index": 2,
+      "label": "eq:p25-cglmp-bases",
+      "latex": "\\begin{equation}\n  \\begin{aligned}\n    \\lvert a;x\\rangle\n      &=\\frac{1}{\\sqrt d}\\sum_{j=0}^{d-1}\n        \\exp\\!\\left(\\frac{2\\pi i}{d}j(a+\\alpha_x)\\right)\\lvert j\\rangle,\\\\\n    \\lvert b;y\\rangle\n      &=\\frac{1}{\\sqrt d}\\sum_{j=0}^{d-1}\n        \\exp\\!\\left(\\frac{2\\pi i}{d}j(-b+\\beta_y)\\right)\\lvert j\\rangle,\n  \\end{aligned}\n  \\label{eq:p25-cglmp-bases}\n\\end{equation}"
+    },
+    {
+      "index": 3,
+      "label": "eq:p25-cglmp-statistical-optimum",
+      "latex": "\\begin{equation}\n  S^\\star(p_{\\mathrm{CGLMP}})\n  =\\sup_M S^\\star(p_M),\n  \\label{eq:p25-cglmp-statistical-optimum}\n\\end{equation}"
+    }
+  ],
+  "source_tex": "% Problem-section file following ../_template.tex.\n\\section{Statistical strength of CGLMP measurements}\n\\label{sec:problem-25}\n\n\\paragraph{Problem.}\nFor every $d\\geq3$, do the standard CGLMP Fourier--phase measurements maximize\nthe relative-entropy statistical strength against local realism among all\nprojective $d$-outcome measurements on the fixed state\n$\\lvert\\Phi_d\\rangle=d^{-1/2}\\sum_{j=0}^{d-1}\\lvert j,j\\rangle$, when the\nsetting distribution is also optimized?  For a behavior $p(a,b\\mid x,y)$, a\ndistribution $\\mu(x,y)$ on the four setting pairs, and the local polytope\n$\\mathcal L$, define\n\\begin{equation}\n  S(p;\\mu)\n  :=\\inf_{\\ell\\in\\mathcal L}\n    \\sum_{a,b,x,y}\\mu(x,y)p(a,b\\mid x,y)\n    \\log_2\\!\\frac{p(a,b\\mid x,y)}{\\ell(a,b\\mid x,y)},\n  \\label{eq:p25-statistical-strength}\n\\end{equation}\nSet $S^\\star(p):=\\sup_{\\mu\\in\\Delta(\\{0,1\\}^2)}S(p;\\mu)$; by\nEq.~\\eqref{eq:p25-statistical-strength}, this is the optimized asymptotic\nevidence rate against the best local model.  The candidate bases are\n\\begin{equation}\n  \\begin{aligned}\n    \\lvert a;x\\rangle\n      &=\\frac{1}{\\sqrt d}\\sum_{j=0}^{d-1}\n        \\exp\\!\\left(\\frac{2\\pi i}{d}j(a+\\alpha_x)\\right)\\lvert j\\rangle,\\\\\n    \\lvert b;y\\rangle\n      &=\\frac{1}{\\sqrt d}\\sum_{j=0}^{d-1}\n        \\exp\\!\\left(\\frac{2\\pi i}{d}j(-b+\\beta_y)\\right)\\lvert j\\rangle,\n  \\end{aligned}\n  \\label{eq:p25-cglmp-bases}\n\\end{equation}\nwhere $\\alpha_0=0$, $\\alpha_1=-1/2$, $\\beta_0=1/4$, and $\\beta_1=3/4$.\nLet $p_{\\mathrm{CGLMP}}$ denote the behavior produced on\n$\\lvert\\Phi_d\\rangle$ by the bases in Eq.~\\eqref{eq:p25-cglmp-bases}, and\nwrite $p_M$ for the behavior produced by any other measurement choice $M$ on\n$\\lvert\\Phi_d\\rangle$.  The conjectured optimality of\nEq.~\\eqref{eq:p25-cglmp-bases} is\n\\begin{equation}\n  S^\\star(p_{\\mathrm{CGLMP}})\n  =\\sup_M S^\\star(p_M),\n  \\label{eq:p25-cglmp-statistical-optimum}\n\\end{equation}\nwhere the supremum is over two projective $d$-outcome measurements per party.\nEquation~\\eqref{eq:p25-cglmp-statistical-optimum} is the question to be\nresolved.\n\n\\subsection*{Status}\n\nUnsolved\n\n\\subsection*{Source}\n\nGill explicitly proposes the global statistical-strength optimality of the\nCGLMP measurement construction for a fixed maximally entangled state\n\\sourcecite{ref:p25-gill}{Gil07}.\n\n\\subsection*{Progress}\n\n\\begin{itemize}\n  \\item Van Dam, Gill, and Grünwald established the operational interpretation\n  of Eq.~\\eqref{eq:p25-statistical-strength} as the asymptotic evidence rate of\n  a Bell experiment and formulated the joint optimization problem\n  \\sourcecite{ref:p25-statistical-strength}{DGG05}.\n\n  \\item Acín, Gill, and Gisin numerically found the CGLMP measurement bases for\n  their relative-entropy searches at $d=3$ and $d=4$.  Their globally best\n  state was not maximally entangled, so this does not resolve the fixed-state\n  equality in Eq.~\\eqref{eq:p25-cglmp-statistical-optimum}\n  \\sourcecite{ref:p25-acin}{AGG05}.\n\n  \\item Gill reports that numerical searches with the maximally entangled\n  state fixed found only the CGLMP measurements for both Euclidean and\n  relative-entropy criteria, but treats optimality as conjectural; the search\n  does not prove Eq.~\\eqref{eq:p25-cglmp-statistical-optimum} for arbitrary\n  $d$\n  \\sourcecite{ref:p25-gill}{Gil07}.\n\\end{itemize}\n\n\\subsection*{References}\n\n\\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]\n  \\footnotesize\n  \\item[\\textup{[DGG05]}]\\label{ref:p25-statistical-strength}\n  W. van Dam, R. D. Gill, and P. D. Grünwald,\n  ``The Statistical Strength of Nonlocality Proofs,''\n  \\emph{IEEE Transactions on Information Theory} \\textbf{51}, 2812--2835\n  (2005).\n  \\href{https://doi.org/10.1109/TIT.2005.851738}{doi:10.1109/TIT.2005.851738};\n  \\href{https://arxiv.org/abs/quant-ph/0307125}{arXiv:quant-ph/0307125}.\n\n  \\item[\\textup{[AGG05]}]\\label{ref:p25-acin}\n  A. Acín, R. Gill, and N. Gisin,\n  ``Optimal Bell Tests Do Not Require Maximally Entangled States,''\n  \\emph{Physical Review Letters} \\textbf{95}, 210402 (2005).\n  \\href{https://doi.org/10.1103/PhysRevLett.95.210402}{doi:10.1103/PhysRevLett.95.210402};\n  \\href{https://arxiv.org/abs/quant-ph/0506225}{arXiv:quant-ph/0506225}.\n\n  \\item[\\textup{[Gil07]}]\\label{ref:p25-gill}\n  R. D. Gill, ``Better Bell Inequalities (Passion at a Distance),'' in\n  \\emph{Asymptotics: Particles, Processes and Inverse Problems}, IMS Lecture\n  Notes--Monograph Series \\textbf{55}, 135--148 (2007).\n  \\href{https://doi.org/10.1214/074921707000000328}{doi:10.1214/074921707000000328};\n  \\href{https://arxiv.org/abs/math/0610115}{arXiv:math/0610115}.\n\\end{enumerate}\n\n\\subsection*{Comment}\n\nThe remaining gap is a global proof or counterexample to\nEq.~\\eqref{eq:p25-cglmp-statistical-optimum} for arbitrary $d$.  The shared\nstate is fixed; this differs from joint state--measurement optimization and\nfrom maximizing the linear CGLMP violation in Problem~24.\n\n\\subsection*{Tag}\n\nBell nonlocality; Convex optimization; Measurement theory; Qudit systems;\nQuantum foundations\n\n\\subsection*{ID}\n\n\\texttt{op\\_a34f0e2d6489068f}\n"
+}

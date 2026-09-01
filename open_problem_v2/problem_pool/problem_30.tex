@@ -1,0 +1,106 @@
+% Problem-section file following ../_template.tex.
+\section{Secret key from every Bell-nonlocal behavior}
+\label{sec:problem-30}
+
+\paragraph{Problem.}
+Does every finite-alphabet Bell-nonlocal behavior have a strictly positive
+asymptotic secret-key rate against arbitrary individual nonsignalling attacks?
+Let $P(a,b\mid x,y)$ be bipartite and nonsignalling, and suppose that it has no
+local decomposition of the form
+\begin{equation}
+  P(a,b\mid x,y)
+  =\int_\Lambda \mu(d\lambda)\,
+    P_A(a\mid x,\lambda)P_B(b\mid y,\lambda).
+  \label{eq:p30-local-decomposition}
+\end{equation}
+Thus Eq.~\eqref{eq:p30-local-decomposition} fails for every probability
+measure $\mu$ and local response functions $P_A,P_B$.  Alice and Bob receive
+independent copies of $P$; on each copy, an adversary may hold an arbitrary
+nonsignalling extension.  The honest parties may choose their inputs, process
+all outputs locally, and communicate publicly.  The question asks whether
+some such protocol always extracts secret key at a nonzero asymptotic rate.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Gisin explicitly asks whether every Bell-nonlocal behavior can yield secret
+key against nonsignalling individual attacks
+\sourcecite{ref:p30-gisin}{Gis09}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Gisin posed the implication from Bell nonlocality to positive secret
+  key specifically for nonsignalling adversaries restricted to individual
+  attacks \sourcecite{ref:p30-gisin}{Gis09}.
+
+  \item Bell nonlocality is necessary for secrecy in this adversarial model,
+  and explicit nonlocal families admit positive-key protocols.  These results
+  do not prove sufficiency for every behavior that violates
+  Eq.~\eqref{eq:p30-local-decomposition}
+  \sourcecite{ref:p30-acin}{AGM06}.
+
+  \item Some nonlocal correlations obtained from noisy two-qubit Werner
+  states have zero key rate for the broad class of standard
+  device-independent protocols that announce measurements before classical
+  postprocessing.  This is not an impossibility theorem for all protocols or
+  for the full individual nonsignalling-adversary model
+  \sourcecite{ref:p30-farkas}{FBJLA21}.
+
+  \item Bipartite bound information exists for finite classical sources:
+  there are distributions with zero key rate and positive formation cost.
+  Those sources have no Bell inputs and hence do not settle the implication
+  for Bell-nonlocal behaviors \sourcecite{ref:p30-pauwels}{PGR26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Gis09]}]\label{ref:p30-gisin}
+  N. Gisin, ``Bell Inequalities: Many Questions, a Few Answers,'' in
+  W. C. Myrvold and J. Christian (eds.), \emph{Quantum Reality, Relativistic
+  Causality, and Closing the Epistemic Circle}, The Western Ontario Series in
+  Philosophy of Science \textbf{73}, 125--138 (Springer, 2009).
+  \href{https://doi.org/10.1007/978-1-4020-9107-0_9}{doi:10.1007/978-1-4020-9107-0\_9};
+  \href{https://arxiv.org/abs/quant-ph/0702021}{arXiv:quant-ph/0702021}.
+
+  \item[\textup{[AGM06]}]\label{ref:p30-acin}
+  A. Ac\'in, N. Gisin, and L. Masanes, ``From Bell's Theorem to Secure Quantum
+  Key Distribution,'' \emph{Physical Review Letters} \textbf{97}, 120405
+  (2006). \href{https://doi.org/10.1103/PhysRevLett.97.120405}{doi:10.1103/PhysRevLett.97.120405};
+  \href{https://arxiv.org/abs/quant-ph/0510094}{arXiv:quant-ph/0510094}.
+
+  \item[\textup{[FBJLA21]}]\label{ref:p30-farkas}
+  M. Farkas, M. Balanz\'o-Juand\'o, K. \L{}ukanowski, J. Ko{\l}ody\'nski, and
+  A. Ac\'in, ``Bell Nonlocality Is Not Sufficient for the Security of Standard
+  Device-Independent Quantum Key Distribution Protocols,'' \emph{Physical
+  Review Letters} \textbf{127}, 050503 (2021).
+  \href{https://doi.org/10.1103/PhysRevLett.127.050503}{doi:10.1103/PhysRevLett.127.050503};
+  \href{https://arxiv.org/abs/2103.02639}{arXiv:2103.02639}.
+
+  \item[\textup{[PGR26]}]\label{ref:p30-pauwels}
+  J. Pauwels, N. Gisin, and R. Renner, ``Bipartite Bound Information Exists,''
+  arXiv:2607.25838 (2026).\newline
+  \href{https://doi.org/10.48550/arXiv.2607.25838}{doi:10.48550/arXiv.2607.25838};
+  \href{https://arxiv.org/abs/2607.25838}{arXiv:2607.25838}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The unresolved implication concerns unrestricted protocols at the behavior
+level under arbitrary individual nonsignalling extensions.  Impossibility
+for a standard protocol class and zero-key classical sources are strictly
+narrower statements.
+
+\subsection*{Tag}
+
+Bell nonlocality; Device-independent quantum information; Quantum key
+distribution; Quantum cryptography
+
+\subsection*{ID}
+
+\texttt{op\_299c3becfd760123}

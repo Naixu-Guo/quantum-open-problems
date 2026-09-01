@@ -1,0 +1,149 @@
+% Problem-section file following ../_template.tex.
+\section{Fixed-error parallel Stein lemma for quantum channels}
+\label{sec:problem-46}
+
+\paragraph{Problem.}
+Let $\mathcal N,\mathcal M:\mathcal L(A)\to\mathcal L(B)$ be quantum
+channels on finite-dimensional systems.  For states $\rho$ and $\sigma$,
+define the relative entropy and the hypothesis-testing divergence by
+\begin{equation}
+  \begin{aligned}
+    D(\rho\|\sigma)
+      &:={\rm Tr}\!\left[\rho(\log_2\rho-\log_2\sigma)\right],\\
+    D_H^\varepsilon(\rho\|\sigma)
+      &:=-\log_2\inf_{\substack{0\leq Q\leq I\\
+                    {\rm Tr}(Q\rho)\geq1-\varepsilon}}
+                    {\rm Tr}(Q\sigma),
+  \end{aligned}
+  \label{eq:p46-state-divergences}
+\end{equation}
+where $D(\rho\|\sigma)=+\infty$ unless
+$\operatorname{supp}\rho\subseteq\operatorname{supp}\sigma$, and
+$\varepsilon\in(0,1)$.  For either divergence $\mathbf D$ in
+Eq.~\eqref{eq:p46-state-divergences}, its stabilized channel extension is
+\begin{equation}
+  \mathbf D_{\rm ch}(\mathcal N\|\mathcal M)
+  :=\sup_{\psi_{RA}\in\mathcal D(R\otimes A)}
+  \mathbf D\!\left(
+    (\operatorname{id}_R\otimes\mathcal N)(\psi)
+    \middle\|
+    (\operatorname{id}_R\otimes\mathcal M)(\psi)
+  \right),
+  \qquad R\simeq A.
+  \label{eq:p46-channel-divergence}
+\end{equation}
+Using Eq.~\eqref{eq:p46-channel-divergence}, define the regularized channel
+relative entropy by
+\begin{equation}
+  D_{\rm ch}^{\infty}(\mathcal N\|\mathcal M)
+  :=\lim_{n\to\infty}\frac1n
+  D_{\rm ch}(\mathcal N^{\otimes n}\|\mathcal M^{\otimes n}).
+  \label{eq:p46-regularized-relative-entropy}
+\end{equation}
+Whenever Eq.~\eqref{eq:p46-regularized-relative-entropy} is finite, does the
+fixed-error parallel Stein limit exist and satisfy
+\begin{equation}
+  \lim_{n\to\infty}\frac1n
+  D_{H,{\rm ch}}^\varepsilon
+  (\mathcal N^{\otimes n}\|\mathcal M^{\otimes n})
+  =D_{\rm ch}^{\infty}(\mathcal N\|\mathcal M)
+  \qquad\text{for every }\varepsilon\in(0,1)?
+  \label{eq:p46-fixed-error-stein}
+\end{equation}
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Fang, Gour, and Wang prove the weak channel Stein lemma and identify the
+fixed-error, equivalently strong-converse-threshold, extension as unresolved
+for general channel pairs \sourcecite{ref:p46-fang-gour-wang}{FGW25}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item The weak channel Stein lemma proves
+  \begin{equation}
+    \lim_{\delta\downarrow0}\lim_{n\to\infty}\frac1n
+    D_{H,{\rm ch}}^\delta
+    (\mathcal N^{\otimes n}\|\mathcal M^{\otimes n})
+    =D_{\rm ch}^{\infty}(\mathcal N\|\mathcal M).
+    \label{eq:p46-weak-stein}
+  \end{equation}
+  Equation~\eqref{eq:p46-weak-stein} yields the required lower bound at
+  every fixed error, but not the converse inequality
+  \sourcecite{ref:p46-fang-gour-wang}{FGW25}.
+
+  \item Sandwiched-R\'enyi converses bound the fixed-error limsup by
+  \begin{equation}
+    \limsup_{n\to\infty}\frac1nD_{H,{\rm ch}}^\varepsilon
+    (\mathcal N^{\otimes n}\|\mathcal M^{\otimes n})
+    \leq\inf_{\alpha>1}
+    \widetilde D_{\alpha,{\rm ch}}^\infty(\mathcal N\|\mathcal M).
+    \label{eq:p46-renyi-converse}
+  \end{equation}
+  Closing Eq.~\eqref{eq:p46-renyi-converse} requires the still-unproved
+  continuity identity
+  \begin{equation}
+    \inf_{\alpha>1}\widetilde D_{\alpha,{\rm ch}}^\infty
+       (\mathcal N\|\mathcal M)
+    \stackrel{?}{=}D_{\rm ch}^\infty(\mathcal N\|\mathcal M).
+    \label{eq:p46-renyi-continuity}
+  \end{equation}
+  Equation~\eqref{eq:p46-renyi-continuity} is the general strong-converse
+  threshold problem \sourcecite{ref:p46-fang-gour-wang}{FGW25}.
+
+  \item The equality in Eq.~\eqref{eq:p46-fixed-error-stein} is known when
+  $\mathcal M$ is a replacer channel
+  \sourcecite{ref:p46-cooney-mosonyi-wilde}{CMW16}.  It is also known for
+  suitable pairs of idempotent channels that share a full-rank invariant
+  state; this structured result explicitly leaves the general channel case
+  open \sourcecite{ref:p46-singh-bergh}{SB26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[FGW25]}]\label{ref:p46-fang-gour-wang}
+  K. Fang, G. Gour, and X. Wang,
+  ``Towards the Ultimate Limits of Quantum Channel Discrimination and
+  Quantum Communication,'' \emph{Science China Information Sciences}
+  \textbf{68}, 180509 (2025).
+  \href{https://doi.org/10.1007/s11432-024-4488-0}%
+       {doi:10.1007/s11432-024-4488-0};
+  \href{https://arxiv.org/abs/2110.14842}{arXiv:2110.14842}.
+
+  \item[\textup{[CMW16]}]\label{ref:p46-cooney-mosonyi-wilde}
+  T. Cooney, M. Mosonyi, and M. M. Wilde,
+  ``Strong Converse Exponents for a Quantum Channel Discrimination Problem
+  and Quantum-Feedback-Assisted Communication,''
+  \emph{Communications in Mathematical Physics} \textbf{344}, 797--829
+  (2016).
+  \href{https://doi.org/10.1007/s00220-016-2645-4}%
+       {doi:10.1007/s00220-016-2645-4};
+  \href{https://arxiv.org/abs/1408.3373}{arXiv:1408.3373}.
+
+  \item[\textup{[SB26]}]\label{ref:p46-singh-bergh}
+  S. Singh and B. Bergh, ``Discriminating Idempotent Quantum Channels,''
+  arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2603.28582}{arXiv:2603.28582}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The question concerns parallel tests with an arbitrary entangled input across
+the channel uses.  The weak-error result and the known structured channel
+families do not establish Eq.~\eqref{eq:p46-fixed-error-stein} for an arbitrary
+finite-dimensional pair $\mathcal N,\mathcal M$.
+
+\subsection*{Tag}
+
+Quantum hypothesis testing; Channel discrimination; Quantum channels;
+Quantum information theory
+
+\subsection*{ID}
+
+\texttt{op\_08387c140f552732}

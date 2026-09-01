@@ -1,0 +1,163 @@
+{
+  "schema_version": "1.1",
+  "content_format": "latex",
+  "text_encoding": "UTF-8",
+  "representation": {
+    "latex_fields": "LaTeX is preserved verbatim in all keys ending in _latex.",
+    "round_trip_field": "source_tex",
+    "json_escaping": "Backslashes and control characters use standard JSON string escaping."
+  },
+  "source": {
+    "file": "../problem_pool/problem_49.tex",
+    "sha256": "8d180124dc5372e460063e2a6074ebbc930f349da51c4c2a86f3d377d873e47f"
+  },
+  "problem_number": 49,
+  "title": "Quantum capacity of a bosonic thermal attenuator",
+  "section_label": "sec:problem-49",
+  "id": "op_9209e4eb15586dec",
+  "status": "Unsolved",
+  "tags": [
+    "Bosonic channels",
+    "Quantum capacity",
+    "Coherent information",
+    "Gaussian quantum information",
+    "Continuous-variable systems"
+  ],
+  "sections": {
+    "problem_statement": {
+      "latex": "Let $\\Phi_{\\eta,\\nu}$ be the single-mode bosonic thermal attenuator with\ntransmissivity $0<\\eta<1$ and environmental mean photon number\n$0<\\nu<\\infty$, defined by\n\\begin{equation}\n  \\Phi_{\\eta,\\nu}(\\rho_A)\n  :=\\operatorname{Tr}_{E'}\\!\\left[\n     U_\\eta(\\rho_A\\otimes\\tau_{\\nu,E})U_\\eta^\\dagger\n  \\right],\n  \\qquad\n  \\tau_\\nu:=\\sum_{k=0}^{\\infty}\n     \\frac{\\nu^k}{(\\nu+1)^{k+1}}|k\\rangle\\!\\langle k|,\n  \\label{eq:p49-thermal-attenuator}\n\\end{equation}\nwhere $U_\\eta:AE\\to BE'$ is a beam-splitter unitary.  Its unassisted\nquantum capacity is the regularized coherent information\n\\begin{equation}\n  \\mathcal Q(\\Phi_{\\eta,\\nu})\n  :=\\lim_{n\\to\\infty}\\frac1n\\sup_{\\rho_{A^n}}\n       I_{\\rm c}(\\rho_{A^n},\\Phi_{\\eta,\\nu}^{\\otimes n}),\n  \\qquad\n  I_{\\rm c}(\\rho,\\mathcal N)\n  :=S(\\mathcal N(\\rho))-S(\\mathcal N^{\\rm c}(\\rho)),\n  \\label{eq:p49-quantum-capacity}\n\\end{equation}\nwhere $S(\\sigma):=-\\operatorname{Tr}(\\sigma\\log_2\\sigma)$ and\n$\\mathcal N^{\\rm c}$ is any complementary channel.  Determine\nEq.~\\eqref{eq:p49-quantum-capacity} for all finite-temperature parameters in\nEq.~\\eqref{eq:p49-thermal-attenuator}."
+    },
+    "status": {
+      "value": "Unsolved",
+      "latex": "Unsolved"
+    },
+    "source": {
+      "latex": "Rosati, Mari, and Giovannetti explicitly study the unknown thermal-attenuator\nquantum capacity through nonmatching narrow bounds; the exact-capacity\nproblem is retained after the later non-Gaussian separation\n\\sourcecite{ref:p49-rosati-mari-giovannetti}{RMG18},\n\\sourcecite{ref:p49-mele-et-al}{MCF+26}.",
+      "citations": [
+        {
+          "label": "ref:p49-rosati-mari-giovannetti",
+          "alpha_key": "RMG18"
+        },
+        {
+          "label": "ref:p49-mele-et-al",
+          "alpha_key": "MCF+26"
+        }
+      ]
+    },
+    "progress": {
+      "latex": "\\begin{itemize}\n  \\item At zero environmental temperature, the pure-loss capacity is\n  \\begin{equation}\n    \\mathcal Q(\\Phi_{\\eta,0})\n    =\\left[\\log_2\\frac{\\eta}{1-\\eta}\\right]_+,\n    \\qquad [x]_+:=\\max\\{0,x\\}.\n    \\label{eq:p49-pure-loss-capacity}\n  \\end{equation}\n  Thus Eq.~\\eqref{eq:p49-pure-loss-capacity} solves only the boundary case\n  $\\nu=0$ \\sourcecite{ref:p49-wolf-perez-garcia-giedke}{WPG07}.\n\n  \\item Optimizing the one-use coherent information over all single-mode\n  Gaussian input states gives exactly\n  \\begin{equation}\n    \\sup_{\\rho\\in\\mathsf G_1}I_{\\rm c}(\\rho,\\Phi_{\\eta,\\nu})\n    =\\left[\\log_2\\frac{\\eta}{1-\\eta}-g(\\nu)\\right]_+,\n    \\qquad\n    g(x):=(x+1)\\log_2(x+1)-x\\log_2x.\n    \\label{eq:p49-gaussian-coherent-information}\n  \\end{equation}\n  The rate in Eq.~\\eqref{eq:p49-gaussian-coherent-information} was first\n  obtained from thermal inputs, but it is not the optimum over arbitrary\n  non-Gaussian inputs\n  \\sourcecite{ref:p49-holevo-werner}{HW01},\n  \\sourcecite{ref:p49-mele-et-al}{MCF+26}.\n\n  \\item The exact antidegradability region is\n  \\begin{equation}\n    \\eta\\leq\\eta_{\\rm AD}(\\nu):=\n    \\frac{\\nu+\\frac12}{\\nu+1},\n    \\qquad \\mathcal Q(\\Phi_{\\eta,\\nu})=0.\n    \\label{eq:p49-antidegradable-region}\n  \\end{equation}\n  Hence Eq.~\\eqref{eq:p49-quantum-capacity} is settled throughout the region\n  in Eq.~\\eqref{eq:p49-antidegradable-region}\n  \\sourcecite{ref:p49-lami-et-al}{LKA+19}.\n\n  \\item A bottleneck decomposition supplies a generally nonmatching upper\n  bound:\n  \\begin{equation}\n    \\mathcal Q(\\Phi_{\\eta,\\nu})\n    \\leq\\left[\n      \\log_2\\frac{\\eta-(1-\\eta)\\nu}{(1-\\eta)(\\nu+1)}\n    \\right]_+\n    \\quad\\text{when }\\eta>(1-\\eta)\\nu,\n    \\label{eq:p49-bottleneck-bound}\n  \\end{equation}\n  while the channel is entanglement breaking and has zero capacity otherwise\n  \\sourcecite{ref:p49-rosati-mari-giovannetti}{RMG18}.  The bound in\n  Eq.~\\eqref{eq:p49-bottleneck-bound} does not generally coincide with the\n  Gaussian achievable rate.\n\n  \\item Non-Gaussian inputs strictly exceed the Gaussian value.  In\n  particular,\n  \\begin{equation}\n    \\sup_{\\rho\\in\\mathsf G_1}I_{\\rm c}(\\rho,\\Phi_{4/5,1})=0,\n    \\qquad\n    \\mathcal Q(\\Phi_{4/5,1})\\geq4.7\\times10^{-4}.\n    \\label{eq:p49-nongaussian-separation}\n  \\end{equation}\n  Equation~\\eqref{eq:p49-nongaussian-separation} rules out a restriction to\n  single-mode Gaussian inputs but does not determine the capacity\n  \\sourcecite{ref:p49-mele-et-al}{MCF+26}.\n\\end{itemize}",
+      "items": [
+        {
+          "index": 1,
+          "latex": "At zero environmental temperature, the pure-loss capacity is\n  \\begin{equation}\n    \\mathcal Q(\\Phi_{\\eta,0})\n    =\\left[\\log_2\\frac{\\eta}{1-\\eta}\\right]_+,\n    \\qquad [x]_+:=\\max\\{0,x\\}.\n    \\label{eq:p49-pure-loss-capacity}\n  \\end{equation}\n  Thus Eq.~\\eqref{eq:p49-pure-loss-capacity} solves only the boundary case\n  $\\nu=0$ \\sourcecite{ref:p49-wolf-perez-garcia-giedke}{WPG07}."
+        },
+        {
+          "index": 2,
+          "latex": "Optimizing the one-use coherent information over all single-mode\n  Gaussian input states gives exactly\n  \\begin{equation}\n    \\sup_{\\rho\\in\\mathsf G_1}I_{\\rm c}(\\rho,\\Phi_{\\eta,\\nu})\n    =\\left[\\log_2\\frac{\\eta}{1-\\eta}-g(\\nu)\\right]_+,\n    \\qquad\n    g(x):=(x+1)\\log_2(x+1)-x\\log_2x.\n    \\label{eq:p49-gaussian-coherent-information}\n  \\end{equation}\n  The rate in Eq.~\\eqref{eq:p49-gaussian-coherent-information} was first\n  obtained from thermal inputs, but it is not the optimum over arbitrary\n  non-Gaussian inputs\n  \\sourcecite{ref:p49-holevo-werner}{HW01},\n  \\sourcecite{ref:p49-mele-et-al}{MCF+26}."
+        },
+        {
+          "index": 3,
+          "latex": "The exact antidegradability region is\n  \\begin{equation}\n    \\eta\\leq\\eta_{\\rm AD}(\\nu):=\n    \\frac{\\nu+\\frac12}{\\nu+1},\n    \\qquad \\mathcal Q(\\Phi_{\\eta,\\nu})=0.\n    \\label{eq:p49-antidegradable-region}\n  \\end{equation}\n  Hence Eq.~\\eqref{eq:p49-quantum-capacity} is settled throughout the region\n  in Eq.~\\eqref{eq:p49-antidegradable-region}\n  \\sourcecite{ref:p49-lami-et-al}{LKA+19}."
+        },
+        {
+          "index": 4,
+          "latex": "A bottleneck decomposition supplies a generally nonmatching upper\n  bound:\n  \\begin{equation}\n    \\mathcal Q(\\Phi_{\\eta,\\nu})\n    \\leq\\left[\n      \\log_2\\frac{\\eta-(1-\\eta)\\nu}{(1-\\eta)(\\nu+1)}\n    \\right]_+\n    \\quad\\text{when }\\eta>(1-\\eta)\\nu,\n    \\label{eq:p49-bottleneck-bound}\n  \\end{equation}\n  while the channel is entanglement breaking and has zero capacity otherwise\n  \\sourcecite{ref:p49-rosati-mari-giovannetti}{RMG18}.  The bound in\n  Eq.~\\eqref{eq:p49-bottleneck-bound} does not generally coincide with the\n  Gaussian achievable rate."
+        },
+        {
+          "index": 5,
+          "latex": "Non-Gaussian inputs strictly exceed the Gaussian value.  In\n  particular,\n  \\begin{equation}\n    \\sup_{\\rho\\in\\mathsf G_1}I_{\\rm c}(\\rho,\\Phi_{4/5,1})=0,\n    \\qquad\n    \\mathcal Q(\\Phi_{4/5,1})\\geq4.7\\times10^{-4}.\n    \\label{eq:p49-nongaussian-separation}\n  \\end{equation}\n  Equation~\\eqref{eq:p49-nongaussian-separation} rules out a restriction to\n  single-mode Gaussian inputs but does not determine the capacity\n  \\sourcecite{ref:p49-mele-et-al}{MCF+26}."
+        }
+      ]
+    },
+    "references": {
+      "latex": "\\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]\n  \\footnotesize\n  \\item[\\textup{[WPG07]}]\\label{ref:p49-wolf-perez-garcia-giedke}\n  M. M. Wolf, D. P\\'erez-Garc\\'ia, and G. Giedke,\n  ``Quantum Capacities of Bosonic Channels,''\n  \\emph{Physical Review Letters} \\textbf{98}, 130501 (2007).\n  \\href{https://doi.org/10.1103/PhysRevLett.98.130501}%\n       {doi:10.1103/PhysRevLett.98.130501};\n  \\href{https://arxiv.org/abs/quant-ph/0606132}{arXiv:quant-ph/0606132}.\n\n  \\item[\\textup{[HW01]}]\\label{ref:p49-holevo-werner}\n  A. S. Holevo and R. F. Werner,\n  ``Evaluating Capacities of Bosonic Gaussian Channels,''\n  \\emph{Physical Review A} \\textbf{63}, 032312 (2001).\n  \\href{https://doi.org/10.1103/PhysRevA.63.032312}%\n       {doi:10.1103/PhysRevA.63.032312};\n  \\href{https://arxiv.org/abs/quant-ph/9912067}{arXiv:quant-ph/9912067}.\n\n  \\item[\\textup{[MCF+26]}]\\label{ref:p49-mele-et-al}\n  F. A. Mele, G. Catalano, M. Fanizza, V. Giovannetti, and L. Lami,\n  ``Bosonic Quantum Communication Beyond the Thermal Threshold,''\n  arXiv preprint (2026).\n  \\href{https://arxiv.org/abs/2607.27449}{arXiv:2607.27449}.\n\n  \\item[\\textup{[LKA+19]}]\\label{ref:p49-lami-et-al}\n  L. Lami, S. Khatri, G. Adesso, and M. M. Wilde,\n  ``Extendibility of Bosonic Gaussian States,''\n  \\emph{Physical Review Letters} \\textbf{123}, 050501 (2019).\n  \\href{https://doi.org/10.1103/PhysRevLett.123.050501}%\n       {doi:10.1103/PhysRevLett.123.050501};\n  \\href{https://arxiv.org/abs/1904.02692}{arXiv:1904.02692}.\n\n  \\item[\\textup{[RMG18]}]\\label{ref:p49-rosati-mari-giovannetti}\n  M. Rosati, A. Mari, and V. Giovannetti,\n  ``Narrow Bounds for the Quantum Capacity of Thermal Attenuators,''\n  \\emph{Nature Communications} \\textbf{9}, 4339 (2018).\n  \\href{https://doi.org/10.1038/s41467-018-06848-0}%\n       {doi:10.1038/s41467-018-06848-0};\n  \\href{https://arxiv.org/abs/1801.04731}{arXiv:1801.04731}.\n\\end{enumerate}",
+      "entries": [
+        {
+          "alpha_key": "WPG07",
+          "label": "ref:p49-wolf-perez-garcia-giedke",
+          "entry_latex": "M. M. Wolf, D. P\\'erez-Garc\\'ia, and G. Giedke,\n  ``Quantum Capacities of Bosonic Channels,''\n  \\emph{Physical Review Letters} \\textbf{98}, 130501 (2007).\n  \\href{https://doi.org/10.1103/PhysRevLett.98.130501}%\n       {doi:10.1103/PhysRevLett.98.130501};\n  \\href{https://arxiv.org/abs/quant-ph/0606132}{arXiv:quant-ph/0606132}.",
+          "item_latex": "  \\item[\\textup{[WPG07]}]\\label{ref:p49-wolf-perez-garcia-giedke}\n  M. M. Wolf, D. P\\'erez-Garc\\'ia, and G. Giedke,\n  ``Quantum Capacities of Bosonic Channels,''\n  \\emph{Physical Review Letters} \\textbf{98}, 130501 (2007).\n  \\href{https://doi.org/10.1103/PhysRevLett.98.130501}%\n       {doi:10.1103/PhysRevLett.98.130501};\n  \\href{https://arxiv.org/abs/quant-ph/0606132}{arXiv:quant-ph/0606132}."
+        },
+        {
+          "alpha_key": "HW01",
+          "label": "ref:p49-holevo-werner",
+          "entry_latex": "A. S. Holevo and R. F. Werner,\n  ``Evaluating Capacities of Bosonic Gaussian Channels,''\n  \\emph{Physical Review A} \\textbf{63}, 032312 (2001).\n  \\href{https://doi.org/10.1103/PhysRevA.63.032312}%\n       {doi:10.1103/PhysRevA.63.032312};\n  \\href{https://arxiv.org/abs/quant-ph/9912067}{arXiv:quant-ph/9912067}.",
+          "item_latex": "  \\item[\\textup{[HW01]}]\\label{ref:p49-holevo-werner}\n  A. S. Holevo and R. F. Werner,\n  ``Evaluating Capacities of Bosonic Gaussian Channels,''\n  \\emph{Physical Review A} \\textbf{63}, 032312 (2001).\n  \\href{https://doi.org/10.1103/PhysRevA.63.032312}%\n       {doi:10.1103/PhysRevA.63.032312};\n  \\href{https://arxiv.org/abs/quant-ph/9912067}{arXiv:quant-ph/9912067}."
+        },
+        {
+          "alpha_key": "MCF+26",
+          "label": "ref:p49-mele-et-al",
+          "entry_latex": "F. A. Mele, G. Catalano, M. Fanizza, V. Giovannetti, and L. Lami,\n  ``Bosonic Quantum Communication Beyond the Thermal Threshold,''\n  arXiv preprint (2026).\n  \\href{https://arxiv.org/abs/2607.27449}{arXiv:2607.27449}.",
+          "item_latex": "  \\item[\\textup{[MCF+26]}]\\label{ref:p49-mele-et-al}\n  F. A. Mele, G. Catalano, M. Fanizza, V. Giovannetti, and L. Lami,\n  ``Bosonic Quantum Communication Beyond the Thermal Threshold,''\n  arXiv preprint (2026).\n  \\href{https://arxiv.org/abs/2607.27449}{arXiv:2607.27449}."
+        },
+        {
+          "alpha_key": "LKA+19",
+          "label": "ref:p49-lami-et-al",
+          "entry_latex": "L. Lami, S. Khatri, G. Adesso, and M. M. Wilde,\n  ``Extendibility of Bosonic Gaussian States,''\n  \\emph{Physical Review Letters} \\textbf{123}, 050501 (2019).\n  \\href{https://doi.org/10.1103/PhysRevLett.123.050501}%\n       {doi:10.1103/PhysRevLett.123.050501};\n  \\href{https://arxiv.org/abs/1904.02692}{arXiv:1904.02692}.",
+          "item_latex": "  \\item[\\textup{[LKA+19]}]\\label{ref:p49-lami-et-al}\n  L. Lami, S. Khatri, G. Adesso, and M. M. Wilde,\n  ``Extendibility of Bosonic Gaussian States,''\n  \\emph{Physical Review Letters} \\textbf{123}, 050501 (2019).\n  \\href{https://doi.org/10.1103/PhysRevLett.123.050501}%\n       {doi:10.1103/PhysRevLett.123.050501};\n  \\href{https://arxiv.org/abs/1904.02692}{arXiv:1904.02692}."
+        },
+        {
+          "alpha_key": "RMG18",
+          "label": "ref:p49-rosati-mari-giovannetti",
+          "entry_latex": "M. Rosati, A. Mari, and V. Giovannetti,\n  ``Narrow Bounds for the Quantum Capacity of Thermal Attenuators,''\n  \\emph{Nature Communications} \\textbf{9}, 4339 (2018).\n  \\href{https://doi.org/10.1038/s41467-018-06848-0}%\n       {doi:10.1038/s41467-018-06848-0};\n  \\href{https://arxiv.org/abs/1801.04731}{arXiv:1801.04731}.",
+          "item_latex": "  \\item[\\textup{[RMG18]}]\\label{ref:p49-rosati-mari-giovannetti}\n  M. Rosati, A. Mari, and V. Giovannetti,\n  ``Narrow Bounds for the Quantum Capacity of Thermal Attenuators,''\n  \\emph{Nature Communications} \\textbf{9}, 4339 (2018).\n  \\href{https://doi.org/10.1038/s41467-018-06848-0}%\n       {doi:10.1038/s41467-018-06848-0};\n  \\href{https://arxiv.org/abs/1801.04731}{arXiv:1801.04731}."
+        }
+      ]
+    },
+    "comment": {
+      "latex": "For generic $\\nu>0$ outside the zero-capacity regions, the lower and upper\nbounds do not coincide.  Non-Gaussian one-mode optimization and possible\nmultimode superadditivity both remain relevant to\nEq.~\\eqref{eq:p49-quantum-capacity}."
+    },
+    "tag": {
+      "values": [
+        "Bosonic channels",
+        "Quantum capacity",
+        "Coherent information",
+        "Gaussian quantum information",
+        "Continuous-variable systems"
+      ],
+      "latex": "Bosonic channels; Quantum capacity; Coherent information;\nGaussian quantum information; Continuous-variable systems"
+    },
+    "id": {
+      "value": "op_9209e4eb15586dec",
+      "latex": "\\texttt{op\\_9209e4eb15586dec}"
+    }
+  },
+  "equations": [
+    {
+      "index": 1,
+      "label": "eq:p49-thermal-attenuator",
+      "latex": "\\begin{equation}\n  \\Phi_{\\eta,\\nu}(\\rho_A)\n  :=\\operatorname{Tr}_{E'}\\!\\left[\n     U_\\eta(\\rho_A\\otimes\\tau_{\\nu,E})U_\\eta^\\dagger\n  \\right],\n  \\qquad\n  \\tau_\\nu:=\\sum_{k=0}^{\\infty}\n     \\frac{\\nu^k}{(\\nu+1)^{k+1}}|k\\rangle\\!\\langle k|,\n  \\label{eq:p49-thermal-attenuator}\n\\end{equation}"
+    },
+    {
+      "index": 2,
+      "label": "eq:p49-quantum-capacity",
+      "latex": "\\begin{equation}\n  \\mathcal Q(\\Phi_{\\eta,\\nu})\n  :=\\lim_{n\\to\\infty}\\frac1n\\sup_{\\rho_{A^n}}\n       I_{\\rm c}(\\rho_{A^n},\\Phi_{\\eta,\\nu}^{\\otimes n}),\n  \\qquad\n  I_{\\rm c}(\\rho,\\mathcal N)\n  :=S(\\mathcal N(\\rho))-S(\\mathcal N^{\\rm c}(\\rho)),\n  \\label{eq:p49-quantum-capacity}\n\\end{equation}"
+    },
+    {
+      "index": 3,
+      "label": "eq:p49-pure-loss-capacity",
+      "latex": "  \\begin{equation}\n    \\mathcal Q(\\Phi_{\\eta,0})\n    =\\left[\\log_2\\frac{\\eta}{1-\\eta}\\right]_+,\n    \\qquad [x]_+:=\\max\\{0,x\\}.\n    \\label{eq:p49-pure-loss-capacity}\n  \\end{equation}"
+    },
+    {
+      "index": 4,
+      "label": "eq:p49-gaussian-coherent-information",
+      "latex": "  \\begin{equation}\n    \\sup_{\\rho\\in\\mathsf G_1}I_{\\rm c}(\\rho,\\Phi_{\\eta,\\nu})\n    =\\left[\\log_2\\frac{\\eta}{1-\\eta}-g(\\nu)\\right]_+,\n    \\qquad\n    g(x):=(x+1)\\log_2(x+1)-x\\log_2x.\n    \\label{eq:p49-gaussian-coherent-information}\n  \\end{equation}"
+    },
+    {
+      "index": 5,
+      "label": "eq:p49-antidegradable-region",
+      "latex": "  \\begin{equation}\n    \\eta\\leq\\eta_{\\rm AD}(\\nu):=\n    \\frac{\\nu+\\frac12}{\\nu+1},\n    \\qquad \\mathcal Q(\\Phi_{\\eta,\\nu})=0.\n    \\label{eq:p49-antidegradable-region}\n  \\end{equation}"
+    },
+    {
+      "index": 6,
+      "label": "eq:p49-bottleneck-bound",
+      "latex": "  \\begin{equation}\n    \\mathcal Q(\\Phi_{\\eta,\\nu})\n    \\leq\\left[\n      \\log_2\\frac{\\eta-(1-\\eta)\\nu}{(1-\\eta)(\\nu+1)}\n    \\right]_+\n    \\quad\\text{when }\\eta>(1-\\eta)\\nu,\n    \\label{eq:p49-bottleneck-bound}\n  \\end{equation}"
+    },
+    {
+      "index": 7,
+      "label": "eq:p49-nongaussian-separation",
+      "latex": "  \\begin{equation}\n    \\sup_{\\rho\\in\\mathsf G_1}I_{\\rm c}(\\rho,\\Phi_{4/5,1})=0,\n    \\qquad\n    \\mathcal Q(\\Phi_{4/5,1})\\geq4.7\\times10^{-4}.\n    \\label{eq:p49-nongaussian-separation}\n  \\end{equation}"
+    }
+  ],
+  "source_tex": "% Problem-section file following ../_template.tex.\n\\section{Quantum capacity of a bosonic thermal attenuator}\n\\label{sec:problem-49}\n\n\\paragraph{Problem.}\nLet $\\Phi_{\\eta,\\nu}$ be the single-mode bosonic thermal attenuator with\ntransmissivity $0<\\eta<1$ and environmental mean photon number\n$0<\\nu<\\infty$, defined by\n\\begin{equation}\n  \\Phi_{\\eta,\\nu}(\\rho_A)\n  :=\\operatorname{Tr}_{E'}\\!\\left[\n     U_\\eta(\\rho_A\\otimes\\tau_{\\nu,E})U_\\eta^\\dagger\n  \\right],\n  \\qquad\n  \\tau_\\nu:=\\sum_{k=0}^{\\infty}\n     \\frac{\\nu^k}{(\\nu+1)^{k+1}}|k\\rangle\\!\\langle k|,\n  \\label{eq:p49-thermal-attenuator}\n\\end{equation}\nwhere $U_\\eta:AE\\to BE'$ is a beam-splitter unitary.  Its unassisted\nquantum capacity is the regularized coherent information\n\\begin{equation}\n  \\mathcal Q(\\Phi_{\\eta,\\nu})\n  :=\\lim_{n\\to\\infty}\\frac1n\\sup_{\\rho_{A^n}}\n       I_{\\rm c}(\\rho_{A^n},\\Phi_{\\eta,\\nu}^{\\otimes n}),\n  \\qquad\n  I_{\\rm c}(\\rho,\\mathcal N)\n  :=S(\\mathcal N(\\rho))-S(\\mathcal N^{\\rm c}(\\rho)),\n  \\label{eq:p49-quantum-capacity}\n\\end{equation}\nwhere $S(\\sigma):=-\\operatorname{Tr}(\\sigma\\log_2\\sigma)$ and\n$\\mathcal N^{\\rm c}$ is any complementary channel.  Determine\nEq.~\\eqref{eq:p49-quantum-capacity} for all finite-temperature parameters in\nEq.~\\eqref{eq:p49-thermal-attenuator}.\n\n\\subsection*{Status}\n\nUnsolved\n\n\\subsection*{Source}\n\nRosati, Mari, and Giovannetti explicitly study the unknown thermal-attenuator\nquantum capacity through nonmatching narrow bounds; the exact-capacity\nproblem is retained after the later non-Gaussian separation\n\\sourcecite{ref:p49-rosati-mari-giovannetti}{RMG18},\n\\sourcecite{ref:p49-mele-et-al}{MCF+26}.\n\n\\subsection*{Progress}\n\n\\begin{itemize}\n  \\item At zero environmental temperature, the pure-loss capacity is\n  \\begin{equation}\n    \\mathcal Q(\\Phi_{\\eta,0})\n    =\\left[\\log_2\\frac{\\eta}{1-\\eta}\\right]_+,\n    \\qquad [x]_+:=\\max\\{0,x\\}.\n    \\label{eq:p49-pure-loss-capacity}\n  \\end{equation}\n  Thus Eq.~\\eqref{eq:p49-pure-loss-capacity} solves only the boundary case\n  $\\nu=0$ \\sourcecite{ref:p49-wolf-perez-garcia-giedke}{WPG07}.\n\n  \\item Optimizing the one-use coherent information over all single-mode\n  Gaussian input states gives exactly\n  \\begin{equation}\n    \\sup_{\\rho\\in\\mathsf G_1}I_{\\rm c}(\\rho,\\Phi_{\\eta,\\nu})\n    =\\left[\\log_2\\frac{\\eta}{1-\\eta}-g(\\nu)\\right]_+,\n    \\qquad\n    g(x):=(x+1)\\log_2(x+1)-x\\log_2x.\n    \\label{eq:p49-gaussian-coherent-information}\n  \\end{equation}\n  The rate in Eq.~\\eqref{eq:p49-gaussian-coherent-information} was first\n  obtained from thermal inputs, but it is not the optimum over arbitrary\n  non-Gaussian inputs\n  \\sourcecite{ref:p49-holevo-werner}{HW01},\n  \\sourcecite{ref:p49-mele-et-al}{MCF+26}.\n\n  \\item The exact antidegradability region is\n  \\begin{equation}\n    \\eta\\leq\\eta_{\\rm AD}(\\nu):=\n    \\frac{\\nu+\\frac12}{\\nu+1},\n    \\qquad \\mathcal Q(\\Phi_{\\eta,\\nu})=0.\n    \\label{eq:p49-antidegradable-region}\n  \\end{equation}\n  Hence Eq.~\\eqref{eq:p49-quantum-capacity} is settled throughout the region\n  in Eq.~\\eqref{eq:p49-antidegradable-region}\n  \\sourcecite{ref:p49-lami-et-al}{LKA+19}.\n\n  \\item A bottleneck decomposition supplies a generally nonmatching upper\n  bound:\n  \\begin{equation}\n    \\mathcal Q(\\Phi_{\\eta,\\nu})\n    \\leq\\left[\n      \\log_2\\frac{\\eta-(1-\\eta)\\nu}{(1-\\eta)(\\nu+1)}\n    \\right]_+\n    \\quad\\text{when }\\eta>(1-\\eta)\\nu,\n    \\label{eq:p49-bottleneck-bound}\n  \\end{equation}\n  while the channel is entanglement breaking and has zero capacity otherwise\n  \\sourcecite{ref:p49-rosati-mari-giovannetti}{RMG18}.  The bound in\n  Eq.~\\eqref{eq:p49-bottleneck-bound} does not generally coincide with the\n  Gaussian achievable rate.\n\n  \\item Non-Gaussian inputs strictly exceed the Gaussian value.  In\n  particular,\n  \\begin{equation}\n    \\sup_{\\rho\\in\\mathsf G_1}I_{\\rm c}(\\rho,\\Phi_{4/5,1})=0,\n    \\qquad\n    \\mathcal Q(\\Phi_{4/5,1})\\geq4.7\\times10^{-4}.\n    \\label{eq:p49-nongaussian-separation}\n  \\end{equation}\n  Equation~\\eqref{eq:p49-nongaussian-separation} rules out a restriction to\n  single-mode Gaussian inputs but does not determine the capacity\n  \\sourcecite{ref:p49-mele-et-al}{MCF+26}.\n\\end{itemize}\n\n\\subsection*{References}\n\n\\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]\n  \\footnotesize\n  \\item[\\textup{[WPG07]}]\\label{ref:p49-wolf-perez-garcia-giedke}\n  M. M. Wolf, D. P\\'erez-Garc\\'ia, and G. Giedke,\n  ``Quantum Capacities of Bosonic Channels,''\n  \\emph{Physical Review Letters} \\textbf{98}, 130501 (2007).\n  \\href{https://doi.org/10.1103/PhysRevLett.98.130501}%\n       {doi:10.1103/PhysRevLett.98.130501};\n  \\href{https://arxiv.org/abs/quant-ph/0606132}{arXiv:quant-ph/0606132}.\n\n  \\item[\\textup{[HW01]}]\\label{ref:p49-holevo-werner}\n  A. S. Holevo and R. F. Werner,\n  ``Evaluating Capacities of Bosonic Gaussian Channels,''\n  \\emph{Physical Review A} \\textbf{63}, 032312 (2001).\n  \\href{https://doi.org/10.1103/PhysRevA.63.032312}%\n       {doi:10.1103/PhysRevA.63.032312};\n  \\href{https://arxiv.org/abs/quant-ph/9912067}{arXiv:quant-ph/9912067}.\n\n  \\item[\\textup{[MCF+26]}]\\label{ref:p49-mele-et-al}\n  F. A. Mele, G. Catalano, M. Fanizza, V. Giovannetti, and L. Lami,\n  ``Bosonic Quantum Communication Beyond the Thermal Threshold,''\n  arXiv preprint (2026).\n  \\href{https://arxiv.org/abs/2607.27449}{arXiv:2607.27449}.\n\n  \\item[\\textup{[LKA+19]}]\\label{ref:p49-lami-et-al}\n  L. Lami, S. Khatri, G. Adesso, and M. M. Wilde,\n  ``Extendibility of Bosonic Gaussian States,''\n  \\emph{Physical Review Letters} \\textbf{123}, 050501 (2019).\n  \\href{https://doi.org/10.1103/PhysRevLett.123.050501}%\n       {doi:10.1103/PhysRevLett.123.050501};\n  \\href{https://arxiv.org/abs/1904.02692}{arXiv:1904.02692}.\n\n  \\item[\\textup{[RMG18]}]\\label{ref:p49-rosati-mari-giovannetti}\n  M. Rosati, A. Mari, and V. Giovannetti,\n  ``Narrow Bounds for the Quantum Capacity of Thermal Attenuators,''\n  \\emph{Nature Communications} \\textbf{9}, 4339 (2018).\n  \\href{https://doi.org/10.1038/s41467-018-06848-0}%\n       {doi:10.1038/s41467-018-06848-0};\n  \\href{https://arxiv.org/abs/1801.04731}{arXiv:1801.04731}.\n\\end{enumerate}\n\n\\subsection*{Comment}\n\nFor generic $\\nu>0$ outside the zero-capacity regions, the lower and upper\nbounds do not coincide.  Non-Gaussian one-mode optimization and possible\nmultimode superadditivity both remain relevant to\nEq.~\\eqref{eq:p49-quantum-capacity}.\n\n\\subsection*{Tag}\n\nBosonic channels; Quantum capacity; Coherent information;\nGaussian quantum information; Continuous-variable systems\n\n\\subsection*{ID}\n\n\\texttt{op\\_9209e4eb15586dec}\n"
+}

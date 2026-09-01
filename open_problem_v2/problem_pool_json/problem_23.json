@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.1",
+  "content_format": "latex",
+  "text_encoding": "UTF-8",
+  "representation": {
+    "latex_fields": "LaTeX is preserved verbatim in all keys ending in _latex.",
+    "round_trip_field": "source_tex",
+    "json_escaping": "Backslashes and control characters use standard JSON string escaping."
+  },
+  "source": {
+    "file": "../problem_pool/problem_23.tex",
+    "sha256": "124bad87d04dcc7656d08d8432d159c06bf3d9d93ccec38222364fa001459edb"
+  },
+  "problem_number": 23,
+  "title": "Quantum violations of bipartite Bell facets",
+  "section_label": "sec:problem-23",
+  "id": "op_dcea1e5e3032b8c5",
+  "status": "Unsolved",
+  "tags": [
+    "Bell nonlocality",
+    "Convex geometry",
+    "Quantum foundations"
+  ],
+  "sections": {
+    "problem_statement": {
+      "latex": "Must every nontrivial facet Bell inequality in a finite bipartite scenario\nhave a quantum violation?  Let $\\mathcal L$ be the local polytope, and let\n$\\mathcal Q$ consist of behaviors realizable as\n\\begin{equation}\n  p(a,b\\mid x,y)\n  =\\operatorname{Tr}\\!\\left[\\rho_{AB}\n    \\bigl(M_x^a\\otimes N_y^b\\bigr)\\right],\n  \\label{eq:p23-quantum-behavior}\n\\end{equation}\nwhere $\\rho_{AB}$ is a finite-dimensional state and $\\{M_x^a\\}_a$ and\n$\\{N_y^b\\}_b$ are local POVMs.  Equation~\\eqref{eq:p23-quantum-behavior}\ndefines the quantum set used below.\n\nFor a linear functional $F(p)=\\sum_{a,b,x,y}c_{abxy}p(a,b\\mid x,y)$, suppose\n$F(p)\\leq\\beta_{\\mathrm L}$ supports a facet of $\\mathcal L$ and is not a\npositivity facet within the normalization and no-signalling affine hull.  Is\nit necessarily true that\n\\begin{equation}\n  \\sup_{p\\in\\mathcal Q}F(p)>\\beta_{\\mathrm L}?\n  \\label{eq:p23-facet-violation}\n\\end{equation}\nEquation~\\eqref{eq:p23-facet-violation} asks whether the bipartite local and\nquantum sets can share a nontrivial facet-supporting hyperplane."
+    },
+    "status": {
+      "value": "Unsolved",
+      "latex": "Unsolved"
+    },
+    "source": {
+      "latex": "Ramanathan explicitly asks whether every nontrivial bipartite facet Bell\ninequality, rather than only every such almost-quantum facet, admits a quantum\nviolation \\sourcecite{ref:p23-almost-quantum}{Ram21}.",
+      "citations": [
+        {
+          "label": "ref:p23-almost-quantum",
+          "alpha_key": "Ram21"
+        }
+      ]
+    },
+    "progress": {
+      "latex": "\\begin{itemize}\n  \\item Escolà-Farràs, Calsamiglia, and Winter proved\n  Eq.~\\eqref{eq:p23-facet-violation} for every tight bipartite correlation\n  inequality, including every facet inequality of a two-player XOR game.\n  Their theorem does not cover general Bell behaviors with arbitrary outcome\n  probabilities \\sourcecite{ref:p23-correlation-facets}{ECW20}.\n\n  \\item Ramanathan proved that every nontrivial bipartite facet is violated by\n  the almost-quantum set and that the quantum statement holds for the\n  correlation-polytope projection.  Because the almost-quantum set strictly\n  contains the quantum set, this does not establish\n  Eq.~\\eqref{eq:p23-facet-violation} in general\n  \\sourcecite{ref:p23-almost-quantum}{Ram21}.\n\\end{itemize}",
+      "items": [
+        {
+          "index": 1,
+          "latex": "Escolà-Farràs, Calsamiglia, and Winter proved\n  Eq.~\\eqref{eq:p23-facet-violation} for every tight bipartite correlation\n  inequality, including every facet inequality of a two-player XOR game.\n  Their theorem does not cover general Bell behaviors with arbitrary outcome\n  probabilities \\sourcecite{ref:p23-correlation-facets}{ECW20}."
+        },
+        {
+          "index": 2,
+          "latex": "Ramanathan proved that every nontrivial bipartite facet is violated by\n  the almost-quantum set and that the quantum statement holds for the\n  correlation-polytope projection.  Because the almost-quantum set strictly\n  contains the quantum set, this does not establish\n  Eq.~\\eqref{eq:p23-facet-violation} in general\n  \\sourcecite{ref:p23-almost-quantum}{Ram21}."
+        }
+      ]
+    },
+    "references": {
+      "latex": "\\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]\n  \\footnotesize\n  \\item[\\textup{[ECW20]}]\\label{ref:p23-correlation-facets}\n  L. Escolà-Farràs, J. Calsamiglia, and A. Winter,\n  ``All Tight Correlation Bell Inequalities Have Quantum Violations,''\n  \\emph{Physical Review Research} \\textbf{2}, 012044(R) (2020).\n  \\href{https://doi.org/10.1103/PhysRevResearch.2.012044}{doi:10.1103/PhysRevResearch.2.012044};\n  \\href{https://arxiv.org/abs/1908.06669}{arXiv:1908.06669}.\n\n  \\item[\\textup{[Ram21]}]\\label{ref:p23-almost-quantum}\n  R. Ramanathan,\n  ``Violation of All Two-Party Facet Bell Inequalities by Almost-Quantum\n  Correlations,'' \\emph{Physical Review Research} \\textbf{3}, 033100 (2021).\n  \\href{https://doi.org/10.1103/PhysRevResearch.3.033100}{doi:10.1103/PhysRevResearch.3.033100};\n  \\href{https://arxiv.org/abs/2004.07673}{arXiv:2004.07673}.\n\\end{enumerate}",
+      "entries": [
+        {
+          "alpha_key": "ECW20",
+          "label": "ref:p23-correlation-facets",
+          "entry_latex": "L. Escolà-Farràs, J. Calsamiglia, and A. Winter,\n  ``All Tight Correlation Bell Inequalities Have Quantum Violations,''\n  \\emph{Physical Review Research} \\textbf{2}, 012044(R) (2020).\n  \\href{https://doi.org/10.1103/PhysRevResearch.2.012044}{doi:10.1103/PhysRevResearch.2.012044};\n  \\href{https://arxiv.org/abs/1908.06669}{arXiv:1908.06669}.",
+          "item_latex": "  \\item[\\textup{[ECW20]}]\\label{ref:p23-correlation-facets}\n  L. Escolà-Farràs, J. Calsamiglia, and A. Winter,\n  ``All Tight Correlation Bell Inequalities Have Quantum Violations,''\n  \\emph{Physical Review Research} \\textbf{2}, 012044(R) (2020).\n  \\href{https://doi.org/10.1103/PhysRevResearch.2.012044}{doi:10.1103/PhysRevResearch.2.012044};\n  \\href{https://arxiv.org/abs/1908.06669}{arXiv:1908.06669}."
+        },
+        {
+          "alpha_key": "Ram21",
+          "label": "ref:p23-almost-quantum",
+          "entry_latex": "R. Ramanathan,\n  ``Violation of All Two-Party Facet Bell Inequalities by Almost-Quantum\n  Correlations,'' \\emph{Physical Review Research} \\textbf{3}, 033100 (2021).\n  \\href{https://doi.org/10.1103/PhysRevResearch.3.033100}{doi:10.1103/PhysRevResearch.3.033100};\n  \\href{https://arxiv.org/abs/2004.07673}{arXiv:2004.07673}.",
+          "item_latex": "  \\item[\\textup{[Ram21]}]\\label{ref:p23-almost-quantum}\n  R. Ramanathan,\n  ``Violation of All Two-Party Facet Bell Inequalities by Almost-Quantum\n  Correlations,'' \\emph{Physical Review Research} \\textbf{3}, 033100 (2021).\n  \\href{https://doi.org/10.1103/PhysRevResearch.3.033100}{doi:10.1103/PhysRevResearch.3.033100};\n  \\href{https://arxiv.org/abs/2004.07673}{arXiv:2004.07673}."
+        }
+      ]
+    },
+    "comment": {
+      "latex": "The missing step is to replace the almost-quantum violation by a quantum\nbehavior for every nontrivial bipartite facet.  A solution may instead exhibit\na facet for which\n$\\sup_{p\\in\\mathcal Q}F(p)=\\beta_{\\mathrm L}$, rather than the strict\ninequality in Eq.~\\eqref{eq:p23-facet-violation}."
+    },
+    "tag": {
+      "values": [
+        "Bell nonlocality",
+        "Convex geometry",
+        "Quantum foundations"
+      ],
+      "latex": "Bell nonlocality; Convex geometry; Quantum foundations"
+    },
+    "id": {
+      "value": "op_dcea1e5e3032b8c5",
+      "latex": "\\texttt{op\\_dcea1e5e3032b8c5}"
+    }
+  },
+  "equations": [
+    {
+      "index": 1,
+      "label": "eq:p23-quantum-behavior",
+      "latex": "\\begin{equation}\n  p(a,b\\mid x,y)\n  =\\operatorname{Tr}\\!\\left[\\rho_{AB}\n    \\bigl(M_x^a\\otimes N_y^b\\bigr)\\right],\n  \\label{eq:p23-quantum-behavior}\n\\end{equation}"
+    },
+    {
+      "index": 2,
+      "label": "eq:p23-facet-violation",
+      "latex": "\\begin{equation}\n  \\sup_{p\\in\\mathcal Q}F(p)>\\beta_{\\mathrm L}?\n  \\label{eq:p23-facet-violation}\n\\end{equation}"
+    }
+  ],
+  "source_tex": "% Problem-section file following ../_template.tex.\n\\section{Quantum violations of bipartite Bell facets}\n\\label{sec:problem-23}\n\n\\paragraph{Problem.}\nMust every nontrivial facet Bell inequality in a finite bipartite scenario\nhave a quantum violation?  Let $\\mathcal L$ be the local polytope, and let\n$\\mathcal Q$ consist of behaviors realizable as\n\\begin{equation}\n  p(a,b\\mid x,y)\n  =\\operatorname{Tr}\\!\\left[\\rho_{AB}\n    \\bigl(M_x^a\\otimes N_y^b\\bigr)\\right],\n  \\label{eq:p23-quantum-behavior}\n\\end{equation}\nwhere $\\rho_{AB}$ is a finite-dimensional state and $\\{M_x^a\\}_a$ and\n$\\{N_y^b\\}_b$ are local POVMs.  Equation~\\eqref{eq:p23-quantum-behavior}\ndefines the quantum set used below.\n\nFor a linear functional $F(p)=\\sum_{a,b,x,y}c_{abxy}p(a,b\\mid x,y)$, suppose\n$F(p)\\leq\\beta_{\\mathrm L}$ supports a facet of $\\mathcal L$ and is not a\npositivity facet within the normalization and no-signalling affine hull.  Is\nit necessarily true that\n\\begin{equation}\n  \\sup_{p\\in\\mathcal Q}F(p)>\\beta_{\\mathrm L}?\n  \\label{eq:p23-facet-violation}\n\\end{equation}\nEquation~\\eqref{eq:p23-facet-violation} asks whether the bipartite local and\nquantum sets can share a nontrivial facet-supporting hyperplane.\n\n\\subsection*{Status}\n\nUnsolved\n\n\\subsection*{Source}\n\nRamanathan explicitly asks whether every nontrivial bipartite facet Bell\ninequality, rather than only every such almost-quantum facet, admits a quantum\nviolation \\sourcecite{ref:p23-almost-quantum}{Ram21}.\n\n\\subsection*{Progress}\n\n\\begin{itemize}\n  \\item Escolà-Farràs, Calsamiglia, and Winter proved\n  Eq.~\\eqref{eq:p23-facet-violation} for every tight bipartite correlation\n  inequality, including every facet inequality of a two-player XOR game.\n  Their theorem does not cover general Bell behaviors with arbitrary outcome\n  probabilities \\sourcecite{ref:p23-correlation-facets}{ECW20}.\n\n  \\item Ramanathan proved that every nontrivial bipartite facet is violated by\n  the almost-quantum set and that the quantum statement holds for the\n  correlation-polytope projection.  Because the almost-quantum set strictly\n  contains the quantum set, this does not establish\n  Eq.~\\eqref{eq:p23-facet-violation} in general\n  \\sourcecite{ref:p23-almost-quantum}{Ram21}.\n\\end{itemize}\n\n\\subsection*{References}\n\n\\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]\n  \\footnotesize\n  \\item[\\textup{[ECW20]}]\\label{ref:p23-correlation-facets}\n  L. Escolà-Farràs, J. Calsamiglia, and A. Winter,\n  ``All Tight Correlation Bell Inequalities Have Quantum Violations,''\n  \\emph{Physical Review Research} \\textbf{2}, 012044(R) (2020).\n  \\href{https://doi.org/10.1103/PhysRevResearch.2.012044}{doi:10.1103/PhysRevResearch.2.012044};\n  \\href{https://arxiv.org/abs/1908.06669}{arXiv:1908.06669}.\n\n  \\item[\\textup{[Ram21]}]\\label{ref:p23-almost-quantum}\n  R. Ramanathan,\n  ``Violation of All Two-Party Facet Bell Inequalities by Almost-Quantum\n  Correlations,'' \\emph{Physical Review Research} \\textbf{3}, 033100 (2021).\n  \\href{https://doi.org/10.1103/PhysRevResearch.3.033100}{doi:10.1103/PhysRevResearch.3.033100};\n  \\href{https://arxiv.org/abs/2004.07673}{arXiv:2004.07673}.\n\\end{enumerate}\n\n\\subsection*{Comment}\n\nThe missing step is to replace the almost-quantum violation by a quantum\nbehavior for every nontrivial bipartite facet.  A solution may instead exhibit\na facet for which\n$\\sup_{p\\in\\mathcal Q}F(p)=\\beta_{\\mathrm L}$, rather than the strict\ninequality in Eq.~\\eqref{eq:p23-facet-violation}.\n\n\\subsection*{Tag}\n\nBell nonlocality; Convex geometry; Quantum foundations\n\n\\subsection*{ID}\n\n\\texttt{op\\_dcea1e5e3032b8c5}\n"
+}

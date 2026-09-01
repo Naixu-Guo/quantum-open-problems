@@ -1,0 +1,176 @@
+% Problem-section file following ../_template.tex.
+\section{Absolute separability from spectra}
+\label{sec:problem-15}
+
+\paragraph{Problem.}
+Characterize the spectra of bipartite states that remain separable under every
+global unitary, and decide whether absolute separability equals absolute
+positivity under partial transpose in higher local dimensions.  Let
+$2\le m\le n$ and let
+$\lambda=(\lambda_1,\ldots,\lambda_{mn})$ be a decreasing probability vector.
+Define the absolutely separable spectra by
+\begin{equation}
+  \operatorname{ASEP}_{m,n}
+  :=\left\{
+    \lambda:
+    U\operatorname{diag}(\lambda)U^\dagger
+    \text{ is separable on }\mathbb{C}^m\otimes\mathbb{C}^n
+    \text{ for every }U\in\mathrm{U}(mn)
+  \right\}.
+  \label{eq:p15-asep-spectra}
+\end{equation}
+The relaxation by positivity under partial transpose is
+\begin{equation}
+  \operatorname{APPT}_{m,n}
+  :=\left\{
+    \lambda:
+    \left(U\operatorname{diag}(\lambda)U^\dagger\right)^{T_B}\succeq0
+    \text{ for every }U\in\mathrm{U}(mn)
+  \right\}.
+  \label{eq:p15-appt-spectra}
+\end{equation}
+The task is to characterize the set in Eq.~\eqref{eq:p15-asep-spectra} and,
+for $3\le m\le n$, decide whether it equals the set in
+Eq.~\eqref{eq:p15-appt-spectra}.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Kr\"uger and Werner pose the spectral characterization of absolute
+separability, and Ahiable, Kothakonda, and Winter explicitly retain the
+higher-dimensional characterization and ASEP--APPT equality as open
+\sourcecite{ref:p15-krueger-werner}{KW05},
+\sourcecite{ref:p15-ahiable-et-al}{AKW26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item For two qubits, Verstraete, Audenaert, and De Moor obtained the exact
+  condition
+  \begin{equation}
+    \lambda\in\operatorname{ASEP}_{2,2}
+    \quad\Longleftrightarrow\quad
+    \lambda_1-\lambda_3-2\sqrt{\lambda_2\lambda_4}\le0.
+    \label{eq:p15-two-qubit-criterion}
+  \end{equation}
+  Equation~\eqref{eq:p15-two-qubit-criterion} settles only the smallest
+  bipartite dimension
+  \sourcecite{ref:p15-verstraete-et-al}{VAD01}.
+
+  \item Hildebrand gave necessary-and-sufficient linear-matrix-inequality
+  conditions for membership in Eq.~\eqref{eq:p15-appt-spectra} in arbitrary
+  finite dimensions.  This characterizes the relaxation, not absolute
+  separability
+  \sourcecite{ref:p15-hildebrand}{Hil07}.
+
+  \item Johnston proved
+  $\operatorname{ASEP}_{2,n}=\operatorname{APPT}_{2,n}$ for every $n$, so all
+  cases with a qubit factor are excluded from the remaining problem
+  \sourcecite{ref:p15-johnston}{Joh13}.
+
+  \item Abellanet-Vidal et al. derived sufficient spectral criteria for
+  absolute separability in arbitrary dimensions by inverting positive maps
+  and taking convex hulls of the resulting regions.  These provide
+  computable inner approximations to
+  $\operatorname{ASEP}_{m,n}$, but are not necessary conditions
+  \sourcecite{ref:p15-abellanet-vidal-et-al}{AMR+25}.
+
+  \item Ahiable, Kothakonda, and Winter established new geometric properties
+  of both spectral sets.  In particular, $\operatorname{APPT}_{m,n}$ is a
+  spectrahedron whose faces are all exposed, whereas
+  $\operatorname{ASEP}_{m,n}$ is semialgebraic.  They explicitly retain the
+  higher-dimensional characterization and equality as open
+  \sourcecite{ref:p15-ahiable-et-al}{AKW26}.
+
+  \item Tran subsequently derived an explicit dimension-dependent upper
+  bound on the purity of every absolutely-PPT state.  This is a quantitative
+  outer constraint on $\operatorname{APPT}_{m,n}$, not a spectral
+  characterization, and hence does not settle its equality with
+  $\operatorname{ASEP}_{m,n}$
+  \sourcecite{ref:p15-tran}{Tra26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[VAD01]}]\label{ref:p15-verstraete-et-al}
+  F. Verstraete, K. Audenaert, and B. De Moor,
+  ``Maximally Entangled Mixed States of Two Qubits,''
+  \emph{Physical Review A} \textbf{64}, 012316 (2001).
+  \href{https://doi.org/10.1103/PhysRevA.64.012316}%
+       {doi:10.1103/PhysRevA.64.012316};
+  \href{https://arxiv.org/abs/quant-ph/0011110}%
+       {arXiv:quant-ph/0011110}.
+
+  \item[\textup{[Hil07]}]\label{ref:p15-hildebrand}
+  R. Hildebrand,
+  ``Positive Partial Transpose from Spectra,''
+  \emph{Physical Review A} \textbf{76}, 052325 (2007).
+  \href{https://doi.org/10.1103/PhysRevA.76.052325}%
+       {doi:10.1103/PhysRevA.76.052325};
+  \href{https://arxiv.org/abs/quant-ph/0502170}%
+       {arXiv:quant-ph/0502170}.
+
+  \item[\textup{[Joh13]}]\label{ref:p15-johnston}
+  N. Johnston,
+  ``Separability from Spectrum for Qubit--Qudit States,''
+  \emph{Physical Review A} \textbf{88}, 062330 (2013).\newline
+  \href{https://doi.org/10.1103/PhysRevA.88.062330}%
+       {doi:10.1103/PhysRevA.88.062330};
+  \href{https://arxiv.org/abs/1309.2006}{arXiv:1309.2006}.
+
+  \item[\textup{[AMR+25]}]\label{ref:p15-abellanet-vidal-et-al}
+  J. Abellanet-Vidal, G. Müller-Rigat, G. Rajchel-Mieldzioć, and A. Sanpera,
+  ``Sufficient Criteria for Absolute Separability in Arbitrary Dimensions
+  via Linear Map Inverses,''
+  \emph{Reports on Progress in Physics} \textbf{88}, 107601 (2025).
+  \href{https://doi.org/10.1088/1361-6633/ae0cfa}%
+       {doi:10.1088/1361-6633/ae0cfa};
+  \href{https://arxiv.org/abs/2410.22415}{arXiv:2410.22415}.
+
+  \item[\textup{[AKW26]}]\label{ref:p15-ahiable-et-al}
+  J. Ahiable, N. B. T. Kothakonda, and A. Winter,
+  ``The Geometry of Absolute Separability and Other Convex Matrix Properties
+  from Spectrum,'' arXiv:2608.03390 (2026).
+  \href{https://doi.org/10.48550/arXiv.2608.03390}%
+       {doi:10.48550/arXiv.2608.03390};
+  \href{https://arxiv.org/abs/2608.03390}{arXiv:2608.03390}.
+
+  \item[\textup{[Tra26]}]\label{ref:p15-tran}
+  A. T. Tran,
+  ``An Upper Bound for the Purity of Absolutely Positive Partial Transpose
+  States,'' arXiv:2608.09832 (2026).
+  \href{https://doi.org/10.48550/arXiv.2608.09832}%
+       {doi:10.48550/arXiv.2608.09832};
+  \href{https://arxiv.org/abs/2608.09832}{arXiv:2608.09832}.
+
+  \item[\textup{[KW05]}]\label{ref:p15-krueger-werner}
+  O. Krüger and R. F. Werner (eds.),
+  ``Some Open Problems in Quantum Information Theory,''
+  arXiv:quant-ph/0504166 (2005).
+  \href{https://doi.org/10.48550/arXiv.quant-ph/0504166}%
+       {doi:10.48550/arXiv.quant-ph/0504166};
+  \href{https://arxiv.org/abs/quant-ph/0504166}%
+       {arXiv:quant-ph/0504166}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The spectral characterization was posed in the source collection
+\sourcecite{ref:p15-krueger-werner}{KW05}.  The remaining gap begins when both
+local dimensions are at least $3$: the complete boundary of
+Eq.~\eqref{eq:p15-asep-spectra} is unknown, as is its possible equality with
+Eq.~\eqref{eq:p15-appt-spectra}.
+
+\subsection*{Tag}
+
+Quantum separability; Partial transpose criterion; Convex geometry;
+Qudit systems
+
+\subsection*{ID}
+
+\texttt{op\_b063bdae4363cda8}

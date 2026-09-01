@@ -1,0 +1,113 @@
+% Problem-section file following ../_template.tex.
+\section{Zauner-symmetric Weyl--Heisenberg SIC fiducials}
+\label{sec:problem-19}
+
+\paragraph{Problem.}
+Does every finite dimension admit a Weyl--Heisenberg SIC fiducial that is an
+eigenvector of a Zauner Clifford unitary?  For $d\geq2$, define the displacement
+operators $D_{\mathbf p}:=D_{p,q}:=X_d^pZ_d^q$ for
+$\mathbf p=(p,q)^{\mathsf T}\in\mathbb Z_d^2$, using
+\begin{equation}
+  X_d\lvert j\rangle=\lvert j+1\!\!\pmod d\rangle,
+  \qquad
+  Z_d\lvert j\rangle=e^{2\pi i j/d}\lvert j\rangle,
+  \qquad \mathbf p=(p,q)^{\mathsf T}\in\mathbb Z_d^2.
+  \label{eq:p19-displacements}
+\end{equation}
+Equation~\eqref{eq:p19-displacements} fixes the Weyl--Heisenberg orbit up to
+irrelevant phases.  Let $U_Z$ be a Clifford unitary whose action on displacement
+operators is
+\begin{equation}
+  U_ZD_{\mathbf p}U_Z^\dagger\doteq D_{F_Z\mathbf p},
+  \qquad
+  F_Z=
+  \begin{pmatrix}
+    0&-1\\
+    1&-1
+  \end{pmatrix},
+  \label{eq:p19-zauner-action}
+\end{equation}
+where indices are reduced modulo $d$ and $\doteq$ denotes equality up to phase.
+Equation~\eqref{eq:p19-zauner-action} fixes the distinguished order-three
+Clifford symmetry.
+The question is whether, for every $d\geq2$, there are a unit vector
+$\lvert\phi\rangle$ and a phase $e^{i\theta}$ such that
+\begin{equation}
+  U_Z\lvert\phi\rangle=e^{i\theta}\lvert\phi\rangle,
+  \qquad
+  \bigl|\langle\phi\rvert D_{\mathbf p}\lvert\phi\rangle\bigr|^2
+  =\frac{1}{d+1}
+  \quad\text{for every }\mathbf p\in\mathbb Z_d^2\setminus\{\mathbf0\}.
+  \label{eq:p19-zauner-sic-condition}
+\end{equation}
+Equation~\eqref{eq:p19-zauner-sic-condition} simultaneously imposes Zauner
+symmetry and the SIC overlap equations.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Appleby states the all-dimensional existence of a Zauner-symmetric
+Weyl--Heisenberg SIC fiducial as Conjecture~B
+\sourcecite{ref:p19-appleby-clifford}{App05}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Appleby stated Eq.~\eqref{eq:p19-zauner-sic-condition} as
+  Conjecture~B and verified it for the numerical fiducials then known, through
+  $d=45$ \sourcecite{ref:p19-appleby-clifford}{App05}.
+
+  \item Larger exact and numerical data sets continue to exhibit the Zauner
+  symmetry, including Weyl--Heisenberg SIC solutions in every dimension
+  through $d=181$.  Finite computations do not prove the universal
+  quantifier in Eq.~\eqref{eq:p19-zauner-sic-condition}
+  \sourcecite{ref:p19-appleby-data}{ABFG19}.
+
+  \item Appleby, Flammia, and Kopp construct Zauner-symmetric SICs for all
+  $d>3$ under two number-theoretic conjectures.  Those unproved assumptions
+  leave the unconditional problem open
+  \sourcecite{ref:p19-appleby-stark}{AFK25}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[App05]}]\label{ref:p19-appleby-clifford}
+  D. M. Appleby, ``SIC-POVMs and the Extended Clifford Group,''
+  \emph{Journal of Mathematical Physics} \textbf{46}, 052107 (2005).
+  \href{https://doi.org/10.1063/1.1896384}{doi:10.1063/1.1896384};
+  \href{https://arxiv.org/abs/quant-ph/0412001}{arXiv:quant-ph/0412001}.
+
+  \item[\textup{[ABFG19]}]\label{ref:p19-appleby-data}
+  M. Appleby, I. Bengtsson, S. Flammia, and D. Goyeneche,
+  ``Tight Frames, Hadamard Matrices and Zauner's Conjecture,''
+  \emph{Journal of Physics A: Mathematical and Theoretical} \textbf{52},
+  295301 (2019).
+  \href{https://doi.org/10.1088/1751-8121/ab25ad}{doi:10.1088/1751-8121/ab25ad};
+  \href{https://arxiv.org/abs/1903.06721}{arXiv:1903.06721}.
+
+  \item[\textup{[AFK25]}]\label{ref:p19-appleby-stark}
+  M. Appleby, S. T. Flammia, and G. S. Kopp,
+  ``A Constructive Approach to Zauner's Conjecture via the Stark
+  Conjectures,'' arXiv:2501.03970 (2025).
+  \href{https://arxiv.org/abs/2501.03970}{arXiv:2501.03970}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The open problem is the unconditional all-dimensional existence of a fiducial
+satisfying both conditions in Eq.~\eqref{eq:p19-zauner-sic-condition}.  It is
+strictly stronger than Weyl--Heisenberg-covariant SIC existence in Problem~18.
+
+\subsection*{Tag}
+
+Symmetric informationally complete measurements; Measurement theory;
+Qudit systems; Representation theory
+
+\subsection*{ID}
+
+\texttt{op\_ff2e80b425aebb86}

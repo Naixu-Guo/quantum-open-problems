@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.1",
+  "content_format": "latex",
+  "text_encoding": "UTF-8",
+  "representation": {
+    "latex_fields": "LaTeX is preserved verbatim in all keys ending in _latex.",
+    "round_trip_field": "source_tex",
+    "json_escaping": "Backslashes and control characters use standard JSON string escaping."
+  },
+  "source": {
+    "file": "../problem_pool/problem_11.tex",
+    "sha256": "1721c720b017c1b7370ebec2baaf979cccdd9ef24c0fd150c7b206b3973b8416"
+  },
+  "problem_number": 11,
+  "title": "Complete facet descriptions for Bell polytopes",
+  "section_label": "sec:problem-11",
+  "id": "op_ebee7d5c442d81a4",
+  "status": "Unsolved",
+  "tags": [
+    "Bell nonlocality",
+    "Convex geometry",
+    "Combinatorics",
+    "Quantum foundations"
+  ],
+  "sections": {
+    "problem_statement": {
+      "latex": "Determine complete facet descriptions for local-behavior polytopes beyond the\npresently solved Bell scenarios, either for a specified unresolved finite\nscenario or for a nontrivial infinite family with additional structure.  For\npositive integers $N$, $M$, and $K$, let\n$\\mathbf{x}\\in\\{1,\\ldots,M\\}^{N}$ denote the measurement settings and\n$\\mathbf{a}\\in\\{1,\\ldots,K\\}^{N}$ the outcomes.  The relevant local polytope\nis\n\\begin{equation}\n  \\mathcal{L}_{N,M,K}\n  :=\\operatorname{conv}\\!\\left\\{\n    p_{\\mathbf f}:p_{\\mathbf f}(\\mathbf a\\mid\\mathbf x)\n    =\\prod_{i=1}^{N}\\mathbf{1}\\!\\left\\{a_i=f_i(x_i)\\right\\},\\quad\n    f_i:\\{1,\\ldots,M\\}\\to\\{1,\\ldots,K\\}\n  \\right\\}.\n  \\label{eq:p11-local-polytope}\n\\end{equation}\nHere $\\mathbf 1\\{\\cdot\\}$ is the indicator function.\nThe task is to characterize all facet-defining inequalities of the polytope\nin Eq.~\\eqref{eq:p11-local-polytope} in a chosen unresolved regime, modulo\npermutations of parties, settings, and outcomes and modulo liftings obtained\nby adjoining redundant settings or outcomes.  A solution must carry a proof\nof completeness, not merely generate a large collection of facets."
+    },
+    "status": {
+      "value": "Unsolved",
+      "latex": "Unsolved"
+    },
+    "source": {
+      "latex": "Kr\\\"uger and Werner explicitly pose the search for completeness-certified\nfacet descriptions of Bell polytopes in tractable finite scenarios and\nstructured families \\sourcecite{ref:p11-krueger-werner}{KW05}.",
+      "citations": [
+        {
+          "label": "ref:p11-krueger-werner",
+          "alpha_key": "KW05"
+        }
+      ]
+    },
+    "progress": {
+      "latex": "\\begin{itemize}\n  \\item Fine proved that positivity, normalization, and the\n  Clauser--Horne--Shimony--Holt inequalities completely describe the\n  $(N,M,K)=(2,2,2)$ local scenario.  This settles only the smallest\n  nontrivial case\n  \\sourcecite{ref:p11-fine}{Fin82}.\n\n  \\item Werner and Wolf classified all full-correlation facets for arbitrary\n  $N$ when every party has two dichotomic observables.  Their theorem concerns\n  a correlator projection of Eq.~\\eqref{eq:p11-local-polytope}, not the full\n  conditional-probability polytope\n  \\sourcecite{ref:p11-werner-wolf}{WW01}.\n\n  \\item Staufenbiel's polyhedral-sampling method found more than\n  $1.29\\times10^8$ inequivalent facet classes in one unresolved scenario, but\n  the method intentionally sacrifices completeness.  Thus the computation\n  enlarges the known catalog without supplying the required certificate\n  \\sourcecite{ref:p11-staufenbiel}{Sta26}.\n\\end{itemize}",
+      "items": [
+        {
+          "index": 1,
+          "latex": "Fine proved that positivity, normalization, and the\n  Clauser--Horne--Shimony--Holt inequalities completely describe the\n  $(N,M,K)=(2,2,2)$ local scenario.  This settles only the smallest\n  nontrivial case\n  \\sourcecite{ref:p11-fine}{Fin82}."
+        },
+        {
+          "index": 2,
+          "latex": "Werner and Wolf classified all full-correlation facets for arbitrary\n  $N$ when every party has two dichotomic observables.  Their theorem concerns\n  a correlator projection of Eq.~\\eqref{eq:p11-local-polytope}, not the full\n  conditional-probability polytope\n  \\sourcecite{ref:p11-werner-wolf}{WW01}."
+        },
+        {
+          "index": 3,
+          "latex": "Staufenbiel's polyhedral-sampling method found more than\n  $1.29\\times10^8$ inequivalent facet classes in one unresolved scenario, but\n  the method intentionally sacrifices completeness.  Thus the computation\n  enlarges the known catalog without supplying the required certificate\n  \\sourcecite{ref:p11-staufenbiel}{Sta26}."
+        }
+      ]
+    },
+    "references": {
+      "latex": "\\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]\n  \\footnotesize\n  \\item[\\textup{[Fin82]}]\\label{ref:p11-fine}\n  A. Fine,\n  ``Hidden Variables, Joint Probability, and the Bell Inequalities,''\n  \\emph{Physical Review Letters} \\textbf{48}, 291--295 (1982).\n  \\href{https://doi.org/10.1103/PhysRevLett.48.291}%\n       {doi:10.1103/PhysRevLett.48.291}.\n\n  \\item[\\textup{[WW01]}]\\label{ref:p11-werner-wolf}\n  R. F. Werner and M. M. Wolf,\n  ``All Multipartite Bell Correlation Inequalities for Two Dichotomic\n  Observables per Site,''\n  \\emph{Physical Review A} \\textbf{64}, 032112 (2001).\n  \\href{https://doi.org/10.1103/PhysRevA.64.032112}%\n       {doi:10.1103/PhysRevA.64.032112};\n  \\href{https://arxiv.org/abs/quant-ph/0102024}%\n       {arXiv:quant-ph/0102024}.\n\n  \\item[\\textup{[Sta26]}]\\label{ref:p11-staufenbiel}\n  C. Staufenbiel,\n  ``Bell Inequalities from Polyhedral Sampling,'' arXiv:2604.22859 (2026).\\newline\n  \\href{https://doi.org/10.48550/arXiv.2604.22859}%\n       {doi:10.48550/arXiv.2604.22859};\n  \\href{https://arxiv.org/abs/2604.22859}{arXiv:2604.22859}.\n\n  \\item[\\textup{[KW05]}]\\label{ref:p11-krueger-werner}\n  O. Krüger and R. F. Werner (eds.),\n  ``Some Open Problems in Quantum Information Theory,''\n  arXiv:quant-ph/0504166 (2005).\n  \\href{https://doi.org/10.48550/arXiv.quant-ph/0504166}%\n       {doi:10.48550/arXiv.quant-ph/0504166};\n  \\href{https://arxiv.org/abs/quant-ph/0504166}%\n       {arXiv:quant-ph/0504166}.\n\\end{enumerate}",
+      "entries": [
+        {
+          "alpha_key": "Fin82",
+          "label": "ref:p11-fine",
+          "entry_latex": "A. Fine,\n  ``Hidden Variables, Joint Probability, and the Bell Inequalities,''\n  \\emph{Physical Review Letters} \\textbf{48}, 291--295 (1982).\n  \\href{https://doi.org/10.1103/PhysRevLett.48.291}%\n       {doi:10.1103/PhysRevLett.48.291}.",
+          "item_latex": "  \\item[\\textup{[Fin82]}]\\label{ref:p11-fine}\n  A. Fine,\n  ``Hidden Variables, Joint Probability, and the Bell Inequalities,''\n  \\emph{Physical Review Letters} \\textbf{48}, 291--295 (1982).\n  \\href{https://doi.org/10.1103/PhysRevLett.48.291}%\n       {doi:10.1103/PhysRevLett.48.291}."
+        },
+        {
+          "alpha_key": "WW01",
+          "label": "ref:p11-werner-wolf",
+          "entry_latex": "R. F. Werner and M. M. Wolf,\n  ``All Multipartite Bell Correlation Inequalities for Two Dichotomic\n  Observables per Site,''\n  \\emph{Physical Review A} \\textbf{64}, 032112 (2001).\n  \\href{https://doi.org/10.1103/PhysRevA.64.032112}%\n       {doi:10.1103/PhysRevA.64.032112};\n  \\href{https://arxiv.org/abs/quant-ph/0102024}%\n       {arXiv:quant-ph/0102024}.",
+          "item_latex": "  \\item[\\textup{[WW01]}]\\label{ref:p11-werner-wolf}\n  R. F. Werner and M. M. Wolf,\n  ``All Multipartite Bell Correlation Inequalities for Two Dichotomic\n  Observables per Site,''\n  \\emph{Physical Review A} \\textbf{64}, 032112 (2001).\n  \\href{https://doi.org/10.1103/PhysRevA.64.032112}%\n       {doi:10.1103/PhysRevA.64.032112};\n  \\href{https://arxiv.org/abs/quant-ph/0102024}%\n       {arXiv:quant-ph/0102024}."
+        },
+        {
+          "alpha_key": "Sta26",
+          "label": "ref:p11-staufenbiel",
+          "entry_latex": "C. Staufenbiel,\n  ``Bell Inequalities from Polyhedral Sampling,'' arXiv:2604.22859 (2026).\\newline\n  \\href{https://doi.org/10.48550/arXiv.2604.22859}%\n       {doi:10.48550/arXiv.2604.22859};\n  \\href{https://arxiv.org/abs/2604.22859}{arXiv:2604.22859}.",
+          "item_latex": "  \\item[\\textup{[Sta26]}]\\label{ref:p11-staufenbiel}\n  C. Staufenbiel,\n  ``Bell Inequalities from Polyhedral Sampling,'' arXiv:2604.22859 (2026).\\newline\n  \\href{https://doi.org/10.48550/arXiv.2604.22859}%\n       {doi:10.48550/arXiv.2604.22859};\n  \\href{https://arxiv.org/abs/2604.22859}{arXiv:2604.22859}."
+        },
+        {
+          "alpha_key": "KW05",
+          "label": "ref:p11-krueger-werner",
+          "entry_latex": "O. Krüger and R. F. Werner (eds.),\n  ``Some Open Problems in Quantum Information Theory,''\n  arXiv:quant-ph/0504166 (2005).\n  \\href{https://doi.org/10.48550/arXiv.quant-ph/0504166}%\n       {doi:10.48550/arXiv.quant-ph/0504166};\n  \\href{https://arxiv.org/abs/quant-ph/0504166}%\n       {arXiv:quant-ph/0504166}.",
+          "item_latex": "  \\item[\\textup{[KW05]}]\\label{ref:p11-krueger-werner}\n  O. Krüger and R. F. Werner (eds.),\n  ``Some Open Problems in Quantum Information Theory,''\n  arXiv:quant-ph/0504166 (2005).\n  \\href{https://doi.org/10.48550/arXiv.quant-ph/0504166}%\n       {doi:10.48550/arXiv.quant-ph/0504166};\n  \\href{https://arxiv.org/abs/quant-ph/0504166}%\n       {arXiv:quant-ph/0504166}."
+        }
+      ]
+    },
+    "comment": {
+      "latex": "The source problem explicitly replaces an implausible classification uniform\nin all $(N,M,K)$ by completeness-certified finite cases and structured\nfamilies \\sourcecite{ref:p11-krueger-werner}{KW05}.  The unresolved gap is a\nnew theorem of completeness for one such nontrivial regime; heuristic\ncompleteness or sampling without a certificate is insufficient."
+    },
+    "tag": {
+      "values": [
+        "Bell nonlocality",
+        "Convex geometry",
+        "Combinatorics",
+        "Quantum foundations"
+      ],
+      "latex": "Bell nonlocality; Convex geometry; Combinatorics; Quantum foundations"
+    },
+    "id": {
+      "value": "op_ebee7d5c442d81a4",
+      "latex": "\\texttt{op\\_ebee7d5c442d81a4}"
+    }
+  },
+  "equations": [
+    {
+      "index": 1,
+      "label": "eq:p11-local-polytope",
+      "latex": "\\begin{equation}\n  \\mathcal{L}_{N,M,K}\n  :=\\operatorname{conv}\\!\\left\\{\n    p_{\\mathbf f}:p_{\\mathbf f}(\\mathbf a\\mid\\mathbf x)\n    =\\prod_{i=1}^{N}\\mathbf{1}\\!\\left\\{a_i=f_i(x_i)\\right\\},\\quad\n    f_i:\\{1,\\ldots,M\\}\\to\\{1,\\ldots,K\\}\n  \\right\\}.\n  \\label{eq:p11-local-polytope}\n\\end{equation}"
+    }
+  ],
+  "source_tex": "% Problem-section file following ../_template.tex.\n\\section{Complete facet descriptions for Bell polytopes}\n\\label{sec:problem-11}\n\n\\paragraph{Problem.}\nDetermine complete facet descriptions for local-behavior polytopes beyond the\npresently solved Bell scenarios, either for a specified unresolved finite\nscenario or for a nontrivial infinite family with additional structure.  For\npositive integers $N$, $M$, and $K$, let\n$\\mathbf{x}\\in\\{1,\\ldots,M\\}^{N}$ denote the measurement settings and\n$\\mathbf{a}\\in\\{1,\\ldots,K\\}^{N}$ the outcomes.  The relevant local polytope\nis\n\\begin{equation}\n  \\mathcal{L}_{N,M,K}\n  :=\\operatorname{conv}\\!\\left\\{\n    p_{\\mathbf f}:p_{\\mathbf f}(\\mathbf a\\mid\\mathbf x)\n    =\\prod_{i=1}^{N}\\mathbf{1}\\!\\left\\{a_i=f_i(x_i)\\right\\},\\quad\n    f_i:\\{1,\\ldots,M\\}\\to\\{1,\\ldots,K\\}\n  \\right\\}.\n  \\label{eq:p11-local-polytope}\n\\end{equation}\nHere $\\mathbf 1\\{\\cdot\\}$ is the indicator function.\nThe task is to characterize all facet-defining inequalities of the polytope\nin Eq.~\\eqref{eq:p11-local-polytope} in a chosen unresolved regime, modulo\npermutations of parties, settings, and outcomes and modulo liftings obtained\nby adjoining redundant settings or outcomes.  A solution must carry a proof\nof completeness, not merely generate a large collection of facets.\n\n\\subsection*{Status}\n\nUnsolved\n\n\\subsection*{Source}\n\nKr\\\"uger and Werner explicitly pose the search for completeness-certified\nfacet descriptions of Bell polytopes in tractable finite scenarios and\nstructured families \\sourcecite{ref:p11-krueger-werner}{KW05}.\n\n\\subsection*{Progress}\n\n\\begin{itemize}\n  \\item Fine proved that positivity, normalization, and the\n  Clauser--Horne--Shimony--Holt inequalities completely describe the\n  $(N,M,K)=(2,2,2)$ local scenario.  This settles only the smallest\n  nontrivial case\n  \\sourcecite{ref:p11-fine}{Fin82}.\n\n  \\item Werner and Wolf classified all full-correlation facets for arbitrary\n  $N$ when every party has two dichotomic observables.  Their theorem concerns\n  a correlator projection of Eq.~\\eqref{eq:p11-local-polytope}, not the full\n  conditional-probability polytope\n  \\sourcecite{ref:p11-werner-wolf}{WW01}.\n\n  \\item Staufenbiel's polyhedral-sampling method found more than\n  $1.29\\times10^8$ inequivalent facet classes in one unresolved scenario, but\n  the method intentionally sacrifices completeness.  Thus the computation\n  enlarges the known catalog without supplying the required certificate\n  \\sourcecite{ref:p11-staufenbiel}{Sta26}.\n\\end{itemize}\n\n\\subsection*{References}\n\n\\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]\n  \\footnotesize\n  \\item[\\textup{[Fin82]}]\\label{ref:p11-fine}\n  A. Fine,\n  ``Hidden Variables, Joint Probability, and the Bell Inequalities,''\n  \\emph{Physical Review Letters} \\textbf{48}, 291--295 (1982).\n  \\href{https://doi.org/10.1103/PhysRevLett.48.291}%\n       {doi:10.1103/PhysRevLett.48.291}.\n\n  \\item[\\textup{[WW01]}]\\label{ref:p11-werner-wolf}\n  R. F. Werner and M. M. Wolf,\n  ``All Multipartite Bell Correlation Inequalities for Two Dichotomic\n  Observables per Site,''\n  \\emph{Physical Review A} \\textbf{64}, 032112 (2001).\n  \\href{https://doi.org/10.1103/PhysRevA.64.032112}%\n       {doi:10.1103/PhysRevA.64.032112};\n  \\href{https://arxiv.org/abs/quant-ph/0102024}%\n       {arXiv:quant-ph/0102024}.\n\n  \\item[\\textup{[Sta26]}]\\label{ref:p11-staufenbiel}\n  C. Staufenbiel,\n  ``Bell Inequalities from Polyhedral Sampling,'' arXiv:2604.22859 (2026).\\newline\n  \\href{https://doi.org/10.48550/arXiv.2604.22859}%\n       {doi:10.48550/arXiv.2604.22859};\n  \\href{https://arxiv.org/abs/2604.22859}{arXiv:2604.22859}.\n\n  \\item[\\textup{[KW05]}]\\label{ref:p11-krueger-werner}\n  O. Krüger and R. F. Werner (eds.),\n  ``Some Open Problems in Quantum Information Theory,''\n  arXiv:quant-ph/0504166 (2005).\n  \\href{https://doi.org/10.48550/arXiv.quant-ph/0504166}%\n       {doi:10.48550/arXiv.quant-ph/0504166};\n  \\href{https://arxiv.org/abs/quant-ph/0504166}%\n       {arXiv:quant-ph/0504166}.\n\\end{enumerate}\n\n\\subsection*{Comment}\n\nThe source problem explicitly replaces an implausible classification uniform\nin all $(N,M,K)$ by completeness-certified finite cases and structured\nfamilies \\sourcecite{ref:p11-krueger-werner}{KW05}.  The unresolved gap is a\nnew theorem of completeness for one such nontrivial regime; heuristic\ncompleteness or sampling without a certificate is insufficient.\n\n\\subsection*{Tag}\n\nBell nonlocality; Convex geometry; Combinatorics; Quantum foundations\n\n\\subsection*{ID}\n\n\\texttt{op\\_ebee7d5c442d81a4}\n"
+}

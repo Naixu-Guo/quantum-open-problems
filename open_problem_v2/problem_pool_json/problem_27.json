@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.1",
+  "content_format": "latex",
+  "text_encoding": "UTF-8",
+  "representation": {
+    "latex_fields": "LaTeX is preserved verbatim in all keys ending in _latex.",
+    "round_trip_field": "source_tex",
+    "json_escaping": "Backslashes and control characters use standard JSON string escaping."
+  },
+  "source": {
+    "file": "../problem_pool/problem_27.tex",
+    "sha256": "a649620715289f81abce21b183e0df96f32ca1855fc3252684635199047a563c"
+  },
+  "problem_number": 27,
+  "title": "One-bit simulation of partially entangled qubits",
+  "section_label": "sec:problem-27",
+  "id": "op_64db785888803dd3",
+  "status": "Unsolved",
+  "tags": [
+    "Bell nonlocality",
+    "Quantum communication complexity",
+    "Qubit systems"
+  ],
+  "sections": {
+    "problem_statement": {
+      "latex": "Can shared randomness and one classical bit exactly simulate every pair of\nlocal projective measurements on every pure entangled two-qubit state?  In\nSchmidt form the state is\n\\begin{equation}\n  \\lvert\\psi_p\\rangle\n  =\\sqrt p\\,\\lvert00\\rangle+\\sqrt{1-p}\\,\\lvert11\\rangle,\n  \\qquad \\frac12<p<1.\n  \\label{eq:p27-schmidt-state}\n\\end{equation}\nFor arbitrary Bloch vectors $\\mathbf x,\\mathbf y\\in S^2$ and outcomes\n$a,b\\in\\{0,1\\}$, the target distribution associated with\nEq.~\\eqref{eq:p27-schmidt-state} is\n\\begin{equation}\n  \\begin{aligned}\n  P_p(a,b\\mid\\mathbf x,\\mathbf y)\n    &=\\operatorname{Tr}\\!\\left[\n      \\lvert\\psi_p\\rangle\\!\\langle\\psi_p\\rvert\n      \\bigl(M_{a\\mid\\mathbf x}\\otimes M_{b\\mid\\mathbf y}\\bigr)\n      \\right],\\\\\n  M_{a\\mid\\mathbf x}\n    &=\\frac{I+(-1)^a\\mathbf x\\cdot\\boldsymbol\\sigma}{2},\n  \\qquad\n  M_{b\\mid\\mathbf y}\n    =\\frac{I+(-1)^b\\mathbf y\\cdot\\boldsymbol\\sigma}{2}.\n  \\end{aligned}\n  \\label{eq:p27-target-correlation}\n\\end{equation}\nThe protocol may use unlimited shared randomness; after receiving\n$\\mathbf x$, Alice sends Bob one bit, and their local outputs must reproduce\nEq.~\\eqref{eq:p27-target-correlation} for every pair of measurement\ndirections.  If no such universal protocol exists, find a finite-setting\nlinear inequality satisfied by all one-bit protocols and violated by one of\nthese target distributions."
+    },
+    "status": {
+      "value": "Unsolved",
+      "latex": "Unsolved"
+    },
+    "source": {
+      "latex": "Gisin explicitly asks whether one classical bit simulates every partially\nentangled two-qubit state; Renner and Quintino restate the surviving question\nafter narrowing the parameter range\n\\sourcecite{ref:p27-gisin}{Gis09},\n\\sourcecite{ref:p27-renner-quintino}{RQ23}.",
+      "citations": [
+        {
+          "label": "ref:p27-gisin",
+          "alpha_key": "Gis09"
+        },
+        {
+          "label": "ref:p27-renner-quintino",
+          "alpha_key": "RQ23"
+        }
+      ]
+    },
+    "progress": {
+      "latex": "\\begin{itemize}\n  \\item Gisin posed the separating-inequality question for one-bit-assisted\n  correlations \\sourcecite{ref:p27-gisin}{Gis09}.  At the maximally entangled\n  endpoint $p=1/2$, Toner and Bacon gave an exact one-bit protocol for all\n  projective measurements \\sourcecite{ref:p27-toner-bacon}{TB03}; this does\n  not cover the nonmaximally entangled interval in\n  Eq.~\\eqref{eq:p27-schmidt-state}.\n\n  \\item Renner and Quintino constructed a one-trit protocol for every\n  $1/2\\leq p\\leq1$.  For $1/2<p<1$, their protocol uses only one bit whenever\n  \\begin{equation}\n    \\frac{2p(1-p)}{2p-1}\\log\\!\\left(\\frac{p}{1-p}\\right)+2(1-p)\\leq1,\n    \\label{eq:p27-one-bit-region}\n  \\end{equation}\n  which holds approximately for $0.835\\leq p<1$; the product-state endpoint\n  $p=1$ requires no communication.  Thus\n  Eq.~\\eqref{eq:p27-one-bit-region} leaves the interval\n  $1/2<p<0.835$ unresolved \\sourcecite{ref:p27-renner-quintino}{RQ23}.\n\n  \\item Numerical and semianalytical models support one-bit simulation beyond\n  the proved range, but do not supply an exact protocol for all directions\n  \\sourcecite{ref:p27-sidajaya}{SLYS23}.  Conversely, finite-scenario\n  inequalities for one-bit-assisted correlations can be enumerated, but no\n  known inequality separates the remaining targets in\n  Eq.~\\eqref{eq:p27-target-correlation}\n  \\sourcecite{ref:p27-bacon-toner}{BT03}.\n\\end{itemize}",
+      "items": [
+        {
+          "index": 1,
+          "latex": "Gisin posed the separating-inequality question for one-bit-assisted\n  correlations \\sourcecite{ref:p27-gisin}{Gis09}.  At the maximally entangled\n  endpoint $p=1/2$, Toner and Bacon gave an exact one-bit protocol for all\n  projective measurements \\sourcecite{ref:p27-toner-bacon}{TB03}; this does\n  not cover the nonmaximally entangled interval in\n  Eq.~\\eqref{eq:p27-schmidt-state}."
+        },
+        {
+          "index": 2,
+          "latex": "Renner and Quintino constructed a one-trit protocol for every\n  $1/2\\leq p\\leq1$.  For $1/2<p<1$, their protocol uses only one bit whenever\n  \\begin{equation}\n    \\frac{2p(1-p)}{2p-1}\\log\\!\\left(\\frac{p}{1-p}\\right)+2(1-p)\\leq1,\n    \\label{eq:p27-one-bit-region}\n  \\end{equation}\n  which holds approximately for $0.835\\leq p<1$; the product-state endpoint\n  $p=1$ requires no communication.  Thus\n  Eq.~\\eqref{eq:p27-one-bit-region} leaves the interval\n  $1/2<p<0.835$ unresolved \\sourcecite{ref:p27-renner-quintino}{RQ23}."
+        },
+        {
+          "index": 3,
+          "latex": "Numerical and semianalytical models support one-bit simulation beyond\n  the proved range, but do not supply an exact protocol for all directions\n  \\sourcecite{ref:p27-sidajaya}{SLYS23}.  Conversely, finite-scenario\n  inequalities for one-bit-assisted correlations can be enumerated, but no\n  known inequality separates the remaining targets in\n  Eq.~\\eqref{eq:p27-target-correlation}\n  \\sourcecite{ref:p27-bacon-toner}{BT03}."
+        }
+      ]
+    },
+    "references": {
+      "latex": "\\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]\n  \\footnotesize\n  \\item[\\textup{[Gis09]}]\\label{ref:p27-gisin}\n  N. Gisin, ``Bell Inequalities: Many Questions, a Few Answers,'' in\n  W. C. Myrvold and J. Christian (eds.), \\emph{Quantum Reality, Relativistic\n  Causality, and Closing the Epistemic Circle}, The Western Ontario Series in\n  Philosophy of Science \\textbf{73}, 125--138 (Springer, 2009).\n  \\href{https://doi.org/10.1007/978-1-4020-9107-0_9}{doi:10.1007/978-1-4020-9107-0\\_9};\n  \\href{https://arxiv.org/abs/quant-ph/0702021}{arXiv:quant-ph/0702021}.\n\n  \\item[\\textup{[TB03]}]\\label{ref:p27-toner-bacon}\n  B. F. Toner and D. Bacon, ``Communication Cost of Simulating Bell\n  Correlations,'' \\emph{Physical Review Letters} \\textbf{91}, 187904 (2003).\n  \\href{https://doi.org/10.1103/PhysRevLett.91.187904}{doi:10.1103/PhysRevLett.91.187904};\n  \\href{https://arxiv.org/abs/quant-ph/0304076}{arXiv:quant-ph/0304076}.\n\n  \\item[\\textup{[RQ23]}]\\label{ref:p27-renner-quintino}\n  M. J. Renner and M. T. Quintino, ``The Minimal Communication Cost for\n  Simulating Entangled Qubits,'' \\emph{Quantum} \\textbf{7}, 1149 (2023).\n  \\href{https://doi.org/10.22331/q-2023-10-24-1149}{doi:10.22331/q-2023-10-24-1149};\n  \\href{https://arxiv.org/abs/2207.12457}{arXiv:2207.12457}.\n\n  \\item[\\textup{[SLYS23]}]\\label{ref:p27-sidajaya}\n  P. Sidajaya, A. D. Lim, B. Yu, and V. Scarani, ``Neural Network Approach to\n  the Simulation of Entangled States with One Bit of Communication,''\n  \\emph{Quantum} \\textbf{7}, 1150 (2023).\n  \\href{https://doi.org/10.22331/q-2023-10-24-1150}{doi:10.22331/q-2023-10-24-1150};\n  \\href{https://arxiv.org/abs/2305.19935}{arXiv:2305.19935}.\n\n  \\item[\\textup{[BT03]}]\\label{ref:p27-bacon-toner}\n  D. Bacon and B. F. Toner, ``Bell Inequalities with Auxiliary\n  Communication,'' \\emph{Physical Review Letters} \\textbf{90}, 157904\n  (2003). \\href{https://doi.org/10.1103/PhysRevLett.90.157904}{doi:10.1103/PhysRevLett.90.157904};\n  \\href{https://arxiv.org/abs/quant-ph/0208057}{arXiv:quant-ph/0208057}.\n\\end{enumerate}",
+      "entries": [
+        {
+          "alpha_key": "Gis09",
+          "label": "ref:p27-gisin",
+          "entry_latex": "N. Gisin, ``Bell Inequalities: Many Questions, a Few Answers,'' in\n  W. C. Myrvold and J. Christian (eds.), \\emph{Quantum Reality, Relativistic\n  Causality, and Closing the Epistemic Circle}, The Western Ontario Series in\n  Philosophy of Science \\textbf{73}, 125--138 (Springer, 2009).\n  \\href{https://doi.org/10.1007/978-1-4020-9107-0_9}{doi:10.1007/978-1-4020-9107-0\\_9};\n  \\href{https://arxiv.org/abs/quant-ph/0702021}{arXiv:quant-ph/0702021}.",
+          "item_latex": "  \\item[\\textup{[Gis09]}]\\label{ref:p27-gisin}\n  N. Gisin, ``Bell Inequalities: Many Questions, a Few Answers,'' in\n  W. C. Myrvold and J. Christian (eds.), \\emph{Quantum Reality, Relativistic\n  Causality, and Closing the Epistemic Circle}, The Western Ontario Series in\n  Philosophy of Science \\textbf{73}, 125--138 (Springer, 2009).\n  \\href{https://doi.org/10.1007/978-1-4020-9107-0_9}{doi:10.1007/978-1-4020-9107-0\\_9};\n  \\href{https://arxiv.org/abs/quant-ph/0702021}{arXiv:quant-ph/0702021}."
+        },
+        {
+          "alpha_key": "TB03",
+          "label": "ref:p27-toner-bacon",
+          "entry_latex": "B. F. Toner and D. Bacon, ``Communication Cost of Simulating Bell\n  Correlations,'' \\emph{Physical Review Letters} \\textbf{91}, 187904 (2003).\n  \\href{https://doi.org/10.1103/PhysRevLett.91.187904}{doi:10.1103/PhysRevLett.91.187904};\n  \\href{https://arxiv.org/abs/quant-ph/0304076}{arXiv:quant-ph/0304076}.",
+          "item_latex": "  \\item[\\textup{[TB03]}]\\label{ref:p27-toner-bacon}\n  B. F. Toner and D. Bacon, ``Communication Cost of Simulating Bell\n  Correlations,'' \\emph{Physical Review Letters} \\textbf{91}, 187904 (2003).\n  \\href{https://doi.org/10.1103/PhysRevLett.91.187904}{doi:10.1103/PhysRevLett.91.187904};\n  \\href{https://arxiv.org/abs/quant-ph/0304076}{arXiv:quant-ph/0304076}."
+        },
+        {
+          "alpha_key": "RQ23",
+          "label": "ref:p27-renner-quintino",
+          "entry_latex": "M. J. Renner and M. T. Quintino, ``The Minimal Communication Cost for\n  Simulating Entangled Qubits,'' \\emph{Quantum} \\textbf{7}, 1149 (2023).\n  \\href{https://doi.org/10.22331/q-2023-10-24-1149}{doi:10.22331/q-2023-10-24-1149};\n  \\href{https://arxiv.org/abs/2207.12457}{arXiv:2207.12457}.",
+          "item_latex": "  \\item[\\textup{[RQ23]}]\\label{ref:p27-renner-quintino}\n  M. J. Renner and M. T. Quintino, ``The Minimal Communication Cost for\n  Simulating Entangled Qubits,'' \\emph{Quantum} \\textbf{7}, 1149 (2023).\n  \\href{https://doi.org/10.22331/q-2023-10-24-1149}{doi:10.22331/q-2023-10-24-1149};\n  \\href{https://arxiv.org/abs/2207.12457}{arXiv:2207.12457}."
+        },
+        {
+          "alpha_key": "SLYS23",
+          "label": "ref:p27-sidajaya",
+          "entry_latex": "P. Sidajaya, A. D. Lim, B. Yu, and V. Scarani, ``Neural Network Approach to\n  the Simulation of Entangled States with One Bit of Communication,''\n  \\emph{Quantum} \\textbf{7}, 1150 (2023).\n  \\href{https://doi.org/10.22331/q-2023-10-24-1150}{doi:10.22331/q-2023-10-24-1150};\n  \\href{https://arxiv.org/abs/2305.19935}{arXiv:2305.19935}.",
+          "item_latex": "  \\item[\\textup{[SLYS23]}]\\label{ref:p27-sidajaya}\n  P. Sidajaya, A. D. Lim, B. Yu, and V. Scarani, ``Neural Network Approach to\n  the Simulation of Entangled States with One Bit of Communication,''\n  \\emph{Quantum} \\textbf{7}, 1150 (2023).\n  \\href{https://doi.org/10.22331/q-2023-10-24-1150}{doi:10.22331/q-2023-10-24-1150};\n  \\href{https://arxiv.org/abs/2305.19935}{arXiv:2305.19935}."
+        },
+        {
+          "alpha_key": "BT03",
+          "label": "ref:p27-bacon-toner",
+          "entry_latex": "D. Bacon and B. F. Toner, ``Bell Inequalities with Auxiliary\n  Communication,'' \\emph{Physical Review Letters} \\textbf{90}, 157904\n  (2003). \\href{https://doi.org/10.1103/PhysRevLett.90.157904}{doi:10.1103/PhysRevLett.90.157904};\n  \\href{https://arxiv.org/abs/quant-ph/0208057}{arXiv:quant-ph/0208057}.",
+          "item_latex": "  \\item[\\textup{[BT03]}]\\label{ref:p27-bacon-toner}\n  D. Bacon and B. F. Toner, ``Bell Inequalities with Auxiliary\n  Communication,'' \\emph{Physical Review Letters} \\textbf{90}, 157904\n  (2003). \\href{https://doi.org/10.1103/PhysRevLett.90.157904}{doi:10.1103/PhysRevLett.90.157904};\n  \\href{https://arxiv.org/abs/quant-ph/0208057}{arXiv:quant-ph/0208057}."
+        }
+      ]
+    },
+    "comment": {
+      "latex": "The unresolved parameter range is approximately $1/2<p<0.835$.  It is not\nknown whether one bit always suffices there or whether a finite-setting\ninequality can prove that it does not."
+    },
+    "tag": {
+      "values": [
+        "Bell nonlocality",
+        "Quantum communication complexity",
+        "Qubit systems"
+      ],
+      "latex": "Bell nonlocality; Quantum communication complexity; Qubit systems"
+    },
+    "id": {
+      "value": "op_64db785888803dd3",
+      "latex": "\\texttt{op\\_64db785888803dd3}"
+    }
+  },
+  "equations": [
+    {
+      "index": 1,
+      "label": "eq:p27-schmidt-state",
+      "latex": "\\begin{equation}\n  \\lvert\\psi_p\\rangle\n  =\\sqrt p\\,\\lvert00\\rangle+\\sqrt{1-p}\\,\\lvert11\\rangle,\n  \\qquad \\frac12<p<1.\n  \\label{eq:p27-schmidt-state}\n\\end{equation}"
+    },
+    {
+      "index": 2,
+      "label": "eq:p27-target-correlation",
+      "latex": "\\begin{equation}\n  \\begin{aligned}\n  P_p(a,b\\mid\\mathbf x,\\mathbf y)\n    &=\\operatorname{Tr}\\!\\left[\n      \\lvert\\psi_p\\rangle\\!\\langle\\psi_p\\rvert\n      \\bigl(M_{a\\mid\\mathbf x}\\otimes M_{b\\mid\\mathbf y}\\bigr)\n      \\right],\\\\\n  M_{a\\mid\\mathbf x}\n    &=\\frac{I+(-1)^a\\mathbf x\\cdot\\boldsymbol\\sigma}{2},\n  \\qquad\n  M_{b\\mid\\mathbf y}\n    =\\frac{I+(-1)^b\\mathbf y\\cdot\\boldsymbol\\sigma}{2}.\n  \\end{aligned}\n  \\label{eq:p27-target-correlation}\n\\end{equation}"
+    },
+    {
+      "index": 3,
+      "label": "eq:p27-one-bit-region",
+      "latex": "  \\begin{equation}\n    \\frac{2p(1-p)}{2p-1}\\log\\!\\left(\\frac{p}{1-p}\\right)+2(1-p)\\leq1,\n    \\label{eq:p27-one-bit-region}\n  \\end{equation}"
+    }
+  ],
+  "source_tex": "% Problem-section file following ../_template.tex.\n\\section{One-bit simulation of partially entangled qubits}\n\\label{sec:problem-27}\n\n\\paragraph{Problem.}\nCan shared randomness and one classical bit exactly simulate every pair of\nlocal projective measurements on every pure entangled two-qubit state?  In\nSchmidt form the state is\n\\begin{equation}\n  \\lvert\\psi_p\\rangle\n  =\\sqrt p\\,\\lvert00\\rangle+\\sqrt{1-p}\\,\\lvert11\\rangle,\n  \\qquad \\frac12<p<1.\n  \\label{eq:p27-schmidt-state}\n\\end{equation}\nFor arbitrary Bloch vectors $\\mathbf x,\\mathbf y\\in S^2$ and outcomes\n$a,b\\in\\{0,1\\}$, the target distribution associated with\nEq.~\\eqref{eq:p27-schmidt-state} is\n\\begin{equation}\n  \\begin{aligned}\n  P_p(a,b\\mid\\mathbf x,\\mathbf y)\n    &=\\operatorname{Tr}\\!\\left[\n      \\lvert\\psi_p\\rangle\\!\\langle\\psi_p\\rvert\n      \\bigl(M_{a\\mid\\mathbf x}\\otimes M_{b\\mid\\mathbf y}\\bigr)\n      \\right],\\\\\n  M_{a\\mid\\mathbf x}\n    &=\\frac{I+(-1)^a\\mathbf x\\cdot\\boldsymbol\\sigma}{2},\n  \\qquad\n  M_{b\\mid\\mathbf y}\n    =\\frac{I+(-1)^b\\mathbf y\\cdot\\boldsymbol\\sigma}{2}.\n  \\end{aligned}\n  \\label{eq:p27-target-correlation}\n\\end{equation}\nThe protocol may use unlimited shared randomness; after receiving\n$\\mathbf x$, Alice sends Bob one bit, and their local outputs must reproduce\nEq.~\\eqref{eq:p27-target-correlation} for every pair of measurement\ndirections.  If no such universal protocol exists, find a finite-setting\nlinear inequality satisfied by all one-bit protocols and violated by one of\nthese target distributions.\n\n\\subsection*{Status}\n\nUnsolved\n\n\\subsection*{Source}\n\nGisin explicitly asks whether one classical bit simulates every partially\nentangled two-qubit state; Renner and Quintino restate the surviving question\nafter narrowing the parameter range\n\\sourcecite{ref:p27-gisin}{Gis09},\n\\sourcecite{ref:p27-renner-quintino}{RQ23}.\n\n\\subsection*{Progress}\n\n\\begin{itemize}\n  \\item Gisin posed the separating-inequality question for one-bit-assisted\n  correlations \\sourcecite{ref:p27-gisin}{Gis09}.  At the maximally entangled\n  endpoint $p=1/2$, Toner and Bacon gave an exact one-bit protocol for all\n  projective measurements \\sourcecite{ref:p27-toner-bacon}{TB03}; this does\n  not cover the nonmaximally entangled interval in\n  Eq.~\\eqref{eq:p27-schmidt-state}.\n\n  \\item Renner and Quintino constructed a one-trit protocol for every\n  $1/2\\leq p\\leq1$.  For $1/2<p<1$, their protocol uses only one bit whenever\n  \\begin{equation}\n    \\frac{2p(1-p)}{2p-1}\\log\\!\\left(\\frac{p}{1-p}\\right)+2(1-p)\\leq1,\n    \\label{eq:p27-one-bit-region}\n  \\end{equation}\n  which holds approximately for $0.835\\leq p<1$; the product-state endpoint\n  $p=1$ requires no communication.  Thus\n  Eq.~\\eqref{eq:p27-one-bit-region} leaves the interval\n  $1/2<p<0.835$ unresolved \\sourcecite{ref:p27-renner-quintino}{RQ23}.\n\n  \\item Numerical and semianalytical models support one-bit simulation beyond\n  the proved range, but do not supply an exact protocol for all directions\n  \\sourcecite{ref:p27-sidajaya}{SLYS23}.  Conversely, finite-scenario\n  inequalities for one-bit-assisted correlations can be enumerated, but no\n  known inequality separates the remaining targets in\n  Eq.~\\eqref{eq:p27-target-correlation}\n  \\sourcecite{ref:p27-bacon-toner}{BT03}.\n\\end{itemize}\n\n\\subsection*{References}\n\n\\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]\n  \\footnotesize\n  \\item[\\textup{[Gis09]}]\\label{ref:p27-gisin}\n  N. Gisin, ``Bell Inequalities: Many Questions, a Few Answers,'' in\n  W. C. Myrvold and J. Christian (eds.), \\emph{Quantum Reality, Relativistic\n  Causality, and Closing the Epistemic Circle}, The Western Ontario Series in\n  Philosophy of Science \\textbf{73}, 125--138 (Springer, 2009).\n  \\href{https://doi.org/10.1007/978-1-4020-9107-0_9}{doi:10.1007/978-1-4020-9107-0\\_9};\n  \\href{https://arxiv.org/abs/quant-ph/0702021}{arXiv:quant-ph/0702021}.\n\n  \\item[\\textup{[TB03]}]\\label{ref:p27-toner-bacon}\n  B. F. Toner and D. Bacon, ``Communication Cost of Simulating Bell\n  Correlations,'' \\emph{Physical Review Letters} \\textbf{91}, 187904 (2003).\n  \\href{https://doi.org/10.1103/PhysRevLett.91.187904}{doi:10.1103/PhysRevLett.91.187904};\n  \\href{https://arxiv.org/abs/quant-ph/0304076}{arXiv:quant-ph/0304076}.\n\n  \\item[\\textup{[RQ23]}]\\label{ref:p27-renner-quintino}\n  M. J. Renner and M. T. Quintino, ``The Minimal Communication Cost for\n  Simulating Entangled Qubits,'' \\emph{Quantum} \\textbf{7}, 1149 (2023).\n  \\href{https://doi.org/10.22331/q-2023-10-24-1149}{doi:10.22331/q-2023-10-24-1149};\n  \\href{https://arxiv.org/abs/2207.12457}{arXiv:2207.12457}.\n\n  \\item[\\textup{[SLYS23]}]\\label{ref:p27-sidajaya}\n  P. Sidajaya, A. D. Lim, B. Yu, and V. Scarani, ``Neural Network Approach to\n  the Simulation of Entangled States with One Bit of Communication,''\n  \\emph{Quantum} \\textbf{7}, 1150 (2023).\n  \\href{https://doi.org/10.22331/q-2023-10-24-1150}{doi:10.22331/q-2023-10-24-1150};\n  \\href{https://arxiv.org/abs/2305.19935}{arXiv:2305.19935}.\n\n  \\item[\\textup{[BT03]}]\\label{ref:p27-bacon-toner}\n  D. Bacon and B. F. Toner, ``Bell Inequalities with Auxiliary\n  Communication,'' \\emph{Physical Review Letters} \\textbf{90}, 157904\n  (2003). \\href{https://doi.org/10.1103/PhysRevLett.90.157904}{doi:10.1103/PhysRevLett.90.157904};\n  \\href{https://arxiv.org/abs/quant-ph/0208057}{arXiv:quant-ph/0208057}.\n\\end{enumerate}\n\n\\subsection*{Comment}\n\nThe unresolved parameter range is approximately $1/2<p<0.835$.  It is not\nknown whether one bit always suffices there or whether a finite-setting\ninequality can prove that it does not.\n\n\\subsection*{Tag}\n\nBell nonlocality; Quantum communication complexity; Qubit systems\n\n\\subsection*{ID}\n\n\\texttt{op\\_64db785888803dd3}\n"
+}

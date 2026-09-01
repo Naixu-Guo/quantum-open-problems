@@ -1,0 +1,177 @@
+{
+  "schema_version": "1.1",
+  "content_format": "latex",
+  "text_encoding": "UTF-8",
+  "representation": {
+    "latex_fields": "LaTeX is preserved verbatim in all keys ending in _latex.",
+    "round_trip_field": "source_tex",
+    "json_escaping": "Backslashes and control characters use standard JSON string escaping."
+  },
+  "source": {
+    "file": "../problem_pool/problem_10.tex",
+    "sha256": "4b23b1e889abfe3ff1b51457f60468759e9f34924921eb2f5869dde02090078e"
+  },
+  "problem_number": 10,
+  "title": "NPT bound entanglement and the rank-five frontier",
+  "section_label": "sec:problem-10",
+  "id": "op_74c4ffb5b042baf2",
+  "status": "Unsolved",
+  "tags": [
+    "NPT states",
+    "Bound entanglement",
+    "Entanglement distillation",
+    "Low-rank quantum states",
+    "Partial transpose criterion",
+    "Local operations and classical communication"
+  ],
+  "sections": {
+    "problem_statement": {
+      "latex": "Does there exist a finite-dimensional bipartite state with non-positive\npartial transpose (NPT) that is undistillable by local operations and\nclassical communication (LOCC)?  For a density operator $\\rho_{AB}$, partial\ntransposition on $B$ is denoted by\n$\\rho_{AB}^{T_B}:=(\\operatorname{id}_A\\otimes T_B)(\\rho_{AB})$.  The\nfinite-copy criterion makes the counterexample sought by the general problem\nprecise:\n\\begin{equation}\n  \\exists\\,\\rho_{AB}:\\quad\n  \\rho_{AB}^{T_B}\\not\\succeq0,\n  \\qquad\n  \\forall\\,n\\geq1\\ \\ \\forall\\,\\lvert\\psi_n\\rangle\n  \\text{ with }\\operatorname{SR}_{A^n:B^n}(\\lvert\\psi_n\\rangle)\\leq2,\n  \\quad\n  \\langle\\psi_n\\rvert\n    (\\rho_{AB}^{T_B})^{\\otimes n}\n  \\lvert\\psi_n\\rangle\\geq0.\n  \\label{eq:p10-npt-undistillability}\n\\end{equation}\nHere $\\operatorname{SR}_{A^n:B^n}$ is Schmidt rank across the indicated cut.\nA state satisfying Eq.~\\eqref{eq:p10-npt-undistillability} would be NPT bound\nentangled; equivalently, the question is whether every NPT state instead has\na negative expectation on some Schmidt-rank-at-most-two vector at some finite\ncopy number.\n\nThe nested low-rank frontier asks whether the counterexample in\nEq.~\\eqref{eq:p10-npt-undistillability} can additionally satisfy\n\\begin{equation}\n  \\operatorname{rank}(\\rho_{AB})=5.\n  \\label{eq:p10-rank-five-frontier}\n\\end{equation}\nThus Eq.~\\eqref{eq:p10-rank-five-frontier} asks for the lowest rank not already\nexcluded by known one-copy results."
+    },
+    "status": {
+      "value": "Unsolved",
+      "latex": "Unsolved"
+    },
+    "source": {
+      "latex": "Kr\\\"uger and Werner explicitly list NPT bound entanglement as an open\nproblem, while Chen and \\DJ okovi\\'c isolate rank five as the next\nfrontier after proving all rank-at-most-four NPT states distillable\n\\sourcecite{ref:p10-krueger-werner}{KW05},\n\\sourcecite{ref:p10-chen-djokovic}{CD16}.",
+      "citations": [
+        {
+          "label": "ref:p10-krueger-werner",
+          "alpha_key": "KW05"
+        },
+        {
+          "label": "ref:p10-chen-djokovic",
+          "alpha_key": "CD16"
+        }
+      ]
+    },
+    "progress": {
+      "latex": "\\begin{itemize}\n  \\item Horodecki, Horodecki, and Horodecki established the finite-copy\n  Schmidt-rank criterion used in\n  Eq.~\\eqref{eq:p10-npt-undistillability} and proved that states with positive\n  partial transpose are undistillable.  Their theorem does not prove the\n  converse for NPT states\n  \\sourcecite{ref:p10-horodecki}{HHH98}.\n\n  \\item Chen and \\DJ okovi\\'c proved the sharp low-rank obstruction\n  \\begin{equation}\n    \\operatorname{rank}(\\rho_{AB})\\leq4,\n    \\quad \\rho_{AB}^{T_B}\\not\\succeq0\n    \\quad\\Longrightarrow\\quad\n    \\rho_{AB}\\ \\text{is 1-distillable}.\n    \\label{eq:p10-rank-four-result}\n  \\end{equation}\n  Equation~\\eqref{eq:p10-rank-four-result} makes\n  Eq.~\\eqref{eq:p10-rank-five-frontier} the first possible rank for a\n  one-copy-undistillable NPT state\n  \\sourcecite{ref:p10-chen-djokovic}{CD16}.\n\n  \\item The same work constructed a parameterized family $\\rho_\\epsilon$ of\n  rank-five two-qutrit NPT states and proved the fixed-copy statement, but not\n  the all-copy statement,\n  \\begin{equation}\n    \\underbrace{\\forall\\,n\\geq1\\ \\exists\\,\\delta_n>0\\ \n      \\forall\\,\\epsilon\\in(0,\\delta_n]:\\quad\n      \\rho_\\epsilon\\ \\text{is $n$-undistillable}}_{\\text{proved}}\n    \\quad\\not\\Longrightarrow\\quad\n    \\underbrace{\\exists\\,\\epsilon_*>0\\ \\forall\\,n\\geq1:\\quad\n      \\rho_{\\epsilon_*}\\ \\text{is $n$-undistillable}}_{\\text{needed}}.\n    \\label{eq:p10-quantifier-gap}\n  \\end{equation}\n  The authors conjectured the missing right-hand statement in\n  Eq.~\\eqref{eq:p10-quantifier-gap}\n  \\sourcecite{ref:p10-chen-djokovic}{CD16}.\n\n  \\item For a different one-parameter family of symmetric rank-five\n  two-qutrit states, Lei, Song, Chen, and Liu proved 1-undistillability on the\n  remaining NPT interval\n  $[(24\\sqrt{2}-33)/7,(33-12\\sqrt{6})/25)$.  For two copies, they proved that\n  any Schmidt-rank-at-most-two negative-expectation vector must have a\n  component outside a specified $17$-dimensional subspace.  This narrows the\n  search but proves neither two-copy nor all-copy undistillability\n  \\sourcecite{ref:p10-lei-et-al}{LSC+26}.\n\n  \\item A principal unrestricted candidate family is formed by the\n  $d\\times d$ Werner states\n  \\begin{equation}\n    \\rho_\\alpha=\\frac{I+\\alpha F}{d^2+\\alpha d},\n    \\qquad\n    F\\lvert x\\rangle\\lvert y\\rangle\n      =\\lvert y\\rangle\\lvert x\\rangle,\n    \\qquad\n    -\\frac12\\leq\\alpha<-\\frac1d,\\quad d\\geq3.\n    \\label{eq:p10-werner-candidates}\n  \\end{equation}\n  The parameter window in Eq.~\\eqref{eq:p10-werner-candidates} is exactly the\n  NPT, one-copy-undistillable window in this convention\n  \\sourcecite{ref:p10-divincenzo-et-al}{DSS+00}.\n\n  \\newpage\n  \\item Costa Rico reformulated finite-copy Werner distillability through\n  partial-trace inequalities and obtained new finite-copy bounds\n  \\sourcecite{ref:p10-costa-rico}{CR25}.  Two separate July 2026 preprints\n  subsequently proved that $\\rho_\\alpha$ is two-copy distillable exactly when\n  $\\alpha<-1/2$, in every local dimension.  Hence the full candidate window\n  in Eq.~\\eqref{eq:p10-werner-candidates} is two-copy undistillable, but these\n  results do not control all tensor powers\n  \\sourcecite{ref:p10-fraser-et-al}{FHPV26},\n  \\sourcecite{ref:p10-bharti-et-al}{BGH26}.\n\\end{itemize}",
+      "items": [
+        {
+          "index": 1,
+          "latex": "Horodecki, Horodecki, and Horodecki established the finite-copy\n  Schmidt-rank criterion used in\n  Eq.~\\eqref{eq:p10-npt-undistillability} and proved that states with positive\n  partial transpose are undistillable.  Their theorem does not prove the\n  converse for NPT states\n  \\sourcecite{ref:p10-horodecki}{HHH98}."
+        },
+        {
+          "index": 2,
+          "latex": "Chen and \\DJ okovi\\'c proved the sharp low-rank obstruction\n  \\begin{equation}\n    \\operatorname{rank}(\\rho_{AB})\\leq4,\n    \\quad \\rho_{AB}^{T_B}\\not\\succeq0\n    \\quad\\Longrightarrow\\quad\n    \\rho_{AB}\\ \\text{is 1-distillable}.\n    \\label{eq:p10-rank-four-result}\n  \\end{equation}\n  Equation~\\eqref{eq:p10-rank-four-result} makes\n  Eq.~\\eqref{eq:p10-rank-five-frontier} the first possible rank for a\n  one-copy-undistillable NPT state\n  \\sourcecite{ref:p10-chen-djokovic}{CD16}."
+        },
+        {
+          "index": 3,
+          "latex": "The same work constructed a parameterized family $\\rho_\\epsilon$ of\n  rank-five two-qutrit NPT states and proved the fixed-copy statement, but not\n  the all-copy statement,\n  \\begin{equation}\n    \\underbrace{\\forall\\,n\\geq1\\ \\exists\\,\\delta_n>0\\ \n      \\forall\\,\\epsilon\\in(0,\\delta_n]:\\quad\n      \\rho_\\epsilon\\ \\text{is $n$-undistillable}}_{\\text{proved}}\n    \\quad\\not\\Longrightarrow\\quad\n    \\underbrace{\\exists\\,\\epsilon_*>0\\ \\forall\\,n\\geq1:\\quad\n      \\rho_{\\epsilon_*}\\ \\text{is $n$-undistillable}}_{\\text{needed}}.\n    \\label{eq:p10-quantifier-gap}\n  \\end{equation}\n  The authors conjectured the missing right-hand statement in\n  Eq.~\\eqref{eq:p10-quantifier-gap}\n  \\sourcecite{ref:p10-chen-djokovic}{CD16}."
+        },
+        {
+          "index": 4,
+          "latex": "For a different one-parameter family of symmetric rank-five\n  two-qutrit states, Lei, Song, Chen, and Liu proved 1-undistillability on the\n  remaining NPT interval\n  $[(24\\sqrt{2}-33)/7,(33-12\\sqrt{6})/25)$.  For two copies, they proved that\n  any Schmidt-rank-at-most-two negative-expectation vector must have a\n  component outside a specified $17$-dimensional subspace.  This narrows the\n  search but proves neither two-copy nor all-copy undistillability\n  \\sourcecite{ref:p10-lei-et-al}{LSC+26}."
+        },
+        {
+          "index": 5,
+          "latex": "A principal unrestricted candidate family is formed by the\n  $d\\times d$ Werner states\n  \\begin{equation}\n    \\rho_\\alpha=\\frac{I+\\alpha F}{d^2+\\alpha d},\n    \\qquad\n    F\\lvert x\\rangle\\lvert y\\rangle\n      =\\lvert y\\rangle\\lvert x\\rangle,\n    \\qquad\n    -\\frac12\\leq\\alpha<-\\frac1d,\\quad d\\geq3.\n    \\label{eq:p10-werner-candidates}\n  \\end{equation}\n  The parameter window in Eq.~\\eqref{eq:p10-werner-candidates} is exactly the\n  NPT, one-copy-undistillable window in this convention\n  \\sourcecite{ref:p10-divincenzo-et-al}{DSS+00}.\n\n  \\newpage"
+        },
+        {
+          "index": 6,
+          "latex": "Costa Rico reformulated finite-copy Werner distillability through\n  partial-trace inequalities and obtained new finite-copy bounds\n  \\sourcecite{ref:p10-costa-rico}{CR25}.  Two separate July 2026 preprints\n  subsequently proved that $\\rho_\\alpha$ is two-copy distillable exactly when\n  $\\alpha<-1/2$, in every local dimension.  Hence the full candidate window\n  in Eq.~\\eqref{eq:p10-werner-candidates} is two-copy undistillable, but these\n  results do not control all tensor powers\n  \\sourcecite{ref:p10-fraser-et-al}{FHPV26},\n  \\sourcecite{ref:p10-bharti-et-al}{BGH26}."
+        }
+      ]
+    },
+    "references": {
+      "latex": "\\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]\n  \\footnotesize\n  \\item[\\textup{[HHH98]}]\\label{ref:p10-horodecki}\n  M. Horodecki, P. Horodecki, and R. Horodecki,\n  ``Mixed-State Entanglement and Distillation: Is There a ``Bound''\n  Entanglement in Nature?''\n  \\emph{Physical Review Letters} \\textbf{80}, 5239--5242 (1998).\n  \\href{https://doi.org/10.1103/PhysRevLett.80.5239}%\n       {doi:10.1103/PhysRevLett.80.5239};\n  \\href{https://arxiv.org/abs/quant-ph/9801069}%\n       {arXiv:quant-ph/9801069}.\n\n  \\item[\\textup{[CD16]}]\\label{ref:p10-chen-djokovic}\n  L. Chen and D. \\v{Z}. \\DJ okovi\\'c,\n  ``Distillability of Non-Positive-Partial-Transpose Bipartite Quantum States\n  of Rank Four,'' \\emph{Physical Review A} \\textbf{94}, 052318 (2016).\n  \\href{https://doi.org/10.1103/PhysRevA.94.052318}%\n       {doi:10.1103/PhysRevA.94.052318};\n  \\href{https://arxiv.org/abs/1602.04416}{arXiv:1602.04416}.\n\n  \\item[\\textup{[LSC+26]}]\\label{ref:p10-lei-et-al}\n  Y. Lei, Z. Song, L. Chen, and M. Liu,\n  ``Entanglement Distillation of Some Rank-Five Symmetric NPT States in\n  Two-Qutrit Systems,'' arXiv:2608.03710 (2026).\n  \\href{https://doi.org/10.48550/arXiv.2608.03710}%\n       {doi:10.48550/arXiv.2608.03710};\n  \\href{https://arxiv.org/abs/2608.03710}{arXiv:2608.03710}.\n\n  \\item[\\textup{[DSS+00]}]\\label{ref:p10-divincenzo-et-al}\n  D. P. DiVincenzo, P. W. Shor, J. A. Smolin, B. M. Terhal, and\n  A. V. Thapliyal,\n  ``Evidence for Bound Entangled States with Negative Partial Transpose,''\n  \\emph{Physical Review A} \\textbf{61}, 062312 (2000).\n  \\href{https://doi.org/10.1103/PhysRevA.61.062312}%\n       {doi:10.1103/PhysRevA.61.062312};\n  \\href{https://arxiv.org/abs/quant-ph/9910026}%\n       {arXiv:quant-ph/9910026}.\n\n  \\item[\\textup{[CR25]}]\\label{ref:p10-costa-rico}\n  P. Costa Rico,\n  ``New Partial Trace Inequalities and Distillability of Werner States,''\n  \\emph{Letters in Mathematical Physics} \\textbf{115}, 47 (2025).\n  \\href{https://doi.org/10.1007/s11005-025-01935-y}%\n       {doi:10.1007/s11005-025-01935-y};\n  \\href{https://arxiv.org/abs/2310.05726}{arXiv:2310.05726}.\n\n  \\item[\\textup{[FHPV26]}]\\label{ref:p10-fraser-et-al}\n  T. C. Fraser, F. Huber, B. Pozsgay, and I. Vona,\n  ``On the Two-Copy Distillability of Werner States and a New Partial Trace\n  Inequality,'' arXiv:2607.24309 (2026).\n  \\href{https://doi.org/10.48550/arXiv.2607.24309}%\n       {doi:10.48550/arXiv.2607.24309};\n  \\href{https://arxiv.org/abs/2607.24309}{arXiv:2607.24309}.\n\n  \\item[\\textup{[BGH26]}]\\label{ref:p10-bharti-et-al}\n  K. Bharti, R. Gajjala, and T. Haug,\n  ``Two-Copy Nondistillability of Werner States: Sharp Partial-Trace\n  Inequalities and Finite-Copy Extensions,'' arXiv:2607.24479 (2026).\n  \\href{https://doi.org/10.48550/arXiv.2607.24479}%\n       {doi:10.48550/arXiv.2607.24479};\n  \\href{https://arxiv.org/abs/2607.24479}{arXiv:2607.24479}.\n\n  \\item[\\textup{[KW05]}]\\label{ref:p10-krueger-werner}\n  O. Kr\\\"uger and R. F. Werner (eds.),\n  ``Some Open Problems in Quantum Information Theory,''\n  arXiv:quant-ph/0504166 (2005).\n  \\href{https://doi.org/10.48550/arXiv.quant-ph/0504166}%\n       {doi:10.48550/arXiv.quant-ph/0504166};\n  \\href{https://arxiv.org/abs/quant-ph/0504166}%\n       {arXiv:quant-ph/0504166}.\n\\end{enumerate}",
+      "entries": [
+        {
+          "alpha_key": "HHH98",
+          "label": "ref:p10-horodecki",
+          "entry_latex": "M. Horodecki, P. Horodecki, and R. Horodecki,\n  ``Mixed-State Entanglement and Distillation: Is There a ``Bound''\n  Entanglement in Nature?''\n  \\emph{Physical Review Letters} \\textbf{80}, 5239--5242 (1998).\n  \\href{https://doi.org/10.1103/PhysRevLett.80.5239}%\n       {doi:10.1103/PhysRevLett.80.5239};\n  \\href{https://arxiv.org/abs/quant-ph/9801069}%\n       {arXiv:quant-ph/9801069}.",
+          "item_latex": "  \\item[\\textup{[HHH98]}]\\label{ref:p10-horodecki}\n  M. Horodecki, P. Horodecki, and R. Horodecki,\n  ``Mixed-State Entanglement and Distillation: Is There a ``Bound''\n  Entanglement in Nature?''\n  \\emph{Physical Review Letters} \\textbf{80}, 5239--5242 (1998).\n  \\href{https://doi.org/10.1103/PhysRevLett.80.5239}%\n       {doi:10.1103/PhysRevLett.80.5239};\n  \\href{https://arxiv.org/abs/quant-ph/9801069}%\n       {arXiv:quant-ph/9801069}."
+        },
+        {
+          "alpha_key": "CD16",
+          "label": "ref:p10-chen-djokovic",
+          "entry_latex": "L. Chen and D. \\v{Z}. \\DJ okovi\\'c,\n  ``Distillability of Non-Positive-Partial-Transpose Bipartite Quantum States\n  of Rank Four,'' \\emph{Physical Review A} \\textbf{94}, 052318 (2016).\n  \\href{https://doi.org/10.1103/PhysRevA.94.052318}%\n       {doi:10.1103/PhysRevA.94.052318};\n  \\href{https://arxiv.org/abs/1602.04416}{arXiv:1602.04416}.",
+          "item_latex": "  \\item[\\textup{[CD16]}]\\label{ref:p10-chen-djokovic}\n  L. Chen and D. \\v{Z}. \\DJ okovi\\'c,\n  ``Distillability of Non-Positive-Partial-Transpose Bipartite Quantum States\n  of Rank Four,'' \\emph{Physical Review A} \\textbf{94}, 052318 (2016).\n  \\href{https://doi.org/10.1103/PhysRevA.94.052318}%\n       {doi:10.1103/PhysRevA.94.052318};\n  \\href{https://arxiv.org/abs/1602.04416}{arXiv:1602.04416}."
+        },
+        {
+          "alpha_key": "LSC+26",
+          "label": "ref:p10-lei-et-al",
+          "entry_latex": "Y. Lei, Z. Song, L. Chen, and M. Liu,\n  ``Entanglement Distillation of Some Rank-Five Symmetric NPT States in\n  Two-Qutrit Systems,'' arXiv:2608.03710 (2026).\n  \\href{https://doi.org/10.48550/arXiv.2608.03710}%\n       {doi:10.48550/arXiv.2608.03710};\n  \\href{https://arxiv.org/abs/2608.03710}{arXiv:2608.03710}.",
+          "item_latex": "  \\item[\\textup{[LSC+26]}]\\label{ref:p10-lei-et-al}\n  Y. Lei, Z. Song, L. Chen, and M. Liu,\n  ``Entanglement Distillation of Some Rank-Five Symmetric NPT States in\n  Two-Qutrit Systems,'' arXiv:2608.03710 (2026).\n  \\href{https://doi.org/10.48550/arXiv.2608.03710}%\n       {doi:10.48550/arXiv.2608.03710};\n  \\href{https://arxiv.org/abs/2608.03710}{arXiv:2608.03710}."
+        },
+        {
+          "alpha_key": "DSS+00",
+          "label": "ref:p10-divincenzo-et-al",
+          "entry_latex": "D. P. DiVincenzo, P. W. Shor, J. A. Smolin, B. M. Terhal, and\n  A. V. Thapliyal,\n  ``Evidence for Bound Entangled States with Negative Partial Transpose,''\n  \\emph{Physical Review A} \\textbf{61}, 062312 (2000).\n  \\href{https://doi.org/10.1103/PhysRevA.61.062312}%\n       {doi:10.1103/PhysRevA.61.062312};\n  \\href{https://arxiv.org/abs/quant-ph/9910026}%\n       {arXiv:quant-ph/9910026}.",
+          "item_latex": "  \\item[\\textup{[DSS+00]}]\\label{ref:p10-divincenzo-et-al}\n  D. P. DiVincenzo, P. W. Shor, J. A. Smolin, B. M. Terhal, and\n  A. V. Thapliyal,\n  ``Evidence for Bound Entangled States with Negative Partial Transpose,''\n  \\emph{Physical Review A} \\textbf{61}, 062312 (2000).\n  \\href{https://doi.org/10.1103/PhysRevA.61.062312}%\n       {doi:10.1103/PhysRevA.61.062312};\n  \\href{https://arxiv.org/abs/quant-ph/9910026}%\n       {arXiv:quant-ph/9910026}."
+        },
+        {
+          "alpha_key": "CR25",
+          "label": "ref:p10-costa-rico",
+          "entry_latex": "P. Costa Rico,\n  ``New Partial Trace Inequalities and Distillability of Werner States,''\n  \\emph{Letters in Mathematical Physics} \\textbf{115}, 47 (2025).\n  \\href{https://doi.org/10.1007/s11005-025-01935-y}%\n       {doi:10.1007/s11005-025-01935-y};\n  \\href{https://arxiv.org/abs/2310.05726}{arXiv:2310.05726}.",
+          "item_latex": "  \\item[\\textup{[CR25]}]\\label{ref:p10-costa-rico}\n  P. Costa Rico,\n  ``New Partial Trace Inequalities and Distillability of Werner States,''\n  \\emph{Letters in Mathematical Physics} \\textbf{115}, 47 (2025).\n  \\href{https://doi.org/10.1007/s11005-025-01935-y}%\n       {doi:10.1007/s11005-025-01935-y};\n  \\href{https://arxiv.org/abs/2310.05726}{arXiv:2310.05726}."
+        },
+        {
+          "alpha_key": "FHPV26",
+          "label": "ref:p10-fraser-et-al",
+          "entry_latex": "T. C. Fraser, F. Huber, B. Pozsgay, and I. Vona,\n  ``On the Two-Copy Distillability of Werner States and a New Partial Trace\n  Inequality,'' arXiv:2607.24309 (2026).\n  \\href{https://doi.org/10.48550/arXiv.2607.24309}%\n       {doi:10.48550/arXiv.2607.24309};\n  \\href{https://arxiv.org/abs/2607.24309}{arXiv:2607.24309}.",
+          "item_latex": "  \\item[\\textup{[FHPV26]}]\\label{ref:p10-fraser-et-al}\n  T. C. Fraser, F. Huber, B. Pozsgay, and I. Vona,\n  ``On the Two-Copy Distillability of Werner States and a New Partial Trace\n  Inequality,'' arXiv:2607.24309 (2026).\n  \\href{https://doi.org/10.48550/arXiv.2607.24309}%\n       {doi:10.48550/arXiv.2607.24309};\n  \\href{https://arxiv.org/abs/2607.24309}{arXiv:2607.24309}."
+        },
+        {
+          "alpha_key": "BGH26",
+          "label": "ref:p10-bharti-et-al",
+          "entry_latex": "K. Bharti, R. Gajjala, and T. Haug,\n  ``Two-Copy Nondistillability of Werner States: Sharp Partial-Trace\n  Inequalities and Finite-Copy Extensions,'' arXiv:2607.24479 (2026).\n  \\href{https://doi.org/10.48550/arXiv.2607.24479}%\n       {doi:10.48550/arXiv.2607.24479};\n  \\href{https://arxiv.org/abs/2607.24479}{arXiv:2607.24479}.",
+          "item_latex": "  \\item[\\textup{[BGH26]}]\\label{ref:p10-bharti-et-al}\n  K. Bharti, R. Gajjala, and T. Haug,\n  ``Two-Copy Nondistillability of Werner States: Sharp Partial-Trace\n  Inequalities and Finite-Copy Extensions,'' arXiv:2607.24479 (2026).\n  \\href{https://doi.org/10.48550/arXiv.2607.24479}%\n       {doi:10.48550/arXiv.2607.24479};\n  \\href{https://arxiv.org/abs/2607.24479}{arXiv:2607.24479}."
+        },
+        {
+          "alpha_key": "KW05",
+          "label": "ref:p10-krueger-werner",
+          "entry_latex": "O. Kr\\\"uger and R. F. Werner (eds.),\n  ``Some Open Problems in Quantum Information Theory,''\n  arXiv:quant-ph/0504166 (2005).\n  \\href{https://doi.org/10.48550/arXiv.quant-ph/0504166}%\n       {doi:10.48550/arXiv.quant-ph/0504166};\n  \\href{https://arxiv.org/abs/quant-ph/0504166}%\n       {arXiv:quant-ph/0504166}.",
+          "item_latex": "  \\item[\\textup{[KW05]}]\\label{ref:p10-krueger-werner}\n  O. Kr\\\"uger and R. F. Werner (eds.),\n  ``Some Open Problems in Quantum Information Theory,''\n  arXiv:quant-ph/0504166 (2005).\n  \\href{https://doi.org/10.48550/arXiv.quant-ph/0504166}%\n       {doi:10.48550/arXiv.quant-ph/0504166};\n  \\href{https://arxiv.org/abs/quant-ph/0504166}%\n       {arXiv:quant-ph/0504166}."
+        }
+      ]
+    },
+    "comment": {
+      "latex": "The unrestricted question is posed explicitly in the source collection\n\\sourcecite{ref:p10-krueger-werner}{KW05}.  The rank-five formulation is a\nnested but stronger route to a counterexample: a rank-five example would\nsettle the general problem, whereas excluding rank five would leave higher\nranks open.  The decisive quantifier is the existence of one fixed state that\nis $n$-undistillable for every $n$; separately choosing a state or parameter\nfor each $n$, as on the left of Eq.~\\eqref{eq:p10-quantifier-gap}, is\ninsufficient."
+    },
+    "tag": {
+      "values": [
+        "NPT states",
+        "Bound entanglement",
+        "Entanglement distillation",
+        "Low-rank quantum states",
+        "Partial transpose criterion",
+        "Local operations and classical communication"
+      ],
+      "latex": "NPT states; Bound entanglement; Entanglement distillation;\nLow-rank quantum states; Partial transpose criterion;\nLocal operations and classical communication"
+    },
+    "id": {
+      "value": "op_74c4ffb5b042baf2",
+      "latex": "\\texttt{op\\_74c4ffb5b042baf2}"
+    }
+  },
+  "equations": [
+    {
+      "index": 1,
+      "label": "eq:p10-npt-undistillability",
+      "latex": "\\begin{equation}\n  \\exists\\,\\rho_{AB}:\\quad\n  \\rho_{AB}^{T_B}\\not\\succeq0,\n  \\qquad\n  \\forall\\,n\\geq1\\ \\ \\forall\\,\\lvert\\psi_n\\rangle\n  \\text{ with }\\operatorname{SR}_{A^n:B^n}(\\lvert\\psi_n\\rangle)\\leq2,\n  \\quad\n  \\langle\\psi_n\\rvert\n    (\\rho_{AB}^{T_B})^{\\otimes n}\n  \\lvert\\psi_n\\rangle\\geq0.\n  \\label{eq:p10-npt-undistillability}\n\\end{equation}"
+    },
+    {
+      "index": 2,
+      "label": "eq:p10-rank-five-frontier",
+      "latex": "\\begin{equation}\n  \\operatorname{rank}(\\rho_{AB})=5.\n  \\label{eq:p10-rank-five-frontier}\n\\end{equation}"
+    },
+    {
+      "index": 3,
+      "label": "eq:p10-rank-four-result",
+      "latex": "  \\begin{equation}\n    \\operatorname{rank}(\\rho_{AB})\\leq4,\n    \\quad \\rho_{AB}^{T_B}\\not\\succeq0\n    \\quad\\Longrightarrow\\quad\n    \\rho_{AB}\\ \\text{is 1-distillable}.\n    \\label{eq:p10-rank-four-result}\n  \\end{equation}"
+    },
+    {
+      "index": 4,
+      "label": "eq:p10-quantifier-gap",
+      "latex": "  \\begin{equation}\n    \\underbrace{\\forall\\,n\\geq1\\ \\exists\\,\\delta_n>0\\ \n      \\forall\\,\\epsilon\\in(0,\\delta_n]:\\quad\n      \\rho_\\epsilon\\ \\text{is $n$-undistillable}}_{\\text{proved}}\n    \\quad\\not\\Longrightarrow\\quad\n    \\underbrace{\\exists\\,\\epsilon_*>0\\ \\forall\\,n\\geq1:\\quad\n      \\rho_{\\epsilon_*}\\ \\text{is $n$-undistillable}}_{\\text{needed}}.\n    \\label{eq:p10-quantifier-gap}\n  \\end{equation}"
+    },
+    {
+      "index": 5,
+      "label": "eq:p10-werner-candidates",
+      "latex": "  \\begin{equation}\n    \\rho_\\alpha=\\frac{I+\\alpha F}{d^2+\\alpha d},\n    \\qquad\n    F\\lvert x\\rangle\\lvert y\\rangle\n      =\\lvert y\\rangle\\lvert x\\rangle,\n    \\qquad\n    -\\frac12\\leq\\alpha<-\\frac1d,\\quad d\\geq3.\n    \\label{eq:p10-werner-candidates}\n  \\end{equation}"
+    }
+  ],
+  "source_tex": "% Problem-section file following ../_template.tex.\n\\section{NPT bound entanglement and the rank-five frontier}\n\\label{sec:problem-10}\n\n\\paragraph{Problem.}\nDoes there exist a finite-dimensional bipartite state with non-positive\npartial transpose (NPT) that is undistillable by local operations and\nclassical communication (LOCC)?  For a density operator $\\rho_{AB}$, partial\ntransposition on $B$ is denoted by\n$\\rho_{AB}^{T_B}:=(\\operatorname{id}_A\\otimes T_B)(\\rho_{AB})$.  The\nfinite-copy criterion makes the counterexample sought by the general problem\nprecise:\n\\begin{equation}\n  \\exists\\,\\rho_{AB}:\\quad\n  \\rho_{AB}^{T_B}\\not\\succeq0,\n  \\qquad\n  \\forall\\,n\\geq1\\ \\ \\forall\\,\\lvert\\psi_n\\rangle\n  \\text{ with }\\operatorname{SR}_{A^n:B^n}(\\lvert\\psi_n\\rangle)\\leq2,\n  \\quad\n  \\langle\\psi_n\\rvert\n    (\\rho_{AB}^{T_B})^{\\otimes n}\n  \\lvert\\psi_n\\rangle\\geq0.\n  \\label{eq:p10-npt-undistillability}\n\\end{equation}\nHere $\\operatorname{SR}_{A^n:B^n}$ is Schmidt rank across the indicated cut.\nA state satisfying Eq.~\\eqref{eq:p10-npt-undistillability} would be NPT bound\nentangled; equivalently, the question is whether every NPT state instead has\na negative expectation on some Schmidt-rank-at-most-two vector at some finite\ncopy number.\n\nThe nested low-rank frontier asks whether the counterexample in\nEq.~\\eqref{eq:p10-npt-undistillability} can additionally satisfy\n\\begin{equation}\n  \\operatorname{rank}(\\rho_{AB})=5.\n  \\label{eq:p10-rank-five-frontier}\n\\end{equation}\nThus Eq.~\\eqref{eq:p10-rank-five-frontier} asks for the lowest rank not already\nexcluded by known one-copy results.\n\n\\subsection*{Status}\n\nUnsolved\n\n\\subsection*{Source}\n\nKr\\\"uger and Werner explicitly list NPT bound entanglement as an open\nproblem, while Chen and \\DJ okovi\\'c isolate rank five as the next\nfrontier after proving all rank-at-most-four NPT states distillable\n\\sourcecite{ref:p10-krueger-werner}{KW05},\n\\sourcecite{ref:p10-chen-djokovic}{CD16}.\n\n\\subsection*{Progress}\n\n\\begin{itemize}\n  \\item Horodecki, Horodecki, and Horodecki established the finite-copy\n  Schmidt-rank criterion used in\n  Eq.~\\eqref{eq:p10-npt-undistillability} and proved that states with positive\n  partial transpose are undistillable.  Their theorem does not prove the\n  converse for NPT states\n  \\sourcecite{ref:p10-horodecki}{HHH98}.\n\n  \\item Chen and \\DJ okovi\\'c proved the sharp low-rank obstruction\n  \\begin{equation}\n    \\operatorname{rank}(\\rho_{AB})\\leq4,\n    \\quad \\rho_{AB}^{T_B}\\not\\succeq0\n    \\quad\\Longrightarrow\\quad\n    \\rho_{AB}\\ \\text{is 1-distillable}.\n    \\label{eq:p10-rank-four-result}\n  \\end{equation}\n  Equation~\\eqref{eq:p10-rank-four-result} makes\n  Eq.~\\eqref{eq:p10-rank-five-frontier} the first possible rank for a\n  one-copy-undistillable NPT state\n  \\sourcecite{ref:p10-chen-djokovic}{CD16}.\n\n  \\item The same work constructed a parameterized family $\\rho_\\epsilon$ of\n  rank-five two-qutrit NPT states and proved the fixed-copy statement, but not\n  the all-copy statement,\n  \\begin{equation}\n    \\underbrace{\\forall\\,n\\geq1\\ \\exists\\,\\delta_n>0\\ \n      \\forall\\,\\epsilon\\in(0,\\delta_n]:\\quad\n      \\rho_\\epsilon\\ \\text{is $n$-undistillable}}_{\\text{proved}}\n    \\quad\\not\\Longrightarrow\\quad\n    \\underbrace{\\exists\\,\\epsilon_*>0\\ \\forall\\,n\\geq1:\\quad\n      \\rho_{\\epsilon_*}\\ \\text{is $n$-undistillable}}_{\\text{needed}}.\n    \\label{eq:p10-quantifier-gap}\n  \\end{equation}\n  The authors conjectured the missing right-hand statement in\n  Eq.~\\eqref{eq:p10-quantifier-gap}\n  \\sourcecite{ref:p10-chen-djokovic}{CD16}.\n\n  \\item For a different one-parameter family of symmetric rank-five\n  two-qutrit states, Lei, Song, Chen, and Liu proved 1-undistillability on the\n  remaining NPT interval\n  $[(24\\sqrt{2}-33)/7,(33-12\\sqrt{6})/25)$.  For two copies, they proved that\n  any Schmidt-rank-at-most-two negative-expectation vector must have a\n  component outside a specified $17$-dimensional subspace.  This narrows the\n  search but proves neither two-copy nor all-copy undistillability\n  \\sourcecite{ref:p10-lei-et-al}{LSC+26}.\n\n  \\item A principal unrestricted candidate family is formed by the\n  $d\\times d$ Werner states\n  \\begin{equation}\n    \\rho_\\alpha=\\frac{I+\\alpha F}{d^2+\\alpha d},\n    \\qquad\n    F\\lvert x\\rangle\\lvert y\\rangle\n      =\\lvert y\\rangle\\lvert x\\rangle,\n    \\qquad\n    -\\frac12\\leq\\alpha<-\\frac1d,\\quad d\\geq3.\n    \\label{eq:p10-werner-candidates}\n  \\end{equation}\n  The parameter window in Eq.~\\eqref{eq:p10-werner-candidates} is exactly the\n  NPT, one-copy-undistillable window in this convention\n  \\sourcecite{ref:p10-divincenzo-et-al}{DSS+00}.\n\n  \\newpage\n  \\item Costa Rico reformulated finite-copy Werner distillability through\n  partial-trace inequalities and obtained new finite-copy bounds\n  \\sourcecite{ref:p10-costa-rico}{CR25}.  Two separate July 2026 preprints\n  subsequently proved that $\\rho_\\alpha$ is two-copy distillable exactly when\n  $\\alpha<-1/2$, in every local dimension.  Hence the full candidate window\n  in Eq.~\\eqref{eq:p10-werner-candidates} is two-copy undistillable, but these\n  results do not control all tensor powers\n  \\sourcecite{ref:p10-fraser-et-al}{FHPV26},\n  \\sourcecite{ref:p10-bharti-et-al}{BGH26}.\n\\end{itemize}\n\n\\subsection*{References}\n\n\\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]\n  \\footnotesize\n  \\item[\\textup{[HHH98]}]\\label{ref:p10-horodecki}\n  M. Horodecki, P. Horodecki, and R. Horodecki,\n  ``Mixed-State Entanglement and Distillation: Is There a ``Bound''\n  Entanglement in Nature?''\n  \\emph{Physical Review Letters} \\textbf{80}, 5239--5242 (1998).\n  \\href{https://doi.org/10.1103/PhysRevLett.80.5239}%\n       {doi:10.1103/PhysRevLett.80.5239};\n  \\href{https://arxiv.org/abs/quant-ph/9801069}%\n       {arXiv:quant-ph/9801069}.\n\n  \\item[\\textup{[CD16]}]\\label{ref:p10-chen-djokovic}\n  L. Chen and D. \\v{Z}. \\DJ okovi\\'c,\n  ``Distillability of Non-Positive-Partial-Transpose Bipartite Quantum States\n  of Rank Four,'' \\emph{Physical Review A} \\textbf{94}, 052318 (2016).\n  \\href{https://doi.org/10.1103/PhysRevA.94.052318}%\n       {doi:10.1103/PhysRevA.94.052318};\n  \\href{https://arxiv.org/abs/1602.04416}{arXiv:1602.04416}.\n\n  \\item[\\textup{[LSC+26]}]\\label{ref:p10-lei-et-al}\n  Y. Lei, Z. Song, L. Chen, and M. Liu,\n  ``Entanglement Distillation of Some Rank-Five Symmetric NPT States in\n  Two-Qutrit Systems,'' arXiv:2608.03710 (2026).\n  \\href{https://doi.org/10.48550/arXiv.2608.03710}%\n       {doi:10.48550/arXiv.2608.03710};\n  \\href{https://arxiv.org/abs/2608.03710}{arXiv:2608.03710}.\n\n  \\item[\\textup{[DSS+00]}]\\label{ref:p10-divincenzo-et-al}\n  D. P. DiVincenzo, P. W. Shor, J. A. Smolin, B. M. Terhal, and\n  A. V. Thapliyal,\n  ``Evidence for Bound Entangled States with Negative Partial Transpose,''\n  \\emph{Physical Review A} \\textbf{61}, 062312 (2000).\n  \\href{https://doi.org/10.1103/PhysRevA.61.062312}%\n       {doi:10.1103/PhysRevA.61.062312};\n  \\href{https://arxiv.org/abs/quant-ph/9910026}%\n       {arXiv:quant-ph/9910026}.\n\n  \\item[\\textup{[CR25]}]\\label{ref:p10-costa-rico}\n  P. Costa Rico,\n  ``New Partial Trace Inequalities and Distillability of Werner States,''\n  \\emph{Letters in Mathematical Physics} \\textbf{115}, 47 (2025).\n  \\href{https://doi.org/10.1007/s11005-025-01935-y}%\n       {doi:10.1007/s11005-025-01935-y};\n  \\href{https://arxiv.org/abs/2310.05726}{arXiv:2310.05726}.\n\n  \\item[\\textup{[FHPV26]}]\\label{ref:p10-fraser-et-al}\n  T. C. Fraser, F. Huber, B. Pozsgay, and I. Vona,\n  ``On the Two-Copy Distillability of Werner States and a New Partial Trace\n  Inequality,'' arXiv:2607.24309 (2026).\n  \\href{https://doi.org/10.48550/arXiv.2607.24309}%\n       {doi:10.48550/arXiv.2607.24309};\n  \\href{https://arxiv.org/abs/2607.24309}{arXiv:2607.24309}.\n\n  \\item[\\textup{[BGH26]}]\\label{ref:p10-bharti-et-al}\n  K. Bharti, R. Gajjala, and T. Haug,\n  ``Two-Copy Nondistillability of Werner States: Sharp Partial-Trace\n  Inequalities and Finite-Copy Extensions,'' arXiv:2607.24479 (2026).\n  \\href{https://doi.org/10.48550/arXiv.2607.24479}%\n       {doi:10.48550/arXiv.2607.24479};\n  \\href{https://arxiv.org/abs/2607.24479}{arXiv:2607.24479}.\n\n  \\item[\\textup{[KW05]}]\\label{ref:p10-krueger-werner}\n  O. Kr\\\"uger and R. F. Werner (eds.),\n  ``Some Open Problems in Quantum Information Theory,''\n  arXiv:quant-ph/0504166 (2005).\n  \\href{https://doi.org/10.48550/arXiv.quant-ph/0504166}%\n       {doi:10.48550/arXiv.quant-ph/0504166};\n  \\href{https://arxiv.org/abs/quant-ph/0504166}%\n       {arXiv:quant-ph/0504166}.\n\\end{enumerate}\n\n\\subsection*{Comment}\n\nThe unrestricted question is posed explicitly in the source collection\n\\sourcecite{ref:p10-krueger-werner}{KW05}.  The rank-five formulation is a\nnested but stronger route to a counterexample: a rank-five example would\nsettle the general problem, whereas excluding rank five would leave higher\nranks open.  The decisive quantifier is the existence of one fixed state that\nis $n$-undistillable for every $n$; separately choosing a state or parameter\nfor each $n$, as on the left of Eq.~\\eqref{eq:p10-quantifier-gap}, is\ninsufficient.\n\n\\subsection*{Tag}\n\nNPT states; Bound entanglement; Entanglement distillation;\nLow-rank quantum states; Partial transpose criterion;\nLocal operations and classical communication\n\n\\subsection*{ID}\n\n\\texttt{op\\_74c4ffb5b042baf2}\n"
+}

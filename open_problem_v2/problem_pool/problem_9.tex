@@ -1,0 +1,138 @@
+% Problem-section file following ../_template.tex.
+\section{Three-dimensional self-correcting quantum memory}
+\label{sec:problem-9}
+
+\paragraph{Problem.}
+Does there exist a passive self-correcting quantum memory in three spatial
+dimensions?  Consider finite-dimensional spins on a three-dimensional lattice
+$\Lambda_L$ of linear size $L$ and a Hamiltonian
+$H_L=\sum_{X\subseteq\Lambda_L}h_X$ whose interaction range, local strength
+$\lVert h_X\rVert$, and number of terms incident on each spin are bounded
+independently of $L$.  Let its ground space $\mathcal C_L$ encode a logical
+space $\mathcal Q_L$ with $\dim\mathcal Q_L\ge2$, and let
+$\mathcal V_L:\mathcal S(\mathcal Q_L)\to\mathcal S(\mathcal C_L)$ be the
+channel induced by an isometric encoding into $\mathcal C_L$.
+
+During storage no active control or error correction is permitted.  The
+encoded state evolves under a local thermal channel
+$\mathcal E_{t,\beta}^{(L)}$ at inverse temperature $\beta$, such as a Davies
+semigroup, followed only at readout by a decoder $\mathcal D_L$.  For a fixed
+$0<\varepsilon<1$, define the worst-case storage time by
+\begin{equation}
+  \tau_L(\beta,\varepsilon)
+  :=\sup\!\left\{t\ge0:
+       \sup_{0\le s\le t}\ \sup_{\rho\in\mathcal S(\mathcal Q_L)}
+       \left\|
+         \bigl(\mathcal D_L\circ\mathcal E_{s,\beta}^{(L)}
+         \circ\mathcal V_L\bigr)(\rho)-\rho
+       \right\|_1
+       \le\varepsilon\right\},
+  \label{eq:p9-memory-time}
+\end{equation}
+where $\mathcal S(\mathcal Q_L)$ is the set of logical states.  The problem is
+to construct such a Hamiltonian family with efficient decoders and a finite
+critical inverse temperature $\beta_c$ for which
+\begin{equation}
+  \beta>\beta_c
+  \quad\Longrightarrow\quad
+  \lim_{L\to\infty}\tau_L(\beta,\varepsilon)=\infty.
+  \label{eq:p9-self-correction-condition}
+\end{equation}
+Equation~\eqref{eq:p9-self-correction-condition} requires the lifetime in
+Eq.~\eqref{eq:p9-memory-time} to diverge at fixed nonzero temperature as
+$L\to\infty$; growth that terminates at a temperature-dependent system size is
+only partial self-correction.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Brown et al. explicitly identify the construction of a self-correcting
+quantum memory in three spatial dimensions as an outstanding open problem
+\sourcecite{ref:p9-brown-review}{BLP+16}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Self-correcting quantum memories are known from four-dimensional
+  local models, but the existence of a three-dimensional example satisfying
+  Eq.~\eqref{eq:p9-self-correction-condition} remains open.  This status and
+  the standard thermal-memory framework are summarized by Brown
+  \emph{et al.} and by the Error Correction Zoo
+  \sourcecite{ref:p9-brown-review}{BLP+16},
+  \sourcecite{ref:p9-eczoo}{AF26}.
+
+  \item Haah's three-dimensional cubic code has no string-like logical
+  operators and possesses a logarithmic energy barrier.  Under Davies
+  dynamics, Bravyi and Haah proved a low-temperature lifetime bound of the
+  form
+  \begin{equation}
+    T_{\mathrm{mem}}\ge L^{c\beta}
+    \quad\text{for some $c>0$, but only when}\quad
+    L\le L^\star\sim e^{\beta/3}.
+    \label{eq:p9-cubic-code-lifetime}
+  \end{equation}
+  Because the admissible size in Eq.~\eqref{eq:p9-cubic-code-lifetime} is
+  bounded at fixed $\beta$, the cubic code is partially self-correcting but
+  does not satisfy Eq.~\eqref{eq:p9-self-correction-condition}
+  \sourcecite{ref:p9-bravyi-haah}{BH13}.
+
+  \item Recent three-dimensional layer codes have polynomial energy barriers
+  and provably exhibit partial self-correction.  For suitable families, their
+  memory time grows exponentially with $L$ only up to a temperature-dependent
+  cutoff that is exponential in $\beta$; they still fall short of strict
+  self-correction in the fixed-temperature thermodynamic limit
+  \sourcecite{ref:p9-williamson}{Wil25}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[BLP+16]}]\label{ref:p9-brown-review}
+  B. J. Brown, D. Loss, J. K. Pachos, C. N. Self, and J. R. Wootton,
+  ``Quantum Memories at Finite Temperature,''
+  \emph{Reviews of Modern Physics} \textbf{88}, 045005 (2016).
+  \href{https://doi.org/10.1103/RevModPhys.88.045005}%
+       {doi:10.1103/RevModPhys.88.045005};
+  \href{https://arxiv.org/abs/1411.6643}{arXiv:1411.6643}.
+
+  \item[\textup{[AF26]}]\label{ref:p9-eczoo}
+  V. V. Albert and P. Faist (eds.),
+  ``Self-Correcting Quantum Code,'' \emph{The Error Correction Zoo} (2026).
+  \href{https://errorcorrectionzoo.org/c/self_correct}%
+       {errorcorrectionzoo.org/c/self\_correct}.
+
+  \item[\textup{[BH13]}]\label{ref:p9-bravyi-haah}
+  S. Bravyi and J. Haah,
+  ``Quantum Self-Correction in the 3D Cubic Code Model,''
+  \emph{Physical Review Letters} \textbf{111}, 200501 (2013).
+  \href{https://doi.org/10.1103/PhysRevLett.111.200501}%
+       {doi:10.1103/PhysRevLett.111.200501};
+  \href{https://arxiv.org/abs/1112.3252}{arXiv:1112.3252}.
+
+  \item[\textup{[Wil25]}]\label{ref:p9-williamson}
+  D. J. Williamson,
+  ``Partial Self-Correction in Layer Codes,'' arXiv:2510.09218 (2025).
+  \href{https://arxiv.org/abs/2510.09218}{arXiv:2510.09218}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The central gap is between a lifetime that grows with $L$ only below a
+temperature-dependent size cutoff and the uniform thermodynamic-limit
+divergence required by Eq.~\eqref{eq:p9-self-correction-condition}.  A complete
+solution must either construct a genuinely three-dimensional local model with
+the latter behavior or prove an appropriately general three-dimensional
+no-go theorem.
+
+\subsection*{Tag}
+
+Self-correcting quantum memories; Quantum memories; Open quantum systems;
+Many-body quantum systems; Quantum thermodynamics; Topological quantum codes
+
+\subsection*{ID}
+
+\texttt{op\_e4a8ae208470f288}

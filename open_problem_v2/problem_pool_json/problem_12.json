@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.1",
+  "content_format": "latex",
+  "text_encoding": "UTF-8",
+  "representation": {
+    "latex_fields": "LaTeX is preserved verbatim in all keys ending in _latex.",
+    "round_trip_field": "source_tex",
+    "json_escaping": "Backslashes and control characters use standard JSON string escaping."
+  },
+  "source": {
+    "file": "../problem_pool/problem_12.tex",
+    "sha256": "515364225070141fdc82daa966d8bb0b721435b8f46b89e82ee82f84f4e438ad"
+  },
+  "problem_number": 12,
+  "title": "Relative entropy of entanglement for two qubits",
+  "section_label": "sec:problem-12",
+  "id": "op_e2149f4ced34d1a8",
+  "status": "Unsolved",
+  "tags": [
+    "Entanglement measures",
+    "Qubit systems",
+    "Convex optimization",
+    "Quantum separability"
+  ],
+  "sections": {
+    "problem_statement": {
+      "latex": "Find a closed formula for the relative entropy of entanglement of every\ntwo-qubit density operator $\\rho$, including an explicit closest separable\nstate.  With $\\operatorname{Sep}(\\mathbb{C}^2:\\mathbb{C}^2)$ denoting the\ntwo-qubit separable states, the quantity is\n\\begin{equation}\n  E_R(\\rho)\n  :=\\min_{\\sigma\\in\\operatorname{Sep}(\\mathbb{C}^2:\\mathbb{C}^2)}\n       D(\\rho\\Vert\\sigma),\n  \\qquad\n  D(\\rho\\Vert\\sigma)\n  :=\\begin{cases}\n    \\operatorname{Tr}\\!\\left[\\rho(\\log\\rho-\\log\\sigma)\\right],\n      &\\operatorname{supp}\\rho\\subseteq\\operatorname{supp}\\sigma,\\\\\n    +\\infty,&\\text{otherwise}.\n  \\end{cases}\n  \\label{eq:p12-relative-entropy-entanglement}\n\\end{equation}\nIn the finite branch of Eq.~\\eqref{eq:p12-relative-entropy-entanglement}, the\ntrace is evaluated on $\\operatorname{supp}\\rho$, with $0\\log 0:=0$.  The\nformula sought must determine at least one minimizing state $\\sigma_\\rho$ for\nevery $\\rho$."
+    },
+    "status": {
+      "value": "Unsolved",
+      "latex": "Unsolved"
+    },
+    "source": {
+      "latex": "The general two-qubit formula is listed by Kr\\\"uger and Werner, and\nMiranowicz and Ishizaka explicitly distinguish this unresolved forward\nproblem from their solved inverse construction\n\\sourcecite{ref:p12-krueger-werner}{KW05},\n\\sourcecite{ref:p12-miranowicz-ishizaka}{MI08}.",
+      "citations": [
+        {
+          "label": "ref:p12-krueger-werner",
+          "alpha_key": "KW05"
+        },
+        {
+          "label": "ref:p12-miranowicz-ishizaka",
+          "alpha_key": "MI08"
+        }
+      ]
+    },
+    "progress": {
+      "latex": "\\begin{itemize}\n  \\item For two qubits, separability is equivalent to positivity under partial\n  transpose.  Thus Eq.~\\eqref{eq:p12-relative-entropy-entanglement} is a convex\n  optimization over the positive-partial-transpose set, but this equivalence\n  does not produce a closed optimizer\n  \\sourcecite{ref:p12-horodecki}{HHH96}.\n\n  \\item Miranowicz and Ishizaka solved the inverse problem: from a boundary\n  separable state $\\sigma$, they parameterized entangled states for which\n  $\\sigma$ is closest.  Their construction yields formulas for special\n  families but does not invert to a closed map $\\rho\\mapsto\\sigma_\\rho$ for an\n  arbitrary input\n  \\sourcecite{ref:p12-miranowicz-ishizaka}{MI08}.\n\n  \\item Friedland and Gour extended the inverse optimality characterization to\n  general dimensions and proved uniqueness of the closest separable state for\n  full-rank entangled inputs.  These structural results still do not evaluate\n  Eq.~\\eqref{eq:p12-relative-entropy-entanglement} in closed form for every\n  two-qubit state\n  \\sourcecite{ref:p12-friedland-gour}{FG11}.\n\\end{itemize}",
+      "items": [
+        {
+          "index": 1,
+          "latex": "For two qubits, separability is equivalent to positivity under partial\n  transpose.  Thus Eq.~\\eqref{eq:p12-relative-entropy-entanglement} is a convex\n  optimization over the positive-partial-transpose set, but this equivalence\n  does not produce a closed optimizer\n  \\sourcecite{ref:p12-horodecki}{HHH96}."
+        },
+        {
+          "index": 2,
+          "latex": "Miranowicz and Ishizaka solved the inverse problem: from a boundary\n  separable state $\\sigma$, they parameterized entangled states for which\n  $\\sigma$ is closest.  Their construction yields formulas for special\n  families but does not invert to a closed map $\\rho\\mapsto\\sigma_\\rho$ for an\n  arbitrary input\n  \\sourcecite{ref:p12-miranowicz-ishizaka}{MI08}."
+        },
+        {
+          "index": 3,
+          "latex": "Friedland and Gour extended the inverse optimality characterization to\n  general dimensions and proved uniqueness of the closest separable state for\n  full-rank entangled inputs.  These structural results still do not evaluate\n  Eq.~\\eqref{eq:p12-relative-entropy-entanglement} in closed form for every\n  two-qubit state\n  \\sourcecite{ref:p12-friedland-gour}{FG11}."
+        }
+      ]
+    },
+    "references": {
+      "latex": "\\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]\n  \\footnotesize\n  \\item[\\textup{[HHH96]}]\\label{ref:p12-horodecki}\n  M. Horodecki, P. Horodecki, and R. Horodecki,\n  ``Separability of Mixed States: Necessary and Sufficient Conditions,''\n  \\emph{Physics Letters A} \\textbf{223}, 1--8 (1996).\n  \\href{https://doi.org/10.1016/S0375-9601(96)00706-2}%\n       {doi:10.1016/S0375-9601(96)00706-2};\n  \\href{https://arxiv.org/abs/quant-ph/9605038}%\n       {arXiv:quant-ph/9605038}.\n\n  \\item[\\textup{[MI08]}]\\label{ref:p12-miranowicz-ishizaka}\n  A. Miranowicz and S. Ishizaka,\n  ``Closed Formula for the Relative Entropy of Entanglement,''\n  \\emph{Physical Review A} \\textbf{78}, 032310 (2008).\n  \\href{https://doi.org/10.1103/PhysRevA.78.032310}%\n       {doi:10.1103/PhysRevA.78.032310};\n  \\href{https://arxiv.org/abs/0805.3134}{arXiv:0805.3134}.\n\n  \\item[\\textup{[FG11]}]\\label{ref:p12-friedland-gour}\n  S. Friedland and G. Gour,\n  ``Closed Formula for the Relative Entropy of Entanglement in All\n  Dimensions,''\n  \\emph{Journal of Mathematical Physics} \\textbf{52}, 052201 (2011).\n  \\href{https://doi.org/10.1063/1.3591132}%\n       {doi:10.1063/1.3591132};\n  \\href{https://arxiv.org/abs/1007.4544}{arXiv:1007.4544}.\n\n  \\item[\\textup{[KW05]}]\\label{ref:p12-krueger-werner}\n  O. Krüger and R. F. Werner (eds.),\n  ``Some Open Problems in Quantum Information Theory,''\n  arXiv:quant-ph/0504166 (2005).\n  \\href{https://doi.org/10.48550/arXiv.quant-ph/0504166}%\n       {doi:10.48550/arXiv.quant-ph/0504166};\n  \\href{https://arxiv.org/abs/quant-ph/0504166}%\n       {arXiv:quant-ph/0504166}.\n\\end{enumerate}",
+      "entries": [
+        {
+          "alpha_key": "HHH96",
+          "label": "ref:p12-horodecki",
+          "entry_latex": "M. Horodecki, P. Horodecki, and R. Horodecki,\n  ``Separability of Mixed States: Necessary and Sufficient Conditions,''\n  \\emph{Physics Letters A} \\textbf{223}, 1--8 (1996).\n  \\href{https://doi.org/10.1016/S0375-9601(96)00706-2}%\n       {doi:10.1016/S0375-9601(96)00706-2};\n  \\href{https://arxiv.org/abs/quant-ph/9605038}%\n       {arXiv:quant-ph/9605038}.",
+          "item_latex": "  \\item[\\textup{[HHH96]}]\\label{ref:p12-horodecki}\n  M. Horodecki, P. Horodecki, and R. Horodecki,\n  ``Separability of Mixed States: Necessary and Sufficient Conditions,''\n  \\emph{Physics Letters A} \\textbf{223}, 1--8 (1996).\n  \\href{https://doi.org/10.1016/S0375-9601(96)00706-2}%\n       {doi:10.1016/S0375-9601(96)00706-2};\n  \\href{https://arxiv.org/abs/quant-ph/9605038}%\n       {arXiv:quant-ph/9605038}."
+        },
+        {
+          "alpha_key": "MI08",
+          "label": "ref:p12-miranowicz-ishizaka",
+          "entry_latex": "A. Miranowicz and S. Ishizaka,\n  ``Closed Formula for the Relative Entropy of Entanglement,''\n  \\emph{Physical Review A} \\textbf{78}, 032310 (2008).\n  \\href{https://doi.org/10.1103/PhysRevA.78.032310}%\n       {doi:10.1103/PhysRevA.78.032310};\n  \\href{https://arxiv.org/abs/0805.3134}{arXiv:0805.3134}.",
+          "item_latex": "  \\item[\\textup{[MI08]}]\\label{ref:p12-miranowicz-ishizaka}\n  A. Miranowicz and S. Ishizaka,\n  ``Closed Formula for the Relative Entropy of Entanglement,''\n  \\emph{Physical Review A} \\textbf{78}, 032310 (2008).\n  \\href{https://doi.org/10.1103/PhysRevA.78.032310}%\n       {doi:10.1103/PhysRevA.78.032310};\n  \\href{https://arxiv.org/abs/0805.3134}{arXiv:0805.3134}."
+        },
+        {
+          "alpha_key": "FG11",
+          "label": "ref:p12-friedland-gour",
+          "entry_latex": "S. Friedland and G. Gour,\n  ``Closed Formula for the Relative Entropy of Entanglement in All\n  Dimensions,''\n  \\emph{Journal of Mathematical Physics} \\textbf{52}, 052201 (2011).\n  \\href{https://doi.org/10.1063/1.3591132}%\n       {doi:10.1063/1.3591132};\n  \\href{https://arxiv.org/abs/1007.4544}{arXiv:1007.4544}.",
+          "item_latex": "  \\item[\\textup{[FG11]}]\\label{ref:p12-friedland-gour}\n  S. Friedland and G. Gour,\n  ``Closed Formula for the Relative Entropy of Entanglement in All\n  Dimensions,''\n  \\emph{Journal of Mathematical Physics} \\textbf{52}, 052201 (2011).\n  \\href{https://doi.org/10.1063/1.3591132}%\n       {doi:10.1063/1.3591132};\n  \\href{https://arxiv.org/abs/1007.4544}{arXiv:1007.4544}."
+        },
+        {
+          "alpha_key": "KW05",
+          "label": "ref:p12-krueger-werner",
+          "entry_latex": "O. Krüger and R. F. Werner (eds.),\n  ``Some Open Problems in Quantum Information Theory,''\n  arXiv:quant-ph/0504166 (2005).\n  \\href{https://doi.org/10.48550/arXiv.quant-ph/0504166}%\n       {doi:10.48550/arXiv.quant-ph/0504166};\n  \\href{https://arxiv.org/abs/quant-ph/0504166}%\n       {arXiv:quant-ph/0504166}.",
+          "item_latex": "  \\item[\\textup{[KW05]}]\\label{ref:p12-krueger-werner}\n  O. Krüger and R. F. Werner (eds.),\n  ``Some Open Problems in Quantum Information Theory,''\n  arXiv:quant-ph/0504166 (2005).\n  \\href{https://doi.org/10.48550/arXiv.quant-ph/0504166}%\n       {doi:10.48550/arXiv.quant-ph/0504166};\n  \\href{https://arxiv.org/abs/quant-ph/0504166}%\n       {arXiv:quant-ph/0504166}."
+        }
+      ]
+    },
+    "comment": {
+      "latex": "The source collection and the full discussion of the inverse construction\nexplicitly identify the forward formula as open\n\\sourcecite{ref:p12-krueger-werner}{KW05},\n\\sourcecite{ref:p12-miranowicz-ishizaka}{MI08}.  The unresolved step is a\nclosed determination of $\\sigma_\\rho$ from arbitrary input data $\\rho$;\nspecial-state formulas and an inverse parameterization do not supply it."
+    },
+    "tag": {
+      "values": [
+        "Entanglement measures",
+        "Qubit systems",
+        "Convex optimization",
+        "Quantum separability"
+      ],
+      "latex": "Entanglement measures; Qubit systems; Convex optimization; Quantum separability"
+    },
+    "id": {
+      "value": "op_e2149f4ced34d1a8",
+      "latex": "\\texttt{op\\_e2149f4ced34d1a8}"
+    }
+  },
+  "equations": [
+    {
+      "index": 1,
+      "label": "eq:p12-relative-entropy-entanglement",
+      "latex": "\\begin{equation}\n  E_R(\\rho)\n  :=\\min_{\\sigma\\in\\operatorname{Sep}(\\mathbb{C}^2:\\mathbb{C}^2)}\n       D(\\rho\\Vert\\sigma),\n  \\qquad\n  D(\\rho\\Vert\\sigma)\n  :=\\begin{cases}\n    \\operatorname{Tr}\\!\\left[\\rho(\\log\\rho-\\log\\sigma)\\right],\n      &\\operatorname{supp}\\rho\\subseteq\\operatorname{supp}\\sigma,\\\\\n    +\\infty,&\\text{otherwise}.\n  \\end{cases}\n  \\label{eq:p12-relative-entropy-entanglement}\n\\end{equation}"
+    }
+  ],
+  "source_tex": "% Problem-section file following ../_template.tex.\n\\section{Relative entropy of entanglement for two qubits}\n\\label{sec:problem-12}\n\n\\paragraph{Problem.}\nFind a closed formula for the relative entropy of entanglement of every\ntwo-qubit density operator $\\rho$, including an explicit closest separable\nstate.  With $\\operatorname{Sep}(\\mathbb{C}^2:\\mathbb{C}^2)$ denoting the\ntwo-qubit separable states, the quantity is\n\\begin{equation}\n  E_R(\\rho)\n  :=\\min_{\\sigma\\in\\operatorname{Sep}(\\mathbb{C}^2:\\mathbb{C}^2)}\n       D(\\rho\\Vert\\sigma),\n  \\qquad\n  D(\\rho\\Vert\\sigma)\n  :=\\begin{cases}\n    \\operatorname{Tr}\\!\\left[\\rho(\\log\\rho-\\log\\sigma)\\right],\n      &\\operatorname{supp}\\rho\\subseteq\\operatorname{supp}\\sigma,\\\\\n    +\\infty,&\\text{otherwise}.\n  \\end{cases}\n  \\label{eq:p12-relative-entropy-entanglement}\n\\end{equation}\nIn the finite branch of Eq.~\\eqref{eq:p12-relative-entropy-entanglement}, the\ntrace is evaluated on $\\operatorname{supp}\\rho$, with $0\\log 0:=0$.  The\nformula sought must determine at least one minimizing state $\\sigma_\\rho$ for\nevery $\\rho$.\n\n\\subsection*{Status}\n\nUnsolved\n\n\\subsection*{Source}\n\nThe general two-qubit formula is listed by Kr\\\"uger and Werner, and\nMiranowicz and Ishizaka explicitly distinguish this unresolved forward\nproblem from their solved inverse construction\n\\sourcecite{ref:p12-krueger-werner}{KW05},\n\\sourcecite{ref:p12-miranowicz-ishizaka}{MI08}.\n\n\\subsection*{Progress}\n\n\\begin{itemize}\n  \\item For two qubits, separability is equivalent to positivity under partial\n  transpose.  Thus Eq.~\\eqref{eq:p12-relative-entropy-entanglement} is a convex\n  optimization over the positive-partial-transpose set, but this equivalence\n  does not produce a closed optimizer\n  \\sourcecite{ref:p12-horodecki}{HHH96}.\n\n  \\item Miranowicz and Ishizaka solved the inverse problem: from a boundary\n  separable state $\\sigma$, they parameterized entangled states for which\n  $\\sigma$ is closest.  Their construction yields formulas for special\n  families but does not invert to a closed map $\\rho\\mapsto\\sigma_\\rho$ for an\n  arbitrary input\n  \\sourcecite{ref:p12-miranowicz-ishizaka}{MI08}.\n\n  \\item Friedland and Gour extended the inverse optimality characterization to\n  general dimensions and proved uniqueness of the closest separable state for\n  full-rank entangled inputs.  These structural results still do not evaluate\n  Eq.~\\eqref{eq:p12-relative-entropy-entanglement} in closed form for every\n  two-qubit state\n  \\sourcecite{ref:p12-friedland-gour}{FG11}.\n\\end{itemize}\n\n\\subsection*{References}\n\n\\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]\n  \\footnotesize\n  \\item[\\textup{[HHH96]}]\\label{ref:p12-horodecki}\n  M. Horodecki, P. Horodecki, and R. Horodecki,\n  ``Separability of Mixed States: Necessary and Sufficient Conditions,''\n  \\emph{Physics Letters A} \\textbf{223}, 1--8 (1996).\n  \\href{https://doi.org/10.1016/S0375-9601(96)00706-2}%\n       {doi:10.1016/S0375-9601(96)00706-2};\n  \\href{https://arxiv.org/abs/quant-ph/9605038}%\n       {arXiv:quant-ph/9605038}.\n\n  \\item[\\textup{[MI08]}]\\label{ref:p12-miranowicz-ishizaka}\n  A. Miranowicz and S. Ishizaka,\n  ``Closed Formula for the Relative Entropy of Entanglement,''\n  \\emph{Physical Review A} \\textbf{78}, 032310 (2008).\n  \\href{https://doi.org/10.1103/PhysRevA.78.032310}%\n       {doi:10.1103/PhysRevA.78.032310};\n  \\href{https://arxiv.org/abs/0805.3134}{arXiv:0805.3134}.\n\n  \\item[\\textup{[FG11]}]\\label{ref:p12-friedland-gour}\n  S. Friedland and G. Gour,\n  ``Closed Formula for the Relative Entropy of Entanglement in All\n  Dimensions,''\n  \\emph{Journal of Mathematical Physics} \\textbf{52}, 052201 (2011).\n  \\href{https://doi.org/10.1063/1.3591132}%\n       {doi:10.1063/1.3591132};\n  \\href{https://arxiv.org/abs/1007.4544}{arXiv:1007.4544}.\n\n  \\item[\\textup{[KW05]}]\\label{ref:p12-krueger-werner}\n  O. Krüger and R. F. Werner (eds.),\n  ``Some Open Problems in Quantum Information Theory,''\n  arXiv:quant-ph/0504166 (2005).\n  \\href{https://doi.org/10.48550/arXiv.quant-ph/0504166}%\n       {doi:10.48550/arXiv.quant-ph/0504166};\n  \\href{https://arxiv.org/abs/quant-ph/0504166}%\n       {arXiv:quant-ph/0504166}.\n\\end{enumerate}\n\n\\subsection*{Comment}\n\nThe source collection and the full discussion of the inverse construction\nexplicitly identify the forward formula as open\n\\sourcecite{ref:p12-krueger-werner}{KW05},\n\\sourcecite{ref:p12-miranowicz-ishizaka}{MI08}.  The unresolved step is a\nclosed determination of $\\sigma_\\rho$ from arbitrary input data $\\rho$;\nspecial-state formulas and an inverse parameterization do not supply it.\n\n\\subsection*{Tag}\n\nEntanglement measures; Qubit systems; Convex optimization; Quantum separability\n\n\\subsection*{ID}\n\n\\texttt{op\\_e2149f4ced34d1a8}\n"
+}
