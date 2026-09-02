@@ -406,38 +406,14 @@ export function renderHome({ config, root, records, stats, tagCounts, initial, d
 
     <section class="section-shell" id="recent" aria-labelledby="recent-title">
       <div class="section-heading">
-        <div><p class="section-index">01 / Activity</p><h2 id="recent-title">Recently edited</h2></div>
+        <div><p class="section-index">Activity</p><h2 id="recent-title">Recently edited</h2></div>
         <a class="text-link" href="${root}problems/?sort=updated">All problems by date →</a>
       </div>
       <ul class="recent-list">
         ${records.slice().sort((a, b) => b.dates.updated.localeCompare(a.dates.updated) || a.title.text.localeCompare(b.title.text)).slice(0, 6).map((record) => `<li><time datetime="${record.dates.updated}">${displayDate(record.dates.updated)}</time><a href="${root}problem/${record.id}/">${record.title.html}</a>${statusTag(record.status, "status-tag-small")}</li>`).join("\n        ")}
       </ul>
     </section>
-
-    <section class="section-shell" id="how" aria-labelledby="how-title">
-      <div class="section-heading">
-        <div><p class="section-index">02 / Method</p><h2 id="how-title">What a record contains</h2></div>
-        <p>Each problem page follows the same structure, so a reader can judge a status from the cited evidence.</p>
-      </div>
-      <div class="method-grid">
-        <article><span class="method-number">1</span><h3>Self-contained statement</h3><p>The question comes first, followed only by the definitions needed to make it precise. Every displayed equation is numbered and cited in the prose.</p></article>
-        <article><span class="method-number">2</span><h3>Source attribution</h3><p>The paper that posed the problem, or the papers in which it is implicit, is named explicitly. Contributor-proposed problems say so.</p></article>
-        <article><span class="method-number">3</span><h3>Scoped progress</h3><p>Each result states exactly what it proves, its parameter regime, and why it falls short of the full question.</p></article>
-        <article><span class="method-number">4</span><h3>Alpha-style references</h3><p>References carry author–year labels such as [BDSW96] with DOI and arXiv links, and are listed in full on every page.</p></article>
-      </div>
-      <div class="agent-strip">
-        <div>
-          <p class="agent-strip-title">Machine-readable records</p>
-          <p>Every problem is also available as JSON with its TeX source, converted HTML, and plain text. Start from <a href="${root}api/index.json">api/index.json</a> or read <a href="${root}llms.txt">llms.txt</a>.</p>
-        </div>
-        <div class="agent-strip-links">
-          <a href="${root}api/index.json">Index</a>
-          <a href="${root}api/tags.json">Tags</a>
-          <a href="${root}llms.txt">llms.txt</a>
-          <a href="${config.repositoryUrl}" rel="noreferrer">Repository</a>
-        </div>
-      </div>
-    </section>`;
+`;
   return layout({
     config, root, path: "", current: "home",
     title: "",
