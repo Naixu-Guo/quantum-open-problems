@@ -235,7 +235,6 @@ export function problemRow(record, root) {
 export function renderProblemPage({ record, config, root, related, dates }) {
   const editUrl = `${config.repositoryUrl}/edit/${config.branch}/${config.databasePath}/${record.id}.tex`;
   const historyUrl = `${config.repositoryUrl}/commits/${config.branch}/${config.databasePath}/${record.id}.tex`;
-  const blobUrl = `${config.repositoryUrl}/blob/${config.branch}/${config.databasePath}/${record.id}.tex`;
   const issueUrl = `${config.repositoryUrl}/issues/new?template=research-update.yml&title=${encodeURIComponent(`[Update] ${record.title.text} (${record.id})`)}`;
   const permalink = problemUrl(config, record.id);
   const bib = bibtex(record, config, dates);
@@ -312,7 +311,7 @@ export function renderProblemPage({ record, config, root, related, dates }) {
               <li><span>Last edited</span><time datetime="${record.dates.updated}">${displayDate(record.dates.updated)}</time></li>
               <li><span>Revisions</span><span>${record.dates.revisions}</span></li>
             </ul>
-            <p><a href="${historyUrl}" rel="noreferrer">View the full history on GitHub</a> · <a href="${blobUrl}" rel="noreferrer">View the TeX source</a></p>
+            <p><a href="${historyUrl}" rel="noreferrer">View the full history on GitHub</a></p>
           </div>
           <div class="contribute-box">
             <h2>Your contribution is welcome!</h2>
@@ -320,7 +319,8 @@ export function renderProblemPage({ record, config, root, related, dates }) {
           </div>
           <div class="cite-box">
             <h2>Cite this page</h2>
-            <p>${escape(plain)}</p>
+            <p>${escape(`“${record.title.text},” ${config.fullName} (${config.shortName}), ID ${record.id}, accessed ${dates.today}.`)}</p>
+            <p class="muted">Use the Cite button above for BibTeX and the permanent link.</p>
           </div>
         </footer>
       </article>
