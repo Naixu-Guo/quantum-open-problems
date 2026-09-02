@@ -324,34 +324,6 @@ export function renderProblemPage({ record, config, root, related, dates }) {
         </footer>
       </article>
 
-      <aside class="problem-side" aria-label="Page navigation">
-        <div class="side-block">
-          <p class="side-heading">On this page</p>
-          <ol class="toc">
-            <li><a href="#problem">Problem</a></li>
-            <li><a href="#source">Source</a></li>
-            <li><a href="#progress">Progress <span>${record.progress.length}</span></a></li>
-            <li><a href="#comment">Comment</a></li>
-            <li><a href="#references">References <span>${record.references.length}</span></a></li>
-            <li><a href="#related">Related <span>${related.length}</span></a></li>
-          </ol>
-        </div>
-        <div class="side-block">
-          <p class="side-heading">Record</p>
-          <dl class="side-facts">
-            <dt>Status</dt><dd>${statusTag(record.status, "status-tag-small")}</dd>
-            <dt>Stable ID</dt><dd><code>${record.id}</code></dd>
-            <dt>Equations</dt><dd>${record.equations.length}</dd>
-            <dt>References</dt><dd>${record.references.length}</dd>
-            <dt>Source digest</dt><dd><code title="SHA-256 of the TeX record">${record.sha256.slice(0, 12)}</code></dd>
-          </dl>
-        </div>
-        <div class="side-block side-random">
-          <p class="side-heading">Keep exploring</p>
-          <a class="pill pill-unsolved" href="${root}random/unsolved/">Random unsolved</a>
-          <a class="pill pill-solved" href="${root}random/solved/">Random solved</a>
-        </div>
-      </aside>
     </div>
 
     <dialog class="dialog no-math" id="cite-dialog" aria-labelledby="cite-title">
