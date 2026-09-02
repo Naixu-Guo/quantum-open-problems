@@ -1,18 +1,9 @@
-name: Validate catalog contribution
+name: Validate research layer
 
 on:
   pull_request:
-    paths:
-      - "catalog/**"
-      - "docs/adr/**"
-      - "open_prob/**"
-      - "open_problem_v2/**"
-      - "site/**"
-      - "mcp/**"
-      - "package.json"
-      - "CONTRIBUTING.md"
-      - ".github/ISSUE_TEMPLATE/**"
-      - ".github/workflows/validate.yml"
+  push:
+    branches: [main]
 
 permissions:
   contents: read
@@ -24,8 +15,16 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
-      - name: Build and validate catalog
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "22"
+
+      - name: Build every read model from the canonical catalog
         run: node site/build.mjs
 
-      - name: Check generated files
+      - name: Reject stale generated files or an unsynced ledger
         run: git diff --exit-code -- catalog site
+
+      - name: Run tests
+        run: npm test
