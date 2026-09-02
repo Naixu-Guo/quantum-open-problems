@@ -85,6 +85,22 @@
     });
   }
 
+  // ------------------------------------------------------------------ random buttons
+  // Jump straight to a random problem instead of loading the redirect page,
+  // which would flash the intermediate layout. Modified clicks keep the link.
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest(".random-pill");
+    const ids = window.QIQCOP_RANDOM;
+    if (!link || !ids || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const pool = link.classList.contains("random-solved") ? ids.solved : ids.unsolved;
+    if (!Array.isArray(pool) || pool.length === 0) return;
+    const currentId = document.querySelector("article.problem")?.id;
+    const candidates = pool.length > 1 ? pool.filter((id) => id !== currentId) : pool;
+    const pick = candidates[Math.floor(Math.random() * candidates.length)];
+    event.preventDefault();
+    location.href = `${root}problem/${pick}/`;
+  });
+
   // ------------------------------------------------------------------ keyboard
   document.addEventListener("keydown", (event) => {
     if (event.key !== "/" || event.metaKey || event.ctrlKey || event.altKey) return;

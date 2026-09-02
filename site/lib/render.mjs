@@ -134,6 +134,7 @@ ${body}
       <p class="footer-note">A dated research index. Verify a status against the cited sources before relying on it. <a href="#top">Back to top ↑</a></p>
     </footer>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="${root}data/random.js?v=${config.assetVersions?.random ?? ""}" defer></script>
     <script src="${root}assets/app.js?v=${config.assetVersions?.app ?? ""}" defer></script>
     ${extraScripts}
   </body>
@@ -595,8 +596,8 @@ export function renderRandomPage({ config, root, pool, ids, label }) {
     title: `Random ${label} problem`,
     description: `Jump to a random ${label} problem in the ${config.shortName}.`,
     body, bodyClass: "page-random", withMath: false,
-    extraHead: `<meta name="robots" content="noindex">`,
-    extraScripts: `<script>(() => { const ids = ${JSON.stringify(ids.map((entry) => entry.id))}; const pick = ids[Math.floor(Math.random() * ids.length)]; if (pick) location.replace(${JSON.stringify(root)} + "problem/" + pick + "/"); })();</script>`
+    extraHead: `<meta name="robots" content="noindex">
+    <script>(() => { const ids = ${JSON.stringify(ids.map((entry) => entry.id))}; const pick = ids[Math.floor(Math.random() * ids.length)]; if (pick) location.replace(${JSON.stringify(root)} + "problem/" + pick + "/"); })();</script>`
   });
 }
 

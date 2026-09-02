@@ -126,6 +126,8 @@ if (pools.unsolved.length === 0 || pools.solved.length === 0) {
   throw new Error("The home page needs at least one unsolved and one solved problem");
 }
 const initial = { unsolved: pools.unsolved[0], solved: pools.solved[0] };
+const randomPayload = `window.QIQCOP_RANDOM = ${JSON.stringify({ unsolved: pools.unsolved.map((r) => r.id), solved: pools.solved.map((r) => r.id) })};\n`;
+config.assetVersions.random = createHash("sha256").update(randomPayload).digest("hex").slice(0, 8);
 
 // ---------------------------------------------------------------------------
 // Emit
@@ -162,6 +164,7 @@ for (const asset of fs.readdirSync(path.join(siteDir, "assets"))) {
   write(`assets/${asset}`, fs.readFileSync(path.join(siteDir, "assets", asset)));
 }
 write(".nojekyll", "");
+write("data/random.js", randomPayload);
 
 // Client-side index for the random panels and search.
 const indexEntries = records.map((record) => ({
