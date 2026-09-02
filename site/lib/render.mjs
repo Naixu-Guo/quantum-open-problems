@@ -227,7 +227,6 @@ export function problemRow(record, root) {
   </div>
   <div class="row-side">
     ${statusTag(record.status)}
-    <span class="row-meta">${record.references.length} ref${record.references.length === 1 ? "" : "s"} · ${record.equations.length} eq${record.equations.length === 1 ? "" : "s"}</span>
   </div>
 </li>`;
 }
