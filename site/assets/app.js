@@ -217,13 +217,13 @@
       q: (params.get("q") || "").trim().toLowerCase(),
       status: params.get("status") || "all",
       tag: params.get("tag") || "all",
-      sort: params.get("sort") || "title"
+      sort: params.get("sort") || "updated"
     };
     if (searchInput) searchInput.value = params.get("q") || "";
     if (tagSelect && [...tagSelect.options].some((option) => option.value === state.tag)) tagSelect.value = state.tag;
     else state.tag = "all";
     if (sortSelect && [...sortSelect.options].some((option) => option.value === state.sort)) sortSelect.value = state.sort;
-    else state.sort = "title";
+    else state.sort = "updated";
     statusButtons.forEach((button) => {
       const active = button.dataset.status === state.status;
       button.classList.toggle("is-active", active);
@@ -256,7 +256,7 @@
       if (state.q) next.set("q", state.q);
       if (state.status !== "all") next.set("status", state.status);
       if (state.tag !== "all") next.set("tag", state.tag);
-      if (state.sort !== "title") next.set("sort", state.sort);
+      if (state.sort !== "updated") next.set("sort", state.sort);
       const query = next.toString();
       history.replaceState(null, "", `${location.pathname}${query ? `?${query}` : ""}`);
     };
@@ -274,10 +274,10 @@
     tagSelect?.addEventListener("change", () => { state.tag = tagSelect.value; apply(); });
     sortSelect?.addEventListener("change", () => { state.sort = sortSelect.value; apply(); });
     const clear = () => {
-      state.q = ""; state.status = "all"; state.tag = "all"; state.sort = "title";
+      state.q = ""; state.status = "all"; state.tag = "all"; state.sort = "updated";
       if (searchInput) searchInput.value = "";
       if (tagSelect) tagSelect.value = "all";
-      if (sortSelect) sortSelect.value = "title";
+      if (sortSelect) sortSelect.value = "updated";
       statusButtons.forEach((button) => {
         const active = button.dataset.status === "all";
         button.classList.toggle("is-active", active);

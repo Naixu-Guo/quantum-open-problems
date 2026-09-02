@@ -224,6 +224,9 @@ export function leadSentenceHtml(html, limit = 260) {
   return out.trim();
 }
 
+// Newest edit first, to the second; ties broken by title.
+export const byRecentEdit = (records) => records.slice().sort((a, b) => b.dates.updatedAt.localeCompare(a.dates.updatedAt) || a.title.text.localeCompare(b.title.text));
+
 export function problemRow(record, root) {
   const search = [record.title.text, record.id, record.tags.join(" "), record.statement.text].join(" ").toLowerCase();
   return `<li class="problem-row status-${record.statusSlug}" data-id="${record.id}" data-status="${record.statusSlug}" data-tags="${escape(record.tags.map(slug).join(" "))}" data-title="${escape(record.title.text.toLowerCase())}" data-updated="${record.dates.updatedAt}" data-search="${escape(search)}">
@@ -412,10 +415,10 @@ export function renderHome({ config, root, records, stats, tagCounts, initial, d
     <section class="section-shell" id="recent" aria-labelledby="recent-title">
       <div class="section-heading">
         <div><p class="section-index">Activity</p><h2 id="recent-title">Recently edited</h2></div>
-        <a class="text-link" href="${root}problems/?sort=updated">All problems by date →</a>
+        <a class="text-link" href="${root}problems/">All problems by date →</a>
       </div>
       <ul class="recent-list">
-        ${records.slice().sort((a, b) => b.dates.updatedAt.localeCompare(a.dates.updatedAt) || a.title.text.localeCompare(b.title.text)).slice(0, 8).map((record) => `<li><time datetime="${record.dates.updatedAt}" data-localize>${displayDateTime(record.dates.updatedAt)}</time><a href="${root}problem/${record.id}/">${record.title.html}</a>${statusTag(record.status, "status-tag-small")}</li>`).join("\n        ")}
+        ${byRecentEdit(records).slice(0, 8).map((record) => `<li><time datetime="${record.dates.updatedAt}" data-localize>${displayDateTime(record.dates.updatedAt)}</time><a href="${root}problem/${record.id}/">${record.title.html}</a>${statusTag(record.status, "status-tag-small")}</li>`).join("\n        ")}
       </ul>
     </section>
 `;
@@ -456,13 +459,13 @@ export function renderDirectory({ config, root, records, tagCounts }) {
         </div>
         <div class="select-filter">
           <label for="sort-filter">Sort</label>
-          <select id="sort-filter"><option value="title">Title A–Z</option><option value="updated">Recently edited</option><option value="status">Status</option></select>
+          <select id="sort-filter"><option value="updated">Recently edited</option><option value="title">Title A–Z</option><option value="status">Status</option></select>
         </div>
         <button class="clear-button" id="clear-filters" type="button">Clear</button>
       </div>
       <p class="results-toolbar" aria-live="polite"><strong id="results-count">${records.length}</strong> <span id="results-label">problems</span></p>
       <ul class="problem-list" id="problem-list">
-        ${records.map((record) => problemRow(record, root)).join("\n        ")}
+        ${byRecentEdit(records).map((record) => problemRow(record, root)).join("\n        ")}
       </ul>
       <div class="empty-state" id="empty-state" hidden>
         <p>No problems match these filters.</p>
@@ -519,7 +522,7 @@ export function renderTagPage({ config, root, tag, records }) {
         <p>${records.length} problem${records.length === 1 ? "" : "s"}: ${counts.unsolved} unsolved, ${counts.partial} partially solved, ${counts.solved} solved.</p>
       </div>
       <ul class="problem-list">
-        ${records.map((record) => problemRow(record, root)).join("\n        ")}
+        ${byRecentEdit(records).map((record) => problemRow(record, root)).join("\n        ")}
       </ul>
     </section>`;
   return layout({
