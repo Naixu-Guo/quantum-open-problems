@@ -1,0 +1,177 @@
+% Problem-section file following ../_template.tex.
+\section{Quantum capacity of the Gaussian random-displacement channel}
+\label{sec:problem-64}
+
+\paragraph{Problem.}
+What is the unconstrained, unassisted quantum capacity of the single-mode
+Gaussian random-displacement channel?  For a noise standard deviation
+$\sigma>0$, define the channel by
+\begin{equation}
+  \mathcal N_\sigma(\rho)
+  :=\frac{1}{\pi\sigma^2}\int_{\mathbb C}
+       e^{-\lvert\alpha\rvert^2/\sigma^2}
+       D(\alpha)\rho D(\alpha)^\dagger\,d^2\alpha,
+  \qquad
+  D(\alpha):=e^{\alpha a^\dagger-\alpha^*a},
+  \label{eq:p64-random-displacement-channel}
+\end{equation}
+where $a$ is the mode annihilation operator.  Equivalently, writing
+$\alpha=(x+iy)/\sqrt2$, the channel in
+Eq.~\eqref{eq:p64-random-displacement-channel} adds independent classical
+Gaussian shifts $x,y\sim\mathcal N(0,\sigma^2)$ to the two canonical
+quadratures.  With $\hat n_j:=a_j^\dagger a_j$, define its
+energy-unconstrained capacity as
+\begin{equation}
+  \begin{aligned}
+  \mathcal Q(\mathcal N_\sigma)
+  &:={\sup}_{0<N_{\rm S}<\infty}\,
+     \lim_{n\to\infty}\frac1n
+     {\sup}_{\substack{\rho_{A^n}:\\
+       \operatorname{Tr}[\rho_{A^n}\sum_{j=1}^n\hat n_j]
+       \leq nN_{\rm S}}}
+       I_{\rm c}(\rho_{A^n},\mathcal N_\sigma^{\otimes n}),\\
+  I_{\rm c}(\rho,\mathcal M)
+  &:=S(\mathcal M(\rho))-S(\mathcal M^{\rm c}(\rho)),
+  \end{aligned}
+  \label{eq:p64-quantum-capacity}
+\end{equation}
+where $\mathcal M^{\rm c}$ is a complementary channel and logarithms in the
+entropy are base two.  Determine Eq.~\eqref{eq:p64-quantum-capacity} for every
+$\sigma>0$.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Lin and Noh explicitly describe determining
+$\mathcal Q(\mathcal N_\sigma)$ as a longstanding open problem
+\sourcecite{ref:p64-lin-noh}{LN25}.  Subramanian, Zheng, and Jiang subsequently
+reaffirm that the exact capacity remains unknown while constructing codes
+that attain the standard coherent-information rate
+\sourcecite{ref:p64-subramanian-zheng-jiang}{SZJ25}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item In the convention of
+  Eq.~\eqref{eq:p64-random-displacement-channel}, the standard analytic bounds
+  are
+  \begin{equation}
+    \left[\log_2\!\frac{1}{e\sigma^2}\right]_+
+    \leq \mathcal Q(\mathcal N_\sigma)
+    \leq U(\sigma),
+    \qquad
+    U(\sigma):=
+    \begin{cases}
+      \displaystyle\log_2\!\frac{1-\sigma^2}{\sigma^2},
+        &0<\sigma<1/\sqrt2,\\[1mm]
+      0,&\sigma\geq1/\sqrt2,
+    \end{cases}
+    \qquad [t]_+:=\max\{t,0\}.
+    \label{eq:p64-standard-bounds}
+  \end{equation}
+  The lower bound in Eq.~\eqref{eq:p64-standard-bounds} is the infinite-energy
+  limit of one-use coherent information, while the upper bound follows from a
+  channel decomposition and data processing
+  \sourcecite{ref:p64-holevo-werner}{HW01},
+  \sourcecite{ref:p64-noh-albert-jiang}{NAJ19}.  Thus the capacity is positive
+  for $0<\sigma<1/\sqrt e$ and vanishes for
+  $\sigma\geq1/\sqrt2$, but the bounds do not determine it in the remaining
+  positive-capacity regime; for
+  $1/\sqrt e\leq\sigma<1/\sqrt2$, even positivity is unknown.  Degradable
+  flagged extensions sharpen the upper bound at low noise without closing the
+  gap \sourcecite{ref:p64-fanizza-kianvash-giovannetti}{FKG21}.
+
+  \item Lin and Noh evaluated multimode GKP families with maximum-likelihood
+  decoding.  Their largest surface--square instance, of distance $39$, has a
+  positive computed hashing rate at $\sigma=0.598$, and its finite-size
+  crossings indicate a threshold close to $1/\sqrt e$.  These are numerical
+  code-performance results below the known positivity threshold, not an exact
+  capacity evaluation or a proof of positivity beyond $1/\sqrt e$
+  \sourcecite{ref:p64-lin-noh}{LN25}.
+
+  \item Subramanian, Zheng, and Jiang constructed concatenated square-GKP and
+  quantum polar codes with analog decoding whose asymptotic rate is
+  \begin{equation}
+    R_{\rm GKP\text{-}polar}(\sigma)
+    =\left[\log_2\!\frac{1}{e\sigma^2}\right]_+.
+    \label{eq:p64-gkp-polar-rate}
+  \end{equation}
+  Equation~\eqref{eq:p64-gkp-polar-rate} removes earlier discreteness and
+  nonconstructiveness restrictions in attaining the lower bound of
+  Eq.~\eqref{eq:p64-standard-bounds}.  It does not prove that this lower bound
+  equals the regularized capacity in Eq.~\eqref{eq:p64-quantum-capacity}
+  \sourcecite{ref:p64-subramanian-zheng-jiang}{SZJ25}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[HW01]}]\label{ref:p64-holevo-werner}
+  A. S. Holevo and R. F. Werner,
+  ``Evaluating Capacities of Bosonic Gaussian Channels,''
+  \emph{Physical Review A} \textbf{63}, 032312 (2001).
+  \href{https://doi.org/10.1103/PhysRevA.63.032312}%
+       {doi:10.1103/PhysRevA.63.032312};
+  \href{https://arxiv.org/abs/quant-ph/9912067}%
+       {arXiv:quant-ph/9912067}.
+
+  \item[\textup{[NAJ19]}]\label{ref:p64-noh-albert-jiang}
+  {\sloppy
+  K. Noh, V. V. Albert, and L. Jiang,
+  ``Quantum Capacity Bounds of Gaussian Thermal Loss Channels and Achievable
+  Rates with Gottesman--Kitaev--Preskill Codes,''
+  \emph{IEEE Transactions on Information Theory} \textbf{65}, 2563--2582
+  (2019).
+  \href{https://doi.org/10.1109/TIT.2018.2873764}%
+       {doi:10.1109/TIT.2018.2873764};
+  \href{https://arxiv.org/abs/1801.07271}{arXiv:1801.07271}.
+  \par}
+
+  \item[\textup{[FKG21]}]\label{ref:p64-fanizza-kianvash-giovannetti}
+  M. Fanizza, F. Kianvash, and V. Giovannetti,
+  ``Estimating Quantum and Private Capacities of Gaussian Channels via
+  Degradable Extensions,'' \emph{Physical Review Letters} \textbf{127},
+  210501 (2021).
+  \href{https://doi.org/10.1103/PhysRevLett.127.210501}%
+       {doi:10.1103/PhysRevLett.127.210501};
+  \href{https://arxiv.org/abs/2103.09569}{arXiv:2103.09569}.
+
+  \item[\textup{[LN25]}]\label{ref:p64-lin-noh}
+  M. Lin and K. Noh,
+  ``Exploring the Quantum Capacity of a Gaussian Random-Displacement Channel
+  Using Gottesman--Kitaev--Preskill Codes and Maximum-Likelihood Decoding,''
+  \emph{Physical Review A} \textbf{111}, 052445 (2025).
+  \href{https://doi.org/10.1103/PhysRevA.111.052445}%
+       {doi:10.1103/PhysRevA.111.052445};
+  \href{https://arxiv.org/abs/2411.04277}{arXiv:2411.04277}.
+
+  \item[\textup{[SZJ25]}]\label{ref:p64-subramanian-zheng-jiang}
+  M. Subramanian, G. Zheng, and L. Jiang,
+  ``Achievable Rates for Concatenated Square Gottesman--Kitaev--Preskill
+  Codes,'' \emph{PRX Quantum} \textbf{6}, 040342 (2025).
+  \href{https://doi.org/10.1103/56vj-z7h1}{doi:10.1103/56vj-z7h1};
+  \href{https://arxiv.org/abs/2505.10499}{arXiv:2505.10499}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The word ``optimal'' in the coding result of
+\sourcecite{ref:p64-subramanian-zheng-jiang}{SZJ25} refers to attaining the
+one-use coherent-information lower bound for all noise strengths, not to
+proving that this rate is the quantum capacity.  The exact value remains
+unknown throughout $0<\sigma<1/\sqrt2$; in the subinterval
+$1/\sqrt e\leq\sigma<1/\sqrt2$, the first unresolved question is whether the
+capacity is nonzero at all.
+
+\subsection*{Tag}
+
+Bosonic channels; Bosonic codes; Quantum capacity; Coherent information;
+Gaussian quantum information; Continuous-variable systems
+
+\subsection*{ID}
+
+\texttt{op\_1e7f431ed9013d1e}
