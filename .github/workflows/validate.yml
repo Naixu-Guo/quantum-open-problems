@@ -3,8 +3,13 @@ name: Validate catalog contribution
 on:
   pull_request:
     paths:
+      - "catalog/**"
+      - "docs/adr/**"
       - "open_prob/**"
+      - "open_problem_v2/**"
       - "site/**"
+      - "mcp/**"
+      - "package.json"
       - "CONTRIBUTING.md"
       - ".github/ISSUE_TEMPLATE/**"
       - ".github/workflows/validate.yml"
@@ -23,4 +28,4 @@ jobs:
         run: node site/build.mjs
 
       - name: Check generated files
-        run: git diff --exit-code -- site
+        run: git diff --exit-code -- catalog site

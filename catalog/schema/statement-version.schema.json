@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/schema/canonical/v0.1/statement-version.schema.json",
+  "title": "Canonical statement version",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "id",
+    "problemId",
+    "version",
+    "supersedesStatementId",
+    "created",
+    "bodyPath",
+    "sourceRefs",
+    "targetClauses"
+  ],
+  "properties": {
+    "kind": { "const": "StatementVersion" },
+    "id": { "type": "string", "minLength": 1 },
+    "problemId": { "type": "string", "minLength": 1 },
+    "version": { "type": "integer", "minimum": 1 },
+    "supersedesStatementId": { "type": ["string", "null"] },
+    "created": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "bodyPath": {
+      "type": "string",
+      "pattern": "^statements/[a-z0-9][a-z0-9._-]*\\.md$"
+    },
+    "sourceRefs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["sourceId", "relationship", "locator", "primary"],
+        "properties": {
+          "sourceId": { "type": "string", "minLength": 1 },
+          "relationship": {
+            "enum": ["states-problem", "documents-gap", "source-record", "supplements-statement"]
+          },
+          "locator": { "type": "string" },
+          "primary": { "type": "boolean" }
+        }
+      }
+    },
+    "targetClauses": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "text", "resolutionCriteria"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "label": { "type": "string", "minLength": 1 },
+          "text": { "type": "string", "minLength": 1 },
+          "resolutionCriteria": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

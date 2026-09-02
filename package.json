@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "description": "MCP server for the Quantum Open Problems catalog: search problems, fetch formal statements and research briefs, watch evidence, and get the contribution contract.",
   "type": "module",
+  "scripts": {
+    "build": "node site/build.mjs",
+    "validate": "node site/build.mjs",
+    "validate:canonical": "node catalog/validate.mjs"
+  },
   "bin": {
     "quantum-open-problems-mcp": "./mcp/server.mjs"
   },

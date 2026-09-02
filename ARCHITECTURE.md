@@ -119,6 +119,12 @@ This release provides the compact browser index, lazy detail records, API v1, JS
 
 Delivered: generated `/problems/<id>/` pages for active and solved records, the evidence log with stable event IDs, Atom and JSON feeds, the release manifest, the sitemap, content-scoped revision digests, and full-catalog text exports.
 
+Canonical migration has started with the contract and compatibility slice under
+`catalog/`. The slice models Problem, StatementVersion, Source, Claim,
+Evidence, and Decision objects and must reproduce existing API v1 records and
+research packets for its active examples. It is not yet the authoring source
+for the full release; ADR 0001 defines the migration boundary.
+
 Before the catalog reaches roughly 100 active records:
 
 - move each problem into one canonical `record.json` plus statement Markdown, retiring the three overlapping authoring surfaces (`problems.js`, `metadata.json`, `problem.md`);

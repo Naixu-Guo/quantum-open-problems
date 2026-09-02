@@ -20,7 +20,9 @@ The website lists the 38 active questions across five research fields. Each prob
 
 - `site/`: dependency-free GitHub Pages website and structured active-problem catalog
 - `mcp/`: zero-dependency MCP server exposing the catalog to AI agents over stdio
+- `catalog/`: canonical data contract, schemas, representative records, and compatibility projector
 - `open_prob/`: one Markdown article and one metadata record for each of the 58 cataloged problems
+- `docs/adr/`: accepted architecture decisions, beginning with the database-first boundary
 - `ARCHITECTURE.md`: scale plan for canonical records, evidence events, review, and agent interfaces
 - `CONTRIBUTING.md`: evidence requirements for human and AI-assisted research updates
 - `STATUS_AUDIT.md`: complete status table, evidence summary, and source corrections
@@ -33,6 +35,12 @@ node site/build.mjs
 ```
 
 The build generates the website read models and API, then checks them against source metadata, taxonomy, status, and catalog totals.
+
+The build also validates the canonical vertical slice. That slice proves that
+canonical Problem, StatementVersion, Source, Claim, Evidence, and Decision
+objects can reproduce existing API v1 records and research packets without
+changing their public revisions. See [`catalog/README.md`](catalog/README.md)
+and [ADR 0001](docs/adr/0001-database-first-architecture.md).
 
 ## Catalog architecture
 

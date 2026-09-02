@@ -4,8 +4,10 @@ on:
   push:
     branches: [main]
     paths:
+      - "catalog/**"
       - "site/**"
       - "open_prob/**"
+      - "open_problem_v2/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
