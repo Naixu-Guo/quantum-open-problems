@@ -77,11 +77,11 @@ export function layout({ config, root, title, description, path, body, current =
     <meta property="og:description" content="${escape(description)}">
     <meta property="og:url" content="${canonical}">
     <meta name="twitter:card" content="summary">
-    <link rel="icon" href="${root}assets/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="${root}assets/favicon.svg?v=${config.assetVersions?.favicon ?? ""}" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
-    <link rel="stylesheet" href="${root}assets/styles.css">
+    <link rel="stylesheet" href="${root}assets/styles.css?v=${config.assetVersions?.styles ?? ""}">
     <link rel="alternate" type="application/json" href="${root}api/index.json" title="${escape(config.shortName)} API">
     ${THEME_BOOT}
     ${withMath ? MATHJAX : ""}
@@ -134,7 +134,7 @@ ${body}
       <p class="footer-note">A dated research index. Verify a status against the cited sources before relying on it. <a href="#top">Back to top ↑</a></p>
     </footer>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="${root}assets/app.js" defer></script>
+    <script src="${root}assets/app.js?v=${config.assetVersions?.app ?? ""}" defer></script>
     ${extraScripts}
   </body>
 </html>

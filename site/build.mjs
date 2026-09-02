@@ -10,6 +10,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { parseProblem, STATUSES, slug, TexError } from "./lib/tex.mjs";
 import {
@@ -22,6 +23,10 @@ const repoRoot = path.dirname(siteDir);
 const config = JSON.parse(fs.readFileSync(path.join(siteDir, "config.json"), "utf8"));
 const databaseDir = path.join(repoRoot, config.databasePath);
 const tagsPath = path.join(repoRoot, "database", "tags.json");
+
+// Short content hashes so browsers refetch changed assets (favicons are cached aggressively).
+const assetVersion = (name) => createHash("sha256").update(fs.readFileSync(path.join(siteDir, "assets", name))).digest("hex").slice(0, 8);
+config.assetVersions = { favicon: assetVersion("favicon.svg"), styles: assetVersion("styles.css"), app: assetVersion("app.js") };
 
 const args = process.argv.slice(2);
 const outIndex = args.indexOf("--out");
