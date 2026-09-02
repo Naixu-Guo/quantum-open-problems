@@ -1,155 +1,190 @@
 # Quantum Open Problems architecture
 
-## Product position
-
-Quantum Open Problems should operate as a research ledger for quantum science. Human readers need a clear statement and evidence history. Agents need stable identifiers, versioned records, bounded context, explicit output contracts, and machine-readable review decisions.
-
-The project should specialize in evidence that generic theorem databases handle poorly:
-
-- mathematical proofs and counterexamples;
-- numerical optimization, finite certificates, and code;
-- experimental results, calibration records, and datasets;
-- physical assumptions, resource models, and implementability limits;
-- preprints, withdrawals, corrections, and scope conflicts.
-
-Editors apply one evidence standard to human and AI work. The system records who or what produced each artifact and who checked it.
-
-## Current release
-
-The static release supports more records without requiring a backend:
-
-- every record, active or solved, has a generated page at `/problems/<id>/` with the full statement, evidence, JSON-LD structured data, and citation blocks; active pages link their JSON and Markdown representations, while resolved records keep their page URL and human-readable history (their machine records arrive with Stage 1);
-- the browser loads `site/data/catalog-index.js`, a compact discovery index;
-- the browser fetches one `api/v1/problems/<id>.json` record when a reader opens a problem;
-- `/llms.txt` directs agents to the API, schemas, bulk snapshot, and contribution policy; `/llms-full.txt` carries every research brief in one file;
-- `/api/v1/problems.jsonl` supports batch indexing and offline research;
-- `/api/v1/release.json` publishes the release date, catalog digest, and record counts as a cheap poll target;
-- `/api/v1/evidence.json`, the Atom feed `/feed.xml`, and the JSON feed `/feed.json` expose every dated evidence event with stable content-hash IDs;
-- record revision digests cover only research content, so catalog-wide date bumps cannot invalidate contributions to unchanged problems;
-- `/sitemap.xml` lists the home page, directory, and every problem page;
-- JSON Schemas define problem reads and contribution writes;
-- `node site/build.mjs` generates and validates the release;
-- pull requests run the same build and reject stale generated files.
-
-GitHub Pages can support about one thousand records with this design. The team should introduce a database after measured query, write, or review limits justify the operational cost.
-
-## Target content graph
-
-Editors should migrate the current article, metadata, and catalog fields into one canonical record per problem. Generated website files must not become authoring surfaces.
-
-| Object | Purpose | Required identity |
-| --- | --- | --- |
-| `Problem` | Stable research question across revisions | Permanent problem ID |
-| `StatementVersion` | Exact objects, hypotheses, quantifiers, target clauses, and resolution criteria | Problem ID plus version |
-| `Source` | Paper, problem list, dataset, or official statement | DOI, arXiv version, or stable source ID |
-| `Claim` | Result that supports, narrows, refutes, or resolves a target clause | Claim ID and statement version |
-| `Evidence` | Publication or check that supports a claim assessment | Evidence ID and source locator |
-| `Artifact` | Code, proof file, certificate, dataset, notebook, or experiment log | URI plus content digest |
-| `Task` | Bounded next action with an acceptance test | Task ID and target clause |
-| `ResearchTrace` | Reusable outcome from one human or agent research run | Trace ID, task ID, actor IDs, and artifact IDs |
-| `Review` | Independent scope, source, argument, or reproduction check | Review ID and contribution version |
-| `Decision` | Editorial acceptance, rejection, correction, or status change | Decision ID and cited reviews |
-
-Objects use typed relations such as `supports`, `refutes`, `narrows`, `depends_on`, `duplicates`, and `supersedes`. Editors retain rejected, withdrawn, failed, and superseded work because later researchers need that history.
-
-## Research frontier
-
-A flat progress timeline cannot show which part of a statement remains open. Each `StatementVersion` should contain named target clauses. A contribution must identify the clauses it addresses, its hypotheses, and its exact scope.
-
-The site then presents a research frontier:
-
-- accepted claims and the clauses they cover;
-- unresolved clauses and documented blockers;
-- conflicting evidence and pending reviews;
-- computation-ready or experiment-ready tasks;
-- failed routes with conditions that would justify another attempt.
-
-Editors approve status changes. Accepted claims and decisions supply the audit trail for that approval.
-
-## Contribution and review flow
-
-GitHub Issues remain an inbox during the static phase. They must not serve as database records or stable identifiers.
+Quantum Open Problems is a shared, machine-readable research layer for open
+problems in quantum science. One canonical research model serves three
+interfaces over the same data:
 
 ```text
-submission envelope
-→ automated schema and reference checks
-→ editor triage
-→ scope and source review
-→ argument or artifact reproduction
-→ editorial decision
-→ generated catalog update
+                 Canonical research state (catalog/, Git)
+                                │
+                      core/: domain, validation, projections
+                                │
+          ┌─────────────────────┼─────────────────────┐
+          │                     │                     │
+       Website              HTTP API                MCP
+       humans           programs and bots        AI agents
+       site/         site/api/v1 + service/      mcp/server.mjs
 ```
 
-The contribution envelope records:
+The website is not the backend of MCP, MCP is not the backend of the website,
+and neither owns research data. External research agents, including any
+literature-watching or theorem-proving systems, are independent clients of
+the HTTP API or MCP. This repository contains no research strategy, scheduler,
+prompt loop, or agent harness.
 
-- problem and statement version;
-- exact claim, hypotheses, and target clauses;
-- evidence and artifact URIs with locators or digests;
-- remaining gap and proposed status effect;
-- human contributors, agent runs, operators, and verifiers;
-- external GitHub references without using an Issue number as the primary key.
+## Three kinds of information
 
-Full or partial resolutions require independent domain review. Computational and experimental claims require an artifact check. AI reviews can assist editors; they should not satisfy the initial human review quorum.
+| Layer | Objects | Where it lives | Trust |
+| --- | --- | --- | --- |
+| Verified scientific state | Problem, StatementVersion, Source, Claim, Evidence, Decision | `catalog/` in Git, reviewed through pull requests | reviewed, immutable history |
+| Candidate scientific updates | CandidateUpdate, Review | operational service database | unverified until reviewed; visibly labeled |
+| Discussion | Comment (threaded), Actor | operational service database | conversation; never evidence |
 
-## Agent interface
+The distinctions are enforced in the data model, the API, the website, and
+MCP: `Comment != CandidateUpdate != accepted Claim != Decision`. No API call
+or MCP tool can set a status. A status changes only through an editorial
+review followed by a reviewed Git change.
 
-Agents should read one problem or one task instead of downloading the catalog. The current v1 API provides discovery, full records, Markdown briefs, and schemas.
+## Canonical catalog (`catalog/`)
 
-A read-only MCP server ships today: `mcp/server.mjs` is a zero-dependency stdio server that reads the published static catalog (or a local build) and exposes `search_problems`, `get_problem`, `get_research_brief`, `list_fields`, `get_catalog_status`, `list_evidence`, and `how_to_contribute`. The `/ai/` page documents setup for Claude Code and Codex. Writes still flow through the reviewed issue forms; the MCP tool returns the contribution contract rather than accepting submissions.
+```text
+catalog/
+  registry.json                             taxonomy, collections, URLs, cutoff date
+  events.jsonl                              append-only ledger of canonical changes
+  compatibility/published-revisions.json    digests of every published record
+  schema/                                   JSON Schemas for every object and read model
+  sources/<source-id>.json                  bibliographic sources, normalized once
+  problems/<problem-id>/
+    record.json                             Problem, statements, claims, evidence, decisions, editorial
+    statements/v<n>.md                      immutable Notation and Formal statement
+    notes.md                                editorial narrative (background, progress prose, bibliography)
+    contributions/<cu-id>.json              frozen snapshots of promoted candidate updates
+```
 
-After the content graph stabilizes, a hosted MCP service can add write-side tools:
+Identity and version rules (ADR 0001, completed by ADR 0002):
 
-- `get_frontier`
-- `build_context`
-- `list_tasks`
-- `submit_trace`
-- `review_contribution`
+- problem IDs, statement IDs, target clause IDs, source IDs, claim, evidence,
+  and decision IDs are permanent and opaque;
+- a statement edit is a new `StatementVersion` with `supersedesStatementId`;
+  the ledger stores the digest of every published version, and a changed body
+  fails validation;
+- current status is derived from the sole unsuperseded accepted `Decision`;
+  decisions are immutable and superseded, never edited;
+- claims cite the statement version and the target clauses they address and
+  need at least one `Evidence` record; a corrected claim supersedes the old
+  one through `supersedesClaimId`;
+- promoted objects carry `provenance` pointing at the candidate update, the
+  reviews, the submitter, and the contribution snapshot;
+- `catalogState` (`candidate`, `published`, `archived`) is separate from the
+  mathematical status (`open`, `partial`, `solved`); solved public records are
+  archived and keep every URL;
+- research-content changes must refresh the published-revision manifest in
+  the same change, so semantic changes are explicit in review.
 
-`build_context` should accept an intent, target clause, token budget, and catalog cutoff. It should return a citable bundle ID and only the records needed for that task. Research traces should store plans, tool environments, outcomes, costs, and artifacts. The platform should not request private chain-of-thought.
+## Domain and projections (`core/`)
 
-Public reads need no account. Writes require authentication, idempotency keys, rate limits, and review. Human forms and agent tools must submit the same contribution schema.
+`core/` is the only place with scientific business logic. It is pure Node with
+no dependencies.
 
-## Migration stages
+| Module | Responsibility |
+| --- | --- |
+| `catalog.mjs` | readers for the catalog directory (parameterized, so tests use copies) |
+| `domain.mjs` | current statement and decision, clause states, digests, ID rules |
+| `schema-validator.mjs` | zero-dependency JSON Schema subset; fails on unsupported keywords |
+| `validate.mjs` | schemas, references, immutability, status consistency, manifest, ledger |
+| `ledger.mjs`, `sync-ledger.mjs` | derive canonical objects and append sequenced events |
+| `projection/api-v1.mjs` | API v1 records, compact index, statements, claims, evidence log, schemas |
+| `projection/frontier.mjs` | the research frontier and its consistency rule |
+| `projection/packet.mjs` | Markdown research briefs |
+| `projection/search.mjs` | lexical search index and ranking shared by site, service, and MCP |
+| `promotion.mjs` | accepted CandidateUpdate to Claim, Evidence, Decision, snapshot |
+| `published-revisions.mjs` | deliberate refresh of the revision manifest |
 
-### Stage 0: scalable static reads
+## Read models (`site/`)
 
-This release provides the compact browser index, lazy detail records, API v1, JSONL snapshot, `llms.txt`, shared schemas, one build command, and pull-request validation.
+`node site/build.mjs` runs, in order: ledger sync, `site/build-api.mjs`,
+`site/generate-pages.mjs`, `core/validate.mjs`, `site/validate.mjs`. Every
+file under `site/api/v1`, `site/packets`, `site/problems`, the feeds, the
+sitemap, `llms.txt`, and `llms-full.txt` is generated; CI rejects drift.
 
-### Stage 1: canonical records and evidence events
+Static API v1 (GitHub Pages, no authentication):
 
-Delivered: generated `/problems/<id>/` pages for active and solved records, the evidence log with stable event IDs, Atom and JSON feeds, the release manifest, the sitemap, content-scoped revision digests, and full-catalog text exports.
+```text
+/api/v1/release.json                       digests, ledger sequence, counts: poll first
+/api/v1/events.json                        canonical ledger (ascending sequence)
+/api/v1/index.json                         compact active and archived records, notices
+/api/v1/search-index.json                  lexical index
+/api/v1/problems/<id>.json                 complete record (schemaVersion 1, digest-stable)
+/api/v1/problems/<id>/frontier.json        target clauses, accepted claims, evidence, decision
+/api/v1/problems/<id>/claims.json          accepted claims with evidence and sources
+/api/v1/problems/<id>/statements/v<n>.json immutable statement version
+/api/v1/problems.jsonl, archive.jsonl      bulk snapshots
+/api/v1/evidence.json, /feed.xml, /feed.json   evidence events with content-hash IDs
+/api/v1/schemas/*.schema.json              every contract
+/packets/<id>.md, /llms.txt, /llms-full.txt
+```
 
-Canonical migration has started with the contract and compatibility slice under
-`catalog/`. The slice models Problem, StatementVersion, Source, Claim,
-Evidence, and Decision objects and must reproduce existing API v1 records and
-research packets for its active examples. It is not yet the authoring source
-for the full release; ADR 0001 defines the migration boundary.
+The record digest covers research content only (not links, not the catalog
+date), so hypermedia can change without invalidating outstanding work.
 
-Before the catalog reaches roughly 100 active records:
+## Operational service (`service/`)
 
-- move each problem into one canonical `record.json` plus statement Markdown, retiring the three overlapping authoring surfaces (`problems.js`, `metadata.json`, `problem.md`);
-- assign short permanent accession IDs such as `QOP-0042` and keep every existing long ID as a stable alias;
-- add statement versions with named target clauses, so a contribution can state exactly which clause it addresses;
-- convert embedded progress items into an append-only event ledger (`changes.jsonl`) whose entries survive edits and reordering; the current evidence log is a snapshot, not a ledger;
-- extend API records and research packets to solved records so resolution evidence is machine-readable;
-- publish a compact lexical search index if client-side filtering degrades.
+`node service/server.mjs` serves the static read models and adds mutable
+community resources backed by SQLite (`node:sqlite`, ADR 0003). Reads are
+public. Writes require a bearer API key issued to a registered `Actor` and
+are protected by roles, rate limits, idempotency keys, size limits, duplicate
+detection, moderation states, and suspension.
 
-### Stage 2: contributor operations
+```text
+GET  /api/v1/status
+GET  /api/v1/problems?q=&status=&field=&topic=&collection=&since=
+GET  /api/v1/problems/<id>[/frontier|/claims|/evidence|/statements/v<n>]
+GET  /api/v1/problems/<id>/candidate-updates      GET /api/v1/problems/<id>/comments?threaded=true
+GET  /api/v1/candidate-updates[?state=]           POST /api/v1/candidate-updates
+GET  /api/v1/candidate-updates/<id>[/reviews]     POST /api/v1/candidate-updates/<id>/withdraw
+POST /api/v1/candidate-updates/<id>/promotion     (editor: records an applied promotion)
+GET  /api/v1/reviews/<id>                         POST /api/v1/reviews
+GET  /api/v1/comments[?problemId=...]             POST /api/v1/comments
+GET  /api/v1/comments/<id>                        POST /api/v1/comments/<id>/replies
+PATCH /api/v1/comments/<id>                       DELETE /api/v1/comments/<id>
+GET  /api/v1/events?after=<sequence>&limit=&problemId=&type=
+GET  /api/v1/actors/me, /api/v1/actors/<id>
+GET|POST /api/v1/moderation/actions               POST /api/v1/admin/reload
+```
 
-As review volume grows:
+The service ingests the canonical ledger into its unified event stream on
+start and on reload, so one cursor follows reviewed changes and community
+activity (ADR 0005). `docs/api.md` documents every request and response.
 
-- align the issue forms with the contribution schema so both lanes round-trip one submission format, and let agents submit schema-valid JSON through pull requests that CI validates;
-- make the published JSON Schemas strict and validate every generated record against them in CI;
-- convert accepted Issue submissions into contribution records and pull requests;
-- add actor, claim, artifact, review, and decision ledgers;
-- assign field editors and conflict-of-interest rules;
-- publish task queues and contribution credit;
-- add artifact storage only when repository links cannot support reproducibility.
+## Review and promotion (ADR 0004)
 
-### Stage 3: service layer
+```text
+Comment  ->  CandidateUpdate  ->  Reviews  ->  editorial Review  ->  promotion patch  ->  build + validation  ->  public state
+```
 
-Add a database, authenticated API, search service, and MCP writes after static generation or GitHub review becomes a measured bottleneck. The database should index canonical events; it should not create a second source of truth.
+- A human editor files the editorial review; acceptance needs one earlier
+  independent human review. AI actors may submit, comment, and review, and
+  their type, provider, model, and operator are shown everywhere.
+- `node service/cli.mjs promote <cu-id>` builds the canonical patch with
+  `core/promotion.mjs`, writes the claim, evidence, optional decision, new
+  sources, and the contribution snapshot into the checkout, refreshes the
+  manifest, and records the promotion on the service. The change is then
+  reviewed and merged like any other catalog change.
+
+## Agent interface (`mcp/`)
+
+`mcp/server.mjs` is a zero-dependency stdio MCP server. Resources expose
+`qop://problems/<id>`, `.../frontier`, `.../statements/v<n>`, `.../brief`, and
+`qop://candidate-updates/<id>`. Tools cover search, problem, frontier,
+statement, brief, fields, catalog status, evidence, events, candidate updates
+(list, get, submit), comments (list, post, reply), and the contribution
+contract. It reads static read models directly and calls the service for
+everything mutable; it contains no scientific logic of its own beyond the
+shared search module.
+
+## Website
+
+Problem pages are generated from the same projections: status and
+verification, formal statement with its version and digest, exact unresolved
+target and target clauses with states, accepted claims with evidence
+(labeled Verified), cautions, then Pending updates and Discussion hydrated
+from the service by `site/community.js` with actor-type and review-state
+labels. Without a configured service the sections say so. The home page
+explorer and claim watch are generated from the compact index.
 
 ## Decisions to defer
 
-The project should defer vector search until query logs expose lexical-search failures. It should defer agent reputation scores until reviewers have enough accepted and rejected work to measure reliability. It should also defer autonomous status changes: an agent may propose a decision, while an editor remains accountable for publication.
+Vector search waits for evidence that lexical search fails. Agent reputation
+waits for enough reviewed work to measure. Accession IDs (`QOP-NNNN`) remain
+a reserved field. PostgreSQL waits for a measured hosting need; the store
+module is the seam.

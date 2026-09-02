@@ -1,70 +1,74 @@
-name: Research update
-description: Submit a result, computation, correction, or failed route for an existing problem.
+name: Research update (candidate update)
+description: Submit a result, computation, correction, failed route, or literature update for an existing problem. Editors enter it into the service as a candidate update on your behalf.
 title: "[Research update] "
 body:
-  - type: input
-    id: record_id
+  - type: markdown
     attributes:
-      label: Record ID
-      description: Copy the stable record ID from the problem detail page or AI research brief.
+      value: |
+        This form mirrors the candidate-update contract (`/api/v1/candidate-update.schema.json`). If you have an actor key, submit through `POST /api/v1/candidate-updates` or the MCP tool `submit_candidate_update` instead. Every field maps to a schema property.
+
+  - type: input
+    id: problem_id
+    attributes:
+      label: Problem ID
+      description: Copy the stable record ID from the problem page or frontier.
       placeholder: horodecki-2020-npt-bound-entanglement
+    validations:
+      required: true
+
+  - type: input
+    id: statement_id
+    attributes:
+      label: Statement version ID
+      description: From the frontier (`statement.id`), e.g. `<problem-id>-statement-v1`.
+    validations:
+      required: true
+
+  - type: input
+    id: target_clause_ids
+    attributes:
+      label: Target clause IDs
+      description: Comma-separated clause IDs from the frontier that the claim addresses.
     validations:
       required: true
 
   - type: input
     id: record_revision
     attributes:
-      label: Record revision
-      description: Copy the SHA-256 record revision from the AI research brief or problem API.
-      placeholder: 64-character SHA-256 digest
+      label: Record revision and statement digest
+      description: The SHA-256 digests you worked from, from the research brief or JSON record.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: update_kind
+    attributes:
+      label: Update kind
+      options:
+        - proof
+        - counterexample
+        - partial-theorem
+        - improved-bound
+        - computation
+        - numerical-evidence
+        - experiment
+        - failed-approach
+        - source-correction
+        - status-review
+        - literature-update
+        - other
     validations:
       required: true
 
   - type: input
-    id: statement_digest
+    id: title
     attributes:
-      label: Formal statement digest
-      description: Copy the SHA-256 formal statement digest from the AI research brief or problem API.
-      placeholder: 64-character SHA-256 digest
-    validations:
-      required: true
-
-  - type: dropdown
-    id: contribution_kind
-    attributes:
-      label: Contribution type
-      options:
-        - Exact proof or counterexample
-        - Partial theorem
-        - Computation or finite certificate
-        - Numerical evidence
-        - Failed approach
-        - Status or source correction
-    validations:
-      required: true
-
-  - type: dropdown
-    id: research_workflow
-    attributes:
-      label: Research workflow
-      options:
-        - Human research
-        - AI-assisted research with human checks
-        - Agent-generated research with human checks
-        - Agent-generated research awaiting human checks
+      label: Title
     validations:
       required: true
 
   - type: textarea
-    id: ai_systems
-    attributes:
-      label: AI systems and human checks
-      description: Write “None” for human-only work. Otherwise name the models or agents, their roles, and the checks a person performed.
-    validations:
-      required: true
-
-  - type: textarea
-    id: exact_claim
+    id: claim
     attributes:
       label: Exact claim
       description: State the theorem, counterexample, computation, or correction with its hypotheses and quantifiers.
@@ -72,10 +76,10 @@ body:
       required: true
 
   - type: textarea
-    id: scope_match
+    id: scope
     attributes:
-      label: Match to the open problem
-      description: Identify the part of the formal statement addressed and explain whether the result is full or partial.
+      label: Scope
+      description: Which part of the formal statement the claim addresses and whether the result is full or partial.
     validations:
       required: true
 
@@ -83,7 +87,7 @@ body:
     id: sources
     attributes:
       label: Primary sources
-      description: Give links and theorem, page, equation, or version locators when available.
+      description: One per line with theorem, page, equation, or version locators.
     validations:
       required: true
 
@@ -91,7 +95,35 @@ body:
     id: artifacts
     attributes:
       label: Argument and reproducible artifacts
-      description: Provide the proof outline and links to code, data, proof files, logs, or certificates.
+      description: Proof outline and links to code, data, proof files, logs, or certificates (with digests when possible).
+    validations:
+      required: true
+
+  - type: dropdown
+    id: relation
+    attributes:
+      label: Proposed relation to the target clause
+      options:
+        - supports
+        - narrows
+        - refutes
+        - resolves
+        - reformulates
+        - rules-out
+        - status-review
+    validations:
+      required: true
+
+  - type: dropdown
+    id: status_change
+    attributes:
+      label: Proposed status change
+      description: A proposal only; editors decide.
+      options:
+        - none
+        - open
+        - partial
+        - solved
     validations:
       required: true
 
@@ -99,7 +131,26 @@ body:
     id: remaining_gap
     attributes:
       label: Remaining gap
-      description: State what remains unresolved if reviewers accept this contribution.
+      description: What remains unresolved if reviewers accept this update.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: ai_level
+    attributes:
+      label: AI involvement
+      options:
+        - none
+        - assisted
+        - agent-generated
+    validations:
+      required: true
+
+  - type: textarea
+    id: ai_systems
+    attributes:
+      label: AI systems and human checks
+      description: Name the models or agents, their operator, and the checks a person performed. Write "None" for human-only work.
     validations:
       required: true
 
@@ -110,7 +161,7 @@ body:
       options:
         - label: I opened and checked the cited sources.
           required: true
-        - label: I compared the claim with the cataloged formal statement and its quantifiers.
+        - label: I compared the claim with the cataloged statement version and its target clauses.
           required: true
         - label: I labeled conditional, numerical, and conjectural steps as such.
           required: true
