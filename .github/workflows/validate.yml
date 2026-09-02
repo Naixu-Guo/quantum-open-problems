@@ -1,12 +1,11 @@
-name: Validate catalog contribution
+name: Validate problem records
 
 on:
   pull_request:
     paths:
-      - "open_prob/**"
+      - "database/**"
       - "site/**"
-      - "CONTRIBUTING.md"
-      - ".github/ISSUE_TEMPLATE/**"
+      - "scripts/**"
       - ".github/workflows/validate.yml"
 
 permissions:
@@ -16,11 +15,10 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
+      - name: Check out repository with full history
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
 
-      - name: Build and validate catalog
-        run: node site/build.mjs
-
-      - name: Check generated files
-        run: git diff --exit-code -- site
+      - name: Build and validate every record
+        run: node site/build.mjs --out "${RUNNER_TEMP}/qiqcop-dist"

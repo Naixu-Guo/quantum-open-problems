@@ -1,0 +1,128 @@
+% Problem-section file following ../_template.tex.
+\section{Positivity threshold for thermal-attenuator quantum capacity}
+\label{sec:problem-50}
+
+\paragraph{Problem.}
+For $0<\eta<1$ and $0<\nu<\infty$, let the single-mode bosonic thermal
+attenuator be
+\begin{equation}
+  \Phi_{\eta,\nu}(\rho_A)
+  :=\operatorname{Tr}_{E'}\!\left[
+     U_\eta(\rho_A\otimes\tau_{\nu,E})U_\eta^\dagger
+  \right],
+  \qquad
+  \tau_{\nu,E}:=\sum_{k=0}^{\infty}
+     \frac{\nu^k}{(\nu+1)^{k+1}}
+     |k\rangle_E\!\langle k|_E,
+  \label{eq:p50-thermal-attenuator}
+\end{equation}
+where $U_\eta:AE\to BE'$ is a beam-splitter unitary and
+$\tau_{\nu,E}$ acts on the environment mode $E$.  For an environment mode
+of angular frequency $\omega_E$ at temperature $T$,
+$\nu=(e^{\hbar\omega_E/(k_{\rm B}T)}-1)^{-1}$.  Thus $0<T<\infty$ is
+equivalent to $0<\nu<\infty$ for fixed $\omega_E>0$; $\nu=0$ corresponds
+to $T=0$, while $\nu\to\infty$ as $T\to\infty$.  Define its unassisted quantum
+capacity and its critical transmissivity by
+\begin{equation}
+  \mathcal Q(\Phi_{\eta,\nu})
+  :=\lim_{n\to\infty}\frac1n\sup_{\rho_{A^n}}
+       I_{\rm c}(\rho_{A^n},\Phi_{\eta,\nu}^{\otimes n}),
+  \qquad
+  \eta_{\rm c}(\nu)
+  :=\inf\{\eta\in(0,1):\mathcal Q(\Phi_{\eta,\nu})>0\},
+  \label{eq:p50-critical-transmissivity}
+\end{equation}
+where $I_{\rm c}(\rho,\mathcal N)
+:=S(\mathcal N(\rho))-S(\mathcal N^{\rm c}(\rho))$.  Determine the exact
+threshold curve in Eq.~\eqref{eq:p50-critical-transmissivity} for the channel
+in Eq.~\eqref{eq:p50-thermal-attenuator}.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+The exact positivity threshold is implicit in the gap between the
+antidegradability boundary of Lami et al. and the non-Gaussian positive-rate
+witnesses of Mele et al. \sourcecite{ref:p50-lami-et-al}{LKA+19},
+\sourcecite{ref:p50-mele-et-al}{MCF+26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Exact antidegradability gives the lower bound
+  \begin{equation}
+    \eta_{\rm c}(\nu)\geq\eta_{\rm AD}(\nu)
+    :=\frac{\nu+\frac12}{\nu+1}.
+    \label{eq:p50-antidegradable-lower-bound}
+  \end{equation}
+  The capacity vanishes at and below the right-hand side of
+  Eq.~\eqref{eq:p50-antidegradable-lower-bound}
+  \sourcecite{ref:p50-lami-et-al}{LKA+19}.
+
+  \item Thermal input states give the upper bound
+  \begin{equation}
+    \eta_{\rm c}(\nu)\leq\eta_{\rm G}(\nu)
+    :=\frac{2^{g(\nu)}}{1+2^{g(\nu)}},
+    \qquad
+    g(x):=(x+1)\log_2(x+1)-x\log_2x.
+    \label{eq:p50-gaussian-upper-bound}
+  \end{equation}
+  Above the right-hand side of Eq.~\eqref{eq:p50-gaussian-upper-bound}, the
+  thermal-state coherent information is positive
+  \sourcecite{ref:p50-holevo-werner}{HW01}.
+
+  \item For one environmental thermal photon, certified non-Gaussian inputs
+  and antidegradability narrow the threshold to
+  \begin{equation}
+    \frac34\leq\eta_{\rm c}(1)\leq0.7841
+    <\eta_{\rm G}(1)=\frac45.
+    \label{eq:p50-one-photon-window}
+  \end{equation}
+  In particular, Eq.~\eqref{eq:p50-one-photon-window} proves that the Gaussian
+  threshold is not the true positivity threshold
+  \sourcecite{ref:p50-mele-et-al}{MCF+26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[LKA+19]}]\label{ref:p50-lami-et-al}
+  L. Lami, S. Khatri, G. Adesso, and M. M. Wilde,
+  ``Extendibility of Bosonic Gaussian States,''
+  \emph{Physical Review Letters} \textbf{123}, 050501 (2019).
+  \href{https://doi.org/10.1103/PhysRevLett.123.050501}%
+       {doi:10.1103/PhysRevLett.123.050501};
+  \href{https://arxiv.org/abs/1904.02692}{arXiv:1904.02692}.
+
+  \item[\textup{[HW01]}]\label{ref:p50-holevo-werner}
+  A. S. Holevo and R. F. Werner,
+  ``Evaluating Capacities of Bosonic Gaussian Channels,''
+  \emph{Physical Review A} \textbf{63}, 032312 (2001).
+  \href{https://doi.org/10.1103/PhysRevA.63.032312}%
+       {doi:10.1103/PhysRevA.63.032312};
+  \href{https://arxiv.org/abs/quant-ph/9912067}{arXiv:quant-ph/9912067}.
+
+  \item[\textup{[MCF+26]}]\label{ref:p50-mele-et-al}
+  F. A. Mele, G. Catalano, M. Fanizza, V. Giovannetti, and L. Lami,
+  ``Bosonic Quantum Communication Beyond the Thermal Threshold,''
+  arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2607.27449}{arXiv:2607.27449}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+This is the positivity-boundary subproblem of determining the full capacity
+in Problem~49.  Even the single value in
+Eq.~\eqref{eq:p50-one-photon-window} is not known exactly.
+
+\subsection*{Tag}
+
+Bosonic channels; Quantum capacity; Antidegradable channels;
+Coherent information; Continuous-variable systems
+
+\subsection*{ID}
+
+\texttt{op\_2beed65d248be57a}

@@ -1,63 +1,63 @@
-name: New quantum open problem
-description: Propose a sourced, checkable open problem for the catalog.
+name: Propose a new problem
+description: Propose a sourced, self-contained open problem for the zoo.
 title: "[New problem] "
 body:
   - type: input
     id: problem_title
     attributes:
       label: Problem title
-    validations:
-      required: true
-
-  - type: input
-    id: field_topic
-    attributes:
-      label: Quantum field and topic
-      placeholder: Quantum sensing / quantum metrology
+      description: A short descriptive title, as it would appear in \section{...}.
     validations:
       required: true
 
   - type: textarea
-    id: formal_statement
+    id: statement
     attributes:
-      label: Formal statement
-      description: Define the objects, domain, quantifiers, and proof or counterexample target. TeX is welcome.
-    validations:
-      required: true
-
-  - type: textarea
-    id: importance
-    attributes:
-      label: Why resolving it matters
-      description: Name the mathematical, physical, computational, or operational consequence.
-    validations:
-      required: true
-
-  - type: textarea
-    id: primary_source
-    attributes:
-      label: Primary source
-      description: Link the paper or authoritative problem list and give a locator for the statement.
-    validations:
-      required: true
-
-  - type: textarea
-    id: open_status
-    attributes:
-      label: Evidence that the problem remains open
-      description: Cite a current source or explain the literature check and its cutoff date.
+      label: Problem statement
+      description: Self-contained, with the definitions and quantifiers needed. TeX is welcome; number every displayed equation.
     validations:
       required: true
 
   - type: dropdown
-    id: research_workflow
+    id: status
     attributes:
-      label: Preparation workflow
+      label: Status
       options:
-        - Human research
-        - AI-assisted research with human checks
-        - Agent-generated research with human checks
-        - Agent-generated research awaiting human checks
+        - Unsolved
+        - Partially solved
+        - Solved
+    validations:
+      required: true
+
+  - type: textarea
+    id: source
+    attributes:
+      label: Source
+      description: The paper or preprint that posed the problem, or the papers in which it is implicit. Write "Contributor: Name" if it has no literature source.
+    validations:
+      required: true
+
+  - type: textarea
+    id: progress
+    attributes:
+      label: Known progress
+      description: One to three accurately scoped results, each with its source and one sentence on why it falls short of the full question.
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Full bibliographic entries with DOI and arXiv links.
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: One to six canonical names from database/tags.json, separated by semicolons.
     validations:
       required: true
 
@@ -66,9 +66,9 @@ body:
     attributes:
       label: Proposal checks
       options:
-        - label: I searched the current catalog for duplicates and equivalent formulations.
+        - label: I searched the zoo for duplicates and equivalent formulations.
           required: true
-        - label: I opened and checked the cited source.
+        - label: I opened and checked every cited source.
           required: true
-        - label: The problem has a checkable resolution criterion.
+        - label: The statement is self-contained and has a checkable resolution criterion.
           required: true

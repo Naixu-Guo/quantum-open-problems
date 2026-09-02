@@ -1,11 +1,12 @@
-name: Deploy research index to GitHub Pages
+name: Deploy QIQCOP Zoo to GitHub Pages
 
 on:
   push:
     branches: [main]
     paths:
+      - "database/**"
       - "site/**"
-      - "open_prob/**"
+      - "scripts/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -25,19 +26,21 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
+      - name: Check out repository with full history
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
 
-      - name: Build and validate research catalog
+      - name: Build and validate the zoo
         run: node site/build.mjs
 
       - name: Upload static site
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
         with:
-          path: site
+          path: dist
 
       - name: Deploy
         id: deployment

@@ -1,0 +1,84 @@
+% Canonical template for every problem record in database/problems/.
+%
+% Rules:
+% 1. Copy this structure into database/problems/<op_id>.tex, where <op_id> is
+%    the stable ID printed by `node scripts/new-problem-id.mjs`.
+% 2. Put only the descriptive title in \section; the site never shows a
+%    problem number, so do not prefix the title with "Problem N".
+% 3. Put every displayed expression in a numbered equation environment, give
+%    it a unique label of the form eq:<prefix>-description, and cite it with
+%    \eqref. Choose a short prefix unique to this record (for example the last
+%    four characters of the ID).
+% 4. Use record-specific reference labels of the form ref:<prefix>-description.
+% 5. Make each problem statement independent and self-contained. Describe
+%    relationships to other problems only in the Comment subsection.
+% 6. Use alpha-style author--year labels for references and citations.
+% 7. Place Source between Status and Progress. Cite the paper or preprint that
+%    states the problem explicitly, or identify concise implicit sources. If no
+%    literature source exists, give the contributor's name; use "unknown" only
+%    when the contributor is also unknown.
+% 8. Keep Tag and ID as the final two subsections, in that order. Assign one
+%    to six canonical tags from database/tags.json, separated by semicolons.
+% 9. Run `node site/build.mjs` before committing; the build rejects records
+%    that break these rules.
+
+\section{Short descriptive title}
+\label{sec:problem-PREFIX}
+
+\paragraph{Problem.}
+State the problem here without relying on another problem's definitions or
+notation.  Introduce each displayed equation in the prose, then use a numbered
+and labeled equation environment.  Refer back to every display using
+\eqref{eq:PREFIX-description}.
+\begin{equation}
+  f(x)=x,
+  \label{eq:PREFIX-description}
+\end{equation}
+
+\subsection*{Status}
+
+% Use exactly one of: Solved, Unsolved, Partially solved.
+Unsolved
+
+\subsection*{Source}
+
+Briefly identify the paper or preprint that posed the problem, and state
+whether the attribution is explicit or implicit
+\sourcecite{ref:PREFIX-source}{AutYY}.  Multiple sources may be cited when
+needed.  If no literature source exists, write \texttt{Contributor: Full
+Name.}; if the contributor is unknown, write \texttt{unknown}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Summarize a known result and cite its source with
+  \sourcecite{ref:PREFIX-source}{AutYY}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[AutYY]}]\label{ref:PREFIX-source}
+  Author, ``Title,'' \emph{Journal} \textbf{volume}, pages (year).
+  \href{https://doi.org/example}{doi:example};
+  \href{https://arxiv.org/abs/example}{arXiv:example}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+State precisely what remains unresolved.  If this problem is related to
+another problem in the zoo, explain that relationship here rather than in the
+problem statement.
+
+\subsection*{Tag}
+
+% Use one to six names from database/tags.json exactly as written and
+% separate multiple tags with semicolons.
+Canonical tag one; Canonical tag two
+
+\subsection*{ID}
+
+% Paste the output of `node scripts/new-problem-id.mjs` and escape the
+% underscore for LaTeX.  Never reuse or regenerate an assigned ID.
+\texttt{op\_0123456789abcdef}

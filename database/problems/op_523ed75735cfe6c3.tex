@@ -1,0 +1,111 @@
+% Problem-section file following ../_template.tex.
+\section{Equal-weight low-Choi-rank decompositions of quantum channels}
+\label{sec:problem-58}
+
+\paragraph{Problem.}
+Can every finite-dimensional quantum channel be written as the uniform
+mixture of $d_B$ channels whose Choi ranks are at most the input dimension?
+Let $A$ and $B$ have dimensions $d_A$ and $d_B$, respectively, and let
+$\Phi:\mathcal L(A)\to\mathcal L(B)$ be completely positive and trace
+preserving.  In a fixed orthonormal basis of $A$, define its Choi operator by
+\begin{equation}
+  J(\Phi)
+  :=\sum_{i,j=1}^{d_A}
+      \lvert i\rangle\!\langle j\rvert_A\otimes
+      \Phi\!\left(\lvert i\rangle\!\langle j\rvert_A\right),
+  \label{eq:p58-choi-operator}
+\end{equation}
+The rank of the operator in Eq.~\eqref{eq:p58-choi-operator} is independent
+of the chosen basis.  Determine whether every $\Phi$ admits completely
+positive trace-preserving maps
+$\Phi_1,\ldots,\Phi_{d_B}:\mathcal L(A)\to\mathcal L(B)$ satisfying
+\begin{equation}
+  \Phi=\frac1{d_B}\sum_{r=1}^{d_B}\Phi_r,
+  \qquad
+  \operatorname{rank}J(\Phi_r)\leq d_A
+  \quad\text{for every }r\in\{1,\ldots,d_B\}.
+  \label{eq:p58-equal-weight-decomposition}
+\end{equation}
+Thus Eq.~\eqref{eq:p58-equal-weight-decomposition} requires both the
+prescribed input-dimension rank bound and exactly equal mixing weights.
+
+\subsection*{Status}
+
+Partially solved
+
+\subsection*{Source}
+
+Ruskai records the Audenaert--Ruskai channel-decomposition conjecture and its
+unital and positive-block-matrix formulations explicitly
+\sourcecite{ref:p58-ruskai}{Rus07}.  The Choi-rank bound $d_A$ in
+Eq.~\eqref{eq:p58-equal-weight-decomposition} is the audited correction of
+the inconsistent $d_B$ bound printed in the source's channel formulation;
+it agrees with the companion formulations and the modern statement studied
+by Kumar and Wolf \sourcecite{ref:p58-kumar-wolf}{KW26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item The stronger positive-block-matrix formulation is known when
+  $d_B=2$: a contraction can be expressed as the midpoint of two unitaries,
+  yielding two positive summands of rank at most $d_A$ with the prescribed
+  diagonal-block sum.  Because that formulation implies the channel
+  decomposition, Eq.~\eqref{eq:p58-equal-weight-decomposition} holds for
+  every qubit-output channel
+  \sourcecite{ref:p58-ruskai-szarek-werner}{RSW02},
+  \sourcecite{ref:p58-ruskai}{Rus07}.
+
+  \item Kumar and Wolf prove the equal-weight decomposition in
+  Eq.~\eqref{eq:p58-equal-weight-decomposition} for every qubit-input
+  channel, for all classical-to-quantum and quantum-to-classical channels,
+  and for a nonzero-measure family in every pair of dimensions.  They also
+  prove an unequal-weight version for $3\to3$ channels; that weaker result
+  does not establish the equal weights required here.  Their first-version
+  preprint therefore settles substantial subclasses but not arbitrary
+  $(d_A,d_B)$ \sourcecite{ref:p58-kumar-wolf}{KW26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Rus07]}]\label{ref:p58-ruskai}
+  M. B. Ruskai, ``Open Problems in Quantum Information Theory,''
+  arXiv preprint (2007), Conjectures~2--5, pp.~4--6.
+  \newline
+  \href{https://doi.org/10.48550/arXiv.0708.1902}%
+       {doi:10.48550/arXiv.0708.1902};
+  \href{https://arxiv.org/abs/0708.1902}{arXiv:0708.1902}.
+
+  \item[\textup{[RSW02]}]\label{ref:p58-ruskai-szarek-werner}
+  M. B. Ruskai, S. Szarek, and E. Werner,
+  ``An Analysis of Completely Positive Trace-Preserving Maps on $M_2$,''
+  \emph{Linear Algebra and its Applications} \textbf{347}, 159--187
+  (2002).
+  \href{https://doi.org/10.1016/S0024-3795(01)00547-X}%
+       {doi:10.1016/S0024-3795(01)00547-X};
+  \href{https://arxiv.org/abs/quant-ph/0101003}%
+       {arXiv:quant-ph/0101003}.
+
+  \item[\textup{[KW26]}]\label{ref:p58-kumar-wolf}
+  N. Kumar and M. M. Wolf,
+  ``The Ruskai--Audenaert Conjecture \& Equipartitions of Positive
+  Operators,'' arXiv preprint (2026), version~1.
+  \href{https://arxiv.org/abs/2607.23066v1}{arXiv:2607.23066v1}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The remaining problem is the equal-weight decomposition in
+Eq.~\eqref{eq:p58-equal-weight-decomposition} for arbitrary input and output
+dimensions outside the proved subclasses.  At the source audit cutoff, the
+broad 2026 partial result was an unrefereed first-version preprint.
+
+\subsection*{Tag}
+
+Quantum channels; Choi states; Convex geometry; Convex optimization; Matrix
+analysis
+
+\subsection*{ID}
+
+\texttt{op\_523ed75735cfe6c3}

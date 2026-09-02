@@ -1,0 +1,128 @@
+% Recycled solved problem-section file following ../_template.tex.
+\section{Strict inclusion of degradable channels in the less-noisy class}
+\label{sec:problem-47}
+
+\paragraph{Problem.}
+Do there exist finite-dimensional quantum channels that are less noisy in
+Watanabe's regularized sense but are not degradable?  Let
+$V_{A\to BE}$ be a Stinespring isometry defining a channel and a complementary
+channel by
+\begin{equation}
+  \mathcal N_{A\to B}(X)
+  :=\operatorname{Tr}_E[VXV^\dagger],
+  \qquad
+  \mathcal N^c_{A\to E}(X)
+  :=\operatorname{Tr}_B[VXV^\dagger].
+  \label{eq:p47-complementary-pair}
+\end{equation}
+The channel in Eq.~\eqref{eq:p47-complementary-pair} is degradable if there is
+a completely positive trace-preserving map $\mathcal D_{B\to E}$ such that
+\begin{equation}
+  \mathcal N^c=\mathcal D\circ\mathcal N.
+  \label{eq:p47-degradable}
+\end{equation}
+Writing $P$ for the unassisted private classical capacity, Watanabe calls
+$\mathcal N$ less noisy when
+\begin{equation}
+  P(\mathcal N^c)=0.
+  \label{eq:p47-watanabe-less-noisy}
+\end{equation}
+Equivalently, Eq.~\eqref{eq:p47-watanabe-less-noisy} requires that, for every
+$n\ge1$ and every classical--quantum ensemble on $UA^{n}$, the receiver and
+environment outputs obey
+\begin{equation}
+  I(U:B^n)_{(\operatorname{id}_U\otimes\mathcal N^{\otimes n})(\omega)}
+  \ge
+  I(U:E^n)_{(\operatorname{id}_U\otimes(\mathcal N^c)^{\otimes n})(\omega)}.
+  \label{eq:p47-regularized-order}
+\end{equation}
+Thus the question asks whether the inclusion implied by
+Eqs.~\eqref{eq:p47-degradable}--\eqref{eq:p47-regularized-order} is strict.
+
+\subsection*{Status}
+
+Solved
+
+\subsection*{Source}
+
+Watanabe proved the inclusion of degradable channels in the regularized
+less-noisy class and explicitly left open whether it is strict
+\sourcecite{ref:p47-watanabe}{Wat12}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Watanabe proved that every degradable channel satisfies
+  Eq.~\eqref{eq:p47-watanabe-less-noisy}, but left open whether this inclusion
+  is strict \sourcecite{ref:p47-watanabe}{Wat12}.
+
+  \item Belzig, Gao, Smith, and Wu constructed nondegradable channels satisfying
+  the one-copy version of Eq.~\eqref{eq:p47-regularized-order}.  Their result
+  separates degradability from the level-1 less-noisy condition, while
+  explicitly leaving the all-blocklength condition in
+  Eq.~\eqref{eq:p47-regularized-order} unresolved
+  \sourcecite{ref:p47-belzig}{BGSW25}.
+
+  \item Zhu and Wang subsequently considered the qutrit channel
+  \begin{equation}
+    \Lambda(X)
+    =\frac12X+\frac14\bigl(\operatorname{Tr}(X)I-X^{\mathsf T}\bigr)
+    \label{eq:p47-zhu-wang-channel}
+  \end{equation}
+  and proved at every blocklength that
+  \begin{equation}
+    P(\Lambda)=Q(\Lambda)=0,
+    \qquad
+    \Lambda\ \text{is not antidegradable}.
+    \label{eq:p47-zhu-wang-properties}
+  \end{equation}
+  Setting $\mathcal N=\Lambda^c$, Eq.~\eqref{eq:p47-zhu-wang-properties}
+  gives $P(\mathcal N^c)=0$, so $\mathcal N$ is Watanabe-less-noisy.  If
+  $\mathcal N$ were degradable, then
+  $\Lambda=\mathcal D\circ\Lambda^c$ for some channel $\mathcal D$, contrary
+  to the non-antidegradability statement in
+  Eq.~\eqref{eq:p47-zhu-wang-properties}.  Hence $\Lambda^c$ is less noisy but
+  nondegradable \sourcecite{ref:p47-zhu-wang}{ZW26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Wat12]}]\label{ref:p47-watanabe}
+  S. Watanabe, ``Private and Quantum Capacities of More Capable and Less Noisy
+  Quantum Channels,'' \emph{Physical Review A} \textbf{85}, 012326 (2012).
+  \href{https://doi.org/10.1103/PhysRevA.85.012326}%
+       {doi:10.1103/PhysRevA.85.012326};
+  \href{https://arxiv.org/abs/1110.5746}{arXiv:1110.5746}.
+
+  \item[\textup{[BGSW25]}]\label{ref:p47-belzig}
+  P. Belzig, L. Gao, G. Smith, and P. Wu, ``Reverse-Type Data Processing
+  Inequality,'' \emph{Communications in Mathematical Physics} \textbf{406},
+  295 (2025).
+  \href{https://doi.org/10.1007/s00220-025-05474-4}%
+       {doi:10.1007/s00220-025-05474-4};
+  \href{https://arxiv.org/abs/2411.19890}{arXiv:2411.19890}.
+
+  \item[\textup{[ZW26]}]\label{ref:p47-zhu-wang}
+  C. Zhu and X. Wang, ``Quantum Incapacity beyond No-Cloning and PPT
+  Mechanisms,'' arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2607.24693}{arXiv:2607.24693}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The answer is affirmative: the complement of the channel in
+Eq.~\eqref{eq:p47-zhu-wang-channel} proves that degradable channels form a
+proper subset of Watanabe-less-noisy channels.  The resolving result
+\sourcecite{ref:p47-zhu-wang}{ZW26} is, as of August 2026, a recent preprint;
+the solved status records its theorem rather than peer-review history.
+
+\subsection*{Tag}
+
+Degradable channels; Antidegradable channels; Private capacity; Quantum
+channels; Quantum Shannon theory
+
+\subsection*{ID}
+
+\texttt{op\_fd75613c5bab4164}

@@ -1,0 +1,154 @@
+% Problem-section file following ../_template.tex.
+\section{Square-root remainder in generalized quantum equipartition}
+\label{sec:problem-48}
+
+\paragraph{Problem.}
+Let $H$ be a $d$-dimensional Hilbert space.  For each $n$, let
+$\mathcal A_n\subseteq\mathcal D(H^{\otimes n})$ and
+$\mathcal B_n\subseteq\mathcal L(H^{\otimes n})_+$ be nonempty compact,
+convex, permutation-invariant sets, each closed under tensor products.  For a
+positive-operator set $\mathcal C$, define its positive polar by
+\begin{equation}
+  \mathcal C_+^\circ
+  :=\{X\geq0:\operatorname{Tr}(XY)\leq1
+      \text{ for every }Y\in\mathcal C\}.
+  \label{eq:p48-positive-polar}
+\end{equation}
+Assume that both families of polars from
+Eq.~\eqref{eq:p48-positive-polar} satisfy
+\begin{equation}
+  (\mathcal A_m)_+^\circ\otimes(\mathcal A_n)_+^\circ
+    \subseteq(\mathcal A_{m+n})_+^\circ,
+  \qquad
+  (\mathcal B_m)_+^\circ\otimes(\mathcal B_n)_+^\circ
+    \subseteq(\mathcal B_{m+n})_+^\circ.
+  \label{eq:p48-polar-tensor-stability}
+\end{equation}
+In addition to Eq.~\eqref{eq:p48-polar-tensor-stability}, assume that some
+constant $C<\infty$ satisfies
+\begin{equation}
+  D_{\max}(\rho_n\|\sigma_n)\leq Cn,
+  \qquad \log_2\operatorname{Tr}\sigma_n\leq Cn
+  \label{eq:p48-linear-growth}
+\end{equation}
+for all $\rho_n\in\mathcal A_n$ and $\sigma_n\in\mathcal B_n$.  The linear
+growth condition in Eq.~\eqref{eq:p48-linear-growth} uses
+$D_{\max}(\rho\|\sigma):=\inf\{\lambda:\rho\leq2^\lambda\sigma\}$.
+For positive operators $\rho$ and $\sigma$, define
+\begin{equation}
+  \begin{aligned}
+  D(\rho\|\sigma)
+    &:=\operatorname{Tr}[\rho(\log_2\rho-\log_2\sigma)],\\
+  D_H^\varepsilon(\rho\|\sigma)
+    &:=-\log_2\inf_{\substack{0\leq Q\leq I\\
+                    \operatorname{Tr}(Q\rho)\geq1-\varepsilon}}
+                    \operatorname{Tr}(Q\sigma),
+  \end{aligned}
+  \label{eq:p48-state-divergences}
+\end{equation}
+where $D(\rho\|\sigma)=+\infty$ unless
+$\operatorname{supp}\rho\subseteq\operatorname{supp}\sigma$.  Define the
+divergences between the two sets from Eq.~\eqref{eq:p48-state-divergences} by
+\begin{equation}
+  \begin{aligned}
+  D(\mathcal A_n\|\mathcal B_n)
+    &:=\inf_{\rho_n\in\mathcal A_n,\,\sigma_n\in\mathcal B_n}
+      D(\rho_n\|\sigma_n),\\
+  D_H^\varepsilon(\mathcal A_n\|\mathcal B_n)
+    &:=\inf_{\rho_n\in\mathcal A_n,\,\sigma_n\in\mathcal B_n}
+      D_H^\varepsilon(\rho_n\|\sigma_n),
+  \end{aligned}
+  \label{eq:p48-set-divergences}
+\end{equation}
+The two quantities in Eq.~\eqref{eq:p48-set-divergences} determine the
+first- and finite-blocklength orders of interest.  Set
+\begin{equation}
+  D^\infty(\mathcal A\|\mathcal B)
+  :=\lim_{n\to\infty}\frac1nD(\mathcal A_n\|\mathcal B_n).
+  \label{eq:p48-regularized-set-entropy}
+\end{equation}
+Does every fixed $\varepsilon\in(0,1)$ admit a constant
+$K_\varepsilon<\infty$ such that, for all sufficiently large $n$,
+\begin{equation}
+  \left|D_H^\varepsilon(\mathcal A_n\|\mathcal B_n)
+       -nD^\infty(\mathcal A\|\mathcal B)\right|
+  \leq K_\varepsilon\sqrt n?
+  \label{eq:p48-square-root-remainder}
+\end{equation}
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Fang, Fawzi, and Fawzi establish an $O(n^{2/3}\log n)$ generalized
+equipartition remainder and explicitly leave improvement to the
+$O(\sqrt n)$ scale open \sourcecite{ref:p48-fang-fawzi-fawzi}{FFF26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item For two fixed i.i.d. states, quantum hypothesis testing has the
+  second-order expansion
+  \begin{equation}
+    D_H^\varepsilon(\rho^{\otimes n}\|\sigma^{\otimes n})
+    =nD(\rho\|\sigma)
+     +\sqrt{nV(\rho\|\sigma)}\,\Phi^{-1}(\varepsilon)+O(\log n),
+    \label{eq:p48-iid-second-order}
+  \end{equation}
+  where $V$ is the relative-entropy variance and $\Phi$ is the standard
+  normal distribution function
+  \sourcecite{ref:p48-li}{Li14}.
+
+  \item Under the assumptions in the problem, the generalized quantum
+  asymptotic equipartition property proves the first-order limit in
+  Eq.~\eqref{eq:p48-regularized-set-entropy} for every fixed error
+  \sourcecite{ref:p48-fang-fawzi-fawzi}{FFF26}.
+
+  \item The best general quantitative estimate currently established is
+  \begin{equation}
+    D_H^\varepsilon(\mathcal A_n\|\mathcal B_n)
+    -nD^\infty(\mathcal A\|\mathcal B)
+    =O(n^{2/3}\log n)
+    \label{eq:p48-current-remainder}
+  \end{equation}
+  at fixed $\varepsilon$.  The authors explicitly leave replacement of
+  Eq.~\eqref{eq:p48-current-remainder} by the square-root scale in
+  Eq.~\eqref{eq:p48-square-root-remainder} open
+  \sourcecite{ref:p48-fang-fawzi-fawzi}{FFF26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Li14]}]\label{ref:p48-li}
+  K. Li, ``Second-Order Asymptotics for Quantum Hypothesis Testing,''
+  \emph{The Annals of Statistics} \textbf{42}, 171--189 (2014).
+  \href{https://doi.org/10.1214/13-AOS1185}{doi:10.1214/13-AOS1185};
+  \href{https://arxiv.org/abs/1208.1400}{arXiv:1208.1400}.
+
+  \item[\textup{[FFF26]}]\label{ref:p48-fang-fawzi-fawzi}
+  K. Fang, H. Fawzi, and O. Fawzi,
+  ``Generalized Quantum Asymptotic Equipartition,''
+  \emph{Communications in Mathematical Physics} \textbf{407}, 208 (2026).
+  \href{https://doi.org/10.1007/s00220-026-05719-w}%
+       {doi:10.1007/s00220-026-05719-w};
+  \href{https://arxiv.org/abs/2411.04035}{arXiv:2411.04035}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+Equation~\eqref{eq:p48-square-root-remainder} asks only for a universal order
+bound.  Identifying a Gaussian coefficient analogous to the variance term in
+Eq.~\eqref{eq:p48-iid-second-order} would be a strictly stronger problem.
+
+\subsection*{Tag}
+
+Quantum hypothesis testing; Finite-blocklength quantum information;
+One-shot quantum information; Quantum information theory
+
+\subsection*{ID}
+
+\texttt{op\_eb5ca2d40deb7a38}

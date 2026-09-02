@@ -1,0 +1,93 @@
+% Problem-section file following ../_template.tex.
+\section{Secret key from every entangled state}
+\label{sec:problem-20}
+
+\paragraph{Problem.}
+Does every finite-dimensional entangled bipartite state have positive
+asymptotic distillable secret key?  For a state $\rho_{AB}$, with an adversary
+holding a purification, define its distillable-key rate by
+\begin{equation}
+  K_D(\rho_{AB})
+  :=\sup\left\{R\geq0:
+    \begin{array}{l}
+      \text{there are LOPC protocols $\Lambda_n$ and private states
+      $\gamma^{(n)}_{K_n}$, with $K_n=2^{\lfloor nR\rfloor}$, such that}\\[-1mm]
+      \displaystyle
+      \lim_{n\to\infty}
+      \left\|\Lambda_n(\rho_{AB}^{\otimes n})
+      -\gamma^{(n)}_{K_n}\right\|_1=0
+    \end{array}
+  \right\},
+  \label{eq:p20-distillable-key}
+\end{equation}
+where each target $\gamma^{(n)}_{K_n}$ may have its own shield system and has
+key registers of dimension $K_n$.  With the operational convention in
+Eq.~\eqref{eq:p20-distillable-key},
+the question is whether the implication
+\begin{equation}
+  \rho_{AB}\ \text{entangled}
+  \quad\Longrightarrow\quad
+  K_D(\rho_{AB})>0
+  \label{eq:p20-entanglement-implies-key}
+\end{equation}
+holds for every finite-dimensional $\rho_{AB}$.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Horodecki, Sikorski, Das, and Wilde explicitly identify the question whether
+every entangled state has positive distillable key
+\sourcecite{ref:p20-key-cost}{HSDW26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Horodecki, Horodecki, Horodecki, and Oppenheim constructed
+  bound-entangled states with positive distillable key.  Thus zero
+  distillable entanglement does not provide a counterexample to
+  Eq.~\eqref{eq:p20-entanglement-implies-key}
+  \sourcecite{ref:p20-bound-key}{HHHO05}.
+
+  \item Horodecki, Sikorski, Das, and Wilde explicitly state that the
+  existence of an entangled state with zero distillable key remains open.
+  Their 2026 result therefore confirms the unresolved scope of
+  Eq.~\eqref{eq:p20-entanglement-implies-key} close to the present cutoff
+  \sourcecite{ref:p20-key-cost}{HSDW26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[HHHO05]}]\label{ref:p20-bound-key}
+  K. Horodecki, M. Horodecki, P. Horodecki, and J. Oppenheim,
+  ``Secure Key from Bound Entanglement,''
+  \emph{Physical Review Letters} \textbf{94}, 160502 (2005).
+  \href{https://doi.org/10.1103/PhysRevLett.94.160502}{doi:10.1103/PhysRevLett.94.160502};
+  \href{https://arxiv.org/abs/quant-ph/0309110}{arXiv:quant-ph/0309110}.
+
+  \item[\textup{[HSDW26]}]\label{ref:p20-key-cost}
+  K. Horodecki, L. Sikorski, S. Das, and M. M. Wilde,
+  ``Cost of Quantum Secret Key,'' \emph{Quantum} \textbf{10}, 2098 (2026).
+  \href{https://doi.org/10.22331/q-2026-05-06-2098}{doi:10.22331/q-2026-05-06-2098};
+  \href{https://arxiv.org/abs/2402.17007}{arXiv:2402.17007}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The unresolved alternative is either to prove
+Eq.~\eqref{eq:p20-entanglement-implies-key} or to construct an entangled state
+with $K_D=0$.  The question concerns the asymptotic key rate, not one-shot key
+extraction or distillable entanglement.
+
+\subsection*{Tag}
+
+Quantum cryptography; Bound entanglement; Entanglement theory;
+Local operations and classical communication
+
+\subsection*{ID}
+
+\texttt{op\_b952ec2dd8246a10}

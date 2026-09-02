@@ -1,0 +1,126 @@
+% Problem-section file following ../_template.tex.
+\section{SIC-POVM existence in every dimension}
+\label{sec:problem-17}
+
+\paragraph{Problem.}
+Does a symmetric informationally complete positive-operator-valued measure
+exist in every finite dimension $d\ge2$?  Equivalently, determine whether for
+every such $d$ there are $d^2$ unit vectors
+$\lvert\psi_1\rangle,\ldots,\lvert\psi_{d^2}\rangle\in\mathbb{C}^d$
+satisfying
+\begin{equation}
+  \sum_{j=1}^{d^2}
+    \lvert\psi_j\rangle\!\langle\psi_j\rvert=dI_d,
+  \qquad
+  \left|\langle\psi_j\vert\psi_k\rangle\right|^2
+    =\frac{1}{d+1}
+  \quad\text{for all }j\ne k.
+  \label{eq:p17-sic-conditions}
+\end{equation}
+When Eq.~\eqref{eq:p17-sic-conditions} holds, the effects
+$\Pi_j=d^{-1}\lvert\psi_j\rangle\!\langle\psi_j\rvert$ form the desired
+SIC-POVM.  No covariance or additional symmetry is required.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Renes, Blume-Kohout, Scott, and Caves explicitly conjecture that SIC-POVMs
+exist in every finite dimension \sourcecite{ref:p17-renes-et-al}{RBS+04}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Renes, Blume-Kohout, Scott, and Caves explicitly conjectured existence
+  in every dimension and found Weyl--Heisenberg-covariant numerical solutions
+  through $d=45$.  Numerical solutions do not prove the universal quantifier
+  in Eq.~\eqref{eq:p17-sic-conditions}
+  \sourcecite{ref:p17-renes-et-al}{RBS+04}.
+
+  \item Horodecki, Rudnicki, and \.{Z}yczkowski identify construction of
+  SIC-POVMs in an unbounded sequence of finite dimensions as an intermediate
+  open milestone.  That milestone is implied by the universal statement in
+  Eq.~\eqref{eq:p17-sic-conditions}, but it remains unproved unconditionally
+  \sourcecite{ref:p17-horodecki-et-al}{HRZ22}.
+
+  \item Appleby, Bengtsson, Flammia, and Goyeneche reported numerical solutions
+  in every dimension through $d=181$ and in many larger dimensions.  The
+  computations provide extensive evidence but no all-dimensional construction
+  \sourcecite{ref:p17-appleby-et-al}{ABFG19}.
+
+  \item Appleby, Flammia, and Kopp constructed SICs in every dimension $d>3$
+  conditional on two unproved number-theoretic conjectures.  The conditional
+  hypotheses prevent this result from establishing
+  Eq.~\eqref{eq:p17-sic-conditions} unconditionally
+  \sourcecite{ref:p17-appleby-flammia-kopp}{AFK25}.
+
+  \item A claimed unconditional proof posted in $2026$ was withdrawn after
+  the author stated that the proof was incorrect, so it does not change the
+  status of the problem
+  \sourcecite{ref:p17-joka}{Jok26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[RBS+04]}]\label{ref:p17-renes-et-al}
+  J. M. Renes, R. Blume-Kohout, A. J. Scott, and C. M. Caves,
+  ``Symmetric Informationally Complete Quantum Measurements,''
+  \emph{Journal of Mathematical Physics} \textbf{45}, 2171--2180 (2004).
+  \href{https://doi.org/10.1063/1.1737053}%
+       {doi:10.1063/1.1737053};
+  \href{https://arxiv.org/abs/quant-ph/0310075}%
+       {arXiv:quant-ph/0310075}.
+
+  \item[\textup{[HRZ22]}]\label{ref:p17-horodecki-et-al}
+  P. Horodecki, \L. Rudnicki, and K. \.{Z}yczkowski,
+  ``Five Open Problems in Quantum Information Theory,''
+  \emph{PRX Quantum} \textbf{3}, 010101 (2022).
+  \href{https://doi.org/10.1103/PRXQuantum.3.010101}%
+       {doi:10.1103/PRXQuantum.3.010101};
+  \href{https://arxiv.org/abs/2002.03233}{arXiv:2002.03233}.
+
+  \item[\textup{[ABFG19]}]\label{ref:p17-appleby-et-al}
+  M. Appleby, I. Bengtsson, S. Flammia, and D. Goyeneche,
+  ``Tight Frames, Hadamard Matrices and Zauner's Conjecture,''
+  \emph{Journal of Physics A: Mathematical and Theoretical} \textbf{52},
+  295301 (2019).
+  \href{https://doi.org/10.1088/1751-8121/ab25ad}%
+       {doi:10.1088/1751-8121/ab25ad};
+  \href{https://arxiv.org/abs/1903.06721}{arXiv:1903.06721}.
+
+  \item[\textup{[AFK25]}]\label{ref:p17-appleby-flammia-kopp}
+  M. Appleby, S. T. Flammia, and G. S. Kopp,
+  ``A Constructive Approach to Zauner's Conjecture via the Stark
+  Conjectures,'' arXiv:2501.03970 (2025).
+  \href{https://doi.org/10.48550/arXiv.2501.03970}%
+       {doi:10.48550/arXiv.2501.03970};
+  \href{https://arxiv.org/abs/2501.03970}{arXiv:2501.03970}.
+
+  \item[\textup{[Jok26]}]\label{ref:p17-joka}
+  S. Joka,
+  ``Symmetric Informationally Complete Positive Operator Valued Measure and
+  Zauner Conjecture,'' withdrawn preprint, arXiv:2601.13475v5 (2026).
+  \href{https://arxiv.org/abs/2601.13475}{arXiv:2601.13475}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The remaining gap is unconditional existence for every integer $d\ge2$ in
+Eq.~\eqref{eq:p17-sic-conditions}.  Numerical evidence, covariance-restricted
+constructions, and results conditional on number-theoretic conjectures do not
+settle the unrestricted existence question.  The weaker objective of an
+unbounded sequence of finite dimensions is subsumed here as an intermediate
+milestone rather than maintained as a separate problem.
+
+\subsection*{Tag}
+
+Symmetric informationally complete measurements; Measurement theory;
+Quantum state tomography; Qudit systems
+
+\subsection*{ID}
+
+\texttt{op\_308ac6c848756630}

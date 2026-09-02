@@ -1,0 +1,171 @@
+% Problem-section file following ../_template.tex.
+\section{Exponential strong converse for transpose-degradable channels}
+\label{sec:problem-55}
+
+\paragraph{Problem.}
+Does every finite-dimensional transpose-degradable channel satisfy an
+exponential strong converse for quantum communication at its single-letter
+quantum capacity?  Let $V:A\to B\otimes E$ be an isometry and suppose that
+\begin{equation}
+  \Phi(X):=\operatorname{Tr}_E(VXV^\dagger),
+  \qquad
+  \Phi^c(X):=\operatorname{Tr}_B(VXV^\dagger),
+  \qquad
+  \mathsf T_E\circ\Phi^c=\mathcal G\circ\Phi,
+  \label{eq:p55-transpose-degradable}
+\end{equation}
+where $\mathsf T_E$ is transpose in a fixed basis of $E$ and
+$\mathcal G:\mathcal L(B)\to\mathcal L(E)$ is completely positive and
+trace preserving.  For the channel in
+Eq.~\eqref{eq:p55-transpose-degradable}, transpose degradability gives
+\begin{equation}
+  Q(\Phi)=Q^{(1)}(\Phi)
+  :=\max_{\rho_A}
+     \left[S(\Phi(\rho_A))-S(\Phi^c(\rho_A))\right],
+  \qquad
+  S(\sigma):=-\operatorname{Tr}(\sigma\log_2\sigma).
+  \label{eq:p55-single-letter-capacity}
+\end{equation}
+Equation~\eqref{eq:p55-single-letter-capacity} fixes the rate threshold.
+
+At blocklength $n$, let
+$\mathcal E_n:\mathcal L(S_n)\to\mathcal L(A^{\otimes n})$ and
+$\mathcal R_n:\mathcal L(B^{\otimes n})\to\mathcal L(\widehat S_n)$ be
+arbitrary encoder and decoder channels, with
+$\dim R_n=\dim S_n=\dim\widehat S_n=M_n$.  Define the maximally entangled
+target by
+\begin{equation}
+  \varphi_{M_n}:=
+  |\varphi_{M_n}\rangle\!\langle\varphi_{M_n}|,
+  \qquad
+  |\varphi_{M_n}\rangle
+  :=\frac1{\sqrt{M_n}}\sum_{i=1}^{M_n}|i\rangle_{R_n}|i\rangle_{S_n}.
+  \label{eq:p55-maximally-entangled-target}
+\end{equation}
+Using the target in Eq.~\eqref{eq:p55-maximally-entangled-target}, let
+\begin{equation}
+  \omega_n:=
+  \left(\operatorname{id}_{R_n}\otimes
+  \mathcal R_n\circ\Phi^{\otimes n}\circ\mathcal E_n\right)(\varphi_{M_n}),
+  \qquad
+  r_n:=\frac1n\log_2M_n,
+  \qquad
+  F_n:=\operatorname{Tr}(\varphi_{M_n}^{R_n\widehat S_n}\omega_n).
+  \label{eq:p55-code-fidelity}
+\end{equation}
+The problem is whether, for every channel in
+Eq.~\eqref{eq:p55-transpose-degradable}, the quantities in
+Eq.~\eqref{eq:p55-code-fidelity} satisfy
+\begin{equation}
+  \forall R>Q(\Phi)\ \exists\,\gamma_R>0,\ n_R\in\mathbb N:
+  \quad
+  r_n\geq R,\ n\geq n_R
+  \ \Longrightarrow\
+  F_n\leq2^{-\gamma_R n}
+  \label{eq:p55-exponential-strong-converse}
+\end{equation}
+for every encoder--decoder sequence.  Equation~
+\eqref{eq:p55-exponential-strong-converse} is the all-code exponential
+strong-converse property at the threshold in
+Eq.~\eqref{eq:p55-single-letter-capacity}.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Singh and Datta supply the complex-linear transpose-degradable formulation and
+its single-letter capacity
+\sourcecite{ref:p55-singh-datta}{SD22}.  Morgan and Winter explicitly note
+that extending their degradable-channel converse method to the corresponding
+conjugate-degradable class requires arguments not provided there; together
+these papers pose the present class-wide question implicitly
+\sourcecite{ref:p55-morgan-winter}{MW14}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Transpose degradability proves the tensor-power identity
+  \begin{equation}
+    Q^{(1)}(\Phi^{\otimes n})=nQ^{(1)}(\Phi)
+    \qquad(n\geq1).
+    \label{eq:p55-coherent-information-additivity}
+  \end{equation}
+  Equation~\eqref{eq:p55-coherent-information-additivity} establishes the
+  capacity formula in Eq.~\eqref{eq:p55-single-letter-capacity}, but gives no
+  finite-block upper bound on $F_n$
+  \sourcecite{ref:p55-singh-datta}{SD22}.
+
+  \item For every ordinarily degradable channel $\mathcal N$ and fixed
+  purified-distance error $\varepsilon<1/\sqrt2$, Morgan and Winter proved
+  \begin{equation}
+    \log_2 N_E(n,\varepsilon\mid\mathcal N)
+      \leq nQ^{(1)}(\mathcal N)+O(\sqrt{n\log n}),
+    \label{eq:p55-pretty-strong-converse}
+  \end{equation}
+  where $N_E$ is the largest entanglement-generation code dimension.
+  Equation~\eqref{eq:p55-pretty-strong-converse} is a pretty-strong converse
+  for ordinary degradability, and their proof does not extend to
+  transpose-degradable channels solely from coherent-information additivity
+  \sourcecite{ref:p55-morgan-winter}{MW14}.
+
+  \item Kondra et al. proved in 2026 that every finite-dimensional ordinarily
+  degradable or antidegradable channel $\mathcal N$ obeys, for every rate above
+  capacity,
+  \begin{equation}
+    r_n\geq R>Q(\mathcal N)
+    \quad\Longrightarrow\quad
+    F_n\leq2^{-\gamma_R n}
+    \quad\text{for all sufficiently large }n.
+    \label{eq:p55-ordinary-exponential-converse}
+  \end{equation}
+  Equation~\eqref{eq:p55-ordinary-exponential-converse} settles the known
+  transpose-degradable examples that are also degradable, but its theorem does
+  not cover a hypothetical strict transpose-degradable channel
+  \sourcecite{ref:p55-kondra-et-al}{KBK+26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[SD22]}]\label{ref:p55-singh-datta}
+  S. Singh and N. Datta,
+  \lq\lq Detecting Positive Quantum Capacities of Quantum Channels,\rq\rq{}
+  \emph{npj Quantum Information} \textbf{8}, 50 (2022).
+  \href{https://doi.org/10.1038/s41534-022-00550-2}%
+       {doi:10.1038/s41534-022-00550-2};
+  \href{https://arxiv.org/abs/2105.06327}{arXiv:2105.06327}.
+
+  \item[\textup{[MW14]}]\label{ref:p55-morgan-winter}
+  C. Morgan and A. Winter,
+  \lq\lq Pretty Strong Converse for the Quantum Capacity of Degradable
+  Channels,\rq\rq{} \emph{IEEE Transactions on Information Theory}
+  \textbf{60}, 317--333 (2014).
+  \href{https://doi.org/10.1109/TIT.2013.2288971}%
+       {doi:10.1109/TIT.2013.2288971};
+  \href{https://arxiv.org/abs/1301.4927}{arXiv:1301.4927}.
+
+  \item[\textup{[KBK+26]}]\label{ref:p55-kondra-et-al}
+  T. V. Kondra, R. Brinster, H. Kampermann, D. Bru{\ss}, and N. Wyderka,
+  \lq\lq Sharp Quantum Capacity Thresholds: Exponential Strong Converses for
+  Degradable and Antidegradable Channels,\rq\rq{} arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2608.01308}{arXiv:2608.01308}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+If every transpose-degradable channel is ordinarily degradable, then
+Eq.~\eqref{eq:p55-ordinary-exponential-converse} resolves the problem.  If a
+strict channel exists as asked in Problem~53, the exponential converse for
+that case remains unproved.
+
+\subsection*{Tag}
+
+Transpose-degradable channels; Strong converse; Quantum capacity;
+Finite-blocklength quantum information; Quantum Shannon theory
+
+\subsection*{ID}
+
+\texttt{op\_414fbcc7d5dc0c64}

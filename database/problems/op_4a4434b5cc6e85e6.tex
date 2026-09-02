@@ -1,0 +1,91 @@
+% Problem-section file following ../_template.tex.
+\section{Gaussian entanglement of formation beyond bisymmetry}
+\label{sec:problem-26}
+
+\paragraph{Problem.}
+Does Gaussian entanglement of formation equal unrestricted entanglement of
+formation for every non-bisymmetric multimode Gaussian state?  Let
+$\rho_{AB}$ be a Gaussian state of $n_A+n_B\geq3$ bosonic modes, with
+covariance matrix $V$.  Its entanglement of formation is
+\begin{equation}
+  E_F(\rho_{AB})
+  :=\inf_{\rho_{AB}=\sum_jp_j\lvert\psi_j\rangle\!\langle\psi_j\rvert}
+       \sum_jp_j S\!\left(\operatorname{Tr}_B
+       \lvert\psi_j\rangle\!\langle\psi_j\rvert\right),
+  \label{eq:p26-entanglement-of-formation}
+\end{equation}
+where the infimum is over all pure-state ensembles.  The Gaussian restriction
+of Eq.~\eqref{eq:p26-entanglement-of-formation} is equivalently
+\begin{equation}
+  E_F^G(\rho_{AB})
+  :=\inf_{\substack{V_p\preceq V\\V_p\ \mathrm{pure\ Gaussian}}}
+       E(V_p),
+  \label{eq:p26-gaussian-entanglement-of-formation}
+\end{equation}
+where $E(V_p)$ is the entropy of either reduced state of the pure Gaussian
+state with covariance matrix $V_p$.  A covariance matrix is bisymmetric when
+it is invariant under arbitrary permutations of Alice's modes and,
+independently, of Bob's modes.  The question is whether
+$E_F(\rho_{AB})=E_F^G(\rho_{AB})$ outside this bisymmetric family; the two
+quantities are fixed by Eqs.~\eqref{eq:p26-entanglement-of-formation} and
+\eqref{eq:p26-gaussian-entanglement-of-formation}.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Adesso proves Gaussian optimality for all two-mode and bisymmetric multimode
+states and explicitly leaves the general nonsymmetric multimode case open
+\sourcecite{ref:p26-adesso}{Ade26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Wolf, Giedke, Kr\"uger, Werner, and Cirac introduced the Gaussian
+  convex-roof restriction and derived the covariance-matrix optimization in
+  Eq.~\eqref{eq:p26-gaussian-entanglement-of-formation}.  Their analysis does
+  not establish equality with the unrestricted roof in
+  Eq.~\eqref{eq:p26-entanglement-of-formation}
+  \sourcecite{ref:p26-wolf}{WGKWC04}.
+
+  \item Adesso proved $E_F=E_F^G$ for every two-mode Gaussian state and for
+  every bisymmetric multimode Gaussian state.  The same work explicitly
+  leaves the generic nonsymmetric multimode case open
+  \sourcecite{ref:p26-adesso}{Ade26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[WGKWC04]}]\label{ref:p26-wolf}
+  M. M. Wolf, G. Giedke, O. Kr\"uger, R. F. Werner, and J. I. Cirac,
+  ``Gaussian Entanglement of Formation,'' \emph{Physical Review A}
+  \textbf{69}, 052320 (2004).
+  \href{https://doi.org/10.1103/PhysRevA.69.052320}{doi:10.1103/PhysRevA.69.052320};
+  \href{https://arxiv.org/abs/quant-ph/0306177}{arXiv:quant-ph/0306177}.
+
+  \item[\textup{[Ade26]}]\label{ref:p26-adesso}
+  G. Adesso, ``Optimality of Gaussian Entanglement of Formation,''
+  arXiv:2608.01909v2 (2026).
+  \href{https://doi.org/10.48550/arXiv.2608.01909}{doi:10.48550/arXiv.2608.01909};
+  \href{https://arxiv.org/abs/2608.01909v2}{arXiv:2608.01909v2}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+As of August 31, 2026, equality of the two convex roofs is proved for all
+two-mode states and for bisymmetric multimode states, but neither a proof nor
+a counterexample is known for a general non-bisymmetric state with at least
+three modes.
+
+\subsection*{Tag}
+
+Gaussian quantum information; Continuous-variable systems; Entanglement
+measures; Bosonic systems
+
+\subsection*{ID}
+
+\texttt{op\_4a4434b5cc6e85e6}

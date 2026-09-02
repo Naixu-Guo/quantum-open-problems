@@ -1,0 +1,167 @@
+% Problem-section file following ../_template.tex.
+\section{Quantum capacity of a qubit Pauli channel}
+\label{sec:problem-1}
+
+\paragraph{Problem.}
+What is the quantum capacity $\mathcal{Q}(\Lambda_{\mathbf p})$ of the qubit
+Pauli channel defined by
+\begin{equation}
+  \Lambda_{\mathbf p}(\rho)
+  =p_I\rho+p_XX\rho X+p_YY\rho Y+p_ZZ\rho Z,
+  \qquad p_I+p_X+p_Y+p_Z=1?
+  \label{eq:p1-pauli-channel}
+\end{equation}
+Equation~\eqref{eq:p1-pauli-channel} fixes the channel and the error-probability
+convention used throughout this section.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+The exact-capacity question is implicit in the hashing lower bound of Bennett
+et al. and the strict degenerate-code improvement of DiVincenzo, Shor, and
+Smolin, which together leave the general Pauli-channel capacity undetermined
+\sourcecite{ref:p1-bennett}{BDSW96},
+\sourcecite{ref:p1-divincenzo}{DSS98}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item The hashing construction gives the achievable lower bound
+  \begin{equation}
+    \mathcal{Q}(\Lambda_{\mathbf p})\ge \max\{0,1-H(\mathbf p)\},
+    \qquad
+    H(\mathbf p):=-\sum_{i\in\{I,X,Y,Z\}}p_i\log_2p_i,
+    \qquad 0\log_2 0:=0.
+    \label{eq:p1-hashing-bound}
+  \end{equation}
+  The quantity $1-H(\mathbf p)$ in Eq.~\eqref{eq:p1-hashing-bound} equals
+  $I_c(I/2,\Lambda_{\mathbf p})$, the coherent information at the maximally
+  mixed input (often called the symmetric coherent information), rather than
+  the optimized one-shot coherent information in general
+  \sourcecite{ref:p1-bennett}{BDSW96}, \sourcecite{ref:p1-devetak}{Dev05}.
+
+  \item The coherent-information rate in Eq.~\eqref{eq:p1-hashing-bound} is
+  achieved by efficient quantum polar codes for qubit Pauli channels.  The
+  first construction uses preshared entanglement (with zero consumption for
+  sufficiently low noise), while a later construction removes the need for
+  preshared entanglement \sourcecite{ref:p1-renes-2012}{RDR12},
+  \sourcecite{ref:p1-renes-2015}{RSDR15}.
+
+  \item In the depolarizing case, write $p_I=f$ and
+  $p_X=p_Y=p_Z=(1-f)/3$, and let $r:=(1-f)/3$ be the per-Pauli error
+  probability.  Krohn-Grimberghe constructed an explicit rank-two,
+  permutation-symmetric input across $45$ channel uses and certified in exact
+  rational arithmetic that its coherent information is positive at
+  $r=16239/250000=0.064956$.  Monotonicity under channel post-processing
+  therefore gives $\mathcal Q(\Lambda_{\mathbf p})>0$ whenever
+  $f\ge201283/250000=0.805132$.  In particular, throughout
+  $0.805132\le f<0.81071$ the capacity is positive although the hashing
+  expression in Eq.~\eqref{eq:p1-hashing-bound} is negative.  Table~1 of the
+  paper lists the preceding best printed positivity point as $r=0.064657$,
+  obtained by Agarwal et al. through symmetry-reduced coherent-information
+  optimization \sourcecite{ref:p1-agarwal-et-al}{AKL+26}.  The new point is
+  machine-checkable but is not claimed to be the exact capacity threshold
+  \sourcecite{ref:p1-krohn-grimberghe}{KG26}.
+
+  \item For the qubit depolarizing subfamily, numerical optimization over
+  channel extensions parameterized by the Stiefel manifold produces upper
+  bounds on $\mathcal Q(\Lambda_{\mathbf p})$ that strictly improve the
+  previously best flagged-extension bounds over the high-noise interval
+  studied.  The optimized bounds do not meet the known achievable rates, so
+  they narrow the capacity gap without determining the capacity.  The same
+  work also proves that its amortized channel coherent information equals the
+  ordinary one-shot channel coherent information for every channel, ruling
+  out that amortization as a route to a stronger capacity lower bound
+  \sourcecite{ref:p1-zhu-mao-fang-wang}{ZMFW25}.
+
+  \item Kondra et al. obtained an efficiently computable, all-code
+  exponential strong-converse bound for every full-support qubit Pauli
+  channel.  For the depolarizing convention above, with total error
+  $\delta:=1-f$, their bound reduces to
+  $\mathcal Q(\Lambda_{\mathbf p})\le\max\{1-4\delta,0\}$; it is stricter
+  than the regularized channel Rains bound for $\delta\gtrsim0.15642$ and
+  vanishes at the antidegradability threshold $\delta=1/4$.  This sharpens
+  the high-noise converse but does not determine the capacity below that
+  threshold \sourcecite{ref:p1-kondra-et-al}{KBK+26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \scriptsize
+  \item[\textup{[BDSW96]}]\label{ref:p1-bennett}
+  C. H. Bennett, D. P. DiVincenzo, J. A. Smolin, and W. K. Wootters,
+  ``Mixed-State Entanglement and Quantum Error Correction,''
+  \emph{Physical Review A} \textbf{54}, 3824--3851 (1996).
+  \href{https://doi.org/10.1103/PhysRevA.54.3824}{doi:10.1103/PhysRevA.54.3824};
+  \href{https://arxiv.org/abs/quant-ph/9604024}{arXiv:quant-ph/9604024}.
+
+  \item[\textup{[Dev05]}]\label{ref:p1-devetak}
+  I. Devetak, ``The Private Classical Capacity and Quantum Capacity of a
+  Quantum Channel,'' \emph{IEEE Transactions on Information Theory}
+  \textbf{51}, 44--55 (2005).
+  \href{https://doi.org/10.1109/TIT.2004.839515}{doi:10.1109/TIT.2004.839515};
+  \href{https://arxiv.org/abs/quant-ph/0304127}{arXiv:quant-ph/0304127}.
+
+  \item[\textup{[RDR12]}]\label{ref:p1-renes-2012}
+  J. M. Renes, F. Dupuis, and R. Renner,
+  ``Efficient Polar Coding of Quantum Information,''
+  \emph{Physical Review Letters} \textbf{109}, 050504 (2012).
+  \newline
+  \href{https://doi.org/10.1103/PhysRevLett.109.050504}{doi:10.1103/PhysRevLett.109.050504};
+  \href{https://arxiv.org/abs/1109.3195}{arXiv:1109.3195}.
+
+  \item[\textup{[RSDR15]}]\label{ref:p1-renes-2015}
+  J. M. Renes, D. Sutter, F. Dupuis, and R. Renner, ``Efficient Quantum Polar
+  Codes Requiring No Preshared Entanglement,'' \emph{IEEE Transactions on
+  Information Theory} \textbf{61}, 6395--6414 (2015).
+  \href{https://doi.org/10.1109/TIT.2015.2468084}{doi:10.1109/TIT.2015.2468084};
+  \href{https://arxiv.org/abs/1307.1136}{arXiv:1307.1136}.
+
+  \item[\textup{[DSS98]}]\label{ref:p1-divincenzo}
+  D. P. DiVincenzo, P. W. Shor, and J. A. Smolin, ``Quantum-Channel Capacity
+  of Very Noisy Channels,'' \emph{Physical Review A} \textbf{57}, 830--839
+  (1998). \href{https://doi.org/10.1103/PhysRevA.57.830}{doi:10.1103/PhysRevA.57.830};
+  \href{https://arxiv.org/abs/quant-ph/9706061}{arXiv:quant-ph/9706061}.
+
+  \item[\textup{[AKL+26]}]\label{ref:p1-agarwal-et-al}
+  A. Agarwal, A. R. Kalra, S. Lee, D. Leung, L. Schaeffer, P. Sinha, and
+  G. Smith, ``Enhanced Quantum Capacity Thresholds from Symmetry,'' arXiv
+  preprint (2026).
+  \href{https://arxiv.org/abs/2605.09138}{arXiv:2605.09138}.
+
+  \item[\textup{[KG26]}]\label{ref:p1-krohn-grimberghe}
+  A. Krohn-Grimberghe,
+  ``A Certified Lower Bound on the Quantum-Capacity Threshold of the
+  Depolarizing Channel,'' arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2608.15870}{arXiv:2608.15870v2}.
+
+  \item[\textup{[ZMFW25]}]\label{ref:p1-zhu-mao-fang-wang}
+  C. Zhu, H. Mao, K. Fang, and X. Wang,
+  ``Geometric Optimization for Quantum Communication,'' arXiv preprint
+  (2025).
+  \href{https://arxiv.org/abs/2509.15106v1}{arXiv:2509.15106}.
+
+  \item[\textup{[KBK+26]}]\label{ref:p1-kondra-et-al}
+  T. V. Kondra, R. Brinster, H. Kampermann, D. Bru{\ss}, and N. Wyderka,
+  ``Sharp Quantum Capacity Thresholds: Exponential Strong Converses for
+  Degradable and Antidegradable Channels,'' arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2608.01308}{arXiv:2608.01308}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The exact quantum capacity remains unknown for a general qubit Pauli channel;
+the hashing rate is an achievable lower bound and need not be the capacity.
+
+\subsection*{Tag}
+
+Pauli channels; Quantum capacity; Quantum Shannon theory; Coherent information;
+Qubit systems
+
+\subsection*{ID}
+
+\texttt{op\_43d4aca67bd52554}

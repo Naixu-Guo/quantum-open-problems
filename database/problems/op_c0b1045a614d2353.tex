@@ -1,0 +1,110 @@
+% Problem-section file following ../_template.tex.
+\section{Delayed-onset additivity violation for minimum output R\'enyi entropy}
+\label{sec:problem-57}
+
+\paragraph{Problem.}
+Does there exist a finite-dimensional quantum channel whose minimum output
+R\'enyi entropy is additive for every tensor power below some order and first
+becomes strictly subadditive at that order?  Let
+$\Phi:\mathcal L(A)\to\mathcal L(B)$ be completely positive and trace
+preserving.  For $p>0$, define the R\'enyi entropy and the corresponding
+minimum output entropy by
+\begin{equation}
+  S_p(\sigma)
+  :=\begin{cases}
+    \displaystyle\frac{1}{1-p}\log_2\operatorname{Tr}(\sigma^p),
+      &p\neq1,\\[2mm]
+    -\operatorname{Tr}(\sigma\log_2\sigma),&p=1,
+  \end{cases}
+  \qquad
+  S_{p,\min}(\Phi)
+  :=\min_{\substack{\rho\succeq0\\\operatorname{Tr}\rho=1}}
+       S_p\!\left(\Phi(\rho)\right).
+  \label{eq:p57-minimum-output-renyi}
+\end{equation}
+With the quantities in Eq.~\eqref{eq:p57-minimum-output-renyi}, determine
+whether there are $p>0$, an integer $m\geq3$, and a channel $\Phi$ such that
+\begin{equation}
+  S_{p,\min}(\Phi^{\otimes n})
+    =nS_{p,\min}(\Phi)
+    \quad\text{for every }1\leq n<m,
+  \qquad
+  S_{p,\min}(\Phi^{\otimes m})
+    <mS_{p,\min}(\Phi).
+  \label{eq:p57-delayed-onset}
+\end{equation}
+The restriction $m\geq3$ in Eq.~\eqref{eq:p57-delayed-onset} makes the
+lower-power requirement nontrivial: the equality at $n=1$ is automatic,
+whereas equality at $n=2$ is required.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Ruskai explicitly asks whether additivity can hold for all tensor powers
+below an integer $m$ and fail at the $m$th power
+\sourcecite{ref:p57-ruskai}{Rus07}.  Equation~\eqref{eq:p57-delayed-onset}
+uses the intended delayed-onset formulation $m\geq3$, excluding the
+tautological one-copy-only condition obtained when $m=2$.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Derksen and Lovitz construct explicit finite-dimensional
+  self-channel violations
+  $S_{p,\min}(\Phi^{\otimes2})<2S_{p,\min}(\Phi)$ for every $p>1$.
+  These examples resolve the literal $m=2$ reading, but fail the required
+  two-copy equality in Eq.~\eqref{eq:p57-delayed-onset} for every
+  $m\geq3$ \sourcecite{ref:p57-derksen-lovitz}{DL26}.
+
+  \item Hastings disproved minimum-output von Neumann entropy additivity at
+  $p=1$ using finite-dimensional random channels.  The violation is already
+  witnessed at a two-channel tensor product and therefore does not provide a
+  channel that remains additive through every lower nontrivial power in
+  Eq.~\eqref{eq:p57-delayed-onset}
+  \sourcecite{ref:p57-hastings}{Has09}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Rus07]}]\label{ref:p57-ruskai}
+  M. B. Ruskai, ``Open Problems in Quantum Information Theory,''
+  arXiv preprint (2007), Problem~19, p.~16.
+  \newline
+  \href{https://doi.org/10.48550/arXiv.0708.1902}%
+       {doi:10.48550/arXiv.0708.1902};
+  \href{https://arxiv.org/abs/0708.1902}{arXiv:0708.1902}.
+
+  \item[\textup{[DL26]}]\label{ref:p57-derksen-lovitz}
+  H. Derksen and B. Lovitz,
+  ``Constructive Counterexamples to the Additivity of Minimum Output
+  R\'enyi Entropy of Quantum Channels for All $p>1$,'' arXiv preprint
+  (2026), version~2.
+  \href{https://arxiv.org/abs/2510.07547v2}{arXiv:2510.07547v2}.
+
+  \item[\textup{[Has09]}]\label{ref:p57-hastings}
+  M. B. Hastings,
+  ``Superadditivity of Communication Capacity Using Entangled Inputs,''
+  \emph{Nature Physics} \textbf{5}, 255--257 (2009).
+  \href{https://doi.org/10.1038/nphys1224}{doi:10.1038/nphys1224};
+  \href{https://arxiv.org/abs/0809.3972}{arXiv:0809.3972}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+No channel is known to satisfy Eq.~\eqref{eq:p57-delayed-onset}, and no
+general theorem is known that promotes two-copy additivity to additivity of
+all self-tensor powers.  The unresolved issue is therefore the existence or
+impossibility of a genuinely delayed first violation at some $m\geq3$.
+
+\subsection*{Tag}
+
+Quantum channels; Quantum information theory; Quantum Shannon theory
+
+\subsection*{ID}
+
+\texttt{op\_c0b1045a614d2353}

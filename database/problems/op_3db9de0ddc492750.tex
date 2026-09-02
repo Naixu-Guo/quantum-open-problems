@@ -1,0 +1,115 @@
+% Problem-section file following ../_template.tex.
+\section{Finite-alphabet nonsignalling simulation of entangled qubits}
+\label{sec:problem-29}
+
+\paragraph{Problem.}
+For every partially entangled two-qubit pure state, does some fixed
+finite-alphabet nonsignalling resource give an exact noncommunicating
+simulation of all local projective measurements?  Fix
+\begin{equation}
+  \lvert\psi_\theta\rangle
+  =\cos\theta\,\lvert00\rangle+\sin\theta\,\lvert11\rangle,
+  \qquad 0<\theta<\frac{\pi}{4}.
+  \label{eq:p29-partially-entangled-state}
+\end{equation}
+The target correlations for Bloch directions
+$\mathbf x,\mathbf y\in S^2$ are
+\begin{equation}
+  P_\theta(a,b\mid\mathbf x,\mathbf y)
+  =\operatorname{Tr}\!\left[
+    \lvert\psi_\theta\rangle\!\langle\psi_\theta\rvert
+    \bigl(M_{a\mid\mathbf x}\otimes M_{b\mid\mathbf y}\bigr)
+    \right],
+  \qquad a,b\in\{0,1\},
+  \label{eq:p29-target-correlation}
+\end{equation}
+where $M_{a\mid\mathbf x}=(I+(-1)^a\mathbf x\cdot\boldsymbol\sigma)/2$
+and similarly for Bob.  For each $\theta$ in
+Eq.~\eqref{eq:p29-partially-entangled-state}, one may choose a nonsignalling
+box $R(u,v\mid s,t)$ with finite input and output alphabets and a finite
+number of copies of it.  The box, the number of copies, and the local wiring
+may depend on $\theta$ but not on $\mathbf x$ or $\mathbf y$, and the wiring
+may use unlimited shared randomness but no communication.  It must reproduce
+Eq.~\eqref{eq:p29-target-correlation} exactly.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Gisin explicitly poses finite-alphabet nonsignalling simulation, while
+Brunner et al. isolate the same finiteness gap after giving a continuous-input
+construction \sourcecite{ref:p29-gisin}{Gis09},
+\sourcecite{ref:p29-brunner-pra}{BGPS08}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Gisin posed the existence of a finite-input, finite-output
+  nonsignalling resource for this task
+  \sourcecite{ref:p29-gisin}{Gis09}.
+
+  \item At the excluded maximally entangled endpoint $\theta=\pi/4$, one
+  finite-alphabet PR box and shared randomness reproduce all local projective
+  measurements exactly \sourcecite{ref:p29-cerf}{CGMP05}.
+
+  \item Brunner, Gisin, Popescu, and Scarani constructed an exact simulation
+  for every state in Eq.~\eqref{eq:p29-partially-entangled-state}, but their
+  protocol uses a continuous-input millionaire box that compares real
+  parameters.  They explicitly leave replacement by finite-input resources
+  open \sourcecite{ref:p29-brunner-pra}{BGPS08}.
+
+  \item Some finite measurement sets obtained from partially entangled states
+  cannot be simulated with a single PR box.  This rules out one particular
+  resource budget, not all finite-alphabet resources or all finite numbers of
+  uses \sourcecite{ref:p29-brunner-njp}{BGS05}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Gis09]}]\label{ref:p29-gisin}
+  N. Gisin, ``Bell Inequalities: Many Questions, a Few Answers,'' in
+  W. C. Myrvold and J. Christian (eds.), \emph{Quantum Reality, Relativistic
+  Causality, and Closing the Epistemic Circle}, The Western Ontario Series in
+  Philosophy of Science \textbf{73}, 125--138 (Springer, 2009).
+  \href{https://doi.org/10.1007/978-1-4020-9107-0_9}{doi:10.1007/978-1-4020-9107-0\_9};
+  \href{https://arxiv.org/abs/quant-ph/0702021}{arXiv:quant-ph/0702021}.
+
+  \item[\textup{[CGMP05]}]\label{ref:p29-cerf}
+  N. J. Cerf, N. Gisin, S. Massar, and S. Popescu, ``Simulating Maximal
+  Quantum Entanglement without Communication,'' \emph{Physical Review
+  Letters} \textbf{94}, 220403 (2005).
+  \href{https://doi.org/10.1103/PhysRevLett.94.220403}{doi:10.1103/PhysRevLett.94.220403};
+  \href{https://arxiv.org/abs/quant-ph/0410027}{arXiv:quant-ph/0410027}.
+
+  \item[\textup{[BGPS08]}]\label{ref:p29-brunner-pra}
+  N. Brunner, N. Gisin, S. Popescu, and V. Scarani, ``Simulation of Partial
+  Entanglement with Nonsignaling Resources,'' \emph{Physical Review A}
+  \textbf{78}, 052111 (2008).
+  \href{https://doi.org/10.1103/PhysRevA.78.052111}{doi:10.1103/PhysRevA.78.052111};
+  \href{https://arxiv.org/abs/0803.2359}{arXiv:0803.2359}.
+
+  \item[\textup{[BGS05]}]\label{ref:p29-brunner-njp}
+  N. Brunner, N. Gisin, and V. Scarani, ``Entanglement and Non-locality Are
+  Different Resources,'' \emph{New Journal of Physics} \textbf{7}, 88
+  (2005). \href{https://doi.org/10.1088/1367-2630/7/1/088}{doi:10.1088/1367-2630/7/1/088};
+  \href{https://arxiv.org/abs/quant-ph/0412109}{arXiv:quant-ph/0412109}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+Continuous-input nonsignalling simulation is known, whereas exact simulation
+by any finite-alphabet box used finitely many times is not.  The finiteness
+requirement applies to both input and output alphabets and to the number of
+resource uses.
+
+\subsection*{Tag}
+
+Bell nonlocality; Resource conversion; Qubit systems
+
+\subsection*{ID}
+
+\texttt{op\_3db9de0ddc492750}

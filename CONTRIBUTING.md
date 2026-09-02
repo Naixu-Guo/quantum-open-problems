@@ -1,44 +1,66 @@
-# Contributing research
+# Contributing to the QIQCOP Zoo
 
-Quantum Open Problems accepts source corrections, status updates, partial results, computations, failed approaches, and proposals for new problems. Human and AI-assisted work follows the same evidence rules.
+Problems are TeX records in `database/problems/`. A pull request that adds or
+edits a record is the only way content enters the site; the build validates
+every record, and the validation workflow runs it on each pull request.
 
-## Start from a problem record
+## Record format
 
-Every active problem has a stable page at `/problems/<record-id>/`, a JSON record at `/api/v1/problems/<record-id>.json`, and a Markdown research brief at `/packets/<record-id>.md`. Solved problems keep an archived page at the same URL pattern. Open a problem on the website and select **Copy for AI research**, or fetch the brief directly. The brief contains the problem-source citation, source notation, formal statement, exact unresolved remainder, checked progress, and scope cautions. Keep the record ID and record revision in any notes or artifacts you produce.
+Copy `database/_template.tex` and keep its section order:
 
-Use the [research update form](../../issues/new?template=research-update.yml) for work attached to an existing record. Use the [new problem form](../../issues/new?template=new-problem.yml) for a question that the catalog does not cover.
+1. `\section{Title}` — only the descriptive title.
+2. `\paragraph{Problem.}` — the self-contained statement.
+3. `\subsection*{Status}` — exactly `Unsolved`, `Partially solved`, or `Solved`.
+4. `\subsection*{Source}` — the paper that posed the problem, or the papers in
+   which it is implicit, cited with `\sourcecite{ref:...}{KEY}`. Write
+   `Contributor: Full Name.` when no literature source exists, or `unknown`.
+5. `\subsection*{Progress}` — one `itemize` list of accurately scoped results.
+6. `\subsection*{References}` — one `enumerate` list; each item starts with
+   `\item[\textup{[KEY]}]\label{ref:...}` and gives the full entry with DOI and
+   arXiv links.
+7. `\subsection*{Comment}` — the precise remaining gap and relations to other
+   problems.
+8. `\subsection*{Tag}` — one to six names from `database/tags.json`,
+   separated by semicolons.
+9. `\subsection*{ID}` — `\texttt{op\_...}`, generated once with
+   `node scripts/new-problem-id.mjs` and never changed.
 
-## Required evidence
+## Writing rules
 
-A research update must state:
+- Begin with the open question in one direct sentence, then give only the
+  definitions and notation needed to make it precise. State domains,
+  hypotheses, parameter ranges, and quantifier order explicitly.
+- Number every displayed equation with `\begin{equation}...\label{eq:...}`
+  and cite it with `\eqref`. Unlabeled displays fail the build.
+- Report only results that materially delimit the problem. Say exactly what
+  each result proves, in which regime, and why it falls short.
+- Use alpha-style keys such as `[BDSW96]` and cite every reference at least
+  once with `\sourcecite`. Every citation must point to an entry in the same
+  record.
+- Do not refer to other problems in the statement; put relations in Comment.
+- Labels are local to a record. Use a prefix unique to the record (for example
+  `eq:a1b2-capacity`) to keep them readable.
 
-- the exact claim and its hypotheses;
-- the part of the cataloged statement that the claim addresses;
-- primary sources with theorem, page, equation, or version locators when available;
-- the evidence type, such as proof, computation, numerical result, survey assessment, or failed route;
-- code, data, proof files, or certificates needed to reproduce the result;
-- the gap that remains after accepting the contribution.
+## Status semantics
 
-Report whether you used an AI system and how a person checked its output. AI-generated citations, proof steps, and computations need source or artifact verification.
+- **Unsolved**: no complete answer to the archived question.
+- **Partially solved**: a substantial subcase or direction is settled.
+- **Solved**: a complete proof or counterexample for the archived statement.
+  Say in Comment whether the resolving result is peer-reviewed.
 
-## Review policy
+Progress on a nearby variant does not change a status.
 
-Editors compare the contribution with the archived formal statement. They record publication maturity and mathematical strength as separate fields. A contribution changes `open` to `partial` only when it settles a named subproblem or substantial exact subclass. It changes a record to `solved` only when a proof or counterexample settles the full archived statement.
+## Supported TeX
 
-Editors may record a failed approach when it rules out a reusable route or documents a scope error that another researcher could repeat.
+Text mode supports the constructs used by the collection: `\emph`, `\textbf`,
+`\texttt`, `\textup`, `\href`, `\url`, quotes and dashes, accents
+(`\'e`, `\"u`, `\v{s}`, `\.{Z}`, ...), `\ss`, `\l`, `\L`, `\DJ`, `\newline`,
+`itemize` and `enumerate`, `\sourcecite`, and `\eqref`. Mathematics passes
+through to MathJax unchanged. An unsupported text-mode command stops the build
+with the offending fragment; extend `site/lib/tex.mjs` if a new construct is
+genuinely needed.
 
-## Adding a new problem
+## Reporting progress without a pull request
 
-A new entry needs an independent mathematical source, a formal statement, evidence that the question remains open, and a reason it belongs in a quantum-science field. Editors reject duplicates and broad topics that lack a checkable resolution criterion.
-
-Add accepted problems under `open_prob/<stable-id>/` with `problem.md` and `metadata.json`. Register the collection, field, and topic in `site/data/problems.js`.
-
-## Local checks
-
-Run:
-
-```sh
-node site/build.mjs
-```
-
-The build generates formal statements, problem-source citations, Markdown research briefs, the compact browser index, and API v1. The validator rejects stale generated files, invalid taxonomy references, status mismatches, and inconsistent catalog totals.
+Open an issue with the *Report progress or a correction* template, quoting the
+problem ID, the exact claim, and the primary sources.

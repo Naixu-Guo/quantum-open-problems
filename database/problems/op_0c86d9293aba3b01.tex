@@ -1,0 +1,113 @@
+% Problem-section file following ../_template.tex.
+\section{Finite nontrivial LU moduli of AME states}
+\label{sec:problem-43}
+
+\paragraph{Problem.}
+Do there exist integers $N,d\geq 2$ for which the absolutely maximally
+entangled states of $N$ qudits of local dimension $d$ form finitely many, but
+more than one, local-unitary equivalence classes?  A normalized vector
+$|\psi\rangle\in(\mathbb{C}^{d})^{\otimes N}$ is an $\operatorname{AME}(N,d)$
+state when every subsystem of at most half the parties is maximally mixed:
+\begin{equation}
+  \operatorname{Tr}_{S^{c}}\!\left(|\psi\rangle\!\langle\psi|\right)
+  =\frac{I_{d^{|S|}}}{d^{|S|}}
+  \quad\text{for every }S\subseteq\{1,\ldots,N\}
+  \text{ with }|S|\leq\left\lfloor\frac{N}{2}\right\rfloor .
+  \label{eq:p43-ame-condition}
+\end{equation}
+For normalized states satisfying Eq.~\eqref{eq:p43-ame-condition}, define
+local-unitary equivalence by
+\begin{equation}
+  |\psi\rangle\sim_{\mathrm{LU}}|\phi\rangle
+  \quad\Longleftrightarrow\quad
+  |\psi\rangle=(U_1\otimes\cdots\otimes U_N)|\phi\rangle
+  \quad\text{for some }U_1,\ldots,U_N\in U(d).
+  \label{eq:p43-lu-equivalence}
+\end{equation}
+If $\mathcal{A}_{N,d}$ denotes the set specified by
+Eq.~\eqref{eq:p43-ame-condition}, determine whether the quotient under
+Eq.~\eqref{eq:p43-lu-equivalence} can satisfy
+\begin{equation}
+  \mathfrak{M}_{N,d}:=\mathcal{A}_{N,d}/\!\sim_{\mathrm{LU}},
+  \qquad
+  1<\lvert\mathfrak{M}_{N,d}\rvert<\infty .
+  \label{eq:p43-finite-nontrivial-moduli}
+\end{equation}
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Rajchel-Mieldzio\'c et al. explicitly ask whether an AME family can have a
+finite number of local-unitary equivalence classes greater than one
+\sourcecite{ref:p43-review}{RBR+26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item For four parties, all $\operatorname{AME}(4,3)$ states lie in one LU
+  class, whereas $\operatorname{AME}(4,d)$ has infinitely many LU classes for
+  every $d\geq 4$ \sourcecite{ref:p43-rather}{RRKL23}.  The latter theorem
+  includes infinitely many inequivalent $\operatorname{AME}(4,6)$ states, so
+  neither side of this classification realizes
+  Eq.~\eqref{eq:p43-finite-nontrivial-moduli}.
+
+  \item Tan completely classifies five-qubit AME states: every such state is
+  LU equivalent to a point of the unique $((5,2,3))$ code $\mathcal C$, and
+  two points of $\mathcal C$ are equivalent exactly when related by its
+  finite binary-tetrahedral transversal group
+  \sourcecite{ref:p43-tan}{Tan26}.  Because the projective state space of the
+  two-dimensional code is a continuum while this group is finite,
+  $\lvert\mathfrak{M}_{5,2}\rvert$ is infinite, not finite and nontrivial.
+
+  \item The 2026 AME review records the known one-class and infinite-class
+  regimes and explicitly leaves Eq.~\eqref{eq:p43-finite-nontrivial-moduli}
+  as open problem T5 \sourcecite{ref:p43-review}{RBR+26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[RRKL23]}]\label{ref:p43-rather}
+  S. A. Rather, N. Ramadas, V. Kodiyalam, and A. Lakshminarayan,
+  ``Absolutely Maximally Entangled State Equivalence and the Construction of
+  Infinite Quantum Solutions to the Problem of 36 Officers of Euler,''
+  \emph{Physical Review A} \textbf{108}, 032412 (2023).
+  \href{https://doi.org/10.1103/PhysRevA.108.032412}%
+       {doi:10.1103/PhysRevA.108.032412};
+  \href{https://arxiv.org/abs/2212.06737}{arXiv:2212.06737}.
+
+  \item[\textup{[Tan26]}]\label{ref:p43-tan}
+  I. Tan, ``Classification of Five-Qubit Absolutely Maximally Entangled
+  States,'' arXiv:2507.02185v4 (2026).
+  \href{https://arxiv.org/abs/2507.02185}{arXiv:2507.02185}.
+
+  \item[\textup{[RBR+26]}]\label{ref:p43-review}
+  G. Rajchel-Mieldzio{\'c}, R. Bistro{\'n}, A. Rico, A. Lakshminarayan, and
+  K. {\.{Z}}yczkowski, ``Absolutely Maximally Entangled Pure States of
+  Multipartite Quantum Systems,'' \emph{Reports on Progress in Physics}
+  \textbf{89}, 057601 (2026).
+  \href{https://doi.org/10.1088/1361-6633/ae672a}%
+       {doi:10.1088/1361-6633/ae672a};
+  \href{https://arxiv.org/abs/2508.04777}{arXiv:2508.04777v3}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The remaining task is either to exhibit an AME parameter pair whose full LU
+quotient is a discrete non-singleton set, or to prove that every nonempty
+$\mathfrak{M}_{N,d}$ is a singleton or infinite.  Classifying only a selected
+construction family would not determine the full quotient in
+Eq.~\eqref{eq:p43-finite-nontrivial-moduli}.
+
+\subsection*{Tag}
+
+Absolutely maximally entangled states; Multipartite entanglement;
+Entanglement theory; Local unitary equivalence; Qudit systems
+
+\subsection*{ID}
+
+\texttt{op\_0c86d9293aba3b01}

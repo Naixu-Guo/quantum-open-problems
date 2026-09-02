@@ -1,0 +1,111 @@
+% Problem-section file following ../_template.tex.
+\section{Multiplicativity for polarized Werner--Holevo channels}
+\label{sec:problem-60}
+
+\paragraph{Problem.}
+For every integer $d\geq3$, every $x\in(0,1)$, and every $1<p<2$, is the
+maximal output Schatten $p$-norm of the polarized Werner--Holevo channel
+multiplicative on two identical copies?  Define the Werner--Holevo channel and
+its polarized interpolation with the identity channel by
+\begin{equation}
+  \mathcal W_d(X):=\frac{\operatorname{Tr}(X)I_d-X^{\mathsf T}}{d-1},
+  \qquad
+  \Phi_{x,d}:=x\,\operatorname{id}_d+(1-x)\mathcal W_d,
+  \label{eq:p60-polarized-werner-holevo}
+\end{equation}
+where the transpose in Eq.~\eqref{eq:p60-polarized-werner-holevo} is taken in
+a fixed basis.  For a channel $\Phi$ with $d$-dimensional input, set
+\begin{equation}
+  \lVert A\rVert_p:=\bigl(\operatorname{Tr}\lvert A\rvert^p\bigr)^{1/p},
+  \qquad
+  \nu_p(\Phi):=\max_{\rho\in\mathcal D(\mathbb C^d)}
+    \lVert\Phi(\rho)\rVert_p.
+  \label{eq:p60-maximal-output-norm}
+\end{equation}
+With the convention in Eq.~\eqref{eq:p60-maximal-output-norm}, determine
+whether
+\begin{equation}
+  \nu_p(\Phi_{x,d}\otimes\Phi_{x,d})
+    =\nu_p(\Phi_{x,d})^2
+  \label{eq:p60-multiplicativity}
+\end{equation}
+holds throughout the stated parameter range.
+
+\subsection*{Status}
+
+Partially solved
+
+\subsection*{Source}
+
+Ruskai explicitly asked for Eq.~\eqref{eq:p60-multiplicativity} for
+$x\in[0,1]$ and $1\leq p\leq2$
+\sourcecite{ref:p60-ruskai}{Rus07}.  The formulation above removes all regimes
+settled by the results below.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item For $d=2$, the channel in
+  Eq.~\eqref{eq:p60-polarized-werner-holevo} is a unital qubit channel, so
+  King's theorem gives multiplicativity with an arbitrary companion for every
+  $p\geq1$.  The cases $p=1$ and $x=1$ are also immediate from trace
+  preservation and the identity channel, respectively
+  \sourcecite{ref:p60-king}{Kin02}.
+
+  \item At $x=0$, Datta proved multiplicativity for two Werner--Holevo
+  channels of arbitrary dimensions throughout $1\leq p\leq2$.  This settles
+  the unpolarized endpoint but not any $x\in(0,1)$
+  \sourcecite{ref:p60-datta}{Dat04}.
+
+  \item Michalakis proved Eq.~\eqref{eq:p60-multiplicativity} at $p=2$ for
+  every $d\geq2$ and every $x\in[0,1]$.  The proof is specific to the output
+  $2$-norm and leaves $1<p<2$ open
+  \sourcecite{ref:p60-michalakis}{Mic07}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Rus07]}]\label{ref:p60-ruskai}
+  M. B. Ruskai, ``Open Problems in Quantum Information Theory,''
+  arXiv preprint arXiv:0708.1902 (2007).
+  \newline
+  \href{https://doi.org/10.48550/arXiv.0708.1902}%
+       {doi:10.48550/arXiv.0708.1902};
+  \href{https://arxiv.org/abs/0708.1902}{arXiv:0708.1902}.
+
+  \item[\textup{[Kin02]}]\label{ref:p60-king}
+  C. King, ``Additivity for Unital Qubit Channels,''
+  \emph{Journal of Mathematical Physics} \textbf{43}, 4641--4653 (2002).
+  \href{https://doi.org/10.1063/1.1500791}{doi:10.1063/1.1500791};
+  \href{https://arxiv.org/abs/quant-ph/0103156}%
+       {arXiv:quant-ph/0103156}.
+
+  \item[\textup{[Dat04]}]\label{ref:p60-datta}
+  N. Datta, ``Multiplicativity of Maximal $p$-Norms in Werner--Holevo
+  Channels for $1\leq p\leq2$,'' arXiv preprint quant-ph/0410063 (2004).
+  \href{https://arxiv.org/abs/quant-ph/0410063}%
+       {arXiv:quant-ph/0410063}.
+
+  \item[\textup{[Mic07]}]\label{ref:p60-michalakis}
+  S. Michalakis, ``Multiplicativity of the Maximal Output $2$-Norm for
+  Depolarized Werner--Holevo Channels,''
+  \emph{Journal of Mathematical Physics} \textbf{48}, 122102 (2007).
+  \href{https://doi.org/10.1063/1.2818737}{doi:10.1063/1.2818737};
+  \href{https://arxiv.org/abs/0707.1722}{arXiv:0707.1722}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The only unresolved regime of the source problem is precisely
+$d\geq3$, $x\in(0,1)$, and $1<p<2$, with two identical copies as in
+Eq.~\eqref{eq:p60-multiplicativity}.
+
+\subsection*{Tag}
+
+Quantum channels; Quantum Shannon theory; Matrix analysis; Qudit systems
+
+\subsection*{ID}
+
+\texttt{op\_ad05396ff490713c}

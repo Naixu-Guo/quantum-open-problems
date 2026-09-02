@@ -1,10 +1,14 @@
 {
-  "name": "quantum-open-problems-mcp",
-  "version": "0.1.0",
-  "description": "MCP server for the Quantum Open Problems catalog: search problems, fetch formal statements and research briefs, watch evidence, and get the contribution contract.",
+  "name": "qiqcop-zoo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Quantum Information and Quantum Computation Open Problem Zoo: a dependency-free static site built from TeX problem records.",
   "type": "module",
-  "bin": {
-    "quantum-open-problems-mcp": "./mcp/server.mjs"
+  "scripts": {
+    "build": "node site/build.mjs",
+    "serve": "python3 -m http.server 8000 --directory dist",
+    "import": "node scripts/import-problems.mjs",
+    "new-id": "node scripts/new-problem-id.mjs"
   },
   "engines": {
     "node": ">=18"

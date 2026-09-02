@@ -1,0 +1,188 @@
+% Problem-section file following ../_template.tex.
+\section{Entanglement of formation of generalized Bell-diagonal states}
+\label{sec:problem-56}
+
+\paragraph{Problem.}
+For every local dimension $d\geq3$, determine the entanglement of formation
+of an arbitrary Weyl--Bell-diagonal state.  Let
+$\omega_d:=\exp(2\pi i/d)$ and define the generalized Pauli operators and
+their associated Bell basis by
+\begin{equation}
+  X\lvert j\rangle:=\lvert j+1\!\!\pmod d\rangle,
+  \qquad
+  Z\lvert j\rangle:=\omega_d^j\lvert j\rangle,
+  \qquad
+  \lvert\Phi_{a,b}\rangle
+  :=(I\otimes X^aZ^b)\lvert\Phi_d\rangle,
+  \qquad
+  \lvert\Phi_d\rangle:=\frac1{\sqrt d}\sum_{j=0}^{d-1}\lvert j,j\rangle,
+  \label{eq:p56-weyl-bell-basis}
+\end{equation}
+where $a,b\in\mathbb Z_d$.  In this problem, ``Pauli-diagonal'' means
+diagonal in the generalized Bell basis in
+Eq.~\eqref{eq:p56-weyl-bell-basis}.  Thus the state is
+\begin{equation}
+  \rho_{\mathbf p}
+  :=\sum_{a,b\in\mathbb Z_d}p_{a,b}
+     \lvert\Phi_{a,b}\rangle\!\langle\Phi_{a,b}\rvert,
+  \qquad
+  p_{a,b}\geq0,
+  \qquad
+  \sum_{a,b\in\mathbb Z_d}p_{a,b}=1.
+  \label{eq:p56-weyl-bell-diagonal-state}
+\end{equation}
+For every probability array $\mathbf p$ in
+Eq.~\eqref{eq:p56-weyl-bell-diagonal-state}, determine an evaluable exact
+formula and an optimal pure-state ensemble for
+\begin{equation}
+  E_F(\rho_{\mathbf p})
+  :=\inf_{\rho_{\mathbf p}=\sum_i q_i
+                    \lvert\psi_i\rangle\!\langle\psi_i\rvert}
+       \sum_i q_i\,
+       S\!\left(\operatorname{Tr}_B
+          \lvert\psi_i\rangle\!\langle\psi_i\rvert\right),
+  \qquad
+  S(\sigma):=-\operatorname{Tr}(\sigma\log_2\sigma).
+  \label{eq:p56-eof}
+\end{equation}
+The infimum in Eq.~\eqref{eq:p56-eof} is over finite pure-state ensembles
+with $q_i\geq0$ and $\sum_iq_i=1$.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+The problem is implicit in Vollbrecht and Werner's finite-Weyl symmetry
+construction and general convex-roof reduction
+\sourcecite{ref:p56-vollbrecht-werner}{VW01}.  Terhal and Vollbrecht's
+solution of the isotropic subfamily isolates a one-parameter slice rather
+than the full generalized Bell simplex
+\sourcecite{ref:p56-terhal-vollbrecht}{TV00}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item For $d=2$, Wootters determined $E_F$ for every two-qubit state and
+  therefore for every ordinary Bell-diagonal state
+  \sourcecite{ref:p56-wootters}{Woo98}.  This formula relies on the
+  two-qubit concurrence and does not extend to the general $d\geq3$
+  probability array in Eq.~\eqref{eq:p56-weyl-bell-diagonal-state}.
+
+  \item The finite-Weyl twirl and the symmetry method of Vollbrecht and
+  Werner reduce the full convex roof to a phase optimization followed by a
+  convexification.  More precisely, define
+  \begin{equation}
+    \varepsilon_d(\mathbf p)
+    :=\min_{\boldsymbol\theta\in[0,2\pi)^{d^2}}
+       S\!\left(\operatorname{Tr}_B
+          \lvert\psi_{\mathbf p,\boldsymbol\theta}\rangle
+          \!\langle\psi_{\mathbf p,\boldsymbol\theta}\rvert\right),
+    \qquad
+    \lvert\psi_{\mathbf p,\boldsymbol\theta}\rangle
+    :=\sum_{a,b\in\mathbb Z_d}
+       \sqrt{p_{a,b}}e^{i\theta_{a,b}}\lvert\Phi_{a,b}\rangle.
+    \label{eq:p56-symmetry-reduction}
+  \end{equation}
+  Their theorem gives
+  \begin{equation}
+    E_F(\rho_{\mathbf p})
+    =\operatorname{co}\varepsilon_d(\mathbf p),
+    \label{eq:p56-convexification}
+  \end{equation}
+  where $\operatorname{co}$ denotes the lower convex envelope on the
+  probability simplex.  Equations~\eqref{eq:p56-symmetry-reduction} and
+  \eqref{eq:p56-convexification} are an exact reduction, but the phase
+  minimum and its convex envelope remain unknown for a general
+  $\mathbf p$ \sourcecite{ref:p56-vollbrecht-werner}{VW01}.
+
+  \item For the isotropic probability array
+  \begin{equation}
+    p_{0,0}=F,
+    \qquad
+    p_{a,b}=\frac{1-F}{d^2-1}\quad((a,b)\neq(0,0)),
+    \qquad 0\leq F\leq1,
+    \label{eq:p56-isotropic-array}
+  \end{equation}
+  Terhal and Vollbrecht reduced the answer to the convex hull of an explicit
+  function \sourcecite{ref:p56-terhal-vollbrecht}{TV00}; Fei and Li-Jost
+  subsequently proved the conjectured convex-hull shape in every dimension
+  \sourcecite{ref:p56-fei-li-jost}{FLJ06}.  Hence the states in
+  Eq.~\eqref{eq:p56-isotropic-array} are solved exactly, but they form only a
+  one-dimensional subfamily of the $(d^2-1)$-dimensional simplex.
+
+  \item A 2023 analysis of the same Weyl--Bell simplex classified Bell-diagonal
+  qutrit and ququart states using analytical and numerical separability
+  criteria, but left $22.6\%$ of its sampled PPT ququart states unclassified
+  as separable or bound entangled
+  \sourcecite{ref:p56-popp-hiesmayr}{PH23}.  Because $E_F(\rho)=0$ exactly for
+  separable states, this unresolved zero-versus-positive boundary is already
+  an obstruction to a general exact formula; that work does not evaluate
+  $E_F$ on the unclassified states.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[VW01]}]\label{ref:p56-vollbrecht-werner}
+  K. G. H. Vollbrecht and R. F. Werner,
+  ``Entanglement Measures under Symmetry,''
+  \emph{Physical Review A} \textbf{64}, 062307 (2001).
+  \href{https://doi.org/10.1103/PhysRevA.64.062307}%
+       {doi:10.1103/PhysRevA.64.062307};
+  \href{https://arxiv.org/abs/quant-ph/0010095}%
+       {arXiv:quant-ph/0010095}.
+
+  \item[\textup{[TV00]}]\label{ref:p56-terhal-vollbrecht}
+  B. M. Terhal and K. G. H. Vollbrecht,
+  ``Entanglement of Formation for Isotropic States,''
+  \emph{Physical Review Letters} \textbf{85}, 2625--2628 (2000).
+  \href{https://doi.org/10.1103/PhysRevLett.85.2625}%
+       {doi:10.1103/PhysRevLett.85.2625};
+  \href{https://arxiv.org/abs/quant-ph/0005062}%
+       {arXiv:quant-ph/0005062}.
+
+  \item[\textup{[Woo98]}]\label{ref:p56-wootters}
+  W. K. Wootters,
+  ``Entanglement of Formation of an Arbitrary State of Two Qubits,''
+  \emph{Physical Review Letters} \textbf{80}, 2245--2248 (1998).
+  \href{https://doi.org/10.1103/PhysRevLett.80.2245}%
+       {doi:10.1103/PhysRevLett.80.2245};
+  \href{https://arxiv.org/abs/quant-ph/9709029}%
+       {arXiv:quant-ph/9709029}.
+
+  \item[\textup{[FLJ06]}]\label{ref:p56-fei-li-jost}
+  S.-M. Fei and X. Li-Jost,
+  ``$R$ Function Related to Entanglement of Formation,''
+  \emph{Physical Review A} \textbf{73}, 024302 (2006).
+  \href{https://doi.org/10.1103/PhysRevA.73.024302}%
+       {doi:10.1103/PhysRevA.73.024302};
+  \href{https://arxiv.org/abs/quant-ph/0602137}%
+       {arXiv:quant-ph/0602137}.
+
+  \item[\textup{[PH23]}]\label{ref:p56-popp-hiesmayr}
+  C. Popp and B. C. Hiesmayr,
+  ``Comparing Bound Entanglement of Bell Diagonal Pairs of Qutrits and
+  Ququarts,'' \emph{Scientific Reports} \textbf{13}, 2037 (2023).
+  \href{https://doi.org/10.1038/s41598-023-29211-w}%
+       {doi:10.1038/s41598-023-29211-w};
+  \href{https://arxiv.org/abs/2209.15267}{arXiv:2209.15267}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The unresolved task is to evaluate the phase minimum in
+Eq.~\eqref{eq:p56-symmetry-reduction}, determine its lower convex envelope in
+Eq.~\eqref{eq:p56-convexification}, and construct optimal ensembles for
+arbitrary $\mathbf p$ when $d\geq3$.  Problem~7 instead asks for the
+regularized entanglement cost of qubit Bell-diagonal states.
+
+\subsection*{Tag}
+
+Bell-diagonal states; Entanglement measures; Qudit systems; Convex optimization
+
+\subsection*{ID}
+
+\texttt{op\_a3a8680c50800797}
