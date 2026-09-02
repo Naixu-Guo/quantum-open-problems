@@ -607,6 +607,15 @@ const splitTags = (tagTex) => stripComments(tagTex)
   .split("\n").map((line) => line.trim()).filter(Boolean).join(" ")
   .split(";").map((tag) => tag.trim()).filter(Boolean);
 
+// Remove the inline DOI and arXiv links from a reference entry; the page
+// shows them as buttons instead. Other links stay in the text.
+export function stripIdentifierLinks(tex) {
+  return tex
+    .replace(/\s*(?:\\newline\s*)?\\href\{[^}]*\}\{(?:doi|arXiv|arxiv):[^}]*\}\s*[;.,]?/g, "")
+    .replace(/\s*\\newline\s*$/, "")
+    .trim();
+}
+
 // Extract the arXiv identifiers and DOIs cited by a reference entry.
 function referenceLinks(tex) {
   const links = [];
@@ -644,7 +653,7 @@ export function parseProblem(sourceTex, { canonicalTags = null, fileName = "" } 
     const { equations, numbers } = collectEquations(stripComments(tex));
     const references = extractReferences(sections.references).map((entry) => ({
       ...entry,
-      html: texToInlineHtml(entry.tex, { equationNumbers: numbers, dropNewline: true }),
+      html: texToInlineHtml(stripIdentifierLinks(entry.tex), { equationNumbers: numbers, dropNewline: true }),
       links: referenceLinks(entry.tex)
     }));
     const referenceByLabel = new Map(references.map((entry) => [entry.label, entry]));
