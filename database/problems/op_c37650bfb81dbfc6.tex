@@ -1,0 +1,129 @@
+% Recycled solved problem-section file following ../_template.tex.
+\section{Minimum LU--LC counterexample for graph states}
+\label{sec:problem-48}
+
+\paragraph{Problem.}
+What is the least number of qubits for which two graph states can be locally
+unitary equivalent without being locally Clifford equivalent?  For a simple
+graph $G=(V,E)$ with $V=\{1,\ldots,n\}$, define its graph state by
+\begin{equation}
+  \lvert G\rangle
+  :=\left(\prod_{\{u,v\}\in E}\mathrm{CZ}_{uv}\right)
+    \lvert+\rangle^{\otimes n},
+  \qquad
+  \lvert+\rangle:=\frac{\lvert0\rangle+\lvert1\rangle}{\sqrt2}.
+  \label{eq:p48-graph-state}
+\end{equation}
+For graphs $G$ and $H$ on $n$ vertices, use the state convention in
+Eq.~\eqref{eq:p48-graph-state} and write
+\begin{equation}
+  \begin{aligned}
+    G\sim_{\mathrm{LU}}H
+    &\iff
+      \lvert H\rangle=e^{i\phi}
+      \left(\bigotimes_{j=1}^{n}U_j\right)\lvert G\rangle
+      &&\text{for some }U_j\in U(2),\ \phi\in\mathbb R,\\
+    G\sim_{\mathrm{LC}}H
+    &\iff
+      \lvert H\rangle=e^{i\theta}
+      \left(\bigotimes_{j=1}^{n}C_j\right)\lvert G\rangle
+      &&\text{for some }C_j\in\mathcal C_1,\ \theta\in\mathbb R,
+  \end{aligned}
+  \label{eq:p48-lu-lc-equivalence}
+\end{equation}
+where $\mathcal C_1$ is the single-qubit Clifford group.  Since
+$\mathcal C_1\subset U(2)$, LC equivalence implies LU equivalence.  Define the
+minimum counterexample size by
+\begin{equation}
+  n_{\min}
+  :=\min\left\{n:\text{there exist $n$-vertex graphs $G,H$ with
+  $G\sim_{\mathrm{LU}}H$ and $G\not\sim_{\mathrm{LC}}H$}\right\}.
+  \label{eq:p48-minimum-counterexample}
+\end{equation}
+Determine the integer in Eq.~\eqref{eq:p48-minimum-counterexample}.
+
+\subsection*{Status}
+
+Solved
+
+\subsection*{Source}
+
+Kr\"uger and Werner record the original conjecture that LU equivalence of
+graph states always implies LC equivalence
+\sourcecite{ref:p48-krueger-werner}{KW05}.  After Ji, Chen, Wei, and Ying
+constructed a 27-qubit counterexample, Claudet isolated and resolved the
+minimum-size question in Eq.~\eqref{eq:p48-minimum-counterexample}
+\sourcecite{ref:p48-ji-et-al}{JCWY10},
+\sourcecite{ref:p48-claudet}{Cla26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Kr\"uger and Werner posed the universal implication
+  $G\sim_{\mathrm{LU}}H\Rightarrow G\sim_{\mathrm{LC}}H$.  This formulation
+  did not include a minimum counterexample size
+  \sourcecite{ref:p48-krueger-werner}{KW05}.
+
+  \item Ji, Chen, Wei, and Ying disproved the universal implication by
+  constructing LU-equivalent but non-LC-equivalent graph states on 27 qubits.
+  Their construction proves $n_{\min}\leq27$ but does not by itself exclude
+  smaller counterexamples \sourcecite{ref:p48-ji-et-al}{JCWY10}.
+
+  \item Claudet proved that LU and LC equivalence coincide for every pair of
+  graph states on at most 26 qubits.  Combining this lower bound with the
+  27-qubit construction gives
+  \begin{equation}
+    n_{\min}=27.
+    \label{eq:p48-minimum-resolution}
+  \end{equation}
+  Thus Eq.~\eqref{eq:p48-minimum-resolution} resolves the minimum-size problem
+  \sourcecite{ref:p48-claudet}{Cla26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[KW05]}]\label{ref:p48-krueger-werner}
+  O. Kr\"uger and R. F. Werner (eds.),
+  ``Some Open Problems in Quantum Information Theory,''
+  arXiv:quant-ph/0504166 (2005), Problem~28, pp.~70--71.
+  \href{https://doi.org/10.48550/arXiv.quant-ph/0504166}%
+       {doi:10.48550/arXiv.quant-ph/0504166};
+  \href{https://arxiv.org/abs/quant-ph/0504166}%
+       {arXiv:quant-ph/0504166}.
+
+  \item[\textup{[JCWY10]}]\label{ref:p48-ji-et-al}
+  Z. Ji, J. Chen, Z. Wei, and M. Ying,
+  ``The LU-LC Conjecture Is False,''
+  \emph{Quantum Information and Computation} \textbf{10}, 97--108 (2010).
+  \href{https://doi.org/10.26421/QIC10.1-2-8}%
+       {doi:10.26421/QIC10.1-2-8};
+  \href{https://arxiv.org/abs/0709.1266}{arXiv:0709.1266}.
+
+  \item[\textup{[Cla26]}]\label{ref:p48-claudet}
+  N. Claudet, ``The 27-qubit Counterexample to the LU-LC Conjecture Is
+  Minimal,'' arXiv:2603.25219v1 (2026).\newline
+  \href{https://doi.org/10.48550/arXiv.2603.25219}%
+       {doi:10.48550/arXiv.2603.25219};
+  \href{https://arxiv.org/abs/2603.25219}{arXiv:2603.25219}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+Equation~\eqref{eq:p48-minimum-resolution} concerns the minimum size at which
+LU and LC equivalence can differ; it does not say that 27 qubits are required
+for LU--LC equivalence.  The original universal conjecture was already
+resolved negatively by the 27-qubit construction.  As of September 2026, the
+matching lower bound through 26 qubits is contained in a recent arXiv v1
+preprint, so the archived solved status records its theorem rather than its
+peer-review history.
+
+\subsection*{Tag}
+
+Local unitary equivalence; Graph theory; Stabilizer codes; Qubit systems;
+Entanglement theory
+
+\subsection*{ID}
+
+\texttt{op\_c37650bfb81dbfc6}

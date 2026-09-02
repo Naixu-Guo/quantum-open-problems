@@ -1,0 +1,151 @@
+% Problem-section file following ../_template.tex.
+\section{Convergence of the JRF iteration for mixed-state discrimination}
+\label{sec:problem-63}
+
+\paragraph{Problem.}
+Does the Je\v{z}ek--\v{R}eh\'{a}\v{c}ek--Fiur\'{a}\v{s}ek (JRF) iteration,
+initialized by the uniform POVM, converge to a globally optimal
+minimum-error measurement for every finite ensemble containing mixed quantum
+states?  Let $m\geq2$, let $p_i>0$ be prior probabilities, and let $\rho_i$ be
+density operators on a finite-dimensional Hilbert space.  Define
+\begin{equation}
+  \xi_i:=p_i\rho_i,
+  \qquad
+  \operatorname{Tr}\rho_i=1,
+  \qquad
+  \sum_{i=1}^{m}p_i=1,
+  \qquad
+  \mathcal H_0:=\operatorname{supp}\!\left(\sum_{i=1}^{m}\xi_i\right),
+  \label{eq:p63-weighted-ensemble}
+\end{equation}
+where at least one $\rho_i$ has rank greater than one.  On the signal space
+$\mathcal H_0$ in Eq.~\eqref{eq:p63-weighted-ensemble}, the optimal guessing
+probability is
+\begin{equation}
+  P_{\mathrm{opt}}
+  :=\max_{\substack{\Pi_i\succeq0\\
+                    \sum_{i=1}^{m}\Pi_i=I_{\mathcal H_0}}}
+       \sum_{i=1}^{m}\operatorname{Tr}(\xi_i\Pi_i).
+  \label{eq:p63-optimal-guessing-probability}
+\end{equation}
+Starting from $\Pi_i^{(0)}:=I_{\mathcal H_0}/m$, define the JRF iterates by
+\begin{equation}
+  \Lambda_k
+  :=\left(\sum_{j=1}^{m}
+       \xi_j\Pi_j^{(k)}\xi_j\right)^{1/2},
+  \qquad
+  \Pi_i^{(k+1)}
+  :=\Lambda_k^{-1}\xi_i\Pi_i^{(k)}\xi_i\Lambda_k^{-1}
+  \quad (i=1,\ldots,m).
+  \label{eq:p63-jrf-iteration}
+\end{equation}
+For this initialization, $\Lambda_k$ is inverted on $\mathcal H_0$ and the
+operators in Eq.~\eqref{eq:p63-jrf-iteration} form a POVM at every step.
+Determine whether there always exists an optimal POVM
+$\{\Pi_i^\star\}_{i=1}^{m}$ attaining
+Eq.~\eqref{eq:p63-optimal-guessing-probability} such that
+\begin{equation}
+  \lim_{k\to\infty}
+       \sum_{i=1}^{m}\lVert\Pi_i^{(k)}-\Pi_i^\star\rVert_2=0,
+  \qquad
+  \lim_{k\to\infty}
+       \sum_{i=1}^{m}\operatorname{Tr}(\xi_i\Pi_i^{(k)})
+       =P_{\mathrm{opt}},
+  \label{eq:p63-global-convergence}
+\end{equation}
+where $\lVert\cdot\rVert_2$ is the Hilbert--Schmidt norm.  If
+Eq.~\eqref{eq:p63-global-convergence} fails, construct an explicit
+mixed-state counterexample and characterize its limiting behavior.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Je\v{z}ek, \v{R}eh\'{a}\v{c}ek, and Fiur\'{a}\v{s}ek introduced the
+iteration and explicitly reported that its numerically observed global
+convergence lacked a general proof
+\sourcecite{ref:p63-jezek-rehacek-fiurasek}{JRF02}.  L\"u and Dong proved
+the pure-state case and explicitly left convergence for general mixed-state
+ensembles open \sourcecite{ref:p63-lu-dong}{LD26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item The original work observed monotonic convergence to the global optimum
+  in extensive tests on ensembles of up to four pure or mixed states in
+  dimensions two through four, but supplied neither a proof nor a
+  counterexample for arbitrary ensembles
+  \sourcecite{ref:p63-jezek-rehacek-fiurasek}{JRF02}.
+
+  \item Tyson's directional-iterate framework proves the general monotonicity
+  bound
+  \begin{equation}
+    P_k\leq\operatorname{Tr}\Lambda_k
+        \leq P_{k+1}\leq P_{\mathrm{opt}},
+    \qquad
+    P_k:=\sum_{i=1}^{m}\operatorname{Tr}(\xi_i\Pi_i^{(k)}),
+    \label{eq:p63-monotonicity}
+  \end{equation}
+  which L\"u and Dong rederive from a polar decomposition
+  \sourcecite{ref:p63-tyson}{Tys10},
+  \sourcecite{ref:p63-lu-dong}{LD26}.  Equation~\eqref{eq:p63-monotonicity}
+  implies that $P_k$ has a limit, but does not show that the limit equals
+  $P_{\mathrm{opt}}$ or that the POVM sequence converges.
+
+  \item L\"u and Dong prove convergence to an optimal measurement for every
+  pure-state ensemble under a mild support condition satisfied by the uniform
+  initialization in Eq.~\eqref{eq:p63-jrf-iteration}.  They also obtain a
+  conditional result for a special embedded class of mixed-state ensembles,
+  but explain that their accumulation-point argument does not extend to
+  arbitrary mixed states \sourcecite{ref:p63-lu-dong}{LD26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[JRF02]}]\label{ref:p63-jezek-rehacek-fiurasek}
+  M. Je\v{z}ek, J. \v{R}eh\'{a}\v{c}ek, and J. Fiur\'{a}\v{s}ek,
+  ``Finding Optimal Strategies for Minimum-Error Quantum-State
+  Discrimination,'' \emph{Physical Review A} \textbf{65}, 060301(R) (2002).
+  \href{https://doi.org/10.1103/PhysRevA.65.060301}%
+       {doi:10.1103/PhysRevA.65.060301};
+  \href{https://arxiv.org/abs/quant-ph/0201109}%
+       {arXiv:quant-ph/0201109}.
+
+  \item[\textup{[Tys10]}]\label{ref:p63-tyson}
+  J. Tyson,
+  ``Two-Sided Bounds on Minimum-Error Quantum Measurement, on the
+  Reversibility of Quantum Dynamics, and on the Maximum Overlap Problem Using
+  Directional Iterates,'' \emph{Journal of Mathematical Physics} \textbf{51},
+  092204 (2010).
+  \href{https://doi.org/10.1063/1.3463451}{doi:10.1063/1.3463451};
+  \href{https://arxiv.org/abs/0907.3386}{arXiv:0907.3386}.
+
+  \item[\textup{[LD26]}]\label{ref:p63-lu-dong}
+  X. L\"u and S.-H. Dong,
+  ``Iterative Algorithm for Minimum-Error Quantum State Discrimination:
+  Convergence for Pure-State Ensembles,''
+  \emph{Physical Review A} \textbf{113}, 022451 (2026).
+  \href{https://doi.org/10.1103/q7wq-ygm9}{doi:10.1103/q7wq-ygm9}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The pure-state case is solved.  The remaining issue is whether the uniform
+initialization prevents nonoptimal accumulation points or nonconvergent
+last-iterate behavior for arbitrary mixed-state ensembles.  The existence of
+convergent semidefinite-programming methods for
+Eq.~\eqref{eq:p63-optimal-guessing-probability} does not establish convergence
+of the specific nonlinear map in Eq.~\eqref{eq:p63-jrf-iteration}.
+
+\subsection*{Tag}
+
+Quantum state discrimination; Measurement theory; Convex optimization;
+Semidefinite programming
+
+\subsection*{ID}
+
+\texttt{op\_76e284219621a785}
