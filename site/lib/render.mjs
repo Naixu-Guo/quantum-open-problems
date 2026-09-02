@@ -105,8 +105,11 @@ export function layout({ config, root, title, description, path, body, current =
           <label class="visually-hidden" for="site-search">Search problems</label>
           <input id="site-search" name="q" type="search" placeholder="Search problems" autocomplete="off">
         </form>
-        <a class="pill pill-unsolved" href="${root}random/unsolved/">Random unsolved</a>
-        <a class="pill pill-solved" href="${root}random/solved/">Random solved</a>
+        <span class="random-control" role="group" aria-label="Open a random problem">
+          <span class="random-label">Random</span>
+          <a class="random-pill random-unsolved" href="${root}random/unsolved/">Unsolved</a>
+          <a class="random-pill random-solved" href="${root}random/solved/">Solved</a>
+        </span>
         <button class="theme-button" id="theme-toggle" type="button" aria-label="Switch color theme" aria-pressed="false">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2.25M12 18.75V21M21 12h-2.25M5.25 12H3M18.36 5.64l-1.59 1.59M7.23 16.77l-1.59 1.59M18.36 18.36l-1.59-1.59M7.23 7.23 5.64 5.64M16.25 12A4.25 4.25 0 1 1 7.75 12a4.25 4.25 0 0 1 8.5 0Z"/></svg>
         </button>
