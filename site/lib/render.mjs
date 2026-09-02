@@ -42,8 +42,8 @@ const THEME_BOOT = `<script>
     </script>`;
 
 export const logo = (extraClass = "") => `<span class="logo ${extraClass}" aria-hidden="true">
-        <span class="logo-cell">Q</span><span class="logo-cell">I</span><span class="logo-cell">Q</span><span class="logo-cell">C</span><span class="logo-cell logo-o">O</span><span class="logo-cell logo-p">P</span>
-        <span class="logo-cell"></span><span class="logo-cell"></span><span class="logo-cell"></span><span class="logo-cell">Z</span><span class="logo-cell">O</span><span class="logo-cell">O</span>
+        <span class="logo-line">QIQC<span class="logo-o">O</span><span class="logo-p">P</span></span>
+        <span class="logo-line logo-line-2"><span class="logo-ghost">QIQC</span><span class="logo-oo"><span class="logo-z">Z</span>OO</span></span>
       </span>`;
 
 export const statusTag = (status, extraClass = "") => {
@@ -92,10 +92,7 @@ export function layout({ config, root, title, description, path, body, current =
     <header class="site-header">
       <a class="brand" href="${root}" aria-label="${escape(config.shortName)} home">
         ${logo()}
-        <span class="brand-copy">
-          <strong>${escape(config.shortName)}</strong>
-          <span>${escape(config.fullName)}</span>
-        </span>
+        <span class="brand-copy">${escape(config.fullName).replace(" Open Problem Zoo", "<br>Open Problem Zoo")}</span>
       </a>
       <nav class="site-nav" aria-label="Primary">
         ${nav("problems/", "Problems", "problems")}
@@ -121,10 +118,7 @@ ${body}
     <footer class="site-footer">
       <div class="footer-brand">
         ${logo("logo-small")}
-        <div>
-          <strong>${escape(config.shortName)}</strong>
-          <span>${escape(config.fullName)}</span>
-        </div>
+        <span class="brand-copy">${escape(config.fullName).replace(" Open Problem Zoo", "<br>Open Problem Zoo")}</span>
       </div>
       <nav class="footer-links" aria-label="Footer">
         <a href="${root}problems/">All problems</a>
