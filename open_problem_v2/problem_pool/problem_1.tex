@@ -61,7 +61,8 @@ Smolin, which together leave the general Pauli-channel capacity undetermined
   $0.805132\le f<0.81071$ the capacity is positive although the hashing
   expression in Eq.~\eqref{eq:p1-hashing-bound} is negative.  Table~1 of the
   paper lists the preceding best printed positivity point as $r=0.064657$,
-  obtained from a floating-point eigensolver; the new point is
+  obtained by Agarwal et al. through symmetry-reduced coherent-information
+  optimization \sourcecite{ref:p1-agarwal-et-al}{AKL+26}.  The new point is
   machine-checkable but is not claimed to be the exact capacity threshold
   \sourcecite{ref:p1-krohn-grimberghe}{KG26}.
 
@@ -75,6 +76,16 @@ Smolin, which together leave the general Pauli-channel capacity undetermined
   ordinary one-shot channel coherent information for every channel, ruling
   out that amortization as a route to a stronger capacity lower bound
   \sourcecite{ref:p1-zhu-mao-fang-wang}{ZMFW25}.
+
+  \item Kondra et al. obtained an efficiently computable, all-code
+  exponential strong-converse bound for every full-support qubit Pauli
+  channel.  For the depolarizing convention above, with total error
+  $\delta:=1-f$, their bound reduces to
+  $\mathcal Q(\Lambda_{\mathbf p})\le\max\{1-4\delta,0\}$; it is stricter
+  than the regularized channel Rains bound for $\delta\gtrsim0.15642$ and
+  vanishes at the antidegradability threshold $\delta=1/4$.  This sharpens
+  the high-noise converse but does not determine the capacity below that
+  threshold \sourcecite{ref:p1-kondra-et-al}{KBK+26}.
 \end{itemize}
 
 \subsection*{References}
@@ -116,6 +127,12 @@ Smolin, which together leave the general Pauli-channel capacity undetermined
   (1998). \href{https://doi.org/10.1103/PhysRevA.57.830}{doi:10.1103/PhysRevA.57.830};
   \href{https://arxiv.org/abs/quant-ph/9706061}{arXiv:quant-ph/9706061}.
 
+  \item[\textup{[AKL+26]}]\label{ref:p1-agarwal-et-al}
+  A. Agarwal, A. R. Kalra, S. Lee, D. Leung, L. Schaeffer, P. Sinha, and
+  G. Smith, ``Enhanced Quantum Capacity Thresholds from Symmetry,'' arXiv
+  preprint (2026).
+  \href{https://arxiv.org/abs/2605.09138}{arXiv:2605.09138}.
+
   \item[\textup{[KG26]}]\label{ref:p1-krohn-grimberghe}
   A. Krohn-Grimberghe,
   ``A Certified Lower Bound on the Quantum-Capacity Threshold of the
@@ -127,6 +144,12 @@ Smolin, which together leave the general Pauli-channel capacity undetermined
   ``Geometric Optimization for Quantum Communication,'' arXiv preprint
   (2025).
   \href{https://arxiv.org/abs/2509.15106v1}{arXiv:2509.15106}.
+
+  \item[\textup{[KBK+26]}]\label{ref:p1-kondra-et-al}
+  T. V. Kondra, R. Brinster, H. Kampermann, D. Bru{\ss}, and N. Wyderka,
+  ``Sharp Quantum Capacity Thresholds: Exponential Strong Converses for
+  Degradable and Antidegradable Channels,'' arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2608.01308}{arXiv:2608.01308}.
 \end{enumerate}
 
 \subsection*{Comment}

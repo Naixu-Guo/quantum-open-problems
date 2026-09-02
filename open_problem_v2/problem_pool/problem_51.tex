@@ -11,11 +11,17 @@ attenuator be
      U_\eta(\rho_A\otimes\tau_{\nu,E})U_\eta^\dagger
   \right],
   \qquad
-  \tau_\nu:=\sum_{k=0}^{\infty}
-     \frac{\nu^k}{(\nu+1)^{k+1}}|k\rangle\!\langle k|,
+  \tau_{\nu,E}:=\sum_{k=0}^{\infty}
+     \frac{\nu^k}{(\nu+1)^{k+1}}
+     |k\rangle_E\!\langle k|_E,
   \label{eq:p51-thermal-attenuator}
 \end{equation}
-where $U_\eta$ is a beam-splitter unitary.  For a finite mean input photon
+where $U_\eta:AE\to BE'$ is a beam-splitter unitary and
+$\tau_{\nu,E}$ acts on the environment mode $E$.  For an environment mode
+of angular frequency $\omega_E$ at temperature $T$,
+$\nu=(e^{\hbar\omega_E/(k_{\rm B}T)}-1)^{-1}$.  Thus $0<T<\infty$ is
+equivalent to $0<\nu<\infty$ for fixed $\omega_E>0$; $\nu=0$ corresponds
+to $T=0$, while $\nu\to\infty$ as $T\to\infty$.  For a finite mean input photon
 number $0<N_{\rm S}<\infty$, define the energy-constrained unassisted quantum
 capacity by
 \begin{equation}

@@ -45,7 +45,7 @@ only partial self-correction.
 
 \subsection*{Status}
 
-Unsolved
+Partially solved
 
 \subsection*{Source}
 
@@ -57,12 +57,10 @@ quantum memory in three spatial dimensions as an outstanding open problem
 
 \begin{itemize}
   \item Self-correcting quantum memories are known from four-dimensional
-  local models, but the existence of a three-dimensional example satisfying
-  Eq.~\eqref{eq:p9-self-correction-condition} remains open.  This status and
-  the standard thermal-memory framework are summarized by Brown
-  \emph{et al.} and by the Error Correction Zoo
-  \sourcecite{ref:p9-brown-review}{BLP+16},
-  \sourcecite{ref:p9-eczoo}{AF26}.
+  local models.  The absence of a three-dimensional construction, and the
+  standard thermal-memory framework against which candidates were assessed,
+  were summarized by Brown et al.
+  \sourcecite{ref:p9-brown-review}{BLP+16}.
 
   \item Haah's three-dimensional cubic code has no string-like logical
   operators and possesses a logarithmic energy barrier.  Under Davies
@@ -82,9 +80,24 @@ quantum memory in three spatial dimensions as an outstanding open problem
   \item Recent three-dimensional layer codes have polynomial energy barriers
   and provably exhibit partial self-correction.  For suitable families, their
   memory time grows exponentially with $L$ only up to a temperature-dependent
-  cutoff that is exponential in $\beta$; they still fall short of strict
-  self-correction in the fixed-temperature thermodynamic limit
-  \sourcecite{ref:p9-williamson}{Wil25}.
+  cutoff that is exponential in $\beta$
+  \sourcecite{ref:p9-williamson}{Wil25}.  Baspin then proved that these codes
+  have a constant free-energy barrier and at most polynomial thermalization
+  time under Davies dynamics, ruling them out as strict self-correcting
+  memories \sourcecite{ref:p9-baspin}{Bas25}.
+
+  \item A 2026 preprint by Balasubramanian, Davydova, and Lin constructs
+  bounded-density, geometrically local three-dimensional CSS stabilizer
+  Hamiltonians encoding one qubit, gives an explicit renormalization decoder,
+  and proves a low-temperature lifetime
+  $T_{\mathrm{mem}}\ge\exp(\Theta(n^\eta))$ for some $\eta>0$ under local
+  Gibbs-stationary Lindbladian dynamics.  Its theorem uses the mixed thermal
+  encoding $\rho_L\otimes\rho_{\beta,\mathrm{syndrome}}$, however, rather than
+  the isometric ground-space encoding $\mathcal V_L$ imposed in this problem.
+  It therefore establishes self-correction in the paper's thermal-encoding
+  model but does not directly prove
+  Eq.~\eqref{eq:p9-self-correction-condition} as formulated here
+  \sourcecite{ref:p9-balasubramanian-davydova-lin}{BDL26}.
 \end{itemize}
 
 \subsection*{References}
@@ -99,12 +112,6 @@ quantum memory in three spatial dimensions as an outstanding open problem
        {doi:10.1103/RevModPhys.88.045005};
   \href{https://arxiv.org/abs/1411.6643}{arXiv:1411.6643}.
 
-  \item[\textup{[AF26]}]\label{ref:p9-eczoo}
-  V. V. Albert and P. Faist (eds.),
-  ``Self-Correcting Quantum Code,'' \emph{The Error Correction Zoo} (2026).
-  \href{https://errorcorrectionzoo.org/c/self_correct}%
-       {errorcorrectionzoo.org/c/self\_correct}.
-
   \item[\textup{[BH13]}]\label{ref:p9-bravyi-haah}
   S. Bravyi and J. Haah,
   ``Quantum Self-Correction in the 3D Cubic Code Model,''
@@ -117,16 +124,29 @@ quantum memory in three spatial dimensions as an outstanding open problem
   D. J. Williamson,
   ``Partial Self-Correction in Layer Codes,'' arXiv:2510.09218 (2025).
   \href{https://arxiv.org/abs/2510.09218}{arXiv:2510.09218}.
+
+  \item[\textup{[Bas25]}]\label{ref:p9-baspin}
+  N. Baspin, ``The Free Energy Barrier: An Eyring--Polanyi Bound for
+  Stabilizer Hamiltonians, with Applications to Quantum Error Correction,''
+  arXiv preprint (2025).
+  \href{https://arxiv.org/abs/2509.17356}{arXiv:2509.17356}.
+
+  \item[\textup{[BDL26]}]\label{ref:p9-balasubramanian-davydova-lin}
+  S. Balasubramanian, M. Davydova, and T.-C. Lin,
+  ``A Passive Self-Correcting Quantum Memory in Three Dimensions,'' arXiv
+  preprint (2026).
+  \href{https://arxiv.org/abs/2605.10943}{arXiv:2605.10943}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-The central gap is between a lifetime that grows with $L$ only below a
-temperature-dependent size cutoff and the uniform thermodynamic-limit
-divergence required by Eq.~\eqref{eq:p9-self-correction-condition}.  A complete
-solution must either construct a genuinely three-dimensional local model with
-the latter behavior or prove an appropriately general three-dimensional
-no-go theorem.
+The 2026 construction resolves the long-standing question under a thermal
+syndrome encoding and provides substantially stronger progress than earlier
+finite-size candidates.  Under the deliberately stricter formulation in this
+section, the remaining issue is to establish the same thermodynamic lifetime
+starting from the isometric ground-space encoding $\mathcal V_L$ in
+Eq.~\eqref{eq:p9-memory-time}, or to prove that the two initialization models
+are equivalent for this construction.
 
 \subsection*{Tag}
 

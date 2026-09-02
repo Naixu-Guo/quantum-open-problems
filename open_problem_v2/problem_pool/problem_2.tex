@@ -26,7 +26,7 @@ the excited state.
 
 \subsection*{Status}
 
-Unsolved
+Solved
 
 \subsection*{Source}
 
@@ -70,6 +70,15 @@ attains only the symmetric coherent-information rate for this channel
   Wilde and Renes subsequently gave a polar construction for arbitrary
   qubit-input channels that achieves the same rate using coherent
   successive-cancellation decoding \sourcecite{ref:p2-wilde-renes}{WR12}.
+
+  \item Renes closed the remaining asymmetric-input and explicit-decoder
+  gaps.  The construction uses asymmetric classical polar coding for the
+  amplitude $Z$-channel with the capacity-achieving biased input, together
+  with a coherent quantum-message-passing decoder for the phase channel.
+  It achieves the optimized rate in Eq.~\eqref{eq:p2-capacity} without
+  preshared entanglement and gives an explicit decoding circuit with
+  $O(N^2)$ gates for block length $N$
+  \sourcecite{ref:p2-renes-belief-propagation}{Ren17}.
 \end{itemize}
 
 \subsection*{References}
@@ -94,15 +103,23 @@ attains only the symmetric coherent-information rate for this channel
   Proceedings}, 334--338 (2012).
   \href{https://doi.org/10.1109/ISIT.2012.6284203}{doi:10.1109/ISIT.2012.6284203};
   \href{https://arxiv.org/abs/1201.2906}{arXiv:1201.2906}.
+
+  \item[\textup{[Ren17]}]\label{ref:p2-renes-belief-propagation}
+  J. M. Renes, ``Belief Propagation Decoding of Quantum Channels by Passing
+  Quantum Messages,'' \emph{New Journal of Physics} \textbf{19}, 072001
+  (2017). \href{https://doi.org/10.1088/1367-2630/aa7c78}%
+       {doi:10.1088/1367-2630/aa7c78};
+  \href{https://arxiv.org/abs/1607.04833}{arXiv:1607.04833}.
 \end{enumerate}
 
 \subsection*{Comment}
 
 Because the amplitude-damping channel is nonunital, the maximizing population
-$q$ in Eq.~\eqref{eq:p2-capacity} is generally not $1/2$.  A code achieving
-only Eq.~\eqref{eq:p2-symmetric-rate} therefore does not by itself achieve the
-full capacity.  The unresolved constructive task is an explicit, efficient
-capacity-achieving scheme incorporating the required asymmetric input shaping.
+$q$ in Eq.~\eqref{eq:p2-capacity} is generally not $1/2$.  Renes' asymmetric
+polar construction incorporates this input shaping and supplies an explicit
+capacity-achieving decoder, thereby solving the problem in the asymptotic
+coding sense.  Reducing the decoder complexity below $O(N^2)$ remains a
+separate algorithmic question.
 
 \subsection*{Tag}
 
