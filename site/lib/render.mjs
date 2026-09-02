@@ -42,8 +42,8 @@ const THEME_BOOT = `<script>
     </script>`;
 
 export const logo = (extraClass = "") => `<span class="logo ${extraClass}" aria-hidden="true">
-        <span class="logo-line">QIQC<span class="logo-o">O</span><span class="logo-p">P</span></span>
-        <span class="logo-line logo-line-2"><span class="logo-ghost">QIQC</span><span class="logo-oo"><span class="logo-z">Z</span>OO</span></span>
+        <span class="logo-line">QIQC<span class="logo-bar"></span><span class="logo-o">O</span><span class="logo-p">P</span><svg class="logo-ket" viewBox="0 0 10 24"><path d="M1.6 1.2 L8.4 12 L1.6 22.8"/></svg></span>
+        <span class="logo-line logo-line-2"><span class="logo-ghost">QIQC<span class="logo-bar"></span></span><span class="logo-oo"><span class="logo-z">Z</span>OO</span></span>
       </span>`;
 
 export const statusTag = (status, extraClass = "") => {
