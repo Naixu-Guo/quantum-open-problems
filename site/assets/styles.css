@@ -163,12 +163,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--mint); }
 .header-tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-left: auto; }
 .search-form input {
-  width: 150px; height: 36px; padding: 0 14px; border-radius: 999px;
+  width: 170px; height: 36px; padding: 0 14px; border-radius: 999px;
   border: 1px solid rgba(247, 242, 232, 0.24); background: rgba(255, 255, 255, 0.06);
-  color: var(--on-navy); font-size: 13px; transition: width 160ms ease;
+  color: var(--on-navy); font-size: 13px;
 }
 .search-form input::placeholder { color: rgba(247, 242, 232, 0.55); }
-.search-form input:focus { width: 210px; border-color: var(--mint); outline: none; }
+.search-form input:focus { border-color: var(--mint); outline: none; box-shadow: 0 0 0 3px rgba(131, 230, 208, 0.18); }
 
 .random-control {
   display: inline-flex; align-items: center; gap: 4px; height: 36px; padding: 0 4px 0 12px;
