@@ -1,7 +1,7 @@
 /* QIQCOP Zoo — stylesheet
    Palette continues the previous site: warm paper, deep navy, mint, coral,
-   amber. Status colours: unsolved = red, partially solved = amber,
-   solved = cyan. Logo letters: light grey, O light cyan, P light red. */
+   amber. Status colours: unsolved = red, solved = cyan; amber highlights a
+   targeted reference. Logo letters: light grey, O light cyan, P light red. */
 
 :root {
   color-scheme: light;
@@ -27,9 +27,8 @@
   --unsolved-bg: #ffe2dc;
   --unsolved-fg: #a8261a;
   --unsolved-line: #f0a496;
-  --partial-bg: #fdefd0;
-  --partial-fg: #7d5200;
-  --partial-line: #ecc77a;
+  --highlight-bg: #fdefd0;
+  --highlight-line: #ecc77a;
   --solved-bg: #d9f2f5;
   --solved-fg: #0f5f6b;
   --solved-line: #8fd6e0;
@@ -67,9 +66,8 @@
   --unsolved-bg: rgba(255, 122, 102, 0.16);
   --unsolved-fg: #ffa294;
   --unsolved-line: rgba(255, 122, 102, 0.45);
-  --partial-bg: rgba(238, 184, 91, 0.16);
-  --partial-fg: #f3cd84;
-  --partial-line: rgba(238, 184, 91, 0.45);
+  --highlight-bg: rgba(238, 184, 91, 0.16);
+  --highlight-line: rgba(238, 184, 91, 0.45);
   --solved-bg: rgba(157, 227, 236, 0.16);
   --solved-fg: #a9e8f0;
   --solved-line: rgba(157, 227, 236, 0.45);
@@ -225,7 +223,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 }
 .status-tag::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
 .status-tag.status-unsolved { background: var(--unsolved-bg); color: var(--unsolved-fg); border-color: var(--unsolved-line); }
-.status-tag.status-partial { background: var(--partial-bg); color: var(--partial-fg); border-color: var(--partial-line); }
 .status-tag.status-solved { background: var(--solved-bg); color: var(--solved-fg); border-color: var(--solved-line); }
 .status-tag-small { padding: 3px 9px; font-size: 11px; }
 
@@ -264,12 +261,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .metric strong { display: block; font-family: var(--serif); font-size: 2rem; font-weight: 600; line-height: 1; }
 .metric span { display: block; margin-top: 6px; color: var(--ink-soft); font-size: 12.5px; letter-spacing: 0.02em; }
 .metric-unsolved strong { color: var(--unsolved-fg); }
-.metric-partial strong { color: var(--partial-fg); }
 .metric-solved strong { color: var(--solved-fg); }
 .status-bar { display: flex; height: 12px; margin: 20px 0 6px; border-radius: 999px; overflow: hidden; background: var(--paper-deep); }
 .status-bar span { display: block; height: 100%; }
 .bar-unsolved { background: var(--unsolved-line); }
-.bar-partial { background: var(--partial-line); }
 .bar-solved { background: var(--solved-line); }
 .top-tags { margin-top: 20px; }
 .top-tags-label { display: block; margin-bottom: 10px; color: var(--ink-faint); font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; }
@@ -286,7 +281,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
 .problem-card { display: grid; gap: 12px; padding-left: 16px; border-left: 3px solid var(--line); }
 .problem-card.status-unsolved { border-left-color: var(--unsolved-line); }
-.problem-card.status-partial { border-left-color: var(--partial-line); }
 .problem-card.status-solved { border-left-color: var(--solved-line); }
 .card-head { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
 .card-id { color: var(--ink-faint); font-family: var(--mono); font-size: 12px; }
@@ -329,7 +323,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .problem-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
 .problem-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px 24px; padding: 18px 4px 18px 14px; border-bottom: 1px solid var(--line); border-left: 3px solid transparent; }
 .problem-row.status-unsolved { border-left-color: var(--unsolved-line); }
-.problem-row.status-partial { border-left-color: var(--partial-line); }
 .problem-row.status-solved { border-left-color: var(--solved-line); }
 .problem-row[hidden] { display: none; }
 .row-title { display: inline-block; margin-bottom: 6px; color: inherit; font-family: var(--serif); font-size: 1.2rem; font-weight: 600; text-decoration: none; }
@@ -391,7 +384,7 @@ mjx-container { max-width: 100%; }
 .references dt a { color: var(--cite); text-decoration: none; }
 .references dt a:hover { text-decoration: underline; }
 .references dd { margin: 0; color: var(--ink); min-width: 0; overflow-wrap: anywhere; }
-.reference:target dt, .reference:target dd { background: var(--partial-bg); }
+.reference:target dt, .reference:target dd { background: var(--highlight-bg); }
 .reference-links { display: inline-flex; gap: 6px; margin-left: 8px; vertical-align: middle; }
 .ref-link { padding: 2px 9px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--link) 45%, transparent); background: color-mix(in srgb, var(--link) 7%, transparent); font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-decoration: none; color: var(--link); }
 .ref-link:hover { border-color: var(--mint-deep); color: var(--mint-deep); background: color-mix(in srgb, var(--mint-deep) 10%, transparent); }

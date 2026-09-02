@@ -8,6 +8,9 @@ This directory is the only content source of the QIQCOP Zoo website.
   names, spelled exactly.
 - `_template.tex`: the required structure of a record.
 
+Every record's `Status` subsection is exactly `Unsolved` or `Solved`; the zoo
+has no third status, and `node site/build.mjs` fails on any other value.
+
 The records were imported from the numbered TeX pool of the collection
 *A list of open problems in quantum information and quantum computation*
 with `node scripts/import-problems.mjs`, which copies each file verbatim under

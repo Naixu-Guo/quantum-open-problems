@@ -142,7 +142,6 @@
   const slugify = (value) => String(value).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
   const statusMeta = {
     unsolved: { label: "Unsolved", title: "No complete solution is known." },
-    partial: { label: "Partially solved", title: "A substantial subcase is settled; the general statement remains open." },
     solved: { label: "Solved", title: "A complete solution is known; see Progress and Comment." }
   };
   const cardHtml = (problem) => {
@@ -230,7 +229,7 @@
       button.setAttribute("aria-pressed", String(active));
     });
 
-    const statusOrder = { unsolved: 0, partial: 1, solved: 2 };
+    const statusOrder = { unsolved: 0, solved: 1 };
     const apply = () => {
       const terms = state.q.split(/\s+/).filter(Boolean);
       let visible = 0;

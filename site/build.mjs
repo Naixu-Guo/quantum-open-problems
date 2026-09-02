@@ -101,7 +101,7 @@ records.sort((a, b) => a.title.text.localeCompare(b.title.text, "en"));
 // Derived data
 // ---------------------------------------------------------------------------
 
-const stats = { total: records.length, unsolved: 0, partial: 0, solved: 0, references: 0, equations: 0 };
+const stats = { total: records.length, unsolved: 0, solved: 0, references: 0, equations: 0 };
 const tagCounts = new Map();
 for (const record of records) {
   stats[record.statusSlug] += 1;
@@ -201,7 +201,7 @@ const apiIndex = {
   repositoryUrl: config.repositoryUrl,
   generated: today,
   updated: dates.updated,
-  counts: { total: stats.total, unsolved: stats.unsolved, partiallySolved: stats.partial, solved: stats.solved, tags: tagCounts.size, references: stats.references, equations: stats.equations },
+  counts: { total: stats.total, unsolved: stats.unsolved, solved: stats.solved, tags: tagCounts.size, references: stats.references, equations: stats.equations },
   problems: records.map((record) => ({
     id: record.id,
     title: record.title.text,
@@ -260,7 +260,7 @@ write("llms.txt", `# ${config.fullName} (${config.shortName})
 
 > ${config.tagline}
 
-The zoo holds ${stats.total} problems (${stats.unsolved} unsolved, ${stats.partial} partially solved, ${stats.solved} solved). Each record has a self-contained statement with TeX mathematics, a source attribution, scoped progress items, a comment on the remaining gap, and full references with alpha-style labels.
+The zoo holds ${stats.total} problems (${stats.unsolved} unsolved, ${stats.solved} solved). Each record has a self-contained statement with TeX mathematics, a source attribution, scoped progress items, a comment on the remaining gap, and full references with alpha-style labels.
 
 ## Machine-readable access
 
@@ -275,6 +275,6 @@ Records live in ${config.repositoryUrl}/tree/${config.branch}/${config.databaseP
 `);
 
 console.log(`Built ${records.length} problems, ${tagCounts.size} tags into ${path.relative(repoRoot, outDir) || "."}`);
-console.log(`Status: ${stats.unsolved} unsolved, ${stats.partial} partially solved, ${stats.solved} solved; ${stats.references} references; ${stats.equations} equations.`);
+console.log(`Status: ${stats.unsolved} unsolved, ${stats.solved} solved; ${stats.references} references; ${stats.equations} equations.`);
 const untracked = records.filter((record) => !record.dates.tracked).length;
 if (untracked) console.log(`Note: ${untracked} record(s) have no git history yet; today's date is used for them.`);

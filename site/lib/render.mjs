@@ -56,8 +56,7 @@ export const statusTag = (status, extraClass = "") => {
   const meta = STATUSES[status];
   const titles = {
     unsolved: "No complete solution is known.",
-    solved: "A complete solution is known; see Progress and Comment.",
-    partial: "A substantial subcase is settled; the general statement remains open."
+    solved: "A complete solution is known; see Progress and Comment."
   };
   return `<span class="status-tag status-${meta.slug} ${extraClass}" title="${titles[meta.slug]}">${meta.label}</span>`;
 };
@@ -373,7 +372,7 @@ export function renderHome({ config, root, records, stats, tagCounts, initial, d
   const metric = (value, label, cls = "") => `<div class="metric ${cls}"><strong>${value}</strong><span>${label}</span></div>`;
   const topTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 12);
   const total = stats.total || 1;
-  const bar = ["unsolved", "partial", "solved"].map((key) => `<span class="bar-${key}" style="width:${(100 * stats[key] / total).toFixed(1)}%" title="${STATUSES[key === "unsolved" ? "Unsolved" : key === "solved" ? "Solved" : "Partially solved"].label}: ${stats[key]}"></span>`).join("");
+  const bar = ["unsolved", "solved"].map((key) => `<span class="bar-${key}" style="width:${(100 * stats[key] / total).toFixed(1)}%" title="${STATUSES[key === "unsolved" ? "Unsolved" : "Solved"].label}: ${stats[key]}"></span>`).join("");
   const body = `
     <section class="panels" aria-label="Database overview">
       <div class="panel panel-stats">
@@ -384,11 +383,10 @@ export function renderHome({ config, root, records, stats, tagCounts, initial, d
         <div class="metric-grid">
           ${metric(stats.total, "Problems")}
           ${metric(stats.unsolved, "Unsolved", "metric-unsolved")}
-          ${metric(stats.partial, "Partially solved", "metric-partial")}
           ${metric(stats.solved, "Solved", "metric-solved")}
           ${metric(tagCounts.size, "Categories (tags)")}
         </div>
-        <div class="status-bar" role="img" aria-label="${stats.unsolved} unsolved, ${stats.partial} partially solved, ${stats.solved} solved">${bar}</div>
+        <div class="status-bar" role="img" aria-label="${stats.unsolved} unsolved, ${stats.solved} solved">${bar}</div>
         <div class="top-tags">
           <span class="top-tags-label">Most frequent categories</span>
           <ul class="tag-list">${topTags.map(([tag, count]) => `<li>${tagLink(tag, root).replace("</a>", ` <span class="tag-count">${count}</span></a>`)}</li>`).join("")}<li><a class="tag tag-more" href="${root}tags/">All ${tagCounts.size} tags →</a></li></ul>
@@ -449,7 +447,6 @@ export function renderDirectory({ config, root, records, tagCounts }) {
           <div class="segmented-control">
             <button type="button" class="is-active" data-status="all" aria-pressed="true">All <span>${records.length}</span></button>
             <button type="button" data-status="unsolved" aria-pressed="false">Unsolved <span>${records.filter((r) => r.statusSlug === "unsolved").length}</span></button>
-            <button type="button" data-status="partial" aria-pressed="false">Partial <span>${records.filter((r) => r.statusSlug === "partial").length}</span></button>
             <button type="button" data-status="solved" aria-pressed="false">Solved <span>${records.filter((r) => r.statusSlug === "solved").length}</span></button>
           </div>
         </fieldset>
@@ -512,14 +509,14 @@ export function renderTagsIndex({ config, root, tagCounts, canonicalTags }) {
 }
 
 export function renderTagPage({ config, root, tag, records }) {
-  const counts = { unsolved: 0, partial: 0, solved: 0 };
+  const counts = { unsolved: 0, solved: 0 };
   for (const record of records) counts[record.statusSlug] += 1;
   const body = `
     <section class="section-shell">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><a href="${root}tags/">Tags</a><span aria-hidden="true">›</span><span>${escape(tag)}</span></nav>
       <div class="section-heading">
         <div><p class="section-index">Tag</p><h1>${escape(tag)}</h1></div>
-        <p>${records.length} problem${records.length === 1 ? "" : "s"}: ${counts.unsolved} unsolved, ${counts.partial} partially solved, ${counts.solved} solved.</p>
+        <p>${records.length} problem${records.length === 1 ? "" : "s"}: ${counts.unsolved} unsolved, ${counts.solved} solved.</p>
       </div>
       <ul class="problem-list">
         ${byRecentEdit(records).map((record) => problemRow(record, root)).join("\n        ")}
@@ -549,12 +546,11 @@ export function renderAbout({ config, root, stats, dates }) {
       <div class="prose">
         <h2 id="what">What the zoo is</h2>
         <p>The ${escape(config.shortName)} collects research-level open problems in quantum information and quantum computation. Each record is written for readers with a PhD in the field: a self-contained statement with the definitions it needs, the paper that posed the problem, the results that delimit it, the precise remaining gap, and full references with author–year labels.</p>
-        <p>The zoo currently holds ${stats.total} problems: ${stats.unsolved} unsolved, ${stats.partial} partially solved, and ${stats.solved} solved. Solved problems stay in the zoo with their resolution so that citations survive.</p>
+        <p>The zoo currently holds ${stats.total} problems: ${stats.unsolved} unsolved and ${stats.solved} solved. Solved problems stay in the zoo with their resolution so that citations survive.</p>
 
         <h2 id="status">How statuses are assigned</h2>
         <ul>
-          <li><strong>Unsolved</strong>: no complete answer to the exact archived question is known.</li>
-          <li><strong>Partially solved</strong>: a substantial subcase, subclass, or direction is settled; the general statement remains open. The label carries no completion percentage.</li>
+          <li><strong>Unsolved</strong>: no complete answer to the exact archived question is known, even when substantial subcases are settled; the Progress and Comment sections say what is known and what remains.</li>
           <li><strong>Solved</strong>: a complete proof or counterexample exists for the archived statement. The Comment section says whether the resolving result is peer-reviewed.</li>
         </ul>
         <p>Progress on a nearby variant does not change a status. A status records the state of the literature at the last edit date shown on the page, so verify it against the cited sources before relying on it.</p>

@@ -35,6 +35,18 @@ dist/                Generated site. Ignored by git; rebuilt by the build.
 
 Two documents accompany the code: this file for building and deploying, and
 [CONTRIBUTING.md](CONTRIBUTING.md) for writing problem records.
+[CLAUDE.md](CLAUDE.md) lists the conventions that every change must respect.
+
+## Conventions that must not change
+
+- **Exactly two statuses.** A problem is `Unsolved` or `Solved`. There is no
+  partial, conditional, or intermediate status; when subcases are settled but
+  the archived statement is not, the problem stays `Unsolved` and the Progress
+  and Comment sections say what is known and what remains. The build rejects
+  any other value.
+- **Stable IDs.** The `op_` identifier of a record is never changed or reused.
+- **Canonical tags.** Records use only names from `database/tags.json`.
+- **Generated output is never edited.** `dist/` is rebuilt from `database/`.
 
 ## Build and preview
 

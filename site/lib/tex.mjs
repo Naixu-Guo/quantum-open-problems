@@ -22,8 +22,7 @@ const SECTION_MARKERS = [
 
 export const STATUSES = {
   "Unsolved": { slug: "unsolved", label: "Unsolved", short: "Open" },
-  "Solved": { slug: "solved", label: "Solved", short: "Solved" },
-  "Partially solved": { slug: "partial", label: "Partially solved", short: "Partial" }
+  "Solved": { slug: "solved", label: "Solved", short: "Solved" }
 };
 
 const DISPLAY_ENVIRONMENTS = [
@@ -638,7 +637,7 @@ export function parseProblem(sourceTex, { canonicalTags = null, fileName = "" } 
     if (!titleMatch) fail("missing \\section title");
     const sections = extractSections(tex);
     const status = stripComments(sections.status).trim();
-    if (!(status in STATUSES)) fail(`invalid status "${status}"`);
+    if (!(status in STATUSES)) fail(`invalid status "${status}"; the zoo has exactly two statuses, Unsolved and Solved`);
     const idMatch = stripComments(sections.id).trim().match(/^\\texttt\{(op\\_[A-Za-z0-9]{16})\}$/);
     if (!idMatch) fail("invalid or missing problem ID");
     const id = idMatch[1].replace("\\_", "_");

@@ -10,7 +10,7 @@ Copy `database/_template.tex` and keep its section order:
 
 1. `\section{Title}` — only the descriptive title.
 2. `\paragraph{Problem.}` — the self-contained statement.
-3. `\subsection*{Status}` — exactly `Unsolved`, `Partially solved`, or `Solved`.
+3. `\subsection*{Status}` — exactly `Unsolved` or `Solved`.
 4. `\subsection*{Source}` — the paper that posed the problem, or the papers in
    which it is implicit, cited with `\sourcecite{ref:...}{KEY}`. Write
    `Contributor: Full Name.` when no literature source exists, or `unknown`.
@@ -43,8 +43,13 @@ Copy `database/_template.tex` and keep its section order:
 
 ## Status semantics
 
-- **Unsolved**: no complete answer to the archived question.
-- **Partially solved**: a substantial subcase or direction is settled.
+The zoo has exactly two statuses. Do not introduce a third one (no "partially
+solved", "conditionally solved", or similar): the build rejects it, and the
+site's filters, statistics, and colours are designed for two.
+
+- **Unsolved**: no complete answer to the archived question, even when
+  substantial subcases are settled; say in Progress and Comment what is known
+  and what remains.
 - **Solved**: a complete proof or counterexample for the archived statement.
   Say in Comment whether the resolving result is peer-reviewed.
 
