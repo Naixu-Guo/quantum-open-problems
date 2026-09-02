@@ -399,19 +399,6 @@ export function renderHome({ config, root, records, stats, tagCounts, initial, d
   const total = stats.total || 1;
   const bar = ["unsolved", "partial", "solved"].map((key) => `<span class="bar-${key}" style="width:${(100 * stats[key] / total).toFixed(1)}%" title="${STATUSES[key === "unsolved" ? "Unsolved" : key === "solved" ? "Solved" : "Partially solved"].label}: ${stats[key]}"></span>`).join("");
   const body = `
-    <section class="hero">
-      <div class="hero-grid" aria-hidden="true"></div>
-      <div class="hero-copy">
-        ${logo("logo-hero")}
-        <h1>${escape(config.fullName)}</h1>
-        <p class="hero-lede">${escape(config.tagline)} Every entry is a self-contained statement with typeset mathematics, a source attribution, dated progress, and full references.</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="${root}problems/">Browse the problems</a>
-          <a class="button button-ghost" href="${root}about/#contribute">Contribute a problem</a>
-        </div>
-      </div>
-    </section>
-
     <section class="panels" aria-label="Database overview">
       <div class="panel panel-stats">
         <div class="panel-head">

@@ -136,7 +136,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .logo-cell { display: grid; place-items: center; }
 .logo-o { color: var(--logo-green); }
 .logo-p { color: var(--logo-red); }
-.logo-hero { --logo-size: clamp(56px, 8vw, 92px); margin-bottom: 26px; }
 .logo-small { --logo-size: 15px; }
 
 /* ---------------------------------------------------------------------- */
@@ -242,33 +241,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .tag-list-large .tag { font-size: 14px; padding: 6px 14px; }
 
 /* ---------------------------------------------------------------------- */
-/* Home: hero and panels                                                    */
+/* Home: panels                                                             */
 /* ---------------------------------------------------------------------- */
-
-.hero {
-  position: relative; overflow: hidden;
-  padding: 72px max(24px, calc((100vw - 1200px) / 2)) 64px;
-  background: var(--navy); color: var(--on-navy);
-}
-.hero-grid {
-  position: absolute; inset: 0; opacity: 0.14; pointer-events: none;
-  background-image: linear-gradient(rgba(131, 230, 208, 0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(131, 230, 208, 0.25) 1px, transparent 1px);
-  background-size: 52px 52px;
-  mask-image: linear-gradient(90deg, black, transparent 80%);
-}
-.hero::after {
-  content: ""; position: absolute; right: -180px; top: -140px; width: 620px; height: 620px;
-  border-radius: 50%; background: radial-gradient(circle, rgba(131, 230, 208, 0.16), transparent 66%); pointer-events: none;
-}
-.hero-copy { position: relative; max-width: 780px; }
-.hero h1 { font-size: clamp(1.9rem, 3.8vw, 3rem); max-width: 16em; }
-.hero-lede { max-width: 640px; margin: 18px 0 26px; color: rgba(247, 242, 232, 0.78); font-size: 17px; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
-.hero .button-ghost { color: var(--on-navy); border-color: rgba(247, 242, 232, 0.4); }
 
 .panels {
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px;
-  width: var(--shell); margin: -34px auto 0; position: relative; z-index: 2;
+  width: var(--shell); margin: 40px auto 0; position: relative; z-index: 2;
 }
 .panel {
   padding: 26px 28px 28px; border-radius: var(--radius-lg);
@@ -519,7 +497,6 @@ mjx-container { max-width: 100%; }
   .brand-copy span { display: none; }
   .site-nav { gap: 14px; }
   .pill { padding: 7px 10px; font-size: 12px; }
-  .hero { padding: 48px 16px 56px; }
   .panel { padding: 20px 18px; }
   .problem-row { grid-template-columns: minmax(0, 1fr); }
   .row-side { flex-direction: row; align-items: center; justify-content: space-between; }
