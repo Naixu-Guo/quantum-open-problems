@@ -379,8 +379,6 @@ export function renderHome({ config, root, records, stats, tagCounts, initial, d
           ${metric(stats.partial, "Partially solved", "metric-partial")}
           ${metric(stats.solved, "Solved", "metric-solved")}
           ${metric(tagCounts.size, "Categories (tags)")}
-          ${metric(stats.references, "References")}
-          ${metric(stats.equations, "Numbered equations")}
         </div>
         <div class="status-bar" role="img" aria-label="${stats.unsolved} unsolved, ${stats.partial} partially solved, ${stats.solved} solved">${bar}</div>
         <div class="top-tags">
