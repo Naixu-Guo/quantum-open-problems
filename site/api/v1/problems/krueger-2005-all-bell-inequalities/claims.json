@@ -1,0 +1,84 @@
+{
+  "kind": "qop-claims",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-all-bell-inequalities",
+  "status": "open",
+  "statementId": "krueger-2005-all-bell-inequalities-statement-v1",
+  "count": 2,
+  "note": "Every claim here has been accepted through editorial review. Unreviewed submissions are candidate updates in the operational service, never claims.",
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-all-bell-inequalities-2026-polyhedral-sampling-scales-by",
+      "statementId": "krueger-2005-all-bell-inequalities-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "rules-out",
+      "title": "Polyhedral sampling scales by giving up completeness",
+      "text": "Staufenbiel's sampling method finds millions of classes in large scenarios but explicitly does not enumerate every facet.",
+      "superseded": false,
+      "evidence": [
+        {
+          "kind": "Evidence",
+          "id": "evidence-krueger-2005-all-bell-inequalities-2026-polyhedral-sampling-scales-by",
+          "claimId": "claim-krueger-2005-all-bell-inequalities-2026-polyhedral-sampling-scales-by",
+          "sourceId": "source-staufenbiel-2026-bell-inequalities-from",
+          "sourceLocator": null,
+          "date": "2026-04-22",
+          "maturity": "Preprint",
+          "strength": "Incomplete computational method",
+          "label": "Sampling method",
+          "source": {
+            "id": "source-staufenbiel-2026-bell-inequalities-from",
+            "title": "Bell Inequalities from Polyhedral Sampling",
+            "authors": [
+              "C. Staufenbiel"
+            ],
+            "venue": "arXiv:2604.22859 (2026 preprint).",
+            "url": "https://arxiv.org/abs/2604.22859"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-all-bell-inequalities-2001-a-full-correlation-subclass",
+      "statementId": "krueger-2005-all-bell-inequalities-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "A full-correlation subclass is completely classified",
+      "text": "Werner and Wolf enumerate all full-correlation facets for arbitrary parties with two dichotomic observables per site, not the full probability polytope for arbitrary scenarios.",
+      "superseded": false,
+      "evidence": [
+        {
+          "kind": "Evidence",
+          "id": "evidence-krueger-2005-all-bell-inequalities-2001-a-full-correlation-subclass",
+          "claimId": "claim-krueger-2005-all-bell-inequalities-2001-a-full-correlation-subclass",
+          "sourceId": "source-werner-2001-all-multipartite-bell",
+          "sourceLocator": null,
+          "date": "2001-02-05",
+          "maturity": "Peer reviewed",
+          "strength": "Exact restricted theorem",
+          "label": "Restricted classification",
+          "source": {
+            "id": "source-werner-2001-all-multipartite-bell",
+            "title": "All multipartite Bell correlation inequalities for two dichotomic observables per site",
+            "authors": [
+              "R. F. Werner",
+              "M. M. Wolf"
+            ],
+            "venue": "arXiv:quant-ph/0102024 (2001).",
+            "url": "https://arxiv.org/abs/quant-ph/0102024"
+          }
+        }
+      ]
+    }
+  ],
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-all-bell-inequalities.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-all-bell-inequalities/frontier.json"
+  }
+}

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Solved record. Resolved (negatively) in 2009. M. B. Hastings, &quot;Superadditivity of communication capacity using entangled inputs&quot;, Nature Physics 5 (2009), 255-257 (arXiv:0809.3972), disproved the conjecture by constructing pairs of random unitary…">
+    <meta name="description" content="Solved record. The source asked to prove additivity of the minimal output entropy for every pair of quantum channels or to find a counterexample. Hastings constructed random unitary channel pairs with a strict additivity gap, refuting the conjecture in 2009.">
     <meta name="theme-color" content="#0d1b2a">
     <title>Additivity of minimal output (von Neumann) entropy of quantum channels · Quantum Open Problems</title>
     <link rel="canonical" href="https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-additivity-minimal-output-entropy/">
@@ -13,7 +13,7 @@
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Quantum Open Problems">
     <meta property="og:title" content="Additivity of minimal output (von Neumann) entropy of quantum channels">
-    <meta property="og:description" content="Solved record. Resolved (negatively) in 2009. M. B. Hastings, &quot;Superadditivity of communication capacity using entangled inputs&quot;, Nature Physics 5 (2009), 255-257 (arXiv:0809.3972), disproved the conjecture by constructing pairs of random unitary…">
+    <meta property="og:description" content="Solved record. The source asked to prove additivity of the minimal output entropy for every pair of quantum channels or to find a counterexample. Hastings constructed random unitary channel pairs with a strict additivity gap, refuting the conjecture in 2009.">
     <meta property="og:url" content="https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-additivity-minimal-output-entropy/">
     <meta name="twitter:card" content="summary">
     <script>
@@ -22,6 +22,8 @@
         if (theme === "dark") document.documentElement.dataset.theme = "dark";
       } catch {}
     </script>
+    <link rel="alternate" href="../../api/v1/problems/ruskai-2007-additivity-minimal-output-entropy.json" type="application/json" title="Problem record (JSON)">
+    <link rel="alternate" href="../../packets/ruskai-2007-additivity-minimal-output-entropy.md" type="text/markdown" title="AI research brief (Markdown)">
     <script>window.MathJax = { svg: { fontCache: "global" } };</script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-svg.js" integrity="sha384-my9P1jDckpHD+5LZsLQ0gaiCl/RMO32HaqwBtbo/25QIMVr6xXIUCg1jvdSRcvb4" crossorigin="anonymous" defer></script>
     <script type="application/ld+json">{
@@ -83,18 +85,26 @@
         "value": "ruskai-2007-additivity-minimal-output-entropy"
       },
       "name": "Additivity of minimal output (von Neumann) entropy of quantum channels",
-      "abstract": "Solved record. Resolved (negatively) in 2009. M. B. Hastings, \"Superadditivity of communication capacity using entangled inputs\", Nature Physics 5 (2009), 255-257 (arXiv:0809.3972), disproved the conjecture by constructing pairs of random unitary…",
+      "abstract": "Solved record. The source asked to prove additivity of the minimal output entropy for every pair of quantum channels or to find a counterexample. Hastings constructed random unitary channel pairs with a strict additivity gap, refuting the conjecture in 2009.",
       "text": "**Problem 22 (Ruskai 2007).** Prove the additivity of minimal output entropy,\n$$S_{\\min}(\\Phi\\otimes\\Omega) \\;=\\; S_{\\min}(\\Phi)+S_{\\min}(\\Omega) \\tag{23}$$\nfor every pair of quantum channels $\\Phi,\\Omega$, or else find a counter-example.",
       "inLanguage": "en",
       "qop:problemStatus": "solved",
       "qop:verified": "2026-08-12",
-      "keywords": [],
+      "keywords": [
+        "minimal output entropy",
+        "additivity conjecture",
+        "random unitary channels",
+        "concentration of measure",
+        "Shor equivalence"
+      ],
       "about": [
-        "Ruskai"
+        "Quantum channels",
+        "Quantum information"
       ],
       "mainEntityOfPage": {
         "@id": "https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-additivity-minimal-output-entropy/#page"
       },
+      "qop:recordDigest": "sha256:a4edfca46eab059776efd5fe373f1e76a51cc79fbf363c8f1cc7d1bb381b1cb8",
       "isBasedOn": {
         "@type": "ScholarlyArticle",
         "name": "Open problems in quantum information theory",
@@ -117,7 +127,19 @@
           }
         ],
         "url": "https://doi.org/10.48550/arXiv.0708.1902"
-      }
+      },
+      "encoding": [
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-additivity-minimal-output-entropy.json"
+        },
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "text/markdown",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/packets/ruskai-2007-additivity-minimal-output-entropy.md"
+        }
+      ]
     }
   ]
 }</script>
@@ -157,30 +179,40 @@
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
           <span class="status-badge solved">Solved</span>
-          <span class="area-badge">Ruskai</span>
+          <span class="area-badge">Quantum information</span>
+          <span class="meta-badge">Quantum channels</span>
           <span class="meta-badge">Proposed 2007</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Additivity of minimal output (von Neumann) entropy of quantum channels</h1>
+        <p class="dialog-summary">The source asked to prove additivity of the minimal output entropy for every pair of quantum channels or to find a counterexample. Hastings constructed random unitary channel pairs with a strict additivity gap, refuting the conjecture in 2009.</p>
 
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#resolution-heading">Resolution</a>
-          <a href="#bibliography-heading">Bibliography</a>
+          <a href="#target-heading">Target</a>
+          <a href="#progress-heading">Resolution</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
+          <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <section class="dialog-section">
           <div class="interpretation-note">
             <span class="note-icon" aria-hidden="true">i</span>
             <div>
               <strong>Archived record</strong>
-              <p>The audit records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
+              <p>The accepted status decision records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
             </div>
           </div>
         </section>
-
         <div class="problem-framing">
+          <section class="framing-row" aria-labelledby="importance-heading">
+            <h2 id="importance-heading">Why it matters</h2>
+            <p>Additivity would have meant that entanglement across the input of a product channel cannot lower the output entropy below the product-state minimum, and Shor had shown the statement globally equivalent to additivity of the Holevo capacity, additivity of the entanglement of formation, and its strong superadditivity.</p>
+          </section>
           <section class="framing-row" aria-labelledby="source-heading">
             <h2 id="source-heading">Problem source</h2>
             <div class="problem-source-record">
@@ -188,6 +220,7 @@
               <p>Mary Beth Ruskai</p>
               <p>arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007</p>
               <div class="problem-source-scope">
+                <span>The source states the cataloged problem.</span>
                 <span>Statement locator: p. 16 (Problem 22)</span>
               </div>
               <a href="https://doi.org/10.48550/arXiv.0708.1902" rel="noreferrer">Read problem source ↗</a>
@@ -201,7 +234,7 @@
               <span class="dialog-section-label">Archived formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">As archived before resolution</span>
+            <span class="formal-source">As archived before resolution · digest f6145c52c23d</span>
           </div>
 
           <details class="formal-notation">
@@ -217,10 +250,95 @@
           <div class="formal-body"><p><strong>Problem 22 (Ruskai 2007).</strong> Prove the additivity of minimal output entropy,</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[S_{\min}(\Phi\otimes\Omega) \;=\; S_{\min}(\Phi)+S_{\min}(\Omega) \tag{23}\]</div><p>for every pair of quantum channels \(\Phi,\Omega\), or else find a counter-example.</p></div>
         </section>
 
-        <section class="dialog-section" aria-labelledby="resolution-heading">
-          <span class="dialog-section-label">Resolution</span>
-          <h2 id="resolution-heading">Status and known progress</h2>
-          <div class="archive-progress"><p><strong>Resolved (negatively) in 2009.</strong> M. B. Hastings, &quot;Superadditivity of communication capacity using entangled inputs&quot;, <em>Nature Physics</em> 5 (2009), 255-257 (arXiv:0809.3972), disproved the conjecture by constructing pairs of random unitary channels \(\Phi,\Omega\) (with \(\Omega\) obtained from \(\Phi\) via complex conjugation) for which the maximally entangled input \(\frac{1}{\sqrt{d}}\sum_i|i\rangle|i\rangle\) achieves</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[S_{\min}(\Phi\otimes\Omega) \;&lt;\; S_{\min}(\Phi)+S_{\min}(\Omega).\]</div><p>Hastings&#039;s argument uses concentration of measure for random unitary Kraus operators in very large dimension; the channel dimension required for the violation is large but finite. Via Shor&#039;s equivalence (quant-ph/0305035), this simultaneously refutes the additivity of Holevo capacity and of entanglement of formation.</p><p>Subsequent work has simplified and quantified the counter-example:</p><ul><li>F. G. S. L. Brandão, M. Horodecki, &quot;On Hastings&#039; counterexamples to the minimum output entropy additivity conjecture&quot;, <em>Open Syst. Inf. Dyn.</em> 17 (2010), 31-52 (arXiv:0907.3210), gave a more constructive version with sharper dimensional estimates.</li><li>M. Fukuda, C. King, D. K. Moser, &quot;Comments on Hastings&#039; Additivity Counterexamples&quot;, <em>Commun. Math. Phys.</em> 296 (2010), 111-143 (arXiv:0905.3697), provided a detailed rigorous reworking.</li><li>G. Aubrun, S. Szarek, E. Werner, &quot;Hastings&#039; additivity counterexample via Dvoretzky&#039;s theorem&quot;, <em>Commun. Math. Phys.</em> 305 (2011), 85-97 (arXiv:1003.4925), gave a conceptual proof via almost-Euclidean sections of Schatten spaces.</li><li>Subsequent quantitative work (Belinschi-Collins-Nechita, Communications in Mathematical Physics 2012; arXiv:1206.5874) provides further constructions.</li></ul><p>Despite the resolution at \(p=1\), the <em>magnitude</em> of the violation is small and the dimensions required are enormous; the question of how much capacity superadditivity can occur, and for which channel families, remains a very active subject.</p><ul><li><strong>Last verified:</strong> 2026-08-12.</li></ul></div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Archived target</h2>
+
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-refuted" id="clause-minimal-output-entropy-additivity">
+              <div class="clause-head">
+                <span class="clause-state refuted">Refuted</span>
+                <strong>Additivity of the minimal output entropy</strong>
+                <code>minimal-output-entropy-additivity</code>
+              </div>
+              <p>The archived statement asks to prove that the minimal output entropy of a tensor product of channels equals the sum of the individual minimal output entropies for every pair of quantum channels, or else to find a counterexample.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> A general additivity proof, or a channel pair with a strict additivity gap.</p>
+              <p class="clause-claims">1 accepted claim: <a href="#claim-ruskai-2007-additivity-minimal-output-entropy-hastings-refutes-additivity-of">claim-ruskai-2007-additivity-minimal-output-entropy-hastings-refutes-additivity-of</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Solved as of 12 Aug 2026: Hastings&#039; peer-reviewed counterexample directly disproves the additivity identity stated in the archived problem. <code>decision-ruskai-2007-additivity-minimal-output-entropy-status-2026-08-12</code></p>
+        </section>
+
+
+
+        <section class="dialog-section" aria-labelledby="progress-heading">
+          <span class="dialog-section-label">Resolution evidence</span>
+          <h2 id="progress-heading">Resolution</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
+
+          <article class="claim-card" id="claim-ruskai-2007-additivity-minimal-output-entropy-hastings-refutes-additivity-of">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Refutes</span>
+              <span class="claim-clauses"><a href="#clause-minimal-output-entropy-additivity">minimal-output-entropy-additivity</a></span>
+            </div>
+            <h3>Hastings refutes additivity of the minimal output entropy</h3>
+            <p>Hastings constructs pairs of random unitary channels, the second obtained from the first by complex conjugation, for which the maximally entangled input makes S_min of the product strictly smaller than the sum of the individual minimal output entropies. The argument uses concentration of measure for random unitary Kraus operators in large but finite dimension, and via Shor&#039;s equivalence it simultaneously refutes additivity of the Holevo capacity and of the entanglement of formation.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-3ecd31e6a311d949">
+                <time datetime="2009">2009</time>
+                <div>
+                  <span class="maturity-badge">Peer reviewed</span>
+                  <span class="maturity-badge">Exact counterexample</span>
+                  <a href="https://arxiv.org/abs/0809.3972" rel="noreferrer">Nature Physics ↗</a>
+                  <span class="evidence-locator">Main result: random unitary channel pair with a strict additivity gap</span>
+                </div>
+              </li>
+            </ol>
+
+          </article>
+
+          <details class="archive-narrative">
+            <summary>Editorial narrative <span>Status and known progress as written by the editors</span></summary>
+            <div class="archive-progress"><p><strong>Resolved (negatively) in 2009.</strong> M. B. Hastings, &quot;Superadditivity of communication capacity using entangled inputs&quot;, <em>Nature Physics</em> 5 (2009), 255-257 (arXiv:0809.3972), disproved the conjecture by constructing pairs of random unitary channels \(\Phi,\Omega\) (with \(\Omega\) obtained from \(\Phi\) via complex conjugation) for which the maximally entangled input \(\frac{1}{\sqrt{d}}\sum_i|i\rangle|i\rangle\) achieves</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[S_{\min}(\Phi\otimes\Omega) \;&lt;\; S_{\min}(\Phi)+S_{\min}(\Omega).\]</div><p>Hastings&#039;s argument uses concentration of measure for random unitary Kraus operators in very large dimension; the channel dimension required for the violation is large but finite. Via Shor&#039;s equivalence (quant-ph/0305035), this simultaneously refutes the additivity of Holevo capacity and of entanglement of formation.</p><p>Subsequent work has simplified and quantified the counter-example:</p><ul><li>F. G. S. L. Brandão, M. Horodecki, &quot;On Hastings&#039; counterexamples to the minimum output entropy additivity conjecture&quot;, <em>Open Syst. Inf. Dyn.</em> 17 (2010), 31-52 (arXiv:0907.3210), gave a more constructive version with sharper dimensional estimates.</li><li>M. Fukuda, C. King, D. K. Moser, &quot;Comments on Hastings&#039; Additivity Counterexamples&quot;, <em>Commun. Math. Phys.</em> 296 (2010), 111-143 (arXiv:0905.3697), provided a detailed rigorous reworking.</li><li>G. Aubrun, S. Szarek, E. Werner, &quot;Hastings&#039; additivity counterexample via Dvoretzky&#039;s theorem&quot;, <em>Commun. Math. Phys.</em> 305 (2011), 85-97 (arXiv:1003.4925), gave a conceptual proof via almost-Euclidean sections of Schatten spaces.</li><li>Subsequent quantitative work (Belinschi-Collins-Nechita, Communications in Mathematical Physics 2012; arXiv:1206.5874) provides further constructions.</li></ul><p>Despite the resolution at \(p=1\), the <em>magnitude</em> of the violation is small and the dimensions required are enormous; the question of how much capacity superadditivity can occur, and for which channel families, remains a very active subject.</p><ul><li><strong>Last verified:</strong> 2026-08-12.</li></ul></div>
+          </details>
+        </section>
+
+
+        <section class="dialog-section" aria-labelledby="cautions-heading">
+          <span class="dialog-section-label">Claim watch</span>
+          <h2 id="cautions-heading">Scope and cautions</h2>
+
+          <div class="watch-note">
+            <span class="note-icon" aria-hidden="true">!</span>
+            <div>
+              <strong>Scope</strong>
+              <p>The magnitude of the violation is small and the dimensions required are enormous; how much capacity superadditivity can occur, and for which channel families, remains a very active subject. </p>
+            </div>
+          </div>
+        </section>
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="ruskai-2007-additivity-minimal-output-entropy">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Additivity+of+minimal+output+%28von+Neumann%29+entropy+of+quantum+channels" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="ruskai-2007-additivity-minimal-output-entropy">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
         </section>
 
 
@@ -230,12 +348,18 @@
           <div class="archive-bibliography"><ul><li>M. B. Ruskai, &quot;Open Problems in Quantum Information Theory&quot; (arXiv:0708.1902 [quant-ph], 2007), based on the BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007. Problem 22, p. 16. DOI: 10.48550/arXiv.0708.1902. Source PDF: `Open Problems in Quantum Information Theory_Ruskai_2007.pdf`.</li><li>M. B. Hastings, &quot;Superadditivity of communication capacity using entangled inputs&quot;, <em>Nature Physics</em> 5 (2009), 255-257; arXiv:0809.3972. (<em>Resolution.</em>)</li><li>P. W. Shor, &quot;Equivalence of Additivity Questions in Quantum Information Theory&quot;, <em>Commun. Math. Phys.</em> 246 (2004), 453-472; quant-ph/0305035.</li><li>C. H. Bennett, C. A. Fuchs, J. A. Smolin, &quot;Entanglement-enhanced classical communication on a noisy quantum channel&quot;, in <em>Quantum Communication, Computing and Measurement</em>, Plenum Press (1997), 79-88; quant-ph/9611006.</li><li>F. G. S. L. Brandão, M. Horodecki, &quot;On Hastings&#039; counterexamples to the minimum output entropy additivity conjecture&quot;, <em>Open Syst. Inf. Dyn.</em> 17 (2010), 31-52; arXiv:0907.3210.</li><li>M. Fukuda, C. King, D. K. Moser, &quot;Comments on Hastings&#039; Additivity Counterexamples&quot;, <em>Commun. Math. Phys.</em> 296 (2010), 111-143; arXiv:0905.3697.</li><li>G. Aubrun, S. Szarek, E. Werner, &quot;Hastings&#039; additivity counterexample via Dvoretzky&#039;s theorem&quot;, <em>Commun. Math. Phys.</em> 305 (2011), 85-97; arXiv:1003.4925.</li><li>M. E. Shirokov, &quot;The Holevo capacity of infinite dimensional channels and the additivity problem&quot;, <em>Commun. Math. Phys.</em> 262 (2006), 137-159; quant-ph/0408009.</li><li>M. Fukuda, &quot;Simplification of additivity conjecture in quantum information theory&quot;, arXiv:quant-ph/0608010.</li><li>M. Fukuda, M. M. Wolf, &quot;Simplifying additivity problems using direct sum constructions&quot;, arXiv:0704.1092.</li><li>A. Winter, &quot;The maximum output \(p\)-norm of quantum channels is not multiplicative for any \(p&gt;2\)&quot;, arXiv:0707.0402 (2007).</li><li>P. Hayden, &quot;The maximal \(p\)-norm multiplicativity conjecture is false&quot;, arXiv:0707.3291 (2007).</li></ul></div>
         </section>
 
+
+
         <section class="dialog-section" aria-labelledby="machine-heading">
-          <span class="dialog-section-label">Record</span>
+          <span class="dialog-section-label">Work on this problem</span>
           <h2 id="machine-heading">Research interfaces</h2>
           <ul class="machine-links">
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/ruskai-2007-additivity-minimal-output-entropy/problem.md" rel="noreferrer">Source article ↗</a> — the canonical archived statement and audit notes.</li>
-            <li><a href="../">Problem directory</a> — every active and archived record.</li>
+            <li><a href="../../packets/ruskai-2007-additivity-minimal-output-entropy.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-additivity-minimal-output-entropy.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-additivity-minimal-output-entropy/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-additivity-minimal-output-entropy/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Additivity+of+minimal+output+%28von+Neumann%29+entropy+of+quantum+channels" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/ruskai-2007-additivity-minimal-output-entropy/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -247,13 +371,15 @@
             <p class="cite-label">The original problem</p>
             <p class="cite-text">Mary Beth Ruskai. Open problems in quantum information theory. arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007. p. 16 (Problem 22). https://doi.org/10.48550/arXiv.0708.1902</p>
             <p class="cite-label">This catalog assessment</p>
-            <p class="cite-text">Quantum Open Problems, record ruskai-2007-additivity-minimal-output-entropy, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-additivity-minimal-output-entropy/</p>
+            <p class="cite-text">Quantum Open Problems, record ruskai-2007-additivity-minimal-output-entropy, revision a4edfca46eab, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-additivity-minimal-output-entropy/</p>
           </div>
         </section>
         <footer class="page-record-footer">
           <p>Record <code>ruskai-2007-additivity-minimal-output-entropy</code></p>
-          <p>Status solved · archived from the active catalog</p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Record revision <code>a4edfca46eab059776efd5fe373f1e76a51cc79fbf363c8f1cc7d1bb381b1cb8</code></p>
+          <p>Statement digest <code>f6145c52c23df052e3cbb969c57d8502b983a6bc8822efe908e89686743c18e2</code></p>
+          <p>Statement <code>ruskai-2007-additivity-minimal-output-entropy-statement-v1</code> · Decision <code>decision-ruskai-2007-additivity-minimal-output-entropy-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -284,5 +410,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="ruskai-2007-additivity-minimal-output-entropy" defer></script>
   </body>
 </html>

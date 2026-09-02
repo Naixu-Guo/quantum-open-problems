@@ -1,0 +1,49 @@
+{
+  "kind": "qop-claims",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-stronger-bell-werner-states",
+  "status": "solved",
+  "statementId": "krueger-2005-stronger-bell-werner-states-statement-v1",
+  "count": 1,
+  "note": "Every claim here has been accepted through editorial review. Unreviewed submissions are candidate updates in the operational service, never claims.",
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-stronger-bell-werner-states-vertesi-finds-bell-inequalities",
+      "statementId": "krueger-2005-stronger-bell-werner-states-statement-v1",
+      "targetClauseIds": [
+        "bell-inequality-stronger-than-chsh-on-werner"
+      ],
+      "relation": "resolves",
+      "title": "Vertesi finds Bell inequalities beating CHSH on Werner states",
+      "text": "Vertesi constructs a family of Bell inequalities with many binary settings whose local bound and Werner-state quantum value give a violation threshold of p above 0.7056, strictly below the CHSH threshold 1/sqrt(2) which is approximately 0.7071. This is exactly the stronger-than-CHSH example requested by the archived statement.",
+      "superseded": false,
+      "evidence": [
+        {
+          "kind": "Evidence",
+          "id": "evidence-krueger-2005-stronger-bell-werner-states-physical-review-a",
+          "claimId": "claim-krueger-2005-stronger-bell-werner-states-vertesi-finds-bell-inequalities",
+          "sourceId": "source-vertesi-2008-werner-bell-inequalities",
+          "sourceLocator": "Many-setting inequality family with Werner threshold p > 0.7056",
+          "date": "2008",
+          "maturity": "Peer reviewed",
+          "strength": "Explicit construction",
+          "label": "Physical Review A",
+          "source": {
+            "id": "source-vertesi-2008-werner-bell-inequalities",
+            "title": "More efficient Bell inequalities for Werner states",
+            "authors": [
+              "T. Vertesi"
+            ],
+            "venue": "Phys. Rev. A 78, 032112 (2008); arXiv:0806.0096",
+            "url": "https://arxiv.org/abs/0806.0096"
+          }
+        }
+      ]
+    }
+  ],
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-stronger-bell-werner-states.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-stronger-bell-werner-states/frontier.json"
+  }
+}

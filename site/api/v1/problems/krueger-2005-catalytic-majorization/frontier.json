@@ -1,0 +1,232 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-catalytic-majorization",
+  "title": "Catalytic majorization",
+  "catalogState": "published",
+  "status": "partial",
+  "statusLabel": "Partially solved",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-krueger-2005-catalytic-majorization-status-2026-08-12",
+    "status": "partial",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-krueger-2005-catalytic-majorization-2026-a-finite-sufficient-criterion",
+      "evidence-krueger-2005-catalytic-majorization-2007-klimesh-gives-an-exact",
+      "evidence-krueger-2005-catalytic-majorization-2007-turgut-derives-independent-exact"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "krueger-2005-catalytic-majorization-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "d2f7b36daa9d93cd1a8acfdb487f976e10c8be0dabcb1af63ce29ff2f995a4da",
+    "sourceRefs": [
+      {
+        "sourceId": "source-krueger-werner-2005",
+        "relationship": "states-problem",
+        "locator": "pp. 23-24 (Problem 4)",
+        "primary": true,
+        "source": {
+          "id": "source-krueger-werner-2005",
+          "title": "Some open problems in quantum information theory",
+          "authors": [
+            "O. Krüger",
+            "R. F. Werner"
+          ],
+          "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+          "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+          "doi": "10.48550/arXiv.quant-ph/0504166",
+          "arxivId": "quant-ph/0504166"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $p = (p_1, \\ldots, p_n)$ | A probability vector |\n| $q = (q_1, \\ldots, q_n)$ | A probability vector |\n| $r$ | An auxiliary probability vector (the \"catalyst\") |\n| $p \\otimes r$ | Tensor product of probability vectors (coordinate-wise products) |\n| $A, B$ | Pure bipartite quantum states |\n| $C$ | An auxiliary entangled \"catalyst\" state |\n| LOCC | Local operations and classical communication |\n| $D$ | A doubly stochastic matrix (nonnegative; row and column sums equal $1$) |\n| $f$ | A real-valued (convex) function on $\\mathbf{R}$ |\n| Majorization $p \\prec q$ | $\\sum_{i > k} p_i \\le \\sum_{i > k} q_i$ for all $k$ when $p, q$ are in decreasing order (i.e., $q$ is \"more mixed\" than $p$ in the source's terminology, i.e., $p$ has its mass more concentrated) |\n| Catalytic majorization | Existence of an auxiliary $r$ with $p \\otimes r$ majorized by $q \\otimes r$ in the same sense |",
+      "statement": "Define the relation *catalytic majorization* on probability vectors as follows: $p$ catalytically majorizes $q$ if there exists a probability vector $r$ such that $p \\otimes r$ is more mixed than $q \\otimes r$ in the sense of (ordinary) majorization, i.e., for $p, q, r$ rearranged in decreasing order,\n\n$$\\sum_{i > k} (p \\otimes r)_i \\;\\le\\; \\sum_{i > k} (q \\otimes r)_i \\qquad \\text{for all } k \\in \\mathbf{Z}_{\\ge 0}.$$\n\nEquivalently (Nielsen) on pure bipartite quantum states: $A$ can be converted into $B$ with a catalyst by LOCC iff the Schmidt-coefficient vectors $p$ of $A$ and $q$ of $B$ satisfy this catalytic majorization relation.\n\nGive an efficient, explicit, mathematically transparent criterion — analogous to Nielsen's criterion for plain LOCC convertibility — that decides which pure bipartite states can be converted into which by LOCC with a catalyst; equivalently, decide the relation of catalytic majorization on classical probability vectors.\n\nA promising line indicated in the source: find a class $\\mathcal{F}$ of convex functions $f : \\mathbf{R} \\to \\mathbf{R}$ such that\n\n$$p \\;\\mapsto\\; \\sum_i f(p_i)$$\n\nis monotone under catalytic majorization for every $f \\in \\mathcal{F}$, and use the monotonicity of all such functionals to characterise the relation. Multiplicative candidates such as $f(t) = t^x$ ($x>1$) are natural because they yield functionals that factor through tensor products."
+    }
+  },
+  "question": {
+    "type": "Characterization",
+    "summary": "Trumping has exact necessary-and-sufficient characterizations by infinite families of inequalities, but no finite efficient test comparable to Nielsen's partial-sum criterion is known.",
+    "importance": "Catalysts enlarge the set of pure-state transformations possible under LOCC without being consumed. A finite criterion would turn that resource conversion rule into a practical decision procedure.",
+    "unresolved": "Find a finite, tractable necessary-and-sufficient criterion for catalytic majorization, or prove that no such reduction exists."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Find a finite, tractable necessary-and-sufficient criterion for catalytic majorization, or prove that no such reduction exists.",
+      "state": "narrowed",
+      "claimIds": [
+        "claim-krueger-2005-catalytic-majorization-2026-a-finite-sufficient-criterion",
+        "claim-krueger-2005-catalytic-majorization-2007-klimesh-gives-an-exact",
+        "claim-krueger-2005-catalytic-majorization-2007-turgut-derives-independent-exact"
+      ],
+      "latestEvidenceDate": "2026-03-19"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Find a finite, tractable necessary-and-sufficient criterion for catalytic majorization, or prove that no such reduction exists."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-krueger-2005-catalytic-majorization-2026-a-finite-sufficient-criterion",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "A finite sufficient criterion is available",
+      "text": "The new finite test certifies catalytic transformations but is not necessary, so it does not replace the infinite exact characterization.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2026-03-19",
+      "evidence": [
+        {
+          "id": "evidence-krueger-2005-catalytic-majorization-2026-a-finite-sufficient-criterion",
+          "date": "2026-03-19",
+          "maturity": "Peer reviewed",
+          "strength": "Sufficient criterion",
+          "label": "Communications Physics",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-web-nature-com-articles-s42005-026-02583",
+            "title": "A finite sufficient criterion is available",
+            "authors": [],
+            "venue": "Communications Physics",
+            "url": "https://www.nature.com/articles/s42005-026-02583-x",
+            "bibliographyState": "url-only"
+          }
+        }
+      ]
+    },
+    {
+      "id": "claim-krueger-2005-catalytic-majorization-2007-klimesh-gives-an-exact",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "Klimesh gives an exact infinite characterization",
+      "text": "A family of strict inequalities is necessary and sufficient for trumping under the theorem's support conditions.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2007-09-24",
+      "evidence": [
+        {
+          "id": "evidence-krueger-2005-catalytic-majorization-2007-klimesh-gives-an-exact",
+          "date": "2007-09-24",
+          "maturity": "Preprint",
+          "strength": "Exact characterization",
+          "label": "Klimesh theorem",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-klimesh-2007-inequalities-that-collectively",
+            "title": "Inequalities that collectively completely characterize the catalytic majorization relation",
+            "authors": [
+              "M. Klimesh"
+            ],
+            "venue": "arXiv:0709.3680 (2007).",
+            "url": "https://arxiv.org/abs/0709.3680",
+            "arxivId": "0709.3680"
+          }
+        }
+      ]
+    },
+    {
+      "id": "claim-krueger-2005-catalytic-majorization-2007-turgut-derives-independent-exact",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "Turgut derives independent exact conditions",
+      "text": "Power means and entropy give another necessary-and-sufficient infinite criterion for catalytic conversion.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2007-07-03",
+      "evidence": [
+        {
+          "id": "evidence-krueger-2005-catalytic-majorization-2007-turgut-derives-independent-exact",
+          "date": "2007-07-03",
+          "maturity": "Peer reviewed",
+          "strength": "Exact characterization",
+          "label": "Turgut theorem",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-arxiv-0707-0444",
+            "title": "Turgut derives independent exact conditions",
+            "authors": [],
+            "venue": "Turgut theorem",
+            "url": "https://arxiv.org/abs/0707.0444",
+            "arxivId": "0707.0444",
+            "bibliographyState": "url-only"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [],
+  "interpretation": null,
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "krueger-2005-catalytic-majorization-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-krueger-2005-catalytic-majorization-status-2026-08-12",
+        "status": "partial",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "11aa6a73b042cb59546f4dbd740cc9f8f1bb526227937484666e3cae34387dc5",
+    "statementDigest": "d2f7b36daa9d93cd1a8acfdb487f976e10c8be0dabcb1af63ce29ff2f995a4da",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-catalytic-majorization/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-catalytic-majorization.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-catalytic-majorization/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-catalytic-majorization/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-catalytic-majorization/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-catalytic-majorization.md"
+  }
+}

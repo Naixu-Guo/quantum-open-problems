@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "horodecki-2020-quantum-latin-squares-order-six",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "archived",
+    "title": "Determine whether there exist two quantum orthogonal Latin squares of order six (quantum 36 officers of Euler)",
+    "proposed": "2020",
+    "topicId": "quantum-designs",
+    "collectionId": "horodecki-2020",
+    "question": {
+      "type": "Existence or impossibility",
+      "summary": "The source asked whether two orthogonal quantum Latin squares of order six exist, the quantum version of Euler's problem of 36 officers. Rather and coauthors settled it affirmatively with an exact AME(4,6) construction.",
+      "importance": "Euler conjectured and Tarry proved that no classical pair of orthogonal Latin squares of order six exists, and the quantum version is equivalent to an absolutely maximally entangled state of four six-level systems, a 2-unitary matrix in U(36), a perfect four-index tensor, and a ((4,1,3))_6 quantum code.",
+      "unresolved": ""
+    },
+    "keywords": [
+      "quantum Latin squares",
+      "AME states",
+      "2-unitary matrices",
+      "perfect tensors",
+      "36 officers of Euler"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "horodecki-2020-quantum-latin-squares-order-six-statement-v1",
+      "problemId": "horodecki-2020-quantum-latin-squares-order-six",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-horodecki-2020",
+          "relationship": "states-problem",
+          "locator": "p. 4-6 (Problem 3)",
+          "primary": true
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "quantum-orthogonal-latin-squares-order-six",
+          "label": "Quantum orthogonal Latin squares of order six",
+          "text": "The archived statement asks to determine whether two quantum orthogonal Latin squares of order six exist, equivalently whether the 36 entangled officers of Euler admit a solution.",
+          "resolutionCriteria": "An explicit construction of such a pair, equivalently an AME(4,6) state or a 2-unitary matrix in U(36), or a proof that none exists."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-horodecki-2020-quantum-latin-squares-order-six-explicit-ame-4-6",
+      "statementId": "horodecki-2020-quantum-latin-squares-order-six-statement-v1",
+      "targetClauseIds": [
+        "quantum-orthogonal-latin-squares-order-six"
+      ],
+      "relation": "resolves",
+      "title": "Explicit AME(4,6) state solves the 36 entangled officers",
+      "text": "Rather, Burchardt, Bruzda, Rajchel-Mieldzioc, Lakshminarayan and Zyczkowski construct an exact AME(4,6) state, equivalently a pair of orthogonal quantum Latin squares of order six and a 2-unitary matrix in U(36). Numerical iteration led to the construction, but the published object and its verification are exact and analytic, using golden-ratio amplitudes and roots of unity, so the archived existence question is answered affirmatively."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-horodecki-2020-quantum-latin-squares-order-six-physical-review-letters",
+      "claimId": "claim-horodecki-2020-quantum-latin-squares-order-six-explicit-ame-4-6",
+      "sourceId": "source-rather-2022-entangled-officers",
+      "sourceLocator": "Main construction of the AME(4,6) state",
+      "date": "2022",
+      "maturity": "Peer reviewed",
+      "strength": "Explicit construction",
+      "label": "Physical Review Letters"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-horodecki-2020-quantum-latin-squares-order-six-status-2026-08-12",
+      "problemId": "horodecki-2020-quantum-latin-squares-order-six",
+      "statementId": "horodecki-2020-quantum-latin-squares-order-six-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "solved",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-horodecki-2020-quantum-latin-squares-order-six-physical-review-letters"
+      ],
+      "rationale": "The cited peer-reviewed paper exhibits and analytically verifies an exact solution to the existence question posed in the archived statement."
+    }
+  ],
+  "editorial": {
+    "cautions": [
+      {
+        "label": "Scope",
+        "text": "The same paper separately constructs a nonadditive ((3,6,2))_6 code; that is a distinct result from the AME(4,6) construction which settles the archived statement.",
+        "url": null
+      }
+    ],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "krueger-2005-asymptotic-cloning-state-estimation",
+  "title": "Asymptotic cloning is state estimation?",
+  "status": "solved",
+  "dates": {
+    "proposed": "2005-02-10",
+    "latestEvidence": "2006",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "quantum-channels",
+      "label": "Quantum channels"
+    }
+  },
+  "collection": {
+    "id": "krueger-2005",
+    "label": "Krueger–Werner",
+    "title": "Some open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Asymptotic identity",
+    "summary": "The source asked to decide whether the M-to-infinity limit of the optimal N-to-M cloning fidelity equals the optimal measure-and-reprepare fidelity for every input distribution and every N. Bae and Acin, and independently Chiribella and D'Ariano, proved the equality in full generality.",
+    "importance": "The identity makes precise the link between no-cloning and the finite information content of a quantum measurement, and the naive argument fails because optimal clones are typically correlated or entangled, so measurement statistics on them differ from statistics on independent copies.",
+    "unresolved": ""
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $d$ | Dimension of the local quantum system (each state lives in $\\mathbb{C}^d$) |\n| $\\mu$ | A fixed probability measure on the pure states of $\\mathbb{C}^d$ |\n| $N$ | Number of input copies of an unknown pure state |\n| $M$ | Number of output (clone) copies, $M \\ge N$ |\n| $\\mathcal{C}_{N\\to M}$ | An $N$-to-$M$ cloning transformation: a CPTP map from $N$ input copies to $M$ output systems |\n| $F(N,M)$ | Optimal single-copy fidelity averaged over $\\mu$ and over all $M$ output clones, for the best $N$-to-$M$ cloner |\n| $F(N,\\infty)$ | $\\lim_{M\\to\\infty} F(N,M)$; equivalently, the best mean single-copy fidelity achievable by a \"measure-and-reprepare\" strategy: measure on $N$ input copies and prepare a state according to the measurement outcome |\n| $\\lvert\\langle\\phi\\,\\vert\\,\\psi\\rangle\\rvert^2$ | Fidelity between two pure states $\\lvert\\phi\\rangle$ and $\\lvert\\psi\\rangle$ |",
+    "statement": "Fix a dimension $d$ and an arbitrary probability measure $\\mu$ on the pure states of $\\mathbb{C}^d$. For $N \\ge 1$ and $M \\ge N$, let $F(N,M)$ be the optimal single-copy fidelity, averaged with respect to $\\mu$ and over all $M$ output clones, attained by $N$-to-$M$ cloning transformations. Let $F(N,\\infty)$ be the best mean single-copy fidelity achievable by first measuring on $N$ input copies of the state and then repreparing a state according to the measured data.\n\nDecide whether, for every $\\mu$ and every $N$,\n$$\\lim_{M\\to\\infty} F(N,M) \\;=\\; F(N,\\infty).$$\n\nA weaker but still interesting version of the problem asks whether the equality holds in the further limit $N \\to \\infty$,\n$$\\lim_{N\\to\\infty}\\lim_{M\\to\\infty} F(N,M) \\;=\\; \\lim_{N\\to\\infty} F(N,\\infty).$$"
+  },
+  "source": {
+    "title": "Some open problems in quantum information theory",
+    "authors": [
+      "O. Krüger",
+      "R. F. Werner"
+    ],
+    "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+    "locator": "pp. 58-59 (Problem 22)",
+    "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2006",
+        "title": "Asymptotic quantum cloning is state estimation",
+        "detail": "Bae and Acin prove the limiting equality in full generality with a short argument via monogamy of entanglement and properties of entanglement-breaking channels. Chiribella and D'Ariano give a complementary independent proof via group-theoretic, de Finetti-type analysis of the asymptotic state of the clones, so the archived conjecture holds for every input distribution and every N.",
+        "maturity": "Peer reviewed",
+        "strength": "Exact theorem",
+        "url": "https://arxiv.org/abs/quant-ph/0603078",
+        "label": "Physical Review Letters"
+      },
+      {
+        "date": "2006",
+        "title": "Asymptotic quantum cloning is state estimation",
+        "detail": "Bae and Acin prove the limiting equality in full generality with a short argument via monogamy of entanglement and properties of entanglement-breaking channels. Chiribella and D'Ariano give a complementary independent proof via group-theoretic, de Finetti-type analysis of the asymptotic state of the clones, so the archived conjecture holds for every input distribution and every N.",
+        "maturity": "Peer reviewed",
+        "strength": "Exact theorem",
+        "url": "https://arxiv.org/abs/quant-ph/0608007",
+        "label": "Physical Review Letters"
+      }
+    ],
+    "cautions": [],
+    "interpretation": null,
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "optimal cloning",
+      "state estimation",
+      "single-copy fidelity",
+      "measure and reprepare",
+      "monogamy of entanglement"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-asymptotic-cloning-state-estimation.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Asymptotic+cloning+is+state+estimation%3F",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/contribution.schema.json",
+    "candidateUpdateSchema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/candidate-update.schema.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-asymptotic-cloning-state-estimation/frontier.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-asymptotic-cloning-state-estimation.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-asymptotic-cloning-state-estimation/",
+    "explorer": "https://naixu-guo.github.io/quantum-open-problems/#krueger-2005-asymptotic-cloning-state-estimation",
+    "markdown": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-asymptotic-cloning-state-estimation.md",
+    "schema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-asymptotic-cloning-state-estimation.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-asymptotic-cloning-state-estimation/frontier.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-asymptotic-cloning-state-estimation/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-asymptotic-cloning-state-estimation/statements/v1.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/krueger-2005-asymptotic-cloning-state-estimation/record.json"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "893c5eec526bb8e71b121826c3f71f5152f3a0ded1a28dbfc0a9cf1186f38175",
+    "statementDigest": "d412584f21f81560a7c8903b3d18e5586b62b95e9f35e23463901442e6d43e6c"
+  }
+}

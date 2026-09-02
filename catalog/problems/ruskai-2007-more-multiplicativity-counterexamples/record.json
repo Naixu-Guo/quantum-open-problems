@@ -1,0 +1,126 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "ruskai-2007-more-multiplicativity-counterexamples",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "archived",
+    "title": "Find more counterexamples to multiplicativity (eq. 24); do they support holding for 1 <= p <= 2?",
+    "proposed": "2007",
+    "topicId": "quantum-channels",
+    "collectionId": "ruskai-2007",
+    "question": {
+      "type": "Search for counterexamples",
+      "summary": "The source asked for multiplicativity counterexamples beyond the Werner-Holevo channel and its perturbations and whether multiplicativity survives for 1 <= p <= 2. Winter gave counterexamples for every p above 2, Hayden extended them to all 1 < p < 2, and Winter subsequently closed p = 2.",
+      "importance": "Before summer 2007 the Werner-Holevo channel and mildly perturbed variants were the only known counterexamples, several authors had conjectured a safe range 1 <= p <= 2, and the p to 1 limit of the conjecture is the additivity statement Shor showed equivalent to additivity of the Holevo capacity and of the entanglement of formation.",
+      "unresolved": ""
+    },
+    "keywords": [
+      "maximal output p-norm",
+      "multiplicativity conjecture",
+      "random unitary channels",
+      "Renyi entropy",
+      "Amosov-Holevo-Werner conjecture"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "ruskai-2007-more-multiplicativity-counterexamples-statement-v1",
+      "problemId": "ruskai-2007-more-multiplicativity-counterexamples",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ruskai-2007",
+          "relationship": "states-problem",
+          "locator": "p. 12 (Problem 11)",
+          "primary": true
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "additional-multiplicativity-counterexamples",
+          "label": "Counterexamples to p-norm multiplicativity beyond Werner-Holevo",
+          "text": "The archived statement asks to find counterexamples to multiplicativity of the maximal output p-norm beyond the Werner-Holevo channel and its small perturbations, holding for a range of p above 1, and to determine on that basis whether the conjecture is true for 1 <= p <= 2.",
+          "resolutionCriteria": "New counterexample families covering a range of p above 1, settling in particular whether multiplicativity survives on 1 < p <= 2."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-more-multiplicativity-counterexamples-winter-and-hayden-refute",
+      "statementId": "ruskai-2007-more-multiplicativity-counterexamples-statement-v1",
+      "targetClauseIds": [
+        "additional-multiplicativity-counterexamples"
+      ],
+      "relation": "resolves",
+      "title": "Winter and Hayden refute multiplicativity for every p above 1",
+      "text": "Winter constructs counterexamples to multiplicativity for every p above 2 using random unitary channels of growing dimension, and Hayden extends the counterexamples to all 1 < p < 2, with Winter subsequently closing the case p = 2. Together they supply the requested counterexamples beyond the Werner-Holevo family and show that multiplicativity fails throughout the conjectured safe range 1 < p <= 2."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-ruskai-2007-more-multiplicativity-counterexamples-arxiv-0707-0402",
+      "claimId": "claim-ruskai-2007-more-multiplicativity-counterexamples-winter-and-hayden-refute",
+      "sourceId": "source-winter-2007-p-norm-not-multiplicative",
+      "sourceLocator": "Counterexamples for every p > 2 (and subsequently p = 2)",
+      "date": "2007",
+      "maturity": "Preprint",
+      "strength": "Exact counterexample",
+      "label": "arXiv:0707.0402"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-ruskai-2007-more-multiplicativity-counterexamples-arxiv-0707-3291",
+      "claimId": "claim-ruskai-2007-more-multiplicativity-counterexamples-winter-and-hayden-refute",
+      "sourceId": "source-hayden-2007-multiplicativity-false",
+      "sourceLocator": "Extension of the counterexamples to all 1 < p < 2",
+      "date": "2007",
+      "maturity": "Preprint",
+      "strength": "Exact counterexample",
+      "label": "arXiv:0707.3291"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-ruskai-2007-more-multiplicativity-counterexamples-status-2026-08-12",
+      "problemId": "ruskai-2007-more-multiplicativity-counterexamples",
+      "statementId": "ruskai-2007-more-multiplicativity-counterexamples-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "solved",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-ruskai-2007-more-multiplicativity-counterexamples-arxiv-0707-0402",
+        "evidence-ruskai-2007-more-multiplicativity-counterexamples-arxiv-0707-3291"
+      ],
+      "rationale": "The two cited constructions supply counterexamples beyond the Werner-Holevo family and settle the 1 < p <= 2 range that the archived statement asks about. Both settling works are cited in the source bibliography only by arXiv identifier (arXiv:0707.0402 and arXiv:0707.3291), and the closing of the p = 2 case is recorded in the narrative as subsequent work by Winter."
+    }
+  ],
+  "editorial": {
+    "cautions": [
+      {
+        "label": "Scope",
+        "text": "The separate additivity conjecture at p = 1 was refuted later by Hastings (Nature Physics 5, 255 (2009)); that is a distinct statement from p-norm multiplicativity for p > 1.",
+        "url": null
+      }
+    ],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

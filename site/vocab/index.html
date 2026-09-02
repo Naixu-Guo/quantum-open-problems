@@ -45,6 +45,7 @@
         </svg>
       </button>
     </header>
+
     <main class="page-shell">
       <article>
         <h1>Structured-data vocabulary</h1>
@@ -52,7 +53,7 @@
 
         <section class="dialog-section" aria-labelledby="problemStatus">
           <h2 class="list-area-heading" id="problemStatus"><code>qop:problemStatus</code></h2>
-          <p>The editorial mathematical status of the archived question on the verification date. One of:</p>
+          <p>The editorial mathematical status of the archived question on the verification date, derived from the current accepted status decision. One of:</p>
           <ul>
             <li><code>open</code> — the archived statement lacks a proof or counterexample.</li>
             <li><code>partially-solved</code> — a named subproblem or major precise subclass is settled.</li>
@@ -68,6 +69,11 @@
         <section class="dialog-section" aria-labelledby="recordDigest">
           <h2 class="list-area-heading" id="recordDigest"><code>qop:recordDigest</code></h2>
           <p>The SHA-256 digest of the record's research content, prefixed <code>sha256:</code>. It excludes catalog-wide dates and hypermedia URLs, so it changes only when the record's content changes. Contributions cite it to pin the version they address.</p>
+        </section>
+
+        <section class="dialog-section" aria-labelledby="clauseState">
+          <h2 class="list-area-heading" id="clauseState">Target clause states</h2>
+          <p>The frontier assigns each target clause one of <code>open</code>, <code>narrowed</code>, <code>resolved</code>, or <code>refuted</code>, derived from the relations of accepted claims that cite the clause. The states describe reviewed claims only; candidate updates and comments never change them.</p>
         </section>
       </article>
     </main>
@@ -93,5 +99,6 @@
         });
       })();
     </script>
+
   </body>
 </html>

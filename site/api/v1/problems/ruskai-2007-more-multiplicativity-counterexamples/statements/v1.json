@@ -1,0 +1,48 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "ruskai-2007-more-multiplicativity-counterexamples-statement-v1",
+  "problemId": "ruskai-2007-more-multiplicativity-counterexamples",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-ruskai-2007",
+      "relationship": "states-problem",
+      "locator": "p. 12 (Problem 11)",
+      "primary": true,
+      "source": {
+        "id": "source-ruskai-2007",
+        "title": "Open problems in quantum information theory",
+        "authors": [
+          "Mary Beth Ruskai"
+        ],
+        "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+        "url": "https://doi.org/10.48550/arXiv.0708.1902"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "additional-multiplicativity-counterexamples",
+      "label": "Counterexamples to p-norm multiplicativity beyond Werner-Holevo",
+      "text": "The archived statement asks to find counterexamples to multiplicativity of the maximal output p-norm beyond the Werner-Holevo channel and its small perturbations, holding for a range of p above 1, and to determine on that basis whether the conjecture is true for 1 <= p <= 2.",
+      "resolutionCriteria": "New counterexample families covering a range of p above 1, settling in particular whether multiplicativity survives on 1 < p <= 2."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | Algebra of complex $d\\times d$ matrices |\n| $\\rho$, $\\gamma$ | Density matrices on a finite-dimensional Hilbert space |\n| $\\Phi$, $\\Omega$ | CPT (completely positive trace-preserving) linear maps (quantum channels) |\n| $\\lVert M\\rVert_p$ | Schatten $p$-norm, $\\lVert M\\rVert_p=(\\operatorname{Tr}\\lvert M\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | Maximal output $p$-norm, $\\nu_p(\\Phi)=\\inf_\\gamma\\lVert\\Phi(\\gamma)\\rVert_p$ in source notation (sup over inputs of the output $p$-norm) |\n| $S(\\rho)$ | von Neumann entropy, $-\\operatorname{Tr}(\\rho\\log\\rho)$ |\n| $S_{\\min}(\\Phi)$ | Minimum output entropy, $\\inf_\\gamma S(\\Phi(\\gamma))$ |\n| $S^p(\\gamma)$ | Rényi entropy, $S^p(\\gamma)\\equiv\\tfrac{1}{p-1}\\log\\operatorname{Tr}\\gamma^p$ |\n| $S^p_{\\min}(\\Phi)$ | $\\inf_\\gamma S^p(\\Phi(\\gamma))$ |\n| WH channel | Werner–Holevo channel |\n| $p_c$ | Hypothesized critical $p$ at which multiplicativity might fail |",
+    "statement": "**Problem 11.** Find additional counterexamples — beyond the Werner–Holevo channel and its small perturbations — to the multiplicativity conjecture\n$$\\nu_p(\\Phi\\otimes\\Omega)=\\nu_p(\\Phi)\\,\\nu_p(\\Omega), \\tag{24}$$\nholding for a range of $p>1$. Determine, on the basis of such counterexamples, whether the conjecture is true for $1\\le p\\le 2$."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "40cc7f85f89b0ccf642ec9a32497046c5e8cc605f85411813783e4c6c018f32e",
+    "bodyDigest": "0d47c31d1f89d6eaf25b9a12f56235e13880fad3ce4a80ca9da3fdaa2abc4dd6"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-more-multiplicativity-counterexamples.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-more-multiplicativity-counterexamples/frontier.json"
+  }
+}

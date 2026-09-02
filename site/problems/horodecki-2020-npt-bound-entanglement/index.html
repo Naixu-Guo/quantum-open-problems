@@ -185,11 +185,12 @@
 
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
-          <span class="status-badge ">Open</span>
+          <span class="status-badge">Open</span>
           <span class="area-badge">Quantum information</span>
           <span class="meta-badge">Entanglement theory</span>
           <span class="meta-badge">Proposed 2020</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">NPT bound entanglement</h1>
         <p class="dialog-summary">No negative-partial-transpose state has been proved undistillable for every finite number of copies.</p>
@@ -197,11 +198,14 @@
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#remaining">What remains</a>
-          <a href="#progress-heading">Progress</a>
+          <a href="#target-heading">What remains</a>
+          <a href="#progress-heading">Verified progress</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
           <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <div class="problem-framing">
           <section class="framing-row" aria-labelledby="importance-heading">
             <h2 id="importance-heading">Why it matters</h2>
@@ -228,7 +232,7 @@
               <span class="dialog-section-label">Verified formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">Matched to the source and locator above</span>
+            <span class="formal-source">Matched to the source and locator above · digest 5794ecb4f03e</span>
           </div>
 
           <details class="formal-notation">
@@ -244,43 +248,80 @@
           <div class="formal-body"><p><strong>Problem 4:</strong> <em>Establish whether there exist bound entangled states with negative partial transpose.</em></p><p>Setup: Fix \(d&gt;2\) and consider bipartite states on \(\mathcal{H}_d\otimes\mathcal{H}_d\). A state \(\rho\) is called \(n\)-copy distillable if there exist two-dimensional (i.e. rank two) projectors \(P\) and \(Q\) acting on \((\mathcal{H}_d)^{\otimes n}\) such that the matrix</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[(P\otimes Q)\,(\rho^\Gamma)^{\otimes n}\,(P\otimes Q)\]</div><p>has a negative eigenvalue. The state is distillable if it is \(n\)-copy distillable for some finite \(n\). The problem asks: do there exist NPT states \(\rho\) on \(\mathcal{H}_d\otimes\mathcal{H}_d\) (some \(d&gt;2\)) that are not distillable, i.e. for which no such \(n\), \(P\), \(Q\) exist?</p><p>In the Choi-map formulation, if \(S\) is the completely positive map associated with a state, \(n\)-copy nondistillability is equivalent to \(S^{\otimes n}\) being 2-copositive, or \((T\circ S)^{\otimes n}\) being 2-positive. A related but logically distinct sufficient route is to construct a tensor-stable positive map that is neither completely positive nor completely copositive. These formulations should not be collapsed into one condition on an arbitrary positive map.</p></div>
         </section>
 
-        <div class="remaining-question " id="remaining">
-          <span>What remains</span>
-          <p>Construct an NPT state that is undistillable for all tensor powers, or prove that every NPT state is distillable.</p>
-        </div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Exact unresolved target</h2>
+
+          <div class="remaining-question" id="remaining">
+            <span>What remains</span>
+            <p>Construct an NPT state that is undistillable for all tensor powers, or prove that every NPT state is distillable.</p>
+          </div>
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-narrowed" id="clause-archived-statement">
+              <div class="clause-head">
+                <span class="clause-state narrowed">Narrowed</span>
+                <strong>Archived statement</strong>
+                <code>archived-statement</code>
+              </div>
+              <p>The formal statement of this version, as archived from the source.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> Construct an NPT state that is undistillable for all tensor powers, or prove that every NPT state is distillable.</p>
+              <p class="clause-claims">2 accepted claims: <a href="#claim-horodecki-2020-npt-bound-entanglement-2026-a-candidate-family-is">claim-horodecki-2020-npt-bound-entanglement-2026-a-candidate-family-is</a>, <a href="#claim-horodecki-2020-npt-bound-entanglement-2026-the-two-copy-werner">claim-horodecki-2020-npt-bound-entanglement-2026-the-two-copy-werner</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Open as of 12 Aug 2026: Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered. <code>decision-horodecki-2020-npt-bound-entanglement-status-2026-08-12</code></p>
+        </section>
 
 
 
         <section class="dialog-section" aria-labelledby="progress-heading">
-          <span class="dialog-section-label">Evidence ledger</span>
-          <h2 id="progress-heading">Recent progress</h2>
-          <ol class="timeline">
+          <span class="dialog-section-label">Verified progress</span>
+          <h2 id="progress-heading">Accepted claims</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
 
-            <li id="qop-evt-dfaac1750a3b4bda">
-              <time datetime="2026-08-09">09 Aug 2026</time>
-              <div>
-                <h3>A candidate family is two-copy distillable in every dimension</h3>
-                <p>Tabia, Chen and Hsieh prove two-copy distillability for selected one-copy-undistillable NPT states in every local dimension at least three. This removes candidates rather than producing bound entanglement.</p>
-                <div class="dialog-source-meta">
+          <article class="claim-card" id="claim-horodecki-2020-npt-bound-entanglement-2026-a-candidate-family-is">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Narrows</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>A candidate family is two-copy distillable in every dimension</h3>
+            <p>Tabia, Chen and Hsieh prove two-copy distillability for selected one-copy-undistillable NPT states in every local dimension at least three. This removes candidates rather than producing bound entanglement.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-dfaac1750a3b4bda">
+                <time datetime="2026-08-09">09 Aug 2026</time>
+                <div>
                   <span class="maturity-badge">Preprint</span>
                   <span class="maturity-badge">Exact restricted theorem</span>
                   <a href="https://arxiv.org/abs/2608.08836" rel="noreferrer">Candidate ruled out ↗</a>
+
                 </div>
-              </div>
-            </li>
-            <li id="qop-evt-2a583f4ce6723bc4">
-              <time datetime="2026-07-27">27 Jul 2026</time>
-              <div>
-                <h3>The two-copy Werner threshold is exact</h3>
-                <p>Four concurrent preprints prove that a Werner state is two-copy distillable exactly when it is one-copy distillable. Three-copy and all-copy distillability remain unresolved.</p>
-                <div class="dialog-source-meta">
+              </li>
+            </ol>
+
+          </article>
+          <article class="claim-card" id="claim-horodecki-2020-npt-bound-entanglement-2026-the-two-copy-werner">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Narrows</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>The two-copy Werner threshold is exact</h3>
+            <p>Four concurrent preprints prove that a Werner state is two-copy distillable exactly when it is one-copy distillable. Three-copy and all-copy distillability remain unresolved.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-2a583f4ce6723bc4">
+                <time datetime="2026-07-27">27 Jul 2026</time>
+                <div>
                   <span class="maturity-badge">Preprint</span>
                   <span class="maturity-badge">Exact two-copy theorem</span>
                   <a href="https://arxiv.org/abs/2607.24479" rel="noreferrer">Two-copy result ↗</a>
+
                 </div>
-              </div>
-            </li>
-          </ol>
+              </li>
+            </ol>
+
+          </article>
+
         </section>
 
 
@@ -294,6 +335,28 @@
               <strong>Scope</strong>
               <p>Finite-copy theorems do not settle all-copy undistillability. The July and August 2026 manuscripts are recent preprints at the audit cutoff. <a href="https://arxiv.org/abs/2608.08836" rel="noreferrer">Source ↗</a></p>
             </div>
+          </div>
+        </section>
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="horodecki-2020-npt-bound-entanglement">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+NPT+bound+entanglement" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="horodecki-2020-npt-bound-entanglement">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
           </div>
         </section>
 
@@ -314,8 +377,10 @@
           <ul class="machine-links">
             <li><a href="../../packets/horodecki-2020-npt-bound-entanglement.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
             <li><a href="../../api/v1/problems/horodecki-2020-npt-bound-entanglement.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+NPT+bound+entanglement" rel="noreferrer">Submit a research update ↗</a> — the evidence contract applies to human and AI results.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/horodecki-2020-npt-bound-entanglement/problem.md" rel="noreferrer">Source article ↗</a> — the canonical statement and notes in the repository.</li>
+            <li><a href="../../api/v1/problems/horodecki-2020-npt-bound-entanglement/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/horodecki-2020-npt-bound-entanglement/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+NPT+bound+entanglement" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/horodecki-2020-npt-bound-entanglement/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -334,7 +399,8 @@
           <p>Record <code>horodecki-2020-npt-bound-entanglement</code></p>
           <p>Record revision <code>c03605e5446dc0ee317291e0bb84e97a95faa5d14da5e82685ca7bc3d953f0ed</code></p>
           <p>Statement digest <code>5794ecb4f03e16ec60ebf8314d595902bd5bdce3ecbd4d0c9d7186bec31b51aa</code></p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Statement <code>horodecki-2020-npt-bound-entanglement-statement-v1</code> · Decision <code>decision-horodecki-2020-npt-bound-entanglement-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -365,5 +431,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="horodecki-2020-npt-bound-entanglement" defer></script>
   </body>
 </html>

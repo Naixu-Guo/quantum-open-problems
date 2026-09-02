@@ -1,0 +1,50 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "krueger-2005-qubit-relative-entropy-entanglement-statement-v1",
+  "problemId": "krueger-2005-qubit-relative-entropy-entanglement",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-krueger-werner-2005",
+      "relationship": "states-problem",
+      "locator": "pp. 30-31 (Problem 8)",
+      "primary": true,
+      "statedTitle": "Qubit formula for Relative Entropy of Entanglement",
+      "source": {
+        "id": "source-krueger-werner-2005",
+        "title": "Some open problems in quantum information theory",
+        "authors": [
+          "O. Krüger",
+          "R. F. Werner"
+        ],
+        "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+        "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Find a closed expression that maps an arbitrary two-qubit density matrix to its relative entropy of entanglement."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $\\mathcal{H}$ | Finite-dimensional complex Hilbert space |\n| $\\mathbb{C}^2 \\otimes \\mathbb{C}^2$ | Two-qubit Hilbert space |\n| $\\rho$ | Density operator (state) on a bipartite Hilbert space |\n| $\\sigma$ | Density operator in the reference convex set $D$ |\n| $D$ | Convex set of separable states, or convex set of states with positive partial transpose (PPT) |\n| $S(\\rho \\Vert \\sigma)$ | Quantum relative entropy, $\\mathrm{Tr}(\\rho \\log \\rho) - \\mathrm{Tr}(\\rho \\log \\sigma)$ |\n| $E_R(\\rho)$ | Relative entropy of entanglement of $\\rho$ with respect to $D$ |\n| $E_F(\\rho)$ | Entanglement of formation |\n| $\\mathrm{PPT}$ | Positive partial transpose |\n| $\\inf$ | Infimum |\n| $\\partial D$ | Topological boundary of $D$ in the state space |",
+    "statement": "For a bipartite state $\\rho$, define\n$$E_R(\\rho) \\;=\\; \\inf_{\\sigma \\in D} S(\\rho \\,\\|\\, \\sigma),$$\nwhere $D$ is either the set of separable states or the set of states with positive partial transpose, and $S(\\rho \\,\\|\\, \\sigma) = \\mathrm{Tr}(\\rho \\log \\rho) - \\mathrm{Tr}(\\rho \\log \\sigma)$ is the quantum relative entropy.\n\n**Problem.** Find a closed-form expression for $E_R(\\rho)$ for every state $\\rho$ on the two-qubit Hilbert space $\\mathbb{C}^2 \\otimes \\mathbb{C}^2$, with respect to either of the convex sets $D$ above."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "af4762c4be566a4ac7e6b74ec69ab6191f72092f45937b82370420369c71affc",
+    "bodyDigest": "193db0f75e63fbde831c1f49cddc1f07e941374f0b8394dfed3e42410de54cb0"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-relative-entropy-entanglement.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-relative-entropy-entanglement/frontier.json"
+  }
+}

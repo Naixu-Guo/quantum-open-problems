@@ -1,0 +1,49 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "krueger-2005-asymptotic-cloning-state-estimation-statement-v1",
+  "problemId": "krueger-2005-asymptotic-cloning-state-estimation",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-krueger-werner-2005",
+      "relationship": "states-problem",
+      "locator": "pp. 58-59 (Problem 22)",
+      "primary": true,
+      "source": {
+        "id": "source-krueger-werner-2005",
+        "title": "Some open problems in quantum information theory",
+        "authors": [
+          "O. Krüger",
+          "R. F. Werner"
+        ],
+        "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+        "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "asymptotic-cloning-is-state-estimation",
+      "label": "Asymptotic cloning equals state estimation",
+      "text": "The archived statement asks to decide whether, for every input distribution and every N, the limit of the optimal N-to-M cloning fidelity as M tends to infinity equals the optimal measure-and-reprepare fidelity F(N,infinity).",
+      "resolutionCriteria": "A general proof of the limiting equality, or an input distribution and an N for which the two quantities differ."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $d$ | Dimension of the local quantum system (each state lives in $\\mathbb{C}^d$) |\n| $\\mu$ | A fixed probability measure on the pure states of $\\mathbb{C}^d$ |\n| $N$ | Number of input copies of an unknown pure state |\n| $M$ | Number of output (clone) copies, $M \\ge N$ |\n| $\\mathcal{C}_{N\\to M}$ | An $N$-to-$M$ cloning transformation: a CPTP map from $N$ input copies to $M$ output systems |\n| $F(N,M)$ | Optimal single-copy fidelity averaged over $\\mu$ and over all $M$ output clones, for the best $N$-to-$M$ cloner |\n| $F(N,\\infty)$ | $\\lim_{M\\to\\infty} F(N,M)$; equivalently, the best mean single-copy fidelity achievable by a \"measure-and-reprepare\" strategy: measure on $N$ input copies and prepare a state according to the measurement outcome |\n| $\\lvert\\langle\\phi\\,\\vert\\,\\psi\\rangle\\rvert^2$ | Fidelity between two pure states $\\lvert\\phi\\rangle$ and $\\lvert\\psi\\rangle$ |",
+    "statement": "Fix a dimension $d$ and an arbitrary probability measure $\\mu$ on the pure states of $\\mathbb{C}^d$. For $N \\ge 1$ and $M \\ge N$, let $F(N,M)$ be the optimal single-copy fidelity, averaged with respect to $\\mu$ and over all $M$ output clones, attained by $N$-to-$M$ cloning transformations. Let $F(N,\\infty)$ be the best mean single-copy fidelity achievable by first measuring on $N$ input copies of the state and then repreparing a state according to the measured data.\n\nDecide whether, for every $\\mu$ and every $N$,\n$$\\lim_{M\\to\\infty} F(N,M) \\;=\\; F(N,\\infty).$$\n\nA weaker but still interesting version of the problem asks whether the equality holds in the further limit $N \\to \\infty$,\n$$\\lim_{N\\to\\infty}\\lim_{M\\to\\infty} F(N,M) \\;=\\; \\lim_{N\\to\\infty} F(N,\\infty).$$"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "d412584f21f81560a7c8903b3d18e5586b62b95e9f35e23463901442e6d43e6c",
+    "bodyDigest": "70c774b11a199610ec1fefcbecb6c7d75158a50a26c213a2b54253e7136022f1"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-asymptotic-cloning-state-estimation.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-asymptotic-cloning-state-estimation/frontier.json"
+  }
+}

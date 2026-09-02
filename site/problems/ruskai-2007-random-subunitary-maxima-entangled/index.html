@@ -177,11 +177,12 @@
 
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
-          <span class="status-badge ">Open</span>
+          <span class="status-badge">Open</span>
           <span class="area-badge">Quantum information</span>
           <span class="meta-badge">Quantum channels</span>
           <span class="meta-badge">Proposed 2007</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Maximally entangled relative maxima for sub-unitary channels</h1>
         <p class="dialog-summary">The maximally entangled input is analytically understood only in the Werner-Holevo special case. No theorem covers arbitrary unitaries in the intended family.</p>
@@ -189,11 +190,14 @@
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#remaining">What remains</a>
-          <a href="#progress-heading">Progress</a>
+          <a href="#target-heading">What remains</a>
+          <a href="#progress-heading">Verified progress</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
           <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <div class="problem-framing">
           <section class="framing-row" aria-labelledby="importance-heading">
             <h2 id="importance-heading">Why it matters</h2>
@@ -220,7 +224,7 @@
               <span class="dialog-section-label">Verified formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">Matched to the source and locator above</span>
+            <span class="formal-source">Matched to the source and locator above · digest 854d336a72d1</span>
           </div>
 
           <details class="formal-notation">
@@ -236,31 +240,59 @@
           <div class="formal-body"><p>Interpreting equation (22) as the intended normalized cyclic random-sub-unitary construction, let \(\Phi:M_d\to M_d\) belong to that CPT family. The source prints</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[A_k=\frac{1}{d-1}X^k\begin{pmatrix}U_k &amp; 0\\ 0 &amp; 0\end{pmatrix},\qquad k=0,1,\dots,d-1,\]</div><p>with \(X\) the cyclic shift on \(\mathbb{C}^d\) and each \(U_k\) a \((d-1)\times(d-1)\) unitary, but this formula is not CPT as written.</p><p><strong>Problem 8.</strong> Does the set of relative maxima of</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\rho\mapsto\|(\Phi\otimes\Phi)(\rho)\|_p,\qquad \rho\in M_d\otimes M_d,\]</div><p>always include inputs that are maximally entangled pure states? If not, for which values of \(p\) and under what additional circumstances do maximally entangled inputs yield outputs that are relative maxima of \(\|(\Phi\otimes\Phi)(\rho)\|_p\)?</p></div>
         </section>
 
-        <div class="remaining-question " id="remaining">
-          <span>What remains</span>
-          <p>Decide whether maximally entangled inputs are always among the relative maxima of the two-copy output p-norm for the corrected family.</p>
-        </div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Exact unresolved target</h2>
+
+          <div class="remaining-question" id="remaining">
+            <span>What remains</span>
+            <p>Decide whether maximally entangled inputs are always among the relative maxima of the two-copy output p-norm for the corrected family.</p>
+          </div>
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-narrowed" id="clause-archived-statement">
+              <div class="clause-head">
+                <span class="clause-state narrowed">Narrowed</span>
+                <strong>Archived statement</strong>
+                <code>archived-statement</code>
+              </div>
+              <p>The formal statement of this version, as archived from the source.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> Decide whether maximally entangled inputs are always among the relative maxima of the two-copy output p-norm for the corrected family.</p>
+              <p class="clause-claims">1 accepted claim: <a href="#claim-ruskai-2007-random-subunitary-maxima-entangled-2007-the-werner-holevo-critical">claim-ruskai-2007-random-subunitary-maxima-entangled-2007-the-werner-holevo-critical</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Open as of 12 Aug 2026: Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered. <code>decision-ruskai-2007-random-subunitary-maxima-entangled-status-2026-08-12</code></p>
+        </section>
 
 
 
         <section class="dialog-section" aria-labelledby="progress-heading">
-          <span class="dialog-section-label">Evidence ledger</span>
-          <h2 id="progress-heading">Recent progress</h2>
-          <ol class="timeline">
+          <span class="dialog-section-label">Verified progress</span>
+          <h2 id="progress-heading">Accepted claims</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
 
-            <li id="qop-evt-c752169e52efdfe4">
-              <time datetime="2007">2007</time>
-              <div>
-                <h3>The Werner-Holevo critical point is a special case only</h3>
-                <p>Nathanson proves an analytic critical-point statement for the Werner-Holevo channel; private numerical evidence about relative maxima does not extend to arbitrary family parameters.</p>
-                <div class="dialog-source-meta">
+          <article class="claim-card" id="claim-ruskai-2007-random-subunitary-maxima-entangled-2007-the-werner-holevo-critical">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Narrows</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>The Werner-Holevo critical point is a special case only</h3>
+            <p>Nathanson proves an analytic critical-point statement for the Werner-Holevo channel; private numerical evidence about relative maxima does not extend to arbitrary family parameters.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-c752169e52efdfe4">
+                <time datetime="2007">2007</time>
+                <div>
                   <span class="maturity-badge">Peer reviewed</span>
                   <span class="maturity-badge">Exact special case</span>
                   <a href="https://arxiv.org/abs/quant-ph/0611106" rel="noreferrer">Werner-Holevo analysis ↗</a>
+
                 </div>
-              </div>
-            </li>
-          </ol>
+              </li>
+            </ol>
+
+          </article>
+
         </section>
 
 
@@ -274,6 +306,28 @@
         </section>
 
 
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="ruskai-2007-random-subunitary-maxima-entangled">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Maximally+entangled+relative+maxima+for+sub-unitary+channels" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="ruskai-2007-random-subunitary-maxima-entangled">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
+        </section>
+
+
+
+
 
         <section class="dialog-section" aria-labelledby="machine-heading">
           <span class="dialog-section-label">Work on this problem</span>
@@ -281,8 +335,10 @@
           <ul class="machine-links">
             <li><a href="../../packets/ruskai-2007-random-subunitary-maxima-entangled.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
             <li><a href="../../api/v1/problems/ruskai-2007-random-subunitary-maxima-entangled.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Maximally+entangled+relative+maxima+for+sub-unitary+channels" rel="noreferrer">Submit a research update ↗</a> — the evidence contract applies to human and AI results.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/ruskai-2007-random-subunitary-maxima-entangled/problem.md" rel="noreferrer">Source article ↗</a> — the canonical statement and notes in the repository.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-random-subunitary-maxima-entangled/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-random-subunitary-maxima-entangled/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Maximally+entangled+relative+maxima+for+sub-unitary+channels" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/ruskai-2007-random-subunitary-maxima-entangled/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -301,7 +357,8 @@
           <p>Record <code>ruskai-2007-random-subunitary-maxima-entangled</code></p>
           <p>Record revision <code>b9a02c8d36abacde237dea59968bee9ad9d23485bb1627953f35939d9fb40be0</code></p>
           <p>Statement digest <code>854d336a72d1c7b508562f1fbd69e565d1228f736ab5ddae5c50232d9c0ee71f</code></p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Statement <code>ruskai-2007-random-subunitary-maxima-entangled-statement-v1</code> · Decision <code>decision-ruskai-2007-random-subunitary-maxima-entangled-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -332,5 +389,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="ruskai-2007-random-subunitary-maxima-entangled" defer></script>
   </body>
 </html>

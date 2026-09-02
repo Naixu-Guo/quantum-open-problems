@@ -1,0 +1,190 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-reversibility-entanglement-assisted-coding",
+  "title": "Reversibility of entanglement assisted coding",
+  "catalogState": "archived",
+  "status": "solved",
+  "statusLabel": "Solved",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-krueger-2005-reversibility-entanglement-assisted-coding-status-2026-08-12",
+    "status": "solved",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "The peer-reviewed Quantum Reverse Shannon Theorem, proved independently in two forms, yields exactly the reciprocal identity asserted in the archived statement.",
+    "evidenceIds": [
+      "evidence-krueger-2005-reversibility-entanglement-assisted-coding-ieee-transactions-on",
+      "evidence-krueger-2005-reversibility-entanglement-assisted-coding-communications-in-mathematical"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "krueger-2005-reversibility-entanglement-assisted-coding-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "ecf52c94c11728e60d57aedb3a1f9bc2e219dec26479b571365a7a362ccd4fb9",
+    "sourceRefs": [
+      {
+        "sourceId": "source-krueger-werner-2005",
+        "relationship": "states-problem",
+        "locator": "pp. 51-52 (Problem 17)",
+        "primary": true,
+        "source": {
+          "id": "source-krueger-werner-2005",
+          "title": "Some open problems in quantum information theory",
+          "authors": [
+            "O. Krüger",
+            "R. F. Werner"
+          ],
+          "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+          "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+          "doi": "10.48550/arXiv.quant-ph/0504166",
+          "arxivId": "quant-ph/0504166"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $S$, $T$, $R$ | Quantum channels (completely positive trace-preserving maps) |\n| $S_1$ | The ideal noiseless classical 1-bit channel, used as the standard reference channel |\n| $C_{\\mathrm{E}}(T,S)$ | The entanglement-assisted capacity of $T$ for $S$-messages: the supremum of rates $r$ such that, for large $n$, $rn$ parallel copies of $T$ can be simulated by $n$ copies of $S$ with vanishing error, using free pre-shared entanglement |\n| $C_{\\mathrm{E}}(T)$ | Entanglement-assisted classical capacity of $T$, defined as $C_{\\mathrm{E}}(T) = C_{\\mathrm{E}}(T,S_1)$ |\n| $C(T,S)$ | The (un-assisted) capacity of $T$ for $S$-messages |\n| $n$ | Number of independent uses of the source channel in the simulation |\n| $r$, $rn$ | Rate, and number of uses of $T$ available to simulate $n$ uses of $S$ |\n| $\\otimes$ | Tensor product of channels (parallel use) |",
+      "statement": "For any two quantum channels $S$ and $T$, define the entanglement-assisted capacity $C_{\\mathrm{E}}(T,S)$ as the supremum of rates $r$ such that, for sufficiently large $n$, $rn$ parallel copies of $T$ can be simulated by $n$ copies of $S$. The simulation may use arbitrary local encoding and decoding operations together with arbitrarily many shared entangled pairs, and its error must vanish as $n \\to \\infty$.\n\nProve the *reversibility* identity\n$$C_{\\mathrm{E}}(T,S) \\;=\\; C_{\\mathrm{E}}(S,T)^{-1}$$\nfor every pair of quantum channels $S$, $T$.\n\nEquivalently (combined with the easy two-step inequality $C_{\\mathrm{E}}(T,S)\\,C_{\\mathrm{E}}(S,T) \\le 1$), show that $C_{\\mathrm{E}}(T,S)\\,C_{\\mathrm{E}}(S,T) = 1$ always."
+    }
+  },
+  "question": {
+    "type": "Asymptotic reversibility",
+    "summary": "The source asked to prove that entanglement-assisted channel simulation is reversible, so that the rate for simulating T from S is the reciprocal of the rate for simulating S from T. The Quantum Reverse Shannon Theorem of Bennett, Devetak, Harrow, Shor and Winter established the identity.",
+    "importance": "Without free entanglement the resource theory of quantum channels is badly irreversible, whereas free entanglement was conjectured to restore the Shannon-like picture in which any two channels of equal entanglement-assisted capacity simulate each other at unit rate per bit of capacity.",
+    "unresolved": ""
+  },
+  "targetClauses": [
+    {
+      "id": "entanglement-assisted-simulation-reversibility",
+      "label": "Reversibility of entanglement-assisted channel simulation",
+      "text": "The archived statement asks to prove that C_E(T,S) equals the reciprocal of C_E(S,T) for every pair of quantum channels, equivalently that the product of the two entanglement-assisted simulation rates is always one.",
+      "resolutionCriteria": "A proof of the reciprocal identity, or a channel pair for which the product of the two simulation rates is strictly below one.",
+      "state": "resolved",
+      "claimIds": [
+        "claim-krueger-2005-reversibility-entanglement-assisted-coding-quantum-reverse-shannon-theorem"
+      ],
+      "latestEvidenceDate": "2014"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [],
+    "summary": ""
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-krueger-2005-reversibility-entanglement-assisted-coding-quantum-reverse-shannon-theorem",
+      "relation": "resolves",
+      "relationLabel": "Resolves",
+      "title": "Quantum Reverse Shannon Theorem gives the reciprocal identity",
+      "text": "Bennett, Devetak, Harrow, Shor and Winter prove the full Quantum Reverse Shannon Theorem, and Berta, Christandl and Renner give a one-shot information-theoretic proof. Under the source's convention the theorem yields C_E(T,S) = C_E(S)/C_E(T) = C_E(S,T) to the power minus one for every pair of memoryless channels in the i.i.d. asymptotic resource model, establishing the archived reversibility identity.",
+      "targetClauseIds": [
+        "entanglement-assisted-simulation-reversibility"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2014",
+      "evidence": [
+        {
+          "id": "evidence-krueger-2005-reversibility-entanglement-assisted-coding-ieee-transactions-on",
+          "date": "2014",
+          "maturity": "Peer reviewed",
+          "strength": "Exact theorem",
+          "label": "IEEE Transactions on Information Theory",
+          "sourceLocator": "Quantum Reverse Shannon Theorem (main result, announced 2009)",
+          "source": {
+            "id": "source-bennett-2014-quantum-reverse-shannon",
+            "title": "The Quantum Reverse Shannon Theorem and Resource Tradeoffs for Simulating Quantum Channels",
+            "authors": [
+              "C. H. Bennett",
+              "I. Devetak",
+              "A. W. Harrow",
+              "P. W. Shor",
+              "A. Winter"
+            ],
+            "venue": "IEEE Trans. Inform. Theory 60, 2926 (2014); arXiv:0912.5537",
+            "url": "https://arxiv.org/abs/0912.5537"
+          }
+        },
+        {
+          "id": "evidence-krueger-2005-reversibility-entanglement-assisted-coding-communications-in-mathematical",
+          "date": "2011",
+          "maturity": "Peer reviewed",
+          "strength": "Exact theorem",
+          "label": "Communications in Mathematical Physics",
+          "sourceLocator": "One-shot proof of the Quantum Reverse Shannon Theorem",
+          "source": {
+            "id": "source-berta-2011-reverse-shannon-one-shot",
+            "title": "The Quantum Reverse Shannon Theorem Based on One-Shot Information Theory",
+            "authors": [
+              "M. Berta",
+              "M. Christandl",
+              "R. Renner"
+            ],
+            "venue": "Commun. Math. Phys. 306, 579 (2011); arXiv:0912.3805",
+            "url": "https://arxiv.org/abs/0912.3805"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [
+    {
+      "label": "Scope",
+      "text": "The identity is established for memoryless channels in the i.i.d. asymptotic resource model; more general source models can require extra conventions about feedback or embezzling entanglement and should not be inferred from this statement without specifying resources.",
+      "url": null
+    }
+  ],
+  "interpretation": null,
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "krueger-2005-reversibility-entanglement-assisted-coding-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-krueger-2005-reversibility-entanglement-assisted-coding-status-2026-08-12",
+        "status": "solved",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "f6c77cba0f3701d6ecdb0cfbe1de1bc8d320c4094547c1e9b2c03097fc9027f2",
+    "statementDigest": "ecf52c94c11728e60d57aedb3a1f9bc2e219dec26479b571365a7a362ccd4fb9",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-reversibility-entanglement-assisted-coding/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-reversibility-entanglement-assisted-coding.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-reversibility-entanglement-assisted-coding/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-reversibility-entanglement-assisted-coding/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-reversibility-entanglement-assisted-coding/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-reversibility-entanglement-assisted-coding.md"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "krueger-2005-reduction-criterion-majorization-statement-v1",
+  "problemId": "krueger-2005-reduction-criterion-majorization",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-krueger-werner-2005",
+      "relationship": "states-problem",
+      "locator": "pp. 32-33 (Problem 9)",
+      "primary": true,
+      "source": {
+        "id": "source-krueger-werner-2005",
+        "title": "Some open problems in quantum information theory",
+        "authors": [
+          "O. Krüger",
+          "R. F. Werner"
+        ],
+        "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+        "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "reduction-implies-majorization",
+      "label": "Reduction criterion implies majorization",
+      "text": "The archived statement asks whether the reduction criterion for a bipartite state implies the majorization inequalities between the spectrum of the joint state and the spectra of its reductions.",
+      "resolutionCriteria": "A proof of the implication, or a state satisfying the reduction criterion whose spectra violate majorization."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $\\mathcal{H}_A, \\mathcal{H}_B$ | Finite-dimensional Hilbert spaces of subsystems $A$ and $B$ |\n| $\\rho_{AB}$ | Bipartite density matrix on $\\mathcal{H}_A \\otimes \\mathcal{H}_B$ |\n| $\\rho_A, \\rho_B$ | Reduced density matrices: $\\rho_A = \\mathrm{Tr}_B \\rho_{AB}$, $\\rho_B = \\mathrm{Tr}_A \\rho_{AB}$ |\n| $\\mathrm{Tr}_X$ | Partial trace over subsystem $X$ |\n| $I_A, I_B$ | Identity operator on $\\mathcal{H}_A$, $\\mathcal{H}_B$ |\n| $\\rho^{T_B}$ | Partial transpose of $\\rho_{AB}$ on subsystem $B$ |\n| $\\lambda(\\rho)$ | Eigenvalue (column) vector of $\\rho$ in non-increasing order |\n| $\\prec$ | Majorization relation: $x \\prec y$ iff $\\sum_{i=1}^{k} x_i^{\\downarrow} \\leq \\sum_{i=1}^{k} y_i^{\\downarrow}$ for all $k$, with equality at $k = \\dim$ |\n| $\\prec_w$ | Weak (sub-)majorization relation |\n| $\\Vert R\\Vert$ | Operator norm of $R$ |\n| PPT | Positive partial transpose criterion: $\\rho^{T_B} \\geq 0$ |",
+    "statement": "Let $\\rho_{AB}$ be a bipartite density matrix on $\\mathcal{H}_A \\otimes \\mathcal{H}_B$ with reductions $\\rho_A = \\mathrm{Tr}_B \\rho_{AB}$ and $\\rho_B = \\mathrm{Tr}_A \\rho_{AB}$.\n\n**Question.** Does the reduction criterion\n$$\\rho_A \\otimes I_B \\;\\geq\\; \\rho_{AB} \\qquad \\text{and} \\qquad I_A \\otimes \\rho_B \\;\\geq\\; \\rho_{AB}$$\nimply the majorization inequalities\n$$\\lambda(\\rho_{AB}) \\;\\prec\\; \\lambda(\\rho_A) \\qquad \\text{and} \\qquad \\lambda(\\rho_{AB}) \\;\\prec\\; \\lambda(\\rho_B)\\,?$$\n\nMore broadly: where does majorization sit in the hierarchy of separability/entanglement criteria?"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "c68e752dd7dbb47b2e3d59f1a4dc642fcf54560321771aacc02de86d517ad5da",
+    "bodyDigest": "358addec5048789d1e7a5cd165bfbc9255973c231cb2908caf2fabfcb107cbbb"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-reduction-criterion-majorization.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-reduction-criterion-majorization/frontier.json"
+  }
+}

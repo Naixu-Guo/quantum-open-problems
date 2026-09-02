@@ -182,6 +182,7 @@
           <span class="meta-badge">Quantum channels</span>
           <span class="meta-badge">Proposed 2007</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Channel classes with multiplicativity at p = 2</h1>
         <p class="dialog-summary">Many nontrivial channel classes have multiplicative maximal output 2-norm, including PPT-inducing channels tensored with arbitrary channels. No exhaustive characterization exists.</p>
@@ -189,11 +190,14 @@
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#remaining">What remains</a>
-          <a href="#progress-heading">Progress</a>
+          <a href="#target-heading">What remains</a>
+          <a href="#progress-heading">Verified progress</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
           <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <div class="problem-framing">
           <section class="framing-row" aria-labelledby="importance-heading">
             <h2 id="importance-heading">Why it matters</h2>
@@ -220,7 +224,7 @@
               <span class="dialog-section-label">Verified formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">Matched to the source and locator above</span>
+            <span class="formal-source">Matched to the source and locator above · digest 50a635b5b3ce</span>
           </div>
 
           <details class="formal-notation">
@@ -236,34 +240,84 @@
           <div class="formal-body"><p><strong>Problem 12.</strong> For what classes of quantum channels \(\Phi,\Omega\) can the multiplicativity identity</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\nu_p(\Phi\otimes\Omega)=\nu_p(\Phi)\,\nu_p(\Omega) \tag{24}\]</div><p>be proved at \(p=2\)?</p></div>
         </section>
 
-        <div class="remaining-question partial" id="remaining">
-          <span>What remains</span>
-          <p>Identify further positive classes or give an exhaustive structural characterization of channels satisfying multiplicativity at p equals two.</p>
-        </div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Exact unresolved target</h2>
+
+          <div class="remaining-question partial" id="remaining">
+            <span>What remains</span>
+            <p>Identify further positive classes or give an exhaustive structural characterization of channels satisfying multiplicativity at p equals two.</p>
+          </div>
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-narrowed" id="clause-positive-channel-classes">
+              <div class="clause-head">
+                <span class="clause-state narrowed">Narrowed</span>
+                <strong>Positive channel classes at p = 2</strong>
+                <code>positive-channel-classes</code>
+              </div>
+              <p>Identify channel classes for which maximal output 2-norm multiplicativity holds.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> Give further exact positive classes or an exhaustive structural characterization.</p>
+              <p class="clause-claims">1 accepted claim: <a href="#claim-ppt-inducing-positive-class-2008">claim-ppt-inducing-positive-class-2008</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Partially solved as of 12 Aug 2026: Many exact positive classes are known, but no exhaustive characterization is available. <code>decision-multiplicativity-p2-status-2026-08-12</code></p>
+        </section>
 
 
 
         <section class="dialog-section" aria-labelledby="progress-heading">
-          <span class="dialog-section-label">Evidence ledger</span>
-          <h2 id="progress-heading">Recent progress</h2>
-          <ol class="timeline">
+          <span class="dialog-section-label">Verified progress</span>
+          <h2 id="progress-heading">Accepted claims</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
 
-            <li id="qop-evt-8bc707951b8d2c31">
-              <time datetime="2008">2008</time>
-              <div>
-                <h3>PPT-inducing channels form a broad positive class</h3>
-                <p>Dierckx, Fannes and Vandenplas prove 2-norm multiplicativity when one tensor factor is PPT-inducing and the other is arbitrary.</p>
-                <div class="dialog-source-meta">
+          <article class="claim-card" id="claim-ppt-inducing-positive-class-2008">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Narrows</span>
+              <span class="claim-clauses"><a href="#clause-positive-channel-classes">positive-channel-classes</a></span>
+            </div>
+            <h3>PPT-inducing channels form a broad positive class</h3>
+            <p>Dierckx, Fannes and Vandenplas prove 2-norm multiplicativity when one tensor factor is PPT-inducing and the other is arbitrary.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-8bc707951b8d2c31">
+                <time datetime="2008">2008</time>
+                <div>
                   <span class="maturity-badge">Peer reviewed</span>
                   <span class="maturity-badge">Exact channel class</span>
                   <a href="https://arxiv.org/abs/0803.0479" rel="noreferrer">PPT-inducing class ↗</a>
+                  <span class="evidence-locator">Main multiplicativity result</span>
                 </div>
-              </div>
-            </li>
-          </ol>
+              </li>
+            </ol>
+
+          </article>
+
         </section>
 
 
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="ruskai-2007-multiplicativity-p2-channel-classes">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Channel+classes+with+multiplicativity+at+p+%3D+2" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="ruskai-2007-multiplicativity-p2-channel-classes">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
+        </section>
 
 
 
@@ -275,8 +329,10 @@
           <ul class="machine-links">
             <li><a href="../../packets/ruskai-2007-multiplicativity-p2-channel-classes.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
             <li><a href="../../api/v1/problems/ruskai-2007-multiplicativity-p2-channel-classes.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Channel+classes+with+multiplicativity+at+p+%3D+2" rel="noreferrer">Submit a research update ↗</a> — the evidence contract applies to human and AI results.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/ruskai-2007-multiplicativity-p2-channel-classes/problem.md" rel="noreferrer">Source article ↗</a> — the canonical statement and notes in the repository.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-multiplicativity-p2-channel-classes/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-multiplicativity-p2-channel-classes/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Channel+classes+with+multiplicativity+at+p+%3D+2" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/ruskai-2007-multiplicativity-p2-channel-classes/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -295,7 +351,8 @@
           <p>Record <code>ruskai-2007-multiplicativity-p2-channel-classes</code></p>
           <p>Record revision <code>d3ad4d71bbf8f031c2157cb57cedb3e99e1a4492475a1839b4a879e5e07aec90</code></p>
           <p>Statement digest <code>50a635b5b3cefe16616539241d4f6b5a1ae3facaae125f4f2434590b9a5973b0</code></p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Statement <code>ruskai-2007-multiplicativity-p2-channel-classes-statement-v1</code> · Decision <code>decision-multiplicativity-p2-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -326,5 +383,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="ruskai-2007-multiplicativity-p2-channel-classes" defer></script>
   </body>
 </html>

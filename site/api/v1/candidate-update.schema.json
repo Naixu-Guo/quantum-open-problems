@@ -1,0 +1,290 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/schema/operational/v1/candidate-update.schema.json",
+  "title": "CandidateUpdate submission",
+  "description": "A structured, unverified scientific submission. This is the write contract accepted by POST /api/v1/candidate-updates and the MCP submit_candidate_update tool. The service adds id, submittedBy, submittedAt, reviewState, and links; it never accepts a status or acceptance field from a client.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "problemId",
+    "statementId",
+    "targetClauseIds",
+    "updateKind",
+    "title",
+    "claim",
+    "hypotheses",
+    "scope",
+    "sources",
+    "artifacts",
+    "proposedEffect",
+    "remainingGap"
+  ],
+  "properties": {
+    "problemId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "statementId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "targetClauseIds": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 20,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "uniqueItems": true
+    },
+    "recordDigest": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "The record revision the submitter worked from."
+    },
+    "statementDigest": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "updateKind": {
+      "enum": [
+        "proof",
+        "counterexample",
+        "partial-theorem",
+        "improved-bound",
+        "computation",
+        "numerical-evidence",
+        "experiment",
+        "failed-approach",
+        "source-correction",
+        "status-review",
+        "literature-update",
+        "other"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 200
+    },
+    "claim": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 8000,
+      "description": "The exact candidate claim with its quantifiers."
+    },
+    "hypotheses": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 1000
+      }
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000,
+      "description": "Which part of the statement the claim addresses and whether the result is full or partial."
+    },
+    "sources": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "uri"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "primary-source",
+              "preprint",
+              "published-paper",
+              "dataset",
+              "code",
+              "problem-list",
+              "other"
+            ]
+          },
+          "uri": {
+            "type": "string",
+            "format": "uri",
+            "maxLength": 2000
+          },
+          "locator": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 500
+          },
+          "citation": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 1000
+          },
+          "digest": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "uri"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "proof",
+              "code",
+              "data",
+              "certificate",
+              "experiment-log",
+              "notebook",
+              "other"
+            ]
+          },
+          "uri": {
+            "type": "string",
+            "format": "uri",
+            "maxLength": 2000
+          },
+          "digest": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          },
+          "locator": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 500
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 1000
+          }
+        }
+      }
+    },
+    "proposedEffect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relation",
+        "statusChange"
+      ],
+      "properties": {
+        "relation": {
+          "enum": [
+            "supports",
+            "narrows",
+            "refutes",
+            "resolves",
+            "reformulates",
+            "rules-out",
+            "status-review"
+          ]
+        },
+        "statusChange": {
+          "enum": [
+            "none",
+            "open",
+            "partial",
+            "solved"
+          ],
+          "description": "The status the submitter believes would follow. A proposal only; editors decide."
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 2000
+        }
+      }
+    },
+    "remainingGap": {
+      "type": "string",
+      "maxLength": 4000
+    },
+    "aiUse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "level"
+      ],
+      "properties": {
+        "level": {
+          "enum": [
+            "none",
+            "assisted",
+            "agent-generated"
+          ]
+        },
+        "systems": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "type": "string",
+            "maxLength": 200
+          }
+        },
+        "humanChecks": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "type": "string",
+            "maxLength": 500
+          }
+        }
+      }
+    },
+    "supersedesCandidateUpdateId": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^cu-[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "clientReference": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 200,
+      "description": "Opaque identifier from the submitting client, echoed back."
+    }
+  }
+}

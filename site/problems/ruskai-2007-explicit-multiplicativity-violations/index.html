@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Solved record. - The Werner-Holevo channel (Werner-Holevo 2002) remains the canonical explicit example: it violates (24) for . Variants and small perturbations of it are the only such channels known explicitly at the time the problem was posed. - Winter…">
+    <meta name="description" content="Solved record. The source asked for explicitly given channels, not random existence arguments, violating multiplicativity of the maximal output p-norm at some p different from 1. The Werner-Holevo channel already supplies one for p above 4.79, and Cubitt, Harrow, Leung, Montanaro and Winter later gave an explicit 4-to-3 pair at p = 0.">
     <meta name="theme-color" content="#0d1b2a">
     <title>Explicit (non-existential) channels violating multiplicativity of maximal output p-norm for p not equal to 1 · Quantum Open Problems</title>
     <link rel="canonical" href="https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-explicit-multiplicativity-violations/">
@@ -13,7 +13,7 @@
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Quantum Open Problems">
     <meta property="og:title" content="Explicit (non-existential) channels violating multiplicativity of maximal output p-norm for p not equal to 1">
-    <meta property="og:description" content="Solved record. - The Werner-Holevo channel (Werner-Holevo 2002) remains the canonical explicit example: it violates (24) for . Variants and small perturbations of it are the only such channels known explicitly at the time the problem was posed. - Winter…">
+    <meta property="og:description" content="Solved record. The source asked for explicitly given channels, not random existence arguments, violating multiplicativity of the maximal output p-norm at some p different from 1. The Werner-Holevo channel already supplies one for p above 4.79, and Cubitt, Harrow, Leung, Montanaro and Winter later gave an explicit 4-to-3 pair at p = 0.">
     <meta property="og:url" content="https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-explicit-multiplicativity-violations/">
     <meta name="twitter:card" content="summary">
     <script>
@@ -22,6 +22,8 @@
         if (theme === "dark") document.documentElement.dataset.theme = "dark";
       } catch {}
     </script>
+    <link rel="alternate" href="../../api/v1/problems/ruskai-2007-explicit-multiplicativity-violations.json" type="application/json" title="Problem record (JSON)">
+    <link rel="alternate" href="../../packets/ruskai-2007-explicit-multiplicativity-violations.md" type="text/markdown" title="AI research brief (Markdown)">
     <script>window.MathJax = { svg: { fontCache: "global" } };</script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-svg.js" integrity="sha384-my9P1jDckpHD+5LZsLQ0gaiCl/RMO32HaqwBtbo/25QIMVr6xXIUCg1jvdSRcvb4" crossorigin="anonymous" defer></script>
     <script type="application/ld+json">{
@@ -83,18 +85,26 @@
         "value": "ruskai-2007-explicit-multiplicativity-violations"
       },
       "name": "Explicit (non-existential) channels violating multiplicativity of maximal output p-norm for p not equal to 1",
-      "abstract": "Solved record. - The Werner-Holevo channel (Werner-Holevo 2002) remains the canonical explicit example: it violates (24) for . Variants and small perturbations of it are the only such channels known explicitly at the time the problem was posed. - Winter…",
+      "abstract": "Solved record. The source asked for explicitly given channels, not random existence arguments, violating multiplicativity of the maximal output p-norm at some p different from 1. The Werner-Holevo channel already supplies one for p above 4.79, and Cubitt, Harrow, Leung, Montanaro and Winter later gave an explicit 4-to-3 pair at p = 0.",
       "text": "**Problem 20 (Ruskai 2007).** Find *explicit* examples of quantum channels $\\Phi,\\Omega$ (with explicitly given Kraus operators, in concrete finite dimensions) which violate multiplicativity (24) of the maximal output $p$-norm for some specific $p\\ne 1$:\n$$\\nu_p(\\Phi\\otimes\\Omega) \\;\\ne\\; \\nu_p(\\Phi)\\,\\nu_p(\\Omega).$$\nThe desired examples should not be mere instances of the existence theorems of Winter and Hayden, but channels whose Kraus operators (or Stinespring isometry) can be written down concretely so that the violation can be verified directly.",
       "inLanguage": "en",
       "qop:problemStatus": "solved",
       "qop:verified": "2026-08-12",
-      "keywords": [],
+      "keywords": [
+        "maximal output p-norm",
+        "multiplicativity",
+        "Werner-Holevo channel",
+        "Kraus operators",
+        "explicit counterexamples"
+      ],
       "about": [
-        "Ruskai"
+        "Quantum channels",
+        "Quantum information"
       ],
       "mainEntityOfPage": {
         "@id": "https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-explicit-multiplicativity-violations/#page"
       },
+      "qop:recordDigest": "sha256:e87832e139fa141fcfcc73c0262a2b20b98c010f345a1eea3d501f6ac72fad6e",
       "isBasedOn": {
         "@type": "ScholarlyArticle",
         "name": "Open problems in quantum information theory",
@@ -117,7 +127,19 @@
           }
         ],
         "url": "https://doi.org/10.48550/arXiv.0708.1902"
-      }
+      },
+      "encoding": [
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-explicit-multiplicativity-violations.json"
+        },
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "text/markdown",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/packets/ruskai-2007-explicit-multiplicativity-violations.md"
+        }
+      ]
     }
   ]
 }</script>
@@ -157,30 +179,40 @@
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
           <span class="status-badge solved">Solved</span>
-          <span class="area-badge">Ruskai</span>
+          <span class="area-badge">Quantum information</span>
+          <span class="meta-badge">Quantum channels</span>
           <span class="meta-badge">Proposed 2007</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Explicit channels violating multiplicativity of maximal output \(p\)-norm for \(p\ne 1\)</h1>
+        <p class="dialog-summary">The source asked for explicitly given channels, not random existence arguments, violating multiplicativity of the maximal output p-norm at some p different from 1. The Werner-Holevo channel already supplies one for p above 4.79, and Cubitt, Harrow, Leung, Montanaro and Winter later gave an explicit 4-to-3 pair at p = 0.</p>
 
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#resolution-heading">Resolution</a>
-          <a href="#bibliography-heading">Bibliography</a>
+          <a href="#target-heading">Target</a>
+          <a href="#progress-heading">Resolution</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
+          <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <section class="dialog-section">
           <div class="interpretation-note">
             <span class="note-icon" aria-hidden="true">i</span>
             <div>
               <strong>Archived record</strong>
-              <p>The audit records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
+              <p>The accepted status decision records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
             </div>
           </div>
         </section>
-
         <div class="problem-framing">
+          <section class="framing-row" aria-labelledby="importance-heading">
+            <h2 id="importance-heading">Why it matters</h2>
+            <p>The post-Werner-Holevo counterexamples of Winter and Hayden are existential random constructions that exhibit no concrete channel, whereas explicit channels are valuable for testing related conjectures, for numerical experimentation, for structural understanding of how entanglement boosts output purity, and for pedagogy.</p>
+          </section>
           <section class="framing-row" aria-labelledby="source-heading">
             <h2 id="source-heading">Problem source</h2>
             <div class="problem-source-record">
@@ -188,6 +220,7 @@
               <p>Mary Beth Ruskai</p>
               <p>arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007</p>
               <div class="problem-source-scope">
+                <span>The source states the cataloged problem.</span>
                 <span>Statement locator: p. 16 (Problem 20)</span>
               </div>
               <a href="https://doi.org/10.48550/arXiv.0708.1902" rel="noreferrer">Read problem source ↗</a>
@@ -201,7 +234,7 @@
               <span class="dialog-section-label">Archived formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">As archived before resolution</span>
+            <span class="formal-source">As archived before resolution · digest 3437f29a2890</span>
           </div>
 
           <details class="formal-notation">
@@ -217,10 +250,104 @@
           <div class="formal-body"><p><strong>Problem 20 (Ruskai 2007).</strong> Find <em>explicit</em> examples of quantum channels \(\Phi,\Omega\) (with explicitly given Kraus operators, in concrete finite dimensions) which violate multiplicativity (24) of the maximal output \(p\)-norm for some specific \(p\ne 1\):</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\nu_p(\Phi\otimes\Omega) \;\ne\; \nu_p(\Phi)\,\nu_p(\Omega).\]</div><p>The desired examples should not be mere instances of the existence theorems of Winter and Hayden, but channels whose Kraus operators (or Stinespring isometry) can be written down concretely so that the violation can be verified directly.</p></div>
         </section>
 
-        <section class="dialog-section" aria-labelledby="resolution-heading">
-          <span class="dialog-section-label">Resolution</span>
-          <h2 id="resolution-heading">Status and known progress</h2>
-          <div class="archive-progress"><ul><li>The Werner-Holevo channel (Werner-Holevo 2002) remains the canonical <em>explicit</em> example: it violates (24) for \(p&gt;4.79\). Variants and small perturbations of it are the only such channels known explicitly at the time the problem was posed.</li><li>Winter (arXiv:0707.0402) and Hayden (arXiv:0707.3291) extended the existence range to \(p&gt;2\) and to \(1&lt;p&lt;2\) respectively, but via random-channel arguments that do not produce a single named channel.</li><li>Harrow, Leung and Winter (&quot;Aspects of generic entanglement&quot;, <em>Commun. Math. Phys.</em> 265 (2007)) addressed the \(p=0\) regime existentially using high-dimensional random subspaces.</li><li>Brandão and Horodecki (2010, <em>Open Syst. Inf. Dyn.</em> 17, 31-52, arXiv:0907.3210; see also arXiv:0907.4798) gave a more explicit (algorithmically constructive) version of Hastings&#039;s \(p=1\) counter-example, providing more concrete channels in lower dimensions, though still very large.</li><li>Fukuda, King and Moser (&quot;Comments on Hastings&#039; Additivity Counterexamples&quot;, <em>Commun. Math. Phys.</em> 296 (2010), 111-143; arXiv:0905.3697) and Aubrun, Szarek, Werner (arXiv:1003.4925, arXiv:1010.1571) substantially simplified the random-construction proofs but did not yield small fully-explicit channels.</li><li>For \(p&gt;1\) but \(p\) close to \(1\), and for \(0&lt;p&lt;1\), no truly small-dimension, explicit channel violating (24) is known.</li><li><strong>Status: solved.</strong> Problem 20 asks only for explicit channels violating (24) at some \(p\ne1\); it does not require modest dimension, a hand calculation, or coverage near \(p=1\). The Werner–Holevo channel already supplies an explicit counterexample for \(p&gt;4.79\). Cubitt, Harrow, Leung, Montanaro and Winter later gave an explicit \(4\)-to-\(3\) pair with nonmultiplicative minimum output rank at \(p=0\). More recent constructions give explicit examples over wider ranges.</li><li>A 2025/2026 preprint by Derksen and Lovitz gives constructive examples for every \(p&gt;1\), including the difficult interval near one. This strengthens the resolution but is not needed for the existential statement.</li><li><strong>Last verified:</strong> 2026-08-12.</li></ul></div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Archived target</h2>
+
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-resolved" id="clause-explicit-multiplicativity-counterexamples">
+              <div class="clause-head">
+                <span class="clause-state resolved">Resolved</span>
+                <strong>Explicit multiplicativity-violating channels</strong>
+                <code>explicit-multiplicativity-counterexamples</code>
+              </div>
+              <p>The archived statement asks for explicit quantum channels, with concretely given Kraus operators or Stinespring isometry in finite dimensions, that violate multiplicativity of the maximal output p-norm at some p different from 1, rather than mere instances of the random existence theorems of Winter and Hayden.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> An explicitly written-down channel or channel pair whose multiplicativity violation can be verified directly.</p>
+              <p class="clause-claims">1 accepted claim: <a href="#claim-ruskai-2007-explicit-multiplicativity-violations-werner-holevo-channel-is">claim-ruskai-2007-explicit-multiplicativity-violations-werner-holevo-channel-is</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Solved as of 12 Aug 2026: The archived statement asks only for explicit channels violating multiplicativity at some p different from 1, without requiring modest dimension or coverage near p = 1, and the peer-reviewed Werner-Holevo channel supplies exactly that. <code>decision-ruskai-2007-explicit-multiplicativity-violations-status-2026-08-12</code></p>
+        </section>
+
+
+
+        <section class="dialog-section" aria-labelledby="progress-heading">
+          <span class="dialog-section-label">Resolution evidence</span>
+          <h2 id="progress-heading">Resolution</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
+
+          <article class="claim-card" id="claim-ruskai-2007-explicit-multiplicativity-violations-werner-holevo-channel-is">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Resolves</span>
+              <span class="claim-clauses"><a href="#clause-explicit-multiplicativity-counterexamples">explicit-multiplicativity-counterexamples</a></span>
+            </div>
+            <h3>Werner-Holevo channel is an explicit multiplicativity counterexample</h3>
+            <p>The Werner-Holevo channel is an explicitly given qutrit channel that violates multiplicativity of the maximal output p-norm for p above 4.79, which already meets the archived request for a concrete example at some p different from 1. Cubitt, Harrow, Leung, Montanaro and Winter later gave an explicit 4-to-3 channel pair with nonmultiplicative minimum output rank at p = 0.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-b0fbc3422791d398">
+                <time datetime="2008">2008</time>
+                <div>
+                  <span class="maturity-badge">Peer reviewed</span>
+                  <span class="maturity-badge">Explicit construction</span>
+                  <a href="https://arxiv.org/abs/0712.3628" rel="noreferrer">Communications in Mathematical Physics ↗</a>
+                  <span class="evidence-locator">Explicit 4-to-3 channel pair with nonmultiplicative minimum output rank at p = 0</span>
+                </div>
+              </li>
+              <li class="evidence-row" id="qop-evt-649e622d25a8c5b6">
+                <time datetime="2002">2002</time>
+                <div>
+                  <span class="maturity-badge">Peer reviewed</span>
+                  <span class="maturity-badge">Explicit construction</span>
+                  <span class="maturity-badge">Journal of Mathematical Physics</span>
+                  <span class="evidence-locator">Explicit qutrit channel violating multiplicativity for p &gt; 4.79</span>
+                </div>
+              </li>
+            </ol>
+
+          </article>
+
+          <details class="archive-narrative">
+            <summary>Editorial narrative <span>Status and known progress as written by the editors</span></summary>
+            <div class="archive-progress"><ul><li>The Werner-Holevo channel (Werner-Holevo 2002) remains the canonical <em>explicit</em> example: it violates (24) for \(p&gt;4.79\). Variants and small perturbations of it are the only such channels known explicitly at the time the problem was posed.</li><li>Winter (arXiv:0707.0402) and Hayden (arXiv:0707.3291) extended the existence range to \(p&gt;2\) and to \(1&lt;p&lt;2\) respectively, but via random-channel arguments that do not produce a single named channel.</li><li>Harrow, Leung and Winter (&quot;Aspects of generic entanglement&quot;, <em>Commun. Math. Phys.</em> 265 (2007)) addressed the \(p=0\) regime existentially using high-dimensional random subspaces.</li><li>Brandão and Horodecki (2010, <em>Open Syst. Inf. Dyn.</em> 17, 31-52, arXiv:0907.3210; see also arXiv:0907.4798) gave a more explicit (algorithmically constructive) version of Hastings&#039;s \(p=1\) counter-example, providing more concrete channels in lower dimensions, though still very large.</li><li>Fukuda, King and Moser (&quot;Comments on Hastings&#039; Additivity Counterexamples&quot;, <em>Commun. Math. Phys.</em> 296 (2010), 111-143; arXiv:0905.3697) and Aubrun, Szarek, Werner (arXiv:1003.4925, arXiv:1010.1571) substantially simplified the random-construction proofs but did not yield small fully-explicit channels.</li><li>For \(p&gt;1\) but \(p\) close to \(1\), and for \(0&lt;p&lt;1\), no truly small-dimension, explicit channel violating (24) is known.</li><li><strong>Status: solved.</strong> Problem 20 asks only for explicit channels violating (24) at some \(p\ne1\); it does not require modest dimension, a hand calculation, or coverage near \(p=1\). The Werner–Holevo channel already supplies an explicit counterexample for \(p&gt;4.79\). Cubitt, Harrow, Leung, Montanaro and Winter later gave an explicit \(4\)-to-\(3\) pair with nonmultiplicative minimum output rank at \(p=0\). More recent constructions give explicit examples over wider ranges.</li><li>A 2025/2026 preprint by Derksen and Lovitz gives constructive examples for every \(p&gt;1\), including the difficult interval near one. This strengthens the resolution but is not needed for the existential statement.</li><li><strong>Last verified:</strong> 2026-08-12.</li></ul></div>
+          </details>
+        </section>
+
+
+        <section class="dialog-section" aria-labelledby="cautions-heading">
+          <span class="dialog-section-label">Claim watch</span>
+          <h2 id="cautions-heading">Scope and cautions</h2>
+
+          <div class="watch-note">
+            <span class="note-icon" aria-hidden="true">!</span>
+            <div>
+              <strong>Scope</strong>
+              <p>For p just above 1 and for 0 &lt; p &lt; 1 no truly small-dimension explicit channel is known; a 2025/2026 preprint by Derksen and Lovitz (arXiv:2510.07547) gives constructive examples for every p &gt; 1 including the difficult interval near one, which strengthens but is not needed for the existential statement. </p>
+            </div>
+          </div>
+        </section>
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="ruskai-2007-explicit-multiplicativity-violations">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Explicit+%28non-existential%29+channels+violating+multiplicativity+of+maximal+output+p-norm+for+p+not+equal+to+1" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="ruskai-2007-explicit-multiplicativity-violations">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
         </section>
 
 
@@ -230,12 +357,18 @@
           <div class="archive-bibliography"><ul><li>T. S. Cubitt, A. W. Harrow, D. Leung, A. Montanaro, A. Winter, <em>Counterexamples to additivity of minimum output \(p\)-Rényi entropy for \(p\) close to 0</em>, Commun. Math. Phys. <strong>284</strong>, 281 (2008); arXiv:0712.3628.</li><li>H. Derksen, B. Lovitz, <em>Constructive counterexamples to the additivity of minimum output Rényi entropy of quantum channels for all \(p&gt;1\)</em>, arXiv:2510.07547 (2026), v2.</li></ul><ul><li>M. B. Ruskai, &quot;Open Problems in Quantum Information Theory&quot; (arXiv:0708.1902 [quant-ph], 2007), based on the BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007. Problem 20, p. 16. DOI: 10.48550/arXiv.0708.1902. Source PDF: `Open Problems in Quantum Information Theory_Ruskai_2007.pdf`.</li><li>R. F. Werner, A. S. Holevo, &quot;Counterexample to an additivity conjecture for output purity of quantum channels&quot;, <em>J. Math. Phys.</em> 43 (2002), 4353-4357.</li><li>A. Winter, &quot;The maximum output \(p\)-norm of quantum channels is not multiplicative for any \(p&gt;2\)&quot;, arXiv:0707.0402 (2007).</li><li>P. Hayden, &quot;The maximal \(p\)-norm multiplicativity conjecture is false&quot;, arXiv:0707.3291 (2007).</li><li>P. Hayden, D. Leung, A. Winter, &quot;Aspects of generic entanglement&quot;, <em>Commun. Math. Phys.</em> 265 (2007), 95-117.</li><li>G. G. Amosov, A. S. Holevo, R. F. Werner, &quot;On Some Additivity Problems in Quantum Information Theory&quot;, <em>Probl. Inf. Transm.</em> 36 (2000), 305-313; math-ph/0003002.</li><li>F. G. S. L. Brandão, M. Horodecki, &quot;On Hastings&#039; counterexamples to the minimum output entropy additivity conjecture&quot;, <em>Open Syst. Inf. Dyn.</em> 17 (2010), 31-52; arXiv:0907.3210.</li><li>M. Fukuda, C. King, D. K. Moser, &quot;Comments on Hastings&#039; Additivity Counterexamples&quot;, <em>Commun. Math. Phys.</em> 296 (2010), 111-143; arXiv:0905.3697.</li><li>G. Aubrun, S. Szarek, E. Werner, &quot;Hastings&#039; additivity counterexample via Dvoretzky&#039;s theorem&quot;, <em>Commun. Math. Phys.</em> 305 (2011), 85-97; arXiv:1003.4925.</li><li>M. B. Hastings, &quot;Superadditivity of communication capacity using entangled inputs&quot;, <em>Nature Physics</em> 5 (2009), 255-257; arXiv:0809.3972.</li></ul></div>
         </section>
 
+
+
         <section class="dialog-section" aria-labelledby="machine-heading">
-          <span class="dialog-section-label">Record</span>
+          <span class="dialog-section-label">Work on this problem</span>
           <h2 id="machine-heading">Research interfaces</h2>
           <ul class="machine-links">
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/ruskai-2007-explicit-multiplicativity-violations/problem.md" rel="noreferrer">Source article ↗</a> — the canonical archived statement and audit notes.</li>
-            <li><a href="../">Problem directory</a> — every active and archived record.</li>
+            <li><a href="../../packets/ruskai-2007-explicit-multiplicativity-violations.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-explicit-multiplicativity-violations.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-explicit-multiplicativity-violations/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-explicit-multiplicativity-violations/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Explicit+%28non-existential%29+channels+violating+multiplicativity+of+maximal+output+p-norm+for+p+not+equal+to+1" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/ruskai-2007-explicit-multiplicativity-violations/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -247,13 +380,15 @@
             <p class="cite-label">The original problem</p>
             <p class="cite-text">Mary Beth Ruskai. Open problems in quantum information theory. arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007. p. 16 (Problem 20). https://doi.org/10.48550/arXiv.0708.1902</p>
             <p class="cite-label">This catalog assessment</p>
-            <p class="cite-text">Quantum Open Problems, record ruskai-2007-explicit-multiplicativity-violations, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-explicit-multiplicativity-violations/</p>
+            <p class="cite-text">Quantum Open Problems, record ruskai-2007-explicit-multiplicativity-violations, revision e87832e139fa, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-explicit-multiplicativity-violations/</p>
           </div>
         </section>
         <footer class="page-record-footer">
           <p>Record <code>ruskai-2007-explicit-multiplicativity-violations</code></p>
-          <p>Status solved · archived from the active catalog</p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Record revision <code>e87832e139fa141fcfcc73c0262a2b20b98c010f345a1eea3d501f6ac72fad6e</code></p>
+          <p>Statement digest <code>3437f29a2890847e19224110f3a282af2e1c2cedd4d5c795181e19bfae95bcbc</code></p>
+          <p>Statement <code>ruskai-2007-explicit-multiplicativity-violations-statement-v1</code> · Decision <code>decision-ruskai-2007-explicit-multiplicativity-violations-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -284,5 +419,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="ruskai-2007-explicit-multiplicativity-violations" defer></script>
   </body>
 </html>

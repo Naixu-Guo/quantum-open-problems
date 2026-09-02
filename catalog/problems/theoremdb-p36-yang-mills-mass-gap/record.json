@@ -1,0 +1,143 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "theoremdb-p36-yang-mills-mass-gap",
+    "accession": null,
+    "aliases": [
+      "theoremdb-p36"
+    ],
+    "catalogState": "published",
+    "title": "Yang-Mills existence and mass gap",
+    "proposed": "2000",
+    "topicId": "yang-mills-theory",
+    "collectionId": "theoremdb-2026",
+    "question": {
+      "type": "Existence and spectral gap",
+      "summary": "Mathematics lacks a construction of nontrivial four-dimensional quantum Yang-Mills theory satisfying the official axioms together with a proof of a positive mass gap.",
+      "importance": "The problem asks mathematics to construct the four-dimensional quantum gauge theory used in particle physics and derive its positive particle-mass scale from the axioms.",
+      "unresolved": "Construct the theory on four-dimensional Euclidean space for every compact simple gauge group under the official axioms and prove a positive mass gap."
+    },
+    "keywords": [
+      "Yang-Mills",
+      "mass gap",
+      "quantum field theory",
+      "constructive field theory",
+      "gauge theory"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "theoremdb-p36-yang-mills-mass-gap-statement-v1",
+      "problemId": "theoremdb-p36-yang-mills-mass-gap",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-31",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-jaffe-2000",
+          "relationship": "states-problem",
+          "locator": "Sec. 4, ‘The Problem’ in the official Jaffe-Witten statement",
+          "primary": true
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Construct the theory on four-dimensional Euclidean space for every compact simple gauge group under the official axioms and prove a positive mass gap."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-theoremdb-p36-yang-mills-mass-gap-2026-clay-continues-to-list",
+      "statementId": "theoremdb-p36-yang-mills-mass-gap-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "status-review",
+      "title": "Clay continues to list the problem as unsolved",
+      "text": "The official Clay page says that experiments and simulations support a mass gap but no proof meeting the mathematical problem is known."
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-theoremdb-p36-yang-mills-mass-gap-2026-a-new-preprint-claims",
+      "statementId": "theoremdb-p36-yang-mills-mass-gap-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "status-review",
+      "title": "A new preprint claims a four-dimensional construction",
+      "text": "Faizal and Shabir claim a reflection-positive SU(N) continuum construction with a mass gap. The paper is unrefereed, and the official problem remains listed as unsolved."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-theoremdb-p36-yang-mills-mass-gap-2026-clay-continues-to-list",
+      "claimId": "claim-theoremdb-p36-yang-mills-mass-gap-2026-clay-continues-to-list",
+      "sourceId": "source-web-claymath-org-millennium-yang-mills-the",
+      "sourceLocator": null,
+      "date": "2026-08-31",
+      "maturity": "Official status page",
+      "strength": "Authoritative open status",
+      "label": "Clay Mathematics Institute"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-theoremdb-p36-yang-mills-mass-gap-2026-a-new-preprint-claims",
+      "claimId": "claim-theoremdb-p36-yang-mills-mass-gap-2026-a-new-preprint-claims",
+      "sourceId": "source-faizal-2026-reflection-positive-construction",
+      "sourceLocator": null,
+      "date": "2026-06-09",
+      "maturity": "Preprint",
+      "strength": "Unverified resolution claim",
+      "label": "arXiv:2606.19362"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-theoremdb-p36-yang-mills-mass-gap-status-2026-08-31",
+      "problemId": "theoremdb-p36-yang-mills-mass-gap",
+      "statementId": "theoremdb-p36-yang-mills-mass-gap-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-31",
+      "verified": "2026-08-31",
+      "evidenceIds": [
+        "evidence-theoremdb-p36-yang-mills-mass-gap-2026-clay-continues-to-list",
+        "evidence-theoremdb-p36-yang-mills-mass-gap-2026-a-new-preprint-claims"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-31 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [
+      {
+        "label": "Unreviewed claim",
+        "text": "Do not mark the problem solved from arXiv:2606.19362. The claim has not passed journal or Clay review, and its SU(N) scope must be checked against the full official statement.",
+        "url": "https://arxiv.org/abs/2606.19362"
+      }
+    ],
+    "interpretation": null,
+    "provenance": {
+      "kind": "source-stated",
+      "label": "Source-stated question",
+      "note": "TheoremDB P36 restates the official Clay Mathematics Institute Millennium Prize problem."
+    },
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

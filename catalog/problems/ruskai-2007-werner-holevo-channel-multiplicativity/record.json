@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "ruskai-2007-werner-holevo-channel-multiplicativity",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Polarized Werner-Holevo multiplicativity",
+    "proposed": "2007",
+    "topicId": "quantum-channels",
+    "collectionId": "ruskai-2007",
+    "question": {
+      "type": "Structured multiplicativity",
+      "summary": "The identical polarized family is settled at p equals two, and the unpolarized endpoint is settled for one through two. The full polarized parameter range remains open.",
+      "importance": "Werner-Holevo channels are a canonical stress test for output-norm conjectures. Resolving the polarized family would map the positive and negative regions of a central example.",
+      "unresolved": "Prove or refute multiplicativity for polarized Werner-Holevo channels throughout the remaining x and p values in the interval from one to two."
+    },
+    "keywords": [
+      "Werner-Holevo channel",
+      "polarization",
+      "multiplicativity",
+      "maximal output norm"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "ruskai-2007-werner-holevo-channel-multiplicativity-statement-v1",
+      "problemId": "ruskai-2007-werner-holevo-channel-multiplicativity",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ruskai-2007",
+          "relationship": "states-problem",
+          "locator": "p. 7-8 (Problem 6)",
+          "primary": true,
+          "statedTitle": "Multiplicativity of the polarized Werner-Holevo channel for 1 <= p <= 2"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Prove or refute multiplicativity for polarized Werner-Holevo channels throughout the remaining x and p values in the interval from one to two."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-werner-holevo-channel-multiplicativity-2007-every-polarization-is-settled",
+      "statementId": "ruskai-2007-werner-holevo-channel-multiplicativity-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "Every polarization is settled at p = 2",
+      "text": "Michalakis proves maximal-output 2-norm multiplicativity for two identical depolarized Werner-Holevo channels in all dimensions."
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-werner-holevo-channel-multiplicativity-2004-the-unpolarized-endpoint-is",
+      "statementId": "ruskai-2007-werner-holevo-channel-multiplicativity-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "The unpolarized endpoint is settled through p = 2",
+      "text": "Datta proves multiplicativity for the Werner-Holevo endpoint throughout the interval from one to two."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-ruskai-2007-werner-holevo-channel-multiplicativity-2007-every-polarization-is-settled",
+      "claimId": "claim-ruskai-2007-werner-holevo-channel-multiplicativity-2007-every-polarization-is-settled",
+      "sourceId": "source-michalakis-2007-multiplicativity-of-the",
+      "sourceLocator": null,
+      "date": "2007",
+      "maturity": "Peer reviewed",
+      "strength": "Exact parameter slice",
+      "label": "p = 2 theorem"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-ruskai-2007-werner-holevo-channel-multiplicativity-2004-the-unpolarized-endpoint-is",
+      "claimId": "claim-ruskai-2007-werner-holevo-channel-multiplicativity-2004-the-unpolarized-endpoint-is",
+      "sourceId": "source-arxiv-quant-ph-0410063",
+      "sourceLocator": null,
+      "date": "2004",
+      "maturity": "Peer reviewed",
+      "strength": "Exact endpoint",
+      "label": "Unpolarized theorem"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-ruskai-2007-werner-holevo-channel-multiplicativity-status-2026-08-12",
+      "problemId": "ruskai-2007-werner-holevo-channel-multiplicativity",
+      "statementId": "ruskai-2007-werner-holevo-channel-multiplicativity-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "partial",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-ruskai-2007-werner-holevo-channel-multiplicativity-2007-every-polarization-is-settled",
+        "evidence-ruskai-2007-werner-holevo-channel-multiplicativity-2004-the-unpolarized-endpoint-is"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

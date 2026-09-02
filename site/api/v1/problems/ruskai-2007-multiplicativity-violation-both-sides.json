@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "ruskai-2007-multiplicativity-violation-both-sides",
+  "title": "Channel or pair of channels violating p-norm multiplicativity for both some p>1 and some 0<p<1",
+  "status": "solved",
+  "dates": {
+    "proposed": "2007",
+    "latestEvidence": "2026",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "quantum-channels",
+      "label": "Quantum channels"
+    }
+  },
+  "collection": {
+    "id": "ruskai-2007",
+    "label": "Ruskai",
+    "title": "Open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Existence or impossibility",
+    "summary": "The source asked whether a single channel or channel pair can violate equation (26) simultaneously at some p above 1 and some p below 1. Hastings' fixed finite-dimensional additivity gap at p = 1, combined with continuity of the minimum output Renyi entropy in p, supplies such a pair.",
+    "importance": "All known constructions were non-uniform in p, with the dimension blowing up as p approaches 1 and structurally different Kraus operators above and below one, and a negative answer would have forced a one-sided approach to p = 1 and reopened a route to the additivity conjecture there.",
+    "unresolved": ""
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | algebra of $d\\times d$ complex matrices |\n| $\\Phi,\\Omega$ | completely positive trace-preserving (CPT) maps (quantum channels) |\n| $\\Phi^{\\otimes n}$ | $n$-fold tensor product channel |\n| $\\gamma$ | input density matrix (state), $\\gamma\\ge 0$, $\\operatorname{Tr}\\gamma=1$ |\n| $\\|X\\|_p$ | Schatten $p$-norm, $\\|X\\|_p=(\\operatorname{Tr}\\lvert X\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | maximal output $p$-norm in the conventional formulation, $\\nu_p(\\Phi)=\\sup_\\gamma\\|\\Phi(\\gamma)\\|_p$ |\n| $S^p(\\gamma)$ | Standard Rényi $p$-entropy, $S^p(\\gamma)=\\tfrac{1}{1-p}\\log\\operatorname{Tr}\\gamma^p$ for $p\\ne 1$; $S^0(\\gamma)=\\log\\operatorname{rank}\\gamma$; $S^1(\\gamma)$ is the von Neumann entropy |\n| $S^p_{\\min}(\\Phi)$ | minimal output Renyi entropy, $S^p_{\\min}(\\Phi)=\\inf_\\gamma S^p[\\Phi(\\gamma)]$ |\n| $p_1,p_2$ | two values of the Renyi/Schatten parameter, with $p_1>1$ and $0<p_2<1$ |\n| eq. (26) | the multiplicativity/additivity assertion $S^p_{\\min}(\\Phi\\otimes\\Omega)=S^p_{\\min}(\\Phi)+S^p_{\\min}(\\Omega)$ |",
+    "statement": "**Problem 18 (Ruskai 2007).** Does there exist a quantum channel $\\Phi$, or a pair of channels $(\\Phi,\\Omega)$ on finite-dimensional matrix algebras, and values $p_1>1$ and $p_2$ with $0<p_2<1$, such that the multiplicativity equality\n$$S^p_{\\min}(\\Phi\\otimes\\Omega) \\;=\\; S^p_{\\min}(\\Phi)+S^p_{\\min}(\\Omega) \\tag{26}$$\n**fails** at both $p=p_1$ and $p=p_2$? Equivalently, is there a single example that violates (26) simultaneously for some $p>1$ and some $p<1$?\n\nIf the answer is negative, then for every channel (pair) one can always approach $p=1$ from at least one side along which (26) does hold, which would force additivity at $p=1$."
+  },
+  "source": {
+    "title": "Open problems in quantum information theory",
+    "authors": [
+      "Mary Beth Ruskai"
+    ],
+    "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+    "locator": "p. 15 (Problem 18)",
+    "url": "https://doi.org/10.48550/arXiv.0708.1902",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2026",
+        "title": "Hastings gap plus continuity in p gives a two-sided violation",
+        "detail": "Hastings produced a fixed finite-dimensional channel pair with a strict additivity gap at p = 1, and for fixed finite-dimensional channels the minimum output Renyi entropy is continuous in p at 1 because the state Renyi entropy is jointly continuous in state and order and the input-state set is compact. The strict gap therefore persists on an interval around one, and choosing one order on each side of one gives the single pair requested; Leung, Lovitz and Wu independently make this implication explicit and prove nonadditivity for every p > 3/4.",
+        "maturity": "Preprint",
+        "strength": "Exact theorem",
+        "url": "https://arxiv.org/abs/2607.15210",
+        "label": "arXiv:2607.15210"
+      },
+      {
+        "date": "2009",
+        "title": "Hastings gap plus continuity in p gives a two-sided violation",
+        "detail": "Hastings produced a fixed finite-dimensional channel pair with a strict additivity gap at p = 1, and for fixed finite-dimensional channels the minimum output Renyi entropy is continuous in p at 1 because the state Renyi entropy is jointly continuous in state and order and the input-state set is compact. The strict gap therefore persists on an interval around one, and choosing one order on each side of one gives the single pair requested; Leung, Lovitz and Wu independently make this implication explicit and prove nonadditivity for every p > 3/4.",
+        "maturity": "Peer reviewed",
+        "strength": "Exact counterexample",
+        "url": "https://arxiv.org/abs/0809.3972",
+        "label": "Nature Physics"
+      }
+    ],
+    "cautions": [
+      {
+        "label": "Scope",
+        "text": "The solved label follows the source's explicit equation (26) for minimum output standard Renyi entropy; the continuity argument does not answer the different question of conventional maximal-output p-quasinorm multiplicativity for p < 1."
+      }
+    ],
+    "interpretation": null,
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "Renyi entropy",
+      "multiplicativity",
+      "two-sided violation",
+      "continuity in p",
+      "Hastings counterexample"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-open-problems/packets/ruskai-2007-multiplicativity-violation-both-sides.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Channel+or+pair+of+channels+violating+p-norm+multiplicativity+for+both+some+p%3E1+and+some+0%3Cp%3C1",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/contribution.schema.json",
+    "candidateUpdateSchema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/candidate-update.schema.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-multiplicativity-violation-both-sides/frontier.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-multiplicativity-violation-both-sides.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-multiplicativity-violation-both-sides/",
+    "explorer": "https://naixu-guo.github.io/quantum-open-problems/#ruskai-2007-multiplicativity-violation-both-sides",
+    "markdown": "https://naixu-guo.github.io/quantum-open-problems/packets/ruskai-2007-multiplicativity-violation-both-sides.md",
+    "schema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-multiplicativity-violation-both-sides.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-multiplicativity-violation-both-sides/frontier.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-multiplicativity-violation-both-sides/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-multiplicativity-violation-both-sides/statements/v1.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/ruskai-2007-multiplicativity-violation-both-sides/record.json"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "9499c3d8e4e8cdd8669f2436a085eb8090679308e3e4c0940af469c8b3089ae5",
+    "statementDigest": "732d4ca8bf0381b1a629f58bfd823196675ad0d76338f2bce427139b08b54dd4"
+  }
+}

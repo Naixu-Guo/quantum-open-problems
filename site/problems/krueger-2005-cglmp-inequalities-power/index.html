@@ -186,6 +186,7 @@
           <span class="meta-badge">Bell nonlocality</span>
           <span class="meta-badge">Proposed 2005-04-15</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">The power of CGLMP inequalities</h1>
         <p class="dialog-summary">The proposed facet completeness is false. The claimed necessity and simultaneous optimality of Fourier-plus-diagonal measurements remain open.</p>
@@ -193,11 +194,14 @@
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#remaining">What remains</a>
-          <a href="#progress-heading">Progress</a>
+          <a href="#target-heading">What remains</a>
+          <a href="#progress-heading">Verified progress</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
           <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <div class="problem-framing">
           <section class="framing-row" aria-labelledby="importance-heading">
             <h2 id="importance-heading">Why it matters</h2>
@@ -224,7 +228,7 @@
               <span class="dialog-section-label">Verified formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">Matched to the source and locator above</span>
+            <span class="formal-source">Matched to the source and locator above · digest 8f12b17a3c57</span>
           </div>
 
           <details class="formal-notation">
@@ -240,43 +244,80 @@
           <div class="formal-body"><p>In the bipartite Bell scenario with \((N,M,K)=(2,2,d)\), let \(X_1,X_2\) be the two observables of party \(X\) and \(Y_1,Y_2\) the two observables of party \(Y\), each with outcome alphabet \(\{0,1,\dots,d-1\}\). Let \(m(x)=x\bmod d\) on the integers, and let \(\mathsf{E}[\cdot]\) denote expectation under the experimentally observed joint distribution. The CGLMP inequality (in the form used here, following R. Gill) reads</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\mathsf{E}\bigl[m(X_1-Y_1)\bigr] + \mathsf{E}\bigl[m(Y_1-X_2)\bigr] + \mathsf{E}\bigl[m(X_2-Y_2)\bigr] + \mathsf{E}\bigl[m(Y_2 - X_1 - 1)\bigr] \;\ge\; d-1 ,\]</div><p>which holds for every local classical model. (One may note the proof identity \((X_1-Y_1)+(Y_1-X_2)+(X_2-Y_2)+(Y_2-X_1-1) = -1\) together with the inequality \(m(a)+m(b)+m(c)+m(d)\ge m(a+b+c+d)\) for integers \(a,b,c,d\).)</p><p><strong>Problem 27.A.</strong> Show that every facet of the local polytope \(C\) (in this scenario) which is <em>not</em> a facet of the no-signalling polytope \(P\) is of CGLMP type: it is either an inequality of the CGLMP form written above, or a <em>lifting</em> of such an inequality from a strictly lower-dimensional outcome alphabet — i.e. an inequality obtained by formally fusing outcomes of a CGLMP inequality at smaller \(d&#039;&lt;d\).</p><p><strong>Problem 27.B.</strong> Numerically, the observables maximally violating CGLMP on a maximally entangled state \(|\Phi_d^+\rangle\) have the specific structure (DKZ; CGLMP): each is a computational-basis measurement preceded by the discrete Fourier transform and a diagonal unitary. Show that this structure is necessary. Show in addition that these &quot;Fourier + diagonal&quot; measurements simultaneously realise the highest resistance of the violation to (white) noise, and the best discrimination against classical realism in the sense of Kullback–Leibler divergence (the statistical strength of nonlocality proofs in the sense of van Dam–Grünwald–Gill).</p></div>
         </section>
 
-        <div class="remaining-question partial" id="remaining">
-          <span>What remains</span>
-          <p>For a fixed maximally entangled state, prove or refute necessity of Fourier-plus-diagonal measurements and their simultaneous white-noise and Kullback-Leibler optimality in every outcome dimension.</p>
-        </div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Exact unresolved target</h2>
+
+          <div class="remaining-question partial" id="remaining">
+            <span>What remains</span>
+            <p>For a fixed maximally entangled state, prove or refute necessity of Fourier-plus-diagonal measurements and their simultaneous white-noise and Kullback-Leibler optimality in every outcome dimension.</p>
+          </div>
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-narrowed" id="clause-archived-statement">
+              <div class="clause-head">
+                <span class="clause-state narrowed">Narrowed</span>
+                <strong>Archived statement</strong>
+                <code>archived-statement</code>
+              </div>
+              <p>The formal statement of this version, as archived from the source.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> For a fixed maximally entangled state, prove or refute necessity of Fourier-plus-diagonal measurements and their simultaneous white-noise and Kullback-Leibler optimality in every outcome dimension.</p>
+              <p class="clause-claims">2 accepted claims: <a href="#claim-krueger-2005-cglmp-inequalities-power-2010-part-a-is-refuted">claim-krueger-2005-cglmp-inequalities-power-2010-part-a-is-refuted</a>, <a href="#claim-krueger-2005-cglmp-inequalities-power-2008-numerics-clarify-the-optimizer">claim-krueger-2005-cglmp-inequalities-power-2008-numerics-clarify-the-optimizer</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Partially solved as of 12 Aug 2026: Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered. <code>decision-krueger-2005-cglmp-inequalities-power-status-2026-08-12</code></p>
+        </section>
 
 
 
         <section class="dialog-section" aria-labelledby="progress-heading">
-          <span class="dialog-section-label">Evidence ledger</span>
-          <h2 id="progress-heading">Recent progress</h2>
-          <ol class="timeline">
+          <span class="dialog-section-label">Verified progress</span>
+          <h2 id="progress-heading">Accepted claims</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
 
-            <li id="qop-evt-ed6734a19fddfc70">
-              <time datetime="2010-04-23">23 Apr 2010</time>
-              <div>
-                <h3>Part A is refuted by a finite facet counterexample</h3>
-                <p>Bancal, Gisin and Pironio find two-party, two-setting, four-outcome facets that are neither CGLMP inequalities nor lower-outcome liftings.</p>
-                <div class="dialog-source-meta">
+          <article class="claim-card" id="claim-krueger-2005-cglmp-inequalities-power-2010-part-a-is-refuted">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Narrows</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>Part A is refuted by a finite facet counterexample</h3>
+            <p>Bancal, Gisin and Pironio find two-party, two-setting, four-outcome facets that are neither CGLMP inequalities nor lower-outcome liftings.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-ed6734a19fddfc70">
+                <time datetime="2010-04-23">23 Apr 2010</time>
+                <div>
                   <span class="maturity-badge">Peer reviewed</span>
                   <span class="maturity-badge">Exact counterexample</span>
                   <a href="https://arxiv.org/abs/1004.4146" rel="noreferrer">Part A refuted ↗</a>
+
                 </div>
-              </div>
-            </li>
-            <li id="qop-evt-47e05f045a3d594f">
-              <time datetime="2008-03-27">27 Mar 2008</time>
-              <div>
-                <h3>Numerics clarify the optimizer but do not prove Part B</h3>
-                <p>Global optimization shows that nonmaximally entangled states can outperform maximally entangled ones. The archived measurement claim must therefore retain its fixed-state qualifier.</p>
-                <div class="dialog-source-meta">
+              </li>
+            </ol>
+
+          </article>
+          <article class="claim-card" id="claim-krueger-2005-cglmp-inequalities-power-2008-numerics-clarify-the-optimizer">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Supports</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>Numerics clarify the optimizer but do not prove Part B</h3>
+            <p>Global optimization shows that nonmaximally entangled states can outperform maximally entangled ones. The archived measurement claim must therefore retain its fixed-state qualifier.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-47e05f045a3d594f">
+                <time datetime="2008-03-27">27 Mar 2008</time>
+                <div>
                   <span class="maturity-badge">Peer reviewed</span>
                   <span class="maturity-badge">Numerical evidence</span>
                   <a href="https://doi.org/10.1103/PhysRevLett.100.120406" rel="noreferrer">Optimization study ↗</a>
+
                 </div>
-              </div>
-            </li>
-          </ol>
+              </li>
+            </ol>
+
+          </article>
+
         </section>
 
 
@@ -290,6 +331,28 @@
         </section>
 
 
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="krueger-2005-cglmp-inequalities-power">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+The+power+of+CGLMP+inequalities" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="krueger-2005-cglmp-inequalities-power">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
+        </section>
+
+
+
+
 
         <section class="dialog-section" aria-labelledby="machine-heading">
           <span class="dialog-section-label">Work on this problem</span>
@@ -297,8 +360,10 @@
           <ul class="machine-links">
             <li><a href="../../packets/krueger-2005-cglmp-inequalities-power.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
             <li><a href="../../api/v1/problems/krueger-2005-cglmp-inequalities-power.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+The+power+of+CGLMP+inequalities" rel="noreferrer">Submit a research update ↗</a> — the evidence contract applies to human and AI results.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/krueger-2005-cglmp-inequalities-power/problem.md" rel="noreferrer">Source article ↗</a> — the canonical statement and notes in the repository.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-cglmp-inequalities-power/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-cglmp-inequalities-power/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+The+power+of+CGLMP+inequalities" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/krueger-2005-cglmp-inequalities-power/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -317,7 +382,8 @@
           <p>Record <code>krueger-2005-cglmp-inequalities-power</code></p>
           <p>Record revision <code>b2bff4d973ed9472af4c5989597da88cfdc5261c755196c633cb78b6680d6414</code></p>
           <p>Statement digest <code>8f12b17a3c578728532169a85c04465f8ed9c18bfa7c3a32062381dcfa19500a</code></p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Statement <code>krueger-2005-cglmp-inequalities-power-statement-v1</code> · Decision <code>decision-krueger-2005-cglmp-inequalities-power-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -348,5 +414,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="krueger-2005-cglmp-inequalities-power" defer></script>
   </body>
 </html>

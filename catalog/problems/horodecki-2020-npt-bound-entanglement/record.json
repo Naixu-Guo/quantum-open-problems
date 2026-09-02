@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "horodecki-2020-npt-bound-entanglement",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "NPT bound entanglement",
+    "proposed": "2020",
+    "topicId": "entanglement-theory",
+    "collectionId": "horodecki-2020",
+    "question": {
+      "type": "Existence",
+      "summary": "No negative-partial-transpose state has been proved undistillable for every finite number of copies.",
+      "importance": "The answer determines whether the PPT test marks the exact boundary between distillable and bound entanglement. It also controls tensor-stable positivity questions for quantum maps.",
+      "unresolved": "Construct an NPT state that is undistillable for all tensor powers, or prove that every NPT state is distillable."
+    },
+    "keywords": [
+      "NPT",
+      "bound entanglement",
+      "distillability",
+      "Werner states"
+    ],
+    "relatedProblemIds": [
+      "krueger-2005-undistillability-implies-ppt"
+    ]
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "horodecki-2020-npt-bound-entanglement-statement-v1",
+      "problemId": "horodecki-2020-npt-bound-entanglement",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-horodecki-2020",
+          "relationship": "states-problem",
+          "locator": "p. 6-8 (Problem 4)",
+          "primary": true,
+          "statedTitle": "Establish whether there exist bound entangled states with negative partial transpose"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Construct an NPT state that is undistillable for all tensor powers, or prove that every NPT state is distillable."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-horodecki-2020-npt-bound-entanglement-2026-a-candidate-family-is",
+      "statementId": "horodecki-2020-npt-bound-entanglement-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "A candidate family is two-copy distillable in every dimension",
+      "text": "Tabia, Chen and Hsieh prove two-copy distillability for selected one-copy-undistillable NPT states in every local dimension at least three. This removes candidates rather than producing bound entanglement."
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-horodecki-2020-npt-bound-entanglement-2026-the-two-copy-werner",
+      "statementId": "horodecki-2020-npt-bound-entanglement-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "The two-copy Werner threshold is exact",
+      "text": "Four concurrent preprints prove that a Werner state is two-copy distillable exactly when it is one-copy distillable. Three-copy and all-copy distillability remain unresolved."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-horodecki-2020-npt-bound-entanglement-2026-a-candidate-family-is",
+      "claimId": "claim-horodecki-2020-npt-bound-entanglement-2026-a-candidate-family-is",
+      "sourceId": "source-tabia-2026-two-copy-distillability",
+      "sourceLocator": null,
+      "date": "2026-08-09",
+      "maturity": "Preprint",
+      "strength": "Exact restricted theorem",
+      "label": "Candidate ruled out"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-horodecki-2020-npt-bound-entanglement-2026-the-two-copy-werner",
+      "claimId": "claim-horodecki-2020-npt-bound-entanglement-2026-the-two-copy-werner",
+      "sourceId": "source-bharti-2026-two-copy-nondistillability",
+      "sourceLocator": null,
+      "date": "2026-07-27",
+      "maturity": "Preprint",
+      "strength": "Exact two-copy theorem",
+      "label": "Two-copy result"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-horodecki-2020-npt-bound-entanglement-status-2026-08-12",
+      "problemId": "horodecki-2020-npt-bound-entanglement",
+      "statementId": "horodecki-2020-npt-bound-entanglement-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-horodecki-2020-npt-bound-entanglement-2026-a-candidate-family-is",
+        "evidence-horodecki-2020-npt-bound-entanglement-2026-the-two-copy-werner"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [
+      {
+        "label": "Scope",
+        "text": "Finite-copy theorems do not settle all-copy undistillability. The July and August 2026 manuscripts are recent preprints at the audit cutoff.",
+        "url": "https://arxiv.org/abs/2608.08836"
+      }
+    ],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [
+      {
+        "tone": "warning",
+        "label": "Quantifier check",
+        "title": "Two copies are not all copies",
+        "text": "Four July preprints settle the two-copy Werner threshold, while August work eliminates selected candidates. Neither result constructs NPT bound entanglement or proves every NPT state distillable.",
+        "sourceLabel": "July-August 2026 preprints",
+        "featured": false
+      }
+    ],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

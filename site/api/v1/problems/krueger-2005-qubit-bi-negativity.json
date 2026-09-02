@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "krueger-2005-qubit-bi-negativity",
+  "title": "Qubit bi-negativity",
+  "status": "solved",
+  "dates": {
+    "proposed": "2003-02-10",
+    "latestEvidence": "2004",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "entanglement-theory",
+      "label": "Entanglement theory"
+    }
+  },
+  "collection": {
+    "id": "krueger-2005",
+    "label": "Krueger–Werner",
+    "title": "Some open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Universal positivity",
+    "summary": "The source asked whether the second partial transpose of the absolute value of a two-qubit state's partial transpose is always positive semidefinite.",
+    "importance": "The inequality controls bi-negativity and connects logarithmic negativity with entanglement cost under PPT-preserving operations for two-qubit states.",
+    "unresolved": ""
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $\\mathcal{H}_A,\\mathcal{H}_B$ | Two-dimensional (qubit) Hilbert spaces of subsystems $A$ and $B$ |\n| $\\sigma$ | A density operator (positive trace-1 Hermitian operator) on $\\mathcal{H}_A\\otimes\\mathcal{H}_B$ |\n| $T_2$ | Partial transposition with respect to the second subsystem $B$ |\n| $\\sigma^{T_2}$ | The operator obtained from $\\sigma$ by partial transposition with respect to $B$ |\n| $\\lvert X\\rvert$ | The operator absolute value, $\\lvert X\\rvert = \\sqrt{X^* X}$ for an operator $X$ |\n| $\\bigl\\lvert\\sigma^{T_2}\\bigr\\rvert^{T_2}$ | Partial transposition (again w.r.t. $B$) of the operator absolute value of $\\sigma^{T_2}$ |\n| $A \\ge 0$ | The operator $A$ is positive semidefinite |\n| $\\lVert X\\rVert_1$ | Trace norm of $X$, equal to $\\operatorname{tr}\\lvert X\\rvert$ |\n| $\\mathcal{N}(\\sigma)$ | Negativity of $\\sigma$, $\\mathcal{N}(\\sigma) = (\\lVert\\sigma^{T_2}\\rVert_1 - 1)/2$ |\n| $\\log\\lVert\\sigma^{T_2}\\rVert_1$ | Logarithmic negativity (entanglement monotone) |",
+    "statement": "Let $\\mathcal{H}_A$ and $\\mathcal{H}_B$ be two-dimensional complex Hilbert spaces, and let $\\sigma$ be any density operator on $\\mathcal{H}_A\\otimes\\mathcal{H}_B$. Let $T_2$ denote partial transposition with respect to $\\mathcal{H}_B$. Prove that\n$$\\bigl\\lvert\\sigma^{T_2}\\bigr\\rvert^{T_2} \\;\\ge\\; 0,$$\nwhere $\\lvert X\\rvert := \\sqrt{X^* X}$ is the operator absolute value."
+  },
+  "source": {
+    "title": "Some open problems in quantum information theory",
+    "authors": [
+      "O. Krüger",
+      "R. F. Werner"
+    ],
+    "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+    "locator": "p. 53 (Problem 18)",
+    "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2004",
+        "title": "The two-qubit bi-negativity conjecture holds",
+        "detail": "Ishizaka proves that the second partial transpose of the absolute value of a two-qubit state's partial transpose is positive semidefinite.",
+        "maturity": "Peer reviewed",
+        "strength": "Exact theorem",
+        "url": "https://arxiv.org/abs/quant-ph/0308056",
+        "label": "Physical Review A"
+      }
+    ],
+    "cautions": [
+      {
+        "label": "Scope",
+        "text": "The affirmative result is specific to two qubits; higher-dimensional failures do not affect the archived statement."
+      }
+    ],
+    "interpretation": null,
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "bi-negativity",
+      "partial transpose",
+      "two qubits",
+      "logarithmic negativity"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-qubit-bi-negativity.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Qubit+bi-negativity",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/contribution.schema.json",
+    "candidateUpdateSchema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/candidate-update.schema.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-bi-negativity/frontier.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-bi-negativity.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-qubit-bi-negativity/",
+    "explorer": "https://naixu-guo.github.io/quantum-open-problems/#krueger-2005-qubit-bi-negativity",
+    "markdown": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-qubit-bi-negativity.md",
+    "schema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-bi-negativity.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-bi-negativity/frontier.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-bi-negativity/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-bi-negativity/statements/v1.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/krueger-2005-qubit-bi-negativity/record.json"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "94b01645019b01b398bee5aad49da4cf3d33ebfc851f54dfbd951d0f8314b9fa",
+    "statementDigest": "7a41d58ca967352317e625f2aa154989ef306b5a2e728bc6bbed4b85adf4bb12"
+  }
+}

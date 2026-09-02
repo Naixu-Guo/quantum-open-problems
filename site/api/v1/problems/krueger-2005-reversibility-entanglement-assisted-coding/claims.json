@@ -1,0 +1,75 @@
+{
+  "kind": "qop-claims",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-reversibility-entanglement-assisted-coding",
+  "status": "solved",
+  "statementId": "krueger-2005-reversibility-entanglement-assisted-coding-statement-v1",
+  "count": 1,
+  "note": "Every claim here has been accepted through editorial review. Unreviewed submissions are candidate updates in the operational service, never claims.",
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-reversibility-entanglement-assisted-coding-quantum-reverse-shannon-theorem",
+      "statementId": "krueger-2005-reversibility-entanglement-assisted-coding-statement-v1",
+      "targetClauseIds": [
+        "entanglement-assisted-simulation-reversibility"
+      ],
+      "relation": "resolves",
+      "title": "Quantum Reverse Shannon Theorem gives the reciprocal identity",
+      "text": "Bennett, Devetak, Harrow, Shor and Winter prove the full Quantum Reverse Shannon Theorem, and Berta, Christandl and Renner give a one-shot information-theoretic proof. Under the source's convention the theorem yields C_E(T,S) = C_E(S)/C_E(T) = C_E(S,T) to the power minus one for every pair of memoryless channels in the i.i.d. asymptotic resource model, establishing the archived reversibility identity.",
+      "superseded": false,
+      "evidence": [
+        {
+          "kind": "Evidence",
+          "id": "evidence-krueger-2005-reversibility-entanglement-assisted-coding-ieee-transactions-on",
+          "claimId": "claim-krueger-2005-reversibility-entanglement-assisted-coding-quantum-reverse-shannon-theorem",
+          "sourceId": "source-bennett-2014-quantum-reverse-shannon",
+          "sourceLocator": "Quantum Reverse Shannon Theorem (main result, announced 2009)",
+          "date": "2014",
+          "maturity": "Peer reviewed",
+          "strength": "Exact theorem",
+          "label": "IEEE Transactions on Information Theory",
+          "source": {
+            "id": "source-bennett-2014-quantum-reverse-shannon",
+            "title": "The Quantum Reverse Shannon Theorem and Resource Tradeoffs for Simulating Quantum Channels",
+            "authors": [
+              "C. H. Bennett",
+              "I. Devetak",
+              "A. W. Harrow",
+              "P. W. Shor",
+              "A. Winter"
+            ],
+            "venue": "IEEE Trans. Inform. Theory 60, 2926 (2014); arXiv:0912.5537",
+            "url": "https://arxiv.org/abs/0912.5537"
+          }
+        },
+        {
+          "kind": "Evidence",
+          "id": "evidence-krueger-2005-reversibility-entanglement-assisted-coding-communications-in-mathematical",
+          "claimId": "claim-krueger-2005-reversibility-entanglement-assisted-coding-quantum-reverse-shannon-theorem",
+          "sourceId": "source-berta-2011-reverse-shannon-one-shot",
+          "sourceLocator": "One-shot proof of the Quantum Reverse Shannon Theorem",
+          "date": "2011",
+          "maturity": "Peer reviewed",
+          "strength": "Exact theorem",
+          "label": "Communications in Mathematical Physics",
+          "source": {
+            "id": "source-berta-2011-reverse-shannon-one-shot",
+            "title": "The Quantum Reverse Shannon Theorem Based on One-Shot Information Theory",
+            "authors": [
+              "M. Berta",
+              "M. Christandl",
+              "R. Renner"
+            ],
+            "venue": "Commun. Math. Phys. 306, 579 (2011); arXiv:0912.3805",
+            "url": "https://arxiv.org/abs/0912.3805"
+          }
+        }
+      ]
+    }
+  ],
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-reversibility-entanglement-assisted-coding.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-reversibility-entanglement-assisted-coding/frontier.json"
+  }
+}

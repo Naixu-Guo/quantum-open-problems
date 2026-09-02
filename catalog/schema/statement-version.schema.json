@@ -1,7 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://naixu-guo.github.io/quantum-open-problems/schema/canonical/v0.1/statement-version.schema.json",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/schema/canonical/v0.2/statement-version.schema.json",
   "title": "Canonical statement version",
+  "description": "An immutable mathematical formulation. Editing a published statement body is a validation error; a correction is a new version with supersedesStatementId.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -42,7 +43,11 @@
             "enum": ["states-problem", "documents-gap", "source-record", "supplements-statement"]
           },
           "locator": { "type": "string" },
-          "primary": { "type": "boolean" }
+          "primary": { "type": "boolean" },
+          "statedTitle": {
+            "type": ["string", "null"],
+            "description": "The problem title as the source itself words it, when it differs from the catalog title."
+          }
         }
       }
     },
@@ -54,7 +59,7 @@
         "additionalProperties": false,
         "required": ["id", "label", "text", "resolutionCriteria"],
         "properties": {
-          "id": { "type": "string", "minLength": 1 },
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
           "label": { "type": "string", "minLength": 1 },
           "text": { "type": "string", "minLength": 1 },
           "resolutionCriteria": { "type": "string", "minLength": 1 }

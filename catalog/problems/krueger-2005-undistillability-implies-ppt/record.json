@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-undistillability-implies-ppt",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Does undistillability imply PPT?",
+    "proposed": "2000-03-02",
+    "topicId": "entanglement-theory",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Universal dichotomy",
+      "summary": "The converse of PPT implies undistillable is unresolved in general finite dimensions. This is equivalent to the NPT bound-entanglement problem.",
+      "importance": "The implication would make the partial-transpose test the exact criterion for whether bipartite entanglement can yield singlets. A counterexample would establish NPT bound entanglement.",
+      "unresolved": "Prove that every NPT state is distillable, or construct an NPT state undistillable for all copy numbers."
+    },
+    "keywords": [
+      "NPT",
+      "PPT",
+      "distillability",
+      "bound entanglement",
+      "Werner states"
+    ],
+    "relatedProblemIds": [
+      "horodecki-2020-npt-bound-entanglement"
+    ]
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-undistillability-implies-ppt-statement-v1",
+      "problemId": "krueger-2005-undistillability-implies-ppt",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "pp. 15-17 (Problem 2)",
+          "primary": true,
+          "statedTitle": "Undistillability implies PPT?"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Prove that every NPT state is distillable, or construct an NPT state undistillable for all copy numbers."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-undistillability-implies-ppt-2026-selected-npt-candidates-fail",
+      "statementId": "krueger-2005-undistillability-implies-ppt-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "Selected NPT candidates fail at two copies",
+      "text": "An exact all-dimension theorem proves two-copy distillability for selected one-copy-undistillable candidates."
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-undistillability-implies-ppt-2026-two-copy-werner-distillability",
+      "statementId": "krueger-2005-undistillability-implies-ppt-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "Two-copy Werner distillability is completely classified",
+      "text": "Four concurrent proofs settle two copies in every dimension but do not control three or more copies."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-undistillability-implies-ppt-2026-selected-npt-candidates-fail",
+      "claimId": "claim-krueger-2005-undistillability-implies-ppt-2026-selected-npt-candidates-fail",
+      "sourceId": "source-tabia-2026-two-copy-distillability",
+      "sourceLocator": null,
+      "date": "2026-08-09",
+      "maturity": "Preprint",
+      "strength": "Exact restricted theorem",
+      "label": "Candidate elimination"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-undistillability-implies-ppt-2026-two-copy-werner-distillability",
+      "claimId": "claim-krueger-2005-undistillability-implies-ppt-2026-two-copy-werner-distillability",
+      "sourceId": "source-bharti-2026-two-copy-nondistillability",
+      "sourceLocator": null,
+      "date": "2026-07-27",
+      "maturity": "Preprint",
+      "strength": "Exact two-copy theorem",
+      "label": "Two-copy boundary"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-undistillability-implies-ppt-status-2026-08-12",
+      "problemId": "krueger-2005-undistillability-implies-ppt",
+      "statementId": "krueger-2005-undistillability-implies-ppt-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-undistillability-implies-ppt-2026-selected-npt-candidates-fail",
+        "evidence-krueger-2005-undistillability-implies-ppt-2026-two-copy-werner-distillability"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [
+      {
+        "label": "Quantifier",
+        "text": "One-copy, two-copy and restricted three-copy results do not settle undistillability for all tensor powers.",
+        "url": "https://arxiv.org/abs/2608.08836"
+      }
+    ],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

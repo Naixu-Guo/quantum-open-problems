@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-cglmp-inequalities-power",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "The power of CGLMP inequalities",
+    "proposed": "2005-04-15",
+    "topicId": "bell-nonlocality",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Classification and optimization",
+      "summary": "The proposed facet completeness is false. The claimed necessity and simultaneous optimality of Fourier-plus-diagonal measurements remain open.",
+      "importance": "The remaining claim would identify the measurement architecture that extracts the strongest and most noise-resistant CGLMP evidence from a maximally entangled state.",
+      "unresolved": "For a fixed maximally entangled state, prove or refute necessity of Fourier-plus-diagonal measurements and their simultaneous white-noise and Kullback-Leibler optimality in every outcome dimension."
+    },
+    "keywords": [
+      "CGLMP",
+      "Bell facets",
+      "Fourier measurements",
+      "Kullback-Leibler divergence"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-cglmp-inequalities-power-statement-v1",
+      "problemId": "krueger-2005-cglmp-inequalities-power",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "p. 68-69 (Problem 27)",
+          "primary": true
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "For a fixed maximally entangled state, prove or refute necessity of Fourier-plus-diagonal measurements and their simultaneous white-noise and Kullback-Leibler optimality in every outcome dimension."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-cglmp-inequalities-power-2010-part-a-is-refuted",
+      "statementId": "krueger-2005-cglmp-inequalities-power-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "Part A is refuted by a finite facet counterexample",
+      "text": "Bancal, Gisin and Pironio find two-party, two-setting, four-outcome facets that are neither CGLMP inequalities nor lower-outcome liftings."
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-cglmp-inequalities-power-2008-numerics-clarify-the-optimizer",
+      "statementId": "krueger-2005-cglmp-inequalities-power-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "supports",
+      "title": "Numerics clarify the optimizer but do not prove Part B",
+      "text": "Global optimization shows that nonmaximally entangled states can outperform maximally entangled ones. The archived measurement claim must therefore retain its fixed-state qualifier."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-cglmp-inequalities-power-2010-part-a-is-refuted",
+      "claimId": "claim-krueger-2005-cglmp-inequalities-power-2010-part-a-is-refuted",
+      "sourceId": "source-bancal-2010-looking-for-symmetric",
+      "sourceLocator": null,
+      "date": "2010-04-23",
+      "maturity": "Peer reviewed",
+      "strength": "Exact counterexample",
+      "label": "Part A refuted"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-cglmp-inequalities-power-2008-numerics-clarify-the-optimizer",
+      "claimId": "claim-krueger-2005-cglmp-inequalities-power-2008-numerics-clarify-the-optimizer",
+      "sourceId": "source-doi-10-1103-physrevlett-100-120406",
+      "sourceLocator": null,
+      "date": "2008-03-27",
+      "maturity": "Peer reviewed",
+      "strength": "Numerical evidence",
+      "label": "Optimization study"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-cglmp-inequalities-power-status-2026-08-12",
+      "problemId": "krueger-2005-cglmp-inequalities-power",
+      "statementId": "krueger-2005-cglmp-inequalities-power-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "partial",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-cglmp-inequalities-power-2010-part-a-is-refuted",
+        "evidence-krueger-2005-cglmp-inequalities-power-2008-numerics-clarify-the-optimizer"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": "Part B fixes the maximally entangled state. A better global strategy using a nonmaximally entangled state does not by itself answer that fixed-state measurement question.",
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

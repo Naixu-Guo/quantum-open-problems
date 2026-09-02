@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-local-equivalence-graph-states",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "archived",
+    "title": "Local equivalence of graph states",
+    "proposed": "2005-04-21",
+    "topicId": "entanglement-theory",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Invariant classification",
+      "summary": "The source asked whether local-unitary equivalence of graph states always reduces to local-Clifford equivalence. Ji, Chen, Wei and Ying disproved the LU = LC conjecture with explicit counterexamples, the smallest from their construction on 27 qubits.",
+      "importance": "Local Clifford equivalence admits a clean combinatorial description via local complementation and is efficiently decidable, so a positive answer would have made that combinatorial classification the complete classification of graph states under single-qubit unitaries, while a negative answer forces a richer non-combinatorial theory of LU classes.",
+      "unresolved": ""
+    },
+    "keywords": [
+      "graph states",
+      "LU-LC conjecture",
+      "local Clifford equivalence",
+      "stabiliser states",
+      "local complementation"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-local-equivalence-graph-states-statement-v1",
+      "problemId": "krueger-2005-local-equivalence-graph-states",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "p. 70-71 (Problem 28)",
+          "primary": true
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "lu-implies-lc-for-graph-states",
+          "label": "LU = LC for graph states",
+          "text": "The archived statement asks whether two graph states related by arbitrary single-qubit unitaries are necessarily related by single-qubit Clifford unitaries.",
+          "resolutionCriteria": "A proof of the implication, or an explicit pair of LU-equivalent graph states that are not LC-equivalent."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-local-equivalence-graph-states-ji-chen-wei-and",
+      "statementId": "krueger-2005-local-equivalence-graph-states-statement-v1",
+      "targetClauseIds": [
+        "lu-implies-lc-for-graph-states"
+      ],
+      "relation": "refutes",
+      "title": "Ji, Chen, Wei and Ying show the LU-LC conjecture is false",
+      "text": "Ji, Chen, Wei and Ying exhibit explicit pairs of graph states on sufficiently many qubits that are LU-equivalent but not LC-equivalent, the smallest produced by their construction having 27 qubits. The general LU = LC conjecture in the archived statement is therefore false."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-local-equivalence-graph-states-quantum-information-computation",
+      "claimId": "claim-krueger-2005-local-equivalence-graph-states-ji-chen-wei-and",
+      "sourceId": "source-ji-2010-lu-lc-false",
+      "sourceLocator": "Explicit counterexample construction (smallest instance on 27 qubits)",
+      "date": "2010",
+      "maturity": "Peer reviewed",
+      "strength": "Exact counterexample",
+      "label": "Quantum Information & Computation"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-local-equivalence-graph-states-status-2026-08-12",
+      "problemId": "krueger-2005-local-equivalence-graph-states",
+      "statementId": "krueger-2005-local-equivalence-graph-states-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "solved",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-local-equivalence-graph-states-quantum-information-computation"
+      ],
+      "rationale": "The cited peer-reviewed counterexample disproves the universal implication asserted in the archived statement."
+    }
+  ],
+  "editorial": {
+    "cautions": [
+      {
+        "label": "Scope",
+        "text": "LU and LC equivalence still coincide on small graph states: numerics of Hein, Eisert and Briegel verified agreement up to 7 vertices, and a March 2026 preprint by Claudet (arXiv:2603.25219) proves the 27-qubit counterexample is minimal, so agreement holds through 26 qubits; that refinement had not passed peer review at the verification date.",
+        "url": null
+      },
+      {
+        "label": "Scope",
+        "text": "Refined questions remain open, including classification of LU classes within an LC class for arbitrary n; only the original implication is settled.",
+        "url": null
+      }
+    ],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

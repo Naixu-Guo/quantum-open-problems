@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "ruskai-2007-local-invariants-n-representability",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Local invariants and N-representability",
+    "proposed": "2007",
+    "topicId": "quantum-invariants",
+    "collectionId": "ruskai-2007",
+    "question": {
+      "type": "Invariant classification",
+      "summary": "Graph-indexed complete invariant families and a free stable invariant algebra are known. A finite-dimensional minimal set for arbitrary mixed two-particle states and the full N-representability constraints remain unknown.",
+      "importance": "Local invariants provide basis-independent coordinates for two-particle states. Expressing N-representability in those coordinates would connect orbit classification to the quantum marginal problem.",
+      "unresolved": "Find a finite-dimensional minimal complete invariant set for mixed symmetric or antisymmetric two-particle states and express N-representability in those invariants."
+    },
+    "keywords": [
+      "local invariants",
+      "N-representability",
+      "fermions",
+      "symmetric states",
+      "QMA"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "ruskai-2007-local-invariants-n-representability-statement-v1",
+      "problemId": "ruskai-2007-local-invariants-n-representability",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ruskai-2007",
+          "relationship": "states-problem",
+          "locator": "p. 17 (Problem 24, Section 7)",
+          "primary": true,
+          "statedTitle": "Minimal complete set of local invariants for an antisymmetric (or symmetric) 2-particle density matrix"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Find a finite-dimensional minimal complete invariant set for mixed symmetric or antisymmetric two-particle states and express N-representability in those invariants."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-local-invariants-n-representability-2011-the-stable-invariant-algebra",
+      "statementId": "ruskai-2007-local-invariants-n-representability-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "The stable invariant algebra has graph-indexed generators",
+      "text": "Vrana constructs systematic complete families and a free stable algebra, without solving the finite-dimensional minimal mixed-state problem."
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-local-invariants-n-representability-2007-general-two-body-n",
+      "statementId": "ruskai-2007-local-invariants-n-representability-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "General two-body N-representability is QMA-complete",
+      "text": "The complexity theorem gives a strong obstruction to any efficient general criterion, but does not identify the requested minimal invariants."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-ruskai-2007-local-invariants-n-representability-2011-the-stable-invariant-algebra",
+      "claimId": "claim-ruskai-2007-local-invariants-n-representability-2011-the-stable-invariant-algebra",
+      "sourceId": "source-vrana-2011-the-algebra-of",
+      "sourceLocator": null,
+      "date": "2011",
+      "maturity": "Mixed",
+      "strength": "Stable-regime characterization",
+      "label": "Stable invariant algebra"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-ruskai-2007-local-invariants-n-representability-2007-general-two-body-n",
+      "claimId": "claim-ruskai-2007-local-invariants-n-representability-2007-general-two-body-n",
+      "sourceId": "source-liu-2007-phys-rev-lett",
+      "sourceLocator": null,
+      "date": "2007",
+      "maturity": "Peer reviewed",
+      "strength": "Complexity classification",
+      "label": "QMA-completeness"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-ruskai-2007-local-invariants-n-representability-status-2026-08-12",
+      "problemId": "ruskai-2007-local-invariants-n-representability",
+      "statementId": "ruskai-2007-local-invariants-n-representability-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "partial",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-ruskai-2007-local-invariants-n-representability-2011-the-stable-invariant-algebra",
+        "evidence-ruskai-2007-local-invariants-n-representability-2007-general-two-body-n"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

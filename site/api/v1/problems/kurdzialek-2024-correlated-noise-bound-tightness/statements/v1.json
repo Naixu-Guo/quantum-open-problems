@@ -1,0 +1,51 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "kurdzialek-2024-correlated-noise-bound-tightness-statement-v1",
+  "problemId": "kurdzialek-2024-correlated-noise-bound-tightness",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-31",
+  "sourceRefs": [
+    {
+      "sourceId": "source-kurdzia-2024",
+      "relationship": "documents-gap",
+      "locator": "Eqs. (10)-(11), discussion of block size m, and the statement that the bounds are not generally tight",
+      "primary": true,
+      "statedTitle": "Determine whether correlated-noise block bounds converge to the achievable asymptotic metrological precision",
+      "source": {
+        "id": "source-kurdzia-2024",
+        "title": "Universal bounds for quantum metrology in the presence of correlated noise",
+        "authors": [
+          "Stanisław Kurdziałek",
+          "Francesco Albarelli",
+          "Rafał Demkowicz-Dobrzański"
+        ],
+        "venue": "Phys. Rev. Lett. 135, 130801 (2025); arXiv:2410.01881 [quant-ph]",
+        "url": "https://doi.org/10.1103/jy3v-wkcb"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Prove that the block hierarchy converges to the achievable asymptotic comb quantum Fisher information, or construct a finite-dimensional correlated model with a strict gap."
+    }
+  ],
+  "formulation": {
+    "notation": "",
+    "statement": "Let $\\Lambda_\\theta^{(N)}$ be a finite-dimensional correlated-noise comb and let\n$$\n\\mathcal F_{\\mathrm{AD}}^{(N)}=\\max_{C^{(N)}}F\\!\\left(C^{(N)}\\star\\Lambda_\\theta^{(N)}\\right)\n$$\ndenote the optimal quantum Fisher information over physical adaptive controls that cannot act on the inaccessible environment.\n\nFor each block size $m$, let $B_m$ denote the asymptotic upper coefficient from Eqs. (10) or (11) of the source paper:\n$$\nB_m=\\frac{4}{m}\\min_h a^{(m)}\\quad\\text{subject to }b^{(m)}=0\n$$\nin the standard-scaling case, and\n$$\nB_m=\\frac{4}{m^2}\\min_h b^{(m)2}\n$$\nin the Heisenberg-scaling case.\n\nDetermine whether the best block bound equals the achievable asymptotic precision,\n$$\n\\inf_{m\\geq1}B_m\n=\n\\limsup_{N\\to\\infty}\\frac{\\mathcal F_{\\mathrm{AD}}^{(N)}}{N^s},\n\\qquad s\\in\\{1,2\\},\n$$\nfor every model covered by the corresponding bound. A proof should supply asymptotically matching physical controls. A counterexample should give a finite-dimensional correlated model with a strict gap."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "a6a6956d04d1c3b5c26f2ba92dc49a70273762da53cc3f62372d7edc05e6159b",
+    "bodyDigest": "36ac9b7bfc6c2215ea502f80f119e4aaff5769abac37d00715fa4870e6653593"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/kurdzialek-2024-correlated-noise-bound-tightness.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/kurdzialek-2024-correlated-noise-bound-tightness/frontier.json"
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-catalytic-majorization",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Catalytic majorization",
+    "proposed": "2000-12-18",
+    "topicId": "entanglement-theory",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Characterization",
+      "summary": "Trumping has exact necessary-and-sufficient characterizations by infinite families of inequalities, but no finite efficient test comparable to Nielsen's partial-sum criterion is known.",
+      "importance": "Catalysts enlarge the set of pure-state transformations possible under LOCC without being consumed. A finite criterion would turn that resource conversion rule into a practical decision procedure.",
+      "unresolved": "Find a finite, tractable necessary-and-sufficient criterion for catalytic majorization, or prove that no such reduction exists."
+    },
+    "keywords": [
+      "majorization",
+      "catalysis",
+      "trumping",
+      "LOCC"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-catalytic-majorization-statement-v1",
+      "problemId": "krueger-2005-catalytic-majorization",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "pp. 23-24 (Problem 4)",
+          "primary": true
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Find a finite, tractable necessary-and-sufficient criterion for catalytic majorization, or prove that no such reduction exists."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-catalytic-majorization-2026-a-finite-sufficient-criterion",
+      "statementId": "krueger-2005-catalytic-majorization-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "A finite sufficient criterion is available",
+      "text": "The new finite test certifies catalytic transformations but is not necessary, so it does not replace the infinite exact characterization."
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-catalytic-majorization-2007-klimesh-gives-an-exact",
+      "statementId": "krueger-2005-catalytic-majorization-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "Klimesh gives an exact infinite characterization",
+      "text": "A family of strict inequalities is necessary and sufficient for trumping under the theorem's support conditions."
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-catalytic-majorization-2007-turgut-derives-independent-exact",
+      "statementId": "krueger-2005-catalytic-majorization-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "Turgut derives independent exact conditions",
+      "text": "Power means and entropy give another necessary-and-sufficient infinite criterion for catalytic conversion."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-catalytic-majorization-2026-a-finite-sufficient-criterion",
+      "claimId": "claim-krueger-2005-catalytic-majorization-2026-a-finite-sufficient-criterion",
+      "sourceId": "source-web-nature-com-articles-s42005-026-02583",
+      "sourceLocator": null,
+      "date": "2026-03-19",
+      "maturity": "Peer reviewed",
+      "strength": "Sufficient criterion",
+      "label": "Communications Physics"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-catalytic-majorization-2007-klimesh-gives-an-exact",
+      "claimId": "claim-krueger-2005-catalytic-majorization-2007-klimesh-gives-an-exact",
+      "sourceId": "source-klimesh-2007-inequalities-that-collectively",
+      "sourceLocator": null,
+      "date": "2007-09-24",
+      "maturity": "Preprint",
+      "strength": "Exact characterization",
+      "label": "Klimesh theorem"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-catalytic-majorization-2007-turgut-derives-independent-exact",
+      "claimId": "claim-krueger-2005-catalytic-majorization-2007-turgut-derives-independent-exact",
+      "sourceId": "source-arxiv-0707-0444",
+      "sourceLocator": null,
+      "date": "2007-07-03",
+      "maturity": "Peer reviewed",
+      "strength": "Exact characterization",
+      "label": "Turgut theorem"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-catalytic-majorization-status-2026-08-12",
+      "problemId": "krueger-2005-catalytic-majorization",
+      "statementId": "krueger-2005-catalytic-majorization-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "partial",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-catalytic-majorization-2026-a-finite-sufficient-criterion",
+        "evidence-krueger-2005-catalytic-majorization-2007-klimesh-gives-an-exact",
+        "evidence-krueger-2005-catalytic-majorization-2007-turgut-derives-independent-exact"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

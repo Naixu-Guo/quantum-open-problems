@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Solved record. Solved (the principal completeness question). The basic question of completeness of polynomial entanglement invariants is answered affirmatively by A. Sudbery via a classical theorem of Onishchik and Vinberg: &gt; The orbits of a compact…">
+    <meta name="description" content="Solved record. The source asked whether polynomial entanglement invariants are complete, that is whether agreement of all polynomial invariants forces two states to be related by local unitaries. Sudbery answered affirmatively by applying the Onishchik-Vinberg theorem on orbits of compact linear groups.">
     <meta name="theme-color" content="#0d1b2a">
     <title>Polynomial entanglement invariants · Quantum Open Problems</title>
     <link rel="canonical" href="https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-polynomial-entanglement-invariants/">
@@ -13,7 +13,7 @@
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Quantum Open Problems">
     <meta property="og:title" content="Polynomial entanglement invariants">
-    <meta property="og:description" content="Solved record. Solved (the principal completeness question). The basic question of completeness of polynomial entanglement invariants is answered affirmatively by A. Sudbery via a classical theorem of Onishchik and Vinberg: &gt; The orbits of a compact…">
+    <meta property="og:description" content="Solved record. The source asked whether polynomial entanglement invariants are complete, that is whether agreement of all polynomial invariants forces two states to be related by local unitaries. Sudbery answered affirmatively by applying the Onishchik-Vinberg theorem on orbits of compact linear groups.">
     <meta property="og:url" content="https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-polynomial-entanglement-invariants/">
     <meta name="twitter:card" content="summary">
     <script>
@@ -22,6 +22,8 @@
         if (theme === "dark") document.documentElement.dataset.theme = "dark";
       } catch {}
     </script>
+    <link rel="alternate" href="../../api/v1/problems/krueger-2005-polynomial-entanglement-invariants.json" type="application/json" title="Problem record (JSON)">
+    <link rel="alternate" href="../../packets/krueger-2005-polynomial-entanglement-invariants.md" type="text/markdown" title="AI research brief (Markdown)">
     <script>window.MathJax = { svg: { fontCache: "global" } };</script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-svg.js" integrity="sha384-my9P1jDckpHD+5LZsLQ0gaiCl/RMO32HaqwBtbo/25QIMVr6xXIUCg1jvdSRcvb4" crossorigin="anonymous" defer></script>
     <script type="application/ld+json">{
@@ -83,18 +85,26 @@
         "value": "krueger-2005-polynomial-entanglement-invariants"
       },
       "name": "Polynomial entanglement invariants",
-      "abstract": "Solved record. Solved (the principal completeness question). The basic question of completeness of polynomial entanglement invariants is answered affirmatively by A. Sudbery via a classical theorem of Onishchik and Vinberg: > The orbits of a compact…",
+      "abstract": "Solved record. The source asked whether polynomial entanglement invariants are complete, that is whether agreement of all polynomial invariants forces two states to be related by local unitaries. Sudbery answered affirmatively by applying the Onishchik-Vinberg theorem on orbits of compact linear groups.",
       "text": "Decide the following:\n\n- (Completeness.) Are the polynomial entanglement invariants of bipartite (and more generally multipartite) density operators complete? That is, if for every polynomial invariant $f$ one has $f(\\rho) = f(\\sigma)$, does there exist a tuple of local unitaries $(U_A, U_B)$ (or, for $n$ parties, $(U_1, \\ldots, U_n)$) such that\n$$\\rho = (U_A \\otimes U_B)\\,\\sigma\\,(U_A \\otimes U_B)^{*}\\,?$$\n\nAdditional related sub-problems are also posed:\n\n- (Finite generating sets.) Given the dimensions of the parties, exhibit a finite set of polynomial invariants that is already complete.\n- (Multipartite extension.) Solve the analogous problems for multipartite states; even the pure-state case is non-trivial in this setting.\n- (Separability via invariants.) Decide whether the set of separable states can be characterised by a polynomial invariant $f$ such that $f(\\rho) \\ge 0$ iff $\\rho$ is separable; or in weaker form, find polynomial sufficient or necessary separability criteria (possibly depending on dimensions).",
       "inLanguage": "en",
       "qop:problemStatus": "solved",
       "qop:verified": "2026-08-12",
-      "keywords": [],
+      "keywords": [
+        "polynomial invariants",
+        "local unitary equivalence",
+        "compact group orbits",
+        "Schur-Weyl duality",
+        "entanglement classification"
+      ],
       "about": [
-        "Krueger–Werner"
+        "Quantum invariants and representability",
+        "Quantum information"
       ],
       "mainEntityOfPage": {
         "@id": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-polynomial-entanglement-invariants/#page"
       },
+      "qop:recordDigest": "sha256:ea000f7ee8da402cfe635231ec3352d21c7a26d062fbe729d481272b653e5d70",
       "isBasedOn": {
         "@type": "ScholarlyArticle",
         "name": "Some open problems in quantum information theory",
@@ -121,7 +131,19 @@
           }
         ],
         "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
-      }
+      },
+      "encoding": [
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-polynomial-entanglement-invariants.json"
+        },
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "text/markdown",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-polynomial-entanglement-invariants.md"
+        }
+      ]
     }
   ]
 }</script>
@@ -161,30 +183,40 @@
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
           <span class="status-badge solved">Solved</span>
-          <span class="area-badge">Krueger–Werner</span>
+          <span class="area-badge">Quantum information</span>
+          <span class="meta-badge">Quantum invariants and representability</span>
           <span class="meta-badge">Proposed 2000-10-13</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Polynomial entanglement invariants</h1>
+        <p class="dialog-summary">The source asked whether polynomial entanglement invariants are complete, that is whether agreement of all polynomial invariants forces two states to be related by local unitaries. Sudbery answered affirmatively by applying the Onishchik-Vinberg theorem on orbits of compact linear groups.</p>
 
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#resolution-heading">Resolution</a>
-          <a href="#bibliography-heading">Bibliography</a>
+          <a href="#target-heading">Target</a>
+          <a href="#progress-heading">Resolution</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
+          <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <section class="dialog-section">
           <div class="interpretation-note">
             <span class="note-icon" aria-hidden="true">i</span>
             <div>
               <strong>Archived record</strong>
-              <p>The audit records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
+              <p>The accepted status decision records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
             </div>
           </div>
         </section>
-
         <div class="problem-framing">
+          <section class="framing-row" aria-labelledby="importance-heading">
+            <h2 id="importance-heading">Why it matters</h2>
+            <p>Completeness would reduce local-unitary classification of entanglement to evaluating polynomials, and the bipartite and multipartite cases are far more delicate than the unipartite case because the symmetry group is a product of local unitaries rather than the full unitary group.</p>
+          </section>
           <section class="framing-row" aria-labelledby="source-heading">
             <h2 id="source-heading">Problem source</h2>
             <div class="problem-source-record">
@@ -192,6 +224,7 @@
               <p>O. Krüger, R. F. Werner</p>
               <p>arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/</p>
               <div class="problem-source-scope">
+                <span>The source states the cataloged problem.</span>
                 <span>Statement locator: pp. 18-22 (Problem 3)</span>
               </div>
               <a href="https://doi.org/10.48550/arXiv.quant-ph/0504166" rel="noreferrer">Read problem source ↗</a>
@@ -205,7 +238,7 @@
               <span class="dialog-section-label">Archived formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">As archived before resolution</span>
+            <span class="formal-source">As archived before resolution · digest df65a9380330</span>
           </div>
 
           <details class="formal-notation">
@@ -221,10 +254,111 @@
           <div class="formal-body"><p>Decide the following:</p><ul><li>(Completeness.) Are the polynomial entanglement invariants of bipartite (and more generally multipartite) density operators complete? That is, if for every polynomial invariant \(f\) one has \(f(\rho) = f(\sigma)\), does there exist a tuple of local unitaries \((U_A, U_B)\) (or, for \(n\) parties, \((U_1, \ldots, U_n)\)) such that</li></ul><div class="formal-equation" role="group" aria-label="Displayed equation">\[\rho = (U_A \otimes U_B)\,\sigma\,(U_A \otimes U_B)^{*}\,?\]</div><p>Additional related sub-problems are also posed:</p><ul><li>(Finite generating sets.) Given the dimensions of the parties, exhibit a finite set of polynomial invariants that is already complete.</li><li>(Multipartite extension.) Solve the analogous problems for multipartite states; even the pure-state case is non-trivial in this setting.</li><li>(Separability via invariants.) Decide whether the set of separable states can be characterised by a polynomial invariant \(f\) such that \(f(\rho) \ge 0\) iff \(\rho\) is separable; or in weaker form, find polynomial sufficient or necessary separability criteria (possibly depending on dimensions).</li></ul></div>
         </section>
 
-        <section class="dialog-section" aria-labelledby="resolution-heading">
-          <span class="dialog-section-label">Resolution</span>
-          <h2 id="resolution-heading">Status and known progress</h2>
-          <div class="archive-progress"><p><strong>Solved (the principal completeness question).</strong> The basic question of completeness of polynomial entanglement invariants is answered affirmatively by A. Sudbery via a classical theorem of Onishchik and Vinberg:</p><p>&gt; <em>The orbits of a compact linear group acting on a real vector space are separated by the polynomial invariants.</em> (Onishchik–Vinberg, <em>Lie Groups and Algebraic Groups</em>, Springer 1990, Chap. 3, §4, Theorem 3.)</p><p>The local unitary group is compact, and its action on the space of density operators is a compact linear action on a real vector space, so the polynomial invariants separate orbits. Consequently, two multipartite quantum states are related by a local unitary if and only if all polynomial invariants agree. This solution appears in the &quot;Solution&quot; section of the source. (The compactness assumption is essential; the analogous statement is false for \(\mathrm{GL}(n,\mathbf{C})\) similarity actions, as illustrated by the Jordan-form obstruction.)</p><p>The source dates Sudbery&#039;s resolution to 2001-12-18, recorded as &quot;last progress&quot; on the title page of Problem 3.</p><p><strong>Partial results on finite complete sets and dimensions of orbit spaces.</strong></p><ul><li>Y. Makhlin [M; quant-ph/0002045] gave a complete set of 18 invariants for the bipartite two-qubit case, none of which can be omitted; the space of entanglement types of mixed two-qubit states is a 9-dimensional manifold in \(\mathbf{R}^{18}\) with 9 relations among the 18 generators.</li><li>A. Sudbery [S; quant-ph/0001116] solved the pure three-qubit case with 8 polynomial invariants, 6 being the dimension of the manifold of all invariants; together with one more invariant found by Grassl, [AAJT; quant-ph/0009107] obtained the six independent invariants describing pure three-qubit states. The space of entanglement types of pure three-qubit states is a hypersurface in real projective 6-space.</li><li>For pure \(n\)-partite states with parties of dimensions \(d_1 \le \cdots \le d_n\), the dimension of the space of entanglement types is</li></ul><div class="formal-equation" role="group" aria-label="Displayed equation">\[D_{\text{pure}} = 2 \prod_{r=1}^n d_r - \sum_{r=1}^n d_r^2 + n - 2 + \Delta^2,\]</div><p>with \(\Delta = d_n - d_1\cdots d_{n-1}\) if positive and \(0\) otherwise; for \(n\) parties of equal local dimension \(d\) this becomes \(D_{\text{pure}} = 2 d^n - n d^2 + n - 2\). The corresponding dimension for mixed states is \(D_{\text{mixed}} = d^{2n} - n d^2 + n - 1\).</p><ul><li>The three-qubit SLOCC classification has two genuine entanglement classes. The four-qubit result of Verstraete, Dehaene, De Moor and Verschelde gives nine families with continuous parameters, not nine individual SLOCC orbits.</li><li>A basis for the ring of polynomial invariants in the multipartite case for arbitrary Hilbert-space dimensions was given by Grassl–Rötteler–Beth [GRB; quant-ph/9712040] and by Rains [R; quant-ph/9704042].</li></ul><p>The remaining sub-problems (finite complete generating sets in all dimensions; analogous classifications for higher-party multipartite systems; polynomial separability characterisations) are still active research areas as of 2026, but the principal completeness question of Problem 3 is settled.</p><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Archived target</h2>
+
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-resolved" id="clause-completeness-of-polynomial-invariants">
+              <div class="clause-head">
+                <span class="clause-state resolved">Resolved</span>
+                <strong>Completeness of polynomial entanglement invariants</strong>
+                <code>completeness-of-polynomial-invariants</code>
+              </div>
+              <p>The archived statement asks whether the polynomial entanglement invariants of bipartite and multipartite density operators are complete, that is whether equality of all polynomial invariants on two states implies they are related by local unitaries.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> A proof that the polynomial invariants separate local-unitary orbits, or two states with identical invariants that are not locally unitarily equivalent.</p>
+              <p class="clause-claims">1 accepted claim: <a href="#claim-krueger-2005-polynomial-entanglement-invariants-compact-group-invariants-separate">claim-krueger-2005-polynomial-entanglement-invariants-compact-group-invariants-separate</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Solved as of 12 Aug 2026: The archived completeness question follows directly from the cited compact-group separation theorem, and the source collection itself records Sudbery&#039;s solution in its Solution section. <code>decision-krueger-2005-polynomial-entanglement-invariants-status-2026-08-12</code></p>
+        </section>
+
+
+
+        <section class="dialog-section" aria-labelledby="progress-heading">
+          <span class="dialog-section-label">Resolution evidence</span>
+          <h2 id="progress-heading">Resolution</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
+
+          <article class="claim-card" id="claim-krueger-2005-polynomial-entanglement-invariants-compact-group-invariants-separate">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Resolves</span>
+              <span class="claim-clauses"><a href="#clause-completeness-of-polynomial-invariants">completeness-of-polynomial-invariants</a></span>
+            </div>
+            <h3>Compact-group invariants separate local unitary orbits</h3>
+            <p>Sudbery answers the completeness question affirmatively by invoking the Onishchik-Vinberg theorem that the orbits of a compact linear group acting on a real vector space are separated by the polynomial invariants. The local unitary group is compact and acts linearly on the real space of density operators, so two multipartite states agree on all polynomial invariants exactly when they are related by a local unitary.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-07b185d747b0584a">
+                <time datetime="2005">2005</time>
+                <div>
+                  <span class="maturity-badge">Official status page</span>
+                  <span class="maturity-badge">Elementary consequence</span>
+                  <a href="https://doi.org/10.48550/arXiv.quant-ph/0504166" rel="noreferrer">arXiv:quant-ph/0504166 ↗</a>
+                  <span class="evidence-locator">Problem 3, pp. 18-22, Solution section (A. Sudbery, recorded 18 Dec 2001)</span>
+                </div>
+              </li>
+              <li class="evidence-row" id="qop-evt-f53481d4dd67a9e2">
+                <time datetime="1990">1990</time>
+                <div>
+                  <span class="maturity-badge">Peer reviewed</span>
+                  <span class="maturity-badge">Exact theorem</span>
+                  <span class="maturity-badge">Onishchik-Vinberg, Springer 1990</span>
+                  <span class="evidence-locator">Chap. 3, Paragraph 4, Theorem 3</span>
+                </div>
+              </li>
+            </ol>
+
+          </article>
+
+          <details class="archive-narrative">
+            <summary>Editorial narrative <span>Status and known progress as written by the editors</span></summary>
+            <div class="archive-progress"><p><strong>Solved (the principal completeness question).</strong> The basic question of completeness of polynomial entanglement invariants is answered affirmatively by A. Sudbery via a classical theorem of Onishchik and Vinberg:</p><p>&gt; <em>The orbits of a compact linear group acting on a real vector space are separated by the polynomial invariants.</em> (Onishchik–Vinberg, <em>Lie Groups and Algebraic Groups</em>, Springer 1990, Chap. 3, §4, Theorem 3.)</p><p>The local unitary group is compact, and its action on the space of density operators is a compact linear action on a real vector space, so the polynomial invariants separate orbits. Consequently, two multipartite quantum states are related by a local unitary if and only if all polynomial invariants agree. This solution appears in the &quot;Solution&quot; section of the source. (The compactness assumption is essential; the analogous statement is false for \(\mathrm{GL}(n,\mathbf{C})\) similarity actions, as illustrated by the Jordan-form obstruction.)</p><p>The source dates Sudbery&#039;s resolution to 2001-12-18, recorded as &quot;last progress&quot; on the title page of Problem 3.</p><p><strong>Partial results on finite complete sets and dimensions of orbit spaces.</strong></p><ul><li>Y. Makhlin [M; quant-ph/0002045] gave a complete set of 18 invariants for the bipartite two-qubit case, none of which can be omitted; the space of entanglement types of mixed two-qubit states is a 9-dimensional manifold in \(\mathbf{R}^{18}\) with 9 relations among the 18 generators.</li><li>A. Sudbery [S; quant-ph/0001116] solved the pure three-qubit case with 8 polynomial invariants, 6 being the dimension of the manifold of all invariants; together with one more invariant found by Grassl, [AAJT; quant-ph/0009107] obtained the six independent invariants describing pure three-qubit states. The space of entanglement types of pure three-qubit states is a hypersurface in real projective 6-space.</li><li>For pure \(n\)-partite states with parties of dimensions \(d_1 \le \cdots \le d_n\), the dimension of the space of entanglement types is</li></ul><div class="formal-equation" role="group" aria-label="Displayed equation">\[D_{\text{pure}} = 2 \prod_{r=1}^n d_r - \sum_{r=1}^n d_r^2 + n - 2 + \Delta^2,\]</div><p>with \(\Delta = d_n - d_1\cdots d_{n-1}\) if positive and \(0\) otherwise; for \(n\) parties of equal local dimension \(d\) this becomes \(D_{\text{pure}} = 2 d^n - n d^2 + n - 2\). The corresponding dimension for mixed states is \(D_{\text{mixed}} = d^{2n} - n d^2 + n - 1\).</p><ul><li>The three-qubit SLOCC classification has two genuine entanglement classes. The four-qubit result of Verstraete, Dehaene, De Moor and Verschelde gives nine families with continuous parameters, not nine individual SLOCC orbits.</li><li>A basis for the ring of polynomial invariants in the multipartite case for arbitrary Hilbert-space dimensions was given by Grassl–Rötteler–Beth [GRB; quant-ph/9712040] and by Rains [R; quant-ph/9704042].</li></ul><p>The remaining sub-problems (finite complete generating sets in all dimensions; analogous classifications for higher-party multipartite systems; polynomial separability characterisations) are still active research areas as of 2026, but the principal completeness question of Problem 3 is settled.</p><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+          </details>
+        </section>
+
+
+        <section class="dialog-section" aria-labelledby="cautions-heading">
+          <span class="dialog-section-label">Claim watch</span>
+          <h2 id="cautions-heading">Scope and cautions</h2>
+
+          <div class="watch-note">
+            <span class="note-icon" aria-hidden="true">!</span>
+            <div>
+              <strong>Scope</strong>
+              <p>Only the principal completeness question is settled; the accompanying sub-problems on finite complete generating sets in all dimensions, on higher-party multipartite classification, and on polynomial separability criteria remain active. </p>
+            </div>
+          </div>
+          <div class="watch-note">
+            <span class="note-icon" aria-hidden="true">!</span>
+            <div>
+              <strong>Scope</strong>
+              <p>Compactness of the group is essential; the analogous separation statement is false for GL(n,C) similarity actions, as the Jordan-form obstruction shows. </p>
+            </div>
+          </div>
+        </section>
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="krueger-2005-polynomial-entanglement-invariants">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Polynomial+entanglement+invariants" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="krueger-2005-polynomial-entanglement-invariants">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
         </section>
 
 
@@ -234,12 +368,18 @@
           <div class="archive-bibliography"><ul><li>O. Krüger and R. F. Werner (eds.), <em>Some Open Problems in Quantum Information Theory</em>, arXiv:quant-ph/0504166 (2005); DOI 10.48550/arXiv.quant-ph/0504166. Snapshot of the IMaPh open-problems collection, TU Braunschweig (http://www.imaph.tu-bs.de/qi/problems/). Source PDF: <em>Some Open Problems in Quantum Information Theory.pdf</em>, Problem 3, pp. 18–22.</li><li>A. Acín, A. Andrianov, E. Jané, R. Tarrach, <em>Three-qubit pure-state canonical forms</em>, J. Phys. A <strong>34</strong>, 6725 (2001); arXiv:quant-ph/0009107.</li><li>H. A. Carteret, A. Higuchi, A. Sudbery, <em>Multipartite generalisation of the Schmidt decomposition</em>, J. Math. Phys. <strong>41</strong> (2000); arXiv:quant-ph/0006125.</li><li>H. A. Carteret and A. Sudbery, <em>Local symmetry properties of pure states of three qubits</em>, J. Phys. A <strong>33</strong>, 4981 (2000); arXiv:quant-ph/0001091.</li><li>W. Dür, G. Vidal, J. I. Cirac, <em>Three qubits can be entangled in two inequivalent ways</em>, Phys. Rev. A <strong>62</strong>, 062314 (2000); arXiv:quant-ph/0005115.</li><li>M. Grassl, M. Rötteler, T. Beth, <em>Computing local invariants of qubit systems</em>, Phys. Rev. A <strong>58</strong>, 1833 (1998); arXiv:quant-ph/9712040.</li><li>Y. Makhlin, <em>Nonlocal properties of two-qubit gates and mixed states and optimization of quantum computations</em>, arXiv:quant-ph/0002045 (2000).</li><li>B. De Moor, F. Verstraete, J. Dehaene, H. Verschelde, <em>Four qubits can be entangled in nine inequivalent ways</em>, arXiv:quant-ph/0109033 (2001).</li><li>A. L. Onishchik and E. B. Vinberg, <em>Seminar on Lie Groups and Algebraic Groups</em>, Springer (Berlin), 1990 (English translation <em>Lie Groups and Algebraic Groups</em>), Chap. 3, Paragraph 4, Theorem 3.</li><li>E. M. Rains, <em>Polynomial invariants of quantum codes</em>, arXiv:quant-ph/9704042 (1997).</li><li>A. Sudbery, <em>On local invariants of pure three-qubit states</em>, J. Phys. A <strong>34</strong>, 643 (2001); arXiv:quant-ph/0001116.</li></ul></div>
         </section>
 
+
+
         <section class="dialog-section" aria-labelledby="machine-heading">
-          <span class="dialog-section-label">Record</span>
+          <span class="dialog-section-label">Work on this problem</span>
           <h2 id="machine-heading">Research interfaces</h2>
           <ul class="machine-links">
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/krueger-2005-polynomial-entanglement-invariants/problem.md" rel="noreferrer">Source article ↗</a> — the canonical archived statement and audit notes.</li>
-            <li><a href="../">Problem directory</a> — every active and archived record.</li>
+            <li><a href="../../packets/krueger-2005-polynomial-entanglement-invariants.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-polynomial-entanglement-invariants.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-polynomial-entanglement-invariants/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-polynomial-entanglement-invariants/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Polynomial+entanglement+invariants" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/krueger-2005-polynomial-entanglement-invariants/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -251,13 +391,15 @@
             <p class="cite-label">The original problem</p>
             <p class="cite-text">O. Krüger, R. F. Werner. Some open problems in quantum information theory. arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/. pp. 18-22 (Problem 3). https://doi.org/10.48550/arXiv.quant-ph/0504166</p>
             <p class="cite-label">This catalog assessment</p>
-            <p class="cite-text">Quantum Open Problems, record krueger-2005-polynomial-entanglement-invariants, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-polynomial-entanglement-invariants/</p>
+            <p class="cite-text">Quantum Open Problems, record krueger-2005-polynomial-entanglement-invariants, revision ea000f7ee8da, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-polynomial-entanglement-invariants/</p>
           </div>
         </section>
         <footer class="page-record-footer">
           <p>Record <code>krueger-2005-polynomial-entanglement-invariants</code></p>
-          <p>Status solved · archived from the active catalog</p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Record revision <code>ea000f7ee8da402cfe635231ec3352d21c7a26d062fbe729d481272b653e5d70</code></p>
+          <p>Statement digest <code>df65a9380330a3eb67f9febe2b578d1a3a7604b6beef1dee0dd1dc7e6959fa00</code></p>
+          <p>Statement <code>krueger-2005-polynomial-entanglement-invariants-statement-v1</code> · Decision <code>decision-krueger-2005-polynomial-entanglement-invariants-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -288,5 +430,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="krueger-2005-polynomial-entanglement-invariants" defer></script>
   </body>
 </html>

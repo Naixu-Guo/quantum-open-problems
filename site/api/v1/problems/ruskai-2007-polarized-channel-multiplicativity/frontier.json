@@ -1,0 +1,162 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "ruskai-2007-polarized-channel-multiplicativity",
+  "title": "Polarized near-maximally-mixed channels",
+  "catalogState": "published",
+  "status": "open",
+  "statusLabel": "Open",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-ruskai-2007-polarized-channel-multiplicativity-status-2026-08-12",
+    "status": "open",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-ruskai-2007-polarized-channel-multiplicativity-2007-random-channel-violations-motivate"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "ruskai-2007-polarized-channel-multiplicativity-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "6fffa1a864c29f79b4cdf6612d0ef75fdfe3ffc5a29cd6b29a82244702dfa903",
+    "sourceRefs": [
+      {
+        "sourceId": "source-ruskai-2007",
+        "relationship": "states-problem",
+        "locator": "p. 8 (Problem 7)",
+        "primary": true,
+        "statedTitle": "Multiplicativity for polarization of arbitrary near-maximally-mixed channels",
+        "source": {
+          "id": "source-ruskai-2007",
+          "title": "Open problems in quantum information theory",
+          "authors": [
+            "Mary Beth Ruskai"
+          ],
+          "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+          "url": "https://doi.org/10.48550/arXiv.0708.1902",
+          "doi": "10.48550/arXiv.0708.1902",
+          "arxivId": "0708.1902"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | algebra of $d \\times d$ complex matrices |\n| $\\rho$ | a density matrix on $\\mathbb{C}^d$ |\n| $I$ | identity matrix on $\\mathbb{C}^d$ |\n| $\\Phi$ | a generic CPT (quantum channel) on $M_d$ |\n| $\\mathcal{I}$ | the identity channel ($\\mathcal{I}(\\rho) = \\rho$) |\n| $\\mathcal{M}_\\epsilon$ | a CPT map whose output is close to maximally mixed, $\\lVert \\mathcal{M}_\\epsilon(\\rho) - \\tfrac{1}{d}I \\rVert < \\epsilon$ for all $\\rho$ |\n| $\\epsilon$ | small positivity parameter controlling how close $\\mathcal{M}_\\epsilon$ is to the completely-noisy map |\n| $x$ | mixing weight in $[0,1]$ for the polarization |\n| $\\Phi_{x,\\epsilon}$ | the polarized channel $\\Phi_{x,\\epsilon} = x\\mathcal{I} + (1-x)\\mathcal{M}_\\epsilon$ |\n| $\\lVert\\cdot\\rVert_p$ | Schatten $p$-norm, $\\lVert A\\rVert_p = (\\mathrm{Tr}\\lvert A\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | maximal output $p$-norm, $\\nu_p(\\Phi) = \\sup_\\rho \\lVert\\Phi(\\rho)\\rVert_p$ |\n| $p$ | Schatten exponent (the range of interest is $1\\le p\\le 2$) |\n| $\\lVert \\cdot \\rVert$ | (in the definition of $\\mathcal{M}_\\epsilon$) operator/trace norm on $M_d$ |",
+      "statement": "**Problem 7 (Ruskai, 2007).** *Let $\\mathcal{M}_\\epsilon : M_d \\to M_d$ be a CPT map satisfying $\\lVert\\mathcal{M}_\\epsilon(\\rho) - \\tfrac{1}{d}I\\rVert < \\epsilon$ for every density matrix $\\rho$, and let*\n$$\\Phi_{x,\\epsilon} \\;=\\; x\\,\\mathcal{I} + (1-x)\\,\\mathcal{M}_\\epsilon, \\qquad x\\in[0,1].$$\n*Does $\\Phi_{x,\\epsilon}$ satisfy multiplicativity,*\n$$\\nu_p(\\Phi_{x,\\epsilon} \\otimes \\Phi_{x,\\epsilon}) \\;=\\; [\\nu_p(\\Phi_{x,\\epsilon})]^2 \\quad \\text{for } 1\\le p \\le 2,$$\n*for sufficiently small $\\epsilon$? If not, for what values of $x$ and/or $p$ does multiplicativity hold, and how do these depend on $\\epsilon$?*"
+    }
+  },
+  "question": {
+    "type": "Structured multiplicativity",
+    "summary": "General random-channel counterexamples do not settle the polarized family xI + (1-x)M_epsilon or give the requested parameter bounds.",
+    "importance": "This family tests the stability of multiplicativity near the maximally mixed output channel. Parameter bounds would show how much polarization a positive tensor-product law can tolerate.",
+    "unresolved": "Determine ranges of polarization, deviation and p that guarantee or violate multiplicativity for this structured near-mixed family."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Determine ranges of polarization, deviation and p that guarantee or violate multiplicativity for this structured near-mixed family.",
+      "state": "narrowed",
+      "claimIds": [
+        "claim-ruskai-2007-polarized-channel-multiplicativity-2007-random-channel-violations-motivate"
+      ],
+      "latestEvidenceDate": "2007"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Determine ranges of polarization, deviation and p that guarantee or violate multiplicativity for this structured near-mixed family."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-ruskai-2007-polarized-channel-multiplicativity-2007-random-channel-violations-motivate",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "Random-channel violations motivate but do not settle the family",
+      "text": "Winter and Hayden disprove general multiplicativity for p greater than one using random constructions, without analyzing the specified polarized interpolation.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2007",
+      "evidence": [
+        {
+          "id": "evidence-ruskai-2007-polarized-channel-multiplicativity-2007-random-channel-violations-motivate",
+          "date": "2007",
+          "maturity": "Peer reviewed",
+          "strength": "General counterexamples",
+          "label": "Random-channel result",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-hayden-2007-multiplicativity-false",
+            "title": "The maximal p-norm multiplicativity conjecture is false",
+            "authors": [
+              "P. Hayden"
+            ],
+            "venue": "arXiv:0707.3291 (2007)",
+            "url": "https://arxiv.org/abs/0707.3291"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [],
+  "interpretation": "The source does not specify the norm used to define near-maximally-mixed channels; a modern formulation should fix that convention.",
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "ruskai-2007-polarized-channel-multiplicativity-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-ruskai-2007-polarized-channel-multiplicativity-status-2026-08-12",
+        "status": "open",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "a13b0b2c37cc84b0cc75f8b68dbaed00b0168cbe715cd502a793b4febcb74ceb",
+    "statementDigest": "6fffa1a864c29f79b4cdf6612d0ef75fdfe3ffc5a29cd6b29a82244702dfa903",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-polarized-channel-multiplicativity/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-polarized-channel-multiplicativity.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-polarized-channel-multiplicativity/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-polarized-channel-multiplicativity/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-polarized-channel-multiplicativity/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/ruskai-2007-polarized-channel-multiplicativity.md"
+  }
+}

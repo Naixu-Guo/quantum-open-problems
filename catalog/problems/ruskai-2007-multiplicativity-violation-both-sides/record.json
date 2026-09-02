@@ -1,0 +1,127 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "ruskai-2007-multiplicativity-violation-both-sides",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "archived",
+    "title": "Channel or pair of channels violating p-norm multiplicativity for both some p>1 and some 0<p<1",
+    "proposed": "2007",
+    "topicId": "quantum-channels",
+    "collectionId": "ruskai-2007",
+    "question": {
+      "type": "Existence or impossibility",
+      "summary": "The source asked whether a single channel or channel pair can violate equation (26) simultaneously at some p above 1 and some p below 1. Hastings' fixed finite-dimensional additivity gap at p = 1, combined with continuity of the minimum output Renyi entropy in p, supplies such a pair.",
+      "importance": "All known constructions were non-uniform in p, with the dimension blowing up as p approaches 1 and structurally different Kraus operators above and below one, and a negative answer would have forced a one-sided approach to p = 1 and reopened a route to the additivity conjecture there.",
+      "unresolved": ""
+    },
+    "keywords": [
+      "Renyi entropy",
+      "multiplicativity",
+      "two-sided violation",
+      "continuity in p",
+      "Hastings counterexample"
+    ],
+    "relatedProblemIds": [],
+    "titleMarkdown": "Channel(s) violating $p$-norm multiplicativity for both $p_1>1$ and $0<p_2<1$"
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "ruskai-2007-multiplicativity-violation-both-sides-statement-v1",
+      "problemId": "ruskai-2007-multiplicativity-violation-both-sides",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ruskai-2007",
+          "relationship": "states-problem",
+          "locator": "p. 15 (Problem 18)",
+          "primary": true
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "two-sided-multiplicativity-violation",
+          "label": "Simultaneous multiplicativity violation above and below p = 1",
+          "text": "The archived statement asks whether there exists a quantum channel, or a pair of channels on finite-dimensional matrix algebras, and values p1 > 1 and 0 < p2 < 1 such that the multiplicativity equality (26) fails at both.",
+          "resolutionCriteria": "A single channel or channel pair violating the identity on both sides of p = 1, or a proof that violation is always one-sided."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-multiplicativity-violation-both-sides-hastings-gap-plus-continuity",
+      "statementId": "ruskai-2007-multiplicativity-violation-both-sides-statement-v1",
+      "targetClauseIds": [
+        "two-sided-multiplicativity-violation"
+      ],
+      "relation": "resolves",
+      "title": "Hastings gap plus continuity in p gives a two-sided violation",
+      "text": "Hastings produced a fixed finite-dimensional channel pair with a strict additivity gap at p = 1, and for fixed finite-dimensional channels the minimum output Renyi entropy is continuous in p at 1 because the state Renyi entropy is jointly continuous in state and order and the input-state set is compact. The strict gap therefore persists on an interval around one, and choosing one order on each side of one gives the single pair requested; Leung, Lovitz and Wu independently make this implication explicit and prove nonadditivity for every p > 3/4."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-ruskai-2007-multiplicativity-violation-both-sides-nature-physics",
+      "claimId": "claim-ruskai-2007-multiplicativity-violation-both-sides-hastings-gap-plus-continuity",
+      "sourceId": "source-hastings-2009-superadditivity",
+      "sourceLocator": "Main result: fixed finite-dimensional channel pair with a strict additivity gap at p = 1",
+      "date": "2009",
+      "maturity": "Peer reviewed",
+      "strength": "Exact counterexample",
+      "label": "Nature Physics"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-ruskai-2007-multiplicativity-violation-both-sides-arxiv-2607-15210",
+      "claimId": "claim-ruskai-2007-multiplicativity-violation-both-sides-hastings-gap-plus-continuity",
+      "sourceId": "source-leung-2026-p-renyi-counterexamples",
+      "sourceLocator": "Explicit continuity implication and nonadditivity for every p > 3/4",
+      "date": "2026",
+      "maturity": "Preprint",
+      "strength": "Exact theorem",
+      "label": "arXiv:2607.15210"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-ruskai-2007-multiplicativity-violation-both-sides-status-2026-08-12",
+      "problemId": "ruskai-2007-multiplicativity-violation-both-sides",
+      "statementId": "ruskai-2007-multiplicativity-violation-both-sides-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "solved",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-ruskai-2007-multiplicativity-violation-both-sides-nature-physics",
+        "evidence-ruskai-2007-multiplicativity-violation-both-sides-arxiv-2607-15210"
+      ],
+      "rationale": "Hastings' peer-reviewed finite-dimensional gap at p = 1, combined with continuity of the minimum output Renyi entropy in p, yields a channel pair violating equation (26) on both sides of one, which is exactly what the archived statement asks for. The corroborating Leung-Lovitz-Wu manuscript was an unrefereed first version at the audit cutoff; the resolution does not depend on it."
+    }
+  ],
+  "editorial": {
+    "cautions": [
+      {
+        "label": "Scope",
+        "text": "The solved label follows the source's explicit equation (26) for minimum output standard Renyi entropy; the continuity argument does not answer the different question of conventional maximal-output p-quasinorm multiplicativity for p < 1.",
+        "url": null
+      }
+    ],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

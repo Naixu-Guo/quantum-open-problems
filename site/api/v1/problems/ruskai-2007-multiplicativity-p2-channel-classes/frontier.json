@@ -1,0 +1,164 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "ruskai-2007-multiplicativity-p2-channel-classes",
+  "title": "Channel classes with multiplicativity at p = 2",
+  "catalogState": "published",
+  "status": "partial",
+  "statusLabel": "Partially solved",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-multiplicativity-p2-status-2026-08-12",
+    "status": "partial",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Many exact positive classes are known, but no exhaustive characterization is available.",
+    "evidenceIds": [
+      "evidence-ppt-inducing-positive-class-2008"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "ruskai-2007-multiplicativity-p2-channel-classes-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "50a635b5b3cefe16616539241d4f6b5a1ae3facaae125f4f2434590b9a5973b0",
+    "sourceRefs": [
+      {
+        "sourceId": "source-ruskai-2007",
+        "relationship": "states-problem",
+        "locator": "p. 13 (Problem 12)",
+        "primary": true,
+        "statedTitle": "For what classes of channels can multiplicativity be proved at p = 2?",
+        "source": {
+          "id": "source-ruskai-2007",
+          "title": "Open problems in quantum information theory",
+          "authors": [
+            "Mary Beth Ruskai"
+          ],
+          "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+          "url": "https://doi.org/10.48550/arXiv.0708.1902",
+          "doi": "10.48550/arXiv.0708.1902",
+          "arxivId": "0708.1902"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | Algebra of complex $d\\times d$ matrices |\n| $\\rho$, $\\gamma$ | Density matrices on a finite-dimensional Hilbert space |\n| $\\Phi$, $\\Omega$ | CPT (completely positive trace-preserving) linear maps (quantum channels) |\n| $\\lVert M\\rVert_p$ | Schatten $p$-norm, $\\lVert M\\rVert_p=(\\operatorname{Tr}\\lvert M\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | Maximal output $p$-norm, $\\sup_\\gamma\\lVert\\Phi(\\gamma)\\rVert_p$ |\n| WH channel | Werner–Holevo channel |\n| Mutually unbiased bases (MUB) | Orthonormal bases $\\{\\lvert e_j^{(a)}\\rangle\\}$ such that $\\lvert\\langle e_j^{(a)}\\vert e_k^{(b)}\\rangle\\rvert^2=1/d$ for $a\\ne b$ |\n| Depolarized channel | $\\Phi_{x,\\epsilon}=x\\mathcal I+(1-x)\\mathcal M_\\epsilon$ for some $\\mathcal M_\\epsilon$ near a fully depolarizing map |",
+      "statement": "**Problem 12.** For what classes of quantum channels $\\Phi,\\Omega$ can the multiplicativity identity\n$$\\nu_p(\\Phi\\otimes\\Omega)=\\nu_p(\\Phi)\\,\\nu_p(\\Omega) \\tag{24}$$\nbe proved at $p=2$?"
+    }
+  },
+  "question": {
+    "type": "Positive-class program",
+    "summary": "Many nontrivial channel classes have multiplicative maximal output 2-norm, including PPT-inducing channels tensored with arbitrary channels. No exhaustive characterization exists.",
+    "importance": "A structural classification would locate the boundary where tensor products preserve maximal output purity. That boundary organizes the positive cases left after general multiplicativity failed.",
+    "unresolved": "Identify further positive classes or give an exhaustive structural characterization of channels satisfying multiplicativity at p equals two."
+  },
+  "targetClauses": [
+    {
+      "id": "positive-channel-classes",
+      "label": "Positive channel classes at p = 2",
+      "text": "Identify channel classes for which maximal output 2-norm multiplicativity holds.",
+      "resolutionCriteria": "Give further exact positive classes or an exhaustive structural characterization.",
+      "state": "narrowed",
+      "claimIds": [
+        "claim-ppt-inducing-positive-class-2008"
+      ],
+      "latestEvidenceDate": "2008"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "positive-channel-classes"
+    ],
+    "summary": "Identify further positive classes or give an exhaustive structural characterization of channels satisfying multiplicativity at p equals two."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-ppt-inducing-positive-class-2008",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "PPT-inducing channels form a broad positive class",
+      "text": "Dierckx, Fannes and Vandenplas prove 2-norm multiplicativity when one tensor factor is PPT-inducing and the other is arbitrary.",
+      "targetClauseIds": [
+        "positive-channel-classes"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2008",
+      "evidence": [
+        {
+          "id": "evidence-ppt-inducing-positive-class-2008",
+          "date": "2008",
+          "maturity": "Peer reviewed",
+          "strength": "Exact channel class",
+          "label": "PPT-inducing class",
+          "sourceLocator": "Main multiplicativity result",
+          "source": {
+            "id": "source-dierckx-fannes-vandenplas-2008",
+            "title": "Multiplicativity of the maximal output 2-norm for PPT-inducing channels",
+            "authors": [
+              "B. Dierckx",
+              "M. Fannes",
+              "M. Vandenplas"
+            ],
+            "venue": "Communications in Mathematical Physics (2008)",
+            "url": "https://arxiv.org/abs/0803.0479"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [],
+  "interpretation": null,
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "ruskai-2007-multiplicativity-p2-channel-classes-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-multiplicativity-p2-status-2026-08-12",
+        "status": "partial",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "d3ad4d71bbf8f031c2157cb57cedb3e99e1a4492475a1839b4a879e5e07aec90",
+    "statementDigest": "50a635b5b3cefe16616539241d4f6b5a1ae3facaae125f4f2434590b9a5973b0",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-multiplicativity-p2-channel-classes/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-multiplicativity-p2-channel-classes.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-multiplicativity-p2-channel-classes/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-multiplicativity-p2-channel-classes/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-multiplicativity-p2-channel-classes/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/ruskai-2007-multiplicativity-p2-channel-classes.md"
+  }
+}

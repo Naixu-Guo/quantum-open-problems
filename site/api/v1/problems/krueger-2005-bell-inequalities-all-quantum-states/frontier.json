@@ -1,0 +1,212 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-bell-inequalities-all-quantum-states",
+  "title": "Bell inequalities holding for all quantum states",
+  "catalogState": "archived",
+  "status": "solved",
+  "statusLabel": "Solved",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-krueger-2005-bell-inequalities-all-quantum-states-status-2026-08-12",
+    "status": "solved",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Both universal questions in the archived statement are answered negatively by exact counterexamples appearing in peer-reviewed papers.",
+    "evidenceIds": [
+      "evidence-krueger-2005-bell-inequalities-all-quantum-states-journal-of-mathematical",
+      "evidence-krueger-2005-bell-inequalities-all-quantum-states-physical-review-letters",
+      "evidence-krueger-2005-bell-inequalities-all-quantum-states-physical-review-a"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "krueger-2005-bell-inequalities-all-quantum-states-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "398ad4bf228b49c8249c9c00bba9cde35c8f961e2527efb47cd712d6e66f5d3a",
+    "sourceRefs": [
+      {
+        "sourceId": "source-krueger-werner-2005",
+        "relationship": "states-problem",
+        "locator": "p. 66-67 (Problem 26)",
+        "primary": true,
+        "source": {
+          "id": "source-krueger-werner-2005",
+          "title": "Some open problems in quantum information theory",
+          "authors": [
+            "O. Krüger",
+            "R. F. Werner"
+          ],
+          "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+          "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+          "doi": "10.48550/arXiv.quant-ph/0504166",
+          "arxivId": "quant-ph/0504166"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $N$ | Number of parties in a multipartite Bell experiment |\n| $M$ | Number of measurement settings available to each party |\n| $K$ | Number of possible outcomes per measurement |\n| Correlation data | Joint probabilities $p(a_1,\\dots,a_N \\mid x_1,\\dots,x_N)$ over outcomes $a_i$ given settings $x_i$ |\n| No-signalling | The constraint that the marginal probabilities seen by any subset of parties do not depend on the settings of the others |\n| $P$ | The no-signalling polytope: convex polytope of correlation data satisfying positivity and the no-signalling constraint |\n| $Q$ | The quantum body: convex set of correlation data realisable by quantum POVM measurements on multipartite quantum states; $C\\subset Q\\subset P$ |\n| $C$ | The classical (local realistic) polytope: convex hull of deterministic local strategies |\n| Tsirelson region | Synonym for $Q$ (after B. S. Tsirelson, the originator) |\n| Proper Bell inequality | A tight linear inequality defining a maximal face of $C$ that is not also a face of $P$ — i.e. a non-trivial Bell inequality not implied by positivity and no-signalling |\n| von Neumann measurement | A complete projective measurement (with $K$ orthogonal rank-one projectors when realising $K$ outcomes) |",
+      "statement": "Fix integers $N\\ge 2$, $M\\ge 2$, $K\\ge 2$, and consider the convex bodies $C\\subset Q\\subset P$ defined above.\n\n**Problem 26.A.** Consider the part of the boundary $\\partial Q$ that is *not* already contained in the boundary $\\partial P$. Can every such boundary point be reached by choosing each of the local Hilbert spaces to have dimension exactly $K$, by taking each measurement to be a complete von Neumann measurement (with $K$ orthogonal projectors), and by using only pure quantum states of this minimal dimension?\n\n**Problem 26.B.** Consider a maximal face of the local polytope $C$ that is *not* also a face of $P$ — equivalently, a \"proper Bell inequality\": a tight linear inequality for local classical correlations that does not follow from positivity and no-signalling alone. Can one always find points of $Q$ outside this face? Phrased in terms of Bell inequalities: can every proper Bell inequality be violated by quantum correlation data? Or, do there exist proper Bell inequalities (faces of $C$ that are not faces of $P$ and that nevertheless support a face of $Q$ on the same side as $C$) that hold for all quantum states?"
+    }
+  },
+  "question": {
+    "type": "Structural characterization",
+    "summary": "The source asked whether every boundary point of the quantum correlation body outside the no-signalling boundary is reachable with minimal local dimension and complete von Neumann measurements, and whether every proper Bell inequality admits a quantum violation. Both universal claims fail, by Slofstra's dimension lower bounds and by the Guess Your Neighbor's Input inequalities.",
+    "importance": "The two questions probe how the quantum set Q sits between the local polytope C and the no-signalling polytope P; a proper Bell inequality valid for all quantum states would be a striking additional structural constraint on quantum mechanics beyond Tsirelson-type bounds.",
+    "unresolved": ""
+  },
+  "targetClauses": [
+    {
+      "id": "quantum-boundary-and-proper-bell-inequalities",
+      "label": "Minimal-dimension quantum boundary and universally violable Bell inequalities",
+      "text": "The archived statement asks whether every boundary point of the quantum body that is not already on the no-signalling boundary is attainable with local Hilbert spaces of dimension exactly K, complete von Neumann measurements and pure states (26.A), and whether every proper Bell inequality can be violated by quantum correlation data (26.B).",
+      "resolutionCriteria": "Proofs of both universal claims, or explicit counterexamples to either one.",
+      "state": "refuted",
+      "claimIds": [
+        "claim-krueger-2005-bell-inequalities-all-quantum-states-both-universal-bell-questions"
+      ],
+      "latestEvidenceDate": "2012"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [],
+    "summary": ""
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-krueger-2005-bell-inequalities-all-quantum-states-both-universal-bell-questions",
+      "relation": "refutes",
+      "relationLabel": "Refutes",
+      "title": "Both universal Bell questions have explicit counterexamples",
+      "text": "Slofstra's CHSH(n) XOR games have binary outcomes, so K = 2, yet every optimal strategy needs local dimension at least 2 to the power of floor(n/2); the associated optimal behavior lies on the quantum boundary away from the positivity boundary of the no-signalling polytope and cannot be realised in dimension K, refuting 26.A. Almeida, Bancal, Brunner, Acin, Gisin and Pironio's Guess Your Neighbor's Input inequalities have equal classical and quantum optima while no-signalling correlations do better, and Augusiak et al. proved explicit instances are tight facets, refuting 26.B.",
+      "targetClauseIds": [
+        "quantum-boundary-and-proper-bell-inequalities"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2012",
+      "evidence": [
+        {
+          "id": "evidence-krueger-2005-bell-inequalities-all-quantum-states-physical-review-a",
+          "date": "2012",
+          "maturity": "Peer reviewed",
+          "strength": "Exact theorem",
+          "label": "Physical Review A",
+          "sourceLocator": "Proof that explicit GYNI instances are tight facets, including for every odd number of parties",
+          "source": {
+            "id": "source-augusiak-2012-tight-bell-no-violation",
+            "title": "Tight Bell inequalities with no quantum violation from qubit unextendible product bases",
+            "authors": [
+              "R. Augusiak et al."
+            ],
+            "venue": "Phys. Rev. A 85, 042113 (2012); arXiv:1112.3238",
+            "url": "https://arxiv.org/abs/1112.3238"
+          }
+        },
+        {
+          "id": "evidence-krueger-2005-bell-inequalities-all-quantum-states-journal-of-mathematical",
+          "date": "2011",
+          "maturity": "Peer reviewed",
+          "strength": "Exact counterexample",
+          "label": "Journal of Mathematical Physics",
+          "sourceLocator": "Dimension lower bound for CHSH(n) XOR games",
+          "source": {
+            "id": "source-slofstra-2011-xor-games",
+            "title": "Lower bounds on the entanglement needed to play XOR non-local games",
+            "authors": [
+              "W. Slofstra"
+            ],
+            "venue": "J. Math. Phys. 52, 102202 (2011); arXiv:1007.2248",
+            "url": "https://arxiv.org/abs/1007.2248"
+          }
+        },
+        {
+          "id": "evidence-krueger-2005-bell-inequalities-all-quantum-states-physical-review-letters",
+          "date": "2010",
+          "maturity": "Peer reviewed",
+          "strength": "Exact counterexample",
+          "label": "Physical Review Letters",
+          "sourceLocator": "Construction of inequalities with equal classical and quantum optima",
+          "source": {
+            "id": "source-almeida-2010-guess-your-neighbors-input",
+            "title": "Guess Your Neighbor's Input: A multipartite nonlocal game with no quantum advantage",
+            "authors": [
+              "M. L. Almeida",
+              "J.-D. Bancal",
+              "N. Brunner",
+              "A. Acin",
+              "N. Gisin",
+              "S. Pironio"
+            ],
+            "venue": "Phys. Rev. Lett. 104, 230404 (2010); arXiv:1003.3844",
+            "url": "https://arxiv.org/abs/1003.3844"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [
+    {
+      "label": "Scope",
+      "text": "In the CHSH scenario (N,M,K) = (2,2,2) and in many further low-complexity scenarios all proper Bell inequalities are quantum-violable, so 26.B is affirmative there; the counterexamples arise in larger scenarios.",
+      "url": null
+    },
+    {
+      "label": "Scope",
+      "text": "MIP* = RE and later dimension-witness results strengthen the conclusion but are not needed for either exact counterexample.",
+      "url": null
+    }
+  ],
+  "interpretation": null,
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "krueger-2005-bell-inequalities-all-quantum-states-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-krueger-2005-bell-inequalities-all-quantum-states-status-2026-08-12",
+        "status": "solved",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "4092a4aa66c1924500d2b00d2fc613152481d35e89d1a09f655d589489773db9",
+    "statementDigest": "398ad4bf228b49c8249c9c00bba9cde35c8f961e2527efb47cd712d6e66f5d3a",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-bell-inequalities-all-quantum-states/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-bell-inequalities-all-quantum-states.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-bell-inequalities-all-quantum-states/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-bell-inequalities-all-quantum-states/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-bell-inequalities-all-quantum-states/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-bell-inequalities-all-quantum-states.md"
+  }
+}

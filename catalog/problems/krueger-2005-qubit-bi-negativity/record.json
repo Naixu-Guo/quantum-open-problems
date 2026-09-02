@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "0.1.0",
+  "schemaVersion": "0.2.0",
   "kind": "qop-canonical-record",
   "problem": {
     "kind": "Problem",
@@ -36,7 +36,7 @@
       "bodyPath": "statements/v1.md",
       "sourceRefs": [
         {
-          "sourceId": "source-krueger-werner-2005-problem-18",
+          "sourceId": "source-krueger-werner-2005",
           "relationship": "states-problem",
           "locator": "p. 53 (Problem 18)",
           "primary": true
@@ -57,7 +57,9 @@
       "kind": "Claim",
       "id": "claim-qubit-binegativity-resolved-2004",
       "statementId": "krueger-2005-qubit-bi-negativity-statement-v1",
-      "targetClauseIds": ["two-qubit-binegativity"],
+      "targetClauseIds": [
+        "two-qubit-binegativity"
+      ],
       "relation": "resolves",
       "title": "The two-qubit bi-negativity conjecture holds",
       "text": "Ishizaka proves that the second partial transpose of the absolute value of a two-qubit state's partial transpose is positive semidefinite."
@@ -88,7 +90,9 @@
       "status": "solved",
       "effectiveDate": "2026-08-12",
       "verified": "2026-08-12",
-      "evidenceIds": ["evidence-ishizaka-2004-binegativity"],
+      "evidenceIds": [
+        "evidence-ishizaka-2004-binegativity"
+      ],
       "rationale": "The cited peer-reviewed theorem proves the universal two-qubit inequality in the archived statement."
     }
   ],
@@ -101,11 +105,9 @@
       }
     ],
     "interpretation": null,
-    "provenance": null
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
   },
-  "compatibility": {
-    "apiV1": null,
-    "archivePagePath": "site/problems/krueger-2005-qubit-bi-negativity/index.html",
-    "sourceImport": null
-  }
+  "sourceImport": null
 }

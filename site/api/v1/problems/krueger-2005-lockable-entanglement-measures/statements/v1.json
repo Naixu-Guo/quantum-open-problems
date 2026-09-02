@@ -1,0 +1,50 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "krueger-2005-lockable-entanglement-measures-statement-v1",
+  "problemId": "krueger-2005-lockable-entanglement-measures",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-krueger-werner-2005",
+      "relationship": "states-problem",
+      "locator": "p. 65 (Problem 25)",
+      "primary": true,
+      "statedTitle": "Lockable entanglement measures",
+      "source": {
+        "id": "source-krueger-werner-2005",
+        "title": "Some open problems in quantum information theory",
+        "authors": [
+          "O. Krüger",
+          "R. F. Werner"
+        ],
+        "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+        "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Decide whether discarding one qubit held by Alice can reduce two-way distillable entanglement or distillable key by an arbitrarily large amount."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $\\mathcal{H}_A,\\mathcal{H}_B$ | Hilbert spaces of Alice and Bob |\n| $\\rho_{AB}$ | A bipartite quantum state on $\\mathcal{H}_A\\otimes\\mathcal{H}_B$ |\n| $E(\\rho_{AB})$ | A generic entanglement measure (a non-negative functional on bipartite states) |\n| $E_F$ | Entanglement of formation |\n| $E_C$ | Entanglement cost |\n| $E_N$ | Logarithmic negativity |\n| $E_{sq}$ | Squashed entanglement |\n| $D_2(\\rho_{AB})$ | Two-way distillable entanglement (asymptotic rate of EPR pairs extractable from $\\rho_{AB}$ by two-way LOCC) |\n| $K_D(\\rho_{AB})$ | Distillable secret-key rate of $\\rho_{AB}$ |\n| LOCC | Local operations and classical communication |\n| \"Lockable\" | A measure $E$ is *lockable* if there exist states for which tracing out a single local qubit causes $E$ to drop by an arbitrarily large amount |",
+    "statement": "Are two-way distillable entanglement $D_2$ and the distillable secret-key rate $K_D$ lockable?\n\nConcretely: do there exist states $\\rho_{ABA'}$ on $\\mathcal{H}_A\\otimes\\mathcal{H}_B\\otimes\\mathcal{H}_{A'}$ with $\\dim\\mathcal{H}_{A'}=2$ such that\n$$D_2(\\rho_{AA'B}) - D_2(\\mathrm{tr}_{A'}\\,\\rho_{AA'B})$$\ncan be made arbitrarily large (and similarly for $K_D$)? Equivalently, can the loss of a single qubit by Alice decrease the two-way distillable entanglement, or the distillable key rate, by an arbitrarily large amount?"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "4759a7fcb022e32fe496ad71c71ac778f0e9ddeae9fc745dcb54d38a056f38f4",
+    "bodyDigest": "a2bcdf169cd0195b85b40ee332caf62486d6dd8c950c9ba77733aaeb51952f00"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-lockable-entanglement-measures.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-lockable-entanglement-measures/frontier.json"
+  }
+}

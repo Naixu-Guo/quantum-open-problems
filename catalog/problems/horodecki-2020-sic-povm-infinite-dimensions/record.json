@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "horodecki-2020-sic-povm-infinite-dimensions",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "SIC POVMs in infinitely many dimensions",
+    "proposed": "2020",
+    "topicId": "quantum-designs",
+    "collectionId": "horodecki-2020",
+    "question": {
+      "type": "Construction",
+      "summary": "Exact SICs are known in many individual dimensions, but no unconditional construction covers an infinite sequence of dimensions.",
+      "importance": "A SIC gives a minimal d²-outcome scheme for quantum-state tomography and forms a complex projective 2-design. An infinite exact family would expose the arithmetic mechanism behind known examples.",
+      "unresolved": "Give an unconditional exact SIC construction in infinitely many dimensions."
+    },
+    "keywords": [
+      "SIC-POVM",
+      "Zauner conjecture",
+      "equiangular lines",
+      "Stark conjectures"
+    ],
+    "relatedProblemIds": [
+      "krueger-2005-sic-povm-zauner-conjecture"
+    ]
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "horodecki-2020-sic-povm-infinite-dimensions-statement-v1",
+      "problemId": "horodecki-2020-sic-povm-infinite-dimensions",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-horodecki-2020",
+          "relationship": "states-problem",
+          "locator": "p. 2-3 (Problem 1)",
+          "primary": true,
+          "statedTitle": "Construct SIC POVMs in an infinite sequence of dimensions"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Give an unconditional exact SIC construction in infinitely many dimensions."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-horodecki-2020-sic-povm-infinite-dimensions-2026-claimed-all-dimension-proof",
+      "statementId": "horodecki-2020-sic-povm-infinite-dimensions-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "status-review",
+      "title": "Claimed all-dimension proof was withdrawn",
+      "text": "The arXiv withdrawal notice for Joka's manuscript states that the proof is incorrect."
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-horodecki-2020-sic-povm-infinite-dimensions-2025-uniform-construction-remains-conditional",
+      "statementId": "horodecki-2020-sic-povm-infinite-dimensions-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "Uniform construction remains conditional",
+      "text": "Appleby, Flammia and Kopp obtain all dimensions only under two unproved arithmetic and special-value conjectures."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-horodecki-2020-sic-povm-infinite-dimensions-2026-claimed-all-dimension-proof",
+      "claimId": "claim-horodecki-2020-sic-povm-infinite-dimensions-2026-claimed-all-dimension-proof",
+      "sourceId": "source-joka-2026-a-proof-of",
+      "sourceLocator": null,
+      "date": "2026-05-31",
+      "maturity": "Withdrawn",
+      "strength": "Incorrect claim",
+      "label": "Withdrawal notice"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-horodecki-2020-sic-povm-infinite-dimensions-2025-uniform-construction-remains-conditional",
+      "claimId": "claim-horodecki-2020-sic-povm-infinite-dimensions-2025-uniform-construction-remains-conditional",
+      "sourceId": "source-appleby-2025-a-constructive-approach",
+      "sourceLocator": null,
+      "date": "2025-03-17",
+      "maturity": "Preprint",
+      "strength": "Conditional theorem",
+      "label": "Conditional construction"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-horodecki-2020-sic-povm-infinite-dimensions-status-2026-08-12",
+      "problemId": "horodecki-2020-sic-povm-infinite-dimensions",
+      "statementId": "horodecki-2020-sic-povm-infinite-dimensions-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-horodecki-2020-sic-povm-infinite-dimensions-2026-claimed-all-dimension-proof",
+        "evidence-horodecki-2020-sic-povm-infinite-dimensions-2025-uniform-construction-remains-conditional"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [
+      {
+        "label": "Withdrawn claim",
+        "text": "The 2026 all-dimension claim is explicitly withdrawn as incorrect. The 2025 construction is conditional, so neither closes this problem.",
+        "url": "https://arxiv.org/abs/2601.13475"
+      }
+    ],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [
+      {
+        "tone": "withdrawn",
+        "label": "Withdrawn",
+        "title": "The claimed all-dimension SIC proof is incorrect",
+        "text": "The author withdrew arXiv:2601.13475 on 31 May 2026 and stated that its proof is not correct. The separate 2025 construction remains conditional.",
+        "sourceLabel": "arXiv withdrawal notice",
+        "featured": true
+      }
+    ],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

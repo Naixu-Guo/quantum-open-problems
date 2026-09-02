@@ -1,0 +1,154 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-lockable-entanglement-measures",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Lockability of two-way distillable entanglement and key",
+    "proposed": "2005-03-15",
+    "topicId": "entanglement-theory",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Existence",
+      "summary": "Several nearby measures and one-way distillable entanglement are lockable, but the requested two-way distillable entanglement and arbitrary-state distillable key questions remain unresolved.",
+      "importance": "An affirmative answer would show that losing one qubit can destroy an unbounded amount of recoverable entanglement or secret key. That behavior sets a sharp limit on the robustness of these resources.",
+      "unresolved": "Decide whether discarding one qubit held by Alice can reduce two-way distillable entanglement or distillable key by an arbitrarily large amount."
+    },
+    "keywords": [
+      "locking",
+      "distillable entanglement",
+      "distillable key",
+      "private states"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-lockable-entanglement-measures-statement-v1",
+      "problemId": "krueger-2005-lockable-entanglement-measures",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "p. 65 (Problem 25)",
+          "primary": true,
+          "statedTitle": "Lockable entanglement measures"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Decide whether discarding one qubit held by Alice can reduce two-way distillable entanglement or distillable key by an arbitrarily large amount."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-lockable-entanglement-measures-2021-non-lockability-is-proved",
+      "statementId": "krueger-2005-lockable-entanglement-measures-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "Non-lockability is proved for irreducible private states",
+      "text": "The result controls two-way distillable key on a restricted family, not arbitrary bipartite states."
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-lockable-entanglement-measures-2006-eve-side-information-obeys",
+      "statementId": "krueger-2005-lockable-entanglement-measures-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "supports",
+      "title": "Eve-side information obeys a different non-locking result",
+      "text": "The theorem concerns information held by an eavesdropper, not loss of a local qubit by Alice or Bob."
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-lockable-entanglement-measures-2004-several-other-entanglement-measures",
+      "statementId": "krueger-2005-lockable-entanglement-measures-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "Several other entanglement measures can be locked",
+      "text": "One qubit can lock entanglement of formation, entanglement cost, logarithmic negativity and one-way distillable entanglement."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-lockable-entanglement-measures-2021-non-lockability-is-proved",
+      "claimId": "claim-krueger-2005-lockable-entanglement-measures-2021-non-lockability-is-proved",
+      "sourceId": "source-al-2021-on-irreducible-private",
+      "sourceLocator": null,
+      "date": "2021-07-22",
+      "maturity": "Peer reviewed",
+      "strength": "Restricted theorem",
+      "label": "Private-state subclass"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-lockable-entanglement-measures-2006-eve-side-information-obeys",
+      "claimId": "claim-krueger-2005-lockable-entanglement-measures-2006-eve-side-information-obeys",
+      "sourceId": "source-horodecki-2006-locking-of-entanglement",
+      "sourceLocator": null,
+      "date": "2006-08-25",
+      "maturity": "Peer reviewed",
+      "strength": "Different operational model",
+      "label": "Model distinction"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-lockable-entanglement-measures-2004-several-other-entanglement-measures",
+      "claimId": "claim-krueger-2005-lockable-entanglement-measures-2004-several-other-entanglement-measures",
+      "sourceId": "source-horodecki-2005-locking-entanglement-measures",
+      "sourceLocator": null,
+      "date": "2004-04-16",
+      "maturity": "Peer reviewed",
+      "strength": "Exact nearby result",
+      "label": "Foundational result"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-lockable-entanglement-measures-status-2026-08-12",
+      "problemId": "krueger-2005-lockable-entanglement-measures",
+      "statementId": "krueger-2005-lockable-entanglement-measures-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-lockable-entanglement-measures-2021-non-lockability-is-proved",
+        "evidence-krueger-2005-lockable-entanglement-measures-2006-eve-side-information-obeys",
+        "evidence-krueger-2005-lockable-entanglement-measures-2004-several-other-entanglement-measures"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": "Alice-or-Bob loss of a subsystem is not the same operational model as changing an eavesdropper's side information.",
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

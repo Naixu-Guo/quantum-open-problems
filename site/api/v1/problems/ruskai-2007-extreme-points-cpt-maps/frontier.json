@@ -1,0 +1,201 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "ruskai-2007-extreme-points-cpt-maps",
+  "title": "Extreme CPT maps beyond qubit input",
+  "catalogState": "published",
+  "status": "partial",
+  "statusLabel": "Partially solved",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-ruskai-2007-extreme-points-cpt-maps-status-2026-08-12",
+    "status": "partial",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-ruskai-2007-extreme-points-cpt-maps-2018-fixed-rank-channels-receive",
+      "evidence-ruskai-2007-extreme-points-cpt-maps-2014-important-low-dimensional-extreme"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "ruskai-2007-extreme-points-cpt-maps-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "1872dce6f4408d25266be8b259803852dd6154fb77e7a09f4878b04cd55c78bb",
+    "sourceRefs": [
+      {
+        "sourceId": "source-ruskai-2007",
+        "relationship": "states-problem",
+        "locator": "p. 3 (Problem 1)",
+        "primary": true,
+        "statedTitle": "Characterize, classify or parameterize the closure of extreme CPT maps for d_1 > 2",
+        "source": {
+          "id": "source-ruskai-2007",
+          "title": "Open problems in quantum information theory",
+          "authors": [
+            "Mary Beth Ruskai"
+          ],
+          "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+          "url": "https://doi.org/10.48550/arXiv.0708.1902",
+          "doi": "10.48550/arXiv.0708.1902",
+          "arxivId": "0708.1902"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | algebra of $d \\times d$ complex matrices |\n| $\\Phi : M_{d_1} \\mapsto M_{d_2}$ | a linear map between matrix algebras representing a quantum channel |\n| CPT | completely positive and trace preserving |\n| $A_k$ | a Kraus (operator-sum) operator for $\\Phi$ |\n| $A_k^\\dagger$ | Hermitian (conjugate-transpose) of $A_k$ |\n| $I_{d_1}$ | identity operator on $\\mathbb{C}^{d_1}$ |\n| $\\rho$ | a density matrix (positive, trace-one) input to $\\Phi$ |\n| $\\lvert\\beta\\rangle$ | the maximally entangled \"Bell\" state in $\\mathbb{C}^{d_1} \\otimes \\mathbb{C}^{d_1}$ |\n| $\\Phi(\\lvert\\beta\\rangle\\langle\\beta\\rvert)$ | the Choi (state) matrix of $\\Phi$ (acting on one half of $\\lvert\\beta\\rangle\\langle\\beta\\rvert$) |\n| Choi rank | rank of the Choi matrix, equivalently the minimum number of nonzero Kraus operators |\n| $\\mathcal{E}(d_1,d_2)$ | the set of extreme points of the convex set of CPT maps $M_{d_1} \\mapsto M_{d_2}$ |\n| $\\overline{\\mathcal{E}(d_1,d_2)}$ | the topological closure of $\\mathcal{E}(d_1,d_2)$ |\n| $\\alpha_j,\\,\\lvert u_j\\rangle,\\,\\lvert v_j\\rangle,\\,\\lvert w_j\\rangle$ | parameters/vectors in the $d_1=2$ SVD parameterization (3) |",
+      "statement": "**Problem 1 (Ruskai, 2007).** *Characterize, classify and/or parameterize the closure $\\overline{\\mathcal{E}(d_1,d_2)}$ of the set of extreme points of CPT maps $\\Phi : M_{d_1} \\mapsto M_{d_2}$ for $d_1 > 2$ and $d_2$ arbitrary.*\n\nBy Theorem 1 of the source, $\\overline{\\mathcal{E}(d_1,d_2)}$ is precisely the set of CPT maps $\\Phi$ whose Choi rank is at most $d_1$; equivalently, those $\\Phi$ that admit a Choi–Kraus representation with at most $d_1$ nonzero operators $A_k$ satisfying $\\sum_k A_k^\\dagger A_k = I_{d_1}$. The goal is to exhibit a useful and explicit parameterization of this set, generalizing the qubit ($d_1 = 2$) SVD form above."
+    }
+  },
+  "question": {
+    "type": "Classification and parameterization",
+    "summary": "Higher-dimensional low-rank classifications and a general fixed-rank quotient parameterization now exist, but no qubit-style canonical classification covers arbitrary dimensions.",
+    "importance": "Extreme channels are the irreducible building blocks of the convex set of quantum operations. A canonical parameterization would support channel optimization without redundant mixtures.",
+    "unresolved": "Give a useful complete classification or canonical parameterization of the closure of extreme CPT maps for arbitrary input dimension above two."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Give a useful complete classification or canonical parameterization of the closure of extreme CPT maps for arbitrary input dimension above two.",
+      "state": "narrowed",
+      "claimIds": [
+        "claim-ruskai-2007-extreme-points-cpt-maps-2018-fixed-rank-channels-receive",
+        "claim-ruskai-2007-extreme-points-cpt-maps-2014-important-low-dimensional-extreme"
+      ],
+      "latestEvidenceDate": "2018"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Give a useful complete classification or canonical parameterization of the closure of extreme CPT maps for arbitrary input dimension above two."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-ruskai-2007-extreme-points-cpt-maps-2018-fixed-rank-channels-receive",
+      "relation": "reformulates",
+      "relationLabel": "Reformulates",
+      "title": "Fixed-rank channels receive a quotient-manifold parameterization",
+      "text": "Iten and Colbeck describe fixed-Kraus-rank channel sets as Stiefel quotients and identify smooth submanifolds of extreme channels.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2018",
+      "evidence": [
+        {
+          "id": "evidence-ruskai-2007-extreme-points-cpt-maps-2018-fixed-rank-channels-receive",
+          "date": "2018",
+          "maturity": "Peer reviewed",
+          "strength": "General parameterization",
+          "label": "Quotient description",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-iten-2018-smooth-manifold-structure",
+            "title": "Smooth manifold structure for extreme channels",
+            "authors": [
+              "R. Iten",
+              "R. Colbeck"
+            ],
+            "venue": "J. Math. Phys. **59**, 012202 (2018); arXiv:1610.02513.",
+            "url": "https://arxiv.org/abs/1610.02513",
+            "arxivId": "1610.02513"
+          }
+        }
+      ]
+    },
+    {
+      "id": "claim-ruskai-2007-extreme-points-cpt-maps-2014-important-low-dimensional-extreme",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "Important low-dimensional extreme maps are classified",
+      "text": "Friedland and Loewy settle qubit-to-qubit and qutrit-to-qubit cases and derive broader generic conditions.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2014",
+      "evidence": [
+        {
+          "id": "evidence-ruskai-2007-extreme-points-cpt-maps-2014-important-low-dimensional-extreme",
+          "date": "2014",
+          "maturity": "Peer reviewed",
+          "strength": "Exact low-dimensional classes",
+          "label": "Low-dimensional theorem",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-friedland-2016-on-the-extreme",
+            "title": "On the extreme points of quantum channels",
+            "authors": [
+              "S. Friedland",
+              "R. Loewy"
+            ],
+            "venue": "Linear Algebra Appl. **498**, 66 (2016); arXiv:1309.5898.",
+            "url": "https://arxiv.org/abs/1309.5898",
+            "arxivId": "1309.5898"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [],
+  "interpretation": null,
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "ruskai-2007-extreme-points-cpt-maps-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-ruskai-2007-extreme-points-cpt-maps-status-2026-08-12",
+        "status": "partial",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "8c4f692e848f41fb7a40837a88893845fecbaab2618bbf546941d5f195b3be9c",
+    "statementDigest": "1872dce6f4408d25266be8b259803852dd6154fb77e7a09f4878b04cd55c78bb",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-extreme-points-cpt-maps/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-extreme-points-cpt-maps.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-extreme-points-cpt-maps/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-extreme-points-cpt-maps/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-extreme-points-cpt-maps/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/ruskai-2007-extreme-points-cpt-maps.md"
+  }
+}

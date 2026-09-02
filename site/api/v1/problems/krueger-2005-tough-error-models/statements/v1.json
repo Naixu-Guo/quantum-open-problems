@@ -1,0 +1,49 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "krueger-2005-tough-error-models-statement-v1",
+  "problemId": "krueger-2005-tough-error-models",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-krueger-werner-2005",
+      "relationship": "states-problem",
+      "locator": "pp. 46-47 (Problem 14)",
+      "primary": true,
+      "source": {
+        "id": "source-krueger-werner-2005",
+        "title": "Some open problems in quantum information theory",
+        "authors": [
+          "O. Krüger",
+          "R. F. Werner"
+        ],
+        "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+        "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Determine the exact asymptotics of c(e,n), or give matching lower bounds and explicit worst-case error models."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $H$ | $n$-dimensional complex Hilbert space (data space) |\n| $n$ | Dimension of $H$ |\n| $E$ | Error model: an $e$-dimensional linear subspace of operators on $H$ |\n| $e$ | Dimension of the error model $E$ |\n| $C$ | Quantum code: a subspace $C \\subseteq H$ |\n| $\\dim C = c$ | Dimension of the code subspace |\n| $P_C$ | Orthogonal projector onto $C$ |\n| $A, B$ | Generic operators in $E$ |\n| $A^*$ | Adjoint (conjugate transpose) of $A$ |\n| $\\lambda(A,B)$ | Scalar coefficient appearing in the Knill–Laflamme condition |\n| $c(e, n)$ | Largest code dimension guaranteed to exist for every error model of dimension $e$ on $H$ |\n| $\\lceil x \\rceil$ | Ceiling of $x$ |",
+    "statement": "Let $H$ be an $n$-dimensional complex Hilbert space and $E \\subseteq B(H)$ an $e$-dimensional subspace of operators on $H$ (the *error model*). A subspace $C \\subseteq H$ with projector $P_C$ is said to *correct* $E$ if for all $A, B \\in E$ there exists a scalar $\\lambda(A, B) \\in \\mathbb{C}$ with\n$$P_C \\, A^* B \\, P_C \\;=\\; \\lambda(A, B)\\, P_C.$$\n\nDefine\n$$c(e, n) \\;=\\; \\max\\bigl\\{\\, c \\,:\\, \\text{for every } e\\text{-dimensional } E \\subseteq B(H), \\text{ there exists a code } C \\subseteq H \\text{ correcting } E \\text{ with } \\dim C \\geq c \\,\\bigr\\}.$$\n\n**Problem.**\n1. Determine (or give the best possible bounds on) $c(e, n)$.\n2. Find \"tough error models\" $E$ for which this bound is (nearly) tight — i.e. error models that admit no code of dimension substantially larger than $c(e, n)$."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "9d46c0640b48cefecab6c0d8f9cd893d99c341d9286bb0867c45e43f7e805bfe",
+    "bodyDigest": "aa1750756af2461ace6175af1a4ae7d8dedbc3f6ca9360d803c8de46531ef343"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-tough-error-models.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-tough-error-models/frontier.json"
+  }
+}

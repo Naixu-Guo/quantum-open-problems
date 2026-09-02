@@ -1,0 +1,166 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-bell-vacuum-correlations",
+  "title": "Bell inequalities for long-range vacuum correlations",
+  "catalogState": "published",
+  "status": "open",
+  "statusLabel": "Open",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-krueger-2005-bell-vacuum-correlations-status-2026-08-12",
+    "status": "open",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-krueger-2005-bell-vacuum-correlations-2004-arbitrary-distance-harvesting-reveals"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "krueger-2005-bell-vacuum-correlations-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "085edb7f4f40b21def10f9c412f8caf73709eaa3f2a8a8bd153a4104e7a79c87",
+    "sourceRefs": [
+      {
+        "sourceId": "source-krueger-werner-2005",
+        "relationship": "states-problem",
+        "locator": "p. 42 (Problem 12)",
+        "primary": true,
+        "statedTitle": "Bell inequalities for long range vacuum correlations",
+        "source": {
+          "id": "source-krueger-werner-2005",
+          "title": "Some open problems in quantum information theory",
+          "authors": [
+            "O. Krüger",
+            "R. F. Werner"
+          ],
+          "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+          "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+          "doi": "10.48550/arXiv.quant-ph/0504166",
+          "arxivId": "quant-ph/0504166"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $\\Omega$ | The vacuum state of a relativistic quantum field |\n| $\\phi(x)$ | Massive scalar free Bose field at spacetime point $x$ |\n| $m$ | Mass parameter of the scalar field, $m > 0$ |\n| $\\mathcal{O}_A, \\mathcal{O}_B$ | Bounded open spacetime regions (typically spacelike separated) |\n| $\\mathcal{A}(\\mathcal{O})$ | Local von Neumann algebra of observables associated with region $\\mathcal{O}$ |\n| $d(\\mathcal{O}_A, \\mathcal{O}_B)$ | Minimum spatial distance between $\\mathcal{O}_A$ and $\\mathcal{O}_B$ |\n| CHSH | Clauser–Horne–Shimony–Holt inequality |\n| $\\beta(\\mathcal{O}_A, \\mathcal{O}_B; \\Omega)$ | Maximal CHSH value attainable using observables from $\\mathcal{A}(\\mathcal{O}_A)$ and $\\mathcal{A}(\\mathcal{O}_B)$ in the vacuum |\n| PPT | Positive partial transpose |",
+      "statement": "Consider a massive scalar free relativistic Bose field of mass $m > 0$, and its vacuum state $\\Omega$.\n\nFor bounded open spacelike-separated regions $\\mathcal{O}_A, \\mathcal{O}_B$, let\n$$\\beta(\\mathcal{O}_A, \\mathcal{O}_B;\\,\\Omega) \\;=\\; \\sup\\Bigl\\{\\, \\bigl|\\langle A_1 (B_1 + B_2) + A_2 (B_1 - B_2)\\rangle_{\\Omega}\\bigr| \\,:\\, A_i \\in \\mathcal{A}(\\mathcal{O}_A),\\; B_j \\in \\mathcal{A}(\\mathcal{O}_B),\\; \\|A_i\\|, \\|B_j\\| \\leq 1,\\; A_i = A_i^*,\\; B_j = B_j^* \\Bigr\\}$$\nbe the maximal CHSH value attainable with observables drawn from the two regions in the vacuum.\n\n**Problem.** Decide whether some (necessarily small) CHSH violation is possible for regions arbitrarily far apart, i.e. whether\n$$\\beta(\\mathcal{O}_A, \\mathcal{O}_B;\\,\\Omega) \\;>\\; 2$$\ncan hold for spacelike-separated regions with $d(\\mathcal{O}_A, \\mathcal{O}_B)$ arbitrarily large; or, conversely, show that beyond some distance the vacuum restriction admits a local hidden-variable model."
+    }
+  },
+  "question": {
+    "type": "Existence or locality",
+    "summary": "Vacuum entanglement persists at arbitrary separation, but direct CHSH violation by bounded distant regions has not been proved or excluded.",
+    "importance": "The problem separates long-range vacuum entanglement from Bell nonlocality that localized observers can test. It probes the operational content of correlations in algebraic quantum field theory.",
+    "unresolved": "Prove a direct CHSH violation at arbitrarily large distance, or prove Bell locality beyond a finite separation."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Prove a direct CHSH violation at arbitrarily large distance, or prove Bell locality beyond a finite separation.",
+      "state": "narrowed",
+      "claimIds": [
+        "claim-krueger-2005-bell-vacuum-correlations-2004-arbitrary-distance-harvesting-reveals"
+      ],
+      "latestEvidenceDate": "2004-12-14"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Prove a direct CHSH violation at arbitrarily large distance, or prove Bell locality beyond a finite separation."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-krueger-2005-bell-vacuum-correlations-2004-arbitrary-distance-harvesting-reveals",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "Arbitrary-distance harvesting reveals hidden nonlocality",
+      "text": "Reznik, Retzker and Silman obtain entanglement at arbitrary separation. Their detector state violates CHSH only after local filtering and postselection, not directly.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2004-12-14",
+      "evidence": [
+        {
+          "id": "evidence-krueger-2005-bell-vacuum-correlations-2004-arbitrary-distance-harvesting-reveals",
+          "date": "2004-12-14",
+          "maturity": "Peer reviewed",
+          "strength": "Exact restricted protocol",
+          "label": "Filtered protocol",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-reznik-2005-violating-bell-s",
+            "title": "Violating Bell's inequalities in vacuum",
+            "authors": [
+              "B. Reznik",
+              "A. Retzker",
+              "J. Silman"
+            ],
+            "venue": "Phys. Rev. A **71**, 042104 (2005); arXiv:quant-ph/0310058.",
+            "url": "https://arxiv.org/abs/quant-ph/0310058",
+            "arxivId": "quant-ph/0310058"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [],
+  "interpretation": "Entanglement, failure of a PPT analogue and postselected hidden nonlocality are weaker than the direct bounded-region CHSH statement in the archived problem.",
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "krueger-2005-bell-vacuum-correlations-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-krueger-2005-bell-vacuum-correlations-status-2026-08-12",
+        "status": "open",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "2c26769804f73ebe810db146018c4216f92241018dd906d0711c9f4df0a6b176",
+    "statementDigest": "085edb7f4f40b21def10f9c412f8caf73709eaa3f2a8a8bd153a4104e7a79c87",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-bell-vacuum-correlations/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-bell-vacuum-correlations.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-bell-vacuum-correlations/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-bell-vacuum-correlations/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-bell-vacuum-correlations/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-bell-vacuum-correlations.md"
+  }
+}

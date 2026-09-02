@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Solved record. - Status: solved affirmatively. Leung and Smith (2009) proved uniform continuity of the ordinary, unassisted quantum capacity for channels with fixed finite output dimension. Their bound applies on the entire channel set, including…">
+    <meta name="description" content="Solved record. The source asked whether the unassisted quantum (coherent) capacity is a continuous function of the channel in cb-norm. Leung and Smith proved uniform continuity for channels with fixed finite output dimension, including at zero-capacity channels.">
     <meta name="theme-color" content="#0d1b2a">
     <title>Continuity of the quantum channel capacity · Quantum Open Problems</title>
     <link rel="canonical" href="https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-continuity-quantum-channel-capacity/">
@@ -13,7 +13,7 @@
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Quantum Open Problems">
     <meta property="og:title" content="Continuity of the quantum channel capacity">
-    <meta property="og:description" content="Solved record. - Status: solved affirmatively. Leung and Smith (2009) proved uniform continuity of the ordinary, unassisted quantum capacity for channels with fixed finite output dimension. Their bound applies on the entire channel set, including…">
+    <meta property="og:description" content="Solved record. The source asked whether the unassisted quantum (coherent) capacity is a continuous function of the channel in cb-norm. Leung and Smith proved uniform continuity for channels with fixed finite output dimension, including at zero-capacity channels.">
     <meta property="og:url" content="https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-continuity-quantum-channel-capacity/">
     <meta name="twitter:card" content="summary">
     <script>
@@ -22,6 +22,8 @@
         if (theme === "dark") document.documentElement.dataset.theme = "dark";
       } catch {}
     </script>
+    <link rel="alternate" href="../../api/v1/problems/krueger-2005-continuity-quantum-channel-capacity.json" type="application/json" title="Problem record (JSON)">
+    <link rel="alternate" href="../../packets/krueger-2005-continuity-quantum-channel-capacity.md" type="text/markdown" title="AI research brief (Markdown)">
     <script>window.MathJax = { svg: { fontCache: "global" } };</script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-svg.js" integrity="sha384-my9P1jDckpHD+5LZsLQ0gaiCl/RMO32HaqwBtbo/25QIMVr6xXIUCg1jvdSRcvb4" crossorigin="anonymous" defer></script>
     <script type="application/ld+json">{
@@ -83,18 +85,26 @@
         "value": "krueger-2005-continuity-quantum-channel-capacity"
       },
       "name": "Continuity of the quantum channel capacity",
-      "abstract": "Solved record. - Status: solved affirmatively. Leung and Smith (2009) proved uniform continuity of the ordinary, unassisted quantum capacity for channels with fixed finite output dimension. Their bound applies on the entire channel set, including…",
+      "abstract": "Solved record. The source asked whether the unassisted quantum (coherent) capacity is a continuous function of the channel in cb-norm. Leung and Smith proved uniform continuity for channels with fixed finite output dimension, including at zero-capacity channels.",
       "text": "Let $\\mathcal{C}$ denote the convex set of all quantum channels between fixed finite-dimensional input and output Hilbert spaces, equipped with the cb-norm distance.\n\n**Problem.** Is the quantum (coherent) capacity\n$$Q\\colon \\mathcal{C} \\longrightarrow [0,\\infty), \\qquad T \\mapsto Q(T)$$\na continuous function?\n\nEquivalently: for every $\\varepsilon > 0$ does there exist $\\delta > 0$ such that, for all channels $T, T' \\in \\mathcal{C}$,\n$$\\|T - T'\\|_{\\mathrm{cb}} \\;<\\; \\delta \\;\\;\\Longrightarrow\\;\\; |Q(T) - Q(T')| \\;<\\; \\varepsilon\\,?$$",
       "inLanguage": "en",
       "qop:problemStatus": "solved",
       "qop:verified": "2026-08-12",
-      "keywords": [],
+      "keywords": [
+        "quantum capacity",
+        "cb-norm",
+        "uniform continuity",
+        "coherent information",
+        "superactivation"
+      ],
       "about": [
-        "Krueger–Werner"
+        "Quantum channels",
+        "Quantum information"
       ],
       "mainEntityOfPage": {
         "@id": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-continuity-quantum-channel-capacity/#page"
       },
+      "qop:recordDigest": "sha256:88ef450e9838bb6ca46261387ccee5981864c7cdc1f2bc37054474c482d589e2",
       "isBasedOn": {
         "@type": "ScholarlyArticle",
         "name": "Some open problems in quantum information theory",
@@ -121,7 +131,19 @@
           }
         ],
         "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
-      }
+      },
+      "encoding": [
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-continuity-quantum-channel-capacity.json"
+        },
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "text/markdown",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-continuity-quantum-channel-capacity.md"
+        }
+      ]
     }
   ]
 }</script>
@@ -161,30 +183,40 @@
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
           <span class="status-badge solved">Solved</span>
-          <span class="area-badge">Krueger–Werner</span>
+          <span class="area-badge">Quantum information</span>
+          <span class="meta-badge">Quantum channels</span>
           <span class="meta-badge">Proposed 2003-06-20</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Continuity of the quantum channel capacity</h1>
+        <p class="dialog-summary">The source asked whether the unassisted quantum (coherent) capacity is a continuous function of the channel in cb-norm. Leung and Smith proved uniform continuity for channels with fixed finite output dimension, including at zero-capacity channels.</p>
 
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#resolution-heading">Resolution</a>
-          <a href="#bibliography-heading">Bibliography</a>
+          <a href="#target-heading">Target</a>
+          <a href="#progress-heading">Resolution</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
+          <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <section class="dialog-section">
           <div class="interpretation-note">
             <span class="note-icon" aria-hidden="true">i</span>
             <div>
               <strong>Archived record</strong>
-              <p>The audit records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
+              <p>The accepted status decision records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
             </div>
           </div>
         </section>
-
         <div class="problem-framing">
+          <section class="framing-row" aria-labelledby="importance-heading">
+            <h2 id="importance-heading">Why it matters</h2>
+            <p>Continuity means that a noise model known only up to a small cb-norm uncertainty still determines the available transmission rate up to a vanishing error, which matters for capacity analysis and fault-tolerant design; only lower semi-continuity was known, and the regularisation over unboundedly many channel uses made upper semi-continuity delicate.</p>
+          </section>
           <section class="framing-row" aria-labelledby="source-heading">
             <h2 id="source-heading">Problem source</h2>
             <div class="problem-source-record">
@@ -192,6 +224,7 @@
               <p>O. Krüger, R. F. Werner</p>
               <p>arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/</p>
               <div class="problem-source-scope">
+                <span>The source states the cataloged problem.</span>
                 <span>Statement locator: p. 41 (Problem 11)</span>
               </div>
               <a href="https://doi.org/10.48550/arXiv.quant-ph/0504166" rel="noreferrer">Read problem source ↗</a>
@@ -205,7 +238,7 @@
               <span class="dialog-section-label">Archived formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">As archived before resolution</span>
+            <span class="formal-source">As archived before resolution · digest 1c8fd68f12dd</span>
           </div>
 
           <details class="formal-notation">
@@ -221,10 +254,95 @@
           <div class="formal-body"><p>Let \(\mathcal{C}\) denote the convex set of all quantum channels between fixed finite-dimensional input and output Hilbert spaces, equipped with the cb-norm distance.</p><p><strong>Problem.</strong> Is the quantum (coherent) capacity</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[Q\colon \mathcal{C} \longrightarrow [0,\infty), \qquad T \mapsto Q(T)\]</div><p>a continuous function?</p><p>Equivalently: for every \(\varepsilon &gt; 0\) does there exist \(\delta &gt; 0\) such that, for all channels \(T, T&#039; \in \mathcal{C}\),</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\|T - T&#039;\|_{\mathrm{cb}} \;&lt;\; \delta \;\;\Longrightarrow\;\; |Q(T) - Q(T&#039;)| \;&lt;\; \varepsilon\,?\]</div></div>
         </section>
 
-        <section class="dialog-section" aria-labelledby="resolution-heading">
-          <span class="dialog-section-label">Resolution</span>
-          <h2 id="resolution-heading">Status and known progress</h2>
-          <div class="archive-progress"><ul><li><strong>Status: solved affirmatively.</strong> Leung and Smith (2009) proved uniform continuity of the ordinary, unassisted quantum capacity for channels with fixed finite output dimension. Their bound applies on the entire channel set, including channels of zero capacity.</li><li><strong>Partial result (Keyl–Werner, 2002).</strong> It is proved that the quantum capacity is <em>lower semi-continuous</em> as a function of the channel in cb-norm. That is, if \(T_n \to T\) then \(\liminf_n Q(T_n) \geq Q(T)\).</li><li><strong>Main resolution (Leung–Smith, 2009).</strong> For two channels at diamond distance at most \(\varepsilon\), they bound the change in \(Q\) by an explicit function of \(\varepsilon\) and the output dimension that tends to zero with \(\varepsilon\). Their entropy-telescoping proof covers the classical, unassisted quantum, and private classical capacities without an interior restriction.</li><li><strong>Important distinction.</strong> The interior-of-the-positive-capacity qualification in the same paper concerns quantum capacities assisted by free backward or two-way public classical communication. It does not qualify the theorem for the unassisted capacity \(Q\) asked about here.</li><li><strong>Refinements.</strong></li><li>Alicki–Fannes–Winter continuity bounds (Winter, 2016; Shirokov, 2017) provide tight uniform continuity for the coherent information and other entropic capacity formulas, including under energy constraints in infinite dimensions (Shirokov, <em>Problems Inform. Trans.</em> <strong>54</strong> (2018)).</li><li>For fixed input dimension and bounded output entropy, continuity bounds for many capacities follow from continuity of the coherent information together with the Alicki–Fannes–Winter inequality. These give uniform continuity on dimensionally constrained sub-classes.</li><li>Superactivation (Smith–Yard, 2008) demonstrates nonadditivity, but it does not imply discontinuity and does not create an exception at the zero-capacity boundary.</li></ul><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Archived target</h2>
+
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-resolved" id="clause-quantum-capacity-continuity">
+              <div class="clause-head">
+                <span class="clause-state resolved">Resolved</span>
+                <strong>Continuity of the quantum capacity</strong>
+                <code>quantum-capacity-continuity</code>
+              </div>
+              <p>The archived statement asks whether the unassisted quantum (coherent) capacity Q is a continuous function on the convex set of channels between fixed finite-dimensional input and output spaces, equipped with the cb-norm distance.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> A proof of continuity, or a pair or sequence of channels along which Q jumps discontinuously.</p>
+              <p class="clause-claims">1 accepted claim: <a href="#claim-krueger-2005-continuity-quantum-channel-capacity-leung-and-smith-prove">claim-krueger-2005-continuity-quantum-channel-capacity-leung-and-smith-prove</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Solved as of 12 Aug 2026: The cited peer-reviewed theorem establishes uniform continuity of the unassisted quantum capacity on the whole channel set, which is exactly what the archived statement asks. <code>decision-krueger-2005-continuity-quantum-channel-capacity-status-2026-08-12</code></p>
+        </section>
+
+
+
+        <section class="dialog-section" aria-labelledby="progress-heading">
+          <span class="dialog-section-label">Resolution evidence</span>
+          <h2 id="progress-heading">Resolution</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
+
+          <article class="claim-card" id="claim-krueger-2005-continuity-quantum-channel-capacity-leung-and-smith-prove">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Resolves</span>
+              <span class="claim-clauses"><a href="#clause-quantum-capacity-continuity">quantum-capacity-continuity</a></span>
+            </div>
+            <h3>Leung and Smith prove uniform continuity of quantum capacity</h3>
+            <p>Leung and Smith prove uniform continuity of the ordinary unassisted quantum capacity for channels with fixed finite output dimension, bounding the change in Q for two channels at diamond distance at most epsilon by an explicit function of epsilon and the output dimension that tends to zero with epsilon. Their entropy-telescoping proof applies on the entire channel set, including channels of zero capacity, so the archived question is answered affirmatively.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-795f9698f4bf2592">
+                <time datetime="2009">2009</time>
+                <div>
+                  <span class="maturity-badge">Peer reviewed</span>
+                  <span class="maturity-badge">Exact theorem</span>
+                  <a href="https://arxiv.org/abs/0810.4931" rel="noreferrer">Communications in Mathematical Physics ↗</a>
+                  <span class="evidence-locator">Continuity theorem for the unassisted quantum capacity</span>
+                </div>
+              </li>
+            </ol>
+
+          </article>
+
+          <details class="archive-narrative">
+            <summary>Editorial narrative <span>Status and known progress as written by the editors</span></summary>
+            <div class="archive-progress"><ul><li><strong>Status: solved affirmatively.</strong> Leung and Smith (2009) proved uniform continuity of the ordinary, unassisted quantum capacity for channels with fixed finite output dimension. Their bound applies on the entire channel set, including channels of zero capacity.</li><li><strong>Partial result (Keyl–Werner, 2002).</strong> It is proved that the quantum capacity is <em>lower semi-continuous</em> as a function of the channel in cb-norm. That is, if \(T_n \to T\) then \(\liminf_n Q(T_n) \geq Q(T)\).</li><li><strong>Main resolution (Leung–Smith, 2009).</strong> For two channels at diamond distance at most \(\varepsilon\), they bound the change in \(Q\) by an explicit function of \(\varepsilon\) and the output dimension that tends to zero with \(\varepsilon\). Their entropy-telescoping proof covers the classical, unassisted quantum, and private classical capacities without an interior restriction.</li><li><strong>Important distinction.</strong> The interior-of-the-positive-capacity qualification in the same paper concerns quantum capacities assisted by free backward or two-way public classical communication. It does not qualify the theorem for the unassisted capacity \(Q\) asked about here.</li><li><strong>Refinements.</strong></li><li>Alicki–Fannes–Winter continuity bounds (Winter, 2016; Shirokov, 2017) provide tight uniform continuity for the coherent information and other entropic capacity formulas, including under energy constraints in infinite dimensions (Shirokov, <em>Problems Inform. Trans.</em> <strong>54</strong> (2018)).</li><li>For fixed input dimension and bounded output entropy, continuity bounds for many capacities follow from continuity of the coherent information together with the Alicki–Fannes–Winter inequality. These give uniform continuity on dimensionally constrained sub-classes.</li><li>Superactivation (Smith–Yard, 2008) demonstrates nonadditivity, but it does not imply discontinuity and does not create an exception at the zero-capacity boundary.</li></ul><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+          </details>
+        </section>
+
+
+        <section class="dialog-section" aria-labelledby="cautions-heading">
+          <span class="dialog-section-label">Claim watch</span>
+          <h2 id="cautions-heading">Scope and cautions</h2>
+
+          <div class="watch-note">
+            <span class="note-icon" aria-hidden="true">!</span>
+            <div>
+              <strong>Scope</strong>
+              <p>The interior-of-positive-capacity qualification in the same paper concerns quantum capacities assisted by free backward or two-way public classical communication; it does not qualify the theorem for the unassisted capacity Q asked about here. </p>
+            </div>
+          </div>
+        </section>
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="krueger-2005-continuity-quantum-channel-capacity">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Continuity+of+the+quantum+channel+capacity" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="krueger-2005-continuity-quantum-channel-capacity">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
         </section>
 
 
@@ -234,12 +352,18 @@
           <div class="archive-bibliography"><ul><li>O. Krüger and R. F. Werner (eds.), <em>Some Open Problems in Quantum Information Theory</em>, arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig, http://www.imaph.tu-bs.de/qi/problems/. DOI: 10.48550/arXiv.quant-ph/0504166. Problem 11, p. 41 (proposed by M. Keyl, 20 June 2003).</li><li>M. Keyl and R. F. Werner, <em>How to correct small quantum errors</em>, in A. Buchleitner and K. Hornberger (eds.), <em>Coherent Evolution in Noisy Environment</em>, Springer Lecture Notes in Physics <strong>611</strong>, 263 (2002); arXiv:quant-ph/0206086.</li><li>D. Leung and G. Smith, <em>Continuity of quantum channel capacities</em>, Comm. Math. Phys. <strong>292</strong>, 201–215 (2009); arXiv:0810.4931.</li><li>G. Smith and J. Yard, <em>Quantum communication with zero-capacity channels</em>, Science <strong>321</strong>, 1812 (2008); arXiv:0807.4935.</li><li>A. Winter, <em>Tight uniform continuity bounds for quantum entropies</em>, Comm. Math. Phys. <strong>347</strong>, 291 (2016); arXiv:1507.07775.</li><li>M. E. Shirokov, <em>Tight uniform continuity bounds for the quantum conditional mutual information, for the Holevo quantity, and for capacities of quantum channels</em>, J. Math. Phys. <strong>58</strong>, 102202 (2017); arXiv:1512.09047.</li></ul></div>
         </section>
 
+
+
         <section class="dialog-section" aria-labelledby="machine-heading">
-          <span class="dialog-section-label">Record</span>
+          <span class="dialog-section-label">Work on this problem</span>
           <h2 id="machine-heading">Research interfaces</h2>
           <ul class="machine-links">
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/krueger-2005-continuity-quantum-channel-capacity/problem.md" rel="noreferrer">Source article ↗</a> — the canonical archived statement and audit notes.</li>
-            <li><a href="../">Problem directory</a> — every active and archived record.</li>
+            <li><a href="../../packets/krueger-2005-continuity-quantum-channel-capacity.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-continuity-quantum-channel-capacity.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-continuity-quantum-channel-capacity/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-continuity-quantum-channel-capacity/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Continuity+of+the+quantum+channel+capacity" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/krueger-2005-continuity-quantum-channel-capacity/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -251,13 +375,15 @@
             <p class="cite-label">The original problem</p>
             <p class="cite-text">O. Krüger, R. F. Werner. Some open problems in quantum information theory. arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/. p. 41 (Problem 11). https://doi.org/10.48550/arXiv.quant-ph/0504166</p>
             <p class="cite-label">This catalog assessment</p>
-            <p class="cite-text">Quantum Open Problems, record krueger-2005-continuity-quantum-channel-capacity, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-continuity-quantum-channel-capacity/</p>
+            <p class="cite-text">Quantum Open Problems, record krueger-2005-continuity-quantum-channel-capacity, revision 88ef450e9838, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-continuity-quantum-channel-capacity/</p>
           </div>
         </section>
         <footer class="page-record-footer">
           <p>Record <code>krueger-2005-continuity-quantum-channel-capacity</code></p>
-          <p>Status solved · archived from the active catalog</p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Record revision <code>88ef450e9838bb6ca46261387ccee5981864c7cdc1f2bc37054474c482d589e2</code></p>
+          <p>Statement digest <code>1c8fd68f12ddde56f3dbea794668581a10f85ccf5b1b51b0bdaab7fee860b50d</code></p>
+          <p>Statement <code>krueger-2005-continuity-quantum-channel-capacity-statement-v1</code> · Decision <code>decision-krueger-2005-continuity-quantum-channel-capacity-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -288,5 +414,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="krueger-2005-continuity-quantum-channel-capacity" defer></script>
   </body>
 </html>

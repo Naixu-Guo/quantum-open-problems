@@ -1,0 +1,49 @@
+{
+  "kind": "qop-claims",
+  "schemaVersion": 1,
+  "problemId": "ruskai-2007-additivity-minimal-output-entropy",
+  "status": "solved",
+  "statementId": "ruskai-2007-additivity-minimal-output-entropy-statement-v1",
+  "count": 1,
+  "note": "Every claim here has been accepted through editorial review. Unreviewed submissions are candidate updates in the operational service, never claims.",
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-additivity-minimal-output-entropy-hastings-refutes-additivity-of",
+      "statementId": "ruskai-2007-additivity-minimal-output-entropy-statement-v1",
+      "targetClauseIds": [
+        "minimal-output-entropy-additivity"
+      ],
+      "relation": "refutes",
+      "title": "Hastings refutes additivity of the minimal output entropy",
+      "text": "Hastings constructs pairs of random unitary channels, the second obtained from the first by complex conjugation, for which the maximally entangled input makes S_min of the product strictly smaller than the sum of the individual minimal output entropies. The argument uses concentration of measure for random unitary Kraus operators in large but finite dimension, and via Shor's equivalence it simultaneously refutes additivity of the Holevo capacity and of the entanglement of formation.",
+      "superseded": false,
+      "evidence": [
+        {
+          "kind": "Evidence",
+          "id": "evidence-ruskai-2007-additivity-minimal-output-entropy-nature-physics",
+          "claimId": "claim-ruskai-2007-additivity-minimal-output-entropy-hastings-refutes-additivity-of",
+          "sourceId": "source-hastings-2009-superadditivity",
+          "sourceLocator": "Main result: random unitary channel pair with a strict additivity gap",
+          "date": "2009",
+          "maturity": "Peer reviewed",
+          "strength": "Exact counterexample",
+          "label": "Nature Physics",
+          "source": {
+            "id": "source-hastings-2009-superadditivity",
+            "title": "Superadditivity of communication capacity using entangled inputs",
+            "authors": [
+              "M. B. Hastings"
+            ],
+            "venue": "Nature Physics 5, 255-257 (2009); arXiv:0809.3972",
+            "url": "https://arxiv.org/abs/0809.3972"
+          }
+        }
+      ]
+    }
+  ],
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-additivity-minimal-output-entropy.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-additivity-minimal-output-entropy/frontier.json"
+  }
+}

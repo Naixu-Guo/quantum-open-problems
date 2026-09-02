@@ -1,0 +1,49 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "ruskai-2007-multiplicativity-p2-channel-classes-statement-v1",
+  "problemId": "ruskai-2007-multiplicativity-p2-channel-classes",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-ruskai-2007",
+      "relationship": "states-problem",
+      "locator": "p. 13 (Problem 12)",
+      "primary": true,
+      "statedTitle": "For what classes of channels can multiplicativity be proved at p = 2?",
+      "source": {
+        "id": "source-ruskai-2007",
+        "title": "Open problems in quantum information theory",
+        "authors": [
+          "Mary Beth Ruskai"
+        ],
+        "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+        "url": "https://doi.org/10.48550/arXiv.0708.1902"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "positive-channel-classes",
+      "label": "Positive channel classes at p = 2",
+      "text": "Identify channel classes for which maximal output 2-norm multiplicativity holds.",
+      "resolutionCriteria": "Give further exact positive classes or an exhaustive structural characterization."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | Algebra of complex $d\\times d$ matrices |\n| $\\rho$, $\\gamma$ | Density matrices on a finite-dimensional Hilbert space |\n| $\\Phi$, $\\Omega$ | CPT (completely positive trace-preserving) linear maps (quantum channels) |\n| $\\lVert M\\rVert_p$ | Schatten $p$-norm, $\\lVert M\\rVert_p=(\\operatorname{Tr}\\lvert M\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | Maximal output $p$-norm, $\\sup_\\gamma\\lVert\\Phi(\\gamma)\\rVert_p$ |\n| WH channel | Werner–Holevo channel |\n| Mutually unbiased bases (MUB) | Orthonormal bases $\\{\\lvert e_j^{(a)}\\rangle\\}$ such that $\\lvert\\langle e_j^{(a)}\\vert e_k^{(b)}\\rangle\\rvert^2=1/d$ for $a\\ne b$ |\n| Depolarized channel | $\\Phi_{x,\\epsilon}=x\\mathcal I+(1-x)\\mathcal M_\\epsilon$ for some $\\mathcal M_\\epsilon$ near a fully depolarizing map |",
+    "statement": "**Problem 12.** For what classes of quantum channels $\\Phi,\\Omega$ can the multiplicativity identity\n$$\\nu_p(\\Phi\\otimes\\Omega)=\\nu_p(\\Phi)\\,\\nu_p(\\Omega) \\tag{24}$$\nbe proved at $p=2$?"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "50a635b5b3cefe16616539241d4f6b5a1ae3facaae125f4f2434590b9a5973b0",
+    "bodyDigest": "39f373129a13e7630a09bb4b18e76e7dc9a451845ac36b85f1ab92332b3692df"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-multiplicativity-p2-channel-classes.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-multiplicativity-p2-channel-classes/frontier.json"
+  }
+}

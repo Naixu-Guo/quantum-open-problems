@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "krueger-2005-maximally-entangled-mixed-states",
+  "title": "Maximally entangled mixed states",
+  "status": "solved",
+  "dates": {
+    "proposed": "2001-11-08",
+    "latestEvidence": "2024",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "entanglement-theory",
+      "label": "Entanglement theory"
+    }
+  },
+  "collection": {
+    "id": "krueger-2005",
+    "label": "Krueger–Werner",
+    "title": "Some open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Existence or impossibility",
+    "summary": "The source asked whether the Verstraete-Audenaert-De Moor maximally entangled mixed states maximise every entanglement monotone at a fixed two-qubit spectrum. De Vicente proved that for some rank-two spectra no universal maximiser exists.",
+    "importance": "Verstraete, Audenaert and De Moor found the same maximisers for entanglement of formation, relative entropy of entanglement and negativity, and a measure-independent notion of the most entangled state at a given spectrum would have been a robust structural fact about mixed two-qubit entanglement.",
+    "unresolved": ""
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $\\rho$ | Density operator on a bipartite Hilbert space |\n| $\\mathrm{spec}(\\rho)$ | Spectrum (set of eigenvalues with multiplicity) of $\\rho$ |\n| $E$ | A generic measure of entanglement (a real-valued functional on density operators) |\n| $E_F$ | Entanglement of formation |\n| $E_R$ | Relative entropy of entanglement |\n| $\\mathcal{N}$ | Negativity (entanglement measure based on partial transpose) |\n| MEMS | Maximally entangled mixed state(s) |\n| $S(\\rho)$ | Von Neumann entropy $-\\mathrm{tr}(\\rho \\log \\rho)$ |\n| $\\lambda_{\\max}(\\rho)$ | Largest eigenvalue of $\\rho$ |\n| Entanglement monotone | Functional non-increasing on average under LOCC |\n| LOCC | Local operations and classical communication |",
+    "statement": "Consider density operators on a two-qubit Hilbert space $\\mathbf{C}^2 \\otimes \\mathbf{C}^2$ with a fixed spectrum. Among all such states, look for those maximising a given measure of entanglement. The question is:\n\nFor *every* entanglement monotone $E$ on bipartite states, is the set of two-qubit density operators (with fixed spectrum) that maximise $E$ the same family — namely, the VAM \"maximally entangled mixed states\" — as for entanglement of formation, relative entropy of entanglement, and negativity?\n\nEquivalently: does there exist an entanglement monotone $E$ and a spectrum $(\\lambda_1, \\ldots, \\lambda_4)$ for which the maximiser of $E$ over states with that spectrum differs from the MEMS identified by VAM?\n\nVariants of the question are also posed:\n\n- Replace two qubits by higher-dimensional systems $\\mathbf{C}^d \\otimes \\mathbf{C}^d$ and characterise the maximally entangled states with respect to a given spectrum.\n- Replace the spectral constraint by a weaker one — e.g., a fixed largest eigenvalue $\\lambda_{\\max}(\\rho)$, or a fixed von Neumann entropy $S(\\rho)$ — and study the corresponding maximisers."
+  },
+  "source": {
+    "title": "Some open problems in quantum information theory",
+    "authors": [
+      "O. Krüger",
+      "R. F. Werner"
+    ],
+    "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+    "locator": "p. 25 (Problem 5)",
+    "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2024",
+        "title": "Maximally entangled mixed states for a fixed spectrum need not exist",
+        "detail": "De Vicente proves that for particular rank-two two-qubit spectra no isospectral state can be converted into every other isospectral state even under non-entangling operations, a class larger than LOCC. Consequently no single state can maximise every entanglement monotone at those spectra, which answers the archived universal question in the negative.",
+        "maturity": "Peer reviewed",
+        "strength": "Exact counterexample",
+        "url": "https://arxiv.org/abs/2402.05673",
+        "label": "Physical Review Letters"
+      }
+    ],
+    "cautions": [
+      {
+        "label": "Scope",
+        "text": "Camacho and de Vicente (Phys. Rev. A 113, 022416 (2026); arXiv:2511.08285) extend the nonexistence theorem to every rank-two and rank-three two-qubit spectrum and to a large class of full-rank spectra."
+      },
+      {
+        "label": "Scope",
+        "text": "The higher-dimensional variant and the weaker-constraint variants (fixed largest eigenvalue or fixed von Neumann entropy) posed alongside the archived question remain separate open classification problems."
+      }
+    ],
+    "interpretation": null,
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "maximally entangled mixed states",
+      "fixed spectrum",
+      "entanglement monotones",
+      "two qubits",
+      "non-entangling operations"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-maximally-entangled-mixed-states.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Maximally+entangled+mixed+states",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/contribution.schema.json",
+    "candidateUpdateSchema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/candidate-update.schema.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-maximally-entangled-mixed-states/frontier.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-maximally-entangled-mixed-states.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-maximally-entangled-mixed-states/",
+    "explorer": "https://naixu-guo.github.io/quantum-open-problems/#krueger-2005-maximally-entangled-mixed-states",
+    "markdown": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-maximally-entangled-mixed-states.md",
+    "schema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-maximally-entangled-mixed-states.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-maximally-entangled-mixed-states/frontier.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-maximally-entangled-mixed-states/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-maximally-entangled-mixed-states/statements/v1.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/krueger-2005-maximally-entangled-mixed-states/record.json"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "5e02a62d44ca291eaf6638c72563442b18b47300142d558383389b1734c37141",
+    "statementDigest": "e67536618f00757fe82f1e4cd1974116072babfcc559bc9efcba061b113c0aee"
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "kurdzialek-2024-correlated-noise-bound-tightness",
+  "title": "Tightness of metrology bounds under correlated noise",
+  "catalogState": "published",
+  "status": "open",
+  "statusLabel": "Open",
+  "verified": "2026-08-31",
+  "decision": {
+    "id": "decision-kurdzialek-2024-correlated-noise-bound-tightness-status-2026-08-31",
+    "status": "open",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-31",
+    "verified": "2026-08-31",
+    "rationale": "Status assessed against the archived statement in the 2026-08-31 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-kurdzialek-2024-correlated-noise-bound-tightness-2025-the-block-hierarchy-tightens"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "kurdzialek-2024-correlated-noise-bound-tightness-statement-v1",
+    "version": 1,
+    "created": "2026-08-31",
+    "supersedesStatementId": null,
+    "statementDigest": "a6a6956d04d1c3b5c26f2ba92dc49a70273762da53cc3f62372d7edc05e6159b",
+    "sourceRefs": [
+      {
+        "sourceId": "source-kurdzia-2024",
+        "relationship": "documents-gap",
+        "locator": "Eqs. (10)-(11), discussion of block size m, and the statement that the bounds are not generally tight",
+        "primary": true,
+        "statedTitle": "Determine whether correlated-noise block bounds converge to the achievable asymptotic metrological precision",
+        "source": {
+          "id": "source-kurdzia-2024",
+          "title": "Universal bounds for quantum metrology in the presence of correlated noise",
+          "authors": [
+            "Stanisław Kurdziałek",
+            "Francesco Albarelli",
+            "Rafał Demkowicz-Dobrzański"
+          ],
+          "venue": "Phys. Rev. Lett. 135, 130801 (2025); arXiv:2410.01881 [quant-ph]",
+          "url": "https://doi.org/10.1103/jy3v-wkcb",
+          "doi": "10.1103/jy3v-wkcb",
+          "arxivId": "2410.01881"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "",
+      "statement": "Let $\\Lambda_\\theta^{(N)}$ be a finite-dimensional correlated-noise comb and let\n$$\n\\mathcal F_{\\mathrm{AD}}^{(N)}=\\max_{C^{(N)}}F\\!\\left(C^{(N)}\\star\\Lambda_\\theta^{(N)}\\right)\n$$\ndenote the optimal quantum Fisher information over physical adaptive controls that cannot act on the inaccessible environment.\n\nFor each block size $m$, let $B_m$ denote the asymptotic upper coefficient from Eqs. (10) or (11) of the source paper:\n$$\nB_m=\\frac{4}{m}\\min_h a^{(m)}\\quad\\text{subject to }b^{(m)}=0\n$$\nin the standard-scaling case, and\n$$\nB_m=\\frac{4}{m^2}\\min_h b^{(m)2}\n$$\nin the Heisenberg-scaling case.\n\nDetermine whether the best block bound equals the achievable asymptotic precision,\n$$\n\\inf_{m\\geq1}B_m\n=\n\\limsup_{N\\to\\infty}\\frac{\\mathcal F_{\\mathrm{AD}}^{(N)}}{N^s},\n\\qquad s\\in\\{1,2\\},\n$$\nfor every model covered by the corresponding bound. A proof should supply asymptotically matching physical controls. A counterexample should give a finite-dimensional correlated model with a strict gap."
+    }
+  },
+  "question": {
+    "type": "Bound tightness",
+    "summary": "Block-comb semidefinite programs bound the asymptotic precision under correlated noise, but no theorem shows that the best block bound equals the precision of a physical protocol.",
+    "importance": "Metrology bounds guide claims about attainable precision under memory noise. Tightness would certify that the block semidefinite programs predict a physical protocol rather than an unattainable relaxation.",
+    "unresolved": "Prove that the block hierarchy converges to the achievable asymptotic comb quantum Fisher information, or construct a finite-dimensional correlated model with a strict gap."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Prove that the block hierarchy converges to the achievable asymptotic comb quantum Fisher information, or construct a finite-dimensional correlated model with a strict gap.",
+      "state": "open",
+      "claimIds": [
+        "claim-kurdzialek-2024-correlated-noise-bound-tightness-2025-the-block-hierarchy-tightens"
+      ],
+      "latestEvidenceDate": "2025-09-22"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Prove that the block hierarchy converges to the achievable asymptotic comb quantum Fisher information, or construct a finite-dimensional correlated model with a strict gap."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-kurdzialek-2024-correlated-noise-bound-tightness-2025-the-block-hierarchy-tightens",
+      "relation": "rules-out",
+      "relationLabel": "Rules out an approach",
+      "title": "The block hierarchy tightens without a convergence theorem",
+      "text": "Kurdziałek, Albarelli and Demkowicz-Dobrzański derive asymptotic bounds for correlated-noise combs and show how larger blocks improve them. They state that the bounds are not generally tight and prove no limit equality with the physical optimum.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2025-09-22",
+      "evidence": [
+        {
+          "id": "evidence-kurdzialek-2024-correlated-noise-bound-tightness-2025-the-block-hierarchy-tightens",
+          "date": "2025-09-22",
+          "maturity": "Peer reviewed",
+          "strength": "Framework limitation",
+          "label": "Physical Review Letters",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-kurdzia-2024",
+            "title": "Universal bounds for quantum metrology in the presence of correlated noise",
+            "authors": [
+              "Stanisław Kurdziałek",
+              "Francesco Albarelli",
+              "Rafał Demkowicz-Dobrzański"
+            ],
+            "venue": "Phys. Rev. Lett. 135, 130801 (2025); arXiv:2410.01881 [quant-ph]",
+            "url": "https://doi.org/10.1103/jy3v-wkcb",
+            "doi": "10.1103/jy3v-wkcb",
+            "arxivId": "2410.01881"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [],
+  "interpretation": "The defensible open problem is the tightness of the asymptotic coefficient. The broader scaling-dichotomy formulation in the lead repository goes beyond the explicit claim in the source paper.",
+  "provenance": {
+    "kind": "derived",
+    "label": "Derived research question",
+    "note": "The source paper states that its bounds are not generally tight and that larger blocks tighten them. The convergence problem is an audited formalization of that limitation, not a conjecture quoted from the authors."
+  },
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "kurdzialek-2024-correlated-noise-bound-tightness-statement-v1",
+        "version": 1,
+        "created": "2026-08-31",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-kurdzialek-2024-correlated-noise-bound-tightness-status-2026-08-31",
+        "status": "open",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-31",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "8d52c6f8bd597f59e237caf72931a3c04f17693673c83c1a70f470b432170d03",
+    "statementDigest": "a6a6956d04d1c3b5c26f2ba92dc49a70273762da53cc3f62372d7edc05e6159b",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/kurdzialek-2024-correlated-noise-bound-tightness/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/kurdzialek-2024-correlated-noise-bound-tightness.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/kurdzialek-2024-correlated-noise-bound-tightness/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/kurdzialek-2024-correlated-noise-bound-tightness/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/kurdzialek-2024-correlated-noise-bound-tightness/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/kurdzialek-2024-correlated-noise-bound-tightness.md"
+  }
+}

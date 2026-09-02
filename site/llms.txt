@@ -1,29 +1,30 @@
 # Quantum Open Problems
 
-> A source-audited catalog of formal open problems across quantum science. Records separate the formal target, original source, unresolved remainder, dated evidence, and editorial status.
+> A source-audited, reviewed research layer for formal open problems across quantum science. Records separate the formal target, original source, exact target clauses, accepted claims with evidence, editorial status decisions, and unverified candidate updates.
 
-Use the compact index for discovery, then fetch one problem record or Markdown research brief. Each active problem has three representations: an HTML page at `/problems/<record-id>/`, a JSON record at `/api/v1/problems/<record-id>.json`, and a Markdown research brief at `/packets/<record-id>.md`. Check the verification date and source relationship before relying on a status. Human and AI contributions use the same evidence contract.
+Use the compact index for discovery, then fetch one problem record, its frontier, or its Markdown research brief. Each public problem has an HTML page at `/problems/<record-id>/`, a JSON record at `/api/v1/problems/<record-id>.json`, a frontier at `/api/v1/problems/<record-id>/frontier.json`, and a Markdown research brief at `/packets/<record-id>.md`. Check the verification date, statement version, and cautions before relying on a status. Accepted claims are reviewed; candidate updates and comments are not scientific evidence until promoted. Human and AI contributions use the same object model with transparent actor identity.
 
 ## Machine interfaces
 
 - [Agent guide](https://naixu-guo.github.io/quantum-open-problems/ai/): MCP server setup, endpoint map, research loop, and contribution contract.
+- [API reference](https://github.com/Naixu-Guo/quantum-open-problems/blob/main/docs/api.md): Every static and service endpoint with request and response shapes.
 - [MCP server](https://github.com/Naixu-Guo/quantum-open-problems/blob/main/mcp/server.mjs): Zero-dependency stdio server; add with `claude mcp add quantum-open-problems -- npx -y github:Naixu-Guo/quantum-open-problems`.
-- [API guide](https://naixu-guo.github.io/quantum-open-problems/api/v1/README.md): Endpoint map and interpretation rules.
-- [Release manifest](https://naixu-guo.github.io/quantum-open-problems/api/v1/release.json): Catalog date, digest, and counts; poll this before downloading more.
-- [Compact catalog](https://naixu-guo.github.io/quantum-open-problems/api/v1/index.json): Discovery metadata for active problems.
-- [Full snapshot](https://naixu-guo.github.io/quantum-open-problems/api/v1/problems.jsonl): One complete JSON problem record per line.
+- [Release manifest](https://naixu-guo.github.io/quantum-open-problems/api/v1/release.json): Catalog date, digests, ledger sequence, and counts; poll this before downloading more.
+- [Event ledger](https://naixu-guo.github.io/quantum-open-problems/api/v1/events.json): Append-only sequenced events for reviewed scientific state.
+- [Compact catalog](https://naixu-guo.github.io/quantum-open-problems/api/v1/index.json): Discovery metadata for active and archived problems.
+- [Search index](https://naixu-guo.github.io/quantum-open-problems/api/v1/search-index.json): Lexical index used by the website and MCP search.
+- [Full snapshot](https://naixu-guo.github.io/quantum-open-problems/api/v1/problems.jsonl): One complete JSON record per active problem; [archive](https://naixu-guo.github.io/quantum-open-problems/api/v1/archive.jsonl) holds solved records.
 - [Evidence log](https://naixu-guo.github.io/quantum-open-problems/api/v1/evidence.json): Every dated evidence event, newest first.
 - [Evidence feed](https://naixu-guo.github.io/quantum-open-problems/feed.xml): Atom feed of the latest evidence events; [JSON Feed](https://naixu-guo.github.io/quantum-open-problems/feed.json) carries the same entries.
 - [Full catalog text](https://naixu-guo.github.io/quantum-open-problems/llms-full.txt): Every research brief concatenated in one Markdown file.
-- [Problem schema](https://naixu-guo.github.io/quantum-open-problems/api/v1/problem.schema.json): Versioned JSON Schema for problem records.
-- [Contribution schema](https://naixu-guo.github.io/quantum-open-problems/api/v1/contribution.schema.json): Evidence contract for human and AI research results.
+- [Schemas](https://naixu-guo.github.io/quantum-open-problems/api/v1/schemas/): Canonical and operational JSON Schemas, including [candidate updates](https://naixu-guo.github.io/quantum-open-problems/api/v1/candidate-update.schema.json), [reviews](https://naixu-guo.github.io/quantum-open-problems/api/v1/review.schema.json), [comments](https://naixu-guo.github.io/quantum-open-problems/api/v1/comment.schema.json), and [events](https://naixu-guo.github.io/quantum-open-problems/api/v1/event.schema.json).
 
 ## Research and contribution
 
-- [Human explorer](https://naixu-guo.github.io/quantum-open-problems/): Browse fields, status, sources, formal statements, and progress.
+- [Human explorer](https://naixu-guo.github.io/quantum-open-problems/): Browse fields, status, sources, formal statements, and verified progress.
 - [Problem directory](https://naixu-guo.github.io/quantum-open-problems/problems/): One stable HTML page per record, including archived solved problems.
-- [Contribution guide](https://github.com/Naixu-Guo/quantum-open-problems/blob/main/CONTRIBUTING.md): Review rules and required evidence.
+- [Contribution guide](https://github.com/Naixu-Guo/quantum-open-problems/blob/main/CONTRIBUTING.md): Trust model, review rules, and required evidence.
 
 ## Optional
 
-- [Source repository](https://github.com/Naixu-Guo/quantum-open-problems): Canonical articles, metadata, generators, and validation.
+- [Source repository](https://github.com/Naixu-Guo/quantum-open-problems): Canonical records, schemas, projections, service, and validation.

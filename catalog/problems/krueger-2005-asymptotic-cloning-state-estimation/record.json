@@ -1,0 +1,120 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-asymptotic-cloning-state-estimation",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "archived",
+    "title": "Asymptotic cloning is state estimation?",
+    "proposed": "2005-02-10",
+    "topicId": "quantum-channels",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Asymptotic identity",
+      "summary": "The source asked to decide whether the M-to-infinity limit of the optimal N-to-M cloning fidelity equals the optimal measure-and-reprepare fidelity for every input distribution and every N. Bae and Acin, and independently Chiribella and D'Ariano, proved the equality in full generality.",
+      "importance": "The identity makes precise the link between no-cloning and the finite information content of a quantum measurement, and the naive argument fails because optimal clones are typically correlated or entangled, so measurement statistics on them differ from statistics on independent copies.",
+      "unresolved": ""
+    },
+    "keywords": [
+      "optimal cloning",
+      "state estimation",
+      "single-copy fidelity",
+      "measure and reprepare",
+      "monogamy of entanglement"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-asymptotic-cloning-state-estimation-statement-v1",
+      "problemId": "krueger-2005-asymptotic-cloning-state-estimation",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "pp. 58-59 (Problem 22)",
+          "primary": true
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "asymptotic-cloning-is-state-estimation",
+          "label": "Asymptotic cloning equals state estimation",
+          "text": "The archived statement asks to decide whether, for every input distribution and every N, the limit of the optimal N-to-M cloning fidelity as M tends to infinity equals the optimal measure-and-reprepare fidelity F(N,infinity).",
+          "resolutionCriteria": "A general proof of the limiting equality, or an input distribution and an N for which the two quantities differ."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-asymptotic-cloning-state-estimation-asymptotic-quantum-cloning-is",
+      "statementId": "krueger-2005-asymptotic-cloning-state-estimation-statement-v1",
+      "targetClauseIds": [
+        "asymptotic-cloning-is-state-estimation"
+      ],
+      "relation": "resolves",
+      "title": "Asymptotic quantum cloning is state estimation",
+      "text": "Bae and Acin prove the limiting equality in full generality with a short argument via monogamy of entanglement and properties of entanglement-breaking channels. Chiribella and D'Ariano give a complementary independent proof via group-theoretic, de Finetti-type analysis of the asymptotic state of the clones, so the archived conjecture holds for every input distribution and every N."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-asymptotic-cloning-state-estimation-physical-review-letters",
+      "claimId": "claim-krueger-2005-asymptotic-cloning-state-estimation-asymptotic-quantum-cloning-is",
+      "sourceId": "source-bae-2006-asymptotic-cloning",
+      "sourceLocator": "Main theorem",
+      "date": "2006",
+      "maturity": "Peer reviewed",
+      "strength": "Exact theorem",
+      "label": "Physical Review Letters"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-asymptotic-cloning-state-estimation-physical-review-letters-2",
+      "claimId": "claim-krueger-2005-asymptotic-cloning-state-estimation-asymptotic-quantum-cloning-is",
+      "sourceId": "source-chiribella-2006-information-becomes-classical",
+      "sourceLocator": "Main theorem (independent confirmation)",
+      "date": "2006",
+      "maturity": "Peer reviewed",
+      "strength": "Exact theorem",
+      "label": "Physical Review Letters"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-asymptotic-cloning-state-estimation-status-2026-08-12",
+      "problemId": "krueger-2005-asymptotic-cloning-state-estimation",
+      "statementId": "krueger-2005-asymptotic-cloning-state-estimation-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "solved",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-asymptotic-cloning-state-estimation-physical-review-letters",
+        "evidence-krueger-2005-asymptotic-cloning-state-estimation-physical-review-letters-2"
+      ],
+      "rationale": "Two independent peer-reviewed theorems establish the limiting equality asserted in the archived statement, for every input distribution and every N."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "0.1.0",
+  "schemaVersion": "0.2.0",
   "kind": "qop-canonical-record",
   "problem": {
     "kind": "Problem",
@@ -36,10 +36,11 @@
       "bodyPath": "statements/v1.md",
       "sourceRefs": [
         {
-          "sourceId": "source-ruskai-2007-problem-12",
+          "sourceId": "source-ruskai-2007",
           "relationship": "states-problem",
           "locator": "p. 13 (Problem 12)",
-          "primary": true
+          "primary": true,
+          "statedTitle": "For what classes of channels can multiplicativity be proved at p = 2?"
         }
       ],
       "targetClauses": [
@@ -57,7 +58,9 @@
       "kind": "Claim",
       "id": "claim-ppt-inducing-positive-class-2008",
       "statementId": "ruskai-2007-multiplicativity-p2-channel-classes-statement-v1",
-      "targetClauseIds": ["positive-channel-classes"],
+      "targetClauseIds": [
+        "positive-channel-classes"
+      ],
       "relation": "narrows",
       "title": "PPT-inducing channels form a broad positive class",
       "text": "Dierckx, Fannes and Vandenplas prove 2-norm multiplicativity when one tensor factor is PPT-inducing and the other is arbitrary."
@@ -88,21 +91,18 @@
       "status": "partial",
       "effectiveDate": "2026-08-12",
       "verified": "2026-08-12",
-      "evidenceIds": ["evidence-ppt-inducing-positive-class-2008"],
+      "evidenceIds": [
+        "evidence-ppt-inducing-positive-class-2008"
+      ],
       "rationale": "Many exact positive classes are known, but no exhaustive characterization is available."
     }
   ],
   "editorial": {
     "cautions": [],
     "interpretation": null,
-    "provenance": null
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
   },
-  "compatibility": {
-    "apiV1": {
-      "expectedRecordPath": "site/api/v1/problems/ruskai-2007-multiplicativity-p2-channel-classes.json",
-      "expectedPacketPath": "site/packets/ruskai-2007-multiplicativity-p2-channel-classes.md"
-    },
-    "archivePagePath": null,
-    "sourceImport": null
-  }
+  "sourceImport": null
 }

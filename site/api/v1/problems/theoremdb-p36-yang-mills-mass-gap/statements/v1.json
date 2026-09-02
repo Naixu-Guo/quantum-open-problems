@@ -1,0 +1,49 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "theoremdb-p36-yang-mills-mass-gap-statement-v1",
+  "problemId": "theoremdb-p36-yang-mills-mass-gap",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-31",
+  "sourceRefs": [
+    {
+      "sourceId": "source-jaffe-2000",
+      "relationship": "states-problem",
+      "locator": "Sec. 4, ‘The Problem’ in the official Jaffe-Witten statement",
+      "primary": true,
+      "source": {
+        "id": "source-jaffe-2000",
+        "title": "Quantum Yang-Mills Theory",
+        "authors": [
+          "Arthur Jaffe",
+          "Edward Witten"
+        ],
+        "venue": "Clay Mathematics Institute Millennium Prize Problem",
+        "url": "https://www.claymath.org/wp-content/uploads/2022/06/yangmills.pdf"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Construct the theory on four-dimensional Euclidean space for every compact simple gauge group under the official axioms and prove a positive mass gap."
+    }
+  ],
+  "formulation": {
+    "notation": "",
+    "statement": "For each compact simple gauge group $G$, construct a nontrivial quantum Yang-Mills theory on $\\mathbb R^4$ that satisfies axioms at least as strong as those in the official Jaffe-Witten formulation and agrees with the classical Yang-Mills theory in the required sense.\n\nLet $H$ be the Hamiltonian of the reconstructed quantum theory and let the vacuum energy be zero. Prove that there is a constant $\\Delta>0$ such that\n$$\n\\operatorname{spec}(H)\\cap(0,\\Delta)=\\varnothing.\n$$\n\nA complete solution must establish both the quantum theory and the positive mass gap for the gauge groups and axioms in the official statement."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "4c062770677148730a2c49f3fe6f5ae3949c7a54250730fc11d6afb5bddebce0",
+    "bodyDigest": "ccd55730887763d661f1e4f6cb3e60834832e323075ce075de5e27f12e6cf782"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/theoremdb-p36-yang-mills-mass-gap.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/theoremdb-p36-yang-mills-mass-gap/frontier.json"
+  }
+}

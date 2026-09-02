@@ -1,0 +1,166 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "ruskai-2007-random-subunitary-maxima-entangled",
+  "title": "Maximally entangled relative maxima for sub-unitary channels",
+  "catalogState": "published",
+  "status": "open",
+  "statusLabel": "Open",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-ruskai-2007-random-subunitary-maxima-entangled-status-2026-08-12",
+    "status": "open",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-ruskai-2007-random-subunitary-maxima-entangled-2007-the-werner-holevo-critical"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "ruskai-2007-random-subunitary-maxima-entangled-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "854d336a72d1c7b508562f1fbd69e565d1228f736ab5ddae5c50232d9c0ee71f",
+    "sourceRefs": [
+      {
+        "sourceId": "source-ruskai-2007",
+        "relationship": "states-problem",
+        "locator": "p. 10 (Problem 8)",
+        "primary": true,
+        "statedTitle": "Do (Phi tensor Phi) p-norm relative maxima always include maximally entangled inputs for random sub-unitary Kraus channels?",
+        "source": {
+          "id": "source-ruskai-2007",
+          "title": "Open problems in quantum information theory",
+          "authors": [
+            "Mary Beth Ruskai"
+          ],
+          "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+          "url": "https://doi.org/10.48550/arXiv.0708.1902",
+          "doi": "10.48550/arXiv.0708.1902",
+          "arxivId": "0708.1902"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | Algebra of complex $d\\times d$ matrices |\n| $\\rho$ | A density matrix (positive semi-definite, trace $1$) acting on a finite-dimensional Hilbert space |\n| $\\Phi$ | A completely positive trace-preserving (CPT) linear map (quantum channel) |\n| $\\{A_k\\}$ | Kraus operators of a channel, so $\\Phi(\\rho)=\\sum_k A_k\\rho A_k^{\\dagger}$ with $\\sum_k A_k^{\\dagger}A_k=I$ |\n| $X$ | Cyclic shift operator on $\\mathbb{C}^d$, $X\\lvert e_j\\rangle=\\lvert e_{j+1}\\rangle$ (indices mod $d$) |\n| $U_k$ | A $(d-1)\\times(d-1)$ unitary matrix used in the $k$-th Kraus operator |\n| $d$ | Dimension of the input/output Hilbert space of the channel |\n| $\\|M\\|_p$ | Schatten $p$-norm, $\\|M\\|_p=(\\operatorname{Tr}\\lvert M\\rvert^p)^{1/p}$ |\n| $\\Phi\\otimes\\Phi$ | Tensor (parallel) action of two copies of $\\Phi$ on $M_d\\otimes M_d$ |\n| Maximally entangled state | Pure state on $\\mathbb{C}^d\\otimes\\mathbb{C}^d$ of the form $\\lvert\\Psi\\rangle=\\frac{1}{\\sqrt d}\\sum_{j}\\lvert j\\rangle\\otimes\\lvert j\\rangle$ (up to local unitaries) |\n| $\\nu_p(\\Phi)$ | Maximal output $p$-norm purity, $\\nu_p(\\Phi)=\\sup_\\gamma\\|\\Phi(\\gamma)\\|_p$ |\n| WH channel | Werner–Holevo channel |\n| Relative maximum | Critical input state at which $\\|(\\Phi\\otimes\\Phi)(\\rho)\\|_p$ attains a local maximum |",
+      "statement": "Interpreting equation (22) as the intended normalized cyclic random-sub-unitary construction, let $\\Phi:M_d\\to M_d$ belong to that CPT family. The source prints\n$$A_k=\\frac{1}{d-1}X^k\\begin{pmatrix}U_k & 0\\\\ 0 & 0\\end{pmatrix},\\qquad k=0,1,\\dots,d-1,$$\nwith $X$ the cyclic shift on $\\mathbb{C}^d$ and each $U_k$ a $(d-1)\\times(d-1)$ unitary, but this formula is not CPT as written.\n\n**Problem 8.** Does the set of relative maxima of\n$$\\rho\\mapsto\\|(\\Phi\\otimes\\Phi)(\\rho)\\|_p,\\qquad \\rho\\in M_d\\otimes M_d,$$\nalways include inputs that are maximally entangled pure states? If not, for which values of $p$ and under what additional circumstances do maximally entangled inputs yield outputs that are relative maxima of $\\|(\\Phi\\otimes\\Phi)(\\rho)\\|_p$?"
+    }
+  },
+  "question": {
+    "type": "Optimization structure",
+    "summary": "The maximally entangled input is analytically understood only in the Werner-Holevo special case. No theorem covers arbitrary unitaries in the intended family.",
+    "importance": "Maximally entangled inputs form the standard ansatz for two-copy channel optimization. Confirming or rejecting that ansatz in this family would locate the states responsible for output-norm extrema.",
+    "unresolved": "Decide whether maximally entangled inputs are always among the relative maxima of the two-copy output p-norm for the corrected family."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Decide whether maximally entangled inputs are always among the relative maxima of the two-copy output p-norm for the corrected family.",
+      "state": "narrowed",
+      "claimIds": [
+        "claim-ruskai-2007-random-subunitary-maxima-entangled-2007-the-werner-holevo-critical"
+      ],
+      "latestEvidenceDate": "2007"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Decide whether maximally entangled inputs are always among the relative maxima of the two-copy output p-norm for the corrected family."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-ruskai-2007-random-subunitary-maxima-entangled-2007-the-werner-holevo-critical",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "The Werner-Holevo critical point is a special case only",
+      "text": "Nathanson proves an analytic critical-point statement for the Werner-Holevo channel; private numerical evidence about relative maxima does not extend to arbitrary family parameters.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2007",
+      "evidence": [
+        {
+          "id": "evidence-ruskai-2007-random-subunitary-maxima-entangled-2007-the-werner-holevo-critical",
+          "date": "2007",
+          "maturity": "Peer reviewed",
+          "strength": "Exact special case",
+          "label": "Werner-Holevo analysis",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-nathanson-2007-j-phys-a",
+            "title": "J. Phys. A: Math. Theor",
+            "authors": [
+              "M. Nathanson",
+              "M. B. Ruskai",
+              "\"Pauli Diagonal Channels Constant on Axes",
+              "\""
+            ],
+            "venue": "**40**, 8171–8204 (2007). arXiv:quant-ph/0611106.",
+            "url": "https://arxiv.org/abs/quant-ph/0611106",
+            "arxivId": "quant-ph/0611106"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [],
+  "interpretation": "The source formula requires a trace-preserving normalization and rotating input support before this optimization problem is well posed.",
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "ruskai-2007-random-subunitary-maxima-entangled-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-ruskai-2007-random-subunitary-maxima-entangled-status-2026-08-12",
+        "status": "open",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "b9a02c8d36abacde237dea59968bee9ad9d23485bb1627953f35939d9fb40be0",
+    "statementDigest": "854d336a72d1c7b508562f1fbd69e565d1228f736ab5ddae5c50232d9c0ee71f",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-random-subunitary-maxima-entangled/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-random-subunitary-maxima-entangled.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-random-subunitary-maxima-entangled/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-random-subunitary-maxima-entangled/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-random-subunitary-maxima-entangled/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/ruskai-2007-random-subunitary-maxima-entangled.md"
+  }
+}

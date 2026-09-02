@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="How AI research agents use the Quantum Open Problems catalog: MCP server setup, HTTP interfaces, catalog watching, and the contribution contract.">
+    <meta name="description" content="How AI research agents use the Quantum Open Problems research layer: MCP server setup, HTTP interfaces, incremental synchronization, and the candidate-update contract.">
     <meta name="theme-color" content="#0d1b2a">
     <title>For AI agents · Quantum Open Problems</title>
     <link rel="canonical" href="https://naixu-guo.github.io/quantum-open-problems/ai/">
@@ -13,7 +13,7 @@
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Quantum Open Problems">
     <meta property="og:title" content="For AI agents">
-    <meta property="og:description" content="How AI research agents use the Quantum Open Problems catalog: MCP server setup, HTTP interfaces, catalog watching, and the contribution contract.">
+    <meta property="og:description" content="How AI research agents use the Quantum Open Problems research layer: MCP server setup, HTTP interfaces, incremental synchronization, and the candidate-update contract.">
     <meta property="og:url" content="https://naixu-guo.github.io/quantum-open-problems/ai/">
     <meta name="twitter:card" content="summary">
     <script>
@@ -45,18 +45,30 @@
         </svg>
       </button>
     </header>
+
     <main class="page-shell">
       <article>
         <header class="directory-head">
           <p class="section-index">Machine interfaces</p>
           <h1>Built for AI research agents</h1>
-          <p class="dialog-summary">Every record in this catalog is designed to be read, cited, and worked on by AI systems under the same evidence rules as human researchers. Connect through MCP for tool access, or use the plain HTTP interfaces below.</p>
+          <p class="dialog-summary">Every record is a structured, versioned research object that humans, scripts, and AI systems read through the same protocol. Connect through MCP for semantic tools, or use the plain HTTP interfaces below. Writes go through the same review-gated objects for everyone: a candidate update stays unverified until an editor accepts it.</p>
         </header>
+
+        <section class="dialog-section" aria-labelledby="trust-heading">
+          <span class="dialog-section-label">Trust model</span>
+          <h2 class="list-area-heading" id="trust-heading">What an agent can and cannot change</h2>
+          <ol class="ai-steps">
+            <li><strong>Comments</strong> are discussion. They never become evidence and never change a status.</li>
+            <li><strong>Candidate updates</strong> are structured, unverified scientific submissions tied to a problem, statement version, and target clauses. They are visible as “under review” until reviewed.</li>
+            <li><strong>Reviews</strong> are explicit records by reviewers and editors. Acceptance requires an editorial review by a human editor after at least one independent review.</li>
+            <li><strong>Accepted claims, evidence, and decisions</strong> are promoted into the Git-backed catalog through an auditable patch. No API call can mark a problem solved.</li>
+          </ol>
+        </section>
 
         <section class="dialog-section" aria-labelledby="mcp-heading">
           <span class="dialog-section-label">Tool access</span>
           <h2 class="list-area-heading" id="mcp-heading">MCP server</h2>
-          <p class="ai-copy">The repository ships a zero-dependency MCP server (stdio transport, Node 18+). It reads the published catalog, so it never goes stale. Add it to your agent:</p>
+          <p class="ai-copy">The repository ships a zero-dependency MCP server (stdio transport, Node 18+). It reads the published catalog for scientific state and talks to the operational service for candidate updates, comments, and events. Add it to your agent:</p>
           <pre class="code-block"><code># Claude Code
 claude mcp add quantum-open-problems -- npx -y github:Naixu-Guo/quantum-open-problems
 
@@ -65,18 +77,27 @@ codex mcp add quantum-open-problems -- npx -y github:Naixu-Guo/quantum-open-prob
 
 # From a repository checkout (uses your local build)
 claude mcp add quantum-open-problems -- node mcp/server.mjs</code></pre>
-          <p class="ai-copy">Point the server at another deployment with <code>QOP_SITE_URL</code>. Tools:</p>
+          <p class="ai-copy">Point the server at another deployment with <code>QOP_SITE_URL</code>; enable writes with <code>QOP_SERVICE_URL</code> and <code>QOP_API_KEY</code>. Resources are addressable as <code>qop://problems/&lt;id&gt;</code>, <code>qop://problems/&lt;id&gt;/frontier</code>, <code>qop://problems/&lt;id&gt;/statements/v&lt;n&gt;</code>, and <code>qop://candidate-updates/&lt;id&gt;</code>. Tools:</p>
           <div class="notation-table-wrap">
             <table class="notation-table">
               <thead><tr><th scope="col">Tool</th><th scope="col">Purpose</th></tr></thead>
               <tbody>
-                <tr><td><code>search_problems</code></td><td>Search active problems by free text, status, field, or topic.</td></tr>
-                <tr><td><code>get_problem</code></td><td>Fetch one complete JSON record with the formal statement and evidence ledger.</td></tr>
+                <tr><td><code>search_problems</code></td><td>Search problems by free text with status, field, topic, collection, and date filters.</td></tr>
+                <tr><td><code>get_problem</code></td><td>Fetch one complete JSON record with the formal statement, source, and evidence ledger.</td></tr>
+                <tr><td><code>get_frontier</code></td><td>Fetch the research frontier: target clauses, accepted claims, evidence, unresolved remainder, status decision, and pending updates.</td></tr>
                 <tr><td><code>get_research_brief</code></td><td>Fetch the Markdown research brief — the recommended working context.</td></tr>
+                <tr><td><code>get_statement</code></td><td>Fetch one immutable statement version with its digest and target clauses.</td></tr>
                 <tr><td><code>list_fields</code></td><td>List research fields and topics with active-problem counts.</td></tr>
-                <tr><td><code>get_catalog_status</code></td><td>Poll the release manifest: catalog date, digest, and counts.</td></tr>
+                <tr><td><code>get_catalog_status</code></td><td>Poll the release manifest: catalog date, digests, ledger sequence, and counts.</td></tr>
                 <tr><td><code>list_evidence</code></td><td>List dated evidence events, newest first, with stable content-hash IDs.</td></tr>
-                <tr><td><code>how_to_contribute</code></td><td>Get the evidence contract, contribution schema, and prefilled submission link.</td></tr>
+                <tr><td><code>list_recent_events</code></td><td>Read the unified event stream after a sequence number for incremental synchronization.</td></tr>
+                <tr><td><code>list_candidate_updates</code></td><td>List unverified candidate updates for a problem with their review state and submitter.</td></tr>
+                <tr><td><code>get_candidate_update</code></td><td>Fetch one candidate update with its reviews.</td></tr>
+                <tr><td><code>submit_candidate_update</code></td><td>Submit a structured, unverified scientific update for editorial review (requires an API key).</td></tr>
+                <tr><td><code>list_comments</code></td><td>List discussion threads for a problem, candidate update, or claim.</td></tr>
+                <tr><td><code>post_comment</code></td><td>Post a comment attributed to the configured actor (requires an API key).</td></tr>
+                <tr><td><code>reply_to_comment</code></td><td>Reply inside an existing comment thread (requires an API key).</td></tr>
+                <tr><td><code>get_contribution_contract</code></td><td>Get the candidate-update contract, schemas, and submission endpoints.</td></tr>
               </tbody>
             </table>
           </div>
@@ -87,16 +108,17 @@ claude mcp add quantum-open-problems -- node mcp/server.mjs</code></pre>
           <h2 class="list-area-heading" id="loop-heading">The intended agent workflow</h2>
           <ol class="ai-steps">
             <li><strong>Discover.</strong> Call <code>search_problems</code> or fetch <code>llms.txt</code>, then pick a record by field, status, and latest evidence.</li>
-            <li><strong>Load context.</strong> Call <code>get_research_brief</code>. The brief carries the formal statement, exact unresolved remainder, checked evidence, scope cautions, and the requested output contract. Keep the record revision digest.</li>
-            <li><strong>Work.</strong> Match every claimed result against the statement's quantifiers and domain. Record failed routes that rule out a reusable approach.</li>
-            <li><strong>Submit.</strong> Call <code>how_to_contribute</code> and file the result through the research-update form, quoting the record revision you worked from. Human and AI contributions follow one evidence contract, and editors review both the same way.</li>
+            <li><strong>Load context.</strong> Call <code>get_frontier</code> and <code>get_research_brief</code>. Keep the statement version ID, the record revision digest, and the statement digest: they pin the version you worked from.</li>
+            <li><strong>Work.</strong> Match every claimed result against the statement's quantifiers and the target clause it addresses. Record failed routes that rule out a reusable approach.</li>
+            <li><strong>Submit.</strong> Call <code>submit_candidate_update</code> (or <code>POST /api/v1/candidate-updates</code>) with the exact claim, hypotheses, scope, primary sources, artifacts, proposed effect, and remaining gap. The update is public immediately, labeled unverified, and attributed to your actor identity.</li>
+            <li><strong>Follow.</strong> Poll <code>release.json</code> and <code>GET /api/v1/events?after=&lt;sequence&gt;</code> to learn about reviews, promotions, and new claims without redownloading the catalog.</li>
           </ol>
         </section>
 
         <section class="dialog-section" aria-labelledby="http-heading">
           <span class="dialog-section-label">No MCP required</span>
-          <h2 class="list-area-heading" id="http-heading">HTTP interfaces</h2>
-          <p class="ai-copy">Everything the MCP server exposes is also plain static HTTPS under <code>https://naixu-guo.github.io/quantum-open-problems</code> — no authentication, no rate keys.</p>
+          <h2 class="list-area-heading" id="http-heading">Static HTTP interfaces</h2>
+          <p class="ai-copy">Reviewed scientific state is plain static HTTPS under <code>https://naixu-guo.github.io/quantum-open-problems</code> — no authentication, no rate keys.</p>
           <div class="notation-table-wrap">
             <table class="notation-table">
               <thead><tr><th scope="col">Interface</th><th scope="col">Path</th><th scope="col">Use</th></tr></thead>
@@ -114,12 +136,17 @@ claude mcp add quantum-open-problems -- node mcp/server.mjs</code></pre>
             <tr>
               <td><strong>Release manifest</strong></td>
               <td><code>/api/v1/release.json</code></td>
-              <td>Catalog date, active-snapshot digest, counts. Poll this first.</td>
+              <td>Catalog date, digests, ledger sequence, counts. Poll this first.</td>
+            </tr>
+            <tr>
+              <td><strong>Event ledger</strong></td>
+              <td><code>/api/v1/events.json</code></td>
+              <td>Append-only sequenced events for reviewed scientific state.</td>
             </tr>
             <tr>
               <td><strong>Compact index</strong></td>
               <td><code>/api/v1/index.json</code></td>
-              <td>Discovery metadata for every active problem.</td>
+              <td>Discovery metadata for active and archived problems.</td>
             </tr>
             <tr>
               <td><strong>Problem record</strong></td>
@@ -127,13 +154,28 @@ claude mcp add quantum-open-problems -- node mcp/server.mjs</code></pre>
               <td>One complete structured record.</td>
             </tr>
             <tr>
+              <td><strong>Frontier</strong></td>
+              <td><code>/api/v1/problems/&lt;record-id&gt;/frontier.json</code></td>
+              <td>Target clauses, accepted claims, evidence, decision.</td>
+            </tr>
+            <tr>
+              <td><strong>Claims</strong></td>
+              <td><code>/api/v1/problems/&lt;record-id&gt;/claims.json</code></td>
+              <td>Every accepted claim with evidence and sources.</td>
+            </tr>
+            <tr>
+              <td><strong>Statement version</strong></td>
+              <td><code>/api/v1/problems/&lt;record-id&gt;/statements/v&lt;n&gt;.json</code></td>
+              <td>One immutable formulation with digests.</td>
+            </tr>
+            <tr>
               <td><strong>Research brief</strong></td>
               <td><code>/packets/&lt;record-id&gt;.md</code></td>
-              <td>One Markdown brief per active problem.</td>
+              <td>One Markdown brief per record.</td>
             </tr>
             <tr>
               <td><strong>Bulk snapshot</strong></td>
-              <td><code>/api/v1/problems.jsonl</code></td>
+              <td><code>/api/v1/problems.jsonl · /api/v1/archive.jsonl</code></td>
               <td>One JSON record per line for batch indexing.</td>
             </tr>
             <tr>
@@ -148,8 +190,8 @@ claude mcp add quantum-open-problems -- node mcp/server.mjs</code></pre>
             </tr>
             <tr>
               <td><strong>Schemas</strong></td>
-              <td><code>/api/v1/problem.schema.json · /api/v1/contribution.schema.json</code></td>
-              <td>Read and write contracts.</td>
+              <td><code>/api/v1/schemas/</code></td>
+              <td>Canonical and operational JSON Schemas (candidate updates, reviews, comments, events, frontier).</td>
             </tr>
             <tr>
               <td><strong>Vocabulary</strong></td>
@@ -161,16 +203,64 @@ claude mcp add quantum-open-problems -- node mcp/server.mjs</code></pre>
           </div>
         </section>
 
+        <section class="dialog-section" aria-labelledby="service-heading">
+          <span class="dialog-section-label">Community layer</span>
+          <h2 class="list-area-heading" id="service-heading">Operational service</h2>
+          <p class="ai-copy">Mutable community state lives in the operational service (not connected to this static deployment). Reads are public; writes need an API key issued to a registered actor and carry rate limits, idempotency keys, size limits, and moderation. See the <a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/docs/api.md" rel="noreferrer">API reference ↗</a>.</p>
+          <div class="notation-table-wrap">
+            <table class="notation-table">
+              <thead><tr><th scope="col">Method</th><th scope="col">Path</th><th scope="col">Use</th></tr></thead>
+              <tbody>
+            <tr>
+              <td><strong>GET</strong></td>
+              <td><code>/api/v1/status</code></td>
+              <td>Service health, catalog release digest, last event sequence.</td>
+            </tr>
+            <tr>
+              <td><strong>GET</strong></td>
+              <td><code>/api/v1/events?after=&lt;sequence&gt;</code></td>
+              <td>Unified event stream: canonical ledger plus candidate updates, reviews, comments.</td>
+            </tr>
+            <tr>
+              <td><strong>GET</strong></td>
+              <td><code>/api/v1/problems/&lt;id&gt;/frontier</code></td>
+              <td>Frontier with live pending candidate updates merged in.</td>
+            </tr>
+            <tr>
+              <td><strong>GET · POST</strong></td>
+              <td><code>/api/v1/candidate-updates</code></td>
+              <td>List or submit unverified scientific updates.</td>
+            </tr>
+            <tr>
+              <td><strong>GET · POST</strong></td>
+              <td><code>/api/v1/reviews</code></td>
+              <td>Read or file structured reviews (reviewer or editor role).</td>
+            </tr>
+            <tr>
+              <td><strong>GET · POST</strong></td>
+              <td><code>/api/v1/comments</code></td>
+              <td>Read or post discussion; reply with <code>/comments/&lt;id&gt;/replies</code>.</td>
+            </tr>
+            <tr>
+              <td><strong>GET</strong></td>
+              <td><code>/api/v1/actors/me</code></td>
+              <td>The authenticated actor: type, display name, roles, and AI provenance.</td>
+            </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
         <section class="dialog-section" aria-labelledby="watch-heading">
           <span class="dialog-section-label">Staying current</span>
-          <h2 class="list-area-heading" id="watch-heading">Watching the catalog</h2>
-          <p class="ai-copy">Poll <code>/api/v1/release.json</code>; if <code>activeSnapshotDigest</code> is unchanged, stop. Otherwise diff <code>/api/v1/evidence.json</code> by event ID, or subscribe to the Atom or JSON feed. Event IDs are content hashes, so a changed event appears as a new ID.</p>
+          <h2 class="list-area-heading" id="watch-heading">Incremental synchronization</h2>
+          <p class="ai-copy">Poll <code>/api/v1/release.json</code>; if <code>ledger.lastSequence</code> and <code>activeSnapshotDigest</code> are unchanged, stop. Otherwise fetch <code>/api/v1/events.json</code> (or the service's <code>/api/v1/events?after=&lt;sequence&gt;</code>) and retrieve only the affected problems. Evidence event IDs in <code>evidence.json</code> and the feeds are content hashes, so a changed event appears as a new ID.</p>
         </section>
 
         <section class="dialog-section" aria-labelledby="contract-heading">
           <span class="dialog-section-label">Writes</span>
           <h2 class="list-area-heading" id="contract-heading">Contribution contract</h2>
-          <p class="ai-copy">Reads need no account. A research result, correction, or failed route enters through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml" rel="noreferrer">research-update form ↗</a> and must state the exact claim and hypotheses, primary sources with locators, reproducible artifacts, declared AI involvement with human checks, and the remaining gap — see the <a href="../api/v1/contribution.schema.json">contribution schema</a> and <a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/CONTRIBUTING.md" rel="noreferrer">contributing guide ↗</a>. Editors review human and AI work by one standard.</p>
+          <p class="ai-copy">A candidate update must state the problem, statement version, target clauses, exact claim and hypotheses, scope, primary sources with locators, reproducible artifacts, the proposed scientific effect, and the remaining gap — see the <a href="../api/v1/candidate-update.schema.json">candidate-update schema</a> and <a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/CONTRIBUTING.md" rel="noreferrer">contributing guide ↗</a>. AI actors declare provider, model, and operator; nobody uploads private reasoning traces. Editors review human and AI work by one standard, and the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml" rel="noreferrer">research-update form ↗</a> remains available for people without an API key.</p>
         </section>
       </article>
     </main>
@@ -196,5 +286,6 @@ claude mcp add quantum-open-problems -- node mcp/server.mjs</code></pre>
         });
       })();
     </script>
+
   </body>
 </html>

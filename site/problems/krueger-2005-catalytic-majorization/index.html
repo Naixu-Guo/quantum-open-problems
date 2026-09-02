@@ -186,6 +186,7 @@
           <span class="meta-badge">Entanglement theory</span>
           <span class="meta-badge">Proposed 2000-12-18</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Catalytic majorization</h1>
         <p class="dialog-summary">Trumping has exact necessary-and-sufficient characterizations by infinite families of inequalities, but no finite efficient test comparable to Nielsen&#039;s partial-sum criterion is known.</p>
@@ -193,11 +194,14 @@
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#remaining">What remains</a>
-          <a href="#progress-heading">Progress</a>
+          <a href="#target-heading">What remains</a>
+          <a href="#progress-heading">Verified progress</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
           <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <div class="problem-framing">
           <section class="framing-row" aria-labelledby="importance-heading">
             <h2 id="importance-heading">Why it matters</h2>
@@ -224,7 +228,7 @@
               <span class="dialog-section-label">Verified formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">Matched to the source and locator above</span>
+            <span class="formal-source">Matched to the source and locator above · digest d2f7b36daa9d</span>
           </div>
 
           <details class="formal-notation">
@@ -240,58 +244,126 @@
           <div class="formal-body"><p>Define the relation <em>catalytic majorization</em> on probability vectors as follows: \(p\) catalytically majorizes \(q\) if there exists a probability vector \(r\) such that \(p \otimes r\) is more mixed than \(q \otimes r\) in the sense of (ordinary) majorization, i.e., for \(p, q, r\) rearranged in decreasing order,</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\sum_{i &gt; k} (p \otimes r)_i \;\le\; \sum_{i &gt; k} (q \otimes r)_i \qquad \text{for all } k \in \mathbf{Z}_{\ge 0}.\]</div><p>Equivalently (Nielsen) on pure bipartite quantum states: \(A\) can be converted into \(B\) with a catalyst by LOCC iff the Schmidt-coefficient vectors \(p\) of \(A\) and \(q\) of \(B\) satisfy this catalytic majorization relation.</p><p>Give an efficient, explicit, mathematically transparent criterion — analogous to Nielsen&#039;s criterion for plain LOCC convertibility — that decides which pure bipartite states can be converted into which by LOCC with a catalyst; equivalently, decide the relation of catalytic majorization on classical probability vectors.</p><p>A promising line indicated in the source: find a class \(\mathcal{F}\) of convex functions \(f : \mathbf{R} \to \mathbf{R}\) such that</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[p \;\mapsto\; \sum_i f(p_i)\]</div><p>is monotone under catalytic majorization for every \(f \in \mathcal{F}\), and use the monotonicity of all such functionals to characterise the relation. Multiplicative candidates such as \(f(t) = t^x\) (\(x&gt;1\)) are natural because they yield functionals that factor through tensor products.</p></div>
         </section>
 
-        <div class="remaining-question partial" id="remaining">
-          <span>What remains</span>
-          <p>Find a finite, tractable necessary-and-sufficient criterion for catalytic majorization, or prove that no such reduction exists.</p>
-        </div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Exact unresolved target</h2>
+
+          <div class="remaining-question partial" id="remaining">
+            <span>What remains</span>
+            <p>Find a finite, tractable necessary-and-sufficient criterion for catalytic majorization, or prove that no such reduction exists.</p>
+          </div>
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-narrowed" id="clause-archived-statement">
+              <div class="clause-head">
+                <span class="clause-state narrowed">Narrowed</span>
+                <strong>Archived statement</strong>
+                <code>archived-statement</code>
+              </div>
+              <p>The formal statement of this version, as archived from the source.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> Find a finite, tractable necessary-and-sufficient criterion for catalytic majorization, or prove that no such reduction exists.</p>
+              <p class="clause-claims">3 accepted claims: <a href="#claim-krueger-2005-catalytic-majorization-2026-a-finite-sufficient-criterion">claim-krueger-2005-catalytic-majorization-2026-a-finite-sufficient-criterion</a>, <a href="#claim-krueger-2005-catalytic-majorization-2007-klimesh-gives-an-exact">claim-krueger-2005-catalytic-majorization-2007-klimesh-gives-an-exact</a>, <a href="#claim-krueger-2005-catalytic-majorization-2007-turgut-derives-independent-exact">claim-krueger-2005-catalytic-majorization-2007-turgut-derives-independent-exact</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Partially solved as of 12 Aug 2026: Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered. <code>decision-krueger-2005-catalytic-majorization-status-2026-08-12</code></p>
+        </section>
 
 
 
         <section class="dialog-section" aria-labelledby="progress-heading">
-          <span class="dialog-section-label">Evidence ledger</span>
-          <h2 id="progress-heading">Recent progress</h2>
-          <ol class="timeline">
+          <span class="dialog-section-label">Verified progress</span>
+          <h2 id="progress-heading">Accepted claims</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
 
-            <li id="qop-evt-6812288dd0eeafbc">
-              <time datetime="2026-03-19">19 Mar 2026</time>
-              <div>
-                <h3>A finite sufficient criterion is available</h3>
-                <p>The new finite test certifies catalytic transformations but is not necessary, so it does not replace the infinite exact characterization.</p>
-                <div class="dialog-source-meta">
+          <article class="claim-card" id="claim-krueger-2005-catalytic-majorization-2026-a-finite-sufficient-criterion">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Narrows</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>A finite sufficient criterion is available</h3>
+            <p>The new finite test certifies catalytic transformations but is not necessary, so it does not replace the infinite exact characterization.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-6812288dd0eeafbc">
+                <time datetime="2026-03-19">19 Mar 2026</time>
+                <div>
                   <span class="maturity-badge">Peer reviewed</span>
                   <span class="maturity-badge">Sufficient criterion</span>
                   <a href="https://www.nature.com/articles/s42005-026-02583-x" rel="noreferrer">Communications Physics ↗</a>
+
                 </div>
-              </div>
-            </li>
-            <li id="qop-evt-47afb30c8a593789">
-              <time datetime="2007-09-24">24 Sept 2007</time>
-              <div>
-                <h3>Klimesh gives an exact infinite characterization</h3>
-                <p>A family of strict inequalities is necessary and sufficient for trumping under the theorem&#039;s support conditions.</p>
-                <div class="dialog-source-meta">
+              </li>
+            </ol>
+
+          </article>
+          <article class="claim-card" id="claim-krueger-2005-catalytic-majorization-2007-klimesh-gives-an-exact">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Narrows</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>Klimesh gives an exact infinite characterization</h3>
+            <p>A family of strict inequalities is necessary and sufficient for trumping under the theorem&#039;s support conditions.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-47afb30c8a593789">
+                <time datetime="2007-09-24">24 Sept 2007</time>
+                <div>
                   <span class="maturity-badge">Preprint</span>
                   <span class="maturity-badge">Exact characterization</span>
                   <a href="https://arxiv.org/abs/0709.3680" rel="noreferrer">Klimesh theorem ↗</a>
+
                 </div>
-              </div>
-            </li>
-            <li id="qop-evt-267fd55e666fc48d">
-              <time datetime="2007-07-03">03 Jul 2007</time>
-              <div>
-                <h3>Turgut derives independent exact conditions</h3>
-                <p>Power means and entropy give another necessary-and-sufficient infinite criterion for catalytic conversion.</p>
-                <div class="dialog-source-meta">
+              </li>
+            </ol>
+
+          </article>
+          <article class="claim-card" id="claim-krueger-2005-catalytic-majorization-2007-turgut-derives-independent-exact">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Narrows</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>Turgut derives independent exact conditions</h3>
+            <p>Power means and entropy give another necessary-and-sufficient infinite criterion for catalytic conversion.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-267fd55e666fc48d">
+                <time datetime="2007-07-03">03 Jul 2007</time>
+                <div>
                   <span class="maturity-badge">Peer reviewed</span>
                   <span class="maturity-badge">Exact characterization</span>
                   <a href="https://arxiv.org/abs/0707.0444" rel="noreferrer">Turgut theorem ↗</a>
+
                 </div>
-              </div>
-            </li>
-          </ol>
+              </li>
+            </ol>
+
+          </article>
+
         </section>
 
 
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="krueger-2005-catalytic-majorization">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Catalytic+majorization" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="krueger-2005-catalytic-majorization">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
+        </section>
 
 
 
@@ -303,8 +375,10 @@
           <ul class="machine-links">
             <li><a href="../../packets/krueger-2005-catalytic-majorization.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
             <li><a href="../../api/v1/problems/krueger-2005-catalytic-majorization.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Catalytic+majorization" rel="noreferrer">Submit a research update ↗</a> — the evidence contract applies to human and AI results.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/krueger-2005-catalytic-majorization/problem.md" rel="noreferrer">Source article ↗</a> — the canonical statement and notes in the repository.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-catalytic-majorization/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-catalytic-majorization/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Catalytic+majorization" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/krueger-2005-catalytic-majorization/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -323,7 +397,8 @@
           <p>Record <code>krueger-2005-catalytic-majorization</code></p>
           <p>Record revision <code>11aa6a73b042cb59546f4dbd740cc9f8f1bb526227937484666e3cae34387dc5</code></p>
           <p>Statement digest <code>d2f7b36daa9d93cd1a8acfdb487f976e10c8be0dabcb1af63ce29ff2f995a4da</code></p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Statement <code>krueger-2005-catalytic-majorization-statement-v1</code> · Decision <code>decision-krueger-2005-catalytic-majorization-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -354,5 +429,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="krueger-2005-catalytic-majorization" defer></script>
   </body>
 </html>

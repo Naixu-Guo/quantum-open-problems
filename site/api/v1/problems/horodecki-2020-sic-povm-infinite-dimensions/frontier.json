@@ -1,0 +1,218 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "horodecki-2020-sic-povm-infinite-dimensions",
+  "title": "SIC POVMs in infinitely many dimensions",
+  "catalogState": "published",
+  "status": "open",
+  "statusLabel": "Open",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-horodecki-2020-sic-povm-infinite-dimensions-status-2026-08-12",
+    "status": "open",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-horodecki-2020-sic-povm-infinite-dimensions-2026-claimed-all-dimension-proof",
+      "evidence-horodecki-2020-sic-povm-infinite-dimensions-2025-uniform-construction-remains-conditional"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "horodecki-2020-sic-povm-infinite-dimensions-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "5bd2d0214053ad35b60a5e61a53884f7d170480303e967561094798ef63031f0",
+    "sourceRefs": [
+      {
+        "sourceId": "source-horodecki-2020",
+        "relationship": "states-problem",
+        "locator": "p. 2-3 (Problem 1)",
+        "primary": true,
+        "statedTitle": "Construct SIC POVMs in an infinite sequence of dimensions",
+        "source": {
+          "id": "source-horodecki-2020",
+          "title": "Five open problems in theory of quantum information",
+          "authors": [
+            "Paweł Horodecki",
+            "Łukasz Rudnicki",
+            "Karol Życzkowski"
+          ],
+          "venue": "PRX Quantum 3, 010101 (2022); arXiv:2002.03233 [quant-ph]",
+          "url": "https://doi.org/10.1103/PRXQuantum.3.010101",
+          "doi": "10.1103/PRXQuantum.3.010101",
+          "arxivId": "2002.03233"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $N$ | Dimension of a complex Hilbert space |\n| $\\mathcal{H}_N$ | $N$-dimensional complex Hilbert space |\n| $\\lvert\\psi_j\\rangle$ | Pure state vector in $\\mathcal{H}_N$, with $j=1,\\dots,N^2$ |\n| $\\langle\\psi_j\\vert\\psi_k\\rangle$ | Inner product of two state vectors |\n| $\\delta_{jk}$ | Kronecker delta: $1$ if $j=k$, $0$ otherwise |\n| $N_1, N_2, N_3, \\dots$ | An infinite sequence of dimensions in which SICs are sought |\n| $\\mathbb{Z}$ | The integers (used for the Weyl–Heisenberg index group) |\n| $F_N$ | Discrete Fourier matrix of size $N$ |",
+      "statement": "**Problem 1:** *Construct SIC POVMs in an infinite sequence of dimensions, $N_1, N_2, N_3, \\dots$.*\n\nA symmetric informationally complete positive operator valued measure associated with $\\mathcal{H}_N$ is a set of $N^2$ vectors $\\lvert\\psi_j\\rangle\\in\\mathcal{H}_N$ satisfying the overlap relations\n$$|\\langle\\psi_j|\\psi_k\\rangle|^2 = \\frac{N\\,\\delta_{jk}+1}{N+1}, \\qquad j,k=1,\\dots,N^2.$$\nThe task is to exhibit an infinite increasing sequence of dimensions $N_1<N_2<\\dots$ together with explicit SIC POVMs in each $\\mathcal{H}_{N_i}$. Equivalently, prove Zauner's conjecture (existence of a SIC in $\\mathcal{H}_N$ for every $N\\geq 2$) along an infinite family of dimensions."
+    }
+  },
+  "question": {
+    "type": "Construction",
+    "summary": "Exact SICs are known in many individual dimensions, but no unconditional construction covers an infinite sequence of dimensions.",
+    "importance": "A SIC gives a minimal d²-outcome scheme for quantum-state tomography and forms a complex projective 2-design. An infinite exact family would expose the arithmetic mechanism behind known examples.",
+    "unresolved": "Give an unconditional exact SIC construction in infinitely many dimensions."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Give an unconditional exact SIC construction in infinitely many dimensions.",
+      "state": "narrowed",
+      "claimIds": [
+        "claim-horodecki-2020-sic-povm-infinite-dimensions-2026-claimed-all-dimension-proof",
+        "claim-horodecki-2020-sic-povm-infinite-dimensions-2025-uniform-construction-remains-conditional"
+      ],
+      "latestEvidenceDate": "2026-05-31"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Give an unconditional exact SIC construction in infinitely many dimensions."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-horodecki-2020-sic-povm-infinite-dimensions-2026-claimed-all-dimension-proof",
+      "relation": "status-review",
+      "relationLabel": "Status review",
+      "title": "Claimed all-dimension proof was withdrawn",
+      "text": "The arXiv withdrawal notice for Joka's manuscript states that the proof is incorrect.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2026-05-31",
+      "evidence": [
+        {
+          "id": "evidence-horodecki-2020-sic-povm-infinite-dimensions-2026-claimed-all-dimension-proof",
+          "date": "2026-05-31",
+          "maturity": "Withdrawn",
+          "strength": "Incorrect claim",
+          "label": "Withdrawal notice",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-joka-2026-a-proof-of",
+            "title": "A proof of the SIC-POVM conjecture",
+            "authors": [
+              "S. Joka"
+            ],
+            "venue": "arXiv:2601.13475 (2026), withdrawn because the proof is incorrect.",
+            "url": "https://arxiv.org/abs/2601.13475",
+            "arxivId": "2601.13475"
+          }
+        }
+      ]
+    },
+    {
+      "id": "claim-horodecki-2020-sic-povm-infinite-dimensions-2025-uniform-construction-remains-conditional",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "Uniform construction remains conditional",
+      "text": "Appleby, Flammia and Kopp obtain all dimensions only under two unproved arithmetic and special-value conjectures.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2025-03-17",
+      "evidence": [
+        {
+          "id": "evidence-horodecki-2020-sic-povm-infinite-dimensions-2025-uniform-construction-remains-conditional",
+          "date": "2025-03-17",
+          "maturity": "Preprint",
+          "strength": "Conditional theorem",
+          "label": "Conditional construction",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-appleby-2025-a-constructive-approach",
+            "title": "A Constructive Approach to Zauner's Conjecture via the Stark Conjectures",
+            "authors": [
+              "M. Appleby",
+              "S. T. Flammia",
+              "G. S. Kopp"
+            ],
+            "venue": "arXiv:2501.03970 (2025).",
+            "url": "https://arxiv.org/abs/2501.03970",
+            "arxivId": "2501.03970"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [
+    {
+      "label": "Withdrawn claim",
+      "text": "The 2026 all-dimension claim is explicitly withdrawn as incorrect. The 2025 construction is conditional, so neither closes this problem.",
+      "url": "https://arxiv.org/abs/2601.13475"
+    }
+  ],
+  "interpretation": null,
+  "provenance": null,
+  "notices": [
+    {
+      "tone": "withdrawn",
+      "label": "Withdrawn",
+      "title": "The claimed all-dimension SIC proof is incorrect",
+      "text": "The author withdrew arXiv:2601.13475 on 31 May 2026 and stated that its proof is not correct. The separate 2025 construction remains conditional.",
+      "sourceLabel": "arXiv withdrawal notice",
+      "featured": true
+    }
+  ],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "horodecki-2020-sic-povm-infinite-dimensions-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-horodecki-2020-sic-povm-infinite-dimensions-status-2026-08-12",
+        "status": "open",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "66aa45d9392755bea77803c546dd115f67d825cbee90a8737f41ded3755e9e26",
+    "statementDigest": "5bd2d0214053ad35b60a5e61a53884f7d170480303e967561094798ef63031f0",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/horodecki-2020-sic-povm-infinite-dimensions/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/horodecki-2020-sic-povm-infinite-dimensions.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/horodecki-2020-sic-povm-infinite-dimensions/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/horodecki-2020-sic-povm-infinite-dimensions/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/horodecki-2020-sic-povm-infinite-dimensions/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/horodecki-2020-sic-povm-infinite-dimensions.md"
+  }
+}

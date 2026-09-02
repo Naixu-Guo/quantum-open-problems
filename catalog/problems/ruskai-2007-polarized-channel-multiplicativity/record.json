@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "ruskai-2007-polarized-channel-multiplicativity",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Polarized near-maximally-mixed channels",
+    "proposed": "2007",
+    "topicId": "quantum-channels",
+    "collectionId": "ruskai-2007",
+    "question": {
+      "type": "Structured multiplicativity",
+      "summary": "General random-channel counterexamples do not settle the polarized family xI + (1-x)M_epsilon or give the requested parameter bounds.",
+      "importance": "This family tests the stability of multiplicativity near the maximally mixed output channel. Parameter bounds would show how much polarization a positive tensor-product law can tolerate.",
+      "unresolved": "Determine ranges of polarization, deviation and p that guarantee or violate multiplicativity for this structured near-mixed family."
+    },
+    "keywords": [
+      "polarized channels",
+      "near maximally mixed",
+      "multiplicativity",
+      "random channels"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "ruskai-2007-polarized-channel-multiplicativity-statement-v1",
+      "problemId": "ruskai-2007-polarized-channel-multiplicativity",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ruskai-2007",
+          "relationship": "states-problem",
+          "locator": "p. 8 (Problem 7)",
+          "primary": true,
+          "statedTitle": "Multiplicativity for polarization of arbitrary near-maximally-mixed channels"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Determine ranges of polarization, deviation and p that guarantee or violate multiplicativity for this structured near-mixed family."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-polarized-channel-multiplicativity-2007-random-channel-violations-motivate",
+      "statementId": "ruskai-2007-polarized-channel-multiplicativity-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "Random-channel violations motivate but do not settle the family",
+      "text": "Winter and Hayden disprove general multiplicativity for p greater than one using random constructions, without analyzing the specified polarized interpolation."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-ruskai-2007-polarized-channel-multiplicativity-2007-random-channel-violations-motivate",
+      "claimId": "claim-ruskai-2007-polarized-channel-multiplicativity-2007-random-channel-violations-motivate",
+      "sourceId": "source-hayden-2007-multiplicativity-false",
+      "sourceLocator": null,
+      "date": "2007",
+      "maturity": "Peer reviewed",
+      "strength": "General counterexamples",
+      "label": "Random-channel result"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-ruskai-2007-polarized-channel-multiplicativity-status-2026-08-12",
+      "problemId": "ruskai-2007-polarized-channel-multiplicativity",
+      "statementId": "ruskai-2007-polarized-channel-multiplicativity-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-ruskai-2007-polarized-channel-multiplicativity-2007-random-channel-violations-motivate"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": "The source does not specify the norm used to define near-maximally-mixed channels; a modern formulation should fix that convention.",
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

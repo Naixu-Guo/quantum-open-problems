@@ -1,0 +1,50 @@
+{
+  "kind": "qop-claims",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-nice-error-bases",
+  "status": "solved",
+  "statementId": "krueger-2005-nice-error-bases-statement-v1",
+  "count": 1,
+  "note": "Every claim here has been accepted through editorial review. Unreviewed submissions are candidate updates in the operational service, never claims.",
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-nice-error-bases-klappenecker-and-roetteler-exhibit",
+      "statementId": "krueger-2005-nice-error-bases-statement-v1",
+      "targetClauseIds": [
+        "nice-error-bases-shift-and-multiply"
+      ],
+      "relation": "refutes",
+      "title": "Klappenecker and Roetteler exhibit a non-monomial nice error basis",
+      "text": "Klappenecker and Roetteler build, from representation-theoretic results of Ferguson and Isaacs on groups of central type, an abstract error group with cyclic centre possessing a non-monomial irreducible representation. The corresponding nice error basis is therefore not monomial and in particular not of shift and multiply type, so the archived universal claim is false.",
+      "superseded": false,
+      "evidence": [
+        {
+          "kind": "Evidence",
+          "id": "evidence-krueger-2005-nice-error-bases-arxiv-quant-ph",
+          "claimId": "claim-krueger-2005-nice-error-bases-klappenecker-and-roetteler-exhibit",
+          "sourceId": "source-klappenecker-2003-monomiality",
+          "sourceLocator": "Character-theoretic construction of a non-monomial nice error basis",
+          "date": "2003",
+          "maturity": "Preprint",
+          "strength": "Exact counterexample",
+          "label": "arXiv:quant-ph/0301078",
+          "source": {
+            "id": "source-klappenecker-2003-monomiality",
+            "title": "On the Monomiality of Nice Error Bases",
+            "authors": [
+              "A. Klappenecker",
+              "M. Roetteler"
+            ],
+            "venue": "arXiv:quant-ph/0301078 (2003)",
+            "url": "https://arxiv.org/abs/quant-ph/0301078"
+          }
+        }
+      ]
+    }
+  ],
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-nice-error-bases.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-nice-error-bases/frontier.json"
+  }
+}

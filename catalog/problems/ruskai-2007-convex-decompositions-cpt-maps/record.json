@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "ruskai-2007-convex-decompositions-cpt-maps",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Audenaert-Ruskai decompositions of CPT maps",
+    "proposed": "2007",
+    "topicId": "quantum-channels",
+    "collectionId": "ruskai-2007",
+    "question": {
+      "type": "Convex decomposition",
+      "summary": "The strong equal-weight conjecture holds for every qubit-input channel, cq and qc channels, and a positive-measure set in all dimensions. The weak form holds for qutrit endomorphisms.",
+      "importance": "The conjecture is a channel analogue of decomposing a matrix into controlled low-rank pieces. A proof would reduce arbitrary channels to equal mixtures of low-Choi-rank maps and sharpen the convex geometry of quantum operations.",
+      "unresolved": "Prove or refute the strong decomposition conjecture for arbitrary input and output dimensions."
+    },
+    "keywords": [
+      "CPT maps",
+      "convex decomposition",
+      "Horn lemma",
+      "Choi rank"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "ruskai-2007-convex-decompositions-cpt-maps-statement-v1",
+      "problemId": "ruskai-2007-convex-decompositions-cpt-maps",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ruskai-2007",
+          "relationship": "states-problem",
+          "locator": "p. 4-6 (Conjectures 2-5)",
+          "primary": true,
+          "statedTitle": "Audenaert-Ruskai convex decomposition of CPT maps (block-matrix generalization of Horn's lemma)"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Prove or refute the strong decomposition conjecture for arbitrary input and output dimensions."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-convex-decompositions-cpt-maps-2026-large-channel-classes-satisfy",
+      "statementId": "ruskai-2007-convex-decompositions-cpt-maps-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "Large channel classes satisfy the conjectured decomposition",
+      "text": "Kumar and Wolf prove the strong form for qubit input, cq and qc channels, and a nonzero-measure set in every dimension; the general case remains open."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-ruskai-2007-convex-decompositions-cpt-maps-2026-large-channel-classes-satisfy",
+      "claimId": "claim-ruskai-2007-convex-decompositions-cpt-maps-2026-large-channel-classes-satisfy",
+      "sourceId": "source-kumar-2026-the-ruskai-audenaert",
+      "sourceLocator": null,
+      "date": "2026-07-25",
+      "maturity": "Preprint",
+      "strength": "Exact major subclasses",
+      "label": "Kumar-Wolf"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-ruskai-2007-convex-decompositions-cpt-maps-status-2026-08-12",
+      "problemId": "ruskai-2007-convex-decompositions-cpt-maps",
+      "statementId": "ruskai-2007-convex-decompositions-cpt-maps-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "partial",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-ruskai-2007-convex-decompositions-cpt-maps-2026-large-channel-classes-satisfy"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [
+      {
+        "label": "Very recent",
+        "text": "This substantial advance was an unrefereed first-version preprint at the audit cutoff and does not prove the arbitrary-dimensional conjecture.",
+        "url": "https://arxiv.org/abs/2607.23066"
+      }
+    ],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

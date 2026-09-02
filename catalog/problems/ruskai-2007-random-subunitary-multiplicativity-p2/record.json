@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "ruskai-2007-random-subunitary-multiplicativity-p2",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Random sub-unitary multiplicativity at p = 2",
+    "proposed": "2007",
+    "topicId": "quantum-channels",
+    "collectionId": "ruskai-2007",
+    "question": {
+      "type": "Structured multiplicativity",
+      "summary": "General 2-norm multiplicativity is false, but no proof or counterexample settles the intended random sub-unitary subclass.",
+      "importance": "At p = 2 the output norm measures purity and often permits matrix methods unavailable at other p. This subclass can reveal which Kraus structures preserve purity under tensor products.",
+      "unresolved": "Prove maximal-output 2-norm multiplicativity for every channel in the corrected family, or exhibit a family-specific counterexample."
+    },
+    "keywords": [
+      "sub-unitary channels",
+      "p=2",
+      "multiplicativity",
+      "maximal output norm"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "ruskai-2007-random-subunitary-multiplicativity-p2-statement-v1",
+      "problemId": "ruskai-2007-random-subunitary-multiplicativity-p2",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ruskai-2007",
+          "relationship": "states-problem",
+          "locator": "p. 14 (Problem 15)",
+          "primary": true,
+          "statedTitle": "Prove (24) for random sub-unitary channels at p=2 (or exhibit a new counterexample)"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Prove maximal-output 2-norm multiplicativity for every channel in the corrected family, or exhibit a family-specific counterexample."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-random-subunitary-multiplicativity-p2-2007-the-closest-positive-theorem",
+      "statementId": "ruskai-2007-random-subunitary-multiplicativity-p2-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "The closest positive theorem concerns another family",
+      "text": "Michalakis proves the p equals two case for identical polarized Werner-Holevo channels, not for arbitrary random sub-unitary channels."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-ruskai-2007-random-subunitary-multiplicativity-p2-2007-the-closest-positive-theorem",
+      "claimId": "claim-ruskai-2007-random-subunitary-multiplicativity-p2-2007-the-closest-positive-theorem",
+      "sourceId": "source-michalakis-2007-multiplicativity-of-the",
+      "sourceLocator": null,
+      "date": "2007",
+      "maturity": "Peer reviewed",
+      "strength": "Different structured class",
+      "label": "Polarized WH theorem"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-ruskai-2007-random-subunitary-multiplicativity-p2-status-2026-08-12",
+      "problemId": "ruskai-2007-random-subunitary-multiplicativity-p2",
+      "statementId": "ruskai-2007-random-subunitary-multiplicativity-p2-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-ruskai-2007-random-subunitary-multiplicativity-p2-2007-the-closest-positive-theorem"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": "The archived Kraus formula is malformed. This entry tracks the intended normalized cyclic family rather than the literal non-channel formula.",
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

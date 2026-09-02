@@ -1,0 +1,49 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "krueger-2005-qubit-bi-negativity-statement-v1",
+  "problemId": "krueger-2005-qubit-bi-negativity",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-krueger-werner-2005",
+      "relationship": "states-problem",
+      "locator": "p. 53 (Problem 18)",
+      "primary": true,
+      "source": {
+        "id": "source-krueger-werner-2005",
+        "title": "Some open problems in quantum information theory",
+        "authors": [
+          "O. Krüger",
+          "R. F. Werner"
+        ],
+        "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+        "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "two-qubit-binegativity",
+      "label": "Two-qubit bi-negativity",
+      "text": "For every two-qubit density operator, the stated second partial transpose is positive semidefinite.",
+      "resolutionCriteria": "Prove the universal operator inequality or give a two-qubit counterexample."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $\\mathcal{H}_A,\\mathcal{H}_B$ | Two-dimensional (qubit) Hilbert spaces of subsystems $A$ and $B$ |\n| $\\sigma$ | A density operator (positive trace-1 Hermitian operator) on $\\mathcal{H}_A\\otimes\\mathcal{H}_B$ |\n| $T_2$ | Partial transposition with respect to the second subsystem $B$ |\n| $\\sigma^{T_2}$ | The operator obtained from $\\sigma$ by partial transposition with respect to $B$ |\n| $\\lvert X\\rvert$ | The operator absolute value, $\\lvert X\\rvert = \\sqrt{X^* X}$ for an operator $X$ |\n| $\\bigl\\lvert\\sigma^{T_2}\\bigr\\rvert^{T_2}$ | Partial transposition (again w.r.t. $B$) of the operator absolute value of $\\sigma^{T_2}$ |\n| $A \\ge 0$ | The operator $A$ is positive semidefinite |\n| $\\lVert X\\rVert_1$ | Trace norm of $X$, equal to $\\operatorname{tr}\\lvert X\\rvert$ |\n| $\\mathcal{N}(\\sigma)$ | Negativity of $\\sigma$, $\\mathcal{N}(\\sigma) = (\\lVert\\sigma^{T_2}\\rVert_1 - 1)/2$ |\n| $\\log\\lVert\\sigma^{T_2}\\rVert_1$ | Logarithmic negativity (entanglement monotone) |",
+    "statement": "Let $\\mathcal{H}_A$ and $\\mathcal{H}_B$ be two-dimensional complex Hilbert spaces, and let $\\sigma$ be any density operator on $\\mathcal{H}_A\\otimes\\mathcal{H}_B$. Let $T_2$ denote partial transposition with respect to $\\mathcal{H}_B$. Prove that\n$$\\bigl\\lvert\\sigma^{T_2}\\bigr\\rvert^{T_2} \\;\\ge\\; 0,$$\nwhere $\\lvert X\\rvert := \\sqrt{X^* X}$ is the operator absolute value."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "7a41d58ca967352317e625f2aa154989ef306b5a2e728bc6bbed4b85adf4bb12",
+    "bodyDigest": "5669c2f922430b79431fe4b346959ce13f6b038fc981c338d57e37c9ce05e19b"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-bi-negativity.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-bi-negativity/frontier.json"
+  }
+}

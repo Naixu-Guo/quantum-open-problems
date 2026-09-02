@@ -1,0 +1,126 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-reversibility-entanglement-assisted-coding",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "archived",
+    "title": "Reversibility of entanglement assisted coding",
+    "proposed": "2003-01-31",
+    "topicId": "quantum-channels",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Asymptotic reversibility",
+      "summary": "The source asked to prove that entanglement-assisted channel simulation is reversible, so that the rate for simulating T from S is the reciprocal of the rate for simulating S from T. The Quantum Reverse Shannon Theorem of Bennett, Devetak, Harrow, Shor and Winter established the identity.",
+      "importance": "Without free entanglement the resource theory of quantum channels is badly irreversible, whereas free entanglement was conjectured to restore the Shannon-like picture in which any two channels of equal entanglement-assisted capacity simulate each other at unit rate per bit of capacity.",
+      "unresolved": ""
+    },
+    "keywords": [
+      "entanglement-assisted capacity",
+      "reverse Shannon theorem",
+      "channel simulation",
+      "resource reversibility",
+      "superdense coding"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-reversibility-entanglement-assisted-coding-statement-v1",
+      "problemId": "krueger-2005-reversibility-entanglement-assisted-coding",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "pp. 51-52 (Problem 17)",
+          "primary": true
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "entanglement-assisted-simulation-reversibility",
+          "label": "Reversibility of entanglement-assisted channel simulation",
+          "text": "The archived statement asks to prove that C_E(T,S) equals the reciprocal of C_E(S,T) for every pair of quantum channels, equivalently that the product of the two entanglement-assisted simulation rates is always one.",
+          "resolutionCriteria": "A proof of the reciprocal identity, or a channel pair for which the product of the two simulation rates is strictly below one."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-reversibility-entanglement-assisted-coding-quantum-reverse-shannon-theorem",
+      "statementId": "krueger-2005-reversibility-entanglement-assisted-coding-statement-v1",
+      "targetClauseIds": [
+        "entanglement-assisted-simulation-reversibility"
+      ],
+      "relation": "resolves",
+      "title": "Quantum Reverse Shannon Theorem gives the reciprocal identity",
+      "text": "Bennett, Devetak, Harrow, Shor and Winter prove the full Quantum Reverse Shannon Theorem, and Berta, Christandl and Renner give a one-shot information-theoretic proof. Under the source's convention the theorem yields C_E(T,S) = C_E(S)/C_E(T) = C_E(S,T) to the power minus one for every pair of memoryless channels in the i.i.d. asymptotic resource model, establishing the archived reversibility identity."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-reversibility-entanglement-assisted-coding-ieee-transactions-on",
+      "claimId": "claim-krueger-2005-reversibility-entanglement-assisted-coding-quantum-reverse-shannon-theorem",
+      "sourceId": "source-bennett-2014-quantum-reverse-shannon",
+      "sourceLocator": "Quantum Reverse Shannon Theorem (main result, announced 2009)",
+      "date": "2014",
+      "maturity": "Peer reviewed",
+      "strength": "Exact theorem",
+      "label": "IEEE Transactions on Information Theory"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-reversibility-entanglement-assisted-coding-communications-in-mathematical",
+      "claimId": "claim-krueger-2005-reversibility-entanglement-assisted-coding-quantum-reverse-shannon-theorem",
+      "sourceId": "source-berta-2011-reverse-shannon-one-shot",
+      "sourceLocator": "One-shot proof of the Quantum Reverse Shannon Theorem",
+      "date": "2011",
+      "maturity": "Peer reviewed",
+      "strength": "Exact theorem",
+      "label": "Communications in Mathematical Physics"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-reversibility-entanglement-assisted-coding-status-2026-08-12",
+      "problemId": "krueger-2005-reversibility-entanglement-assisted-coding",
+      "statementId": "krueger-2005-reversibility-entanglement-assisted-coding-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "solved",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-reversibility-entanglement-assisted-coding-ieee-transactions-on",
+        "evidence-krueger-2005-reversibility-entanglement-assisted-coding-communications-in-mathematical"
+      ],
+      "rationale": "The peer-reviewed Quantum Reverse Shannon Theorem, proved independently in two forms, yields exactly the reciprocal identity asserted in the archived statement."
+    }
+  ],
+  "editorial": {
+    "cautions": [
+      {
+        "label": "Scope",
+        "text": "The identity is established for memoryless channels in the i.i.d. asymptotic resource model; more general source models can require extra conventions about feedback or embezzling entanglement and should not be inferred from this statement without specifying resources.",
+        "url": null
+      }
+    ],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

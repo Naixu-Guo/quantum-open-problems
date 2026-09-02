@@ -1,0 +1,164 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-complexity-product-preparations",
+  "title": "Complexity of product preparations",
+  "catalogState": "published",
+  "status": "open",
+  "statusLabel": "Open",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-krueger-2005-complexity-product-preparations-status-2026-08-12",
+    "status": "open",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-krueger-2005-complexity-product-preparations-2005-the-archived-weighted-cost"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "krueger-2005-complexity-product-preparations-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "4acb313cb6f1b572d00ddad662e1104fee42dcdb741ac70267da14380f3cd2a0",
+    "sourceRefs": [
+      {
+        "sourceId": "source-krueger-werner-2005",
+        "relationship": "states-problem",
+        "locator": "p. 50 (Problem 16)",
+        "primary": true,
+        "source": {
+          "id": "source-krueger-werner-2005",
+          "title": "Some open problems in quantum information theory",
+          "authors": [
+            "O. Krüger",
+            "R. F. Werner"
+          ],
+          "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+          "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+          "doi": "10.48550/arXiv.quant-ph/0504166",
+          "arxivId": "quant-ph/0504166"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $\\lvert\\psi\\rangle$ | A pure quantum state of $m$ qubits |\n| $\\lvert\\phi\\rangle$ | An $m$-qubit \"starting\" state, taken to be $\\lvert 0\\rangle^{\\otimes m}$ in this problem |\n| $m$ | Number of qubits per copy of the state $\\lvert\\psi\\rangle$ |\n| $n$ | Number of identical copies of $\\lvert\\psi\\rangle$ that are to be prepared |\n| $\\lvert\\psi\\rangle^{\\otimes n}$ | The $n$-fold tensor product $\\lvert\\psi\\rangle\\otimes\\cdots\\otimes\\lvert\\psi\\rangle$ ($n$ factors) |\n| $\\sigma_u$ | A tensor product of Pauli matrices acting on (some subset of) the $m$ qubits |\n| $e^{i\\phi\\sigma_u}$ | One of the allowed gates: an exponential of a Pauli string with a real phase $\\phi$ |\n| $C(\\lvert\\Psi\\rangle)$ | Infimum of the weighted rotation cost $\\sum_j|\\phi_j|$ over preparations of $\\lvert\\Psi\\rangle$ from the reference state |\n| $\\varepsilon$ | Optional approximation parameter (target fidelity / accuracy of preparation) |",
+      "statement": "Fix a state $\\lvert\\psi\\rangle$ of $m$ qubits and the gate set\n$$\\mathcal{G} = \\{\\, e^{i\\phi\\sigma_u} : \\phi \\in \\mathbb{R},\\ \\sigma_u\\text{ a tensor product of Pauli matrices}\\,\\}.$$\nFor a target pure state $\\lvert\\Psi\\rangle$, let\n$$C(\\lvert\\Psi\\rangle)=\\inf\\left\\{\\sum_j|\\phi_j|:\\prod_j e^{i\\phi_j\\sigma_{u_j}}\\lvert0\\rangle^{\\otimes(\\text{number of qubits})}=\\lvert\\Psi\\rangle\\right\\}.$$\n\nDetermine, as a function of $n$ and $C(\\lvert\\psi\\rangle)$, the asymptotic behaviour of\n$$C\\!\\bigl(\\lvert\\psi\\rangle^{\\otimes n}\\bigr).$$\nIn particular, is the cost per copy $C(\\lvert\\psi\\rangle^{\\otimes n})/n$ bounded above by a function strictly smaller than $C(\\lvert\\psi\\rangle)$ as $n \\to \\infty$?\n\nAn approximate version is also of interest: for a tolerance $\\varepsilon > 0$, characterize the minimum weighted rotation cost needed to produce a state $\\lvert\\Phi\\rangle$ with $\\lvert\\langle\\Phi\\,\\vert\\,\\psi^{\\otimes n}\\rangle\\rvert^2 \\ge 1 - \\varepsilon$."
+    }
+  },
+  "question": {
+    "type": "Asymptotic complexity",
+    "summary": "No general asymptotic formula is known for the weighted Pauli-rotation cost of preparing many copies of a pure state.",
+    "importance": "The answer decides whether state-preparation complexity is extensive or whether a collective circuit can amortize the cost of producing repeated quantum resources.",
+    "unresolved": "Determine the scaling of the weighted rotation cost for many copies and whether collective preparation gives a strict asymptotic saving per copy."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Determine the scaling of the weighted rotation cost for many copies and whether collective preparation gives a strict asymptotic saving per copy.",
+      "state": "open",
+      "claimIds": [
+        "claim-krueger-2005-complexity-product-preparations-2005-the-archived-weighted-cost"
+      ],
+      "latestEvidenceDate": "2005-04-21"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Determine the scaling of the weighted rotation cost for many copies and whether collective preparation gives a strict asymptotic saving per copy."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-krueger-2005-complexity-product-preparations-2005-the-archived-weighted-cost",
+      "relation": "status-review",
+      "relationLabel": "Status review",
+      "title": "The archived weighted-cost problem remains unresolved",
+      "text": "The cost is the infimum of the sum of absolute rotation angles. Modern Clifford-plus-T gate counts use a different resource measure.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2005-04-21",
+      "evidence": [
+        {
+          "id": "evidence-krueger-2005-complexity-product-preparations-2005-the-archived-weighted-cost",
+          "date": "2005-04-21",
+          "maturity": "Archived source",
+          "strength": "Open formulation",
+          "label": "Source problem",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-kruger-2005-some-open-problems",
+            "title": "Some Open Problems in Quantum Information Theory",
+            "authors": [
+              "O. Krüger",
+              "R. F. Werner (eds.)"
+            ],
+            "venue": "arXiv:quant-ph/0504166 (2005), Problem 16 on p. 50; snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/. DOI: 10.48550/arXiv.quant-ph/0504166.",
+            "url": "https://arxiv.org/abs/quant-ph/0504166",
+            "arxivId": "quant-ph/0504166"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [],
+  "interpretation": "Do not substitute gate count for the source's weighted continuous-angle cost.",
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "krueger-2005-complexity-product-preparations-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-krueger-2005-complexity-product-preparations-status-2026-08-12",
+        "status": "open",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "696f49146182ed87d0365d1af35ca45baf5d2fde6fcaeeaa783f8d2081573eda",
+    "statementDigest": "4acb313cb6f1b572d00ddad662e1104fee42dcdb741ac70267da14380f3cd2a0",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-complexity-product-preparations/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-complexity-product-preparations.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-complexity-product-preparations/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-complexity-product-preparations/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-complexity-product-preparations/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-complexity-product-preparations.md"
+  }
+}

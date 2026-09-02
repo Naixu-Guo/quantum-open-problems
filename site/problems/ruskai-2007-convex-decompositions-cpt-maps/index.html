@@ -182,6 +182,7 @@
           <span class="meta-badge">Quantum channels</span>
           <span class="meta-badge">Proposed 2007</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Audenaert-Ruskai decompositions of CPT maps</h1>
         <p class="dialog-summary">The strong equal-weight conjecture holds for every qubit-input channel, cq and qc channels, and a positive-measure set in all dimensions. The weak form holds for qutrit endomorphisms.</p>
@@ -189,11 +190,14 @@
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#remaining">What remains</a>
-          <a href="#progress-heading">Progress</a>
+          <a href="#target-heading">What remains</a>
+          <a href="#progress-heading">Verified progress</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
           <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <div class="problem-framing">
           <section class="framing-row" aria-labelledby="importance-heading">
             <h2 id="importance-heading">Why it matters</h2>
@@ -220,7 +224,7 @@
               <span class="dialog-section-label">Verified formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">Matched to the source and locator above</span>
+            <span class="formal-source">Matched to the source and locator above · digest b90fc2a40385</span>
           </div>
 
           <details class="formal-notation">
@@ -236,31 +240,59 @@
           <div class="formal-body"><p>The source states four closely related formulations. Its printed Conjecture 2 uses a Choi-rank bound \(d_2\), but that conflicts with Choi&#039;s generalized-extreme bound, its own later formulations, and the modern RA statement. The corrected rank bound is \(d_1\).</p><p><strong>Conjecture 2 (Audenaert–Ruskai, corrected rank).</strong> <em>Let \(\Phi : M_{d_1}\mapsto M_{d_2}\) be a CPT map. There exist \(d_2\) CPT maps \(\Phi_m\) each with Choi rank at most \(d_1\) such that</em></p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\Phi \;=\; \sum_{m=1}^{d_2} \tfrac{1}{d_2}\,\Phi_m.\]</div><p><strong>Conjecture 3 (adjoint/unital form).</strong> <em>Let \(\Phi : M_{d_2}\mapsto M_{d_1}\) be a CP map with \(\Phi(I_2) = I_1\) (unital). There exist \(d_2\) unital CP maps \(\Phi_m\) each with Choi rank at most \(d_1\) such that</em></p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\Phi \;=\; \sum_{m=1}^{d_2} \tfrac{1}{d_2}\,\Phi_m.\]</div><p><strong>Conjecture 4 (block-matrix form, generalizing Horn&#039;s lemma).</strong> <em>Let \(\mathbf{A}\) be a \(d_1 d_2 \times d_1 d_2\) positive semi-definite matrix viewed as a \(d_2 \times d_2\) array of \(d_1 \times d_1\) blocks \(A_{jk}\) with \(\sum_j A_{jj} = M\). Then there exist \(d_2\) block matrices \(\mathbf{B}_m\), each of rank at most \(d_1\), such that \(\sum_j (\mathbf{B}_m)_{jj} = M\) for all \(m\) and</em></p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\mathbf{A} \;=\; \sum_{m=1}^{d_2} \tfrac{1}{d_2}\,\mathbf{B}_m.\]</div><p><strong>Conjecture 5 (vectorized block form).</strong> <em>Let \(\mathbf{A}\) be as in Conjecture 4. There exist \(d_2\) vectors \(\mathbf{X}_m\), each composed of \(d_2\) blocks \(X_{jm}\) of size \(d_1 \times d_1\), such that</em></p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\mathbf{A} \;=\; \sum_{m=1}^{d_2} \tfrac{1}{d_2}\,\mathbf{X}_m \mathbf{X}_m^\dagger, \qquad \sum_{k} X_{km} X_{km}^\dagger \;=\; M \quad \forall\,m.\]</div><p><strong>Logical relations.</strong> The source gives Conjecture 4 \(\Rightarrow\) Conjecture 3 \(\Rightarrow\) Conjecture 2 and treats Conjectures 4 and 5 as equivalent through factorization of the positive summands. These relations do not by themselves make all four statements equivalent.</p></div>
         </section>
 
-        <div class="remaining-question partial" id="remaining">
-          <span>What remains</span>
-          <p>Prove or refute the strong decomposition conjecture for arbitrary input and output dimensions.</p>
-        </div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Exact unresolved target</h2>
+
+          <div class="remaining-question partial" id="remaining">
+            <span>What remains</span>
+            <p>Prove or refute the strong decomposition conjecture for arbitrary input and output dimensions.</p>
+          </div>
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-narrowed" id="clause-archived-statement">
+              <div class="clause-head">
+                <span class="clause-state narrowed">Narrowed</span>
+                <strong>Archived statement</strong>
+                <code>archived-statement</code>
+              </div>
+              <p>The formal statement of this version, as archived from the source.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> Prove or refute the strong decomposition conjecture for arbitrary input and output dimensions.</p>
+              <p class="clause-claims">1 accepted claim: <a href="#claim-ruskai-2007-convex-decompositions-cpt-maps-2026-large-channel-classes-satisfy">claim-ruskai-2007-convex-decompositions-cpt-maps-2026-large-channel-classes-satisfy</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Partially solved as of 12 Aug 2026: Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered. <code>decision-ruskai-2007-convex-decompositions-cpt-maps-status-2026-08-12</code></p>
+        </section>
 
 
 
         <section class="dialog-section" aria-labelledby="progress-heading">
-          <span class="dialog-section-label">Evidence ledger</span>
-          <h2 id="progress-heading">Recent progress</h2>
-          <ol class="timeline">
+          <span class="dialog-section-label">Verified progress</span>
+          <h2 id="progress-heading">Accepted claims</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
 
-            <li id="qop-evt-14f01da7019ab10c">
-              <time datetime="2026-07-25">25 Jul 2026</time>
-              <div>
-                <h3>Large channel classes satisfy the conjectured decomposition</h3>
-                <p>Kumar and Wolf prove the strong form for qubit input, cq and qc channels, and a nonzero-measure set in every dimension; the general case remains open.</p>
-                <div class="dialog-source-meta">
+          <article class="claim-card" id="claim-ruskai-2007-convex-decompositions-cpt-maps-2026-large-channel-classes-satisfy">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Narrows</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>Large channel classes satisfy the conjectured decomposition</h3>
+            <p>Kumar and Wolf prove the strong form for qubit input, cq and qc channels, and a nonzero-measure set in every dimension; the general case remains open.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-14f01da7019ab10c">
+                <time datetime="2026-07-25">25 Jul 2026</time>
+                <div>
                   <span class="maturity-badge">Preprint</span>
                   <span class="maturity-badge">Exact major subclasses</span>
                   <a href="https://arxiv.org/abs/2607.23066" rel="noreferrer">Kumar-Wolf ↗</a>
+
                 </div>
-              </div>
-            </li>
-          </ol>
+              </li>
+            </ol>
+
+          </article>
+
         </section>
 
 
@@ -280,6 +312,28 @@
 
 
 
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="ruskai-2007-convex-decompositions-cpt-maps">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Audenaert-Ruskai+decompositions+of+CPT+maps" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="ruskai-2007-convex-decompositions-cpt-maps">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
+        </section>
+
+
+
+
 
         <section class="dialog-section" aria-labelledby="machine-heading">
           <span class="dialog-section-label">Work on this problem</span>
@@ -287,8 +341,10 @@
           <ul class="machine-links">
             <li><a href="../../packets/ruskai-2007-convex-decompositions-cpt-maps.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
             <li><a href="../../api/v1/problems/ruskai-2007-convex-decompositions-cpt-maps.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Audenaert-Ruskai+decompositions+of+CPT+maps" rel="noreferrer">Submit a research update ↗</a> — the evidence contract applies to human and AI results.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/ruskai-2007-convex-decompositions-cpt-maps/problem.md" rel="noreferrer">Source article ↗</a> — the canonical statement and notes in the repository.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-convex-decompositions-cpt-maps/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-convex-decompositions-cpt-maps/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Audenaert-Ruskai+decompositions+of+CPT+maps" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/ruskai-2007-convex-decompositions-cpt-maps/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -307,7 +363,8 @@
           <p>Record <code>ruskai-2007-convex-decompositions-cpt-maps</code></p>
           <p>Record revision <code>cb12c3dde9eb01909360e16953de105d85e10b1bedc831178679b49511ddcaaf</code></p>
           <p>Statement digest <code>b90fc2a4038554c27b5437e4e3b5e0d01caf97e48c8f6caa5a43daea0897ec00</code></p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Statement <code>ruskai-2007-convex-decompositions-cpt-maps-statement-v1</code> · Decision <code>decision-ruskai-2007-convex-decompositions-cpt-maps-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -338,5 +395,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="ruskai-2007-convex-decompositions-cpt-maps" defer></script>
   </body>
 </html>

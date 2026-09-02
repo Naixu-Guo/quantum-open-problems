@@ -1,0 +1,49 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "ruskai-2007-new-extreme-cpt-additivity-statement-v1",
+  "problemId": "ruskai-2007-new-extreme-cpt-additivity",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-ruskai-2007",
+      "relationship": "states-problem",
+      "locator": "p. 14 (Problem 14)",
+      "primary": true,
+      "statedTitle": "New classes of extreme CPT maps for which additivity/multiplicativity can be proved",
+      "source": {
+        "id": "source-ruskai-2007",
+        "title": "Open problems in quantum information theory",
+        "authors": [
+          "Mary Beth Ruskai"
+        ],
+        "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+        "url": "https://doi.org/10.48550/arXiv.0708.1902"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Find a genuinely new class of extreme CPT maps for which minimum-output-entropy additivity or output-norm multiplicativity can be proved."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_{d_A}, M_{d_B}, M_{d_E}$ | Algebras of complex matrices of the indicated dimensions, representing input, output, and environment spaces |\n| $\\rho$, $\\gamma$ | Density matrices on a finite-dimensional Hilbert space |\n| $\\Phi:M_{d_A}\\to M_{d_B}$ | CPT (completely positive trace-preserving) linear map |\n| $\\Phi^C:M_{d_A}\\to M_{d_E}$ | A complementary channel of $\\Phi$ |\n| Choi rank | Minimum number of Kraus operators in a Kraus representation of a channel |\n| Extreme CPT map | An extreme point of the convex set of CPT maps with fixed input/output dimensions |\n| $\\mathcal E(d_1,d_2)$, $\\overline{\\mathcal E}(d_1,d_2)$ | Set of generalized extreme CPT maps $M_{d_1}\\to M_{d_2}$ with at most $d_2$ Kraus operators and its closure |\n| $\\|M\\|_p$ | Schatten $p$-norm, $(\\operatorname{Tr}\\lvert M\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | Maximal output $p$-norm, $\\sup_\\gamma\\|\\Phi(\\gamma)\\|_p$ |\n| $S_{\\min}(\\Phi)$ | Minimum output entropy, $\\inf_\\gamma S(\\Phi(\\gamma))$ |",
+    "statement": "**Problem 14.** Identify new classes of extreme CPT maps $\\Phi:M_{d_A}\\to M_{d_B}$ for which one can prove the additivity conjecture\n$$S_{\\min}(\\Phi\\otimes\\Omega)=S_{\\min}(\\Phi)+S_{\\min}(\\Omega) \\tag{23}$$\nand/or the multiplicativity conjecture\n$$\\nu_p(\\Phi\\otimes\\Omega)=\\nu_p(\\Phi)\\,\\nu_p(\\Omega) \\tag{24}$$\nfor the appropriate range of $p$, when tensored with an arbitrary CPT $\\Omega$."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "5cc2366d7e1f808e6985d9b7c3b0f1040fa7e22fdc333a77d88ad66f56407048",
+    "bodyDigest": "3ea54b4c4ef12f23e332daf3b80e36d516810d092f63b174f398079e9c7ac49e"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-new-extreme-cpt-additivity.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-new-extreme-cpt-additivity/frontier.json"
+  }
+}

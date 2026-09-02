@@ -182,11 +182,12 @@
 
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
-          <span class="status-badge ">Open</span>
+          <span class="status-badge">Open</span>
           <span class="area-badge">Quantum computation</span>
           <span class="meta-badge">Local Hamiltonian complexity</span>
           <span class="meta-badge">Proposed 2013</span>
           <span class="meta-badge">Verified 31 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Quantum PCP conjecture</h1>
         <p class="dialog-summary">Inverse-polynomial-gap Local Hamiltonian is QMA-complete. It is unknown whether QMA-hardness persists when the energy gap is a fixed fraction of the number of terms.</p>
@@ -194,11 +195,14 @@
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#remaining">What remains</a>
-          <a href="#progress-heading">Progress</a>
+          <a href="#target-heading">What remains</a>
+          <a href="#progress-heading">Verified progress</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
           <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <div class="problem-framing">
           <section class="framing-row" aria-labelledby="importance-heading">
             <h2 id="importance-heading">Why it matters</h2>
@@ -225,7 +229,7 @@
               <span class="dialog-section-label">Verified formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">Matched to the source and locator above</span>
+            <span class="formal-source">Matched to the source and locator above · digest 306b56d9bde7</span>
           </div>
 
           <div class="formal-body"><p>Let</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[H=\sum_{i=1}^{m} H_i,\]</div><p>where each \(H_i\) acts on at most a fixed number \(k\) of finite-dimensional subsystems and satisfies \(0\leq H_i\leq I\). Fix constants \(a&lt;b\) with \(b-a&gt;0\). Given the promise that either</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\lambda_{\min}(H)\leq am
@@ -233,10 +237,29 @@
 \lambda_{\min}(H)\geq bm,\]</div><p>decide which case holds.</p><p>Prove that some fixed choice of \(k,a,b\) makes this promise problem QMA-hard, or refute the conjecture through an algorithm or complexity containment that rules out such hardness under stated assumptions.</p></div>
         </section>
 
-        <div class="remaining-question " id="remaining">
-          <span>What remains</span>
-          <p>Prove QMA-hardness of constant-gap bounded-locality Local Hamiltonian for fixed constants, or refute it through an algorithm or incompatible complexity containment.</p>
-        </div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Exact unresolved target</h2>
+
+          <div class="remaining-question" id="remaining">
+            <span>What remains</span>
+            <p>Prove QMA-hardness of constant-gap bounded-locality Local Hamiltonian for fixed constants, or refute it through an algorithm or incompatible complexity containment.</p>
+          </div>
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-narrowed" id="clause-archived-statement">
+              <div class="clause-head">
+                <span class="clause-state narrowed">Narrowed</span>
+                <strong>Archived statement</strong>
+                <code>archived-statement</code>
+              </div>
+              <p>The formal statement of this version, as archived from the source.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> Prove QMA-hardness of constant-gap bounded-locality Local Hamiltonian for fixed constants, or refute it through an algorithm or incompatible complexity containment.</p>
+              <p class="clause-claims">2 accepted claims: <a href="#claim-theoremdb-p42-quantum-pcp-conjecture-2025-quantum-pcp-reductions-leave">claim-theoremdb-p42-quantum-pcp-conjecture-2025-quantum-pcp-reductions-leave</a>, <a href="#claim-theoremdb-p42-quantum-pcp-conjecture-2023-nlts-hamiltonians-exist">claim-theoremdb-p42-quantum-pcp-conjecture-2023-nlts-hamiltonians-exist</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Open as of 31 Aug 2026: Status assessed against the archived statement in the 2026-08-31 primary-source audit; the evidence ledger lists the results considered. <code>decision-theoremdb-p42-quantum-pcp-conjecture-status-2026-08-31</code></p>
+        </section>
 
 
         <section class="dialog-section">
@@ -247,35 +270,53 @@
         </section>
 
         <section class="dialog-section" aria-labelledby="progress-heading">
-          <span class="dialog-section-label">Evidence ledger</span>
-          <h2 id="progress-heading">Recent progress</h2>
-          <ol class="timeline">
+          <span class="dialog-section-label">Verified progress</span>
+          <h2 id="progress-heading">Accepted claims</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
 
-            <li id="qop-evt-345ee94cb25e83e5">
-              <time datetime="2025-07-11">11 Jul 2025</time>
-              <div>
-                <h3>Quantum-PCP reductions leave constant-gap hardness open</h3>
-                <p>Buhrman, Helsen and Weggemans prove reductions among quantum-PCP formulations and oracle barriers. Their results do not establish QMA-hardness for constant-gap Local Hamiltonian.</p>
-                <div class="dialog-source-meta">
+          <article class="claim-card" id="claim-theoremdb-p42-quantum-pcp-conjecture-2025-quantum-pcp-reductions-leave">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Supports</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>Quantum-PCP reductions leave constant-gap hardness open</h3>
+            <p>Buhrman, Helsen and Weggemans prove reductions among quantum-PCP formulations and oracle barriers. Their results do not establish QMA-hardness for constant-gap Local Hamiltonian.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-345ee94cb25e83e5">
+                <time datetime="2025-07-11">11 Jul 2025</time>
+                <div>
                   <span class="maturity-badge">Peer reviewed</span>
                   <span class="maturity-badge">Structural restrictions</span>
                   <a href="https://doi.org/10.22331/q-2025-07-11-1791" rel="noreferrer">Quantum ↗</a>
+
                 </div>
-              </div>
-            </li>
-            <li id="qop-evt-3b7f13fb994cb63b">
-              <time datetime="2023">2023</time>
-              <div>
-                <h3>NLTS Hamiltonians exist</h3>
-                <p>Anshu, Breuckmann and Nirkhe construct NLTS Hamiltonians from good quantum LDPC codes. NLTS supplies a required entanglement phenomenon but not the constant-gap QMA-hardness reduction.</p>
-                <div class="dialog-source-meta">
+              </li>
+            </ol>
+
+          </article>
+          <article class="claim-card" id="claim-theoremdb-p42-quantum-pcp-conjecture-2023-nlts-hamiltonians-exist">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Supports</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>NLTS Hamiltonians exist</h3>
+            <p>Anshu, Breuckmann and Nirkhe construct NLTS Hamiltonians from good quantum LDPC codes. NLTS supplies a required entanglement phenomenon but not the constant-gap QMA-hardness reduction.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-3b7f13fb994cb63b">
+                <time datetime="2023">2023</time>
+                <div>
                   <span class="maturity-badge">Peer reviewed</span>
                   <span class="maturity-badge">Necessary structural milestone</span>
                   <a href="https://doi.org/10.1145/3564246.3585114" rel="noreferrer">STOC 2023 ↗</a>
+
                 </div>
-              </div>
-            </li>
-          </ol>
+              </li>
+            </ol>
+
+          </article>
+
         </section>
 
 
@@ -301,6 +342,28 @@
         </section>
 
 
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="theoremdb-p42-quantum-pcp-conjecture">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Quantum+PCP+conjecture" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="theoremdb-p42-quantum-pcp-conjecture">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
+        </section>
+
+
+
+
 
         <section class="dialog-section" aria-labelledby="machine-heading">
           <span class="dialog-section-label">Work on this problem</span>
@@ -308,8 +371,10 @@
           <ul class="machine-links">
             <li><a href="../../packets/theoremdb-p42-quantum-pcp-conjecture.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
             <li><a href="../../api/v1/problems/theoremdb-p42-quantum-pcp-conjecture.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Quantum+PCP+conjecture" rel="noreferrer">Submit a research update ↗</a> — the evidence contract applies to human and AI results.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/theoremdb-p42-quantum-pcp-conjecture/problem.md" rel="noreferrer">Source article ↗</a> — the canonical statement and notes in the repository.</li>
+            <li><a href="../../api/v1/problems/theoremdb-p42-quantum-pcp-conjecture/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/theoremdb-p42-quantum-pcp-conjecture/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Quantum+PCP+conjecture" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/theoremdb-p42-quantum-pcp-conjecture/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -328,13 +393,14 @@
           <p>Record <code>theoremdb-p42-quantum-pcp-conjecture</code></p>
           <p>Record revision <code>46dfa9b527bdbdf32a11440b003332ab69b397eff586e25fac96beb87d505cd7</code></p>
           <p>Statement digest <code>306b56d9bde766f3b5acfdc4d375bd039cb5dec34f4b5d8012827d1bc75e28e7</code></p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Statement <code>theoremdb-p42-quantum-pcp-conjecture-statement-v1</code> · Decision <code>decision-theoremdb-p42-quantum-pcp-conjecture-status-2026-08-31</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
       <nav class="page-pager" aria-label="Adjacent problems">
-        <a class="pager-link prev" href="../kurdzialek-2024-correlated-noise-bound-tightness/"><span>← Previous</span><strong>Tightness of metrology bounds under correlated noise</strong></a>
-        <a class="pager-link next" href="../theoremdb-p36-yang-mills-mass-gap/"><span>Next →</span><strong>Yang-Mills existence and mass gap</strong></a>
+        <a class="pager-link prev" href="../theoremdb-p36-yang-mills-mass-gap/"><span>← Previous</span><strong>Yang-Mills existence and mass gap</strong></a>
+        <span></span>
       </nav>
     </main>
     <footer class="site-footer">
@@ -359,5 +425,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="theoremdb-p42-quantum-pcp-conjecture" defer></script>
   </body>
 </html>

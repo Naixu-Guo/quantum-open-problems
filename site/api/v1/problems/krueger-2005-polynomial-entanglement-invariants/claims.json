@@ -1,0 +1,71 @@
+{
+  "kind": "qop-claims",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-polynomial-entanglement-invariants",
+  "status": "solved",
+  "statementId": "krueger-2005-polynomial-entanglement-invariants-statement-v1",
+  "count": 1,
+  "note": "Every claim here has been accepted through editorial review. Unreviewed submissions are candidate updates in the operational service, never claims.",
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-polynomial-entanglement-invariants-compact-group-invariants-separate",
+      "statementId": "krueger-2005-polynomial-entanglement-invariants-statement-v1",
+      "targetClauseIds": [
+        "completeness-of-polynomial-invariants"
+      ],
+      "relation": "resolves",
+      "title": "Compact-group invariants separate local unitary orbits",
+      "text": "Sudbery answers the completeness question affirmatively by invoking the Onishchik-Vinberg theorem that the orbits of a compact linear group acting on a real vector space are separated by the polynomial invariants. The local unitary group is compact and acts linearly on the real space of density operators, so two multipartite states agree on all polynomial invariants exactly when they are related by a local unitary.",
+      "superseded": false,
+      "evidence": [
+        {
+          "kind": "Evidence",
+          "id": "evidence-krueger-2005-polynomial-entanglement-invariants-onishchik-vinberg-springer",
+          "claimId": "claim-krueger-2005-polynomial-entanglement-invariants-compact-group-invariants-separate",
+          "sourceId": "source-onishchik-1990-lie-groups",
+          "sourceLocator": "Chap. 3, Paragraph 4, Theorem 3",
+          "date": "1990",
+          "maturity": "Peer reviewed",
+          "strength": "Exact theorem",
+          "label": "Onishchik-Vinberg, Springer 1990",
+          "source": {
+            "id": "source-onishchik-1990-lie-groups",
+            "title": "Seminar on Lie Groups and Algebraic Groups",
+            "authors": [
+              "A. L. Onishchik",
+              "E. B. Vinberg"
+            ],
+            "venue": "Springer (Berlin), 1990 (English translation: Lie Groups and Algebraic Groups)",
+            "url": null
+          }
+        },
+        {
+          "kind": "Evidence",
+          "id": "evidence-krueger-2005-polynomial-entanglement-invariants-arxiv-quant-ph",
+          "claimId": "claim-krueger-2005-polynomial-entanglement-invariants-compact-group-invariants-separate",
+          "sourceId": "source-krueger-werner-2005",
+          "sourceLocator": "Problem 3, pp. 18-22, Solution section (A. Sudbery, recorded 18 Dec 2001)",
+          "date": "2005",
+          "maturity": "Official status page",
+          "strength": "Elementary consequence",
+          "label": "arXiv:quant-ph/0504166",
+          "source": {
+            "id": "source-krueger-werner-2005",
+            "title": "Some open problems in quantum information theory",
+            "authors": [
+              "O. Krüger",
+              "R. F. Werner"
+            ],
+            "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+            "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
+          }
+        }
+      ]
+    }
+  ],
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-polynomial-entanglement-invariants.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-polynomial-entanglement-invariants/frontier.json"
+  }
+}

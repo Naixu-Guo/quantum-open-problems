@@ -1,0 +1,50 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "horodecki-2020-quantum-latin-squares-order-six-statement-v1",
+  "problemId": "horodecki-2020-quantum-latin-squares-order-six",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-horodecki-2020",
+      "relationship": "states-problem",
+      "locator": "p. 4-6 (Problem 3)",
+      "primary": true,
+      "source": {
+        "id": "source-horodecki-2020",
+        "title": "Five open problems in theory of quantum information",
+        "authors": [
+          "Paweł Horodecki",
+          "Łukasz Rudnicki",
+          "Karol Życzkowski"
+        ],
+        "venue": "PRX Quantum 3, 010101 (2022); arXiv:2002.03233 [quant-ph]",
+        "url": "https://doi.org/10.1103/PRXQuantum.3.010101"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "quantum-orthogonal-latin-squares-order-six",
+      "label": "Quantum orthogonal Latin squares of order six",
+      "text": "The archived statement asks to determine whether two quantum orthogonal Latin squares of order six exist, equivalently whether the 36 entangled officers of Euler admit a solution.",
+      "resolutionCriteria": "An explicit construction of such a pair, equivalently an AME(4,6) state or a 2-unitary matrix in U(36), or a proof that none exists."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $N$ | Order of a (quantum) Latin square; here $N=6$ |\n| $\\mathcal{H}_N$ | $N$-dimensional complex Hilbert space |\n| $\\mathcal{H}_6$ | $6$-dimensional Hilbert space, the relevant subsystem space |\n| $\\lvert j\\rangle$ | Computational-basis vector of $\\mathcal{H}_N$, $j=1,\\dots,N$ |\n| $\\lvert\\psi_+\\rangle$ | Generalized Bell state on $\\mathcal{H}_N\\otimes\\mathcal{H}_N$ |\n| $\\otimes$ | Tensor (Kronecker) product |\n| $\\oplus$ | Direct sum of matrices, also Kronecker sum: $A\\oplus B=A\\otimes\\mathbb{1}+\\mathbb{1}\\otimes B$ |\n| $\\mathbb{1}_N$ | $N\\times N$ identity matrix |\n| $\\rho_\\ast$ | Maximally mixed state, $\\rho_\\ast=\\mathbb{1}_N/N$ |\n| $T_{ijkl}$ | Components of a $4$-index tensor used to encode a $4$-partite pure state |\n| $U^{\\Gamma}$ | Partial transpose of a unitary $U$ acting on a bipartite system |\n| $U^R$ | Reshuffling (realignment) of a bipartite matrix $U$ |\n| $\\mathcal{U}(36)$ | Group of $36\\times 36$ unitary matrices |\n| $((4,1,3))_6$ | Quantum error correction code on $4$ subsystems with $1$ logical level and distance $3$ over alphabet of size $6$ |\n| AME | Absolutely maximally entangled state |\n| OQLS | Orthogonal quantum Latin squares |\n| MOLS | Mutually orthogonal Latin squares |",
+    "statement": "**Problem 3:** *Determine whether there exist two quantum orthogonal Latin squares of order six. In other words, find a solution of the problem of $36$ \"entangled officers\" of Euler or demonstrate that it does not exist.*\n\nEquivalent reformulations established in the source:\n- There exists an AME state of four subsystems with six levels each, i.e. a pure state $\\lvert\\Psi\\rangle\\in\\mathcal{H}_6^{\\otimes 4}$ such that every partition of its four parties into two-against-two yields a maximally mixed reduced state $\\rho_\\ast=\\mathbb{1}_{36}/36$.\n- The corresponding quantum error-correction code $((4,1,3))_6$ exists.\n- There exists a $2$-unitary matrix $U\\in\\mathcal{U}(36)$ (a unitary of size $36\\times 36$ whose partial transpose $U^\\Gamma$ and reshuffling $U^R$ are also unitary).\n- There exists a perfect tensor $T_{ijkl}$ with four indices each running from $1$ to $6$."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "1c5498a5c192c7e07b13fb399c1c73671d6428da1b696dae9b478f7f14479d67",
+    "bodyDigest": "5eb1e66efe4b999a88bad5aa75569d9798ffb0860f4bf21ae92d50e88a59557b"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/horodecki-2020-quantum-latin-squares-order-six.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/horodecki-2020-quantum-latin-squares-order-six/frontier.json"
+  }
+}

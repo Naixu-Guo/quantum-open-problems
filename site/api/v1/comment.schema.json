@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/schema/operational/v1/comment.schema.json",
+  "title": "Comment submission",
+  "description": "Discussion attached to a problem and optionally to a target clause, candidate update, claim, or parent comment. Comments are conversation: they carry no scientific weight and cannot change status.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "problemId",
+    "body"
+  ],
+  "properties": {
+    "problemId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "body": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20000
+    },
+    "targetClauseId": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "candidateUpdateId": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^cu-[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "claimId": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 200
+    },
+    "parentId": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^cmt-[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "references": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "uri"
+        ],
+        "properties": {
+          "uri": {
+            "type": "string",
+            "format": "uri",
+            "maxLength": 2000
+          },
+          "locator": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 500
+          }
+        }
+      }
+    },
+    "clientReference": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 200
+    }
+  }
+}

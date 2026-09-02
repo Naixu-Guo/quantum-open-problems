@@ -1,0 +1,166 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-qubit-bi-negativity",
+  "title": "Qubit bi-negativity",
+  "catalogState": "archived",
+  "status": "solved",
+  "statusLabel": "Solved",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-qubit-binegativity-status-2026-08-12",
+    "status": "solved",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "The cited peer-reviewed theorem proves the universal two-qubit inequality in the archived statement.",
+    "evidenceIds": [
+      "evidence-ishizaka-2004-binegativity"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "krueger-2005-qubit-bi-negativity-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "7a41d58ca967352317e625f2aa154989ef306b5a2e728bc6bbed4b85adf4bb12",
+    "sourceRefs": [
+      {
+        "sourceId": "source-krueger-werner-2005",
+        "relationship": "states-problem",
+        "locator": "p. 53 (Problem 18)",
+        "primary": true,
+        "source": {
+          "id": "source-krueger-werner-2005",
+          "title": "Some open problems in quantum information theory",
+          "authors": [
+            "O. Krüger",
+            "R. F. Werner"
+          ],
+          "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+          "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+          "doi": "10.48550/arXiv.quant-ph/0504166",
+          "arxivId": "quant-ph/0504166"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $\\mathcal{H}_A,\\mathcal{H}_B$ | Two-dimensional (qubit) Hilbert spaces of subsystems $A$ and $B$ |\n| $\\sigma$ | A density operator (positive trace-1 Hermitian operator) on $\\mathcal{H}_A\\otimes\\mathcal{H}_B$ |\n| $T_2$ | Partial transposition with respect to the second subsystem $B$ |\n| $\\sigma^{T_2}$ | The operator obtained from $\\sigma$ by partial transposition with respect to $B$ |\n| $\\lvert X\\rvert$ | The operator absolute value, $\\lvert X\\rvert = \\sqrt{X^* X}$ for an operator $X$ |\n| $\\bigl\\lvert\\sigma^{T_2}\\bigr\\rvert^{T_2}$ | Partial transposition (again w.r.t. $B$) of the operator absolute value of $\\sigma^{T_2}$ |\n| $A \\ge 0$ | The operator $A$ is positive semidefinite |\n| $\\lVert X\\rVert_1$ | Trace norm of $X$, equal to $\\operatorname{tr}\\lvert X\\rvert$ |\n| $\\mathcal{N}(\\sigma)$ | Negativity of $\\sigma$, $\\mathcal{N}(\\sigma) = (\\lVert\\sigma^{T_2}\\rVert_1 - 1)/2$ |\n| $\\log\\lVert\\sigma^{T_2}\\rVert_1$ | Logarithmic negativity (entanglement monotone) |",
+      "statement": "Let $\\mathcal{H}_A$ and $\\mathcal{H}_B$ be two-dimensional complex Hilbert spaces, and let $\\sigma$ be any density operator on $\\mathcal{H}_A\\otimes\\mathcal{H}_B$. Let $T_2$ denote partial transposition with respect to $\\mathcal{H}_B$. Prove that\n$$\\bigl\\lvert\\sigma^{T_2}\\bigr\\rvert^{T_2} \\;\\ge\\; 0,$$\nwhere $\\lvert X\\rvert := \\sqrt{X^* X}$ is the operator absolute value."
+    }
+  },
+  "question": {
+    "type": "Universal positivity",
+    "summary": "The source asked whether the second partial transpose of the absolute value of a two-qubit state's partial transpose is always positive semidefinite.",
+    "importance": "The inequality controls bi-negativity and connects logarithmic negativity with entanglement cost under PPT-preserving operations for two-qubit states.",
+    "unresolved": ""
+  },
+  "targetClauses": [
+    {
+      "id": "two-qubit-binegativity",
+      "label": "Two-qubit bi-negativity",
+      "text": "For every two-qubit density operator, the stated second partial transpose is positive semidefinite.",
+      "resolutionCriteria": "Prove the universal operator inequality or give a two-qubit counterexample.",
+      "state": "resolved",
+      "claimIds": [
+        "claim-qubit-binegativity-resolved-2004"
+      ],
+      "latestEvidenceDate": "2004"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [],
+    "summary": ""
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-qubit-binegativity-resolved-2004",
+      "relation": "resolves",
+      "relationLabel": "Resolves",
+      "title": "The two-qubit bi-negativity conjecture holds",
+      "text": "Ishizaka proves that the second partial transpose of the absolute value of a two-qubit state's partial transpose is positive semidefinite.",
+      "targetClauseIds": [
+        "two-qubit-binegativity"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2004",
+      "evidence": [
+        {
+          "id": "evidence-ishizaka-2004-binegativity",
+          "date": "2004",
+          "maturity": "Peer reviewed",
+          "strength": "Exact theorem",
+          "label": "Physical Review A",
+          "sourceLocator": "Main theorem",
+          "source": {
+            "id": "source-ishizaka-2004-binegativity",
+            "title": "Binegativity and geometry of entangled states in two qubits",
+            "authors": [
+              "Satoshi Ishizaka"
+            ],
+            "venue": "Physical Review A 69, 020301(R) (2004)",
+            "url": "https://arxiv.org/abs/quant-ph/0308056"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [
+    {
+      "label": "Scope",
+      "text": "The affirmative result is specific to two qubits; higher-dimensional failures do not affect the archived statement.",
+      "url": null
+    }
+  ],
+  "interpretation": null,
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "krueger-2005-qubit-bi-negativity-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-qubit-binegativity-status-2026-08-12",
+        "status": "solved",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "94b01645019b01b398bee5aad49da4cf3d33ebfc851f54dfbd951d0f8314b9fa",
+    "statementDigest": "7a41d58ca967352317e625f2aa154989ef306b5a2e728bc6bbed4b85adf4bb12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-bi-negativity/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-bi-negativity.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-bi-negativity/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-bi-negativity/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-qubit-bi-negativity/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-qubit-bi-negativity.md"
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-qubit-relative-entropy-entanglement",
+  "title": "Two-qubit relative entropy of entanglement",
+  "catalogState": "published",
+  "status": "open",
+  "statusLabel": "Open",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-krueger-2005-qubit-relative-entropy-entanglement-status-2026-08-12",
+    "status": "open",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-krueger-2005-qubit-relative-entropy-entanglement-2008-the-inverse-closest-state"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "krueger-2005-qubit-relative-entropy-entanglement-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "af4762c4be566a4ac7e6b74ec69ab6191f72092f45937b82370420369c71affc",
+    "sourceRefs": [
+      {
+        "sourceId": "source-krueger-werner-2005",
+        "relationship": "states-problem",
+        "locator": "pp. 30-31 (Problem 8)",
+        "primary": true,
+        "statedTitle": "Qubit formula for Relative Entropy of Entanglement",
+        "source": {
+          "id": "source-krueger-werner-2005",
+          "title": "Some open problems in quantum information theory",
+          "authors": [
+            "O. Krüger",
+            "R. F. Werner"
+          ],
+          "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+          "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+          "doi": "10.48550/arXiv.quant-ph/0504166",
+          "arxivId": "quant-ph/0504166"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $\\mathcal{H}$ | Finite-dimensional complex Hilbert space |\n| $\\mathbb{C}^2 \\otimes \\mathbb{C}^2$ | Two-qubit Hilbert space |\n| $\\rho$ | Density operator (state) on a bipartite Hilbert space |\n| $\\sigma$ | Density operator in the reference convex set $D$ |\n| $D$ | Convex set of separable states, or convex set of states with positive partial transpose (PPT) |\n| $S(\\rho \\Vert \\sigma)$ | Quantum relative entropy, $\\mathrm{Tr}(\\rho \\log \\rho) - \\mathrm{Tr}(\\rho \\log \\sigma)$ |\n| $E_R(\\rho)$ | Relative entropy of entanglement of $\\rho$ with respect to $D$ |\n| $E_F(\\rho)$ | Entanglement of formation |\n| $\\mathrm{PPT}$ | Positive partial transpose |\n| $\\inf$ | Infimum |\n| $\\partial D$ | Topological boundary of $D$ in the state space |",
+      "statement": "For a bipartite state $\\rho$, define\n$$E_R(\\rho) \\;=\\; \\inf_{\\sigma \\in D} S(\\rho \\,\\|\\, \\sigma),$$\nwhere $D$ is either the set of separable states or the set of states with positive partial transpose, and $S(\\rho \\,\\|\\, \\sigma) = \\mathrm{Tr}(\\rho \\log \\rho) - \\mathrm{Tr}(\\rho \\log \\sigma)$ is the quantum relative entropy.\n\n**Problem.** Find a closed-form expression for $E_R(\\rho)$ for every state $\\rho$ on the two-qubit Hilbert space $\\mathbb{C}^2 \\otimes \\mathbb{C}^2$, with respect to either of the convex sets $D$ above."
+    }
+  },
+  "question": {
+    "type": "Closed formula",
+    "summary": "Special families and an inverse closest-separable-state construction are known, but no closed formula covers every two-qubit mixed state.",
+    "importance": "Two qubits form the smallest mixed-state entanglement problem, yet this distance-based measure lacks a direct formula there. A solution would make the measure computable without a convex optimization.",
+    "unresolved": "Find a closed expression that maps an arbitrary two-qubit density matrix to its relative entropy of entanglement."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Find a closed expression that maps an arbitrary two-qubit density matrix to its relative entropy of entanglement.",
+      "state": "narrowed",
+      "claimIds": [
+        "claim-krueger-2005-qubit-relative-entropy-entanglement-2008-the-inverse-closest-state"
+      ],
+      "latestEvidenceDate": "2008-10-15"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Find a closed expression that maps an arbitrary two-qubit density matrix to its relative entropy of entanglement."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-krueger-2005-qubit-relative-entropy-entanglement-2008-the-inverse-closest-state",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "The inverse closest-state problem is solved",
+      "text": "Miranowicz and Ishizaka construct entangled states from a prescribed closest separable state and solve special families, but not the forward problem for arbitrary input states.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2008-10-15",
+      "evidence": [
+        {
+          "id": "evidence-krueger-2005-qubit-relative-entropy-entanglement-2008-the-inverse-closest-state",
+          "date": "2008-10-15",
+          "maturity": "Peer reviewed",
+          "strength": "Exact inverse solution",
+          "label": "Inverse construction",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-arxiv-0805-3134",
+            "title": "The inverse closest-state problem is solved",
+            "authors": [],
+            "venue": "Inverse construction",
+            "url": "https://arxiv.org/abs/0805.3134",
+            "arxivId": "0805.3134",
+            "bibliographyState": "url-only"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [],
+  "interpretation": null,
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "krueger-2005-qubit-relative-entropy-entanglement-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-krueger-2005-qubit-relative-entropy-entanglement-status-2026-08-12",
+        "status": "open",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "2613af73723e5a2471bdbf4cb7a65618b4d9fd7091b962bab29eac80aff0109d",
+    "statementDigest": "af4762c4be566a4ac7e6b74ec69ab6191f72092f45937b82370420369c71affc",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-relative-entropy-entanglement/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-relative-entropy-entanglement.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-relative-entropy-entanglement/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-relative-entropy-entanglement/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-qubit-relative-entropy-entanglement/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-qubit-relative-entropy-entanglement.md"
+  }
+}

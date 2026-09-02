@@ -1,0 +1,117 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "ruskai-2007-random-subunitary-coherent-information",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Coherent information of random sub-unitary channels",
+    "proposed": "2007",
+    "topicId": "quantum-channels",
+    "collectionId": "ruskai-2007",
+    "question": {
+      "type": "Channel analysis",
+      "summary": "No complete degradability, coherent-information or capacity analysis is known for the intended normalized cyclic sub-unitary family.",
+      "importance": "The cyclic low-rank Kraus structure offers a controlled testbed for degradability and superadditive coherent information. A solution would give exact capacities for a nontrivial noisy-channel family.",
+      "unresolved": "Classify degradability and determine coherent-information additivity and quantum capacity for the intended random sub-unitary channel class."
+    },
+    "keywords": [
+      "sub-unitary channels",
+      "coherent information",
+      "degradability",
+      "quantum capacity"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "ruskai-2007-random-subunitary-coherent-information-statement-v1",
+      "problemId": "ruskai-2007-random-subunitary-coherent-information",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ruskai-2007",
+          "relationship": "states-problem",
+          "locator": "p. 10 (Problem 10)",
+          "primary": true,
+          "statedTitle": "Properties of coherent information of random sub-unitary channels; degradability and additivity"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Classify degradability and determine coherent-information additivity and quantum capacity for the intended random sub-unitary channel class."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-random-subunitary-coherent-information-2007-bounded-schmidt-rank-tools",
+      "statementId": "ruskai-2007-random-subunitary-coherent-information-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "supports",
+      "title": "Bounded-Schmidt-rank tools address only the surrounding structure",
+      "text": "Sub-unitary and generic-channel methods provide context, but no full theorem for this cyclic family."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-ruskai-2007-random-subunitary-coherent-information-2007-bounded-schmidt-rank-tools",
+      "claimId": "claim-ruskai-2007-random-subunitary-coherent-information-2007-bounded-schmidt-rank-tools",
+      "sourceId": "source-arxiv-0706-0705",
+      "sourceLocator": null,
+      "date": "2007",
+      "maturity": "Peer reviewed",
+      "strength": "Related methods",
+      "label": "Subspace methods"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-ruskai-2007-random-subunitary-coherent-information-status-2026-08-12",
+      "problemId": "ruskai-2007-random-subunitary-coherent-information",
+      "statementId": "ruskai-2007-random-subunitary-coherent-information-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-ruskai-2007-random-subunitary-coherent-information-2007-bounded-schmidt-rank-tools"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": "The printed Kraus formula is not trace preserving. The research question is interpreted for the intended normalized cyclic family with varying input supports.",
+    "provenance": null,
+    "notices": [
+      {
+        "tone": "warning",
+        "label": "Source correction",
+        "title": "Four archived channel questions need a corrected formula",
+        "text": "The printed random sub-unitary Kraus operators are not trace preserving. The four entries use the intended normalized cyclic family and state that interpretation explicitly.",
+        "sourceLabel": "Ruskai source equations 19-22",
+        "featured": false
+      }
+    ],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

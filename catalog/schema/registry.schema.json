@@ -1,27 +1,39 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://naixu-guo.github.io/quantum-open-problems/schema/canonical/v0.1/registry.schema.json",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/schema/canonical/v0.2/registry.schema.json",
   "title": "Quantum Open Problems canonical registry",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "schemaVersion",
     "kind",
+    "title",
+    "note",
+    "baselineAuditDate",
     "catalogAsOf",
     "siteUrl",
     "repositoryUrl",
+    "serviceUrl",
     "taxonomy",
     "collections"
   ],
   "properties": {
-    "schemaVersion": { "const": "0.1.0" },
+    "schemaVersion": { "const": "0.2.0" },
     "kind": { "const": "qop-canonical-registry" },
+    "title": { "type": "string", "minLength": 1 },
+    "note": { "type": "string" },
+    "baselineAuditDate": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
     "catalogAsOf": {
       "type": "string",
       "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
     },
     "siteUrl": { "type": "string", "format": "uri" },
     "repositoryUrl": { "type": "string", "format": "uri" },
+    "serviceUrl": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "Public origin of the operational service (candidate updates, comments, events). Null while no service is deployed."
+    },
     "taxonomy": {
       "type": "object",
       "additionalProperties": false,
@@ -67,8 +79,13 @@
         "properties": {
           "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
           "label": { "type": "string", "minLength": 1 },
+          "aliases": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
           "title": { "type": "string", "minLength": 1 },
-          "url": { "type": ["string", "null"], "format": "uri" }
+          "url": { "type": ["string", "null"], "format": "uri" },
+          "quantumInformationLegacy": {
+            "type": "boolean",
+            "description": "Entries inherited from this list stay in the quantum-information field regardless of topic."
+          }
         }
       }
     }

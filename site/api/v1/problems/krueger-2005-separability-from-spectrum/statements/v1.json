@@ -1,0 +1,49 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "krueger-2005-separability-from-spectrum-statement-v1",
+  "problemId": "krueger-2005-separability-from-spectrum",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-krueger-werner-2005",
+      "relationship": "states-problem",
+      "locator": "pp. 48-49 (Problem 15)",
+      "primary": true,
+      "source": {
+        "id": "source-krueger-werner-2005",
+        "title": "Some open problems in quantum information theory",
+        "authors": [
+          "O. Krüger",
+          "R. F. Werner"
+        ],
+        "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+        "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Characterize spectra that remain separable under every global unitary in all higher local dimensions."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $\\mathcal{H}$ | Total complex Hilbert space of dimension $NM$ |\n| $N, M$ | Dimensions of the two tensor factors in a candidate bipartition |\n| $\\rho$ | Density matrix (mixed state) on $\\mathcal{H}$ |\n| $\\mathrm{spec}(\\rho)$ | Spectrum (multiset of eigenvalues) of $\\rho$ |\n| $x_1, x_2, x_3, x_4$ | Eigenvalues of a two-qubit state, listed in decreasing order |\n| $U$ | Unitary operator on $\\mathcal{H}$ |\n| $U \\rho U^*$ | State unitarily equivalent to $\\rho$ |\n| $E_F$ | Entanglement of formation |\n| $\\mathrm{sep}_{N,M}$ | Set of separable states with respect to a fixed $N \\otimes M$ factorisation |",
+    "statement": "Fix integers $N, M \\geq 2$ and let $\\mathcal{H}$ have dimension $NM$. For a mixed state $\\rho$ on $\\mathcal{H}$, consider the question: does there exist a factorisation $\\mathcal{H} \\cong \\mathbb{C}^N \\otimes \\mathbb{C}^M$ with respect to which $\\rho$ is not separable? Equivalently, does there exist a unitary $U$ on $\\mathcal{H}$ such that $U \\rho U^*$ is entangled across a fixed $N \\otimes M$ bipartition?\n\nBecause this question depends only on $\\mathrm{spec}(\\rho)$, define\n$$\\mathcal{S}_{N,M} \\;=\\; \\bigl\\{\\, \\mathrm{spec}(\\rho) \\,:\\, \\text{for every unitary } U \\text{ on } \\mathcal{H},\\; U \\rho U^* \\in \\mathrm{sep}_{N,M} \\,\\bigr\\}.$$\n\n**Problem.** Characterise the set $\\mathcal{S}_{N,M}$ — i.e. the spectra for which the answer to the question above is \"no\" (no entangling factorisation exists), so that separability with respect to the fixed $N \\otimes M$ bipartition is forced by the spectrum alone."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "c373f12f68a4584e6e71ed51b73738589848e1043304edd0d9a43dae4b309374",
+    "bodyDigest": "68b375a3ecae68a6d4811a5a1259eef06883a71d0e1271252e7a235ec0059992"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-separability-from-spectrum.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-separability-from-spectrum/frontier.json"
+  }
+}

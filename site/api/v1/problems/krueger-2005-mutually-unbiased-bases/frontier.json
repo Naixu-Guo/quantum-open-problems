@@ -1,0 +1,205 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-mutually-unbiased-bases",
+  "title": "Mutually unbiased bases in general dimensions",
+  "catalogState": "published",
+  "status": "open",
+  "statusLabel": "Open",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-krueger-2005-mutually-unbiased-bases-status-2026-08-12",
+    "status": "open",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-krueger-2005-mutually-unbiased-bases-2026-current-review-confirms-the",
+      "evidence-krueger-2005-mutually-unbiased-bases-2026-a-dimension-six-impossibility"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "krueger-2005-mutually-unbiased-bases-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "6f4ea34d63cfff702c8f4ba68306ed6c371565b4d52124c13a201af7ec126184",
+    "sourceRefs": [
+      {
+        "sourceId": "source-krueger-werner-2005",
+        "relationship": "states-problem",
+        "locator": "pp. 43-45 (Problem 13)",
+        "primary": true,
+        "statedTitle": "Mutually unbiased bases",
+        "source": {
+          "id": "source-krueger-werner-2005",
+          "title": "Some open problems in quantum information theory",
+          "authors": [
+            "O. Krüger",
+            "R. F. Werner"
+          ],
+          "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+          "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+          "doi": "10.48550/arXiv.quant-ph/0504166",
+          "arxivId": "quant-ph/0504166"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $D$ | Dimension of the complex Hilbert space, $D \\geq 2$ |\n| $\\mathbb{C}^D$ | Complex $D$-dimensional Hilbert space |\n| $K$ | Number of orthonormal bases under consideration |\n| $\\{e_i^k\\}_{i=1}^D$ | Orthonormal basis indexed by $k$ ($k = 1, \\ldots, K$), with the $i$th vector denoted $e_i^k$ |\n| $\\langle e_i^k, e_j^n\\rangle$ | Inner product between basis vectors from bases $k$ and $n$ |\n| $\\lvert\\cdot\\rvert$ | Absolute value |\n| MUB | Mutually unbiased bases |\n| $\\sigma_x, \\sigma_y, \\sigma_z$ | Pauli matrices (the three MUBs in dimension $D = 2$) |",
+      "statement": "Let $D \\geq 2$ be an integer. Determine\n$$N(D) \\;=\\; \\max\\bigl\\{ K \\,:\\, \\text{there exist } K \\text{ pairwise mutually unbiased orthonormal bases in } \\mathbb{C}^D \\bigr\\},$$\nwhere two orthonormal bases $\\{e_i^k\\}_{i=1}^D$ and $\\{e_j^n\\}_{j=1}^D$ ($k \\neq n$) are *mutually unbiased* iff\n$$\\bigl|\\langle e_i^k,\\, e_j^n\\rangle\\bigr| \\;=\\; D^{-1/2} \\qquad \\text{for all } i, j \\in \\{1, \\ldots, D\\}.$$\n\nIt is known that $N(D) \\leq D + 1$ always, with equality whenever $D$ is the power of a prime. The problem is to determine $N(D)$ for non-prime-power $D$.\n\n**Special case (smallest open instance).** Decide whether $N(6) = 7$, i.e. whether there exist $K = 7$ mutually unbiased bases in $D = 6$ dimensions."
+    }
+  },
+  "question": {
+    "type": "Existence and classification",
+    "summary": "Complete sets exist in prime-power dimensions, but the maximum number is unknown in general composite dimensions. Dimension six is the first unresolved case.",
+    "importance": "MUBs supply complementary measurements for tomography and uncertainty relations. Their existence pattern also tests how far finite-field constructions extend into composite dimensions.",
+    "unresolved": "Determine the maximum number of MUBs in non-prime-power dimensions, beginning with dimension six."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Determine the maximum number of MUBs in non-prime-power dimensions, beginning with dimension six.",
+      "state": "open",
+      "claimIds": [
+        "claim-krueger-2005-mutually-unbiased-bases-2026-current-review-confirms-the",
+        "claim-krueger-2005-mutually-unbiased-bases-2026-a-dimension-six-impossibility"
+      ],
+      "latestEvidenceDate": "2026-04-01"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Determine the maximum number of MUBs in non-prime-power dimensions, beginning with dimension six."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-krueger-2005-mutually-unbiased-bases-2026-current-review-confirms-the",
+      "relation": "status-review",
+      "relationLabel": "Status review",
+      "title": "Current review confirms the composite-dimension gap",
+      "text": "The peer-reviewed review records no general formula and keeps dimension six open.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2026-04-01",
+      "evidence": [
+        {
+          "id": "evidence-krueger-2005-mutually-unbiased-bases-2026-current-review-confirms-the",
+          "date": "2026-04-01",
+          "maturity": "Peer reviewed",
+          "strength": "Status review",
+          "label": "Quantum 2026",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-doi-10-22331-q-2026-04-01",
+            "title": "Peer-reviewed composite-dimension review keeps the case open",
+            "authors": [],
+            "venue": "Quantum 2026",
+            "url": "https://doi.org/10.22331/q-2026-04-01-2051",
+            "doi": "10.22331/q-2026-04-01-2051",
+            "bibliographyState": "url-only"
+          }
+        }
+      ]
+    },
+    {
+      "id": "claim-krueger-2005-mutually-unbiased-bases-2026-a-dimension-six-impossibility",
+      "relation": "status-review",
+      "relationLabel": "Status review",
+      "title": "A dimension-six impossibility claim is not accepted",
+      "text": "The claimed MUB-to-Latin-square reduction loses essential phase and projector structure and does not establish the advertised result.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2026-01-22",
+      "evidence": [
+        {
+          "id": "evidence-krueger-2005-mutually-unbiased-bases-2026-a-dimension-six-impossibility",
+          "date": "2026-01-22",
+          "maturity": "Preprint",
+          "strength": "Unaccepted claim",
+          "label": "Claim preprint",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-joka-2026-mutually-unbiased-bases",
+            "title": "Mutually Unbiased Bases and Orthogonal Latin Squares",
+            "authors": [
+              "S. Joka"
+            ],
+            "venue": "arXiv:2511.03537v3 (2026). Cited as an unaccepted solution claim; see the status discussion.",
+            "url": "https://arxiv.org/abs/2511.03537",
+            "arxivId": "2511.03537"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [
+    {
+      "label": "Recent claim",
+      "text": "The 2025-2026 dimension-six claim does not supply an accepted solution to the general MUB problem.",
+      "url": "https://arxiv.org/abs/2511.03537"
+    }
+  ],
+  "interpretation": null,
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "krueger-2005-mutually-unbiased-bases-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-krueger-2005-mutually-unbiased-bases-status-2026-08-12",
+        "status": "open",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "e46fbc8423adddad4c87955e07ec4ced9c22c436cd1670b5ccacd444e0d845ec",
+    "statementDigest": "6f4ea34d63cfff702c8f4ba68306ed6c371565b4d52124c13a201af7ec126184",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-mutually-unbiased-bases/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-mutually-unbiased-bases.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-mutually-unbiased-bases/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-mutually-unbiased-bases/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-mutually-unbiased-bases/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-mutually-unbiased-bases.md"
+  }
+}

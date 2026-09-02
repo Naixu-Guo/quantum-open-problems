@@ -1,0 +1,49 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "krueger-2005-stronger-bell-werner-states-statement-v1",
+  "problemId": "krueger-2005-stronger-bell-werner-states",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-krueger-werner-2005",
+      "relationship": "states-problem",
+      "locator": "p. 54 (Problem 19)",
+      "primary": true,
+      "source": {
+        "id": "source-krueger-werner-2005",
+        "title": "Some open problems in quantum information theory",
+        "authors": [
+          "O. Krüger",
+          "R. F. Werner"
+        ],
+        "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+        "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "bell-inequality-stronger-than-chsh-on-werner",
+      "label": "Bell inequality stronger than CHSH on Werner states",
+      "text": "The archived statement asks to find a Bell inequality whose set of violating Werner states strictly contains the set of Werner states violating CHSH, equivalently whose violation threshold is strictly below the CHSH threshold 1/sqrt(2) for two qubits.",
+      "resolutionCriteria": "An explicit Bell inequality with a strictly lower Werner-state violation threshold, or a proof that CHSH is optimal on Werner states."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $\\mathcal{H}$ | A finite-dimensional complex Hilbert space (here typically $\\mathbb{C}^d$ for one party) |\n| $d$ | Local Hilbert-space dimension |\n| $\\rho$ | A bipartite density operator on $\\mathcal{H}\\otimes\\mathcal{H}$ |\n| $W_p$ | A two-qudit Werner state, $W_p = p\\,\\rho_{\\text{anti}} + (1-p)\\,\\rho_{\\text{sym}}/\\dim(\\rho_{\\text{sym}}) \\cdot \\dim(\\rho_{\\text{sym}}) $ — the unique family of $U\\otimes U$-invariant states parametrised by $p\\in[0,1]$ |\n| $F$ | Singlet fraction or noise parameter parametrising a Werner family (depending on convention) |\n| CHSH | Clauser–Horne–Shimony–Holt Bell inequality with two binary settings per side |\n| $\\mathcal{B}$ | A Bell functional: a linear combination $\\sum c_{abxy} p(ab\\,\\vert\\,xy)$ of joint probabilities |\n| $\\mathcal{B}_{\\mathrm{LHV}}$ | The local-hidden-variable bound of $\\mathcal{B}$ |\n| $\\mathcal{B}(\\rho)$ | The maximal value of $\\mathcal{B}$ attainable by quantum measurements on $\\rho$ |\n| \"Werner state violates $\\mathcal{B}$\" | $\\mathcal{B}(\\rho) > \\mathcal{B}_{\\mathrm{LHV}}$ for the given Werner state $\\rho$ |",
+    "statement": "Find a Bell inequality $\\mathcal{B}\\le \\mathcal{B}_{\\mathrm{LHV}}$ that is *stronger than CHSH on Werner states*, in the sense that the set of two-qudit (or higher-party / multi-setting) Werner states for which $\\mathcal{B}(\\rho) > \\mathcal{B}_{\\mathrm{LHV}}$ strictly contains the set of Werner states violating CHSH.\n\nEquivalently: exhibit a Bell inequality whose Werner-state violation threshold is strictly smaller (in the appropriate parametrisation) than the CHSH threshold $p_{\\mathrm{CHSH}} = 1/\\sqrt 2$ for two qubits, or its higher-dimensional analogue."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "c86ef5a060036768b5474a75ce8f431e39ceebbb8faa36f662312589269669dc",
+    "bodyDigest": "5a66f0b4c3a33cf3e9579016dae184f50a1d170373de4d2d1e06c2f25b7637ba"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-stronger-bell-werner-states.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-stronger-bell-werner-states/frontier.json"
+  }
+}

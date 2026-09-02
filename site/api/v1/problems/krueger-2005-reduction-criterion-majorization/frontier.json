@@ -1,0 +1,160 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-reduction-criterion-majorization",
+  "title": "Reduction criterion implies majorization?",
+  "catalogState": "archived",
+  "status": "solved",
+  "statusLabel": "Solved",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-krueger-2005-reduction-criterion-majorization-status-2026-08-12",
+    "status": "solved",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "The cited peer-reviewed theorem proves exactly the implication asked for in the archived statement.",
+    "evidenceIds": [
+      "evidence-krueger-2005-reduction-criterion-majorization-physical-review-letters"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "krueger-2005-reduction-criterion-majorization-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "c68e752dd7dbb47b2e3d59f1a4dc642fcf54560321771aacc02de86d517ad5da",
+    "sourceRefs": [
+      {
+        "sourceId": "source-krueger-werner-2005",
+        "relationship": "states-problem",
+        "locator": "pp. 32-33 (Problem 9)",
+        "primary": true,
+        "source": {
+          "id": "source-krueger-werner-2005",
+          "title": "Some open problems in quantum information theory",
+          "authors": [
+            "O. Krüger",
+            "R. F. Werner"
+          ],
+          "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+          "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+          "doi": "10.48550/arXiv.quant-ph/0504166",
+          "arxivId": "quant-ph/0504166"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $\\mathcal{H}_A, \\mathcal{H}_B$ | Finite-dimensional Hilbert spaces of subsystems $A$ and $B$ |\n| $\\rho_{AB}$ | Bipartite density matrix on $\\mathcal{H}_A \\otimes \\mathcal{H}_B$ |\n| $\\rho_A, \\rho_B$ | Reduced density matrices: $\\rho_A = \\mathrm{Tr}_B \\rho_{AB}$, $\\rho_B = \\mathrm{Tr}_A \\rho_{AB}$ |\n| $\\mathrm{Tr}_X$ | Partial trace over subsystem $X$ |\n| $I_A, I_B$ | Identity operator on $\\mathcal{H}_A$, $\\mathcal{H}_B$ |\n| $\\rho^{T_B}$ | Partial transpose of $\\rho_{AB}$ on subsystem $B$ |\n| $\\lambda(\\rho)$ | Eigenvalue (column) vector of $\\rho$ in non-increasing order |\n| $\\prec$ | Majorization relation: $x \\prec y$ iff $\\sum_{i=1}^{k} x_i^{\\downarrow} \\leq \\sum_{i=1}^{k} y_i^{\\downarrow}$ for all $k$, with equality at $k = \\dim$ |\n| $\\prec_w$ | Weak (sub-)majorization relation |\n| $\\Vert R\\Vert$ | Operator norm of $R$ |\n| PPT | Positive partial transpose criterion: $\\rho^{T_B} \\geq 0$ |",
+      "statement": "Let $\\rho_{AB}$ be a bipartite density matrix on $\\mathcal{H}_A \\otimes \\mathcal{H}_B$ with reductions $\\rho_A = \\mathrm{Tr}_B \\rho_{AB}$ and $\\rho_B = \\mathrm{Tr}_A \\rho_{AB}$.\n\n**Question.** Does the reduction criterion\n$$\\rho_A \\otimes I_B \\;\\geq\\; \\rho_{AB} \\qquad \\text{and} \\qquad I_A \\otimes \\rho_B \\;\\geq\\; \\rho_{AB}$$\nimply the majorization inequalities\n$$\\lambda(\\rho_{AB}) \\;\\prec\\; \\lambda(\\rho_A) \\qquad \\text{and} \\qquad \\lambda(\\rho_{AB}) \\;\\prec\\; \\lambda(\\rho_B)\\,?$$\n\nMore broadly: where does majorization sit in the hierarchy of separability/entanglement criteria?"
+    }
+  },
+  "question": {
+    "type": "Implication between criteria",
+    "summary": "The source asked whether the reduction criterion implies the majorization inequalities between the global and local spectra of a bipartite state. Hiroshima proved the implication in 2003.",
+    "importance": "The answer places majorization at the weak end of the established chain separable implies PPT implies undistillable implies reduction, settling where the spectral criteria of Nielsen and Kempe sit inside the hierarchy of separability and distillability criteria.",
+    "unresolved": ""
+  },
+  "targetClauses": [
+    {
+      "id": "reduction-implies-majorization",
+      "label": "Reduction criterion implies majorization",
+      "text": "The archived statement asks whether the reduction criterion for a bipartite state implies the majorization inequalities between the spectrum of the joint state and the spectra of its reductions.",
+      "resolutionCriteria": "A proof of the implication, or a state satisfying the reduction criterion whose spectra violate majorization.",
+      "state": "resolved",
+      "claimIds": [
+        "claim-krueger-2005-reduction-criterion-majorization-hiroshima-proves-the-reduction"
+      ],
+      "latestEvidenceDate": "2003"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [],
+    "summary": ""
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-krueger-2005-reduction-criterion-majorization-hiroshima-proves-the-reduction",
+      "relation": "resolves",
+      "relationLabel": "Resolves",
+      "title": "Hiroshima proves the reduction criterion implies majorization",
+      "text": "Hiroshima shows that the reduction inequality yields an operator R of norm at most one with rho_AB^(1/2) = (rho_A^(1/2) tensor I) R, from which one constructs a substochastic matrix relating the two spectra. This gives weak submajorization, which upgrades to ordinary majorization because both spectra have unit trace, so the archived implication holds and majorization is the weakest criterion in the hierarchy.",
+      "targetClauseIds": [
+        "reduction-implies-majorization"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2003",
+      "evidence": [
+        {
+          "id": "evidence-krueger-2005-reduction-criterion-majorization-physical-review-letters",
+          "date": "2003",
+          "maturity": "Peer reviewed",
+          "strength": "Exact theorem",
+          "label": "Physical Review Letters",
+          "sourceLocator": "Main theorem",
+          "source": {
+            "id": "source-hiroshima-2003-majorization",
+            "title": "Majorization criterion for distillability of a bipartite quantum state",
+            "authors": [
+              "T. Hiroshima"
+            ],
+            "venue": "Phys. Rev. Lett. 91, 057902 (2003); arXiv:quant-ph/0303057",
+            "url": "https://arxiv.org/abs/quant-ph/0303057"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [],
+  "interpretation": null,
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "krueger-2005-reduction-criterion-majorization-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-krueger-2005-reduction-criterion-majorization-status-2026-08-12",
+        "status": "solved",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "8acc60f15e2749b31cb42e73ca5b923b1b74b485e6ace3043b5ad4f10d02fa3d",
+    "statementDigest": "c68e752dd7dbb47b2e3d59f1a4dc642fcf54560321771aacc02de86d517ad5da",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-reduction-criterion-majorization/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-reduction-criterion-majorization.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-reduction-criterion-majorization/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-reduction-criterion-majorization/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-reduction-criterion-majorization/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-reduction-criterion-majorization.md"
+  }
+}

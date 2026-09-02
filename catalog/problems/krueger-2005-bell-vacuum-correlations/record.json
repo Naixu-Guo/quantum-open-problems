@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-bell-vacuum-correlations",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Bell inequalities for long-range vacuum correlations",
+    "proposed": "2002-01-22",
+    "topicId": "bell-nonlocality",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Existence or locality",
+      "summary": "Vacuum entanglement persists at arbitrary separation, but direct CHSH violation by bounded distant regions has not been proved or excluded.",
+      "importance": "The problem separates long-range vacuum entanglement from Bell nonlocality that localized observers can test. It probes the operational content of correlations in algebraic quantum field theory.",
+      "unresolved": "Prove a direct CHSH violation at arbitrarily large distance, or prove Bell locality beyond a finite separation."
+    },
+    "keywords": [
+      "vacuum",
+      "CHSH",
+      "quantum field theory",
+      "entanglement harvesting"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-bell-vacuum-correlations-statement-v1",
+      "problemId": "krueger-2005-bell-vacuum-correlations",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "p. 42 (Problem 12)",
+          "primary": true,
+          "statedTitle": "Bell inequalities for long range vacuum correlations"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Prove a direct CHSH violation at arbitrarily large distance, or prove Bell locality beyond a finite separation."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-bell-vacuum-correlations-2004-arbitrary-distance-harvesting-reveals",
+      "statementId": "krueger-2005-bell-vacuum-correlations-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "Arbitrary-distance harvesting reveals hidden nonlocality",
+      "text": "Reznik, Retzker and Silman obtain entanglement at arbitrary separation. Their detector state violates CHSH only after local filtering and postselection, not directly."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-bell-vacuum-correlations-2004-arbitrary-distance-harvesting-reveals",
+      "claimId": "claim-krueger-2005-bell-vacuum-correlations-2004-arbitrary-distance-harvesting-reveals",
+      "sourceId": "source-reznik-2005-violating-bell-s",
+      "sourceLocator": null,
+      "date": "2004-12-14",
+      "maturity": "Peer reviewed",
+      "strength": "Exact restricted protocol",
+      "label": "Filtered protocol"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-bell-vacuum-correlations-status-2026-08-12",
+      "problemId": "krueger-2005-bell-vacuum-correlations",
+      "statementId": "krueger-2005-bell-vacuum-correlations-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-bell-vacuum-correlations-2004-arbitrary-distance-harvesting-reveals"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": "Entanglement, failure of a PPT analogue and postselected hidden nonlocality are weaker than the direct bounded-region CHSH statement in the archived problem.",
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

@@ -1,0 +1,241 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/schema/read/v1/frontier.schema.json",
+  "title": "Research frontier",
+  "description": "Derived view of one problem: current statement, target clauses with states, accepted claims and evidence, unresolved remainder, cautions, status decision, and pending candidate updates.",
+  "type": "object",
+  "required": [
+    "kind",
+    "schemaVersion",
+    "problemId",
+    "status",
+    "statement",
+    "targetClauses",
+    "acceptedClaims",
+    "unresolved",
+    "decision",
+    "pendingCandidateUpdates",
+    "revision"
+  ],
+  "properties": {
+    "kind": {
+      "const": "qop-frontier"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "problemId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "catalogState": {
+      "enum": [
+        "candidate",
+        "published",
+        "archived"
+      ]
+    },
+    "status": {
+      "enum": [
+        "open",
+        "partial",
+        "solved"
+      ]
+    },
+    "statusLabel": {
+      "type": "string"
+    },
+    "verified": {
+      "type": "string"
+    },
+    "decision": {
+      "type": "object",
+      "required": [
+        "id",
+        "status",
+        "effectiveDate",
+        "verified",
+        "rationale"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "open",
+            "partial",
+            "solved"
+          ]
+        },
+        "effectiveDate": {
+          "type": "string"
+        },
+        "verified": {
+          "type": "string"
+        },
+        "rationale": {
+          "type": "string"
+        }
+      }
+    },
+    "statement": {
+      "type": "object",
+      "required": [
+        "id",
+        "version",
+        "statementDigest",
+        "formulation"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "statementDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "formulation": {
+          "type": "object",
+          "required": [
+            "notation",
+            "statement"
+          ]
+        }
+      }
+    },
+    "targetClauses": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "text",
+          "resolutionCriteria",
+          "state",
+          "claimIds"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "state": {
+            "enum": [
+              "open",
+              "narrowed",
+              "resolved",
+              "refuted"
+            ]
+          },
+          "claimIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "acceptedClaims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "relation",
+          "title",
+          "text",
+          "targetClauseIds",
+          "trust",
+          "evidence"
+        ],
+        "properties": {
+          "trust": {
+            "const": "verified"
+          },
+          "relation": {
+            "enum": [
+              "supports",
+              "narrows",
+              "refutes",
+              "resolves",
+              "reformulates",
+              "rules-out",
+              "status-review"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1
+          }
+        }
+      }
+    },
+    "unresolved": {
+      "type": "object",
+      "required": [
+        "clauseIds",
+        "summary"
+      ],
+      "properties": {
+        "clauseIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "summary": {
+          "type": "string"
+        }
+      }
+    },
+    "pendingCandidateUpdates": {
+      "type": "object",
+      "required": [
+        "available",
+        "items"
+      ],
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "count": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "items": {
+          "type": "array"
+        }
+      }
+    },
+    "revision": {
+      "type": "object",
+      "required": [
+        "recordDigest",
+        "statementDigest",
+        "catalogAsOf"
+      ],
+      "properties": {
+        "recordDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "statementDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    }
+  }
+}

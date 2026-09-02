@@ -1,0 +1,48 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "ruskai-2007-explicit-multiplicativity-violations-statement-v1",
+  "problemId": "ruskai-2007-explicit-multiplicativity-violations",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-ruskai-2007",
+      "relationship": "states-problem",
+      "locator": "p. 16 (Problem 20)",
+      "primary": true,
+      "source": {
+        "id": "source-ruskai-2007",
+        "title": "Open problems in quantum information theory",
+        "authors": [
+          "Mary Beth Ruskai"
+        ],
+        "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+        "url": "https://doi.org/10.48550/arXiv.0708.1902"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "explicit-multiplicativity-counterexamples",
+      "label": "Explicit multiplicativity-violating channels",
+      "text": "The archived statement asks for explicit quantum channels, with concretely given Kraus operators or Stinespring isometry in finite dimensions, that violate multiplicativity of the maximal output p-norm at some p different from 1, rather than mere instances of the random existence theorems of Winter and Hayden.",
+      "resolutionCriteria": "An explicitly written-down channel or channel pair whose multiplicativity violation can be verified directly."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | algebra of $d\\times d$ complex matrices |\n| $\\Phi,\\Omega$ | quantum channels (CPT maps) on matrix algebras |\n| $\\gamma$ | input density matrix, $\\gamma\\ge 0$, $\\operatorname{Tr}\\gamma=1$ |\n| $\\lVert X\\rVert_p$ | Schatten $p$-norm, $\\lVert X\\rVert_p=(\\operatorname{Tr}\\lvert X\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | maximal output $p$-norm purity, $\\nu_p(\\Phi)=\\sup_\\gamma\\lVert\\Phi(\\gamma)\\rVert_p=\\inf_\\gamma$ form used in source after a sign-convention; here $\\nu_p(\\Phi):=\\sup_\\gamma\\lVert\\Phi(\\gamma)\\rVert_p$ for $p>1$ |\n| $p$ | Renyi/Schatten parameter, $p\\ne 1$ |\n| eq. (24) | multiplicativity assertion $\\nu_p(\\Phi\\otimes\\Omega)=\\nu_p(\\Phi)\\nu_p(\\Omega)$ |\n\n(Note: Ruskai's text uses $\\nu_p(\\Phi)=\\inf_\\gamma\\|\\Phi(\\gamma)\\|_p$ as the convention; multiplicativity (24) is the analogous infimum-product statement, and \"violation\" means the equality fails. The substantive content of the problem is independent of the sup/inf convention.)",
+    "statement": "**Problem 20 (Ruskai 2007).** Find *explicit* examples of quantum channels $\\Phi,\\Omega$ (with explicitly given Kraus operators, in concrete finite dimensions) which violate multiplicativity (24) of the maximal output $p$-norm for some specific $p\\ne 1$:\n$$\\nu_p(\\Phi\\otimes\\Omega) \\;\\ne\\; \\nu_p(\\Phi)\\,\\nu_p(\\Omega).$$\nThe desired examples should not be mere instances of the existence theorems of Winter and Hayden, but channels whose Kraus operators (or Stinespring isometry) can be written down concretely so that the violation can be verified directly."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "3437f29a2890847e19224110f3a282af2e1c2cedd4d5c795181e19bfae95bcbc",
+    "bodyDigest": "79f8fc68b1441108a32b8d45775e91e2d3f5c9332648f162a6d83b0c9c4e83db"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-explicit-multiplicativity-violations.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-explicit-multiplicativity-violations/frontier.json"
+  }
+}

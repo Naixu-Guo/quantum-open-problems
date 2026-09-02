@@ -1,0 +1,122 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-entanglement-formation-gaussian",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Entanglement of formation for Gaussian states",
+    "proposed": "2005-04-21",
+    "topicId": "entanglement-theory",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Equality of resource measures",
+      "summary": "Gaussian and unrestricted entanglement of formation now coincide for every two-mode Gaussian state and for bisymmetric multimode states. Generic nonsymmetric multimode states remain open.",
+      "importance": "Gaussian decompositions are computable from covariance data, while the unrestricted convex roof is hard. Equality would give the exact entanglement cost for a broad class of continuous-variable states.",
+      "unresolved": "Prove or refute equality with Gaussian entanglement of formation for arbitrary nonsymmetric multimode Gaussian states."
+    },
+    "keywords": [
+      "Gaussian states",
+      "entanglement of formation",
+      "continuous variables",
+      "convex roof"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-entanglement-formation-gaussian-statement-v1",
+      "problemId": "krueger-2005-entanglement-formation-gaussian",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "p. 72-73 (Problem 29)",
+          "primary": true
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Prove or refute equality with Gaussian entanglement of formation for arbitrary nonsymmetric multimode Gaussian states."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-entanglement-formation-gaussian-2026-all-two-mode-gaussian",
+      "statementId": "krueger-2005-entanglement-formation-gaussian-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "All two-mode Gaussian states are settled",
+      "text": "Adesso proves equality for every two-mode Gaussian state and for bisymmetric multimode states, but not for generic nonsymmetric multimode states."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-entanglement-formation-gaussian-2026-all-two-mode-gaussian",
+      "claimId": "claim-krueger-2005-entanglement-formation-gaussian-2026-all-two-mode-gaussian",
+      "sourceId": "source-adesso-2026-optimality-of-gaussian",
+      "sourceLocator": null,
+      "date": "2026-08-03",
+      "maturity": "Preprint",
+      "strength": "Exact major subclass",
+      "label": "Two-mode theorem"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-entanglement-formation-gaussian-status-2026-08-12",
+      "problemId": "krueger-2005-entanglement-formation-gaussian",
+      "statementId": "krueger-2005-entanglement-formation-gaussian-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "partial",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-entanglement-formation-gaussian-2026-all-two-mode-gaussian"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [
+      {
+        "label": "Very recent",
+        "text": "This was a first-version preprint nine days old at the audit cutoff. Its theorem is a major partial result, not a solution for all multimode states.",
+        "url": "https://arxiv.org/abs/2608.01909"
+      }
+    ],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [
+      {
+        "tone": "",
+        "label": "Major partial result",
+        "title": "All two-mode Gaussian states are settled",
+        "text": "A 3 August preprint proves equality with Gaussian entanglement of formation for all two-mode states and bisymmetric multimode states. Generic nonsymmetric multimode states remain.",
+        "sourceLabel": "arXiv:2608.01909",
+        "featured": false
+      }
+    ],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

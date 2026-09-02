@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-tough-error-models",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Tough error models",
+    "proposed": "2003-01-31",
+    "topicId": "quantum-error-correction",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Extremal bound",
+      "summary": "The universal correctable-code lower bound scales as n/e^4, while a simple worst-case upper bound scales as n/e. The gap is not closed.",
+      "importance": "The function c(e,n) gives the code dimension guaranteed against an arbitrary e-dimensional error space. Closing the gap would establish the worst-case rate available without assuming a noise model.",
+      "unresolved": "Determine the exact asymptotics of c(e,n), or give matching lower bounds and explicit worst-case error models."
+    },
+    "keywords": [
+      "quantum error correction",
+      "error algebra",
+      "code dimension",
+      "worst-case noise"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-tough-error-models-statement-v1",
+      "problemId": "krueger-2005-tough-error-models",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "pp. 46-47 (Problem 14)",
+          "primary": true
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Determine the exact asymptotics of c(e,n), or give matching lower bounds and explicit worst-case error models."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-tough-error-models-1999-a-structure-free-lower",
+      "statementId": "krueger-2005-tough-error-models-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "A structure-free lower bound is proved",
+      "text": "Knill, Laflamme and Viola show c(e,n) is greater than n divided by e squared times e squared plus one. No matching construction is known."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-tough-error-models-1999-a-structure-free-lower",
+      "claimId": "claim-krueger-2005-tough-error-models-1999-a-structure-free-lower",
+      "sourceId": "source-knill-2000-theory-of-quantum",
+      "sourceLocator": null,
+      "date": "1999-08-19",
+      "maturity": "Peer reviewed",
+      "strength": "Exact bound",
+      "label": "KLV bound"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-tough-error-models-status-2026-08-12",
+      "problemId": "krueger-2005-tough-error-models",
+      "statementId": "krueger-2005-tough-error-models-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-tough-error-models-1999-a-structure-free-lower"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": "The correct denominator is e^2(e^2+1), not e^2(e+1).",
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

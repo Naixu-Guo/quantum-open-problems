@@ -1,0 +1,49 @@
+{
+  "kind": "qop-claims",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-qubit-bi-negativity",
+  "status": "solved",
+  "statementId": "krueger-2005-qubit-bi-negativity-statement-v1",
+  "count": 1,
+  "note": "Every claim here has been accepted through editorial review. Unreviewed submissions are candidate updates in the operational service, never claims.",
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-qubit-binegativity-resolved-2004",
+      "statementId": "krueger-2005-qubit-bi-negativity-statement-v1",
+      "targetClauseIds": [
+        "two-qubit-binegativity"
+      ],
+      "relation": "resolves",
+      "title": "The two-qubit bi-negativity conjecture holds",
+      "text": "Ishizaka proves that the second partial transpose of the absolute value of a two-qubit state's partial transpose is positive semidefinite.",
+      "superseded": false,
+      "evidence": [
+        {
+          "kind": "Evidence",
+          "id": "evidence-ishizaka-2004-binegativity",
+          "claimId": "claim-qubit-binegativity-resolved-2004",
+          "sourceId": "source-ishizaka-2004-binegativity",
+          "sourceLocator": "Main theorem",
+          "date": "2004",
+          "maturity": "Peer reviewed",
+          "strength": "Exact theorem",
+          "label": "Physical Review A",
+          "source": {
+            "id": "source-ishizaka-2004-binegativity",
+            "title": "Binegativity and geometry of entangled states in two qubits",
+            "authors": [
+              "Satoshi Ishizaka"
+            ],
+            "venue": "Physical Review A 69, 020301(R) (2004)",
+            "url": "https://arxiv.org/abs/quant-ph/0308056"
+          }
+        }
+      ]
+    }
+  ],
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-bi-negativity.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-bi-negativity/frontier.json"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "ruskai-2007-additivity-minimal-output-entropy-statement-v1",
+  "problemId": "ruskai-2007-additivity-minimal-output-entropy",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-ruskai-2007",
+      "relationship": "states-problem",
+      "locator": "p. 16 (Problem 22)",
+      "primary": true,
+      "source": {
+        "id": "source-ruskai-2007",
+        "title": "Open problems in quantum information theory",
+        "authors": [
+          "Mary Beth Ruskai"
+        ],
+        "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+        "url": "https://doi.org/10.48550/arXiv.0708.1902"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "minimal-output-entropy-additivity",
+      "label": "Additivity of the minimal output entropy",
+      "text": "The archived statement asks to prove that the minimal output entropy of a tensor product of channels equals the sum of the individual minimal output entropies for every pair of quantum channels, or else to find a counterexample.",
+      "resolutionCriteria": "A general additivity proof, or a channel pair with a strict additivity gap."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | algebra of $d\\times d$ complex matrices |\n| $\\Phi,\\Omega$ | quantum channels (completely positive trace-preserving maps) on matrix algebras |\n| $\\Phi\\otimes\\Omega$ | tensor product channel on $M_{d_\\Phi}\\otimes M_{d_\\Omega}$ |\n| $\\gamma$ | input density matrix, $\\gamma\\ge 0$, $\\operatorname{Tr}\\gamma=1$ |\n| $S(\\rho)$ | von Neumann entropy, $S(\\rho)=-\\operatorname{Tr}\\rho\\log\\rho$ |\n| $S_{\\min}(\\Phi)$ | minimal output entropy of $\\Phi$, $S_{\\min}(\\Phi)=\\inf_\\gamma S[\\Phi(\\gamma)]$ |\n| $\\chi^*(\\Phi)$ | Holevo (classical) capacity of $\\Phi$ |\n| $E_F$ | entanglement of formation |",
+    "statement": "**Problem 22 (Ruskai 2007).** Prove the additivity of minimal output entropy,\n$$S_{\\min}(\\Phi\\otimes\\Omega) \\;=\\; S_{\\min}(\\Phi)+S_{\\min}(\\Omega) \\tag{23}$$\nfor every pair of quantum channels $\\Phi,\\Omega$, or else find a counter-example."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "f6145c52c23df052e3cbb969c57d8502b983a6bc8822efe908e89686743c18e2",
+    "bodyDigest": "b532c34142a669de93387ba0293a97a0650259b550f48bc822efe42fbcbc23a8"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-additivity-minimal-output-entropy.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-additivity-minimal-output-entropy/frontier.json"
+  }
+}

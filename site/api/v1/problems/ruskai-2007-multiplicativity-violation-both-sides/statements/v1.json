@@ -1,0 +1,48 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "ruskai-2007-multiplicativity-violation-both-sides-statement-v1",
+  "problemId": "ruskai-2007-multiplicativity-violation-both-sides",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-ruskai-2007",
+      "relationship": "states-problem",
+      "locator": "p. 15 (Problem 18)",
+      "primary": true,
+      "source": {
+        "id": "source-ruskai-2007",
+        "title": "Open problems in quantum information theory",
+        "authors": [
+          "Mary Beth Ruskai"
+        ],
+        "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+        "url": "https://doi.org/10.48550/arXiv.0708.1902"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "two-sided-multiplicativity-violation",
+      "label": "Simultaneous multiplicativity violation above and below p = 1",
+      "text": "The archived statement asks whether there exists a quantum channel, or a pair of channels on finite-dimensional matrix algebras, and values p1 > 1 and 0 < p2 < 1 such that the multiplicativity equality (26) fails at both.",
+      "resolutionCriteria": "A single channel or channel pair violating the identity on both sides of p = 1, or a proof that violation is always one-sided."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | algebra of $d\\times d$ complex matrices |\n| $\\Phi,\\Omega$ | completely positive trace-preserving (CPT) maps (quantum channels) |\n| $\\Phi^{\\otimes n}$ | $n$-fold tensor product channel |\n| $\\gamma$ | input density matrix (state), $\\gamma\\ge 0$, $\\operatorname{Tr}\\gamma=1$ |\n| $\\|X\\|_p$ | Schatten $p$-norm, $\\|X\\|_p=(\\operatorname{Tr}\\lvert X\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | maximal output $p$-norm in the conventional formulation, $\\nu_p(\\Phi)=\\sup_\\gamma\\|\\Phi(\\gamma)\\|_p$ |\n| $S^p(\\gamma)$ | Standard Rényi $p$-entropy, $S^p(\\gamma)=\\tfrac{1}{1-p}\\log\\operatorname{Tr}\\gamma^p$ for $p\\ne 1$; $S^0(\\gamma)=\\log\\operatorname{rank}\\gamma$; $S^1(\\gamma)$ is the von Neumann entropy |\n| $S^p_{\\min}(\\Phi)$ | minimal output Renyi entropy, $S^p_{\\min}(\\Phi)=\\inf_\\gamma S^p[\\Phi(\\gamma)]$ |\n| $p_1,p_2$ | two values of the Renyi/Schatten parameter, with $p_1>1$ and $0<p_2<1$ |\n| eq. (26) | the multiplicativity/additivity assertion $S^p_{\\min}(\\Phi\\otimes\\Omega)=S^p_{\\min}(\\Phi)+S^p_{\\min}(\\Omega)$ |",
+    "statement": "**Problem 18 (Ruskai 2007).** Does there exist a quantum channel $\\Phi$, or a pair of channels $(\\Phi,\\Omega)$ on finite-dimensional matrix algebras, and values $p_1>1$ and $p_2$ with $0<p_2<1$, such that the multiplicativity equality\n$$S^p_{\\min}(\\Phi\\otimes\\Omega) \\;=\\; S^p_{\\min}(\\Phi)+S^p_{\\min}(\\Omega) \\tag{26}$$\n**fails** at both $p=p_1$ and $p=p_2$? Equivalently, is there a single example that violates (26) simultaneously for some $p>1$ and some $p<1$?\n\nIf the answer is negative, then for every channel (pair) one can always approach $p=1$ from at least one side along which (26) does hold, which would force additivity at $p=1$."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "732d4ca8bf0381b1a629f58bfd823196675ad0d76338f2bce427139b08b54dd4",
+    "bodyDigest": "14bfb72428d2edadab82637866115baeeca86af581504d976c31f2c898ecea5e"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-multiplicativity-violation-both-sides.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-multiplicativity-violation-both-sides/frontier.json"
+  }
+}

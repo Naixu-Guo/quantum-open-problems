@@ -1,0 +1,49 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "ruskai-2007-mutually-degradable-channels-statement-v1",
+  "problemId": "ruskai-2007-mutually-degradable-channels",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-ruskai-2007",
+      "relationship": "states-problem",
+      "locator": "p. 16-17 (Problem 23)",
+      "primary": true,
+      "statedTitle": "Find pairs of mutually degradable quantum channels with both channels non-trivial",
+      "source": {
+        "id": "source-ruskai-2007",
+        "title": "Open problems in quantum information theory",
+        "authors": [
+          "Mary Beth Ruskai"
+        ],
+        "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+        "url": "https://doi.org/10.48550/arXiv.0708.1902"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Construct distinct mutually degradable channels, preferably with neither channel individually degradable, or prove such pairs cannot exist under natural rank conditions."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | algebra of $d\\times d$ complex matrices |\n| $\\mathcal{M},\\mathcal{N}$ | quantum channels (CPT maps) |\n| $\\mathcal{X},\\mathcal{Y}$ | auxiliary quantum channels |\n| $\\mathcal{M}^C$ | complementary channel of $\\mathcal{M}$ (defined via the Stinespring dilation) |\n| $\\circ$ | composition of channels, $(\\mathcal{X}\\circ\\mathcal{M})(\\rho)=\\mathcal{X}[\\mathcal{M}(\\rho)]$ |\n| $\\mathcal{I}$ | identity channel |\n| $\\operatorname{Tr}$ | trace channel, $\\rho\\mapsto\\operatorname{Tr}\\rho$ |\n| Choi rank of $\\mathcal{M}$ | rank of the Choi matrix $(\\mathcal{I}\\otimes\\mathcal{M})(\\lvert\\Omega\\rangle\\langle\\Omega\\rvert)$, equivalently the minimum number of Kraus operators |\n| $d$ | dimension of the input/output Hilbert spaces (here taken equal) |\n| eq. (32) | the mutual-degradability condition $\\mathcal{X}\\circ\\mathcal{M}=\\mathcal{N}^C$ and $\\mathcal{Y}\\circ\\mathcal{N}=\\mathcal{M}^C$ |",
+    "statement": "**Problem 23 (Ruskai 2007), intended nontrivial form.** Find distinct quantum channels $\\mathcal{M},\\mathcal{N}$ beyond the identity and individually degradable constructions that are *mutually degradable*, meaning that there exist CPT maps $\\mathcal{X},\\mathcal{Y}$ with\n$$\\mathcal{X}\\circ\\mathcal{M} \\;=\\; \\mathcal{N}^C, \\qquad \\mathcal{Y}\\circ\\mathcal{N} \\;=\\; \\mathcal{M}^C. \\tag{32}$$\nOf particular interest are examples in which:\n- both $\\mathcal{M}$ and $\\mathcal{N}$ have Choi rank strictly less than $d^2$;\n- and (most interestingly) both have Choi rank exactly $d$, but neither $\\mathcal{M}$ nor $\\mathcal{N}$ is *individually* degradable."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "65117e0d24210dbc6cef187270d9a8c5963fe3e1102f181a6040e42aca3b7110",
+    "bodyDigest": "858545805eb5bf4772c918f398aa7f10105dc005da0a39cc1a62253f6b502d02"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-mutually-degradable-channels.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-mutually-degradable-channels/frontier.json"
+  }
+}

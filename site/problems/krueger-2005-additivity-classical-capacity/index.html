@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Solved record. - Status: solved (disproven). - Resolution (Hastings, 2009): M. B. Hastings produced random-unitary channels (in very large dimension) violating additivity of the minimal output von Neumann entropy. Via Shor&#039;s equivalence (P. W. Shor,…">
+    <meta name="description" content="Solved record. The source asked to prove that the Holevo quantity is additive for every pair of quantum channels or to give an explicit counterexample. Hastings&#039; random-unitary counterexample, combined with Shor&#039;s equivalences, showed that additivity fails.">
     <meta name="theme-color" content="#0d1b2a">
     <title>Additivity of classical capacity and related problems · Quantum Open Problems</title>
     <link rel="canonical" href="https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-additivity-classical-capacity/">
@@ -13,7 +13,7 @@
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Quantum Open Problems">
     <meta property="og:title" content="Additivity of classical capacity and related problems">
-    <meta property="og:description" content="Solved record. - Status: solved (disproven). - Resolution (Hastings, 2009): M. B. Hastings produced random-unitary channels (in very large dimension) violating additivity of the minimal output von Neumann entropy. Via Shor&#039;s equivalence (P. W. Shor,…">
+    <meta property="og:description" content="Solved record. The source asked to prove that the Holevo quantity is additive for every pair of quantum channels or to give an explicit counterexample. Hastings&#039; random-unitary counterexample, combined with Shor&#039;s equivalences, showed that additivity fails.">
     <meta property="og:url" content="https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-additivity-classical-capacity/">
     <meta name="twitter:card" content="summary">
     <script>
@@ -22,6 +22,8 @@
         if (theme === "dark") document.documentElement.dataset.theme = "dark";
       } catch {}
     </script>
+    <link rel="alternate" href="../../api/v1/problems/krueger-2005-additivity-classical-capacity.json" type="application/json" title="Problem record (JSON)">
+    <link rel="alternate" href="../../packets/krueger-2005-additivity-classical-capacity.md" type="text/markdown" title="AI research brief (Markdown)">
     <script>window.MathJax = { svg: { fontCache: "global" } };</script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-svg.js" integrity="sha384-my9P1jDckpHD+5LZsLQ0gaiCl/RMO32HaqwBtbo/25QIMVr6xXIUCg1jvdSRcvb4" crossorigin="anonymous" defer></script>
     <script type="application/ld+json">{
@@ -83,18 +85,26 @@
         "value": "krueger-2005-additivity-classical-capacity"
       },
       "name": "Additivity of classical capacity and related problems",
-      "abstract": "Solved record. - Status: solved (disproven). - Resolution (Hastings, 2009): M. B. Hastings produced random-unitary channels (in very large dimension) violating additivity of the minimal output von Neumann entropy. Via Shor's equivalence (P. W. Shor,…",
+      "abstract": "Solved record. The source asked to prove that the Holevo quantity is additive for every pair of quantum channels or to give an explicit counterexample. Hastings' random-unitary counterexample, combined with Shor's equivalences, showed that additivity fails.",
       "text": "For a quantum channel $T$ in the Schrödinger picture, define the Holevo quantity\n$$\\chi(T) \\;=\\; \\sup_{p,\\,\\rho}\\;\\Bigl( H\\!\\Bigl(\\textstyle\\sum_i p_i\\,T(\\rho_i)\\Bigr) \\;-\\; \\sum_i p_i\\, H\\!\\bigl(T(\\rho_i)\\bigr) \\Bigr),$$\nwhere the supremum runs over all probability vectors $p = (p_1, \\ldots, p_n)$ and all collections $\\{\\rho_1, \\ldots, \\rho_n\\}$ of input states.\n\n**Problem.** Either prove\n$$\\chi(T_1 \\otimes T_2) \\;=\\; \\chi(T_1) \\;+\\; \\chi(T_2) \\qquad \\text{for every pair of quantum channels } T_1, T_2,$$\nor give an explicit counterexample.\n\nEquivalent forms include: $H_{\\min}(T_1 \\otimes T_2) = H_{\\min}(T_1) + H_{\\min}(T_2)$ for all $T_1, T_2$; additivity of the entanglement of formation; strong superadditivity of the entanglement of formation; and multiplicativity of $\\|\\cdot\\|_p$ on tensor products for $p$ in a right-neighbourhood of $1$.",
       "inLanguage": "en",
       "qop:problemStatus": "solved",
       "qop:verified": "2026-08-12",
-      "keywords": [],
+      "keywords": [
+        "Holevo capacity",
+        "additivity conjecture",
+        "minimal output entropy",
+        "entanglement of formation",
+        "p-norm multiplicativity"
+      ],
       "about": [
-        "Krueger–Werner"
+        "Quantum channels",
+        "Quantum information"
       ],
       "mainEntityOfPage": {
         "@id": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-additivity-classical-capacity/#page"
       },
+      "qop:recordDigest": "sha256:60c9202955735aa112749c65bf8c895119925b9e092913b1b62cdafbade79eb5",
       "isBasedOn": {
         "@type": "ScholarlyArticle",
         "name": "Some open problems in quantum information theory",
@@ -121,7 +131,19 @@
           }
         ],
         "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
-      }
+      },
+      "encoding": [
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-additivity-classical-capacity.json"
+        },
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "text/markdown",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-additivity-classical-capacity.md"
+        }
+      ]
     }
   ]
 }</script>
@@ -161,30 +183,40 @@
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
           <span class="status-badge solved">Solved</span>
-          <span class="area-badge">Krueger–Werner</span>
+          <span class="area-badge">Quantum information</span>
+          <span class="meta-badge">Quantum channels</span>
           <span class="meta-badge">Proposed 2003-01-31</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Additivity of classical capacity and related problems</h1>
+        <p class="dialog-summary">The source asked to prove that the Holevo quantity is additive for every pair of quantum channels or to give an explicit counterexample. Hastings&#039; random-unitary counterexample, combined with Shor&#039;s equivalences, showed that additivity fails.</p>
 
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#resolution-heading">Resolution</a>
-          <a href="#bibliography-heading">Bibliography</a>
+          <a href="#target-heading">Target</a>
+          <a href="#progress-heading">Resolution</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
+          <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <section class="dialog-section">
           <div class="interpretation-note">
             <span class="note-icon" aria-hidden="true">i</span>
             <div>
               <strong>Archived record</strong>
-              <p>The audit records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
+              <p>The accepted status decision records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
             </div>
           </div>
         </section>
-
         <div class="problem-framing">
+          <section class="framing-row" aria-labelledby="importance-heading">
+            <h2 id="importance-heading">Why it matters</h2>
+            <p>Additivity would have collapsed the regularised expression for the classical capacity of every quantum channel into a clean single-letter Holevo formula, and it was known to be equivalent to additivity of minimal output entropy, additivity and strong superadditivity of the entanglement of formation, and p-norm multiplicativity near p = 1.</p>
+          </section>
           <section class="framing-row" aria-labelledby="source-heading">
             <h2 id="source-heading">Problem source</h2>
             <div class="problem-source-record">
@@ -192,6 +224,7 @@
               <p>O. Krüger, R. F. Werner</p>
               <p>arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/</p>
               <div class="problem-source-scope">
+                <span>The source states the cataloged problem.</span>
                 <span>Statement locator: pp. 34-40 (Problem 10)</span>
               </div>
               <a href="https://doi.org/10.48550/arXiv.quant-ph/0504166" rel="noreferrer">Read problem source ↗</a>
@@ -205,7 +238,7 @@
               <span class="dialog-section-label">Archived formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">As archived before resolution</span>
+            <span class="formal-source">As archived before resolution · digest ac5cd3b2bbb9</span>
           </div>
 
           <details class="formal-notation">
@@ -221,10 +254,104 @@
           <div class="formal-body"><p>For a quantum channel \(T\) in the Schrödinger picture, define the Holevo quantity</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\chi(T) \;=\; \sup_{p,\,\rho}\;\Bigl( H\!\Bigl(\textstyle\sum_i p_i\,T(\rho_i)\Bigr) \;-\; \sum_i p_i\, H\!\bigl(T(\rho_i)\bigr) \Bigr),\]</div><p>where the supremum runs over all probability vectors \(p = (p_1, \ldots, p_n)\) and all collections \(\{\rho_1, \ldots, \rho_n\}\) of input states.</p><p><strong>Problem.</strong> Either prove</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\chi(T_1 \otimes T_2) \;=\; \chi(T_1) \;+\; \chi(T_2) \qquad \text{for every pair of quantum channels } T_1, T_2,\]</div><p>or give an explicit counterexample.</p><p>Equivalent forms include: \(H_{\min}(T_1 \otimes T_2) = H_{\min}(T_1) + H_{\min}(T_2)\) for all \(T_1, T_2\); additivity of the entanglement of formation; strong superadditivity of the entanglement of formation; and multiplicativity of \(\|\cdot\|_p\) on tensor products for \(p\) in a right-neighbourhood of \(1\).</p></div>
         </section>
 
-        <section class="dialog-section" aria-labelledby="resolution-heading">
-          <span class="dialog-section-label">Resolution</span>
-          <h2 id="resolution-heading">Status and known progress</h2>
-          <div class="archive-progress"><ul><li><strong>Status:</strong> solved (disproven).</li><li><strong>Resolution (Hastings, 2009):</strong> M. B. Hastings produced random-unitary channels (in very large dimension) violating additivity of the minimal output von Neumann entropy. Via Shor&#039;s equivalence (P. W. Shor, 2003), this directly implies failure of additivity of the Holevo capacity \(\chi\) and superadditivity of the entanglement of formation in general. The full classical capacity is therefore <em>not</em> given by a single-letter Holevo formula.</li><li><strong>Reference of resolution:</strong> M. B. Hastings, <em>Superadditivity of communication capacity using entangled inputs</em>, Nature Physics <strong>5</strong>, 255–257 (2009); arXiv:0809.3972.</li><li><strong>Special cases of additivity (still valid):</strong> additivity of \(\chi\) is known to hold for: the identity channel (Amosov–Holevo–Werner; Schumacher–Westmoreland); unital qubit channels (King); the depolarising channel in every dimension (King); entanglement-breaking channels (Shor). For Gaussian channels there are also additivity and multiplicativity results in special cases (Giovannetti–Lloyd and coauthors).</li><li><strong>Multiplicativity counterexamples.</strong> Werner and Holevo gave a channel \(T(\rho) = (I - \rho^T)/(d-1)\) in \(d = 3\) for which \(\|T \otimes T\|_p &lt; \|T\|_p^2\) fails for sufficiently large \(p\) (in their case \(p \geq 4.7823\)); nevertheless additivity of \(H_{\min}\) and \(\chi\) holds for this channel. After Hastings, even the &quot;small-\(p\)&quot; multiplicativity of \(\|\cdot\|_p\) for \(p &gt; 1\) near \(1\) is known to fail in general.</li><li><strong>Implications.</strong> The dichotomy laid out in the source PDF — that proving multiplicativity would solve superadditivity of EoF — instead resolves in the opposite direction: additivity fails for \(\chi\), \(H_{\min}\), and EoF, and multiplicativity of \(\|\cdot\|_p\) fails for \(p &gt; 1\) in a neighbourhood of \(1\).</li><li><strong>Remaining open sub-questions.</strong> Even after Hastings&#039; disproof, several quantitative questions remain active: the exact size of additivity violations, identification of channels for which additivity does hold, the qubit-channel case (\(\dim = 2\)), the Gaussian-channel case in infinite dimension, and the rate of convergence of the regularisation.</li></ul><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Archived target</h2>
+
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-refuted" id="clause-holevo-capacity-additivity">
+              <div class="clause-head">
+                <span class="clause-state refuted">Refuted</span>
+                <strong>Additivity of the Holevo capacity</strong>
+                <code>holevo-capacity-additivity</code>
+              </div>
+              <p>The archived statement asks to prove that the Holevo quantity satisfies chi(T1 tensor T2) = chi(T1) + chi(T2) for every pair of quantum channels, or else to give an explicit counterexample.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> A general proof of the additivity identity, or a pair of channels for which it fails.</p>
+              <p class="clause-claims">1 accepted claim: <a href="#claim-krueger-2005-additivity-classical-capacity-hastings-disproves-additivity-of">claim-krueger-2005-additivity-classical-capacity-hastings-disproves-additivity-of</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Solved as of 12 Aug 2026: Hastings&#039; peer-reviewed counterexample, transferred by Shor&#039;s peer-reviewed equivalence theorem, refutes the universal additivity identity stated in the archived problem. <code>decision-krueger-2005-additivity-classical-capacity-status-2026-08-12</code></p>
+        </section>
+
+
+
+        <section class="dialog-section" aria-labelledby="progress-heading">
+          <span class="dialog-section-label">Resolution evidence</span>
+          <h2 id="progress-heading">Resolution</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
+
+          <article class="claim-card" id="claim-krueger-2005-additivity-classical-capacity-hastings-disproves-additivity-of">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Refutes</span>
+              <span class="claim-clauses"><a href="#clause-holevo-capacity-additivity">holevo-capacity-additivity</a></span>
+            </div>
+            <h3>Hastings disproves additivity of the Holevo capacity</h3>
+            <p>Hastings produced random-unitary channels in very large dimension that violate additivity of the minimal output von Neumann entropy. Via Shor&#039;s equivalence this directly implies failure of additivity of the Holevo capacity chi and of superadditivity of the entanglement of formation, so the archived additivity conjecture is false and the classical capacity is not given by a single-letter Holevo formula.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-00d8f1373f747121">
+                <time datetime="2009">2009</time>
+                <div>
+                  <span class="maturity-badge">Peer reviewed</span>
+                  <span class="maturity-badge">Exact counterexample</span>
+                  <a href="https://arxiv.org/abs/0809.3972" rel="noreferrer">Nature Physics ↗</a>
+                  <span class="evidence-locator">Main result: random-unitary channels with a strict minimal-output-entropy gap</span>
+                </div>
+              </li>
+              <li class="evidence-row" id="qop-evt-65dad37d032f1f40">
+                <time datetime="2004">2004</time>
+                <div>
+                  <span class="maturity-badge">Peer reviewed</span>
+                  <span class="maturity-badge">Exact theorem</span>
+                  <a href="https://arxiv.org/abs/quant-ph/0305035" rel="noreferrer">Communications in Mathematical Physics ↗</a>
+                  <span class="evidence-locator">Equivalence of the additivity conjectures</span>
+                </div>
+              </li>
+            </ol>
+
+          </article>
+
+          <details class="archive-narrative">
+            <summary>Editorial narrative <span>Status and known progress as written by the editors</span></summary>
+            <div class="archive-progress"><ul><li><strong>Status:</strong> solved (disproven).</li><li><strong>Resolution (Hastings, 2009):</strong> M. B. Hastings produced random-unitary channels (in very large dimension) violating additivity of the minimal output von Neumann entropy. Via Shor&#039;s equivalence (P. W. Shor, 2003), this directly implies failure of additivity of the Holevo capacity \(\chi\) and superadditivity of the entanglement of formation in general. The full classical capacity is therefore <em>not</em> given by a single-letter Holevo formula.</li><li><strong>Reference of resolution:</strong> M. B. Hastings, <em>Superadditivity of communication capacity using entangled inputs</em>, Nature Physics <strong>5</strong>, 255–257 (2009); arXiv:0809.3972.</li><li><strong>Special cases of additivity (still valid):</strong> additivity of \(\chi\) is known to hold for: the identity channel (Amosov–Holevo–Werner; Schumacher–Westmoreland); unital qubit channels (King); the depolarising channel in every dimension (King); entanglement-breaking channels (Shor). For Gaussian channels there are also additivity and multiplicativity results in special cases (Giovannetti–Lloyd and coauthors).</li><li><strong>Multiplicativity counterexamples.</strong> Werner and Holevo gave a channel \(T(\rho) = (I - \rho^T)/(d-1)\) in \(d = 3\) for which \(\|T \otimes T\|_p &lt; \|T\|_p^2\) fails for sufficiently large \(p\) (in their case \(p \geq 4.7823\)); nevertheless additivity of \(H_{\min}\) and \(\chi\) holds for this channel. After Hastings, even the &quot;small-\(p\)&quot; multiplicativity of \(\|\cdot\|_p\) for \(p &gt; 1\) near \(1\) is known to fail in general.</li><li><strong>Implications.</strong> The dichotomy laid out in the source PDF — that proving multiplicativity would solve superadditivity of EoF — instead resolves in the opposite direction: additivity fails for \(\chi\), \(H_{\min}\), and EoF, and multiplicativity of \(\|\cdot\|_p\) fails for \(p &gt; 1\) in a neighbourhood of \(1\).</li><li><strong>Remaining open sub-questions.</strong> Even after Hastings&#039; disproof, several quantitative questions remain active: the exact size of additivity violations, identification of channels for which additivity does hold, the qubit-channel case (\(\dim = 2\)), the Gaussian-channel case in infinite dimension, and the rate of convergence of the regularisation.</li></ul><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+          </details>
+        </section>
+
+
+        <section class="dialog-section" aria-labelledby="cautions-heading">
+          <span class="dialog-section-label">Claim watch</span>
+          <h2 id="cautions-heading">Scope and cautions</h2>
+
+          <div class="watch-note">
+            <span class="note-icon" aria-hidden="true">!</span>
+            <div>
+              <strong>Scope</strong>
+              <p>Additivity of chi still holds for special classes (identity channel, unital qubit channels, the depolarising channel in every dimension, entanglement-breaking channels, and some Gaussian cases); quantitative sub-questions such as the size of the violation, the qubit-channel case and the rate of convergence of the regularisation remain open. </p>
+            </div>
+          </div>
+        </section>
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="krueger-2005-additivity-classical-capacity">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Additivity+of+classical+capacity+and+related+problems" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="krueger-2005-additivity-classical-capacity">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
         </section>
 
 
@@ -234,12 +361,18 @@
           <div class="archive-bibliography"><ul><li>O. Krüger and R. F. Werner (eds.), <em>Some Open Problems in Quantum Information Theory</em>, arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig, http://www.imaph.tu-bs.de/qi/problems/. DOI: 10.48550/arXiv.quant-ph/0504166. Problem 10, pp. 34–40 (proposed by A. S. Holevo, 31 Jan 2003).</li><li>C. H. Bennett, C. A. Fuchs, and J. A. Smolin, <em>Entanglement-enhanced classical communication on a noisy quantum channel</em>, in: Quantum Communication, Computing and Measurement, Proc. QCM96, ed. O. Hirota, A. S. Holevo, and C. M. Caves, New York: Plenum 1997, pp. 79–88; arXiv:quant-ph/9611006.</li><li>C. H. Bennett and P. W. Shor, <em>Quantum information theory</em>, IEEE Trans. Inform. Theory <strong>44</strong>, 2724 (1998).</li><li>A. S. Holevo, <em>The capacity of the quantum channel with general signal states</em>, IEEE Trans. Inform. Theory <strong>44</strong>, 269 (1998); arXiv:quant-ph/9611023.</li><li>B. Schumacher and M. D. Westmoreland, <em>Sending classical information via noisy quantum channels</em>, Phys. Rev. A <strong>56</strong>, 131 (1997).</li><li>A. S. Holevo, <em>Quantum coding theorems</em>, Russ. Math. Surveys <strong>53</strong>, 1295 (1998); arXiv:quant-ph/9809023.</li><li>G. G. Amosov, A. S. Holevo, and R. F. Werner, <em>On some additivity problems in quantum information theory</em>, Probl. Inform. Transm. <strong>36</strong> (4), 25 (2000); arXiv:math-ph/0003002.</li><li>G. G. Amosov and A. S. Holevo, <em>On the multiplicativity conjecture for quantum channels</em>, arXiv:math-ph/0103015 (2001).</li><li>C. King and M. B. Ruskai, <em>Minimal entropy of states emerging from noisy quantum channels</em>, IEEE Trans. Inform. Theory <strong>47</strong>, 192 (2001); arXiv:quant-ph/9911079.</li><li>C. King and M. B. Ruskai, <em>Capacity of quantum channels using product measurements</em>, J. Math. Phys. <strong>42</strong>, 87 (2001); arXiv:quant-ph/0004062.</li><li>C. King, <em>Additivity for a class of unital qubit channels</em>, arXiv:quant-ph/0103156 (2001).</li><li>C. King, <em>Maximization of capacity and \(l_p\) norms for some product channels</em>, J. Math. Phys. <strong>43</strong>, 1247 (2002); arXiv:quant-ph/0103086.</li><li>C. King, <em>The capacity of the quantum depolarizing channel</em>, arXiv:quant-ph/0204172 (2002).</li><li>C. King, M. Nathanson, and M. B. Ruskai, <em>Multiplicativity properties of entrywise positive maps on matrix algebras</em>, arXiv:quant-ph/0409181 (2004).</li><li>C. King and M. B. Ruskai, <em>Comments on multiplicativity of maximal \(p\)-norms when \(p=2\)</em>, arXiv:quant-ph/0401026 (2004).</li><li>P. W. Shor, <em>Additivity of the classical capacity of entanglement-breaking quantum channels</em>, Commun. Math. Phys. <strong>246</strong>, 453 (2004); arXiv:quant-ph/0201149.</li><li>P. W. Shor, <em>Equivalence of additivity questions in quantum information theory</em>, arXiv:quant-ph/0305035 (2003).</li><li>R. F. Werner and A. S. Holevo, <em>Counterexample to an additivity conjecture for output purity of quantum channels</em>, J. Math. Phys. <strong>43</strong>, 4353 (2002).</li><li>K. Matsumoto, T. Shimono, and A. Winter, <em>Remarks on additivity of the Holevo channel capacity and of the entanglement of formation</em>, arXiv:quant-ph/0206148 (2002).</li><li>K. Matsumoto and F. Yura, <em>Entanglement cost of antisymmetric states and additivity of capacity of some quantum channel</em>, arXiv:quant-ph/0306009 (2003).</li><li>K. M. R. Audenaert and S. L. Braunstein, <em>On strong superadditivity of the entanglement of formation</em>, arXiv:quant-ph/0303045 (2003).</li><li>A. A. Pomeransky, <em>Strong superadditivity of the entanglement of formation follows from its additivity</em>, arXiv:quant-ph/0305056 (2003).</li><li>N. Datta, A. S. Holevo, and Y. M. Suhov, <em>A quantum channel with additive minimum output entropy</em>, arXiv:quant-ph/0408176 (2004).</li><li>R. Alicki and M. Fannes, <em>Note on multiple additivity of Renyi entropy output for Werner–Holevo channel</em>, arXiv:quant-ph/0407033 (2004).</li><li>V. Giovannetti, S. Lloyd, L. Maccone, J. H. Shapiro, and B. J. Yen, <em>Minimum Renyi and Wehrl entropies at the output of bosonic channels</em>, arXiv:quant-ph/0404037 (2003).</li><li>V. Giovannetti and S. Lloyd, <em>Additivity properties of a Gaussian channel</em>, arXiv:quant-ph/0403075 (2004).</li><li>V. Giovannetti, S. Lloyd, and M. B. Ruskai, <em>Conditions for the multiplicativity of maximal \(l_p\)-norms of channels for fixed integer \(p\)</em>, arXiv:quant-ph/0408103 (2004).</li><li>M. Hayashi, H. Imai, K. Matsumoto, M. B. Ruskai, and T. Shimono, <em>Qubit channels which require four inputs to achieve capacity: implications for additivity conjectures</em>, arXiv:quant-ph/0403176 (2004).</li><li>A. S. Holevo and M. E. Shirokov, <em>On Shor&#039;s channel extension and constrained channels</em>, Commun. Math. Phys. <strong>249</strong>, 417 (2004); arXiv:quant-ph/0306196.</li><li>M. E. Shirokov, <em>On the additivity conjecture for channels with arbitrary constrains</em>, arXiv:quant-ph/0308168 (2003).</li><li>A. S. Holevo and M. E. Shirokov, <em>Continuous ensembles and the \(\chi\)-capacity of infinite-dimensional channels</em>, arXiv:quant-ph/0403072 (2004).</li><li>M. E. Shirokov, <em>The Holevo capacity of infinite-dimensional channels</em>, arXiv:quant-ph/0408009 (2004).</li><li>B. Schumacher and M. D. Westmoreland, <em>Relative entropy in quantum information theory</em>, arXiv:quant-ph/0004045 (2000).</li><li>B. Schumacher and M. D. Westmoreland, <em>Optimal signal ensembles</em>, Phys. Rev. A <strong>63</strong>, 022308 (2001); arXiv:quant-ph/9912122.</li><li>M. Sasaki, K. Kato, M. Izutsu, and O. Hirota, <em>Quantum channels showing superadditivity in capacity</em>, arXiv:quant-ph/9801012 (1998).</li><li>S. Osawa and H. Nagaoka, <em>Numerical experiments on the capacity of quantum channel with entangled input states</em>, arXiv:quant-ph/0007115 (2000).</li><li>M. B. Hastings, <em>Superadditivity of communication capacity using entangled inputs</em>, Nature Physics <strong>5</strong>, 255–257 (2009); arXiv:0809.3972.</li></ul></div>
         </section>
 
+
+
         <section class="dialog-section" aria-labelledby="machine-heading">
-          <span class="dialog-section-label">Record</span>
+          <span class="dialog-section-label">Work on this problem</span>
           <h2 id="machine-heading">Research interfaces</h2>
           <ul class="machine-links">
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/krueger-2005-additivity-classical-capacity/problem.md" rel="noreferrer">Source article ↗</a> — the canonical archived statement and audit notes.</li>
-            <li><a href="../">Problem directory</a> — every active and archived record.</li>
+            <li><a href="../../packets/krueger-2005-additivity-classical-capacity.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-additivity-classical-capacity.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-additivity-classical-capacity/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-additivity-classical-capacity/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Additivity+of+classical+capacity+and+related+problems" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/krueger-2005-additivity-classical-capacity/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -251,13 +384,15 @@
             <p class="cite-label">The original problem</p>
             <p class="cite-text">O. Krüger, R. F. Werner. Some open problems in quantum information theory. arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/. pp. 34-40 (Problem 10). https://doi.org/10.48550/arXiv.quant-ph/0504166</p>
             <p class="cite-label">This catalog assessment</p>
-            <p class="cite-text">Quantum Open Problems, record krueger-2005-additivity-classical-capacity, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-additivity-classical-capacity/</p>
+            <p class="cite-text">Quantum Open Problems, record krueger-2005-additivity-classical-capacity, revision 60c920295573, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-additivity-classical-capacity/</p>
           </div>
         </section>
         <footer class="page-record-footer">
           <p>Record <code>krueger-2005-additivity-classical-capacity</code></p>
-          <p>Status solved · archived from the active catalog</p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Record revision <code>60c9202955735aa112749c65bf8c895119925b9e092913b1b62cdafbade79eb5</code></p>
+          <p>Statement digest <code>ac5cd3b2bbb9fa75606b88983008dca06ecb0fb351d29fab63859f40f7e78e0b</code></p>
+          <p>Statement <code>krueger-2005-additivity-classical-capacity-statement-v1</code> · Decision <code>decision-krueger-2005-additivity-classical-capacity-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -288,5 +423,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="krueger-2005-additivity-classical-capacity" defer></script>
   </body>
 </html>

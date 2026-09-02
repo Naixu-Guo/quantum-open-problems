@@ -1,3 +1,7 @@
+// One command builds and validates every read model from the canonical
+// catalog: ledger sync, API v1 and packets, website pages and feeds, then
+// canonical and read-model validation.
+
 import { spawnSync } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -5,13 +9,11 @@ import { fileURLToPath } from "node:url";
 const siteDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.dirname(siteDirectory);
 const scripts = [
-  path.join(siteDirectory, "generate-formal.mjs"),
-  path.join(siteDirectory, "generate-sources.mjs"),
+  path.join(repositoryRoot, "core", "sync-ledger.mjs"),
   path.join(siteDirectory, "build-api.mjs"),
-  path.join(siteDirectory, "generate-packets.mjs"),
   path.join(siteDirectory, "generate-pages.mjs"),
-  path.join(siteDirectory, "validate.mjs"),
-  path.join(repositoryRoot, "catalog", "validate.mjs")
+  path.join(repositoryRoot, "core", "validate.mjs"),
+  path.join(siteDirectory, "validate.mjs")
 ];
 
 for (const script of scripts) {

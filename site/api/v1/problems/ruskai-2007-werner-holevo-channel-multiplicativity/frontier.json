@@ -1,0 +1,198 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "ruskai-2007-werner-holevo-channel-multiplicativity",
+  "title": "Polarized Werner-Holevo multiplicativity",
+  "catalogState": "published",
+  "status": "partial",
+  "statusLabel": "Partially solved",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-ruskai-2007-werner-holevo-channel-multiplicativity-status-2026-08-12",
+    "status": "partial",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-ruskai-2007-werner-holevo-channel-multiplicativity-2007-every-polarization-is-settled",
+      "evidence-ruskai-2007-werner-holevo-channel-multiplicativity-2004-the-unpolarized-endpoint-is"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "ruskai-2007-werner-holevo-channel-multiplicativity-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "04ce0a79ef13c7db3a88cb48214666af64a1687126f330722ce5327bade5d77d",
+    "sourceRefs": [
+      {
+        "sourceId": "source-ruskai-2007",
+        "relationship": "states-problem",
+        "locator": "p. 7-8 (Problem 6)",
+        "primary": true,
+        "statedTitle": "Multiplicativity of the polarized Werner-Holevo channel for 1 <= p <= 2",
+        "source": {
+          "id": "source-ruskai-2007",
+          "title": "Open problems in quantum information theory",
+          "authors": [
+            "Mary Beth Ruskai"
+          ],
+          "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+          "url": "https://doi.org/10.48550/arXiv.0708.1902",
+          "doi": "10.48550/arXiv.0708.1902",
+          "arxivId": "0708.1902"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | algebra of $d \\times d$ complex matrices |\n| $\\rho$ | a density matrix (positive, trace-one) on $\\mathbb{C}^d$ |\n| $\\mathrm{Tr}\\,\\rho$ | trace of $\\rho$ |\n| $\\rho^T$ | transpose of $\\rho$ in a fixed basis |\n| $I$ | identity matrix on $\\mathbb{C}^d$ |\n| $\\mathcal{W}$ | the Werner–Holevo channel $\\mathcal{W}(\\rho) = \\tfrac{1}{d-1}\\bigl((\\mathrm{Tr}\\,\\rho)I - \\rho^T\\bigr)$ on $M_d$ |\n| $\\mathcal{I}$ | the identity channel ($\\mathcal{I}(\\rho) = \\rho$) |\n| $x$ | mixing parameter in $[0,1]$ |\n| $\\Phi_x$ | the *polarized* (or depolarized) Werner–Holevo channel $\\Phi_x = x\\mathcal{I} + (1-x)\\mathcal{W}$ |\n| $\\Phi_x \\otimes \\Phi_x$ | tensor product (parallel two uses) of $\\Phi_x$ |\n| $\\lVert\\cdot\\rVert_p$ | Schatten $p$-norm on matrices, $\\lVert A\\rVert_p = (\\mathrm{Tr}\\lvert A\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | maximal output $p$-norm, $\\nu_p(\\Phi) = \\sup_\\rho \\lVert\\Phi(\\rho)\\rVert_p$ |\n| $p$ | the Schatten norm exponent, here $1 \\le p \\le 2$ |\n| EB | entanglement breaking (a channel whose Choi state is separable) |",
+      "statement": "**Problem 6 (Ruskai, 2007).** *Show that the polarized Werner–Holevo channel*\n$$\\Phi_x \\;=\\; x\\,\\mathcal{I} + (1-x)\\,\\mathcal{W}, \\qquad x \\in [0,1],$$\n*on $M_d$ satisfies the multiplicativity property*\n$$\\nu_p(\\Phi_x \\otimes \\Phi_x) \\;=\\; [\\nu_p(\\Phi_x)]^2 \\qquad \\text{for } 1 \\le p \\le 2.$$"
+    }
+  },
+  "question": {
+    "type": "Structured multiplicativity",
+    "summary": "The identical polarized family is settled at p equals two, and the unpolarized endpoint is settled for one through two. The full polarized parameter range remains open.",
+    "importance": "Werner-Holevo channels are a canonical stress test for output-norm conjectures. Resolving the polarized family would map the positive and negative regions of a central example.",
+    "unresolved": "Prove or refute multiplicativity for polarized Werner-Holevo channels throughout the remaining x and p values in the interval from one to two."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Prove or refute multiplicativity for polarized Werner-Holevo channels throughout the remaining x and p values in the interval from one to two.",
+      "state": "narrowed",
+      "claimIds": [
+        "claim-ruskai-2007-werner-holevo-channel-multiplicativity-2007-every-polarization-is-settled",
+        "claim-ruskai-2007-werner-holevo-channel-multiplicativity-2004-the-unpolarized-endpoint-is"
+      ],
+      "latestEvidenceDate": "2007"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Prove or refute multiplicativity for polarized Werner-Holevo channels throughout the remaining x and p values in the interval from one to two."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-ruskai-2007-werner-holevo-channel-multiplicativity-2007-every-polarization-is-settled",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "Every polarization is settled at p = 2",
+      "text": "Michalakis proves maximal-output 2-norm multiplicativity for two identical depolarized Werner-Holevo channels in all dimensions.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2007",
+      "evidence": [
+        {
+          "id": "evidence-ruskai-2007-werner-holevo-channel-multiplicativity-2007-every-polarization-is-settled",
+          "date": "2007",
+          "maturity": "Peer reviewed",
+          "strength": "Exact parameter slice",
+          "label": "p = 2 theorem",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-michalakis-2007-multiplicativity-of-the",
+            "title": "Multiplicativity of the maximal output 2-norm for depolarized Werner–Holevo channels",
+            "authors": [
+              "S. Michalakis"
+            ],
+            "venue": "arXiv:0707.1722 (2007).",
+            "url": "https://arxiv.org/abs/0707.1722",
+            "arxivId": "0707.1722"
+          }
+        }
+      ]
+    },
+    {
+      "id": "claim-ruskai-2007-werner-holevo-channel-multiplicativity-2004-the-unpolarized-endpoint-is",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "The unpolarized endpoint is settled through p = 2",
+      "text": "Datta proves multiplicativity for the Werner-Holevo endpoint throughout the interval from one to two.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2004",
+      "evidence": [
+        {
+          "id": "evidence-ruskai-2007-werner-holevo-channel-multiplicativity-2004-the-unpolarized-endpoint-is",
+          "date": "2004",
+          "maturity": "Peer reviewed",
+          "strength": "Exact endpoint",
+          "label": "Unpolarized theorem",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-arxiv-quant-ph-0410063",
+            "title": "The unpolarized endpoint is settled through p = 2",
+            "authors": [],
+            "venue": "Unpolarized theorem",
+            "url": "https://arxiv.org/abs/quant-ph/0410063",
+            "arxivId": "quant-ph/0410063",
+            "bibliographyState": "url-only"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [],
+  "interpretation": null,
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "ruskai-2007-werner-holevo-channel-multiplicativity-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-ruskai-2007-werner-holevo-channel-multiplicativity-status-2026-08-12",
+        "status": "partial",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "d664414576b2612a20350632726143735c30409919006d017f8d8fe8400da9bb",
+    "statementDigest": "04ce0a79ef13c7db3a88cb48214666af64a1687126f330722ce5327bade5d77d",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-werner-holevo-channel-multiplicativity/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-werner-holevo-channel-multiplicativity.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-werner-holevo-channel-multiplicativity/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-werner-holevo-channel-multiplicativity/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-werner-holevo-channel-multiplicativity/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/ruskai-2007-werner-holevo-channel-multiplicativity.md"
+  }
+}

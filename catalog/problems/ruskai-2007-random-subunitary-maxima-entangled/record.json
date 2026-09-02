@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "ruskai-2007-random-subunitary-maxima-entangled",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Maximally entangled relative maxima for sub-unitary channels",
+    "proposed": "2007",
+    "topicId": "quantum-channels",
+    "collectionId": "ruskai-2007",
+    "question": {
+      "type": "Optimization structure",
+      "summary": "The maximally entangled input is analytically understood only in the Werner-Holevo special case. No theorem covers arbitrary unitaries in the intended family.",
+      "importance": "Maximally entangled inputs form the standard ansatz for two-copy channel optimization. Confirming or rejecting that ansatz in this family would locate the states responsible for output-norm extrema.",
+      "unresolved": "Decide whether maximally entangled inputs are always among the relative maxima of the two-copy output p-norm for the corrected family."
+    },
+    "keywords": [
+      "maximally entangled inputs",
+      "relative maxima",
+      "sub-unitary channels",
+      "output norm"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "ruskai-2007-random-subunitary-maxima-entangled-statement-v1",
+      "problemId": "ruskai-2007-random-subunitary-maxima-entangled",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ruskai-2007",
+          "relationship": "states-problem",
+          "locator": "p. 10 (Problem 8)",
+          "primary": true,
+          "statedTitle": "Do (Phi tensor Phi) p-norm relative maxima always include maximally entangled inputs for random sub-unitary Kraus channels?"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Decide whether maximally entangled inputs are always among the relative maxima of the two-copy output p-norm for the corrected family."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-random-subunitary-maxima-entangled-2007-the-werner-holevo-critical",
+      "statementId": "ruskai-2007-random-subunitary-maxima-entangled-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "The Werner-Holevo critical point is a special case only",
+      "text": "Nathanson proves an analytic critical-point statement for the Werner-Holevo channel; private numerical evidence about relative maxima does not extend to arbitrary family parameters."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-ruskai-2007-random-subunitary-maxima-entangled-2007-the-werner-holevo-critical",
+      "claimId": "claim-ruskai-2007-random-subunitary-maxima-entangled-2007-the-werner-holevo-critical",
+      "sourceId": "source-nathanson-2007-j-phys-a",
+      "sourceLocator": null,
+      "date": "2007",
+      "maturity": "Peer reviewed",
+      "strength": "Exact special case",
+      "label": "Werner-Holevo analysis"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-ruskai-2007-random-subunitary-maxima-entangled-status-2026-08-12",
+      "problemId": "ruskai-2007-random-subunitary-maxima-entangled",
+      "statementId": "ruskai-2007-random-subunitary-maxima-entangled-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-ruskai-2007-random-subunitary-maxima-entangled-2007-the-werner-holevo-critical"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": "The source formula requires a trace-preserving normalization and rotating input support before this optimization problem is well posed.",
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

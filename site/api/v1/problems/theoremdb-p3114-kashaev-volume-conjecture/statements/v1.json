@@ -1,0 +1,48 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "theoremdb-p3114-kashaev-volume-conjecture-statement-v1",
+  "problemId": "theoremdb-p3114-kashaev-volume-conjecture",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-31",
+  "sourceRefs": [
+    {
+      "sourceId": "source-kashaev-1997",
+      "relationship": "states-problem",
+      "locator": "Sec. 1, Eq. (1.1)",
+      "primary": true,
+      "source": {
+        "id": "source-kashaev-1997",
+        "title": "The Hyperbolic Volume of Knots from the Quantum Dilogarithm",
+        "authors": [
+          "Rinat M. Kashaev"
+        ],
+        "venue": "Letters in Mathematical Physics 39, 269-275 (1997)",
+        "url": "https://doi.org/10.1023/A:1007364912784"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "volume-limit",
+      "label": "Universal volume-limit identity",
+      "text": "For every hyperbolic knot, Kashaev's invariant has the stated volume asymptotic.",
+      "resolutionCriteria": "Prove the identity for every hyperbolic knot, or exhibit a hyperbolic-knot counterexample."
+    }
+  ],
+  "formulation": {
+    "notation": "",
+    "statement": "Let $K\\subset S^3$ be a hyperbolic knot and let $\\langle K\\rangle_N$ be Kashaev's $N$th invariant. Prove that the limit exists and satisfies\n$$\n\\lim_{N\\to\\infty}\\frac{2\\pi}{N}\\log\\left|\\langle K\\rangle_N\\right|\n=\\operatorname{Vol}(S^3\\setminus K).\n$$\n\nA counterexample must give a hyperbolic knot for which the limit fails to exist or differs from the hyperbolic volume."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "68efefcb7a0d2174d7361e1ef6419aec49679ce23efbe2cae36ba3c649725a32",
+    "bodyDigest": "87748813987b225ad0f6dc065e3b341ceedab34fb29085e661f09deb0b5888ef"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/theoremdb-p3114-kashaev-volume-conjecture.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/theoremdb-p3114-kashaev-volume-conjecture/frontier.json"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "krueger-2005-undistillability-implies-ppt-statement-v1",
+  "problemId": "krueger-2005-undistillability-implies-ppt",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-krueger-werner-2005",
+      "relationship": "states-problem",
+      "locator": "pp. 15-17 (Problem 2)",
+      "primary": true,
+      "statedTitle": "Undistillability implies PPT?",
+      "source": {
+        "id": "source-krueger-werner-2005",
+        "title": "Some open problems in quantum information theory",
+        "authors": [
+          "O. Krüger",
+          "R. F. Werner"
+        ],
+        "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+        "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Prove that every NPT state is distillable, or construct an NPT state undistillable for all copy numbers."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $\\rho$ | A density operator on a bipartite Hilbert space $\\mathcal{H}_A \\otimes \\mathcal{H}_B$ |\n| $\\rho^{T_A}$ | Partial transpose of $\\rho$ over Alice's subsystem, defined in a product basis by $\\langle ij\\vert\\rho^{T_A}\\vert kl\\rangle = \\langle kj\\vert\\rho\\vert il\\rangle$ |\n| PPT | $\\rho$ has positive partial transpose, i.e., $\\rho^{T_A} \\ge 0$ |\n| NPT | $\\rho$ has non-positive partial transpose, i.e., $\\rho^{T_A}$ has at least one negative eigenvalue |\n| $\\rho^{\\otimes n}$ | $n$-fold tensor power of $\\rho$ |\n| $P, Q$ | Two-dimensional projectors acting on $\\mathcal{H}_A^{\\otimes n}$ and $\\mathcal{H}_B^{\\otimes n}$, respectively |\n| LOCC | Local operations and classical communication |\n| $S$ | A completely positive map |\n| $T$ | The transposition map |\n| $\\mathrm{id}_2$ | Identity map on $2\\times 2$ matrices |\n| $TS$ | Composition of transposition with $S$ |\n| $n$-distillable | $\\rho^{\\otimes n}$ can be locally projected onto an entangled two-qubit subspace |\n| distillable | $n$-distillable for some $n \\ge 1$ |\n| Werner state | Bipartite state invariant under $U \\otimes U$ for all unitaries $U$ |",
+    "statement": "Decide the following implication for bipartite density operators on a finite-dimensional Hilbert space:\n\n$$\\text{$\\rho$ undistillable} \\;\\Longrightarrow\\; \\text{$\\rho$ is PPT.}$$\n\nEquivalently, decide whether there exists a bipartite state $\\rho$ such that $\\rho^{T_A}$ has a negative eigenvalue but $\\rho$ is not distillable, i.e., there exist no integer $n$ and rank-2 projectors $P$ on $\\mathcal{H}_A^{\\otimes n}$ and $Q$ on $\\mathcal{H}_B^{\\otimes n}$ for which\n\n$$\\bigl((P \\otimes Q)\\,\\rho^{\\otimes n}\\,(P \\otimes Q)\\bigr)^{T_A}$$\n\nhas a negative eigenvalue.\n\nAn equivalent operator-theoretic reformulation (Horodecki; restated in DiVincenzo–Shor–Smolin–Terhal–Thapliyal): given a completely positive map $S$ such that $TS$ is 2-positive (equivalently, $\\mathrm{id}_2 \\otimes TS$ is positive), decide whether $TS \\otimes TS$ is necessarily 2-positive."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "3fc4dffa1562ff4d7f3c75ff6da78b1aff1ad1707f3c80923ce1f5c174aa70ae",
+    "bodyDigest": "fe270df7f50686199e30b30c54258553b7024c14c5e166d148ec83c9cef06aba"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-undistillability-implies-ppt.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-undistillability-implies-ppt/frontier.json"
+  }
+}

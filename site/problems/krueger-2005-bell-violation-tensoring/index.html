@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Solved record. The problem is solved (affirmatively): Liang&#039;s CHSH-by-tensoring question has explicit positive constructions. - Hidden non-locality (Popescu, Peres). Popescu (1995) showed that some Werner states with LHV models for direct measurements…">
+    <meta name="description" content="Solved record. The source asked for two bipartite states, neither violating any CHSH inequality, whose tensor product does violate CHSH. Navascues and Vertesi gave explicit two-qubit constructions using only direct measurements on the joint state.">
     <meta name="theme-color" content="#0d1b2a">
     <title>Bell violation by tensoring · Quantum Open Problems</title>
     <link rel="canonical" href="https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-bell-violation-tensoring/">
@@ -13,7 +13,7 @@
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Quantum Open Problems">
     <meta property="og:title" content="Bell violation by tensoring">
-    <meta property="og:description" content="Solved record. The problem is solved (affirmatively): Liang&#039;s CHSH-by-tensoring question has explicit positive constructions. - Hidden non-locality (Popescu, Peres). Popescu (1995) showed that some Werner states with LHV models for direct measurements…">
+    <meta property="og:description" content="Solved record. The source asked for two bipartite states, neither violating any CHSH inequality, whose tensor product does violate CHSH. Navascues and Vertesi gave explicit two-qubit constructions using only direct measurements on the joint state.">
     <meta property="og:url" content="https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-bell-violation-tensoring/">
     <meta name="twitter:card" content="summary">
     <script>
@@ -22,6 +22,8 @@
         if (theme === "dark") document.documentElement.dataset.theme = "dark";
       } catch {}
     </script>
+    <link rel="alternate" href="../../api/v1/problems/krueger-2005-bell-violation-tensoring.json" type="application/json" title="Problem record (JSON)">
+    <link rel="alternate" href="../../packets/krueger-2005-bell-violation-tensoring.md" type="text/markdown" title="AI research brief (Markdown)">
     <script>window.MathJax = { svg: { fontCache: "global" } };</script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-svg.js" integrity="sha384-my9P1jDckpHD+5LZsLQ0gaiCl/RMO32HaqwBtbo/25QIMVr6xXIUCg1jvdSRcvb4" crossorigin="anonymous" defer></script>
     <script type="application/ld+json">{
@@ -83,18 +85,26 @@
         "value": "krueger-2005-bell-violation-tensoring"
       },
       "name": "Bell violation by tensoring",
-      "abstract": "Solved record. The problem is solved (affirmatively): Liang's CHSH-by-tensoring question has explicit positive constructions. - Hidden non-locality (Popescu, Peres). Popescu (1995) showed that some Werner states with LHV models for direct measurements…",
+      "abstract": "Solved record. The source asked for two bipartite states, neither violating any CHSH inequality, whose tensor product does violate CHSH. Navascues and Vertesi gave explicit two-qubit constructions using only direct measurements on the joint state.",
       "text": "Find bipartite density operators $\\rho_1$ and $\\rho_2$ (on possibly different bipartite Hilbert spaces) such that:\n\n1. $\\rho_1$ does *not* violate any CHSH Bell inequality (i.e. for every choice of two binary projective or POVM measurements per side on $\\rho_1$, the resulting correlations admit a local hidden variable model satisfying CHSH).\n2. $\\rho_2$ does *not* violate any CHSH Bell inequality.\n3. The tensor product state $\\rho_1\\otimes\\rho_2$ (with Alice holding both $A$-subsystems and Bob holding both $B$-subsystems) *does* violate some CHSH Bell inequality.\n\nEither exhibit such a pair $(\\rho_1,\\rho_2)$ explicitly, or prove that no such pair exists.",
       "inLanguage": "en",
       "qop:problemStatus": "solved",
       "qop:verified": "2026-08-12",
-      "keywords": [],
+      "keywords": [
+        "CHSH inequality",
+        "activation of nonlocality",
+        "hidden nonlocality",
+        "local hidden variable models",
+        "tensor product states"
+      ],
       "about": [
-        "Krueger–Werner"
+        "Bell nonlocality",
+        "Quantum information"
       ],
       "mainEntityOfPage": {
         "@id": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-bell-violation-tensoring/#page"
       },
+      "qop:recordDigest": "sha256:99af25264c4c5f839576b4bb93b865b01b32df94f798e06b8904f1a60401ff58",
       "isBasedOn": {
         "@type": "ScholarlyArticle",
         "name": "Some open problems in quantum information theory",
@@ -121,7 +131,19 @@
           }
         ],
         "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
-      }
+      },
+      "encoding": [
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-bell-violation-tensoring.json"
+        },
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "text/markdown",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-bell-violation-tensoring.md"
+        }
+      ]
     }
   ]
 }</script>
@@ -161,30 +183,40 @@
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
           <span class="status-badge solved">Solved</span>
-          <span class="area-badge">Krueger–Werner</span>
+          <span class="area-badge">Quantum information</span>
+          <span class="meta-badge">Bell nonlocality</span>
           <span class="meta-badge">Proposed 2005-02-08</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Bell violation by tensoring</h1>
+        <p class="dialog-summary">The source asked for two bipartite states, neither violating any CHSH inequality, whose tensor product does violate CHSH. Navascues and Vertesi gave explicit two-qubit constructions using only direct measurements on the joint state.</p>
 
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#resolution-heading">Resolution</a>
-          <a href="#bibliography-heading">Bibliography</a>
+          <a href="#target-heading">Target</a>
+          <a href="#progress-heading">Resolution</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
+          <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <section class="dialog-section">
           <div class="interpretation-note">
             <span class="note-icon" aria-hidden="true">i</span>
             <div>
               <strong>Archived record</strong>
-              <p>The audit records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
+              <p>The accepted status decision records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
             </div>
           </div>
         </section>
-
         <div class="problem-framing">
+          <section class="framing-row" aria-labelledby="importance-heading">
+            <h2 id="importance-heading">Why it matters</h2>
+            <p>Bell nonlocality can be activated by tensoring even though entanglement itself is preserved under tensor products, so this is the cleanest CHSH form of an activation pattern shared by nonlocality, distillation and steering.</p>
+          </section>
           <section class="framing-row" aria-labelledby="source-heading">
             <h2 id="source-heading">Problem source</h2>
             <div class="problem-source-record">
@@ -192,6 +224,7 @@
               <p>O. Krüger, R. F. Werner</p>
               <p>arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/</p>
               <div class="problem-source-scope">
+                <span>The source states the cataloged problem.</span>
                 <span>Statement locator: p. 57 (Problem 21)</span>
               </div>
               <a href="https://doi.org/10.48550/arXiv.quant-ph/0504166" rel="noreferrer">Read problem source ↗</a>
@@ -205,7 +238,7 @@
               <span class="dialog-section-label">Archived formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">As archived before resolution</span>
+            <span class="formal-source">As archived before resolution · digest e6e5c85ead37</span>
           </div>
 
           <details class="formal-notation">
@@ -221,10 +254,95 @@
           <div class="formal-body"><p>Find bipartite density operators \(\rho_1\) and \(\rho_2\) (on possibly different bipartite Hilbert spaces) such that:</p><ol><li>\(\rho_1\) does <em>not</em> violate any CHSH Bell inequality (i.e. for every choice of two binary projective or POVM measurements per side on \(\rho_1\), the resulting correlations admit a local hidden variable model satisfying CHSH).</li><li>\(\rho_2\) does <em>not</em> violate any CHSH Bell inequality.</li><li>The tensor product state \(\rho_1\otimes\rho_2\) (with Alice holding both \(A\)-subsystems and Bob holding both \(B\)-subsystems) <em>does</em> violate some CHSH Bell inequality.</li></ol><p>Either exhibit such a pair \((\rho_1,\rho_2)\) explicitly, or prove that no such pair exists.</p></div>
         </section>
 
-        <section class="dialog-section" aria-labelledby="resolution-heading">
-          <span class="dialog-section-label">Resolution</span>
-          <h2 id="resolution-heading">Status and known progress</h2>
-          <div class="archive-progress"><p>The problem is <strong>solved (affirmatively)</strong>: Liang&#039;s CHSH-by-tensoring question has explicit positive constructions.</p><ul><li><strong>Hidden non-locality (Popescu, Peres).</strong> Popescu (1995) showed that some Werner states with LHV models for direct measurements can be made to violate CHSH after a local &quot;filtering&quot; step. Peres (1996) demonstrated activation: \(\rho^{\otimes n}\) can be CHSH-non-local for \(n\) large even when \(\rho\) alone is not. Peres&#039; construction, however, uses many copies and/or filtering, not a clean two-copy tensor product without further processing.</li><li><strong>Liang–Doherty bounds.</strong> Y. C. Liang and A. C. Doherty (2006, 2007) gave numerical bounds via semidefinite hierarchies on CHSH violation for tensored states, ruling out activation in several parameter regimes.</li><li><strong>Resolution: Navascués–Vértesi (2011).</strong> M. Navascués and T. Vértesi, <em>Activation of nonlocal quantum resources</em>, Phys. Rev. Lett. <strong>106</strong>, 060403 (2011); arXiv:1010.5191, gave an explicit positive answer to the precise question posed by Liang: they constructed (i) two two-qubit states \(\rho_1,\rho_2\) such that \(\rho_1^{\otimes N}\) and \(\rho_2^{\otimes N}\) admit local hidden-variable models for any \(N\), but \(\rho_1\otimes\rho_2\) violates the CHSH inequality (reaching \(\approx 2.023\)); and (ii) a single CHSH-local state \(\rho\) such that \(\rho^{\otimes 2}\) violates CHSH. Both constructions use no filtering — only direct measurements on the joint state — and thus settle the original CHSH-from-CHSH-locals question of Liang.</li><li><strong>Subsequent extensions.</strong> C. Palazuelos, <em>Super-activation of quantum non-locality</em>, Phys. Rev. Lett. <strong>109</strong>, 190401 (2012); arXiv:1205.3118, extended these ideas to high-dimensional systems with arbitrarily large activation gaps in general Bell scenarios. Further work has produced single-copy activation via broadcasting and characterised closed-form criteria for hidden two-qubit CHSH nonlocality.</li></ul><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Archived target</h2>
+
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-resolved" id="clause-chsh-activation-by-tensoring">
+              <div class="clause-head">
+                <span class="clause-state resolved">Resolved</span>
+                <strong>CHSH activation by tensoring</strong>
+                <code>chsh-activation-by-tensoring</code>
+              </div>
+              <p>The archived statement asks to exhibit two bipartite states, neither of which violates any CHSH Bell inequality, whose tensor product does violate some CHSH inequality, or to prove that no such pair exists.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> An explicit pair of CHSH-local states whose tensor product violates CHSH, or an impossibility proof.</p>
+              <p class="clause-claims">1 accepted claim: <a href="#claim-krueger-2005-bell-violation-tensoring-navascues-and-vertesi-construct">claim-krueger-2005-bell-violation-tensoring-navascues-and-vertesi-construct</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Solved as of 12 Aug 2026: The cited peer-reviewed paper gives exactly the explicit pair of CHSH-local states with a CHSH-violating tensor product that the archived statement requests. <code>decision-krueger-2005-bell-violation-tensoring-status-2026-08-12</code></p>
+        </section>
+
+
+
+        <section class="dialog-section" aria-labelledby="progress-heading">
+          <span class="dialog-section-label">Resolution evidence</span>
+          <h2 id="progress-heading">Resolution</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
+
+          <article class="claim-card" id="claim-krueger-2005-bell-violation-tensoring-navascues-and-vertesi-construct">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Resolves</span>
+              <span class="claim-clauses"><a href="#clause-chsh-activation-by-tensoring">chsh-activation-by-tensoring</a></span>
+            </div>
+            <h3>Navascues and Vertesi construct CHSH activation by tensoring</h3>
+            <p>Navascues and Vertesi construct two two-qubit states whose arbitrary tensor powers each admit local hidden-variable models but whose product violates CHSH, reaching about 2.023, and also a single CHSH-local state whose two copies violate CHSH. Both constructions use no filtering, only direct measurements on the joint state, giving the explicit affirmative answer that the archived statement requests.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-2898feb6da7eb111">
+                <time datetime="2011">2011</time>
+                <div>
+                  <span class="maturity-badge">Peer reviewed</span>
+                  <span class="maturity-badge">Explicit construction</span>
+                  <a href="https://arxiv.org/abs/1010.5191" rel="noreferrer">Physical Review Letters ↗</a>
+                  <span class="evidence-locator">Explicit two-qubit constructions (i) and (ii)</span>
+                </div>
+              </li>
+            </ol>
+
+          </article>
+
+          <details class="archive-narrative">
+            <summary>Editorial narrative <span>Status and known progress as written by the editors</span></summary>
+            <div class="archive-progress"><p>The problem is <strong>solved (affirmatively)</strong>: Liang&#039;s CHSH-by-tensoring question has explicit positive constructions.</p><ul><li><strong>Hidden non-locality (Popescu, Peres).</strong> Popescu (1995) showed that some Werner states with LHV models for direct measurements can be made to violate CHSH after a local &quot;filtering&quot; step. Peres (1996) demonstrated activation: \(\rho^{\otimes n}\) can be CHSH-non-local for \(n\) large even when \(\rho\) alone is not. Peres&#039; construction, however, uses many copies and/or filtering, not a clean two-copy tensor product without further processing.</li><li><strong>Liang–Doherty bounds.</strong> Y. C. Liang and A. C. Doherty (2006, 2007) gave numerical bounds via semidefinite hierarchies on CHSH violation for tensored states, ruling out activation in several parameter regimes.</li><li><strong>Resolution: Navascués–Vértesi (2011).</strong> M. Navascués and T. Vértesi, <em>Activation of nonlocal quantum resources</em>, Phys. Rev. Lett. <strong>106</strong>, 060403 (2011); arXiv:1010.5191, gave an explicit positive answer to the precise question posed by Liang: they constructed (i) two two-qubit states \(\rho_1,\rho_2\) such that \(\rho_1^{\otimes N}\) and \(\rho_2^{\otimes N}\) admit local hidden-variable models for any \(N\), but \(\rho_1\otimes\rho_2\) violates the CHSH inequality (reaching \(\approx 2.023\)); and (ii) a single CHSH-local state \(\rho\) such that \(\rho^{\otimes 2}\) violates CHSH. Both constructions use no filtering — only direct measurements on the joint state — and thus settle the original CHSH-from-CHSH-locals question of Liang.</li><li><strong>Subsequent extensions.</strong> C. Palazuelos, <em>Super-activation of quantum non-locality</em>, Phys. Rev. Lett. <strong>109</strong>, 190401 (2012); arXiv:1205.3118, extended these ideas to high-dimensional systems with arbitrarily large activation gaps in general Bell scenarios. Further work has produced single-copy activation via broadcasting and characterised closed-form criteria for hidden two-qubit CHSH nonlocality.</li></ul><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+          </details>
+        </section>
+
+
+        <section class="dialog-section" aria-labelledby="cautions-heading">
+          <span class="dialog-section-label">Claim watch</span>
+          <h2 id="cautions-heading">Scope and cautions</h2>
+
+          <div class="watch-note">
+            <span class="note-icon" aria-hidden="true">!</span>
+            <div>
+              <strong>Scope</strong>
+              <p>The settling constructions use no filtering; the earlier hidden-nonlocality results of Popescu and Peres rely on local filtering or many copies and therefore do not answer the archived question. </p>
+            </div>
+          </div>
+        </section>
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="krueger-2005-bell-violation-tensoring">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Bell+violation+by+tensoring" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="krueger-2005-bell-violation-tensoring">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
         </section>
 
 
@@ -234,12 +352,18 @@
           <div class="archive-bibliography"><ul><li>O. Krüger and R. F. Werner (eds.), <em>Some Open Problems in Quantum Information Theory</em>, arXiv:quant-ph/0504166 (2005), Problem 21 on p. 57; snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/. DOI: 10.48550/arXiv.quant-ph/0504166.</li><li>R. Horodecki, P. Horodecki, M. Horodecki, <em>Violating Bell inequality by mixed spin-1/2 states: necessary and sufficient condition</em>, Phys. Lett. A 200, 340 (1995).</li><li>S. Popescu, <em>Bell&#039;s inequalities and density matrices: Revealing &quot;hidden&quot; nonlocality</em>, Phys. Rev. Lett. 74, 2619 (1995); arXiv:quant-ph/9502005.</li><li>A. Peres, <em>Collective tests for quantum nonlocality</em>, Phys. Rev. A 54, 2685 (1996); arXiv:quant-ph/9603023.</li><li>Y. C. Liang, A. C. Doherty, <em>Bounds on quantum correlations in Bell inequality experiments</em>, Phys. Rev. A 75, 042103 (2007); arXiv:quant-ph/0608128.</li><li>M. Navascués, T. Vértesi, <em>Activation of nonlocal quantum resources</em>, Phys. Rev. Lett. 106, 060403 (2011); arXiv:1010.5191.</li><li>C. Palazuelos, <em>Super-activation of quantum non-locality</em>, Phys. Rev. Lett. 109, 190401 (2012); arXiv:1205.3118.</li></ul></div>
         </section>
 
+
+
         <section class="dialog-section" aria-labelledby="machine-heading">
-          <span class="dialog-section-label">Record</span>
+          <span class="dialog-section-label">Work on this problem</span>
           <h2 id="machine-heading">Research interfaces</h2>
           <ul class="machine-links">
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/krueger-2005-bell-violation-tensoring/problem.md" rel="noreferrer">Source article ↗</a> — the canonical archived statement and audit notes.</li>
-            <li><a href="../">Problem directory</a> — every active and archived record.</li>
+            <li><a href="../../packets/krueger-2005-bell-violation-tensoring.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-bell-violation-tensoring.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-bell-violation-tensoring/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-bell-violation-tensoring/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Bell+violation+by+tensoring" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/krueger-2005-bell-violation-tensoring/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -251,13 +375,15 @@
             <p class="cite-label">The original problem</p>
             <p class="cite-text">O. Krüger, R. F. Werner. Some open problems in quantum information theory. arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/. p. 57 (Problem 21). https://doi.org/10.48550/arXiv.quant-ph/0504166</p>
             <p class="cite-label">This catalog assessment</p>
-            <p class="cite-text">Quantum Open Problems, record krueger-2005-bell-violation-tensoring, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-bell-violation-tensoring/</p>
+            <p class="cite-text">Quantum Open Problems, record krueger-2005-bell-violation-tensoring, revision 99af25264c4c, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-bell-violation-tensoring/</p>
           </div>
         </section>
         <footer class="page-record-footer">
           <p>Record <code>krueger-2005-bell-violation-tensoring</code></p>
-          <p>Status solved · archived from the active catalog</p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Record revision <code>99af25264c4c5f839576b4bb93b865b01b32df94f798e06b8904f1a60401ff58</code></p>
+          <p>Statement digest <code>e6e5c85ead377415ab0a5d1cfcd998d715c4b02c50dfec64a579231234dcd6a3</code></p>
+          <p>Statement <code>krueger-2005-bell-violation-tensoring-statement-v1</code> · Decision <code>decision-krueger-2005-bell-violation-tensoring-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -288,5 +414,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="krueger-2005-bell-violation-tensoring" defer></script>
   </body>
 </html>

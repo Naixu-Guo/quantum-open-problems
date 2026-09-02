@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Solved record. Status: solved affirmatively. Ishizaka proved the conjecture for every two-qubit state in 2003, with the peer-reviewed version appearing in 2004. - Ishizaka used the fact that an entangled two-qubit partial transpose has exactly one…">
+    <meta name="description" content="Solved record. The source asked whether the second partial transpose of the absolute value of a two-qubit state&#039;s partial transpose is always positive semidefinite.">
     <meta name="theme-color" content="#0d1b2a">
     <title>Qubit bi-negativity · Quantum Open Problems</title>
     <link rel="canonical" href="https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-qubit-bi-negativity/">
@@ -13,7 +13,7 @@
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Quantum Open Problems">
     <meta property="og:title" content="Qubit bi-negativity">
-    <meta property="og:description" content="Solved record. Status: solved affirmatively. Ishizaka proved the conjecture for every two-qubit state in 2003, with the peer-reviewed version appearing in 2004. - Ishizaka used the fact that an entangled two-qubit partial transpose has exactly one…">
+    <meta property="og:description" content="Solved record. The source asked whether the second partial transpose of the absolute value of a two-qubit state&#039;s partial transpose is always positive semidefinite.">
     <meta property="og:url" content="https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-qubit-bi-negativity/">
     <meta name="twitter:card" content="summary">
     <script>
@@ -22,6 +22,8 @@
         if (theme === "dark") document.documentElement.dataset.theme = "dark";
       } catch {}
     </script>
+    <link rel="alternate" href="../../api/v1/problems/krueger-2005-qubit-bi-negativity.json" type="application/json" title="Problem record (JSON)">
+    <link rel="alternate" href="../../packets/krueger-2005-qubit-bi-negativity.md" type="text/markdown" title="AI research brief (Markdown)">
     <script>window.MathJax = { svg: { fontCache: "global" } };</script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-svg.js" integrity="sha384-my9P1jDckpHD+5LZsLQ0gaiCl/RMO32HaqwBtbo/25QIMVr6xXIUCg1jvdSRcvb4" crossorigin="anonymous" defer></script>
     <script type="application/ld+json">{
@@ -83,18 +85,25 @@
         "value": "krueger-2005-qubit-bi-negativity"
       },
       "name": "Qubit bi-negativity",
-      "abstract": "Solved record. Status: solved affirmatively. Ishizaka proved the conjecture for every two-qubit state in 2003, with the peer-reviewed version appearing in 2004. - Ishizaka used the fact that an entangled two-qubit partial transpose has exactly one…",
+      "abstract": "Solved record. The source asked whether the second partial transpose of the absolute value of a two-qubit state's partial transpose is always positive semidefinite.",
       "text": "Let $\\mathcal{H}_A$ and $\\mathcal{H}_B$ be two-dimensional complex Hilbert spaces, and let $\\sigma$ be any density operator on $\\mathcal{H}_A\\otimes\\mathcal{H}_B$. Let $T_2$ denote partial transposition with respect to $\\mathcal{H}_B$. Prove that\n$$\\bigl\\lvert\\sigma^{T_2}\\bigr\\rvert^{T_2} \\;\\ge\\; 0,$$\nwhere $\\lvert X\\rvert := \\sqrt{X^* X}$ is the operator absolute value.",
       "inLanguage": "en",
       "qop:problemStatus": "solved",
       "qop:verified": "2026-08-12",
-      "keywords": [],
+      "keywords": [
+        "bi-negativity",
+        "partial transpose",
+        "two qubits",
+        "logarithmic negativity"
+      ],
       "about": [
-        "Krueger–Werner"
+        "Entanglement theory",
+        "Quantum information"
       ],
       "mainEntityOfPage": {
         "@id": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-qubit-bi-negativity/#page"
       },
+      "qop:recordDigest": "sha256:94b01645019b01b398bee5aad49da4cf3d33ebfc851f54dfbd951d0f8314b9fa",
       "isBasedOn": {
         "@type": "ScholarlyArticle",
         "name": "Some open problems in quantum information theory",
@@ -121,7 +130,19 @@
           }
         ],
         "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
-      }
+      },
+      "encoding": [
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-bi-negativity.json"
+        },
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "text/markdown",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-qubit-bi-negativity.md"
+        }
+      ]
     }
   ]
 }</script>
@@ -161,30 +182,40 @@
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
           <span class="status-badge solved">Solved</span>
-          <span class="area-badge">Krueger–Werner</span>
+          <span class="area-badge">Quantum information</span>
+          <span class="meta-badge">Entanglement theory</span>
           <span class="meta-badge">Proposed 2003-02-10</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Qubit bi-negativity</h1>
+        <p class="dialog-summary">The source asked whether the second partial transpose of the absolute value of a two-qubit state&#039;s partial transpose is always positive semidefinite.</p>
 
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#resolution-heading">Resolution</a>
-          <a href="#bibliography-heading">Bibliography</a>
+          <a href="#target-heading">Target</a>
+          <a href="#progress-heading">Resolution</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
+          <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <section class="dialog-section">
           <div class="interpretation-note">
             <span class="note-icon" aria-hidden="true">i</span>
             <div>
               <strong>Archived record</strong>
-              <p>The audit records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
+              <p>The accepted status decision records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
             </div>
           </div>
         </section>
-
         <div class="problem-framing">
+          <section class="framing-row" aria-labelledby="importance-heading">
+            <h2 id="importance-heading">Why it matters</h2>
+            <p>The inequality controls bi-negativity and connects logarithmic negativity with entanglement cost under PPT-preserving operations for two-qubit states.</p>
+          </section>
           <section class="framing-row" aria-labelledby="source-heading">
             <h2 id="source-heading">Problem source</h2>
             <div class="problem-source-record">
@@ -192,6 +223,7 @@
               <p>O. Krüger, R. F. Werner</p>
               <p>arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/</p>
               <div class="problem-source-scope">
+                <span>The source states the cataloged problem.</span>
                 <span>Statement locator: p. 53 (Problem 18)</span>
               </div>
               <a href="https://doi.org/10.48550/arXiv.quant-ph/0504166" rel="noreferrer">Read problem source ↗</a>
@@ -205,7 +237,7 @@
               <span class="dialog-section-label">Archived formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">As archived before resolution</span>
+            <span class="formal-source">As archived before resolution · digest 7a41d58ca967</span>
           </div>
 
           <details class="formal-notation">
@@ -221,10 +253,95 @@
           <div class="formal-body"><p>Let \(\mathcal{H}_A\) and \(\mathcal{H}_B\) be two-dimensional complex Hilbert spaces, and let \(\sigma\) be any density operator on \(\mathcal{H}_A\otimes\mathcal{H}_B\). Let \(T_2\) denote partial transposition with respect to \(\mathcal{H}_B\). Prove that</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\bigl\lvert\sigma^{T_2}\bigr\rvert^{T_2} \;\ge\; 0,\]</div><p>where \(\lvert X\rvert := \sqrt{X^* X}\) is the operator absolute value.</p></div>
         </section>
 
-        <section class="dialog-section" aria-labelledby="resolution-heading">
-          <span class="dialog-section-label">Resolution</span>
-          <h2 id="resolution-heading">Status and known progress</h2>
-          <div class="archive-progress"><p><strong>Status: solved affirmatively.</strong> Ishizaka proved the conjecture for every two-qubit state in 2003, with the peer-reviewed version appearing in 2004.</p><ul><li>Ishizaka used the fact that an entangled two-qubit partial transpose has exactly one negative eigenvalue and proved that the second partial transpose of its absolute value is positive semidefinite. This is exactly the operator inequality in the formal statement.</li><li>As consequences, the paper identifies the PPT entanglement cost of every two-qubit state with its logarithmic negativity and derives related bounds involving the asymptotic relative entropy of entanglement and the Rains bound.</li><li>The conclusion is specific to two qubits. Analogous positivity fails in higher dimensions, but that does not affect the source problem.</li></ul><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Archived target</h2>
+
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-resolved" id="clause-two-qubit-binegativity">
+              <div class="clause-head">
+                <span class="clause-state resolved">Resolved</span>
+                <strong>Two-qubit bi-negativity</strong>
+                <code>two-qubit-binegativity</code>
+              </div>
+              <p>For every two-qubit density operator, the stated second partial transpose is positive semidefinite.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> Prove the universal operator inequality or give a two-qubit counterexample.</p>
+              <p class="clause-claims">1 accepted claim: <a href="#claim-qubit-binegativity-resolved-2004">claim-qubit-binegativity-resolved-2004</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Solved as of 12 Aug 2026: The cited peer-reviewed theorem proves the universal two-qubit inequality in the archived statement. <code>decision-qubit-binegativity-status-2026-08-12</code></p>
+        </section>
+
+
+
+        <section class="dialog-section" aria-labelledby="progress-heading">
+          <span class="dialog-section-label">Resolution evidence</span>
+          <h2 id="progress-heading">Resolution</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
+
+          <article class="claim-card" id="claim-qubit-binegativity-resolved-2004">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Resolves</span>
+              <span class="claim-clauses"><a href="#clause-two-qubit-binegativity">two-qubit-binegativity</a></span>
+            </div>
+            <h3>The two-qubit bi-negativity conjecture holds</h3>
+            <p>Ishizaka proves that the second partial transpose of the absolute value of a two-qubit state&#039;s partial transpose is positive semidefinite.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-00211c21ae453817">
+                <time datetime="2004">2004</time>
+                <div>
+                  <span class="maturity-badge">Peer reviewed</span>
+                  <span class="maturity-badge">Exact theorem</span>
+                  <a href="https://arxiv.org/abs/quant-ph/0308056" rel="noreferrer">Physical Review A ↗</a>
+                  <span class="evidence-locator">Main theorem</span>
+                </div>
+              </li>
+            </ol>
+
+          </article>
+
+          <details class="archive-narrative">
+            <summary>Editorial narrative <span>Status and known progress as written by the editors</span></summary>
+            <div class="archive-progress"><p><strong>Status: solved affirmatively.</strong> Ishizaka proved the conjecture for every two-qubit state in 2003, with the peer-reviewed version appearing in 2004.</p><ul><li>Ishizaka used the fact that an entangled two-qubit partial transpose has exactly one negative eigenvalue and proved that the second partial transpose of its absolute value is positive semidefinite. This is exactly the operator inequality in the formal statement.</li><li>As consequences, the paper identifies the PPT entanglement cost of every two-qubit state with its logarithmic negativity and derives related bounds involving the asymptotic relative entropy of entanglement and the Rains bound.</li><li>The conclusion is specific to two qubits. Analogous positivity fails in higher dimensions, but that does not affect the source problem.</li></ul><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+          </details>
+        </section>
+
+
+        <section class="dialog-section" aria-labelledby="cautions-heading">
+          <span class="dialog-section-label">Claim watch</span>
+          <h2 id="cautions-heading">Scope and cautions</h2>
+
+          <div class="watch-note">
+            <span class="note-icon" aria-hidden="true">!</span>
+            <div>
+              <strong>Scope</strong>
+              <p>The affirmative result is specific to two qubits; higher-dimensional failures do not affect the archived statement. </p>
+            </div>
+          </div>
+        </section>
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="krueger-2005-qubit-bi-negativity">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Qubit+bi-negativity" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="krueger-2005-qubit-bi-negativity">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
         </section>
 
 
@@ -234,12 +351,18 @@
           <div class="archive-bibliography"><ul><li>O. Krüger and R. F. Werner (eds.), <em>Some Open Problems in Quantum Information Theory</em>, arXiv:quant-ph/0504166 (2005), Problem 18 on p. 53; snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/. DOI: 10.48550/arXiv.quant-ph/0504166.</li><li>[AMVW02] K. Audenaert, B. De Moor, K. G. H. Vollbrecht, R. F. Werner, <em>Asymptotic Relative Entropy of Entanglement for Orthogonally Invariant States</em>, Phys. Rev. A 66, 032310 (2002); arXiv:quant-ph/0204143.</li><li>For the closely related additivity question, see also K. Audenaert, M. B. Plenio, J. Eisert, <em>Entanglement cost under positive-partial-transpose-preserving operations</em>, Phys. Rev. Lett. 90, 027901 (2003); arXiv:quant-ph/0207146.</li><li>S. Ishizaka, <em>Binegativity and geometry of entangled states in two qubits</em>, Phys. Rev. A <strong>69</strong>, 020301(R) (2004); arXiv:quant-ph/0308056.</li></ul></div>
         </section>
 
+
+
         <section class="dialog-section" aria-labelledby="machine-heading">
-          <span class="dialog-section-label">Record</span>
+          <span class="dialog-section-label">Work on this problem</span>
           <h2 id="machine-heading">Research interfaces</h2>
           <ul class="machine-links">
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/krueger-2005-qubit-bi-negativity/problem.md" rel="noreferrer">Source article ↗</a> — the canonical archived statement and audit notes.</li>
-            <li><a href="../">Problem directory</a> — every active and archived record.</li>
+            <li><a href="../../packets/krueger-2005-qubit-bi-negativity.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-qubit-bi-negativity.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-qubit-bi-negativity/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-qubit-bi-negativity/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Qubit+bi-negativity" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/krueger-2005-qubit-bi-negativity/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -251,13 +374,15 @@
             <p class="cite-label">The original problem</p>
             <p class="cite-text">O. Krüger, R. F. Werner. Some open problems in quantum information theory. arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/. p. 53 (Problem 18). https://doi.org/10.48550/arXiv.quant-ph/0504166</p>
             <p class="cite-label">This catalog assessment</p>
-            <p class="cite-text">Quantum Open Problems, record krueger-2005-qubit-bi-negativity, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-qubit-bi-negativity/</p>
+            <p class="cite-text">Quantum Open Problems, record krueger-2005-qubit-bi-negativity, revision 94b01645019b, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-qubit-bi-negativity/</p>
           </div>
         </section>
         <footer class="page-record-footer">
           <p>Record <code>krueger-2005-qubit-bi-negativity</code></p>
-          <p>Status solved · archived from the active catalog</p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Record revision <code>94b01645019b01b398bee5aad49da4cf3d33ebfc851f54dfbd951d0f8314b9fa</code></p>
+          <p>Statement digest <code>7a41d58ca967352317e625f2aa154989ef306b5a2e728bc6bbed4b85adf4bb12</code></p>
+          <p>Statement <code>krueger-2005-qubit-bi-negativity-statement-v1</code> · Decision <code>decision-qubit-binegativity-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -288,5 +413,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="krueger-2005-qubit-bi-negativity" defer></script>
   </body>
 </html>

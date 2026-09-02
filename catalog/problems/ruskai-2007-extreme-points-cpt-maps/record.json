@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "ruskai-2007-extreme-points-cpt-maps",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Extreme CPT maps beyond qubit input",
+    "proposed": "2007",
+    "topicId": "quantum-channels",
+    "collectionId": "ruskai-2007",
+    "question": {
+      "type": "Classification and parameterization",
+      "summary": "Higher-dimensional low-rank classifications and a general fixed-rank quotient parameterization now exist, but no qubit-style canonical classification covers arbitrary dimensions.",
+      "importance": "Extreme channels are the irreducible building blocks of the convex set of quantum operations. A canonical parameterization would support channel optimization without redundant mixtures.",
+      "unresolved": "Give a useful complete classification or canonical parameterization of the closure of extreme CPT maps for arbitrary input dimension above two."
+    },
+    "keywords": [
+      "extreme channels",
+      "CPT maps",
+      "Stiefel manifold",
+      "Choi rank"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "ruskai-2007-extreme-points-cpt-maps-statement-v1",
+      "problemId": "ruskai-2007-extreme-points-cpt-maps",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ruskai-2007",
+          "relationship": "states-problem",
+          "locator": "p. 3 (Problem 1)",
+          "primary": true,
+          "statedTitle": "Characterize, classify or parameterize the closure of extreme CPT maps for d_1 > 2"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Give a useful complete classification or canonical parameterization of the closure of extreme CPT maps for arbitrary input dimension above two."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-extreme-points-cpt-maps-2018-fixed-rank-channels-receive",
+      "statementId": "ruskai-2007-extreme-points-cpt-maps-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "reformulates",
+      "title": "Fixed-rank channels receive a quotient-manifold parameterization",
+      "text": "Iten and Colbeck describe fixed-Kraus-rank channel sets as Stiefel quotients and identify smooth submanifolds of extreme channels."
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-extreme-points-cpt-maps-2014-important-low-dimensional-extreme",
+      "statementId": "ruskai-2007-extreme-points-cpt-maps-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "Important low-dimensional extreme maps are classified",
+      "text": "Friedland and Loewy settle qubit-to-qubit and qutrit-to-qubit cases and derive broader generic conditions."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-ruskai-2007-extreme-points-cpt-maps-2018-fixed-rank-channels-receive",
+      "claimId": "claim-ruskai-2007-extreme-points-cpt-maps-2018-fixed-rank-channels-receive",
+      "sourceId": "source-iten-2018-smooth-manifold-structure",
+      "sourceLocator": null,
+      "date": "2018",
+      "maturity": "Peer reviewed",
+      "strength": "General parameterization",
+      "label": "Quotient description"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-ruskai-2007-extreme-points-cpt-maps-2014-important-low-dimensional-extreme",
+      "claimId": "claim-ruskai-2007-extreme-points-cpt-maps-2014-important-low-dimensional-extreme",
+      "sourceId": "source-friedland-2016-on-the-extreme",
+      "sourceLocator": null,
+      "date": "2014",
+      "maturity": "Peer reviewed",
+      "strength": "Exact low-dimensional classes",
+      "label": "Low-dimensional theorem"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-ruskai-2007-extreme-points-cpt-maps-status-2026-08-12",
+      "problemId": "ruskai-2007-extreme-points-cpt-maps",
+      "statementId": "ruskai-2007-extreme-points-cpt-maps-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "partial",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-ruskai-2007-extreme-points-cpt-maps-2018-fixed-rank-channels-receive",
+        "evidence-ruskai-2007-extreme-points-cpt-maps-2014-important-low-dimensional-extreme"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

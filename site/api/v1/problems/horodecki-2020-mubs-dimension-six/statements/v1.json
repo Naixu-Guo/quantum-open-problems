@@ -1,0 +1,51 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "horodecki-2020-mubs-dimension-six-statement-v1",
+  "problemId": "horodecki-2020-mubs-dimension-six",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-horodecki-2020",
+      "relationship": "states-problem",
+      "locator": "p. 3-4 (Problem 2)",
+      "primary": true,
+      "statedTitle": "Construct a set of at least 4 mutually unbiased bases in dimension six or prove that there are no 7 MUBs in H_6",
+      "source": {
+        "id": "source-horodecki-2020",
+        "title": "Five open problems in theory of quantum information",
+        "authors": [
+          "Paweł Horodecki",
+          "Łukasz Rudnicki",
+          "Karol Życzkowski"
+        ],
+        "venue": "PRX Quantum 3, 010101 (2022); arXiv:2002.03233 [quant-ph]",
+        "url": "https://doi.org/10.1103/PRXQuantum.3.010101"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Construct at least four MUBs in dimension six, or prove that a complete set of seven cannot exist."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $N$ | Dimension of a complex Hilbert space |\n| $\\mathcal{H}_N$ | $N$-dimensional complex Hilbert space |\n| $\\mathcal{H}_6$ | $6$-dimensional complex Hilbert space |\n| $K$ | Number of mutually unbiased bases under consideration |\n| $\\lvert\\psi_i^m\\rangle$ | The $i$-th vector of the $m$-th basis, with $1\\leq m\\leq K$ and $1\\leq i\\leq N$ |\n| $\\langle\\psi_i^m\\vert\\psi_j^n\\rangle$ | Inner product between basis vectors |\n| $\\delta_{ij}$ | Kronecker delta |\n| $U_{ij}$ | Entry $(i,j)$ of a unitary that relates two unbiased bases; $\\lvert U_{ij}\\rvert^2=1/N$ |\n| $p, k$ | Prime and positive integer (used in writing $N=p^k$) |\n| $p_1^{k_1}\\cdots p_m^{k_m}$ | Prime factorization of a composite dimension |",
+    "statement": "**Problem 2:** *Construct a set of at least 4 mutually unbiased bases in dimension six or prove that there are no 7 MUBs in $\\mathcal{H}_6$.*\n\nSetup: Consider a set of $K$ orthonormal bases $\\{\\lvert\\psi_i^m\\rangle\\}$ ($1\\leq m\\leq K$, $1\\leq i\\leq N$) of $\\mathcal{H}_N$, so that all vectors in each basis are orthogonal: $\\langle\\psi_i^m|\\psi_j^m\\rangle=\\delta_{ij}$. The bases are called pairwise mutually unbiased if for every two of them\n$$\\forall_{i,j}\\quad |\\langle\\psi_i^m|\\psi_j^n\\rangle|^2 = \\frac{1}{N},\\qquad m\\neq n.$$\nFor $N=6$ it is known that at most seven such bases can exist. The task is either to exhibit a quadruple (or larger collection) of mutually unbiased bases in $\\mathcal{H}_6$, or to prove that no complete set of seven MUBs in $\\mathcal{H}_6$ exists."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "a7c9f4f16b9a8be2f0b8204f4facca05419740decb5e078f337ebaa654b6a4e0",
+    "bodyDigest": "05a0eb5b7480ca93ecaf6a38de349c68369baef2e08876b78d08526d7ae92404"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/horodecki-2020-mubs-dimension-six.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/horodecki-2020-mubs-dimension-six/frontier.json"
+  }
+}

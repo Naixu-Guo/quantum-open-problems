@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-mutually-unbiased-bases",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Mutually unbiased bases in general dimensions",
+    "proposed": "2003-01-31",
+    "topicId": "quantum-designs",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Existence and classification",
+      "summary": "Complete sets exist in prime-power dimensions, but the maximum number is unknown in general composite dimensions. Dimension six is the first unresolved case.",
+      "importance": "MUBs supply complementary measurements for tomography and uncertainty relations. Their existence pattern also tests how far finite-field constructions extend into composite dimensions.",
+      "unresolved": "Determine the maximum number of MUBs in non-prime-power dimensions, beginning with dimension six."
+    },
+    "keywords": [
+      "MUB",
+      "prime powers",
+      "composite dimensions",
+      "complex Hadamard matrices"
+    ],
+    "relatedProblemIds": [
+      "horodecki-2020-mubs-dimension-six"
+    ]
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-mutually-unbiased-bases-statement-v1",
+      "problemId": "krueger-2005-mutually-unbiased-bases",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "pp. 43-45 (Problem 13)",
+          "primary": true,
+          "statedTitle": "Mutually unbiased bases"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Determine the maximum number of MUBs in non-prime-power dimensions, beginning with dimension six."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-mutually-unbiased-bases-2026-current-review-confirms-the",
+      "statementId": "krueger-2005-mutually-unbiased-bases-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "status-review",
+      "title": "Current review confirms the composite-dimension gap",
+      "text": "The peer-reviewed review records no general formula and keeps dimension six open."
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-mutually-unbiased-bases-2026-a-dimension-six-impossibility",
+      "statementId": "krueger-2005-mutually-unbiased-bases-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "status-review",
+      "title": "A dimension-six impossibility claim is not accepted",
+      "text": "The claimed MUB-to-Latin-square reduction loses essential phase and projector structure and does not establish the advertised result."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-mutually-unbiased-bases-2026-current-review-confirms-the",
+      "claimId": "claim-krueger-2005-mutually-unbiased-bases-2026-current-review-confirms-the",
+      "sourceId": "source-doi-10-22331-q-2026-04-01",
+      "sourceLocator": null,
+      "date": "2026-04-01",
+      "maturity": "Peer reviewed",
+      "strength": "Status review",
+      "label": "Quantum 2026"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-mutually-unbiased-bases-2026-a-dimension-six-impossibility",
+      "claimId": "claim-krueger-2005-mutually-unbiased-bases-2026-a-dimension-six-impossibility",
+      "sourceId": "source-joka-2026-mutually-unbiased-bases",
+      "sourceLocator": null,
+      "date": "2026-01-22",
+      "maturity": "Preprint",
+      "strength": "Unaccepted claim",
+      "label": "Claim preprint"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-mutually-unbiased-bases-status-2026-08-12",
+      "problemId": "krueger-2005-mutually-unbiased-bases",
+      "statementId": "krueger-2005-mutually-unbiased-bases-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-mutually-unbiased-bases-2026-current-review-confirms-the",
+        "evidence-krueger-2005-mutually-unbiased-bases-2026-a-dimension-six-impossibility"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [
+      {
+        "label": "Recent claim",
+        "text": "The 2025-2026 dimension-six claim does not supply an accepted solution to the general MUB problem.",
+        "url": "https://arxiv.org/abs/2511.03537"
+      }
+    ],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

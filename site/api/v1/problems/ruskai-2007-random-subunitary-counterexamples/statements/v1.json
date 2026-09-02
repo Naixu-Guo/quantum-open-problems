@@ -1,0 +1,49 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "ruskai-2007-random-subunitary-counterexamples-statement-v1",
+  "problemId": "ruskai-2007-random-subunitary-counterexamples",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-ruskai-2007",
+      "relationship": "states-problem",
+      "locator": "p. 10 (Problem 9)",
+      "primary": true,
+      "statedTitle": "Search for new multiplicativity counterexamples among random sub-unitary channels",
+      "source": {
+        "id": "source-ruskai-2007",
+        "title": "Open problems in quantum information theory",
+        "authors": [
+          "Mary Beth Ruskai"
+        ],
+        "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+        "url": "https://doi.org/10.48550/arXiv.0708.1902"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Construct a multiplicativity counterexample in the corrected random sub-unitary class, or prove a positive theorem excluding one in a stated p-range."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | Algebra of complex $d\\times d$ matrices |\n| $\\rho$, $\\gamma$ | Density matrices on a finite-dimensional Hilbert space |\n| $\\Phi$, $\\Omega$ | Completely positive trace-preserving (CPT) linear maps |\n| $\\{A_k\\}$ | Kraus operators of a channel, $\\Phi(\\rho)=\\sum_k A_k\\rho A_k^{\\dagger}$, $\\sum_k A_k^{\\dagger}A_k=I$ |\n| $X$ | Cyclic shift operator on $\\mathbb{C}^d$, $X\\lvert e_j\\rangle=\\lvert e_{j+1}\\rangle$ |\n| $U_k$ | A $(d-1)\\times(d-1)$ unitary in the $k$-th Kraus operator |\n| $\\|M\\|_p$ | Schatten $p$-norm, $\\|M\\|_p=(\\operatorname{Tr}\\lvert M\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | Maximal output $p$-norm, $\\nu_p(\\Phi)=\\inf_\\gamma\\|\\Phi(\\gamma)\\|_p$ in source notation (which uses $\\inf$ throughout; the maximum is attained on pure inputs) |\n| WH channel | Werner–Holevo channel |\n| $\\mathcal E(d,d)$, $\\overline{\\mathcal E}(d,d)$ | Set of extreme CPT maps with $d$ Kraus operators on $M_d$, and its closure |",
+    "statement": "Interpreting equation (22) as the intended normalized cyclic random-sub-unitary construction, let $\\Phi:M_d\\to M_d$ belong to that CPT family. The source prints\n$$A_k=\\tfrac{1}{d-1}X^k\\begin{pmatrix}U_k & 0\\\\ 0 & 0\\end{pmatrix},\\qquad k=0,1,\\dots,d-1,$$\nwith $X$ the cyclic shift on $\\mathbb{C}^d$ and each $U_k$ a $(d-1)\\times(d-1)$ unitary, but this formula is not CPT as written.\n\n**Problem 9.** Search for new counterexamples to the multiplicativity conjecture\n$$\\nu_p(\\Phi\\otimes\\Omega)=\\nu_p(\\Phi)\\,\\nu_p(\\Omega) \\tag{24}$$\nwith $\\Phi$ a channel having Kraus operators of the form (22). In particular, exhibit (or rule out) channels $\\Phi$ of this family and entangled inputs for which $\\nu_p(\\Phi\\otimes\\Phi)>\\nu_p(\\Phi)^2$."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "4245d41e5a1e616b64424dff8a6713fe979274babb36bfb1e479d0817d04d851",
+    "bodyDigest": "13f6a91805a88d8f01c70291ac7db7b02d12b3d615c16b495bd1fe89c77f10e8"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-random-subunitary-counterexamples.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-random-subunitary-counterexamples/frontier.json"
+  }
+}

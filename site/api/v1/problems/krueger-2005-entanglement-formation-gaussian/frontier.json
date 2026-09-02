@@ -1,0 +1,178 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-entanglement-formation-gaussian",
+  "title": "Entanglement of formation for Gaussian states",
+  "catalogState": "published",
+  "status": "partial",
+  "statusLabel": "Partially solved",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-krueger-2005-entanglement-formation-gaussian-status-2026-08-12",
+    "status": "partial",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-krueger-2005-entanglement-formation-gaussian-2026-all-two-mode-gaussian"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "krueger-2005-entanglement-formation-gaussian-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "39add630f17c11577506f2ba6fb44834acdf68480c1077f8c538be7d1744536f",
+    "sourceRefs": [
+      {
+        "sourceId": "source-krueger-werner-2005",
+        "relationship": "states-problem",
+        "locator": "p. 72-73 (Problem 29)",
+        "primary": true,
+        "source": {
+          "id": "source-krueger-werner-2005",
+          "title": "Some open problems in quantum information theory",
+          "authors": [
+            "O. Krüger",
+            "R. F. Werner"
+          ],
+          "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+          "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+          "doi": "10.48550/arXiv.quant-ph/0504166",
+          "arxivId": "quant-ph/0504166"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $\\mathcal{H}_A,\\mathcal{H}_B$ | Hilbert spaces of bipartite modes (Alice/Bob), here infinite-dimensional bosonic |\n| $\\rho_{AB}$ | A bipartite quantum state (density operator on $\\mathcal{H}_A\\otimes\\mathcal{H}_B$) |\n| Gaussian state | A bosonic state whose Wigner function is a Gaussian; equivalently a state characterised entirely by its first and second canonical moments |\n| Squeezed Gaussian state | A pure Gaussian state obtained from the vacuum by a Gaussian unitary (displacements and symplectic transformations); in single-mode language, a squeezed vacuum |\n| $\\vert\\psi_i\\rangle$ | Pure states in a convex decomposition of $\\rho_{AB}$ |\n| $p_i$ | Probabilities in the convex decomposition, with $\\sum_i p_i = 1$ |\n| $S(\\sigma)$ | Von Neumann entropy of a quantum state $\\sigma$, $S(\\sigma)=-\\mathrm{tr}(\\sigma\\log\\sigma)$ |\n| $S(\\mathrm{tr}_B\\vert\\psi\\rangle\\langle\\psi\\vert)$ | Entropy of entanglement of a pure bipartite state $\\vert\\psi\\rangle$ |\n| $E_F(\\rho_{AB})$ | Entanglement of formation of $\\rho_{AB}$, defined as the convex-roof extension of the entropy of entanglement |\n| $E_F^G(\\rho_{AB})$ | Gaussian entanglement of formation: same convex-roof construction but restricted to decompositions into pure *Gaussian* states |\n| Two-mode Gaussian state | A Gaussian state on $\\mathcal{H}_A\\otimes\\mathcal{H}_B$ with one mode on each side |\n| Mode-symmetric | A two-mode Gaussian state invariant under swap of the two modes (equivalently, with identical local marginals) |",
+      "statement": "Let $\\rho_{AB}$ be an arbitrary (mixed) bipartite Gaussian state on $\\mathcal{H}_A\\otimes\\mathcal{H}_B$.\n\n**Question.** Is the infimum defining $E_F(\\rho_{AB})$ always attained by a decomposition of $\\rho_{AB}$ into pure states which are all translates (by Gaussian-weighted displacements) of a *single* pure squeezed Gaussian state? Equivalently, does\n$$E_F(\\rho_{AB}) \\;=\\; E_F^G(\\rho_{AB})$$\nhold for *every* bipartite Gaussian state $\\rho_{AB}$?\n\nShow or disprove this statement."
+    }
+  },
+  "question": {
+    "type": "Equality of resource measures",
+    "summary": "Gaussian and unrestricted entanglement of formation now coincide for every two-mode Gaussian state and for bisymmetric multimode states. Generic nonsymmetric multimode states remain open.",
+    "importance": "Gaussian decompositions are computable from covariance data, while the unrestricted convex roof is hard. Equality would give the exact entanglement cost for a broad class of continuous-variable states.",
+    "unresolved": "Prove or refute equality with Gaussian entanglement of formation for arbitrary nonsymmetric multimode Gaussian states."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Prove or refute equality with Gaussian entanglement of formation for arbitrary nonsymmetric multimode Gaussian states.",
+      "state": "narrowed",
+      "claimIds": [
+        "claim-krueger-2005-entanglement-formation-gaussian-2026-all-two-mode-gaussian"
+      ],
+      "latestEvidenceDate": "2026-08-03"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Prove or refute equality with Gaussian entanglement of formation for arbitrary nonsymmetric multimode Gaussian states."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-krueger-2005-entanglement-formation-gaussian-2026-all-two-mode-gaussian",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "All two-mode Gaussian states are settled",
+      "text": "Adesso proves equality for every two-mode Gaussian state and for bisymmetric multimode states, but not for generic nonsymmetric multimode states.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2026-08-03",
+      "evidence": [
+        {
+          "id": "evidence-krueger-2005-entanglement-formation-gaussian-2026-all-two-mode-gaussian",
+          "date": "2026-08-03",
+          "maturity": "Preprint",
+          "strength": "Exact major subclass",
+          "label": "Two-mode theorem",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-adesso-2026-optimality-of-gaussian",
+            "title": "Optimality of Gaussian Entanglement of Formation",
+            "authors": [
+              "G. Adesso"
+            ],
+            "venue": "arXiv:2608.01909 (2026), v1 dated 3 August 2026.",
+            "url": "https://arxiv.org/abs/2608.01909",
+            "arxivId": "2608.01909"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [
+    {
+      "label": "Very recent",
+      "text": "This was a first-version preprint nine days old at the audit cutoff. Its theorem is a major partial result, not a solution for all multimode states.",
+      "url": "https://arxiv.org/abs/2608.01909"
+    }
+  ],
+  "interpretation": null,
+  "provenance": null,
+  "notices": [
+    {
+      "tone": "",
+      "label": "Major partial result",
+      "title": "All two-mode Gaussian states are settled",
+      "text": "A 3 August preprint proves equality with Gaussian entanglement of formation for all two-mode states and bisymmetric multimode states. Generic nonsymmetric multimode states remain.",
+      "sourceLabel": "arXiv:2608.01909",
+      "featured": false
+    }
+  ],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "krueger-2005-entanglement-formation-gaussian-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-krueger-2005-entanglement-formation-gaussian-status-2026-08-12",
+        "status": "partial",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "0a3da2397d10ebc6800dc9b5cc605d8ad3d27584c9df79bcb49f6849c1705801",
+    "statementDigest": "39add630f17c11577506f2ba6fb44834acdf68480c1077f8c538be7d1744536f",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-entanglement-formation-gaussian/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-entanglement-formation-gaussian.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-entanglement-formation-gaussian/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-entanglement-formation-gaussian/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-entanglement-formation-gaussian/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-entanglement-formation-gaussian.md"
+  }
+}

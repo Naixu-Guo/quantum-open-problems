@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-continuity-quantum-channel-capacity",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "archived",
+    "title": "Continuity of the quantum channel capacity",
+    "proposed": "2003-06-20",
+    "topicId": "quantum-channels",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Continuity of capacity",
+      "summary": "The source asked whether the unassisted quantum (coherent) capacity is a continuous function of the channel in cb-norm. Leung and Smith proved uniform continuity for channels with fixed finite output dimension, including at zero-capacity channels.",
+      "importance": "Continuity means that a noise model known only up to a small cb-norm uncertainty still determines the available transmission rate up to a vanishing error, which matters for capacity analysis and fault-tolerant design; only lower semi-continuity was known, and the regularisation over unboundedly many channel uses made upper semi-continuity delicate.",
+      "unresolved": ""
+    },
+    "keywords": [
+      "quantum capacity",
+      "cb-norm",
+      "uniform continuity",
+      "coherent information",
+      "superactivation"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-continuity-quantum-channel-capacity-statement-v1",
+      "problemId": "krueger-2005-continuity-quantum-channel-capacity",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "p. 41 (Problem 11)",
+          "primary": true
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "quantum-capacity-continuity",
+          "label": "Continuity of the quantum capacity",
+          "text": "The archived statement asks whether the unassisted quantum (coherent) capacity Q is a continuous function on the convex set of channels between fixed finite-dimensional input and output spaces, equipped with the cb-norm distance.",
+          "resolutionCriteria": "A proof of continuity, or a pair or sequence of channels along which Q jumps discontinuously."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-continuity-quantum-channel-capacity-leung-and-smith-prove",
+      "statementId": "krueger-2005-continuity-quantum-channel-capacity-statement-v1",
+      "targetClauseIds": [
+        "quantum-capacity-continuity"
+      ],
+      "relation": "resolves",
+      "title": "Leung and Smith prove uniform continuity of quantum capacity",
+      "text": "Leung and Smith prove uniform continuity of the ordinary unassisted quantum capacity for channels with fixed finite output dimension, bounding the change in Q for two channels at diamond distance at most epsilon by an explicit function of epsilon and the output dimension that tends to zero with epsilon. Their entropy-telescoping proof applies on the entire channel set, including channels of zero capacity, so the archived question is answered affirmatively."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-continuity-quantum-channel-capacity-communications-in-mathematical",
+      "claimId": "claim-krueger-2005-continuity-quantum-channel-capacity-leung-and-smith-prove",
+      "sourceId": "source-leung-2009-continuity-capacities",
+      "sourceLocator": "Continuity theorem for the unassisted quantum capacity",
+      "date": "2009",
+      "maturity": "Peer reviewed",
+      "strength": "Exact theorem",
+      "label": "Communications in Mathematical Physics"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-continuity-quantum-channel-capacity-status-2026-08-12",
+      "problemId": "krueger-2005-continuity-quantum-channel-capacity",
+      "statementId": "krueger-2005-continuity-quantum-channel-capacity-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "solved",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-continuity-quantum-channel-capacity-communications-in-mathematical"
+      ],
+      "rationale": "The cited peer-reviewed theorem establishes uniform continuity of the unassisted quantum capacity on the whole channel set, which is exactly what the archived statement asks."
+    }
+  ],
+  "editorial": {
+    "cautions": [
+      {
+        "label": "Scope",
+        "text": "The interior-of-positive-capacity qualification in the same paper concerns quantum capacities assisted by free backward or two-way public classical communication; it does not qualify the theorem for the unassisted capacity Q asked about here.",
+        "url": null
+      }
+    ],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

@@ -1,0 +1,207 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "theoremdb-p42-quantum-pcp-conjecture",
+  "title": "Quantum PCP conjecture",
+  "catalogState": "published",
+  "status": "open",
+  "statusLabel": "Open",
+  "verified": "2026-08-31",
+  "decision": {
+    "id": "decision-theoremdb-p42-quantum-pcp-conjecture-status-2026-08-31",
+    "status": "open",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-31",
+    "verified": "2026-08-31",
+    "rationale": "Status assessed against the archived statement in the 2026-08-31 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-theoremdb-p42-quantum-pcp-conjecture-2025-quantum-pcp-reductions-leave",
+      "evidence-theoremdb-p42-quantum-pcp-conjecture-2023-nlts-hamiltonians-exist"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "theoremdb-p42-quantum-pcp-conjecture-statement-v1",
+    "version": 1,
+    "created": "2026-08-31",
+    "supersedesStatementId": null,
+    "statementDigest": "306b56d9bde766f3b5acfdc4d375bd039cb5dec34f4b5d8012827d1bc75e28e7",
+    "sourceRefs": [
+      {
+        "sourceId": "source-aharonov-2013",
+        "relationship": "states-problem",
+        "locator": "Sec. 1.2, Conjecture 1.3 (constant-gap Local Hamiltonian formulation)",
+        "primary": true,
+        "source": {
+          "id": "source-aharonov-2013",
+          "title": "The Quantum PCP Conjecture",
+          "authors": [
+            "Dorit Aharonov",
+            "Itai Arad",
+            "Thomas Vidick"
+          ],
+          "venue": "ACM SIGACT News 44(2), 47-79 (2013)",
+          "url": "https://arxiv.org/abs/1309.7495",
+          "arxivId": "1309.7495"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "",
+      "statement": "Let\n$$\nH=\\sum_{i=1}^{m} H_i,\n$$\nwhere each $H_i$ acts on at most a fixed number $k$ of finite-dimensional subsystems and satisfies $0\\leq H_i\\leq I$. Fix constants $a<b$ with $b-a>0$. Given the promise that either\n$$\n\\lambda_{\\min}(H)\\leq am\n\\qquad\\text{or}\\qquad\n\\lambda_{\\min}(H)\\geq bm,\n$$\ndecide which case holds.\n\nProve that some fixed choice of $k,a,b$ makes this promise problem QMA-hard, or refute the conjecture through an algorithm or complexity containment that rules out such hardness under stated assumptions."
+    }
+  },
+  "question": {
+    "type": "Complexity conjecture",
+    "summary": "Inverse-polynomial-gap Local Hamiltonian is QMA-complete. It is unknown whether QMA-hardness persists when the energy gap is a fixed fraction of the number of terms.",
+    "importance": "Constant-gap hardness would connect quantum proof verification to ground-energy approximation at finite energy density. It also sets the complexity barrier for approximating local many-body Hamiltonians.",
+    "unresolved": "Prove QMA-hardness of constant-gap bounded-locality Local Hamiltonian for fixed constants, or refute it through an algorithm or incompatible complexity containment."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Prove QMA-hardness of constant-gap bounded-locality Local Hamiltonian for fixed constants, or refute it through an algorithm or incompatible complexity containment.",
+      "state": "narrowed",
+      "claimIds": [
+        "claim-theoremdb-p42-quantum-pcp-conjecture-2025-quantum-pcp-reductions-leave",
+        "claim-theoremdb-p42-quantum-pcp-conjecture-2023-nlts-hamiltonians-exist"
+      ],
+      "latestEvidenceDate": "2025-07-11"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Prove QMA-hardness of constant-gap bounded-locality Local Hamiltonian for fixed constants, or refute it through an algorithm or incompatible complexity containment."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-theoremdb-p42-quantum-pcp-conjecture-2025-quantum-pcp-reductions-leave",
+      "relation": "supports",
+      "relationLabel": "Supports",
+      "title": "Quantum-PCP reductions leave constant-gap hardness open",
+      "text": "Buhrman, Helsen and Weggemans prove reductions among quantum-PCP formulations and oracle barriers. Their results do not establish QMA-hardness for constant-gap Local Hamiltonian.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2025-07-11",
+      "evidence": [
+        {
+          "id": "evidence-theoremdb-p42-quantum-pcp-conjecture-2025-quantum-pcp-reductions-leave",
+          "date": "2025-07-11",
+          "maturity": "Peer reviewed",
+          "strength": "Structural restrictions",
+          "label": "Quantum",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-doi-10-22331-q-2025-07-11",
+            "title": "Quantum-PCP reductions leave constant-gap hardness open",
+            "authors": [],
+            "venue": "Quantum",
+            "url": "https://doi.org/10.22331/q-2025-07-11-1791",
+            "doi": "10.22331/q-2025-07-11-1791",
+            "bibliographyState": "url-only"
+          }
+        }
+      ]
+    },
+    {
+      "id": "claim-theoremdb-p42-quantum-pcp-conjecture-2023-nlts-hamiltonians-exist",
+      "relation": "supports",
+      "relationLabel": "Supports",
+      "title": "NLTS Hamiltonians exist",
+      "text": "Anshu, Breuckmann and Nirkhe construct NLTS Hamiltonians from good quantum LDPC codes. NLTS supplies a required entanglement phenomenon but not the constant-gap QMA-hardness reduction.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2023",
+      "evidence": [
+        {
+          "id": "evidence-theoremdb-p42-quantum-pcp-conjecture-2023-nlts-hamiltonians-exist",
+          "date": "2023",
+          "maturity": "Peer reviewed",
+          "strength": "Necessary structural milestone",
+          "label": "STOC 2023",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-doi-10-1145-3564246-3585114",
+            "title": "NLTS Hamiltonians exist",
+            "authors": [],
+            "venue": "STOC 2023",
+            "url": "https://doi.org/10.1145/3564246.3585114",
+            "doi": "10.1145/3564246.3585114",
+            "bibliographyState": "url-only"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [
+    {
+      "label": "NLTS is not quantum PCP",
+      "text": "The proof of NLTS does not prove the complexity-theoretic hardness statement.",
+      "url": null
+    }
+  ],
+  "interpretation": "This entry uses the Local Hamiltonian formulation. Statements about multi-prover games require separate hypotheses after MIP* = RE.",
+  "provenance": {
+    "kind": "source-stated",
+    "label": "Source-stated question",
+    "note": "TheoremDB P42 records the standard constant-gap Local Hamiltonian conjecture and links it to the primary quantum-PCP literature."
+  },
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "theoremdb-p42-quantum-pcp-conjecture-statement-v1",
+        "version": 1,
+        "created": "2026-08-31",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-theoremdb-p42-quantum-pcp-conjecture-status-2026-08-31",
+        "status": "open",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-31",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "46dfa9b527bdbdf32a11440b003332ab69b397eff586e25fac96beb87d505cd7",
+    "statementDigest": "306b56d9bde766f3b5acfdc4d375bd039cb5dec34f4b5d8012827d1bc75e28e7",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/theoremdb-p42-quantum-pcp-conjecture/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/theoremdb-p42-quantum-pcp-conjecture.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/theoremdb-p42-quantum-pcp-conjecture/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/theoremdb-p42-quantum-pcp-conjecture/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/theoremdb-p42-quantum-pcp-conjecture/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/theoremdb-p42-quantum-pcp-conjecture.md"
+  }
+}

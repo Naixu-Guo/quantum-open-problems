@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/schema/canonical/v0.2/source.schema.json",
+  "title": "Canonical research source",
+  "description": "Reusable bibliographic facts. Contextual locators and relationships live on the references that cite a source, not here.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "id",
+    "title",
+    "authors",
+    "venue",
+    "url"
+  ],
+  "properties": {
+    "kind": {
+      "const": "Source"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^source-[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authors": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "venue": {
+      "type": "string"
+    },
+    "url": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "doi": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "arxivId": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "citation": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Verbatim reference text carried over from an editorial bibliography."
+    },
+    "bibliographyState": {
+      "enum": [
+        "complete",
+        "url-only"
+      ],
+      "description": "url-only marks a source whose bibliographic fields have not yet been completed by an editor; the URL is authoritative."
+    }
+  }
+}

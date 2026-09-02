@@ -183,6 +183,7 @@
           <span class="meta-badge">Quantum invariants and representability</span>
           <span class="meta-badge">Proposed 2007</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Local invariants and N-representability</h1>
         <p class="dialog-summary">Graph-indexed complete invariant families and a free stable invariant algebra are known. A finite-dimensional minimal set for arbitrary mixed two-particle states and the full N-representability constraints remain unknown.</p>
@@ -190,11 +191,14 @@
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#remaining">What remains</a>
-          <a href="#progress-heading">Progress</a>
+          <a href="#target-heading">What remains</a>
+          <a href="#progress-heading">Verified progress</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
           <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <div class="problem-framing">
           <section class="framing-row" aria-labelledby="importance-heading">
             <h2 id="importance-heading">Why it matters</h2>
@@ -221,7 +225,7 @@
               <span class="dialog-section-label">Verified formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">Matched to the source and locator above</span>
+            <span class="formal-source">Matched to the source and locator above · digest 6216d9a5a0c6</span>
           </div>
 
           <details class="formal-notation">
@@ -237,46 +241,105 @@
           <div class="formal-body"><p><strong>Problem 24 (Ruskai 2007).</strong> Find a <em>minimal complete set of local invariants</em> for an antisymmetric (or symmetric) 2-particle density matrix \(\rho_{12}\). That is, exhibit a finite set of polynomial (or otherwise tractable) functionals</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[I_1(\rho_{12}),\, I_2(\rho_{12}),\, \dots,\, I_K(\rho_{12})\]</div><p>each invariant under the action \(\rho_{12}\mapsto (U\otimes U)\,\rho_{12}\,(U\otimes U)^\dagger\) for every unitary \(U\) on the single-particle space, with the properties:</p><ol><li>(Completeness) \(I_j(\rho_{12})=I_j(\sigma_{12})\) for all \(j\) if and only if \(\sigma_{12}=(U\otimes U)\,\rho_{12}\,(U\otimes U)^\dagger\) for some unitary \(U\).</li><li>(Minimality) \(K\) is the smallest cardinality with property (1).</li></ol><p>The desired set should be such that the \(N\)-representability constraints for the antisymmetric (resp. symmetric) 2-matrix can be expressed in terms of these invariants.</p></div>
         </section>
 
-        <div class="remaining-question partial" id="remaining">
-          <span>What remains</span>
-          <p>Find a finite-dimensional minimal complete invariant set for mixed symmetric or antisymmetric two-particle states and express N-representability in those invariants.</p>
-        </div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Exact unresolved target</h2>
+
+          <div class="remaining-question partial" id="remaining">
+            <span>What remains</span>
+            <p>Find a finite-dimensional minimal complete invariant set for mixed symmetric or antisymmetric two-particle states and express N-representability in those invariants.</p>
+          </div>
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-narrowed" id="clause-archived-statement">
+              <div class="clause-head">
+                <span class="clause-state narrowed">Narrowed</span>
+                <strong>Archived statement</strong>
+                <code>archived-statement</code>
+              </div>
+              <p>The formal statement of this version, as archived from the source.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> Find a finite-dimensional minimal complete invariant set for mixed symmetric or antisymmetric two-particle states and express N-representability in those invariants.</p>
+              <p class="clause-claims">2 accepted claims: <a href="#claim-ruskai-2007-local-invariants-n-representability-2011-the-stable-invariant-algebra">claim-ruskai-2007-local-invariants-n-representability-2011-the-stable-invariant-algebra</a>, <a href="#claim-ruskai-2007-local-invariants-n-representability-2007-general-two-body-n">claim-ruskai-2007-local-invariants-n-representability-2007-general-two-body-n</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Partially solved as of 12 Aug 2026: Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered. <code>decision-ruskai-2007-local-invariants-n-representability-status-2026-08-12</code></p>
+        </section>
 
 
 
         <section class="dialog-section" aria-labelledby="progress-heading">
-          <span class="dialog-section-label">Evidence ledger</span>
-          <h2 id="progress-heading">Recent progress</h2>
-          <ol class="timeline">
+          <span class="dialog-section-label">Verified progress</span>
+          <h2 id="progress-heading">Accepted claims</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
 
-            <li id="qop-evt-5ae41d6e49a450bb">
-              <time datetime="2011">2011</time>
-              <div>
-                <h3>The stable invariant algebra has graph-indexed generators</h3>
-                <p>Vrana constructs systematic complete families and a free stable algebra, without solving the finite-dimensional minimal mixed-state problem.</p>
-                <div class="dialog-source-meta">
+          <article class="claim-card" id="claim-ruskai-2007-local-invariants-n-representability-2011-the-stable-invariant-algebra">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Narrows</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>The stable invariant algebra has graph-indexed generators</h3>
+            <p>Vrana constructs systematic complete families and a free stable algebra, without solving the finite-dimensional minimal mixed-state problem.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-5ae41d6e49a450bb">
+                <time datetime="2011">2011</time>
+                <div>
                   <span class="maturity-badge">Mixed</span>
                   <span class="maturity-badge">Stable-regime characterization</span>
                   <a href="https://arxiv.org/abs/1107.2438" rel="noreferrer">Stable invariant algebra ↗</a>
+
                 </div>
-              </div>
-            </li>
-            <li id="qop-evt-5555a404e4c70139">
-              <time datetime="2007">2007</time>
-              <div>
-                <h3>General two-body N-representability is QMA-complete</h3>
-                <p>The complexity theorem gives a strong obstruction to any efficient general criterion, but does not identify the requested minimal invariants.</p>
-                <div class="dialog-source-meta">
+              </li>
+            </ol>
+
+          </article>
+          <article class="claim-card" id="claim-ruskai-2007-local-invariants-n-representability-2007-general-two-body-n">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Narrows</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>General two-body N-representability is QMA-complete</h3>
+            <p>The complexity theorem gives a strong obstruction to any efficient general criterion, but does not identify the requested minimal invariants.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-5555a404e4c70139">
+                <time datetime="2007">2007</time>
+                <div>
                   <span class="maturity-badge">Peer reviewed</span>
                   <span class="maturity-badge">Complexity classification</span>
                   <a href="https://arxiv.org/abs/quant-ph/0609125" rel="noreferrer">QMA-completeness ↗</a>
+
                 </div>
-              </div>
-            </li>
-          </ol>
+              </li>
+            </ol>
+
+          </article>
+
         </section>
 
 
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="ruskai-2007-local-invariants-n-representability">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Local+invariants+and+N-representability" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="ruskai-2007-local-invariants-n-representability">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
+        </section>
 
 
 
@@ -288,8 +351,10 @@
           <ul class="machine-links">
             <li><a href="../../packets/ruskai-2007-local-invariants-n-representability.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
             <li><a href="../../api/v1/problems/ruskai-2007-local-invariants-n-representability.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Local+invariants+and+N-representability" rel="noreferrer">Submit a research update ↗</a> — the evidence contract applies to human and AI results.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/ruskai-2007-local-invariants-n-representability/problem.md" rel="noreferrer">Source article ↗</a> — the canonical statement and notes in the repository.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-local-invariants-n-representability/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-local-invariants-n-representability/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Local+invariants+and+N-representability" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/ruskai-2007-local-invariants-n-representability/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -308,7 +373,8 @@
           <p>Record <code>ruskai-2007-local-invariants-n-representability</code></p>
           <p>Record revision <code>a76b701a4b5cbe62b23f7b16e91498fcac68d566b78fbada579b178d145164d5</code></p>
           <p>Statement digest <code>6216d9a5a0c63e0a378bda6ff4533f7de05da02a40f5ae590b188e41eccabf61</code></p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Statement <code>ruskai-2007-local-invariants-n-representability-statement-v1</code> · Decision <code>decision-ruskai-2007-local-invariants-n-representability-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -339,5 +405,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="ruskai-2007-local-invariants-n-representability" defer></script>
   </body>
 </html>

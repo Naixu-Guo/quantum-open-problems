@@ -1,0 +1,71 @@
+{
+  "kind": "qop-claims",
+  "schemaVersion": 1,
+  "problemId": "ruskai-2007-multiplicativity-violation-both-sides",
+  "status": "solved",
+  "statementId": "ruskai-2007-multiplicativity-violation-both-sides-statement-v1",
+  "count": 1,
+  "note": "Every claim here has been accepted through editorial review. Unreviewed submissions are candidate updates in the operational service, never claims.",
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-multiplicativity-violation-both-sides-hastings-gap-plus-continuity",
+      "statementId": "ruskai-2007-multiplicativity-violation-both-sides-statement-v1",
+      "targetClauseIds": [
+        "two-sided-multiplicativity-violation"
+      ],
+      "relation": "resolves",
+      "title": "Hastings gap plus continuity in p gives a two-sided violation",
+      "text": "Hastings produced a fixed finite-dimensional channel pair with a strict additivity gap at p = 1, and for fixed finite-dimensional channels the minimum output Renyi entropy is continuous in p at 1 because the state Renyi entropy is jointly continuous in state and order and the input-state set is compact. The strict gap therefore persists on an interval around one, and choosing one order on each side of one gives the single pair requested; Leung, Lovitz and Wu independently make this implication explicit and prove nonadditivity for every p > 3/4.",
+      "superseded": false,
+      "evidence": [
+        {
+          "kind": "Evidence",
+          "id": "evidence-ruskai-2007-multiplicativity-violation-both-sides-nature-physics",
+          "claimId": "claim-ruskai-2007-multiplicativity-violation-both-sides-hastings-gap-plus-continuity",
+          "sourceId": "source-hastings-2009-superadditivity",
+          "sourceLocator": "Main result: fixed finite-dimensional channel pair with a strict additivity gap at p = 1",
+          "date": "2009",
+          "maturity": "Peer reviewed",
+          "strength": "Exact counterexample",
+          "label": "Nature Physics",
+          "source": {
+            "id": "source-hastings-2009-superadditivity",
+            "title": "Superadditivity of communication capacity using entangled inputs",
+            "authors": [
+              "M. B. Hastings"
+            ],
+            "venue": "Nature Physics 5, 255-257 (2009); arXiv:0809.3972",
+            "url": "https://arxiv.org/abs/0809.3972"
+          }
+        },
+        {
+          "kind": "Evidence",
+          "id": "evidence-ruskai-2007-multiplicativity-violation-both-sides-arxiv-2607-15210",
+          "claimId": "claim-ruskai-2007-multiplicativity-violation-both-sides-hastings-gap-plus-continuity",
+          "sourceId": "source-leung-2026-p-renyi-counterexamples",
+          "sourceLocator": "Explicit continuity implication and nonadditivity for every p > 3/4",
+          "date": "2026",
+          "maturity": "Preprint",
+          "strength": "Exact theorem",
+          "label": "arXiv:2607.15210",
+          "source": {
+            "id": "source-leung-2026-p-renyi-counterexamples",
+            "title": "Counterexamples to additivity of minimum output p-Renyi entropy of quantum channels for p>3/4 and 0<=p<1/4",
+            "authors": [
+              "D. Leung",
+              "B. Lovitz",
+              "P. Wu"
+            ],
+            "venue": "arXiv:2607.15210 (2026)",
+            "url": "https://arxiv.org/abs/2607.15210"
+          }
+        }
+      ]
+    }
+  ],
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-multiplicativity-violation-both-sides.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-multiplicativity-violation-both-sides/frontier.json"
+  }
+}

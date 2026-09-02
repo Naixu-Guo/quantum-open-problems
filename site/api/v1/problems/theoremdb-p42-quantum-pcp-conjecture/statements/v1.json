@@ -1,0 +1,50 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "theoremdb-p42-quantum-pcp-conjecture-statement-v1",
+  "problemId": "theoremdb-p42-quantum-pcp-conjecture",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-31",
+  "sourceRefs": [
+    {
+      "sourceId": "source-aharonov-2013",
+      "relationship": "states-problem",
+      "locator": "Sec. 1.2, Conjecture 1.3 (constant-gap Local Hamiltonian formulation)",
+      "primary": true,
+      "source": {
+        "id": "source-aharonov-2013",
+        "title": "The Quantum PCP Conjecture",
+        "authors": [
+          "Dorit Aharonov",
+          "Itai Arad",
+          "Thomas Vidick"
+        ],
+        "venue": "ACM SIGACT News 44(2), 47-79 (2013)",
+        "url": "https://arxiv.org/abs/1309.7495"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Prove QMA-hardness of constant-gap bounded-locality Local Hamiltonian for fixed constants, or refute it through an algorithm or incompatible complexity containment."
+    }
+  ],
+  "formulation": {
+    "notation": "",
+    "statement": "Let\n$$\nH=\\sum_{i=1}^{m} H_i,\n$$\nwhere each $H_i$ acts on at most a fixed number $k$ of finite-dimensional subsystems and satisfies $0\\leq H_i\\leq I$. Fix constants $a<b$ with $b-a>0$. Given the promise that either\n$$\n\\lambda_{\\min}(H)\\leq am\n\\qquad\\text{or}\\qquad\n\\lambda_{\\min}(H)\\geq bm,\n$$\ndecide which case holds.\n\nProve that some fixed choice of $k,a,b$ makes this promise problem QMA-hard, or refute the conjecture through an algorithm or complexity containment that rules out such hardness under stated assumptions."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "306b56d9bde766f3b5acfdc4d375bd039cb5dec34f4b5d8012827d1bc75e28e7",
+    "bodyDigest": "bc14c7e953250243f3ad45dec8397b634d9e6503cf82f619fdbeedf76f301e33"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/theoremdb-p42-quantum-pcp-conjecture.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/theoremdb-p42-quantum-pcp-conjecture/frontier.json"
+  }
+}

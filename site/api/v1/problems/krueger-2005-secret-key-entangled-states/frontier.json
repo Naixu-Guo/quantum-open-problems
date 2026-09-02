@@ -1,0 +1,201 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-secret-key-entangled-states",
+  "title": "Secret key from every entangled state",
+  "catalogState": "published",
+  "status": "open",
+  "statusLabel": "Open",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-krueger-2005-secret-key-entangled-states-status-2026-08-12",
+    "status": "open",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-krueger-2005-secret-key-entangled-states-2026-current-key-cost-theory",
+      "evidence-krueger-2005-secret-key-entangled-states-2003-some-ppt-bound-entangled"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "krueger-2005-secret-key-entangled-states-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "b17ddafd9f886de605c0903bc9f045882acdcc9af3b1aa2bf4f84fc9770f01ce",
+    "sourceRefs": [
+      {
+        "sourceId": "source-krueger-werner-2005",
+        "relationship": "states-problem",
+        "locator": "p. 64 (Problem 24)",
+        "primary": true,
+        "statedTitle": "Secret key from all entangled states",
+        "source": {
+          "id": "source-krueger-werner-2005",
+          "title": "Some open problems in quantum information theory",
+          "authors": [
+            "O. Krüger",
+            "R. F. Werner"
+          ],
+          "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+          "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+          "doi": "10.48550/arXiv.quant-ph/0504166",
+          "arxivId": "quant-ph/0504166"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $\\mathcal{H}_A,\\mathcal{H}_B$ | Hilbert spaces of Alice and Bob in a bipartite quantum system |\n| $\\rho_{AB}$ | A bipartite quantum state (density operator on $\\mathcal{H}_A\\otimes\\mathcal{H}_B$) |\n| LOCC | Local operations and classical communication |\n| Entangled state | A bipartite state that is not separable, i.e. not a convex combination of product states |\n| PPT | Positive partial transpose (a property used to detect/define bound entanglement) |\n| Bound entangled state | An entangled state from which no pure entanglement (singlets) can be distilled by LOCC |\n| Secret key | A pair of perfectly correlated classical bits held by Alice and Bob and uncorrelated with any eavesdropper Eve |\n| $K_D(\\rho_{AB})$ | The distillable secret-key rate of $\\rho_{AB}$ (bits of secret key extractable per copy by LOCC + public discussion, asymptotically and in the worst case over purifications to Eve) |\n| $E_D(\\rho_{AB})$ | The distillable entanglement of $\\rho_{AB}$ |",
+      "statement": "Let $\\rho_{AB}$ be any entangled bipartite quantum state on a finite-dimensional Hilbert space $\\mathcal{H}_A\\otimes\\mathcal{H}_B$. Decide whether\n$$K_D(\\rho_{AB}) \\;>\\; 0 \\qquad \\text{for every entangled } \\rho_{AB} ,$$\ni.e. whether secret keys can be generated from every bipartite entangled state by LOCC plus public classical communication (with eavesdropper holding the purifying system)."
+    }
+  },
+  "question": {
+    "type": "Universal dichotomy",
+    "summary": "Many entangled states, including PPT examples, have positive distillable key. No proof covers every entangled state, and no entangled state is known with proved zero distillable key.",
+    "importance": "The answer decides whether entanglement and cryptographic usefulness have the same zero boundary. A zero-key entangled state would separate the two resources.",
+    "unresolved": "Prove that every entangled bipartite state has positive distillable key, or exhibit an entangled state with zero distillable key."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Prove that every entangled bipartite state has positive distillable key, or exhibit an entangled state with zero distillable key.",
+      "state": "narrowed",
+      "claimIds": [
+        "claim-krueger-2005-secret-key-entangled-states-2026-current-key-cost-theory",
+        "claim-krueger-2005-secret-key-entangled-states-2003-some-ppt-bound-entangled"
+      ],
+      "latestEvidenceDate": "2026-05-06"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Prove that every entangled bipartite state has positive distillable key, or exhibit an entangled state with zero distillable key."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-krueger-2005-secret-key-entangled-states-2026-current-key-cost-theory",
+      "relation": "status-review",
+      "relationLabel": "Status review",
+      "title": "Current key-cost theory still treats zero-key entanglement as unresolved",
+      "text": "The peer-reviewed analysis states its conclusions conditionally on whether entangled states with zero distillable key exist.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2026-05-06",
+      "evidence": [
+        {
+          "id": "evidence-krueger-2005-secret-key-entangled-states-2026-current-key-cost-theory",
+          "date": "2026-05-06",
+          "maturity": "Peer reviewed",
+          "strength": "Current status evidence",
+          "label": "Quantum 2026",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-web-quantum-journal-org-papers-q-2026",
+            "title": "Current key-cost theory still treats zero-key entanglement as unresolved",
+            "authors": [],
+            "venue": "Quantum 2026",
+            "url": "https://quantum-journal.org/papers/q-2026-05-06-2098/",
+            "bibliographyState": "url-only"
+          }
+        }
+      ]
+    },
+    {
+      "id": "claim-krueger-2005-secret-key-entangled-states-2003-some-ppt-bound-entangled",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "Some PPT bound-entangled states contain secret key",
+      "text": "Horodecki and collaborators construct bound-entangled states with positive distillable key, a major positive subclass that does not settle the universal quantifier.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2003-09-12",
+      "evidence": [
+        {
+          "id": "evidence-krueger-2005-secret-key-entangled-states-2003-some-ppt-bound-entangled",
+          "date": "2003-09-12",
+          "maturity": "Peer reviewed",
+          "strength": "Exact positive subclass",
+          "label": "Bound-entangled key",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-horodecki-2005-secure-key-from",
+            "title": "Secure key from bound entanglement",
+            "authors": [
+              "K. Horodecki",
+              "M. Horodecki",
+              "P. Horodecki",
+              "J. Oppenheim"
+            ],
+            "venue": "Phys. Rev. Lett. **94**, 160502 (2005); arXiv:quant-ph/0309110 (2003).",
+            "url": "https://arxiv.org/abs/quant-ph/0309110",
+            "arxivId": "quant-ph/0309110"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [],
+  "interpretation": null,
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "krueger-2005-secret-key-entangled-states-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-krueger-2005-secret-key-entangled-states-status-2026-08-12",
+        "status": "open",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "ade1598d4933ddfd1f5a438f384bff4b08a9a2b3054fea127ef3e68fb02e829c",
+    "statementDigest": "b17ddafd9f886de605c0903bc9f045882acdcc9af3b1aa2bf4f84fc9770f01ce",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-secret-key-entangled-states/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-secret-key-entangled-states.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-secret-key-entangled-states/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-secret-key-entangled-states/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-secret-key-entangled-states/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-secret-key-entangled-states.md"
+  }
+}

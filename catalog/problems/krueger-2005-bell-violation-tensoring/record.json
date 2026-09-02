@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-bell-violation-tensoring",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "archived",
+    "title": "Bell violation by tensoring",
+    "proposed": "2005-02-08",
+    "topicId": "bell-nonlocality",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Existence or impossibility",
+      "summary": "The source asked for two bipartite states, neither violating any CHSH inequality, whose tensor product does violate CHSH. Navascues and Vertesi gave explicit two-qubit constructions using only direct measurements on the joint state.",
+      "importance": "Bell nonlocality can be activated by tensoring even though entanglement itself is preserved under tensor products, so this is the cleanest CHSH form of an activation pattern shared by nonlocality, distillation and steering.",
+      "unresolved": ""
+    },
+    "keywords": [
+      "CHSH inequality",
+      "activation of nonlocality",
+      "hidden nonlocality",
+      "local hidden variable models",
+      "tensor product states"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-bell-violation-tensoring-statement-v1",
+      "problemId": "krueger-2005-bell-violation-tensoring",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "p. 57 (Problem 21)",
+          "primary": true
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "chsh-activation-by-tensoring",
+          "label": "CHSH activation by tensoring",
+          "text": "The archived statement asks to exhibit two bipartite states, neither of which violates any CHSH Bell inequality, whose tensor product does violate some CHSH inequality, or to prove that no such pair exists.",
+          "resolutionCriteria": "An explicit pair of CHSH-local states whose tensor product violates CHSH, or an impossibility proof."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-bell-violation-tensoring-navascues-and-vertesi-construct",
+      "statementId": "krueger-2005-bell-violation-tensoring-statement-v1",
+      "targetClauseIds": [
+        "chsh-activation-by-tensoring"
+      ],
+      "relation": "resolves",
+      "title": "Navascues and Vertesi construct CHSH activation by tensoring",
+      "text": "Navascues and Vertesi construct two two-qubit states whose arbitrary tensor powers each admit local hidden-variable models but whose product violates CHSH, reaching about 2.023, and also a single CHSH-local state whose two copies violate CHSH. Both constructions use no filtering, only direct measurements on the joint state, giving the explicit affirmative answer that the archived statement requests."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-bell-violation-tensoring-physical-review-letters",
+      "claimId": "claim-krueger-2005-bell-violation-tensoring-navascues-and-vertesi-construct",
+      "sourceId": "source-navascues-2011-activation-nonlocal",
+      "sourceLocator": "Explicit two-qubit constructions (i) and (ii)",
+      "date": "2011",
+      "maturity": "Peer reviewed",
+      "strength": "Explicit construction",
+      "label": "Physical Review Letters"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-bell-violation-tensoring-status-2026-08-12",
+      "problemId": "krueger-2005-bell-violation-tensoring",
+      "statementId": "krueger-2005-bell-violation-tensoring-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "solved",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-bell-violation-tensoring-physical-review-letters"
+      ],
+      "rationale": "The cited peer-reviewed paper gives exactly the explicit pair of CHSH-local states with a CHSH-violating tensor product that the archived statement requests."
+    }
+  ],
+  "editorial": {
+    "cautions": [
+      {
+        "label": "Scope",
+        "text": "The settling constructions use no filtering; the earlier hidden-nonlocality results of Popescu and Peres rely on local filtering or many copies and therefore do not answer the archived question.",
+        "url": null
+      }
+    ],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

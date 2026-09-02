@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-nice-error-bases",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "archived",
+    "title": "Nice error bases",
+    "proposed": "2001-11-08",
+    "topicId": "quantum-error-correction",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Structural characterization",
+      "summary": "The source asked whether every nice error basis is of shift and multiply type. Klappenecker and Roetteler answered negatively by constructing an abstract error group with a non-monomial irreducible representation.",
+      "importance": "Orthogonal bases of unitaries are exactly what is needed to build teleportation and dense-coding schemes and underlie stabilizer code theory, and the question asked whether the algebraic notion of a nice error basis coincides with the combinatorial shift-and-multiply notion built from Latin squares and complex Hadamard matrices.",
+      "unresolved": ""
+    },
+    "keywords": [
+      "nice error bases",
+      "shift and multiply",
+      "monomial matrices",
+      "abstract error groups",
+      "groups of central type"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-nice-error-bases-statement-v1",
+      "problemId": "krueger-2005-nice-error-bases",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "pp. 26-27 (Problem 6)",
+          "primary": true
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "nice-error-bases-shift-and-multiply",
+          "label": "Shift-and-multiply form of nice error bases",
+          "text": "The archived statement asks whether every nice error basis is of shift and multiply type, that is, whether after a unitary change of basis each basis unitary is a product of a permutation matrix and a diagonal unitary.",
+          "resolutionCriteria": "A proof that all nice error bases are monomial after a change of basis, or an explicit non-monomial nice error basis."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-nice-error-bases-klappenecker-and-roetteler-exhibit",
+      "statementId": "krueger-2005-nice-error-bases-statement-v1",
+      "targetClauseIds": [
+        "nice-error-bases-shift-and-multiply"
+      ],
+      "relation": "refutes",
+      "title": "Klappenecker and Roetteler exhibit a non-monomial nice error basis",
+      "text": "Klappenecker and Roetteler build, from representation-theoretic results of Ferguson and Isaacs on groups of central type, an abstract error group with cyclic centre possessing a non-monomial irreducible representation. The corresponding nice error basis is therefore not monomial and in particular not of shift and multiply type, so the archived universal claim is false."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-nice-error-bases-arxiv-quant-ph",
+      "claimId": "claim-krueger-2005-nice-error-bases-klappenecker-and-roetteler-exhibit",
+      "sourceId": "source-klappenecker-2003-monomiality",
+      "sourceLocator": "Character-theoretic construction of a non-monomial nice error basis",
+      "date": "2003",
+      "maturity": "Preprint",
+      "strength": "Exact counterexample",
+      "label": "arXiv:quant-ph/0301078"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-nice-error-bases-status-2026-08-12",
+      "problemId": "krueger-2005-nice-error-bases",
+      "statementId": "krueger-2005-nice-error-bases-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "solved",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-nice-error-bases-arxiv-quant-ph"
+      ],
+      "rationale": "The cited paper exhibits an explicit nice error basis that is not of shift and multiply type, refuting the universal claim in the archived statement. The settling work is cited in the source bibliography only by its arXiv identifier (quant-ph/0301078); the source collection independently records Klappenecker and Roetteler as the solvers with last progress on 28 May 2003."
+    }
+  ],
+  "editorial": {
+    "cautions": [
+      {
+        "label": "Scope",
+        "text": "Only the shift-and-multiply universality claim is settled; the classification of all abstract error groups and of all nice error bases up to equivalence in arbitrary dimension remains active.",
+        "url": null
+      }
+    ],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

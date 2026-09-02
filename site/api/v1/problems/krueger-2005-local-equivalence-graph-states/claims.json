@@ -1,0 +1,52 @@
+{
+  "kind": "qop-claims",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-local-equivalence-graph-states",
+  "status": "solved",
+  "statementId": "krueger-2005-local-equivalence-graph-states-statement-v1",
+  "count": 1,
+  "note": "Every claim here has been accepted through editorial review. Unreviewed submissions are candidate updates in the operational service, never claims.",
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-local-equivalence-graph-states-ji-chen-wei-and",
+      "statementId": "krueger-2005-local-equivalence-graph-states-statement-v1",
+      "targetClauseIds": [
+        "lu-implies-lc-for-graph-states"
+      ],
+      "relation": "refutes",
+      "title": "Ji, Chen, Wei and Ying show the LU-LC conjecture is false",
+      "text": "Ji, Chen, Wei and Ying exhibit explicit pairs of graph states on sufficiently many qubits that are LU-equivalent but not LC-equivalent, the smallest produced by their construction having 27 qubits. The general LU = LC conjecture in the archived statement is therefore false.",
+      "superseded": false,
+      "evidence": [
+        {
+          "kind": "Evidence",
+          "id": "evidence-krueger-2005-local-equivalence-graph-states-quantum-information-computation",
+          "claimId": "claim-krueger-2005-local-equivalence-graph-states-ji-chen-wei-and",
+          "sourceId": "source-ji-2010-lu-lc-false",
+          "sourceLocator": "Explicit counterexample construction (smallest instance on 27 qubits)",
+          "date": "2010",
+          "maturity": "Peer reviewed",
+          "strength": "Exact counterexample",
+          "label": "Quantum Information & Computation",
+          "source": {
+            "id": "source-ji-2010-lu-lc-false",
+            "title": "The LU-LC conjecture is false",
+            "authors": [
+              "Z. Ji",
+              "J. Chen",
+              "Z. Wei",
+              "M. Ying"
+            ],
+            "venue": "Quantum Information & Computation 10, 97 (2010); arXiv:0709.1266",
+            "url": "https://arxiv.org/abs/0709.1266"
+          }
+        }
+      ]
+    }
+  ],
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-local-equivalence-graph-states.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-local-equivalence-graph-states/frontier.json"
+  }
+}

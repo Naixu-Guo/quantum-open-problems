@@ -1,0 +1,49 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "ruskai-2007-random-subunitary-multiplicativity-p2-statement-v1",
+  "problemId": "ruskai-2007-random-subunitary-multiplicativity-p2",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-ruskai-2007",
+      "relationship": "states-problem",
+      "locator": "p. 14 (Problem 15)",
+      "primary": true,
+      "statedTitle": "Prove (24) for random sub-unitary channels at p=2 (or exhibit a new counterexample)",
+      "source": {
+        "id": "source-ruskai-2007",
+        "title": "Open problems in quantum information theory",
+        "authors": [
+          "Mary Beth Ruskai"
+        ],
+        "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+        "url": "https://doi.org/10.48550/arXiv.0708.1902"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Prove maximal-output 2-norm multiplicativity for every channel in the corrected family, or exhibit a family-specific counterexample."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | Algebra of complex $d\\times d$ matrices |\n| $\\rho$, $\\gamma$ | Density matrices on a finite-dimensional Hilbert space |\n| $\\Phi$, $\\Omega$ | CPT (completely positive trace-preserving) linear maps (quantum channels) |\n| $\\{A_k\\}$ | Kraus operators of a channel, $\\Phi(\\rho)=\\sum_k A_k\\rho A_k^{\\dagger}$, $\\sum_k A_k^{\\dagger}A_k=I$ |\n| $X$ | Cyclic shift operator on $\\mathbb{C}^d$, $X\\lvert e_j\\rangle=\\lvert e_{j+1}\\rangle$ |\n| $U_k$ | A $(d-1)\\times(d-1)$ unitary in the $k$-th Kraus operator |\n| $\\|M\\|_p$ | Schatten $p$-norm, $(\\operatorname{Tr}\\lvert M\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | Maximal output $p$-norm, $\\sup_\\gamma\\|\\Phi(\\gamma)\\|_p$ |\n| WH channel | Werner–Holevo channel |\n| $\\mathcal E(d,d)$, $\\overline{\\mathcal E}(d,d)$ | Set of extreme CPT maps with $d$ Kraus operators on $M_d$ and its closure |",
+    "statement": "Interpreting equation (22) as the intended normalized cyclic random-sub-unitary construction, let $\\Phi:M_d\\to M_d$ belong to that CPT family. The source prints\n$$A_k=\\tfrac{1}{d-1}X^k\\begin{pmatrix}U_k & 0\\\\ 0 & 0\\end{pmatrix},\\qquad k=0,1,\\dots,d-1,$$\nwith $X$ the cyclic shift on $\\mathbb C^d$ and each $U_k$ a $(d-1)\\times(d-1)$ unitary, but this formula is not CPT as written.\n\n**Problem 15.** Prove the multiplicativity conjecture (24),\n$$\\nu_p(\\Phi\\otimes\\Omega)=\\nu_p(\\Phi)\\,\\nu_p(\\Omega),$$\nfor such channels $\\Phi$ (tensored with arbitrary CPT $\\Omega$) at least in the case $p=2$. If this is not possible, exhibit a member of the family (22) that provides an additional counterexample to (24)."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "2f2c6f68e3f5dad0373ea47278680d5f33a589b70ce8bf84b887f6f397727ac5",
+    "bodyDigest": "3e9661d8c8e97176730b1dcc1d5a4b200a46f34d79a90030c9c5254f67187390"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-random-subunitary-multiplicativity-p2.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-random-subunitary-multiplicativity-p2/frontier.json"
+  }
+}

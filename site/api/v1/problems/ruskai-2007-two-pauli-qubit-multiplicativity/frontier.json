@@ -1,0 +1,197 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "ruskai-2007-two-pauli-qubit-multiplicativity",
+  "title": "A direct proof for the two-Pauli qubit channel",
+  "catalogState": "published",
+  "status": "open",
+  "statusLabel": "Open",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-ruskai-2007-two-pauli-qubit-multiplicativity-status-2026-08-12",
+    "status": "open",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-ruskai-2007-two-pauli-qubit-multiplicativity-2006-a-nearby-entropy-proof",
+      "evidence-ruskai-2007-two-pauli-qubit-multiplicativity-2002-the-theorem-itself-is"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "ruskai-2007-two-pauli-qubit-multiplicativity-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "f7f54016d4e6b6bfcd7a00aae45e348223c79c077d3a68c6cb8baca564ee8859",
+    "sourceRefs": [
+      {
+        "sourceId": "source-ruskai-2007",
+        "relationship": "states-problem",
+        "locator": "p. 13 (Problem 13)",
+        "primary": true,
+        "statedTitle": "Multiplicativity for two-Pauli qubit channel without unitary equivalence to channels with negative multipliers",
+        "source": {
+          "id": "source-ruskai-2007",
+          "title": "Open problems in quantum information theory",
+          "authors": [
+            "Mary Beth Ruskai"
+          ],
+          "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+          "url": "https://doi.org/10.48550/arXiv.0708.1902",
+          "doi": "10.48550/arXiv.0708.1902",
+          "arxivId": "0708.1902"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $M_2$ | Algebra of complex $2\\times 2$ matrices (qubit observables) |\n| $I, X, Y, Z$ | The four Pauli matrices: $X=\\sigma_x$, $Y=\\sigma_y$, $Z=\\sigma_z$ |\n| $\\rho$, $\\gamma$ | Density matrices on a qubit Hilbert space |\n| $\\Phi$, $\\Omega$ | CPT (completely positive trace-preserving) linear maps (qubit quantum channels) |\n| $\\|M\\|_p$ | Schatten $p$-norm of an operator, $\\|M\\|_p=(\\operatorname{Tr}\\lvert M\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | Maximal output $p$-norm, $\\sup_\\gamma\\|\\Phi(\\gamma)\\|_p$ |\n| Pauli channel | $\\Phi(\\rho)=\\sum_{j=0}^3 q_j\\,\\sigma_j\\rho\\sigma_j$ with probabilities $q_j\\ge 0$ summing to $1$ ($\\sigma_0=I$) |\n| Two-Pauli channel | The one-parameter Bennett-Fuchs-Smolin channel supported on two nonidentity Pauli errors and the identity |\n| \"Multipliers\" | The coefficients (eigenvalues) describing a unital qubit channel in the Bloch picture; can be made non-negative or negative depending on representation |\n| Unital channel | $\\Phi(I)=I$ |\n| MUB | Mutually unbiased bases |",
+      "statement": "Let $\\Phi:M_2\\to M_2$ be a two-Pauli qubit channel of the one-parameter form above.\n**Problem 13.** Find a proof of the multiplicativity identity\n$$\\nu_p(\\Phi\\otimes\\Omega)=\\nu_p(\\Phi)\\,\\nu_p(\\Omega) \\tag{24}$$\nfor arbitrary CPT $\\Omega$ and the relevant range of $p$, that does **not** use a unitary equivalence to channels having negative multipliers."
+    }
+  },
+  "question": {
+    "type": "Proof-method request",
+    "summary": "Multiplicativity for this channel follows from King's unital-qubit theorem, but that proof uses exactly the negative-multiplier equivalence that the problem asks to avoid.",
+    "importance": "A direct proof would isolate the property of the two-Pauli channel that enforces multiplicativity. That mechanism could apply beyond reductions to the full unital-qubit theorem.",
+    "unresolved": "Give a proof for the two-Pauli channel that does not pass through unitary equivalence to channels with negative multipliers."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Give a proof for the two-Pauli channel that does not pass through unitary equivalence to channels with negative multipliers.",
+      "state": "narrowed",
+      "claimIds": [
+        "claim-ruskai-2007-two-pauli-qubit-multiplicativity-2006-a-nearby-entropy-proof",
+        "claim-ruskai-2007-two-pauli-qubit-multiplicativity-2002-the-theorem-itself-is"
+      ],
+      "latestEvidenceDate": "2006"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Give a proof for the two-Pauli channel that does not pass through unitary equivalence to channels with negative multipliers."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-ruskai-2007-two-pauli-qubit-multiplicativity-2006-a-nearby-entropy-proof",
+      "relation": "supports",
+      "relationLabel": "Supports",
+      "title": "A nearby entropy proof does not establish the requested norm theorem",
+      "text": "Amosov proves minimum-output-entropy additivity for the channel, not the direct maximal-output p-norm argument requested here.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2006",
+      "evidence": [
+        {
+          "id": "evidence-ruskai-2007-two-pauli-qubit-multiplicativity-2006-a-nearby-entropy-proof",
+          "date": "2006",
+          "maturity": "Preprint",
+          "strength": "Different quantity",
+          "label": "Entropy result",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-arxiv-quant-ph-0605177",
+            "title": "A nearby entropy proof does not establish the requested norm theorem",
+            "authors": [],
+            "venue": "Entropy result",
+            "url": "https://arxiv.org/abs/quant-ph/0605177",
+            "arxivId": "quant-ph/0605177",
+            "bibliographyState": "url-only"
+          }
+        }
+      ]
+    },
+    {
+      "id": "claim-ruskai-2007-two-pauli-qubit-multiplicativity-2002-the-theorem-itself-is",
+      "relation": "rules-out",
+      "relationLabel": "Rules out an approach",
+      "title": "The theorem itself is known for every unital qubit channel",
+      "text": "King proves multiplicativity broadly, but via the sign-changing unitary-equivalence route excluded by this method-specific problem.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2002",
+      "evidence": [
+        {
+          "id": "evidence-ruskai-2007-two-pauli-qubit-multiplicativity-2002-the-theorem-itself-is",
+          "date": "2002",
+          "maturity": "Peer reviewed",
+          "strength": "Theorem with excluded method",
+          "label": "Unital-qubit theorem",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-doi-10-1063-1-1500791",
+            "title": "The theorem itself is known for every unital qubit channel",
+            "authors": [],
+            "venue": "Unital-qubit theorem",
+            "url": "https://doi.org/10.1063/1.1500791",
+            "doi": "10.1063/1.1500791",
+            "bibliographyState": "url-only"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [],
+  "interpretation": "This remains open only as a request for a different proof. The underlying multiplicativity statement is already known.",
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "ruskai-2007-two-pauli-qubit-multiplicativity-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-ruskai-2007-two-pauli-qubit-multiplicativity-status-2026-08-12",
+        "status": "open",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "e753e6f47d0614292be1010ec25a96239d1c8420dd8a0cb5b19d3fa742e3b417",
+    "statementDigest": "f7f54016d4e6b6bfcd7a00aae45e348223c79c077d3a68c6cb8baca564ee8859",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-two-pauli-qubit-multiplicativity/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-two-pauli-qubit-multiplicativity.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-two-pauli-qubit-multiplicativity/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-two-pauli-qubit-multiplicativity/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-two-pauli-qubit-multiplicativity/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/ruskai-2007-two-pauli-qubit-multiplicativity.md"
+  }
+}

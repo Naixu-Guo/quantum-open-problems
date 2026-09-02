@@ -173,11 +173,12 @@
 
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
-          <span class="status-badge ">Open</span>
+          <span class="status-badge">Open</span>
           <span class="area-badge">Quantum topology</span>
           <span class="meta-badge">Quantum knot invariants</span>
           <span class="meta-badge">Proposed 1997</span>
           <span class="meta-badge">Verified 31 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Kashaev volume conjecture for hyperbolic knots</h1>
         <p class="dialog-summary">Kashaev&#039;s quantum knot invariant is conjectured to grow at a rate fixed by the hyperbolic volume of the knot complement.</p>
@@ -185,11 +186,14 @@
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#remaining">What remains</a>
-          <a href="#progress-heading">Progress</a>
+          <a href="#target-heading">What remains</a>
+          <a href="#progress-heading">Verified progress</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
           <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <div class="problem-framing">
           <section class="framing-row" aria-labelledby="importance-heading">
             <h2 id="importance-heading">Why it matters</h2>
@@ -216,17 +220,36 @@
               <span class="dialog-section-label">Verified formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">Matched to the source and locator above</span>
+            <span class="formal-source">Matched to the source and locator above · digest 68efefcb7a0d</span>
           </div>
 
           <div class="formal-body"><p>Let \(K\subset S^3\) be a hyperbolic knot and let \(\langle K\rangle_N\) be Kashaev&#039;s \(N\)th invariant. Prove that the limit exists and satisfies</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\lim_{N\to\infty}\frac{2\pi}{N}\log\left|\langle K\rangle_N\right|
 =\operatorname{Vol}(S^3\setminus K).\]</div><p>A counterexample must give a hyperbolic knot for which the limit fails to exist or differs from the hyperbolic volume.</p></div>
         </section>
 
-        <div class="remaining-question " id="remaining">
-          <span>What remains</span>
-          <p>Prove the volume-limit identity for every hyperbolic knot, or give a hyperbolic knot for which the limit fails or has the wrong value.</p>
-        </div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Exact unresolved target</h2>
+
+          <div class="remaining-question" id="remaining">
+            <span>What remains</span>
+            <p>Prove the volume-limit identity for every hyperbolic knot, or give a hyperbolic knot for which the limit fails or has the wrong value.</p>
+          </div>
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-open" id="clause-volume-limit">
+              <div class="clause-head">
+                <span class="clause-state open">Open</span>
+                <strong>Universal volume-limit identity</strong>
+                <code>volume-limit</code>
+              </div>
+              <p>For every hyperbolic knot, Kashaev&#039;s invariant has the stated volume asymptotic.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> Prove the identity for every hyperbolic knot, or exhibit a hyperbolic-knot counterexample.</p>
+              <p class="clause-claims">2 accepted claims: <a href="#claim-kashaev-universal-still-open-2026">claim-kashaev-universal-still-open-2026</a>, <a href="#claim-kashaev-colored-jones-reformulation-2001">claim-kashaev-colored-jones-reformulation-2001</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Open as of 31 Aug 2026: Selected knots and families are known, but the universal statement has no accepted proof or counterexample. <code>decision-kashaev-status-2026-08-31</code></p>
+        </section>
 
 
         <section class="dialog-section">
@@ -237,38 +260,78 @@
         </section>
 
         <section class="dialog-section" aria-labelledby="progress-heading">
-          <span class="dialog-section-label">Evidence ledger</span>
-          <h2 id="progress-heading">Recent progress</h2>
-          <ol class="timeline">
+          <span class="dialog-section-label">Verified progress</span>
+          <h2 id="progress-heading">Accepted claims</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
 
-            <li id="qop-evt-d9145fe2154440ec">
-              <time datetime="2026-08-01">01 Aug 2026</time>
-              <div>
-                <h3>The universal hyperbolic-knot statement remains open</h3>
-                <p>TheoremDB&#039;s dated review found proofs for selected knots and families but no proof or counterexample for every hyperbolic knot.</p>
-                <div class="dialog-source-meta">
+          <article class="claim-card" id="claim-kashaev-universal-still-open-2026">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Status review</span>
+              <span class="claim-clauses"><a href="#clause-volume-limit">volume-limit</a></span>
+            </div>
+            <h3>The universal hyperbolic-knot statement remains open</h3>
+            <p>TheoremDB&#039;s dated review found proofs for selected knots and families but no proof or counterexample for every hyperbolic knot.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-d9145fe2154440ec">
+                <time datetime="2026-08-01">01 Aug 2026</time>
+                <div>
                   <span class="maturity-badge">Reviewed database record</span>
                   <span class="maturity-badge">Dated status audit</span>
                   <a href="https://www.theoremdb.org/statements/P3114/" rel="noreferrer">TheoremDB P3114 ↗</a>
+                  <span class="evidence-locator">P3114</span>
                 </div>
-              </div>
-            </li>
-            <li id="qop-evt-5a8ebd3a10df09b6">
-              <time datetime="2001">2001</time>
-              <div>
-                <h3>Colored Jones polynomials give an equivalent formulation</h3>
-                <p>Murakami and Murakami identify Kashaev&#039;s invariant with a root-of-unity specialization of the colored Jones polynomial and state the volume conjecture in that language.</p>
-                <div class="dialog-source-meta">
+              </li>
+            </ol>
+
+          </article>
+          <article class="claim-card" id="claim-kashaev-colored-jones-reformulation-2001">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Reformulates</span>
+              <span class="claim-clauses"><a href="#clause-volume-limit">volume-limit</a></span>
+            </div>
+            <h3>Colored Jones polynomials give an equivalent formulation</h3>
+            <p>Murakami and Murakami identify Kashaev&#039;s invariant with a root-of-unity specialization of the colored Jones polynomial and state the volume conjecture in that language.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-5a8ebd3a10df09b6">
+                <time datetime="2001">2001</time>
+                <div>
                   <span class="maturity-badge">Peer reviewed</span>
                   <span class="maturity-badge">Equivalent formulation</span>
                   <a href="https://doi.org/10.1007/BF02392716" rel="noreferrer">Acta Mathematica ↗</a>
+                  <span class="evidence-locator">Volume conjecture formulation</span>
                 </div>
-              </div>
-            </li>
-          </ol>
+              </li>
+            </ol>
+
+          </article>
+
         </section>
 
 
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="theoremdb-p3114-kashaev-volume-conjecture">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Kashaev+volume+conjecture+for+hyperbolic+knots" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="theoremdb-p3114-kashaev-volume-conjecture">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
+        </section>
 
 
 
@@ -280,8 +343,10 @@
           <ul class="machine-links">
             <li><a href="../../packets/theoremdb-p3114-kashaev-volume-conjecture.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
             <li><a href="../../api/v1/problems/theoremdb-p3114-kashaev-volume-conjecture.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Kashaev+volume+conjecture+for+hyperbolic+knots" rel="noreferrer">Submit a research update ↗</a> — the evidence contract applies to human and AI results.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/theoremdb-p3114-kashaev-volume-conjecture/problem.md" rel="noreferrer">Source article ↗</a> — the canonical statement and notes in the repository.</li>
+            <li><a href="../../api/v1/problems/theoremdb-p3114-kashaev-volume-conjecture/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/theoremdb-p3114-kashaev-volume-conjecture/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Kashaev+volume+conjecture+for+hyperbolic+knots" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/theoremdb-p3114-kashaev-volume-conjecture/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -300,13 +365,14 @@
           <p>Record <code>theoremdb-p3114-kashaev-volume-conjecture</code></p>
           <p>Record revision <code>b1d04ae357c94df359859925e152c0330052f6964aa7c015fc33bebb5548bf9a</code></p>
           <p>Statement digest <code>68efefcb7a0d2174d7361e1ef6419aec49679ce23efbe2cae36ba3c649725a32</code></p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Statement <code>theoremdb-p3114-kashaev-volume-conjecture-statement-v1</code> · Decision <code>decision-kashaev-status-2026-08-31</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
       <nav class="page-pager" aria-label="Adjacent problems">
-        <a class="pager-link prev" href="../theoremdb-p36-yang-mills-mass-gap/"><span>← Previous</span><strong>Yang-Mills existence and mass gap</strong></a>
-        <span></span>
+        <a class="pager-link prev" href="../kurdzialek-2024-correlated-noise-bound-tightness/"><span>← Previous</span><strong>Tightness of metrology bounds under correlated noise</strong></a>
+        <a class="pager-link next" href="../theoremdb-p36-yang-mills-mass-gap/"><span>Next →</span><strong>Yang-Mills existence and mass gap</strong></a>
       </nav>
     </main>
     <footer class="site-footer">
@@ -331,5 +397,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="theoremdb-p3114-kashaev-volume-conjecture" defer></script>
   </body>
 </html>

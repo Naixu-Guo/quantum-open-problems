@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Solved record. This problem has been resolved in the negative. - A. Winter (July 2007, The maximum output -norm of quantum channels is not multiplicative for any , arXiv:0707.0402) solved Problem 11 by constructing counterexamples to (24) for every ,…">
+    <meta name="description" content="Solved record. The source asked for multiplicativity counterexamples beyond the Werner-Holevo channel and its perturbations and whether multiplicativity survives for 1 &lt;= p &lt;= 2. Winter gave counterexamples for every p above 2, Hayden extended them to all 1 &lt; p &lt; 2, and Winter subsequently closed p = 2.">
     <meta name="theme-color" content="#0d1b2a">
     <title>Find more counterexamples to multiplicativity (eq. 24); do they support holding for 1 &lt;= p &lt;= 2? · Quantum Open Problems</title>
     <link rel="canonical" href="https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-more-multiplicativity-counterexamples/">
@@ -13,7 +13,7 @@
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Quantum Open Problems">
     <meta property="og:title" content="Find more counterexamples to multiplicativity (eq. 24); do they support holding for 1 &lt;= p &lt;= 2?">
-    <meta property="og:description" content="Solved record. This problem has been resolved in the negative. - A. Winter (July 2007, The maximum output -norm of quantum channels is not multiplicative for any , arXiv:0707.0402) solved Problem 11 by constructing counterexamples to (24) for every ,…">
+    <meta property="og:description" content="Solved record. The source asked for multiplicativity counterexamples beyond the Werner-Holevo channel and its perturbations and whether multiplicativity survives for 1 &lt;= p &lt;= 2. Winter gave counterexamples for every p above 2, Hayden extended them to all 1 &lt; p &lt; 2, and Winter subsequently closed p = 2.">
     <meta property="og:url" content="https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-more-multiplicativity-counterexamples/">
     <meta name="twitter:card" content="summary">
     <script>
@@ -22,6 +22,8 @@
         if (theme === "dark") document.documentElement.dataset.theme = "dark";
       } catch {}
     </script>
+    <link rel="alternate" href="../../api/v1/problems/ruskai-2007-more-multiplicativity-counterexamples.json" type="application/json" title="Problem record (JSON)">
+    <link rel="alternate" href="../../packets/ruskai-2007-more-multiplicativity-counterexamples.md" type="text/markdown" title="AI research brief (Markdown)">
     <script>window.MathJax = { svg: { fontCache: "global" } };</script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-svg.js" integrity="sha384-my9P1jDckpHD+5LZsLQ0gaiCl/RMO32HaqwBtbo/25QIMVr6xXIUCg1jvdSRcvb4" crossorigin="anonymous" defer></script>
     <script type="application/ld+json">{
@@ -83,18 +85,26 @@
         "value": "ruskai-2007-more-multiplicativity-counterexamples"
       },
       "name": "Find more counterexamples to multiplicativity (eq. 24); do they support holding for 1 <= p <= 2?",
-      "abstract": "Solved record. This problem has been resolved in the negative. - A. Winter (July 2007, The maximum output -norm of quantum channels is not multiplicative for any , arXiv:0707.0402) solved Problem 11 by constructing counterexamples to (24) for every ,…",
+      "abstract": "Solved record. The source asked for multiplicativity counterexamples beyond the Werner-Holevo channel and its perturbations and whether multiplicativity survives for 1 <= p <= 2. Winter gave counterexamples for every p above 2, Hayden extended them to all 1 < p < 2, and Winter subsequently closed p = 2.",
       "text": "**Problem 11.** Find additional counterexamples — beyond the Werner–Holevo channel and its small perturbations — to the multiplicativity conjecture\n$$\\nu_p(\\Phi\\otimes\\Omega)=\\nu_p(\\Phi)\\,\\nu_p(\\Omega), \\tag{24}$$\nholding for a range of $p>1$. Determine, on the basis of such counterexamples, whether the conjecture is true for $1\\le p\\le 2$.",
       "inLanguage": "en",
       "qop:problemStatus": "solved",
       "qop:verified": "2026-08-12",
-      "keywords": [],
+      "keywords": [
+        "maximal output p-norm",
+        "multiplicativity conjecture",
+        "random unitary channels",
+        "Renyi entropy",
+        "Amosov-Holevo-Werner conjecture"
+      ],
       "about": [
-        "Ruskai"
+        "Quantum channels",
+        "Quantum information"
       ],
       "mainEntityOfPage": {
         "@id": "https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-more-multiplicativity-counterexamples/#page"
       },
+      "qop:recordDigest": "sha256:e94fd7d5e602999f3d5e829d724754f94f3a9ec4a0b3ddfe1014d6a75bc0058d",
       "isBasedOn": {
         "@type": "ScholarlyArticle",
         "name": "Open problems in quantum information theory",
@@ -117,7 +127,19 @@
           }
         ],
         "url": "https://doi.org/10.48550/arXiv.0708.1902"
-      }
+      },
+      "encoding": [
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-more-multiplicativity-counterexamples.json"
+        },
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "text/markdown",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/packets/ruskai-2007-more-multiplicativity-counterexamples.md"
+        }
+      ]
     }
   ]
 }</script>
@@ -157,30 +179,40 @@
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
           <span class="status-badge solved">Solved</span>
-          <span class="area-badge">Ruskai</span>
+          <span class="area-badge">Quantum information</span>
+          <span class="meta-badge">Quantum channels</span>
           <span class="meta-badge">Proposed 2007</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
-        <h1 id="page-title">More counterexamples to the multiplicativity conjecture (eq. 24)</h1>
+        <h1 id="page-title">Find more counterexamples to multiplicativity (eq. 24); do they support holding for 1 &lt;= p &lt;= 2?</h1>
+        <p class="dialog-summary">The source asked for multiplicativity counterexamples beyond the Werner-Holevo channel and its perturbations and whether multiplicativity survives for 1 &lt;= p &lt;= 2. Winter gave counterexamples for every p above 2, Hayden extended them to all 1 &lt; p &lt; 2, and Winter subsequently closed p = 2.</p>
 
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#resolution-heading">Resolution</a>
-          <a href="#bibliography-heading">Bibliography</a>
+          <a href="#target-heading">Target</a>
+          <a href="#progress-heading">Resolution</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
+          <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <section class="dialog-section">
           <div class="interpretation-note">
             <span class="note-icon" aria-hidden="true">i</span>
             <div>
               <strong>Archived record</strong>
-              <p>The audit records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
+              <p>The accepted status decision records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
             </div>
           </div>
         </section>
-
         <div class="problem-framing">
+          <section class="framing-row" aria-labelledby="importance-heading">
+            <h2 id="importance-heading">Why it matters</h2>
+            <p>Before summer 2007 the Werner-Holevo channel and mildly perturbed variants were the only known counterexamples, several authors had conjectured a safe range 1 &lt;= p &lt;= 2, and the p to 1 limit of the conjecture is the additivity statement Shor showed equivalent to additivity of the Holevo capacity and of the entanglement of formation.</p>
+          </section>
           <section class="framing-row" aria-labelledby="source-heading">
             <h2 id="source-heading">Problem source</h2>
             <div class="problem-source-record">
@@ -188,6 +220,7 @@
               <p>Mary Beth Ruskai</p>
               <p>arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007</p>
               <div class="problem-source-scope">
+                <span>The source states the cataloged problem.</span>
                 <span>Statement locator: p. 12 (Problem 11)</span>
               </div>
               <a href="https://doi.org/10.48550/arXiv.0708.1902" rel="noreferrer">Read problem source ↗</a>
@@ -201,7 +234,7 @@
               <span class="dialog-section-label">Archived formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">As archived before resolution</span>
+            <span class="formal-source">As archived before resolution · digest 40cc7f85f89b</span>
           </div>
 
           <details class="formal-notation">
@@ -217,10 +250,104 @@
           <div class="formal-body"><p><strong>Problem 11.</strong> Find additional counterexamples — beyond the Werner–Holevo channel and its small perturbations — to the multiplicativity conjecture</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\nu_p(\Phi\otimes\Omega)=\nu_p(\Phi)\,\nu_p(\Omega), \tag{24}\]</div><p>holding for a range of \(p&gt;1\). Determine, on the basis of such counterexamples, whether the conjecture is true for \(1\le p\le 2\).</p></div>
         </section>
 
-        <section class="dialog-section" aria-labelledby="resolution-heading">
-          <span class="dialog-section-label">Resolution</span>
-          <h2 id="resolution-heading">Status and known progress</h2>
-          <div class="archive-progress"><p>This problem has been resolved in the negative.</p><ul><li>A. Winter (July 2007, <em>The maximum output \(p\)-norm of quantum channels is not multiplicative for any \(p&gt;2\)</em>, arXiv:0707.0402) solved Problem 11 by constructing counterexamples to (24) for every \(p&gt;2\), using random unitary channels of growing dimension. As stated in Section 5.6 of the source, Winter&#039;s approach failed at \(p=2\) and initially seemed to support multiplicativity in \(1&lt;p\le 2\).</li><li>Soon after, P. Hayden (<em>The maximal \(p\)-norm multiplicativity conjecture is false</em>, arXiv:0707.3291) extended the counterexamples to all \(1&lt;p&lt;2\), and Winter subsequently closed the case \(p=2\). Together these works disprove (24) for every \(p&gt;1\).</li><li>Hayden&#039;s analysis indicated that the additivity conjecture (23) at \(p=1\) still held for his channel constructions and he suggested attacking it by establishing (26) for \(p&lt;1\). King (announcement at AMS–PTM, 2 Aug 2007) reported that the multiplicativity proofs for entanglement-breaking, unital qubit, and depolarizing channels extend to \(0&lt;p&lt;1\).</li><li>M. B. Hastings (<em>Nature Physics</em> 5, 255 (2009)) constructed counterexamples to the additivity of minimal output entropy at \(p=1\), eq. (23), thus disproving the additivity conjecture in general.</li></ul><p>Problem 11 is therefore solved (negatively) as a search-for-counterexamples task: counterexamples exist for every \(p&gt;1\), including in the originally conjectured &quot;safe&quot; range \(1&lt;p\le 2\). The underlying additivity conjecture (23) has also been disproved.</p><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Archived target</h2>
+
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-resolved" id="clause-additional-multiplicativity-counterexamples">
+              <div class="clause-head">
+                <span class="clause-state resolved">Resolved</span>
+                <strong>Counterexamples to p-norm multiplicativity beyond Werner-Holevo</strong>
+                <code>additional-multiplicativity-counterexamples</code>
+              </div>
+              <p>The archived statement asks to find counterexamples to multiplicativity of the maximal output p-norm beyond the Werner-Holevo channel and its small perturbations, holding for a range of p above 1, and to determine on that basis whether the conjecture is true for 1 &lt;= p &lt;= 2.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> New counterexample families covering a range of p above 1, settling in particular whether multiplicativity survives on 1 &lt; p &lt;= 2.</p>
+              <p class="clause-claims">1 accepted claim: <a href="#claim-ruskai-2007-more-multiplicativity-counterexamples-winter-and-hayden-refute">claim-ruskai-2007-more-multiplicativity-counterexamples-winter-and-hayden-refute</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Solved as of 12 Aug 2026: The two cited constructions supply counterexamples beyond the Werner-Holevo family and settle the 1 &lt; p &lt;= 2 range that the archived statement asks about. Both settling works are cited in the source bibliography only by arXiv identifier (arXiv:0707.0402 and arXiv:0707.3291), and the closing of the p = 2 case is recorded in the narrative as subsequent work by Winter. <code>decision-ruskai-2007-more-multiplicativity-counterexamples-status-2026-08-12</code></p>
+        </section>
+
+
+
+        <section class="dialog-section" aria-labelledby="progress-heading">
+          <span class="dialog-section-label">Resolution evidence</span>
+          <h2 id="progress-heading">Resolution</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
+
+          <article class="claim-card" id="claim-ruskai-2007-more-multiplicativity-counterexamples-winter-and-hayden-refute">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Resolves</span>
+              <span class="claim-clauses"><a href="#clause-additional-multiplicativity-counterexamples">additional-multiplicativity-counterexamples</a></span>
+            </div>
+            <h3>Winter and Hayden refute multiplicativity for every p above 1</h3>
+            <p>Winter constructs counterexamples to multiplicativity for every p above 2 using random unitary channels of growing dimension, and Hayden extends the counterexamples to all 1 &lt; p &lt; 2, with Winter subsequently closing the case p = 2. Together they supply the requested counterexamples beyond the Werner-Holevo family and show that multiplicativity fails throughout the conjectured safe range 1 &lt; p &lt;= 2.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-ab9754ed8bb3be3c">
+                <time datetime="2007">2007</time>
+                <div>
+                  <span class="maturity-badge">Preprint</span>
+                  <span class="maturity-badge">Exact counterexample</span>
+                  <a href="https://arxiv.org/abs/0707.0402" rel="noreferrer">arXiv:0707.0402 ↗</a>
+                  <span class="evidence-locator">Counterexamples for every p &gt; 2 (and subsequently p = 2)</span>
+                </div>
+              </li>
+              <li class="evidence-row" id="qop-evt-b6a316fb6401c5aa">
+                <time datetime="2007">2007</time>
+                <div>
+                  <span class="maturity-badge">Preprint</span>
+                  <span class="maturity-badge">Exact counterexample</span>
+                  <a href="https://arxiv.org/abs/0707.3291" rel="noreferrer">arXiv:0707.3291 ↗</a>
+                  <span class="evidence-locator">Extension of the counterexamples to all 1 &lt; p &lt; 2</span>
+                </div>
+              </li>
+            </ol>
+
+          </article>
+
+          <details class="archive-narrative">
+            <summary>Editorial narrative <span>Status and known progress as written by the editors</span></summary>
+            <div class="archive-progress"><p>This problem has been resolved in the negative.</p><ul><li>A. Winter (July 2007, <em>The maximum output \(p\)-norm of quantum channels is not multiplicative for any \(p&gt;2\)</em>, arXiv:0707.0402) solved Problem 11 by constructing counterexamples to (24) for every \(p&gt;2\), using random unitary channels of growing dimension. As stated in Section 5.6 of the source, Winter&#039;s approach failed at \(p=2\) and initially seemed to support multiplicativity in \(1&lt;p\le 2\).</li><li>Soon after, P. Hayden (<em>The maximal \(p\)-norm multiplicativity conjecture is false</em>, arXiv:0707.3291) extended the counterexamples to all \(1&lt;p&lt;2\), and Winter subsequently closed the case \(p=2\). Together these works disprove (24) for every \(p&gt;1\).</li><li>Hayden&#039;s analysis indicated that the additivity conjecture (23) at \(p=1\) still held for his channel constructions and he suggested attacking it by establishing (26) for \(p&lt;1\). King (announcement at AMS–PTM, 2 Aug 2007) reported that the multiplicativity proofs for entanglement-breaking, unital qubit, and depolarizing channels extend to \(0&lt;p&lt;1\).</li><li>M. B. Hastings (<em>Nature Physics</em> 5, 255 (2009)) constructed counterexamples to the additivity of minimal output entropy at \(p=1\), eq. (23), thus disproving the additivity conjecture in general.</li></ul><p>Problem 11 is therefore solved (negatively) as a search-for-counterexamples task: counterexamples exist for every \(p&gt;1\), including in the originally conjectured &quot;safe&quot; range \(1&lt;p\le 2\). The underlying additivity conjecture (23) has also been disproved.</p><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+          </details>
+        </section>
+
+
+        <section class="dialog-section" aria-labelledby="cautions-heading">
+          <span class="dialog-section-label">Claim watch</span>
+          <h2 id="cautions-heading">Scope and cautions</h2>
+
+          <div class="watch-note">
+            <span class="note-icon" aria-hidden="true">!</span>
+            <div>
+              <strong>Scope</strong>
+              <p>The separate additivity conjecture at p = 1 was refuted later by Hastings (Nature Physics 5, 255 (2009)); that is a distinct statement from p-norm multiplicativity for p &gt; 1. </p>
+            </div>
+          </div>
+        </section>
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="ruskai-2007-more-multiplicativity-counterexamples">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Find+more+counterexamples+to+multiplicativity+%28eq.+24%29%3B+do+they+support+holding+for+1+%3C%3D+p+%3C%3D+2%3F" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="ruskai-2007-more-multiplicativity-counterexamples">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
         </section>
 
 
@@ -230,12 +357,18 @@
           <div class="archive-bibliography"><ul><li>M. B. Ruskai, &quot;Open Problems in Quantum Information Theory,&quot; arXiv:0708.1902 [quant-ph] (2007); based on the BIRS workshop on Operator Structures in QIT, Banff, 11–16 Feb 2007. DOI: 10.48550/arXiv.0708.1902. Source PDF: <em>Open Problems in Quantum Information Theory_Ruskai_2007.pdf</em>. Problem 11, p. 12.</li><li>A. Winter, &quot;The maximum output \(p\)-norm of quantum channels is not multiplicative for any \(p&gt;2\),&quot; arXiv:0707.0402.</li><li>P. Hayden, &quot;The maximal \(p\)-norm multiplicativity conjecture is false,&quot; arXiv:0707.3291.</li><li>R. F. Werner and A. S. Holevo, &quot;Counterexample to an additivity conjecture for output purity of quantum channels,&quot; <em>J. Math. Phys.</em> <strong>43</strong>, 4353–4357 (2002).</li><li>G. G. Amosov, A. S. Holevo, and R. F. Werner, &quot;On Some Additivity Problems in Quantum Information Theory,&quot; <em>Problems in Information Transmission</em> <strong>36</strong>, 305–313 (2000). math-ph/0003002.</li><li>P. W. Shor, &quot;Equivalence of Additivity Questions in Quantum Information Theory,&quot; <em>Commun. Math. Phys.</em> <strong>246</strong>, 453–472 (2004). quant-ph/0305035.</li><li>C. King, &quot;Maximal \(p\)-norms of entanglement breaking channels,&quot; <em>Quantum Information and Computation</em> <strong>3</strong>, 186–190 (2003).</li><li>M. B. Hastings, &quot;Superadditivity of communication capacity using entangled inputs,&quot; <em>Nature Physics</em> <strong>5</strong>, 255–257 (2009).</li><li>M. Fukuda, &quot;Simplification of additivity conjecture in quantum information theory,&quot; arXiv:quant-ph/0608010.</li></ul></div>
         </section>
 
+
+
         <section class="dialog-section" aria-labelledby="machine-heading">
-          <span class="dialog-section-label">Record</span>
+          <span class="dialog-section-label">Work on this problem</span>
           <h2 id="machine-heading">Research interfaces</h2>
           <ul class="machine-links">
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/ruskai-2007-more-multiplicativity-counterexamples/problem.md" rel="noreferrer">Source article ↗</a> — the canonical archived statement and audit notes.</li>
-            <li><a href="../">Problem directory</a> — every active and archived record.</li>
+            <li><a href="../../packets/ruskai-2007-more-multiplicativity-counterexamples.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-more-multiplicativity-counterexamples.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-more-multiplicativity-counterexamples/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-more-multiplicativity-counterexamples/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Find+more+counterexamples+to+multiplicativity+%28eq.+24%29%3B+do+they+support+holding+for+1+%3C%3D+p+%3C%3D+2%3F" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/ruskai-2007-more-multiplicativity-counterexamples/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -247,13 +380,15 @@
             <p class="cite-label">The original problem</p>
             <p class="cite-text">Mary Beth Ruskai. Open problems in quantum information theory. arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007. p. 12 (Problem 11). https://doi.org/10.48550/arXiv.0708.1902</p>
             <p class="cite-label">This catalog assessment</p>
-            <p class="cite-text">Quantum Open Problems, record ruskai-2007-more-multiplicativity-counterexamples, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-more-multiplicativity-counterexamples/</p>
+            <p class="cite-text">Quantum Open Problems, record ruskai-2007-more-multiplicativity-counterexamples, revision e94fd7d5e602, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-more-multiplicativity-counterexamples/</p>
           </div>
         </section>
         <footer class="page-record-footer">
           <p>Record <code>ruskai-2007-more-multiplicativity-counterexamples</code></p>
-          <p>Status solved · archived from the active catalog</p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Record revision <code>e94fd7d5e602999f3d5e829d724754f94f3a9ec4a0b3ddfe1014d6a75bc0058d</code></p>
+          <p>Statement digest <code>40cc7f85f89b0ccf642ec9a32497046c5e8cc605f85411813783e4c6c018f32e</code></p>
+          <p>Statement <code>ruskai-2007-more-multiplicativity-counterexamples-statement-v1</code> · Decision <code>decision-ruskai-2007-more-multiplicativity-counterexamples-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -284,5 +419,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="ruskai-2007-more-multiplicativity-counterexamples" defer></script>
   </body>
 </html>

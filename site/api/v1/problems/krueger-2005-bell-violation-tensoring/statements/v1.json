@@ -1,0 +1,49 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "krueger-2005-bell-violation-tensoring-statement-v1",
+  "problemId": "krueger-2005-bell-violation-tensoring",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-krueger-werner-2005",
+      "relationship": "states-problem",
+      "locator": "p. 57 (Problem 21)",
+      "primary": true,
+      "source": {
+        "id": "source-krueger-werner-2005",
+        "title": "Some open problems in quantum information theory",
+        "authors": [
+          "O. Krüger",
+          "R. F. Werner"
+        ],
+        "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+        "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "chsh-activation-by-tensoring",
+      "label": "CHSH activation by tensoring",
+      "text": "The archived statement asks to exhibit two bipartite states, neither of which violates any CHSH Bell inequality, whose tensor product does violate some CHSH inequality, or to prove that no such pair exists.",
+      "resolutionCriteria": "An explicit pair of CHSH-local states whose tensor product violates CHSH, or an impossibility proof."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $\\rho_1,\\rho_2$ | Bipartite density operators on $\\mathcal{H}_A\\otimes\\mathcal{H}_B$ and $\\mathcal{H}_{A'}\\otimes\\mathcal{H}_{B'}$ respectively |\n| $\\rho_1\\otimes\\rho_2$ | The bipartite state on $(\\mathcal{H}_A\\otimes\\mathcal{H}_{A'})\\otimes(\\mathcal{H}_B\\otimes\\mathcal{H}_{B'})$ with Alice holding $A,A'$ and Bob holding $B,B'$ |\n| CHSH | Clauser–Horne–Shimony–Holt Bell inequality, the canonical two-input two-output bipartite Bell inequality |\n| \"$\\rho$ violates CHSH\" | There exist binary local measurements on $\\rho$ producing correlations that violate some CHSH inequality, i.e. $\\rho$ is CHSH-non-local |\n| \"$\\rho$ satisfies all CHSH\" | $\\rho$ admits a local hidden variable model for every choice of two binary measurements per side, equivalently $\\rho$ is CHSH-local |\n| $\\mathbb{1}$ | Identity operator |\n| $T_\\rho$ | The \"$T$-matrix\" of a two-qubit state, $T_{\\rho;ij} = \\operatorname{tr}(\\rho\\,\\sigma_i\\otimes\\sigma_j)$ |",
+    "statement": "Find bipartite density operators $\\rho_1$ and $\\rho_2$ (on possibly different bipartite Hilbert spaces) such that:\n\n1. $\\rho_1$ does *not* violate any CHSH Bell inequality (i.e. for every choice of two binary projective or POVM measurements per side on $\\rho_1$, the resulting correlations admit a local hidden variable model satisfying CHSH).\n2. $\\rho_2$ does *not* violate any CHSH Bell inequality.\n3. The tensor product state $\\rho_1\\otimes\\rho_2$ (with Alice holding both $A$-subsystems and Bob holding both $B$-subsystems) *does* violate some CHSH Bell inequality.\n\nEither exhibit such a pair $(\\rho_1,\\rho_2)$ explicitly, or prove that no such pair exists."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "e6e5c85ead377415ab0a5d1cfcd998d715c4b02c50dfec64a579231234dcd6a3",
+    "bodyDigest": "1d337c075c341403270fe70bff5a6aecfae751fc439fc245133f4606a56136cd"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-bell-violation-tensoring.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-bell-violation-tensoring/frontier.json"
+  }
+}

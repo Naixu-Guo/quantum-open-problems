@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "ruskai-2007-more-multiplicativity-counterexamples",
+  "title": "Find more counterexamples to multiplicativity (eq. 24); do they support holding for 1 <= p <= 2?",
+  "status": "solved",
+  "dates": {
+    "proposed": "2007",
+    "latestEvidence": "2007",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "quantum-channels",
+      "label": "Quantum channels"
+    }
+  },
+  "collection": {
+    "id": "ruskai-2007",
+    "label": "Ruskai",
+    "title": "Open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Search for counterexamples",
+    "summary": "The source asked for multiplicativity counterexamples beyond the Werner-Holevo channel and its perturbations and whether multiplicativity survives for 1 <= p <= 2. Winter gave counterexamples for every p above 2, Hayden extended them to all 1 < p < 2, and Winter subsequently closed p = 2.",
+    "importance": "Before summer 2007 the Werner-Holevo channel and mildly perturbed variants were the only known counterexamples, several authors had conjectured a safe range 1 <= p <= 2, and the p to 1 limit of the conjecture is the additivity statement Shor showed equivalent to additivity of the Holevo capacity and of the entanglement of formation.",
+    "unresolved": ""
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | Algebra of complex $d\\times d$ matrices |\n| $\\rho$, $\\gamma$ | Density matrices on a finite-dimensional Hilbert space |\n| $\\Phi$, $\\Omega$ | CPT (completely positive trace-preserving) linear maps (quantum channels) |\n| $\\lVert M\\rVert_p$ | Schatten $p$-norm, $\\lVert M\\rVert_p=(\\operatorname{Tr}\\lvert M\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | Maximal output $p$-norm, $\\nu_p(\\Phi)=\\inf_\\gamma\\lVert\\Phi(\\gamma)\\rVert_p$ in source notation (sup over inputs of the output $p$-norm) |\n| $S(\\rho)$ | von Neumann entropy, $-\\operatorname{Tr}(\\rho\\log\\rho)$ |\n| $S_{\\min}(\\Phi)$ | Minimum output entropy, $\\inf_\\gamma S(\\Phi(\\gamma))$ |\n| $S^p(\\gamma)$ | Rényi entropy, $S^p(\\gamma)\\equiv\\tfrac{1}{p-1}\\log\\operatorname{Tr}\\gamma^p$ |\n| $S^p_{\\min}(\\Phi)$ | $\\inf_\\gamma S^p(\\Phi(\\gamma))$ |\n| WH channel | Werner–Holevo channel |\n| $p_c$ | Hypothesized critical $p$ at which multiplicativity might fail |",
+    "statement": "**Problem 11.** Find additional counterexamples — beyond the Werner–Holevo channel and its small perturbations — to the multiplicativity conjecture\n$$\\nu_p(\\Phi\\otimes\\Omega)=\\nu_p(\\Phi)\\,\\nu_p(\\Omega), \\tag{24}$$\nholding for a range of $p>1$. Determine, on the basis of such counterexamples, whether the conjecture is true for $1\\le p\\le 2$."
+  },
+  "source": {
+    "title": "Open problems in quantum information theory",
+    "authors": [
+      "Mary Beth Ruskai"
+    ],
+    "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+    "locator": "p. 12 (Problem 11)",
+    "url": "https://doi.org/10.48550/arXiv.0708.1902",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2007",
+        "title": "Winter and Hayden refute multiplicativity for every p above 1",
+        "detail": "Winter constructs counterexamples to multiplicativity for every p above 2 using random unitary channels of growing dimension, and Hayden extends the counterexamples to all 1 < p < 2, with Winter subsequently closing the case p = 2. Together they supply the requested counterexamples beyond the Werner-Holevo family and show that multiplicativity fails throughout the conjectured safe range 1 < p <= 2.",
+        "maturity": "Preprint",
+        "strength": "Exact counterexample",
+        "url": "https://arxiv.org/abs/0707.0402",
+        "label": "arXiv:0707.0402"
+      },
+      {
+        "date": "2007",
+        "title": "Winter and Hayden refute multiplicativity for every p above 1",
+        "detail": "Winter constructs counterexamples to multiplicativity for every p above 2 using random unitary channels of growing dimension, and Hayden extends the counterexamples to all 1 < p < 2, with Winter subsequently closing the case p = 2. Together they supply the requested counterexamples beyond the Werner-Holevo family and show that multiplicativity fails throughout the conjectured safe range 1 < p <= 2.",
+        "maturity": "Preprint",
+        "strength": "Exact counterexample",
+        "url": "https://arxiv.org/abs/0707.3291",
+        "label": "arXiv:0707.3291"
+      }
+    ],
+    "cautions": [
+      {
+        "label": "Scope",
+        "text": "The separate additivity conjecture at p = 1 was refuted later by Hastings (Nature Physics 5, 255 (2009)); that is a distinct statement from p-norm multiplicativity for p > 1."
+      }
+    ],
+    "interpretation": null,
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "maximal output p-norm",
+      "multiplicativity conjecture",
+      "random unitary channels",
+      "Renyi entropy",
+      "Amosov-Holevo-Werner conjecture"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-open-problems/packets/ruskai-2007-more-multiplicativity-counterexamples.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Find+more+counterexamples+to+multiplicativity+%28eq.+24%29%3B+do+they+support+holding+for+1+%3C%3D+p+%3C%3D+2%3F",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/contribution.schema.json",
+    "candidateUpdateSchema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/candidate-update.schema.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-more-multiplicativity-counterexamples/frontier.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-more-multiplicativity-counterexamples.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-more-multiplicativity-counterexamples/",
+    "explorer": "https://naixu-guo.github.io/quantum-open-problems/#ruskai-2007-more-multiplicativity-counterexamples",
+    "markdown": "https://naixu-guo.github.io/quantum-open-problems/packets/ruskai-2007-more-multiplicativity-counterexamples.md",
+    "schema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-more-multiplicativity-counterexamples.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-more-multiplicativity-counterexamples/frontier.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-more-multiplicativity-counterexamples/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-more-multiplicativity-counterexamples/statements/v1.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/ruskai-2007-more-multiplicativity-counterexamples/record.json"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "e94fd7d5e602999f3d5e829d724754f94f3a9ec4a0b3ddfe1014d6a75bc0058d",
+    "statementDigest": "40cc7f85f89b0ccf642ec9a32497046c5e8cc605f85411813783e4c6c018f32e"
+  }
+}

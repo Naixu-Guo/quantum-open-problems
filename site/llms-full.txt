@@ -4,6 +4,7 @@
 > 38 active problems. Structured records: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems.jsonl
 
 ---
+
 # AI research brief: Mutually unbiased bases in dimension six
 
 - Record ID: horodecki-2020-mubs-dimension-six
@@ -1602,6 +1603,177 @@ Return a candidate result, its exact scope, the supporting argument or artifact,
 
 ---
 
+# AI research brief: Tightness of metrology bounds under correlated noise
+
+- Record ID: kurdzialek-2024-correlated-noise-bound-tightness
+- Record revision (SHA-256): 8d52c6f8bd597f59e237caf72931a3c04f17693673c83c1a70f470b432170d03
+- Formal statement digest (SHA-256): a6a6956d04d1c3b5c26f2ba92dc49a70273762da53cc3f62372d7edc05e6159b
+- Status: Open
+- Field: Quantum sensing
+- Topic: Quantum metrology
+- Collection: GaugeForge
+- Verified: 2026-08-31
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/kurdzialek-2024-correlated-noise-bound-tightness/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/kurdzialek-2024-correlated-noise-bound-tightness.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Tightness+of+metrology+bounds+under+correlated+noise
+
+## Problem source
+
+- Relationship: The source documents the gap used to formulate this problem.
+- Title: Universal bounds for quantum metrology in the presence of correlated noise
+- Authors: Stanisław Kurdziałek, Francesco Albarelli, Rafał Demkowicz-Dobrzański
+- Venue: Phys. Rev. Lett. 135, 130801 (2025); arXiv:2410.01881 [quant-ph]
+- Statement locator: Eqs. (10)-(11), discussion of block size m, and the statement that the bounds are not generally tight
+- Read source: https://doi.org/10.1103/jy3v-wkcb
+
+## Why it matters
+
+Metrology bounds guide claims about attainable precision under memory noise. Tightness would certify that the block semidefinite programs predict a physical protocol rather than an unattainable relaxation.
+
+## Formal statement
+
+Let $\Lambda_\theta^{(N)}$ be a finite-dimensional correlated-noise comb and let
+$$
+\mathcal F_{\mathrm{AD}}^{(N)}=\max_{C^{(N)}}F\!\left(C^{(N)}\star\Lambda_\theta^{(N)}\right)
+$$
+denote the optimal quantum Fisher information over physical adaptive controls that cannot act on the inaccessible environment.
+
+For each block size $m$, let $B_m$ denote the asymptotic upper coefficient from Eqs. (10) or (11) of the source paper:
+$$
+B_m=\frac{4}{m}\min_h a^{(m)}\quad\text{subject to }b^{(m)}=0
+$$
+in the standard-scaling case, and
+$$
+B_m=\frac{4}{m^2}\min_h b^{(m)2}
+$$
+in the Heisenberg-scaling case.
+
+Determine whether the best block bound equals the achievable asymptotic precision,
+$$
+\inf_{m\geq1}B_m
+=
+\limsup_{N\to\infty}\frac{\mathcal F_{\mathrm{AD}}^{(N)}}{N^s},
+\qquad s\in\{1,2\},
+$$
+for every model covered by the corresponding bound. A proof should supply asymptotically matching physical controls. A counterexample should give a finite-dimensional correlated model with a strict gap.
+
+## Exact unresolved remainder
+
+Prove that the block hierarchy converges to the achievable asymptotic comb quantum Fisher information, or construct a finite-dimensional correlated model with a strict gap.
+
+## Checked progress
+
+### 2025-09-22: The block hierarchy tightens without a convergence theorem
+
+- Evidence: Peer reviewed; Framework limitation
+- Finding: Kurdziałek, Albarelli and Demkowicz-Dobrzański derive asymptotic bounds for correlated-noise combs and show how larger blocks improve them. They state that the bounds are not generally tight and prove no limit equality with the physical optimum.
+- Source: https://doi.org/10.1103/jy3v-wkcb
+
+## Scope and cautions
+
+- Interpretation: The defensible open problem is the tightness of the asymptotic coefficient. The broader scaling-dichotomy formulation in the lead repository goes beyond the explicit claim in the source paper.
+- Provenance: The source paper states that its bounds are not generally tight and that larger blocks tighten them. The convergence problem is an audited formalization of that limitation, not a conjecture quoted from the authors.
+
+## Research protocol
+
+1. Restate the target and its hypotheses before starting the analysis.
+2. Match each claimed result against the statement's quantifiers and domain.
+3. Label proofs, computations, numerical evidence, and conjectural steps separately.
+4. Cite primary sources with theorem, page, equation, or version locators when available.
+5. Record failed routes when they rule out a reusable approach.
+
+## Requested output
+
+Return a candidate result, its exact scope, the supporting argument or artifact, primary-source links, and any remaining gap. Propose a status change only when the result settles the formal statement or a named subproblem.
+
+---
+
+# AI research brief: Asymptotic metrology with quantum-controlled causal order
+
+- Record ID: mothe-2023-indefinite-causal-order-asymptotic-metrology
+- Record revision (SHA-256): aea78889e43c659d042db391de7bd4e894429d328a08e494c738c552deeb6ba2
+- Formal statement digest (SHA-256): a0e8ee5cff5fd71bc038762cac0840a2955516d5e39bafa653504b867e7e4310
+- Status: Open
+- Field: Quantum sensing
+- Topic: Quantum metrology
+- Collection: GaugeForge
+- Verified: 2026-08-31
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/mothe-2023-indefinite-causal-order-asymptotic-metrology/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/mothe-2023-indefinite-causal-order-asymptotic-metrology.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Asymptotic+metrology+with+quantum-controlled+causal+order
+
+## Problem source
+
+- Relationship: The source states the cataloged problem.
+- Title: Reassessing the advantage of indefinite causal orders for quantum metrology
+- Authors: Raphaël Mothe, Cyril Branciard, Alastair A. Abbott
+- Venue: Phys. Rev. A 109, 062435 (2024); arXiv:2312.12172 [quant-ph]
+- Statement locator: Sec. VII, discussion of possible asymptotic advantages from QC-QC strategies
+- Read source: https://doi.org/10.1103/PhysRevA.109.062435
+
+## Why it matters
+
+Finite-use gains from quantum-controlled order matter only if they survive as resources grow. The answer determines whether causal control changes asymptotic sensing limits or only small-instance performance.
+
+## Formal statement
+
+For a smooth finite-dimensional channel family $\Lambda_\theta$, let $\mathcal F_{\mathrm{PAR}}^{(N)}(\theta)$ and $\mathcal F_{\mathrm{QCQC}}^{(N)}(\theta)$ denote the optimal quantum Fisher information from $N$ uses under parallel and QC-QC strategies. Work at a regular parameter value where the denominator is positive for large $N$.
+
+Decide whether every such channel family satisfies
+$$
+\limsup_{N\to\infty}
+\frac{\mathcal F_{\mathrm{QCQC}}^{(N)}(\theta)}
+     {\mathcal F_{\mathrm{PAR}}^{(N)}(\theta)}
+=1.
+$$
+
+An affirmative solution must extend the known asymptotic channel-estimation bounds to QC-QC strategies. A negative solution must construct a channel family and QC-QC protocols with a persistent constant-factor advantage or a larger scaling exponent.
+
+A mathematical extension replaces QC-QC by the full set of valid process matrices. That set supplies an outer bound but includes processes without a known physical realization under the usual closed-laboratory assumptions.
+
+## Exact unresolved remainder
+
+Prove that QC-QC strategies become asymptotically equivalent to parallel strategies for every smooth finite-dimensional channel family, or give a noisy family with a persistent advantage.
+
+## Checked progress
+
+### 2026-05-08: A spacetime theorem identifies QC-QC as the physical target class
+
+- Evidence: Preprint; Physical-scope theorem
+- Finding: Salzger and Vilasini show that protocols satisfying their classical-spacetime and closed-laboratory assumptions are behaviorally equivalent to QC-QC. The theorem narrows the physical scope but gives no asymptotic metrology bound.
+- Source: https://arxiv.org/abs/2605.08351
+
+### 2024-06-25: QC-QC has a strict advantage at three channel uses
+
+- Evidence: Peer reviewed; Finite-use separation
+- Finding: Mothe, Branciard and Abbott find noisy channel families for which QC-QC outperforms causal superpositions and fixed-order circuits at finite N. Their discussion leaves the large-N behavior open.
+- Source: https://doi.org/10.1103/PhysRevA.109.062435
+
+### 2023-08-30: Parallel, adaptive and causal-superposition strategies coincide asymptotically
+
+- Evidence: Peer reviewed; Exact lower-class theorem
+- Finding: Kurdziałek and coauthors prove asymptotic equivalence through causal superpositions. Their proof does not cover dynamical quantum control of causal order.
+- Source: https://doi.org/10.1103/PhysRevLett.131.090801
+
+## Scope and cautions
+
+- Finite versus asymptotic: The strict three-use separation proves a finite-resource advantage only. It does not determine the scaling exponent or leading asymptotic coefficient.
+- Provenance: Mothe, Branciard and Abbott explicitly ask whether QC-QC strategies can provide an asymptotic advantage after proving strict finite-use advantages.
+
+## Research protocol
+
+1. Restate the target and its hypotheses before starting the analysis.
+2. Match each claimed result against the statement's quantifiers and domain.
+3. Label proofs, computations, numerical evidence, and conjectural steps separately.
+4. Cite primary sources with theorem, page, equation, or version locators when available.
+5. Record failed routes when they rule out a reusable approach.
+
+## Requested output
+
+Return a candidate result, its exact scope, the supporting argument or artifact, primary-source links, and any remaining gap. Propose a status change only when the result settles the formal statement or a named subproblem.
+
+---
+
 # AI research brief: Delayed-onset additivity violation
 
 - Record ID: ruskai-2007-additivity-violation-power-m
@@ -2848,76 +3020,64 @@ Return a candidate result, its exact scope, the supporting argument or artifact,
 
 ---
 
-# AI research brief: Tightness of metrology bounds under correlated noise
+# AI research brief: Kashaev volume conjecture for hyperbolic knots
 
-- Record ID: kurdzialek-2024-correlated-noise-bound-tightness
-- Record revision (SHA-256): 8d52c6f8bd597f59e237caf72931a3c04f17693673c83c1a70f470b432170d03
-- Formal statement digest (SHA-256): a6a6956d04d1c3b5c26f2ba92dc49a70273762da53cc3f62372d7edc05e6159b
+- Record ID: theoremdb-p3114-kashaev-volume-conjecture
+- Record revision (SHA-256): b1d04ae357c94df359859925e152c0330052f6964aa7c015fc33bebb5548bf9a
+- Formal statement digest (SHA-256): 68efefcb7a0d2174d7361e1ef6419aec49679ce23efbe2cae36ba3c649725a32
 - Status: Open
-- Field: Quantum sensing
-- Topic: Quantum metrology
-- Collection: GaugeForge
+- Field: Quantum topology
+- Topic: Quantum knot invariants
+- Collection: TheoremDB
 - Verified: 2026-08-31
-- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/kurdzialek-2024-correlated-noise-bound-tightness/
-- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/kurdzialek-2024-correlated-noise-bound-tightness.json
-- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Tightness+of+metrology+bounds+under+correlated+noise
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/theoremdb-p3114-kashaev-volume-conjecture/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/theoremdb-p3114-kashaev-volume-conjecture.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Kashaev+volume+conjecture+for+hyperbolic+knots
 
 ## Problem source
 
-- Relationship: The source documents the gap used to formulate this problem.
-- Title: Universal bounds for quantum metrology in the presence of correlated noise
-- Authors: Stanisław Kurdziałek, Francesco Albarelli, Rafał Demkowicz-Dobrzański
-- Venue: Phys. Rev. Lett. 135, 130801 (2025); arXiv:2410.01881 [quant-ph]
-- Statement locator: Eqs. (10)-(11), discussion of block size m, and the statement that the bounds are not generally tight
-- Read source: https://doi.org/10.1103/jy3v-wkcb
+- Relationship: The source states the cataloged problem.
+- Title: The Hyperbolic Volume of Knots from the Quantum Dilogarithm
+- Authors: Rinat M. Kashaev
+- Venue: Letters in Mathematical Physics 39, 269-275 (1997)
+- Statement locator: Sec. 1, Eq. (1.1)
+- Read source: https://doi.org/10.1023/A:1007364912784
 
 ## Why it matters
 
-Metrology bounds guide claims about attainable precision under memory noise. Tightness would certify that the block semidefinite programs predict a physical protocol rather than an unattainable relaxation.
+The conjecture would let quantum knot invariants recover a geometric quantity of the knot complement. It links representation-theoretic data to three-dimensional hyperbolic geometry.
 
 ## Formal statement
 
-Let $\Lambda_\theta^{(N)}$ be a finite-dimensional correlated-noise comb and let
+Let $K\subset S^3$ be a hyperbolic knot and let $\langle K\rangle_N$ be Kashaev's $N$th invariant. Prove that the limit exists and satisfies
 $$
-\mathcal F_{\mathrm{AD}}^{(N)}=\max_{C^{(N)}}F\!\left(C^{(N)}\star\Lambda_\theta^{(N)}\right)
+\lim_{N\to\infty}\frac{2\pi}{N}\log\left|\langle K\rangle_N\right|
+=\operatorname{Vol}(S^3\setminus K).
 $$
-denote the optimal quantum Fisher information over physical adaptive controls that cannot act on the inaccessible environment.
 
-For each block size $m$, let $B_m$ denote the asymptotic upper coefficient from Eqs. (10) or (11) of the source paper:
-$$
-B_m=\frac{4}{m}\min_h a^{(m)}\quad\text{subject to }b^{(m)}=0
-$$
-in the standard-scaling case, and
-$$
-B_m=\frac{4}{m^2}\min_h b^{(m)2}
-$$
-in the Heisenberg-scaling case.
-
-Determine whether the best block bound equals the achievable asymptotic precision,
-$$
-\inf_{m\geq1}B_m
-=
-\limsup_{N\to\infty}\frac{\mathcal F_{\mathrm{AD}}^{(N)}}{N^s},
-\qquad s\in\{1,2\},
-$$
-for every model covered by the corresponding bound. A proof should supply asymptotically matching physical controls. A counterexample should give a finite-dimensional correlated model with a strict gap.
+A counterexample must give a hyperbolic knot for which the limit fails to exist or differs from the hyperbolic volume.
 
 ## Exact unresolved remainder
 
-Prove that the block hierarchy converges to the achievable asymptotic comb quantum Fisher information, or construct a finite-dimensional correlated model with a strict gap.
+Prove the volume-limit identity for every hyperbolic knot, or give a hyperbolic knot for which the limit fails or has the wrong value.
 
 ## Checked progress
 
-### 2025-09-22: The block hierarchy tightens without a convergence theorem
+### 2026-08-01: The universal hyperbolic-knot statement remains open
 
-- Evidence: Peer reviewed; Framework limitation
-- Finding: Kurdziałek, Albarelli and Demkowicz-Dobrzański derive asymptotic bounds for correlated-noise combs and show how larger blocks improve them. They state that the bounds are not generally tight and prove no limit equality with the physical optimum.
-- Source: https://doi.org/10.1103/jy3v-wkcb
+- Evidence: Reviewed database record; Dated status audit
+- Finding: TheoremDB's dated review found proofs for selected knots and families but no proof or counterexample for every hyperbolic knot.
+- Source: https://www.theoremdb.org/statements/P3114/
+
+### 2001: Colored Jones polynomials give an equivalent formulation
+
+- Evidence: Peer reviewed; Equivalent formulation
+- Finding: Murakami and Murakami identify Kashaev's invariant with a root-of-unity specialization of the colored Jones polynomial and state the volume conjecture in that language.
+- Source: https://doi.org/10.1007/BF02392716
 
 ## Scope and cautions
 
-- Interpretation: The defensible open problem is the tightness of the asymptotic coefficient. The broader scaling-dichotomy formulation in the lead repository goes beyond the explicit claim in the source paper.
-- Provenance: The source paper states that its bounds are not generally tight and that larger blocks tighten them. The convergence problem is an audited formalization of that limitation, not a conjecture quoted from the authors.
+- Provenance: TheoremDB P3114 records Kashaev's universal hyperbolic-knot conjecture and cites the original papers.
 
 ## Research protocol
 
@@ -2933,77 +3093,66 @@ Return a candidate result, its exact scope, the supporting argument or artifact,
 
 ---
 
-# AI research brief: Asymptotic metrology with quantum-controlled causal order
+# AI research brief: Yang-Mills existence and mass gap
 
-- Record ID: mothe-2023-indefinite-causal-order-asymptotic-metrology
-- Record revision (SHA-256): aea78889e43c659d042db391de7bd4e894429d328a08e494c738c552deeb6ba2
-- Formal statement digest (SHA-256): a0e8ee5cff5fd71bc038762cac0840a2955516d5e39bafa653504b867e7e4310
+- Record ID: theoremdb-p36-yang-mills-mass-gap
+- Record revision (SHA-256): d53f8cef2101486d399a378e036cfe581269d432421139685c8ab7486a522133
+- Formal statement digest (SHA-256): 4c062770677148730a2c49f3fe6f5ae3949c7a54250730fc11d6afb5bddebce0
 - Status: Open
-- Field: Quantum sensing
-- Topic: Quantum metrology
-- Collection: GaugeForge
+- Field: Quantum field theory
+- Topic: Quantum Yang–Mills theory
+- Collection: TheoremDB
 - Verified: 2026-08-31
-- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/mothe-2023-indefinite-causal-order-asymptotic-metrology/
-- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/mothe-2023-indefinite-causal-order-asymptotic-metrology.json
-- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Asymptotic+metrology+with+quantum-controlled+causal+order
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/theoremdb-p36-yang-mills-mass-gap/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/theoremdb-p36-yang-mills-mass-gap.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Yang-Mills+existence+and+mass+gap
 
 ## Problem source
 
 - Relationship: The source states the cataloged problem.
-- Title: Reassessing the advantage of indefinite causal orders for quantum metrology
-- Authors: Raphaël Mothe, Cyril Branciard, Alastair A. Abbott
-- Venue: Phys. Rev. A 109, 062435 (2024); arXiv:2312.12172 [quant-ph]
-- Statement locator: Sec. VII, discussion of possible asymptotic advantages from QC-QC strategies
-- Read source: https://doi.org/10.1103/PhysRevA.109.062435
+- Title: Quantum Yang-Mills Theory
+- Authors: Arthur Jaffe, Edward Witten
+- Venue: Clay Mathematics Institute Millennium Prize Problem
+- Statement locator: Sec. 4, ‘The Problem’ in the official Jaffe-Witten statement
+- Read source: https://www.claymath.org/wp-content/uploads/2022/06/yangmills.pdf
 
 ## Why it matters
 
-Finite-use gains from quantum-controlled order matter only if they survive as resources grow. The answer determines whether causal control changes asymptotic sensing limits or only small-instance performance.
+The problem asks mathematics to construct the four-dimensional quantum gauge theory used in particle physics and derive its positive particle-mass scale from the axioms.
 
 ## Formal statement
 
-For a smooth finite-dimensional channel family $\Lambda_\theta$, let $\mathcal F_{\mathrm{PAR}}^{(N)}(\theta)$ and $\mathcal F_{\mathrm{QCQC}}^{(N)}(\theta)$ denote the optimal quantum Fisher information from $N$ uses under parallel and QC-QC strategies. Work at a regular parameter value where the denominator is positive for large $N$.
+For each compact simple gauge group $G$, construct a nontrivial quantum Yang-Mills theory on $\mathbb R^4$ that satisfies axioms at least as strong as those in the official Jaffe-Witten formulation and agrees with the classical Yang-Mills theory in the required sense.
 
-Decide whether every such channel family satisfies
+Let $H$ be the Hamiltonian of the reconstructed quantum theory and let the vacuum energy be zero. Prove that there is a constant $\Delta>0$ such that
 $$
-\limsup_{N\to\infty}
-\frac{\mathcal F_{\mathrm{QCQC}}^{(N)}(\theta)}
-     {\mathcal F_{\mathrm{PAR}}^{(N)}(\theta)}
-=1.
+\operatorname{spec}(H)\cap(0,\Delta)=\varnothing.
 $$
 
-An affirmative solution must extend the known asymptotic channel-estimation bounds to QC-QC strategies. A negative solution must construct a channel family and QC-QC protocols with a persistent constant-factor advantage or a larger scaling exponent.
-
-A mathematical extension replaces QC-QC by the full set of valid process matrices. That set supplies an outer bound but includes processes without a known physical realization under the usual closed-laboratory assumptions.
+A complete solution must establish both the quantum theory and the positive mass gap for the gauge groups and axioms in the official statement.
 
 ## Exact unresolved remainder
 
-Prove that QC-QC strategies become asymptotically equivalent to parallel strategies for every smooth finite-dimensional channel family, or give a noisy family with a persistent advantage.
+Construct the theory on four-dimensional Euclidean space for every compact simple gauge group under the official axioms and prove a positive mass gap.
 
 ## Checked progress
 
-### 2026-05-08: A spacetime theorem identifies QC-QC as the physical target class
+### 2026-08-31: Clay continues to list the problem as unsolved
 
-- Evidence: Preprint; Physical-scope theorem
-- Finding: Salzger and Vilasini show that protocols satisfying their classical-spacetime and closed-laboratory assumptions are behaviorally equivalent to QC-QC. The theorem narrows the physical scope but gives no asymptotic metrology bound.
-- Source: https://arxiv.org/abs/2605.08351
+- Evidence: Official status page; Authoritative open status
+- Finding: The official Clay page says that experiments and simulations support a mass gap but no proof meeting the mathematical problem is known.
+- Source: https://www.claymath.org/millennium/yang-mills-the-maths-gap/
 
-### 2024-06-25: QC-QC has a strict advantage at three channel uses
+### 2026-06-09: A new preprint claims a four-dimensional construction
 
-- Evidence: Peer reviewed; Finite-use separation
-- Finding: Mothe, Branciard and Abbott find noisy channel families for which QC-QC outperforms causal superpositions and fixed-order circuits at finite N. Their discussion leaves the large-N behavior open.
-- Source: https://doi.org/10.1103/PhysRevA.109.062435
-
-### 2023-08-30: Parallel, adaptive and causal-superposition strategies coincide asymptotically
-
-- Evidence: Peer reviewed; Exact lower-class theorem
-- Finding: Kurdziałek and coauthors prove asymptotic equivalence through causal superpositions. Their proof does not cover dynamical quantum control of causal order.
-- Source: https://doi.org/10.1103/PhysRevLett.131.090801
+- Evidence: Preprint; Unverified resolution claim
+- Finding: Faizal and Shabir claim a reflection-positive SU(N) continuum construction with a mass gap. The paper is unrefereed, and the official problem remains listed as unsolved.
+- Source: https://arxiv.org/abs/2606.19362
 
 ## Scope and cautions
 
-- Finite versus asymptotic: The strict three-use separation proves a finite-resource advantage only. It does not determine the scaling exponent or leading asymptotic coefficient.
-- Provenance: Mothe, Branciard and Abbott explicitly ask whether QC-QC strategies can provide an asymptotic advantage after proving strict finite-use advantages.
+- Unreviewed claim: Do not mark the problem solved from arXiv:2606.19362. The claim has not passed journal or Clay review, and its SU(N) scope must be checked against the full official statement. (https://arxiv.org/abs/2606.19362)
+- Provenance: TheoremDB P36 restates the official Clay Mathematics Institute Millennium Prize problem.
 
 ## Research protocol
 
@@ -3100,148 +3249,1685 @@ Return a candidate result, its exact scope, the supporting argument or artifact,
 
 ---
 
-# AI research brief: Yang-Mills existence and mass gap
+# Archived solved problems (20)
 
-- Record ID: theoremdb-p36-yang-mills-mass-gap
-- Record revision (SHA-256): d53f8cef2101486d399a378e036cfe581269d432421139685c8ab7486a522133
-- Formal statement digest (SHA-256): 4c062770677148730a2c49f3fe6f5ae3949c7a54250730fc11d6afb5bddebce0
-- Status: Open
-- Field: Quantum field theory
-- Topic: Quantum Yang–Mills theory
-- Collection: TheoremDB
-- Verified: 2026-08-31
-- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/theoremdb-p36-yang-mills-mass-gap/
-- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/theoremdb-p36-yang-mills-mass-gap.json
-- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Yang-Mills+existence+and+mass+gap
-
-## Problem source
-
-- Relationship: The source states the cataloged problem.
-- Title: Quantum Yang-Mills Theory
-- Authors: Arthur Jaffe, Edward Witten
-- Venue: Clay Mathematics Institute Millennium Prize Problem
-- Statement locator: Sec. 4, ‘The Problem’ in the official Jaffe-Witten statement
-- Read source: https://www.claymath.org/wp-content/uploads/2022/06/yangmills.pdf
-
-## Why it matters
-
-The problem asks mathematics to construct the four-dimensional quantum gauge theory used in particle physics and derive its positive particle-mass scale from the axioms.
-
-## Formal statement
-
-For each compact simple gauge group $G$, construct a nontrivial quantum Yang-Mills theory on $\mathbb R^4$ that satisfies axioms at least as strong as those in the official Jaffe-Witten formulation and agrees with the classical Yang-Mills theory in the required sense.
-
-Let $H$ be the Hamiltonian of the reconstructed quantum theory and let the vacuum energy be zero. Prove that there is a constant $\Delta>0$ such that
-$$
-\operatorname{spec}(H)\cap(0,\Delta)=\varnothing.
-$$
-
-A complete solution must establish both the quantum theory and the positive mass gap for the gauge groups and axioms in the official statement.
-
-## Exact unresolved remainder
-
-Construct the theory on four-dimensional Euclidean space for every compact simple gauge group under the official axioms and prove a positive mass gap.
-
-## Checked progress
-
-### 2026-08-31: Clay continues to list the problem as unsolved
-
-- Evidence: Official status page; Authoritative open status
-- Finding: The official Clay page says that experiments and simulations support a mass gap but no proof meeting the mathematical problem is known.
-- Source: https://www.claymath.org/millennium/yang-mills-the-maths-gap/
-
-### 2026-06-09: A new preprint claims a four-dimensional construction
-
-- Evidence: Preprint; Unverified resolution claim
-- Finding: Faizal and Shabir claim a reflection-positive SU(N) continuum construction with a mass gap. The paper is unrefereed, and the official problem remains listed as unsolved.
-- Source: https://arxiv.org/abs/2606.19362
-
-## Scope and cautions
-
-- Unreviewed claim: Do not mark the problem solved from arXiv:2606.19362. The claim has not passed journal or Clay review, and its SU(N) scope must be checked against the full official statement. (https://arxiv.org/abs/2606.19362)
-- Provenance: TheoremDB P36 restates the official Clay Mathematics Institute Millennium Prize problem.
-
-## Research protocol
-
-1. Restate the target and its hypotheses before starting the analysis.
-2. Match each claimed result against the statement's quantifiers and domain.
-3. Label proofs, computations, numerical evidence, and conjectural steps separately.
-4. Cite primary sources with theorem, page, equation, or version locators when available.
-5. Record failed routes when they rule out a reusable approach.
-
-## Requested output
-
-Return a candidate result, its exact scope, the supporting argument or artifact, primary-source links, and any remaining gap. Propose a status change only when the result settles the formal statement or a named subproblem.
+> Solved records keep their statement, resolution evidence, and URL. Structured records: https://naixu-guo.github.io/quantum-open-problems/api/v1/archive.jsonl
 
 ---
 
-# AI research brief: Kashaev volume conjecture for hyperbolic knots
+# AI research brief: Determine whether there exist two quantum orthogonal Latin squares of order six (quantum 36 officers of Euler)
 
-- Record ID: theoremdb-p3114-kashaev-volume-conjecture
-- Record revision (SHA-256): b1d04ae357c94df359859925e152c0330052f6964aa7c015fc33bebb5548bf9a
-- Formal statement digest (SHA-256): 68efefcb7a0d2174d7361e1ef6419aec49679ce23efbe2cae36ba3c649725a32
-- Status: Open
-- Field: Quantum topology
-- Topic: Quantum knot invariants
-- Collection: TheoremDB
-- Verified: 2026-08-31
-- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/theoremdb-p3114-kashaev-volume-conjecture/
-- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/theoremdb-p3114-kashaev-volume-conjecture.json
-- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Kashaev+volume+conjecture+for+hyperbolic+knots
+- Record ID: horodecki-2020-quantum-latin-squares-order-six
+- Record revision (SHA-256): af12b08b729f088eeaf2d70467b755dffa280342aaccd83cc983d98cf4321c90
+- Formal statement digest (SHA-256): 1c5498a5c192c7e07b13fb399c1c73671d6428da1b696dae9b478f7f14479d67
+- Status: Solved
+- Field: Quantum information
+- Topic: Quantum designs
+- Collection: Horodecki
+- Verified: 2026-08-12
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/horodecki-2020-quantum-latin-squares-order-six/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/horodecki-2020-quantum-latin-squares-order-six.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Determine+whether+there+exist+two+quantum+orthogonal+Latin+squares+of+order+six+%28quantum+36+officers+of+Euler%29
 
 ## Problem source
 
 - Relationship: The source states the cataloged problem.
-- Title: The Hyperbolic Volume of Knots from the Quantum Dilogarithm
-- Authors: Rinat M. Kashaev
-- Venue: Letters in Mathematical Physics 39, 269-275 (1997)
-- Statement locator: Sec. 1, Eq. (1.1)
-- Read source: https://doi.org/10.1023/A:1007364912784
+- Title: Five open problems in theory of quantum information
+- Authors: Paweł Horodecki, Łukasz Rudnicki, Karol Życzkowski
+- Venue: PRX Quantum 3, 010101 (2022); arXiv:2002.03233 [quant-ph]
+- Statement locator: p. 4-6 (Problem 3)
+- Read source: https://doi.org/10.1103/PRXQuantum.3.010101
 
 ## Why it matters
 
-The conjecture would let quantum knot invariants recover a geometric quantity of the knot complement. It links representation-theoretic data to three-dimensional hyperbolic geometry.
+Euler conjectured and Tarry proved that no classical pair of orthogonal Latin squares of order six exists, and the quantum version is equivalent to an absolutely maximally entangled state of four six-level systems, a 2-unitary matrix in U(36), a perfect four-index tensor, and a ((4,1,3))_6 quantum code.
+
+## Notation
+
+| Symbol | Meaning |
+|---|---|
+| $N$ | Order of a (quantum) Latin square; here $N=6$ |
+| $\mathcal{H}_N$ | $N$-dimensional complex Hilbert space |
+| $\mathcal{H}_6$ | $6$-dimensional Hilbert space, the relevant subsystem space |
+| $\lvert j\rangle$ | Computational-basis vector of $\mathcal{H}_N$, $j=1,\dots,N$ |
+| $\lvert\psi_+\rangle$ | Generalized Bell state on $\mathcal{H}_N\otimes\mathcal{H}_N$ |
+| $\otimes$ | Tensor (Kronecker) product |
+| $\oplus$ | Direct sum of matrices, also Kronecker sum: $A\oplus B=A\otimes\mathbb{1}+\mathbb{1}\otimes B$ |
+| $\mathbb{1}_N$ | $N\times N$ identity matrix |
+| $\rho_\ast$ | Maximally mixed state, $\rho_\ast=\mathbb{1}_N/N$ |
+| $T_{ijkl}$ | Components of a $4$-index tensor used to encode a $4$-partite pure state |
+| $U^{\Gamma}$ | Partial transpose of a unitary $U$ acting on a bipartite system |
+| $U^R$ | Reshuffling (realignment) of a bipartite matrix $U$ |
+| $\mathcal{U}(36)$ | Group of $36\times 36$ unitary matrices |
+| $((4,1,3))_6$ | Quantum error correction code on $4$ subsystems with $1$ logical level and distance $3$ over alphabet of size $6$ |
+| AME | Absolutely maximally entangled state |
+| OQLS | Orthogonal quantum Latin squares |
+| MOLS | Mutually orthogonal Latin squares |
 
 ## Formal statement
 
-Let $K\subset S^3$ be a hyperbolic knot and let $\langle K\rangle_N$ be Kashaev's $N$th invariant. Prove that the limit exists and satisfies
-$$
-\lim_{N\to\infty}\frac{2\pi}{N}\log\left|\langle K\rangle_N\right|
-=\operatorname{Vol}(S^3\setminus K).
-$$
+**Problem 3:** *Determine whether there exist two quantum orthogonal Latin squares of order six. In other words, find a solution of the problem of $36$ "entangled officers" of Euler or demonstrate that it does not exist.*
 
-A counterexample must give a hyperbolic knot for which the limit fails to exist or differs from the hyperbolic volume.
+Equivalent reformulations established in the source:
+- There exists an AME state of four subsystems with six levels each, i.e. a pure state $\lvert\Psi\rangle\in\mathcal{H}_6^{\otimes 4}$ such that every partition of its four parties into two-against-two yields a maximally mixed reduced state $\rho_\ast=\mathbb{1}_{36}/36$.
+- The corresponding quantum error-correction code $((4,1,3))_6$ exists.
+- There exists a $2$-unitary matrix $U\in\mathcal{U}(36)$ (a unitary of size $36\times 36$ whose partial transpose $U^\Gamma$ and reshuffling $U^R$ are also unitary).
+- There exists a perfect tensor $T_{ijkl}$ with four indices each running from $1$ to $6$.
 
-## Exact unresolved remainder
+## Resolution
 
-Prove the volume-limit identity for every hyperbolic knot, or give a hyperbolic knot for which the limit fails or has the wrong value.
+The archived statement is settled. The checked progress below records the settling result and its evidence.
 
 ## Checked progress
 
-### 2026-08-01: The universal hyperbolic-knot statement remains open
+### 2022: Explicit AME(4,6) state solves the 36 entangled officers
 
-- Evidence: Reviewed database record; Dated status audit
-- Finding: TheoremDB's dated review found proofs for selected knots and families but no proof or counterexample for every hyperbolic knot.
-- Source: https://www.theoremdb.org/statements/P3114/
-
-### 2001: Colored Jones polynomials give an equivalent formulation
-
-- Evidence: Peer reviewed; Equivalent formulation
-- Finding: Murakami and Murakami identify Kashaev's invariant with a root-of-unity specialization of the colored Jones polynomial and state the volume conjecture in that language.
-- Source: https://doi.org/10.1007/BF02392716
+- Evidence: Peer reviewed; Explicit construction
+- Finding: Rather, Burchardt, Bruzda, Rajchel-Mieldzioc, Lakshminarayan and Zyczkowski construct an exact AME(4,6) state, equivalently a pair of orthogonal quantum Latin squares of order six and a 2-unitary matrix in U(36). Numerical iteration led to the construction, but the published object and its verification are exact and analytic, using golden-ratio amplitudes and roots of unity, so the archived existence question is answered affirmatively.
+- Source: https://arxiv.org/abs/2104.05122
 
 ## Scope and cautions
 
-- Provenance: TheoremDB P3114 records Kashaev's universal hyperbolic-knot conjecture and cites the original papers.
+- Scope: The same paper separately constructs a nonadditive ((3,6,2))_6 code; that is a distinct result from the AME(4,6) construction which settles the archived statement.
 
 ## Research protocol
 
-1. Restate the target and its hypotheses before starting the analysis.
-2. Match each claimed result against the statement's quantifiers and domain.
-3. Label proofs, computations, numerical evidence, and conjectural steps separately.
-4. Cite primary sources with theorem, page, equation, or version locators when available.
-5. Record failed routes when they rule out a reusable approach.
+1. Treat the archived statement and its resolution evidence as the record; do not reformulate the target to match the theorem.
+2. Report only corrections: an error in the cited resolution, a withdrawn or corrected source, or a mismatch between the theorem and the archived quantifiers.
+3. Cite primary sources with theorem, page, equation, or version locators when available.
 
 ## Requested output
 
-Return a candidate result, its exact scope, the supporting argument or artifact, primary-source links, and any remaining gap. Propose a status change only when the result settles the formal statement or a named subproblem.
+Return a correction with its exact scope, the supporting argument or artifact, and primary-source links. Propose a status change only when the cited resolution no longer settles the archived statement.
+
+---
+
+# AI research brief: Show that the Werner state rho(4, -1/2) of two ququarts is not 2-copy distillable
+
+- Record ID: horodecki-2020-werner-2-copy-distillability
+- Record revision (SHA-256): 9e98dfe6d30bee90d0fc5909a01006b3e5d7ac51a0cf7764fe07a0f30c2ce046
+- Formal statement digest (SHA-256): f466f1f207bdfa402f1fe569a5ff0c27f241e042c97bbfceae4b95f9e2c9a503
+- Status: Solved
+- Field: Quantum information
+- Topic: Entanglement theory
+- Collection: Horodecki
+- Verified: 2026-08-12
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/horodecki-2020-werner-2-copy-distillability/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/horodecki-2020-werner-2-copy-distillability.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Show+that+the+Werner+state+rho%284%2C+-1%2F2%29+of+two+ququarts+is+not+2-copy+distillable
+
+## Problem source
+
+- Relationship: The source states the cataloged problem.
+- Title: Five open problems in theory of quantum information
+- Authors: Paweł Horodecki, Łukasz Rudnicki, Karol Życzkowski
+- Venue: PRX Quantum 3, 010101 (2022); arXiv:2002.03233 [quant-ph]
+- Statement locator: p. 8-9 (Problem 5)
+- Read source: https://doi.org/10.1103/PRXQuantum.3.010101
+
+## Why it matters
+
+The state sits exactly on the boundary between 1-copy distillable and 1-copy non-distillable Werner states, and its partial transpose is uniquely proportional to a dichotomic unitary, a property preserved under tensor products, which makes it the most tractable concrete step toward proving the existence of NPT bound entanglement.
+
+## Notation
+
+| Symbol | Meaning |
+|---|---|
+| $d$ | Local Hilbert-space dimension; in this problem $d=4$ |
+| $\mathcal{H}_d$ | $d$-dimensional complex Hilbert space |
+| $\mathcal{H}_d\otimes\mathcal{H}_d$ | Bipartite Hilbert space with two $d$-level parties |
+| $\mathbb{1}$ | Identity operator on $\mathcal{H}_d\otimes\mathcal{H}_d$ |
+| $V$ | Swap operator on $\mathcal{H}_d\otimes\mathcal{H}_d$, $\langle ij\vert V\vert kl\rangle=\delta_{il}\delta_{jk}$ |
+| $\delta_{ij}$ | Kronecker delta |
+| $\alpha$ | Real parameter, $\alpha\in[-1,1]$ |
+| $\rho(d,\alpha)$ | One-parameter family of Werner states |
+| $\rho^\Gamma$ | Partial transpose of $\rho$ |
+| $n$ | Number of copies used in a distillation protocol |
+| $P,Q$ | Rank-two projectors acting on $(\mathcal{H}_d)^{\otimes n}$ |
+| $U$ | Unitary on $\mathcal{H}_d$ |
+| $I$ | $d\times d$ identity matrix |
+| $\lvert\psi_+\rangle$ | Maximally entangled state $\frac{1}{\sqrt{d}}\sum_{j=1}^d \lvert j\rangle\otimes\lvert j\rangle$ |
+| $A,B$ | Traceless complex $4\times 4$ matrices normalized by $\mathrm{Tr}(A^\dagger A)+\mathrm{Tr}(B^\dagger B)=1/4$ |
+| $A\oplus B$ | Kronecker sum $A\otimes\mathbb{1}+\mathbb{1}\otimes B$ |
+| $B_1,B_2,B_\infty$ | Boundaries of the sets of $1$-copy, $2$-copy, and $n$-copy ($\forall n$) non-distillable Werner states |
+
+## Formal statement
+
+**Problem 5:** *Show that the Werner state $\rho(4,-1/2)$ of two ququarts, $d=4$, defined in Eq. (5) below, is not 2-copy distillable.*
+
+Setup: Consider the family of Werner states on $\mathcal{H}_d\otimes\mathcal{H}_d$
+$$\rho(d,\alpha) = \frac{\mathbb{1}\otimes\mathbb{1}+\alpha V}{d^2+\alpha d}, \qquad \alpha\in[-1,1],$$
+where $V$ is the swap operator, $\langle ij|V|kl\rangle=\delta_{il}\delta_{jk}$. The state $\rho(d,\alpha)$ is NPT for $\alpha\in[-1,-1/d)$ and PPT (hence non-distillable) for $\alpha\in[-1/d,1]$. The distinguished state $\rho(4,-1/2)$ is the unique Werner state whose partial transpose is proportional to the dichotomic unitary $U=I-2\lvert\psi_+\rangle\langle\psi_+\rvert$ (which has eigenvalues $\pm 1$); it sits on the boundary between $1$-copy distillability and $1$-copy non-distillability of Werner states in $d=4$. The problem asks for a proof that no $2$-copy distillation protocol succeeds on $\rho(4,-1/2)$: there exist no rank-two projectors $P,Q$ on $\mathcal{H}_4\otimes\mathcal{H}_4$ such that
+$$(P\otimes Q)\bigl(\rho(4,-1/2)^\Gamma\bigr)^{\otimes 2}(P\otimes Q)$$
+has a negative eigenvalue.
+
+Equivalent algebraic form (Pankowski, Piani, Horodecki, Horodecki): show that the sum of squares of the two largest singular values of the Kronecker sum $A\oplus B=A\otimes\mathbb{1}+\mathbb{1}\otimes B$ is bounded by $1/2$ for any pair of traceless $4\times 4$ matrices $A,B$ normalized by $\mathrm{Tr}(A^\dagger A)+\mathrm{Tr}(B^\dagger B)=1/4$.
+
+## Resolution
+
+The archived statement is settled. The checked progress below records the settling result and its evidence.
+
+## Checked progress
+
+### 2026: Werner states are 2-copy distillable only if 1-copy distillable
+
+- Evidence: Preprint; Exact theorem
+- Finding: Fu, Gao and Park prove that a Werner state in any local dimension is 2-copy distillable if and only if it is already 1-copy distillable, which in the archived parametrisation gives 2-copy non-distillability exactly for alpha at least -1/2 and therefore includes rho(4,-1/2). Song and Chen, Fraser, Huber, Pozsgay and Vona, and Bharti, Gajjala and Haug posted concurrent independent proofs of the same sharp two-copy threshold, so the archived statement is affirmed.
+- Source: https://arxiv.org/abs/2607.21367
+
+### 2026: Werner states are 2-copy distillable only if 1-copy distillable
+
+- Evidence: Preprint; Exact theorem
+- Finding: Fu, Gao and Park prove that a Werner state in any local dimension is 2-copy distillable if and only if it is already 1-copy distillable, which in the archived parametrisation gives 2-copy non-distillability exactly for alpha at least -1/2 and therefore includes rho(4,-1/2). Song and Chen, Fraser, Huber, Pozsgay and Vona, and Bharti, Gajjala and Haug posted concurrent independent proofs of the same sharp two-copy threshold, so the archived statement is affirmed.
+- Source: https://arxiv.org/abs/2607.23416
+
+### 2026: Werner states are 2-copy distillable only if 1-copy distillable
+
+- Evidence: Preprint; Exact theorem
+- Finding: Fu, Gao and Park prove that a Werner state in any local dimension is 2-copy distillable if and only if it is already 1-copy distillable, which in the archived parametrisation gives 2-copy non-distillability exactly for alpha at least -1/2 and therefore includes rho(4,-1/2). Song and Chen, Fraser, Huber, Pozsgay and Vona, and Bharti, Gajjala and Haug posted concurrent independent proofs of the same sharp two-copy threshold, so the archived statement is affirmed.
+- Source: https://arxiv.org/abs/2607.24309
+
+## Scope and cautions
+
+- Scope: These papers settle two-copy distillability for Werner states; they do not prove non-distillability for every number of copies and do not resolve whether NPT bound-entangled states exist.
+
+## Research protocol
+
+1. Treat the archived statement and its resolution evidence as the record; do not reformulate the target to match the theorem.
+2. Report only corrections: an error in the cited resolution, a withdrawn or corrected source, or a mismatch between the theorem and the archived quantifiers.
+3. Cite primary sources with theorem, page, equation, or version locators when available.
+
+## Requested output
+
+Return a correction with its exact scope, the supporting argument or artifact, and primary-source links. Propose a status change only when the cited resolution no longer settles the archived statement.
+
+---
+
+# AI research brief: Additivity of classical capacity and related problems
+
+- Record ID: krueger-2005-additivity-classical-capacity
+- Record revision (SHA-256): 60c9202955735aa112749c65bf8c895119925b9e092913b1b62cdafbade79eb5
+- Formal statement digest (SHA-256): ac5cd3b2bbb9fa75606b88983008dca06ecb0fb351d29fab63859f40f7e78e0b
+- Status: Solved
+- Field: Quantum information
+- Topic: Quantum channels
+- Collection: Krueger–Werner
+- Verified: 2026-08-12
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-additivity-classical-capacity/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-additivity-classical-capacity.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Additivity+of+classical+capacity+and+related+problems
+
+## Problem source
+
+- Relationship: The source states the cataloged problem.
+- Title: Some open problems in quantum information theory
+- Authors: O. Krüger, R. F. Werner
+- Venue: arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/
+- Statement locator: pp. 34-40 (Problem 10)
+- Read source: https://doi.org/10.48550/arXiv.quant-ph/0504166
+
+## Why it matters
+
+Additivity would have collapsed the regularised expression for the classical capacity of every quantum channel into a clean single-letter Holevo formula, and it was known to be equivalent to additivity of minimal output entropy, additivity and strong superadditivity of the entanglement of formation, and p-norm multiplicativity near p = 1.
+
+## Notation
+
+| Symbol | Meaning |
+|---|---|
+| $\mathcal{H}$ | Finite-dimensional complex Hilbert space |
+| $T$ | Quantum channel (completely positive trace-preserving map) in the Schrödinger picture |
+| $T^{\otimes n}$ | $n$-fold tensor product channel $T \otimes \cdots \otimes T$ |
+| $T_1 \otimes T_2$ | Tensor product of two channels |
+| $\rho, \rho_i$ | Density operators |
+| $p = (p_1,\ldots,p_n)$ | Probability vector |
+| $H(\rho)$ | von Neumann entropy $-\mathrm{Tr}(\rho \log \rho)$ |
+| $\chi(T)$ | Holevo quantity (one-shot Holevo capacity) of channel $T$ |
+| $C_{1,\infty}$ | Capacity with unentangled coding, quantum block decoding (= $\chi$) |
+| $C_{\infty,1}$ | Capacity with quantum block coding and separate decoding |
+| $C_{1,1}$ | Capacity with separate quantum (de)coding and only classical block (de)coding |
+| $C_{\infty,\infty}$ | Full classical capacity, arbitrary (de)coding |
+| $\ell_p(\mathcal{H})$ | Schatten $p$-class, $\lVert X\rVert_p = (\mathrm{Tr}\lvert X\rvert^p)^{1/p}$ |
+| $\lVert T\rVert_p$ | $\sup_\rho \lVert T(\rho)\rVert_p$ |
+| $H_{\min}(T)$ | Minimal output (von Neumann) entropy of $T$, $\min_\rho H(T(\rho))$ |
+| EoF | Entanglement of formation |
+| $d$ | Hilbert-space dimension |
+| $I$ | Identity operator |
+| $\rho^T$ | Transpose of $\rho$ |
+
+## Formal statement
+
+For a quantum channel $T$ in the Schrödinger picture, define the Holevo quantity
+$$\chi(T) \;=\; \sup_{p,\,\rho}\;\Bigl( H\!\Bigl(\textstyle\sum_i p_i\,T(\rho_i)\Bigr) \;-\; \sum_i p_i\, H\!\bigl(T(\rho_i)\bigr) \Bigr),$$
+where the supremum runs over all probability vectors $p = (p_1, \ldots, p_n)$ and all collections $\{\rho_1, \ldots, \rho_n\}$ of input states.
+
+**Problem.** Either prove
+$$\chi(T_1 \otimes T_2) \;=\; \chi(T_1) \;+\; \chi(T_2) \qquad \text{for every pair of quantum channels } T_1, T_2,$$
+or give an explicit counterexample.
+
+Equivalent forms include: $H_{\min}(T_1 \otimes T_2) = H_{\min}(T_1) + H_{\min}(T_2)$ for all $T_1, T_2$; additivity of the entanglement of formation; strong superadditivity of the entanglement of formation; and multiplicativity of $\|\cdot\|_p$ on tensor products for $p$ in a right-neighbourhood of $1$.
+
+## Resolution
+
+The archived statement is settled. The checked progress below records the settling result and its evidence.
+
+## Checked progress
+
+### 2009: Hastings disproves additivity of the Holevo capacity
+
+- Evidence: Peer reviewed; Exact counterexample
+- Finding: Hastings produced random-unitary channels in very large dimension that violate additivity of the minimal output von Neumann entropy. Via Shor's equivalence this directly implies failure of additivity of the Holevo capacity chi and of superadditivity of the entanglement of formation, so the archived additivity conjecture is false and the classical capacity is not given by a single-letter Holevo formula.
+- Source: https://arxiv.org/abs/0809.3972
+
+### 2004: Hastings disproves additivity of the Holevo capacity
+
+- Evidence: Peer reviewed; Exact theorem
+- Finding: Hastings produced random-unitary channels in very large dimension that violate additivity of the minimal output von Neumann entropy. Via Shor's equivalence this directly implies failure of additivity of the Holevo capacity chi and of superadditivity of the entanglement of formation, so the archived additivity conjecture is false and the classical capacity is not given by a single-letter Holevo formula.
+- Source: https://arxiv.org/abs/quant-ph/0305035
+
+## Scope and cautions
+
+- Scope: Additivity of chi still holds for special classes (identity channel, unital qubit channels, the depolarising channel in every dimension, entanglement-breaking channels, and some Gaussian cases); quantitative sub-questions such as the size of the violation, the qubit-channel case and the rate of convergence of the regularisation remain open.
+
+## Research protocol
+
+1. Treat the archived statement and its resolution evidence as the record; do not reformulate the target to match the theorem.
+2. Report only corrections: an error in the cited resolution, a withdrawn or corrected source, or a mismatch between the theorem and the archived quantifiers.
+3. Cite primary sources with theorem, page, equation, or version locators when available.
+
+## Requested output
+
+Return a correction with its exact scope, the supporting argument or artifact, and primary-source links. Propose a status change only when the cited resolution no longer settles the archived statement.
+
+---
+
+# AI research brief: Additivity of Entanglement of Formation
+
+- Record ID: krueger-2005-additivity-entanglement-formation
+- Record revision (SHA-256): f9bfeafcbc7c336929cdfbef889bd54eee643568e2edf3588e538369ae60a98c
+- Formal statement digest (SHA-256): 071a97760e86096f0fcb4640ce9746ed20ece65c40741bc1083f08d5ea416c04
+- Status: Solved
+- Field: Quantum information
+- Topic: Entanglement theory
+- Collection: Krueger–Werner
+- Verified: 2026-08-12
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-additivity-entanglement-formation/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-additivity-entanglement-formation.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Additivity+of+Entanglement+of+Formation
+
+## Problem source
+
+- Relationship: The source states the cataloged problem.
+- Title: Some open problems in quantum information theory
+- Authors: O. Krüger, R. F. Werner
+- Venue: arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/
+- Statement locator: pp. 28-29 (Problem 7)
+- Read source: https://doi.org/10.48550/arXiv.quant-ph/0504166
+
+## Why it matters
+
+Any operationally meaningful resource measure should cost exactly the sum on independently prepared copies, and the easy inequality is one-directional, so the status of equality was the non-trivial part and was tied by Shor to the additivity conjectures for minimum output entropy and Holevo capacity.
+
+## Notation
+
+| Symbol | Meaning |
+|---|---|
+| $\rho$ | A density operator on a bipartite Hilbert space $\mathcal{H}_A \otimes \mathcal{H}_B$ |
+| $\rho_i$ | Pure-state (or general) constituents in a convex decomposition of $\rho$ |
+| $r_i$ | Non-negative weights summing to $1$ in a convex decomposition |
+| $\rho\vert A$ | Restriction of $\rho$ to Alice's subsystem (partial trace over Bob) |
+| $S(\sigma)$ | Von Neumann entropy $-\mathrm{tr}(\sigma \log \sigma)$ |
+| $E_F(\rho)$ | Entanglement of formation, $\inf\bigl\{\sum_i r_i S(\rho_i\vert A) \mid \sum_i r_i \rho_i = \rho\bigr\}$ |
+| $\rho^{(1)}, \rho^{(2)}$ | Two bipartite density operators on possibly different Hilbert spaces |
+| $\rho^{(1)} \otimes \rho^{(2)}$ | Their tensor product, regarded as a bipartite state on the combined Alice and Bob spaces |
+| $\Phi$ | A quantum channel (completely positive trace preserving map) |
+| $S_{\min}(\Phi)$ | Minimal output entropy of $\Phi$, $\inf_\rho S(\Phi(\rho))$ |
+| $\chi^*(\Phi)$ | Holevo capacity of $\Phi$ |
+| LOCC | Local operations and classical communication |
+
+## Formal statement
+
+Show that for any pair of bipartite density operators $\rho^{(1)}$ and $\rho^{(2)}$ (defined on possibly different bipartite Hilbert spaces) one has
+
+$$E_F\bigl(\rho^{(1)} \otimes \rho^{(2)}\bigr) \;=\; E_F\!\bigl(\rho^{(1)}\bigr) + E_F\!\bigl(\rho^{(2)}\bigr).$$
+
+The inequality $E_F(\rho^{(1)} \otimes \rho^{(2)}) \le E_F(\rho^{(1)}) + E_F(\rho^{(2)})$ is elementary (by tensoring the optimal pure-state decompositions); the open problem asks whether equality always holds.
+
+The source records this problem as *equivalent to Problem 10* of the same collection.
+
+## Resolution
+
+The archived statement is settled. The checked progress below records the settling result and its evidence.
+
+## Checked progress
+
+### 2009: Hastings counterexample refutes additivity of entanglement of formation
+
+- Evidence: Peer reviewed; Exact counterexample
+- Finding: Shor proved that additivity of the minimum output entropy, additivity of the Holevo capacity, additivity of the entanglement of formation and strong superadditivity of the entanglement of formation are all equivalent. Hastings then constructed channels violating additivity of the minimum output entropy, so by Shor's equivalences there exist bipartite states with E_F(rho1 tensor rho2) strictly less than E_F(rho1) + E_F(rho2) and the archived conjecture is false.
+- Source: https://arxiv.org/abs/0809.3972
+
+### 2004: Hastings counterexample refutes additivity of entanglement of formation
+
+- Evidence: Peer reviewed; Exact theorem
+- Finding: Shor proved that additivity of the minimum output entropy, additivity of the Holevo capacity, additivity of the entanglement of formation and strong superadditivity of the entanglement of formation are all equivalent. Hastings then constructed channels violating additivity of the minimum output entropy, so by Shor's equivalences there exist bipartite states with E_F(rho1 tensor rho2) strictly less than E_F(rho1) + E_F(rho2) and the archived conjecture is false.
+- Source: https://arxiv.org/abs/quant-ph/0305035
+
+## Scope and cautions
+
+- Scope: Additivity remains valid for restricted families such as the Vidal-Dur-Cirac state families, Werner and isotropic states, and products with a separable factor; the counterexamples are not low-dimensional.
+
+## Research protocol
+
+1. Treat the archived statement and its resolution evidence as the record; do not reformulate the target to match the theorem.
+2. Report only corrections: an error in the cited resolution, a withdrawn or corrected source, or a mismatch between the theorem and the archived quantifiers.
+3. Cite primary sources with theorem, page, equation, or version locators when available.
+
+## Requested output
+
+Return a correction with its exact scope, the supporting argument or artifact, and primary-source links. Propose a status change only when the cited resolution no longer settles the archived statement.
+
+---
+
+# AI research brief: Asymptotic cloning is state estimation?
+
+- Record ID: krueger-2005-asymptotic-cloning-state-estimation
+- Record revision (SHA-256): 893c5eec526bb8e71b121826c3f71f5152f3a0ded1a28dbfc0a9cf1186f38175
+- Formal statement digest (SHA-256): d412584f21f81560a7c8903b3d18e5586b62b95e9f35e23463901442e6d43e6c
+- Status: Solved
+- Field: Quantum information
+- Topic: Quantum channels
+- Collection: Krueger–Werner
+- Verified: 2026-08-12
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-asymptotic-cloning-state-estimation/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-asymptotic-cloning-state-estimation.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Asymptotic+cloning+is+state+estimation%3F
+
+## Problem source
+
+- Relationship: The source states the cataloged problem.
+- Title: Some open problems in quantum information theory
+- Authors: O. Krüger, R. F. Werner
+- Venue: arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/
+- Statement locator: pp. 58-59 (Problem 22)
+- Read source: https://doi.org/10.48550/arXiv.quant-ph/0504166
+
+## Why it matters
+
+The identity makes precise the link between no-cloning and the finite information content of a quantum measurement, and the naive argument fails because optimal clones are typically correlated or entangled, so measurement statistics on them differ from statistics on independent copies.
+
+## Notation
+
+| Symbol | Meaning |
+|---|---|
+| $d$ | Dimension of the local quantum system (each state lives in $\mathbb{C}^d$) |
+| $\mu$ | A fixed probability measure on the pure states of $\mathbb{C}^d$ |
+| $N$ | Number of input copies of an unknown pure state |
+| $M$ | Number of output (clone) copies, $M \ge N$ |
+| $\mathcal{C}_{N\to M}$ | An $N$-to-$M$ cloning transformation: a CPTP map from $N$ input copies to $M$ output systems |
+| $F(N,M)$ | Optimal single-copy fidelity averaged over $\mu$ and over all $M$ output clones, for the best $N$-to-$M$ cloner |
+| $F(N,\infty)$ | $\lim_{M\to\infty} F(N,M)$; equivalently, the best mean single-copy fidelity achievable by a "measure-and-reprepare" strategy: measure on $N$ input copies and prepare a state according to the measurement outcome |
+| $\lvert\langle\phi\,\vert\,\psi\rangle\rvert^2$ | Fidelity between two pure states $\lvert\phi\rangle$ and $\lvert\psi\rangle$ |
+
+## Formal statement
+
+Fix a dimension $d$ and an arbitrary probability measure $\mu$ on the pure states of $\mathbb{C}^d$. For $N \ge 1$ and $M \ge N$, let $F(N,M)$ be the optimal single-copy fidelity, averaged with respect to $\mu$ and over all $M$ output clones, attained by $N$-to-$M$ cloning transformations. Let $F(N,\infty)$ be the best mean single-copy fidelity achievable by first measuring on $N$ input copies of the state and then repreparing a state according to the measured data.
+
+Decide whether, for every $\mu$ and every $N$,
+$$\lim_{M\to\infty} F(N,M) \;=\; F(N,\infty).$$
+
+A weaker but still interesting version of the problem asks whether the equality holds in the further limit $N \to \infty$,
+$$\lim_{N\to\infty}\lim_{M\to\infty} F(N,M) \;=\; \lim_{N\to\infty} F(N,\infty).$$
+
+## Resolution
+
+The archived statement is settled. The checked progress below records the settling result and its evidence.
+
+## Checked progress
+
+### 2006: Asymptotic quantum cloning is state estimation
+
+- Evidence: Peer reviewed; Exact theorem
+- Finding: Bae and Acin prove the limiting equality in full generality with a short argument via monogamy of entanglement and properties of entanglement-breaking channels. Chiribella and D'Ariano give a complementary independent proof via group-theoretic, de Finetti-type analysis of the asymptotic state of the clones, so the archived conjecture holds for every input distribution and every N.
+- Source: https://arxiv.org/abs/quant-ph/0603078
+
+### 2006: Asymptotic quantum cloning is state estimation
+
+- Evidence: Peer reviewed; Exact theorem
+- Finding: Bae and Acin prove the limiting equality in full generality with a short argument via monogamy of entanglement and properties of entanglement-breaking channels. Chiribella and D'Ariano give a complementary independent proof via group-theoretic, de Finetti-type analysis of the asymptotic state of the clones, so the archived conjecture holds for every input distribution and every N.
+- Source: https://arxiv.org/abs/quant-ph/0608007
+
+## Research protocol
+
+1. Treat the archived statement and its resolution evidence as the record; do not reformulate the target to match the theorem.
+2. Report only corrections: an error in the cited resolution, a withdrawn or corrected source, or a mismatch between the theorem and the archived quantifiers.
+3. Cite primary sources with theorem, page, equation, or version locators when available.
+
+## Requested output
+
+Return a correction with its exact scope, the supporting argument or artifact, and primary-source links. Propose a status change only when the cited resolution no longer settles the archived statement.
+
+---
+
+# AI research brief: Bell inequalities holding for all quantum states
+
+- Record ID: krueger-2005-bell-inequalities-all-quantum-states
+- Record revision (SHA-256): 4092a4aa66c1924500d2b00d2fc613152481d35e89d1a09f655d589489773db9
+- Formal statement digest (SHA-256): 398ad4bf228b49c8249c9c00bba9cde35c8f961e2527efb47cd712d6e66f5d3a
+- Status: Solved
+- Field: Quantum information
+- Topic: Bell nonlocality
+- Collection: Krueger–Werner
+- Verified: 2026-08-12
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-bell-inequalities-all-quantum-states/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-bell-inequalities-all-quantum-states.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Bell+inequalities+holding+for+all+quantum+states
+
+## Problem source
+
+- Relationship: The source states the cataloged problem.
+- Title: Some open problems in quantum information theory
+- Authors: O. Krüger, R. F. Werner
+- Venue: arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/
+- Statement locator: p. 66-67 (Problem 26)
+- Read source: https://doi.org/10.48550/arXiv.quant-ph/0504166
+
+## Why it matters
+
+The two questions probe how the quantum set Q sits between the local polytope C and the no-signalling polytope P; a proper Bell inequality valid for all quantum states would be a striking additional structural constraint on quantum mechanics beyond Tsirelson-type bounds.
+
+## Notation
+
+| Symbol | Meaning |
+|---|---|
+| $N$ | Number of parties in a multipartite Bell experiment |
+| $M$ | Number of measurement settings available to each party |
+| $K$ | Number of possible outcomes per measurement |
+| Correlation data | Joint probabilities $p(a_1,\dots,a_N \mid x_1,\dots,x_N)$ over outcomes $a_i$ given settings $x_i$ |
+| No-signalling | The constraint that the marginal probabilities seen by any subset of parties do not depend on the settings of the others |
+| $P$ | The no-signalling polytope: convex polytope of correlation data satisfying positivity and the no-signalling constraint |
+| $Q$ | The quantum body: convex set of correlation data realisable by quantum POVM measurements on multipartite quantum states; $C\subset Q\subset P$ |
+| $C$ | The classical (local realistic) polytope: convex hull of deterministic local strategies |
+| Tsirelson region | Synonym for $Q$ (after B. S. Tsirelson, the originator) |
+| Proper Bell inequality | A tight linear inequality defining a maximal face of $C$ that is not also a face of $P$ — i.e. a non-trivial Bell inequality not implied by positivity and no-signalling |
+| von Neumann measurement | A complete projective measurement (with $K$ orthogonal rank-one projectors when realising $K$ outcomes) |
+
+## Formal statement
+
+Fix integers $N\ge 2$, $M\ge 2$, $K\ge 2$, and consider the convex bodies $C\subset Q\subset P$ defined above.
+
+**Problem 26.A.** Consider the part of the boundary $\partial Q$ that is *not* already contained in the boundary $\partial P$. Can every such boundary point be reached by choosing each of the local Hilbert spaces to have dimension exactly $K$, by taking each measurement to be a complete von Neumann measurement (with $K$ orthogonal projectors), and by using only pure quantum states of this minimal dimension?
+
+**Problem 26.B.** Consider a maximal face of the local polytope $C$ that is *not* also a face of $P$ — equivalently, a "proper Bell inequality": a tight linear inequality for local classical correlations that does not follow from positivity and no-signalling alone. Can one always find points of $Q$ outside this face? Phrased in terms of Bell inequalities: can every proper Bell inequality be violated by quantum correlation data? Or, do there exist proper Bell inequalities (faces of $C$ that are not faces of $P$ and that nevertheless support a face of $Q$ on the same side as $C$) that hold for all quantum states?
+
+## Resolution
+
+The archived statement is settled. The checked progress below records the settling result and its evidence.
+
+## Checked progress
+
+### 2012: Both universal Bell questions have explicit counterexamples
+
+- Evidence: Peer reviewed; Exact theorem
+- Finding: Slofstra's CHSH(n) XOR games have binary outcomes, so K = 2, yet every optimal strategy needs local dimension at least 2 to the power of floor(n/2); the associated optimal behavior lies on the quantum boundary away from the positivity boundary of the no-signalling polytope and cannot be realised in dimension K, refuting 26.A. Almeida, Bancal, Brunner, Acin, Gisin and Pironio's Guess Your Neighbor's Input inequalities have equal classical and quantum optima while no-signalling correlations do better, and Augusiak et al. proved explicit instances are tight facets, refuting 26.B.
+- Source: https://arxiv.org/abs/1112.3238
+
+### 2011: Both universal Bell questions have explicit counterexamples
+
+- Evidence: Peer reviewed; Exact counterexample
+- Finding: Slofstra's CHSH(n) XOR games have binary outcomes, so K = 2, yet every optimal strategy needs local dimension at least 2 to the power of floor(n/2); the associated optimal behavior lies on the quantum boundary away from the positivity boundary of the no-signalling polytope and cannot be realised in dimension K, refuting 26.A. Almeida, Bancal, Brunner, Acin, Gisin and Pironio's Guess Your Neighbor's Input inequalities have equal classical and quantum optima while no-signalling correlations do better, and Augusiak et al. proved explicit instances are tight facets, refuting 26.B.
+- Source: https://arxiv.org/abs/1007.2248
+
+### 2010: Both universal Bell questions have explicit counterexamples
+
+- Evidence: Peer reviewed; Exact counterexample
+- Finding: Slofstra's CHSH(n) XOR games have binary outcomes, so K = 2, yet every optimal strategy needs local dimension at least 2 to the power of floor(n/2); the associated optimal behavior lies on the quantum boundary away from the positivity boundary of the no-signalling polytope and cannot be realised in dimension K, refuting 26.A. Almeida, Bancal, Brunner, Acin, Gisin and Pironio's Guess Your Neighbor's Input inequalities have equal classical and quantum optima while no-signalling correlations do better, and Augusiak et al. proved explicit instances are tight facets, refuting 26.B.
+- Source: https://arxiv.org/abs/1003.3844
+
+## Scope and cautions
+
+- Scope: In the CHSH scenario (N,M,K) = (2,2,2) and in many further low-complexity scenarios all proper Bell inequalities are quantum-violable, so 26.B is affirmative there; the counterexamples arise in larger scenarios.
+- Scope: MIP* = RE and later dimension-witness results strengthen the conclusion but are not needed for either exact counterexample.
+
+## Research protocol
+
+1. Treat the archived statement and its resolution evidence as the record; do not reformulate the target to match the theorem.
+2. Report only corrections: an error in the cited resolution, a withdrawn or corrected source, or a mismatch between the theorem and the archived quantifiers.
+3. Cite primary sources with theorem, page, equation, or version locators when available.
+
+## Requested output
+
+Return a correction with its exact scope, the supporting argument or artifact, and primary-source links. Propose a status change only when the cited resolution no longer settles the archived statement.
+
+---
+
+# AI research brief: Bell violation by tensoring
+
+- Record ID: krueger-2005-bell-violation-tensoring
+- Record revision (SHA-256): 99af25264c4c5f839576b4bb93b865b01b32df94f798e06b8904f1a60401ff58
+- Formal statement digest (SHA-256): e6e5c85ead377415ab0a5d1cfcd998d715c4b02c50dfec64a579231234dcd6a3
+- Status: Solved
+- Field: Quantum information
+- Topic: Bell nonlocality
+- Collection: Krueger–Werner
+- Verified: 2026-08-12
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-bell-violation-tensoring/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-bell-violation-tensoring.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Bell+violation+by+tensoring
+
+## Problem source
+
+- Relationship: The source states the cataloged problem.
+- Title: Some open problems in quantum information theory
+- Authors: O. Krüger, R. F. Werner
+- Venue: arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/
+- Statement locator: p. 57 (Problem 21)
+- Read source: https://doi.org/10.48550/arXiv.quant-ph/0504166
+
+## Why it matters
+
+Bell nonlocality can be activated by tensoring even though entanglement itself is preserved under tensor products, so this is the cleanest CHSH form of an activation pattern shared by nonlocality, distillation and steering.
+
+## Notation
+
+| Symbol | Meaning |
+|---|---|
+| $\rho_1,\rho_2$ | Bipartite density operators on $\mathcal{H}_A\otimes\mathcal{H}_B$ and $\mathcal{H}_{A'}\otimes\mathcal{H}_{B'}$ respectively |
+| $\rho_1\otimes\rho_2$ | The bipartite state on $(\mathcal{H}_A\otimes\mathcal{H}_{A'})\otimes(\mathcal{H}_B\otimes\mathcal{H}_{B'})$ with Alice holding $A,A'$ and Bob holding $B,B'$ |
+| CHSH | Clauser–Horne–Shimony–Holt Bell inequality, the canonical two-input two-output bipartite Bell inequality |
+| "$\rho$ violates CHSH" | There exist binary local measurements on $\rho$ producing correlations that violate some CHSH inequality, i.e. $\rho$ is CHSH-non-local |
+| "$\rho$ satisfies all CHSH" | $\rho$ admits a local hidden variable model for every choice of two binary measurements per side, equivalently $\rho$ is CHSH-local |
+| $\mathbb{1}$ | Identity operator |
+| $T_\rho$ | The "$T$-matrix" of a two-qubit state, $T_{\rho;ij} = \operatorname{tr}(\rho\,\sigma_i\otimes\sigma_j)$ |
+
+## Formal statement
+
+Find bipartite density operators $\rho_1$ and $\rho_2$ (on possibly different bipartite Hilbert spaces) such that:
+
+1. $\rho_1$ does *not* violate any CHSH Bell inequality (i.e. for every choice of two binary projective or POVM measurements per side on $\rho_1$, the resulting correlations admit a local hidden variable model satisfying CHSH).
+2. $\rho_2$ does *not* violate any CHSH Bell inequality.
+3. The tensor product state $\rho_1\otimes\rho_2$ (with Alice holding both $A$-subsystems and Bob holding both $B$-subsystems) *does* violate some CHSH Bell inequality.
+
+Either exhibit such a pair $(\rho_1,\rho_2)$ explicitly, or prove that no such pair exists.
+
+## Resolution
+
+The archived statement is settled. The checked progress below records the settling result and its evidence.
+
+## Checked progress
+
+### 2011: Navascues and Vertesi construct CHSH activation by tensoring
+
+- Evidence: Peer reviewed; Explicit construction
+- Finding: Navascues and Vertesi construct two two-qubit states whose arbitrary tensor powers each admit local hidden-variable models but whose product violates CHSH, reaching about 2.023, and also a single CHSH-local state whose two copies violate CHSH. Both constructions use no filtering, only direct measurements on the joint state, giving the explicit affirmative answer that the archived statement requests.
+- Source: https://arxiv.org/abs/1010.5191
+
+## Scope and cautions
+
+- Scope: The settling constructions use no filtering; the earlier hidden-nonlocality results of Popescu and Peres rely on local filtering or many copies and therefore do not answer the archived question.
+
+## Research protocol
+
+1. Treat the archived statement and its resolution evidence as the record; do not reformulate the target to match the theorem.
+2. Report only corrections: an error in the cited resolution, a withdrawn or corrected source, or a mismatch between the theorem and the archived quantifiers.
+3. Cite primary sources with theorem, page, equation, or version locators when available.
+
+## Requested output
+
+Return a correction with its exact scope, the supporting argument or artifact, and primary-source links. Propose a status change only when the cited resolution no longer settles the archived statement.
+
+---
+
+# AI research brief: Continuity of the quantum channel capacity
+
+- Record ID: krueger-2005-continuity-quantum-channel-capacity
+- Record revision (SHA-256): 88ef450e9838bb6ca46261387ccee5981864c7cdc1f2bc37054474c482d589e2
+- Formal statement digest (SHA-256): 1c8fd68f12ddde56f3dbea794668581a10f85ccf5b1b51b0bdaab7fee860b50d
+- Status: Solved
+- Field: Quantum information
+- Topic: Quantum channels
+- Collection: Krueger–Werner
+- Verified: 2026-08-12
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-continuity-quantum-channel-capacity/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-continuity-quantum-channel-capacity.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Continuity+of+the+quantum+channel+capacity
+
+## Problem source
+
+- Relationship: The source states the cataloged problem.
+- Title: Some open problems in quantum information theory
+- Authors: O. Krüger, R. F. Werner
+- Venue: arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/
+- Statement locator: p. 41 (Problem 11)
+- Read source: https://doi.org/10.48550/arXiv.quant-ph/0504166
+
+## Why it matters
+
+Continuity means that a noise model known only up to a small cb-norm uncertainty still determines the available transmission rate up to a vanishing error, which matters for capacity analysis and fault-tolerant design; only lower semi-continuity was known, and the regularisation over unboundedly many channel uses made upper semi-continuity delicate.
+
+## Notation
+
+| Symbol | Meaning |
+|---|---|
+| $\mathcal{H}, \mathcal{K}$ | Finite-dimensional complex Hilbert spaces |
+| $T, T'$ | Quantum channels (completely positive trace-preserving maps) |
+| $Q(T)$ | Quantum (coherent) capacity of channel $T$ |
+| $\lVert T - T'\rVert_{\mathrm{cb}}$ | Completely-bounded (cb) norm distance between channels |
+| $\lVert\cdot\rVert_{\diamond}$ | Diamond norm (equivalent to cb-norm on quantum channels) |
+| $\mathcal{C}$ | Convex set of all quantum channels with fixed input and output dimensions |
+| $\varepsilon$ | Small positive parameter (distance threshold) |
+| $\delta$ | Small positive parameter (capacity-gap threshold) |
+
+## Formal statement
+
+Let $\mathcal{C}$ denote the convex set of all quantum channels between fixed finite-dimensional input and output Hilbert spaces, equipped with the cb-norm distance.
+
+**Problem.** Is the quantum (coherent) capacity
+$$Q\colon \mathcal{C} \longrightarrow [0,\infty), \qquad T \mapsto Q(T)$$
+a continuous function?
+
+Equivalently: for every $\varepsilon > 0$ does there exist $\delta > 0$ such that, for all channels $T, T' \in \mathcal{C}$,
+$$\|T - T'\|_{\mathrm{cb}} \;<\; \delta \;\;\Longrightarrow\;\; |Q(T) - Q(T')| \;<\; \varepsilon\,?$$
+
+## Resolution
+
+The archived statement is settled. The checked progress below records the settling result and its evidence.
+
+## Checked progress
+
+### 2009: Leung and Smith prove uniform continuity of quantum capacity
+
+- Evidence: Peer reviewed; Exact theorem
+- Finding: Leung and Smith prove uniform continuity of the ordinary unassisted quantum capacity for channels with fixed finite output dimension, bounding the change in Q for two channels at diamond distance at most epsilon by an explicit function of epsilon and the output dimension that tends to zero with epsilon. Their entropy-telescoping proof applies on the entire channel set, including channels of zero capacity, so the archived question is answered affirmatively.
+- Source: https://arxiv.org/abs/0810.4931
+
+## Scope and cautions
+
+- Scope: The interior-of-positive-capacity qualification in the same paper concerns quantum capacities assisted by free backward or two-way public classical communication; it does not qualify the theorem for the unassisted capacity Q asked about here.
+
+## Research protocol
+
+1. Treat the archived statement and its resolution evidence as the record; do not reformulate the target to match the theorem.
+2. Report only corrections: an error in the cited resolution, a withdrawn or corrected source, or a mismatch between the theorem and the archived quantifiers.
+3. Cite primary sources with theorem, page, equation, or version locators when available.
+
+## Requested output
+
+Return a correction with its exact scope, the supporting argument or artifact, and primary-source links. Propose a status change only when the cited resolution no longer settles the archived statement.
+
+---
+
+# AI research brief: Local equivalence of graph states
+
+- Record ID: krueger-2005-local-equivalence-graph-states
+- Record revision (SHA-256): c50173d1b8630ff49dd87d611579a68541a1806b57aeaa61dfeb2c5efe8690c6
+- Formal statement digest (SHA-256): 50893a26d5c7079ff3c8a416e2feb31fad3c0d698abf6ad38fc619089c6ff13c
+- Status: Solved
+- Field: Quantum information
+- Topic: Entanglement theory
+- Collection: Krueger–Werner
+- Verified: 2026-08-12
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-local-equivalence-graph-states/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-local-equivalence-graph-states.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Local+equivalence+of+graph+states
+
+## Problem source
+
+- Relationship: The source states the cataloged problem.
+- Title: Some open problems in quantum information theory
+- Authors: O. Krüger, R. F. Werner
+- Venue: arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/
+- Statement locator: p. 70-71 (Problem 28)
+- Read source: https://doi.org/10.48550/arXiv.quant-ph/0504166
+
+## Why it matters
+
+Local Clifford equivalence admits a clean combinatorial description via local complementation and is efficiently decidable, so a positive answer would have made that combinatorial classification the complete classification of graph states under single-qubit unitaries, while a negative answer forces a richer non-combinatorial theory of LU classes.
+
+## Notation
+
+| Symbol | Meaning |
+|---|---|
+| $n$ | Number of qubits / vertices of the graph |
+| $G$ | A simple undirected graph on $n$ vertices |
+| $\vert\psi_G\rangle$ | The graph state associated with $G$, a state of $n$ qubits |
+| $q_i\in\{0,1\}$ | The computational-basis label at vertex $i$ |
+| $X^{(i)},Z^{(i)}$ | Pauli $X$, $Z$ operators acting on the qubit at vertex $i$ |
+| $K_i$ | Stabiliser generator $K_i = X^{(i)}\prod_{j:\,ij\in E(G)} Z^{(j)}$ for vertex $i$ |
+| Stabiliser group | Abelian Pauli subgroup leaving $\vert\psi_G\rangle$ invariant, generated by $\{K_i\}_{i=1}^n$ |
+| Pauli group | Group generated by tensor products of Pauli operators (with phases $\pm 1, \pm i$) |
+| Clifford group $\mathcal{C}_n$ | Group of unitaries $U\in U(2^n)$ for which $UPU^*$ is a Pauli operator for every Pauli $P$ |
+| Single-qubit Clifford group $\mathcal{C}_1$ | The Clifford group on one qubit, generated by the Hadamard matrix $H=\frac{1}{\sqrt{2}}\begin{pmatrix}1&1\\1&-1\end{pmatrix}$, the phase gate $S=\mathrm{diag}(1,i)$, and the Pauli matrices |
+| LU equivalence | Two states $\vert\psi\rangle,\vert\phi\rangle$ on $n$ qubits are LU-equivalent if there exist single-qubit unitaries $U_1,\dots,U_n$ with $\vert\phi\rangle = U_1\otimes\cdots\otimes U_n\,\vert\psi\rangle$ |
+| LC equivalence | Same as LU but with each $U_i$ required to lie in the single-qubit Clifford group $\mathcal{C}_1$ |
+| Local complementation | Graph operation: at a chosen vertex $v$, complement the edges within $N(v)$; LC equivalence of graph states corresponds (Van den Nest et al.) to a sequence of local complementations |
+
+## Formal statement
+
+Decide the following decision problem.
+
+**Input:** Two simple graphs $G$ and $G'$ on the same vertex set of size $n$, presenting two graph states $|\psi_G\rangle$ and $|\psi_{G'}\rangle$ on $n$ qubits.
+
+**Question (LU $\Rightarrow$ LC ?):** Suppose there exist single-qubit unitaries $U_1,\dots,U_n\in U(2)$ such that
+$$|\psi_{G'}\rangle = U_1\otimes U_2\otimes\cdots\otimes U_n\,|\psi_G\rangle .$$
+Does it then follow that there also exist *Clifford* single-qubit unitaries $V_1,\dots,V_n\in\mathcal{C}_1$ such that
+$$|\psi_{G'}\rangle = V_1\otimes V_2\otimes\cdots\otimes V_n\,|\psi_G\rangle\,?$$
+
+Equivalently, are LU-equivalent graph states necessarily LC-equivalent?
+
+## Resolution
+
+The archived statement is settled. The checked progress below records the settling result and its evidence.
+
+## Checked progress
+
+### 2010: Ji, Chen, Wei and Ying show the LU-LC conjecture is false
+
+- Evidence: Peer reviewed; Exact counterexample
+- Finding: Ji, Chen, Wei and Ying exhibit explicit pairs of graph states on sufficiently many qubits that are LU-equivalent but not LC-equivalent, the smallest produced by their construction having 27 qubits. The general LU = LC conjecture in the archived statement is therefore false.
+- Source: https://arxiv.org/abs/0709.1266
+
+## Scope and cautions
+
+- Scope: LU and LC equivalence still coincide on small graph states: numerics of Hein, Eisert and Briegel verified agreement up to 7 vertices, and a March 2026 preprint by Claudet (arXiv:2603.25219) proves the 27-qubit counterexample is minimal, so agreement holds through 26 qubits; that refinement had not passed peer review at the verification date.
+- Scope: Refined questions remain open, including classification of LU classes within an LC class for arbitrary n; only the original implication is settled.
+
+## Research protocol
+
+1. Treat the archived statement and its resolution evidence as the record; do not reformulate the target to match the theorem.
+2. Report only corrections: an error in the cited resolution, a withdrawn or corrected source, or a mismatch between the theorem and the archived quantifiers.
+3. Cite primary sources with theorem, page, equation, or version locators when available.
+
+## Requested output
+
+Return a correction with its exact scope, the supporting argument or artifact, and primary-source links. Propose a status change only when the cited resolution no longer settles the archived statement.
+
+---
+
+# AI research brief: Maximally entangled mixed states
+
+- Record ID: krueger-2005-maximally-entangled-mixed-states
+- Record revision (SHA-256): 5e02a62d44ca291eaf6638c72563442b18b47300142d558383389b1734c37141
+- Formal statement digest (SHA-256): e67536618f00757fe82f1e4cd1974116072babfcc559bc9efcba061b113c0aee
+- Status: Solved
+- Field: Quantum information
+- Topic: Entanglement theory
+- Collection: Krueger–Werner
+- Verified: 2026-08-12
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-maximally-entangled-mixed-states/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-maximally-entangled-mixed-states.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Maximally+entangled+mixed+states
+
+## Problem source
+
+- Relationship: The source states the cataloged problem.
+- Title: Some open problems in quantum information theory
+- Authors: O. Krüger, R. F. Werner
+- Venue: arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/
+- Statement locator: p. 25 (Problem 5)
+- Read source: https://doi.org/10.48550/arXiv.quant-ph/0504166
+
+## Why it matters
+
+Verstraete, Audenaert and De Moor found the same maximisers for entanglement of formation, relative entropy of entanglement and negativity, and a measure-independent notion of the most entangled state at a given spectrum would have been a robust structural fact about mixed two-qubit entanglement.
+
+## Notation
+
+| Symbol | Meaning |
+|---|---|
+| $\rho$ | Density operator on a bipartite Hilbert space |
+| $\mathrm{spec}(\rho)$ | Spectrum (set of eigenvalues with multiplicity) of $\rho$ |
+| $E$ | A generic measure of entanglement (a real-valued functional on density operators) |
+| $E_F$ | Entanglement of formation |
+| $E_R$ | Relative entropy of entanglement |
+| $\mathcal{N}$ | Negativity (entanglement measure based on partial transpose) |
+| MEMS | Maximally entangled mixed state(s) |
+| $S(\rho)$ | Von Neumann entropy $-\mathrm{tr}(\rho \log \rho)$ |
+| $\lambda_{\max}(\rho)$ | Largest eigenvalue of $\rho$ |
+| Entanglement monotone | Functional non-increasing on average under LOCC |
+| LOCC | Local operations and classical communication |
+
+## Formal statement
+
+Consider density operators on a two-qubit Hilbert space $\mathbf{C}^2 \otimes \mathbf{C}^2$ with a fixed spectrum. Among all such states, look for those maximising a given measure of entanglement. The question is:
+
+For *every* entanglement monotone $E$ on bipartite states, is the set of two-qubit density operators (with fixed spectrum) that maximise $E$ the same family — namely, the VAM "maximally entangled mixed states" — as for entanglement of formation, relative entropy of entanglement, and negativity?
+
+Equivalently: does there exist an entanglement monotone $E$ and a spectrum $(\lambda_1, \ldots, \lambda_4)$ for which the maximiser of $E$ over states with that spectrum differs from the MEMS identified by VAM?
+
+Variants of the question are also posed:
+
+- Replace two qubits by higher-dimensional systems $\mathbf{C}^d \otimes \mathbf{C}^d$ and characterise the maximally entangled states with respect to a given spectrum.
+- Replace the spectral constraint by a weaker one — e.g., a fixed largest eigenvalue $\lambda_{\max}(\rho)$, or a fixed von Neumann entropy $S(\rho)$ — and study the corresponding maximisers.
+
+## Resolution
+
+The archived statement is settled. The checked progress below records the settling result and its evidence.
+
+## Checked progress
+
+### 2024: Maximally entangled mixed states for a fixed spectrum need not exist
+
+- Evidence: Peer reviewed; Exact counterexample
+- Finding: De Vicente proves that for particular rank-two two-qubit spectra no isospectral state can be converted into every other isospectral state even under non-entangling operations, a class larger than LOCC. Consequently no single state can maximise every entanglement monotone at those spectra, which answers the archived universal question in the negative.
+- Source: https://arxiv.org/abs/2402.05673
+
+## Scope and cautions
+
+- Scope: Camacho and de Vicente (Phys. Rev. A 113, 022416 (2026); arXiv:2511.08285) extend the nonexistence theorem to every rank-two and rank-three two-qubit spectrum and to a large class of full-rank spectra.
+- Scope: The higher-dimensional variant and the weaker-constraint variants (fixed largest eigenvalue or fixed von Neumann entropy) posed alongside the archived question remain separate open classification problems.
+
+## Research protocol
+
+1. Treat the archived statement and its resolution evidence as the record; do not reformulate the target to match the theorem.
+2. Report only corrections: an error in the cited resolution, a withdrawn or corrected source, or a mismatch between the theorem and the archived quantifiers.
+3. Cite primary sources with theorem, page, equation, or version locators when available.
+
+## Requested output
+
+Return a correction with its exact scope, the supporting argument or artifact, and primary-source links. Propose a status change only when the cited resolution no longer settles the archived statement.
+
+---
+
+# AI research brief: Nice error bases
+
+- Record ID: krueger-2005-nice-error-bases
+- Record revision (SHA-256): f62845aee543ef0141f8c224427c65d11b2fb0105e07cbdc28d5f5e24843719d
+- Formal statement digest (SHA-256): 2d5d2166d0c60f2f1e1e450d12ff106568aada756960f1e547177ce0227c382c
+- Status: Solved
+- Field: Quantum information
+- Topic: Quantum error correction
+- Collection: Krueger–Werner
+- Verified: 2026-08-12
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-nice-error-bases/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-nice-error-bases.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Nice+error+bases
+
+## Problem source
+
+- Relationship: The source states the cataloged problem.
+- Title: Some open problems in quantum information theory
+- Authors: O. Krüger, R. F. Werner
+- Venue: arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/
+- Statement locator: pp. 26-27 (Problem 6)
+- Read source: https://doi.org/10.48550/arXiv.quant-ph/0504166
+
+## Why it matters
+
+Orthogonal bases of unitaries are exactly what is needed to build teleportation and dense-coding schemes and underlie stabilizer code theory, and the question asked whether the algebraic notion of a nice error basis coincides with the combinatorial shift-and-multiply notion built from Latin squares and complex Hadamard matrices.
+
+## Notation
+
+| Symbol | Meaning |
+|---|---|
+| $d$ | Dimension of the Hilbert space |
+| $\mathcal{H}$ | $d$-dimensional Hilbert space |
+| $U_i$ | Unitary operator on $\mathcal{H}$, $i = 1, \ldots, d^2$ |
+| $U_i^{*}$ | Adjoint of $U_i$ |
+| $\mathrm{tr}$ | Trace |
+| $\delta_{ij}$ | Kronecker delta |
+| Orthogonal basis of unitaries | $\{U_1, \ldots, U_{d^2}\}$ with $\mathrm{tr}(U_i^{*} U_j) = d\,\delta_{ij}$ |
+| Nice error basis | Orthogonal basis of unitaries such that $U_i U_j = \omega_{ij} U_k$ for some phase $\omega_{ij}$ and label $k$ depending on $(i,j)$ |
+| Index group | The group on $\{1, \ldots, d^2\}$ obtained from the multiplication law $(i,j) \mapsto k$ |
+| Shift and multiply type | Basis whose unitaries are products of $d$ permutation operators and $d$ multiplication operators |
+| Latin square | $d \times d$ matrix whose rows and columns are each permutations of $\{1, \ldots, d\}$ |
+| Hadamard matrix (complex) | $d \times d$ complex matrix $H$ with $\lvert H_{ij}\rvert=1$ and $H H^{*} = d I$ |
+| Group of central type | Finite group $H$ possessing an irreducible representation of dimension $\sqrt{\lvert H/Z(H)\rvert}$, where $Z(H)$ is the centre of $H$ |
+| Monomial unitary | Unitary whose matrix has exactly one non-vanishing entry in each row and column |
+| Abstract error group | Central extension of the index group |
+
+## Formal statement
+
+Decide the following question: *is every nice error basis of shift and multiply type?* Equivalently, given an orthogonal basis $\{U_1, \ldots, U_{d^2}\}$ of unitaries on $\mathbf{C}^d$ such that $\mathrm{tr}(U_i^{*} U_j) = d\,\delta_{ij}$ and $U_i U_j = \omega_{ij} U_k$ for some phases $\omega_{ij}$, does there exist a unitary change of basis of $\mathbf{C}^d$ after which every $U_i$ is a product of a permutation matrix and a diagonal unitary?
+
+## Resolution
+
+The archived statement is settled. The checked progress below records the settling result and its evidence.
+
+## Checked progress
+
+### 2003: Klappenecker and Roetteler exhibit a non-monomial nice error basis
+
+- Evidence: Preprint; Exact counterexample
+- Finding: Klappenecker and Roetteler build, from representation-theoretic results of Ferguson and Isaacs on groups of central type, an abstract error group with cyclic centre possessing a non-monomial irreducible representation. The corresponding nice error basis is therefore not monomial and in particular not of shift and multiply type, so the archived universal claim is false.
+- Source: https://arxiv.org/abs/quant-ph/0301078
+
+## Scope and cautions
+
+- Scope: Only the shift-and-multiply universality claim is settled; the classification of all abstract error groups and of all nice error bases up to equivalence in arbitrary dimension remains active.
+
+## Research protocol
+
+1. Treat the archived statement and its resolution evidence as the record; do not reformulate the target to match the theorem.
+2. Report only corrections: an error in the cited resolution, a withdrawn or corrected source, or a mismatch between the theorem and the archived quantifiers.
+3. Cite primary sources with theorem, page, equation, or version locators when available.
+
+## Requested output
+
+Return a correction with its exact scope, the supporting argument or artifact, and primary-source links. Propose a status change only when the cited resolution no longer settles the archived statement.
+
+---
+
+# AI research brief: Polynomial entanglement invariants
+
+- Record ID: krueger-2005-polynomial-entanglement-invariants
+- Record revision (SHA-256): ea000f7ee8da402cfe635231ec3352d21c7a26d062fbe729d481272b653e5d70
+- Formal statement digest (SHA-256): df65a9380330a3eb67f9febe2b578d1a3a7604b6beef1dee0dd1dc7e6959fa00
+- Status: Solved
+- Field: Quantum information
+- Topic: Quantum invariants and representability
+- Collection: Krueger–Werner
+- Verified: 2026-08-12
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-polynomial-entanglement-invariants/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-polynomial-entanglement-invariants.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Polynomial+entanglement+invariants
+
+## Problem source
+
+- Relationship: The source states the cataloged problem.
+- Title: Some open problems in quantum information theory
+- Authors: O. Krüger, R. F. Werner
+- Venue: arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/
+- Statement locator: pp. 18-22 (Problem 3)
+- Read source: https://doi.org/10.48550/arXiv.quant-ph/0504166
+
+## Why it matters
+
+Completeness would reduce local-unitary classification of entanglement to evaluating polynomials, and the bipartite and multipartite cases are far more delicate than the unipartite case because the symmetry group is a product of local unitaries rather than the full unitary group.
+
+## Notation
+
+| Symbol | Meaning |
+|---|---|
+| $\rho, \sigma$ | Bipartite (or multipartite) density operators |
+| $U_A, U_B$ | Local unitaries on Alice's and Bob's subsystems |
+| $\mathrm{tr}$ | Trace |
+| $d_1, d_2, \ldots, d_n$ | Hilbert-space dimensions of the $n$ parties |
+| $f$ | A real-valued function on the space of density operators (entanglement invariant) |
+| $\rho^{\otimes k}$ | $k$-fold tensor power of $\rho$ |
+| $U_m^{\otimes k}$ | $k$-fold tensor power of a unitary on the $m$-th subsystem |
+| $X$ | An operator on the $nk$-fold tensor product used to define a polynomial invariant via $\mathrm{tr}(\rho^{\otimes k} X)$ |
+| $D_{\text{pure}}, D_{\text{mixed}}$ | Dimensions of the space of entanglement types for pure / mixed states |
+| $\Delta$ | $d_n - d_1 d_2 \cdots d_{n-1}$ if positive, else $0$ |
+| $\mathrm{GL}(n,\mathbf{C})$ | Complex general linear group |
+| SLOCC | Stochastic LOCC (action of $\mathrm{GL}(m,\mathbf{C}) \times \mathrm{GL}(n,\mathbf{C})$ in the bipartite case) |
+| LOCC | Local operations and classical communication |
+
+## Formal statement
+
+Decide the following:
+
+- (Completeness.) Are the polynomial entanglement invariants of bipartite (and more generally multipartite) density operators complete? That is, if for every polynomial invariant $f$ one has $f(\rho) = f(\sigma)$, does there exist a tuple of local unitaries $(U_A, U_B)$ (or, for $n$ parties, $(U_1, \ldots, U_n)$) such that
+$$\rho = (U_A \otimes U_B)\,\sigma\,(U_A \otimes U_B)^{*}\,?$$
+
+Additional related sub-problems are also posed:
+
+- (Finite generating sets.) Given the dimensions of the parties, exhibit a finite set of polynomial invariants that is already complete.
+- (Multipartite extension.) Solve the analogous problems for multipartite states; even the pure-state case is non-trivial in this setting.
+- (Separability via invariants.) Decide whether the set of separable states can be characterised by a polynomial invariant $f$ such that $f(\rho) \ge 0$ iff $\rho$ is separable; or in weaker form, find polynomial sufficient or necessary separability criteria (possibly depending on dimensions).
+
+## Resolution
+
+The archived statement is settled. The checked progress below records the settling result and its evidence.
+
+## Checked progress
+
+### 2005: Compact-group invariants separate local unitary orbits
+
+- Evidence: Official status page; Elementary consequence
+- Finding: Sudbery answers the completeness question affirmatively by invoking the Onishchik-Vinberg theorem that the orbits of a compact linear group acting on a real vector space are separated by the polynomial invariants. The local unitary group is compact and acts linearly on the real space of density operators, so two multipartite states agree on all polynomial invariants exactly when they are related by a local unitary.
+- Source: https://doi.org/10.48550/arXiv.quant-ph/0504166
+
+### 1990: Compact-group invariants separate local unitary orbits
+
+- Evidence: Peer reviewed; Exact theorem
+- Finding: Sudbery answers the completeness question affirmatively by invoking the Onishchik-Vinberg theorem that the orbits of a compact linear group acting on a real vector space are separated by the polynomial invariants. The local unitary group is compact and acts linearly on the real space of density operators, so two multipartite states agree on all polynomial invariants exactly when they are related by a local unitary.
+
+## Scope and cautions
+
+- Scope: Only the principal completeness question is settled; the accompanying sub-problems on finite complete generating sets in all dimensions, on higher-party multipartite classification, and on polynomial separability criteria remain active.
+- Scope: Compactness of the group is essential; the analogous separation statement is false for GL(n,C) similarity actions, as the Jordan-form obstruction shows.
+
+## Research protocol
+
+1. Treat the archived statement and its resolution evidence as the record; do not reformulate the target to match the theorem.
+2. Report only corrections: an error in the cited resolution, a withdrawn or corrected source, or a mismatch between the theorem and the archived quantifiers.
+3. Cite primary sources with theorem, page, equation, or version locators when available.
+
+## Requested output
+
+Return a correction with its exact scope, the supporting argument or artifact, and primary-source links. Propose a status change only when the cited resolution no longer settles the archived statement.
+
+---
+
+# AI research brief: Qubit bi-negativity
+
+- Record ID: krueger-2005-qubit-bi-negativity
+- Record revision (SHA-256): 94b01645019b01b398bee5aad49da4cf3d33ebfc851f54dfbd951d0f8314b9fa
+- Formal statement digest (SHA-256): 7a41d58ca967352317e625f2aa154989ef306b5a2e728bc6bbed4b85adf4bb12
+- Status: Solved
+- Field: Quantum information
+- Topic: Entanglement theory
+- Collection: Krueger–Werner
+- Verified: 2026-08-12
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-qubit-bi-negativity/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-qubit-bi-negativity.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Qubit+bi-negativity
+
+## Problem source
+
+- Relationship: The source states the cataloged problem.
+- Title: Some open problems in quantum information theory
+- Authors: O. Krüger, R. F. Werner
+- Venue: arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/
+- Statement locator: p. 53 (Problem 18)
+- Read source: https://doi.org/10.48550/arXiv.quant-ph/0504166
+
+## Why it matters
+
+The inequality controls bi-negativity and connects logarithmic negativity with entanglement cost under PPT-preserving operations for two-qubit states.
+
+## Notation
+
+| Symbol | Meaning |
+|---|---|
+| $\mathcal{H}_A,\mathcal{H}_B$ | Two-dimensional (qubit) Hilbert spaces of subsystems $A$ and $B$ |
+| $\sigma$ | A density operator (positive trace-1 Hermitian operator) on $\mathcal{H}_A\otimes\mathcal{H}_B$ |
+| $T_2$ | Partial transposition with respect to the second subsystem $B$ |
+| $\sigma^{T_2}$ | The operator obtained from $\sigma$ by partial transposition with respect to $B$ |
+| $\lvert X\rvert$ | The operator absolute value, $\lvert X\rvert = \sqrt{X^* X}$ for an operator $X$ |
+| $\bigl\lvert\sigma^{T_2}\bigr\rvert^{T_2}$ | Partial transposition (again w.r.t. $B$) of the operator absolute value of $\sigma^{T_2}$ |
+| $A \ge 0$ | The operator $A$ is positive semidefinite |
+| $\lVert X\rVert_1$ | Trace norm of $X$, equal to $\operatorname{tr}\lvert X\rvert$ |
+| $\mathcal{N}(\sigma)$ | Negativity of $\sigma$, $\mathcal{N}(\sigma) = (\lVert\sigma^{T_2}\rVert_1 - 1)/2$ |
+| $\log\lVert\sigma^{T_2}\rVert_1$ | Logarithmic negativity (entanglement monotone) |
+
+## Formal statement
+
+Let $\mathcal{H}_A$ and $\mathcal{H}_B$ be two-dimensional complex Hilbert spaces, and let $\sigma$ be any density operator on $\mathcal{H}_A\otimes\mathcal{H}_B$. Let $T_2$ denote partial transposition with respect to $\mathcal{H}_B$. Prove that
+$$\bigl\lvert\sigma^{T_2}\bigr\rvert^{T_2} \;\ge\; 0,$$
+where $\lvert X\rvert := \sqrt{X^* X}$ is the operator absolute value.
+
+## Resolution
+
+The archived statement is settled. The checked progress below records the settling result and its evidence.
+
+## Checked progress
+
+### 2004: The two-qubit bi-negativity conjecture holds
+
+- Evidence: Peer reviewed; Exact theorem
+- Finding: Ishizaka proves that the second partial transpose of the absolute value of a two-qubit state's partial transpose is positive semidefinite.
+- Source: https://arxiv.org/abs/quant-ph/0308056
+
+## Scope and cautions
+
+- Scope: The affirmative result is specific to two qubits; higher-dimensional failures do not affect the archived statement.
+
+## Research protocol
+
+1. Treat the archived statement and its resolution evidence as the record; do not reformulate the target to match the theorem.
+2. Report only corrections: an error in the cited resolution, a withdrawn or corrected source, or a mismatch between the theorem and the archived quantifiers.
+3. Cite primary sources with theorem, page, equation, or version locators when available.
+
+## Requested output
+
+Return a correction with its exact scope, the supporting argument or artifact, and primary-source links. Propose a status change only when the cited resolution no longer settles the archived statement.
+
+---
+
+# AI research brief: Reduction criterion implies majorization?
+
+- Record ID: krueger-2005-reduction-criterion-majorization
+- Record revision (SHA-256): 8acc60f15e2749b31cb42e73ca5b923b1b74b485e6ace3043b5ad4f10d02fa3d
+- Formal statement digest (SHA-256): c68e752dd7dbb47b2e3d59f1a4dc642fcf54560321771aacc02de86d517ad5da
+- Status: Solved
+- Field: Quantum information
+- Topic: Entanglement theory
+- Collection: Krueger–Werner
+- Verified: 2026-08-12
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-reduction-criterion-majorization/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-reduction-criterion-majorization.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Reduction+criterion+implies+majorization%3F
+
+## Problem source
+
+- Relationship: The source states the cataloged problem.
+- Title: Some open problems in quantum information theory
+- Authors: O. Krüger, R. F. Werner
+- Venue: arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/
+- Statement locator: pp. 32-33 (Problem 9)
+- Read source: https://doi.org/10.48550/arXiv.quant-ph/0504166
+
+## Why it matters
+
+The answer places majorization at the weak end of the established chain separable implies PPT implies undistillable implies reduction, settling where the spectral criteria of Nielsen and Kempe sit inside the hierarchy of separability and distillability criteria.
+
+## Notation
+
+| Symbol | Meaning |
+|---|---|
+| $\mathcal{H}_A, \mathcal{H}_B$ | Finite-dimensional Hilbert spaces of subsystems $A$ and $B$ |
+| $\rho_{AB}$ | Bipartite density matrix on $\mathcal{H}_A \otimes \mathcal{H}_B$ |
+| $\rho_A, \rho_B$ | Reduced density matrices: $\rho_A = \mathrm{Tr}_B \rho_{AB}$, $\rho_B = \mathrm{Tr}_A \rho_{AB}$ |
+| $\mathrm{Tr}_X$ | Partial trace over subsystem $X$ |
+| $I_A, I_B$ | Identity operator on $\mathcal{H}_A$, $\mathcal{H}_B$ |
+| $\rho^{T_B}$ | Partial transpose of $\rho_{AB}$ on subsystem $B$ |
+| $\lambda(\rho)$ | Eigenvalue (column) vector of $\rho$ in non-increasing order |
+| $\prec$ | Majorization relation: $x \prec y$ iff $\sum_{i=1}^{k} x_i^{\downarrow} \leq \sum_{i=1}^{k} y_i^{\downarrow}$ for all $k$, with equality at $k = \dim$ |
+| $\prec_w$ | Weak (sub-)majorization relation |
+| $\Vert R\Vert$ | Operator norm of $R$ |
+| PPT | Positive partial transpose criterion: $\rho^{T_B} \geq 0$ |
+
+## Formal statement
+
+Let $\rho_{AB}$ be a bipartite density matrix on $\mathcal{H}_A \otimes \mathcal{H}_B$ with reductions $\rho_A = \mathrm{Tr}_B \rho_{AB}$ and $\rho_B = \mathrm{Tr}_A \rho_{AB}$.
+
+**Question.** Does the reduction criterion
+$$\rho_A \otimes I_B \;\geq\; \rho_{AB} \qquad \text{and} \qquad I_A \otimes \rho_B \;\geq\; \rho_{AB}$$
+imply the majorization inequalities
+$$\lambda(\rho_{AB}) \;\prec\; \lambda(\rho_A) \qquad \text{and} \qquad \lambda(\rho_{AB}) \;\prec\; \lambda(\rho_B)\,?$$
+
+More broadly: where does majorization sit in the hierarchy of separability/entanglement criteria?
+
+## Resolution
+
+The archived statement is settled. The checked progress below records the settling result and its evidence.
+
+## Checked progress
+
+### 2003: Hiroshima proves the reduction criterion implies majorization
+
+- Evidence: Peer reviewed; Exact theorem
+- Finding: Hiroshima shows that the reduction inequality yields an operator R of norm at most one with rho_AB^(1/2) = (rho_A^(1/2) tensor I) R, from which one constructs a substochastic matrix relating the two spectra. This gives weak submajorization, which upgrades to ordinary majorization because both spectra have unit trace, so the archived implication holds and majorization is the weakest criterion in the hierarchy.
+- Source: https://arxiv.org/abs/quant-ph/0303057
+
+## Research protocol
+
+1. Treat the archived statement and its resolution evidence as the record; do not reformulate the target to match the theorem.
+2. Report only corrections: an error in the cited resolution, a withdrawn or corrected source, or a mismatch between the theorem and the archived quantifiers.
+3. Cite primary sources with theorem, page, equation, or version locators when available.
+
+## Requested output
+
+Return a correction with its exact scope, the supporting argument or artifact, and primary-source links. Propose a status change only when the cited resolution no longer settles the archived statement.
+
+---
+
+# AI research brief: Reversibility of entanglement assisted coding
+
+- Record ID: krueger-2005-reversibility-entanglement-assisted-coding
+- Record revision (SHA-256): f6c77cba0f3701d6ecdb0cfbe1de1bc8d320c4094547c1e9b2c03097fc9027f2
+- Formal statement digest (SHA-256): ecf52c94c11728e60d57aedb3a1f9bc2e219dec26479b571365a7a362ccd4fb9
+- Status: Solved
+- Field: Quantum information
+- Topic: Quantum channels
+- Collection: Krueger–Werner
+- Verified: 2026-08-12
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-reversibility-entanglement-assisted-coding/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-reversibility-entanglement-assisted-coding.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Reversibility+of+entanglement+assisted+coding
+
+## Problem source
+
+- Relationship: The source states the cataloged problem.
+- Title: Some open problems in quantum information theory
+- Authors: O. Krüger, R. F. Werner
+- Venue: arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/
+- Statement locator: pp. 51-52 (Problem 17)
+- Read source: https://doi.org/10.48550/arXiv.quant-ph/0504166
+
+## Why it matters
+
+Without free entanglement the resource theory of quantum channels is badly irreversible, whereas free entanglement was conjectured to restore the Shannon-like picture in which any two channels of equal entanglement-assisted capacity simulate each other at unit rate per bit of capacity.
+
+## Notation
+
+| Symbol | Meaning |
+|---|---|
+| $S$, $T$, $R$ | Quantum channels (completely positive trace-preserving maps) |
+| $S_1$ | The ideal noiseless classical 1-bit channel, used as the standard reference channel |
+| $C_{\mathrm{E}}(T,S)$ | The entanglement-assisted capacity of $T$ for $S$-messages: the supremum of rates $r$ such that, for large $n$, $rn$ parallel copies of $T$ can be simulated by $n$ copies of $S$ with vanishing error, using free pre-shared entanglement |
+| $C_{\mathrm{E}}(T)$ | Entanglement-assisted classical capacity of $T$, defined as $C_{\mathrm{E}}(T) = C_{\mathrm{E}}(T,S_1)$ |
+| $C(T,S)$ | The (un-assisted) capacity of $T$ for $S$-messages |
+| $n$ | Number of independent uses of the source channel in the simulation |
+| $r$, $rn$ | Rate, and number of uses of $T$ available to simulate $n$ uses of $S$ |
+| $\otimes$ | Tensor product of channels (parallel use) |
+
+## Formal statement
+
+For any two quantum channels $S$ and $T$, define the entanglement-assisted capacity $C_{\mathrm{E}}(T,S)$ as the supremum of rates $r$ such that, for sufficiently large $n$, $rn$ parallel copies of $T$ can be simulated by $n$ copies of $S$. The simulation may use arbitrary local encoding and decoding operations together with arbitrarily many shared entangled pairs, and its error must vanish as $n \to \infty$.
+
+Prove the *reversibility* identity
+$$C_{\mathrm{E}}(T,S) \;=\; C_{\mathrm{E}}(S,T)^{-1}$$
+for every pair of quantum channels $S$, $T$.
+
+Equivalently (combined with the easy two-step inequality $C_{\mathrm{E}}(T,S)\,C_{\mathrm{E}}(S,T) \le 1$), show that $C_{\mathrm{E}}(T,S)\,C_{\mathrm{E}}(S,T) = 1$ always.
+
+## Resolution
+
+The archived statement is settled. The checked progress below records the settling result and its evidence.
+
+## Checked progress
+
+### 2014: Quantum Reverse Shannon Theorem gives the reciprocal identity
+
+- Evidence: Peer reviewed; Exact theorem
+- Finding: Bennett, Devetak, Harrow, Shor and Winter prove the full Quantum Reverse Shannon Theorem, and Berta, Christandl and Renner give a one-shot information-theoretic proof. Under the source's convention the theorem yields C_E(T,S) = C_E(S)/C_E(T) = C_E(S,T) to the power minus one for every pair of memoryless channels in the i.i.d. asymptotic resource model, establishing the archived reversibility identity.
+- Source: https://arxiv.org/abs/0912.5537
+
+### 2011: Quantum Reverse Shannon Theorem gives the reciprocal identity
+
+- Evidence: Peer reviewed; Exact theorem
+- Finding: Bennett, Devetak, Harrow, Shor and Winter prove the full Quantum Reverse Shannon Theorem, and Berta, Christandl and Renner give a one-shot information-theoretic proof. Under the source's convention the theorem yields C_E(T,S) = C_E(S)/C_E(T) = C_E(S,T) to the power minus one for every pair of memoryless channels in the i.i.d. asymptotic resource model, establishing the archived reversibility identity.
+- Source: https://arxiv.org/abs/0912.3805
+
+## Scope and cautions
+
+- Scope: The identity is established for memoryless channels in the i.i.d. asymptotic resource model; more general source models can require extra conventions about feedback or embezzling entanglement and should not be inferred from this statement without specifying resources.
+
+## Research protocol
+
+1. Treat the archived statement and its resolution evidence as the record; do not reformulate the target to match the theorem.
+2. Report only corrections: an error in the cited resolution, a withdrawn or corrected source, or a mismatch between the theorem and the archived quantifiers.
+3. Cite primary sources with theorem, page, equation, or version locators when available.
+
+## Requested output
+
+Return a correction with its exact scope, the supporting argument or artifact, and primary-source links. Propose a status change only when the cited resolution no longer settles the archived statement.
+
+---
+
+# AI research brief: Stronger Bell inequalities for Werner states?
+
+- Record ID: krueger-2005-stronger-bell-werner-states
+- Record revision (SHA-256): 802b9578d03da130191c3bfc48ab34d0c3539335391b4f1bea93370c496f3d3a
+- Formal statement digest (SHA-256): c86ef5a060036768b5474a75ce8f431e39ceebbb8faa36f662312589269669dc
+- Status: Solved
+- Field: Quantum information
+- Topic: Bell nonlocality
+- Collection: Krueger–Werner
+- Verified: 2026-08-12
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-stronger-bell-werner-states/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-stronger-bell-werner-states.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Stronger+Bell+inequalities+for+Werner+states%3F
+
+## Problem source
+
+- Relationship: The source states the cataloged problem.
+- Title: Some open problems in quantum information theory
+- Authors: O. Krüger, R. F. Werner
+- Venue: arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/
+- Statement locator: p. 54 (Problem 19)
+- Read source: https://doi.org/10.48550/arXiv.quant-ph/0504166
+
+## Why it matters
+
+Werner states can be entangled while admitting local hidden variable models, so they are the canonical testbed separating entanglement from Bell nonlocality; beating the CHSH threshold narrows the gap between known LHV models and the region of established nonlocality.
+
+## Notation
+
+| Symbol | Meaning |
+|---|---|
+| $\mathcal{H}$ | A finite-dimensional complex Hilbert space (here typically $\mathbb{C}^d$ for one party) |
+| $d$ | Local Hilbert-space dimension |
+| $\rho$ | A bipartite density operator on $\mathcal{H}\otimes\mathcal{H}$ |
+| $W_p$ | A two-qudit Werner state, $W_p = p\,\rho_{\text{anti}} + (1-p)\,\rho_{\text{sym}}/\dim(\rho_{\text{sym}}) \cdot \dim(\rho_{\text{sym}}) $ — the unique family of $U\otimes U$-invariant states parametrised by $p\in[0,1]$ |
+| $F$ | Singlet fraction or noise parameter parametrising a Werner family (depending on convention) |
+| CHSH | Clauser–Horne–Shimony–Holt Bell inequality with two binary settings per side |
+| $\mathcal{B}$ | A Bell functional: a linear combination $\sum c_{abxy} p(ab\,\vert\,xy)$ of joint probabilities |
+| $\mathcal{B}_{\mathrm{LHV}}$ | The local-hidden-variable bound of $\mathcal{B}$ |
+| $\mathcal{B}(\rho)$ | The maximal value of $\mathcal{B}$ attainable by quantum measurements on $\rho$ |
+| "Werner state violates $\mathcal{B}$" | $\mathcal{B}(\rho) > \mathcal{B}_{\mathrm{LHV}}$ for the given Werner state $\rho$ |
+
+## Formal statement
+
+Find a Bell inequality $\mathcal{B}\le \mathcal{B}_{\mathrm{LHV}}$ that is *stronger than CHSH on Werner states*, in the sense that the set of two-qudit (or higher-party / multi-setting) Werner states for which $\mathcal{B}(\rho) > \mathcal{B}_{\mathrm{LHV}}$ strictly contains the set of Werner states violating CHSH.
+
+Equivalently: exhibit a Bell inequality whose Werner-state violation threshold is strictly smaller (in the appropriate parametrisation) than the CHSH threshold $p_{\mathrm{CHSH}} = 1/\sqrt 2$ for two qubits, or its higher-dimensional analogue.
+
+## Resolution
+
+The archived statement is settled. The checked progress below records the settling result and its evidence.
+
+## Checked progress
+
+### 2008: Vertesi finds Bell inequalities beating CHSH on Werner states
+
+- Evidence: Peer reviewed; Explicit construction
+- Finding: Vertesi constructs a family of Bell inequalities with many binary settings whose local bound and Werner-state quantum value give a violation threshold of p above 0.7056, strictly below the CHSH threshold 1/sqrt(2) which is approximately 0.7071. This is exactly the stronger-than-CHSH example requested by the archived statement.
+- Source: https://arxiv.org/abs/0806.0096
+
+## Scope and cautions
+
+- Scope: The Collins-Gisin I_3322 inequality cited in the source is inequivalent to CHSH but has a smaller Werner-state range, so it is not such an example; determining the optimal Werner-state nonlocality threshold is a separate question from the existence question settled here.
+
+## Research protocol
+
+1. Treat the archived statement and its resolution evidence as the record; do not reformulate the target to match the theorem.
+2. Report only corrections: an error in the cited resolution, a withdrawn or corrected source, or a mismatch between the theorem and the archived quantifiers.
+3. Cite primary sources with theorem, page, equation, or version locators when available.
+
+## Requested output
+
+Return a correction with its exact scope, the supporting argument or artifact, and primary-source links. Propose a status change only when the cited resolution no longer settles the archived statement.
+
+---
+
+# AI research brief: Additivity of minimal output (von Neumann) entropy of quantum channels
+
+- Record ID: ruskai-2007-additivity-minimal-output-entropy
+- Record revision (SHA-256): a4edfca46eab059776efd5fe373f1e76a51cc79fbf363c8f1cc7d1bb381b1cb8
+- Formal statement digest (SHA-256): f6145c52c23df052e3cbb969c57d8502b983a6bc8822efe908e89686743c18e2
+- Status: Solved
+- Field: Quantum information
+- Topic: Quantum channels
+- Collection: Ruskai
+- Verified: 2026-08-12
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-additivity-minimal-output-entropy/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-additivity-minimal-output-entropy.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Additivity+of+minimal+output+%28von+Neumann%29+entropy+of+quantum+channels
+
+## Problem source
+
+- Relationship: The source states the cataloged problem.
+- Title: Open problems in quantum information theory
+- Authors: Mary Beth Ruskai
+- Venue: arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007
+- Statement locator: p. 16 (Problem 22)
+- Read source: https://doi.org/10.48550/arXiv.0708.1902
+
+## Why it matters
+
+Additivity would have meant that entanglement across the input of a product channel cannot lower the output entropy below the product-state minimum, and Shor had shown the statement globally equivalent to additivity of the Holevo capacity, additivity of the entanglement of formation, and its strong superadditivity.
+
+## Notation
+
+| Symbol | Meaning |
+|---|---|
+| $M_d$ | algebra of $d\times d$ complex matrices |
+| $\Phi,\Omega$ | quantum channels (completely positive trace-preserving maps) on matrix algebras |
+| $\Phi\otimes\Omega$ | tensor product channel on $M_{d_\Phi}\otimes M_{d_\Omega}$ |
+| $\gamma$ | input density matrix, $\gamma\ge 0$, $\operatorname{Tr}\gamma=1$ |
+| $S(\rho)$ | von Neumann entropy, $S(\rho)=-\operatorname{Tr}\rho\log\rho$ |
+| $S_{\min}(\Phi)$ | minimal output entropy of $\Phi$, $S_{\min}(\Phi)=\inf_\gamma S[\Phi(\gamma)]$ |
+| $\chi^*(\Phi)$ | Holevo (classical) capacity of $\Phi$ |
+| $E_F$ | entanglement of formation |
+
+## Formal statement
+
+**Problem 22 (Ruskai 2007).** Prove the additivity of minimal output entropy,
+$$S_{\min}(\Phi\otimes\Omega) \;=\; S_{\min}(\Phi)+S_{\min}(\Omega) \tag{23}$$
+for every pair of quantum channels $\Phi,\Omega$, or else find a counter-example.
+
+## Resolution
+
+The archived statement is settled. The checked progress below records the settling result and its evidence.
+
+## Checked progress
+
+### 2009: Hastings refutes additivity of the minimal output entropy
+
+- Evidence: Peer reviewed; Exact counterexample
+- Finding: Hastings constructs pairs of random unitary channels, the second obtained from the first by complex conjugation, for which the maximally entangled input makes S_min of the product strictly smaller than the sum of the individual minimal output entropies. The argument uses concentration of measure for random unitary Kraus operators in large but finite dimension, and via Shor's equivalence it simultaneously refutes additivity of the Holevo capacity and of the entanglement of formation.
+- Source: https://arxiv.org/abs/0809.3972
+
+## Scope and cautions
+
+- Scope: The magnitude of the violation is small and the dimensions required are enormous; how much capacity superadditivity can occur, and for which channel families, remains a very active subject.
+
+## Research protocol
+
+1. Treat the archived statement and its resolution evidence as the record; do not reformulate the target to match the theorem.
+2. Report only corrections: an error in the cited resolution, a withdrawn or corrected source, or a mismatch between the theorem and the archived quantifiers.
+3. Cite primary sources with theorem, page, equation, or version locators when available.
+
+## Requested output
+
+Return a correction with its exact scope, the supporting argument or artifact, and primary-source links. Propose a status change only when the cited resolution no longer settles the archived statement.
+
+---
+
+# AI research brief: Explicit (non-existential) channels violating multiplicativity of maximal output p-norm for p not equal to 1
+
+- Record ID: ruskai-2007-explicit-multiplicativity-violations
+- Record revision (SHA-256): e87832e139fa141fcfcc73c0262a2b20b98c010f345a1eea3d501f6ac72fad6e
+- Formal statement digest (SHA-256): 3437f29a2890847e19224110f3a282af2e1c2cedd4d5c795181e19bfae95bcbc
+- Status: Solved
+- Field: Quantum information
+- Topic: Quantum channels
+- Collection: Ruskai
+- Verified: 2026-08-12
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-explicit-multiplicativity-violations/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-explicit-multiplicativity-violations.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Explicit+%28non-existential%29+channels+violating+multiplicativity+of+maximal+output+p-norm+for+p+not+equal+to+1
+
+## Problem source
+
+- Relationship: The source states the cataloged problem.
+- Title: Open problems in quantum information theory
+- Authors: Mary Beth Ruskai
+- Venue: arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007
+- Statement locator: p. 16 (Problem 20)
+- Read source: https://doi.org/10.48550/arXiv.0708.1902
+
+## Why it matters
+
+The post-Werner-Holevo counterexamples of Winter and Hayden are existential random constructions that exhibit no concrete channel, whereas explicit channels are valuable for testing related conjectures, for numerical experimentation, for structural understanding of how entanglement boosts output purity, and for pedagogy.
+
+## Notation
+
+| Symbol | Meaning |
+|---|---|
+| $M_d$ | algebra of $d\times d$ complex matrices |
+| $\Phi,\Omega$ | quantum channels (CPT maps) on matrix algebras |
+| $\gamma$ | input density matrix, $\gamma\ge 0$, $\operatorname{Tr}\gamma=1$ |
+| $\lVert X\rVert_p$ | Schatten $p$-norm, $\lVert X\rVert_p=(\operatorname{Tr}\lvert X\rvert^p)^{1/p}$ |
+| $\nu_p(\Phi)$ | maximal output $p$-norm purity, $\nu_p(\Phi)=\sup_\gamma\lVert\Phi(\gamma)\rVert_p=\inf_\gamma$ form used in source after a sign-convention; here $\nu_p(\Phi):=\sup_\gamma\lVert\Phi(\gamma)\rVert_p$ for $p>1$ |
+| $p$ | Renyi/Schatten parameter, $p\ne 1$ |
+| eq. (24) | multiplicativity assertion $\nu_p(\Phi\otimes\Omega)=\nu_p(\Phi)\nu_p(\Omega)$ |
+
+(Note: Ruskai's text uses $\nu_p(\Phi)=\inf_\gamma\|\Phi(\gamma)\|_p$ as the convention; multiplicativity (24) is the analogous infimum-product statement, and "violation" means the equality fails. The substantive content of the problem is independent of the sup/inf convention.)
+
+## Formal statement
+
+**Problem 20 (Ruskai 2007).** Find *explicit* examples of quantum channels $\Phi,\Omega$ (with explicitly given Kraus operators, in concrete finite dimensions) which violate multiplicativity (24) of the maximal output $p$-norm for some specific $p\ne 1$:
+$$\nu_p(\Phi\otimes\Omega) \;\ne\; \nu_p(\Phi)\,\nu_p(\Omega).$$
+The desired examples should not be mere instances of the existence theorems of Winter and Hayden, but channels whose Kraus operators (or Stinespring isometry) can be written down concretely so that the violation can be verified directly.
+
+## Resolution
+
+The archived statement is settled. The checked progress below records the settling result and its evidence.
+
+## Checked progress
+
+### 2008: Werner-Holevo channel is an explicit multiplicativity counterexample
+
+- Evidence: Peer reviewed; Explicit construction
+- Finding: The Werner-Holevo channel is an explicitly given qutrit channel that violates multiplicativity of the maximal output p-norm for p above 4.79, which already meets the archived request for a concrete example at some p different from 1. Cubitt, Harrow, Leung, Montanaro and Winter later gave an explicit 4-to-3 channel pair with nonmultiplicative minimum output rank at p = 0.
+- Source: https://arxiv.org/abs/0712.3628
+
+### 2002: Werner-Holevo channel is an explicit multiplicativity counterexample
+
+- Evidence: Peer reviewed; Explicit construction
+- Finding: The Werner-Holevo channel is an explicitly given qutrit channel that violates multiplicativity of the maximal output p-norm for p above 4.79, which already meets the archived request for a concrete example at some p different from 1. Cubitt, Harrow, Leung, Montanaro and Winter later gave an explicit 4-to-3 channel pair with nonmultiplicative minimum output rank at p = 0.
+
+## Scope and cautions
+
+- Scope: For p just above 1 and for 0 < p < 1 no truly small-dimension explicit channel is known; a 2025/2026 preprint by Derksen and Lovitz (arXiv:2510.07547) gives constructive examples for every p > 1 including the difficult interval near one, which strengthens but is not needed for the existential statement.
+
+## Research protocol
+
+1. Treat the archived statement and its resolution evidence as the record; do not reformulate the target to match the theorem.
+2. Report only corrections: an error in the cited resolution, a withdrawn or corrected source, or a mismatch between the theorem and the archived quantifiers.
+3. Cite primary sources with theorem, page, equation, or version locators when available.
+
+## Requested output
+
+Return a correction with its exact scope, the supporting argument or artifact, and primary-source links. Propose a status change only when the cited resolution no longer settles the archived statement.
+
+---
+
+# AI research brief: Find more counterexamples to multiplicativity (eq. 24); do they support holding for 1 <= p <= 2?
+
+- Record ID: ruskai-2007-more-multiplicativity-counterexamples
+- Record revision (SHA-256): e94fd7d5e602999f3d5e829d724754f94f3a9ec4a0b3ddfe1014d6a75bc0058d
+- Formal statement digest (SHA-256): 40cc7f85f89b0ccf642ec9a32497046c5e8cc605f85411813783e4c6c018f32e
+- Status: Solved
+- Field: Quantum information
+- Topic: Quantum channels
+- Collection: Ruskai
+- Verified: 2026-08-12
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-more-multiplicativity-counterexamples/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-more-multiplicativity-counterexamples.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Find+more+counterexamples+to+multiplicativity+%28eq.+24%29%3B+do+they+support+holding+for+1+%3C%3D+p+%3C%3D+2%3F
+
+## Problem source
+
+- Relationship: The source states the cataloged problem.
+- Title: Open problems in quantum information theory
+- Authors: Mary Beth Ruskai
+- Venue: arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007
+- Statement locator: p. 12 (Problem 11)
+- Read source: https://doi.org/10.48550/arXiv.0708.1902
+
+## Why it matters
+
+Before summer 2007 the Werner-Holevo channel and mildly perturbed variants were the only known counterexamples, several authors had conjectured a safe range 1 <= p <= 2, and the p to 1 limit of the conjecture is the additivity statement Shor showed equivalent to additivity of the Holevo capacity and of the entanglement of formation.
+
+## Notation
+
+| Symbol | Meaning |
+|---|---|
+| $M_d$ | Algebra of complex $d\times d$ matrices |
+| $\rho$, $\gamma$ | Density matrices on a finite-dimensional Hilbert space |
+| $\Phi$, $\Omega$ | CPT (completely positive trace-preserving) linear maps (quantum channels) |
+| $\lVert M\rVert_p$ | Schatten $p$-norm, $\lVert M\rVert_p=(\operatorname{Tr}\lvert M\rvert^p)^{1/p}$ |
+| $\nu_p(\Phi)$ | Maximal output $p$-norm, $\nu_p(\Phi)=\inf_\gamma\lVert\Phi(\gamma)\rVert_p$ in source notation (sup over inputs of the output $p$-norm) |
+| $S(\rho)$ | von Neumann entropy, $-\operatorname{Tr}(\rho\log\rho)$ |
+| $S_{\min}(\Phi)$ | Minimum output entropy, $\inf_\gamma S(\Phi(\gamma))$ |
+| $S^p(\gamma)$ | Rényi entropy, $S^p(\gamma)\equiv\tfrac{1}{p-1}\log\operatorname{Tr}\gamma^p$ |
+| $S^p_{\min}(\Phi)$ | $\inf_\gamma S^p(\Phi(\gamma))$ |
+| WH channel | Werner–Holevo channel |
+| $p_c$ | Hypothesized critical $p$ at which multiplicativity might fail |
+
+## Formal statement
+
+**Problem 11.** Find additional counterexamples — beyond the Werner–Holevo channel and its small perturbations — to the multiplicativity conjecture
+$$\nu_p(\Phi\otimes\Omega)=\nu_p(\Phi)\,\nu_p(\Omega), \tag{24}$$
+holding for a range of $p>1$. Determine, on the basis of such counterexamples, whether the conjecture is true for $1\le p\le 2$.
+
+## Resolution
+
+The archived statement is settled. The checked progress below records the settling result and its evidence.
+
+## Checked progress
+
+### 2007: Winter and Hayden refute multiplicativity for every p above 1
+
+- Evidence: Preprint; Exact counterexample
+- Finding: Winter constructs counterexamples to multiplicativity for every p above 2 using random unitary channels of growing dimension, and Hayden extends the counterexamples to all 1 < p < 2, with Winter subsequently closing the case p = 2. Together they supply the requested counterexamples beyond the Werner-Holevo family and show that multiplicativity fails throughout the conjectured safe range 1 < p <= 2.
+- Source: https://arxiv.org/abs/0707.0402
+
+### 2007: Winter and Hayden refute multiplicativity for every p above 1
+
+- Evidence: Preprint; Exact counterexample
+- Finding: Winter constructs counterexamples to multiplicativity for every p above 2 using random unitary channels of growing dimension, and Hayden extends the counterexamples to all 1 < p < 2, with Winter subsequently closing the case p = 2. Together they supply the requested counterexamples beyond the Werner-Holevo family and show that multiplicativity fails throughout the conjectured safe range 1 < p <= 2.
+- Source: https://arxiv.org/abs/0707.3291
+
+## Scope and cautions
+
+- Scope: The separate additivity conjecture at p = 1 was refuted later by Hastings (Nature Physics 5, 255 (2009)); that is a distinct statement from p-norm multiplicativity for p > 1.
+
+## Research protocol
+
+1. Treat the archived statement and its resolution evidence as the record; do not reformulate the target to match the theorem.
+2. Report only corrections: an error in the cited resolution, a withdrawn or corrected source, or a mismatch between the theorem and the archived quantifiers.
+3. Cite primary sources with theorem, page, equation, or version locators when available.
+
+## Requested output
+
+Return a correction with its exact scope, the supporting argument or artifact, and primary-source links. Propose a status change only when the cited resolution no longer settles the archived statement.
+
+---
+
+# AI research brief: Channel or pair of channels violating p-norm multiplicativity for both some p>1 and some 0<p<1
+
+- Record ID: ruskai-2007-multiplicativity-violation-both-sides
+- Record revision (SHA-256): 9499c3d8e4e8cdd8669f2436a085eb8090679308e3e4c0940af469c8b3089ae5
+- Formal statement digest (SHA-256): 732d4ca8bf0381b1a629f58bfd823196675ad0d76338f2bce427139b08b54dd4
+- Status: Solved
+- Field: Quantum information
+- Topic: Quantum channels
+- Collection: Ruskai
+- Verified: 2026-08-12
+- Catalog entry: https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-multiplicativity-violation-both-sides/
+- JSON record: https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-multiplicativity-violation-both-sides.json
+- Propose an update: https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Channel+or+pair+of+channels+violating+p-norm+multiplicativity+for+both+some+p%3E1+and+some+0%3Cp%3C1
+
+## Problem source
+
+- Relationship: The source states the cataloged problem.
+- Title: Open problems in quantum information theory
+- Authors: Mary Beth Ruskai
+- Venue: arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007
+- Statement locator: p. 15 (Problem 18)
+- Read source: https://doi.org/10.48550/arXiv.0708.1902
+
+## Why it matters
+
+All known constructions were non-uniform in p, with the dimension blowing up as p approaches 1 and structurally different Kraus operators above and below one, and a negative answer would have forced a one-sided approach to p = 1 and reopened a route to the additivity conjecture there.
+
+## Notation
+
+| Symbol | Meaning |
+|---|---|
+| $M_d$ | algebra of $d\times d$ complex matrices |
+| $\Phi,\Omega$ | completely positive trace-preserving (CPT) maps (quantum channels) |
+| $\Phi^{\otimes n}$ | $n$-fold tensor product channel |
+| $\gamma$ | input density matrix (state), $\gamma\ge 0$, $\operatorname{Tr}\gamma=1$ |
+| $\|X\|_p$ | Schatten $p$-norm, $\|X\|_p=(\operatorname{Tr}\lvert X\rvert^p)^{1/p}$ |
+| $\nu_p(\Phi)$ | maximal output $p$-norm in the conventional formulation, $\nu_p(\Phi)=\sup_\gamma\|\Phi(\gamma)\|_p$ |
+| $S^p(\gamma)$ | Standard Rényi $p$-entropy, $S^p(\gamma)=\tfrac{1}{1-p}\log\operatorname{Tr}\gamma^p$ for $p\ne 1$; $S^0(\gamma)=\log\operatorname{rank}\gamma$; $S^1(\gamma)$ is the von Neumann entropy |
+| $S^p_{\min}(\Phi)$ | minimal output Renyi entropy, $S^p_{\min}(\Phi)=\inf_\gamma S^p[\Phi(\gamma)]$ |
+| $p_1,p_2$ | two values of the Renyi/Schatten parameter, with $p_1>1$ and $0<p_2<1$ |
+| eq. (26) | the multiplicativity/additivity assertion $S^p_{\min}(\Phi\otimes\Omega)=S^p_{\min}(\Phi)+S^p_{\min}(\Omega)$ |
+
+## Formal statement
+
+**Problem 18 (Ruskai 2007).** Does there exist a quantum channel $\Phi$, or a pair of channels $(\Phi,\Omega)$ on finite-dimensional matrix algebras, and values $p_1>1$ and $p_2$ with $0<p_2<1$, such that the multiplicativity equality
+$$S^p_{\min}(\Phi\otimes\Omega) \;=\; S^p_{\min}(\Phi)+S^p_{\min}(\Omega) \tag{26}$$
+**fails** at both $p=p_1$ and $p=p_2$? Equivalently, is there a single example that violates (26) simultaneously for some $p>1$ and some $p<1$?
+
+If the answer is negative, then for every channel (pair) one can always approach $p=1$ from at least one side along which (26) does hold, which would force additivity at $p=1$.
+
+## Resolution
+
+The archived statement is settled. The checked progress below records the settling result and its evidence.
+
+## Checked progress
+
+### 2026: Hastings gap plus continuity in p gives a two-sided violation
+
+- Evidence: Preprint; Exact theorem
+- Finding: Hastings produced a fixed finite-dimensional channel pair with a strict additivity gap at p = 1, and for fixed finite-dimensional channels the minimum output Renyi entropy is continuous in p at 1 because the state Renyi entropy is jointly continuous in state and order and the input-state set is compact. The strict gap therefore persists on an interval around one, and choosing one order on each side of one gives the single pair requested; Leung, Lovitz and Wu independently make this implication explicit and prove nonadditivity for every p > 3/4.
+- Source: https://arxiv.org/abs/2607.15210
+
+### 2009: Hastings gap plus continuity in p gives a two-sided violation
+
+- Evidence: Peer reviewed; Exact counterexample
+- Finding: Hastings produced a fixed finite-dimensional channel pair with a strict additivity gap at p = 1, and for fixed finite-dimensional channels the minimum output Renyi entropy is continuous in p at 1 because the state Renyi entropy is jointly continuous in state and order and the input-state set is compact. The strict gap therefore persists on an interval around one, and choosing one order on each side of one gives the single pair requested; Leung, Lovitz and Wu independently make this implication explicit and prove nonadditivity for every p > 3/4.
+- Source: https://arxiv.org/abs/0809.3972
+
+## Scope and cautions
+
+- Scope: The solved label follows the source's explicit equation (26) for minimum output standard Renyi entropy; the continuity argument does not answer the different question of conventional maximal-output p-quasinorm multiplicativity for p < 1.
+
+## Research protocol
+
+1. Treat the archived statement and its resolution evidence as the record; do not reformulate the target to match the theorem.
+2. Report only corrections: an error in the cited resolution, a withdrawn or corrected source, or a mismatch between the theorem and the archived quantifiers.
+3. Cite primary sources with theorem, page, equation, or version locators when available.
+
+## Requested output
+
+Return a correction with its exact scope, the supporting argument or artifact, and primary-source links. Propose a status change only when the cited resolution no longer settles the archived statement.

@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/schema/canonical/v0.2/claim.schema.json",
+  "title": "Canonical research claim",
+  "description": "An accepted, precisely scoped assertion about target clauses. Claims in a canonical record are accepted by definition; unreviewed assertions are CandidateUpdates in the operational layer.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "id",
+    "statementId",
+    "targetClauseIds",
+    "relation",
+    "title",
+    "text"
+  ],
+  "properties": {
+    "kind": {
+      "const": "Claim"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "statementId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "targetClauseIds": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "relation": {
+      "enum": [
+        "supports",
+        "narrows",
+        "refutes",
+        "resolves",
+        "reformulates",
+        "rules-out",
+        "status-review"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "supersedesClaimId": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "A corrected claim supersedes the earlier one instead of editing it."
+    },
+    "provenance": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "provenance.schema.json"
+        }
+      ]
+    }
+  }
+}

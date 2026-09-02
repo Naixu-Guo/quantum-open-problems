@@ -187,11 +187,12 @@
 
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
-          <span class="status-badge ">Open</span>
+          <span class="status-badge">Open</span>
           <span class="area-badge">Quantum sensing</span>
           <span class="meta-badge">Quantum metrology</span>
           <span class="meta-badge">Proposed 2023</span>
           <span class="meta-badge">Verified 31 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Asymptotic metrology with quantum-controlled causal order</h1>
         <p class="dialog-summary">Quantum-controlled causal order improves quantum Fisher information for some noisy channels at three uses. Its advantage at large numbers of channel uses remains unknown.</p>
@@ -199,11 +200,14 @@
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#remaining">What remains</a>
-          <a href="#progress-heading">Progress</a>
+          <a href="#target-heading">What remains</a>
+          <a href="#progress-heading">Verified progress</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
           <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <div class="problem-framing">
           <section class="framing-row" aria-labelledby="importance-heading">
             <h2 id="importance-heading">Why it matters</h2>
@@ -230,7 +234,7 @@
               <span class="dialog-section-label">Verified formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">Matched to the source and locator above</span>
+            <span class="formal-source">Matched to the source and locator above · digest a0e8ee5cff5f</span>
           </div>
 
           <div class="formal-body"><p>For a smooth finite-dimensional channel family \(\Lambda_\theta\), let \(\mathcal F_{\mathrm{PAR}}^{(N)}(\theta)\) and \(\mathcal F_{\mathrm{QCQC}}^{(N)}(\theta)\) denote the optimal quantum Fisher information from \(N\) uses under parallel and QC-QC strategies. Work at a regular parameter value where the denominator is positive for large \(N\).</p><p>Decide whether every such channel family satisfies</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\limsup_{N\to\infty}
@@ -239,10 +243,29 @@
 =1.\]</div><p>An affirmative solution must extend the known asymptotic channel-estimation bounds to QC-QC strategies. A negative solution must construct a channel family and QC-QC protocols with a persistent constant-factor advantage or a larger scaling exponent.</p><p>A mathematical extension replaces QC-QC by the full set of valid process matrices. That set supplies an outer bound but includes processes without a known physical realization under the usual closed-laboratory assumptions.</p></div>
         </section>
 
-        <div class="remaining-question " id="remaining">
-          <span>What remains</span>
-          <p>Prove that QC-QC strategies become asymptotically equivalent to parallel strategies for every smooth finite-dimensional channel family, or give a noisy family with a persistent advantage.</p>
-        </div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Exact unresolved target</h2>
+
+          <div class="remaining-question" id="remaining">
+            <span>What remains</span>
+            <p>Prove that QC-QC strategies become asymptotically equivalent to parallel strategies for every smooth finite-dimensional channel family, or give a noisy family with a persistent advantage.</p>
+          </div>
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-narrowed" id="clause-archived-statement">
+              <div class="clause-head">
+                <span class="clause-state narrowed">Narrowed</span>
+                <strong>Archived statement</strong>
+                <code>archived-statement</code>
+              </div>
+              <p>The formal statement of this version, as archived from the source.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> Prove that QC-QC strategies become asymptotically equivalent to parallel strategies for every smooth finite-dimensional channel family, or give a noisy family with a persistent advantage.</p>
+              <p class="clause-claims">3 accepted claims: <a href="#claim-mothe-2023-indefinite-causal-order-asymptotic-metrology-2026-a-spacetime-theorem-identifies">claim-mothe-2023-indefinite-causal-order-asymptotic-metrology-2026-a-spacetime-theorem-identifies</a>, <a href="#claim-mothe-2023-indefinite-causal-order-asymptotic-metrology-2024-qc-qc-has-a">claim-mothe-2023-indefinite-causal-order-asymptotic-metrology-2024-qc-qc-has-a</a>, <a href="#claim-mothe-2023-indefinite-causal-order-asymptotic-metrology-2023-parallel-adaptive-and-causal">claim-mothe-2023-indefinite-causal-order-asymptotic-metrology-2023-parallel-adaptive-and-causal</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Open as of 31 Aug 2026: Status assessed against the archived statement in the 2026-08-31 primary-source audit; the evidence ledger lists the results considered. <code>decision-mothe-2023-indefinite-causal-order-asymptotic-metrology-status-2026-08-31</code></p>
+        </section>
 
 
         <section class="dialog-section">
@@ -253,47 +276,74 @@
         </section>
 
         <section class="dialog-section" aria-labelledby="progress-heading">
-          <span class="dialog-section-label">Evidence ledger</span>
-          <h2 id="progress-heading">Recent progress</h2>
-          <ol class="timeline">
+          <span class="dialog-section-label">Verified progress</span>
+          <h2 id="progress-heading">Accepted claims</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
 
-            <li id="qop-evt-6b12f6bc91c704d7">
-              <time datetime="2026-05-08">08 May 2026</time>
-              <div>
-                <h3>A spacetime theorem identifies QC-QC as the physical target class</h3>
-                <p>Salzger and Vilasini show that protocols satisfying their classical-spacetime and closed-laboratory assumptions are behaviorally equivalent to QC-QC. The theorem narrows the physical scope but gives no asymptotic metrology bound.</p>
-                <div class="dialog-source-meta">
+          <article class="claim-card" id="claim-mothe-2023-indefinite-causal-order-asymptotic-metrology-2026-a-spacetime-theorem-identifies">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Narrows</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>A spacetime theorem identifies QC-QC as the physical target class</h3>
+            <p>Salzger and Vilasini show that protocols satisfying their classical-spacetime and closed-laboratory assumptions are behaviorally equivalent to QC-QC. The theorem narrows the physical scope but gives no asymptotic metrology bound.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-6b12f6bc91c704d7">
+                <time datetime="2026-05-08">08 May 2026</time>
+                <div>
                   <span class="maturity-badge">Preprint</span>
                   <span class="maturity-badge">Physical-scope theorem</span>
                   <a href="https://arxiv.org/abs/2605.08351" rel="noreferrer">Spacetime characterization ↗</a>
+
                 </div>
-              </div>
-            </li>
-            <li id="qop-evt-86168f1593c4a649">
-              <time datetime="2024-06-25">25 Jun 2024</time>
-              <div>
-                <h3>QC-QC has a strict advantage at three channel uses</h3>
-                <p>Mothe, Branciard and Abbott find noisy channel families for which QC-QC outperforms causal superpositions and fixed-order circuits at finite N. Their discussion leaves the large-N behavior open.</p>
-                <div class="dialog-source-meta">
+              </li>
+            </ol>
+
+          </article>
+          <article class="claim-card" id="claim-mothe-2023-indefinite-causal-order-asymptotic-metrology-2024-qc-qc-has-a">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Narrows</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>QC-QC has a strict advantage at three channel uses</h3>
+            <p>Mothe, Branciard and Abbott find noisy channel families for which QC-QC outperforms causal superpositions and fixed-order circuits at finite N. Their discussion leaves the large-N behavior open.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-86168f1593c4a649">
+                <time datetime="2024-06-25">25 Jun 2024</time>
+                <div>
                   <span class="maturity-badge">Peer reviewed</span>
                   <span class="maturity-badge">Finite-use separation</span>
                   <a href="https://doi.org/10.1103/PhysRevA.109.062435" rel="noreferrer">Physical Review A ↗</a>
+
                 </div>
-              </div>
-            </li>
-            <li id="qop-evt-9f9b81d3cc59eb17">
-              <time datetime="2023-08-30">30 Aug 2023</time>
-              <div>
-                <h3>Parallel, adaptive and causal-superposition strategies coincide asymptotically</h3>
-                <p>Kurdziałek and coauthors prove asymptotic equivalence through causal superpositions. Their proof does not cover dynamical quantum control of causal order.</p>
-                <div class="dialog-source-meta">
+              </li>
+            </ol>
+
+          </article>
+          <article class="claim-card" id="claim-mothe-2023-indefinite-causal-order-asymptotic-metrology-2023-parallel-adaptive-and-causal">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Narrows</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>Parallel, adaptive and causal-superposition strategies coincide asymptotically</h3>
+            <p>Kurdziałek and coauthors prove asymptotic equivalence through causal superpositions. Their proof does not cover dynamical quantum control of causal order.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-9f9b81d3cc59eb17">
+                <time datetime="2023-08-30">30 Aug 2023</time>
+                <div>
                   <span class="maturity-badge">Peer reviewed</span>
                   <span class="maturity-badge">Exact lower-class theorem</span>
                   <a href="https://doi.org/10.1103/PhysRevLett.131.090801" rel="noreferrer">Physical Review Letters ↗</a>
+
                 </div>
-              </div>
-            </li>
-          </ol>
+              </li>
+            </ol>
+
+          </article>
+
         </section>
 
 
@@ -307,6 +357,28 @@
               <strong>Finite versus asymptotic</strong>
               <p>The strict three-use separation proves a finite-resource advantage only. It does not determine the scaling exponent or leading asymptotic coefficient. </p>
             </div>
+          </div>
+        </section>
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="mothe-2023-indefinite-causal-order-asymptotic-metrology">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Asymptotic+metrology+with+quantum-controlled+causal+order" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="mothe-2023-indefinite-causal-order-asymptotic-metrology">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
           </div>
         </section>
 
@@ -327,8 +399,10 @@
           <ul class="machine-links">
             <li><a href="../../packets/mothe-2023-indefinite-causal-order-asymptotic-metrology.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
             <li><a href="../../api/v1/problems/mothe-2023-indefinite-causal-order-asymptotic-metrology.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Asymptotic+metrology+with+quantum-controlled+causal+order" rel="noreferrer">Submit a research update ↗</a> — the evidence contract applies to human and AI results.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/mothe-2023-indefinite-causal-order-asymptotic-metrology/problem.md" rel="noreferrer">Source article ↗</a> — the canonical statement and notes in the repository.</li>
+            <li><a href="../../api/v1/problems/mothe-2023-indefinite-causal-order-asymptotic-metrology/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/mothe-2023-indefinite-causal-order-asymptotic-metrology/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Asymptotic+metrology+with+quantum-controlled+causal+order" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/mothe-2023-indefinite-causal-order-asymptotic-metrology/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -347,7 +421,8 @@
           <p>Record <code>mothe-2023-indefinite-causal-order-asymptotic-metrology</code></p>
           <p>Record revision <code>aea78889e43c659d042db391de7bd4e894429d328a08e494c738c552deeb6ba2</code></p>
           <p>Statement digest <code>a0e8ee5cff5fd71bc038762cac0840a2955516d5e39bafa653504b867e7e4310</code></p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Statement <code>mothe-2023-indefinite-causal-order-asymptotic-metrology-statement-v1</code> · Decision <code>decision-mothe-2023-indefinite-causal-order-asymptotic-metrology-status-2026-08-31</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -378,5 +453,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="mothe-2023-indefinite-causal-order-asymptotic-metrology" defer></script>
   </body>
 </html>

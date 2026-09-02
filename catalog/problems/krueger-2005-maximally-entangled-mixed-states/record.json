@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-maximally-entangled-mixed-states",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "archived",
+    "title": "Maximally entangled mixed states",
+    "proposed": "2001-11-08",
+    "topicId": "entanglement-theory",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Existence or impossibility",
+      "summary": "The source asked whether the Verstraete-Audenaert-De Moor maximally entangled mixed states maximise every entanglement monotone at a fixed two-qubit spectrum. De Vicente proved that for some rank-two spectra no universal maximiser exists.",
+      "importance": "Verstraete, Audenaert and De Moor found the same maximisers for entanglement of formation, relative entropy of entanglement and negativity, and a measure-independent notion of the most entangled state at a given spectrum would have been a robust structural fact about mixed two-qubit entanglement.",
+      "unresolved": ""
+    },
+    "keywords": [
+      "maximally entangled mixed states",
+      "fixed spectrum",
+      "entanglement monotones",
+      "two qubits",
+      "non-entangling operations"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-maximally-entangled-mixed-states-statement-v1",
+      "problemId": "krueger-2005-maximally-entangled-mixed-states",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "p. 25 (Problem 5)",
+          "primary": true
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "universal-mems-for-fixed-spectrum",
+          "label": "Universal maximally entangled mixed states",
+          "text": "The archived statement asks whether, for every entanglement monotone and every fixed two-qubit spectrum, the maximising states form the same VAM family of maximally entangled mixed states.",
+          "resolutionCriteria": "A proof that the VAM family maximises every entanglement monotone, or an entanglement monotone and a spectrum whose maximiser differs."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-maximally-entangled-mixed-states-maximally-entangled-mixed-states",
+      "statementId": "krueger-2005-maximally-entangled-mixed-states-statement-v1",
+      "targetClauseIds": [
+        "universal-mems-for-fixed-spectrum"
+      ],
+      "relation": "refutes",
+      "title": "Maximally entangled mixed states for a fixed spectrum need not exist",
+      "text": "De Vicente proves that for particular rank-two two-qubit spectra no isospectral state can be converted into every other isospectral state even under non-entangling operations, a class larger than LOCC. Consequently no single state can maximise every entanglement monotone at those spectra, which answers the archived universal question in the negative."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-maximally-entangled-mixed-states-physical-review-letters",
+      "claimId": "claim-krueger-2005-maximally-entangled-mixed-states-maximally-entangled-mixed-states",
+      "sourceId": "source-de-vicente-2024-mems-nonexistence",
+      "sourceLocator": "Nonexistence theorem for rank-two two-qubit spectra",
+      "date": "2024",
+      "maturity": "Peer reviewed",
+      "strength": "Exact counterexample",
+      "label": "Physical Review Letters"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-maximally-entangled-mixed-states-status-2026-08-12",
+      "problemId": "krueger-2005-maximally-entangled-mixed-states",
+      "statementId": "krueger-2005-maximally-entangled-mixed-states-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "solved",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-maximally-entangled-mixed-states-physical-review-letters"
+      ],
+      "rationale": "The cited peer-reviewed theorem shows that a universal maximiser fails to exist at some two-qubit spectra, which answers the quantified question in the archived statement in the negative."
+    }
+  ],
+  "editorial": {
+    "cautions": [
+      {
+        "label": "Scope",
+        "text": "Camacho and de Vicente (Phys. Rev. A 113, 022416 (2026); arXiv:2511.08285) extend the nonexistence theorem to every rank-two and rank-three two-qubit spectrum and to a large class of full-rank spectra.",
+        "url": null
+      },
+      {
+        "label": "Scope",
+        "text": "The higher-dimensional variant and the weaker-constraint variants (fixed largest eigenvalue or fixed von Neumann entropy) posed alongside the archived question remain separate open classification problems.",
+        "url": null
+      }
+    ],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

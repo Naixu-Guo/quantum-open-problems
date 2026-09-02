@@ -1,0 +1,49 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "ruskai-2007-polarized-channel-multiplicativity-statement-v1",
+  "problemId": "ruskai-2007-polarized-channel-multiplicativity",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-ruskai-2007",
+      "relationship": "states-problem",
+      "locator": "p. 8 (Problem 7)",
+      "primary": true,
+      "statedTitle": "Multiplicativity for polarization of arbitrary near-maximally-mixed channels",
+      "source": {
+        "id": "source-ruskai-2007",
+        "title": "Open problems in quantum information theory",
+        "authors": [
+          "Mary Beth Ruskai"
+        ],
+        "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+        "url": "https://doi.org/10.48550/arXiv.0708.1902"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Determine ranges of polarization, deviation and p that guarantee or violate multiplicativity for this structured near-mixed family."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | algebra of $d \\times d$ complex matrices |\n| $\\rho$ | a density matrix on $\\mathbb{C}^d$ |\n| $I$ | identity matrix on $\\mathbb{C}^d$ |\n| $\\Phi$ | a generic CPT (quantum channel) on $M_d$ |\n| $\\mathcal{I}$ | the identity channel ($\\mathcal{I}(\\rho) = \\rho$) |\n| $\\mathcal{M}_\\epsilon$ | a CPT map whose output is close to maximally mixed, $\\lVert \\mathcal{M}_\\epsilon(\\rho) - \\tfrac{1}{d}I \\rVert < \\epsilon$ for all $\\rho$ |\n| $\\epsilon$ | small positivity parameter controlling how close $\\mathcal{M}_\\epsilon$ is to the completely-noisy map |\n| $x$ | mixing weight in $[0,1]$ for the polarization |\n| $\\Phi_{x,\\epsilon}$ | the polarized channel $\\Phi_{x,\\epsilon} = x\\mathcal{I} + (1-x)\\mathcal{M}_\\epsilon$ |\n| $\\lVert\\cdot\\rVert_p$ | Schatten $p$-norm, $\\lVert A\\rVert_p = (\\mathrm{Tr}\\lvert A\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | maximal output $p$-norm, $\\nu_p(\\Phi) = \\sup_\\rho \\lVert\\Phi(\\rho)\\rVert_p$ |\n| $p$ | Schatten exponent (the range of interest is $1\\le p\\le 2$) |\n| $\\lVert \\cdot \\rVert$ | (in the definition of $\\mathcal{M}_\\epsilon$) operator/trace norm on $M_d$ |",
+    "statement": "**Problem 7 (Ruskai, 2007).** *Let $\\mathcal{M}_\\epsilon : M_d \\to M_d$ be a CPT map satisfying $\\lVert\\mathcal{M}_\\epsilon(\\rho) - \\tfrac{1}{d}I\\rVert < \\epsilon$ for every density matrix $\\rho$, and let*\n$$\\Phi_{x,\\epsilon} \\;=\\; x\\,\\mathcal{I} + (1-x)\\,\\mathcal{M}_\\epsilon, \\qquad x\\in[0,1].$$\n*Does $\\Phi_{x,\\epsilon}$ satisfy multiplicativity,*\n$$\\nu_p(\\Phi_{x,\\epsilon} \\otimes \\Phi_{x,\\epsilon}) \\;=\\; [\\nu_p(\\Phi_{x,\\epsilon})]^2 \\quad \\text{for } 1\\le p \\le 2,$$\n*for sufficiently small $\\epsilon$? If not, for what values of $x$ and/or $p$ does multiplicativity hold, and how do these depend on $\\epsilon$?*"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "6fffa1a864c29f79b4cdf6612d0ef75fdfe3ffc5a29cd6b29a82244702dfa903",
+    "bodyDigest": "984fa3f0944e8fa37a4066d9ccb2d5287370f39b87d68fb43c8fbfc4fc23146e"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-polarized-channel-multiplicativity.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-polarized-channel-multiplicativity/frontier.json"
+  }
+}

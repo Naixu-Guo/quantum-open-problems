@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-secret-key-entangled-states",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Secret key from every entangled state",
+    "proposed": "2005-03-15",
+    "topicId": "entanglement-theory",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Universal dichotomy",
+      "summary": "Many entangled states, including PPT examples, have positive distillable key. No proof covers every entangled state, and no entangled state is known with proved zero distillable key.",
+      "importance": "The answer decides whether entanglement and cryptographic usefulness have the same zero boundary. A zero-key entangled state would separate the two resources.",
+      "unresolved": "Prove that every entangled bipartite state has positive distillable key, or exhibit an entangled state with zero distillable key."
+    },
+    "keywords": [
+      "distillable key",
+      "private states",
+      "bound entanglement",
+      "quantum cryptography"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-secret-key-entangled-states-statement-v1",
+      "problemId": "krueger-2005-secret-key-entangled-states",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "p. 64 (Problem 24)",
+          "primary": true,
+          "statedTitle": "Secret key from all entangled states"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Prove that every entangled bipartite state has positive distillable key, or exhibit an entangled state with zero distillable key."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-secret-key-entangled-states-2026-current-key-cost-theory",
+      "statementId": "krueger-2005-secret-key-entangled-states-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "status-review",
+      "title": "Current key-cost theory still treats zero-key entanglement as unresolved",
+      "text": "The peer-reviewed analysis states its conclusions conditionally on whether entangled states with zero distillable key exist."
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-secret-key-entangled-states-2003-some-ppt-bound-entangled",
+      "statementId": "krueger-2005-secret-key-entangled-states-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "Some PPT bound-entangled states contain secret key",
+      "text": "Horodecki and collaborators construct bound-entangled states with positive distillable key, a major positive subclass that does not settle the universal quantifier."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-secret-key-entangled-states-2026-current-key-cost-theory",
+      "claimId": "claim-krueger-2005-secret-key-entangled-states-2026-current-key-cost-theory",
+      "sourceId": "source-web-quantum-journal-org-papers-q-2026",
+      "sourceLocator": null,
+      "date": "2026-05-06",
+      "maturity": "Peer reviewed",
+      "strength": "Current status evidence",
+      "label": "Quantum 2026"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-secret-key-entangled-states-2003-some-ppt-bound-entangled",
+      "claimId": "claim-krueger-2005-secret-key-entangled-states-2003-some-ppt-bound-entangled",
+      "sourceId": "source-horodecki-2005-secure-key-from",
+      "sourceLocator": null,
+      "date": "2003-09-12",
+      "maturity": "Peer reviewed",
+      "strength": "Exact positive subclass",
+      "label": "Bound-entangled key"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-secret-key-entangled-states-status-2026-08-12",
+      "problemId": "krueger-2005-secret-key-entangled-states",
+      "statementId": "krueger-2005-secret-key-entangled-states-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-secret-key-entangled-states-2026-current-key-cost-theory",
+        "evidence-krueger-2005-secret-key-entangled-states-2003-some-ppt-bound-entangled"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

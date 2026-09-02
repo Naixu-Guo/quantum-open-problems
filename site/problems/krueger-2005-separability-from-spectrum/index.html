@@ -186,6 +186,7 @@
           <span class="meta-badge">Entanglement theory</span>
           <span class="meta-badge">Proposed 2003-01-31</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Separability from spectrum</h1>
         <p class="dialog-summary">Absolute separability is characterized for every 2-by-n system. A complete spectral criterion is unknown when both local dimensions are at least three.</p>
@@ -193,11 +194,14 @@
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#remaining">What remains</a>
-          <a href="#progress-heading">Progress</a>
+          <a href="#target-heading">What remains</a>
+          <a href="#progress-heading">Verified progress</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
           <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <div class="problem-framing">
           <section class="framing-row" aria-labelledby="importance-heading">
             <h2 id="importance-heading">Why it matters</h2>
@@ -224,7 +228,7 @@
               <span class="dialog-section-label">Verified formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">Matched to the source and locator above</span>
+            <span class="formal-source">Matched to the source and locator above · digest c373f12f68a4</span>
           </div>
 
           <details class="formal-notation">
@@ -240,43 +244,80 @@
           <div class="formal-body"><p>Fix integers \(N, M \geq 2\) and let \(\mathcal{H}\) have dimension \(NM\). For a mixed state \(\rho\) on \(\mathcal{H}\), consider the question: does there exist a factorisation \(\mathcal{H} \cong \mathbb{C}^N \otimes \mathbb{C}^M\) with respect to which \(\rho\) is not separable? Equivalently, does there exist a unitary \(U\) on \(\mathcal{H}\) such that \(U \rho U^*\) is entangled across a fixed \(N \otimes M\) bipartition?</p><p>Because this question depends only on \(\mathrm{spec}(\rho)\), define</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\mathcal{S}_{N,M} \;=\; \bigl\{\, \mathrm{spec}(\rho) \,:\, \text{for every unitary } U \text{ on } \mathcal{H},\; U \rho U^* \in \mathrm{sep}_{N,M} \,\bigr\}.\]</div><p><strong>Problem.</strong> Characterise the set \(\mathcal{S}_{N,M}\) — i.e. the spectra for which the answer to the question above is &quot;no&quot; (no entangling factorisation exists), so that separability with respect to the fixed \(N \otimes M\) bipartition is forced by the spectrum alone.</p></div>
         </section>
 
-        <div class="remaining-question partial" id="remaining">
-          <span>What remains</span>
-          <p>Characterize spectra that remain separable under every global unitary in all higher local dimensions.</p>
-        </div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Exact unresolved target</h2>
+
+          <div class="remaining-question partial" id="remaining">
+            <span>What remains</span>
+            <p>Characterize spectra that remain separable under every global unitary in all higher local dimensions.</p>
+          </div>
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-narrowed" id="clause-archived-statement">
+              <div class="clause-head">
+                <span class="clause-state narrowed">Narrowed</span>
+                <strong>Archived statement</strong>
+                <code>archived-statement</code>
+              </div>
+              <p>The formal statement of this version, as archived from the source.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> Characterize spectra that remain separable under every global unitary in all higher local dimensions.</p>
+              <p class="clause-claims">2 accepted claims: <a href="#claim-krueger-2005-separability-from-spectrum-2024-a-4-by-n">claim-krueger-2005-separability-from-spectrum-2024-a-4-by-n</a>, <a href="#claim-krueger-2005-separability-from-spectrum-2013-every-qubit-qudit-spectrum">claim-krueger-2005-separability-from-spectrum-2013-every-qubit-qudit-spectrum</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Partially solved as of 12 Aug 2026: Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered. <code>decision-krueger-2005-separability-from-spectrum-status-2026-08-12</code></p>
+        </section>
 
 
 
         <section class="dialog-section" aria-labelledby="progress-heading">
-          <span class="dialog-section-label">Evidence ledger</span>
-          <h2 id="progress-heading">Recent progress</h2>
-          <ol class="timeline">
+          <span class="dialog-section-label">Verified progress</span>
+          <h2 id="progress-heading">Accepted claims</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
 
-            <li id="qop-evt-d6fa38e9746f1b20">
-              <time datetime="2024-08-21">21 Aug 2024</time>
-              <div>
-                <h3>A 4-by-n claim proves APPT, not absolute separability</h3>
-                <p>The theorem establishes an absolute-PPT criterion but does not prove that APPT equals absolute separability in this dimension.</p>
-                <div class="dialog-source-meta">
+          <article class="claim-card" id="claim-krueger-2005-separability-from-spectrum-2024-a-4-by-n">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Status review</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>A 4-by-n claim proves APPT, not absolute separability</h3>
+            <p>The theorem establishes an absolute-PPT criterion but does not prove that APPT equals absolute separability in this dimension.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-d6fa38e9746f1b20">
+                <time datetime="2024-08-21">21 Aug 2024</time>
+                <div>
                   <span class="maturity-badge">Preprint</span>
                   <span class="maturity-badge">Unaccepted scope claim</span>
                   <a href="https://arxiv.org/abs/2408.11684" rel="noreferrer">Claim audit ↗</a>
+
                 </div>
-              </div>
-            </li>
-            <li id="qop-evt-50a7527f650a2f6c">
-              <time datetime="2013-09-08">08 Sept 2013</time>
-              <div>
-                <h3>Every qubit-qudit spectrum is characterized</h3>
-                <p>Johnston proves that APPT and absolute separability coincide for 2-by-n systems and gives the complete criterion there.</p>
-                <div class="dialog-source-meta">
+              </li>
+            </ol>
+
+          </article>
+          <article class="claim-card" id="claim-krueger-2005-separability-from-spectrum-2013-every-qubit-qudit-spectrum">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Narrows</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>Every qubit-qudit spectrum is characterized</h3>
+            <p>Johnston proves that APPT and absolute separability coincide for 2-by-n systems and gives the complete criterion there.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-50a7527f650a2f6c">
+                <time datetime="2013-09-08">08 Sept 2013</time>
+                <div>
                   <span class="maturity-badge">Peer reviewed</span>
                   <span class="maturity-badge">Exact major subclass</span>
                   <a href="https://arxiv.org/abs/1309.2006" rel="noreferrer">Qubit-qudit theorem ↗</a>
+
                 </div>
-              </div>
-            </li>
-          </ol>
+              </li>
+            </ol>
+
+          </article>
+
         </section>
 
 
@@ -296,6 +337,28 @@
 
 
 
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="krueger-2005-separability-from-spectrum">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Separability+from+spectrum" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="krueger-2005-separability-from-spectrum">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
+        </section>
+
+
+
+
 
         <section class="dialog-section" aria-labelledby="machine-heading">
           <span class="dialog-section-label">Work on this problem</span>
@@ -303,8 +366,10 @@
           <ul class="machine-links">
             <li><a href="../../packets/krueger-2005-separability-from-spectrum.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
             <li><a href="../../api/v1/problems/krueger-2005-separability-from-spectrum.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Separability+from+spectrum" rel="noreferrer">Submit a research update ↗</a> — the evidence contract applies to human and AI results.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/krueger-2005-separability-from-spectrum/problem.md" rel="noreferrer">Source article ↗</a> — the canonical statement and notes in the repository.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-separability-from-spectrum/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-separability-from-spectrum/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Separability+from+spectrum" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/krueger-2005-separability-from-spectrum/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -323,7 +388,8 @@
           <p>Record <code>krueger-2005-separability-from-spectrum</code></p>
           <p>Record revision <code>95a42598410681e7dc9a2c7b6dcf204de88a0f07815d96ad0c234cfbe5f833cb</code></p>
           <p>Statement digest <code>c373f12f68a4584e6e71ed51b73738589848e1043304edd0d9a43dae4b309374</code></p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Statement <code>krueger-2005-separability-from-spectrum-statement-v1</code> · Decision <code>decision-krueger-2005-separability-from-spectrum-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -354,5 +420,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="krueger-2005-separability-from-spectrum" defer></script>
   </body>
 </html>

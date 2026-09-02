@@ -1,0 +1,94 @@
+{
+  "kind": "qop-claims",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-bell-inequalities-all-quantum-states",
+  "status": "solved",
+  "statementId": "krueger-2005-bell-inequalities-all-quantum-states-statement-v1",
+  "count": 1,
+  "note": "Every claim here has been accepted through editorial review. Unreviewed submissions are candidate updates in the operational service, never claims.",
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-bell-inequalities-all-quantum-states-both-universal-bell-questions",
+      "statementId": "krueger-2005-bell-inequalities-all-quantum-states-statement-v1",
+      "targetClauseIds": [
+        "quantum-boundary-and-proper-bell-inequalities"
+      ],
+      "relation": "refutes",
+      "title": "Both universal Bell questions have explicit counterexamples",
+      "text": "Slofstra's CHSH(n) XOR games have binary outcomes, so K = 2, yet every optimal strategy needs local dimension at least 2 to the power of floor(n/2); the associated optimal behavior lies on the quantum boundary away from the positivity boundary of the no-signalling polytope and cannot be realised in dimension K, refuting 26.A. Almeida, Bancal, Brunner, Acin, Gisin and Pironio's Guess Your Neighbor's Input inequalities have equal classical and quantum optima while no-signalling correlations do better, and Augusiak et al. proved explicit instances are tight facets, refuting 26.B.",
+      "superseded": false,
+      "evidence": [
+        {
+          "kind": "Evidence",
+          "id": "evidence-krueger-2005-bell-inequalities-all-quantum-states-journal-of-mathematical",
+          "claimId": "claim-krueger-2005-bell-inequalities-all-quantum-states-both-universal-bell-questions",
+          "sourceId": "source-slofstra-2011-xor-games",
+          "sourceLocator": "Dimension lower bound for CHSH(n) XOR games",
+          "date": "2011",
+          "maturity": "Peer reviewed",
+          "strength": "Exact counterexample",
+          "label": "Journal of Mathematical Physics",
+          "source": {
+            "id": "source-slofstra-2011-xor-games",
+            "title": "Lower bounds on the entanglement needed to play XOR non-local games",
+            "authors": [
+              "W. Slofstra"
+            ],
+            "venue": "J. Math. Phys. 52, 102202 (2011); arXiv:1007.2248",
+            "url": "https://arxiv.org/abs/1007.2248"
+          }
+        },
+        {
+          "kind": "Evidence",
+          "id": "evidence-krueger-2005-bell-inequalities-all-quantum-states-physical-review-letters",
+          "claimId": "claim-krueger-2005-bell-inequalities-all-quantum-states-both-universal-bell-questions",
+          "sourceId": "source-almeida-2010-guess-your-neighbors-input",
+          "sourceLocator": "Construction of inequalities with equal classical and quantum optima",
+          "date": "2010",
+          "maturity": "Peer reviewed",
+          "strength": "Exact counterexample",
+          "label": "Physical Review Letters",
+          "source": {
+            "id": "source-almeida-2010-guess-your-neighbors-input",
+            "title": "Guess Your Neighbor's Input: A multipartite nonlocal game with no quantum advantage",
+            "authors": [
+              "M. L. Almeida",
+              "J.-D. Bancal",
+              "N. Brunner",
+              "A. Acin",
+              "N. Gisin",
+              "S. Pironio"
+            ],
+            "venue": "Phys. Rev. Lett. 104, 230404 (2010); arXiv:1003.3844",
+            "url": "https://arxiv.org/abs/1003.3844"
+          }
+        },
+        {
+          "kind": "Evidence",
+          "id": "evidence-krueger-2005-bell-inequalities-all-quantum-states-physical-review-a",
+          "claimId": "claim-krueger-2005-bell-inequalities-all-quantum-states-both-universal-bell-questions",
+          "sourceId": "source-augusiak-2012-tight-bell-no-violation",
+          "sourceLocator": "Proof that explicit GYNI instances are tight facets, including for every odd number of parties",
+          "date": "2012",
+          "maturity": "Peer reviewed",
+          "strength": "Exact theorem",
+          "label": "Physical Review A",
+          "source": {
+            "id": "source-augusiak-2012-tight-bell-no-violation",
+            "title": "Tight Bell inequalities with no quantum violation from qubit unextendible product bases",
+            "authors": [
+              "R. Augusiak et al."
+            ],
+            "venue": "Phys. Rev. A 85, 042113 (2012); arXiv:1112.3238",
+            "url": "https://arxiv.org/abs/1112.3238"
+          }
+        }
+      ]
+    }
+  ],
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-bell-inequalities-all-quantum-states.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-bell-inequalities-all-quantum-states/frontier.json"
+  }
+}

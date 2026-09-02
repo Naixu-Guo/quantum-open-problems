@@ -1,0 +1,49 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "ruskai-2007-local-invariants-n-representability-statement-v1",
+  "problemId": "ruskai-2007-local-invariants-n-representability",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-ruskai-2007",
+      "relationship": "states-problem",
+      "locator": "p. 17 (Problem 24, Section 7)",
+      "primary": true,
+      "statedTitle": "Minimal complete set of local invariants for an antisymmetric (or symmetric) 2-particle density matrix",
+      "source": {
+        "id": "source-ruskai-2007",
+        "title": "Open problems in quantum information theory",
+        "authors": [
+          "Mary Beth Ruskai"
+        ],
+        "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+        "url": "https://doi.org/10.48550/arXiv.0708.1902"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Find a finite-dimensional minimal complete invariant set for mixed symmetric or antisymmetric two-particle states and express N-representability in those invariants."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $N$ | total number of particles |\n| $p$ | number of particles retained in the reduced density matrix; $p<N$ |\n| $\\rho=\\rho_{1,2,\\dots,N}$ | $N$-particle density matrix on the (anti-)symmetric subspace of the single-particle Hilbert space $\\mathcal{H}^{\\otimes N}$ |\n| $\\rho_{1,2,\\dots,p}$ | $p$-particle reduced density matrix, $\\rho_{1,2,\\dots,p}=\\operatorname{Tr}_{p+1,\\dots,N}\\rho$ |\n| $\\rho_1$ | 1-particle reduced density matrix |\n| $\\rho_{12}$ | 2-particle reduced density matrix (the \"2-matrix\") |\n| $U$ | unitary on the single-particle space $\\mathcal{H}$ |\n| $U^{\\otimes p}$ | $p$-fold tensor product unitary $U\\otimes U\\otimes\\cdots\\otimes U$ |\n| local invariant | function of $\\rho_{1,2,\\dots,p}$ invariant under $\\rho_{1,2,\\dots,p}\\mapsto U^{\\otimes p}\\,\\rho_{1,2,\\dots,p}\\,U^{\\otimes p\\,\\dagger}$ |\n| QMA | the quantum analogue of NP (Merlin-Arthur with quantum witness) |",
+    "statement": "**Problem 24 (Ruskai 2007).** Find a *minimal complete set of local invariants* for an antisymmetric (or symmetric) 2-particle density matrix $\\rho_{12}$. That is, exhibit a finite set of polynomial (or otherwise tractable) functionals\n$$I_1(\\rho_{12}),\\, I_2(\\rho_{12}),\\, \\dots,\\, I_K(\\rho_{12})$$\neach invariant under the action $\\rho_{12}\\mapsto (U\\otimes U)\\,\\rho_{12}\\,(U\\otimes U)^\\dagger$ for every unitary $U$ on the single-particle space, with the properties:\n1. (Completeness) $I_j(\\rho_{12})=I_j(\\sigma_{12})$ for all $j$ if and only if $\\sigma_{12}=(U\\otimes U)\\,\\rho_{12}\\,(U\\otimes U)^\\dagger$ for some unitary $U$.\n2. (Minimality) $K$ is the smallest cardinality with property (1).\nThe desired set should be such that the $N$-representability constraints for the antisymmetric (resp. symmetric) 2-matrix can be expressed in terms of these invariants."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "6216d9a5a0c63e0a378bda6ff4533f7de05da02a40f5ae590b188e41eccabf61",
+    "bodyDigest": "568721872533684ec73d271f249c7826a6a999398e538e2bd0b5c42af63b3787"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-local-invariants-n-representability.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-local-invariants-n-representability/frontier.json"
+  }
+}

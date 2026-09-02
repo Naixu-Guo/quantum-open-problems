@@ -1,0 +1,199 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "ruskai-2007-additivity-violation-power-m",
+  "title": "Delayed-onset additivity violation",
+  "catalogState": "published",
+  "status": "open",
+  "statusLabel": "Open",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-ruskai-2007-additivity-violation-power-m-status-2026-08-12",
+    "status": "open",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-ruskai-2007-additivity-violation-power-m-2026-explicit-self-channel-violations",
+      "evidence-ruskai-2007-additivity-violation-power-m-2009-hastings-violations-already-appear"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "ruskai-2007-additivity-violation-power-m-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "bf4bfc97b663cdce6203636f06c6ef6d4ae874955e2ba45773a9ce020de7a641",
+    "sourceRefs": [
+      {
+        "sourceId": "source-ruskai-2007",
+        "relationship": "states-problem",
+        "locator": "p. 16 (Problem 19)",
+        "primary": true,
+        "statedTitle": "Channel that is additive for fewer than m tensor copies but violates additivity at the m-th copy",
+        "source": {
+          "id": "source-ruskai-2007",
+          "title": "Open problems in quantum information theory",
+          "authors": [
+            "Mary Beth Ruskai"
+          ],
+          "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+          "url": "https://doi.org/10.48550/arXiv.0708.1902",
+          "doi": "10.48550/arXiv.0708.1902",
+          "arxivId": "0708.1902"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | algebra of $d\\times d$ complex matrices |\n| $\\Phi$ | completely positive trace-preserving (CPT) map (quantum channel) |\n| $\\Phi^{\\otimes n}$ | $n$-fold tensor product of the channel $\\Phi$ with itself |\n| $n,m$ | positive integers, with $n<m$ in the additive regime |\n| $p$ | Renyi parameter, $p>0$ |\n| $\\gamma$ | input density matrix, $\\gamma\\ge 0$, $\\operatorname{Tr}\\gamma=1$ |\n| $S^p(\\gamma)$ | Rényi $p$-entropy, $\\tfrac{1}{1-p}\\log\\operatorname{Tr}\\gamma^p$ for $p\\ne 1$; $S^1$ is von Neumann entropy |\n| $S^p_{\\min}(\\Phi)$ | minimal output Renyi entropy, $S^p_{\\min}(\\Phi)=\\inf_\\gamma S^p[\\Phi(\\gamma)]$ |\n| eq. (24) | the multiplicativity assertion $\\nu_p(\\Phi\\otimes\\Omega)=\\nu_p(\\Phi)\\nu_p(\\Omega)$ |",
+      "statement": "**Problem 19 (Ruskai 2007), nontrivial intended form.** Find an example of a channel $\\Phi$, an integer $m\\ge 3$, and a value $p>0$ such that\n$$S^p_{\\min}\\!\\bigl(\\Phi^{\\otimes n}\\bigr) \\;=\\; n\\,S^p_{\\min}(\\Phi)\\quad\\text{for every }1\\le n<m,$$\nbut\n$$S^p_{\\min}\\!\\bigl(\\Phi^{\\otimes m}\\bigr) \\;<\\; m\\,S^p_{\\min}(\\Phi).$$\nIn words: find a channel that is additive for every product of fewer than $m$ copies of itself but fails additivity at exactly $m$ copies."
+    }
+  },
+  "question": {
+    "type": "Existence",
+    "summary": "No channel is known to be additive for every tensor power below a chosen m at least three, then first become nonadditive at m copies.",
+    "importance": "A delayed violation would show that testing one or two copies cannot certify an additive channel law. It would expose a new level of regularization in channel-output entropy.",
+    "unresolved": "Construct a genuine delayed-onset example with m at least three, or prove that two-copy additivity forces all-copy additivity in the relevant setting."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Construct a genuine delayed-onset example with m at least three, or prove that two-copy additivity forces all-copy additivity in the relevant setting.",
+      "state": "narrowed",
+      "claimIds": [
+        "claim-ruskai-2007-additivity-violation-power-m-2026-explicit-self-channel-violations",
+        "claim-ruskai-2007-additivity-violation-power-m-2009-hastings-violations-already-appear"
+      ],
+      "latestEvidenceDate": "2026"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Construct a genuine delayed-onset example with m at least three, or prove that two-copy additivity forces all-copy additivity in the relevant setting."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-ruskai-2007-additivity-violation-power-m-2026-explicit-self-channel-violations",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "Explicit self-channel violations expose a quantifier trap",
+      "text": "Derksen and Lovitz give self-channel two-copy violations for every p greater than one. This solves the literal m equals two wording, but not delayed onset at m at least three.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2026",
+      "evidence": [
+        {
+          "id": "evidence-ruskai-2007-additivity-violation-power-m-2026-explicit-self-channel-violations",
+          "date": "2026",
+          "maturity": "Preprint",
+          "strength": "Exact adjacent result",
+          "label": "Self-channel examples",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-derksen-2026-constructive-counterexamples-to",
+            "title": "Constructive counterexamples to the additivity of minimum output Rényi entropy of quantum channels for all $p>1$",
+            "authors": [
+              "H. Derksen",
+              "B. Lovitz"
+            ],
+            "venue": "arXiv:2510.07547v2 (2026 preprint).",
+            "url": "https://arxiv.org/abs/2510.07547",
+            "arxivId": "2510.07547"
+          }
+        }
+      ]
+    },
+    {
+      "id": "claim-ruskai-2007-additivity-violation-power-m-2009-hastings-violations-already-appear",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "Hastings violations already appear at two copies",
+      "text": "The random-channel counterexample to minimum-output-entropy additivity does not remain additive through lower nontrivial tensor powers.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2009",
+      "evidence": [
+        {
+          "id": "evidence-ruskai-2007-additivity-violation-power-m-2009-hastings-violations-already-appear",
+          "date": "2009",
+          "maturity": "Peer reviewed",
+          "strength": "General counterexample",
+          "label": "Hastings theorem",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-hastings-2009-superadditivity",
+            "title": "Superadditivity of communication capacity using entangled inputs",
+            "authors": [
+              "M. B. Hastings"
+            ],
+            "venue": "Nature Physics 5, 255-257 (2009); arXiv:0809.3972",
+            "url": "https://arxiv.org/abs/0809.3972"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [],
+  "interpretation": "The intended problem must require m at least three. Otherwise the one-copy equality is tautological and any self-channel two-copy violation answers it.",
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "ruskai-2007-additivity-violation-power-m-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-ruskai-2007-additivity-violation-power-m-status-2026-08-12",
+        "status": "open",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "40a1f72721b2bd728e7df30264230a8df93659d7ba70ea8746020c05a56dd9ba",
+    "statementDigest": "bf4bfc97b663cdce6203636f06c6ef6d4ae874955e2ba45773a9ce020de7a641",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-additivity-violation-power-m/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-additivity-violation-power-m.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-additivity-violation-power-m/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-additivity-violation-power-m/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-additivity-violation-power-m/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/ruskai-2007-additivity-violation-power-m.md"
+  }
+}

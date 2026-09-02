@@ -1,9 +1,13 @@
 {
-  "schemaVersion": "0.1.0",
+  "schemaVersion": "0.2.0",
   "kind": "qop-canonical-registry",
+  "title": "Quantum Open Problems",
+  "note": "The catalog combines a 53-question quantum-information audit with two sensing questions found through GaugeForge and three TheoremDB entries checked against primary sources.",
+  "baselineAuditDate": "2026-08-12",
   "catalogAsOf": "2026-08-31",
   "siteUrl": "https://naixu-guo.github.io/quantum-open-problems",
   "repositoryUrl": "https://github.com/Naixu-Guo/quantum-open-problems",
+  "serviceUrl": null,
   "taxonomy": {
     "areas": [
       {
@@ -33,47 +37,109 @@
       }
     ],
     "topics": [
-      { "id": "bell-nonlocality", "label": "Bell nonlocality", "areaId": "quantum-information" },
-      { "id": "entanglement-theory", "label": "Entanglement theory", "areaId": "quantum-information" },
-      { "id": "quantum-channels", "label": "Quantum channels", "areaId": "quantum-information" },
-      { "id": "quantum-complexity", "label": "Quantum complexity", "areaId": "quantum-information" },
-      { "id": "quantum-designs", "label": "Quantum designs", "areaId": "quantum-information" },
-      { "id": "quantum-error-correction", "label": "Quantum error correction", "areaId": "quantum-information" },
-      { "id": "quantum-invariants", "label": "Quantum invariants and representability", "areaId": "quantum-information" },
-      { "id": "quantum-metrology", "label": "Quantum metrology", "areaId": "quantum-sensing" },
-      { "id": "local-hamiltonian-complexity", "label": "Local Hamiltonian complexity", "areaId": "quantum-computation" },
-      { "id": "yang-mills-theory", "label": "Quantum Yang–Mills theory", "areaId": "quantum-field-theory" },
-      { "id": "quantum-knot-invariants", "label": "Quantum knot invariants", "areaId": "quantum-topology" }
+      {
+        "id": "bell-nonlocality",
+        "label": "Bell nonlocality",
+        "areaId": "quantum-information"
+      },
+      {
+        "id": "entanglement-theory",
+        "label": "Entanglement theory",
+        "areaId": "quantum-information"
+      },
+      {
+        "id": "quantum-channels",
+        "label": "Quantum channels",
+        "areaId": "quantum-information"
+      },
+      {
+        "id": "quantum-complexity",
+        "label": "Quantum complexity",
+        "areaId": "quantum-information"
+      },
+      {
+        "id": "quantum-designs",
+        "label": "Quantum designs",
+        "areaId": "quantum-information"
+      },
+      {
+        "id": "quantum-error-correction",
+        "label": "Quantum error correction",
+        "areaId": "quantum-information"
+      },
+      {
+        "id": "quantum-invariants",
+        "label": "Quantum invariants and representability",
+        "areaId": "quantum-information"
+      },
+      {
+        "id": "quantum-metrology",
+        "label": "Quantum metrology",
+        "areaId": "quantum-sensing"
+      },
+      {
+        "id": "local-hamiltonian-complexity",
+        "label": "Local Hamiltonian complexity",
+        "areaId": "quantum-computation"
+      },
+      {
+        "id": "yang-mills-theory",
+        "label": "Quantum Yang–Mills theory",
+        "areaId": "quantum-field-theory"
+      },
+      {
+        "id": "quantum-knot-invariants",
+        "label": "Quantum knot invariants",
+        "areaId": "quantum-topology"
+      }
     ]
   },
   "collections": [
     {
       "id": "horodecki-2020",
       "label": "Horodecki",
+      "aliases": [
+        "Horodecki"
+      ],
       "title": "Five open problems in theory of quantum information",
-      "url": null
+      "url": null,
+      "quantumInformationLegacy": true
     },
     {
       "id": "krueger-2005",
       "label": "Krueger–Werner",
+      "aliases": [
+        "Krueger"
+      ],
       "title": "Some open problems in quantum information theory",
-      "url": null
+      "url": null,
+      "quantumInformationLegacy": true
     },
     {
       "id": "ruskai-2007",
       "label": "Ruskai",
+      "aliases": [
+        "Ruskai"
+      ],
       "title": "Open problems in quantum information theory",
-      "url": null
+      "url": null,
+      "quantumInformationLegacy": true
     },
     {
       "id": "gaugeforge-2026",
       "label": "GaugeForge",
+      "aliases": [
+        "Quantum Open Problem Killer"
+      ],
       "title": "Quantum Open Problem Killer: sensing additions",
       "url": "https://github.com/GaugeForge/Quantum_Open_Problem_Killer"
     },
     {
       "id": "theoremdb-2026",
       "label": "TheoremDB",
+      "aliases": [
+        "TheoremDB α"
+      ],
       "title": "TheoremDB quantum entries accepted after primary-source review",
       "url": "https://www.theoremdb.org/"
     },

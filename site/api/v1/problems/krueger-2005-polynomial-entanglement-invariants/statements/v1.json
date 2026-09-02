@@ -1,0 +1,49 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "krueger-2005-polynomial-entanglement-invariants-statement-v1",
+  "problemId": "krueger-2005-polynomial-entanglement-invariants",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-krueger-werner-2005",
+      "relationship": "states-problem",
+      "locator": "pp. 18-22 (Problem 3)",
+      "primary": true,
+      "source": {
+        "id": "source-krueger-werner-2005",
+        "title": "Some open problems in quantum information theory",
+        "authors": [
+          "O. Krüger",
+          "R. F. Werner"
+        ],
+        "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+        "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "completeness-of-polynomial-invariants",
+      "label": "Completeness of polynomial entanglement invariants",
+      "text": "The archived statement asks whether the polynomial entanglement invariants of bipartite and multipartite density operators are complete, that is whether equality of all polynomial invariants on two states implies they are related by local unitaries.",
+      "resolutionCriteria": "A proof that the polynomial invariants separate local-unitary orbits, or two states with identical invariants that are not locally unitarily equivalent."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $\\rho, \\sigma$ | Bipartite (or multipartite) density operators |\n| $U_A, U_B$ | Local unitaries on Alice's and Bob's subsystems |\n| $\\mathrm{tr}$ | Trace |\n| $d_1, d_2, \\ldots, d_n$ | Hilbert-space dimensions of the $n$ parties |\n| $f$ | A real-valued function on the space of density operators (entanglement invariant) |\n| $\\rho^{\\otimes k}$ | $k$-fold tensor power of $\\rho$ |\n| $U_m^{\\otimes k}$ | $k$-fold tensor power of a unitary on the $m$-th subsystem |\n| $X$ | An operator on the $nk$-fold tensor product used to define a polynomial invariant via $\\mathrm{tr}(\\rho^{\\otimes k} X)$ |\n| $D_{\\text{pure}}, D_{\\text{mixed}}$ | Dimensions of the space of entanglement types for pure / mixed states |\n| $\\Delta$ | $d_n - d_1 d_2 \\cdots d_{n-1}$ if positive, else $0$ |\n| $\\mathrm{GL}(n,\\mathbf{C})$ | Complex general linear group |\n| SLOCC | Stochastic LOCC (action of $\\mathrm{GL}(m,\\mathbf{C}) \\times \\mathrm{GL}(n,\\mathbf{C})$ in the bipartite case) |\n| LOCC | Local operations and classical communication |",
+    "statement": "Decide the following:\n\n- (Completeness.) Are the polynomial entanglement invariants of bipartite (and more generally multipartite) density operators complete? That is, if for every polynomial invariant $f$ one has $f(\\rho) = f(\\sigma)$, does there exist a tuple of local unitaries $(U_A, U_B)$ (or, for $n$ parties, $(U_1, \\ldots, U_n)$) such that\n$$\\rho = (U_A \\otimes U_B)\\,\\sigma\\,(U_A \\otimes U_B)^{*}\\,?$$\n\nAdditional related sub-problems are also posed:\n\n- (Finite generating sets.) Given the dimensions of the parties, exhibit a finite set of polynomial invariants that is already complete.\n- (Multipartite extension.) Solve the analogous problems for multipartite states; even the pure-state case is non-trivial in this setting.\n- (Separability via invariants.) Decide whether the set of separable states can be characterised by a polynomial invariant $f$ such that $f(\\rho) \\ge 0$ iff $\\rho$ is separable; or in weaker form, find polynomial sufficient or necessary separability criteria (possibly depending on dimensions)."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "df65a9380330a3eb67f9febe2b578d1a3a7604b6beef1dee0dd1dc7e6959fa00",
+    "bodyDigest": "b01ed8bb7ba39723355a998dce07132601c99515d072e043fb3d7b4e56fee450"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-polynomial-entanglement-invariants.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-polynomial-entanglement-invariants/frontier.json"
+  }
+}

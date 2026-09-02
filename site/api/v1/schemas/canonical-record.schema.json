@@ -1,0 +1,229 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/schema/canonical/v0.2/canonical-record.schema.json",
+  "title": "Quantum Open Problems canonical record bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "kind",
+    "problem",
+    "statements",
+    "claims",
+    "evidence",
+    "decisions",
+    "editorial",
+    "sourceImport"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "0.2.0"
+    },
+    "kind": {
+      "const": "qop-canonical-record"
+    },
+    "problem": {
+      "$ref": "problem.schema.json"
+    },
+    "statements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "statement-version.schema.json"
+      }
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "$ref": "claim.schema.json"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "evidence.schema.json"
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "decision.schema.json"
+      }
+    },
+    "editorial": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cautions",
+        "interpretation",
+        "provenance",
+        "notices",
+        "notesPath"
+      ],
+      "properties": {
+        "cautions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "label",
+              "text",
+              "url"
+            ],
+            "properties": {
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              },
+              "url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uri"
+              }
+            }
+          }
+        },
+        "interpretation": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "provenance": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "label",
+                "note"
+              ],
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "source-stated",
+                    "derived"
+                  ]
+                },
+                "label": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "note": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          ]
+        },
+        "notices": {
+          "type": "array",
+          "description": "Catalog-level claim-watch notices shown on the home page. They are editorial cautions, never evidence.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "tone",
+              "label",
+              "title",
+              "text",
+              "sourceLabel",
+              "featured"
+            ],
+            "properties": {
+              "tone": {
+                "enum": [
+                  "",
+                  "warning",
+                  "withdrawn"
+                ]
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sourceLabel": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "featured": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "notesPath": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-z0-9][a-z0-9._-]*\\.md$",
+          "description": "Editorial narrative (background, progress prose, bibliography). Not a scientific authority; claims and evidence are."
+        }
+      }
+    },
+    "sourceImport": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "format",
+            "sourceJsonPath",
+            "sourceId",
+            "sourceSha256",
+            "statementId"
+          ],
+          "properties": {
+            "format": {
+              "const": "open-problem-v2-json-1.1"
+            },
+            "sourceJsonPath": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sourceId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sourceSha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "statementId": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The statement version that reproduces the imported text verbatim."
+            }
+          }
+        }
+      ]
+    }
+  }
+}

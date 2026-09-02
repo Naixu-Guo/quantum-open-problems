@@ -1,63 +1,50 @@
-# Canonical catalog vertical slice
+# Canonical catalog
 
-`catalog/` is the first implementation of the database-first architecture in
-[`docs/adr/0001-database-first-architecture.md`](../docs/adr/0001-database-first-architecture.md).
-It is deliberately small: four representative records establish the data
-contract before the full catalog is migrated.
+`catalog/` is the only scientific authoring surface of Quantum Open Problems.
+Every website page, API resource, feed, packet, and MCP result is generated
+from it by `node site/build.mjs`. See ADR 0001 and ADR 0002 for the decisions.
 
 ## Contents
 
-- `registry.json`: catalog-wide URLs, taxonomy, and collection registries used
-  by the slice;
-- `MIGRATION.md`: field mapping and acceptance gates for legacy and v2 records;
-- `schema/`: JSON Schema contracts for canonical records and their core
-  objects;
-- `sources/`: globally normalized Source objects shared by problem records;
-- `problems/<id>/record.json`: one canonical object bundle per problem;
-- `problems/<id>/statements/v1.md`: immutable mathematical statement content;
-- `project-v1.mjs`: canonical-to-API-v1 and research-packet projector;
-- `validate.mjs`: structural, referential, source-import, and compatibility
-  checks.
+- `registry.json`: site, repository, and service URLs; catalog cutoff date;
+  taxonomy; collections.
+- `events.jsonl`: append-only ledger of canonical changes with contiguous
+  sequence numbers; the build appends, editors never edit it.
+- `compatibility/published-revisions.json`: digests of every public record;
+  refresh with `npm run revisions -- <id>` when research content changes.
+- `schema/`: JSON Schemas for canonical objects, operational objects, read
+  models, and contribution snapshots.
+- `sources/<source-id>.json`: bibliographic sources normalized once and cited
+  by ID; `bibliographyState: "url-only"` marks entries that still need
+  bibliographic completion.
+- `problems/<problem-id>/record.json`: the Problem, its StatementVersions,
+  Claims, Evidence, Decisions, editorial cautions, notices, and provenance.
+- `problems/<problem-id>/statements/v<n>.md`: immutable `## Notation` and
+  `## Formal statement` sections.
+- `problems/<problem-id>/notes.md`: editorial narrative (background, progress
+  prose, bibliography); informative, not authoritative.
+- `problems/<problem-id>/contributions/<cu-id>.json`: frozen snapshot of a
+  promoted candidate update and its reviews.
 
-Source objects contain reusable bibliographic facts. A statement's
-`sourceRefs` select the primary source and carry the relationship and locator;
-evidence carries its own source locator. This keeps contextual citation data
-out of the global source registry.
+## Rules
 
-The slice covers:
-
-- an open active record;
-- a partially solved active record;
-- a solved archived record;
-- an imported `open_problem_v2` record.
-
-The two active records must project byte-for-byte to their currently published
-API v1 JSON records and Markdown research packets. The solved record must retain
-its archive page. The v2 record must match the title, source ID, status, tags,
-statement text, and source digest in its generated source JSON.
+- A statement body is immutable once published; corrections are new versions.
+- A decision is immutable; corrections supersede it.
+- A claim cites one statement version and at least one of its target clauses,
+  and needs evidence citing a registered source.
+- Status is derived: the current accepted decision. The validator checks that
+  `solved` records have every clause resolved or refuted, `open` records none,
+  and `partial` records at least one clause narrowed, resolved, or refuted.
+- `catalogState`: `candidate` records are not public; `published` records are
+  active; `archived` records are solved and keep their URLs.
+- Editorial notices (the home-page claim watch) and cautions are editorial
+  context, never evidence.
 
 ## Commands
 
-Validate the slice:
-
 ```sh
-node catalog/validate.mjs
+node core/validate.mjs                        # validate the catalog alone
+node site/build.mjs                           # sync ledger, regenerate, validate everything
+node scripts/record-published-revisions.mjs <id>
+node scripts/import-v2.mjs <n> --topic <topic-id> --summary "..." --importance "..."
 ```
-
-Write projected API v1 records and packets to a disposable directory:
-
-```sh
-node catalog/project-v1.mjs --out /tmp/qop-canonical-preview
-```
-
-The repository-wide `node site/build.mjs` command generates and validates the
-existing site, then checks its outputs against the canonical slice.
-
-## Migration rule
-
-Do not add a record here as an independent copy. A record enters the canonical
-slice only together with a compatibility or import check. While an active
-record is represented in both the legacy source and the slice, an edit must
-update both and the validator must prove that their public projections agree.
-The temporary duplication ends when the site generators consume canonical
-records directly.

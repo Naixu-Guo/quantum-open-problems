@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Solved record. Solved (in the negative). A. Klappenecker and M. Roetteler answered the question by exhibiting a nice error basis that is not of shift and multiply type, in the paper On the Monomiality of Nice Error Bases [quant-ph/0301078] (2003). The…">
+    <meta name="description" content="Solved record. The source asked whether every nice error basis is of shift and multiply type. Klappenecker and Roetteler answered negatively by constructing an abstract error group with a non-monomial irreducible representation.">
     <meta name="theme-color" content="#0d1b2a">
     <title>Nice error bases · Quantum Open Problems</title>
     <link rel="canonical" href="https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-nice-error-bases/">
@@ -13,7 +13,7 @@
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Quantum Open Problems">
     <meta property="og:title" content="Nice error bases">
-    <meta property="og:description" content="Solved record. Solved (in the negative). A. Klappenecker and M. Roetteler answered the question by exhibiting a nice error basis that is not of shift and multiply type, in the paper On the Monomiality of Nice Error Bases [quant-ph/0301078] (2003). The…">
+    <meta property="og:description" content="Solved record. The source asked whether every nice error basis is of shift and multiply type. Klappenecker and Roetteler answered negatively by constructing an abstract error group with a non-monomial irreducible representation.">
     <meta property="og:url" content="https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-nice-error-bases/">
     <meta name="twitter:card" content="summary">
     <script>
@@ -22,6 +22,8 @@
         if (theme === "dark") document.documentElement.dataset.theme = "dark";
       } catch {}
     </script>
+    <link rel="alternate" href="../../api/v1/problems/krueger-2005-nice-error-bases.json" type="application/json" title="Problem record (JSON)">
+    <link rel="alternate" href="../../packets/krueger-2005-nice-error-bases.md" type="text/markdown" title="AI research brief (Markdown)">
     <script>window.MathJax = { svg: { fontCache: "global" } };</script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-svg.js" integrity="sha384-my9P1jDckpHD+5LZsLQ0gaiCl/RMO32HaqwBtbo/25QIMVr6xXIUCg1jvdSRcvb4" crossorigin="anonymous" defer></script>
     <script type="application/ld+json">{
@@ -83,18 +85,26 @@
         "value": "krueger-2005-nice-error-bases"
       },
       "name": "Nice error bases",
-      "abstract": "Solved record. Solved (in the negative). A. Klappenecker and M. Roetteler answered the question by exhibiting a nice error basis that is not of shift and multiply type, in the paper On the Monomiality of Nice Error Bases [quant-ph/0301078] (2003). The…",
+      "abstract": "Solved record. The source asked whether every nice error basis is of shift and multiply type. Klappenecker and Roetteler answered negatively by constructing an abstract error group with a non-monomial irreducible representation.",
       "text": "Decide the following question: *is every nice error basis of shift and multiply type?* Equivalently, given an orthogonal basis $\\{U_1, \\ldots, U_{d^2}\\}$ of unitaries on $\\mathbf{C}^d$ such that $\\mathrm{tr}(U_i^{*} U_j) = d\\,\\delta_{ij}$ and $U_i U_j = \\omega_{ij} U_k$ for some phases $\\omega_{ij}$, does there exist a unitary change of basis of $\\mathbf{C}^d$ after which every $U_i$ is a product of a permutation matrix and a diagonal unitary?",
       "inLanguage": "en",
       "qop:problemStatus": "solved",
       "qop:verified": "2026-08-12",
-      "keywords": [],
+      "keywords": [
+        "nice error bases",
+        "shift and multiply",
+        "monomial matrices",
+        "abstract error groups",
+        "groups of central type"
+      ],
       "about": [
-        "Krueger–Werner"
+        "Quantum error correction",
+        "Quantum information"
       ],
       "mainEntityOfPage": {
         "@id": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-nice-error-bases/#page"
       },
+      "qop:recordDigest": "sha256:f62845aee543ef0141f8c224427c65d11b2fb0105e07cbdc28d5f5e24843719d",
       "isBasedOn": {
         "@type": "ScholarlyArticle",
         "name": "Some open problems in quantum information theory",
@@ -121,7 +131,19 @@
           }
         ],
         "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
-      }
+      },
+      "encoding": [
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-nice-error-bases.json"
+        },
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "text/markdown",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-nice-error-bases.md"
+        }
+      ]
     }
   ]
 }</script>
@@ -161,30 +183,40 @@
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
           <span class="status-badge solved">Solved</span>
-          <span class="area-badge">Krueger–Werner</span>
+          <span class="area-badge">Quantum information</span>
+          <span class="meta-badge">Quantum error correction</span>
           <span class="meta-badge">Proposed 2001-11-08</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Nice error bases</h1>
+        <p class="dialog-summary">The source asked whether every nice error basis is of shift and multiply type. Klappenecker and Roetteler answered negatively by constructing an abstract error group with a non-monomial irreducible representation.</p>
 
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#resolution-heading">Resolution</a>
-          <a href="#bibliography-heading">Bibliography</a>
+          <a href="#target-heading">Target</a>
+          <a href="#progress-heading">Resolution</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
+          <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <section class="dialog-section">
           <div class="interpretation-note">
             <span class="note-icon" aria-hidden="true">i</span>
             <div>
               <strong>Archived record</strong>
-              <p>The audit records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
+              <p>The accepted status decision records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
             </div>
           </div>
         </section>
-
         <div class="problem-framing">
+          <section class="framing-row" aria-labelledby="importance-heading">
+            <h2 id="importance-heading">Why it matters</h2>
+            <p>Orthogonal bases of unitaries are exactly what is needed to build teleportation and dense-coding schemes and underlie stabilizer code theory, and the question asked whether the algebraic notion of a nice error basis coincides with the combinatorial shift-and-multiply notion built from Latin squares and complex Hadamard matrices.</p>
+          </section>
           <section class="framing-row" aria-labelledby="source-heading">
             <h2 id="source-heading">Problem source</h2>
             <div class="problem-source-record">
@@ -192,6 +224,7 @@
               <p>O. Krüger, R. F. Werner</p>
               <p>arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/</p>
               <div class="problem-source-scope">
+                <span>The source states the cataloged problem.</span>
                 <span>Statement locator: pp. 26-27 (Problem 6)</span>
               </div>
               <a href="https://doi.org/10.48550/arXiv.quant-ph/0504166" rel="noreferrer">Read problem source ↗</a>
@@ -205,7 +238,7 @@
               <span class="dialog-section-label">Archived formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">As archived before resolution</span>
+            <span class="formal-source">As archived before resolution · digest 2d5d2166d0c6</span>
           </div>
 
           <details class="formal-notation">
@@ -221,10 +254,95 @@
           <div class="formal-body"><p>Decide the following question: <em>is every nice error basis of shift and multiply type?</em> Equivalently, given an orthogonal basis \(\{U_1, \ldots, U_{d^2}\}\) of unitaries on \(\mathbf{C}^d\) such that \(\mathrm{tr}(U_i^{*} U_j) = d\,\delta_{ij}\) and \(U_i U_j = \omega_{ij} U_k\) for some phases \(\omega_{ij}\), does there exist a unitary change of basis of \(\mathbf{C}^d\) after which every \(U_i\) is a product of a permutation matrix and a diagonal unitary?</p></div>
         </section>
 
-        <section class="dialog-section" aria-labelledby="resolution-heading">
-          <span class="dialog-section-label">Resolution</span>
-          <h2 id="resolution-heading">Status and known progress</h2>
-          <div class="archive-progress"><p><strong>Solved (in the negative).</strong> A. Klappenecker and M. Roetteler answered the question by exhibiting a nice error basis that is <em>not</em> of shift and multiply type, in the paper <em>On the Monomiality of Nice Error Bases</em> [quant-ph/0301078] (2003). The source records the &quot;last progress&quot; date as 28 May 2003 and lists A. Klappenecker and M. Roetteler as the solvers.</p><p>The construction is character-theoretic: every nice error basis of shift and multiply type is <em>monomial</em> (each basis unitary has exactly one non-zero matrix entry per row and column). An abstract error group — the central extension of the index group generated by a nice error basis — is a group of <em>central type</em> with <em>cyclic centre</em>. Building on representation-theoretic results of Ferguson and Isaacs for groups of central type, Klappenecker and Roetteler constructed an abstract error group possessing a non-monomial irreducible representation; the corresponding nice error basis is therefore not monomial and in particular not of shift and multiply type.</p><p>Earlier related results that frame the question:</p><ul><li>E. Knill [quant-ph/9608049] introduced nice error bases and showed their role in error-correcting codes beyond the stabilizer formalism.</li><li>A. Klappenecker and M. Roetteler [quant-ph/0010082], <em>Beyond Stabilizer Codes I: Nice Error Bases</em> (2000; published in IEEE Trans. Inform. Theory <strong>48</strong>, 2392 (2002)), classified nice error bases of small order and developed the systematic theory underlying both the shift-and-multiply construction and the eventual counterexample.</li><li>R. F. Werner [quant-ph/0003070] tied orthogonal bases of unitaries to the construction of teleportation and dense-coding schemes.</li></ul><p>Thus the headline question — &quot;is every nice error basis of shift and multiply type?&quot; — is resolved negatively, and the classification of nice error bases of small order is given in [quant-ph/0010082]; the broader classification of all abstract error groups (and of all nice error bases up to equivalence) in arbitrary dimension is still active.</p><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Archived target</h2>
+
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-refuted" id="clause-nice-error-bases-shift-and-multiply">
+              <div class="clause-head">
+                <span class="clause-state refuted">Refuted</span>
+                <strong>Shift-and-multiply form of nice error bases</strong>
+                <code>nice-error-bases-shift-and-multiply</code>
+              </div>
+              <p>The archived statement asks whether every nice error basis is of shift and multiply type, that is, whether after a unitary change of basis each basis unitary is a product of a permutation matrix and a diagonal unitary.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> A proof that all nice error bases are monomial after a change of basis, or an explicit non-monomial nice error basis.</p>
+              <p class="clause-claims">1 accepted claim: <a href="#claim-krueger-2005-nice-error-bases-klappenecker-and-roetteler-exhibit">claim-krueger-2005-nice-error-bases-klappenecker-and-roetteler-exhibit</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Solved as of 12 Aug 2026: The cited paper exhibits an explicit nice error basis that is not of shift and multiply type, refuting the universal claim in the archived statement. The settling work is cited in the source bibliography only by its arXiv identifier (quant-ph/0301078); the source collection independently records Klappenecker and Roetteler as the solvers with last progress on 28 May 2003. <code>decision-krueger-2005-nice-error-bases-status-2026-08-12</code></p>
+        </section>
+
+
+
+        <section class="dialog-section" aria-labelledby="progress-heading">
+          <span class="dialog-section-label">Resolution evidence</span>
+          <h2 id="progress-heading">Resolution</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
+
+          <article class="claim-card" id="claim-krueger-2005-nice-error-bases-klappenecker-and-roetteler-exhibit">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Refutes</span>
+              <span class="claim-clauses"><a href="#clause-nice-error-bases-shift-and-multiply">nice-error-bases-shift-and-multiply</a></span>
+            </div>
+            <h3>Klappenecker and Roetteler exhibit a non-monomial nice error basis</h3>
+            <p>Klappenecker and Roetteler build, from representation-theoretic results of Ferguson and Isaacs on groups of central type, an abstract error group with cyclic centre possessing a non-monomial irreducible representation. The corresponding nice error basis is therefore not monomial and in particular not of shift and multiply type, so the archived universal claim is false.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-489710fcaf880b3e">
+                <time datetime="2003">2003</time>
+                <div>
+                  <span class="maturity-badge">Preprint</span>
+                  <span class="maturity-badge">Exact counterexample</span>
+                  <a href="https://arxiv.org/abs/quant-ph/0301078" rel="noreferrer">arXiv:quant-ph/0301078 ↗</a>
+                  <span class="evidence-locator">Character-theoretic construction of a non-monomial nice error basis</span>
+                </div>
+              </li>
+            </ol>
+
+          </article>
+
+          <details class="archive-narrative">
+            <summary>Editorial narrative <span>Status and known progress as written by the editors</span></summary>
+            <div class="archive-progress"><p><strong>Solved (in the negative).</strong> A. Klappenecker and M. Roetteler answered the question by exhibiting a nice error basis that is <em>not</em> of shift and multiply type, in the paper <em>On the Monomiality of Nice Error Bases</em> [quant-ph/0301078] (2003). The source records the &quot;last progress&quot; date as 28 May 2003 and lists A. Klappenecker and M. Roetteler as the solvers.</p><p>The construction is character-theoretic: every nice error basis of shift and multiply type is <em>monomial</em> (each basis unitary has exactly one non-zero matrix entry per row and column). An abstract error group — the central extension of the index group generated by a nice error basis — is a group of <em>central type</em> with <em>cyclic centre</em>. Building on representation-theoretic results of Ferguson and Isaacs for groups of central type, Klappenecker and Roetteler constructed an abstract error group possessing a non-monomial irreducible representation; the corresponding nice error basis is therefore not monomial and in particular not of shift and multiply type.</p><p>Earlier related results that frame the question:</p><ul><li>E. Knill [quant-ph/9608049] introduced nice error bases and showed their role in error-correcting codes beyond the stabilizer formalism.</li><li>A. Klappenecker and M. Roetteler [quant-ph/0010082], <em>Beyond Stabilizer Codes I: Nice Error Bases</em> (2000; published in IEEE Trans. Inform. Theory <strong>48</strong>, 2392 (2002)), classified nice error bases of small order and developed the systematic theory underlying both the shift-and-multiply construction and the eventual counterexample.</li><li>R. F. Werner [quant-ph/0003070] tied orthogonal bases of unitaries to the construction of teleportation and dense-coding schemes.</li></ul><p>Thus the headline question — &quot;is every nice error basis of shift and multiply type?&quot; — is resolved negatively, and the classification of nice error bases of small order is given in [quant-ph/0010082]; the broader classification of all abstract error groups (and of all nice error bases up to equivalence) in arbitrary dimension is still active.</p><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+          </details>
+        </section>
+
+
+        <section class="dialog-section" aria-labelledby="cautions-heading">
+          <span class="dialog-section-label">Claim watch</span>
+          <h2 id="cautions-heading">Scope and cautions</h2>
+
+          <div class="watch-note">
+            <span class="note-icon" aria-hidden="true">!</span>
+            <div>
+              <strong>Scope</strong>
+              <p>Only the shift-and-multiply universality claim is settled; the classification of all abstract error groups and of all nice error bases up to equivalence in arbitrary dimension remains active. </p>
+            </div>
+          </div>
+        </section>
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="krueger-2005-nice-error-bases">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Nice+error+bases" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="krueger-2005-nice-error-bases">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
         </section>
 
 
@@ -234,12 +352,18 @@
           <div class="archive-bibliography"><ul><li>O. Krüger and R. F. Werner (eds.), <em>Some Open Problems in Quantum Information Theory</em>, arXiv:quant-ph/0504166 (2005); DOI 10.48550/arXiv.quant-ph/0504166. Snapshot of the IMaPh open-problems collection, TU Braunschweig (http://www.imaph.tu-bs.de/qi/problems/). Source PDF: <em>Some Open Problems in Quantum Information Theory.pdf</em>, Problem 6, pp. 26–27.</li><li>A. Klappenecker and M. Roetteler, <em>Beyond Stabilizer Codes I: Nice Error Bases</em>, arXiv:quant-ph/0010082 (2000); IEEE Trans. Inform. Theory <strong>48</strong>, 2392 (2002).</li><li>E. Knill, <em>Group Representations, Error Bases and Quantum Codes</em>, arXiv:quant-ph/9608049 (1996).</li><li>R. F. Werner, <em>All Teleportation and Dense Coding Schemes</em>, arXiv:quant-ph/0003070 (2000).</li><li>A. Klappenecker and M. Roetteler, <em>On the Monomiality of Nice Error Bases</em>, arXiv:quant-ph/0301078 (2003).</li></ul></div>
         </section>
 
+
+
         <section class="dialog-section" aria-labelledby="machine-heading">
-          <span class="dialog-section-label">Record</span>
+          <span class="dialog-section-label">Work on this problem</span>
           <h2 id="machine-heading">Research interfaces</h2>
           <ul class="machine-links">
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/krueger-2005-nice-error-bases/problem.md" rel="noreferrer">Source article ↗</a> — the canonical archived statement and audit notes.</li>
-            <li><a href="../">Problem directory</a> — every active and archived record.</li>
+            <li><a href="../../packets/krueger-2005-nice-error-bases.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-nice-error-bases.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-nice-error-bases/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-nice-error-bases/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Nice+error+bases" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/krueger-2005-nice-error-bases/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -251,13 +375,15 @@
             <p class="cite-label">The original problem</p>
             <p class="cite-text">O. Krüger, R. F. Werner. Some open problems in quantum information theory. arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/. pp. 26-27 (Problem 6). https://doi.org/10.48550/arXiv.quant-ph/0504166</p>
             <p class="cite-label">This catalog assessment</p>
-            <p class="cite-text">Quantum Open Problems, record krueger-2005-nice-error-bases, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-nice-error-bases/</p>
+            <p class="cite-text">Quantum Open Problems, record krueger-2005-nice-error-bases, revision f62845aee543, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-nice-error-bases/</p>
           </div>
         </section>
         <footer class="page-record-footer">
           <p>Record <code>krueger-2005-nice-error-bases</code></p>
-          <p>Status solved · archived from the active catalog</p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Record revision <code>f62845aee543ef0141f8c224427c65d11b2fb0105e07cbdc28d5f5e24843719d</code></p>
+          <p>Statement digest <code>2d5d2166d0c60f2f1e1e450d12ff106568aada756960f1e547177ce0227c382c</code></p>
+          <p>Statement <code>krueger-2005-nice-error-bases-statement-v1</code> · Decision <code>decision-krueger-2005-nice-error-bases-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -288,5 +414,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="krueger-2005-nice-error-bases" defer></script>
   </body>
 </html>

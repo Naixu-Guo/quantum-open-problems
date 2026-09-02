@@ -1,0 +1,49 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "ruskai-2007-additivity-violation-power-m-statement-v1",
+  "problemId": "ruskai-2007-additivity-violation-power-m",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-ruskai-2007",
+      "relationship": "states-problem",
+      "locator": "p. 16 (Problem 19)",
+      "primary": true,
+      "statedTitle": "Channel that is additive for fewer than m tensor copies but violates additivity at the m-th copy",
+      "source": {
+        "id": "source-ruskai-2007",
+        "title": "Open problems in quantum information theory",
+        "authors": [
+          "Mary Beth Ruskai"
+        ],
+        "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+        "url": "https://doi.org/10.48550/arXiv.0708.1902"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Construct a genuine delayed-onset example with m at least three, or prove that two-copy additivity forces all-copy additivity in the relevant setting."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | algebra of $d\\times d$ complex matrices |\n| $\\Phi$ | completely positive trace-preserving (CPT) map (quantum channel) |\n| $\\Phi^{\\otimes n}$ | $n$-fold tensor product of the channel $\\Phi$ with itself |\n| $n,m$ | positive integers, with $n<m$ in the additive regime |\n| $p$ | Renyi parameter, $p>0$ |\n| $\\gamma$ | input density matrix, $\\gamma\\ge 0$, $\\operatorname{Tr}\\gamma=1$ |\n| $S^p(\\gamma)$ | Rényi $p$-entropy, $\\tfrac{1}{1-p}\\log\\operatorname{Tr}\\gamma^p$ for $p\\ne 1$; $S^1$ is von Neumann entropy |\n| $S^p_{\\min}(\\Phi)$ | minimal output Renyi entropy, $S^p_{\\min}(\\Phi)=\\inf_\\gamma S^p[\\Phi(\\gamma)]$ |\n| eq. (24) | the multiplicativity assertion $\\nu_p(\\Phi\\otimes\\Omega)=\\nu_p(\\Phi)\\nu_p(\\Omega)$ |",
+    "statement": "**Problem 19 (Ruskai 2007), nontrivial intended form.** Find an example of a channel $\\Phi$, an integer $m\\ge 3$, and a value $p>0$ such that\n$$S^p_{\\min}\\!\\bigl(\\Phi^{\\otimes n}\\bigr) \\;=\\; n\\,S^p_{\\min}(\\Phi)\\quad\\text{for every }1\\le n<m,$$\nbut\n$$S^p_{\\min}\\!\\bigl(\\Phi^{\\otimes m}\\bigr) \\;<\\; m\\,S^p_{\\min}(\\Phi).$$\nIn words: find a channel that is additive for every product of fewer than $m$ copies of itself but fails additivity at exactly $m$ copies."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "bf4bfc97b663cdce6203636f06c6ef6d4ae874955e2ba45773a9ce020de7a641",
+    "bodyDigest": "4cb0b8ed5deaf09a2331302d50a881e48d0eda84bffc46d1cdcac7b695b7727f"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-additivity-violation-power-m.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-additivity-violation-power-m/frontier.json"
+  }
+}

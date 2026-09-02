@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "krueger-2005-stronger-bell-werner-states",
+  "title": "Stronger Bell inequalities for Werner states?",
+  "status": "solved",
+  "dates": {
+    "proposed": "2003-06-20",
+    "latestEvidence": "2008",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "bell-nonlocality",
+      "label": "Bell nonlocality"
+    }
+  },
+  "collection": {
+    "id": "krueger-2005",
+    "label": "Krueger–Werner",
+    "title": "Some open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Existence or impossibility",
+    "summary": "The source asked for a Bell inequality whose set of violating Werner states strictly contains the set violating CHSH. Vertesi constructed inequalities with many binary settings violated by two-qubit Werner states for p above 0.7056, below the CHSH threshold.",
+    "importance": "Werner states can be entangled while admitting local hidden variable models, so they are the canonical testbed separating entanglement from Bell nonlocality; beating the CHSH threshold narrows the gap between known LHV models and the region of established nonlocality.",
+    "unresolved": ""
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $\\mathcal{H}$ | A finite-dimensional complex Hilbert space (here typically $\\mathbb{C}^d$ for one party) |\n| $d$ | Local Hilbert-space dimension |\n| $\\rho$ | A bipartite density operator on $\\mathcal{H}\\otimes\\mathcal{H}$ |\n| $W_p$ | A two-qudit Werner state, $W_p = p\\,\\rho_{\\text{anti}} + (1-p)\\,\\rho_{\\text{sym}}/\\dim(\\rho_{\\text{sym}}) \\cdot \\dim(\\rho_{\\text{sym}}) $ — the unique family of $U\\otimes U$-invariant states parametrised by $p\\in[0,1]$ |\n| $F$ | Singlet fraction or noise parameter parametrising a Werner family (depending on convention) |\n| CHSH | Clauser–Horne–Shimony–Holt Bell inequality with two binary settings per side |\n| $\\mathcal{B}$ | A Bell functional: a linear combination $\\sum c_{abxy} p(ab\\,\\vert\\,xy)$ of joint probabilities |\n| $\\mathcal{B}_{\\mathrm{LHV}}$ | The local-hidden-variable bound of $\\mathcal{B}$ |\n| $\\mathcal{B}(\\rho)$ | The maximal value of $\\mathcal{B}$ attainable by quantum measurements on $\\rho$ |\n| \"Werner state violates $\\mathcal{B}$\" | $\\mathcal{B}(\\rho) > \\mathcal{B}_{\\mathrm{LHV}}$ for the given Werner state $\\rho$ |",
+    "statement": "Find a Bell inequality $\\mathcal{B}\\le \\mathcal{B}_{\\mathrm{LHV}}$ that is *stronger than CHSH on Werner states*, in the sense that the set of two-qudit (or higher-party / multi-setting) Werner states for which $\\mathcal{B}(\\rho) > \\mathcal{B}_{\\mathrm{LHV}}$ strictly contains the set of Werner states violating CHSH.\n\nEquivalently: exhibit a Bell inequality whose Werner-state violation threshold is strictly smaller (in the appropriate parametrisation) than the CHSH threshold $p_{\\mathrm{CHSH}} = 1/\\sqrt 2$ for two qubits, or its higher-dimensional analogue."
+  },
+  "source": {
+    "title": "Some open problems in quantum information theory",
+    "authors": [
+      "O. Krüger",
+      "R. F. Werner"
+    ],
+    "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+    "locator": "p. 54 (Problem 19)",
+    "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2008",
+        "title": "Vertesi finds Bell inequalities beating CHSH on Werner states",
+        "detail": "Vertesi constructs a family of Bell inequalities with many binary settings whose local bound and Werner-state quantum value give a violation threshold of p above 0.7056, strictly below the CHSH threshold 1/sqrt(2) which is approximately 0.7071. This is exactly the stronger-than-CHSH example requested by the archived statement.",
+        "maturity": "Peer reviewed",
+        "strength": "Explicit construction",
+        "url": "https://arxiv.org/abs/0806.0096",
+        "label": "Physical Review A"
+      }
+    ],
+    "cautions": [
+      {
+        "label": "Scope",
+        "text": "The Collins-Gisin I_3322 inequality cited in the source is inequivalent to CHSH but has a smaller Werner-state range, so it is not such an example; determining the optimal Werner-state nonlocality threshold is a separate question from the existence question settled here."
+      }
+    ],
+    "interpretation": null,
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "Werner states",
+      "CHSH threshold",
+      "Bell inequalities",
+      "local hidden variable models",
+      "nonlocality threshold"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-stronger-bell-werner-states.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Stronger+Bell+inequalities+for+Werner+states%3F",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/contribution.schema.json",
+    "candidateUpdateSchema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/candidate-update.schema.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-stronger-bell-werner-states/frontier.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-stronger-bell-werner-states.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-stronger-bell-werner-states/",
+    "explorer": "https://naixu-guo.github.io/quantum-open-problems/#krueger-2005-stronger-bell-werner-states",
+    "markdown": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-stronger-bell-werner-states.md",
+    "schema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-stronger-bell-werner-states.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-stronger-bell-werner-states/frontier.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-stronger-bell-werner-states/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-stronger-bell-werner-states/statements/v1.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/krueger-2005-stronger-bell-werner-states/record.json"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "802b9578d03da130191c3bfc48ab34d0c3539335391b4f1bea93370c496f3d3a",
+    "statementDigest": "c86ef5a060036768b5474a75ce8f431e39ceebbb8faa36f662312589269669dc"
+  }
+}

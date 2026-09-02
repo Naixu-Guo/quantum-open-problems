@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "horodecki-2020-werner-2-copy-distillability",
+  "title": "Show that the Werner state rho(4, -1/2) of two ququarts is not 2-copy distillable",
+  "status": "solved",
+  "dates": {
+    "proposed": "2020",
+    "latestEvidence": "2026",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "entanglement-theory",
+      "label": "Entanglement theory"
+    }
+  },
+  "collection": {
+    "id": "horodecki-2020",
+    "label": "Horodecki",
+    "title": "Five open problems in theory of quantum information",
+    "url": null
+  },
+  "question": {
+    "type": "Two-copy non-distillability",
+    "summary": "The source asked for a proof that the two-ququart Werner state rho(4,-1/2) is not 2-copy distillable. Fu, Gao and Park, together with three concurrent teams, proved that a Werner state is 2-copy distillable only if it is already 1-copy distillable, which covers this state.",
+    "importance": "The state sits exactly on the boundary between 1-copy distillable and 1-copy non-distillable Werner states, and its partial transpose is uniquely proportional to a dichotomic unitary, a property preserved under tensor products, which makes it the most tractable concrete step toward proving the existence of NPT bound entanglement.",
+    "unresolved": ""
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $d$ | Local Hilbert-space dimension; in this problem $d=4$ |\n| $\\mathcal{H}_d$ | $d$-dimensional complex Hilbert space |\n| $\\mathcal{H}_d\\otimes\\mathcal{H}_d$ | Bipartite Hilbert space with two $d$-level parties |\n| $\\mathbb{1}$ | Identity operator on $\\mathcal{H}_d\\otimes\\mathcal{H}_d$ |\n| $V$ | Swap operator on $\\mathcal{H}_d\\otimes\\mathcal{H}_d$, $\\langle ij\\vert V\\vert kl\\rangle=\\delta_{il}\\delta_{jk}$ |\n| $\\delta_{ij}$ | Kronecker delta |\n| $\\alpha$ | Real parameter, $\\alpha\\in[-1,1]$ |\n| $\\rho(d,\\alpha)$ | One-parameter family of Werner states |\n| $\\rho^\\Gamma$ | Partial transpose of $\\rho$ |\n| $n$ | Number of copies used in a distillation protocol |\n| $P,Q$ | Rank-two projectors acting on $(\\mathcal{H}_d)^{\\otimes n}$ |\n| $U$ | Unitary on $\\mathcal{H}_d$ |\n| $I$ | $d\\times d$ identity matrix |\n| $\\lvert\\psi_+\\rangle$ | Maximally entangled state $\\frac{1}{\\sqrt{d}}\\sum_{j=1}^d \\lvert j\\rangle\\otimes\\lvert j\\rangle$ |\n| $A,B$ | Traceless complex $4\\times 4$ matrices normalized by $\\mathrm{Tr}(A^\\dagger A)+\\mathrm{Tr}(B^\\dagger B)=1/4$ |\n| $A\\oplus B$ | Kronecker sum $A\\otimes\\mathbb{1}+\\mathbb{1}\\otimes B$ |\n| $B_1,B_2,B_\\infty$ | Boundaries of the sets of $1$-copy, $2$-copy, and $n$-copy ($\\forall n$) non-distillable Werner states |",
+    "statement": "**Problem 5:** *Show that the Werner state $\\rho(4,-1/2)$ of two ququarts, $d=4$, defined in Eq. (5) below, is not 2-copy distillable.*\n\nSetup: Consider the family of Werner states on $\\mathcal{H}_d\\otimes\\mathcal{H}_d$\n$$\\rho(d,\\alpha) = \\frac{\\mathbb{1}\\otimes\\mathbb{1}+\\alpha V}{d^2+\\alpha d}, \\qquad \\alpha\\in[-1,1],$$\nwhere $V$ is the swap operator, $\\langle ij|V|kl\\rangle=\\delta_{il}\\delta_{jk}$. The state $\\rho(d,\\alpha)$ is NPT for $\\alpha\\in[-1,-1/d)$ and PPT (hence non-distillable) for $\\alpha\\in[-1/d,1]$. The distinguished state $\\rho(4,-1/2)$ is the unique Werner state whose partial transpose is proportional to the dichotomic unitary $U=I-2\\lvert\\psi_+\\rangle\\langle\\psi_+\\rvert$ (which has eigenvalues $\\pm 1$); it sits on the boundary between $1$-copy distillability and $1$-copy non-distillability of Werner states in $d=4$. The problem asks for a proof that no $2$-copy distillation protocol succeeds on $\\rho(4,-1/2)$: there exist no rank-two projectors $P,Q$ on $\\mathcal{H}_4\\otimes\\mathcal{H}_4$ such that\n$$(P\\otimes Q)\\bigl(\\rho(4,-1/2)^\\Gamma\\bigr)^{\\otimes 2}(P\\otimes Q)$$\nhas a negative eigenvalue.\n\nEquivalent algebraic form (Pankowski, Piani, Horodecki, Horodecki): show that the sum of squares of the two largest singular values of the Kronecker sum $A\\oplus B=A\\otimes\\mathbb{1}+\\mathbb{1}\\otimes B$ is bounded by $1/2$ for any pair of traceless $4\\times 4$ matrices $A,B$ normalized by $\\mathrm{Tr}(A^\\dagger A)+\\mathrm{Tr}(B^\\dagger B)=1/4$."
+  },
+  "source": {
+    "title": "Five open problems in theory of quantum information",
+    "authors": [
+      "Paweł Horodecki",
+      "Łukasz Rudnicki",
+      "Karol Życzkowski"
+    ],
+    "venue": "PRX Quantum 3, 010101 (2022); arXiv:2002.03233 [quant-ph]",
+    "locator": "p. 8-9 (Problem 5)",
+    "url": "https://doi.org/10.1103/PRXQuantum.3.010101",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2026",
+        "title": "Werner states are 2-copy distillable only if 1-copy distillable",
+        "detail": "Fu, Gao and Park prove that a Werner state in any local dimension is 2-copy distillable if and only if it is already 1-copy distillable, which in the archived parametrisation gives 2-copy non-distillability exactly for alpha at least -1/2 and therefore includes rho(4,-1/2). Song and Chen, Fraser, Huber, Pozsgay and Vona, and Bharti, Gajjala and Haug posted concurrent independent proofs of the same sharp two-copy threshold, so the archived statement is affirmed.",
+        "maturity": "Preprint",
+        "strength": "Exact theorem",
+        "url": "https://arxiv.org/abs/2607.21367",
+        "label": "arXiv:2607.21367"
+      },
+      {
+        "date": "2026",
+        "title": "Werner states are 2-copy distillable only if 1-copy distillable",
+        "detail": "Fu, Gao and Park prove that a Werner state in any local dimension is 2-copy distillable if and only if it is already 1-copy distillable, which in the archived parametrisation gives 2-copy non-distillability exactly for alpha at least -1/2 and therefore includes rho(4,-1/2). Song and Chen, Fraser, Huber, Pozsgay and Vona, and Bharti, Gajjala and Haug posted concurrent independent proofs of the same sharp two-copy threshold, so the archived statement is affirmed.",
+        "maturity": "Preprint",
+        "strength": "Exact theorem",
+        "url": "https://arxiv.org/abs/2607.23416",
+        "label": "arXiv:2607.23416"
+      },
+      {
+        "date": "2026",
+        "title": "Werner states are 2-copy distillable only if 1-copy distillable",
+        "detail": "Fu, Gao and Park prove that a Werner state in any local dimension is 2-copy distillable if and only if it is already 1-copy distillable, which in the archived parametrisation gives 2-copy non-distillability exactly for alpha at least -1/2 and therefore includes rho(4,-1/2). Song and Chen, Fraser, Huber, Pozsgay and Vona, and Bharti, Gajjala and Haug posted concurrent independent proofs of the same sharp two-copy threshold, so the archived statement is affirmed.",
+        "maturity": "Preprint",
+        "strength": "Exact theorem",
+        "url": "https://arxiv.org/abs/2607.24309",
+        "label": "arXiv:2607.24309"
+      }
+    ],
+    "cautions": [
+      {
+        "label": "Scope",
+        "text": "These papers settle two-copy distillability for Werner states; they do not prove non-distillability for every number of copies and do not resolve whether NPT bound-entangled states exist."
+      }
+    ],
+    "interpretation": null,
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "Werner states",
+      "two-copy distillability",
+      "NPT bound entanglement",
+      "partial transpose",
+      "partial trace inequality"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-open-problems/packets/horodecki-2020-werner-2-copy-distillability.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Show+that+the+Werner+state+rho%284%2C+-1%2F2%29+of+two+ququarts+is+not+2-copy+distillable",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/contribution.schema.json",
+    "candidateUpdateSchema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/candidate-update.schema.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/horodecki-2020-werner-2-copy-distillability/frontier.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/horodecki-2020-werner-2-copy-distillability.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/horodecki-2020-werner-2-copy-distillability/",
+    "explorer": "https://naixu-guo.github.io/quantum-open-problems/#horodecki-2020-werner-2-copy-distillability",
+    "markdown": "https://naixu-guo.github.io/quantum-open-problems/packets/horodecki-2020-werner-2-copy-distillability.md",
+    "schema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/horodecki-2020-werner-2-copy-distillability.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/horodecki-2020-werner-2-copy-distillability/frontier.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/horodecki-2020-werner-2-copy-distillability/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/horodecki-2020-werner-2-copy-distillability/statements/v1.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/horodecki-2020-werner-2-copy-distillability/record.json"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "9e98dfe6d30bee90d0fc5909a01006b3e5d7ac51a0cf7764fe07a0f30c2ce046",
+    "statementDigest": "f466f1f207bdfa402f1fe569a5ff0c27f241e042c97bbfceae4b95f9e2c9a503"
+  }
+}

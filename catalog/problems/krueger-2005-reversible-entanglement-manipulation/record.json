@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-reversible-entanglement-manipulation",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Reversible entanglement manipulation",
+    "proposed": "2005-02-08",
+    "topicId": "entanglement-theory",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Operational characterization",
+      "summary": "Universal reversibility under PPT operations is false, and irreversibility survives even for exact non-entangling maps. The smallest meaningful reversible operation class is unknown.",
+      "importance": "A reversible class would give mixed-state entanglement a single exchange rate analogous to entropy for pure states. Its operation set would mark the cost of removing irreversibility.",
+      "unresolved": "Identify the smallest physically meaningful class of operations that makes asymptotic mixed-state entanglement manipulation reversible."
+    },
+    "keywords": [
+      "reversibility",
+      "PPT operations",
+      "non-entangling maps",
+      "entanglement cost"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-reversible-entanglement-manipulation-statement-v1",
+      "problemId": "krueger-2005-reversible-entanglement-manipulation",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "pp. 55-56 (Problem 20)",
+          "primary": true
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Identify the smallest physically meaningful class of operations that makes asymptotic mixed-state entanglement manipulation reversible."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-reversible-entanglement-manipulation-2023-exact-non-entangling-maps",
+      "statementId": "krueger-2005-reversible-entanglement-manipulation-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "Exact non-entangling maps remain irreversible",
+      "text": "Lami and Regula prove a separation between entanglement cost and distillation even under operations that generate no entanglement exactly."
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-reversible-entanglement-manipulation-2017-ppt-assisted-universal-reversibility",
+      "statementId": "krueger-2005-reversible-entanglement-manipulation-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "PPT-assisted universal reversibility is refuted",
+      "text": "Wang and Duan exhibit states whose PPT entanglement cost exceeds PPT distillable entanglement."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-reversible-entanglement-manipulation-2023-exact-non-entangling-maps",
+      "claimId": "claim-krueger-2005-reversible-entanglement-manipulation-2023-exact-non-entangling-maps",
+      "sourceId": "source-lami-2023-no-second-law",
+      "sourceLocator": null,
+      "date": "2023-01-20",
+      "maturity": "Peer reviewed",
+      "strength": "Exact no-go theorem",
+      "label": "Nature Physics"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-reversible-entanglement-manipulation-2017-ppt-assisted-universal-reversibility",
+      "claimId": "claim-krueger-2005-reversible-entanglement-manipulation-2017-ppt-assisted-universal-reversibility",
+      "sourceId": "source-wang-2017-irreversibility-of-asymptotic",
+      "sourceLocator": null,
+      "date": "2017-10-06",
+      "maturity": "Peer reviewed",
+      "strength": "Exact counterexample",
+      "label": "PPT counterexample"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-reversible-entanglement-manipulation-status-2026-08-12",
+      "problemId": "krueger-2005-reversible-entanglement-manipulation",
+      "statementId": "krueger-2005-reversible-entanglement-manipulation-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "partial",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-reversible-entanglement-manipulation-2023-exact-non-entangling-maps",
+        "evidence-krueger-2005-reversible-entanglement-manipulation-2017-ppt-assisted-universal-reversibility"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

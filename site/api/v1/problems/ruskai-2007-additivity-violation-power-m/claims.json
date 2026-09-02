@@ -1,0 +1,84 @@
+{
+  "kind": "qop-claims",
+  "schemaVersion": 1,
+  "problemId": "ruskai-2007-additivity-violation-power-m",
+  "status": "open",
+  "statementId": "ruskai-2007-additivity-violation-power-m-statement-v1",
+  "count": 2,
+  "note": "Every claim here has been accepted through editorial review. Unreviewed submissions are candidate updates in the operational service, never claims.",
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-additivity-violation-power-m-2026-explicit-self-channel-violations",
+      "statementId": "ruskai-2007-additivity-violation-power-m-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "Explicit self-channel violations expose a quantifier trap",
+      "text": "Derksen and Lovitz give self-channel two-copy violations for every p greater than one. This solves the literal m equals two wording, but not delayed onset at m at least three.",
+      "superseded": false,
+      "evidence": [
+        {
+          "kind": "Evidence",
+          "id": "evidence-ruskai-2007-additivity-violation-power-m-2026-explicit-self-channel-violations",
+          "claimId": "claim-ruskai-2007-additivity-violation-power-m-2026-explicit-self-channel-violations",
+          "sourceId": "source-derksen-2026-constructive-counterexamples-to",
+          "sourceLocator": null,
+          "date": "2026",
+          "maturity": "Preprint",
+          "strength": "Exact adjacent result",
+          "label": "Self-channel examples",
+          "source": {
+            "id": "source-derksen-2026-constructive-counterexamples-to",
+            "title": "Constructive counterexamples to the additivity of minimum output Rényi entropy of quantum channels for all $p>1$",
+            "authors": [
+              "H. Derksen",
+              "B. Lovitz"
+            ],
+            "venue": "arXiv:2510.07547v2 (2026 preprint).",
+            "url": "https://arxiv.org/abs/2510.07547"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-additivity-violation-power-m-2009-hastings-violations-already-appear",
+      "statementId": "ruskai-2007-additivity-violation-power-m-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "Hastings violations already appear at two copies",
+      "text": "The random-channel counterexample to minimum-output-entropy additivity does not remain additive through lower nontrivial tensor powers.",
+      "superseded": false,
+      "evidence": [
+        {
+          "kind": "Evidence",
+          "id": "evidence-ruskai-2007-additivity-violation-power-m-2009-hastings-violations-already-appear",
+          "claimId": "claim-ruskai-2007-additivity-violation-power-m-2009-hastings-violations-already-appear",
+          "sourceId": "source-hastings-2009-superadditivity",
+          "sourceLocator": null,
+          "date": "2009",
+          "maturity": "Peer reviewed",
+          "strength": "General counterexample",
+          "label": "Hastings theorem",
+          "source": {
+            "id": "source-hastings-2009-superadditivity",
+            "title": "Superadditivity of communication capacity using entangled inputs",
+            "authors": [
+              "M. B. Hastings"
+            ],
+            "venue": "Nature Physics 5, 255-257 (2009); arXiv:0809.3972",
+            "url": "https://arxiv.org/abs/0809.3972"
+          }
+        }
+      ]
+    }
+  ],
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-additivity-violation-power-m.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-additivity-violation-power-m/frontier.json"
+  }
+}

@@ -182,6 +182,7 @@
           <span class="meta-badge">Quantum channels</span>
           <span class="meta-badge">Proposed 2007</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Extreme CPT maps beyond qubit input</h1>
         <p class="dialog-summary">Higher-dimensional low-rank classifications and a general fixed-rank quotient parameterization now exist, but no qubit-style canonical classification covers arbitrary dimensions.</p>
@@ -189,11 +190,14 @@
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#remaining">What remains</a>
-          <a href="#progress-heading">Progress</a>
+          <a href="#target-heading">What remains</a>
+          <a href="#progress-heading">Verified progress</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
           <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <div class="problem-framing">
           <section class="framing-row" aria-labelledby="importance-heading">
             <h2 id="importance-heading">Why it matters</h2>
@@ -220,7 +224,7 @@
               <span class="dialog-section-label">Verified formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">Matched to the source and locator above</span>
+            <span class="formal-source">Matched to the source and locator above · digest 1872dce6f440</span>
           </div>
 
           <details class="formal-notation">
@@ -236,46 +240,105 @@
           <div class="formal-body"><p><strong>Problem 1 (Ruskai, 2007).</strong> <em>Characterize, classify and/or parameterize the closure \(\overline{\mathcal{E}(d_1,d_2)}\) of the set of extreme points of CPT maps \(\Phi : M_{d_1} \mapsto M_{d_2}\) for \(d_1 &gt; 2\) and \(d_2\) arbitrary.</em></p><p>By Theorem 1 of the source, \(\overline{\mathcal{E}(d_1,d_2)}\) is precisely the set of CPT maps \(\Phi\) whose Choi rank is at most \(d_1\); equivalently, those \(\Phi\) that admit a Choi–Kraus representation with at most \(d_1\) nonzero operators \(A_k\) satisfying \(\sum_k A_k^\dagger A_k = I_{d_1}\). The goal is to exhibit a useful and explicit parameterization of this set, generalizing the qubit (\(d_1 = 2\)) SVD form above.</p></div>
         </section>
 
-        <div class="remaining-question partial" id="remaining">
-          <span>What remains</span>
-          <p>Give a useful complete classification or canonical parameterization of the closure of extreme CPT maps for arbitrary input dimension above two.</p>
-        </div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Exact unresolved target</h2>
+
+          <div class="remaining-question partial" id="remaining">
+            <span>What remains</span>
+            <p>Give a useful complete classification or canonical parameterization of the closure of extreme CPT maps for arbitrary input dimension above two.</p>
+          </div>
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-narrowed" id="clause-archived-statement">
+              <div class="clause-head">
+                <span class="clause-state narrowed">Narrowed</span>
+                <strong>Archived statement</strong>
+                <code>archived-statement</code>
+              </div>
+              <p>The formal statement of this version, as archived from the source.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> Give a useful complete classification or canonical parameterization of the closure of extreme CPT maps for arbitrary input dimension above two.</p>
+              <p class="clause-claims">2 accepted claims: <a href="#claim-ruskai-2007-extreme-points-cpt-maps-2018-fixed-rank-channels-receive">claim-ruskai-2007-extreme-points-cpt-maps-2018-fixed-rank-channels-receive</a>, <a href="#claim-ruskai-2007-extreme-points-cpt-maps-2014-important-low-dimensional-extreme">claim-ruskai-2007-extreme-points-cpt-maps-2014-important-low-dimensional-extreme</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Partially solved as of 12 Aug 2026: Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered. <code>decision-ruskai-2007-extreme-points-cpt-maps-status-2026-08-12</code></p>
+        </section>
 
 
 
         <section class="dialog-section" aria-labelledby="progress-heading">
-          <span class="dialog-section-label">Evidence ledger</span>
-          <h2 id="progress-heading">Recent progress</h2>
-          <ol class="timeline">
+          <span class="dialog-section-label">Verified progress</span>
+          <h2 id="progress-heading">Accepted claims</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
 
-            <li id="qop-evt-42d61d7e77ff88cc">
-              <time datetime="2018">2018</time>
-              <div>
-                <h3>Fixed-rank channels receive a quotient-manifold parameterization</h3>
-                <p>Iten and Colbeck describe fixed-Kraus-rank channel sets as Stiefel quotients and identify smooth submanifolds of extreme channels.</p>
-                <div class="dialog-source-meta">
+          <article class="claim-card" id="claim-ruskai-2007-extreme-points-cpt-maps-2018-fixed-rank-channels-receive">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Reformulates</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>Fixed-rank channels receive a quotient-manifold parameterization</h3>
+            <p>Iten and Colbeck describe fixed-Kraus-rank channel sets as Stiefel quotients and identify smooth submanifolds of extreme channels.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-42d61d7e77ff88cc">
+                <time datetime="2018">2018</time>
+                <div>
                   <span class="maturity-badge">Peer reviewed</span>
                   <span class="maturity-badge">General parameterization</span>
                   <a href="https://arxiv.org/abs/1610.02513" rel="noreferrer">Quotient description ↗</a>
+
                 </div>
-              </div>
-            </li>
-            <li id="qop-evt-2d9f909cde95fd47">
-              <time datetime="2014">2014</time>
-              <div>
-                <h3>Important low-dimensional extreme maps are classified</h3>
-                <p>Friedland and Loewy settle qubit-to-qubit and qutrit-to-qubit cases and derive broader generic conditions.</p>
-                <div class="dialog-source-meta">
+              </li>
+            </ol>
+
+          </article>
+          <article class="claim-card" id="claim-ruskai-2007-extreme-points-cpt-maps-2014-important-low-dimensional-extreme">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Narrows</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>Important low-dimensional extreme maps are classified</h3>
+            <p>Friedland and Loewy settle qubit-to-qubit and qutrit-to-qubit cases and derive broader generic conditions.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-2d9f909cde95fd47">
+                <time datetime="2014">2014</time>
+                <div>
                   <span class="maturity-badge">Peer reviewed</span>
                   <span class="maturity-badge">Exact low-dimensional classes</span>
                   <a href="https://arxiv.org/abs/1309.5898" rel="noreferrer">Low-dimensional theorem ↗</a>
+
                 </div>
-              </div>
-            </li>
-          </ol>
+              </li>
+            </ol>
+
+          </article>
+
         </section>
 
 
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="ruskai-2007-extreme-points-cpt-maps">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Extreme+CPT+maps+beyond+qubit+input" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="ruskai-2007-extreme-points-cpt-maps">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
+        </section>
 
 
 
@@ -287,8 +350,10 @@
           <ul class="machine-links">
             <li><a href="../../packets/ruskai-2007-extreme-points-cpt-maps.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
             <li><a href="../../api/v1/problems/ruskai-2007-extreme-points-cpt-maps.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Extreme+CPT+maps+beyond+qubit+input" rel="noreferrer">Submit a research update ↗</a> — the evidence contract applies to human and AI results.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/ruskai-2007-extreme-points-cpt-maps/problem.md" rel="noreferrer">Source article ↗</a> — the canonical statement and notes in the repository.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-extreme-points-cpt-maps/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-extreme-points-cpt-maps/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Extreme+CPT+maps+beyond+qubit+input" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/ruskai-2007-extreme-points-cpt-maps/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -307,7 +372,8 @@
           <p>Record <code>ruskai-2007-extreme-points-cpt-maps</code></p>
           <p>Record revision <code>8c4f692e848f41fb7a40837a88893845fecbaab2618bbf546941d5f195b3be9c</code></p>
           <p>Statement digest <code>1872dce6f4408d25266be8b259803852dd6154fb77e7a09f4878b04cd55c78bb</code></p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Statement <code>ruskai-2007-extreme-points-cpt-maps-statement-v1</code> · Decision <code>decision-ruskai-2007-extreme-points-cpt-maps-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -338,5 +404,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="ruskai-2007-extreme-points-cpt-maps" defer></script>
   </body>
 </html>

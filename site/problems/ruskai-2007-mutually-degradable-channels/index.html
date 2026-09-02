@@ -177,11 +177,12 @@
 
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
-          <span class="status-badge ">Open</span>
+          <span class="status-badge">Open</span>
           <span class="area-badge">Quantum information</span>
           <span class="meta-badge">Quantum channels</span>
           <span class="meta-badge">Proposed 2007</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Nontrivial mutually degradable channel pairs</h1>
         <p class="dialog-summary">Trivial identity and identical-degradable pairs exist, but no distinct genuinely nontrivial pair of the intended kind has been identified.</p>
@@ -189,11 +190,14 @@
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#remaining">What remains</a>
-          <a href="#progress-heading">Progress</a>
+          <a href="#target-heading">What remains</a>
+          <a href="#progress-heading">Verified progress</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
           <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <div class="problem-framing">
           <section class="framing-row" aria-labelledby="importance-heading">
             <h2 id="importance-heading">Why it matters</h2>
@@ -220,7 +224,7 @@
               <span class="dialog-section-label">Verified formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">Matched to the source and locator above</span>
+            <span class="formal-source">Matched to the source and locator above · digest 65117e0d2421</span>
           </div>
 
           <details class="formal-notation">
@@ -236,31 +240,59 @@
           <div class="formal-body"><p><strong>Problem 23 (Ruskai 2007), intended nontrivial form.</strong> Find distinct quantum channels \(\mathcal{M},\mathcal{N}\) beyond the identity and individually degradable constructions that are <em>mutually degradable</em>, meaning that there exist CPT maps \(\mathcal{X},\mathcal{Y}\) with</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\mathcal{X}\circ\mathcal{M} \;=\; \mathcal{N}^C, \qquad \mathcal{Y}\circ\mathcal{N} \;=\; \mathcal{M}^C. \tag{32}\]</div><p>Of particular interest are examples in which:</p><ul><li>both \(\mathcal{M}\) and \(\mathcal{N}\) have Choi rank strictly less than \(d^2\);</li><li>and (most interestingly) both have Choi rank exactly \(d\), but neither \(\mathcal{M}\) nor \(\mathcal{N}\) is <em>individually</em> degradable.</li></ul></div>
         </section>
 
-        <div class="remaining-question " id="remaining">
-          <span>What remains</span>
-          <p>Construct distinct mutually degradable channels, preferably with neither channel individually degradable, or prove such pairs cannot exist under natural rank conditions.</p>
-        </div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Exact unresolved target</h2>
+
+          <div class="remaining-question" id="remaining">
+            <span>What remains</span>
+            <p>Construct distinct mutually degradable channels, preferably with neither channel individually degradable, or prove such pairs cannot exist under natural rank conditions.</p>
+          </div>
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-narrowed" id="clause-archived-statement">
+              <div class="clause-head">
+                <span class="clause-state narrowed">Narrowed</span>
+                <strong>Archived statement</strong>
+                <code>archived-statement</code>
+              </div>
+              <p>The formal statement of this version, as archived from the source.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> Construct distinct mutually degradable channels, preferably with neither channel individually degradable, or prove such pairs cannot exist under natural rank conditions.</p>
+              <p class="clause-claims">1 accepted claim: <a href="#claim-ruskai-2007-mutually-degradable-channels-2008-structural-theory-sharply-constrains">claim-ruskai-2007-mutually-degradable-channels-2008-structural-theory-sharply-constrains</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Open as of 12 Aug 2026: Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered. <code>decision-ruskai-2007-mutually-degradable-channels-status-2026-08-12</code></p>
+        </section>
 
 
 
         <section class="dialog-section" aria-labelledby="progress-heading">
-          <span class="dialog-section-label">Evidence ledger</span>
-          <h2 id="progress-heading">Recent progress</h2>
-          <ol class="timeline">
+          <span class="dialog-section-label">Verified progress</span>
+          <h2 id="progress-heading">Accepted claims</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
 
-            <li id="qop-evt-18b5f48d40ab84c0">
-              <time datetime="2008">2008</time>
-              <div>
-                <h3>Structural theory sharply constrains degradable channels</h3>
-                <p>Cubitt, Ruskai and Smith formalize the relevant channel structure and rank restrictions without producing the requested nontrivial pair.</p>
-                <div class="dialog-source-meta">
+          <article class="claim-card" id="claim-ruskai-2007-mutually-degradable-channels-2008-structural-theory-sharply-constrains">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Supports</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>Structural theory sharply constrains degradable channels</h3>
+            <p>Cubitt, Ruskai and Smith formalize the relevant channel structure and rank restrictions without producing the requested nontrivial pair.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-18b5f48d40ab84c0">
+                <time datetime="2008">2008</time>
+                <div>
                   <span class="maturity-badge">Peer reviewed</span>
                   <span class="maturity-badge">Structural constraints</span>
                   <a href="https://arxiv.org/abs/0802.1360" rel="noreferrer">Degradable-channel structure ↗</a>
+
                 </div>
-              </div>
-            </li>
-          </ol>
+              </li>
+            </ol>
+
+          </article>
+
         </section>
 
 
@@ -274,6 +306,28 @@
         </section>
 
 
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="ruskai-2007-mutually-degradable-channels">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Nontrivial+mutually+degradable+channel+pairs" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="ruskai-2007-mutually-degradable-channels">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
+        </section>
+
+
+
+
 
         <section class="dialog-section" aria-labelledby="machine-heading">
           <span class="dialog-section-label">Work on this problem</span>
@@ -281,8 +335,10 @@
           <ul class="machine-links">
             <li><a href="../../packets/ruskai-2007-mutually-degradable-channels.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
             <li><a href="../../api/v1/problems/ruskai-2007-mutually-degradable-channels.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Nontrivial+mutually+degradable+channel+pairs" rel="noreferrer">Submit a research update ↗</a> — the evidence contract applies to human and AI results.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/ruskai-2007-mutually-degradable-channels/problem.md" rel="noreferrer">Source article ↗</a> — the canonical statement and notes in the repository.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-mutually-degradable-channels/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/ruskai-2007-mutually-degradable-channels/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Nontrivial+mutually+degradable+channel+pairs" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/ruskai-2007-mutually-degradable-channels/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -301,7 +357,8 @@
           <p>Record <code>ruskai-2007-mutually-degradable-channels</code></p>
           <p>Record revision <code>346859af0c52cc6a7fbbd11d9417837d43b889cec23cac2d500118e229a9f2c1</code></p>
           <p>Statement digest <code>65117e0d24210dbc6cef187270d9a8c5963fe3e1102f181a6040e42aca3b7110</code></p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Statement <code>ruskai-2007-mutually-degradable-channels-statement-v1</code> · Decision <code>decision-ruskai-2007-mutually-degradable-channels-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -332,5 +389,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="ruskai-2007-mutually-degradable-channels" defer></script>
   </body>
 </html>

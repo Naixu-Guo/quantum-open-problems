@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-all-bell-inequalities",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Classify all Bell inequalities",
+    "proposed": "1999-10-25",
+    "topicId": "bell-nonlocality",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Classification",
+      "summary": "Facet lists are complete only for small scenarios or restricted correlation spaces. No closed-form classification exists for arbitrary parties, settings and outcomes.",
+      "importance": "Facet inequalities give the complete linear tests for classical locality in a fixed experiment. A general classification would organize Bell tests and identify which constraints can show quantum violations.",
+      "unresolved": "Classify the facets of the local correlation polytope for general numbers of parties, settings and outcomes."
+    },
+    "keywords": [
+      "Bell inequalities",
+      "correlation polytope",
+      "facets",
+      "local realism"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-all-bell-inequalities-statement-v1",
+      "problemId": "krueger-2005-all-bell-inequalities",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "pp. 9-14 (Problem 1)",
+          "primary": true,
+          "statedTitle": "All the Bell Inequalities"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Classify the facets of the local correlation polytope for general numbers of parties, settings and outcomes."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-all-bell-inequalities-2026-polyhedral-sampling-scales-by",
+      "statementId": "krueger-2005-all-bell-inequalities-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "rules-out",
+      "title": "Polyhedral sampling scales by giving up completeness",
+      "text": "Staufenbiel's sampling method finds millions of classes in large scenarios but explicitly does not enumerate every facet."
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-all-bell-inequalities-2001-a-full-correlation-subclass",
+      "statementId": "krueger-2005-all-bell-inequalities-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "A full-correlation subclass is completely classified",
+      "text": "Werner and Wolf enumerate all full-correlation facets for arbitrary parties with two dichotomic observables per site, not the full probability polytope for arbitrary scenarios."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-all-bell-inequalities-2026-polyhedral-sampling-scales-by",
+      "claimId": "claim-krueger-2005-all-bell-inequalities-2026-polyhedral-sampling-scales-by",
+      "sourceId": "source-staufenbiel-2026-bell-inequalities-from",
+      "sourceLocator": null,
+      "date": "2026-04-22",
+      "maturity": "Preprint",
+      "strength": "Incomplete computational method",
+      "label": "Sampling method"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-all-bell-inequalities-2001-a-full-correlation-subclass",
+      "claimId": "claim-krueger-2005-all-bell-inequalities-2001-a-full-correlation-subclass",
+      "sourceId": "source-werner-2001-all-multipartite-bell",
+      "sourceLocator": null,
+      "date": "2001-02-05",
+      "maturity": "Peer reviewed",
+      "strength": "Exact restricted theorem",
+      "label": "Restricted classification"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-all-bell-inequalities-status-2026-08-12",
+      "problemId": "krueger-2005-all-bell-inequalities",
+      "statementId": "krueger-2005-all-bell-inequalities-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-all-bell-inequalities-2026-polyhedral-sampling-scales-by",
+        "evidence-krueger-2005-all-bell-inequalities-2001-a-full-correlation-subclass"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

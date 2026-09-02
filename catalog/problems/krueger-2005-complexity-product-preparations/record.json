@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-complexity-product-preparations",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Complexity of product preparations",
+    "proposed": "2003-01-31",
+    "topicId": "quantum-complexity",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Asymptotic complexity",
+      "summary": "No general asymptotic formula is known for the weighted Pauli-rotation cost of preparing many copies of a pure state.",
+      "importance": "The answer decides whether state-preparation complexity is extensive or whether a collective circuit can amortize the cost of producing repeated quantum resources.",
+      "unresolved": "Determine the scaling of the weighted rotation cost for many copies and whether collective preparation gives a strict asymptotic saving per copy."
+    },
+    "keywords": [
+      "state preparation",
+      "Pauli rotations",
+      "asymptotic cost",
+      "collective preparation"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-complexity-product-preparations-statement-v1",
+      "problemId": "krueger-2005-complexity-product-preparations",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "p. 50 (Problem 16)",
+          "primary": true
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Determine the scaling of the weighted rotation cost for many copies and whether collective preparation gives a strict asymptotic saving per copy."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-complexity-product-preparations-2005-the-archived-weighted-cost",
+      "statementId": "krueger-2005-complexity-product-preparations-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "status-review",
+      "title": "The archived weighted-cost problem remains unresolved",
+      "text": "The cost is the infimum of the sum of absolute rotation angles. Modern Clifford-plus-T gate counts use a different resource measure."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-complexity-product-preparations-2005-the-archived-weighted-cost",
+      "claimId": "claim-krueger-2005-complexity-product-preparations-2005-the-archived-weighted-cost",
+      "sourceId": "source-kruger-2005-some-open-problems",
+      "sourceLocator": null,
+      "date": "2005-04-21",
+      "maturity": "Archived source",
+      "strength": "Open formulation",
+      "label": "Source problem"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-complexity-product-preparations-status-2026-08-12",
+      "problemId": "krueger-2005-complexity-product-preparations",
+      "statementId": "krueger-2005-complexity-product-preparations-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-complexity-product-preparations-2005-the-archived-weighted-cost"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": "Do not substitute gate count for the source's weighted continuous-angle cost.",
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "ruskai-2007-additivity-violation-power-m",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Delayed-onset additivity violation",
+    "proposed": "2007",
+    "topicId": "quantum-channels",
+    "collectionId": "ruskai-2007",
+    "question": {
+      "type": "Existence",
+      "summary": "No channel is known to be additive for every tensor power below a chosen m at least three, then first become nonadditive at m copies.",
+      "importance": "A delayed violation would show that testing one or two copies cannot certify an additive channel law. It would expose a new level of regularization in channel-output entropy.",
+      "unresolved": "Construct a genuine delayed-onset example with m at least three, or prove that two-copy additivity forces all-copy additivity in the relevant setting."
+    },
+    "keywords": [
+      "additivity",
+      "tensor powers",
+      "minimum output entropy",
+      "maximal output p-norm"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "ruskai-2007-additivity-violation-power-m-statement-v1",
+      "problemId": "ruskai-2007-additivity-violation-power-m",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ruskai-2007",
+          "relationship": "states-problem",
+          "locator": "p. 16 (Problem 19)",
+          "primary": true,
+          "statedTitle": "Channel that is additive for fewer than m tensor copies but violates additivity at the m-th copy"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Construct a genuine delayed-onset example with m at least three, or prove that two-copy additivity forces all-copy additivity in the relevant setting."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-additivity-violation-power-m-2026-explicit-self-channel-violations",
+      "statementId": "ruskai-2007-additivity-violation-power-m-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "Explicit self-channel violations expose a quantifier trap",
+      "text": "Derksen and Lovitz give self-channel two-copy violations for every p greater than one. This solves the literal m equals two wording, but not delayed onset at m at least three."
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-additivity-violation-power-m-2009-hastings-violations-already-appear",
+      "statementId": "ruskai-2007-additivity-violation-power-m-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "Hastings violations already appear at two copies",
+      "text": "The random-channel counterexample to minimum-output-entropy additivity does not remain additive through lower nontrivial tensor powers."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-ruskai-2007-additivity-violation-power-m-2026-explicit-self-channel-violations",
+      "claimId": "claim-ruskai-2007-additivity-violation-power-m-2026-explicit-self-channel-violations",
+      "sourceId": "source-derksen-2026-constructive-counterexamples-to",
+      "sourceLocator": null,
+      "date": "2026",
+      "maturity": "Preprint",
+      "strength": "Exact adjacent result",
+      "label": "Self-channel examples"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-ruskai-2007-additivity-violation-power-m-2009-hastings-violations-already-appear",
+      "claimId": "claim-ruskai-2007-additivity-violation-power-m-2009-hastings-violations-already-appear",
+      "sourceId": "source-hastings-2009-superadditivity",
+      "sourceLocator": null,
+      "date": "2009",
+      "maturity": "Peer reviewed",
+      "strength": "General counterexample",
+      "label": "Hastings theorem"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-ruskai-2007-additivity-violation-power-m-status-2026-08-12",
+      "problemId": "ruskai-2007-additivity-violation-power-m",
+      "statementId": "ruskai-2007-additivity-violation-power-m-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-ruskai-2007-additivity-violation-power-m-2026-explicit-self-channel-violations",
+        "evidence-ruskai-2007-additivity-violation-power-m-2009-hastings-violations-already-appear"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": "The intended problem must require m at least three. Otherwise the one-copy equality is tautological and any self-channel two-copy violation answers it.",
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

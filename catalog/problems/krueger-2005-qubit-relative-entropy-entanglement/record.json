@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-qubit-relative-entropy-entanglement",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Two-qubit relative entropy of entanglement",
+    "proposed": "2003-06-20",
+    "topicId": "entanglement-theory",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Closed formula",
+      "summary": "Special families and an inverse closest-separable-state construction are known, but no closed formula covers every two-qubit mixed state.",
+      "importance": "Two qubits form the smallest mixed-state entanglement problem, yet this distance-based measure lacks a direct formula there. A solution would make the measure computable without a convex optimization.",
+      "unresolved": "Find a closed expression that maps an arbitrary two-qubit density matrix to its relative entropy of entanglement."
+    },
+    "keywords": [
+      "relative entropy of entanglement",
+      "two qubits",
+      "closest separable state",
+      "convex optimization"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-qubit-relative-entropy-entanglement-statement-v1",
+      "problemId": "krueger-2005-qubit-relative-entropy-entanglement",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "pp. 30-31 (Problem 8)",
+          "primary": true,
+          "statedTitle": "Qubit formula for Relative Entropy of Entanglement"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Find a closed expression that maps an arbitrary two-qubit density matrix to its relative entropy of entanglement."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-qubit-relative-entropy-entanglement-2008-the-inverse-closest-state",
+      "statementId": "krueger-2005-qubit-relative-entropy-entanglement-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "The inverse closest-state problem is solved",
+      "text": "Miranowicz and Ishizaka construct entangled states from a prescribed closest separable state and solve special families, but not the forward problem for arbitrary input states."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-qubit-relative-entropy-entanglement-2008-the-inverse-closest-state",
+      "claimId": "claim-krueger-2005-qubit-relative-entropy-entanglement-2008-the-inverse-closest-state",
+      "sourceId": "source-arxiv-0805-3134",
+      "sourceLocator": null,
+      "date": "2008-10-15",
+      "maturity": "Peer reviewed",
+      "strength": "Exact inverse solution",
+      "label": "Inverse construction"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-qubit-relative-entropy-entanglement-status-2026-08-12",
+      "problemId": "krueger-2005-qubit-relative-entropy-entanglement",
+      "statementId": "krueger-2005-qubit-relative-entropy-entanglement-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-qubit-relative-entropy-entanglement-2008-the-inverse-closest-state"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

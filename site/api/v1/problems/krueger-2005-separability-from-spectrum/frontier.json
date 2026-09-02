@@ -1,0 +1,206 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-separability-from-spectrum",
+  "title": "Separability from spectrum",
+  "catalogState": "published",
+  "status": "partial",
+  "statusLabel": "Partially solved",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-krueger-2005-separability-from-spectrum-status-2026-08-12",
+    "status": "partial",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-krueger-2005-separability-from-spectrum-2024-a-4-by-n",
+      "evidence-krueger-2005-separability-from-spectrum-2013-every-qubit-qudit-spectrum"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "krueger-2005-separability-from-spectrum-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "c373f12f68a4584e6e71ed51b73738589848e1043304edd0d9a43dae4b309374",
+    "sourceRefs": [
+      {
+        "sourceId": "source-krueger-werner-2005",
+        "relationship": "states-problem",
+        "locator": "pp. 48-49 (Problem 15)",
+        "primary": true,
+        "source": {
+          "id": "source-krueger-werner-2005",
+          "title": "Some open problems in quantum information theory",
+          "authors": [
+            "O. Krüger",
+            "R. F. Werner"
+          ],
+          "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+          "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+          "doi": "10.48550/arXiv.quant-ph/0504166",
+          "arxivId": "quant-ph/0504166"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $\\mathcal{H}$ | Total complex Hilbert space of dimension $NM$ |\n| $N, M$ | Dimensions of the two tensor factors in a candidate bipartition |\n| $\\rho$ | Density matrix (mixed state) on $\\mathcal{H}$ |\n| $\\mathrm{spec}(\\rho)$ | Spectrum (multiset of eigenvalues) of $\\rho$ |\n| $x_1, x_2, x_3, x_4$ | Eigenvalues of a two-qubit state, listed in decreasing order |\n| $U$ | Unitary operator on $\\mathcal{H}$ |\n| $U \\rho U^*$ | State unitarily equivalent to $\\rho$ |\n| $E_F$ | Entanglement of formation |\n| $\\mathrm{sep}_{N,M}$ | Set of separable states with respect to a fixed $N \\otimes M$ factorisation |",
+      "statement": "Fix integers $N, M \\geq 2$ and let $\\mathcal{H}$ have dimension $NM$. For a mixed state $\\rho$ on $\\mathcal{H}$, consider the question: does there exist a factorisation $\\mathcal{H} \\cong \\mathbb{C}^N \\otimes \\mathbb{C}^M$ with respect to which $\\rho$ is not separable? Equivalently, does there exist a unitary $U$ on $\\mathcal{H}$ such that $U \\rho U^*$ is entangled across a fixed $N \\otimes M$ bipartition?\n\nBecause this question depends only on $\\mathrm{spec}(\\rho)$, define\n$$\\mathcal{S}_{N,M} \\;=\\; \\bigl\\{\\, \\mathrm{spec}(\\rho) \\,:\\, \\text{for every unitary } U \\text{ on } \\mathcal{H},\\; U \\rho U^* \\in \\mathrm{sep}_{N,M} \\,\\bigr\\}.$$\n\n**Problem.** Characterise the set $\\mathcal{S}_{N,M}$ — i.e. the spectra for which the answer to the question above is \"no\" (no entangling factorisation exists), so that separability with respect to the fixed $N \\otimes M$ bipartition is forced by the spectrum alone."
+    }
+  },
+  "question": {
+    "type": "Spectral characterization",
+    "summary": "Absolute separability is characterized for every 2-by-n system. A complete spectral criterion is unknown when both local dimensions are at least three.",
+    "importance": "Absolute separability identifies mixed states whose eigenvalues forbid entanglement under any global change of basis. A spectral criterion would decide this property without optimizing over unitaries.",
+    "unresolved": "Characterize spectra that remain separable under every global unitary in all higher local dimensions."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Characterize spectra that remain separable under every global unitary in all higher local dimensions.",
+      "state": "narrowed",
+      "claimIds": [
+        "claim-krueger-2005-separability-from-spectrum-2024-a-4-by-n",
+        "claim-krueger-2005-separability-from-spectrum-2013-every-qubit-qudit-spectrum"
+      ],
+      "latestEvidenceDate": "2024-08-21"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Characterize spectra that remain separable under every global unitary in all higher local dimensions."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-krueger-2005-separability-from-spectrum-2024-a-4-by-n",
+      "relation": "status-review",
+      "relationLabel": "Status review",
+      "title": "A 4-by-n claim proves APPT, not absolute separability",
+      "text": "The theorem establishes an absolute-PPT criterion but does not prove that APPT equals absolute separability in this dimension.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2024-08-21",
+      "evidence": [
+        {
+          "id": "evidence-krueger-2005-separability-from-spectrum-2024-a-4-by-n",
+          "date": "2024-08-21",
+          "maturity": "Preprint",
+          "strength": "Unaccepted scope claim",
+          "label": "Claim audit",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-xiong-2024-criteria-of-absolutely",
+            "title": "Criteria of absolutely separability from spectrum for qudit-qudits states",
+            "authors": [
+              "L. Xiong",
+              "N.-S. Sze"
+            ],
+            "venue": "arXiv:2408.11684 (2024). Cited as an unaccepted general-resolution claim; see the status discussion.",
+            "url": "https://arxiv.org/abs/2408.11684",
+            "arxivId": "2408.11684"
+          }
+        }
+      ]
+    },
+    {
+      "id": "claim-krueger-2005-separability-from-spectrum-2013-every-qubit-qudit-spectrum",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "Every qubit-qudit spectrum is characterized",
+      "text": "Johnston proves that APPT and absolute separability coincide for 2-by-n systems and gives the complete criterion there.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2013-09-08",
+      "evidence": [
+        {
+          "id": "evidence-krueger-2005-separability-from-spectrum-2013-every-qubit-qudit-spectrum",
+          "date": "2013-09-08",
+          "maturity": "Peer reviewed",
+          "strength": "Exact major subclass",
+          "label": "Qubit-qudit theorem",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-johnston-2013-separability-from-spectrum",
+            "title": "Separability from spectrum for qubit–qudit states",
+            "authors": [
+              "N. Johnston"
+            ],
+            "venue": "Phys. Rev. A **88**, 062330 (2013); arXiv:1309.2006.",
+            "url": "https://arxiv.org/abs/1309.2006",
+            "arxivId": "1309.2006"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [
+    {
+      "label": "Terminology",
+      "text": "APPT is necessary for absolute separability, but the two sets are not known to coincide in general higher dimensions.",
+      "url": "https://arxiv.org/abs/2408.11684"
+    }
+  ],
+  "interpretation": null,
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "krueger-2005-separability-from-spectrum-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-krueger-2005-separability-from-spectrum-status-2026-08-12",
+        "status": "partial",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "95a42598410681e7dc9a2c7b6dcf204de88a0f07815d96ad0c234cfbe5f833cb",
+    "statementDigest": "c373f12f68a4584e6e71ed51b73738589848e1043304edd0d9a43dae4b309374",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-separability-from-spectrum/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-separability-from-spectrum.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-separability-from-spectrum/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-separability-from-spectrum/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-separability-from-spectrum/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-separability-from-spectrum.md"
+  }
+}

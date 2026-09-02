@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "ruskai-2007-new-extreme-cpt-additivity",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "New extreme CPT classes with additivity",
+    "proposed": "2007",
+    "topicId": "quantum-channels",
+    "collectionId": "ruskai-2007",
+    "question": {
+      "type": "Positive-class program",
+      "summary": "New families of extreme channels have been studied since 2007, but no decisive new structured class with the requested additivity theorem has been located.",
+      "importance": "Since universal additivity is false, structured channel families with exact tensor-product laws define the remaining positive theory. Extreme channels are the sharpest place to search for such laws.",
+      "unresolved": "Find a genuinely new class of extreme CPT maps for which minimum-output-entropy additivity or output-norm multiplicativity can be proved."
+    },
+    "keywords": [
+      "extreme channels",
+      "additivity",
+      "multiplicativity",
+      "factorizable maps"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "ruskai-2007-new-extreme-cpt-additivity-statement-v1",
+      "problemId": "ruskai-2007-new-extreme-cpt-additivity",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ruskai-2007",
+          "relationship": "states-problem",
+          "locator": "p. 14 (Problem 14)",
+          "primary": true,
+          "statedTitle": "New classes of extreme CPT maps for which additivity/multiplicativity can be proved"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Find a genuinely new class of extreme CPT maps for which minimum-output-entropy additivity or output-norm multiplicativity can be proved."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-new-extreme-cpt-additivity-2021-new-extreme-channel-families",
+      "statementId": "ruskai-2007-new-extreme-cpt-additivity-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "supports",
+      "title": "New extreme channel families do not supply the requested theorem",
+      "text": "Haagerup, Musat and Ruskai develop relevant extreme maps, but this does not yield a new positive additivity class answering the program."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-ruskai-2007-new-extreme-cpt-additivity-2021-new-extreme-channel-families",
+      "claimId": "claim-ruskai-2007-new-extreme-cpt-additivity-2021-new-extreme-channel-families",
+      "sourceId": "source-arxiv-2006-03414",
+      "sourceLocator": null,
+      "date": "2021",
+      "maturity": "Peer reviewed",
+      "strength": "Related structural progress",
+      "label": "Extreme-map families"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-ruskai-2007-new-extreme-cpt-additivity-status-2026-08-12",
+      "problemId": "ruskai-2007-new-extreme-cpt-additivity",
+      "statementId": "ruskai-2007-new-extreme-cpt-additivity-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-ruskai-2007-new-extreme-cpt-additivity-2021-new-extreme-channel-families"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

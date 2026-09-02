@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Solved record. The problem is solved (negatively): the LU = LC conjecture is false in general. - For qubit graph states on vertices, numerical work of Hein, Eisert and Briegel (and Hein et al.) verified that LC equivalence coincides with LU equivalence…">
+    <meta name="description" content="Solved record. The source asked whether local-unitary equivalence of graph states always reduces to local-Clifford equivalence. Ji, Chen, Wei and Ying disproved the LU = LC conjecture with explicit counterexamples, the smallest from their construction on 27 qubits.">
     <meta name="theme-color" content="#0d1b2a">
     <title>Local equivalence of graph states · Quantum Open Problems</title>
     <link rel="canonical" href="https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-local-equivalence-graph-states/">
@@ -13,7 +13,7 @@
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Quantum Open Problems">
     <meta property="og:title" content="Local equivalence of graph states">
-    <meta property="og:description" content="Solved record. The problem is solved (negatively): the LU = LC conjecture is false in general. - For qubit graph states on vertices, numerical work of Hein, Eisert and Briegel (and Hein et al.) verified that LC equivalence coincides with LU equivalence…">
+    <meta property="og:description" content="Solved record. The source asked whether local-unitary equivalence of graph states always reduces to local-Clifford equivalence. Ji, Chen, Wei and Ying disproved the LU = LC conjecture with explicit counterexamples, the smallest from their construction on 27 qubits.">
     <meta property="og:url" content="https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-local-equivalence-graph-states/">
     <meta name="twitter:card" content="summary">
     <script>
@@ -22,6 +22,8 @@
         if (theme === "dark") document.documentElement.dataset.theme = "dark";
       } catch {}
     </script>
+    <link rel="alternate" href="../../api/v1/problems/krueger-2005-local-equivalence-graph-states.json" type="application/json" title="Problem record (JSON)">
+    <link rel="alternate" href="../../packets/krueger-2005-local-equivalence-graph-states.md" type="text/markdown" title="AI research brief (Markdown)">
     <script>window.MathJax = { svg: { fontCache: "global" } };</script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-svg.js" integrity="sha384-my9P1jDckpHD+5LZsLQ0gaiCl/RMO32HaqwBtbo/25QIMVr6xXIUCg1jvdSRcvb4" crossorigin="anonymous" defer></script>
     <script type="application/ld+json">{
@@ -83,18 +85,26 @@
         "value": "krueger-2005-local-equivalence-graph-states"
       },
       "name": "Local equivalence of graph states",
-      "abstract": "Solved record. The problem is solved (negatively): the LU = LC conjecture is false in general. - For qubit graph states on vertices, numerical work of Hein, Eisert and Briegel (and Hein et al.) verified that LC equivalence coincides with LU equivalence…",
+      "abstract": "Solved record. The source asked whether local-unitary equivalence of graph states always reduces to local-Clifford equivalence. Ji, Chen, Wei and Ying disproved the LU = LC conjecture with explicit counterexamples, the smallest from their construction on 27 qubits.",
       "text": "Decide the following decision problem.\n\n**Input:** Two simple graphs $G$ and $G'$ on the same vertex set of size $n$, presenting two graph states $|\\psi_G\\rangle$ and $|\\psi_{G'}\\rangle$ on $n$ qubits.\n\n**Question (LU $\\Rightarrow$ LC ?):** Suppose there exist single-qubit unitaries $U_1,\\dots,U_n\\in U(2)$ such that\n$$|\\psi_{G'}\\rangle = U_1\\otimes U_2\\otimes\\cdots\\otimes U_n\\,|\\psi_G\\rangle .$$\nDoes it then follow that there also exist *Clifford* single-qubit unitaries $V_1,\\dots,V_n\\in\\mathcal{C}_1$ such that\n$$|\\psi_{G'}\\rangle = V_1\\otimes V_2\\otimes\\cdots\\otimes V_n\\,|\\psi_G\\rangle\\,?$$\n\nEquivalently, are LU-equivalent graph states necessarily LC-equivalent?",
       "inLanguage": "en",
       "qop:problemStatus": "solved",
       "qop:verified": "2026-08-12",
-      "keywords": [],
+      "keywords": [
+        "graph states",
+        "LU-LC conjecture",
+        "local Clifford equivalence",
+        "stabiliser states",
+        "local complementation"
+      ],
       "about": [
-        "Krueger–Werner"
+        "Entanglement theory",
+        "Quantum information"
       ],
       "mainEntityOfPage": {
         "@id": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-local-equivalence-graph-states/#page"
       },
+      "qop:recordDigest": "sha256:c50173d1b8630ff49dd87d611579a68541a1806b57aeaa61dfeb2c5efe8690c6",
       "isBasedOn": {
         "@type": "ScholarlyArticle",
         "name": "Some open problems in quantum information theory",
@@ -121,7 +131,19 @@
           }
         ],
         "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
-      }
+      },
+      "encoding": [
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-local-equivalence-graph-states.json"
+        },
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "text/markdown",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-local-equivalence-graph-states.md"
+        }
+      ]
     }
   ]
 }</script>
@@ -161,30 +183,40 @@
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
           <span class="status-badge solved">Solved</span>
-          <span class="area-badge">Krueger–Werner</span>
+          <span class="area-badge">Quantum information</span>
+          <span class="meta-badge">Entanglement theory</span>
           <span class="meta-badge">Proposed 2005-04-21</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
-        <h1 id="page-title">Local Equivalence of Graph States</h1>
+        <h1 id="page-title">Local equivalence of graph states</h1>
+        <p class="dialog-summary">The source asked whether local-unitary equivalence of graph states always reduces to local-Clifford equivalence. Ji, Chen, Wei and Ying disproved the LU = LC conjecture with explicit counterexamples, the smallest from their construction on 27 qubits.</p>
 
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#resolution-heading">Resolution</a>
-          <a href="#bibliography-heading">Bibliography</a>
+          <a href="#target-heading">Target</a>
+          <a href="#progress-heading">Resolution</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
+          <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <section class="dialog-section">
           <div class="interpretation-note">
             <span class="note-icon" aria-hidden="true">i</span>
             <div>
               <strong>Archived record</strong>
-              <p>The audit records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
+              <p>The accepted status decision records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
             </div>
           </div>
         </section>
-
         <div class="problem-framing">
+          <section class="framing-row" aria-labelledby="importance-heading">
+            <h2 id="importance-heading">Why it matters</h2>
+            <p>Local Clifford equivalence admits a clean combinatorial description via local complementation and is efficiently decidable, so a positive answer would have made that combinatorial classification the complete classification of graph states under single-qubit unitaries, while a negative answer forces a richer non-combinatorial theory of LU classes.</p>
+          </section>
           <section class="framing-row" aria-labelledby="source-heading">
             <h2 id="source-heading">Problem source</h2>
             <div class="problem-source-record">
@@ -192,6 +224,7 @@
               <p>O. Krüger, R. F. Werner</p>
               <p>arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/</p>
               <div class="problem-source-scope">
+                <span>The source states the cataloged problem.</span>
                 <span>Statement locator: p. 70-71 (Problem 28)</span>
               </div>
               <a href="https://doi.org/10.48550/arXiv.quant-ph/0504166" rel="noreferrer">Read problem source ↗</a>
@@ -205,7 +238,7 @@
               <span class="dialog-section-label">Archived formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">As archived before resolution</span>
+            <span class="formal-source">As archived before resolution · digest 50893a26d5c7</span>
           </div>
 
           <details class="formal-notation">
@@ -221,10 +254,102 @@
           <div class="formal-body"><p>Decide the following decision problem.</p><p><strong>Input:</strong> Two simple graphs \(G\) and \(G&#039;\) on the same vertex set of size \(n\), presenting two graph states \(|\psi_G\rangle\) and \(|\psi_{G&#039;}\rangle\) on \(n\) qubits.</p><p><strong>Question (LU \(\Rightarrow\) LC ?):</strong> Suppose there exist single-qubit unitaries \(U_1,\dots,U_n\in U(2)\) such that</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[|\psi_{G&#039;}\rangle = U_1\otimes U_2\otimes\cdots\otimes U_n\,|\psi_G\rangle .\]</div><p>Does it then follow that there also exist <em>Clifford</em> single-qubit unitaries \(V_1,\dots,V_n\in\mathcal{C}_1\) such that</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[|\psi_{G&#039;}\rangle = V_1\otimes V_2\otimes\cdots\otimes V_n\,|\psi_G\rangle\,?\]</div><p>Equivalently, are LU-equivalent graph states necessarily LC-equivalent?</p></div>
         </section>
 
-        <section class="dialog-section" aria-labelledby="resolution-heading">
-          <span class="dialog-section-label">Resolution</span>
-          <h2 id="resolution-heading">Status and known progress</h2>
-          <div class="archive-progress"><p>The problem is <strong>solved (negatively)</strong>: the LU = LC conjecture is <strong>false</strong> in general.</p><ul><li>For qubit graph states on \(n\le 7\) vertices, numerical work of Hein, Eisert and Briegel (and Hein et al.) verified that LC equivalence coincides with LU equivalence on all connected graphs with up to 7 vertices.</li><li>Van den Nest, Dehaene and De Moor (arXiv:quant-ph/0411115, 2004) proved LU \(\Rightarrow\) LC for a substantial class of graph states, namely those whose stabiliser group has a particular structure; this class includes all stabiliser states derived from \(GL(4)\)-linear codes, and (in a separate paper) also generalised GHZ / star-graph states.</li><li>The general LU=LC conjecture was <strong>disproved</strong> by Z. Ji, J. Chen, Z. Wei and M. Ying, <em>The LU-LC conjecture is false</em>, Quantum Information &amp; Computation <strong>10</strong>, 97 (2010); arXiv:0709.1266 (2007/2008). They exhibited explicit counterexamples on sufficiently large numbers of qubits (the smallest counterexamples produced in their construction have 27 qubits) — pairs of graph states that are LU-equivalent but not LC-equivalent.</li><li>A March 2026 preprint by Claudet, arXiv:2603.25219v1, proves that the 27-qubit counterexample is minimal, so LU and LC equivalence coincide through 26 qubits. This refinement had not passed peer review by the verification date. Cabello et al., arXiv:1010.5638, classify small graph states using compact invariants; that paper is not a source of additional counterexamples.</li></ul><p>Even with this disproof, several refined questions remain (e.g. small-vertex exhaustive bounds; minimum \(n\) for which LU \(\neq\) LC; classification of LU classes within an LC class for arbitrary \(n\)). The original problem as posed, however, is settled.</p><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Archived target</h2>
+
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-refuted" id="clause-lu-implies-lc-for-graph-states">
+              <div class="clause-head">
+                <span class="clause-state refuted">Refuted</span>
+                <strong>LU = LC for graph states</strong>
+                <code>lu-implies-lc-for-graph-states</code>
+              </div>
+              <p>The archived statement asks whether two graph states related by arbitrary single-qubit unitaries are necessarily related by single-qubit Clifford unitaries.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> A proof of the implication, or an explicit pair of LU-equivalent graph states that are not LC-equivalent.</p>
+              <p class="clause-claims">1 accepted claim: <a href="#claim-krueger-2005-local-equivalence-graph-states-ji-chen-wei-and">claim-krueger-2005-local-equivalence-graph-states-ji-chen-wei-and</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Solved as of 12 Aug 2026: The cited peer-reviewed counterexample disproves the universal implication asserted in the archived statement. <code>decision-krueger-2005-local-equivalence-graph-states-status-2026-08-12</code></p>
+        </section>
+
+
+
+        <section class="dialog-section" aria-labelledby="progress-heading">
+          <span class="dialog-section-label">Resolution evidence</span>
+          <h2 id="progress-heading">Resolution</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
+
+          <article class="claim-card" id="claim-krueger-2005-local-equivalence-graph-states-ji-chen-wei-and">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Refutes</span>
+              <span class="claim-clauses"><a href="#clause-lu-implies-lc-for-graph-states">lu-implies-lc-for-graph-states</a></span>
+            </div>
+            <h3>Ji, Chen, Wei and Ying show the LU-LC conjecture is false</h3>
+            <p>Ji, Chen, Wei and Ying exhibit explicit pairs of graph states on sufficiently many qubits that are LU-equivalent but not LC-equivalent, the smallest produced by their construction having 27 qubits. The general LU = LC conjecture in the archived statement is therefore false.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-98eaeb41cdf8c546">
+                <time datetime="2010">2010</time>
+                <div>
+                  <span class="maturity-badge">Peer reviewed</span>
+                  <span class="maturity-badge">Exact counterexample</span>
+                  <a href="https://arxiv.org/abs/0709.1266" rel="noreferrer">Quantum Information &amp; Computation ↗</a>
+                  <span class="evidence-locator">Explicit counterexample construction (smallest instance on 27 qubits)</span>
+                </div>
+              </li>
+            </ol>
+
+          </article>
+
+          <details class="archive-narrative">
+            <summary>Editorial narrative <span>Status and known progress as written by the editors</span></summary>
+            <div class="archive-progress"><p>The problem is <strong>solved (negatively)</strong>: the LU = LC conjecture is <strong>false</strong> in general.</p><ul><li>For qubit graph states on \(n\le 7\) vertices, numerical work of Hein, Eisert and Briegel (and Hein et al.) verified that LC equivalence coincides with LU equivalence on all connected graphs with up to 7 vertices.</li><li>Van den Nest, Dehaene and De Moor (arXiv:quant-ph/0411115, 2004) proved LU \(\Rightarrow\) LC for a substantial class of graph states, namely those whose stabiliser group has a particular structure; this class includes all stabiliser states derived from \(GL(4)\)-linear codes, and (in a separate paper) also generalised GHZ / star-graph states.</li><li>The general LU=LC conjecture was <strong>disproved</strong> by Z. Ji, J. Chen, Z. Wei and M. Ying, <em>The LU-LC conjecture is false</em>, Quantum Information &amp; Computation <strong>10</strong>, 97 (2010); arXiv:0709.1266 (2007/2008). They exhibited explicit counterexamples on sufficiently large numbers of qubits (the smallest counterexamples produced in their construction have 27 qubits) — pairs of graph states that are LU-equivalent but not LC-equivalent.</li><li>A March 2026 preprint by Claudet, arXiv:2603.25219v1, proves that the 27-qubit counterexample is minimal, so LU and LC equivalence coincide through 26 qubits. This refinement had not passed peer review by the verification date. Cabello et al., arXiv:1010.5638, classify small graph states using compact invariants; that paper is not a source of additional counterexamples.</li></ul><p>Even with this disproof, several refined questions remain (e.g. small-vertex exhaustive bounds; minimum \(n\) for which LU \(\neq\) LC; classification of LU classes within an LC class for arbitrary \(n\)). The original problem as posed, however, is settled.</p><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+          </details>
+        </section>
+
+
+        <section class="dialog-section" aria-labelledby="cautions-heading">
+          <span class="dialog-section-label">Claim watch</span>
+          <h2 id="cautions-heading">Scope and cautions</h2>
+
+          <div class="watch-note">
+            <span class="note-icon" aria-hidden="true">!</span>
+            <div>
+              <strong>Scope</strong>
+              <p>LU and LC equivalence still coincide on small graph states: numerics of Hein, Eisert and Briegel verified agreement up to 7 vertices, and a March 2026 preprint by Claudet (arXiv:2603.25219) proves the 27-qubit counterexample is minimal, so agreement holds through 26 qubits; that refinement had not passed peer review at the verification date. </p>
+            </div>
+          </div>
+          <div class="watch-note">
+            <span class="note-icon" aria-hidden="true">!</span>
+            <div>
+              <strong>Scope</strong>
+              <p>Refined questions remain open, including classification of LU classes within an LC class for arbitrary n; only the original implication is settled. </p>
+            </div>
+          </div>
+        </section>
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="krueger-2005-local-equivalence-graph-states">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Local+equivalence+of+graph+states" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="krueger-2005-local-equivalence-graph-states">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
         </section>
 
 
@@ -234,12 +359,18 @@
           <div class="archive-bibliography"><ul><li>O. Krüger and R. F. Werner (eds.), <em>Some Open Problems in Quantum Information Theory</em>, arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/. Problem 28, pp. 70–71 (contact: D. Schlingemann, 21 Apr 2005). DOI: 10.48550/arXiv.quant-ph/0504166. Source PDF: &quot;Some Open Problems in Quantum Information Theory.pdf&quot;.</li><li>M. Hein, J. Eisert, W. Dür, H.-J. Briegel, <em>Multi-party entanglement in graph states</em>, Phys. Rev. A <strong>69</strong>, 062311 (2004); arXiv:quant-ph/0307130 (2003).</li><li>M. Van den Nest, J. Dehaene, B. De Moor, <em>Local invariants of stabilizer codes</em>, Phys. Rev. A <strong>70</strong>, 032323 (2004); arXiv:quant-ph/0404106 (2004).</li><li>M. Van den Nest, J. Dehaene, B. De Moor, <em>On local unitary versus local Clifford equivalence of stabilizer states</em>, arXiv:quant-ph/0411115 (2004).</li><li>M. Van den Nest, J. Dehaene, B. De Moor, <em>Finite set of invariants to characterize local Clifford equivalence of stabilizer states</em>, arXiv:quant-ph/0410165 (2004).</li><li>M. Van den Nest, J. Dehaene, B. De Moor, <em>An efficient algorithm to recognize local Clifford equivalence of graph states</em>, Phys. Rev. A <strong>70</strong>, 034302 (2004); arXiv:quant-ph/0405023 (2004).</li><li>D.-M. Schlingemann, <em>Cluster states, graphs and algorithms</em>, Quant. Inf. Comput. <strong>4</strong>, 287 (2004); arXiv:quant-ph/0305170 (2003).</li><li>Z. Ji, J. Chen, Z. Wei, M. Ying, <em>The LU-LC conjecture is false</em>, Quantum Information &amp; Computation <strong>10</strong>, 97 (2010); arXiv:0709.1266.</li><li>A. Cabello, A. J. López-Tarrida, P. Moreno, J. R. Portillo, <em>Compact set of invariants characterizing graph states of up to eight qubits</em>, Phys. Rev. A <strong>83</strong>, 042314 (2011); arXiv:1010.5638.</li><li>N. Claudet, <em>The 27-qubit Counterexample to the LU-LC Conjecture is Minimal</em>, arXiv:2603.25219 (2026).</li></ul></div>
         </section>
 
+
+
         <section class="dialog-section" aria-labelledby="machine-heading">
-          <span class="dialog-section-label">Record</span>
+          <span class="dialog-section-label">Work on this problem</span>
           <h2 id="machine-heading">Research interfaces</h2>
           <ul class="machine-links">
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/krueger-2005-local-equivalence-graph-states/problem.md" rel="noreferrer">Source article ↗</a> — the canonical archived statement and audit notes.</li>
-            <li><a href="../">Problem directory</a> — every active and archived record.</li>
+            <li><a href="../../packets/krueger-2005-local-equivalence-graph-states.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-local-equivalence-graph-states.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-local-equivalence-graph-states/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-local-equivalence-graph-states/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Local+equivalence+of+graph+states" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/krueger-2005-local-equivalence-graph-states/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -251,13 +382,15 @@
             <p class="cite-label">The original problem</p>
             <p class="cite-text">O. Krüger, R. F. Werner. Some open problems in quantum information theory. arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/. p. 70-71 (Problem 28). https://doi.org/10.48550/arXiv.quant-ph/0504166</p>
             <p class="cite-label">This catalog assessment</p>
-            <p class="cite-text">Quantum Open Problems, record krueger-2005-local-equivalence-graph-states, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-local-equivalence-graph-states/</p>
+            <p class="cite-text">Quantum Open Problems, record krueger-2005-local-equivalence-graph-states, revision c50173d1b863, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-local-equivalence-graph-states/</p>
           </div>
         </section>
         <footer class="page-record-footer">
           <p>Record <code>krueger-2005-local-equivalence-graph-states</code></p>
-          <p>Status solved · archived from the active catalog</p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Record revision <code>c50173d1b8630ff49dd87d611579a68541a1806b57aeaa61dfeb2c5efe8690c6</code></p>
+          <p>Statement digest <code>50893a26d5c7079ff3c8a416e2feb31fad3c0d698abf6ad38fc619089c6ff13c</code></p>
+          <p>Statement <code>krueger-2005-local-equivalence-graph-states-statement-v1</code> · Decision <code>decision-krueger-2005-local-equivalence-graph-states-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -288,5 +421,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="krueger-2005-local-equivalence-graph-states" defer></script>
   </body>
 </html>

@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "krueger-2005-continuity-quantum-channel-capacity",
+  "title": "Continuity of the quantum channel capacity",
+  "status": "solved",
+  "dates": {
+    "proposed": "2003-06-20",
+    "latestEvidence": "2009",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "quantum-channels",
+      "label": "Quantum channels"
+    }
+  },
+  "collection": {
+    "id": "krueger-2005",
+    "label": "Krueger–Werner",
+    "title": "Some open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Continuity of capacity",
+    "summary": "The source asked whether the unassisted quantum (coherent) capacity is a continuous function of the channel in cb-norm. Leung and Smith proved uniform continuity for channels with fixed finite output dimension, including at zero-capacity channels.",
+    "importance": "Continuity means that a noise model known only up to a small cb-norm uncertainty still determines the available transmission rate up to a vanishing error, which matters for capacity analysis and fault-tolerant design; only lower semi-continuity was known, and the regularisation over unboundedly many channel uses made upper semi-continuity delicate.",
+    "unresolved": ""
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $\\mathcal{H}, \\mathcal{K}$ | Finite-dimensional complex Hilbert spaces |\n| $T, T'$ | Quantum channels (completely positive trace-preserving maps) |\n| $Q(T)$ | Quantum (coherent) capacity of channel $T$ |\n| $\\lVert T - T'\\rVert_{\\mathrm{cb}}$ | Completely-bounded (cb) norm distance between channels |\n| $\\lVert\\cdot\\rVert_{\\diamond}$ | Diamond norm (equivalent to cb-norm on quantum channels) |\n| $\\mathcal{C}$ | Convex set of all quantum channels with fixed input and output dimensions |\n| $\\varepsilon$ | Small positive parameter (distance threshold) |\n| $\\delta$ | Small positive parameter (capacity-gap threshold) |",
+    "statement": "Let $\\mathcal{C}$ denote the convex set of all quantum channels between fixed finite-dimensional input and output Hilbert spaces, equipped with the cb-norm distance.\n\n**Problem.** Is the quantum (coherent) capacity\n$$Q\\colon \\mathcal{C} \\longrightarrow [0,\\infty), \\qquad T \\mapsto Q(T)$$\na continuous function?\n\nEquivalently: for every $\\varepsilon > 0$ does there exist $\\delta > 0$ such that, for all channels $T, T' \\in \\mathcal{C}$,\n$$\\|T - T'\\|_{\\mathrm{cb}} \\;<\\; \\delta \\;\\;\\Longrightarrow\\;\\; |Q(T) - Q(T')| \\;<\\; \\varepsilon\\,?$$"
+  },
+  "source": {
+    "title": "Some open problems in quantum information theory",
+    "authors": [
+      "O. Krüger",
+      "R. F. Werner"
+    ],
+    "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+    "locator": "p. 41 (Problem 11)",
+    "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2009",
+        "title": "Leung and Smith prove uniform continuity of quantum capacity",
+        "detail": "Leung and Smith prove uniform continuity of the ordinary unassisted quantum capacity for channels with fixed finite output dimension, bounding the change in Q for two channels at diamond distance at most epsilon by an explicit function of epsilon and the output dimension that tends to zero with epsilon. Their entropy-telescoping proof applies on the entire channel set, including channels of zero capacity, so the archived question is answered affirmatively.",
+        "maturity": "Peer reviewed",
+        "strength": "Exact theorem",
+        "url": "https://arxiv.org/abs/0810.4931",
+        "label": "Communications in Mathematical Physics"
+      }
+    ],
+    "cautions": [
+      {
+        "label": "Scope",
+        "text": "The interior-of-positive-capacity qualification in the same paper concerns quantum capacities assisted by free backward or two-way public classical communication; it does not qualify the theorem for the unassisted capacity Q asked about here."
+      }
+    ],
+    "interpretation": null,
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "quantum capacity",
+      "cb-norm",
+      "uniform continuity",
+      "coherent information",
+      "superactivation"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-continuity-quantum-channel-capacity.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Continuity+of+the+quantum+channel+capacity",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/contribution.schema.json",
+    "candidateUpdateSchema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/candidate-update.schema.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-continuity-quantum-channel-capacity/frontier.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-continuity-quantum-channel-capacity.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-continuity-quantum-channel-capacity/",
+    "explorer": "https://naixu-guo.github.io/quantum-open-problems/#krueger-2005-continuity-quantum-channel-capacity",
+    "markdown": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-continuity-quantum-channel-capacity.md",
+    "schema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-continuity-quantum-channel-capacity.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-continuity-quantum-channel-capacity/frontier.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-continuity-quantum-channel-capacity/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-continuity-quantum-channel-capacity/statements/v1.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/krueger-2005-continuity-quantum-channel-capacity/record.json"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "88ef450e9838bb6ca46261387ccee5981864c7cdc1f2bc37054474c482d589e2",
+    "statementDigest": "1c8fd68f12ddde56f3dbea794668581a10f85ccf5b1b51b0bdaab7fee860b50d"
+  }
+}

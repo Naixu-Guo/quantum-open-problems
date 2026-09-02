@@ -181,11 +181,12 @@
 
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
-          <span class="status-badge ">Open</span>
+          <span class="status-badge">Open</span>
           <span class="area-badge">Quantum information</span>
           <span class="meta-badge">Quantum complexity</span>
           <span class="meta-badge">Proposed 2003-01-31</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Complexity of product preparations</h1>
         <p class="dialog-summary">No general asymptotic formula is known for the weighted Pauli-rotation cost of preparing many copies of a pure state.</p>
@@ -193,11 +194,14 @@
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#remaining">What remains</a>
-          <a href="#progress-heading">Progress</a>
+          <a href="#target-heading">What remains</a>
+          <a href="#progress-heading">Verified progress</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
           <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <div class="problem-framing">
           <section class="framing-row" aria-labelledby="importance-heading">
             <h2 id="importance-heading">Why it matters</h2>
@@ -224,7 +228,7 @@
               <span class="dialog-section-label">Verified formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">Matched to the source and locator above</span>
+            <span class="formal-source">Matched to the source and locator above · digest 4acb313cb6f1</span>
           </div>
 
           <details class="formal-notation">
@@ -240,31 +244,59 @@
           <div class="formal-body"><p>Fix a state \(\lvert\psi\rangle\) of \(m\) qubits and the gate set</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\mathcal{G} = \{\, e^{i\phi\sigma_u} : \phi \in \mathbb{R},\ \sigma_u\text{ a tensor product of Pauli matrices}\,\}.\]</div><p>For a target pure state \(\lvert\Psi\rangle\), let</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[C(\lvert\Psi\rangle)=\inf\left\{\sum_j|\phi_j|:\prod_j e^{i\phi_j\sigma_{u_j}}\lvert0\rangle^{\otimes(\text{number of qubits})}=\lvert\Psi\rangle\right\}.\]</div><p>Determine, as a function of \(n\) and \(C(\lvert\psi\rangle)\), the asymptotic behaviour of</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[C\!\bigl(\lvert\psi\rangle^{\otimes n}\bigr).\]</div><p>In particular, is the cost per copy \(C(\lvert\psi\rangle^{\otimes n})/n\) bounded above by a function strictly smaller than \(C(\lvert\psi\rangle)\) as \(n \to \infty\)?</p><p>An approximate version is also of interest: for a tolerance \(\varepsilon &gt; 0\), characterize the minimum weighted rotation cost needed to produce a state \(\lvert\Phi\rangle\) with \(\lvert\langle\Phi\,\vert\,\psi^{\otimes n}\rangle\rvert^2 \ge 1 - \varepsilon\).</p></div>
         </section>
 
-        <div class="remaining-question " id="remaining">
-          <span>What remains</span>
-          <p>Determine the scaling of the weighted rotation cost for many copies and whether collective preparation gives a strict asymptotic saving per copy.</p>
-        </div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Exact unresolved target</h2>
+
+          <div class="remaining-question" id="remaining">
+            <span>What remains</span>
+            <p>Determine the scaling of the weighted rotation cost for many copies and whether collective preparation gives a strict asymptotic saving per copy.</p>
+          </div>
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-open" id="clause-archived-statement">
+              <div class="clause-head">
+                <span class="clause-state open">Open</span>
+                <strong>Archived statement</strong>
+                <code>archived-statement</code>
+              </div>
+              <p>The formal statement of this version, as archived from the source.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> Determine the scaling of the weighted rotation cost for many copies and whether collective preparation gives a strict asymptotic saving per copy.</p>
+              <p class="clause-claims">1 accepted claim: <a href="#claim-krueger-2005-complexity-product-preparations-2005-the-archived-weighted-cost">claim-krueger-2005-complexity-product-preparations-2005-the-archived-weighted-cost</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Open as of 12 Aug 2026: Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered. <code>decision-krueger-2005-complexity-product-preparations-status-2026-08-12</code></p>
+        </section>
 
 
 
         <section class="dialog-section" aria-labelledby="progress-heading">
-          <span class="dialog-section-label">Evidence ledger</span>
-          <h2 id="progress-heading">Recent progress</h2>
-          <ol class="timeline">
+          <span class="dialog-section-label">Verified progress</span>
+          <h2 id="progress-heading">Accepted claims</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
 
-            <li id="qop-evt-abd934c5870d273b">
-              <time datetime="2005-04-21">21 Apr 2005</time>
-              <div>
-                <h3>The archived weighted-cost problem remains unresolved</h3>
-                <p>The cost is the infimum of the sum of absolute rotation angles. Modern Clifford-plus-T gate counts use a different resource measure.</p>
-                <div class="dialog-source-meta">
+          <article class="claim-card" id="claim-krueger-2005-complexity-product-preparations-2005-the-archived-weighted-cost">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Status review</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>The archived weighted-cost problem remains unresolved</h3>
+            <p>The cost is the infimum of the sum of absolute rotation angles. Modern Clifford-plus-T gate counts use a different resource measure.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-abd934c5870d273b">
+                <time datetime="2005-04-21">21 Apr 2005</time>
+                <div>
                   <span class="maturity-badge">Archived source</span>
                   <span class="maturity-badge">Open formulation</span>
                   <a href="https://arxiv.org/abs/quant-ph/0504166" rel="noreferrer">Source problem ↗</a>
+
                 </div>
-              </div>
-            </li>
-          </ol>
+              </li>
+            </ol>
+
+          </article>
+
         </section>
 
 
@@ -278,6 +310,28 @@
         </section>
 
 
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="krueger-2005-complexity-product-preparations">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Complexity+of+product+preparations" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="krueger-2005-complexity-product-preparations">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
+        </section>
+
+
+
+
 
         <section class="dialog-section" aria-labelledby="machine-heading">
           <span class="dialog-section-label">Work on this problem</span>
@@ -285,8 +339,10 @@
           <ul class="machine-links">
             <li><a href="../../packets/krueger-2005-complexity-product-preparations.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
             <li><a href="../../api/v1/problems/krueger-2005-complexity-product-preparations.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Complexity+of+product+preparations" rel="noreferrer">Submit a research update ↗</a> — the evidence contract applies to human and AI results.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/krueger-2005-complexity-product-preparations/problem.md" rel="noreferrer">Source article ↗</a> — the canonical statement and notes in the repository.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-complexity-product-preparations/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-complexity-product-preparations/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Complexity+of+product+preparations" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/krueger-2005-complexity-product-preparations/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -305,7 +361,8 @@
           <p>Record <code>krueger-2005-complexity-product-preparations</code></p>
           <p>Record revision <code>696f49146182ed87d0365d1af35ca45baf5d2fde6fcaeeaa783f8d2081573eda</code></p>
           <p>Statement digest <code>4acb313cb6f1b572d00ddad662e1104fee42dcdb741ac70267da14380f3cd2a0</code></p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Statement <code>krueger-2005-complexity-product-preparations-statement-v1</code> · Decision <code>decision-krueger-2005-complexity-product-preparations-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -336,5 +393,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="krueger-2005-complexity-product-preparations" defer></script>
   </body>
 </html>

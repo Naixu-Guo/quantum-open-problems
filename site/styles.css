@@ -2957,3 +2957,230 @@ select:focus-visible {
 .dialog-section > .list-area-heading {
   margin: 0 0 14px;
 }
+
+/* Research frontier: target clauses, accepted claims, trust and actor labels */
+
+.section-note {
+  max-width: 720px;
+  margin: 0 0 18px;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.target-section .remaining-question {
+  margin-top: 0;
+}
+
+.clause-heading {
+  margin: 26px 0 10px;
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.clause-list {
+  display: grid;
+  gap: 12px;
+  max-width: 760px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.clause-item {
+  padding: 16px 18px;
+  border: 1px solid var(--line-strong);
+  border-left: 4px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--card);
+}
+
+.clause-item.state-narrowed { border-left-color: var(--amber); }
+.clause-item.state-resolved,
+.clause-item.state-refuted { border-left-color: var(--mint-deep); }
+
+.clause-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-bottom: 8px;
+}
+
+.clause-head strong {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 500;
+}
+
+.clause-head code,
+.claim-clauses a,
+.decision-note code,
+.page-record-footer code,
+.claim-provenance code {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+
+.claim-clauses a { text-decoration: none; border-bottom: 1px dotted var(--line-strong); }
+
+.clause-state,
+.trust-badge,
+.relation-badge,
+.actor-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.clause-state.narrowed { border-color: var(--amber); color: var(--amber); }
+.clause-state.resolved,
+.clause-state.refuted,
+.trust-badge.verified { border-color: var(--mint-deep); background: var(--mint-deep); color: var(--paper); }
+.trust-badge.under-review { border-color: var(--amber); color: var(--amber); }
+.trust-badge.unverified { border-style: dashed; color: var(--ink-soft); }
+.trust-badge.accepted { border-color: var(--mint-deep); color: var(--mint-deep); }
+.trust-badge.rejected,
+.trust-badge.withdrawn { border-color: var(--coral); color: var(--coral); }
+.trust-badge.needs-revision { border-color: var(--amber); color: var(--amber); border-style: dashed; }
+.trust-badge.superseded { color: var(--ink-soft); text-decoration: line-through; }
+
+.actor-badge.human { border-color: var(--mint-deep); color: var(--mint-deep); }
+.actor-badge.ai-agent { border-color: var(--coral); color: var(--coral); }
+.actor-badge.organization { border-color: var(--amber); color: var(--amber); }
+.actor-name { font-size: 13px; }
+.actor-detail { color: var(--ink-soft); font-size: 12px; }
+
+.clause-item p { margin: 0 0 6px; font-size: 14px; }
+.clause-criteria span,
+.clause-claims { color: var(--ink-soft); font-size: 13px; }
+.clause-criteria span { font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; margin-right: 6px; }
+
+.decision-note {
+  max-width: 760px;
+  margin: 18px 0 0;
+  padding: 12px 16px;
+  border-left: 3px solid var(--mint-deep);
+  background: var(--paper-deep);
+  font-size: 14px;
+}
+
+.claim-card {
+  max-width: 760px;
+  margin: 0 0 16px;
+  padding: 18px 20px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--card);
+}
+
+.claim-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.claim-card h3,
+.candidate-card h3 {
+  margin: 0 0 8px;
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.claim-card > p,
+.candidate-claim { margin: 0 0 12px; font-size: 15px; }
+
+.evidence-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.evidence-row {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+
+.evidence-row time { color: var(--ink-soft); font-family: var(--mono); font-size: 11px; }
+.evidence-row > div { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.evidence-row a { color: var(--mint-deep); font-weight: 700; text-underline-offset: 3px; }
+.evidence-locator { color: var(--ink-soft); font-size: 12px; }
+.claim-provenance { margin: 10px 0 0; color: var(--ink-soft); font-size: 12px; }
+
+.archive-narrative { max-width: 760px; margin-top: 16px; }
+.archive-narrative summary { cursor: pointer; font-weight: 700; }
+.archive-narrative summary span { margin-left: 8px; color: var(--ink-soft); font-weight: 400; font-size: 13px; }
+
+.community-section { max-width: 760px; }
+.community-description { margin: 0 0 14px; color: var(--ink-soft); font-size: 14px; }
+.community-fallback {
+  margin: 0;
+  padding: 14px 16px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-sm);
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.candidate-list,
+.comment-list,
+.comment-replies { margin: 0; padding: 0; list-style: none; }
+
+.candidate-card {
+  margin: 0 0 14px;
+  padding: 16px 18px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--card) 70%, transparent);
+}
+
+.candidate-card.state-accepted,
+.candidate-card.state-promoted { border-style: solid; }
+.candidate-card.state-rejected,
+.candidate-card.state-withdrawn { opacity: 0.7; }
+.candidate-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 8px; }
+.candidate-meta,
+.candidate-sources,
+.candidate-links { margin: 4px 0 0; color: var(--ink-soft); font-size: 13px; }
+.candidate-sources a,
+.candidate-links a,
+.comment-references a { color: var(--mint-deep); font-weight: 700; margin-right: 10px; }
+
+.comment {
+  margin: 0 0 10px calc(var(--depth, 0) * 22px);
+  padding: 12px 16px;
+  border-left: 2px solid var(--line-strong);
+  background: color-mix(in srgb, var(--card) 60%, transparent);
+}
+
+.comment-head { margin-bottom: 6px; color: var(--ink-soft); font-size: 13px; }
+.comment-body { margin: 0; font-size: 14px; white-space: pre-wrap; }
+.comment-body.removed { color: var(--ink-soft); font-style: italic; }
+.comment-references { margin: 6px 0 0; font-size: 12px; }
+.comment-replies { margin-top: 10px; }
+
+@media (max-width: 640px) {
+  .evidence-row { grid-template-columns: 1fr; gap: 4px; }
+  .comment { margin-left: calc(var(--depth, 0) * 10px); }
+}

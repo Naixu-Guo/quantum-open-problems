@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "ruskai-2007-mutually-degradable-channels",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Nontrivial mutually degradable channel pairs",
+    "proposed": "2007",
+    "topicId": "quantum-channels",
+    "collectionId": "ruskai-2007",
+    "question": {
+      "type": "Existence",
+      "summary": "Trivial identity and identical-degradable pairs exist, but no distinct genuinely nontrivial pair of the intended kind has been identified.",
+      "importance": "Mutual degradability means that each channel output can simulate the other channel's environment. Nontrivial examples would expose new structures governing coherent information and capacity.",
+      "unresolved": "Construct distinct mutually degradable channels, preferably with neither channel individually degradable, or prove such pairs cannot exist under natural rank conditions."
+    },
+    "keywords": [
+      "degradable channels",
+      "complementary channels",
+      "quantum capacity",
+      "Choi rank"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "ruskai-2007-mutually-degradable-channels-statement-v1",
+      "problemId": "ruskai-2007-mutually-degradable-channels",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ruskai-2007",
+          "relationship": "states-problem",
+          "locator": "p. 16-17 (Problem 23)",
+          "primary": true,
+          "statedTitle": "Find pairs of mutually degradable quantum channels with both channels non-trivial"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Construct distinct mutually degradable channels, preferably with neither channel individually degradable, or prove such pairs cannot exist under natural rank conditions."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-mutually-degradable-channels-2008-structural-theory-sharply-constrains",
+      "statementId": "ruskai-2007-mutually-degradable-channels-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "supports",
+      "title": "Structural theory sharply constrains degradable channels",
+      "text": "Cubitt, Ruskai and Smith formalize the relevant channel structure and rank restrictions without producing the requested nontrivial pair."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-ruskai-2007-mutually-degradable-channels-2008-structural-theory-sharply-constrains",
+      "claimId": "claim-ruskai-2007-mutually-degradable-channels-2008-structural-theory-sharply-constrains",
+      "sourceId": "source-cubitt-2008-j-math-phys",
+      "sourceLocator": null,
+      "date": "2008",
+      "maturity": "Peer reviewed",
+      "strength": "Structural constraints",
+      "label": "Degradable-channel structure"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-ruskai-2007-mutually-degradable-channels-status-2026-08-12",
+      "problemId": "ruskai-2007-mutually-degradable-channels",
+      "statementId": "ruskai-2007-mutually-degradable-channels-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-ruskai-2007-mutually-degradable-channels-2008-structural-theory-sharply-constrains"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": "Without a nontriviality qualifier, identity/arbitrary and identical-degradable pairs answer the literal wording.",
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

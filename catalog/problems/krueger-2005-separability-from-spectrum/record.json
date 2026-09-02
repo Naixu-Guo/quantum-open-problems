@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "krueger-2005-separability-from-spectrum",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Separability from spectrum",
+    "proposed": "2003-01-31",
+    "topicId": "entanglement-theory",
+    "collectionId": "krueger-2005",
+    "question": {
+      "type": "Spectral characterization",
+      "summary": "Absolute separability is characterized for every 2-by-n system. A complete spectral criterion is unknown when both local dimensions are at least three.",
+      "importance": "Absolute separability identifies mixed states whose eigenvalues forbid entanglement under any global change of basis. A spectral criterion would decide this property without optimizing over unitaries.",
+      "unresolved": "Characterize spectra that remain separable under every global unitary in all higher local dimensions."
+    },
+    "keywords": [
+      "absolute separability",
+      "APPT",
+      "spectrum",
+      "unitary orbit"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "krueger-2005-separability-from-spectrum-statement-v1",
+      "problemId": "krueger-2005-separability-from-spectrum",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-krueger-werner-2005",
+          "relationship": "states-problem",
+          "locator": "pp. 48-49 (Problem 15)",
+          "primary": true
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Characterize spectra that remain separable under every global unitary in all higher local dimensions."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-separability-from-spectrum-2024-a-4-by-n",
+      "statementId": "krueger-2005-separability-from-spectrum-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "status-review",
+      "title": "A 4-by-n claim proves APPT, not absolute separability",
+      "text": "The theorem establishes an absolute-PPT criterion but does not prove that APPT equals absolute separability in this dimension."
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-separability-from-spectrum-2013-every-qubit-qudit-spectrum",
+      "statementId": "krueger-2005-separability-from-spectrum-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "narrows",
+      "title": "Every qubit-qudit spectrum is characterized",
+      "text": "Johnston proves that APPT and absolute separability coincide for 2-by-n systems and gives the complete criterion there."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-separability-from-spectrum-2024-a-4-by-n",
+      "claimId": "claim-krueger-2005-separability-from-spectrum-2024-a-4-by-n",
+      "sourceId": "source-xiong-2024-criteria-of-absolutely",
+      "sourceLocator": null,
+      "date": "2024-08-21",
+      "maturity": "Preprint",
+      "strength": "Unaccepted scope claim",
+      "label": "Claim audit"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-krueger-2005-separability-from-spectrum-2013-every-qubit-qudit-spectrum",
+      "claimId": "claim-krueger-2005-separability-from-spectrum-2013-every-qubit-qudit-spectrum",
+      "sourceId": "source-johnston-2013-separability-from-spectrum",
+      "sourceLocator": null,
+      "date": "2013-09-08",
+      "maturity": "Peer reviewed",
+      "strength": "Exact major subclass",
+      "label": "Qubit-qudit theorem"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-krueger-2005-separability-from-spectrum-status-2026-08-12",
+      "problemId": "krueger-2005-separability-from-spectrum",
+      "statementId": "krueger-2005-separability-from-spectrum-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "partial",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-krueger-2005-separability-from-spectrum-2024-a-4-by-n",
+        "evidence-krueger-2005-separability-from-spectrum-2013-every-qubit-qudit-spectrum"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [
+      {
+        "label": "Terminology",
+        "text": "APPT is necessary for absolute separability, but the two sets are not known to coincide in general higher dimensions.",
+        "url": "https://arxiv.org/abs/2408.11684"
+      }
+    ],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

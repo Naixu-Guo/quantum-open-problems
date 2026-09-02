@@ -1,0 +1,162 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "ruskai-2007-random-subunitary-counterexamples",
+  "title": "Counterexamples among random sub-unitary channels",
+  "catalogState": "published",
+  "status": "open",
+  "statusLabel": "Open",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-ruskai-2007-random-subunitary-counterexamples-status-2026-08-12",
+    "status": "open",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-ruskai-2007-random-subunitary-counterexamples-2009-unrestricted-random-channels-violate"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "ruskai-2007-random-subunitary-counterexamples-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "4245d41e5a1e616b64424dff8a6713fe979274babb36bfb1e479d0817d04d851",
+    "sourceRefs": [
+      {
+        "sourceId": "source-ruskai-2007",
+        "relationship": "states-problem",
+        "locator": "p. 10 (Problem 9)",
+        "primary": true,
+        "statedTitle": "Search for new multiplicativity counterexamples among random sub-unitary channels",
+        "source": {
+          "id": "source-ruskai-2007",
+          "title": "Open problems in quantum information theory",
+          "authors": [
+            "Mary Beth Ruskai"
+          ],
+          "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+          "url": "https://doi.org/10.48550/arXiv.0708.1902",
+          "doi": "10.48550/arXiv.0708.1902",
+          "arxivId": "0708.1902"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | Algebra of complex $d\\times d$ matrices |\n| $\\rho$, $\\gamma$ | Density matrices on a finite-dimensional Hilbert space |\n| $\\Phi$, $\\Omega$ | Completely positive trace-preserving (CPT) linear maps |\n| $\\{A_k\\}$ | Kraus operators of a channel, $\\Phi(\\rho)=\\sum_k A_k\\rho A_k^{\\dagger}$, $\\sum_k A_k^{\\dagger}A_k=I$ |\n| $X$ | Cyclic shift operator on $\\mathbb{C}^d$, $X\\lvert e_j\\rangle=\\lvert e_{j+1}\\rangle$ |\n| $U_k$ | A $(d-1)\\times(d-1)$ unitary in the $k$-th Kraus operator |\n| $\\|M\\|_p$ | Schatten $p$-norm, $\\|M\\|_p=(\\operatorname{Tr}\\lvert M\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | Maximal output $p$-norm, $\\nu_p(\\Phi)=\\inf_\\gamma\\|\\Phi(\\gamma)\\|_p$ in source notation (which uses $\\inf$ throughout; the maximum is attained on pure inputs) |\n| WH channel | Werner–Holevo channel |\n| $\\mathcal E(d,d)$, $\\overline{\\mathcal E}(d,d)$ | Set of extreme CPT maps with $d$ Kraus operators on $M_d$, and its closure |",
+      "statement": "Interpreting equation (22) as the intended normalized cyclic random-sub-unitary construction, let $\\Phi:M_d\\to M_d$ belong to that CPT family. The source prints\n$$A_k=\\tfrac{1}{d-1}X^k\\begin{pmatrix}U_k & 0\\\\ 0 & 0\\end{pmatrix},\\qquad k=0,1,\\dots,d-1,$$\nwith $X$ the cyclic shift on $\\mathbb{C}^d$ and each $U_k$ a $(d-1)\\times(d-1)$ unitary, but this formula is not CPT as written.\n\n**Problem 9.** Search for new counterexamples to the multiplicativity conjecture\n$$\\nu_p(\\Phi\\otimes\\Omega)=\\nu_p(\\Phi)\\,\\nu_p(\\Omega) \\tag{24}$$\nwith $\\Phi$ a channel having Kraus operators of the form (22). In particular, exhibit (or rule out) channels $\\Phi$ of this family and entangled inputs for which $\\nu_p(\\Phi\\otimes\\Phi)>\\nu_p(\\Phi)^2$."
+    }
+  },
+  "question": {
+    "type": "Existence",
+    "summary": "General random channels violate multiplicativity, but no verified new counterexample has been found inside the intended cyclic sub-unitary family.",
+    "importance": "The problem tests whether the rigid cyclic Kraus structure can support the multiplicativity violations known for less structured random channels.",
+    "unresolved": "Construct a multiplicativity counterexample in the corrected random sub-unitary class, or prove a positive theorem excluding one in a stated p-range."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Construct a multiplicativity counterexample in the corrected random sub-unitary class, or prove a positive theorem excluding one in a stated p-range.",
+      "state": "narrowed",
+      "claimIds": [
+        "claim-ruskai-2007-random-subunitary-counterexamples-2009-unrestricted-random-channels-violate"
+      ],
+      "latestEvidenceDate": "2009"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Construct a multiplicativity counterexample in the corrected random sub-unitary class, or prove a positive theorem excluding one in a stated p-range."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-ruskai-2007-random-subunitary-counterexamples-2009-unrestricted-random-channels-violate",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "Unrestricted random channels violate entropy additivity",
+      "text": "Hastings settles the general conjecture negatively, but his construction is not a family-specific solution to this structured search.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2009",
+      "evidence": [
+        {
+          "id": "evidence-ruskai-2007-random-subunitary-counterexamples-2009-unrestricted-random-channels-violate",
+          "date": "2009",
+          "maturity": "Peer reviewed",
+          "strength": "General counterexample",
+          "label": "Hastings theorem",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-hastings-2009-superadditivity",
+            "title": "Superadditivity of communication capacity using entangled inputs",
+            "authors": [
+              "M. B. Hastings"
+            ],
+            "venue": "Nature Physics 5, 255-257 (2009); arXiv:0809.3972",
+            "url": "https://arxiv.org/abs/0809.3972"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [],
+  "interpretation": "The source's displayed Kraus operators do not define a trace-preserving map as printed; the status concerns the intended corrected family.",
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "ruskai-2007-random-subunitary-counterexamples-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-ruskai-2007-random-subunitary-counterexamples-status-2026-08-12",
+        "status": "open",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "84c6e073c14bbd011aa4dfc8d628441965d941f1eb5ae728ad3d5b772e99e2b3",
+    "statementDigest": "4245d41e5a1e616b64424dff8a6713fe979274babb36bfb1e479d0817d04d851",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-random-subunitary-counterexamples/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-random-subunitary-counterexamples.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-random-subunitary-counterexamples/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-random-subunitary-counterexamples/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-random-subunitary-counterexamples/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/ruskai-2007-random-subunitary-counterexamples.md"
+  }
+}

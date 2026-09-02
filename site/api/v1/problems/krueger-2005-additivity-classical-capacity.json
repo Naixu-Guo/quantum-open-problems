@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "krueger-2005-additivity-classical-capacity",
+  "title": "Additivity of classical capacity and related problems",
+  "status": "solved",
+  "dates": {
+    "proposed": "2003-01-31",
+    "latestEvidence": "2009",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "quantum-channels",
+      "label": "Quantum channels"
+    }
+  },
+  "collection": {
+    "id": "krueger-2005",
+    "label": "Krueger–Werner",
+    "title": "Some open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Additivity of capacity",
+    "summary": "The source asked to prove that the Holevo quantity is additive for every pair of quantum channels or to give an explicit counterexample. Hastings' random-unitary counterexample, combined with Shor's equivalences, showed that additivity fails.",
+    "importance": "Additivity would have collapsed the regularised expression for the classical capacity of every quantum channel into a clean single-letter Holevo formula, and it was known to be equivalent to additivity of minimal output entropy, additivity and strong superadditivity of the entanglement of formation, and p-norm multiplicativity near p = 1.",
+    "unresolved": ""
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $\\mathcal{H}$ | Finite-dimensional complex Hilbert space |\n| $T$ | Quantum channel (completely positive trace-preserving map) in the Schrödinger picture |\n| $T^{\\otimes n}$ | $n$-fold tensor product channel $T \\otimes \\cdots \\otimes T$ |\n| $T_1 \\otimes T_2$ | Tensor product of two channels |\n| $\\rho, \\rho_i$ | Density operators |\n| $p = (p_1,\\ldots,p_n)$ | Probability vector |\n| $H(\\rho)$ | von Neumann entropy $-\\mathrm{Tr}(\\rho \\log \\rho)$ |\n| $\\chi(T)$ | Holevo quantity (one-shot Holevo capacity) of channel $T$ |\n| $C_{1,\\infty}$ | Capacity with unentangled coding, quantum block decoding (= $\\chi$) |\n| $C_{\\infty,1}$ | Capacity with quantum block coding and separate decoding |\n| $C_{1,1}$ | Capacity with separate quantum (de)coding and only classical block (de)coding |\n| $C_{\\infty,\\infty}$ | Full classical capacity, arbitrary (de)coding |\n| $\\ell_p(\\mathcal{H})$ | Schatten $p$-class, $\\lVert X\\rVert_p = (\\mathrm{Tr}\\lvert X\\rvert^p)^{1/p}$ |\n| $\\lVert T\\rVert_p$ | $\\sup_\\rho \\lVert T(\\rho)\\rVert_p$ |\n| $H_{\\min}(T)$ | Minimal output (von Neumann) entropy of $T$, $\\min_\\rho H(T(\\rho))$ |\n| EoF | Entanglement of formation |\n| $d$ | Hilbert-space dimension |\n| $I$ | Identity operator |\n| $\\rho^T$ | Transpose of $\\rho$ |",
+    "statement": "For a quantum channel $T$ in the Schrödinger picture, define the Holevo quantity\n$$\\chi(T) \\;=\\; \\sup_{p,\\,\\rho}\\;\\Bigl( H\\!\\Bigl(\\textstyle\\sum_i p_i\\,T(\\rho_i)\\Bigr) \\;-\\; \\sum_i p_i\\, H\\!\\bigl(T(\\rho_i)\\bigr) \\Bigr),$$\nwhere the supremum runs over all probability vectors $p = (p_1, \\ldots, p_n)$ and all collections $\\{\\rho_1, \\ldots, \\rho_n\\}$ of input states.\n\n**Problem.** Either prove\n$$\\chi(T_1 \\otimes T_2) \\;=\\; \\chi(T_1) \\;+\\; \\chi(T_2) \\qquad \\text{for every pair of quantum channels } T_1, T_2,$$\nor give an explicit counterexample.\n\nEquivalent forms include: $H_{\\min}(T_1 \\otimes T_2) = H_{\\min}(T_1) + H_{\\min}(T_2)$ for all $T_1, T_2$; additivity of the entanglement of formation; strong superadditivity of the entanglement of formation; and multiplicativity of $\\|\\cdot\\|_p$ on tensor products for $p$ in a right-neighbourhood of $1$."
+  },
+  "source": {
+    "title": "Some open problems in quantum information theory",
+    "authors": [
+      "O. Krüger",
+      "R. F. Werner"
+    ],
+    "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+    "locator": "pp. 34-40 (Problem 10)",
+    "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2009",
+        "title": "Hastings disproves additivity of the Holevo capacity",
+        "detail": "Hastings produced random-unitary channels in very large dimension that violate additivity of the minimal output von Neumann entropy. Via Shor's equivalence this directly implies failure of additivity of the Holevo capacity chi and of superadditivity of the entanglement of formation, so the archived additivity conjecture is false and the classical capacity is not given by a single-letter Holevo formula.",
+        "maturity": "Peer reviewed",
+        "strength": "Exact counterexample",
+        "url": "https://arxiv.org/abs/0809.3972",
+        "label": "Nature Physics"
+      },
+      {
+        "date": "2004",
+        "title": "Hastings disproves additivity of the Holevo capacity",
+        "detail": "Hastings produced random-unitary channels in very large dimension that violate additivity of the minimal output von Neumann entropy. Via Shor's equivalence this directly implies failure of additivity of the Holevo capacity chi and of superadditivity of the entanglement of formation, so the archived additivity conjecture is false and the classical capacity is not given by a single-letter Holevo formula.",
+        "maturity": "Peer reviewed",
+        "strength": "Exact theorem",
+        "url": "https://arxiv.org/abs/quant-ph/0305035",
+        "label": "Communications in Mathematical Physics"
+      }
+    ],
+    "cautions": [
+      {
+        "label": "Scope",
+        "text": "Additivity of chi still holds for special classes (identity channel, unital qubit channels, the depolarising channel in every dimension, entanglement-breaking channels, and some Gaussian cases); quantitative sub-questions such as the size of the violation, the qubit-channel case and the rate of convergence of the regularisation remain open."
+      }
+    ],
+    "interpretation": null,
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "Holevo capacity",
+      "additivity conjecture",
+      "minimal output entropy",
+      "entanglement of formation",
+      "p-norm multiplicativity"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-additivity-classical-capacity.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Additivity+of+classical+capacity+and+related+problems",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/contribution.schema.json",
+    "candidateUpdateSchema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/candidate-update.schema.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-additivity-classical-capacity/frontier.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-additivity-classical-capacity.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-additivity-classical-capacity/",
+    "explorer": "https://naixu-guo.github.io/quantum-open-problems/#krueger-2005-additivity-classical-capacity",
+    "markdown": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-additivity-classical-capacity.md",
+    "schema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-additivity-classical-capacity.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-additivity-classical-capacity/frontier.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-additivity-classical-capacity/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-additivity-classical-capacity/statements/v1.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/krueger-2005-additivity-classical-capacity/record.json"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "60c9202955735aa112749c65bf8c895119925b9e092913b1b62cdafbade79eb5",
+    "statementDigest": "ac5cd3b2bbb9fa75606b88983008dca06ecb0fb351d29fab63859f40f7e78e0b"
+  }
+}

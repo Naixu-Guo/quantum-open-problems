@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "kind": "quantum-open-problem",
+  "id": "ruskai-2007-explicit-multiplicativity-violations",
+  "title": "Explicit (non-existential) channels violating multiplicativity of maximal output p-norm for p not equal to 1",
+  "status": "solved",
+  "dates": {
+    "proposed": "2007",
+    "latestEvidence": "2008",
+    "verified": "2026-08-12",
+    "catalogAsOf": "2026-08-31"
+  },
+  "taxonomy": {
+    "field": {
+      "id": "quantum-information",
+      "label": "Quantum information"
+    },
+    "topic": {
+      "id": "quantum-channels",
+      "label": "Quantum channels"
+    }
+  },
+  "collection": {
+    "id": "ruskai-2007",
+    "label": "Ruskai",
+    "title": "Open problems in quantum information theory",
+    "url": null
+  },
+  "question": {
+    "type": "Explicit construction",
+    "summary": "The source asked for explicitly given channels, not random existence arguments, violating multiplicativity of the maximal output p-norm at some p different from 1. The Werner-Holevo channel already supplies one for p above 4.79, and Cubitt, Harrow, Leung, Montanaro and Winter later gave an explicit 4-to-3 pair at p = 0.",
+    "importance": "The post-Werner-Holevo counterexamples of Winter and Hayden are existential random constructions that exhibit no concrete channel, whereas explicit channels are valuable for testing related conjectures, for numerical experimentation, for structural understanding of how entanglement boosts output purity, and for pedagogy.",
+    "unresolved": ""
+  },
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | algebra of $d\\times d$ complex matrices |\n| $\\Phi,\\Omega$ | quantum channels (CPT maps) on matrix algebras |\n| $\\gamma$ | input density matrix, $\\gamma\\ge 0$, $\\operatorname{Tr}\\gamma=1$ |\n| $\\lVert X\\rVert_p$ | Schatten $p$-norm, $\\lVert X\\rVert_p=(\\operatorname{Tr}\\lvert X\\rvert^p)^{1/p}$ |\n| $\\nu_p(\\Phi)$ | maximal output $p$-norm purity, $\\nu_p(\\Phi)=\\sup_\\gamma\\lVert\\Phi(\\gamma)\\rVert_p=\\inf_\\gamma$ form used in source after a sign-convention; here $\\nu_p(\\Phi):=\\sup_\\gamma\\lVert\\Phi(\\gamma)\\rVert_p$ for $p>1$ |\n| $p$ | Renyi/Schatten parameter, $p\\ne 1$ |\n| eq. (24) | multiplicativity assertion $\\nu_p(\\Phi\\otimes\\Omega)=\\nu_p(\\Phi)\\nu_p(\\Omega)$ |\n\n(Note: Ruskai's text uses $\\nu_p(\\Phi)=\\inf_\\gamma\\|\\Phi(\\gamma)\\|_p$ as the convention; multiplicativity (24) is the analogous infimum-product statement, and \"violation\" means the equality fails. The substantive content of the problem is independent of the sup/inf convention.)",
+    "statement": "**Problem 20 (Ruskai 2007).** Find *explicit* examples of quantum channels $\\Phi,\\Omega$ (with explicitly given Kraus operators, in concrete finite dimensions) which violate multiplicativity (24) of the maximal output $p$-norm for some specific $p\\ne 1$:\n$$\\nu_p(\\Phi\\otimes\\Omega) \\;\\ne\\; \\nu_p(\\Phi)\\,\\nu_p(\\Omega).$$\nThe desired examples should not be mere instances of the existence theorems of Winter and Hayden, but channels whose Kraus operators (or Stinespring isometry) can be written down concretely so that the violation can be verified directly."
+  },
+  "source": {
+    "title": "Open problems in quantum information theory",
+    "authors": [
+      "Mary Beth Ruskai"
+    ],
+    "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+    "locator": "p. 16 (Problem 20)",
+    "url": "https://doi.org/10.48550/arXiv.0708.1902",
+    "relationship": "The source states the cataloged problem."
+  },
+  "evidence": {
+    "progress": [
+      {
+        "date": "2008",
+        "title": "Werner-Holevo channel is an explicit multiplicativity counterexample",
+        "detail": "The Werner-Holevo channel is an explicitly given qutrit channel that violates multiplicativity of the maximal output p-norm for p above 4.79, which already meets the archived request for a concrete example at some p different from 1. Cubitt, Harrow, Leung, Montanaro and Winter later gave an explicit 4-to-3 channel pair with nonmultiplicative minimum output rank at p = 0.",
+        "maturity": "Peer reviewed",
+        "strength": "Explicit construction",
+        "url": "https://arxiv.org/abs/0712.3628",
+        "label": "Communications in Mathematical Physics"
+      },
+      {
+        "date": "2002",
+        "title": "Werner-Holevo channel is an explicit multiplicativity counterexample",
+        "detail": "The Werner-Holevo channel is an explicitly given qutrit channel that violates multiplicativity of the maximal output p-norm for p above 4.79, which already meets the archived request for a concrete example at some p different from 1. Cubitt, Harrow, Leung, Montanaro and Winter later gave an explicit 4-to-3 channel pair with nonmultiplicative minimum output rank at p = 0.",
+        "maturity": "Peer reviewed",
+        "strength": "Explicit construction",
+        "label": "Journal of Mathematical Physics"
+      }
+    ],
+    "cautions": [
+      {
+        "label": "Scope",
+        "text": "For p just above 1 and for 0 < p < 1 no truly small-dimension explicit channel is known; a 2025/2026 preprint by Derksen and Lovitz (arXiv:2510.07547) gives constructive examples for every p > 1 including the difficult interval near one, which strengthens but is not needed for the existential statement."
+      }
+    ],
+    "interpretation": null,
+    "provenance": null
+  },
+  "relations": {
+    "relatedProblems": []
+  },
+  "discovery": {
+    "keywords": [
+      "maximal output p-norm",
+      "multiplicativity",
+      "Werner-Holevo channel",
+      "Kraus operators",
+      "explicit counterexamples"
+    ]
+  },
+  "research": {
+    "briefMarkdown": "https://naixu-guo.github.io/quantum-open-problems/packets/ruskai-2007-explicit-multiplicativity-violations.md",
+    "submitResult": "https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&title=%5BResearch+update%5D+Explicit+%28non-existential%29+channels+violating+multiplicativity+of+maximal+output+p-norm+for+p+not+equal+to+1",
+    "contributionSchema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/contribution.schema.json",
+    "candidateUpdateSchema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/candidate-update.schema.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-explicit-multiplicativity-violations/frontier.json"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-explicit-multiplicativity-violations.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-explicit-multiplicativity-violations/",
+    "explorer": "https://naixu-guo.github.io/quantum-open-problems/#ruskai-2007-explicit-multiplicativity-violations",
+    "markdown": "https://naixu-guo.github.io/quantum-open-problems/packets/ruskai-2007-explicit-multiplicativity-violations.md",
+    "schema": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problem.schema.json",
+    "api": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-explicit-multiplicativity-violations.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-explicit-multiplicativity-violations/frontier.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-explicit-multiplicativity-violations/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-explicit-multiplicativity-violations/statements/v1.json",
+    "sourceRecord": "https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/ruskai-2007-explicit-multiplicativity-violations/record.json"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "e87832e139fa141fcfcc73c0262a2b20b98c010f345a1eea3d501f6ac72fad6e",
+    "statementDigest": "3437f29a2890847e19224110f3a282af2e1c2cedd4d5c795181e19bfae95bcbc"
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "horodecki-2020-mubs-dimension-six",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "Mutually unbiased bases in dimension six",
+    "proposed": "2020",
+    "topicId": "quantum-designs",
+    "collectionId": "horodecki-2020",
+    "question": {
+      "type": "Existence or impossibility",
+      "summary": "Three mutually unbiased bases are known in dimension six. Neither a fourth basis nor an accepted proof excluding a complete set of seven is known.",
+      "importance": "Dimension six is the smallest case where the prime-power construction fails. A solution would clarify how finite geometry controls complementary quantum measurements.",
+      "unresolved": "Construct at least four MUBs in dimension six, or prove that a complete set of seven cannot exist."
+    },
+    "keywords": [
+      "MUB",
+      "dimension six",
+      "complex Hadamard matrices",
+      "Latin squares"
+    ],
+    "relatedProblemIds": [
+      "krueger-2005-mutually-unbiased-bases"
+    ]
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "horodecki-2020-mubs-dimension-six-statement-v1",
+      "problemId": "horodecki-2020-mubs-dimension-six",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-horodecki-2020",
+          "relationship": "states-problem",
+          "locator": "p. 3-4 (Problem 2)",
+          "primary": true,
+          "statedTitle": "Construct a set of at least 4 mutually unbiased bases in dimension six or prove that there are no 7 MUBs in H_6"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Construct at least four MUBs in dimension six, or prove that a complete set of seven cannot exist."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-horodecki-2020-mubs-dimension-six-2026-peer-reviewed-composite-dimension",
+      "statementId": "horodecki-2020-mubs-dimension-six-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "status-review",
+      "title": "Peer-reviewed composite-dimension review keeps the case open",
+      "text": "McNulty and Weigert report that dimension six still has only three known MUBs and no accepted impossibility proof."
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-horodecki-2020-mubs-dimension-six-2026-claimed-proof-excluding-seven",
+      "statementId": "horodecki-2020-mubs-dimension-six-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "status-review",
+      "title": "Claimed proof excluding seven MUBs is not accepted",
+      "text": "Joka's v3 preprint loses phase and projector data in its moment-map step, then uses that missing structure in an unsupported reduction argument."
+    },
+    {
+      "kind": "Claim",
+      "id": "claim-horodecki-2020-mubs-dimension-six-2025-comment-identifies-an-error",
+      "statementId": "horodecki-2020-mubs-dimension-six-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "status-review",
+      "title": "Comment identifies an error in an earlier structural lemma",
+      "text": "The peer-reviewed Comment invalidates support for three dependent theorems. A Reply salvages restricted statements, not the MUB existence problem."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-horodecki-2020-mubs-dimension-six-2026-peer-reviewed-composite-dimension",
+      "claimId": "claim-horodecki-2020-mubs-dimension-six-2026-peer-reviewed-composite-dimension",
+      "sourceId": "source-doi-10-22331-q-2026-04-01",
+      "sourceLocator": null,
+      "date": "2026-04-01",
+      "maturity": "Peer reviewed",
+      "strength": "Status review",
+      "label": "Quantum 2026"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-horodecki-2020-mubs-dimension-six-2026-claimed-proof-excluding-seven",
+      "claimId": "claim-horodecki-2020-mubs-dimension-six-2026-claimed-proof-excluding-seven",
+      "sourceId": "source-joka-2026-mutually-unbiased-bases",
+      "sourceLocator": null,
+      "date": "2026-01-22",
+      "maturity": "Preprint",
+      "strength": "Unaccepted claim",
+      "label": "Claim preprint"
+    },
+    {
+      "kind": "Evidence",
+      "id": "evidence-horodecki-2020-mubs-dimension-six-2025-comment-identifies-an-error",
+      "claimId": "claim-horodecki-2020-mubs-dimension-six-2025-comment-identifies-an-error",
+      "sourceId": "source-mcnulty-2025-comment-on-product",
+      "sourceLocator": null,
+      "date": "2025-04-17",
+      "maturity": "Peer reviewed",
+      "strength": "Proof correction",
+      "label": "Comment"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-horodecki-2020-mubs-dimension-six-status-2026-08-12",
+      "problemId": "horodecki-2020-mubs-dimension-six",
+      "statementId": "horodecki-2020-mubs-dimension-six-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-horodecki-2020-mubs-dimension-six-2026-peer-reviewed-composite-dimension",
+        "evidence-horodecki-2020-mubs-dimension-six-2026-claimed-proof-excluding-seven",
+        "evidence-horodecki-2020-mubs-dimension-six-2025-comment-identifies-an-error"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [
+      {
+        "label": "Recent claim",
+        "text": "Do not treat arXiv:2511.03537 as a solution. Its proof gaps are substantive, and the later peer-reviewed review still lists the problem as open.",
+        "url": "https://arxiv.org/abs/2511.03537"
+      }
+    ],
+    "interpretation": null,
+    "provenance": null,
+    "notices": [
+      {
+        "tone": "warning",
+        "label": "Proof gap",
+        "title": "The 2025-2026 MUB claim is not accepted",
+        "text": "The proposed dimension-reduction proof loses phase and projector information. A later peer-reviewed review still lists dimension six as open.",
+        "sourceLabel": "arXiv:2511.03537 · reviewed against Quantum 2026",
+        "featured": true
+      }
+    ],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

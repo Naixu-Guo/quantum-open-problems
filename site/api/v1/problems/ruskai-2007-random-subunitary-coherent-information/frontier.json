@@ -1,0 +1,174 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "ruskai-2007-random-subunitary-coherent-information",
+  "title": "Coherent information of random sub-unitary channels",
+  "catalogState": "published",
+  "status": "open",
+  "statusLabel": "Open",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-ruskai-2007-random-subunitary-coherent-information-status-2026-08-12",
+    "status": "open",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-ruskai-2007-random-subunitary-coherent-information-2007-bounded-schmidt-rank-tools"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "ruskai-2007-random-subunitary-coherent-information-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "73253408e993cc6236ee823b286bc1483b4579d5a18881f37957faa4e3e51727",
+    "sourceRefs": [
+      {
+        "sourceId": "source-ruskai-2007",
+        "relationship": "states-problem",
+        "locator": "p. 10 (Problem 10)",
+        "primary": true,
+        "statedTitle": "Properties of coherent information of random sub-unitary channels; degradability and additivity",
+        "source": {
+          "id": "source-ruskai-2007",
+          "title": "Open problems in quantum information theory",
+          "authors": [
+            "Mary Beth Ruskai"
+          ],
+          "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+          "url": "https://doi.org/10.48550/arXiv.0708.1902",
+          "doi": "10.48550/arXiv.0708.1902",
+          "arxivId": "0708.1902"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | Algebra of complex $d\\times d$ matrices |\n| $\\rho$ | A density matrix (positive semi-definite, trace $1$) |\n| $\\Phi$ | A completely positive trace-preserving (CPT) linear map (quantum channel) |\n| $\\Phi^C$ | A complementary channel of $\\Phi$ |\n| $\\{A_k\\}$ | Kraus operators of a channel, $\\Phi(\\rho)=\\sum_k A_k\\rho A_k^{\\dagger}$ |\n| $X$ | Cyclic shift operator on $\\mathbb{C}^d$, $X\\lvert e_j\\rangle=\\lvert e_{j+1}\\rangle$ |\n| $U_k$ | A $(d-1)\\times(d-1)$ unitary appearing in the $k$-th Kraus operator |\n| $S(\\sigma)$ | von Neumann entropy, $S(\\sigma)=-\\operatorname{Tr}(\\sigma\\log\\sigma)$ |\n| $I_c(\\rho,\\Phi)$ | Coherent information of $\\rho$ through $\\Phi$, $I_c(\\rho,\\Phi)=S(\\Phi(\\rho))-S(\\Phi^C(\\rho))$ |\n| $Q^{(1)}(\\Phi)$ | Single-letter coherent information capacity, $Q^{(1)}(\\Phi)=\\sup_\\rho I_c(\\rho,\\Phi)$ |\n| $Q(\\Phi)$ | Quantum capacity, $Q(\\Phi)=\\lim_{n\\to\\infty}\\frac{1}{n}Q^{(1)}(\\Phi^{\\otimes n})$ |\n| Degradable channel | $\\Phi$ such that there exists a CPT map $\\mathcal D$ with $\\Phi^C=\\mathcal D\\circ\\Phi$ |",
+      "statement": "Interpreting equation (22) as the intended normalized cyclic random-sub-unitary CPT construction, let $\\Phi:M_d\\to M_d$ belong to that family. The source prints\n$$A_k=\\tfrac{1}{d-1}X^k\\begin{pmatrix}U_k & 0\\\\ 0 & 0\\end{pmatrix},\\qquad k=0,1,\\dots,d-1,$$\nwith $U_k$ arbitrary $(d-1)\\times(d-1)$ unitaries, but this formula is not CPT as written.\n\n**Problem 10.** Determine the properties of the coherent information $I_c(\\rho,\\Phi)$ of random sub-unitary channels $\\Phi$ of this form. In particular:\n\n1. For which choices of $\\{U_k\\}$, $d$ is $\\Phi$ degradable?\n2. When is the coherent information of $\\Phi$ additive in the sense\n$$\\sup_\\rho I_c(\\rho,\\Phi\\otimes\\Phi)=2\\sup_\\rho I_c(\\rho,\\Phi),$$\ni.e. $Q^{(1)}(\\Phi^{\\otimes 2})=2Q^{(1)}(\\Phi)$, and more generally for all tensor powers?\n3. What are the resulting consequences for the quantum capacity $Q(\\Phi)$?"
+    }
+  },
+  "question": {
+    "type": "Channel analysis",
+    "summary": "No complete degradability, coherent-information or capacity analysis is known for the intended normalized cyclic sub-unitary family.",
+    "importance": "The cyclic low-rank Kraus structure offers a controlled testbed for degradability and superadditive coherent information. A solution would give exact capacities for a nontrivial noisy-channel family.",
+    "unresolved": "Classify degradability and determine coherent-information additivity and quantum capacity for the intended random sub-unitary channel class."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Classify degradability and determine coherent-information additivity and quantum capacity for the intended random sub-unitary channel class.",
+      "state": "narrowed",
+      "claimIds": [
+        "claim-ruskai-2007-random-subunitary-coherent-information-2007-bounded-schmidt-rank-tools"
+      ],
+      "latestEvidenceDate": "2007"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Classify degradability and determine coherent-information additivity and quantum capacity for the intended random sub-unitary channel class."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-ruskai-2007-random-subunitary-coherent-information-2007-bounded-schmidt-rank-tools",
+      "relation": "supports",
+      "relationLabel": "Supports",
+      "title": "Bounded-Schmidt-rank tools address only the surrounding structure",
+      "text": "Sub-unitary and generic-channel methods provide context, but no full theorem for this cyclic family.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2007",
+      "evidence": [
+        {
+          "id": "evidence-ruskai-2007-random-subunitary-coherent-information-2007-bounded-schmidt-rank-tools",
+          "date": "2007",
+          "maturity": "Peer reviewed",
+          "strength": "Related methods",
+          "label": "Subspace methods",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-arxiv-0706-0705",
+            "title": "On the dimension of subspaces with bounded Schmidt rank",
+            "authors": [
+              "T. S. Cubitt",
+              "A. Montanaro",
+              "A. Winter"
+            ],
+            "venue": "arXiv:0706.0705.",
+            "url": "https://arxiv.org/abs/0706.0705",
+            "arxivId": "0706.0705"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [],
+  "interpretation": "The printed Kraus formula is not trace preserving. The research question is interpreted for the intended normalized cyclic family with varying input supports.",
+  "provenance": null,
+  "notices": [
+    {
+      "tone": "warning",
+      "label": "Source correction",
+      "title": "Four archived channel questions need a corrected formula",
+      "text": "The printed random sub-unitary Kraus operators are not trace preserving. The four entries use the intended normalized cyclic family and state that interpretation explicitly.",
+      "sourceLabel": "Ruskai source equations 19-22",
+      "featured": false
+    }
+  ],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "ruskai-2007-random-subunitary-coherent-information-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-ruskai-2007-random-subunitary-coherent-information-status-2026-08-12",
+        "status": "open",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "d5b77f20bc8a851393f9a0f93e18e2ad8394154a6948c65cd83823649afceefa",
+    "statementDigest": "73253408e993cc6236ee823b286bc1483b4579d5a18881f37957faa4e3e51727",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-random-subunitary-coherent-information/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-random-subunitary-coherent-information.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-random-subunitary-coherent-information/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-random-subunitary-coherent-information/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-random-subunitary-coherent-information/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/ruskai-2007-random-subunitary-coherent-information.md"
+  }
+}

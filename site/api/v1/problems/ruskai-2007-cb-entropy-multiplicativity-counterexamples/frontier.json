@@ -1,0 +1,166 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "ruskai-2007-cb-entropy-multiplicativity-counterexamples",
+  "title": "CB entropy of multiplicativity counterexamples",
+  "catalogState": "published",
+  "status": "open",
+  "statusLabel": "Open",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-ruskai-2007-cb-entropy-multiplicativity-counterexamples-status-2026-08-12",
+    "status": "open",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-ruskai-2007-cb-entropy-multiplicativity-counterexamples-2006-completely-bounded-norms-give"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "ruskai-2007-cb-entropy-multiplicativity-counterexamples-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "f0be07cfd86bab6db6b9930c841b68ca4be1d9dee0da6c167f607fa36fb62c6d",
+    "sourceRefs": [
+      {
+        "sourceId": "source-ruskai-2007",
+        "relationship": "states-problem",
+        "locator": "p. 16 (Problem 21)",
+        "primary": true,
+        "statedTitle": "Do all counter-examples to multiplicativity of maximal output p-norm have non-negative CB entropy and/or zero coherent information?",
+        "source": {
+          "id": "source-ruskai-2007",
+          "title": "Open problems in quantum information theory",
+          "authors": [
+            "Mary Beth Ruskai"
+          ],
+          "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+          "url": "https://doi.org/10.48550/arXiv.0708.1902",
+          "doi": "10.48550/arXiv.0708.1902",
+          "arxivId": "0708.1902"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | algebra of $d\\times d$ complex matrices |\n| $\\Phi$ | quantum channel (CPT map) |\n| $\\Phi^C$ | complementary channel of $\\Phi$ |\n| $S(\\rho)$ | von Neumann entropy of state $\\rho$, $S(\\rho)=-\\operatorname{Tr}\\rho\\log\\rho$ |\n| $S^p(\\rho)$ | Renyi $p$-entropy, $\\tfrac{1}{p-1}\\log\\operatorname{Tr}\\rho^p$ for $p\\ne 1$ |\n| $I_{\\rm coh}(\\rho,\\Phi)$ | coherent information, $I_{\\rm coh}(\\rho,\\Phi)=S[\\Phi(\\rho)]-S[\\Phi^C(\\rho)]$ |\n| $S_{\\rm CB}(\\Phi)$ | completely-bounded (CB) entropy of the channel $\\Phi$, as defined in Devetak-Junge-King-Ruskai (CMP 266, 2006) |\n| EB | entanglement-breaking channel |\n| WH | Werner-Holevo channel (Werner-Holevo 2002) |\n| eq. (24) | multiplicativity assertion $\\nu_p(\\Phi\\otimes\\Omega)=\\nu_p(\\Phi)\\nu_p(\\Omega)$ |",
+      "statement": "**Problem 21 (Ruskai 2007).** Do *all* counter-examples to multiplicativity (24) of the maximal output $p$-norm have non-negative CB entropy and/or zero (i.e. non-positive at the violating input) coherent information?\n\nEquivalently: does every quantum channel $\\Phi$ for which there exists $\\Omega$ and $p\\ne 1$ with $\\nu_p(\\Phi\\otimes\\Omega)\\ne\\nu_p(\\Phi)\\nu_p(\\Omega)$ necessarily satisfy\n$$S_{\\rm CB}(\\Phi) \\;\\ge\\; 0$$\nand/or admit a multiplicativity-violating maximally entangled input $\\rho$ with $I_{\\rm coh}(\\rho,\\Phi)\\le 0$? The question is of particular interest for $p<2$."
+    }
+  },
+  "question": {
+    "type": "Structural characterization",
+    "summary": "Known examples are consistent with the proposed completely bounded entropy or coherent-information conditions, but no theorem covers every multiplicativity counterexample.",
+    "importance": "A universal entropy signature would explain why known output-norm counterexamples work and connect multiplicativity failure to coherent information.",
+    "unresolved": "Prove the requested CB-entropy or coherent-information structure for all maximal-output-norm counterexamples, or give a counterexample to that structure."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Prove the requested CB-entropy or coherent-information structure for all maximal-output-norm counterexamples, or give a counterexample to that structure.",
+      "state": "open",
+      "claimIds": [
+        "claim-ruskai-2007-cb-entropy-multiplicativity-counterexamples-2006-completely-bounded-norms-give"
+      ],
+      "latestEvidenceDate": "2006"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Prove the requested CB-entropy or coherent-information structure for all maximal-output-norm counterexamples, or give a counterexample to that structure."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-ruskai-2007-cb-entropy-multiplicativity-counterexamples-2006-completely-bounded-norms-give",
+      "relation": "reformulates",
+      "relationLabel": "Reformulates",
+      "title": "Completely bounded norms give forward additivity implications",
+      "text": "Devetak, Junge, King and Ruskai establish the foundational CB-norm connection, but not the converse classification requested here.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2006",
+      "evidence": [
+        {
+          "id": "evidence-ruskai-2007-cb-entropy-multiplicativity-counterexamples-2006-completely-bounded-norms-give",
+          "date": "2006",
+          "maturity": "Peer reviewed",
+          "strength": "Foundational implication",
+          "label": "CB-norm framework",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-devetak-2006-commun-math-phys",
+            "title": "Commun. Math. Phys",
+            "authors": [
+              "I. Devetak",
+              "M. Junge",
+              "C. King",
+              "M. B. Ruskai"
+            ],
+            "venue": "266 (2006), 37-63; arXiv:quant-ph/0506196.",
+            "url": "https://arxiv.org/abs/quant-ph/0506196",
+            "arxivId": "quant-ph/0506196"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [],
+  "interpretation": "A statement that coherent information is zero must specify whether this is an input value, the channel maximum, or a capacity.",
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "ruskai-2007-cb-entropy-multiplicativity-counterexamples-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-ruskai-2007-cb-entropy-multiplicativity-counterexamples-status-2026-08-12",
+        "status": "open",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "eaf7a01c7f08ce1dd31055017d93a5b3c351cebf926feb3d4ade3ebe340a92ab",
+    "statementDigest": "f0be07cfd86bab6db6b9930c841b68ca4be1d9dee0da6c167f607fa36fb62c6d",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-cb-entropy-multiplicativity-counterexamples/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-cb-entropy-multiplicativity-counterexamples.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-cb-entropy-multiplicativity-counterexamples/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-cb-entropy-multiplicativity-counterexamples/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-cb-entropy-multiplicativity-counterexamples/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/ruskai-2007-cb-entropy-multiplicativity-counterexamples.md"
+  }
+}

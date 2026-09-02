@@ -1,0 +1,50 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "krueger-2005-mutually-unbiased-bases-statement-v1",
+  "problemId": "krueger-2005-mutually-unbiased-bases",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-krueger-werner-2005",
+      "relationship": "states-problem",
+      "locator": "pp. 43-45 (Problem 13)",
+      "primary": true,
+      "statedTitle": "Mutually unbiased bases",
+      "source": {
+        "id": "source-krueger-werner-2005",
+        "title": "Some open problems in quantum information theory",
+        "authors": [
+          "O. Krüger",
+          "R. F. Werner"
+        ],
+        "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+        "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Determine the maximum number of MUBs in non-prime-power dimensions, beginning with dimension six."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $D$ | Dimension of the complex Hilbert space, $D \\geq 2$ |\n| $\\mathbb{C}^D$ | Complex $D$-dimensional Hilbert space |\n| $K$ | Number of orthonormal bases under consideration |\n| $\\{e_i^k\\}_{i=1}^D$ | Orthonormal basis indexed by $k$ ($k = 1, \\ldots, K$), with the $i$th vector denoted $e_i^k$ |\n| $\\langle e_i^k, e_j^n\\rangle$ | Inner product between basis vectors from bases $k$ and $n$ |\n| $\\lvert\\cdot\\rvert$ | Absolute value |\n| MUB | Mutually unbiased bases |\n| $\\sigma_x, \\sigma_y, \\sigma_z$ | Pauli matrices (the three MUBs in dimension $D = 2$) |",
+    "statement": "Let $D \\geq 2$ be an integer. Determine\n$$N(D) \\;=\\; \\max\\bigl\\{ K \\,:\\, \\text{there exist } K \\text{ pairwise mutually unbiased orthonormal bases in } \\mathbb{C}^D \\bigr\\},$$\nwhere two orthonormal bases $\\{e_i^k\\}_{i=1}^D$ and $\\{e_j^n\\}_{j=1}^D$ ($k \\neq n$) are *mutually unbiased* iff\n$$\\bigl|\\langle e_i^k,\\, e_j^n\\rangle\\bigr| \\;=\\; D^{-1/2} \\qquad \\text{for all } i, j \\in \\{1, \\ldots, D\\}.$$\n\nIt is known that $N(D) \\leq D + 1$ always, with equality whenever $D$ is the power of a prime. The problem is to determine $N(D)$ for non-prime-power $D$.\n\n**Special case (smallest open instance).** Decide whether $N(6) = 7$, i.e. whether there exist $K = 7$ mutually unbiased bases in $D = 6$ dimensions."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "6f4ea34d63cfff702c8f4ba68306ed6c371565b4d52124c13a201af7ec126184",
+    "bodyDigest": "7df4847f6083726da608d2ed3828028f9a71c4e1133f8322d8248fabb4465b44"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-mutually-unbiased-bases.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-mutually-unbiased-bases/frontier.json"
+  }
+}

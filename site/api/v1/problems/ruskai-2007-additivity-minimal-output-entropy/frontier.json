@@ -1,0 +1,165 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "ruskai-2007-additivity-minimal-output-entropy",
+  "title": "Additivity of minimal output (von Neumann) entropy of quantum channels",
+  "catalogState": "archived",
+  "status": "solved",
+  "statusLabel": "Solved",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-ruskai-2007-additivity-minimal-output-entropy-status-2026-08-12",
+    "status": "solved",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "Hastings' peer-reviewed counterexample directly disproves the additivity identity stated in the archived problem.",
+    "evidenceIds": [
+      "evidence-ruskai-2007-additivity-minimal-output-entropy-nature-physics"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "ruskai-2007-additivity-minimal-output-entropy-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "f6145c52c23df052e3cbb969c57d8502b983a6bc8822efe908e89686743c18e2",
+    "sourceRefs": [
+      {
+        "sourceId": "source-ruskai-2007",
+        "relationship": "states-problem",
+        "locator": "p. 16 (Problem 22)",
+        "primary": true,
+        "source": {
+          "id": "source-ruskai-2007",
+          "title": "Open problems in quantum information theory",
+          "authors": [
+            "Mary Beth Ruskai"
+          ],
+          "venue": "arXiv:0708.1902 [quant-ph] (2007); based on BIRS workshop on Operator Structures in QIT, Banff, 11-16 Feb 2007",
+          "url": "https://doi.org/10.48550/arXiv.0708.1902",
+          "doi": "10.48550/arXiv.0708.1902",
+          "arxivId": "0708.1902"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $M_d$ | algebra of $d\\times d$ complex matrices |\n| $\\Phi,\\Omega$ | quantum channels (completely positive trace-preserving maps) on matrix algebras |\n| $\\Phi\\otimes\\Omega$ | tensor product channel on $M_{d_\\Phi}\\otimes M_{d_\\Omega}$ |\n| $\\gamma$ | input density matrix, $\\gamma\\ge 0$, $\\operatorname{Tr}\\gamma=1$ |\n| $S(\\rho)$ | von Neumann entropy, $S(\\rho)=-\\operatorname{Tr}\\rho\\log\\rho$ |\n| $S_{\\min}(\\Phi)$ | minimal output entropy of $\\Phi$, $S_{\\min}(\\Phi)=\\inf_\\gamma S[\\Phi(\\gamma)]$ |\n| $\\chi^*(\\Phi)$ | Holevo (classical) capacity of $\\Phi$ |\n| $E_F$ | entanglement of formation |",
+      "statement": "**Problem 22 (Ruskai 2007).** Prove the additivity of minimal output entropy,\n$$S_{\\min}(\\Phi\\otimes\\Omega) \\;=\\; S_{\\min}(\\Phi)+S_{\\min}(\\Omega) \\tag{23}$$\nfor every pair of quantum channels $\\Phi,\\Omega$, or else find a counter-example."
+    }
+  },
+  "question": {
+    "type": "Additivity of entropy",
+    "summary": "The source asked to prove additivity of the minimal output entropy for every pair of quantum channels or to find a counterexample. Hastings constructed random unitary channel pairs with a strict additivity gap, refuting the conjecture in 2009.",
+    "importance": "Additivity would have meant that entanglement across the input of a product channel cannot lower the output entropy below the product-state minimum, and Shor had shown the statement globally equivalent to additivity of the Holevo capacity, additivity of the entanglement of formation, and its strong superadditivity.",
+    "unresolved": ""
+  },
+  "targetClauses": [
+    {
+      "id": "minimal-output-entropy-additivity",
+      "label": "Additivity of the minimal output entropy",
+      "text": "The archived statement asks to prove that the minimal output entropy of a tensor product of channels equals the sum of the individual minimal output entropies for every pair of quantum channels, or else to find a counterexample.",
+      "resolutionCriteria": "A general additivity proof, or a channel pair with a strict additivity gap.",
+      "state": "refuted",
+      "claimIds": [
+        "claim-ruskai-2007-additivity-minimal-output-entropy-hastings-refutes-additivity-of"
+      ],
+      "latestEvidenceDate": "2009"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [],
+    "summary": ""
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-ruskai-2007-additivity-minimal-output-entropy-hastings-refutes-additivity-of",
+      "relation": "refutes",
+      "relationLabel": "Refutes",
+      "title": "Hastings refutes additivity of the minimal output entropy",
+      "text": "Hastings constructs pairs of random unitary channels, the second obtained from the first by complex conjugation, for which the maximally entangled input makes S_min of the product strictly smaller than the sum of the individual minimal output entropies. The argument uses concentration of measure for random unitary Kraus operators in large but finite dimension, and via Shor's equivalence it simultaneously refutes additivity of the Holevo capacity and of the entanglement of formation.",
+      "targetClauseIds": [
+        "minimal-output-entropy-additivity"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2009",
+      "evidence": [
+        {
+          "id": "evidence-ruskai-2007-additivity-minimal-output-entropy-nature-physics",
+          "date": "2009",
+          "maturity": "Peer reviewed",
+          "strength": "Exact counterexample",
+          "label": "Nature Physics",
+          "sourceLocator": "Main result: random unitary channel pair with a strict additivity gap",
+          "source": {
+            "id": "source-hastings-2009-superadditivity",
+            "title": "Superadditivity of communication capacity using entangled inputs",
+            "authors": [
+              "M. B. Hastings"
+            ],
+            "venue": "Nature Physics 5, 255-257 (2009); arXiv:0809.3972",
+            "url": "https://arxiv.org/abs/0809.3972"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [
+    {
+      "label": "Scope",
+      "text": "The magnitude of the violation is small and the dimensions required are enormous; how much capacity superadditivity can occur, and for which channel families, remains a very active subject.",
+      "url": null
+    }
+  ],
+  "interpretation": null,
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "ruskai-2007-additivity-minimal-output-entropy-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-ruskai-2007-additivity-minimal-output-entropy-status-2026-08-12",
+        "status": "solved",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "a4edfca46eab059776efd5fe373f1e76a51cc79fbf363c8f1cc7d1bb381b1cb8",
+    "statementDigest": "f6145c52c23df052e3cbb969c57d8502b983a6bc8822efe908e89686743c18e2",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-additivity-minimal-output-entropy/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-additivity-minimal-output-entropy.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-additivity-minimal-output-entropy/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/ruskai-2007-additivity-minimal-output-entropy/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/ruskai-2007-additivity-minimal-output-entropy/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/ruskai-2007-additivity-minimal-output-entropy.md"
+  }
+}

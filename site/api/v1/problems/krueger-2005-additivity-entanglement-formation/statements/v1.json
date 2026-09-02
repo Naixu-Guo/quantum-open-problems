@@ -1,0 +1,49 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "krueger-2005-additivity-entanglement-formation-statement-v1",
+  "problemId": "krueger-2005-additivity-entanglement-formation",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-krueger-werner-2005",
+      "relationship": "states-problem",
+      "locator": "pp. 28-29 (Problem 7)",
+      "primary": true,
+      "source": {
+        "id": "source-krueger-werner-2005",
+        "title": "Some open problems in quantum information theory",
+        "authors": [
+          "O. Krüger",
+          "R. F. Werner"
+        ],
+        "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+        "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "entanglement-of-formation-additivity",
+      "label": "Additivity of the entanglement of formation",
+      "text": "The archived statement asks to show that the entanglement of formation of a tensor product of two bipartite density operators equals the sum of the individual entanglements of formation.",
+      "resolutionCriteria": "A general additivity proof, or a pair of bipartite states for which the entanglement of formation is strictly subadditive."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $\\rho$ | A density operator on a bipartite Hilbert space $\\mathcal{H}_A \\otimes \\mathcal{H}_B$ |\n| $\\rho_i$ | Pure-state (or general) constituents in a convex decomposition of $\\rho$ |\n| $r_i$ | Non-negative weights summing to $1$ in a convex decomposition |\n| $\\rho\\vert A$ | Restriction of $\\rho$ to Alice's subsystem (partial trace over Bob) |\n| $S(\\sigma)$ | Von Neumann entropy $-\\mathrm{tr}(\\sigma \\log \\sigma)$ |\n| $E_F(\\rho)$ | Entanglement of formation, $\\inf\\bigl\\{\\sum_i r_i S(\\rho_i\\vert A) \\mid \\sum_i r_i \\rho_i = \\rho\\bigr\\}$ |\n| $\\rho^{(1)}, \\rho^{(2)}$ | Two bipartite density operators on possibly different Hilbert spaces |\n| $\\rho^{(1)} \\otimes \\rho^{(2)}$ | Their tensor product, regarded as a bipartite state on the combined Alice and Bob spaces |\n| $\\Phi$ | A quantum channel (completely positive trace preserving map) |\n| $S_{\\min}(\\Phi)$ | Minimal output entropy of $\\Phi$, $\\inf_\\rho S(\\Phi(\\rho))$ |\n| $\\chi^*(\\Phi)$ | Holevo capacity of $\\Phi$ |\n| LOCC | Local operations and classical communication |",
+    "statement": "Show that for any pair of bipartite density operators $\\rho^{(1)}$ and $\\rho^{(2)}$ (defined on possibly different bipartite Hilbert spaces) one has\n\n$$E_F\\bigl(\\rho^{(1)} \\otimes \\rho^{(2)}\\bigr) \\;=\\; E_F\\!\\bigl(\\rho^{(1)}\\bigr) + E_F\\!\\bigl(\\rho^{(2)}\\bigr).$$\n\nThe inequality $E_F(\\rho^{(1)} \\otimes \\rho^{(2)}) \\le E_F(\\rho^{(1)}) + E_F(\\rho^{(2)})$ is elementary (by tensoring the optimal pure-state decompositions); the open problem asks whether equality always holds.\n\nThe source records this problem as *equivalent to Problem 10* of the same collection."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "071a97760e86096f0fcb4640ce9746ed20ece65c40741bc1083f08d5ea416c04",
+    "bodyDigest": "2574bc232a7339cc9819b42606e53c85fa0ff8f72b5a14e3a88c042b27e537e3"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-additivity-entanglement-formation.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-additivity-entanglement-formation/frontier.json"
+  }
+}

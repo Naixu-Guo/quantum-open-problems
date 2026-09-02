@@ -1,0 +1,49 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "krueger-2005-reversible-entanglement-manipulation-statement-v1",
+  "problemId": "krueger-2005-reversible-entanglement-manipulation",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-krueger-werner-2005",
+      "relationship": "states-problem",
+      "locator": "pp. 55-56 (Problem 20)",
+      "primary": true,
+      "source": {
+        "id": "source-krueger-werner-2005",
+        "title": "Some open problems in quantum information theory",
+        "authors": [
+          "O. Krüger",
+          "R. F. Werner"
+        ],
+        "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+        "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Identify the smallest physically meaningful class of operations that makes asymptotic mixed-state entanglement manipulation reversible."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $\\mathcal{H}_A\\otimes\\mathcal{H}_B$ | Bipartite Hilbert space for parties $A$ and $B$ |\n| $\\rho$ | A bipartite density operator on $\\mathcal{H}_A\\otimes\\mathcal{H}_B$ |\n| LOCC | The class of local operations and classical communication (the standard free operations of bipartite entanglement) |\n| PPT operations | Completely positive maps that preserve the set of PPT (positive partial transpose) states |\n| Hyper-set | A class of operations introduced in [HOH02], strictly larger than LOCC and strictly smaller than PPT operations |\n| $\\lvert\\Phi^+\\rangle$ | The maximally entangled (singlet) state of two qubits |\n| $E_{\\mathrm{D}}(\\rho)$ | Distillable entanglement of $\\rho$ under a given class of operations |\n| $E_{\\mathrm{C}}(\\rho)$ | Entanglement cost of $\\rho$ under a given class of operations |\n| Asymptotic reversibility | The condition $E_{\\mathrm{D}}(\\rho) = E_{\\mathrm{C}}(\\rho)$ for every $\\rho$, under a fixed class of operations |\n| $n$ | Number of i.i.d. copies of $\\rho$ used in the asymptotic conversion |",
+    "statement": "Two open questions stated in the source:\n\n(Q1) **Are PPT operations sufficient for asymptotic reversibility?** Is it the case that, for every bipartite density operator $\\rho$ (pure or mixed), the distillable entanglement and the entanglement cost under PPT operations coincide,\n$$E_{\\mathrm{D}}^{\\,\\mathrm{PPT}}(\\rho) \\;=\\; E_{\\mathrm{C}}^{\\,\\mathrm{PPT}}(\\rho)\\,?$$\nThis is the conjecture known in some circles as the \"Big-Fat-Conjecture\" ([BFC]).\n\n(Q2) **The smallest reversible class.** What is the smallest non-trivial class of operations $\\mathcal{O}$ (containing LOCC) such that asymptotic interconversion of *all* bipartite entangled states — pure and mixed — is reversible under $\\mathcal{O}$?\n\nBoth questions seek a single asymptotic entanglement measure that would play the role of entropy in a thermodynamics of entanglement."
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "aa17c9dd4d706ce6936db709ab0a87f86bdc077b4193df993e55d82ea45379d0",
+    "bodyDigest": "b0ddcb5eb29d1332aa80f38d14cd5d6ba85f33feb8f4f89ee339e8c5d03d8b3e"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-reversible-entanglement-manipulation.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-reversible-entanglement-manipulation/frontier.json"
+  }
+}

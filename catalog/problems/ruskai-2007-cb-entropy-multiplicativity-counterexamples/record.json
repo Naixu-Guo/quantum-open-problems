@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "0.2.0",
+  "kind": "qop-canonical-record",
+  "problem": {
+    "kind": "Problem",
+    "id": "ruskai-2007-cb-entropy-multiplicativity-counterexamples",
+    "accession": null,
+    "aliases": [],
+    "catalogState": "published",
+    "title": "CB entropy of multiplicativity counterexamples",
+    "proposed": "2007",
+    "topicId": "quantum-channels",
+    "collectionId": "ruskai-2007",
+    "question": {
+      "type": "Structural characterization",
+      "summary": "Known examples are consistent with the proposed completely bounded entropy or coherent-information conditions, but no theorem covers every multiplicativity counterexample.",
+      "importance": "A universal entropy signature would explain why known output-norm counterexamples work and connect multiplicativity failure to coherent information.",
+      "unresolved": "Prove the requested CB-entropy or coherent-information structure for all maximal-output-norm counterexamples, or give a counterexample to that structure."
+    },
+    "keywords": [
+      "CB entropy",
+      "coherent information",
+      "multiplicativity",
+      "channel capacity"
+    ],
+    "relatedProblemIds": []
+  },
+  "statements": [
+    {
+      "kind": "StatementVersion",
+      "id": "ruskai-2007-cb-entropy-multiplicativity-counterexamples-statement-v1",
+      "problemId": "ruskai-2007-cb-entropy-multiplicativity-counterexamples",
+      "version": 1,
+      "supersedesStatementId": null,
+      "created": "2026-08-12",
+      "bodyPath": "statements/v1.md",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ruskai-2007",
+          "relationship": "states-problem",
+          "locator": "p. 16 (Problem 21)",
+          "primary": true,
+          "statedTitle": "Do all counter-examples to multiplicativity of maximal output p-norm have non-negative CB entropy and/or zero coherent information?"
+        }
+      ],
+      "targetClauses": [
+        {
+          "id": "archived-statement",
+          "label": "Archived statement",
+          "text": "The formal statement of this version, as archived from the source.",
+          "resolutionCriteria": "Prove the requested CB-entropy or coherent-information structure for all maximal-output-norm counterexamples, or give a counterexample to that structure."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-ruskai-2007-cb-entropy-multiplicativity-counterexamples-2006-completely-bounded-norms-give",
+      "statementId": "ruskai-2007-cb-entropy-multiplicativity-counterexamples-statement-v1",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "relation": "reformulates",
+      "title": "Completely bounded norms give forward additivity implications",
+      "text": "Devetak, Junge, King and Ruskai establish the foundational CB-norm connection, but not the converse classification requested here."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "Evidence",
+      "id": "evidence-ruskai-2007-cb-entropy-multiplicativity-counterexamples-2006-completely-bounded-norms-give",
+      "claimId": "claim-ruskai-2007-cb-entropy-multiplicativity-counterexamples-2006-completely-bounded-norms-give",
+      "sourceId": "source-devetak-2006-commun-math-phys",
+      "sourceLocator": null,
+      "date": "2006",
+      "maturity": "Peer reviewed",
+      "strength": "Foundational implication",
+      "label": "CB-norm framework"
+    }
+  ],
+  "decisions": [
+    {
+      "kind": "Decision",
+      "id": "decision-ruskai-2007-cb-entropy-multiplicativity-counterexamples-status-2026-08-12",
+      "problemId": "ruskai-2007-cb-entropy-multiplicativity-counterexamples",
+      "statementId": "ruskai-2007-cb-entropy-multiplicativity-counterexamples-statement-v1",
+      "decisionType": "status-assessment",
+      "outcome": "accepted",
+      "supersedesDecisionId": null,
+      "status": "open",
+      "effectiveDate": "2026-08-12",
+      "verified": "2026-08-12",
+      "evidenceIds": [
+        "evidence-ruskai-2007-cb-entropy-multiplicativity-counterexamples-2006-completely-bounded-norms-give"
+      ],
+      "rationale": "Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered."
+    }
+  ],
+  "editorial": {
+    "cautions": [],
+    "interpretation": "A statement that coherent information is zero must specify whether this is an input value, the channel maximum, or a capacity.",
+    "provenance": null,
+    "notices": [],
+    "notesPath": "notes.md"
+  },
+  "sourceImport": null
+}

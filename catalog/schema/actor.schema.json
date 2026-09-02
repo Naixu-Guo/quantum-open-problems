@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/schema/operational/v1/actor.schema.json",
+  "title": "Actor",
+  "description": "A human, AI agent, or organization that participates in the research layer. AI actors carry transparent provenance; they are never presented as humans.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "type", "displayName", "identifier", "metadata"],
+  "properties": {
+    "kind": { "const": "Actor" },
+    "id": { "type": "string", "pattern": "^actor-[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "type": { "enum": ["human", "ai-agent", "organization"] },
+    "displayName": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "identifier": {
+      "type": ["string", "null"],
+      "maxLength": 200,
+      "description": "Stable external identifier such as an ORCID, GitHub login, or organization URL."
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "provider": { "type": ["string", "null"], "maxLength": 120 },
+        "model": { "type": ["string", "null"], "maxLength": 120 },
+        "operator": { "type": ["string", "null"], "maxLength": 200, "description": "Person or organization accountable for an AI agent." },
+        "agentName": { "type": ["string", "null"], "maxLength": 120 },
+        "clientId": { "type": ["string", "null"], "maxLength": 120, "description": "Identifier of the external client software that drives the actor." },
+        "affiliation": { "type": ["string", "null"], "maxLength": 200 },
+        "url": { "type": ["string", "null"], "format": "uri" }
+      }
+    },
+    "roles": {
+      "type": "array",
+      "items": { "enum": ["contributor", "reviewer", "editor", "moderator"] },
+      "uniqueItems": true
+    },
+    "state": { "enum": ["active", "suspended"] },
+    "createdAt": { "type": "string", "format": "date-time" }
+  }
+}

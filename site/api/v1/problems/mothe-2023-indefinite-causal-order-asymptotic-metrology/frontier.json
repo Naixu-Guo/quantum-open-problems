@@ -1,0 +1,250 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "mothe-2023-indefinite-causal-order-asymptotic-metrology",
+  "title": "Asymptotic metrology with quantum-controlled causal order",
+  "catalogState": "published",
+  "status": "open",
+  "statusLabel": "Open",
+  "verified": "2026-08-31",
+  "decision": {
+    "id": "decision-mothe-2023-indefinite-causal-order-asymptotic-metrology-status-2026-08-31",
+    "status": "open",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-31",
+    "verified": "2026-08-31",
+    "rationale": "Status assessed against the archived statement in the 2026-08-31 primary-source audit; the evidence ledger lists the results considered.",
+    "evidenceIds": [
+      "evidence-mothe-2023-indefinite-causal-order-asymptotic-metrology-2026-a-spacetime-theorem-identifies",
+      "evidence-mothe-2023-indefinite-causal-order-asymptotic-metrology-2024-qc-qc-has-a",
+      "evidence-mothe-2023-indefinite-causal-order-asymptotic-metrology-2023-parallel-adaptive-and-causal"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "mothe-2023-indefinite-causal-order-asymptotic-metrology-statement-v1",
+    "version": 1,
+    "created": "2026-08-31",
+    "supersedesStatementId": null,
+    "statementDigest": "a0e8ee5cff5fd71bc038762cac0840a2955516d5e39bafa653504b867e7e4310",
+    "sourceRefs": [
+      {
+        "sourceId": "source-mothe-2023",
+        "relationship": "states-problem",
+        "locator": "Sec. VII, discussion of possible asymptotic advantages from QC-QC strategies",
+        "primary": true,
+        "statedTitle": "Determine whether quantum-controlled causal order gives an asymptotic metrological advantage",
+        "source": {
+          "id": "source-mothe-2023",
+          "title": "Reassessing the advantage of indefinite causal orders for quantum metrology",
+          "authors": [
+            "Raphaël Mothe",
+            "Cyril Branciard",
+            "Alastair A. Abbott"
+          ],
+          "venue": "Phys. Rev. A 109, 062435 (2024); arXiv:2312.12172 [quant-ph]",
+          "url": "https://doi.org/10.1103/PhysRevA.109.062435",
+          "doi": "10.1103/PhysRevA.109.062435",
+          "arxivId": "2312.12172"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "",
+      "statement": "For a smooth finite-dimensional channel family $\\Lambda_\\theta$, let $\\mathcal F_{\\mathrm{PAR}}^{(N)}(\\theta)$ and $\\mathcal F_{\\mathrm{QCQC}}^{(N)}(\\theta)$ denote the optimal quantum Fisher information from $N$ uses under parallel and QC-QC strategies. Work at a regular parameter value where the denominator is positive for large $N$.\n\nDecide whether every such channel family satisfies\n$$\n\\limsup_{N\\to\\infty}\n\\frac{\\mathcal F_{\\mathrm{QCQC}}^{(N)}(\\theta)}\n     {\\mathcal F_{\\mathrm{PAR}}^{(N)}(\\theta)}\n=1.\n$$\n\nAn affirmative solution must extend the known asymptotic channel-estimation bounds to QC-QC strategies. A negative solution must construct a channel family and QC-QC protocols with a persistent constant-factor advantage or a larger scaling exponent.\n\nA mathematical extension replaces QC-QC by the full set of valid process matrices. That set supplies an outer bound but includes processes without a known physical realization under the usual closed-laboratory assumptions."
+    }
+  },
+  "question": {
+    "type": "Asymptotic advantage",
+    "summary": "Quantum-controlled causal order improves quantum Fisher information for some noisy channels at three uses. Its advantage at large numbers of channel uses remains unknown.",
+    "importance": "Finite-use gains from quantum-controlled order matter only if they survive as resources grow. The answer determines whether causal control changes asymptotic sensing limits or only small-instance performance.",
+    "unresolved": "Prove that QC-QC strategies become asymptotically equivalent to parallel strategies for every smooth finite-dimensional channel family, or give a noisy family with a persistent advantage."
+  },
+  "targetClauses": [
+    {
+      "id": "archived-statement",
+      "label": "Archived statement",
+      "text": "The formal statement of this version, as archived from the source.",
+      "resolutionCriteria": "Prove that QC-QC strategies become asymptotically equivalent to parallel strategies for every smooth finite-dimensional channel family, or give a noisy family with a persistent advantage.",
+      "state": "narrowed",
+      "claimIds": [
+        "claim-mothe-2023-indefinite-causal-order-asymptotic-metrology-2026-a-spacetime-theorem-identifies",
+        "claim-mothe-2023-indefinite-causal-order-asymptotic-metrology-2024-qc-qc-has-a",
+        "claim-mothe-2023-indefinite-causal-order-asymptotic-metrology-2023-parallel-adaptive-and-causal"
+      ],
+      "latestEvidenceDate": "2026-05-08"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [
+      "archived-statement"
+    ],
+    "summary": "Prove that QC-QC strategies become asymptotically equivalent to parallel strategies for every smooth finite-dimensional channel family, or give a noisy family with a persistent advantage."
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-mothe-2023-indefinite-causal-order-asymptotic-metrology-2026-a-spacetime-theorem-identifies",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "A spacetime theorem identifies QC-QC as the physical target class",
+      "text": "Salzger and Vilasini show that protocols satisfying their classical-spacetime and closed-laboratory assumptions are behaviorally equivalent to QC-QC. The theorem narrows the physical scope but gives no asymptotic metrology bound.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2026-05-08",
+      "evidence": [
+        {
+          "id": "evidence-mothe-2023-indefinite-causal-order-asymptotic-metrology-2026-a-spacetime-theorem-identifies",
+          "date": "2026-05-08",
+          "maturity": "Preprint",
+          "strength": "Physical-scope theorem",
+          "label": "Spacetime characterization",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-salzger-2026-higher-order-quantum",
+            "title": "Higher-order quantum processes respecting closed labs in a spacetime have quantum controlled causal order",
+            "authors": [
+              "M. Salzger",
+              "V. Vilasini"
+            ],
+            "venue": "arXiv:2605.08351 (2026).",
+            "url": "https://arxiv.org/abs/2605.08351",
+            "arxivId": "2605.08351"
+          }
+        }
+      ]
+    },
+    {
+      "id": "claim-mothe-2023-indefinite-causal-order-asymptotic-metrology-2024-qc-qc-has-a",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "QC-QC has a strict advantage at three channel uses",
+      "text": "Mothe, Branciard and Abbott find noisy channel families for which QC-QC outperforms causal superpositions and fixed-order circuits at finite N. Their discussion leaves the large-N behavior open.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2024-06-25",
+      "evidence": [
+        {
+          "id": "evidence-mothe-2023-indefinite-causal-order-asymptotic-metrology-2024-qc-qc-has-a",
+          "date": "2024-06-25",
+          "maturity": "Peer reviewed",
+          "strength": "Finite-use separation",
+          "label": "Physical Review A",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-mothe-2023",
+            "title": "Reassessing the advantage of indefinite causal orders for quantum metrology",
+            "authors": [
+              "Raphaël Mothe",
+              "Cyril Branciard",
+              "Alastair A. Abbott"
+            ],
+            "venue": "Phys. Rev. A 109, 062435 (2024); arXiv:2312.12172 [quant-ph]",
+            "url": "https://doi.org/10.1103/PhysRevA.109.062435",
+            "doi": "10.1103/PhysRevA.109.062435",
+            "arxivId": "2312.12172"
+          }
+        }
+      ]
+    },
+    {
+      "id": "claim-mothe-2023-indefinite-causal-order-asymptotic-metrology-2023-parallel-adaptive-and-causal",
+      "relation": "narrows",
+      "relationLabel": "Narrows",
+      "title": "Parallel, adaptive and causal-superposition strategies coincide asymptotically",
+      "text": "Kurdziałek and coauthors prove asymptotic equivalence through causal superpositions. Their proof does not cover dynamical quantum control of causal order.",
+      "targetClauseIds": [
+        "archived-statement"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2023-08-30",
+      "evidence": [
+        {
+          "id": "evidence-mothe-2023-indefinite-causal-order-asymptotic-metrology-2023-parallel-adaptive-and-causal",
+          "date": "2023-08-30",
+          "maturity": "Peer reviewed",
+          "strength": "Exact lower-class theorem",
+          "label": "Physical Review Letters",
+          "sourceLocator": null,
+          "source": {
+            "id": "source-doi-10-1103-physrevlett-131-090801",
+            "title": "Parallel, adaptive and causal-superposition strategies coincide asymptotically",
+            "authors": [],
+            "venue": "Physical Review Letters",
+            "url": "https://doi.org/10.1103/PhysRevLett.131.090801",
+            "doi": "10.1103/PhysRevLett.131.090801",
+            "bibliographyState": "url-only"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [
+    {
+      "label": "Finite versus asymptotic",
+      "text": "The strict three-use separation proves a finite-resource advantage only. It does not determine the scaling exponent or leading asymptotic coefficient.",
+      "url": null
+    }
+  ],
+  "interpretation": null,
+  "provenance": {
+    "kind": "source-stated",
+    "label": "Source-stated question",
+    "note": "Mothe, Branciard and Abbott explicitly ask whether QC-QC strategies can provide an asymptotic advantage after proving strict finite-use advantages."
+  },
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "mothe-2023-indefinite-causal-order-asymptotic-metrology-statement-v1",
+        "version": 1,
+        "created": "2026-08-31",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-mothe-2023-indefinite-causal-order-asymptotic-metrology-status-2026-08-31",
+        "status": "open",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-31",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "aea78889e43c659d042db391de7bd4e894429d328a08e494c738c552deeb6ba2",
+    "statementDigest": "a0e8ee5cff5fd71bc038762cac0840a2955516d5e39bafa653504b867e7e4310",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/mothe-2023-indefinite-causal-order-asymptotic-metrology/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/mothe-2023-indefinite-causal-order-asymptotic-metrology.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/mothe-2023-indefinite-causal-order-asymptotic-metrology/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/mothe-2023-indefinite-causal-order-asymptotic-metrology/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/mothe-2023-indefinite-causal-order-asymptotic-metrology/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/mothe-2023-indefinite-causal-order-asymptotic-metrology.md"
+  }
+}

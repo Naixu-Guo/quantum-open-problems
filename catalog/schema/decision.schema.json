@@ -1,7 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://naixu-guo.github.io/quantum-open-problems/schema/canonical/v0.1/decision.schema.json",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/schema/canonical/v0.2/decision.schema.json",
   "title": "Canonical editorial decision",
+  "description": "An immutable status assessment. A later decision supersedes an earlier one; rejected and superseded decisions stay in the record unchanged.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -40,6 +41,12 @@
       "items": { "type": "string", "minLength": 1 },
       "uniqueItems": true
     },
-    "rationale": { "type": "string", "minLength": 1 }
+    "rationale": { "type": "string", "minLength": 1 },
+    "provenance": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "provenance.schema.json" }
+      ]
+    }
   }
 }

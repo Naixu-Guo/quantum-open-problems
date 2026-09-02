@@ -1,0 +1,167 @@
+{
+  "kind": "qop-frontier",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-nice-error-bases",
+  "title": "Nice error bases",
+  "catalogState": "archived",
+  "status": "solved",
+  "statusLabel": "Solved",
+  "verified": "2026-08-12",
+  "decision": {
+    "id": "decision-krueger-2005-nice-error-bases-status-2026-08-12",
+    "status": "solved",
+    "outcome": "accepted",
+    "effectiveDate": "2026-08-12",
+    "verified": "2026-08-12",
+    "rationale": "The cited paper exhibits an explicit nice error basis that is not of shift and multiply type, refuting the universal claim in the archived statement. The settling work is cited in the source bibliography only by its arXiv identifier (quant-ph/0301078); the source collection independently records Klappenecker and Roetteler as the solvers with last progress on 28 May 2003.",
+    "evidenceIds": [
+      "evidence-krueger-2005-nice-error-bases-arxiv-quant-ph"
+    ],
+    "supersedesDecisionId": null,
+    "provenance": null
+  },
+  "statement": {
+    "id": "krueger-2005-nice-error-bases-statement-v1",
+    "version": 1,
+    "created": "2026-08-12",
+    "supersedesStatementId": null,
+    "statementDigest": "2d5d2166d0c60f2f1e1e450d12ff106568aada756960f1e547177ce0227c382c",
+    "sourceRefs": [
+      {
+        "sourceId": "source-krueger-werner-2005",
+        "relationship": "states-problem",
+        "locator": "pp. 26-27 (Problem 6)",
+        "primary": true,
+        "source": {
+          "id": "source-krueger-werner-2005",
+          "title": "Some open problems in quantum information theory",
+          "authors": [
+            "O. Krüger",
+            "R. F. Werner"
+          ],
+          "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+          "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166",
+          "doi": "10.48550/arXiv.quant-ph/0504166",
+          "arxivId": "quant-ph/0504166"
+        }
+      }
+    ],
+    "formulation": {
+      "notation": "| Symbol | Meaning |\n|---|---|\n| $d$ | Dimension of the Hilbert space |\n| $\\mathcal{H}$ | $d$-dimensional Hilbert space |\n| $U_i$ | Unitary operator on $\\mathcal{H}$, $i = 1, \\ldots, d^2$ |\n| $U_i^{*}$ | Adjoint of $U_i$ |\n| $\\mathrm{tr}$ | Trace |\n| $\\delta_{ij}$ | Kronecker delta |\n| Orthogonal basis of unitaries | $\\{U_1, \\ldots, U_{d^2}\\}$ with $\\mathrm{tr}(U_i^{*} U_j) = d\\,\\delta_{ij}$ |\n| Nice error basis | Orthogonal basis of unitaries such that $U_i U_j = \\omega_{ij} U_k$ for some phase $\\omega_{ij}$ and label $k$ depending on $(i,j)$ |\n| Index group | The group on $\\{1, \\ldots, d^2\\}$ obtained from the multiplication law $(i,j) \\mapsto k$ |\n| Shift and multiply type | Basis whose unitaries are products of $d$ permutation operators and $d$ multiplication operators |\n| Latin square | $d \\times d$ matrix whose rows and columns are each permutations of $\\{1, \\ldots, d\\}$ |\n| Hadamard matrix (complex) | $d \\times d$ complex matrix $H$ with $\\lvert H_{ij}\\rvert=1$ and $H H^{*} = d I$ |\n| Group of central type | Finite group $H$ possessing an irreducible representation of dimension $\\sqrt{\\lvert H/Z(H)\\rvert}$, where $Z(H)$ is the centre of $H$ |\n| Monomial unitary | Unitary whose matrix has exactly one non-vanishing entry in each row and column |\n| Abstract error group | Central extension of the index group |",
+      "statement": "Decide the following question: *is every nice error basis of shift and multiply type?* Equivalently, given an orthogonal basis $\\{U_1, \\ldots, U_{d^2}\\}$ of unitaries on $\\mathbf{C}^d$ such that $\\mathrm{tr}(U_i^{*} U_j) = d\\,\\delta_{ij}$ and $U_i U_j = \\omega_{ij} U_k$ for some phases $\\omega_{ij}$, does there exist a unitary change of basis of $\\mathbf{C}^d$ after which every $U_i$ is a product of a permutation matrix and a diagonal unitary?"
+    }
+  },
+  "question": {
+    "type": "Structural characterization",
+    "summary": "The source asked whether every nice error basis is of shift and multiply type. Klappenecker and Roetteler answered negatively by constructing an abstract error group with a non-monomial irreducible representation.",
+    "importance": "Orthogonal bases of unitaries are exactly what is needed to build teleportation and dense-coding schemes and underlie stabilizer code theory, and the question asked whether the algebraic notion of a nice error basis coincides with the combinatorial shift-and-multiply notion built from Latin squares and complex Hadamard matrices.",
+    "unresolved": ""
+  },
+  "targetClauses": [
+    {
+      "id": "nice-error-bases-shift-and-multiply",
+      "label": "Shift-and-multiply form of nice error bases",
+      "text": "The archived statement asks whether every nice error basis is of shift and multiply type, that is, whether after a unitary change of basis each basis unitary is a product of a permutation matrix and a diagonal unitary.",
+      "resolutionCriteria": "A proof that all nice error bases are monomial after a change of basis, or an explicit non-monomial nice error basis.",
+      "state": "refuted",
+      "claimIds": [
+        "claim-krueger-2005-nice-error-bases-klappenecker-and-roetteler-exhibit"
+      ],
+      "latestEvidenceDate": "2003"
+    }
+  ],
+  "unresolved": {
+    "clauseIds": [],
+    "summary": ""
+  },
+  "acceptedClaims": [
+    {
+      "id": "claim-krueger-2005-nice-error-bases-klappenecker-and-roetteler-exhibit",
+      "relation": "refutes",
+      "relationLabel": "Refutes",
+      "title": "Klappenecker and Roetteler exhibit a non-monomial nice error basis",
+      "text": "Klappenecker and Roetteler build, from representation-theoretic results of Ferguson and Isaacs on groups of central type, an abstract error group with cyclic centre possessing a non-monomial irreducible representation. The corresponding nice error basis is therefore not monomial and in particular not of shift and multiply type, so the archived universal claim is false.",
+      "targetClauseIds": [
+        "nice-error-bases-shift-and-multiply"
+      ],
+      "supersedesClaimId": null,
+      "provenance": null,
+      "trust": "verified",
+      "latestEvidenceDate": "2003",
+      "evidence": [
+        {
+          "id": "evidence-krueger-2005-nice-error-bases-arxiv-quant-ph",
+          "date": "2003",
+          "maturity": "Preprint",
+          "strength": "Exact counterexample",
+          "label": "arXiv:quant-ph/0301078",
+          "sourceLocator": "Character-theoretic construction of a non-monomial nice error basis",
+          "source": {
+            "id": "source-klappenecker-2003-monomiality",
+            "title": "On the Monomiality of Nice Error Bases",
+            "authors": [
+              "A. Klappenecker",
+              "M. Roetteler"
+            ],
+            "venue": "arXiv:quant-ph/0301078 (2003)",
+            "url": "https://arxiv.org/abs/quant-ph/0301078"
+          }
+        }
+      ]
+    }
+  ],
+  "supersededClaimIds": [],
+  "cautions": [
+    {
+      "label": "Scope",
+      "text": "Only the shift-and-multiply universality claim is settled; the classification of all abstract error groups and of all nice error bases up to equivalence in arbitrary dimension remains active.",
+      "url": null
+    }
+  ],
+  "interpretation": null,
+  "provenance": null,
+  "notices": [],
+  "history": {
+    "statementVersions": [
+      {
+        "id": "krueger-2005-nice-error-bases-statement-v1",
+        "version": 1,
+        "created": "2026-08-12",
+        "supersedesStatementId": null,
+        "current": true
+      }
+    ],
+    "decisions": [
+      {
+        "id": "decision-krueger-2005-nice-error-bases-status-2026-08-12",
+        "status": "solved",
+        "outcome": "accepted",
+        "effectiveDate": "2026-08-12",
+        "supersedesDecisionId": null,
+        "current": true
+      }
+    ]
+  },
+  "pendingCandidateUpdates": {
+    "available": false,
+    "note": "No operational service is configured for this deployment; candidate updates are submitted through the documented API of a service instance.",
+    "url": null,
+    "count": null,
+    "items": []
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "projection": "content-v1",
+    "recordDigest": "f62845aee543ef0141f8c224427c65d11b2fb0105e07cbdc28d5f5e24843719d",
+    "statementDigest": "2d5d2166d0c60f2f1e1e450d12ff106568aada756960f1e547177ce0227c382c",
+    "catalogAsOf": "2026-08-31"
+  },
+  "links": {
+    "self": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-nice-error-bases/frontier.json",
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-nice-error-bases.json",
+    "claims": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-nice-error-bases/claims.json",
+    "statement": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-nice-error-bases/statements/v1.json",
+    "human": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-nice-error-bases/",
+    "brief": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-nice-error-bases.md"
+  }
+}

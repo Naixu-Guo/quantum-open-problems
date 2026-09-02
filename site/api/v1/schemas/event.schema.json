@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/schema/operational/v1/event.schema.json",
+  "title": "Event",
+  "description": "One entry in the unified event stream. Canonical ledger entries (source catalog) and operational entries (source service) share this shape so a client can follow both with one cursor.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "sequence",
+    "type",
+    "objectType",
+    "objectId",
+    "problemId",
+    "createdAt",
+    "revision",
+    "payload",
+    "source"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "type": {
+      "enum": [
+        "problem.created",
+        "problem.revised",
+        "problem.removed",
+        "statement.published",
+        "claim.accepted",
+        "claim.revised",
+        "claim.removed",
+        "evidence.recorded",
+        "evidence.revised",
+        "evidence.removed",
+        "decision.published",
+        "candidate_update.created",
+        "candidate_update.updated",
+        "candidate_update.reviewed",
+        "candidate_update.accepted",
+        "candidate_update.rejected",
+        "candidate_update.needs_revision",
+        "candidate_update.withdrawn",
+        "candidate_update.promoted",
+        "review.created",
+        "comment.created",
+        "comment.updated",
+        "comment.deleted",
+        "actor.registered",
+        "actor.suspended",
+        "actor.reinstated",
+        "moderation.applied",
+        "catalog.release"
+      ]
+    },
+    "objectType": {
+      "enum": [
+        "Problem",
+        "StatementVersion",
+        "Claim",
+        "Evidence",
+        "Decision",
+        "CandidateUpdate",
+        "Review",
+        "Comment",
+        "Actor",
+        "Catalog"
+      ]
+    },
+    "objectId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "problemId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "actorId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "createdAt": {
+      "type": "string",
+      "minLength": 1
+    },
+    "revision": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Digest or release identifier that pins the state the event refers to."
+    },
+    "payload": {
+      "type": "object"
+    },
+    "source": {
+      "enum": [
+        "catalog",
+        "service"
+      ]
+    },
+    "catalogSequence": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "kind": "qop-statement-version",
+  "schemaVersion": 1,
+  "id": "krueger-2005-continuity-quantum-channel-capacity-statement-v1",
+  "problemId": "krueger-2005-continuity-quantum-channel-capacity",
+  "version": 1,
+  "supersedesStatementId": null,
+  "current": true,
+  "created": "2026-08-12",
+  "sourceRefs": [
+    {
+      "sourceId": "source-krueger-werner-2005",
+      "relationship": "states-problem",
+      "locator": "p. 41 (Problem 11)",
+      "primary": true,
+      "source": {
+        "id": "source-krueger-werner-2005",
+        "title": "Some open problems in quantum information theory",
+        "authors": [
+          "O. Krüger",
+          "R. F. Werner"
+        ],
+        "venue": "arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/",
+        "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
+      }
+    }
+  ],
+  "targetClauses": [
+    {
+      "id": "quantum-capacity-continuity",
+      "label": "Continuity of the quantum capacity",
+      "text": "The archived statement asks whether the unassisted quantum (coherent) capacity Q is a continuous function on the convex set of channels between fixed finite-dimensional input and output spaces, equipped with the cb-norm distance.",
+      "resolutionCriteria": "A proof of continuity, or a pair or sequence of channels along which Q jumps discontinuously."
+    }
+  ],
+  "formulation": {
+    "notation": "| Symbol | Meaning |\n|---|---|\n| $\\mathcal{H}, \\mathcal{K}$ | Finite-dimensional complex Hilbert spaces |\n| $T, T'$ | Quantum channels (completely positive trace-preserving maps) |\n| $Q(T)$ | Quantum (coherent) capacity of channel $T$ |\n| $\\lVert T - T'\\rVert_{\\mathrm{cb}}$ | Completely-bounded (cb) norm distance between channels |\n| $\\lVert\\cdot\\rVert_{\\diamond}$ | Diamond norm (equivalent to cb-norm on quantum channels) |\n| $\\mathcal{C}$ | Convex set of all quantum channels with fixed input and output dimensions |\n| $\\varepsilon$ | Small positive parameter (distance threshold) |\n| $\\delta$ | Small positive parameter (capacity-gap threshold) |",
+    "statement": "Let $\\mathcal{C}$ denote the convex set of all quantum channels between fixed finite-dimensional input and output Hilbert spaces, equipped with the cb-norm distance.\n\n**Problem.** Is the quantum (coherent) capacity\n$$Q\\colon \\mathcal{C} \\longrightarrow [0,\\infty), \\qquad T \\mapsto Q(T)$$\na continuous function?\n\nEquivalently: for every $\\varepsilon > 0$ does there exist $\\delta > 0$ such that, for all channels $T, T' \\in \\mathcal{C}$,\n$$\\|T - T'\\|_{\\mathrm{cb}} \\;<\\; \\delta \\;\\;\\Longrightarrow\\;\\; |Q(T) - Q(T')| \\;<\\; \\varepsilon\\,?$$"
+  },
+  "revision": {
+    "algorithm": "sha256",
+    "statementDigest": "1c8fd68f12ddde56f3dbea794668581a10f85ccf5b1b51b0bdaab7fee860b50d",
+    "bodyDigest": "3b20f4f89761eddb3c0636b77cce311977ec36362dec70b03ed52d9b16e649cc"
+  },
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-continuity-quantum-channel-capacity.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-continuity-quantum-channel-capacity/frontier.json"
+  }
+}

@@ -181,11 +181,12 @@
 
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
-          <span class="status-badge ">Open</span>
+          <span class="status-badge">Open</span>
           <span class="area-badge">Quantum information</span>
           <span class="meta-badge">Quantum designs</span>
           <span class="meta-badge">Proposed 2005-02-17</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">SIC POVMs and Zauner&#039;s conjecture</h1>
         <p class="dialog-summary">Unconditional SIC existence, Weyl-Heisenberg-covariant existence and Zauner-symmetric existence remain unproved in arbitrary dimension.</p>
@@ -193,11 +194,14 @@
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#remaining">What remains</a>
-          <a href="#progress-heading">Progress</a>
+          <a href="#target-heading">What remains</a>
+          <a href="#progress-heading">Verified progress</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
           <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <div class="problem-framing">
           <section class="framing-row" aria-labelledby="importance-heading">
             <h2 id="importance-heading">Why it matters</h2>
@@ -224,7 +228,7 @@
               <span class="dialog-section-label">Verified formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">Matched to the source and locator above</span>
+            <span class="formal-source">Matched to the source and locator above · digest e0991467568b</span>
           </div>
 
           <details class="formal-notation">
@@ -240,43 +244,80 @@
           <div class="formal-body"><p>The problem is stated in three nested variants, each strictly stronger than its predecessor.</p><p><strong>Problem 1 (SIC-POVMs).</strong> For every dimension \(d\ge 2\), decide whether there exists a family \(\{|\phi_i\rangle\}_{i=1}^{d^2}\) of normalised vectors in \(\mathbb{C}^d\) such that</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[|\langle\phi_i|\phi_j\rangle|^2 \;=\; \text{const} \qquad \text{for all } i\neq j .\]</div><p>Equivalently, decide whether SIC-POVMs—the POVMs \(\{|\phi_i\rangle\langle\phi_i|/d\}_{i=1}^{d^2}\) associated with such equiangular line configurations—exist in every dimension \(d\).</p><p><strong>Problem 2 (Covariant SIC-POVMs).</strong> With \(X|q\rangle = |q+1\rangle\), \(Z|q\rangle = e^{i 2\pi q/d}|q\rangle\) (arithmetic mod \(d\)), and Weyl operators</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[w(p,q) \;=\; Z(p)\,X(q), \qquad p,q\in\mathbf{Z}_d , \tag{23.1}\]</div><p>decide for which \(d\) there exists a fiducial vector \(|\phi\rangle\in\mathbb{C}^d\) such that</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\bigl\{\,w(p,q)\,|\phi\rangle\langle\phi|\,w(p,q)^*\,\bigr\}_{p,q=0,\dots,d-1} \tag{23.2}\]</div><p>is a SIC-POVM (i.e. a group-covariant SIC under the Heisenberg group).</p><p><strong>Problem 3 (Zauner&#039;s Conjecture).</strong> Let \(z\in U(d)\) be the element of the Clifford group characterised by</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[z\,w(p,q)\,z^* \;=\; w(q-p,\,-p) .\]</div><p>Zauner&#039;s conjecture asserts that in any dimension \(d\), a fiducial vector \(|\phi\rangle\) for a Heisenberg-covariant SIC-POVM can be chosen among the eigenvectors of \(z\).</p></div>
         </section>
 
-        <div class="remaining-question " id="remaining">
-          <span>What remains</span>
-          <p>Prove or refute the nested all-dimension SIC, covariance and Zauner-symmetry conjectures without unproved arithmetic assumptions.</p>
-        </div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Exact unresolved target</h2>
+
+          <div class="remaining-question" id="remaining">
+            <span>What remains</span>
+            <p>Prove or refute the nested all-dimension SIC, covariance and Zauner-symmetry conjectures without unproved arithmetic assumptions.</p>
+          </div>
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-narrowed" id="clause-archived-statement">
+              <div class="clause-head">
+                <span class="clause-state narrowed">Narrowed</span>
+                <strong>Archived statement</strong>
+                <code>archived-statement</code>
+              </div>
+              <p>The formal statement of this version, as archived from the source.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> Prove or refute the nested all-dimension SIC, covariance and Zauner-symmetry conjectures without unproved arithmetic assumptions.</p>
+              <p class="clause-claims">2 accepted claims: <a href="#claim-krueger-2005-sic-povm-zauner-conjecture-2026-an-unconditional-proof-claim">claim-krueger-2005-sic-povm-zauner-conjecture-2026-an-unconditional-proof-claim</a>, <a href="#claim-krueger-2005-sic-povm-zauner-conjecture-2025-a-uniform-construction-is">claim-krueger-2005-sic-povm-zauner-conjecture-2025-a-uniform-construction-is</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Open as of 12 Aug 2026: Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered. <code>decision-krueger-2005-sic-povm-zauner-conjecture-status-2026-08-12</code></p>
+        </section>
 
 
 
         <section class="dialog-section" aria-labelledby="progress-heading">
-          <span class="dialog-section-label">Evidence ledger</span>
-          <h2 id="progress-heading">Recent progress</h2>
-          <ol class="timeline">
+          <span class="dialog-section-label">Verified progress</span>
+          <h2 id="progress-heading">Accepted claims</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
 
-            <li id="qop-evt-d18a5a7dd320ecb8">
-              <time datetime="2026-05-31">31 May 2026</time>
-              <div>
-                <h3>An unconditional proof claim was withdrawn as incorrect</h3>
-                <p>The arXiv record for Joka&#039;s claimed all-dimension construction explicitly says the proof is not correct.</p>
-                <div class="dialog-source-meta">
+          <article class="claim-card" id="claim-krueger-2005-sic-povm-zauner-conjecture-2026-an-unconditional-proof-claim">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Status review</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>An unconditional proof claim was withdrawn as incorrect</h3>
+            <p>The arXiv record for Joka&#039;s claimed all-dimension construction explicitly says the proof is not correct.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-d18a5a7dd320ecb8">
+                <time datetime="2026-05-31">31 May 2026</time>
+                <div>
                   <span class="maturity-badge">Withdrawn</span>
                   <span class="maturity-badge">Incorrect claim</span>
                   <a href="https://arxiv.org/abs/2601.13475" rel="noreferrer">Withdrawal notice ↗</a>
+
                 </div>
-              </div>
-            </li>
-            <li id="qop-evt-3c69f007a97fb1bf">
-              <time datetime="2025-03-17">17 Mar 2025</time>
-              <div>
-                <h3>A uniform construction is conditional on two conjectures</h3>
-                <p>Appleby, Flammia and Kopp require an order-one abelian Stark conjecture and a special-value identity for a modular cocycle.</p>
-                <div class="dialog-source-meta">
+              </li>
+            </ol>
+
+          </article>
+          <article class="claim-card" id="claim-krueger-2005-sic-povm-zauner-conjecture-2025-a-uniform-construction-is">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Narrows</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>A uniform construction is conditional on two conjectures</h3>
+            <p>Appleby, Flammia and Kopp require an order-one abelian Stark conjecture and a special-value identity for a modular cocycle.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-3c69f007a97fb1bf">
+                <time datetime="2025-03-17">17 Mar 2025</time>
+                <div>
                   <span class="maturity-badge">Preprint</span>
                   <span class="maturity-badge">Conditional theorem</span>
                   <a href="https://arxiv.org/abs/2501.03970" rel="noreferrer">Conditional construction ↗</a>
+
                 </div>
-              </div>
-            </li>
-          </ol>
+              </li>
+            </ol>
+
+          </article>
+
         </section>
 
 
@@ -290,6 +331,28 @@
               <strong>Claim status</strong>
               <p>A withdrawn proof and a theorem conditional on two open conjectures do not establish Zauner&#039;s conjecture. <a href="https://arxiv.org/abs/2601.13475" rel="noreferrer">Source ↗</a></p>
             </div>
+          </div>
+        </section>
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="krueger-2005-sic-povm-zauner-conjecture">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+SIC+POVMs+and+Zauner%27s+conjecture" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="krueger-2005-sic-povm-zauner-conjecture">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
           </div>
         </section>
 
@@ -310,8 +373,10 @@
           <ul class="machine-links">
             <li><a href="../../packets/krueger-2005-sic-povm-zauner-conjecture.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
             <li><a href="../../api/v1/problems/krueger-2005-sic-povm-zauner-conjecture.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+SIC+POVMs+and+Zauner%27s+conjecture" rel="noreferrer">Submit a research update ↗</a> — the evidence contract applies to human and AI results.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/krueger-2005-sic-povm-zauner-conjecture/problem.md" rel="noreferrer">Source article ↗</a> — the canonical statement and notes in the repository.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-sic-povm-zauner-conjecture/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-sic-povm-zauner-conjecture/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+SIC+POVMs+and+Zauner%27s+conjecture" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/krueger-2005-sic-povm-zauner-conjecture/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -330,7 +395,8 @@
           <p>Record <code>krueger-2005-sic-povm-zauner-conjecture</code></p>
           <p>Record revision <code>66be964458a51cfc68967b5745c09817b72bef2bc23472bbc204a10746337ded</code></p>
           <p>Statement digest <code>e0991467568bc4b352565352ff7f374dcbd7d34afee814ae2bc09f2ef06a781a</code></p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Statement <code>krueger-2005-sic-povm-zauner-conjecture-statement-v1</code> · Decision <code>decision-krueger-2005-sic-povm-zauner-conjecture-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -361,5 +427,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="krueger-2005-sic-povm-zauner-conjecture" defer></script>
   </body>
 </html>

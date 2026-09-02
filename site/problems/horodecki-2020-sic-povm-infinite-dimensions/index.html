@@ -185,11 +185,12 @@
 
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
-          <span class="status-badge ">Open</span>
+          <span class="status-badge">Open</span>
           <span class="area-badge">Quantum information</span>
           <span class="meta-badge">Quantum designs</span>
           <span class="meta-badge">Proposed 2020</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">SIC POVMs in infinitely many dimensions</h1>
         <p class="dialog-summary">Exact SICs are known in many individual dimensions, but no unconditional construction covers an infinite sequence of dimensions.</p>
@@ -197,11 +198,14 @@
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#remaining">What remains</a>
-          <a href="#progress-heading">Progress</a>
+          <a href="#target-heading">What remains</a>
+          <a href="#progress-heading">Verified progress</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
           <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <div class="problem-framing">
           <section class="framing-row" aria-labelledby="importance-heading">
             <h2 id="importance-heading">Why it matters</h2>
@@ -228,7 +232,7 @@
               <span class="dialog-section-label">Verified formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">Matched to the source and locator above</span>
+            <span class="formal-source">Matched to the source and locator above · digest 5bd2d0214053</span>
           </div>
 
           <details class="formal-notation">
@@ -244,43 +248,80 @@
           <div class="formal-body"><p><strong>Problem 1:</strong> <em>Construct SIC POVMs in an infinite sequence of dimensions, \(N_1, N_2, N_3, \dots\).</em></p><p>A symmetric informationally complete positive operator valued measure associated with \(\mathcal{H}_N\) is a set of \(N^2\) vectors \(\lvert\psi_j\rangle\in\mathcal{H}_N\) satisfying the overlap relations</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[|\langle\psi_j|\psi_k\rangle|^2 = \frac{N\,\delta_{jk}+1}{N+1}, \qquad j,k=1,\dots,N^2.\]</div><p>The task is to exhibit an infinite increasing sequence of dimensions \(N_1&lt;N_2&lt;\dots\) together with explicit SIC POVMs in each \(\mathcal{H}_{N_i}\). Equivalently, prove Zauner&#039;s conjecture (existence of a SIC in \(\mathcal{H}_N\) for every \(N\geq 2\)) along an infinite family of dimensions.</p></div>
         </section>
 
-        <div class="remaining-question " id="remaining">
-          <span>What remains</span>
-          <p>Give an unconditional exact SIC construction in infinitely many dimensions.</p>
-        </div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Exact unresolved target</h2>
+
+          <div class="remaining-question" id="remaining">
+            <span>What remains</span>
+            <p>Give an unconditional exact SIC construction in infinitely many dimensions.</p>
+          </div>
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-narrowed" id="clause-archived-statement">
+              <div class="clause-head">
+                <span class="clause-state narrowed">Narrowed</span>
+                <strong>Archived statement</strong>
+                <code>archived-statement</code>
+              </div>
+              <p>The formal statement of this version, as archived from the source.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> Give an unconditional exact SIC construction in infinitely many dimensions.</p>
+              <p class="clause-claims">2 accepted claims: <a href="#claim-horodecki-2020-sic-povm-infinite-dimensions-2026-claimed-all-dimension-proof">claim-horodecki-2020-sic-povm-infinite-dimensions-2026-claimed-all-dimension-proof</a>, <a href="#claim-horodecki-2020-sic-povm-infinite-dimensions-2025-uniform-construction-remains-conditional">claim-horodecki-2020-sic-povm-infinite-dimensions-2025-uniform-construction-remains-conditional</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Open as of 12 Aug 2026: Status assessed against the archived statement in the 2026-08-12 primary-source audit; the evidence ledger lists the results considered. <code>decision-horodecki-2020-sic-povm-infinite-dimensions-status-2026-08-12</code></p>
+        </section>
 
 
 
         <section class="dialog-section" aria-labelledby="progress-heading">
-          <span class="dialog-section-label">Evidence ledger</span>
-          <h2 id="progress-heading">Recent progress</h2>
-          <ol class="timeline">
+          <span class="dialog-section-label">Verified progress</span>
+          <h2 id="progress-heading">Accepted claims</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
 
-            <li id="qop-evt-e0621b510d2163a1">
-              <time datetime="2026-05-31">31 May 2026</time>
-              <div>
-                <h3>Claimed all-dimension proof was withdrawn</h3>
-                <p>The arXiv withdrawal notice for Joka&#039;s manuscript states that the proof is incorrect.</p>
-                <div class="dialog-source-meta">
+          <article class="claim-card" id="claim-horodecki-2020-sic-povm-infinite-dimensions-2026-claimed-all-dimension-proof">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Status review</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>Claimed all-dimension proof was withdrawn</h3>
+            <p>The arXiv withdrawal notice for Joka&#039;s manuscript states that the proof is incorrect.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-e0621b510d2163a1">
+                <time datetime="2026-05-31">31 May 2026</time>
+                <div>
                   <span class="maturity-badge">Withdrawn</span>
                   <span class="maturity-badge">Incorrect claim</span>
                   <a href="https://arxiv.org/abs/2601.13475" rel="noreferrer">Withdrawal notice ↗</a>
+
                 </div>
-              </div>
-            </li>
-            <li id="qop-evt-c7672d9eb1ceb440">
-              <time datetime="2025-03-17">17 Mar 2025</time>
-              <div>
-                <h3>Uniform construction remains conditional</h3>
-                <p>Appleby, Flammia and Kopp obtain all dimensions only under two unproved arithmetic and special-value conjectures.</p>
-                <div class="dialog-source-meta">
+              </li>
+            </ol>
+
+          </article>
+          <article class="claim-card" id="claim-horodecki-2020-sic-povm-infinite-dimensions-2025-uniform-construction-remains-conditional">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Narrows</span>
+              <span class="claim-clauses"><a href="#clause-archived-statement">archived-statement</a></span>
+            </div>
+            <h3>Uniform construction remains conditional</h3>
+            <p>Appleby, Flammia and Kopp obtain all dimensions only under two unproved arithmetic and special-value conjectures.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-c7672d9eb1ceb440">
+                <time datetime="2025-03-17">17 Mar 2025</time>
+                <div>
                   <span class="maturity-badge">Preprint</span>
                   <span class="maturity-badge">Conditional theorem</span>
                   <a href="https://arxiv.org/abs/2501.03970" rel="noreferrer">Conditional construction ↗</a>
+
                 </div>
-              </div>
-            </li>
-          </ol>
+              </li>
+            </ol>
+
+          </article>
+
         </section>
 
 
@@ -294,6 +335,28 @@
               <strong>Withdrawn claim</strong>
               <p>The 2026 all-dimension claim is explicitly withdrawn as incorrect. The 2025 construction is conditional, so neither closes this problem. <a href="https://arxiv.org/abs/2601.13475" rel="noreferrer">Source ↗</a></p>
             </div>
+          </div>
+        </section>
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="horodecki-2020-sic-povm-infinite-dimensions">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+SIC+POVMs+in+infinitely+many+dimensions" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="horodecki-2020-sic-povm-infinite-dimensions">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
           </div>
         </section>
 
@@ -314,8 +377,10 @@
           <ul class="machine-links">
             <li><a href="../../packets/horodecki-2020-sic-povm-infinite-dimensions.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
             <li><a href="../../api/v1/problems/horodecki-2020-sic-povm-infinite-dimensions.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+SIC+POVMs+in+infinitely+many+dimensions" rel="noreferrer">Submit a research update ↗</a> — the evidence contract applies to human and AI results.</li>
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/horodecki-2020-sic-povm-infinite-dimensions/problem.md" rel="noreferrer">Source article ↗</a> — the canonical statement and notes in the repository.</li>
+            <li><a href="../../api/v1/problems/horodecki-2020-sic-povm-infinite-dimensions/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/horodecki-2020-sic-povm-infinite-dimensions/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+SIC+POVMs+in+infinitely+many+dimensions" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/horodecki-2020-sic-povm-infinite-dimensions/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -334,7 +399,8 @@
           <p>Record <code>horodecki-2020-sic-povm-infinite-dimensions</code></p>
           <p>Record revision <code>66aa45d9392755bea77803c546dd115f67d825cbee90a8737f41ded3755e9e26</code></p>
           <p>Statement digest <code>5bd2d0214053ad35b60a5e61a53884f7d170480303e967561094798ef63031f0</code></p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Statement <code>horodecki-2020-sic-povm-infinite-dimensions-statement-v1</code> · Decision <code>decision-horodecki-2020-sic-povm-infinite-dimensions-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -365,5 +431,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="horodecki-2020-sic-povm-infinite-dimensions" defer></script>
   </body>
 </html>

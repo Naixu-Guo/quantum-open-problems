@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Solved record. Solved (disproved). The additivity of entanglement of formation is now known to be false in general. P. W. Shor proved in 2003 that several additivity questions are equivalent: additivity of the minimum output entropy of all channels,…">
+    <meta name="description" content="Solved record. The source asked to show that the entanglement of formation is additive on tensor products of arbitrary bipartite states. Shor&#039;s chain of equivalences together with Hastings&#039; minimal-output-entropy counterexample shows it is strictly subadditive for some pairs.">
     <meta name="theme-color" content="#0d1b2a">
     <title>Additivity of Entanglement of Formation · Quantum Open Problems</title>
     <link rel="canonical" href="https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-additivity-entanglement-formation/">
@@ -13,7 +13,7 @@
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Quantum Open Problems">
     <meta property="og:title" content="Additivity of Entanglement of Formation">
-    <meta property="og:description" content="Solved record. Solved (disproved). The additivity of entanglement of formation is now known to be false in general. P. W. Shor proved in 2003 that several additivity questions are equivalent: additivity of the minimum output entropy of all channels,…">
+    <meta property="og:description" content="Solved record. The source asked to show that the entanglement of formation is additive on tensor products of arbitrary bipartite states. Shor&#039;s chain of equivalences together with Hastings&#039; minimal-output-entropy counterexample shows it is strictly subadditive for some pairs.">
     <meta property="og:url" content="https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-additivity-entanglement-formation/">
     <meta name="twitter:card" content="summary">
     <script>
@@ -22,6 +22,8 @@
         if (theme === "dark") document.documentElement.dataset.theme = "dark";
       } catch {}
     </script>
+    <link rel="alternate" href="../../api/v1/problems/krueger-2005-additivity-entanglement-formation.json" type="application/json" title="Problem record (JSON)">
+    <link rel="alternate" href="../../packets/krueger-2005-additivity-entanglement-formation.md" type="text/markdown" title="AI research brief (Markdown)">
     <script>window.MathJax = { svg: { fontCache: "global" } };</script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-svg.js" integrity="sha384-my9P1jDckpHD+5LZsLQ0gaiCl/RMO32HaqwBtbo/25QIMVr6xXIUCg1jvdSRcvb4" crossorigin="anonymous" defer></script>
     <script type="application/ld+json">{
@@ -83,18 +85,26 @@
         "value": "krueger-2005-additivity-entanglement-formation"
       },
       "name": "Additivity of Entanglement of Formation",
-      "abstract": "Solved record. Solved (disproved). The additivity of entanglement of formation is now known to be false in general. P. W. Shor proved in 2003 that several additivity questions are equivalent: additivity of the minimum output entropy of all channels,…",
+      "abstract": "Solved record. The source asked to show that the entanglement of formation is additive on tensor products of arbitrary bipartite states. Shor's chain of equivalences together with Hastings' minimal-output-entropy counterexample shows it is strictly subadditive for some pairs.",
       "text": "Show that for any pair of bipartite density operators $\\rho^{(1)}$ and $\\rho^{(2)}$ (defined on possibly different bipartite Hilbert spaces) one has\n\n$$E_F\\bigl(\\rho^{(1)} \\otimes \\rho^{(2)}\\bigr) \\;=\\; E_F\\!\\bigl(\\rho^{(1)}\\bigr) + E_F\\!\\bigl(\\rho^{(2)}\\bigr).$$\n\nThe inequality $E_F(\\rho^{(1)} \\otimes \\rho^{(2)}) \\le E_F(\\rho^{(1)}) + E_F(\\rho^{(2)})$ is elementary (by tensoring the optimal pure-state decompositions); the open problem asks whether equality always holds.\n\nThe source records this problem as *equivalent to Problem 10* of the same collection.",
       "inLanguage": "en",
       "qop:problemStatus": "solved",
       "qop:verified": "2026-08-12",
-      "keywords": [],
+      "keywords": [
+        "entanglement of formation",
+        "additivity conjecture",
+        "Shor equivalence",
+        "minimum output entropy",
+        "entanglement cost"
+      ],
       "about": [
-        "Krueger–Werner"
+        "Entanglement theory",
+        "Quantum information"
       ],
       "mainEntityOfPage": {
         "@id": "https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-additivity-entanglement-formation/#page"
       },
+      "qop:recordDigest": "sha256:f9bfeafcbc7c336929cdfbef889bd54eee643568e2edf3588e538369ae60a98c",
       "isBasedOn": {
         "@type": "ScholarlyArticle",
         "name": "Some open problems in quantum information theory",
@@ -121,7 +131,19 @@
           }
         ],
         "url": "https://doi.org/10.48550/arXiv.quant-ph/0504166"
-      }
+      },
+      "encoding": [
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-additivity-entanglement-formation.json"
+        },
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "text/markdown",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/packets/krueger-2005-additivity-entanglement-formation.md"
+        }
+      ]
     }
   ]
 }</script>
@@ -161,30 +183,40 @@
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
           <span class="status-badge solved">Solved</span>
-          <span class="area-badge">Krueger–Werner</span>
+          <span class="area-badge">Quantum information</span>
+          <span class="meta-badge">Entanglement theory</span>
           <span class="meta-badge">Proposed 2001-11-16</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">Additivity of Entanglement of Formation</h1>
+        <p class="dialog-summary">The source asked to show that the entanglement of formation is additive on tensor products of arbitrary bipartite states. Shor&#039;s chain of equivalences together with Hastings&#039; minimal-output-entropy counterexample shows it is strictly subadditive for some pairs.</p>
 
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#resolution-heading">Resolution</a>
-          <a href="#bibliography-heading">Bibliography</a>
+          <a href="#target-heading">Target</a>
+          <a href="#progress-heading">Resolution</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
+          <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <section class="dialog-section">
           <div class="interpretation-note">
             <span class="note-icon" aria-hidden="true">i</span>
             <div>
               <strong>Archived record</strong>
-              <p>The audit records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
+              <p>The accepted status decision records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
             </div>
           </div>
         </section>
-
         <div class="problem-framing">
+          <section class="framing-row" aria-labelledby="importance-heading">
+            <h2 id="importance-heading">Why it matters</h2>
+            <p>Any operationally meaningful resource measure should cost exactly the sum on independently prepared copies, and the easy inequality is one-directional, so the status of equality was the non-trivial part and was tied by Shor to the additivity conjectures for minimum output entropy and Holevo capacity.</p>
+          </section>
           <section class="framing-row" aria-labelledby="source-heading">
             <h2 id="source-heading">Problem source</h2>
             <div class="problem-source-record">
@@ -192,6 +224,7 @@
               <p>O. Krüger, R. F. Werner</p>
               <p>arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/</p>
               <div class="problem-source-scope">
+                <span>The source states the cataloged problem.</span>
                 <span>Statement locator: pp. 28-29 (Problem 7)</span>
               </div>
               <a href="https://doi.org/10.48550/arXiv.quant-ph/0504166" rel="noreferrer">Read problem source ↗</a>
@@ -205,7 +238,7 @@
               <span class="dialog-section-label">Archived formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">As archived before resolution</span>
+            <span class="formal-source">As archived before resolution · digest 071a97760e86</span>
           </div>
 
           <details class="formal-notation">
@@ -221,10 +254,104 @@
           <div class="formal-body"><p>Show that for any pair of bipartite density operators \(\rho^{(1)}\) and \(\rho^{(2)}\) (defined on possibly different bipartite Hilbert spaces) one has</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[E_F\bigl(\rho^{(1)} \otimes \rho^{(2)}\bigr) \;=\; E_F\!\bigl(\rho^{(1)}\bigr) + E_F\!\bigl(\rho^{(2)}\bigr).\]</div><p>The inequality \(E_F(\rho^{(1)} \otimes \rho^{(2)}) \le E_F(\rho^{(1)}) + E_F(\rho^{(2)})\) is elementary (by tensoring the optimal pure-state decompositions); the open problem asks whether equality always holds.</p><p>The source records this problem as <em>equivalent to Problem 10</em> of the same collection.</p></div>
         </section>
 
-        <section class="dialog-section" aria-labelledby="resolution-heading">
-          <span class="dialog-section-label">Resolution</span>
-          <h2 id="resolution-heading">Status and known progress</h2>
-          <div class="archive-progress"><p><strong>Solved (disproved).</strong> The additivity of entanglement of formation is now known to be <em>false</em> in general.</p><p>P. W. Shor proved in 2003 that several additivity questions are equivalent: additivity of the minimum output entropy \(S_{\min}\) of all channels, additivity of the Holevo capacity \(\chi^{*}\) of all channels, additivity of the entanglement of formation \(E_F\) for all bipartite states, and the strong superadditivity of \(E_F\) (P. W. Shor, <em>Equivalence of additivity questions in quantum information theory</em>, Commun. Math. Phys. <strong>246</strong>, 453–472 (2004); arXiv:quant-ph/0305035). Hence a single counterexample to any one of these statements refutes all of them simultaneously.</p><p>In 2008, M. B. Hastings disproved additivity of the minimum output entropy by a randomised construction of two channels for which</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[S_{\min}(\Phi \otimes \bar{\Phi}) \;&lt;\; S_{\min}(\Phi) + S_{\min}(\bar{\Phi})\]</div><p>(M. B. Hastings, <em>Superadditivity of communication capacity using entangled inputs</em>, Nature Physics <strong>5</strong>, 255 (2009); arXiv:0809.3972). By Shor&#039;s equivalences, this Hastings violation immediately implies the existence of bipartite density operators \(\rho^{(1)}, \rho^{(2)}\) for which</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[E_F\!\bigl(\rho^{(1)} \otimes \rho^{(2)}\bigr) \;&lt;\; E_F\!\bigl(\rho^{(1)}\bigr) + E_F\!\bigl(\rho^{(2)}\bigr),\]</div><p>so the additivity conjecture for entanglement of formation is false in general. Subsequent work has produced explicit (though not low-dimensional) examples, sharpened bounds on the size of the gap, and constructed counterexamples in lower dimensions and with stronger structural properties (see e.g. Brandão–Horodecki; Belinschi–Collins–Nechita; Aubrun–Szarek–Werner; Fukuda–King–Moser).</p><p>Prior partial positive results (now superseded by the general counterexample but still relevant for restricted classes):</p><ul><li>G. Vidal, W. Dür, and J. I. Cirac [VDC02; quant-ph/0112131] (<em>Entanglement cost of mixed states</em>, Phys. Rev. Lett. <strong>89</strong>, 027901 (2002)) proved additivity of entanglement of formation for several explicit families of states.</li><li>Earlier work established additivity for many special classes — e.g. for states of the form \(\rho \otimes \sigma\) with one factor separable, for Werner and isotropic states, and for states with certain symmetries — without resolving the general question.</li></ul><p>The TOC of the source records the &quot;last progress&quot; date of this problem as 2004-11-11; the Hastings refutation (2008/9) post-dates the source paper but settles the conjecture decisively in the negative.</p><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Archived target</h2>
+
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-refuted" id="clause-entanglement-of-formation-additivity">
+              <div class="clause-head">
+                <span class="clause-state refuted">Refuted</span>
+                <strong>Additivity of the entanglement of formation</strong>
+                <code>entanglement-of-formation-additivity</code>
+              </div>
+              <p>The archived statement asks to show that the entanglement of formation of a tensor product of two bipartite density operators equals the sum of the individual entanglements of formation.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> A general additivity proof, or a pair of bipartite states for which the entanglement of formation is strictly subadditive.</p>
+              <p class="clause-claims">1 accepted claim: <a href="#claim-krueger-2005-additivity-entanglement-formation-hastings-counterexample-refutes-additivity">claim-krueger-2005-additivity-entanglement-formation-hastings-counterexample-refutes-additivity</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Solved as of 12 Aug 2026: The archived additivity conjecture is equivalent, by Shor&#039;s peer-reviewed theorem, to a statement that Hastings&#039; peer-reviewed counterexample disproves. <code>decision-krueger-2005-additivity-entanglement-formation-status-2026-08-12</code></p>
+        </section>
+
+
+
+        <section class="dialog-section" aria-labelledby="progress-heading">
+          <span class="dialog-section-label">Resolution evidence</span>
+          <h2 id="progress-heading">Resolution</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
+
+          <article class="claim-card" id="claim-krueger-2005-additivity-entanglement-formation-hastings-counterexample-refutes-additivity">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Refutes</span>
+              <span class="claim-clauses"><a href="#clause-entanglement-of-formation-additivity">entanglement-of-formation-additivity</a></span>
+            </div>
+            <h3>Hastings counterexample refutes additivity of entanglement of formation</h3>
+            <p>Shor proved that additivity of the minimum output entropy, additivity of the Holevo capacity, additivity of the entanglement of formation and strong superadditivity of the entanglement of formation are all equivalent. Hastings then constructed channels violating additivity of the minimum output entropy, so by Shor&#039;s equivalences there exist bipartite states with E_F(rho1 tensor rho2) strictly less than E_F(rho1) + E_F(rho2) and the archived conjecture is false.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-f03fd2d5504606c8">
+                <time datetime="2009">2009</time>
+                <div>
+                  <span class="maturity-badge">Peer reviewed</span>
+                  <span class="maturity-badge">Exact counterexample</span>
+                  <a href="https://arxiv.org/abs/0809.3972" rel="noreferrer">Nature Physics ↗</a>
+                  <span class="evidence-locator">Main result: randomised construction of two channels with a strict entropy gap</span>
+                </div>
+              </li>
+              <li class="evidence-row" id="qop-evt-3a75461ac5989b9a">
+                <time datetime="2004">2004</time>
+                <div>
+                  <span class="maturity-badge">Peer reviewed</span>
+                  <span class="maturity-badge">Exact theorem</span>
+                  <a href="https://arxiv.org/abs/quant-ph/0305035" rel="noreferrer">Communications in Mathematical Physics ↗</a>
+                  <span class="evidence-locator">Equivalence of additivity of minimum output entropy and of entanglement of formation</span>
+                </div>
+              </li>
+            </ol>
+
+          </article>
+
+          <details class="archive-narrative">
+            <summary>Editorial narrative <span>Status and known progress as written by the editors</span></summary>
+            <div class="archive-progress"><p><strong>Solved (disproved).</strong> The additivity of entanglement of formation is now known to be <em>false</em> in general.</p><p>P. W. Shor proved in 2003 that several additivity questions are equivalent: additivity of the minimum output entropy \(S_{\min}\) of all channels, additivity of the Holevo capacity \(\chi^{*}\) of all channels, additivity of the entanglement of formation \(E_F\) for all bipartite states, and the strong superadditivity of \(E_F\) (P. W. Shor, <em>Equivalence of additivity questions in quantum information theory</em>, Commun. Math. Phys. <strong>246</strong>, 453–472 (2004); arXiv:quant-ph/0305035). Hence a single counterexample to any one of these statements refutes all of them simultaneously.</p><p>In 2008, M. B. Hastings disproved additivity of the minimum output entropy by a randomised construction of two channels for which</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[S_{\min}(\Phi \otimes \bar{\Phi}) \;&lt;\; S_{\min}(\Phi) + S_{\min}(\bar{\Phi})\]</div><p>(M. B. Hastings, <em>Superadditivity of communication capacity using entangled inputs</em>, Nature Physics <strong>5</strong>, 255 (2009); arXiv:0809.3972). By Shor&#039;s equivalences, this Hastings violation immediately implies the existence of bipartite density operators \(\rho^{(1)}, \rho^{(2)}\) for which</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[E_F\!\bigl(\rho^{(1)} \otimes \rho^{(2)}\bigr) \;&lt;\; E_F\!\bigl(\rho^{(1)}\bigr) + E_F\!\bigl(\rho^{(2)}\bigr),\]</div><p>so the additivity conjecture for entanglement of formation is false in general. Subsequent work has produced explicit (though not low-dimensional) examples, sharpened bounds on the size of the gap, and constructed counterexamples in lower dimensions and with stronger structural properties (see e.g. Brandão–Horodecki; Belinschi–Collins–Nechita; Aubrun–Szarek–Werner; Fukuda–King–Moser).</p><p>Prior partial positive results (now superseded by the general counterexample but still relevant for restricted classes):</p><ul><li>G. Vidal, W. Dür, and J. I. Cirac [VDC02; quant-ph/0112131] (<em>Entanglement cost of mixed states</em>, Phys. Rev. Lett. <strong>89</strong>, 027901 (2002)) proved additivity of entanglement of formation for several explicit families of states.</li><li>Earlier work established additivity for many special classes — e.g. for states of the form \(\rho \otimes \sigma\) with one factor separable, for Werner and isotropic states, and for states with certain symmetries — without resolving the general question.</li></ul><p>The TOC of the source records the &quot;last progress&quot; date of this problem as 2004-11-11; the Hastings refutation (2008/9) post-dates the source paper but settles the conjecture decisively in the negative.</p><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+          </details>
+        </section>
+
+
+        <section class="dialog-section" aria-labelledby="cautions-heading">
+          <span class="dialog-section-label">Claim watch</span>
+          <h2 id="cautions-heading">Scope and cautions</h2>
+
+          <div class="watch-note">
+            <span class="note-icon" aria-hidden="true">!</span>
+            <div>
+              <strong>Scope</strong>
+              <p>Additivity remains valid for restricted families such as the Vidal-Dur-Cirac state families, Werner and isotropic states, and products with a separable factor; the counterexamples are not low-dimensional. </p>
+            </div>
+          </div>
+        </section>
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="krueger-2005-additivity-entanglement-formation">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Additivity+of+Entanglement+of+Formation" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="krueger-2005-additivity-entanglement-formation">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
         </section>
 
 
@@ -234,12 +361,18 @@
           <div class="archive-bibliography"><ul><li>O. Krüger and R. F. Werner (eds.), <em>Some Open Problems in Quantum Information Theory</em>, arXiv:quant-ph/0504166 (2005); DOI 10.48550/arXiv.quant-ph/0504166. Snapshot of the IMaPh open-problems collection, TU Braunschweig (http://www.imaph.tu-bs.de/qi/problems/). Source PDF: <em>Some Open Problems in Quantum Information Theory.pdf</em>, Problem 7, pp. 28–29.</li><li>C. H. Bennett, D. P. DiVincenzo, J. A. Smolin, and W. K. Wootters, <em>Mixed-state entanglement and quantum error correction</em>, Phys. Rev. A <strong>54</strong>, 3824 (1996); arXiv:quant-ph/9604024.</li><li>G. Vidal, W. Dür, and J. I. Cirac, <em>Entanglement cost of mixed states</em>, Phys. Rev. Lett. <strong>89</strong>, 027901 (2002); arXiv:quant-ph/0112131.</li><li>P. W. Shor, <em>Equivalence of additivity questions in quantum information theory</em>, Commun. Math. Phys. <strong>246</strong>, 453–472 (2004); arXiv:quant-ph/0305035.</li><li>M. B. Hastings, <em>Superadditivity of communication capacity using entangled inputs</em>, Nature Physics <strong>5</strong>, 255 (2009); arXiv:0809.3972.</li></ul></div>
         </section>
 
+
+
         <section class="dialog-section" aria-labelledby="machine-heading">
-          <span class="dialog-section-label">Record</span>
+          <span class="dialog-section-label">Work on this problem</span>
           <h2 id="machine-heading">Research interfaces</h2>
           <ul class="machine-links">
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/krueger-2005-additivity-entanglement-formation/problem.md" rel="noreferrer">Source article ↗</a> — the canonical archived statement and audit notes.</li>
-            <li><a href="../">Problem directory</a> — every active and archived record.</li>
+            <li><a href="../../packets/krueger-2005-additivity-entanglement-formation.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-additivity-entanglement-formation.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-additivity-entanglement-formation/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/krueger-2005-additivity-entanglement-formation/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Additivity+of+Entanglement+of+Formation" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/krueger-2005-additivity-entanglement-formation/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -251,13 +384,15 @@
             <p class="cite-label">The original problem</p>
             <p class="cite-text">O. Krüger, R. F. Werner. Some open problems in quantum information theory. arXiv:quant-ph/0504166 (2005); snapshot of the IMaPh open-problems collection, TU Braunschweig — http://www.imaph.tu-bs.de/qi/problems/. pp. 28-29 (Problem 7). https://doi.org/10.48550/arXiv.quant-ph/0504166</p>
             <p class="cite-label">This catalog assessment</p>
-            <p class="cite-text">Quantum Open Problems, record krueger-2005-additivity-entanglement-formation, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-additivity-entanglement-formation/</p>
+            <p class="cite-text">Quantum Open Problems, record krueger-2005-additivity-entanglement-formation, revision f9bfeafcbc7c, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/krueger-2005-additivity-entanglement-formation/</p>
           </div>
         </section>
         <footer class="page-record-footer">
           <p>Record <code>krueger-2005-additivity-entanglement-formation</code></p>
-          <p>Status solved · archived from the active catalog</p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Record revision <code>f9bfeafcbc7c336929cdfbef889bd54eee643568e2edf3588e538369ae60a98c</code></p>
+          <p>Statement digest <code>071a97760e86096f0fcb4640ce9746ed20ece65c40741bc1083f08d5ea416c04</code></p>
+          <p>Statement <code>krueger-2005-additivity-entanglement-formation-statement-v1</code> · Decision <code>decision-krueger-2005-additivity-entanglement-formation-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -288,5 +423,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="krueger-2005-additivity-entanglement-formation" defer></script>
   </body>
 </html>

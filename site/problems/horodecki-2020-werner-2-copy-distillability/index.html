@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Solved record. Status: solved at preprint level in July 2026. The proof is very recent and has not yet passed journal peer review, so this label records a corroborated preprint resolution rather than a mature consensus result. Earlier progress and the…">
+    <meta name="description" content="Solved record. The source asked for a proof that the two-ququart Werner state rho(4,-1/2) is not 2-copy distillable. Fu, Gao and Park, together with three concurrent teams, proved that a Werner state is 2-copy distillable only if it is already 1-copy distillable, which covers this state.">
     <meta name="theme-color" content="#0d1b2a">
     <title>Show that the Werner state rho(4, -1/2) of two ququarts is not 2-copy distillable · Quantum Open Problems</title>
     <link rel="canonical" href="https://naixu-guo.github.io/quantum-open-problems/problems/horodecki-2020-werner-2-copy-distillability/">
@@ -13,7 +13,7 @@
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Quantum Open Problems">
     <meta property="og:title" content="Show that the Werner state rho(4, -1/2) of two ququarts is not 2-copy distillable">
-    <meta property="og:description" content="Solved record. Status: solved at preprint level in July 2026. The proof is very recent and has not yet passed journal peer review, so this label records a corroborated preprint resolution rather than a mature consensus result. Earlier progress and the…">
+    <meta property="og:description" content="Solved record. The source asked for a proof that the two-ququart Werner state rho(4,-1/2) is not 2-copy distillable. Fu, Gao and Park, together with three concurrent teams, proved that a Werner state is 2-copy distillable only if it is already 1-copy distillable, which covers this state.">
     <meta property="og:url" content="https://naixu-guo.github.io/quantum-open-problems/problems/horodecki-2020-werner-2-copy-distillability/">
     <meta name="twitter:card" content="summary">
     <script>
@@ -22,6 +22,8 @@
         if (theme === "dark") document.documentElement.dataset.theme = "dark";
       } catch {}
     </script>
+    <link rel="alternate" href="../../api/v1/problems/horodecki-2020-werner-2-copy-distillability.json" type="application/json" title="Problem record (JSON)">
+    <link rel="alternate" href="../../packets/horodecki-2020-werner-2-copy-distillability.md" type="text/markdown" title="AI research brief (Markdown)">
     <script>window.MathJax = { svg: { fontCache: "global" } };</script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-svg.js" integrity="sha384-my9P1jDckpHD+5LZsLQ0gaiCl/RMO32HaqwBtbo/25QIMVr6xXIUCg1jvdSRcvb4" crossorigin="anonymous" defer></script>
     <script type="application/ld+json">{
@@ -83,18 +85,26 @@
         "value": "horodecki-2020-werner-2-copy-distillability"
       },
       "name": "Show that the Werner state rho(4, -1/2) of two ququarts is not 2-copy distillable",
-      "abstract": "Solved record. Status: solved at preprint level in July 2026. The proof is very recent and has not yet passed journal peer review, so this label records a corroborated preprint resolution rather than a mature consensus result. Earlier progress and the…",
+      "abstract": "Solved record. The source asked for a proof that the two-ququart Werner state rho(4,-1/2) is not 2-copy distillable. Fu, Gao and Park, together with three concurrent teams, proved that a Werner state is 2-copy distillable only if it is already 1-copy distillable, which covers this state.",
       "text": "**Problem 5:** *Show that the Werner state $\\rho(4,-1/2)$ of two ququarts, $d=4$, defined in Eq. (5) below, is not 2-copy distillable.*\n\nSetup: Consider the family of Werner states on $\\mathcal{H}_d\\otimes\\mathcal{H}_d$\n$$\\rho(d,\\alpha) = \\frac{\\mathbb{1}\\otimes\\mathbb{1}+\\alpha V}{d^2+\\alpha d}, \\qquad \\alpha\\in[-1,1],$$\nwhere $V$ is the swap operator, $\\langle ij|V|kl\\rangle=\\delta_{il}\\delta_{jk}$. The state $\\rho(d,\\alpha)$ is NPT for $\\alpha\\in[-1,-1/d)$ and PPT (hence non-distillable) for $\\alpha\\in[-1/d,1]$. The distinguished state $\\rho(4,-1/2)$ is the unique Werner state whose partial transpose is proportional to the dichotomic unitary $U=I-2\\lvert\\psi_+\\rangle\\langle\\psi_+\\rvert$ (which has eigenvalues $\\pm 1$); it sits on the boundary between $1$-copy distillability and $1$-copy non-distillability of Werner states in $d=4$. The problem asks for a proof that no $2$-copy distillation protocol succeeds on $\\rho(4,-1/2)$: there exist no rank-two projectors $P,Q$ on $\\mathcal{H}_4\\otimes\\mathcal{H}_4$ such that\n$$(P\\otimes Q)\\bigl(\\rho(4,-1/2)^\\Gamma\\bigr)^{\\otimes 2}(P\\otimes Q)$$\nhas a negative eigenvalue.\n\nEquivalent algebraic form (Pankowski, Piani, Horodecki, Horodecki): show that the sum of squares of the two largest singular values of the Kronecker sum $A\\oplus B=A\\otimes\\mathbb{1}+\\mathbb{1}\\otimes B$ is bounded by $1/2$ for any pair of traceless $4\\times 4$ matrices $A,B$ normalized by $\\mathrm{Tr}(A^\\dagger A)+\\mathrm{Tr}(B^\\dagger B)=1/4$.",
       "inLanguage": "en",
       "qop:problemStatus": "solved",
       "qop:verified": "2026-08-12",
-      "keywords": [],
+      "keywords": [
+        "Werner states",
+        "two-copy distillability",
+        "NPT bound entanglement",
+        "partial transpose",
+        "partial trace inequality"
+      ],
       "about": [
-        "Horodecki"
+        "Entanglement theory",
+        "Quantum information"
       ],
       "mainEntityOfPage": {
         "@id": "https://naixu-guo.github.io/quantum-open-problems/problems/horodecki-2020-werner-2-copy-distillability/#page"
       },
+      "qop:recordDigest": "sha256:9e98dfe6d30bee90d0fc5909a01006b3e5d7ac51a0cf7764fe07a0f30c2ce046",
       "isBasedOn": {
         "@type": "ScholarlyArticle",
         "name": "Five open problems in theory of quantum information",
@@ -125,7 +135,19 @@
           }
         ],
         "url": "https://doi.org/10.1103/PRXQuantum.3.010101"
-      }
+      },
+      "encoding": [
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/horodecki-2020-werner-2-copy-distillability.json"
+        },
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "text/markdown",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/packets/horodecki-2020-werner-2-copy-distillability.md"
+        }
+      ]
     }
   ]
 }</script>
@@ -165,30 +187,40 @@
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
           <span class="status-badge solved">Solved</span>
-          <span class="area-badge">Horodecki</span>
+          <span class="area-badge">Quantum information</span>
+          <span class="meta-badge">Entanglement theory</span>
           <span class="meta-badge">Proposed 2020</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
         <h1 id="page-title">2-copy non-distillability of the Werner state \(\rho(4,-1/2)\)</h1>
+        <p class="dialog-summary">The source asked for a proof that the two-ququart Werner state rho(4,-1/2) is not 2-copy distillable. Fu, Gao and Park, together with three concurrent teams, proved that a Werner state is 2-copy distillable only if it is already 1-copy distillable, which covers this state.</p>
 
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#resolution-heading">Resolution</a>
-          <a href="#bibliography-heading">Bibliography</a>
+          <a href="#target-heading">Target</a>
+          <a href="#progress-heading">Resolution</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
+          <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <section class="dialog-section">
           <div class="interpretation-note">
             <span class="note-icon" aria-hidden="true">i</span>
             <div>
               <strong>Archived record</strong>
-              <p>The audit records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
+              <p>The accepted status decision records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
             </div>
           </div>
         </section>
-
         <div class="problem-framing">
+          <section class="framing-row" aria-labelledby="importance-heading">
+            <h2 id="importance-heading">Why it matters</h2>
+            <p>The state sits exactly on the boundary between 1-copy distillable and 1-copy non-distillable Werner states, and its partial transpose is uniquely proportional to a dichotomic unitary, a property preserved under tensor products, which makes it the most tractable concrete step toward proving the existence of NPT bound entanglement.</p>
+          </section>
           <section class="framing-row" aria-labelledby="source-heading">
             <h2 id="source-heading">Problem source</h2>
             <div class="problem-source-record">
@@ -196,6 +228,7 @@
               <p>Paweł Horodecki, Łukasz Rudnicki, Karol Życzkowski</p>
               <p>PRX Quantum 3, 010101 (2022); arXiv:2002.03233 [quant-ph]</p>
               <div class="problem-source-scope">
+                <span>The source states the cataloged problem.</span>
                 <span>Statement locator: p. 8-9 (Problem 5)</span>
               </div>
               <a href="https://doi.org/10.1103/PRXQuantum.3.010101" rel="noreferrer">Read problem source ↗</a>
@@ -209,7 +242,7 @@
               <span class="dialog-section-label">Archived formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">As archived before resolution</span>
+            <span class="formal-source">As archived before resolution · digest f466f1f207bd</span>
           </div>
 
           <details class="formal-notation">
@@ -225,10 +258,113 @@
           <div class="formal-body"><p><strong>Problem 5:</strong> <em>Show that the Werner state \(\rho(4,-1/2)\) of two ququarts, \(d=4\), defined in Eq. (5) below, is not 2-copy distillable.</em></p><p>Setup: Consider the family of Werner states on \(\mathcal{H}_d\otimes\mathcal{H}_d\)</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[\rho(d,\alpha) = \frac{\mathbb{1}\otimes\mathbb{1}+\alpha V}{d^2+\alpha d}, \qquad \alpha\in[-1,1],\]</div><p>where \(V\) is the swap operator, \(\langle ij|V|kl\rangle=\delta_{il}\delta_{jk}\). The state \(\rho(d,\alpha)\) is NPT for \(\alpha\in[-1,-1/d)\) and PPT (hence non-distillable) for \(\alpha\in[-1/d,1]\). The distinguished state \(\rho(4,-1/2)\) is the unique Werner state whose partial transpose is proportional to the dichotomic unitary \(U=I-2\lvert\psi_+\rangle\langle\psi_+\rvert\) (which has eigenvalues \(\pm 1\)); it sits on the boundary between \(1\)-copy distillability and \(1\)-copy non-distillability of Werner states in \(d=4\). The problem asks for a proof that no \(2\)-copy distillation protocol succeeds on \(\rho(4,-1/2)\): there exist no rank-two projectors \(P,Q\) on \(\mathcal{H}_4\otimes\mathcal{H}_4\) such that</p><div class="formal-equation" role="group" aria-label="Displayed equation">\[(P\otimes Q)\bigl(\rho(4,-1/2)^\Gamma\bigr)^{\otimes 2}(P\otimes Q)\]</div><p>has a negative eigenvalue.</p><p>Equivalent algebraic form (Pankowski, Piani, Horodecki, Horodecki): show that the sum of squares of the two largest singular values of the Kronecker sum \(A\oplus B=A\otimes\mathbb{1}+\mathbb{1}\otimes B\) is bounded by \(1/2\) for any pair of traceless \(4\times 4\) matrices \(A,B\) normalized by \(\mathrm{Tr}(A^\dagger A)+\mathrm{Tr}(B^\dagger B)=1/4\).</p></div>
         </section>
 
-        <section class="dialog-section" aria-labelledby="resolution-heading">
-          <span class="dialog-section-label">Resolution</span>
-          <h2 id="resolution-heading">Status and known progress</h2>
-          <div class="archive-progress"><p><strong>Status: solved at preprint level in July 2026.</strong> The proof is very recent and has not yet passed journal peer review, so this label records a corroborated preprint resolution rather than a mature consensus result. Earlier progress and the new resolution are:</p><ul><li>DiVincenzo, Shor, Smolin, Terhal, Thapliyal (2000) and Dür, Cirac, Lewenstein, Bruß (2000) showed that all Werner states \(\rho(d,\alpha)\) with \(\alpha\in[-2/d,1]\) are \(1\)-copy non-distillable and conjectured them to be \(n\)-copy non-distillable for every \(n\) (hence bound entangled, if NPT).</li><li>Watrous (2004) constructed bipartite states that are \(n\)-copy non-distillable but \((n+1)\)-copy distillable, indicating that proving \(n\)-copy non-distillability for all \(n\) is fundamentally subtle; however, Watrous&#039;s states are rank-deficient while the Werner states have full rank, which makes them better candidates for genuine bound entanglement.</li><li>Pankowski, Piani, Horodecki, Horodecki (2010) reformulated the \(2\)-copy non-distillability of \(\rho(4,-1/2)\) as a concrete matrix inequality: the sum of squares of the two largest singular values of \(A\oplus B\) is bounded by \(1/2\) for normalized traceless \(A,B\).</li><li>This bound has been proven in the restricted case where \(A\) and \(B\) are normal matrices (so commute with their Hermitian conjugates) by Pankowski–Piani–Horodecki–Horodecki.</li><li>Qian, Chen, Chu, Shen (2019) announced further progress towards the general matrix inequality; in particular a theorem stating that the bound \(1/2\) still holds if one of the matrices is made completely arbitrary.</li><li>Đoković (2016) studied \(2\)-distillable Werner states and provided further conditions.</li><li><strong>Resolution (Fu, Gao and Park, 23 July 2026).</strong> They prove that a Werner state in any local dimension is \(2\)-copy distillable if and only if it is already \(1\)-copy distillable. In the parametrisation used here, their theorem gives \(2\)-copy non-distillability exactly for \(\alpha\ge -1/2\). It therefore includes \(\rho(4,-1/2)\) and proves Problem 5.</li><li><strong>Concurrent corroboration (26–27 July 2026).</strong> Song and Chen, Fraser, Huber, Pozsgay and Vona, and Bharti, Gajjala and Haug posted other proofs of the same sharp two-copy threshold. Song and Chen document completing their key theorem before learning of Fu, Gao and Park; the other teams describe concurrent or complementary work and some communication during preparation. The agreement of four exact manuscripts materially strengthens confidence, but none had passed peer review on the verification date.</li><li><strong>Scope.</strong> These papers settle two-copy distillability for Werner states. They do not prove non-distillability for every number of copies and do not resolve whether NPT bound-entangled states exist.</li></ul><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Archived target</h2>
+
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-resolved" id="clause-werner-ququart-two-copy-nondistillability">
+              <div class="clause-head">
+                <span class="clause-state resolved">Resolved</span>
+                <strong>Two-copy non-distillability of rho(4,-1/2)</strong>
+                <code>werner-ququart-two-copy-nondistillability</code>
+              </div>
+              <p>The archived statement asks to show that the two-ququart Werner state rho(4,-1/2) is not 2-copy distillable, equivalently that no rank-two projector pair makes the doubled partial transpose acquire a negative eigenvalue.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> A proof of two-copy non-distillability, equivalently of the Pankowski-Piani-Horodecki-Horodecki matrix inequality, or an explicit two-copy distillation protocol.</p>
+              <p class="clause-claims">1 accepted claim: <a href="#claim-horodecki-2020-werner-2-copy-distillability-werner-states-are-2">claim-horodecki-2020-werner-2-copy-distillability-werner-states-are-2</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Solved as of 12 Aug 2026: Four concurrent exact manuscripts prove the sharp two-copy threshold for Werner states, which includes rho(4,-1/2) and therefore settles the archived statement. The resolution rests on four concurrent July 2026 preprints (Fu-Gao-Park, Song-Chen, Fraser-Huber-Pozsgay-Vona, Bharti-Gajjala-Haug); none had passed peer review on the 2026-08-12 verification date, so this is a corroborated preprint resolution rather than a mature consensus result. <code>decision-horodecki-2020-werner-2-copy-distillability-status-2026-08-12</code></p>
+        </section>
+
+
+
+        <section class="dialog-section" aria-labelledby="progress-heading">
+          <span class="dialog-section-label">Resolution evidence</span>
+          <h2 id="progress-heading">Resolution</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
+
+          <article class="claim-card" id="claim-horodecki-2020-werner-2-copy-distillability-werner-states-are-2">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Resolves</span>
+              <span class="claim-clauses"><a href="#clause-werner-ququart-two-copy-nondistillability">werner-ququart-two-copy-nondistillability</a></span>
+            </div>
+            <h3>Werner states are 2-copy distillable only if 1-copy distillable</h3>
+            <p>Fu, Gao and Park prove that a Werner state in any local dimension is 2-copy distillable if and only if it is already 1-copy distillable, which in the archived parametrisation gives 2-copy non-distillability exactly for alpha at least -1/2 and therefore includes rho(4,-1/2). Song and Chen, Fraser, Huber, Pozsgay and Vona, and Bharti, Gajjala and Haug posted concurrent independent proofs of the same sharp two-copy threshold, so the archived statement is affirmed.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-a3445ac3589c3778">
+                <time datetime="2026">2026</time>
+                <div>
+                  <span class="maturity-badge">Preprint</span>
+                  <span class="maturity-badge">Exact theorem</span>
+                  <a href="https://arxiv.org/abs/2607.21367" rel="noreferrer">arXiv:2607.21367 ↗</a>
+                  <span class="evidence-locator">Main theorem on the sharp two-copy threshold</span>
+                </div>
+              </li>
+              <li class="evidence-row" id="qop-evt-8413d0fbb0b630f4">
+                <time datetime="2026">2026</time>
+                <div>
+                  <span class="maturity-badge">Preprint</span>
+                  <span class="maturity-badge">Exact theorem</span>
+                  <a href="https://arxiv.org/abs/2607.23416" rel="noreferrer">arXiv:2607.23416 ↗</a>
+                  <span class="evidence-locator">Main theorem (concurrent independent proof)</span>
+                </div>
+              </li>
+              <li class="evidence-row" id="qop-evt-9061227c5b6b560a">
+                <time datetime="2026">2026</time>
+                <div>
+                  <span class="maturity-badge">Preprint</span>
+                  <span class="maturity-badge">Exact theorem</span>
+                  <a href="https://arxiv.org/abs/2607.24309" rel="noreferrer">arXiv:2607.24309 ↗</a>
+                  <span class="evidence-locator">Main theorem (concurrent independent proof)</span>
+                </div>
+              </li>
+            </ol>
+
+          </article>
+
+          <details class="archive-narrative">
+            <summary>Editorial narrative <span>Status and known progress as written by the editors</span></summary>
+            <div class="archive-progress"><p><strong>Status: solved at preprint level in July 2026.</strong> The proof is very recent and has not yet passed journal peer review, so this label records a corroborated preprint resolution rather than a mature consensus result. Earlier progress and the new resolution are:</p><ul><li>DiVincenzo, Shor, Smolin, Terhal, Thapliyal (2000) and Dür, Cirac, Lewenstein, Bruß (2000) showed that all Werner states \(\rho(d,\alpha)\) with \(\alpha\in[-2/d,1]\) are \(1\)-copy non-distillable and conjectured them to be \(n\)-copy non-distillable for every \(n\) (hence bound entangled, if NPT).</li><li>Watrous (2004) constructed bipartite states that are \(n\)-copy non-distillable but \((n+1)\)-copy distillable, indicating that proving \(n\)-copy non-distillability for all \(n\) is fundamentally subtle; however, Watrous&#039;s states are rank-deficient while the Werner states have full rank, which makes them better candidates for genuine bound entanglement.</li><li>Pankowski, Piani, Horodecki, Horodecki (2010) reformulated the \(2\)-copy non-distillability of \(\rho(4,-1/2)\) as a concrete matrix inequality: the sum of squares of the two largest singular values of \(A\oplus B\) is bounded by \(1/2\) for normalized traceless \(A,B\).</li><li>This bound has been proven in the restricted case where \(A\) and \(B\) are normal matrices (so commute with their Hermitian conjugates) by Pankowski–Piani–Horodecki–Horodecki.</li><li>Qian, Chen, Chu, Shen (2019) announced further progress towards the general matrix inequality; in particular a theorem stating that the bound \(1/2\) still holds if one of the matrices is made completely arbitrary.</li><li>Đoković (2016) studied \(2\)-distillable Werner states and provided further conditions.</li><li><strong>Resolution (Fu, Gao and Park, 23 July 2026).</strong> They prove that a Werner state in any local dimension is \(2\)-copy distillable if and only if it is already \(1\)-copy distillable. In the parametrisation used here, their theorem gives \(2\)-copy non-distillability exactly for \(\alpha\ge -1/2\). It therefore includes \(\rho(4,-1/2)\) and proves Problem 5.</li><li><strong>Concurrent corroboration (26–27 July 2026).</strong> Song and Chen, Fraser, Huber, Pozsgay and Vona, and Bharti, Gajjala and Haug posted other proofs of the same sharp two-copy threshold. Song and Chen document completing their key theorem before learning of Fu, Gao and Park; the other teams describe concurrent or complementary work and some communication during preparation. The agreement of four exact manuscripts materially strengthens confidence, but none had passed peer review on the verification date.</li><li><strong>Scope.</strong> These papers settle two-copy distillability for Werner states. They do not prove non-distillability for every number of copies and do not resolve whether NPT bound-entangled states exist.</li></ul><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+          </details>
+        </section>
+
+
+        <section class="dialog-section" aria-labelledby="cautions-heading">
+          <span class="dialog-section-label">Claim watch</span>
+          <h2 id="cautions-heading">Scope and cautions</h2>
+
+          <div class="watch-note">
+            <span class="note-icon" aria-hidden="true">!</span>
+            <div>
+              <strong>Scope</strong>
+              <p>These papers settle two-copy distillability for Werner states; they do not prove non-distillability for every number of copies and do not resolve whether NPT bound-entangled states exist. </p>
+            </div>
+          </div>
+        </section>
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="horodecki-2020-werner-2-copy-distillability">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Show+that+the+Werner+state+rho%284%2C+-1%2F2%29+of+two+ququarts+is+not+2-copy+distillable" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="horodecki-2020-werner-2-copy-distillability">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
         </section>
 
 
@@ -238,12 +374,18 @@
           <div class="archive-bibliography"><ul><li>P. Horodecki, Ł. Rudnicki, K. Życzkowski, <em>Five open problems in theory of quantum information</em>, PRX Quantum 3, 010101 (2022); arXiv:2002.03233 [quant-ph]. (Source paper; Problem 5 on p. 8–9.)</li><li>R. F. Werner, <em>Quantum states with Einstein-Podolsky-Rosen correlations admitting a hidden-variable model</em>, Phys. Rev. A 40, 4277 (1989).</li><li>D. P. DiVincenzo, P. W. Shor, J. A. Smolin, B. M. Terhal, A. V. Thapliyal, <em>Evidence for bound entangled states with negative partial transpose</em>, Phys. Rev. A 61, 062312 (2000).</li><li>W. Dür, J. I. Cirac, M. Lewenstein, D. Bruß, <em>Distillability and partial transposition in bipartite systems</em>, Phys. Rev. A 61, 062313 (2000).</li><li>L. Pankowski, M. Piani, M. Horodecki, P. Horodecki, <em>A few steps more towards NPT bound entanglement</em>, IEEE Trans. Inf. Theory 56, 4085 (2010).</li><li>J. Watrous, <em>Many copies may be required for entanglement distillation</em>, Phys. Rev. Lett. 93, 010502 (2004).</li><li>D. Đoković, <em>On two-distillable Werner states</em>, Entropy 18, 216 (2016).</li><li>L. Qian, L. Chen, D. Chu, Y. Shen, <em>A matrix inequality related to the entanglement distillation problem</em>, arXiv:1908.02428 (2019).</li><li>R. A. Horn, C. R. Johnson, <em>Topics in Matrix Analysis</em>, Cambridge University Press, 1991.</li><li>T. Eggeling, K. G. H. Vollbrecht, R. F. Werner, M. M. Wolf, <em>Distillability via protocols respecting the positivity of partial transpose</em>, Phys. Rev. Lett. 87, 257902 (2001).</li><li>A. Müller-Hermes, D. Reeb, M. M. Wolf, <em>Positivity of linear maps under tensor powers</em>, J. Math. Phys. 57, 015202 (2016).</li><li>J. Fu, L. Gao, S.-J. Park, <em>A solution to 2-copy distillability of Werner states</em>, arXiv:2607.21367 (2026), v2 dated 27 July 2026.</li><li>Z. Song, L. Chen, <em>A partial-trace matrix inequality and Werner-state distillability</em>, arXiv:2607.23416 (2026).</li><li>T. C. Fraser, F. Huber, B. Pozsgay, I. Vona, <em>On the two-copy distillability of Werner states and a new partial trace inequality</em>, arXiv:2607.24309 (2026).</li><li>K. Bharti, S. Gajjala, T. Haug, <em>Two-copy nondistillability of Werner states: sharp partial-trace inequalities and finite-copy extensions</em>, arXiv:2607.24479 (2026).</li></ul></div>
         </section>
 
+
+
         <section class="dialog-section" aria-labelledby="machine-heading">
-          <span class="dialog-section-label">Record</span>
+          <span class="dialog-section-label">Work on this problem</span>
           <h2 id="machine-heading">Research interfaces</h2>
           <ul class="machine-links">
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/horodecki-2020-werner-2-copy-distillability/problem.md" rel="noreferrer">Source article ↗</a> — the canonical archived statement and audit notes.</li>
-            <li><a href="../">Problem directory</a> — every active and archived record.</li>
+            <li><a href="../../packets/horodecki-2020-werner-2-copy-distillability.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
+            <li><a href="../../api/v1/problems/horodecki-2020-werner-2-copy-distillability.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
+            <li><a href="../../api/v1/problems/horodecki-2020-werner-2-copy-distillability/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/horodecki-2020-werner-2-copy-distillability/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Show+that+the+Werner+state+rho%284%2C+-1%2F2%29+of+two+ququarts+is+not+2-copy+distillable" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/horodecki-2020-werner-2-copy-distillability/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -255,13 +397,15 @@
             <p class="cite-label">The original problem</p>
             <p class="cite-text">Paweł Horodecki, Łukasz Rudnicki, Karol Życzkowski. Five open problems in theory of quantum information. PRX Quantum 3, 010101 (2022); arXiv:2002.03233 [quant-ph]. p. 8-9 (Problem 5). https://doi.org/10.1103/PRXQuantum.3.010101</p>
             <p class="cite-label">This catalog assessment</p>
-            <p class="cite-text">Quantum Open Problems, record horodecki-2020-werner-2-copy-distillability, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/horodecki-2020-werner-2-copy-distillability/</p>
+            <p class="cite-text">Quantum Open Problems, record horodecki-2020-werner-2-copy-distillability, revision 9e98dfe6d30b, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/horodecki-2020-werner-2-copy-distillability/</p>
           </div>
         </section>
         <footer class="page-record-footer">
           <p>Record <code>horodecki-2020-werner-2-copy-distillability</code></p>
-          <p>Status solved · archived from the active catalog</p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Record revision <code>9e98dfe6d30bee90d0fc5909a01006b3e5d7ac51a0cf7764fe07a0f30c2ce046</code></p>
+          <p>Statement digest <code>f466f1f207bdfa402f1fe569a5ff0c27f241e042c97bbfceae4b95f9e2c9a503</code></p>
+          <p>Statement <code>horodecki-2020-werner-2-copy-distillability-statement-v1</code> · Decision <code>decision-horodecki-2020-werner-2-copy-distillability-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -292,5 +436,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="horodecki-2020-werner-2-copy-distillability" defer></script>
   </body>
 </html>

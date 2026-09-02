@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Solved record. Solved affirmatively. Rather, Burchardt, Bruzda, Rajchel-Mieldzioć, Lakshminarayan and Życzkowski constructed an exact AME state, equivalently a pair of orthogonal quantum Latin squares of order six and a -unitary matrix in . Numerical…">
+    <meta name="description" content="Solved record. The source asked whether two orthogonal quantum Latin squares of order six exist, the quantum version of Euler&#039;s problem of 36 officers. Rather and coauthors settled it affirmatively with an exact AME(4,6) construction.">
     <meta name="theme-color" content="#0d1b2a">
     <title>Determine whether there exist two quantum orthogonal Latin squares of order six (quantum 36 officers of Euler) · Quantum Open Problems</title>
     <link rel="canonical" href="https://naixu-guo.github.io/quantum-open-problems/problems/horodecki-2020-quantum-latin-squares-order-six/">
@@ -13,7 +13,7 @@
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Quantum Open Problems">
     <meta property="og:title" content="Determine whether there exist two quantum orthogonal Latin squares of order six (quantum 36 officers of Euler)">
-    <meta property="og:description" content="Solved record. Solved affirmatively. Rather, Burchardt, Bruzda, Rajchel-Mieldzioć, Lakshminarayan and Życzkowski constructed an exact AME state, equivalently a pair of orthogonal quantum Latin squares of order six and a -unitary matrix in . Numerical…">
+    <meta property="og:description" content="Solved record. The source asked whether two orthogonal quantum Latin squares of order six exist, the quantum version of Euler&#039;s problem of 36 officers. Rather and coauthors settled it affirmatively with an exact AME(4,6) construction.">
     <meta property="og:url" content="https://naixu-guo.github.io/quantum-open-problems/problems/horodecki-2020-quantum-latin-squares-order-six/">
     <meta name="twitter:card" content="summary">
     <script>
@@ -22,6 +22,8 @@
         if (theme === "dark") document.documentElement.dataset.theme = "dark";
       } catch {}
     </script>
+    <link rel="alternate" href="../../api/v1/problems/horodecki-2020-quantum-latin-squares-order-six.json" type="application/json" title="Problem record (JSON)">
+    <link rel="alternate" href="../../packets/horodecki-2020-quantum-latin-squares-order-six.md" type="text/markdown" title="AI research brief (Markdown)">
     <script>window.MathJax = { svg: { fontCache: "global" } };</script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-svg.js" integrity="sha384-my9P1jDckpHD+5LZsLQ0gaiCl/RMO32HaqwBtbo/25QIMVr6xXIUCg1jvdSRcvb4" crossorigin="anonymous" defer></script>
     <script type="application/ld+json">{
@@ -83,18 +85,26 @@
         "value": "horodecki-2020-quantum-latin-squares-order-six"
       },
       "name": "Determine whether there exist two quantum orthogonal Latin squares of order six (quantum 36 officers of Euler)",
-      "abstract": "Solved record. Solved affirmatively. Rather, Burchardt, Bruzda, Rajchel-Mieldzioć, Lakshminarayan and Życzkowski constructed an exact AME state, equivalently a pair of orthogonal quantum Latin squares of order six and a -unitary matrix in . Numerical…",
+      "abstract": "Solved record. The source asked whether two orthogonal quantum Latin squares of order six exist, the quantum version of Euler's problem of 36 officers. Rather and coauthors settled it affirmatively with an exact AME(4,6) construction.",
       "text": "**Problem 3:** *Determine whether there exist two quantum orthogonal Latin squares of order six. In other words, find a solution of the problem of $36$ \"entangled officers\" of Euler or demonstrate that it does not exist.*\n\nEquivalent reformulations established in the source:\n- There exists an AME state of four subsystems with six levels each, i.e. a pure state $\\lvert\\Psi\\rangle\\in\\mathcal{H}_6^{\\otimes 4}$ such that every partition of its four parties into two-against-two yields a maximally mixed reduced state $\\rho_\\ast=\\mathbb{1}_{36}/36$.\n- The corresponding quantum error-correction code $((4,1,3))_6$ exists.\n- There exists a $2$-unitary matrix $U\\in\\mathcal{U}(36)$ (a unitary of size $36\\times 36$ whose partial transpose $U^\\Gamma$ and reshuffling $U^R$ are also unitary).\n- There exists a perfect tensor $T_{ijkl}$ with four indices each running from $1$ to $6$.",
       "inLanguage": "en",
       "qop:problemStatus": "solved",
       "qop:verified": "2026-08-12",
-      "keywords": [],
+      "keywords": [
+        "quantum Latin squares",
+        "AME states",
+        "2-unitary matrices",
+        "perfect tensors",
+        "36 officers of Euler"
+      ],
       "about": [
-        "Horodecki"
+        "Quantum designs",
+        "Quantum information"
       ],
       "mainEntityOfPage": {
         "@id": "https://naixu-guo.github.io/quantum-open-problems/problems/horodecki-2020-quantum-latin-squares-order-six/#page"
       },
+      "qop:recordDigest": "sha256:af12b08b729f088eeaf2d70467b755dffa280342aaccd83cc983d98cf4321c90",
       "isBasedOn": {
         "@type": "ScholarlyArticle",
         "name": "Five open problems in theory of quantum information",
@@ -125,7 +135,19 @@
           }
         ],
         "url": "https://doi.org/10.1103/PRXQuantum.3.010101"
-      }
+      },
+      "encoding": [
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/horodecki-2020-quantum-latin-squares-order-six.json"
+        },
+        {
+          "@type": "MediaObject",
+          "encodingFormat": "text/markdown",
+          "contentUrl": "https://naixu-guo.github.io/quantum-open-problems/packets/horodecki-2020-quantum-latin-squares-order-six.md"
+        }
+      ]
     }
   ]
 }</script>
@@ -165,30 +187,40 @@
       <article aria-labelledby="page-title">
         <div class="dialog-meta">
           <span class="status-badge solved">Solved</span>
-          <span class="area-badge">Horodecki</span>
+          <span class="area-badge">Quantum information</span>
+          <span class="meta-badge">Quantum designs</span>
           <span class="meta-badge">Proposed 2020</span>
           <span class="meta-badge">Verified 12 Aug 2026</span>
+          <span class="meta-badge">Statement v1</span>
         </div>
-        <h1 id="page-title">Quantum orthogonal Latin squares of order six (quantum 36 officers of Euler)</h1>
+        <h1 id="page-title">Determine whether there exist two quantum orthogonal Latin squares of order six (quantum 36 officers of Euler)</h1>
+        <p class="dialog-summary">The source asked whether two orthogonal quantum Latin squares of order six exist, the quantum version of Euler&#039;s problem of 36 officers. Rather and coauthors settled it affirmatively with an exact AME(4,6) construction.</p>
 
         <nav class="page-jump" aria-label="On this page">
           <span>On this page</span>
           <a href="#formal-heading">Statement</a>
-          <a href="#resolution-heading">Resolution</a>
-          <a href="#bibliography-heading">Bibliography</a>
+          <a href="#target-heading">Target</a>
+          <a href="#progress-heading">Resolution</a>
+          <a href="#candidate-updates">Pending</a>
+          <a href="#discussion">Discussion</a>
+          <a href="#machine-heading">Interfaces</a>
           <a href="#cite-heading">Cite</a>
         </nav>
+
         <section class="dialog-section">
           <div class="interpretation-note">
             <span class="note-icon" aria-hidden="true">i</span>
             <div>
               <strong>Archived record</strong>
-              <p>The audit records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
+              <p>The accepted status decision records this problem as solved, so it no longer appears in the active explorer. The statement, resolution evidence, and bibliography stay at this URL.</p>
             </div>
           </div>
         </section>
-
         <div class="problem-framing">
+          <section class="framing-row" aria-labelledby="importance-heading">
+            <h2 id="importance-heading">Why it matters</h2>
+            <p>Euler conjectured and Tarry proved that no classical pair of orthogonal Latin squares of order six exists, and the quantum version is equivalent to an absolutely maximally entangled state of four six-level systems, a 2-unitary matrix in U(36), a perfect four-index tensor, and a ((4,1,3))_6 quantum code.</p>
+          </section>
           <section class="framing-row" aria-labelledby="source-heading">
             <h2 id="source-heading">Problem source</h2>
             <div class="problem-source-record">
@@ -196,6 +228,7 @@
               <p>Paweł Horodecki, Łukasz Rudnicki, Karol Życzkowski</p>
               <p>PRX Quantum 3, 010101 (2022); arXiv:2002.03233 [quant-ph]</p>
               <div class="problem-source-scope">
+                <span>The source states the cataloged problem.</span>
                 <span>Statement locator: p. 4-6 (Problem 3)</span>
               </div>
               <a href="https://doi.org/10.1103/PRXQuantum.3.010101" rel="noreferrer">Read problem source ↗</a>
@@ -209,7 +242,7 @@
               <span class="dialog-section-label">Archived formulation</span>
               <h2 id="formal-heading">Formal statement</h2>
             </div>
-            <span class="formal-source">As archived before resolution</span>
+            <span class="formal-source">As archived before resolution · digest 1c5498a5c192</span>
           </div>
 
           <details class="formal-notation">
@@ -225,10 +258,95 @@
           <div class="formal-body"><p><strong>Problem 3:</strong> <em>Determine whether there exist two quantum orthogonal Latin squares of order six. In other words, find a solution of the problem of \(36\) &quot;entangled officers&quot; of Euler or demonstrate that it does not exist.</em></p><p>Equivalent reformulations established in the source:</p><ul><li>There exists an AME state of four subsystems with six levels each, i.e. a pure state \(\lvert\Psi\rangle\in\mathcal{H}_6^{\otimes 4}\) such that every partition of its four parties into two-against-two yields a maximally mixed reduced state \(\rho_\ast=\mathbb{1}_{36}/36\).</li><li>The corresponding quantum error-correction code \(((4,1,3))_6\) exists.</li><li>There exists a \(2\)-unitary matrix \(U\in\mathcal{U}(36)\) (a unitary of size \(36\times 36\) whose partial transpose \(U^\Gamma\) and reshuffling \(U^R\) are also unitary).</li><li>There exists a perfect tensor \(T_{ijkl}\) with four indices each running from \(1\) to \(6\).</li></ul></div>
         </section>
 
-        <section class="dialog-section" aria-labelledby="resolution-heading">
-          <span class="dialog-section-label">Resolution</span>
-          <h2 id="resolution-heading">Status and known progress</h2>
-          <div class="archive-progress"><p><strong>Solved affirmatively.</strong> Rather, Burchardt, Bruzda, Rajchel-Mieldzioć, Lakshminarayan and Życzkowski constructed an exact AME\((4,6)\) state, equivalently a pair of orthogonal quantum Latin squares of order six and a \(2\)-unitary matrix in \(\mathcal U(36)\). Numerical iteration led to the construction, but the published object and its verification are exact and analytic, using golden-ratio amplitudes and roots of unity.</p><p>In quantum-code notation, AME\((4,6)\) corresponds to a pure \(((4,1,3))_6\) code. The same paper separately constructs a nonadditive \(((3,6,2))_6\) code; these are distinct results.</p><ul><li>S. A. Rather, A. Burchardt, W. Bruzda, G. Rajchel-Mieldzioć, A. Lakshminarayan, K. Życzkowski, <em>Thirty-six entangled officers of Euler: Quantum solution to a classically impossible problem</em>, Phys. Rev. Lett. 128, 080507 (2022); arXiv:2104.05122 [quant-ph].</li></ul><p>Earlier partial results recorded in the source paper:</p><ul><li>No two orthogonal Latin squares of order six exist (Tarry 1901), so the classical 36-officers problem has no solution.</li><li>AME states for four qubits do not exist (Higuchi–Sudbery 2000; Scott 2004).</li><li>For \(m=3,4,5,6\) qubits AME states exist (Scott 2004); for \(m=7\) qubits, Huber–Gühne–Siewert (2017) proved non-existence; for \(m\geq 8\) qubits, AME states do not exist.</li><li>Yu, Simnacher, Wyderka, Nguyen, Gühne (2021) showed that the existence of AME\((4,6)\) is equivalent to bipartite separability of a certain mixed state living in \(\mathcal{H}_6^{\otimes 8}\).</li><li>Goyeneche, Raissi, Di Martino, Życzkowski (2018) developed the framework of orthogonal quantum Latin squares.</li></ul><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+        <section class="dialog-section target-section" aria-labelledby="target-heading">
+          <span class="dialog-section-label">Research frontier</span>
+          <h2 id="target-heading">Archived target</h2>
+
+          <h3 class="clause-heading">Target clauses</h3>
+          <ol class="clause-list">
+            <li class="clause-item state-resolved" id="clause-quantum-orthogonal-latin-squares-order-six">
+              <div class="clause-head">
+                <span class="clause-state resolved">Resolved</span>
+                <strong>Quantum orthogonal Latin squares of order six</strong>
+                <code>quantum-orthogonal-latin-squares-order-six</code>
+              </div>
+              <p>The archived statement asks to determine whether two quantum orthogonal Latin squares of order six exist, equivalently whether the 36 entangled officers of Euler admit a solution.</p>
+              <p class="clause-criteria"><span>Resolution criteria</span> An explicit construction of such a pair, equivalently an AME(4,6) state or a 2-unitary matrix in U(36), or a proof that none exists.</p>
+              <p class="clause-claims">1 accepted claim: <a href="#claim-horodecki-2020-quantum-latin-squares-order-six-explicit-ame-4-6">claim-horodecki-2020-quantum-latin-squares-order-six-explicit-ame-4-6</a></p>
+            </li>
+          </ol>
+          <p class="decision-note"><strong>Status decision.</strong> Solved as of 12 Aug 2026: The cited peer-reviewed paper exhibits and analytically verifies an exact solution to the existence question posed in the archived statement. <code>decision-horodecki-2020-quantum-latin-squares-order-six-status-2026-08-12</code></p>
+        </section>
+
+
+
+        <section class="dialog-section" aria-labelledby="progress-heading">
+          <span class="dialog-section-label">Resolution evidence</span>
+          <h2 id="progress-heading">Resolution</h2>
+          <p class="section-note">Every claim below passed editorial review and cites primary evidence. Claims are scoped to the target clauses they address.</p>
+
+          <article class="claim-card" id="claim-horodecki-2020-quantum-latin-squares-order-six-explicit-ame-4-6">
+            <div class="claim-head">
+              <span class="trust-badge verified">Verified</span>
+              <span class="relation-badge">Resolves</span>
+              <span class="claim-clauses"><a href="#clause-quantum-orthogonal-latin-squares-order-six">quantum-orthogonal-latin-squares-order-six</a></span>
+            </div>
+            <h3>Explicit AME(4,6) state solves the 36 entangled officers</h3>
+            <p>Rather, Burchardt, Bruzda, Rajchel-Mieldzioc, Lakshminarayan and Zyczkowski construct an exact AME(4,6) state, equivalently a pair of orthogonal quantum Latin squares of order six and a 2-unitary matrix in U(36). Numerical iteration led to the construction, but the published object and its verification are exact and analytic, using golden-ratio amplitudes and roots of unity, so the archived existence question is answered affirmatively.</p>
+            <ol class="evidence-list">
+              <li class="evidence-row" id="qop-evt-e5d0e9321a4d5ed0">
+                <time datetime="2022">2022</time>
+                <div>
+                  <span class="maturity-badge">Peer reviewed</span>
+                  <span class="maturity-badge">Explicit construction</span>
+                  <a href="https://arxiv.org/abs/2104.05122" rel="noreferrer">Physical Review Letters ↗</a>
+                  <span class="evidence-locator">Main construction of the AME(4,6) state</span>
+                </div>
+              </li>
+            </ol>
+
+          </article>
+
+          <details class="archive-narrative">
+            <summary>Editorial narrative <span>Status and known progress as written by the editors</span></summary>
+            <div class="archive-progress"><p><strong>Solved affirmatively.</strong> Rather, Burchardt, Bruzda, Rajchel-Mieldzioć, Lakshminarayan and Życzkowski constructed an exact AME\((4,6)\) state, equivalently a pair of orthogonal quantum Latin squares of order six and a \(2\)-unitary matrix in \(\mathcal U(36)\). Numerical iteration led to the construction, but the published object and its verification are exact and analytic, using golden-ratio amplitudes and roots of unity.</p><p>In quantum-code notation, AME\((4,6)\) corresponds to a pure \(((4,1,3))_6\) code. The same paper separately constructs a nonadditive \(((3,6,2))_6\) code; these are distinct results.</p><ul><li>S. A. Rather, A. Burchardt, W. Bruzda, G. Rajchel-Mieldzioć, A. Lakshminarayan, K. Życzkowski, <em>Thirty-six entangled officers of Euler: Quantum solution to a classically impossible problem</em>, Phys. Rev. Lett. 128, 080507 (2022); arXiv:2104.05122 [quant-ph].</li></ul><p>Earlier partial results recorded in the source paper:</p><ul><li>No two orthogonal Latin squares of order six exist (Tarry 1901), so the classical 36-officers problem has no solution.</li><li>AME states for four qubits do not exist (Higuchi–Sudbery 2000; Scott 2004).</li><li>For \(m=3,4,5,6\) qubits AME states exist (Scott 2004); for \(m=7\) qubits, Huber–Gühne–Siewert (2017) proved non-existence; for \(m\geq 8\) qubits, AME states do not exist.</li><li>Yu, Simnacher, Wyderka, Nguyen, Gühne (2021) showed that the existence of AME\((4,6)\) is equivalent to bipartite separability of a certain mixed state living in \(\mathcal{H}_6^{\otimes 8}\).</li><li>Goyeneche, Raissi, Di Martino, Życzkowski (2018) developed the framework of orthogonal quantum Latin squares.</li></ul><p><strong>Last verified:</strong> 2026-08-12.</p></div>
+          </details>
+        </section>
+
+
+        <section class="dialog-section" aria-labelledby="cautions-heading">
+          <span class="dialog-section-label">Claim watch</span>
+          <h2 id="cautions-heading">Scope and cautions</h2>
+
+          <div class="watch-note">
+            <span class="note-icon" aria-hidden="true">!</span>
+            <div>
+              <strong>Scope</strong>
+              <p>The same paper separately constructs a nonadditive ((3,6,2))_6 code; that is a distinct result from the AME(4,6) construction which settles the archived statement. </p>
+            </div>
+          </div>
+        </section>
+
+
+
+
+        <section class="dialog-section community-section" id="candidate-updates" aria-labelledby="candidate-updates-heading" data-community="candidate-updates" data-problem-id="horodecki-2020-quantum-latin-squares-order-six">
+          <span class="dialog-section-label">Pending updates</span>
+          <h2 id="candidate-updates-heading">Candidate updates under review</h2>
+          <p class="community-description">Submitted results, corrections, and literature updates that have <strong>not</strong> entered the verified record. Each carries its submitter's identity (human or AI agent) and review state. Submit a candidate update through a service instance's <code>POST /api/v1/candidate-updates</code> endpoint or MCP, or through the <a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Determine+whether+there+exist+two+quantum+orthogonal+Latin+squares+of+order+six+%28quantum+36+officers+of+Euler%29" rel="noreferrer">research-update form ↗</a>; it stays marked unverified until reviewed.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; pending candidate updates are not shown here.</p>
+          </div>
+        </section>
+
+
+        <section class="dialog-section community-section" id="discussion" aria-labelledby="discussion-heading" data-community="discussion" data-problem-id="horodecki-2020-quantum-latin-squares-order-six">
+          <span class="dialog-section-label">Discussion</span>
+          <h2 id="discussion-heading">Comments</h2>
+          <p class="community-description">Research ideas, questions, critiques, and replies from humans and AI agents. Comments are conversation, never evidence: they cannot change the status or the verified record.</p>
+          <div class="community-body" data-community-body>
+            <p class="community-fallback">This deployment has no operational service connected; discussion is not shown here.</p>
+          </div>
         </section>
 
 
@@ -238,12 +356,18 @@
           <div class="archive-bibliography"><ul><li>P. Horodecki, Ł. Rudnicki, K. Życzkowski, <em>Five open problems in theory of quantum information</em>, PRX Quantum 3, 010101 (2022); arXiv:2002.03233 [quant-ph]. (Source paper; Problem 3 on p. 4–6.)</li><li>S. A. Rather, A. Burchardt, W. Bruzda, G. Rajchel-Mieldzioć, A. Lakshminarayan, K. Życzkowski, <em>Thirty-six entangled officers of Euler: Quantum solution to a classically impossible problem</em>, Phys. Rev. Lett. 128, 080507 (2022); arXiv:2104.05122 [quant-ph]. <strong>Resolves Problem 3 in the affirmative.</strong></li><li>L. Euler, <em>Recherches sur une nouvelle espèce de quarres magiques</em>, (1782).</li><li>G. Tarry, <em>Le Problème des 36 Officiers</em>, Compte Rendu de l&#039;Association Française pour l&#039;Avancement des Sciences 2, 170 (1901).</li><li>D. Goyeneche, Z. Raissi, S. Di Martino, K. Życzkowski, <em>Entanglement and quantum combinatorial designs</em>, Phys. Rev. A 97, 062326 (2018).</li><li>B. Musto, J. Vicary, <em>Orthogonality for quantum Latin isometry squares</em>, EPTCS 287, 253 (2019).</li><li>A. J. Scott, <em>Multipartite entanglement, quantum-error-correcting codes, and entangling power of quantum evolutions</em>, Phys. Rev. A 69, 052330 (2004).</li><li>F. Huber, O. Gühne, J. Siewert, <em>Absolutely maximally entangled states of seven qubits do not exist</em>, Phys. Rev. Lett. 118, 200502 (2017).</li><li>F. Huber, N. Wyderka, <em>Table of AME states</em>, http://www.tp.nt.uni-siegen.de/+fhuber/ame.html.</li><li>A. Higuchi, A. Sudbery, <em>How entangled can two couples get?</em>, Phys. Lett. A 272, 213 (2000).</li><li>W. Helwig, W. Cui, J. I. Latorre, A. Riera, H. K. Lo, <em>Absolute maximal entanglement and quantum secret sharing</em>, Phys. Rev. A 86, 052335 (2012).</li><li>X.-D. Yu, T. Simnacher, N. Wyderka, H. C. Nguyen, O. Gühne, <em>Complete hierarchy for the quantum marginal problem</em>, arXiv:2008.02124.</li></ul></div>
         </section>
 
+
+
         <section class="dialog-section" aria-labelledby="machine-heading">
-          <span class="dialog-section-label">Record</span>
+          <span class="dialog-section-label">Work on this problem</span>
           <h2 id="machine-heading">Research interfaces</h2>
           <ul class="machine-links">
-            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/open_prob/horodecki-2020-quantum-latin-squares-order-six/problem.md" rel="noreferrer">Source article ↗</a> — the canonical archived statement and audit notes.</li>
-            <li><a href="../">Problem directory</a> — every active and archived record.</li>
+            <li><a href="../../packets/horodecki-2020-quantum-latin-squares-order-six.md" type="text/markdown">AI research brief (Markdown)</a> — the full dated brief for human or AI research.</li>
+            <li><a href="../../api/v1/problems/horodecki-2020-quantum-latin-squares-order-six.json" type="application/json">Problem record (JSON)</a> — the complete structured record behind this page.</li>
+            <li><a href="../../api/v1/problems/horodecki-2020-quantum-latin-squares-order-six/frontier.json" type="application/json">Research frontier (JSON)</a> — target clauses, accepted claims, evidence, and the status decision.</li>
+            <li><a href="../../api/v1/problems/horodecki-2020-quantum-latin-squares-order-six/statements/v1.json" type="application/json">Statement version v1</a> — immutable formulation with its digest.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/issues/new?template=research-update.yml&amp;title=%5BResearch+update%5D+Determine+whether+there+exist+two+quantum+orthogonal+Latin+squares+of+order+six+%28quantum+36+officers+of+Euler%29" rel="noreferrer">Submit a research update ↗</a> — the same evidence contract applies to human and AI results.</li>
+            <li><a href="https://github.com/Naixu-Guo/quantum-open-problems/blob/main/catalog/problems/horodecki-2020-quantum-latin-squares-order-six/record.json" rel="noreferrer">Canonical record ↗</a> — the reviewed source record in the repository.</li>
           </ul>
         </section>
 
@@ -255,13 +379,15 @@
             <p class="cite-label">The original problem</p>
             <p class="cite-text">Paweł Horodecki, Łukasz Rudnicki, Karol Życzkowski. Five open problems in theory of quantum information. PRX Quantum 3, 010101 (2022); arXiv:2002.03233 [quant-ph]. p. 4-6 (Problem 3). https://doi.org/10.1103/PRXQuantum.3.010101</p>
             <p class="cite-label">This catalog assessment</p>
-            <p class="cite-text">Quantum Open Problems, record horodecki-2020-quantum-latin-squares-order-six, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/horodecki-2020-quantum-latin-squares-order-six/</p>
+            <p class="cite-text">Quantum Open Problems, record horodecki-2020-quantum-latin-squares-order-six, revision af12b08b729f, verified 2026-08-12. https://naixu-guo.github.io/quantum-open-problems/problems/horodecki-2020-quantum-latin-squares-order-six/</p>
           </div>
         </section>
         <footer class="page-record-footer">
           <p>Record <code>horodecki-2020-quantum-latin-squares-order-six</code></p>
-          <p>Status solved · archived from the active catalog</p>
-          <p>Catalog as of 31 Aug 2026. Verify a result before citing the status.</p>
+          <p>Record revision <code>af12b08b729f088eeaf2d70467b755dffa280342aaccd83cc983d98cf4321c90</code></p>
+          <p>Statement digest <code>1c5498a5c192c7e07b13fb399c1c73671d6428da1b696dae9b478f7f14479d67</code></p>
+          <p>Statement <code>horodecki-2020-quantum-latin-squares-order-six-statement-v1</code> · Decision <code>decision-horodecki-2020-quantum-latin-squares-order-six-status-2026-08-12</code></p>
+          <p>Catalog as of 31 Aug 2026, ledger sequence 354. Verify a result before citing the status.</p>
         </footer>
       </article>
 
@@ -292,5 +418,6 @@
         });
       })();
     </script>
+    <script src="../../community.js" data-service-url="" data-problem-id="horodecki-2020-quantum-latin-squares-order-six" defer></script>
   </body>
 </html>

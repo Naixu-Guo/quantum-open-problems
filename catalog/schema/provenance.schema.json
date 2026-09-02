@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/schema/canonical/v0.2/provenance.schema.json",
+  "title": "Promotion provenance for a canonical object",
+  "description": "Links an accepted Claim, Evidence, or Decision back to the reviewed CandidateUpdate it was promoted from. The frozen contribution snapshot lives under the problem bundle so the audit trail is complete inside Git.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["candidateUpdateId", "reviewIds", "submittedByActorId", "acceptedOn", "contributionPath"],
+  "properties": {
+    "candidateUpdateId": { "type": "string", "pattern": "^cu-[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "reviewIds": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^rev-[a-z0-9]+(?:-[a-z0-9]+)*$" }, "uniqueItems": true },
+    "submittedByActorId": { "type": "string", "pattern": "^actor-[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "acceptedOn": { "type": "string", "format": "date" },
+    "contributionPath": { "type": "string", "pattern": "^contributions/cu-[a-z0-9]+(?:-[a-z0-9]+)*\\.json$" }
+  }
+}

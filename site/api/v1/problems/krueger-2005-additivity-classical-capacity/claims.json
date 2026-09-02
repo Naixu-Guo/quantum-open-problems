@@ -1,0 +1,69 @@
+{
+  "kind": "qop-claims",
+  "schemaVersion": 1,
+  "problemId": "krueger-2005-additivity-classical-capacity",
+  "status": "solved",
+  "statementId": "krueger-2005-additivity-classical-capacity-statement-v1",
+  "count": 1,
+  "note": "Every claim here has been accepted through editorial review. Unreviewed submissions are candidate updates in the operational service, never claims.",
+  "claims": [
+    {
+      "kind": "Claim",
+      "id": "claim-krueger-2005-additivity-classical-capacity-hastings-disproves-additivity-of",
+      "statementId": "krueger-2005-additivity-classical-capacity-statement-v1",
+      "targetClauseIds": [
+        "holevo-capacity-additivity"
+      ],
+      "relation": "refutes",
+      "title": "Hastings disproves additivity of the Holevo capacity",
+      "text": "Hastings produced random-unitary channels in very large dimension that violate additivity of the minimal output von Neumann entropy. Via Shor's equivalence this directly implies failure of additivity of the Holevo capacity chi and of superadditivity of the entanglement of formation, so the archived additivity conjecture is false and the classical capacity is not given by a single-letter Holevo formula.",
+      "superseded": false,
+      "evidence": [
+        {
+          "kind": "Evidence",
+          "id": "evidence-krueger-2005-additivity-classical-capacity-nature-physics",
+          "claimId": "claim-krueger-2005-additivity-classical-capacity-hastings-disproves-additivity-of",
+          "sourceId": "source-hastings-2009-superadditivity",
+          "sourceLocator": "Main result: random-unitary channels with a strict minimal-output-entropy gap",
+          "date": "2009",
+          "maturity": "Peer reviewed",
+          "strength": "Exact counterexample",
+          "label": "Nature Physics",
+          "source": {
+            "id": "source-hastings-2009-superadditivity",
+            "title": "Superadditivity of communication capacity using entangled inputs",
+            "authors": [
+              "M. B. Hastings"
+            ],
+            "venue": "Nature Physics 5, 255-257 (2009); arXiv:0809.3972",
+            "url": "https://arxiv.org/abs/0809.3972"
+          }
+        },
+        {
+          "kind": "Evidence",
+          "id": "evidence-krueger-2005-additivity-classical-capacity-communications-in-mathematical",
+          "claimId": "claim-krueger-2005-additivity-classical-capacity-hastings-disproves-additivity-of",
+          "sourceId": "source-shor-2004-equivalence-additivity",
+          "sourceLocator": "Equivalence of the additivity conjectures",
+          "date": "2004",
+          "maturity": "Peer reviewed",
+          "strength": "Exact theorem",
+          "label": "Communications in Mathematical Physics",
+          "source": {
+            "id": "source-shor-2004-equivalence-additivity",
+            "title": "Equivalence of additivity questions in quantum information theory",
+            "authors": [
+              "P. W. Shor"
+            ],
+            "venue": "Commun. Math. Phys. 246, 453-472 (2004); arXiv:quant-ph/0305035",
+            "url": "https://arxiv.org/abs/quant-ph/0305035"
+          }
+        }
+      ]
+    }
+  ],
+  "links": {
+    "problem": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-additivity-classical-capacity.json",
+    "frontier": "https://naixu-guo.github.io/quantum-open-problems/api/v1/problems/krueger-2005-additivity-classical-capacity/frontier.json"
+  }
+}
