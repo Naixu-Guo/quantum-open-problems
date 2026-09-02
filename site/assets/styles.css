@@ -1,7 +1,7 @@
 /* QIQCOP Zoo — stylesheet
    Palette continues the previous site: warm paper, deep navy, mint, coral,
    amber. Status colours: unsolved = red, partially solved = amber,
-   solved = green. Logo letters: light grey, O light green, P light red. */
+   solved = cyan. Logo letters: light grey, O light cyan, P light red. */
 
 :root {
   color-scheme: light;
@@ -30,11 +30,11 @@
   --partial-bg: #fdefd0;
   --partial-fg: #7d5200;
   --partial-line: #ecc77a;
-  --solved-bg: #d8f4e2;
-  --solved-fg: #1a6b3b;
-  --solved-line: #9bd9b1;
+  --solved-bg: #d9f2f5;
+  --solved-fg: #0f5f6b;
+  --solved-line: #8fd6e0;
   --logo-gray: #b8c1ca;
-  --logo-green: #9be7a8;
+  --logo-cyan: #9de3ec;
   --logo-red: #ff9d8f;
   --radius-sm: 8px;
   --radius-md: 14px;
@@ -70,9 +70,9 @@
   --partial-bg: rgba(238, 184, 91, 0.16);
   --partial-fg: #f3cd84;
   --partial-line: rgba(238, 184, 91, 0.45);
-  --solved-bg: rgba(155, 231, 168, 0.16);
-  --solved-fg: #a6ecb2;
-  --solved-line: rgba(155, 231, 168, 0.45);
+  --solved-bg: rgba(157, 227, 236, 0.16);
+  --solved-fg: #a9e8f0;
+  --solved-line: rgba(157, 227, 236, 0.45);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -138,7 +138,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .logo-ghost { visibility: hidden; }
 .logo-oo { position: relative; }
 .logo-z { position: absolute; right: 100%; top: 0; }
-.logo-o { color: var(--logo-green); }
+.logo-o { color: var(--logo-cyan); }
 .logo-p { color: var(--logo-red); }
 .logo-small { --logo-size: 15px; }
 
@@ -180,7 +180,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   font-size: 12.5px; font-weight: 700; line-height: 1; text-decoration: none;
 }
 .random-unsolved { background: #ffb3a7; color: #5a1a12; }
-.random-solved { background: #a9e9b8; color: #10452a; }
+.random-solved { background: #a6e2ea; color: #0b3f46; }
 .random-pill:hover { filter: brightness(1.06); color: inherit; }
 
 .theme-button {
@@ -265,9 +265,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .metric-solved strong { color: var(--solved-fg); }
 .status-bar { display: flex; height: 12px; margin: 20px 0 6px; border-radius: 999px; overflow: hidden; background: var(--paper-deep); }
 .status-bar span { display: block; height: 100%; }
-.bar-unsolved { background: #e9694f; }
-.bar-partial { background: var(--amber); }
-.bar-solved { background: #3fb373; }
+.bar-unsolved { background: var(--unsolved-line); }
+.bar-partial { background: var(--partial-line); }
+.bar-solved { background: var(--solved-line); }
 .top-tags { margin-top: 20px; }
 .top-tags-label { display: block; margin-bottom: 10px; color: var(--ink-faint); font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; }
 
@@ -282,9 +282,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 @keyframes spin { to { transform: rotate(180deg); } }
 
 .problem-card { display: grid; gap: 12px; padding-left: 16px; border-left: 3px solid var(--line); }
-.problem-card.status-unsolved { border-left-color: #e9694f; }
-.problem-card.status-partial { border-left-color: var(--amber); }
-.problem-card.status-solved { border-left-color: #3fb373; }
+.problem-card.status-unsolved { border-left-color: var(--unsolved-line); }
+.problem-card.status-partial { border-left-color: var(--partial-line); }
+.problem-card.status-solved { border-left-color: var(--solved-line); }
 .card-head { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
 .card-id { color: var(--ink-faint); font-family: var(--mono); font-size: 12px; }
 .card-title { font-size: 1.4rem; }
@@ -325,9 +325,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
 .problem-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
 .problem-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px 24px; padding: 18px 4px 18px 14px; border-bottom: 1px solid var(--line); border-left: 3px solid transparent; }
-.problem-row.status-unsolved { border-left-color: #e9694f; }
-.problem-row.status-partial { border-left-color: var(--amber); }
-.problem-row.status-solved { border-left-color: #3fb373; }
+.problem-row.status-unsolved { border-left-color: var(--unsolved-line); }
+.problem-row.status-partial { border-left-color: var(--partial-line); }
+.problem-row.status-solved { border-left-color: var(--solved-line); }
 .problem-row[hidden] { display: none; }
 .row-title { display: inline-block; margin-bottom: 6px; color: inherit; font-family: var(--serif); font-size: 1.2rem; font-weight: 600; text-decoration: none; }
 .row-title:hover { color: var(--mint-deep); }
