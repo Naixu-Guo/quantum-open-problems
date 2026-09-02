@@ -133,8 +133,10 @@ config.assetVersions.random = createHash("sha256").update(randomPayload).digest(
 // Emit
 // ---------------------------------------------------------------------------
 
-fs.rmSync(outDir, { recursive: true, force: true });
+// Clear the output directory without deleting the directory itself, so that
+// attributes such as a Dropbox "ignored" flag on dist/ survive rebuilds.
 fs.mkdirSync(outDir, { recursive: true });
+for (const entry of fs.readdirSync(outDir)) fs.rmSync(path.join(outDir, entry), { recursive: true, force: true });
 
 write("index.html", renderHome({ config, root: "", records, stats, tagCounts, initial, dates }));
 write("problems/index.html", renderDirectory({ config, root: "../", records, tagCounts }));
