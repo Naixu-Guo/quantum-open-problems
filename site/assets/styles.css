@@ -183,14 +183,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .random-solved { background: #a9e9b8; color: #10452a; }
 .random-pill:hover { filter: brightness(1.06); color: inherit; }
 
-.pill {
-  display: inline-flex; align-items: center; gap: 6px; padding: 7px 13px;
-  border-radius: 999px; border: 1px solid transparent; font-size: 13px; font-weight: 700;
-  text-decoration: none; white-space: nowrap; line-height: 1;
-}
-.pill-unsolved { background: var(--unsolved-bg); color: var(--unsolved-fg); border-color: var(--unsolved-line); }
-.pill-solved { background: var(--solved-bg); color: var(--solved-fg); border-color: var(--solved-line); }
-
 .theme-button {
   display: grid; place-items: center; width: 36px; height: 36px;
   border: 1px solid rgba(247, 242, 232, 0.24); border-radius: 50%;
@@ -220,8 +212,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   text-decoration: none; cursor: pointer; transition: transform 120ms ease, background 120ms ease;
 }
 .button:hover { transform: translateY(-1px); }
-.button-primary { background: var(--mint); color: var(--navy); }
-.button-primary:hover { color: var(--navy); background: #9defd9; }
 .button-ghost { background: transparent; color: inherit; border-color: currentColor; }
 
 /* Status tags */
