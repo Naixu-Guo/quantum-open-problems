@@ -15,6 +15,12 @@ export const displayDate = (iso) => {
     .format(new Date(`${iso}T00:00:00Z`));
 };
 
+export const displayDateTime = (iso) => {
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return iso;
+  return `${new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false, timeZone: "UTC" }).format(date)} UTC`;
+};
+
 const MATHJAX = `<script>
       window.MathJax = {
         tex: {
@@ -220,7 +226,7 @@ export function leadSentenceHtml(html, limit = 260) {
 
 export function problemRow(record, root) {
   const search = [record.title.text, record.id, record.tags.join(" "), record.statement.text].join(" ").toLowerCase();
-  return `<li class="problem-row status-${record.statusSlug}" data-id="${record.id}" data-status="${record.statusSlug}" data-tags="${escape(record.tags.map(slug).join(" "))}" data-title="${escape(record.title.text.toLowerCase())}" data-updated="${record.dates.updated}" data-search="${escape(search)}">
+  return `<li class="problem-row status-${record.statusSlug}" data-id="${record.id}" data-status="${record.statusSlug}" data-tags="${escape(record.tags.map(slug).join(" "))}" data-title="${escape(record.title.text.toLowerCase())}" data-updated="${record.dates.updatedAt}" data-search="${escape(search)}">
   <div class="row-main">
     <a class="row-title" href="${root}problem/${record.id}/">${record.title.html}</a>
     <p class="row-excerpt">${leadSentenceHtml(record.statement.html)}</p>
@@ -409,7 +415,7 @@ export function renderHome({ config, root, records, stats, tagCounts, initial, d
         <a class="text-link" href="${root}problems/?sort=updated">All problems by date →</a>
       </div>
       <ul class="recent-list">
-        ${records.slice().sort((a, b) => b.dates.updated.localeCompare(a.dates.updated) || a.title.text.localeCompare(b.title.text)).slice(0, 6).map((record) => `<li><time datetime="${record.dates.updated}">${displayDate(record.dates.updated)}</time><a href="${root}problem/${record.id}/">${record.title.html}</a>${statusTag(record.status, "status-tag-small")}</li>`).join("\n        ")}
+        ${records.slice().sort((a, b) => b.dates.updatedAt.localeCompare(a.dates.updatedAt) || a.title.text.localeCompare(b.title.text)).slice(0, 8).map((record) => `<li><time datetime="${record.dates.updatedAt}" data-localize>${displayDateTime(record.dates.updatedAt)}</time><a href="${root}problem/${record.id}/">${record.title.html}</a>${statusTag(record.status, "status-tag-small")}</li>`).join("\n        ")}
       </ul>
     </section>
 `;

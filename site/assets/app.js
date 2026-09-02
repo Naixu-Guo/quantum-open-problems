@@ -101,6 +101,17 @@
     location.href = `${root}problem/${pick}/`;
   });
 
+  // ------------------------------------------------------------------ local times
+  // Timestamps are rendered in UTC at build time; show them in the viewer's zone.
+  $$("time[data-localize]").forEach((element) => {
+    const date = new Date(element.getAttribute("datetime"));
+    if (Number.isNaN(date.getTime())) return;
+    try {
+      element.textContent = new Intl.DateTimeFormat(undefined, { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }).format(date);
+      element.title = date.toISOString();
+    } catch (error) { /* keep the UTC text */ }
+  });
+
   // ------------------------------------------------------------------ keyboard
   document.addEventListener("keydown", (event) => {
     if (event.key !== "/" || event.metaKey || event.ctrlKey || event.altKey) return;

@@ -47,16 +47,24 @@ const canonicalTags = JSON.parse(fs.readFileSync(tagsPath, "utf8")).tags;
 if (new Set(canonicalTags).size !== canonicalTags.length) throw new Error("database/tags.json contains duplicate tags");
 const canonicalSet = new Set(canonicalTags);
 
+// Creation and last-edit times from git history, to the second. Files that
+// are not committed yet fall back to their modification time.
 const gitDates = (relativePath) => {
+  const fromMtime = () => {
+    const stamp = fs.statSync(path.join(repoRoot, relativePath)).mtime.toISOString();
+    return { created: stamp.slice(0, 10), updated: stamp.slice(0, 10), createdAt: stamp, updatedAt: stamp, revisions: 0, tracked: false };
+  };
   try {
-    const output = execFileSync("git", ["log", "--follow", "--format=%as", "--", relativePath], {
+    const output = execFileSync("git", ["log", "--follow", "--format=%at", "--", relativePath], {
       cwd: repoRoot, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"]
     }).trim();
-    const lines = output ? output.split("\n").filter(Boolean) : [];
-    if (lines.length === 0) return { created: today, updated: today, revisions: 0, tracked: false };
-    return { created: lines[lines.length - 1], updated: lines[0], revisions: lines.length, tracked: true };
+    const stamps = output ? output.split("\n").filter(Boolean).map((line) => new Date(Number(line) * 1000).toISOString()) : [];
+    if (stamps.length === 0) return fromMtime();
+    const updatedAt = stamps[0];
+    const createdAt = stamps[stamps.length - 1];
+    return { created: createdAt.slice(0, 10), updated: updatedAt.slice(0, 10), createdAt, updatedAt, revisions: stamps.length, tracked: true };
   } catch {
-    return { created: today, updated: today, revisions: 0, tracked: false };
+    return fromMtime();
   }
 };
 
@@ -178,6 +186,7 @@ const indexEntries = records.map((record) => ({
   tags: record.tags,
   statement: record.statement.html,
   updated: record.dates.updated,
+  updatedAt: record.dates.updatedAt,
   references: record.references.length,
   equations: record.equations.length
 }));
@@ -204,6 +213,8 @@ const apiIndex = {
     tex: `${siteUrl}/problem/${record.id}/${record.id}.tex`,
     created: record.dates.created,
     updated: record.dates.updated,
+    createdAt: record.dates.createdAt,
+    updatedAt: record.dates.updatedAt,
     sha256: record.sha256
   }))
 };
@@ -222,6 +233,8 @@ for (const record of records) {
     tags: record.tags,
     created: record.dates.created,
     updated: record.dates.updated,
+    createdAt: record.dates.createdAt,
+    updatedAt: record.dates.updatedAt,
     statement: record.statement,
     source: record.source,
     progress: record.progress,
