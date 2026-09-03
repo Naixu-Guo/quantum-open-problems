@@ -22,13 +22,13 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME780X5SVXXKNBPC7T0P8
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME780WMSMFY029CS0JHWT
     artifactId: null
@@ -40,7 +40,7 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
 ---
 **Solved (disproved).** The additivity of entanglement of formation is now known to be *false* in general.

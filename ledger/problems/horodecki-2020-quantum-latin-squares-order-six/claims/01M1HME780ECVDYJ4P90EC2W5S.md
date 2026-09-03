@@ -16,67 +16,67 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME7804DXYVB5JM5QYW52N
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780RMWRZ59391WC4J2C
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780YHQMB54J3DZBPS48
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780E64WKZ2KW29QYEZ9
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780JSHF6ZW1VEA53N13
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780MQ8PX824BS4ATATW
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME7805G7P0JX1SVAT1WEV
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780D2MS60KF03X3QE2W
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780925XHGH3XA3NQQMP
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780T7MNMBF6SZE6M553
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
 ---
 **Solved affirmatively.** Rather, Burchardt, Bruzda, Rajchel-Mieldzioć, Lakshminarayan and Życzkowski constructed an exact AME$(4,6)$ state, equivalently a pair of orthogonal quantum Latin squares of order six and a $2$-unitary matrix in $\mathcal U(36)$. Numerical iteration led to the construction, but the published object and its verification are exact and analytic, using golden-ratio amplitudes and roots of unity.

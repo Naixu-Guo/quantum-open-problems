@@ -16,7 +16,7 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME780D8WERCR8YXBQA1DW
     artifactId: null
@@ -28,7 +28,7 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME780JC3THY6Z4FX9H6M2
     artifactId: null
@@ -46,37 +46,37 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME780KXQZYP16R2PK3B7J
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME780H8858PGM40XTE7MX
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME780XEM771VG59EQFGMQ
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME780D822XR1GH7PC66J5
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME780T2PS9R66TG1A1CHN
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
 ---
 - The Werner-Holevo channel (Werner-Holevo 2002) remains the canonical *explicit* example: it violates (24) for $p>4.79$. Variants and small perturbations of it are the only such channels known explicitly at the time the problem was posed.

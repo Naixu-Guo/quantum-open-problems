@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/contract/v1/taxonomy.schema.json",
+  "title": "Taxonomy",
+  "description": "The single registry of research areas and topics. Revisable; exactly one per ledger.",
+  "allOf": [{ "$ref": "common.schema.json#/$defs/revisableBase" }],
+  "unevaluatedProperties": false,
+  "required": ["type", "areas", "topics", "body"],
+  "properties": {
+    "type": { "const": "Taxonomy" },
+    "areas": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "description"],
+        "properties": {
+          "id": { "$ref": "common.schema.json#/$defs/slug" },
+          "label": { "$ref": "common.schema.json#/$defs/nonEmptyText" },
+          "description": { "$ref": "common.schema.json#/$defs/text" }
+        }
+      }
+    },
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "areaId"],
+        "properties": {
+          "id": { "$ref": "common.schema.json#/$defs/slug" },
+          "label": { "$ref": "common.schema.json#/$defs/nonEmptyText" },
+          "areaId": { "$ref": "common.schema.json#/$defs/slug" }
+        }
+      }
+    },
+    "body": { "$ref": "common.schema.json#/$defs/text" }
+  }
+}

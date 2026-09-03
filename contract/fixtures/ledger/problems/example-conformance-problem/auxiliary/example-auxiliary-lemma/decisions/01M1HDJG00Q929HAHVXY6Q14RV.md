@@ -8,6 +8,7 @@ supersedes: null
 kind: status
 targetType: problem
 targetId: "01M1H6PRR0F4J7M6KPVB69SPEN"
+mergeIntoProblemId: null
 outcome: accepted
 status: refuted
 verificationLevel: null

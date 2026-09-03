@@ -22,31 +22,31 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME7806JDYP1Q5F2G2GRPD
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME78027K8V8769WE8BJCW
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780TCJYY1WDCXK85M03
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780S038CC0SFHV7M5M5
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780P9E536TG72P3A3N0
     artifactId: null
@@ -58,13 +58,13 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780V5NE7PBG0JEMA0GC
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME7802GPB5MK22P4CKJZE
     artifactId: null
@@ -76,7 +76,7 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780KQSGWV2YPQSRPWKK
     artifactId: null
@@ -100,7 +100,7 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780WMSMFY029CS0JHWT
     artifactId: null
@@ -112,7 +112,7 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780HRMP3QGPY08F85EJ
     artifactId: null
@@ -178,7 +178,7 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780AW9T1GESWH4JEGW9
     artifactId: null
@@ -208,7 +208,7 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780GHAHKN1FYA81EPNC
     artifactId: null
@@ -226,7 +226,7 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
 ---
 - **Status:** solved (disproven).

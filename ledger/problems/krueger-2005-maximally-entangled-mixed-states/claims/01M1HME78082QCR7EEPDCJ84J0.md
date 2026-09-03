@@ -28,13 +28,13 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME780V8SDNBRMXMA4Q8VE
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
 ---
 **Status: solved negatively.** De Vicente (2024) proved that a universal maximally entangled state at fixed two-qubit spectrum does not always exist. This rules out the conjecture that the VAM state maximises every entanglement monotone.

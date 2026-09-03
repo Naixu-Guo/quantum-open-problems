@@ -6,7 +6,7 @@ revision: 1
 createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Better local hidden variable models for two-qubit Werner states and an upper bound on the Grothendieck constant $K_G(3)$
-kind: preprint
+kind: paper
 completeness: complete
 authors:
   - F. Hirsch

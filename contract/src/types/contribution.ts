@@ -11,7 +11,13 @@ export type ContributionKind =
   | "attempt-report"
   | "evidence-import"
   | "merge-proposal"
-  | "retire-proposal";
+  | "retire-proposal"
+  | "entity-revision";
+
+export interface Revision {
+  entityId: string;
+  revision: number;
+}
 
 export type StopReason = "solved" | "partial" | "obstacle" | "refuted-subgoal" | "ambiguous-statement" | "out-of-budget" | "abandoned" | "none";
 
@@ -32,6 +38,7 @@ export interface Contribution extends ImmutableBase {
   claimIds: string[];
   artifactIds: string[];
   declaredReadIds: string[];
+  revisions: Revision[];
   aiInvolvement: "none" | "assisted" | "autonomous";
   license: string;
 }
@@ -52,6 +59,8 @@ export function references(contribution: Contribution): Ref[] {
     ...refs("artifactIds", "Artifact", contribution.artifactIds),
   ];
 }
+
+const REVISABLE_BY_CONTRIBUTION = new Set(["Problem", "Source", "Reference", "Taxonomy"]);
 
 /** The problem whose directory holds this contribution. */
 export function primaryProblemId(contribution: Contribution): string | null {
@@ -82,7 +91,17 @@ export function rules(contribution: Contribution, ledger: Ledger): string[] {
   for (const clauseRef of contribution.clauseIds) {
     if (contribution.statementId !== null && !clauseRef.startsWith(`${contribution.statementId}#`)) errors.push(`clause ${clauseRef} is not in the named statement`);
   }
-  if (primaryProblemId(contribution) === null && contribution.kind !== "merge-proposal") errors.push("a contribution must name a problem");
+  if (primaryProblemId(contribution) === null && contribution.kind !== "merge-proposal" && contribution.kind !== "entity-revision") errors.push("a contribution must name a problem");
+  if (contribution.kind === "entity-revision" && contribution.revisions.length === 0) errors.push("an entity revision names at least one revised entity");
+  if (contribution.kind !== "entity-revision" && contribution.revisions.length > 0) errors.push("only an entity revision names revised entities");
+  for (const item of contribution.revisions) {
+    const versions = ledger.revisions.get(item.entityId) ?? [];
+    const record = versions.find((candidate) => candidate.fields["revision"] === item.revision);
+    if (!record) { errors.push(`revision ${item.revision} of ${item.entityId} does not exist`); continue; }
+    if (!REVISABLE_BY_CONTRIBUTION.has(record.type)) errors.push(`${record.type} ${item.entityId} is not revised through contributions`);
+    if (item.revision < 2) errors.push(`revision 1 of ${item.entityId} is introduced by its creating contribution, not an entity revision`);
+    if (record.fields["createdBy"] !== contribution.actorId) errors.push(`revision ${item.revision} of ${item.entityId} was written by another actor`);
+  }
   if (contribution.trajectoryId !== null) {
     const trajectory = ledger.find("Trajectory", contribution.trajectoryId);
     if (trajectory && trajectory.fields["actorId"] !== contribution.actorId) errors.push("the contribution's actor must be the trajectory's actor");

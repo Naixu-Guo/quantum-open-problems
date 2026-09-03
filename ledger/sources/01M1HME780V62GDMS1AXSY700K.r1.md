@@ -6,7 +6,7 @@ revision: 1
 createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Additivity of the Rényi entropy of order 2 for positive-partial-transpose-inducing channels
-kind: preprint
+kind: paper
 completeness: complete
 authors:
   - B. Dierckx

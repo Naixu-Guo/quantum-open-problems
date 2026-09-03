@@ -8,6 +8,7 @@ supersedes: null
 kind: status
 targetType: problem
 targetId: 01M1HME78010TTEQK6NFPRCGZT
+mergeIntoProblemId: null
 outcome: accepted
 status: open
 verificationLevel: null
@@ -15,7 +16,7 @@ reviewIds:
   - 01M1HME78038YV5QNFZAYSVEPN
 contributionIds:
   - 01M1HME7803N17KK3GGQ8BH6S5
-policyVersion: "1"
+policyVersion: "0"
 effectiveAt: 2026-08-12T09:00:00Z
 ---
 The legacy audit found no accepted proof or counterexample.

@@ -114,3 +114,42 @@ test("a status decision that contradicts the accepted claims is caught", () => {
   });
   assert.ok(issues.some((issue) => issue.category === "rule" && /status partial requires/.test(issue.message)), JSON.stringify(issues));
 });
+
+test("a reference to a redacted record still resolves", () => {
+  const issues = withCopy((ledger) => {
+    const sources = path.join(ledger, "sources");
+    const name = fs.readdirSync(sources)[0]!;
+    const file = path.join(sources, name);
+    const id = fs.readFileSync(file, "utf8").match(/^id: (\S+)/m)![1]!;
+    fs.writeFileSync(file, `---\nid: ${id}\ntype: Source\nschemaVersion: "1.0"\nrevision: 1\nredacted: true\nredactionDecisionId: 01KZZZZZZZZZZZZZZZZZZZZZZ9\n---\n`);
+  });
+  assert.deepEqual(issues.filter((issue) => issue.category === "reference" || issue.category === "schema"), []);
+});
+
+test("a policy-1 solved decision without peer-reviewed support is caught", () => {
+  const issues = withCopy((ledger) => {
+    const dir = path.join(ledger, "problems/krueger-2005-qubit-bi-negativity/claims");
+    for (const name of fs.readdirSync(dir)) {
+      const file = path.join(dir, name);
+      fs.writeFileSync(file, fs.readFileSync(file, "utf8").replace("maturity: peer-reviewed", "maturity: preprint"));
+    }
+  });
+  assert.ok(issues.some((issue) => issue.category === "rule" && /policy 1 requires a solved decision/.test(issue.message)), JSON.stringify(issues));
+});
+
+test("an unknown topic is caught", () => {
+  const issues = withCopy((ledger) => {
+    const file = path.join(ledger, problemFile);
+    fs.writeFileSync(file, fs.readFileSync(file, "utf8").replace("  - entanglement-theory", "  - entanglement-theory\n  - no-such-topic"));
+  });
+  assert.ok(issues.some((issue) => issue.category === "reference" && /unknown topic no-such-topic/.test(issue.message)), JSON.stringify(issues));
+});
+
+test("a second revision without an entity-revision contribution is caught", () => {
+  const issues = withCopy((ledger) => {
+    const file = path.join(ledger, problemFile);
+    const text = fs.readFileSync(file, "utf8").replace("revision: 1", "revision: 2").replace("title: Qubit bi-negativity", "title: Qubit bi-negativity (revised)");
+    fs.writeFileSync(file.replace(".r1.md", ".r2.md"), text);
+  });
+  assert.ok(issues.some((issue) => issue.category === "rule" && /not introduced by an entity-revision contribution/.test(issue.message)), JSON.stringify(issues));
+});

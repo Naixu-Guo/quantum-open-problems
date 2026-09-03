@@ -142,6 +142,15 @@
         "moneyUsd": { "type": ["number", "null"], "minimum": 0 }
       }
     },
+    "revision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entityId", "revision"],
+      "properties": {
+        "entityId": { "$ref": "#/$defs/ulid" },
+        "revision": { "type": "integer", "minimum": 2 }
+      }
+    },
     "conflictOfInterest": {
       "type": "object",
       "additionalProperties": false,

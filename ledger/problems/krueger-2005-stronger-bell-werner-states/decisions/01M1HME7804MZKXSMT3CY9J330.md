@@ -8,6 +8,7 @@ supersedes: null
 kind: status
 targetType: problem
 targetId: 01M1HME780RJA74K3FVRJC7079
+mergeIntoProblemId: null
 outcome: accepted
 status: solved
 verificationLevel: null
@@ -15,7 +16,7 @@ reviewIds:
   - 01M1HME780C794PPQFGGB789CK
 contributionIds:
   - 01M1HME780ND0C45QY70W36PN3
-policyVersion: "1"
+policyVersion: "0"
 effectiveAt: 2026-08-12T09:00:00Z
 ---
 The legacy audit found a proof or counterexample settling the archived statement.

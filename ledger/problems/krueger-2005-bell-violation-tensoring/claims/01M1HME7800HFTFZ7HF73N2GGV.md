@@ -16,25 +16,25 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780QAK8Q1MSAM3YB6C2
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780FFGPP997FPABA7QS
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780DR15ZNJQTG5AJ9Y7
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
 ---
 The problem is **solved (affirmatively)**: Liang's CHSH-by-tensoring question has explicit positive constructions.

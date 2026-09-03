@@ -24,7 +24,7 @@ const STORE = path.join(ACTIVITY, "artifact-store");
 
 const MIGRATION_AT = "2026-09-02T18:00:00Z";
 const BASELINE_AUDIT_AT = "2026-08-12T09:00:00Z";
-const POLICY = "1";
+const POLICY = "0"; // the legacy audit policy; see contract/policy/v0.md
 const LICENSE = "CC-BY-4.0";
 
 type Fields = Record<string, unknown>;
@@ -74,6 +74,12 @@ actor(EDITOR, "Legacy audit editor", "human", { roles: ["contributor", "reviewer
 actor(INGEST, "Legacy catalog ingestion", "pipeline", { roles: ["contributor"], operatorId: EDITOR, harness: "tools/migrate-legacy/migrate.ts" }, "Pipeline that migrated the legacy catalog and the open_problem_v2 pool into the ledger on 2 September 2026.");
 
 // ---------------------------------------------------------------------------
+// Taxonomy (written after the legacy catalog is loaded, see below)
+// ---------------------------------------------------------------------------
+
+const TAXONOMY = ulid("taxonomy");
+
+// ---------------------------------------------------------------------------
 // Sources, deduplicated
 // ---------------------------------------------------------------------------
 
@@ -84,6 +90,7 @@ interface SourceSpec {
 const completenessOf = (s: SourceSpec): string =>
   s.completeness ?? ((s.authors.length > 0 && (s.venue !== "" || s.doi !== null || s.arxivId !== null) && s.date !== null) ? "complete" : "partial");
 const sources = new Map<string, string>();
+const sourceKinds = new Map<string, string>();
 function sourceKey(s: SourceSpec): string {
   if (s.doi) return `doi:${s.doi.toLowerCase()}`;
   if (s.arxivId) return `arxiv:${s.arxivId.toLowerCase()}`;
@@ -96,6 +103,7 @@ function source(spec: SourceSpec): string {
   if (existing) return existing;
   const id = ulid(`source:${key}`);
   sources.set(key, id);
+  sourceKinds.set(id, spec.kind);
   emit(LEDGER, `sources/${id}.r1.md`, {
     id, type: "Source", schemaVersion: "1.0", revision: 1, createdBy: INGEST, createdAt: MIGRATION_AT,
     title: spec.title, kind: spec.kind, completeness: completenessOf(spec), authors: spec.authors, venue: spec.venue, date: spec.date,
@@ -136,7 +144,7 @@ interface LegacyProblem {
   origin?: { kind: string; note: string };
 }
 interface LegacyCatalog {
-  taxonomy: { areas: { id: string }[]; topics: { id: string; area: string }[] };
+  taxonomy: { areas: { id: string; label: string; description: string }[]; topics: { id: string; label: string; area: string }[] };
   collections: { id: string; label: string; title: string; url?: string }[];
   problems: LegacyProblem[];
 }
@@ -147,6 +155,11 @@ interface Metadata {
 }
 
 const topicArea = new Map(catalog.taxonomy.topics.map((topic) => [topic.id, topic.area]));
+emit(LEDGER, "taxonomy.r1.md", {
+  id: TAXONOMY, type: "Taxonomy", schemaVersion: "1.0", revision: 1, createdBy: INGEST, createdAt: MIGRATION_AT,
+  areas: catalog.taxonomy.areas.map((area) => ({ id: area.id, label: area.label, description: area.description })),
+  topics: catalog.taxonomy.topics.map((topic) => ({ id: topic.id, label: topic.label, areaId: topic.area })),
+}, "Migrated from the taxonomy registry in site/data/problems.js.");
 const activeBySlug = new Map(catalog.problems.map((problem) => [problem.id, problem]));
 const problemDir = path.join(repoRoot, "open_prob");
 const slugs = fs.readdirSync(problemDir).filter((name) => fs.existsSync(path.join(problemDir, name, "problem.md"))).sort();
@@ -195,7 +208,10 @@ function parseBibliography(text: string): BiblioEntry[] {
       title = line.replace(/\s*\([^()]*(?:Source paper|Problem \d+|see also)[^()]*\)\.?$/iu, "").trim();
     }
     const date = yearOf(venue) ?? (arxivId && /^\d{4}\./.test(arxivId) ? `20${arxivId.slice(0, 2)}` : null);
-    const kind = doi ? "paper" : arxivId ? "preprint" : /Press|Springer|Wiley|Verlag|Cambridge|Oxford/u.test(venue) ? "book" : "paper";
+    // A venue that names a journal with a volume or year before any arXiv mention is a published paper.
+    const venueBeforeArxiv = venue.split(/;?\s*arXiv/u)[0] ?? "";
+    const journalLike = /[A-Za-z.]{3,}[^;]*\b\d{1,4}\b[^;]*\(\d{4}\)/u.test(venueBeforeArxiv) || /(Phys\.|Rev\.|Lett\.|J\.|Comm\.|Commun\.|Ann\.|Trans\.|Journal|Quantum \*?\d|Nature|Science)/u.test(venueBeforeArxiv);
+    const kind = doi || journalLike ? "paper" : arxivId ? "preprint" : /Press|Springer|Wiley|Verlag|Cambridge|Oxford/u.test(venue) ? "book" : "paper";
     const sourceId = source({ title, kind, authors, venue, date, doi, arxivId, url, version: null });
     const surname = (authors[0] ?? "").split(/\s+/u).pop() ?? "";
     entries.push({ sourceId, note, surname });
@@ -279,7 +295,7 @@ function contribution(bundle: Bundle, key: string, title: string, kind: string, 
     id, type: "Contribution", schemaVersion: "1.0", createdBy: INGEST, createdAt: MIGRATION_AT, supersedes: null,
     title, kind, actorId: INGEST, trajectoryId: TRAJECTORY, problemIds: [], statementId: null, statementDigest: null,
     clauseIds: [], stopReason: "none", newProblemIds: [], newStatementId: null, referenceIds: [], claimIds: [],
-    artifactIds: [], declaredReadIds: [], aiInvolvement: "none", license: LICENSE, ...fields,
+    artifactIds: [], declaredReadIds: [], revisions: [], aiInvolvement: "none", license: LICENSE, ...fields,
   }, body);
   return id;
 }
@@ -301,7 +317,7 @@ function decision(bundle: Bundle, key: string, by: string, kind: string, targetT
   const id = ulid(`decision:${bundle.slug}:${key}`);
   emit(LEDGER, `${bundle.dir}/decisions/${id}.md`, {
     id, type: "Decision", schemaVersion: "1.0", createdBy: by, createdAt: MIGRATION_AT, supersedes: null,
-    kind, targetType, targetId, outcome: "accepted", status: null, verificationLevel: null, reviewIds: [], contributionIds: [],
+    kind, targetType, targetId, mergeIntoProblemId: null, outcome: "accepted", status: null, verificationLevel: null, reviewIds: [], contributionIds: [],
     policyVersion: POLICY, effectiveAt: MIGRATION_AT, ...fields,
   }, body);
   return id;
@@ -448,7 +464,9 @@ for (const slug of slugs) {
     }
   } else {
     const status = sections.get("Status and known progress") ?? "";
-    const resolutionText = status.split("\n").filter((line) => /\*\*(Status|Resolution|Concurrent|Solved)/i.test(line) || !line.startsWith("- ")).join("\n");
+    // Match supporters only against the paragraphs that state the resolution; fall back to the opening paragraph.
+    const resolutionLines = status.split("\n").filter((line) => /\*\*(Status|Resolution|Concurrent|Solved|Answer)/iu.test(line));
+    const resolutionText = resolutionLines.length > 0 ? resolutionLines.join("\n") : (status.split(/\n\s*\n/u)[0] ?? "");
     const negative = /solved (negatively|in the negative)|answer is no|is false|disproved|counterexample/i.test(resolutionText) && !/solved affirmatively|solved positively/i.test(resolutionText);
     const supporters = biblio.filter((entry) => entry.surname.length >= 3 && new RegExp(`\\b${entry.surname.replace(/[^\\p{L}]/gu, "")}\\b`, "u").test(resolutionText))
       .filter((entry) => entry.sourceId !== statingSourceId);
@@ -456,7 +474,8 @@ for (const slug of slugs) {
     const support = supporters.map((entry) => {
       const key = [...sources.entries()].find(([, id]) => id === entry.sourceId)?.[0] ?? "";
       return { sourceId: entry.sourceId, artifactId: null, locator: "", date: null,
-        maturity: key.startsWith("doi:") ? "peer-reviewed" : "preprint", strength: negative ? "counterexample" : "exact-theorem" };
+        maturity: key.startsWith("doi:") || sourceKinds.get(entry.sourceId) === "paper" || sourceKinds.get(entry.sourceId) === "book" ? "peer-reviewed" : "preprint",
+        strength: negative ? "counterexample" : "exact-theorem" };
     });
     claimIds.push(claim(bundle, "resolution", `Resolution of: ${title}`, negative ? "refutes" : "resolves", support, status.replace(/\*\*Last verified:\*\*.*$/su, "").trim()));
   }

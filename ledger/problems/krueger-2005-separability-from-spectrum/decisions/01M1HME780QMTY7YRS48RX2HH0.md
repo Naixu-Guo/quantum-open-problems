@@ -8,6 +8,7 @@ supersedes: null
 kind: status
 targetType: problem
 targetId: 01M1HME780CGRHRNEPP90C4TMN
+mergeIntoProblemId: null
 outcome: accepted
 status: partial
 verificationLevel: null
@@ -15,7 +16,7 @@ reviewIds:
   - 01M1HME780MTNCS1ATFZ8YFY4S
 contributionIds:
   - 01M1HME780SP9XD4MPD85Y3F8G
-policyVersion: "1"
+policyVersion: "0"
 effectiveAt: 2026-08-12T09:00:00Z
 ---
 The legacy audit found a named subproblem or precise subclass settled.

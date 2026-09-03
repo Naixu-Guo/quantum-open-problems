@@ -8,13 +8,14 @@ supersedes: null
 kind: admission
 targetType: problem
 targetId: 01M1HME780S5JZKCQN8X0RR8TG
+mergeIntoProblemId: null
 outcome: accepted
 status: null
 verificationLevel: null
 reviewIds:
   - 01M1HME780YDNBSAG8YN4QJCBB
 contributionIds: []
-policyVersion: "1"
+policyVersion: "0"
 effectiveAt: 2026-08-31T09:00:00Z
 ---
 Admitted from the legacy catalog on the strength of the review of 2026-08-31.

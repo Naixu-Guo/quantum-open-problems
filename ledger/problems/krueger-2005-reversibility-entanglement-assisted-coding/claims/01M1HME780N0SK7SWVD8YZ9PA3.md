@@ -16,7 +16,7 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780EF08R1RCA56WR2C5
     artifactId: null
@@ -28,13 +28,13 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780KV8N83V7673QH7AT
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
 ---
 - **Status:** solved by the Quantum Reverse Shannon Theorem (QRST).

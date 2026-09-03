@@ -6,7 +6,7 @@ revision: 1
 createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Irreversibility in asymptotic manipulations of entanglement
-kind: preprint
+kind: paper
 completeness: complete
 authors:
   - G. Vidal

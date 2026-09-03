@@ -6,7 +6,7 @@ revision: 1
 createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: The capacity of the quantum channel with general signal states
-kind: preprint
+kind: paper
 completeness: complete
 authors:
   - A. S. Holevo

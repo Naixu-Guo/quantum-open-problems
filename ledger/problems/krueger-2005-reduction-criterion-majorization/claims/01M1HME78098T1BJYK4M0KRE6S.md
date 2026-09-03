@@ -16,31 +16,31 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780P3P5Q92V7JC1NV7B
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME7801C9RWWC0W7YY08QD
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780WQTBKE9PDGBHRB7J
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780ZGBP6AG80127KC6Y
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780XMEGHGCNTKDD8632
     artifactId: null
@@ -52,7 +52,7 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
 ---
 - **Status:** solved (affirmatively).

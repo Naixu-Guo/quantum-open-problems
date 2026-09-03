@@ -16,31 +16,31 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780KZGX96XV1K0732YS
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780XR8HV99G42556STK
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780RFFXYTSD8K1EJNMZ
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780W0GDWAV8WQD3M84P
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: exact-theorem
 ---
 **Status: solved affirmatively.** Vértesi (2008) constructed Bell inequalities violated by two-qubit Werner states for $p>0.7056$, strictly below the CHSH threshold $1/\sqrt{2}\approx0.7071$.

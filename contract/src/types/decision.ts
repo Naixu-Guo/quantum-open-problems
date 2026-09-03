@@ -5,15 +5,19 @@ import { actorKind, hasRole } from "./actor.ts";
 
 export const TYPE = "Decision" as const;
 
-export type DecisionKind = "admission" | "promotion" | "acceptance" | "status" | "merge" | "retire" | "moderation" | "redaction" | "release";
+export type DecisionKind = "admission" | "promotion" | "acceptance" | "withdrawal" | "status" | "merge" | "retire" | "moderation" | "redaction" | "release";
 export type ProblemStatus = "open" | "partial" | "solved" | "refuted";
-export type VerificationLevel = "triaged" | "ai-verified" | "machine-verified" | "human-signed";
+export type VerificationLevel = "unreviewed" | "triaged" | "ai-verified" | "machine-verified" | "human-signed";
+
+/** The policy version under which the legacy audit decisions were recorded; threshold checks start at policy 1. */
+const LEGACY_POLICY = "0";
 
 export interface Decision extends ImmutableBase {
   type: typeof TYPE;
   kind: DecisionKind;
-  targetType: "problem" | "contribution" | "comment" | "statement" | "claim" | "reference" | "trajectory" | "review" | "ledger";
+  targetType: "problem" | "contribution" | "comment" | "statement" | "claim" | "reference" | "trajectory" | "review" | "source" | "artifact" | "ledger";
   targetId: string;
+  mergeIntoProblemId: string | null;
   outcome: "accepted" | "rejected";
   status: ProblemStatus | null;
   verificationLevel: VerificationLevel | null;
@@ -29,6 +33,7 @@ export function references(decision: Decision): Ref[] {
     ...ref("createdBy", "Actor", decision.createdBy),
     ...ref("supersedes", "Decision", decision.supersedes),
     ...(kind && kind !== "Ledger" ? ref("targetId", kind, decision.targetId) : []),
+    ...ref("mergeIntoProblemId", "Problem", decision.mergeIntoProblemId),
     ...refs("reviewIds", "Review", decision.reviewIds),
     ...refs("contributionIds", "Contribution", decision.contributionIds),
   ];
@@ -39,6 +44,7 @@ const REVIEW_CITING_KINDS: ReadonlySet<DecisionKind> = new Set(["admission", "ac
 
 export function rules(decision: Decision, ledger: Ledger): string[] {
   const errors: string[] = [];
+  const author = actorKind(ledger, decision.createdBy);
   const allowedTargets = DECISION_TARGETS[decision.kind] ?? [];
   if (!allowedTargets.includes(decision.targetType)) errors.push(`a ${decision.kind} decision cannot target ${decision.targetType}`);
 
@@ -47,14 +53,24 @@ export function rules(decision: Decision, ledger: Ledger): string[] {
   if (decision.kind === "acceptance" && decision.verificationLevel === null) errors.push("an acceptance decision records the verification level reached");
   if (decision.kind !== "acceptance" && decision.verificationLevel !== null) errors.push("only an acceptance decision carries a verification level");
 
-  if (REVIEW_CITING_KINDS.has(decision.kind) && decision.reviewIds.length === 0 && decision.outcome === "accepted") {
+  const unreviewedAcceptance = decision.kind === "acceptance" && decision.verificationLevel === "unreviewed";
+  if (REVIEW_CITING_KINDS.has(decision.kind) && decision.reviewIds.length === 0 && decision.outcome === "accepted" && !unreviewedAcceptance) {
     errors.push(`an accepted ${decision.kind} decision must cite at least one review`);
+  }
+  if (decision.kind === "merge" && decision.mergeIntoProblemId === null) errors.push("a merge decision names the problem merged into");
+  if (decision.kind === "merge" && decision.mergeIntoProblemId === decision.targetId) errors.push("a problem cannot be merged into itself");
+  if (decision.kind !== "merge" && decision.mergeIntoProblemId !== null) errors.push("only a merge decision names a problem merged into");
+  if (decision.kind === "withdrawal") {
+    const contribution = ledger.find("Contribution", decision.targetId);
+    const byAuthor = contribution && contribution.fields["actorId"] === decision.createdBy;
+    if (contribution && !byAuthor && author !== "system" && !hasRole(ledger, decision.createdBy, "editor")) {
+      errors.push("a withdrawal is issued by the contribution's actor, the system, or an editor");
+    }
   }
   if (decision.kind === "release" && (decision.reviewIds.length > 0 || decision.contributionIds.length > 0)) {
     errors.push("a release decision cites nothing");
   }
 
-  const author = actorKind(ledger, decision.createdBy);
   if (HUMAN_ONLY_KINDS.has(decision.kind) && author !== null && author !== "human") errors.push(`a ${decision.kind} decision is made by a human`);
   if (decision.kind === "moderation" && author === "human" && !hasRole(ledger, decision.createdBy, "moderator")) errors.push("a moderation decision needs the moderator role");
   if ((decision.kind === "promotion" || decision.kind === "merge" || decision.kind === "retire" || decision.kind === "redaction") && author === "human" && !hasRole(ledger, decision.createdBy, "editor")) {
@@ -66,6 +82,9 @@ export function rules(decision: Decision, ledger: Ledger): string[] {
     const problem = ledger.find("Problem", decision.targetId);
     if (problem && problem.fields["role"] === "primary" && author !== "human") errors.push("a primary problem is marked solved only by a human");
     if (problem && problem.fields["role"] === "primary" && author === "human" && !hasRole(ledger, decision.createdBy, "editor")) errors.push("marking a primary problem solved needs the editor role");
+    if (problem && problem.fields["role"] === "primary" && decision.policyVersion !== LEGACY_POLICY && !solvedThresholdMet(ledger, decision)) {
+      errors.push("policy 1 requires a solved decision to rest on a peer-reviewed publication, a passing machine check, or two independent human reviews");
+    }
   }
   if (decision.kind === "status" && decision.status === "refuted" && decision.targetType === "problem") {
     const problem = ledger.find("Problem", decision.targetId);
@@ -86,4 +105,36 @@ export function rules(decision: Decision, ledger: Ledger): string[] {
     }
   }
   return errors;
+}
+
+/**
+ * Policy 1 threshold for marking a primary problem solved: among the contributions the decision
+ * cites, an accepted claim supported by a peer-reviewed source or by an artifact with a passing
+ * check; or, among the reviews it cites, verification reviews with verdict verified from two
+ * distinct human reviewers.
+ */
+export function solvedThresholdMet(ledger: Ledger, decision: Decision): boolean {
+  for (const contributionId of decision.contributionIds) {
+    const contribution = ledger.find("Contribution", contributionId);
+    if (!contribution) continue;
+    for (const claimId of contribution.fields["claimIds"] as string[]) {
+      const claim = ledger.find("Claim", claimId);
+      if (!claim) continue;
+      for (const support of claim.fields["support"] as { sourceId: string | null; artifactId: string | null; maturity: string }[]) {
+        if (support.maturity === "peer-reviewed") return true;
+        if (support.artifactId) {
+          const artifact = ledger.find("Artifact", support.artifactId);
+          const checks = (artifact?.fields["checks"] as { outcome: string }[] | undefined) ?? [];
+          if (artifact?.fields["checkable"] === true && checks.some((check) => check.outcome === "pass")) return true;
+        }
+      }
+    }
+  }
+  const humanVerifiers = new Set<string>();
+  for (const reviewId of decision.reviewIds) {
+    const review = ledger.find("Review", reviewId);
+    if (!review || review.fields["kind"] !== "verification" || review.fields["verdict"] !== "verified") continue;
+    if (actorKind(ledger, review.fields["reviewerId"] as string) === "human") humanVerifiers.add(review.fields["reviewerId"] as string);
+  }
+  return humanVerifiers.size >= 2;
 }

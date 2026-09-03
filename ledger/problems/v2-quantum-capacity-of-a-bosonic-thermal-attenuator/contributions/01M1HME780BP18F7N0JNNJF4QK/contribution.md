@@ -35,6 +35,7 @@ referenceIds:
 claimIds: []
 artifactIds: []
 declaredReadIds: []
+revisions: []
 aiInvolvement: none
 license: CC-BY-4.0
 ---

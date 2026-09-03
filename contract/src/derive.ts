@@ -49,6 +49,7 @@ export function contributionState(ledger: Ledger, contributionId: string, decisi
   if (!contribution) return "submitted";
   const supersededBy = ledger.currentOf("Contribution").some((other) => other.fields["supersedes"] === contributionId);
   if (supersededBy) return "superseded";
+  if (latest(decisions, (d) => d.kind === "withdrawal" && d.targetType === "contribution" && d.targetId === contributionId)) return "withdrawn";
   const acceptance = decisions.find((d) => d.kind === "acceptance" && d.targetType === "contribution" && d.targetId === contributionId);
   if (!acceptance) return "submitted";
   if (acceptance.outcome === "rejected") return "rejected";

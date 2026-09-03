@@ -1,7 +1,8 @@
 # Quantum Open Problems: system design
 
-- Status: Draft for maintainer review
-- Date: 2026-09-02
+- Status: Adopted; phase 0 delivered except the API payload schemas and the
+  conformance test, which are written with the phase 1 service
+- Date: 2026-09-02, revised 2026-09-03
 - Scope: the whole project, designed from its goals. Supersedes
   `ARCHITECTURE.md` and ADR 0001 where they conflict. The current repository
   is seed data and a static export target, not a constraint.
@@ -71,7 +72,8 @@ admission requires only that a problem is well defined.
 | Contract package | JSON Schemas for every type and every API payload, the policy file, fixture records, and a conformance test an external agent can run against a local service. |
 
 Trajectories and comments are high volume and live in a second repository
-so the main ledger's history stays readable.
+so the main ledger's history stays readable. Policy files live in the
+contract package, not in the ledger; a decision names a policy by version.
 
 ## 3. Domain model
 
@@ -117,7 +119,10 @@ supersedes     id of the object this one replaces, or null
 ```
 
 **Revisable entities** keep one `id` and accumulate numbered revisions.
-`Problem, Source, Reference, Actor, Comment`.
+`Problem, Source, Reference, Actor, Comment, Taxonomy`. A later revision of
+a Problem, Source, Reference, or Taxonomy is introduced by an
+`entity-revision` contribution; Actors revise themselves and Comments are
+edited by their authors directly.
 
 ```text
 id             opaque permanent entity identifier
@@ -134,17 +139,17 @@ pins one with a digest.
 Rules: a reference field is named after what it points at (`statementId`,
 `reviewerId`); every field exists on every instance, empty when unused;
 prose lives in `body`; embedded value types are `Support`, `Event`,
-`Check`, `Bound`, `Quantity`, and are never addressed from outside their
-record. Any record that can point at several kinds of target uses the pair
+`Check`, `Bound`, `Quantity`, `Revision`, `Area`, `Topic`, and are never
+addressed from outside their record. Any record that can point at several kinds of target uses the pair
 `targetType, targetId`; the validator holds one table of which target
 types each record type may name.
 
 ### 3.3 Types
 
-Thirteen types in three groups.
+Fourteen types in three groups.
 
 ```text
-Knowledge     Problem   Statement   Clause   Claim   Source   Reference
+Knowledge     Problem   Statement   Clause   Claim   Source   Reference   Taxonomy
 Activity      Actor     Trajectory   Contribution   Artifact
 Judgement     Review    Comment   Decision
 ```
@@ -152,8 +157,10 @@ Judgement     Review    Comment   Decision
 **Problem** (revisable). A permanent question, primary or auxiliary.
 `title, body (motivation), role (primary | auxiliary), parentProblemId,
 parentClauseId, aliases[], origin (source-stated | derived |
-editor-formulated | agent-formulated), areaIds[], topicIds[], keywords[],
-difficulty, verificationCost, relatedProblemIds[]`.
+editor-formulated | agent-formulated), posed (date first posed, or null),
+areaIds[], topicIds[], keywords[], difficulty, verificationCost,
+relatedProblemIds[]`. Areas and topics must exist in the taxonomy, and a
+problem lists the area of every topic it names.
 Catalog state (`candidate | published | retired | merged`) and research
 status are not fields; they are read from decisions.
 A primary problem is collected from humans. An auxiliary problem is a
@@ -184,10 +191,12 @@ Clauses are stored inside the statement file but indexed as their own
 table because claims, events, and auxiliary problems point at them.
 
 **Claim** (immutable). A scoped assertion about clauses.
-`statementId, clauseIds[], relation (resolves | refutes | narrows | supports
-| bounds), body (argument), bound { clauseId, direction, value, valueForm
-(exact-rational | decimal | expression), conditions }, support[]`.
-`Support`: `sourceId, artifactId, locator, date, maturity, strength`.
+`title, statementId, clauseIds[], relation (resolves | refutes | narrows |
+supports | bounds), body (argument), bound { clauseId, direction, value,
+valueForm (exact-rational | decimal | expression), conditions }, support[]`.
+`Support`: `sourceId, artifactId, locator, date, maturity, strength`. An
+artifact-backed support is written with maturity `unreviewed-artifact`; its
+effective maturity is derived from the contribution's verification level.
 
 **Source** (revisable). A bibliographic record.
 `title, kind (paper | preprint | book | problem-list | dataset | thesis |
@@ -207,6 +216,10 @@ partial-result | technique | related | survey | resolves), locator, body
 (why this is relevant and what to look at)`.
 Adding a reference never revises the object it points at.
 
+**Taxonomy** (revisable, exactly one per ledger). The registry of research
+areas and topics. `areas[] { id, label, description }, topics[] { id, label,
+areaId }`. Adding a field or topic is an entity revision of this record.
+
 **Actor** (revisable). Human, agent, pipeline, or system.
 `name, kind (human | agent | pipeline | system), roles[] (contributor |
 reviewer | editor | moderator), externalIdentity, operatorId, modelFamily,
@@ -220,10 +233,10 @@ decisions and holds no roles.
 primary scientific data, public by default.
 `kind (research | verification | maintenance | ingestion), actorId,
 operatorId, problemIds[], statementDigests[], clauseIds[], contextBundleId,
-startedAt, endedAt, harnessConfig, budget, cost { tokens, wallTime, money },
-body (the agent's own plan and outcome note), eventsArtifactId,
+startedAt, endedAt, harnessConfig, budget, cost { tokens, wallTimeSeconds,
+moneyUsd }, body (the agent's own plan and outcome note), eventsArtifactId,
 eventCount, attemptReportId, artifactIds[], visibility (public |
-embargoed-until)`.
+embargoed), embargoUntil`.
 While a run is open, events stream to an append-only log in the artifact
 store; the index tracks open runs. At close the service writes the
 trajectory file once, naming the event log by digest. A research
@@ -234,20 +247,21 @@ clauseId, obstacle (missing-lemma | refuted-subgoal | computational-limit |
 ambiguous-statement | out-of-budget | none), objectIds[], artifactId`.
 
 **Contribution** (immutable). One submission of knowledge.
-`kind (problem-proposal | statement-revision | reference | attempt-report |
-evidence-import | merge-proposal | retire-proposal), actorId,
-trajectoryId, problemIds[], statementId, statementDigest, clauseIds[],
-stopReason (solved | partial | obstacle | refuted-subgoal |
-ambiguous-statement | out-of-budget | abandoned | none), body (summary; for
-attempt reports, the route the agent formed, what it tried, and why it
-stopped), newProblemIds[], newStatementId, referenceIds[], claimIds[],
-artifactIds[], declaredReadIds[], aiInvolvement, license`.
+`title, kind (problem-proposal | statement-revision | reference |
+attempt-report | evidence-import | merge-proposal | retire-proposal |
+entity-revision), actorId, trajectoryId, problemIds[], statementId,
+statementDigest, clauseIds[], stopReason (solved | partial | obstacle |
+refuted-subgoal | ambiguous-statement | out-of-budget | abandoned | none),
+body (summary; for attempt reports, the route the agent formed, what it
+tried, and why it stopped), newProblemIds[], newStatementId,
+referenceIds[], claimIds[], artifactIds[], declaredReadIds[], revisions[]
+{ entityId, revision }, aiInvolvement, license`.
 There is no separate `result` kind: an agent's claims, auxiliary problems,
 and artifacts arrive together in its attempt report. Results found in the
 literature enter through `evidence-import`. State is read from decisions.
 
 **Artifact** (immutable). A content-addressed blob.
-`digest, kind (proof-text | lean | coq | code | certificate | notebook |
+`title, digest, kind (proof-text | lean | coq | code | certificate | notebook |
 dataset | transcript | event-log | log | figure), mediaType, size, uri,
 trajectoryId, checkable, checks[]`.
 `Check`: `actorId, method, outcome, log`.
@@ -267,11 +281,13 @@ verified-partial | verified), body (notes)`.
 Moderation is a decision, not a field. Never cited by a status decision.
 
 **Decision** (immutable). The only source of state.
-`kind (admission | promotion | acceptance | status | revision | merge |
-retire | moderation | redaction | release), targetType, targetId, outcome,
-status (open | partial | solved | refuted), verificationLevel (triaged |
-ai-verified | machine-verified | human-signed), reviewIds[],
-contributionIds[], policyVersion, effectiveAt, body (rationale)`.
+`kind (admission | promotion | acceptance | withdrawal | status | merge |
+retire | moderation | redaction | release), targetType, targetId,
+mergeIntoProblemId, outcome, status (open | partial | solved | refuted),
+verificationLevel (unreviewed | triaged | ai-verified | machine-verified |
+human-signed), reviewIds[], contributionIds[], policyVersion, effectiveAt,
+body (rationale)`. A `release` targets the ledger with the release tag as
+`targetId` and records the commit and `lastSequence` in its body.
 `acceptance` decisions are issued automatically by the system actor when
 the policy thresholds are met by the reviews on file, and record the
 policy version applied; a later policy change never alters them.
@@ -302,7 +318,7 @@ problems/<problem-id>/
     auxiliary/...
 sources/<source-id>.r1.md
 actors/<actor-id>.r1.md
-policy/<version>.md
+taxonomy.r1.md
 
 (second repository)
 trajectories/<trajectory-id>.md     written once at close; event log by digest
@@ -314,7 +330,9 @@ comments/<target-type>/<target-id>/<comment-id>.r1.md
 
 Committed files are never modified, with one exception: a `redaction`
 decision replaces a file's content with a tombstone that keeps the id, the
-decision id, and nothing else. A person with a file browser and `git log`
+decision id, and nothing else; for a revisable entity every revision file is
+tombstoned. References to a tombstone still resolve, so redaction never
+breaks another record. A person with a file browser and `git log`
 can answer every provenance question without the service.
 
 ### 3.5 Derived state
@@ -326,13 +344,14 @@ Everything below is computed from decisions and the objects they cite.
 - **Problem status**: latest unsuperseded accepted `status` decision;
   `open` by default. `refuted` applies to auxiliary problems whose
   conjecture was disproved; it is itself a finding.
-- **Clause status**: `resolved` if an accepted claim with `resolves` covers
-  it; `partial` if accepted `narrows`, `bounds`, or `supports` claims exist;
-  otherwise `open`. Accepted means cited by an `acceptance` decision.
+- **Clause status**: `resolved` if an accepted claim with `resolves` or
+  `refutes` covers it; `partial` if accepted `narrows`, `bounds`, or
+  `supports` claims exist; otherwise `open`. Accepted means cited by an `acceptance` decision.
   `supersedesClauseId` merges status across statement versions.
 - **Contribution state**: `submitted` on intake; `triaged`, `accepted`, or
-  `rejected` from its `acceptance` decision; `withdrawn` or `superseded`
-  from a later contribution or decision.
+  `rejected` from its `acceptance` decision; `withdrawn` from a
+  `withdrawal` decision; `superseded` when a later contribution names it in
+  `supersedes`.
 - **Verification level** per contribution: the `verificationLevel`
   recorded on its `acceptance` decision.
 - **Indexed**: a problem is in the main search index if it is primary and
@@ -354,15 +373,19 @@ Everything below is computed from decisions and the objects they cite.
   `lastSequence` as the cheap poll target.
 - **Queues**: contributions without an `acceptance` decision, grouped by
   what they still need; `solved` sign-off; maintenance backlog.
-
-The validator enforces one consistency invariant between decisions and
-claims: a problem marked `solved` or `refuted` has every clause of its
-current statement resolved by an accepted claim; a problem marked `open` has
-none resolved; a problem marked `partial` has at least one clause that is not
-open. A status decision that violates it is a validation error, not a
-silent disagreement.
 - **Actor record**: contributions, reviews, trajectories, acceptance and
   rejection counts.
+
+The validator enforces two invariants that tie decisions to the records they
+rest on. First, status versus clauses: a problem marked `solved` or
+`refuted` has every clause of its current statement resolved by an accepted
+claim; a problem marked `open` has none resolved; a problem marked `partial`
+has at least one clause that is not open. Second, the policy threshold for
+`solved`: under policy 1 a primary problem's `solved` decision must rest on
+an accepted claim with peer-reviewed or machine-checked support, or on two
+independent human verification reviews. A decision that violates either is
+a validation error, not a silent disagreement. Seed decisions name policy 0,
+the legacy audit, and are exempt from the second.
 
 ### 3.6 Implementation principles
 
@@ -395,8 +418,15 @@ silent disagreement.
   it. Floats are never stored as the primary form of a mathematical bound.
 - **Uniqueness.** Source by DOI, else arXiv id and version, else normalized
   URL, else title, first author, and date. Problem aliases unique across the
-  catalog. One `acceptance` decision
-  per contribution per policy version.
+  catalog. One `acceptance` decision per contribution per policy version.
+  Exactly one taxonomy record.
+- **Event sequence.** A record's sequence is its position in the
+  first-parent commit order of the ledger's main branch, ties within a
+  commit broken by path. The index assigns it at ingestion; it is never
+  stored in a record.
+- **Context bundle id.** The SHA-256 of the sorted list of `(id, digest)`
+  pairs the bundle contains. A bundle is not a record; the service can
+  rebuild it from the id.
 - **Time.** All timestamps UTC ISO 8601; `effectiveAt` on decisions may
   precede `createdAt` when recording history.
 - **Schema versioning.** Every file carries `schemaVersion`; the validator
@@ -448,7 +478,8 @@ submission can name exactly what it worked from.
 | Tool | Creates |
 | --- | --- |
 | `submit_contribution(kind, targets, body, claims?, artifactIds?, newStatement?, newProblems?, references?, stopReason?, declaredReadIds, aiInvolvement, license, trajectoryId?)` | One contribution and the objects it introduces; returns intake result and contribution ID. An attempt report may introduce auxiliary problems with their statements, claims about any problem in the tree, and artifacts. |
-| `submit_review(contributionId, kind, independence, methods, checks, verdict, body, trajectoryId?)` | One review |
+| `submit_review(contributionId, kind, independence, conflictOfInterest, methods, checks, verdict, body, trajectoryId?)` | One review |
+| `withdraw_contribution(contributionId, reason)` | A `withdrawal` decision on the actor's own contribution |
 | `post_comment(targetType, targetId, body, parentCommentId?)` | One comment; editing creates a revision |
 | `get_contribution_status(contributionId)` | Derived state, reviews, verification level |
 | `claim_queue_item(queue)` | For verifier and triage agents: the next contribution to assess, with the review packet fields |
@@ -477,7 +508,8 @@ The web app is a collection tool first.
 - **Maintain**: queues, sampling of AI-verified contributions, merge and
   retire, promotion of auxiliary problems, `solved` sign-off, release.
 
-Humans authenticate with GitHub. Agents authenticate with operator-issued
+Humans authenticate with GitHub; the first login creates the human's actor
+record. An operator creates agent and pipeline actors and issues their
 scoped tokens; the operator is a human actor.
 
 ### 4.5 HTTP API and export
@@ -529,10 +561,13 @@ is low so that humans add hints freely.
 | Statement revision accepted | two independent AI reviews or one human review; clause lineage complete |
 | Auxiliary problem promoted to the main index | one human decision: statement is a complete self-contained proposition and status is open |
 | Merge or retire | one human decision during maintenance |
+| Entity revision accepted | automatic at `unreviewed` for a human editor; otherwise one review |
+| Statement revision that breaks the status invariant | accepted only together with a new `status` decision |
 
 Independence: different `operatorId`, different `modelFamily`, and the
-reviewer has not read the submitter's trajectory. Every review must include
-at least one mechanical method.
+reviewer has not read the submitter's trajectory; the first two are checked
+against actor records, the third against the reviewer's trajectory when one
+is on file. Every review must include at least one mechanical method.
 
 When the reviews on file meet a threshold, the system actor issues an
 `acceptance` decision recording the policy version and the verification
@@ -573,20 +608,21 @@ touching it.
   published. Auxiliary problems are `candidate` until the attempt report
   that formulated them is accepted.
 - **Contribution**: `submitted → (triaged | accepted | rejected) →
-  (superseded | withdrawn)`, each step recorded by a decision.
+  (superseded | withdrawn)`; each step is a decision except `superseded`,
+  which a later contribution records in `supersedes`.
 - **Trajectory**: `open → closed`, closing only with an attempt report for
   research runs.
 
 ## 7. Seed data and migration
 
-The current repository supplies the seed: 58 problems with statements and
-evidence from `open_prob/` and `site/data/problems.js`, four canonical
-records under `catalog/`, and 55 candidates from `open_problem_v2/`. The
-migration is a one-time `ingestion` trajectory run by a pipeline actor; it
-produces `problem-proposal` and `evidence-import` contributions, reviews
-that record the original audit, and the decisions that make the seed
-`published`. Nothing is invented: a value the legacy record lacks stays
-empty.
+The legacy repository supplied the seed: 58 problems with statements and
+evidence from `open_prob/` and `site/data/problems.js`, and 55 candidates
+from `open_problem_v2/`. The migration (`tools/migrate-legacy/`) is a
+one-time `ingestion` trajectory run by a pipeline actor; it produces
+`problem-proposal` and `evidence-import` contributions, reviews that record
+the original audit, and the decisions that make the seed `published`, all
+under policy 0. Nothing is invented: a value the legacy record lacks stays
+empty. The table records the rules the tool applies.
 
 | Legacy field | Destination | Rule |
 | --- | --- | --- |
@@ -599,9 +635,10 @@ empty.
 | `metadata.json` source fields | `Source` + `Reference` role `states-problem` | DOI, arXiv, URL precedence preserved; `source_location` becomes the reference locator. |
 | `problem.md` Notation + Formal statement | `Statement.body` | Copied without semantic editing; digest computed per 3.7. |
 | Existing `targetClauses` (catalog slice) | `Clause` | Kept; `supersedesClauseId` empty. |
-| `progress[]` item | `Claim` + `Support` | Relation from content: settles a clause → `resolves`, subclass → `narrows`, bound → `bounds`, else `supports`. `maturity`, `strength`, `date`, `url` → support; `url` also creates or matches a `Source`. |
+| `progress[]` item | `Claim` + `Support` | `narrows` when the strength names a subclass, restriction, special case, or counterexample; otherwise `supports`. Never `resolves` or `refutes` on a single-clause problem. `maturity`, `strength`, `date`, `url` → support; `url` creates or matches a `url-only` `Source`. |
 | `progress[]` item that is a status survey | `Reference` role `survey` | Not a claim. |
-| `watch[]` caution about a specific unaccepted claim | `Claim` (`resolves`) + `Review` (`rejected`, methods `argument-read`, checks from the caution text) | The caution becomes a structured judgement. |
+| `progress[]` or `watch[]` item about an unaccepted claim | Its own `evidence-import` contribution with one `resolves` or `refutes` claim, a `Review` (`rejected`), and a rejected `acceptance` decision | The claim is on record and never feeds derived state. |
+| Solved `problem.md` status section | `Claim` (`resolves` or `refutes`) with support from bibliography entries whose first author's surname appears in the resolution paragraphs | Peer-reviewed when the entry names a journal or DOI. |
 | `watch[]` caution about scope | `Problem.body` | Appended as a "Cautions" paragraph. |
 | `status` + audit date | `Review` (human auditor, `verification`, methods `citation-check`, `argument-read`) + `Decision` (`status`, cites the review) | `partially_solved` → `partial`; `verified` date is the review's `createdAt`. |
 | `origin` | `Problem.origin` | `source-stated` or `derived`. |
@@ -610,7 +647,7 @@ empty.
 | v2 `problem_statement.latex` | `Statement.body` | Verbatim. |
 | v2 `tags` | `Problem.keywords[]` | Verbatim. |
 | v2 `status` | `Decision` (`status`) only if a human review exists; else `open` by default | Nothing invents a reviewed status. |
-| v2 `progress.items[]` | `Claim` + `Support`, or `Reference` role `prior-attempt` | By content, as for legacy progress. |
+| v2 `progress.items[]` | `Reference` role `prior-attempt` carrying the item text | Claims are created at admission review, not by the importer. |
 | v2 `references.entries[]` | `Source` | Deduplicated by DOI or arXiv id. |
 
 Every migrated problem enters as `candidate`. The legacy 58 receive an
@@ -621,7 +658,7 @@ admission. Old URLs resolve through aliases.
 
 | Phase | Deliverable | Exit criterion |
 | --- | --- | --- |
-| 0 Contract | Types, schemas, policy v1, interface specification, contract package with fixtures and conformance test | An external team can build a conforming agent from the package |
+| 0 Contract | Types, schemas, policy v1, interface specification, contract package with fixtures and conformance test | An external team can build a conforming agent from the package. Delivered except the payload schemas and conformance test, which need the phase 1 service |
 | 1 Database | Ledger repository with seed data, domain service and index, HTTP API, MCP, human collection web app with discussion | Humans add problems, references, and comments through the web; a conforming test agent completes read, work, write |
 | 2 Operation | Verification and triage queues in use by external agents, maintenance console, static export, public tokens for operators | First `ai-verified` results and accepted attempt reports on seed problems |
 | 3 Community | Shared maintenance, actor records as credit, more operators | Measured contribution and review volume from outside the maintainers |
@@ -656,3 +693,9 @@ Defaults adopted on 2026-09-02; each can be revisited by a later decision.
    with a cursor, the status-versus-clause consistency invariant, actor
    roles, conflict-of-interest declarations on reviews, source
    completeness, contribution currency, and the operational rules in 4.5.
+10. **Second review, 3 September 2026.** Added the entity-revision
+    contribution, the withdrawal decision, the merge target, the taxonomy
+    record, the `unreviewed` verification level, policy 0 for seed
+    decisions, the policy-1 threshold check on `solved`, tombstone-safe
+    references, and the sequence and bundle specifications; aligned the
+    type listings with the contract package.

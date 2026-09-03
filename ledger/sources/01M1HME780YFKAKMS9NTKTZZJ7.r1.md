@@ -6,7 +6,7 @@ revision: 1
 createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Evidence for bound entangled states with negative partial transpose
-kind: preprint
+kind: paper
 completeness: complete
 authors:
   - D. P. DiVincenzo

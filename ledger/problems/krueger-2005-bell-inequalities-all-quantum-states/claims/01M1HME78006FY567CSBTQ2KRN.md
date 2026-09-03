@@ -16,49 +16,49 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME7800V3XJNZKRZ2SZWR6
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME78088NQYT7AQMNVEYM7
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME780PVHM7VZ05GHK5YAP
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME780Y83DQ7VXACST0ANH
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME780NYFBPKDTMMPQ72MB
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME7803NANE4ZGGNPTNXMC
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME780FJ02TN2GB7QJT6RG
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
 ---
 **Status: solved negatively.** Both universal questions have counterexamples.

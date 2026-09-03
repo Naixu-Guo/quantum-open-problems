@@ -15,6 +15,15 @@ import { RECORD_TYPES, TARGET_TYPE_TO_KIND, parseClauseRef, type RecordType, typ
 import { uniquenessKey, type Source } from "./types/source.ts";
 import { primaryProblemId, type Contribution } from "./types/contribution.ts";
 import { consistencyErrors } from "./derive.ts";
+import { REVIEWED_REVISION_TYPES } from "./targets.ts";
+import type { Contribution as ContributionRecord } from "./types/contribution.ts";
+
+const DEFAULT_POLICY_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "policy");
+
+function knownPolicyVersions(policyDir: string): Set<string> {
+  if (!fs.existsSync(policyDir)) return new Set();
+  return new Set(fs.readdirSync(policyDir).map((name) => name.match(/^v(\d+)\.md$/u)?.[1]).filter((v): v is string => Boolean(v)));
+}
 
 export type IssueCategory = "parse" | "schema" | "identity" | "layout" | "reference" | "rule" | "uniqueness";
 
@@ -153,12 +162,14 @@ export function expectedRelPath(record: LoadedRecord, ledger: Ledger): string | 
       return `artifacts/${record.id}.md`;
     case "Comment":
       return `comments/${String(f["targetType"])}/${String(f["targetId"]).replace("#", "--")}/${record.id}.r${rev}.md`;
+    case "Taxonomy":
+      return `taxonomy.r${rev}.md`;
     default:
       return undefined;
   }
 }
 
-export function validateLedger(roots: string[], schemaDir: string = DEFAULT_SCHEMA_DIR): ValidationReport {
+export function validateLedger(roots: string[], schemaDir: string = DEFAULT_SCHEMA_DIR, policyDir: string = DEFAULT_POLICY_DIR): ValidationReport {
   const issues: Issue[] = [];
   const push = (category: IssueCategory, record: { relPath: string } | string, message: string) =>
     issues.push({ category, path: typeof record === "string" ? record : record.relPath, message });
@@ -214,10 +225,10 @@ export function validateLedger(roots: string[], schemaDir: string = DEFAULT_SCHE
     for (const reference of outgoing) {
       if (reference.target === "Ledger") continue;
       if (reference.target === "Clause") {
-        if (!ledger.clause(reference.id)) push("reference", record, `${reference.field}: clause ${reference.id} does not resolve`);
+        if (!ledger.clauseResolves(reference.id)) push("reference", record, `${reference.field}: clause ${reference.id} does not resolve`);
         continue;
       }
-      if (!ledger.find(reference.target, reference.id)) push("reference", record, `${reference.field}: ${reference.target} ${reference.id} does not resolve`);
+      if (!ledger.findAny(reference.target, reference.id)) push("reference", record, `${reference.field}: ${reference.target} ${reference.id} does not resolve`);
     }
     try {
       for (const message of module.rules(object, ledger)) push("rule", record, message);
@@ -259,6 +270,41 @@ export function validateLedger(roots: string[], schemaDir: string = DEFAULT_SCHE
       if (seen.has(version)) push("uniqueness", statement, `statement version ${version} appears twice for this problem`);
       seen.add(version);
     }
+  }
+
+  // Taxonomy: exactly one, and every area and topic a problem names exists.
+  const taxonomies = ledger.currentOf("Taxonomy");
+  if (taxonomies.length !== 1) push("uniqueness", taxonomies[1] ?? taxonomies[0] ?? "taxonomy.r1.md", `the ledger needs exactly one taxonomy record (found ${taxonomies.length})`);
+  const taxonomy = taxonomies[0];
+  if (taxonomy) {
+    const areaIds = new Set((taxonomy.fields["areas"] as { id: string }[]).map((area) => area.id));
+    const topics = new Map((taxonomy.fields["topics"] as { id: string; areaId: string }[]).map((topic) => [topic.id, topic.areaId]));
+    for (const problem of ledger.currentOf("Problem")) {
+      for (const areaId of problem.fields["areaIds"] as string[]) if (!areaIds.has(areaId)) push("reference", problem, `areaIds: unknown area ${areaId}`);
+      for (const topicId of problem.fields["topicIds"] as string[]) {
+        const areaId = topics.get(topicId);
+        if (areaId === undefined) push("reference", problem, `topicIds: unknown topic ${topicId}`);
+        else if (!(problem.fields["areaIds"] as string[]).includes(areaId)) push("rule", problem, `topic ${topicId} belongs to area ${areaId}, which the problem does not list`);
+      }
+    }
+  }
+
+  // Policy versions named by decisions must exist.
+  const policyVersions = knownPolicyVersions(policyDir);
+  for (const decision of ledger.currentOf("Decision")) {
+    const version = String(decision.fields["policyVersion"]);
+    if (policyVersions.size > 0 && !policyVersions.has(version)) push("reference", decision, `policyVersion ${version} is not a published policy`);
+  }
+
+  // Later revisions of reviewed entities must be introduced by an entity-revision contribution.
+  const introduced = new Set<string>();
+  for (const contribution of ledger.currentOf("Contribution")) {
+    for (const item of (contribution.fields as unknown as ContributionRecord).revisions) introduced.add(`${item.entityId}@${item.revision}`);
+  }
+  for (const record of records) {
+    if (record.redacted || !REVIEWED_REVISION_TYPES.has(record.type)) continue;
+    const revision = revisionOf(record);
+    if (revision > 1 && !introduced.has(`${record.id}@${revision}`)) push("rule", record, `revision ${revision} is not introduced by an entity-revision contribution`);
   }
 
   // Status-versus-clause consistency.

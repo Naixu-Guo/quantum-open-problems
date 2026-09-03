@@ -14,10 +14,14 @@ export const RECORD_TYPES = [
   "Review",
   "Comment",
   "Decision",
+  "Taxonomy",
 ] as const;
 export type RecordType = (typeof RECORD_TYPES)[number];
 
-export const REVISABLE_TYPES: ReadonlySet<RecordType> = new Set(["Problem", "Source", "Reference", "Actor", "Comment"]);
+export const REVISABLE_TYPES: ReadonlySet<RecordType> = new Set(["Problem", "Source", "Reference", "Actor", "Comment", "Taxonomy"]);
+
+/** Revisable types whose later revisions must be introduced by an entity-revision contribution. */
+export const REVIEWED_REVISION_TYPES: ReadonlySet<RecordType> = new Set(["Problem", "Source", "Reference", "Taxonomy"]);
 
 /** What a reference field may point at. `Clause` is addressed as `<statementId>#<clauseId>`. */
 export type TargetKind = RecordType | "Clause" | "Ledger";
@@ -37,6 +41,7 @@ export const TARGET_TYPE_TO_KIND: Readonly<Record<string, TargetKind>> = {
   review: "Review",
   comment: "Comment",
   decision: "Decision",
+  taxonomy: "Taxonomy",
   ledger: "Ledger",
 };
 
@@ -44,7 +49,7 @@ export const TARGET_TYPE_TO_KIND: Readonly<Record<string, TargetKind>> = {
 export const ALLOWED_TARGET_TYPES: Readonly<Record<"Reference" | "Comment" | "Decision", readonly string[]>> = {
   Reference: ["problem", "statement", "clause", "claim"],
   Comment: ["problem", "statement", "clause", "claim", "reference", "contribution", "trajectory", "review"],
-  Decision: ["problem", "contribution", "comment", "statement", "claim", "reference", "trajectory", "review", "ledger"],
+  Decision: ["problem", "contribution", "comment", "statement", "claim", "reference", "trajectory", "review", "source", "artifact", "ledger"],
 };
 
 /** Which target type each decision kind acts on. */
@@ -52,11 +57,12 @@ export const DECISION_TARGETS: Readonly<Record<string, readonly string[]>> = {
   admission: ["problem"],
   promotion: ["problem"],
   acceptance: ["contribution"],
+  withdrawal: ["contribution"],
   status: ["problem"],
   merge: ["problem"],
   retire: ["problem"],
   moderation: ["comment"],
-  redaction: ["problem", "contribution", "comment", "statement", "claim", "reference", "trajectory", "review"],
+  redaction: ["problem", "contribution", "comment", "statement", "claim", "reference", "trajectory", "review", "source", "artifact"],
   release: ["ledger"],
 };
 

@@ -8,13 +8,14 @@ supersedes: null
 kind: acceptance
 targetType: contribution
 targetId: 01M1HME780RNS4DP00SFC0KZDM
+mergeIntoProblemId: null
 outcome: rejected
 status: null
 verificationLevel: human-signed
 reviewIds:
   - 01M1HME780CE20CF46J9VT5YCF
 contributionIds: []
-policyVersion: "1"
+policyVersion: "0"
 effectiveAt: 2026-09-02T18:00:00Z
 ---
 Human review with verdict rejected.

@@ -28,31 +28,31 @@ support:
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME780KXQZYP16R2PK3B7J
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME780PDRYX1RGNTNGTC5N
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME780W7HKT4SZPDQP50YS
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME780BMA1N74EQW4G0DE4
     artifactId: null
     locator: ""
     date: null
-    maturity: preprint
+    maturity: peer-reviewed
     strength: counterexample
   - sourceId: 01M1HME78095KP2YZG1JVRBDNH
     artifactId: null

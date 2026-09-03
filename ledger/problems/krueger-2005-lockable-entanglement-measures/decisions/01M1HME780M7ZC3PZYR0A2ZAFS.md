@@ -8,13 +8,14 @@ supersedes: null
 kind: acceptance
 targetType: contribution
 targetId: 01M1HME780RAP0331JH87WM0AC
+mergeIntoProblemId: null
 outcome: accepted
 status: null
 verificationLevel: human-signed
 reviewIds:
   - 01M1HME7806K3E84DR83G7K3K1
 contributionIds: []
-policyVersion: "1"
+policyVersion: "0"
 effectiveAt: 2026-09-02T18:00:00Z
 ---
 Human review on file; accepted under policy 1.

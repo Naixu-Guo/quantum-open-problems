@@ -24,6 +24,7 @@ claimIds:
   - 01M1HME7801WTR5CHCKREQRZSY
 artifactIds: []
 declaredReadIds: []
+revisions: []
 aiInvolvement: none
 license: CC-BY-4.0
 ---

@@ -13,6 +13,7 @@ import * as artifact from "./artifact.ts";
 import * as review from "./review.ts";
 import * as comment from "./comment.ts";
 import * as decision from "./decision.ts";
+import * as taxonomy from "./taxonomy.ts";
 
 export interface TypeModule {
   schemaFile: string;
@@ -33,4 +34,5 @@ export const TYPE_MODULES: Readonly<Record<RecordType, TypeModule>> = {
   Review: { schemaFile: "review.schema.json", references: review.references, rules: review.rules },
   Comment: { schemaFile: "comment.schema.json", references: comment.references, rules: comment.rules },
   Decision: { schemaFile: "decision.schema.json", references: decision.references, rules: decision.rules },
+  Taxonomy: { schemaFile: "taxonomy.schema.json", references: taxonomy.references, rules: taxonomy.rules },
 };
