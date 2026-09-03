@@ -1,0 +1,148 @@
+% Problem-section file following ../_template.tex.
+\section{Amortization collapse for superchannel divergences}
+\label{sec:problem-68}
+
+\paragraph{Problem.}
+Does amortization collapse for the max-relative entropy and geometric
+R\'enyi divergence of arbitrary finite-dimensional quantum superchannels?
+For compatible states, let
+\begin{equation}
+  \begin{aligned}
+  D_{\max}(\rho\|\sigma)
+    &:=\inf\{\lambda:\rho\leq2^\lambda\sigma\},\\
+  \widehat D_\alpha(\rho\|\sigma)
+    &:=\frac1{\alpha-1}\log_2\operatorname{Tr}\!\left[
+      \sigma\bigl(\sigma^{-1/2}\rho\sigma^{-1/2}\bigr)^\alpha
+      \right],\qquad 1<\alpha\leq2,
+  \end{aligned}
+  \label{eq:p68-state-divergences}
+\end{equation}
+with the standard support conventions.  For either divergence
+$\mathbf D\in\{D_{\max},\widehat D_\alpha\}$, define its channel extension
+and channel-amortized extension by
+\begin{equation}
+  \begin{aligned}
+  \mathbf D_{\rm ch}(\mathcal N\|\mathcal M)
+    &:=\sup_{\rho_{RA}}
+       \mathbf D(\mathcal N(\rho)\|\mathcal M(\rho)),\\
+  \mathbf D_{\rm ch}^{A}(\mathcal N\|\mathcal M)
+    &:=\sup_{\rho_{RA},\sigma_{RA}}
+       \{\mathbf D(\mathcal N(\rho)\|\mathcal M(\sigma))
+         -\mathbf D(\rho\|\sigma)\},
+  \end{aligned}
+  \label{eq:p68-channel-amortization}
+\end{equation}
+In Eq.~\eqref{eq:p68-channel-amortization}, identity maps on $R$ are implicit,
+and the optimizations allow an arbitrary reference of sufficient finite
+dimension.  For superchannels
+$\Theta_1,\Theta_2$, set
+\begin{equation}
+  \begin{aligned}
+  \mathbf D_{\rm sc}(\Theta_1\|\Theta_2)
+    &:=\sup_{\mathcal N}
+      \mathbf D_{\rm ch}(\Theta_1(\mathcal N)\|\Theta_2(\mathcal N)),\\
+  \mathbf D_{\rm sc}^{A}(\Theta_1\|\Theta_2)
+    &:=\sup_{\mathcal N,\mathcal M}
+      \{\mathbf D_{\rm ch}^{A}
+          (\Theta_1(\mathcal N)\|\Theta_2(\mathcal M))
+        -\mathbf D_{\rm ch}^{A}(\mathcal N\|\mathcal M)\}.
+  \end{aligned}
+  \label{eq:p68-superchannel-amortization}
+\end{equation}
+Is
+\begin{equation}
+  \mathbf D_{\rm sc}^{A}(\Theta_1\|\Theta_2)
+  =\mathbf D_{\rm sc}(\Theta_1\|\Theta_2)
+  \label{eq:p68-superchannel-collapse}
+\end{equation}
+for both choices of $\mathbf D$ in Eq.~\eqref{eq:p68-state-divergences} and
+all superchannel pairs?
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Hirche explicitly left Eq.~\eqref{eq:p68-superchannel-collapse} open while
+deriving strong-converse bounds for adaptive superchannel discrimination
+\sourcecite{ref:p68-hirche}{Hir23}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item For point-to-point channels, amortization of the max-relative entropy
+  collapses:
+  \begin{equation}
+    D_{\max,{\rm ch}}^{A}(\mathcal N\|\mathcal M)
+    =D_{\max,{\rm ch}}(\mathcal N\|\mathcal M).
+    \label{eq:p68-channel-max-collapse}
+  \end{equation}
+  The proof of Eq.~\eqref{eq:p68-channel-max-collapse} uses the CP-order
+  structure of channel max-relative entropy
+  \sourcecite{ref:p68-wilde-berta-hirche-kaur}{WBHK20}.
+
+  \item Fang and Fawzi proved the analogous point-to-point channel collapse
+  \begin{equation}
+    \widehat D_{\alpha,{\rm ch}}^{A}(\mathcal N\|\mathcal M)
+    =\widehat D_{\alpha,{\rm ch}}(\mathcal N\|\mathcal M),
+    \qquad 1<\alpha\leq2,
+    \label{eq:p68-channel-geometric-collapse}
+  \end{equation}
+  from a chain rule for the geometric R\'enyi divergence
+  \sourcecite{ref:p68-fang-fawzi}{FF21}.
+
+  \item Hirche used the amortized quantities in
+  Eq.~\eqref{eq:p68-superchannel-amortization} to bound nested-adaptive
+  superchannel discrimination, and introduced fully amortized variants for
+  arbitrary interleavings of superchannel components.  The channel proofs of
+  Eqs.~\eqref{eq:p68-channel-max-collapse} and
+  \eqref{eq:p68-channel-geometric-collapse} have not been lifted to these
+  superchannel settings \sourcecite{ref:p68-hirche}{Hir23}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[WBHK20]}]\label{ref:p68-wilde-berta-hirche-kaur}
+  M. M. Wilde, M. Berta, C. Hirche, and E. Kaur,
+  ``Amortized Channel Divergence for Asymptotic Quantum Channel
+  Discrimination,'' \emph{Letters in Mathematical Physics} \textbf{110},
+  2277--2336 (2020).
+  \href{https://doi.org/10.1007/s11005-020-01297-7}%
+       {doi:10.1007/s11005-020-01297-7};
+  \href{https://arxiv.org/abs/1808.01498}{arXiv:1808.01498}.
+
+  \item[\textup{[FF21]}]\label{ref:p68-fang-fawzi}
+  K. Fang and H. Fawzi,
+  ``Geometric R\'enyi Divergence and its Applications in Quantum Channel
+  Capacities,'' \emph{Communications in Mathematical Physics} \textbf{384},
+  1615--1677 (2021).
+  \href{https://doi.org/10.1007/s00220-021-04064-4}%
+       {doi:10.1007/s00220-021-04064-4};
+  \href{https://arxiv.org/abs/1909.05758}{arXiv:1909.05758}.
+
+  \item[\textup{[Hir23]}]\label{ref:p68-hirche}
+  C. Hirche, ``Quantum Network Discrimination,''
+  \emph{Quantum} \textbf{7}, 1064 (2023).
+  \href{https://doi.org/10.22331/q-2023-07-25-1064}%
+       {doi:10.22331/q-2023-07-25-1064};
+  \href{https://arxiv.org/abs/2103.02404}{arXiv:2103.02404}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+Equation~\eqref{eq:p68-superchannel-collapse} concerns the nested-adaptive
+amortization in Eq.~\eqref{eq:p68-superchannel-amortization}.  Whether the
+larger fully amortized divergences controlling braided and fully general
+strategies collapse is a further, stronger question.
+
+\subsection*{Tag}
+
+Channel discrimination; One-shot quantum information; Quantum networks;
+Strong converse; Superchannels
+
+\subsection*{ID}
+
+\texttt{op\_1482756b02794495}

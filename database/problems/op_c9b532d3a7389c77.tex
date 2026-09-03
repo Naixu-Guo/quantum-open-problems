@@ -1,0 +1,159 @@
+% Problem-section file following ../_template.tex.
+\section{Strong converse for general mixed-state quantum compression}
+\label{sec:problem-71}
+
+\paragraph{Problem.}
+Does general finite-dimensional i.i.d. mixed-state quantum compression obey
+an unrestricted strong converse?  Let $\rho^{AR}$ be a finite-dimensional
+source state, where only $A$ is available to the encoder and $R$ is an
+inaccessible reference.  Fix a Koashi--Imoto isometry $U:A\to CNQ$ for which
+the source has the form
+\begin{equation}
+  \omega^{CNQR}
+  :=(U\otimes I_R)\rho^{AR}(U^\dagger\otimes I_R)
+  =\sum_j p_j|j\rangle\!\langle j|^C
+     \otimes\omega_j^N\otimes\rho_j^{QR},
+  \label{eq:p71-koashi-imoto}
+\end{equation}
+where $C$ is classical, $N$ is redundant relative to $R$ conditioned on
+$C$, and $Q$ carries the remaining source--reference correlations.  At
+blocklength $n$, allow arbitrary encoding and decoding channels
+$\mathcal E_n:A^{\otimes n}\to M_n$ and
+$\mathcal D_n:M_n\to\widehat A^{\otimes n}$, with
+$\widehat A\cong A$.  Their reference-preserving squared fidelity is
+\begin{equation}
+  F_n:=F\!\left(
+    (\rho^{AR})^{\otimes n},
+    \left[(\mathcal D_n\circ\mathcal E_n)
+      \otimes\operatorname{id}_{R^{\otimes n}}\right]
+      ((\rho^{AR})^{\otimes n})
+  \right),
+  \qquad
+  F(\tau,\zeta):=\lVert\sqrt\tau\sqrt\zeta\rVert_1^2.
+  \label{eq:p71-code-fidelity}
+\end{equation}
+The optimal first-order qubit rate is $S(CQ)_\omega$.  Determine whether every
+sequence of unrestricted channels defining Eq.~\eqref{eq:p71-code-fidelity}
+satisfies the strong-converse implication
+\begin{equation}
+  \limsup_{n\to\infty}\frac1n\log_2|M_n|<S(CQ)_\omega
+  \quad\Longrightarrow\quad
+  \lim_{n\to\infty}F_n=0.
+  \label{eq:p71-strong-converse}
+\end{equation}
+Equation~\eqref{eq:p71-strong-converse} imposes no unitality, isometry, or
+dimension-expansion condition on the encoder or decoder.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Wilde records the unresolved mixed-state compression problem in
+Sections~18.4--18.5.  Khanian and Winter solve its general finite-dimensional
+first-order formulation and explicitly leave the strong converse in
+Eq.~\eqref{eq:p71-strong-converse} open
+\sourcecite{ref:p71-wilde}{Wil17},
+\sourcecite{ref:p71-khanian-winter}{KW22}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Koashi and Imoto identify and remove the locally redundant part of a
+  blind mixed-state ensemble.  Khanian and Winter use the corresponding
+  Koashi--Imoto decomposition for an arbitrary reference state, as in
+  Eq.~\eqref{eq:p71-koashi-imoto}, and prove the exact first-order rate
+  \begin{equation}
+    R_{\mathrm{blind}}(\rho^{AR})=S(CQ)_\omega.
+    \label{eq:p71-first-order-rate}
+  \end{equation}
+  Equation~\eqref{eq:p71-first-order-rate} supplies both achievability and a
+  weak converse, but it does not force the fidelity to vanish at every rate
+  below the threshold
+  \sourcecite{ref:p71-koashi-imoto}{KI01},
+  \sourcecite{ref:p71-khanian-winter}{KW22}.
+
+  \item A preprint revised in 2025 proves exponential fidelity decay for
+  general visible compression at every rate below
+  \begin{equation}
+    L_\rho
+    :=\lim_{\alpha\to1^+}E_{\alpha,p}^{\infty}(A{:}R)_\rho,
+    \label{eq:p71-visible-bound}
+  \end{equation}
+  where $E_{\alpha,p}^{\infty}$ is the regularized R\'enyi entanglement of
+  purification used there.  Because blind codes form a subclass of visible
+  codes, Eq.~\eqref{eq:p71-visible-bound} also gives an unrestricted
+  CPTP-decoder converse for blind compression below $L_\rho$.  Equality
+  $L_\rho=E_p^\infty(A{:}R)_\rho$, which would complete the visible strong
+  converse, remains conditional on an unresolved continuity statement; more
+  importantly here, $L_\rho$ need not reach the blind threshold
+  $S(CQ)_\omega$ in Eq.~\eqref{eq:p71-first-order-rate}.
+
+  For rates up to the blind threshold, the preprint's claimed bound assumes
+  that the effective post--Koashi--Imoto decoder
+  $\widetilde{\mathcal D}_n:M_n\to\widehat C^{\otimes n}\widehat Q^{\otimes n}$
+  is super-unital in the sense
+  \begin{equation}
+    I_{\widehat C^{\otimes n}\widehat Q^{\otimes n}}
+    \preceq\widetilde{\mathcal D}_n(I_{M_n}).
+    \label{eq:p71-super-unital}
+  \end{equation}
+  If $\widetilde{\mathcal D}_n$ is trace preserving, taking traces in
+  Eq.~\eqref{eq:p71-super-unital} forces
+  $|M_n|\geq|CQ|^n$, so the assumption excludes the relevant
+  dimension-reducing decoders.  These results therefore do not prove
+  Eq.~\eqref{eq:p71-strong-converse} for unrestricted codes.  The cited
+  version is unrefereed; it also states that its first version contained an
+  error in a lemma and restricts the affected earlier theorem
+  \sourcecite{ref:p71-khanian-strong}{Kha25}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Wil17]}]\label{ref:p71-wilde}
+  M. M. Wilde, \emph{Quantum Information Theory}, 2nd ed., Cambridge
+  University Press (2017), Secs.~18.4--18.5.
+  \href{https://doi.org/10.1017/9781316809976}%
+       {doi:10.1017/9781316809976};
+  \href{https://arxiv.org/abs/1106.1445}{arXiv:1106.1445}.
+
+  \item[\textup{[KI01]}]\label{ref:p71-koashi-imoto}
+  M. Koashi and N. Imoto, ``Compressibility of Quantum Mixed-State Signals,''
+  \emph{Physical Review Letters} \textbf{87}, 017902 (2001).
+  \href{https://doi.org/10.1103/PhysRevLett.87.017902}%
+       {doi:10.1103/PhysRevLett.87.017902};
+  \href{https://arxiv.org/abs/quant-ph/0103128}%
+       {arXiv:quant-ph/0103128}.
+
+  \item[\textup{[KW22]}]\label{ref:p71-khanian-winter}
+  Z. B. Khanian and A. Winter,
+  ``General Mixed State Quantum Data Compression with and without
+  Entanglement Assistance,'' \emph{IEEE Transactions on Information Theory}
+  \textbf{68}, 3130--3138 (2022).
+  \href{https://doi.org/10.1109/TIT.2022.3143846}%
+       {doi:10.1109/TIT.2022.3143846};
+  \href{https://arxiv.org/abs/1912.08506}{arXiv:1912.08506}.
+
+  \item[\textup{[Kha25]}]\label{ref:p71-khanian-strong}
+  Z. B. Khanian, ``Strong Converse Bounds for Compression of Mixed States,''
+  arXiv preprint (2022), version~2 revised in 2025.
+  \href{https://arxiv.org/abs/2206.09415v2}{arXiv:2206.09415v2}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The first-order rate in Eq.~\eqref{eq:p71-first-order-rate} is settled.  The
+remaining gap is exactly the fidelity conclusion in
+Eq.~\eqref{eq:p71-strong-converse} for arbitrary CPTP encoders and decoders
+and an arbitrary finite-dimensional source state $\rho^{AR}$.
+
+\subsection*{Tag}
+
+Quantum Shannon theory; Strong converse; Quantum information theory
+
+\subsection*{ID}
+
+\texttt{op\_c9b532d3a7389c77}

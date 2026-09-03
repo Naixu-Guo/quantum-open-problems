@@ -1,0 +1,130 @@
+% Problem-section file following ../_template.tex.
+\section{Ordinary-Petz fidelity remainder for relative-entropy data processing}
+\label{sec:problem-69}
+
+\paragraph{Problem.}
+Does the ordinary Petz recovery map give a universal fidelity remainder for
+monotonicity of quantum relative entropy?  Let
+$\mathcal N:\mathcal L(A)\to\mathcal L(B)$ be a finite-dimensional quantum
+channel, and let $\rho,\sigma\in\mathcal D(A)$ satisfy
+$\operatorname{supp}\rho\subseteq\operatorname{supp}\sigma$.  With inverses
+taken on the relevant supports, define the Petz map by
+\begin{equation}
+  \mathcal P_{\sigma,\mathcal N}(X)
+  :=\sigma^{1/2}\mathcal N^{\dagger}\!\left(
+      \mathcal N(\sigma)^{-1/2}X
+      \mathcal N(\sigma)^{-1/2}
+    \right)\sigma^{1/2},
+  \label{eq:p69-petz-map}
+\end{equation}
+where $\mathcal N^{\dagger}$ is the Hilbert--Schmidt adjoint.  Write
+$D(\tau\Vert\omega):=\operatorname{Tr}[\tau(\log_2\tau-
+\log_2\omega)]$ and use squared fidelity
+$F(\tau,\omega):=\lVert\sqrt\tau\sqrt\omega\rVert_1^2$.  The proposed
+remainder bound for the map in Eq.~\eqref{eq:p69-petz-map} is
+\begin{equation}
+  D(\rho\Vert\sigma)
+  -D\!\left(\mathcal N(\rho)\middle\Vert\mathcal N(\sigma)\right)
+  \stackrel{?}{\geq}
+  -\log_2 F\!\left(
+    \rho,
+    \mathcal P_{\sigma,\mathcal N}(\mathcal N(\rho))
+  \right).
+  \label{eq:p69-petz-remainder}
+\end{equation}
+Determine whether Eq.~\eqref{eq:p69-petz-remainder} holds for every such
+triple $(\rho,\sigma,\mathcal N)$.
+
+\subsection*{Status}
+
+Solved
+
+\subsection*{Source}
+
+Seshadreesan, Berta, and Wilde explicitly proposed the monotonicity in the
+R\'enyi parameter whose endpoint consequence is
+Eq.~\eqref{eq:p69-petz-remainder}; Wilde records the same conjectured
+ordinary-Petz remainder in Section~12.4
+\sourcecite{ref:p69-seshadreesan-berta-wilde}{SBW15},
+\sourcecite{ref:p69-wilde}{Wil17}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Bhattacharya disproved Eq.~\eqref{eq:p69-petz-remainder} using the
+  diagonal pinching channel $\Phi:M_2(\mathbb C)\to M_2(\mathbb C)$ and the
+  density matrices
+  \begin{equation}
+    A=\begin{pmatrix}
+      \tfrac12&\tfrac12\\
+      \tfrac12&\tfrac12
+    \end{pmatrix},
+    \qquad
+    B=\begin{pmatrix}
+      \tfrac34&-\tfrac14\\
+      -\tfrac14&\tfrac14
+    \end{pmatrix},
+    \qquad
+    \Phi(X)=\sum_{j=0}^{1}|j\rangle\!\langle j|X|j\rangle\!\langle j|.
+    \label{eq:p69-counterexample}
+  \end{equation}
+  For $(\rho,\sigma,\mathcal N)=(A,B,\Phi)$ from
+  Eq.~\eqref{eq:p69-counterexample}, direct evaluation with
+  natural logarithms and root fidelity gives a data-processing loss of
+  approximately $1.5191$, while the proposed recovery term is approximately
+  $1.5349$.  Since replacing root fidelity by squared fidelity and natural
+  logarithms by base-two logarithms rescales both sides consistently, this is
+  also a counterexample to the convention in
+  Eq.~\eqref{eq:p69-petz-remainder}
+  \sourcecite{ref:p69-bhattacharya}{Bha25}.
+
+  \item The counterexample in Eq.~\eqref{eq:p69-counterexample} also rules out
+  the full R\'enyi-parameter monotonicity proposed by Seshadreesan, Berta, and
+  Wilde, because that monotonicity implies the false endpoint inequality
+  Eq.~\eqref{eq:p69-petz-remainder}
+  \sourcecite{ref:p69-seshadreesan-berta-wilde}{SBW15},
+  \sourcecite{ref:p69-bhattacharya}{Bha25}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[SBW15]}]\label{ref:p69-seshadreesan-berta-wilde}
+  K. P. Seshadreesan, M. Berta, and M. M. Wilde,
+  ``R\'enyi Squashed Entanglement, Discord, and Relative Entropy
+  Differences,'' \emph{Journal of Physics A: Mathematical and Theoretical}
+  \textbf{48}, 395303 (2015).
+  \href{https://doi.org/10.1088/1751-8113/48/39/395303}%
+       {doi:10.1088/1751-8113/48/39/395303};
+  \href{https://arxiv.org/abs/1410.1443}{arXiv:1410.1443}.
+
+  \item[\textup{[Wil17]}]\label{ref:p69-wilde}
+  M. M. Wilde, \emph{Quantum Information Theory}, 2nd ed., Cambridge
+  University Press (2017), Sec.~12.4.
+  \href{https://doi.org/10.1017/9781316809976}%
+       {doi:10.1017/9781316809976};
+  \href{https://arxiv.org/abs/1106.1445}{arXiv:1106.1445}.
+
+  \item[\textup{[Bha25]}]\label{ref:p69-bhattacharya}
+  S. Bhattacharya, ``Approximate Recoverability and the Quantum Data
+  Processing Inequality,'' arXiv preprint (2023), version~3 revised in 2025.
+  \href{https://arxiv.org/abs/2309.02074v3}{arXiv:2309.02074v3}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The answer to Eq.~\eqref{eq:p69-petz-remainder} is negative already in
+dimension two.  This general-channel counterexample does not resolve the
+more structured conditional-mutual-information inequality in
+Problem~\ref{sec:problem-70},
+where the channel is a partial trace and the reference state is a marginal
+of the state being recovered.
+
+\subsection*{Tag}
+
+Quantum channels; Quantum information theory; One-shot quantum information
+
+\subsection*{ID}
+
+\texttt{op\_cbc0bf88b109b122}

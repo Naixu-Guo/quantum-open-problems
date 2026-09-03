@@ -1,0 +1,138 @@
+% Problem-section file following ../_template.tex.
+\section{Structural criterion for classical--entanglement trade-off advantage}
+\label{sec:problem-79}
+
+\paragraph{Problem.}
+Characterize the finite-dimensional quantum channels for which joint
+classical--entanglement coding strictly outperforms time sharing between
+unassisted and unlimited-entanglement classical communication.  For a channel
+$\mathcal N:A'\to B$, let $C_{\rm CE}(\mathcal N,e)$ be the supremum of
+asymptotically achievable classical rates when at most $e$ ebits per channel
+use are consumed.  Operationally,
+\begin{equation}
+  C_{\rm CE}(\mathcal N,e)
+  :=\sup\left\{
+    R:\begin{array}{l}
+      \text{there are length-$n$ classical-message codes with}\\
+      n^{-1}\log_2M_n\to R,\quad
+      \limsup_{n\to\infty}n^{-1}\log_2K_n\leq e,\quad
+      P_{\rm err}^{(n)}\to0
+    \end{array}
+  \right\},
+  \label{eq:p79-ce-capacity}
+\end{equation}
+where $K_n$ in Eq.~\eqref{eq:p79-ce-capacity} is the Schmidt rank of the
+preshared maximally entangled resource.  Define the unassisted and
+unlimited-entanglement endpoints by
+\begin{equation}
+  C_0(\mathcal N):=C_{\rm CE}(\mathcal N,0),
+  \qquad
+  C_{\rm EA}(\mathcal N):=\sup_{e\geq0}C_{\rm CE}(\mathcal N,e),
+  \qquad
+  e_{\rm EA}(\mathcal N)
+    :=\inf\{e:C_{\rm CE}(\mathcal N,e)=C_{\rm EA}(\mathcal N)\}.
+  \label{eq:p79-ce-endpoints}
+\end{equation}
+For $e_{\rm EA}(\mathcal N)>0$, endpoint time sharing gives
+\begin{equation}
+  C_{\rm TS}(\mathcal N,e)
+  :=\begin{cases}
+    \left(1-\dfrac{e}{e_{\rm EA}(\mathcal N)}\right)C_0(\mathcal N)
+    +\dfrac{e}{e_{\rm EA}(\mathcal N)}C_{\rm EA}(\mathcal N),
+      &0\leq e\leq e_{\rm EA}(\mathcal N),\\[2mm]
+    C_{\rm EA}(\mathcal N),&e\geq e_{\rm EA}(\mathcal N).
+  \end{cases}
+  \label{eq:p79-time-sharing-curve}
+\end{equation}
+If the infimum in Eq.~\eqref{eq:p79-ce-endpoints} is not attained, interpret
+Eq.~\eqref{eq:p79-time-sharing-curve} through its operational closure; if
+$e_{\rm EA}(\mathcal N)=0$, set
+$C_{\rm TS}(\mathcal N,e)=C_{\rm EA}(\mathcal N)$.  Give intrinsic
+necessary and sufficient conditions for strict suboptimality of this
+benchmark:
+\begin{equation}
+  \exists e>0:\qquad
+  C_{\rm CE}(\mathcal N,e)>C_{\rm TS}(\mathcal N,e).
+  \label{eq:p79-strict-ce-advantage}
+\end{equation}
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Wilde explicitly asks how to determine which channels benefit from trade-off
+coding rather than time sharing in Section~22.5 of his text
+\sourcecite{ref:p79-wilde}{Wil17}.  Br\'adler, Hayden, Touchette, and Wilde
+likewise call for a general method that determines the gain over time sharing
+\sourcecite{ref:p79-bradler-et-al}{BHTW10}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Hsieh and Wilde proved a matching achievable region and multiletter
+  converse for simultaneous classical communication, quantum communication,
+  and entanglement.  The classical--entanglement slice determines
+  $C_{\rm CE}(\mathcal N,e)$ through a regularized optimization, but it does
+  not provide an intrinsic channel-level criterion for
+  Eq.~\eqref{eq:p79-strict-ce-advantage}
+  \sourcecite{ref:p79-hsieh-wilde}{HW10}.
+
+  \item Br\'adler, Hayden, Touchette, and Wilde derived exact trade-off
+  regions for Hadamard channels.  They exhibit strict improvement over
+  endpoint time sharing in nontrivial parameter regimes, including
+  finite-dimensional dephasing and $1\to N$ cloning channels, and introduce
+  a quantitative measure of the gain.  The trivial parameter endpoints need
+  not show strict advantage, and the examples do not characterize all
+  finite-dimensional channels
+  \sourcecite{ref:p79-bradler-et-al}{BHTW10}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Wil17]}]\label{ref:p79-wilde}
+  M. M. Wilde, \emph{Quantum Information Theory}, 2nd ed., Cambridge
+  University Press (2017), Section~22.5.
+  \href{https://doi.org/10.1017/9781316809976}%
+       {doi:10.1017/9781316809976};
+  \href{https://arxiv.org/abs/1106.1445}{arXiv:1106.1445}.
+
+  \item[\textup{[HW10]}]\label{ref:p79-hsieh-wilde}
+  M.-H. Hsieh and M. M. Wilde,
+  ``Trading Classical Communication, Quantum Communication, and Entanglement
+  in Quantum Shannon Theory,''
+  \emph{IEEE Trans. Inf. Theory} \textbf{56}, 4705--4730 (2010).
+  \href{https://doi.org/10.1109/TIT.2010.2054532}%
+       {doi:10.1109/TIT.2010.2054532};
+  \href{https://arxiv.org/abs/0901.3038}{arXiv:0901.3038}.
+
+  \item[\textup{[BHTW10]}]\label{ref:p79-bradler-et-al}
+  K. Br\'adler, P. Hayden, D. Touchette, and M. M. Wilde,
+  ``Trade-Off Capacities of the Quantum Hadamard Channels,''
+  \emph{Physical Review A} \textbf{81},
+  062312 (2010).
+  \href{https://doi.org/10.1103/PhysRevA.81.062312}%
+       {doi:10.1103/PhysRevA.81.062312};
+  \href{https://arxiv.org/abs/1001.1732}{arXiv:1001.1732}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+Strict trade-off advantage itself is known to occur.  The unresolved problem
+is a necessary-and-sufficient structural characterization, including any
+regularization across tensor powers, that identifies when endpoint time
+sharing is optimal.  The statement is deliberately
+restricted to the precisely defined classical--entanglement trade-off; it
+does not use an informal full-dynamic time-sharing region.
+
+\subsection*{Tag}
+
+Classical capacity; Entanglement-assisted communication; Channel coding;
+Quantum Shannon theory
+
+\subsection*{ID}
+
+\texttt{op\_ad12295d8fdfb02a}

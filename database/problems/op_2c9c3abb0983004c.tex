@@ -1,0 +1,192 @@
+% Problem-section file following ../_template.tex.
+\section{Uniformly efficient HSW pretty-good decoding}
+\label{sec:problem-78}
+
+\paragraph{Problem.}
+Can Holevo--Schumacher--Westmoreland codebooks operating at every rate below
+their ensemble Holevo information be chosen so that their square-root, or
+pretty-good, measurements have uniform quantum
+implementations whose cost is polynomial in the blocklength and the logarithm
+of the codebook size?  Fix an efficiently implementable finite-dimensional
+memoryless channel $\mathcal N:A\to B$ and an efficiently preparable ensemble
+$\{p(x),\phi_x^A\}_{x\in\mathcal X}$.  For
+\begin{equation}
+  \omega_{XB}:=\sum_{x\in\mathcal X}p(x)|x\rangle\!\langle x|_X
+    \otimes\mathcal N(\phi_x),
+  \qquad
+  \chi(\mathcal N,p):=I(X;B)_\omega,
+  \label{eq:p78-holevo-information}
+\end{equation}
+fix a rate $0<R<\chi(\mathcal N,p)$ and choose a fixed typicality parameter
+$\delta>0$ sufficiently small as a function of the gap
+$\chi(\mathcal N,p)-R$.  A length-$n$ codebook consists of
+$M_n$ words $x^n(m)$, with $n^{-1}\log_2M_n\to R$, and corresponding output
+states
+\begin{equation}
+  \rho_m^{B^n}:=\bigotimes_{i=1}^{n}\mathcal N(\phi_{x_i(m)}),
+  \qquad m\in\{1,\ldots,M_n\}.
+  \label{eq:p78-codeword-states}
+\end{equation}
+Let $\Pi_{\bar\rho,\delta}^{(n)}$ be the typical projector of
+$\bar\rho^B:=\sum_x p(x)\mathcal N(\phi_x)$, and let
+$\Pi_{m,\delta}^{(n)}$ be the conditionally typical projector for the
+codeword $x^n(m)$ and the product state in
+Eq.~\eqref{eq:p78-codeword-states}.  The detection operators used in the
+standard HSW decoder are
+\begin{equation}
+  \Gamma_{m,n}
+  :=\Pi_{\bar\rho,\delta}^{(n)}
+      \Pi_{m,\delta}^{(n)}
+      \Pi_{\bar\rho,\delta}^{(n)},
+  \qquad
+  G_n:=\sum_{m=1}^{M_n}\Gamma_{m,n}.
+  \label{eq:p78-hsw-detection-operators}
+\end{equation}
+Using the Moore--Penrose inverse on $\operatorname{supp}G_n$, their
+square-root measurement, including its failure outcome, is
+\begin{equation}
+  \Lambda_{m,n}:=G_n^{-1/2}\Gamma_{m,n}G_n^{-1/2},
+  \qquad
+  \Lambda_{0,n}:=I-\sum_{m=1}^{M_n}\Lambda_{m,n}.
+  \label{eq:p78-hsw-pgm}
+\end{equation}
+
+The codebook must be succinct rather than an explicit list of exponentially
+many words.  Require uniform polynomial-size coherent circuits that (i)
+compute $x_i(m)$, (ii) prepare a purification $|\psi_m\rangle_{B^nR_n}$ of
+$\rho_m^{B^n}$ coherently in $m$, and (iii) give a controlled block encoding
+of the operators in Eq.~\eqref{eq:p78-hsw-detection-operators}.  Denote these
+circuits by $C_n$, $O_n$, and $U_{\Gamma,n}$, so that
+\begin{equation}
+  \begin{aligned}
+    C_n|m,i,0\rangle&=|m,i,x_i(m)\rangle,\\
+    O_n|m,0\rangle&=|m\rangle|\psi_m\rangle,
+      \qquad \operatorname{Tr}_{R_n}|\psi_m\rangle\!\langle\psi_m|=\rho_m,\\
+    (\langle0|_Z\otimes I)U_{\Gamma,n}(|0\rangle_Z\otimes I)
+      &=\sum_{m=1}^{M_n}|m\rangle\!\langle m|\otimes\Gamma_{m,n}.
+  \end{aligned}
+  \label{eq:p78-access-model}
+\end{equation}
+The promise in Eq.~\eqref{eq:p78-access-model} includes efficient inverse
+circuits and a classical algorithm that outputs their gates in time
+polynomial in $n$ and $\log M_n$.
+
+The target is a uniform decoder circuit producing a POVM
+$\{\widetilde\Lambda_{j,n}\}_{j=0}^{M_n}$ whose output distribution, averaged
+over transmitted messages, approximates that of
+Eq.~\eqref{eq:p78-hsw-pgm}.  For every $0<\varepsilon<1/2$, require
+\begin{equation}
+  \Delta_n
+  :=\frac{1}{2M_n}\sum_{m=1}^{M_n}\sum_{j=0}^{M_n}
+    \left|
+      \operatorname{Tr}\!\left[
+        (\widetilde\Lambda_{j,n}-\Lambda_{j,n})\rho_m^{B^n}
+      \right]
+    \right|
+  \leq\varepsilon,
+  \label{eq:p78-average-implementation-error}
+\end{equation}
+with gate and oracle complexity
+$\operatorname{poly}(n,\log M_n,\log(1/\varepsilon))$, rather than polynomial
+in $M_n$ or in the inverse of an exponentially small singular value.  Taking,
+for example, an inverse-polynomial sequence $\varepsilon=\varepsilon_n\to0$,
+the implemented decoder must retain vanishing average message error.  The
+problem is to construct such codebooks and decoders for every instance in
+Eq.~\eqref{eq:p78-holevo-information}, or to prove that this uniform target is
+impossible under the access model in Eq.~\eqref{eq:p78-access-model}.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Section~20.3 of Wilde's text explicitly identifies efficient implementation
+of the collective HSW square-root measurement as an open problem and notes
+that a direct sequential implementation may examine exponentially many
+messages \sourcecite{ref:p78-wilde}{Wil17}.  The statement above makes the
+previously implicit input model and complexity target explicit.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Gily\'en, Lloyd, Marvian, Quek, and Wilde give a quantum algorithm for
+  a general pretty-good instrument using purified access, block encodings,
+  quantum singular-value transformation, and oblivious amplitude
+  amplification.  In a PGM specialization, the environment dimension is the
+  number of hypotheses $M_n$, and the query bounds also depend on inverse
+  spectral parameters of the relevant aggregate and hypothesis operators.
+  These factors can be exponential for an HSW codebook, so the result does
+  not give the polynomial target following
+  Eq.~\eqref{eq:p78-average-implementation-error}
+  \sourcecite{ref:p78-gilyen-et-al}{GLM+22}.
+
+  \item The same work proves black-box lower bounds for generic Petz-map
+  implementation by reduction from unstructured search.  Those bounds show
+  that dimension and condition dependence cannot simply be removed in that
+  oracle model, but they are not an HSW-specific lower bound and do not prove
+  that Eq.~\eqref{eq:p78-average-implementation-error} is impossible.  A
+  positive solution would have to exploit the memoryless-channel and
+  succinct-codebook structure in
+  Eqs.~\eqref{eq:p78-codeword-states}--\eqref{eq:p78-access-model}
+  \sourcecite{ref:p78-gilyen-et-al}{GLM+22}.
+
+  \item Behera, Granda Arango, Sergioli, and Giuntini propose a
+  support-aware, threshold-regularized pseudoinverse and demonstrate hybrid
+  block-encoding and circuit-level realizations.  Their 2026 preprint relies
+  on classical spectral preprocessing and small-dimensional numerical
+  demonstrations; it does not prove a uniform asymptotic complexity bound for
+  exponentially large HSW codebooks
+  \sourcecite{ref:p78-behera-et-al}{BGS+26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Wil17]}]\label{ref:p78-wilde}
+  M. M. Wilde, \emph{Quantum Information Theory}, 2nd ed., Cambridge
+  University Press (2017), Section~20.3.
+  \href{https://doi.org/10.1017/9781316809976}%
+       {doi:10.1017/9781316809976};
+  \href{https://arxiv.org/abs/1106.1445}{arXiv:1106.1445}.
+
+  \item[\textup{[GLM+22]}]\label{ref:p78-gilyen-et-al}
+  A. Gily\'en, S. Lloyd, I. Marvian, Y. Quek, and M. M. Wilde,
+  ``Quantum Algorithm for Petz Recovery Channels and Pretty Good
+  Measurements,'' \emph{Physical Review Letters}
+  \textbf{128}, 220502 (2022).
+  \href{https://doi.org/10.1103/PhysRevLett.128.220502}%
+       {doi:10.1103/PhysRevLett.128.220502};
+  \href{https://arxiv.org/abs/2006.16924}{arXiv:2006.16924}.
+
+  \item[\textup{[BGS+26]}]\label{ref:p78-behera-et-al}
+  B. K. Behera, A. C. Granda Arango, G. Sergioli, and R. Giuntini,
+  ``Robust Pretty Good Measurement via Hybrid Classical-Quantum
+  Pseudoinverse Approximation and Circuit-Level Realization,'' arXiv preprint
+  (2026).
+  \href{https://arxiv.org/abs/2606.13150v1}{arXiv:2606.13150v1}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The unresolved requirement is polynomial scaling in the natural succinct
+input length of an HSW family operating below its ensemble Holevo information.
+Existing PGM algorithms are
+efficient when their oracle, dimension, and condition parameters are
+efficient, but that statement alone does not control an HSW codebook with
+$M_n=2^{\Theta(n)}$.  Equation~\eqref{eq:p78-average-implementation-error}
+uses an ensemble-average metric so that exponentially small spectral
+subspaces need not be reproduced on irrelevant inputs.  The target is
+specifically the typical-projector HSW measurement in
+Eq.~\eqref{eq:p78-hsw-pgm}, not the raw-state PGM of the codeword density
+operators.
+
+\subsection*{Tag}
+
+Decoding algorithms; Classical capacity; Quantum algorithms; Quantum
+measurement theory; Channel coding; Quantum Shannon theory
+
+\subsection*{ID}
+
+\texttt{op\_2c9c3abb0983004c}

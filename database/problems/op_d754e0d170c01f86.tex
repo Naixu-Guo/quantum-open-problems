@@ -1,0 +1,144 @@
+% Problem-section file following ../_template.tex.
+\section{Diamond-smoothed max-relative-entropy AEP for quantum channels}
+\label{sec:problem-65}
+
+\paragraph{Problem.}
+Does the max-relative entropy of finite-dimensional quantum channels satisfy an
+asymptotic equipartition property under uniform diamond-norm smoothing?  Let
+$\mathcal N,\mathcal M:\mathcal L(A)\to\mathcal L(B)$ be quantum channels
+with $D_{\max}(\mathcal N\|\mathcal M)<\infty$.  Using unnormalized Choi
+operators, define the channel max-relative entropy and its smoothed version by
+\begin{equation}
+  \begin{aligned}
+  D_{\max}(\mathcal N\|\mathcal M)
+    &:=\inf\{\lambda:J_{\mathcal N}\leq2^\lambda J_{\mathcal M}\},\\
+  D_{\max}^{\varepsilon}(\mathcal N\|\mathcal M)
+    &:=\inf_{\substack{\widetilde{\mathcal N}\ {m CPTP}:\\
+              \frac12\|\widetilde{\mathcal N}-\mathcal N\|_\diamond
+              \leq\varepsilon}}
+       D_{\max}(\widetilde{\mathcal N}\|\mathcal M).
+  \end{aligned}
+  \label{eq:p65-smooth-channel-max}
+\end{equation}
+The smoothing in Eq.~\eqref{eq:p65-smooth-channel-max} requires one channel
+$\widetilde{\mathcal N}$ that approximates $\mathcal N$ uniformly over all
+ancilla-assisted inputs.  Define
+\begin{equation}
+  \begin{aligned}
+  D_{\max}^{\varepsilon,\infty}(\mathcal N\|\mathcal M)
+    &:=\limsup_{n\to\infty}\frac1n
+       D_{\max}^{\varepsilon}
+       (\mathcal N^{\otimes n}\|\mathcal M^{\otimes n}),\\
+  D_{\rm ch}^{\infty}(\mathcal N\|\mathcal M)
+    &:=\lim_{n\to\infty}\frac1n
+      \sup_{\psi_{R A^n}}
+      D\!\left((\operatorname{id}_R\otimes\mathcal N^{\otimes n})(\psi)
+      \middle\|
+      (\operatorname{id}_R\otimes\mathcal M^{\otimes n})(\psi)\right),
+  \end{aligned}
+  \label{eq:p65-regularized-divergences}
+\end{equation}
+where $R\simeq A^{\otimes n}$ suffices and $D$ is quantum relative entropy.
+Is the following identity valid for every such channel pair, and can the
+$\limsup$ in Eq.~\eqref{eq:p65-regularized-divergences} be replaced by a
+limit?
+\begin{equation}
+  \sup_{\varepsilon>0}
+  D_{\max}^{\varepsilon,\infty}(\mathcal N\|\mathcal M)
+  =D_{\rm ch}^{\infty}(\mathcal N\|\mathcal M).
+  \label{eq:p65-channel-aep}
+\end{equation}
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Winter first proposed the identity in Eq.~\eqref{eq:p65-channel-aep}; Liu and
+Winter discussed it formally in the setting of channel-resource erasure
+\sourcecite{ref:p65-liu-winter}{LW19}.  Hirche restated it explicitly as the
+technical conjecture needed in quantum-network discrimination
+\sourcecite{ref:p65-hirche}{Hir23}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Gour and Winter proved asymptotic equipartition statements for two
+  channel-resource divergences using a more permissive ``liberal'' smoothing.
+  That smoothing does not require the single uniformly diamond-close channel
+  in Eq.~\eqref{eq:p65-smooth-channel-max}, so it does not establish
+  Eq.~\eqref{eq:p65-channel-aep}
+  \sourcecite{ref:p65-gour-winter}{GW19}.
+
+  \item Hirche proved the general bounds
+  \begin{equation}
+    D_{\rm ch}^{\infty}(\mathcal N\|\mathcal M)
+    \leq D_{\max}^{\varepsilon,\infty}(\mathcal N\|\mathcal M)
+    \leq D_{\max}(\mathcal N\|\mathcal M),
+    \label{eq:p65-known-bounds}
+  \end{equation}
+  The bounds in Eq.~\eqref{eq:p65-known-bounds} do not identify the
+  asymptotic rate.  Hirche also showed that Eq.~\eqref{eq:p65-channel-aep}
+  would collapse the amortized
+  Umegaki relative entropy of superchannels to their regularized relative
+  entropy \sourcecite{ref:p65-hirche}{Hir23}.
+
+  \item Fang, Gour, and Wang related an analogous AEP for unstabilized channel
+  divergences without quantum-memory assistance to strong converses for
+  channel discrimination.  Their latest formulation leaves that general
+  strong-converse problem unresolved and does not prove the stabilized,
+  diamond-smoothed identity in Eq.~\eqref{eq:p65-channel-aep}
+  \sourcecite{ref:p65-fang-gour-wang}{FGW25}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[LW19]}]\label{ref:p65-liu-winter}
+  Z.-W. Liu and A. Winter,
+  ``Resource Theories of Quantum Channels and the Universal Role of Resource
+  Erasure,'' arXiv preprint (2019).
+  \href{https://arxiv.org/abs/1904.04201}{arXiv:1904.04201}.
+
+  \item[\textup{[GW19]}]\label{ref:p65-gour-winter}
+  G. Gour and A. Winter, ``How to Quantify a Dynamical Quantum Resource,''
+  \emph{Physical Review Letters} \textbf{123}, 150401 (2019).
+  \href{https://doi.org/10.1103/PhysRevLett.123.150401}%
+       {doi:10.1103/PhysRevLett.123.150401};
+  \href{https://arxiv.org/abs/1906.03517}{arXiv:1906.03517}.
+
+  \item[\textup{[Hir23]}]\label{ref:p65-hirche}
+  C. Hirche, ``Quantum Network Discrimination,''
+  \emph{Quantum} \textbf{7}, 1064 (2023).
+  \href{https://doi.org/10.22331/q-2023-07-25-1064}%
+       {doi:10.22331/q-2023-07-25-1064};
+  \href{https://arxiv.org/abs/2103.02404}{arXiv:2103.02404}.
+
+  \item[\textup{[FGW25]}]\label{ref:p65-fang-gour-wang}
+  K. Fang, G. Gour, and X. Wang,
+  ``Towards the Ultimate Limits of Quantum Channel Discrimination and Quantum
+  Communication,'' \emph{Science China Information Sciences} \textbf{68},
+  180509 (2025).
+  \href{https://doi.org/10.1007/s11432-024-4488-0}%
+       {doi:10.1007/s11432-024-4488-0};
+  \href{https://arxiv.org/abs/2110.14842}{arXiv:2110.14842}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The essential constraint is uniform channel smoothing in diamond norm.  An
+AEP obtained by smoothing each output state separately, or by optimizing only
+over unentangled inputs, does not imply Eq.~\eqref{eq:p65-channel-aep}.  A
+positive solution would also resolve the conditional equality posed in
+Problem~\ref{sec:problem-66}.
+
+\subsection*{Tag}
+
+Quantum channels; One-shot quantum information; Quantum hypothesis testing;
+Quantum information theory; Strong converse
+
+\subsection*{ID}
+
+\texttt{op\_d754e0d170c01f86}

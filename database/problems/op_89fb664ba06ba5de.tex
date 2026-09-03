@@ -1,0 +1,155 @@
+% Problem-section file following ../_template.tex.
+\section{Candidate pure-loss second-order converse}
+\label{sec:problem-76}
+
+\paragraph{Problem.}
+Does the pure-loss bosonic channel admit the following candidate second-order
+classical converse under a maximum-photon-number occupation constraint?  Let
+$\mathcal N_\eta$ be the single-mode pure-loss channel with transmissivity
+$0<\eta<1$, defined in the Heisenberg picture by
+\begin{equation}
+  \hat b=\sqrt{\eta}\,\hat a+\sqrt{1-\eta}\,\hat e,
+  \label{eq:p76-pure-loss-channel}
+\end{equation}
+where the environment mode $E$ is in the vacuum.  In an $n$-use code, the
+channel in Eq.~\eqref{eq:p76-pure-loss-channel} is used to transmit one of
+$M$ input states $\rho_m^{A^n}$, with a decoding POVM
+$\{\Lambda_m^{B^n}\}_{m=1}^M$.  Write
+$\overline\rho_{A^n}:=M^{-1}\sum_m\rho_m^{A^n}$ and let
+$\Pi_{\lceil nN_S\rceil}$ project onto the $n$-mode subspace of total photon
+number at most $\lceil nN_S\rceil$.  For fixed $N_S>0$,
+$\varepsilon\in(0,1)$, and $c>0$, impose
+\begin{equation}
+  \frac1M\sum_{m=1}^M
+    \operatorname{Tr}\!\left[
+      \Lambda_m\mathcal N_\eta^{\otimes n}(\rho_m)
+    \right]
+    \geq1-\varepsilon,
+  \qquad
+  \operatorname{Tr}\!\left[
+    \Pi_{\lceil nN_S\rceil}\overline\rho_{A^n}
+  \right]
+    \geq1-\delta_n,
+  \qquad
+  0\leq\delta_n\leq2^{-cn}.
+  \label{eq:p76-code-constraints}
+\end{equation}
+Let $M^*_{\rm occ}(n,\eta,N_S,\varepsilon,c)$ be the largest $M$ satisfying
+Eq.~\eqref{eq:p76-code-constraints}.  Define the thermal entropy and its
+entropy variance by
+\begin{equation}
+  g(x):=(x+1)\log_2(x+1)-x\log_2x,
+  \qquad
+  v(x):=x(x+1)
+    \left[\log_2(x+1)-\log_2x\right]^2,
+  \label{eq:p76-thermal-entropy-and-variance}
+\end{equation}
+where $0\log_2 0:=0$.  With the functions in
+Eq.~\eqref{eq:p76-thermal-entropy-and-variance}, is the following upper bound
+valid as $n\to\infty$?
+\begin{equation}
+  \log_2 M^*_{\rm occ}(n,\eta,N_S,\varepsilon,c)
+  \leq ng(\eta N_S)
+    +\sqrt{n\,v(\eta N_S)}\,\Phi^{-1}(\varepsilon)
+    +O(\log n),
+  \label{eq:p76-second-order-converse}
+\end{equation}
+Here $\Phi^{-1}$ in Eq.~\eqref{eq:p76-second-order-converse} is the inverse
+standard-normal cumulative distribution function, and the implicit constant
+may depend on $\eta,N_S,\varepsilon,$ and $c$, but not on $n$.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Wilde, Renes, and Guha leave open whether their Gaussian second-order
+expression is an upper bound and observe that such a converse should impose a
+photon-number occupation constraint similar to Wilde and Winter's.
+Equation~\eqref{eq:p76-code-constraints} adopts a particular exponentially
+strong version of that suggestion, so Eq.~\eqref{eq:p76-second-order-converse}
+is a precise strengthened formulation rather than a verbatim conjecture from
+their paper
+\sourcecite{ref:p76-wilde-renes-guha}{WRG16}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Wilde, Renes, and Guha proved the corresponding second-order
+  achievability expression
+  \begin{equation}
+    \log_2 M^*(\mathcal N_\eta^{\otimes n},N_S,\varepsilon)
+    \geq ng(\eta N_S)
+      +\sqrt{n\,v(\eta N_S)}\,\Phi^{-1}(\varepsilon)
+      +O(\log n).
+    \label{eq:p76-second-order-achievability}
+  \end{equation}
+  Their basic derivation of
+  Eq.~\eqref{eq:p76-second-order-achievability} uses a mean-photon-number
+  ensemble.  They also modify the construction to obtain exponentially small
+  leakage outside the cutoff subspace, but with degraded second-order
+  parameters; neither argument supplies
+  Eq.~\eqref{eq:p76-second-order-converse}
+  \sourcecite{ref:p76-wilde-renes-guha}{WRG16}.
+
+  \item Wilde and Winter proved a first-order strong converse at the rate
+  $g(\eta N_S)$ under the maximum-photon-number occupation constraint.  For
+  every fixed energy and rate backoff, their modified coherent-state codes
+  have exponentially small cutoff leakage.  This does not establish the
+  exact $g(\eta N_S)$ first-order term and the stated dispersion while also
+  maintaining an arbitrary prescribed exponent $c$ in
+  Eq.~\eqref{eq:p76-code-constraints}.  Moreover, a first-order strong
+  converse controls rates a fixed distance above capacity and does not
+  determine the
+  $\sqrt n$ coefficient in Eq.~\eqref{eq:p76-second-order-converse}
+  \sourcecite{ref:p76-wilde-winter}{WW14}.
+
+  \item Under only a mean-photon-number constraint, Wilde and Winter
+  constructed codes with nonvanishing success probability at rates above
+  $g(\eta N_S)$.  Hence a converse of the form
+  Eq.~\eqref{eq:p76-second-order-converse} is false under that weaker
+  constraint; the occupation hypothesis in
+  Eq.~\eqref{eq:p76-code-constraints} is essential
+  \sourcecite{ref:p76-wilde-winter}{WW14}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[WRG16]}]\label{ref:p76-wilde-renes-guha}
+  M. M. Wilde, J. M. Renes, and S. Guha, ``Second-Order Coding Rates for
+  Pure-Loss Bosonic Channels,'' \emph{Quantum Information Processing}
+  \textbf{15}, 1289--1308 (2016).
+  \href{https://doi.org/10.1007/s11128-015-0997-x}%
+       {doi:10.1007/s11128-015-0997-x};
+  \href{https://arxiv.org/abs/1408.5328}{arXiv:1408.5328}.
+
+  \item[\textup{[WW14]}]\label{ref:p76-wilde-winter}
+  M. M. Wilde and A. Winter, ``Strong Converse for the Classical Capacity of
+  the Pure-Loss Bosonic Channel,'' \emph{Problems of Information
+  Transmission} \textbf{50}, 117--132 (2014).
+  \href{https://doi.org/10.1134/S003294601402001X}%
+       {doi:10.1134/S003294601402001X};
+  \href{https://arxiv.org/abs/1308.6732}{arXiv:1308.6732}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The unresolved task is the candidate sharp Gaussian $\sqrt n$ converse term
+under the stated fixed-exponent occupation constraint, not the first-order
+capacity or strong converse.  No matching achievability theorem is known for
+this exact constraint.  The exclusion of $\eta=1$ is essential: at the
+identity-channel endpoint, the dimension of the cutoff Fock subspace itself
+violates Eq.~\eqref{eq:p76-second-order-converse} for
+$\varepsilon<\tfrac12$.
+
+\subsection*{Tag}
+
+Bosonic channels; Classical capacity; Finite-blocklength quantum information;
+Strong converse; Continuous-variable systems; Quantum Shannon theory
+
+\subsection*{ID}
+
+\texttt{op\_89fb664ba06ba5de}

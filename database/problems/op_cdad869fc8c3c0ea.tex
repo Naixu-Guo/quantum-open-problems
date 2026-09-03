@@ -1,0 +1,159 @@
+% Problem-section file following ../_template.tex.
+\section{All-code exponential strong converse for degradable channels}
+\label{sec:problem-77}
+
+\paragraph{Problem.}
+Does every finite-dimensional degradable quantum channel satisfy an all-code
+exponential strong converse for quantum communication at its quantum capacity?
+Let $V:A\to B\otimes E$ be a Stinespring isometry, and define the channel and
+one complementary channel by
+\begin{equation}
+  \mathcal N(\rho):=\operatorname{Tr}_E(V\rho V^\dagger),
+  \qquad
+  \mathcal N^c(\rho):=\operatorname{Tr}_B(V\rho V^\dagger).
+  \label{eq:p77-complementary-channels}
+\end{equation}
+The channel in Eq.~\eqref{eq:p77-complementary-channels} is degradable when
+there is a completely positive trace-preserving map
+$\mathcal D:\mathcal L(B)\to\mathcal L(E)$ such that
+\begin{equation}
+  \mathcal N^c=\mathcal D\circ\mathcal N.
+  \label{eq:p77-degradability}
+\end{equation}
+For a channel satisfying Eq.~\eqref{eq:p77-degradability}, its quantum
+capacity is the single-letter coherent information
+\begin{equation}
+  Q(\mathcal N)=Q^{(1)}(\mathcal N)
+  :=\max_{\rho_A}
+    \left[S(\mathcal N(\rho_A))-S(\mathcal N^c(\rho_A))\right],
+  \qquad
+  S(\tau):=-\operatorname{Tr}(\tau\log_2\tau).
+  \label{eq:p77-degradable-capacity}
+\end{equation}
+
+For an arbitrary $n$-use entanglement-transmission code, let the encoder and
+decoder be CPTP maps
+$\mathcal E_n:\mathcal L(S_n)\to\mathcal L(A^{\otimes n})$ and
+$\mathcal R_n:\mathcal L(B^{\otimes n})\to\mathcal L(\widehat S_n)$, with
+$\dim S_n=\dim\widehat S_n=M_n$.  If
+$\Phi_{M_n}^{R_nS_n}$ is maximally entangled, define the code rate and
+entanglement fidelity by
+\begin{equation}
+  r_n:=\frac{1}{n}\log_2 M_n,
+  \qquad
+  F_n:=\operatorname{Tr}\!\left[
+    \Phi_{M_n}^{R_n\widehat S_n}
+    \bigl(\operatorname{id}_{R_n}\otimes
+      \mathcal R_n\circ\mathcal N^{\otimes n}\circ\mathcal E_n\bigr)
+      (\Phi_{M_n}^{R_nS_n})
+  \right].
+  \label{eq:p77-code-fidelity}
+\end{equation}
+The all-code exponential strong converse asks whether, for every
+$R>Q(\mathcal N)$, there are constants $\gamma_R>0$ and $n_R$ such that every
+code in Eq.~\eqref{eq:p77-code-fidelity} obeys
+\begin{equation}
+  r_n\geq R,\qquad n\geq n_R
+  \quad\Longrightarrow\quad
+  F_n\leq 2^{-\gamma_R n}.
+  \label{eq:p77-exponential-strong-converse}
+\end{equation}
+Equation~\eqref{eq:p77-exponential-strong-converse} requires a bound for every
+encoder--decoder pair, rather than for almost every member of a random code
+ensemble.
+
+\subsection*{Status}
+
+Solved
+
+\subsection*{Source}
+
+Morgan and Winter explicitly isolated the upgrade from their pretty-strong
+converse to a full strong converse for degradable channels
+\sourcecite{ref:p77-morgan-winter}{MW14}.  Wilde records this gap, together
+with the corresponding all-code gap for the quantum erasure channel, in
+Section~24.10 of his text \sourcecite{ref:p77-wilde}{Wil17}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Morgan and Winter proved that rates above
+  Eq.~\eqref{eq:p77-degradable-capacity} force the asymptotic fidelity to be
+  bounded away from one for every degradable channel.  Their ``pretty
+  strong'' converse did not force $F_n$ to zero and therefore did not imply
+  Eq.~\eqref{eq:p77-exponential-strong-converse}
+  \sourcecite{ref:p77-morgan-winter}{MW14}.
+
+  \item Wilde and Winter proved exponential fidelity decay above the quantum
+  capacity of the erasure channel for almost all codes drawn from their
+  random ensemble.  The exceptional set was not excluded, so their theorem
+  was not the all-code statement in
+  Eq.~\eqref{eq:p77-exponential-strong-converse}
+  \sourcecite{ref:p77-wilde-winter}{WW14}.
+
+  \item Kondra, Brinster, Kampermann, Bru{\ss}, and Wyderka prove
+  Eq.~\eqref{eq:p77-exponential-strong-converse} for every finite-dimensional
+  degradable channel and also prove an exponential strong converse for every
+  finite-dimensional antidegradable channel.  Since every quantum erasure
+  channel is degradable or antidegradable, their result gives the first
+  all-code exponential strong converse for the erasure channel over its full
+  parameter range \sourcecite{ref:p77-kondra-et-al}{KBK+26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[MW14]}]\label{ref:p77-morgan-winter}
+  C. Morgan and A. Winter,
+  ``Pretty Strong Converse for the Quantum Capacity of Degradable
+  Channels,'' \emph{IEEE Transactions on Information Theory} \textbf{60},
+  317--333 (2014).
+  \href{https://doi.org/10.1109/TIT.2013.2288971}%
+       {doi:10.1109/TIT.2013.2288971};
+  \href{https://arxiv.org/abs/1301.4927}{arXiv:1301.4927}.
+
+  \item[\textup{[WW14]}]\label{ref:p77-wilde-winter}
+  M. M. Wilde and A. Winter,
+  ``Strong Converse for the Quantum Capacity of the Erasure Channel for
+  Almost All Codes,'' in \emph{9th Conference on the Theory of Quantum
+  Computation, Communication and Cryptography (TQC 2014)}, LIPIcs
+  \textbf{27}, 52--66 (2014).
+  \href{https://doi.org/10.4230/LIPIcs.TQC.2014.52}%
+       {doi:10.4230/LIPIcs.TQC.2014.52};
+  \href{https://arxiv.org/abs/1402.3626}{arXiv:1402.3626}.
+
+  \item[\textup{[Wil17]}]\label{ref:p77-wilde}
+  M. M. Wilde, \emph{Quantum Information Theory}, 2nd ed., Cambridge
+  University Press (2017), Sec.~24.10.
+  \href{https://doi.org/10.1017/9781316809976}%
+       {doi:10.1017/9781316809976};
+  \href{https://arxiv.org/abs/1106.1445}{arXiv:1106.1445}.
+
+  \item[\textup{[KBK+26]}]\label{ref:p77-kondra-et-al}
+  T. V. Kondra, R. Brinster, H. Kampermann, D. Bru{\ss}, and N. Wyderka,
+  ``Sharp Quantum Capacity Thresholds: Exponential Strong Converses for
+  Degradable and Antidegradable Channels,'' arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2608.01308v1}{arXiv:2608.01308v1}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The solved status records the theorem claimed in
+\sourcecite{ref:p77-kondra-et-al}{KBK+26}.  As of 2026-09-02, that work was
+a one-month-old, unrefereed v1 preprint, so the closure is provisional and
+should be re-audited if the preprint changes.
+Problem~\ref{sec:problem-55} asks
+for an exponential strong converse for the larger, potentially strict class
+of transpose-degradable channels; the theorem above applies to ordinarily
+degradable and antidegradable channels and does not by itself settle that
+extension.
+
+\subsection*{Tag}
+
+Degradable channels; Erasure channels; Quantum capacity; Strong converse;
+Finite-blocklength quantum information; Quantum Shannon theory
+
+\subsection*{ID}
+
+\texttt{op\_cdad869fc8c3c0ea}

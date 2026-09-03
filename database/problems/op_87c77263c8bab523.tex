@@ -1,0 +1,132 @@
+% Problem-section file following ../_template.tex.
+\section{Ordinary-Petz recovery bound for conditional mutual information}
+\label{sec:problem-70}
+
+\paragraph{Problem.}
+Does the ordinary, unrotated Petz map universally recover a tripartite state
+with fidelity controlled by its conditional mutual information?  For a
+finite-dimensional state $\rho_{ABC}$, define
+\begin{equation}
+  I(A;B\mid C)_\rho
+  :=S(AC)_\rho+S(BC)_\rho-S(C)_\rho-S(ABC)_\rho,
+  \qquad
+  S(\tau):=-\operatorname{Tr}(\tau\log_2\tau).
+  \label{eq:p70-cmi}
+\end{equation}
+The ordinary Petz map associated with $\rho_{AC}$ and the channel
+$\operatorname{Tr}_A:AC\to C$ is
+\begin{equation}
+  \mathcal P^{\rho}_{C\to AC}(X_C)
+  :=\rho_{AC}^{1/2}\!\left[
+      I_A\otimes\rho_C^{-1/2}X_C\rho_C^{-1/2}
+    \right]\rho_{AC}^{1/2},
+  \label{eq:p70-petz-map}
+\end{equation}
+where the inverse is taken on $\operatorname{supp}\rho_C$.  With squared
+fidelity $F(\tau,\omega):=\lVert\sqrt\tau\sqrt\omega\rVert_1^2$, determine
+whether the quantity in Eq.~\eqref{eq:p70-cmi} always satisfies
+\begin{equation}
+  I(A;B\mid C)_\rho
+  \stackrel{?}{\geq}
+  -\log_2 F\!\left(
+    \rho_{ABC},
+    (\operatorname{id}_B\otimes\mathcal P^{\rho}_{C\to AC})(\rho_{BC})
+  \right),
+  \label{eq:p70-ordinary-petz-cmi}
+\end{equation}
+with the recovered systems ordered canonically as $ABC$.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Berta, Seshadreesan, and Wilde state the R\'enyi-monotonicity conjecture whose
+$\alpha=1/2$ and $\alpha=1$ endpoints give
+Eq.~\eqref{eq:p70-ordinary-petz-cmi}; Wilde records this ordinary-Petz
+inequality explicitly in Section~12.7
+\sourcecite{ref:p70-berta-seshadreesan-wilde}{BSW15},
+\sourcecite{ref:p70-wilde}{Wil17}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Sutter, Tomamichel, and Harrow proved a strengthened data-processing
+  inequality using a pinched Petz map, equivalently a convex combination of
+  rotated Petz maps.  Their result yields a conditional-mutual-information
+  recovery bound of the form
+  \begin{equation}
+    I(A;B\mid C)_\rho
+    \geq-\log_2 F\!\left(
+      \rho_{ABC},
+      (\operatorname{id}_B\otimes\mathcal R_{C\to AC})(\rho_{BC})
+    \right),
+    \label{eq:p70-rotated-recovery}
+  \end{equation}
+  for an explicitly averaged recovery map $\mathcal R_{C\to AC}$.
+  Equation~\eqref{eq:p70-rotated-recovery} does not establish
+  Eq.~\eqref{eq:p70-ordinary-petz-cmi}, because the averaging need not reduce
+  to the unrotated map in Eq.~\eqref{eq:p70-petz-map}
+  \sourcecite{ref:p70-sutter-tomamichel-harrow}{STH16}.
+
+  \item Junge, Renner, Sutter, Wilde, and Winter constructed a universal
+  recovery map depending only on the reference state and the channel, and
+  proved a fidelity remainder of the form in
+  Eq.~\eqref{eq:p70-rotated-recovery}.  Their universal map is an average of
+  rotated Petz maps, so universality alone does not settle the ordinary-map
+  requirement in Eq.~\eqref{eq:p70-ordinary-petz-cmi}
+  \sourcecite{ref:p70-junge-et-al}{JRS+18}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[BSW15]}]\label{ref:p70-berta-seshadreesan-wilde}
+  M. Berta, K. P. Seshadreesan, and M. M. Wilde,
+  ``R\'enyi Generalizations of the Conditional Quantum Mutual Information,''
+  \emph{Journal of Mathematical Physics} \textbf{56}, 022205 (2015).
+  \href{https://doi.org/10.1063/1.4908102}{doi:10.1063/1.4908102};
+  \href{https://arxiv.org/abs/1403.6102}{arXiv:1403.6102}.
+
+  \item[\textup{[Wil17]}]\label{ref:p70-wilde}
+  M. M. Wilde, \emph{Quantum Information Theory}, 2nd ed., Cambridge
+  University Press (2017), Sec.~12.7.
+  \href{https://doi.org/10.1017/9781316809976}%
+       {doi:10.1017/9781316809976};
+  \href{https://arxiv.org/abs/1106.1445}{arXiv:1106.1445}.
+
+  \item[\textup{[STH16]}]\label{ref:p70-sutter-tomamichel-harrow}
+  D. Sutter, M. Tomamichel, and A. W. Harrow,
+  ``Strengthened Monotonicity of Relative Entropy via Pinched Petz Recovery
+  Map,'' \emph{IEEE Transactions on Information Theory} \textbf{62},
+  2907--2913 (2016).
+  \href{https://doi.org/10.1109/TIT.2016.2545680}%
+       {doi:10.1109/TIT.2016.2545680};
+  \href{https://arxiv.org/abs/1507.00303}{arXiv:1507.00303}.
+
+  \item[\textup{[JRS+18]}]\label{ref:p70-junge-et-al}
+  M. Junge, R. Renner, D. Sutter, M. M. Wilde, and A. Winter,
+  ``Universal Recovery Maps and Approximate Sufficiency of Quantum Relative
+  Entropy,'' \emph{Annales Henri Poincar\'e} \textbf{19}, 2955--2978 (2018).
+  \href{https://doi.org/10.1007/s00023-018-0716-0}%
+       {doi:10.1007/s00023-018-0716-0};
+  \href{https://arxiv.org/abs/1509.07127}{arXiv:1509.07127}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The unresolved requirement is the specific map in
+Eq.~\eqref{eq:p70-petz-map}, without rotations, pinching, averaging, or an
+optimization over recovery channels.  The general data-processing
+counterexample recorded in Problem~\ref{sec:problem-69} does not have the constrained
+partial-trace and compatible-marginal structure imposed here.
+
+\subsection*{Tag}
+
+Quantum channels; Quantum information theory; One-shot quantum information
+
+\subsection*{ID}
+
+\texttt{op\_87c77263c8bab523}

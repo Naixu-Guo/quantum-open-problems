@@ -1,0 +1,120 @@
+% Problem-section file following ../_template.tex.
+\section{Parallel versus nested-adaptive superchannel discrimination}
+\label{sec:problem-66}
+
+\paragraph{Problem.}
+Can nested-adaptive strategies improve the Stein exponent for discriminating
+two finite-dimensional quantum superchannels?  A superchannel maps channels
+$\mathcal N:A\to B$ to channels $C\to D$ and admits a realization
+\begin{equation}
+  \Theta(\mathcal N)
+  =\mathcal D\circ(\mathcal N\otimes\operatorname{id}_S)\circ\mathcal E,
+  \qquad
+  \mathcal E:C\to A S,
+  \quad \mathcal D:B S\to D.
+  \label{eq:p66-superchannel-realization}
+\end{equation}
+The memory system $S$ in Eq.~\eqref{eq:p66-superchannel-realization} is
+internal to the superchannel.  In a fully parallel $n$-use strategy, one applies
+$\Theta_i^{\otimes n}$ to a joint $n$-partite inserted channel and then tests
+the resulting output on a joint input state.  A nested-adaptive strategy may
+instead recursively insert the channel produced by one tested use into the
+channel slot of another, with arbitrary compatible CPTP maps between uses and
+a final binary measurement.  For
+$\mathsf S\in\{\mathrm{par},\mathrm{nest}\}$, let
+\begin{equation}
+  \begin{aligned}
+  \beta_{\varepsilon,n}^{\mathsf S}(\Theta_1\|\Theta_2)
+    &:=\inf\{\beta_n(P):P\in\mathsf S_n,\ \alpha_n(P)\leq\varepsilon\},\\
+  \zeta_{\mathsf S}(\Theta_1\|\Theta_2)
+    &:=\lim_{\varepsilon\downarrow0}\liminf_{n\to\infty}
+      -\frac1n\log_2
+      \beta_{\varepsilon,n}^{\mathsf S}(\Theta_1\|\Theta_2),
+  \end{aligned}
+  \label{eq:p66-stein-exponents}
+\end{equation}
+where $\alpha_n$ and $\beta_n$ are the type-I and type-II errors.  Is
+\begin{equation}
+  \zeta_{\mathrm{nest}}(\Theta_1\|\Theta_2)
+  =\zeta_{\mathrm{par}}(\Theta_1\|\Theta_2)
+  \label{eq:p66-nested-parallel-equality}
+\end{equation}
+for every pair $\Theta_1,\Theta_2$?
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Hirche explicitly conjectured the equality in
+Eq.~\eqref{eq:p66-nested-parallel-equality} while developing the first
+asymptotic discrimination framework for quantum superchannels
+\sourcecite{ref:p66-hirche}{Hir23}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item The fully parallel Stein exponent in
+  Eq.~\eqref{eq:p66-stein-exponents} is known exactly:
+  \begin{equation}
+    \zeta_{\mathrm{par}}(\Theta_1\|\Theta_2)
+    =D_{\rm sc}^{\infty}(\Theta_1\|\Theta_2),
+    \label{eq:p66-parallel-exponent}
+  \end{equation}
+  In Eq.~\eqref{eq:p66-parallel-exponent}, $D_{\rm sc}^{\infty}$ is the
+  regularized superchannel relative
+  entropy optimized over joint inserted channels and input states
+  \sourcecite{ref:p66-hirche}{Hir23}.
+
+  \item Every parallel strategy can be embedded into a nested one.  Hirche's
+  amortized-superchannel meta-converse therefore gives
+  \begin{equation}
+    D_{\rm sc}^{\infty}(\Theta_1\|\Theta_2)
+    \leq\zeta_{\mathrm{nest}}(\Theta_1\|\Theta_2)
+    \leq D_{\rm sc}^{A}(\Theta_1\|\Theta_2),
+    \label{eq:p66-known-hierarchy}
+  \end{equation}
+  with $D_{\rm sc}^{A}$ the amortized superchannel relative entropy
+  \sourcecite{ref:p66-hirche}{Hir23}.
+
+  \item The channel chain rule underlying
+  Eq.~\eqref{eq:p66-known-hierarchy} implies
+  $D_{\rm sc}^{A}=D_{\rm sc}^{\infty}$, and hence
+  Eq.~\eqref{eq:p66-nested-parallel-equality}, conditional on the
+  diamond-smoothed channel AEP in Problem~\ref{sec:problem-65}.  No
+  unconditional proof or counterexample is known
+  \sourcecite{ref:p66-hirche}{Hir23}.
+
+  \item For classical superchannels, all relevant relative-entropy
+  amortizations collapse and product strategies already achieve the optimum;
+  thus Eq.~\eqref{eq:p66-nested-parallel-equality} holds in that special case
+  \sourcecite{ref:p66-hirche}{Hir23}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Hir23]}]\label{ref:p66-hirche}
+  C. Hirche, ``Quantum Network Discrimination,''
+  \emph{Quantum} \textbf{7}, 1064 (2023).
+  \href{https://doi.org/10.22331/q-2023-07-25-1064}%
+       {doi:10.22331/q-2023-07-25-1064};
+  \href{https://arxiv.org/abs/2103.02404}{arXiv:2103.02404}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+This problem compares two causal strategy classes.  It is distinct from
+Problem~\ref{sec:problem-67}, which allows arbitrary interleavings of the
+physical components of different superchannel uses.
+
+\subsection*{Tag}
+
+Channel discrimination; Quantum hypothesis testing; Quantum networks;
+Superchannels
+
+\subsection*{ID}
+
+\texttt{op\_a4600b38b94042a8}

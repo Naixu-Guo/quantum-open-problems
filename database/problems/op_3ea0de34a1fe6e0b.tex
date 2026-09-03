@@ -1,0 +1,139 @@
+% Problem-section file following ../_template.tex.
+\section{Universal finite truncation of quantum and private capacities}
+\label{sec:problem-73}
+
+\paragraph{Problem.}
+Do there exist channel-independent finite integers $m_Q$ and $m_P$ that
+determine, respectively, the quantum capacity and the private classical
+capacity of every finite-dimensional quantum channel?  Let $V_{A\to BE}$ be
+a Stinespring isometry for a channel and its
+complement, and define coherent information by
+\begin{equation}
+  \mathcal N_{A\to B}(\rho):=\operatorname{Tr}_{E}[V\rho V^\dagger],
+  \qquad
+  \mathcal N^c_{A\to E}(\rho):=\operatorname{Tr}_{B}[V\rho V^\dagger],
+  \qquad
+  I_{\rm c}(\rho,\mathcal N):=
+  S(\mathcal N(\rho))-S(\mathcal N^c(\rho)).
+  \label{eq:p73-channel-and-coherent-information}
+\end{equation}
+For each $m\geq1$, use Eq.~\eqref{eq:p73-channel-and-coherent-information}
+to set
+\begin{equation}
+  Q^{(m)}(\mathcal N)
+  :=\frac1m\max_{\rho_{A^m}}
+       I_{\rm c}(\rho_{A^m},\mathcal N^{\otimes m}),
+  \qquad
+  Q(\mathcal N):=\sup_{m\geq1}Q^{(m)}(\mathcal N).
+  \label{eq:p73-quantum-regularization}
+\end{equation}
+For an ensemble $\{p_x,\rho_x^{A^m}\}$, let its joint channel output be
+\begin{equation}
+  \omega^{XB^mE^m}
+  :=\sum_x p_x|x\rangle\!\langle x|^X\otimes
+    V^{\otimes m}\rho_x^{A^m}(V^\dagger)^{\otimes m}.
+  \label{eq:p73-private-output-state}
+\end{equation}
+In terms of the state in Eq.~\eqref{eq:p73-private-output-state}, define
+\begin{equation}
+  P^{(m)}(\mathcal N)
+  :=\frac1m\max_{\{p_x,\rho_x^{A^m}\}}
+       \bigl[I(X;B^m)_\omega-I(X;E^m)_\omega\bigr],
+  \qquad
+  P(\mathcal N):=\sup_{m\geq1}P^{(m)}(\mathcal N).
+  \label{eq:p73-private-regularization}
+\end{equation}
+The question is whether there exist finite integers $m_Q$ and $m_P$,
+independent of the channel dimensions and of $\mathcal N$, such that
+\begin{equation}
+  Q(\mathcal N)=Q^{(m_Q)}(\mathcal N)
+  \quad\text{and}\quad
+  P(\mathcal N)=P^{(m_P)}(\mathcal N)
+  \quad\text{for every finite-dimensional }\mathcal N.
+  \label{eq:p73-universal-truncations}
+\end{equation}
+
+\subsection*{Status}
+
+Solved
+
+\subsection*{Source}
+
+Wilde asks whether an entropic formula evaluated on some finite tensor power
+could replace the regularizations in Eqs.~\eqref{eq:p73-quantum-regularization}
+and \eqref{eq:p73-private-regularization}.  Equation~\eqref{eq:p73-universal-truncations}
+records the uniform, channel-independent interpretation of that question
+\sourcecite{ref:p73-wilde}{Wil17}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Cubitt et al. proved that for every positive integer $n$ there is a
+  finite-dimensional channel $\mathcal M_n$ such that
+  \begin{equation}
+    Q^{(n)}(\mathcal M_n)=0
+    \quad\text{while}\quad
+    Q(\mathcal M_n)>0.
+    \label{eq:p73-cubitt-separation}
+  \end{equation}
+  Equation~\eqref{eq:p73-cubitt-separation} rules out every proposed
+  universal value of $m_Q$
+  \sourcecite{ref:p73-cubitt-et-al}{CEM+15}.
+
+  \item Elkouss and Strelchuk proved that for every $n$ there is a channel
+  $\mathcal N_n$ for which, for all $1\leq k<n$,
+  \begin{equation}
+    P^{(k)}(\mathcal N_n)
+    <Q^{(k+1)}(\mathcal N_n)
+    \leq P(\mathcal N_n).
+    \label{eq:p73-elkouss-strelchuk-separation}
+  \end{equation}
+  Choosing $n>m_P$ in
+  Eq.~\eqref{eq:p73-elkouss-strelchuk-separation} rules out every universal
+  private-information truncation $m_P$
+  \sourcecite{ref:p73-elkouss-strelchuk}{ES15}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Wil17]}]\label{ref:p73-wilde}
+  M. M. Wilde, \emph{Quantum Information Theory}, 2nd ed., Cambridge
+  University Press (2017), Sec.~26.6.
+  \href{https://doi.org/10.1017/9781316809976}%
+       {doi:10.1017/9781316809976};
+  \href{https://arxiv.org/abs/1106.1445}{arXiv:1106.1445}.
+
+  \item[\textup{[CEM+15]}]\label{ref:p73-cubitt-et-al}
+  T. S. Cubitt, D. Elkouss, W. Matthews, M. Ozols, D. P\'erez-Garc\'ia, and
+  S. Strelchuk, ``Unbounded Number of Channel Uses May Be Required to Detect
+  Quantum Capacity,'' \emph{Nature Communications} \textbf{6}, 6739 (2015).
+  \href{https://doi.org/10.1038/ncomms7739}{doi:10.1038/ncomms7739};
+  \href{https://arxiv.org/abs/1408.5115}{arXiv:1408.5115}.
+
+  \item[\textup{[ES15]}]\label{ref:p73-elkouss-strelchuk}
+  D. Elkouss and S. Strelchuk, ``Superadditivity of Private Information for
+  Any Number of Uses of the Channel,'' \emph{Physical Review Letters}
+  \textbf{115}, 040501 (2015).
+  \href{https://doi.org/10.1103/PhysRevLett.115.040501}%
+       {doi:10.1103/PhysRevLett.115.040501};
+  \href{https://arxiv.org/abs/1502.05326}{arXiv:1502.05326}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The answer to Eq.~\eqref{eq:p73-universal-truncations} is negative for both
+capacities.  These counterexamples exclude only a channel-independent block
+length for the standard coherent- and private-information regularizations;
+they do not exclude finite stabilization for a particular channel or a
+different exact capacity formula.
+
+\subsection*{Tag}
+
+Quantum capacity; Private capacity; Coherent information; Quantum channels;
+Quantum Shannon theory
+
+\subsection*{ID}
+
+\texttt{op\_3ea0de34a1fe6e0b}
