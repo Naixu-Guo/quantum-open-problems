@@ -1,20 +1,28 @@
 # Quantum Open Problems
 
-An index of open problems across quantum science, checked against primary papers and recent claims.
+A database of well-defined open problems in quantum science and of the
+research activity around them by humans and AI.
 
-**[Browse the research index](https://naixu-guo.github.io/quantum-open-problems/)**
+Humans collect problems, precise statements, references with notes, and
+discussion. AI agents, built separately against a published contract, read
+that material, form their own approaches, attempt the problems, record their
+trajectories, and report back. Independent AI reviews verify most results;
+humans sign off on `solved` and run periodic maintenance. The whole solving
+process, including auxiliary problems, failed routes, and verifications, is
+recorded so the next attempt starts from the tree of what has been tried.
 
-The baseline audit covers 53 questions from the Horodecki, Krueger–Werner, and Ruskai quantum-information lists. The 33 active questions inherited from those lists stay in the `Quantum information` field; their topic labels do not promote them into other research fields.
+The design is in [`docs/DESIGN.md`](docs/DESIGN.md). Work proceeds in four
+phases: contract, database, operation, community. The repository is in
+phase 0.
 
-The catalog also includes two quantum-sensing questions found through GaugeForge and three TheoremDB questions accepted after a primary-source review.
+## Legacy release
 
-As of 31 August 2026, the catalog contains:
-
-- 28 open problems
-- 10 partially solved problems
-- 20 solved problems
-
-The website lists the 38 active questions across five research fields. Each problem has a stable page at `/problems/<record-id>/` with the source article's full formal statement with typeset equations, the exact remaining problem, recent progress, publication maturity, and warnings about withdrawn, conditional, disputed, or narrower claims. Solved records keep an archived page at the same URL pattern, so citations survive resolution. Each active record is also available as JSON, as a Markdown research brief, and inside the bulk snapshot.
+Everything below this line describes the static release that preceded the
+design and now serves as seed data. It remains deployed at
+<https://naixu-guo.github.io/quantum-open-problems/> until the new
+database replaces it. Its catalog holds 58 audited problems (28 open, 10
+partially solved, 20 solved) and 55 further candidates under
+`open_problem_v2/`.
 
 ## Repository structure
 

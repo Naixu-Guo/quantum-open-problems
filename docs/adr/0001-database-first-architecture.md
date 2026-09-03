@@ -1,3 +1,8 @@
+> **Superseded (2026-09-02).** ADR 0001 remains correct on the database-first direction and Git-backed logical store; its read-only MCP, deferred write side, and byte-for-byte compatibility gate are replaced. The current design is
+> [`docs/DESIGN.md`](../DESIGN.md). This file is kept for the history
+> of the decision and as a description of the legacy release that now
+> serves as seed data.
+
 # ADR 0001: Database-first product architecture
 
 - Status: Accepted for incremental implementation

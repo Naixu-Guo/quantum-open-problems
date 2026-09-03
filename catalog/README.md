@@ -1,3 +1,8 @@
+> **Superseded (2026-09-02).** The vertical slice here validated the read-side contract; its bundle-per-problem format, compatibility projector, and hand-written schema validator are not carried forward. Its four example problems become the contract-package fixtures. The current design is
+> [`docs/DESIGN.md`](../docs/DESIGN.md). This file is kept for the history
+> of the decision and as a description of the legacy release that now
+> serves as seed data.
+
 # Canonical catalog vertical slice
 
 `catalog/` is the first implementation of the database-first architecture in

@@ -1,3 +1,8 @@
+> **Superseded (2026-09-02).** The field mapping here is replaced by section 7 of the design document. The current design is
+> [`docs/DESIGN.md`](../docs/DESIGN.md). This file is kept for the history
+> of the decision and as a description of the legacy release that now
+> serves as seed data.
+
 # Canonical migration map
 
 This document defines how the current authoring surfaces enter canonical

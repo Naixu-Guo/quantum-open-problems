@@ -1,3 +1,8 @@
+> **Superseded (2026-09-02).** This document describes the legacy static release and its migration plan. The current design is
+> [`docs/DESIGN.md`](docs/DESIGN.md). This file is kept for the history
+> of the decision and as a description of the legacy release that now
+> serves as seed data.
+
 # Quantum Open Problems architecture
 
 ## Product position
