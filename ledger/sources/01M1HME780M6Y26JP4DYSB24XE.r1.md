@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Interactive Proofs for Quantum Computations
 kind: preprint
+completeness: complete
 authors:
   - D. Aharonov
   - M. Ben-Or

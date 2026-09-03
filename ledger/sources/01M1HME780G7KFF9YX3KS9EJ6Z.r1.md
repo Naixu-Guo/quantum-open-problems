@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Ascertaining the values of $\sigma_x$, $\sigma_y$, and $\sigma_z$ of a polarization qubit
 kind: preprint
+completeness: complete
 authors:
   - O. Schulz
   - R. Steinhübl

@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: SIC-POVMs and the Extended Clifford Group
 kind: preprint
+completeness: complete
 authors:
   - D. M. Appleby
 venue: arXiv:quant-ph/0412001 (2004); J. Math. Phys. 46, 052107 (2005)

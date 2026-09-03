@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Entanglement-assisted classical capacity of noisy quantum channels
 kind: preprint
+completeness: complete
 authors:
   - C. H. Bennett
   - P. W. Shor

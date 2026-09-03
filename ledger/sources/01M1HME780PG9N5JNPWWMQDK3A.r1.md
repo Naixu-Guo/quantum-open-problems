@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Problem proposed by E. Knill (with G. Ortiz and R. Somma), 31 January 2003.
 kind: paper
+completeness: partial
 authors: []
 venue: ""
 date: null

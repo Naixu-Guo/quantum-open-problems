@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: A Semidefinite Program for Distillable Entanglement
 kind: paper
+completeness: complete
 authors:
   - E. M. Rains
 venue: IEEE Transactions on Information Theory 47, 2921-2933 (2001)

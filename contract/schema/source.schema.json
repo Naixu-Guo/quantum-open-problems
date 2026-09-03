@@ -5,11 +5,12 @@
   "description": "A bibliographic record. Revisable. Unique by DOI, else arXiv id and version, else normalized URL.",
   "allOf": [{ "$ref": "common.schema.json#/$defs/revisableBase" }],
   "unevaluatedProperties": false,
-  "required": ["type", "title", "kind", "authors", "venue", "date", "doi", "arxivId", "url", "version", "body"],
+  "required": ["type", "title", "kind", "completeness", "authors", "venue", "date", "doi", "arxivId", "url", "version", "body"],
   "properties": {
     "type": { "const": "Source" },
     "title": { "$ref": "common.schema.json#/$defs/nonEmptyText" },
     "kind": { "enum": ["paper", "preprint", "book", "problem-list", "dataset", "thesis", "web-record"] },
+    "completeness": { "enum": ["complete", "partial", "url-only"] },
     "authors": { "type": "array", "items": { "type": "string", "minLength": 1 } },
     "venue": { "$ref": "common.schema.json#/$defs/text" },
     "date": { "$ref": "common.schema.json#/$defs/dateOrNull" },

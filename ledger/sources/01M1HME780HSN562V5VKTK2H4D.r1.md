@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Many copies may be required for entanglement distillation
 kind: paper
+completeness: complete
 authors:
   - J. Watrous
 venue: Phys. Rev. Lett. 93, 010502 (2004)

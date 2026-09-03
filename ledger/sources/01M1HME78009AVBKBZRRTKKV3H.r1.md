@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Tight uniform continuity bounds for quantum entropies
 kind: preprint
+completeness: complete
 authors:
   - A. Winter
 venue: Comm. Math. Phys. 347, 291 (2016); arXiv:1507.07775

@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Robust Logarithmic Lower Bound on Shared-Resource Cost for $f$-Routing
 kind: preprint
+completeness: complete
 authors:
   - K. Bogner
 venue: arXiv:2608.05775v2 (2026).\newline

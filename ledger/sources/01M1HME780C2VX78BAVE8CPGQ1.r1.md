@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: The Membership Problem for Constant-Sized Quantum Correlations Is Undecidable
 kind: paper
+completeness: complete
 authors:
   - H. Fu
   - C. A. Miller

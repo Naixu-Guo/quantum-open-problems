@@ -142,6 +142,15 @@
         "moneyUsd": { "type": ["number", "null"], "minimum": 0 }
       }
     },
+    "conflictOfInterest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["declared", "statement"],
+      "properties": {
+        "declared": { "type": "boolean" },
+        "statement": { "$ref": "#/$defs/text" }
+      }
+    },
     "independence": {
       "type": "object",
       "additionalProperties": false,

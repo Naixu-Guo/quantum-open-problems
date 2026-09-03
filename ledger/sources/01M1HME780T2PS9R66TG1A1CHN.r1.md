@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Superadditivity of communication capacity using entangled inputs
 kind: preprint
+completeness: complete
 authors:
   - M. B. Hastings
 venue: Nature Physics 5, 255–257 (2009); arXiv:0809.3972

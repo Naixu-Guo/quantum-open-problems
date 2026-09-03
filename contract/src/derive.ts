@@ -94,6 +94,41 @@ export function clauseStatus(ledger: Ledger, clauseRef: string, claims = accepte
   return partial ? "partial" : "open";
 }
 
+/** Whether the statement a contribution pinned is still its problem's current statement. */
+export function statementIsCurrent(ledger: Ledger, contributionId: string): boolean | null {
+  const contribution = ledger.find("Contribution", contributionId);
+  const statementId = contribution?.fields["statementId"];
+  if (typeof statementId !== "string") return null;
+  const statement = ledger.find("Statement", statementId);
+  if (!statement) return null;
+  const problemId = statement.fields["problemId"] as string;
+  const newest = ledger
+    .currentOf("Statement")
+    .filter((s) => s.fields["problemId"] === problemId)
+    .reduce((best, s) => ((s.fields["version"] as number) > ((best?.fields["version"] as number) ?? 0) ? s : best), undefined as LoadedRecord | undefined);
+  return newest?.id === statementId;
+}
+
+/** The status-versus-clause invariant: returns one message per violating problem. */
+export function consistencyErrors(ledger: Ledger): { problemId: string; message: string }[] {
+  const errors: { problemId: string; message: string }[] = [];
+  for (const summary of summarizeProblems(ledger)) {
+    const states = summary.clauses.map((clause) => clause.status);
+    if (states.length === 0) continue;
+    const resolved = states.filter((state) => state === "resolved").length;
+    if ((summary.status === "solved" || summary.status === "refuted") && resolved !== states.length) {
+      errors.push({ problemId: summary.id, message: `status ${summary.status} requires every clause resolved by an accepted claim (${resolved} of ${states.length})` });
+    }
+    if (summary.status === "open" && resolved > 0) {
+      errors.push({ problemId: summary.id, message: "status open conflicts with a clause resolved by an accepted claim" });
+    }
+    if (summary.status === "partial" && !states.some((state) => state !== "open")) {
+      errors.push({ problemId: summary.id, message: "status partial requires at least one clause narrowed, bounded, or supported by an accepted claim" });
+    }
+  }
+  return errors;
+}
+
 export interface ProblemSummary {
   id: string;
   alias: string;

@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Some Results and Problems on Quantum Bell-Type Inequalities
 kind: paper
+completeness: complete
 authors:
   - B. S. Tsirelson
 venue: Hadronic Journal Supplement 8(4), 329-345 (1993)

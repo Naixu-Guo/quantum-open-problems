@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Les Probabilités Associées à un Système d'Événtments Compatibles et Dépendants
 kind: paper
+completeness: complete
 authors:
   - M. Fréchet
 venue: Hermann (Paris), 1940

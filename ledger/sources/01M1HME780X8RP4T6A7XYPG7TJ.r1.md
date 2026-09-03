@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: On complementary channels and the additivity problem,
 kind: paper
+completeness: partial
 authors:
   - A. S. Holevo
 venue: quant-ph/0509101

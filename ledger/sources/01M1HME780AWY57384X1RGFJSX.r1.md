@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Finite set of invariants to characterize local Clifford equivalence of stabilizer states
 kind: preprint
+completeness: complete
 authors:
   - M. Van den Nest
   - J. Dehaene

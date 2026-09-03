@@ -7,6 +7,8 @@ createdBy: 01M1HME780YJYGYBQ9AQNK1KDR
 createdAt: 2026-09-02T18:00:00Z
 name: Legacy catalog ingestion
 kind: pipeline
+roles:
+  - contributor
 externalIdentity: null
 operatorId: 01M1HME780FY856W3132FERMSY
 modelFamily: null

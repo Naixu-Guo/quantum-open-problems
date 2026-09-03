@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Complete Existence Classification of Seven-Partite Absolutely Maximally Entangled States
 kind: paper
+completeness: complete
 authors:
   - F. Shi
   - X. Zhang

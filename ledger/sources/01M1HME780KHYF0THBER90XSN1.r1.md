@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Entanglement of Formation for Isotropic States
 kind: paper
+completeness: complete
 authors:
   - B. M. Terhal
   - K. G. H. Vollbrecht

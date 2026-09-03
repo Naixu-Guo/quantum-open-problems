@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Nonlocal properties of two-qubit gates and mixed states and optimization of quantum computations
 kind: preprint
+completeness: complete
 authors:
   - Y. Makhlin
 venue: arXiv:quant-ph/0002045 (2000)

@@ -7,6 +7,11 @@ createdBy: "01KZTK6BM0KG74DD3K9Q8HKB2G"
 createdAt: "2026-08-12T09:00:00Z"
 name: Legacy audit editor
 kind: human
+roles:
+  - contributor
+  - reviewer
+  - editor
+  - moderator
 externalIdentity: null
 operatorId: null
 modelFamily: null

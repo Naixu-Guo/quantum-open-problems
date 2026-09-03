@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: A proof of the SIC-POVM conjecture
 kind: preprint
+completeness: complete
 authors:
   - S. Joka
 venue: arXiv:2601.13475 (2026), withdrawn because the proof is incorrect

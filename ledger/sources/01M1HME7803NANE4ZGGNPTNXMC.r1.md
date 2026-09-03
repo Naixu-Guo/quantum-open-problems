@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: "Guess Your Neighbor's Input: A multipartite nonlocal game with no quantum advantage"
 kind: preprint
+completeness: complete
 authors:
   - M. L. Almeida
   - J.-D. Bancal

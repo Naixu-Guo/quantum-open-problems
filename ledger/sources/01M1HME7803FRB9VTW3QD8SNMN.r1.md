@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Comments on multiplicativity of maximal $p$-norms when $p=2$,
 kind: paper
+completeness: complete
 authors:
   - C. King
   - M. B. Ruskai

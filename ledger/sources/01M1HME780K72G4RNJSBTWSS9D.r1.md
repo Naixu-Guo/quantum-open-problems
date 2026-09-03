@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Local unitary invariants for multipartite quantum systems
 kind: preprint
+completeness: complete
 authors:
   - P. Vrana
 venue: J. Phys. A 44, 115302 (2011); arXiv:1007.0163

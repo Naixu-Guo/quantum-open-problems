@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: The capacity of the quantum depolarizing channel
 kind: preprint
+completeness: complete
 authors:
   - C. King
 venue: arXiv:quant-ph/0204172 (2002)

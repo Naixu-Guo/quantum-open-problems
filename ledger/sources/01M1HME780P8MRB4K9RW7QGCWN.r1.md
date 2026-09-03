@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Gibbs-Preserving Operations Requiring Infinite Amount of Quantum Coherence
 kind: paper
+completeness: complete
 authors:
   - H. Tajima
   - R. Takagi

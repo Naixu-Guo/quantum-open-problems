@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Quantendesigns – Grundzüge einer nichtkommutativen Designtheorie
 kind: paper
+completeness: complete
 authors:
   - G. Zauner
 venue: Doctoral thesis, University of Vienna, 1999. http://www.mat.univie.ac.at/~neum/papers/physpapers.html

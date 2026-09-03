@@ -102,3 +102,15 @@ test("a research trajectory without an attempt report is caught", () => {
   });
   assert.ok(issues.some((issue) => issue.category === "rule" && /attempt report/.test(issue.message)), JSON.stringify(issues));
 });
+
+test("a status decision that contradicts the accepted claims is caught", () => {
+  const issues = withCopy((ledger) => {
+    const dir = path.join(ledger, "problems/theoremdb-p3114-kashaev-volume-conjecture/decisions");
+    for (const name of fs.readdirSync(dir)) {
+      const file = path.join(dir, name);
+      const text = fs.readFileSync(file, "utf8");
+      if (/kind: status/.test(text)) fs.writeFileSync(file, text.replace("status: open", "status: partial"));
+    }
+  });
+  assert.ok(issues.some((issue) => issue.category === "rule" && /status partial requires/.test(issue.message)), JSON.stringify(issues));
+});

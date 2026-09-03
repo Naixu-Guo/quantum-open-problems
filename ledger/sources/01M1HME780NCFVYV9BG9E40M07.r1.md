@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Positive Partial Transpose from Spectra
 kind: paper
+completeness: complete
 authors:
   - R. Hildebrand
 venue: Physical Review A 76, 052325 (2007)

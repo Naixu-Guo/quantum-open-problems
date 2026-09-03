@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: A Certified Lower Bound on the Quantum-Capacity Threshold of the Depolarizing Channel
 kind: preprint
+completeness: complete
 authors:
   - A. Krohn-Grimberghe
 venue: arXiv preprint (2026)

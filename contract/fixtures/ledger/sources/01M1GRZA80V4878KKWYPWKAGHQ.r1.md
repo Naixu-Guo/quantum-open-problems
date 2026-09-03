@@ -7,6 +7,7 @@ createdBy: "01M1GRZA80Z360AEAE0Q92QA39"
 createdAt: "2026-09-02T10:00:00Z"
 title: Some open problems in quantum information theory
 kind: problem-list
+completeness: complete
 authors:
   - "O. Krüger"
   - R. F. Werner

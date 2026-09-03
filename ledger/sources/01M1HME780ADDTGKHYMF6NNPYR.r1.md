@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: D. Jonathan and M. B. Plenio, Phys. Rev. Lett. 83, 3566–3569 (1999); arXiv:quant-ph/9905071 (2000).
 kind: preprint
+completeness: partial
 authors: []
 venue: ""
 date: null

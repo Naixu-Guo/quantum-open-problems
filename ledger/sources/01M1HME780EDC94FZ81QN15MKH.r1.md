@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: One-Parameter Counterexamples to the Refined Bessis--Moussa--Villani Conjecture
 kind: paper
+completeness: complete
 authors:
   - H. Cha
   - J. Lee

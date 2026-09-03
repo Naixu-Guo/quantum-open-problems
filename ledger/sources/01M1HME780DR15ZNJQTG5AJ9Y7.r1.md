@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Super-activation of quantum non-locality
 kind: preprint
+completeness: complete
 authors:
   - C. Palazuelos
 venue: Phys. Rev. Lett. 109, 190401 (2012); arXiv:1205.3118

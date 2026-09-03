@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Dimension towers of SICs. I. Aligned SICs and embedded tight frames
 kind: paper
+completeness: complete
 authors:
   - M. Appleby
   - I. Bengtsson

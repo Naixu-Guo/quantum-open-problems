@@ -5,11 +5,12 @@
   "description": "A human, agent, pipeline, or the system. Revisable. Agents and pipelines must name a human operator.",
   "allOf": [{ "$ref": "common.schema.json#/$defs/revisableBase" }],
   "unevaluatedProperties": false,
-  "required": ["type", "name", "kind", "externalIdentity", "operatorId", "modelFamily", "modelVersion", "harness", "body"],
+  "required": ["type", "name", "kind", "roles", "externalIdentity", "operatorId", "modelFamily", "modelVersion", "harness", "body"],
   "properties": {
     "type": { "const": "Actor" },
     "name": { "$ref": "common.schema.json#/$defs/nonEmptyText" },
     "kind": { "enum": ["human", "agent", "pipeline", "system"] },
+    "roles": { "type": "array", "uniqueItems": true, "items": { "enum": ["contributor", "reviewer", "editor", "moderator"] } },
     "externalIdentity": { "$ref": "common.schema.json#/$defs/textOrNull" },
     "operatorId": { "$ref": "common.schema.json#/$defs/ulidOrNull" },
     "modelFamily": { "$ref": "common.schema.json#/$defs/textOrNull" },

@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Quantum measurements and finite geometry
 kind: preprint
+completeness: complete
 authors:
   - W. K. Wootters
 venue: arXiv:quant-ph/0406032 (2004)

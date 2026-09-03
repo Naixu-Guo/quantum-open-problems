@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Counterexample to an additivity conjecture for output purity of quantum channels
 kind: paper
+completeness: complete
 authors:
   - R. F. Werner
   - A. S. Holevo

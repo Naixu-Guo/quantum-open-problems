@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: "Qubit channels which require four inputs to achieve capacity: implications for additivity conjectures"
 kind: preprint
+completeness: complete
 authors:
   - M. Hayashi
   - H. Imai

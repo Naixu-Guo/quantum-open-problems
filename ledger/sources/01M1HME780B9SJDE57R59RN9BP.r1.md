@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Bell inequalities and Entanglement
 kind: preprint
+completeness: complete
 authors:
   - R. F. Werner
   - M. M. Wolf

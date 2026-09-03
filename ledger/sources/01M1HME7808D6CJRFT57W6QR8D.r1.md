@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Coherent Information of One-Mode Gaussian Channels---The General Case of Non-Zero Added Classical Noise
 kind: paper
+completeness: complete
 authors:
   - K. Brádler
 venue: "Journal of Physics A: Mathematical and Theoretical 48, 125301 (2015)"

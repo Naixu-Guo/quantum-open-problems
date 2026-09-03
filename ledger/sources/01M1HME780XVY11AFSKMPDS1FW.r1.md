@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Upper Bounds on the Leakage of Private Data and an Operational Approach to Markovianity
 kind: paper
+completeness: complete
 authors:
   - K. Horodecki
   - M. Studziński

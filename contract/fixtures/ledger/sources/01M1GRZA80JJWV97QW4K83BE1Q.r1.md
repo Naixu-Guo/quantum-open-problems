@@ -7,6 +7,7 @@ createdBy: "01M1GRZA80Z360AEAE0Q92QA39"
 createdAt: "2026-09-02T10:00:00Z"
 title: A list of open problems in quantum information and quantum computation
 kind: problem-list
+completeness: partial
 authors: []
 venue: Repository problem pool open_problem_v2
 date: "2026"

@@ -13,6 +13,9 @@ independence:
   differentOperator: true
   differentModelFamily: true
   noSharedReads: true
+conflictOfInterest:
+  declared: false
+  statement: ""
 methods:
   - citation-check
   - scope-check

@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: "Thirty-six entangled officers of Euler: Quantum solution to a classically impossible problem"
 kind: preprint
+completeness: complete
 authors:
   - S. A. Rather
   - A. Burchardt

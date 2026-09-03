@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Compact set of invariants characterizing graph states of up to eight qubits
 kind: preprint
+completeness: complete
 authors:
   - A. Cabello
   - A. J. López-Tarrida

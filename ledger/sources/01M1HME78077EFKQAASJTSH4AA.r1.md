@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: A Gap for the Maximum Number of Mutually Unbiased Bases
 kind: paper
+completeness: complete
 authors:
   - M. Weiner
 venue: Proceedings of the American Mathematical Society 141, 1963-1969 (2013)

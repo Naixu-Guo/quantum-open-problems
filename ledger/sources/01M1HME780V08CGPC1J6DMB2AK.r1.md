@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Separability from spectrum for qubit–qudit states
 kind: preprint
+completeness: complete
 authors:
   - N. Johnston
 venue: Phys. Rev. A 88, 062330 (2013); arXiv:1309.2006

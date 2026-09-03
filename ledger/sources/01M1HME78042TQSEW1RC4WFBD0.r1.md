@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: "Entanglement in continuous-variable systems: recent advances and current perspectives"
 kind: preprint
+completeness: complete
 authors:
   - G. Adesso
   - F. Illuminati

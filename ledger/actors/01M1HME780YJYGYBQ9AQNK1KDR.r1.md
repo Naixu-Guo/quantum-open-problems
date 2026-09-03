@@ -7,6 +7,7 @@ createdBy: 01M1HME780YJYGYBQ9AQNK1KDR
 createdAt: 2026-09-02T18:00:00Z
 name: Quantum Open Problems service
 kind: system
+roles: []
 externalIdentity: null
 operatorId: null
 modelFamily: null

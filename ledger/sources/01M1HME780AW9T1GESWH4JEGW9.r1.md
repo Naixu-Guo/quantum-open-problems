@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: On the additivity conjecture for channels with arbitrary constrains
 kind: preprint
+completeness: complete
 authors:
   - M. E. Shirokov
 venue: arXiv:quant-ph/0308168 (2003)

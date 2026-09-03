@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Collective tests for quantum nonlocality
 kind: preprint
+completeness: complete
 authors:
   - A. Peres
 venue: Phys. Rev. A 54, 2685 (1996); arXiv:quant-ph/9603023

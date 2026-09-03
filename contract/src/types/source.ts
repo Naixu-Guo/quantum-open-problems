@@ -8,6 +8,7 @@ export interface Source extends RevisableBase {
   type: typeof TYPE;
   title: string;
   kind: "paper" | "preprint" | "book" | "problem-list" | "dataset" | "thesis" | "web-record";
+  completeness: "complete" | "partial" | "url-only";
   authors: string[];
   venue: string;
   date: string | null;
@@ -33,5 +34,7 @@ export function uniquenessKey(source: Source): string {
 export function rules(source: Source, _ledger: Ledger): string[] {
   const errors: string[] = [];
   if (source.doi && !/^10\.\d{4,}\//u.test(source.doi)) errors.push(`doi ${source.doi} is not a bare DOI`);
+  const fieldsPresent = [source.authors.length > 0, source.venue !== "" || source.doi !== null || source.arxivId !== null, source.date !== null];
+  if (source.completeness === "complete" && !fieldsPresent.every(Boolean)) errors.push("a complete source records authors, a venue or identifier, and a date");
   return errors;
 }

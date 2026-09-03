@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Multipartite bound entangled states that violate Bell's inequality
 kind: preprint
+completeness: complete
 authors:
   - W. Dür
 venue: Phys. Rev. Lett. 87, 230402 (2001); arXiv:quant-ph/0107050

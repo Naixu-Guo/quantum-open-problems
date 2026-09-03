@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: "Farkas's lemma and the nature of reality: Statistical implications of quantum correlations"
 kind: paper
+completeness: complete
 authors:
   - A. Garg
   - N. D. Mermin

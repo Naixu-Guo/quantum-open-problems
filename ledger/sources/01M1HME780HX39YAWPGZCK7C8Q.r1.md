@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: On the Existence of Absolutely Maximally Entangled States of Minimal Support II
 kind: paper
+completeness: complete
 authors:
   - A. Bernal
 venue: Quantum Physics Letters 8, 1-4 (2019)

@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Inseparable Two Spin-1/2 Density Matrices Can Be Distilled to a Singlet Form
 kind: paper
+completeness: complete
 authors:
   - M. Horodecki
   - P. Horodecki

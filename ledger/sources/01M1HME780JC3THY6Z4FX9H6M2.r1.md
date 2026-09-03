@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: The maximum output $p$-norm of quantum channels is not multiplicative for any $p>2$
 kind: preprint
+completeness: complete
 authors:
   - A. Winter
 venue: arXiv:0707.0402 (2007)

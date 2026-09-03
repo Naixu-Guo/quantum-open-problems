@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: On irreducible private states
 kind: preprint
+completeness: complete
 authors:
   - K. Horodecki et al.
 venue: arXiv:2107.10737 (2021)

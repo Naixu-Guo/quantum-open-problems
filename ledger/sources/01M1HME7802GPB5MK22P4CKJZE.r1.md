@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Additivity for a class of unital qubit channels
 kind: preprint
+completeness: complete
 authors:
   - C. King
 venue: arXiv:quant-ph/0103156 (2001)

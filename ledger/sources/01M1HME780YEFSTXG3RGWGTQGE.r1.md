@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Exploring the Limits of Quantum Nonlocality with Entangled Photons
 kind: paper
+completeness: complete
 authors:
   - B. G. Christensen
   - Y.-C. Liang

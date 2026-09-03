@@ -66,12 +66,12 @@ const INGEST = ulid("actor:legacy-ingestion");
 function actor(id: string, name: string, kind: string, extra: Fields, body: string): void {
   emit(LEDGER, `actors/${id}.r1.md`, {
     id, type: "Actor", schemaVersion: "1.0", revision: 1, createdBy: SYSTEM, createdAt: MIGRATION_AT,
-    name, kind, externalIdentity: null, operatorId: null, modelFamily: null, modelVersion: null, harness: null, ...extra,
+    name, kind, roles: [], externalIdentity: null, operatorId: null, modelFamily: null, modelVersion: null, harness: null, ...extra,
   }, body);
 }
 actor(SYSTEM, "Quantum Open Problems service", "system", {}, "The domain service. Issues automatic acceptance decisions and records ingestion.");
-actor(EDITOR, "Legacy audit editor", "human", {}, "Placeholder for the person who performed the 12 August 2026 baseline audit and the 31 August 2026 additions review of the legacy catalog (STATUS_AUDIT.md). Replace with the editor's real actor when one exists.");
-actor(INGEST, "Legacy catalog ingestion", "pipeline", { operatorId: EDITOR, harness: "tools/migrate-legacy/migrate.ts" }, "Pipeline that migrated the legacy catalog and the open_problem_v2 pool into the ledger on 2 September 2026.");
+actor(EDITOR, "Legacy audit editor", "human", { roles: ["contributor", "reviewer", "editor", "moderator"] }, "Placeholder for the person who performed the 12 August 2026 baseline audit and the 31 August 2026 additions review of the legacy catalog (STATUS_AUDIT.md). Replace with the editor's real actor when one exists.");
+actor(INGEST, "Legacy catalog ingestion", "pipeline", { roles: ["contributor"], operatorId: EDITOR, harness: "tools/migrate-legacy/migrate.ts" }, "Pipeline that migrated the legacy catalog and the open_problem_v2 pool into the ledger on 2 September 2026.");
 
 // ---------------------------------------------------------------------------
 // Sources, deduplicated
@@ -79,8 +79,10 @@ actor(INGEST, "Legacy catalog ingestion", "pipeline", { operatorId: EDITOR, harn
 
 interface SourceSpec {
   title: string; kind: string; authors: string[]; venue: string; date: string | null;
-  doi: string | null; arxivId: string | null; url: string | null; version: string | null; body?: string;
+  doi: string | null; arxivId: string | null; url: string | null; version: string | null; body?: string; completeness?: string;
 }
+const completenessOf = (s: SourceSpec): string =>
+  s.completeness ?? ((s.authors.length > 0 && (s.venue !== "" || s.doi !== null || s.arxivId !== null) && s.date !== null) ? "complete" : "partial");
 const sources = new Map<string, string>();
 function sourceKey(s: SourceSpec): string {
   if (s.doi) return `doi:${s.doi.toLowerCase()}`;
@@ -96,7 +98,7 @@ function source(spec: SourceSpec): string {
   sources.set(key, id);
   emit(LEDGER, `sources/${id}.r1.md`, {
     id, type: "Source", schemaVersion: "1.0", revision: 1, createdBy: INGEST, createdAt: MIGRATION_AT,
-    title: spec.title, kind: spec.kind, authors: spec.authors, venue: spec.venue, date: spec.date,
+    title: spec.title, kind: spec.kind, completeness: completenessOf(spec), authors: spec.authors, venue: spec.venue, date: spec.date,
     doi: spec.doi, arxivId: spec.arxivId, url: spec.url, version: spec.version,
   }, spec.body ?? "");
   return id;
@@ -235,7 +237,7 @@ function progressSource(item: LegacyProgress): string {
   const kind = item.maturity === "Peer reviewed" ? "paper" : /theoremdb|claymath/i.test(item.url) ? "web-record" : arxivId ? "preprint" : "paper";
   return source({
     title: item.label || item.url, kind, authors: [], venue: item.label || "", date: item.date.slice(0, 4),
-    doi, arxivId, url: cleanUrl(item.url), version: null,
+    doi, arxivId, url: cleanUrl(item.url), version: null, completeness: "url-only",
     body: "Imported from a legacy progress entry; bibliographic details to be completed during maintenance.",
   });
 }
@@ -288,6 +290,7 @@ function review(bundle: Bundle, key: string, contributionId: string, verdict: st
     id, type: "Review", schemaVersion: "1.0", createdBy: EDITOR, createdAt: bundle.reviewAt, supersedes: null,
     contributionId, reviewerId: EDITOR, trajectoryId: null, kind: "verification",
     independence: { differentOperator: false, differentModelFamily: true, noSharedReads: true },
+    conflictOfInterest: { declared: false, statement: "" },
     methods: ["citation-check", "argument-read", "scope-check"],
     checks: checks.map(([name, outcome, note]) => ({ name, outcome, note })), verdict,
   }, body);
@@ -430,7 +433,7 @@ for (const slug of slugs) {
     for (const watch of active.watch ?? []) {
       const aboutClaim = /claim|recent|unreviewed/i.test(watch.label);
       if (aboutClaim && watch.url && !seenUrls.has(cleanUrl(watch.url))) {
-        const sourceId = source({ title: watch.label, kind: "preprint", authors: [], venue: "", date: null, doi: doiFromUrl(watch.url), arxivId: arxivFromUrl(watch.url), url: cleanUrl(watch.url), version: null,
+        const sourceId = source({ title: watch.label, kind: "preprint", authors: [], venue: "", date: null, doi: doiFromUrl(watch.url), arxivId: arxivFromUrl(watch.url), url: cleanUrl(watch.url), version: null, completeness: "url-only",
           body: "Imported from a legacy watch item; bibliographic details to be completed during maintenance." });
         const claimId = claim(bundle, `watch-${slugify(watch.label)}`, watch.label, "resolves",
           [{ sourceId, artifactId: null, locator: "", date: null, maturity: "preprint", strength: "unaccepted-claim" }], watch.text);

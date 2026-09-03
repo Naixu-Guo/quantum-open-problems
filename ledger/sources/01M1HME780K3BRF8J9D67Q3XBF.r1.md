@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: The capacity of a quantum channel for simultaneous transmission of classical and quantum information
 kind: paper
+completeness: complete
 authors:
   - I. Devetak
   - P. W. Shor

@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Multiplicativity of the maximal output 2-norm for depolarized Werner–Holevo channels,
 kind: preprint
+completeness: complete
 authors:
   - S. Michalakis
 venue: arXiv:0707.1722 (2007)

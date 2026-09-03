@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: A generalized Pauli problem and an infinite family of MUB-triplets in dimension 6
 kind: paper
+completeness: complete
 authors:
   - P. Jaming
   - M. Matolcsi

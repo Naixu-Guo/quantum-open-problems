@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Four qubits can be entangled in nine inequivalent ways
 kind: preprint
+completeness: complete
 authors:
   - B. De Moor
   - F. Verstraete

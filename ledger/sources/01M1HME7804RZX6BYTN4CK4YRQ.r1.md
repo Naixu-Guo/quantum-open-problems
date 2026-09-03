@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: "TheoremDB: The Hyperbolic Volume of Knots from the Quantum Dilogarithm"
 kind: web-record
+completeness: partial
 authors: []
 venue: TheoremDB
 date: "2026"

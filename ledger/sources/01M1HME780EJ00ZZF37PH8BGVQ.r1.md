@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: "Bell Inequalities: Many Questions, a Few Answers"
 kind: paper
+completeness: complete
 authors:
   - N. Gisin
 venue: in W. C. Myrvold and J. Christian (eds.), Quantum Reality, Relativistic Causality, and Closing the Epistemic Circle, The Western Ontario Series in Philosophy of Science 73, 125-138 (Springer, 2009)

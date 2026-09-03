@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Mutually Unbiased Bases and Orthogonal Latin Squares
 kind: preprint
+completeness: complete
 authors:
   - S. Joka
 venue: arXiv:2511.03537v3 (2026). Cited as an unaccepted solution claim; see the status discussion

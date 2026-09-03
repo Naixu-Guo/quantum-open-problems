@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Optimal state-determination by mutually unbiased measurements
 kind: paper
+completeness: complete
 authors:
   - W. K. Wootters
   - B. D. Fields

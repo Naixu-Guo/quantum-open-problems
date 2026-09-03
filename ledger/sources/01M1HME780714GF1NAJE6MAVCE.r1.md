@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: An Upper Bound for the Purity of Absolutely Positive Partial Transpose States
 kind: paper
+completeness: complete
 authors:
   - A. T. Tran
 venue: arXiv:2608.09832 (2026)

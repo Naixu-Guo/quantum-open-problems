@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Simplification of additivity conjecture in quantum information theory
 kind: preprint
+completeness: partial
 authors:
   - M. Fukuda
 venue: arXiv:quant-ph/0608010

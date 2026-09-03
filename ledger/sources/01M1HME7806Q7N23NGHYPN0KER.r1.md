@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Two-copy distillability of one-copy-undistillable negative-partial-transpose states in every dimension
 kind: preprint
+completeness: complete
 authors:
   - G. N. M. Tabia
   - K.-S. Chen

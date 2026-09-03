@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Violation of All Two-Party Facet Bell Inequalities by Almost-Quantum Correlations
 kind: paper
+completeness: complete
 authors:
   - R. Ramanathan
 venue: Physical Review Research 3, 033100 (2021)

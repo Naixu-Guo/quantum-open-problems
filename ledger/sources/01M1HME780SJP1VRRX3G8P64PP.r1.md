@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Entanglement Distillation of some Rank-Five Symmetric NPT States in Two-Qutrit Systems
 kind: preprint
+completeness: complete
 authors:
   - Y. Lei
   - Z. Song

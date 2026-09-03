@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Absolutely maximally entangled states of seven qubits do not exist
 kind: paper
+completeness: complete
 authors:
   - F. Huber
   - O. Gühne

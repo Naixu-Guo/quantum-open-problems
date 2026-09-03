@@ -14,6 +14,7 @@ import { TYPE_MODULES } from "./types/index.ts";
 import { RECORD_TYPES, TARGET_TYPE_TO_KIND, parseClauseRef, type RecordType, type TargetKind } from "./targets.ts";
 import { uniquenessKey, type Source } from "./types/source.ts";
 import { primaryProblemId, type Contribution } from "./types/contribution.ts";
+import { consistencyErrors } from "./derive.ts";
 
 export type IssueCategory = "parse" | "schema" | "identity" | "layout" | "reference" | "rule" | "uniqueness";
 
@@ -258,6 +259,12 @@ export function validateLedger(roots: string[], schemaDir: string = DEFAULT_SCHE
       if (seen.has(version)) push("uniqueness", statement, `statement version ${version} appears twice for this problem`);
       seen.add(version);
     }
+  }
+
+  // Status-versus-clause consistency.
+  for (const error of consistencyErrors(ledger)) {
+    const problem = ledger.find("Problem", error.problemId);
+    push("rule", problem ?? error.problemId, error.message);
   }
 
   return { ledger, issues };

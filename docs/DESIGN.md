@@ -191,7 +191,10 @@ table because claims, events, and auxiliary problems point at them.
 
 **Source** (revisable). A bibliographic record.
 `title, kind (paper | preprint | book | problem-list | dataset | thesis |
-web-record), authors[], venue, date, doi, arxivId, url, version`.
+web-record), completeness (complete | partial | url-only), authors[], venue,
+date, doi, arxivId, url, version`. `completeness` makes bibliographic debt
+visible in the data: a source created from a bare URL is `url-only` until a
+revision completes it.
 Uniqueness: one source per DOI; one per arXiv id and version; else one per
 normalized URL; else one per title, first author, and date.
 
@@ -205,9 +208,13 @@ partial-result | technique | related | survey | resolves), locator, body
 Adding a reference never revises the object it points at.
 
 **Actor** (revisable). Human, agent, pipeline, or system.
-`name, kind (human | agent | pipeline | system), externalIdentity,
-operatorId, modelFamily, modelVersion, harness`. `operatorId` is required
-for agents and pipelines. One `system` actor issues automatic decisions.
+`name, kind (human | agent | pipeline | system), roles[] (contributor |
+reviewer | editor | moderator), externalIdentity, operatorId, modelFamily,
+modelVersion, harness`. `operatorId` is required for agents and pipelines.
+Roles gate what an actor may write: only a human with the `editor` role
+signs a primary problem `solved`, promotes, merges, or retires; only
+`moderator` or `editor` moderates. One `system` actor issues automatic
+decisions and holds no roles.
 
 **Trajectory** (immutable, written once at close). One run by one actor;
 primary scientific data, public by default.
@@ -249,11 +256,11 @@ trajectoryId, checkable, checks[]`.
 decisions, never state.
 `contributionId, reviewerId, trajectoryId, kind (triage | verification |
 audit), independence { differentOperator, differentModelFamily,
-noSharedReads }, methods[] (citation-check | artifact-execution |
-argument-read | formal-check | reproduction | scope-check |
-duplicate-check), checks[], verdict (rejected | duplicate | junk |
-incomplete | scope-mismatch | unverified-plausible | verified-partial |
-verified), body (notes)`.
+noSharedReads }, conflictOfInterest { declared, statement }, methods[]
+(citation-check | artifact-execution | argument-read | formal-check |
+reproduction | scope-check | duplicate-check), checks[], verdict (rejected
+| duplicate | junk | incomplete | scope-mismatch | unverified-plausible |
+verified-partial | verified), body (notes)`.
 
 **Comment** (revisable). Discussion attached to one object.
 `targetType, targetId, parentCommentId, body, promotedToContributionId`.
@@ -337,8 +344,23 @@ Everything below is computed from decisions and the objects they cite.
   partial results, the decomposition tree with node statuses, routes tried
   (from accepted attempt reports, with stop reason), pending contributions,
   `lastReviewed`.
+- **Contribution currency**: `statementIsCurrent`, whether the statement
+  digest a contribution pinned is still the problem's current statement.
+  Stale contributions stay valid; the frontier shows them against the
+  version they addressed.
+- **Event stream**: every record, in the order it entered the ledger,
+  numbered with one global `sequence`. A client keeps the last sequence it
+  saw and asks for everything after it. The release manifest carries
+  `lastSequence` as the cheap poll target.
 - **Queues**: contributions without an `acceptance` decision, grouped by
   what they still need; `solved` sign-off; maintenance backlog.
+
+The validator enforces one consistency invariant between decisions and
+claims: a problem marked `solved` or `refuted` has every clause of its
+current statement resolved by an accepted claim; a problem marked `open` has
+none resolved; a problem marked `partial` has at least one clause that is not
+open. A status decision that violates it is a validation error, not a
+silent disagreement.
 - **Actor record**: contributions, reviews, trajectories, acceptance and
   rejection counts.
 
@@ -401,6 +423,13 @@ and the contract package alone.
 | `build_context(problemId, clauseIds?, tokenBudget)` | A bounded bundle: statement, chosen clauses, references with notes, comments, accepted claims, the decomposition tree with settled nodes usable as lemmas and blocked nodes with their obstacles, routes tried; returns a bundle ID and the digests it was built from. Trajectories record the bundle ID they started from. |
 | `get_policy()` | Current policy version and thresholds |
 | `get_schemas()` | JSON Schemas for every payload |
+| `get_status()` | Release date, ledger `lastSequence`, record counts; poll this before anything else |
+| `list_events(after, limit?, type?, problemId?)` | Records that entered the ledger after a sequence, for incremental synchronization |
+
+The MCP server also exposes the same objects as resources
+(`qop://problems/{id}`, `qop://problems/{id}/frontier`,
+`qop://problems/{id}/statements/{version}`, `qop://contributions/{id}`,
+`qop://trajectories/{id}`) so an agent can read by URI as well as by tool.
 
 Every read returns object IDs and statement digests so the agent's
 submission can name exactly what it worked from.
@@ -454,7 +483,15 @@ scoped tokens; the operator is a human actor.
 ### 4.5 HTTP API and export
 
 Versioned REST over the thirteen types plus the query endpoints the tools
-above use. Writes require idempotency keys. Each release publishes the
+above use, including `/status` and `/events?after=<sequence>`. Operational
+rules the service enforces on every write: bearer keys issued per actor and
+stored hashed; an `Idempotency-Key` on every POST, with identical retries
+replayed and conflicting retries refused; body size limits per record type;
+rate limits per actor and per client address from the policy file;
+duplicate detection by content hash of the claim text against live
+contributions on the same statement; moderation states (`visible | hidden |
+deleted`) applied only through `moderation` decisions, which form an
+immutable log. Each release publishes the
 ledger files, a JSONL index, `llms.txt` and `llms-full.txt`, and feeds of
 decisions, to GitHub Pages under stable URLs.
 
@@ -611,3 +648,11 @@ Defaults adopted on 2026-09-02; each can be revisited by a later decision.
    Schema validation. The contract package, ledger, and service live in
    this repository under `contract/`, `ledger/`, and `service/`; the legacy
    directories are removed after migration.
+9. **The `research-layer` branch.** Reviewed on 3 September 2026. It
+   completed ADR 0001's path with a bundle-per-problem catalog, a
+   byte-for-byte compatibility gate, a human-only review quorum, and
+   promotion through generated pull requests; those conflict with this
+   design and are not merged. Absorbed from it: the sequenced event stream
+   with a cursor, the status-versus-clause consistency invariant, actor
+   roles, conflict-of-interest declarations on reviews, source
+   completeness, contribution currency, and the operational rules in 4.5.

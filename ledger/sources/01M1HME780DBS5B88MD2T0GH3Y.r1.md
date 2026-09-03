@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Separability from Spectrum for Qubit--Qudit States
 kind: paper
+completeness: complete
 authors:
   - N. Johnston
 venue: Physical Review A 88, 062330 (2013).\newline

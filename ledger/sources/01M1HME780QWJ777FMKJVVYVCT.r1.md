@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Universal Bounds for Quantum Metrology in the Presence of Correlated Noise
 kind: preprint
+completeness: complete
 authors:
   - S. Kurdziałek
   - F. Albarelli

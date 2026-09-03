@@ -7,6 +7,7 @@ createdBy: "01M1GRZA80Z360AEAE0Q92QA39"
 createdAt: "2026-09-02T10:00:00Z"
 title: Binegativity and geometry of entangled states in two qubits
 kind: paper
+completeness: complete
 authors:
   - Satoshi Ishizaka
 venue: "Physical Review A 69, 020301(R) (2004)"

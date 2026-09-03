@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Best conventional solutions to the King's Problem
 kind: preprint
+completeness: complete
 authors:
   - P. K. Aravind
 venue: arXiv:quant-ph/0306119 (2003)

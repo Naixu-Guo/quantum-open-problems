@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Extremal Quantum Correlations for $N$ Parties with Two Dichotomic Observables per Site
 kind: paper
+completeness: complete
 authors:
   - Ll. Masanes
 venue: arXiv:quant-ph/0512100 (2005)

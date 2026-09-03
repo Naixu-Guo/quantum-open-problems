@@ -5,11 +5,13 @@ import { ref, type Ref } from "../targets.ts";
 export const TYPE = "Actor" as const;
 
 export type ActorKind = "human" | "agent" | "pipeline" | "system";
+export type ActorRole = "contributor" | "reviewer" | "editor" | "moderator";
 
 export interface Actor extends RevisableBase {
   type: typeof TYPE;
   name: string;
   kind: ActorKind;
+  roles: ActorRole[];
   externalIdentity: string | null;
   operatorId: string | null;
   modelFamily: string | null;
@@ -32,7 +34,20 @@ export function rules(actor: Actor, ledger: Ledger): string[] {
     const operator = ledger.find("Actor", actor.operatorId);
     if (operator && operator.fields["kind"] !== "human") errors.push("an operator must be a human actor");
   }
+  if (actor.kind === "system" && actor.roles.length > 0) errors.push("the system actor holds no roles");
+  if (actor.kind !== "human" && actor.roles.includes("editor")) errors.push("only a human can be an editor");
+  if (actor.kind !== "human" && actor.roles.includes("moderator")) errors.push("only a human can be a moderator");
   return errors;
+}
+
+export function actorRoles(ledger: Ledger, actorId: string): ActorRole[] {
+  const actor = ledger.find("Actor", actorId);
+  return actor ? (actor.fields["roles"] as ActorRole[]) : [];
+}
+
+export function hasRole(ledger: Ledger, actorId: string, role: ActorRole): boolean {
+  const roles = actorRoles(ledger, actorId);
+  return roles.includes(role) || (role !== "editor" && roles.includes("editor") && (role === "reviewer" || role === "moderator"));
 }
 
 export function actorKind(ledger: Ledger, actorId: string): ActorKind | null {

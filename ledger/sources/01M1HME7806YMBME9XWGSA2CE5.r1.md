@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: The Geometry of Absolute Separability and Other Convex Matrix Properties from Spectrum
 kind: paper
+completeness: complete
 authors:
   - J. Ahiable
   - N. B. T. Kothakonda

@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: On Non-Existence of Stabilizer Absolutely Maximally Entangled States in Even Local Dimensions
 kind: paper
+completeness: complete
 authors:
   - J. Wójcik
   - O. Makuta

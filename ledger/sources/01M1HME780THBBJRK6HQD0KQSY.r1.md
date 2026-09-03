@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Quantum States with Einstein--Podolsky--Rosen Correlations Admitting a Hidden-Variable Model
 kind: paper
+completeness: complete
 authors:
   - R. F. Werner
 venue: Physical Review A 40, 4277-4281 (1989)

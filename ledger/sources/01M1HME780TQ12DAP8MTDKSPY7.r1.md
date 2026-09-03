@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Hidden Variables, Joint Probability, and the Bell Inequalities
 kind: paper
+completeness: complete
 authors:
   - A. Fine
 venue: Physical Review Letters 48, 291-295 (1982)

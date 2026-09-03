@@ -1,7 +1,7 @@
 import type { ImmutableBase } from "./base.ts";
 import type { Ledger } from "../ledger.ts";
 import { ref, refs, DECISION_TARGETS, TARGET_TYPE_TO_KIND, type Ref } from "../targets.ts";
-import { actorKind } from "./actor.ts";
+import { actorKind, hasRole } from "./actor.ts";
 
 export const TYPE = "Decision" as const;
 
@@ -56,11 +56,16 @@ export function rules(decision: Decision, ledger: Ledger): string[] {
 
   const author = actorKind(ledger, decision.createdBy);
   if (HUMAN_ONLY_KINDS.has(decision.kind) && author !== null && author !== "human") errors.push(`a ${decision.kind} decision is made by a human`);
+  if (decision.kind === "moderation" && author === "human" && !hasRole(ledger, decision.createdBy, "moderator")) errors.push("a moderation decision needs the moderator role");
+  if ((decision.kind === "promotion" || decision.kind === "merge" || decision.kind === "retire" || decision.kind === "redaction") && author === "human" && !hasRole(ledger, decision.createdBy, "editor")) {
+    errors.push(`a ${decision.kind} decision needs the editor role`);
+  }
   if (decision.kind === "acceptance" && author !== null && author !== "system" && author !== "human") errors.push("acceptance decisions are issued by the system or a human");
 
   if (decision.kind === "status" && decision.status === "solved" && decision.targetType === "problem") {
     const problem = ledger.find("Problem", decision.targetId);
     if (problem && problem.fields["role"] === "primary" && author !== "human") errors.push("a primary problem is marked solved only by a human");
+    if (problem && problem.fields["role"] === "primary" && author === "human" && !hasRole(ledger, decision.createdBy, "editor")) errors.push("marking a primary problem solved needs the editor role");
   }
   if (decision.kind === "status" && decision.status === "refuted" && decision.targetType === "problem") {
     const problem = ledger.find("Problem", decision.targetId);

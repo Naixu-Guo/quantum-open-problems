@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: On a gap in the proof of the generalised quantum Stein's lemma and its consequences for the reversibility of quantum resources
 kind: preprint
+completeness: complete
 authors:
   - M. Berta
   - F. G. S. L. Brandão

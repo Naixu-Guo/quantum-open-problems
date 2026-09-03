@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Finding Numerical and Exact Solutions to the SIC-POVM Problem
 kind: paper
+completeness: complete
 authors:
   - M. Grassl
 venue: talk at the Max Planck Institute for the Science of Light, Erlangen, 03.11.2020; see also http://sicpovm.markus-grassl.de

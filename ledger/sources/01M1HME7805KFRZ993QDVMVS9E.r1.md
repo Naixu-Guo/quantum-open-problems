@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: "Rates of asymptotic entanglement transformations for bipartite mixed states: maximally entangled states are not special"
 kind: preprint
+completeness: complete
 authors:
   - M. Horodecki
   - A. Sen

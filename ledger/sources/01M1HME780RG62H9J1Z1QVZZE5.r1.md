@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Absolutely Maximally Entangled State Equivalence and the Construction of Infinite Quantum Solutions to the Problem of 36 Officers of Euler
 kind: paper
+completeness: complete
 authors:
   - S. A. Rather
   - N. Ramadas

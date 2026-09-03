@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Geometrical description of quantal state determination
 kind: paper
+completeness: complete
 authors:
   - I. D. Ivanovic
 venue: J. Phys. A 14, 3241 (1981)

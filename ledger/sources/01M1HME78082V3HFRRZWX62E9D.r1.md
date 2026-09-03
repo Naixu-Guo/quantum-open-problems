@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Sufficient Criteria for Absolute Separability in Arbitrary Dimensions via Linear Map Inverses
 kind: paper
+completeness: complete
 authors:
   - J. Abellanet-Vidal
   - G. Müller-Rigat

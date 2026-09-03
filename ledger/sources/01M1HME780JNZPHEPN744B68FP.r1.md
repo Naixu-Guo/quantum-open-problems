@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: "Holographic Quantum Error-Correcting Codes: Toy Models for the Bulk/Boundary Correspondence"
 kind: paper
+completeness: complete
 authors:
   - F. Pastawski
   - B. Yoshida

@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Doubly stochastic matrices and the diagonal of a rotation matrix,
 kind: paper
+completeness: complete
 authors:
   - A. Horn
 venue: "*American Journal of Mathematics* 76, 620–630 (1954)"

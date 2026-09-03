@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: On the Failure of the Upper Bound in the Refined BMV Conjecture and a Pinching Correction
 kind: paper
+completeness: complete
 authors:
   - T. H. Dinh
 venue: arXiv:2605.17782 (2026)

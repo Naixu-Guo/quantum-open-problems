@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Private and Quantum Capacities of More Capable and Less Noisy Quantum Channels
 kind: paper
+completeness: complete
 authors:
   - S. Watanabe
 venue: Physical Review A 85, 012326 (2012)

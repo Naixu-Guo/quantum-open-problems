@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Maximization of capacity and $l_p$ norms for some product channels
 kind: preprint
+completeness: complete
 authors:
   - C. King
 venue: J. Math. Phys. 43, 1247 (2002); arXiv:quant-ph/0103086

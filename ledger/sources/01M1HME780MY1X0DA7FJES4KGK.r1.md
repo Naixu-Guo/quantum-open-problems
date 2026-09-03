@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Quantum information becomes classical when distributed to many users
 kind: preprint
+completeness: complete
 authors:
   - G. Chiribella
   - G. M. D'Ariano

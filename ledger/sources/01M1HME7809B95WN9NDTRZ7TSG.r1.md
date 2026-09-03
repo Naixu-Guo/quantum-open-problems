@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Minimum Renyi and Wehrl entropies at the output of bosonic channels
 kind: preprint
+completeness: complete
 authors:
   - V. Giovannetti
   - S. Lloyd

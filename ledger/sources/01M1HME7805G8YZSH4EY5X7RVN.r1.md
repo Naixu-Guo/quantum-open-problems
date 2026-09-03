@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Generalized Quantum Stein's Lemma for Classical-Quantum Dynamical Resources
 kind: preprint
+completeness: complete
 authors:
   - M. Hayashi
   - H. Yamasaki

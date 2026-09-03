@@ -19,6 +19,11 @@ export interface Independence {
   noSharedReads: boolean;
 }
 
+export interface ConflictOfInterest {
+  declared: boolean;
+  statement: string;
+}
+
 export interface Review extends ImmutableBase {
   type: typeof TYPE;
   contributionId: string;
@@ -26,6 +31,7 @@ export interface Review extends ImmutableBase {
   trajectoryId: string | null;
   kind: "triage" | "verification" | "audit";
   independence: Independence;
+  conflictOfInterest: ConflictOfInterest;
   methods: ReviewMethod[];
   checks: ReviewCheck[];
   verdict: Verdict;
@@ -50,6 +56,7 @@ export function isIndependent(review: Review): boolean {
 export function rules(review: Review, ledger: Ledger): string[] {
   const errors: string[] = [];
   if (review.createdBy !== review.reviewerId) errors.push("a review is created by its reviewer");
+  if (review.conflictOfInterest.declared && review.conflictOfInterest.statement.trim() === "") errors.push("a declared conflict of interest needs a statement");
   if (review.kind === "verification" && !review.methods.some((method) => MECHANICAL_METHODS.has(method))) {
     errors.push("a verification review must use at least one mechanical method");
   }

@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Physical Review A
 kind: paper
+completeness: url-only
 authors: []
 venue: Physical Review A
 date: "2024"

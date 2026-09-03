@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Non-existence of Stabilizer Absolutely Maximally Entangled States across Infinitely Many Configurations
 kind: preprint
+completeness: complete
 authors:
   - H. Cha
 venue: \newline arXiv:2603.13442v2 [quant-ph] (2026)

@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: "Two-copy nondistillability of Werner states: sharp partial-trace inequalities and finite-copy extensions"
 kind: preprint
+completeness: complete
 authors:
   - K. Bharti
   - S. Gajjala

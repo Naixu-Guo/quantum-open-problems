@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Belief Propagation Decoding of Quantum Channels by Passing Quantum Messages
 kind: paper
+completeness: complete
 authors:
   - J. M. Renes
 venue: New Journal of Physics 19, 072001 (2017)

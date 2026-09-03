@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: More efficient Bell inequalities for Werner states
 kind: preprint
+completeness: complete
 authors:
   - T. Vértesi
 venue: Phys. Rev. A 78, 032112 (2008); arXiv:0806.0096

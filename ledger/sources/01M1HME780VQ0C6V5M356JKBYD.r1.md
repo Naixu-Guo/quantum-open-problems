@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: "SICs: Extending the list of solutions"
 kind: preprint
+completeness: complete
 authors:
   - A. J. Scott
 venue: arXiv:1703.03993

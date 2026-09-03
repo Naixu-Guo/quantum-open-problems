@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Strong superadditivity of the entanglement of formation follows from its additivity
 kind: preprint
+completeness: complete
 authors:
   - A. A. Pomeransky
 venue: arXiv:quant-ph/0305056 (2003)

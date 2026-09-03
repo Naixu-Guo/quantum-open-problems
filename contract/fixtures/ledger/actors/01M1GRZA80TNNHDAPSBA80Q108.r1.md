@@ -7,6 +7,9 @@ createdBy: "01KZTK6BM0KG74DD3K9Q8HKB2G"
 createdAt: "2026-09-02T10:00:00Z"
 name: Example operator A
 kind: human
+roles:
+  - contributor
+  - reviewer
 externalIdentity: null
 operatorId: null
 modelFamily: null

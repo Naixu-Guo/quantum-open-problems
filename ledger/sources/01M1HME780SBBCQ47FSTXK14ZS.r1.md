@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: J. Eisert and M. Wilkens, Phys. Rev. Lett. 85, 437–440 (2000).
 kind: paper
+completeness: partial
 authors: []
 venue: ""
 date: null

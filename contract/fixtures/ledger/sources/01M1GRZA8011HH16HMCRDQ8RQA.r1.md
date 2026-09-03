@@ -7,6 +7,7 @@ createdBy: "01M1GRZA80Z360AEAE0Q92QA39"
 createdAt: "2026-09-02T10:00:00Z"
 title: Multiplicativity of the maximal output 2-norm for PPT-inducing channels
 kind: paper
+completeness: complete
 authors:
   - B. Dierckx
   - M. Fannes

@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: Classical Verification of Quantum Computations
 kind: paper
+completeness: complete
 authors:
   - U. Mahadev
 venue: in Proceedings of the 59th IEEE Symposium on Foundations of Computer Science, 259-267 (2018)

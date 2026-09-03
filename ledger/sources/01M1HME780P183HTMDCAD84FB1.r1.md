@@ -7,6 +7,7 @@ createdBy: 01M1HME780JC7TB3G87MSB1YG9
 createdAt: 2026-09-02T18:00:00Z
 title: The Pitfalls of Deciding Whether a Quantum Channel Is (Conjugate) Degradable and How to Avoid Them
 kind: paper
+completeness: complete
 authors:
   - K. Brádler
 venue: Open Systems & Information Dynamics 22, 1550026 (2015)
