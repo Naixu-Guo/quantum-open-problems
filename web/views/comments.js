@@ -29,15 +29,17 @@ function comment(entry, actors, replies) {
 /** Render a thread into `container` and wire the composer. `target` is `{ targetType, targetId }`. */
 export async function renderDiscussion(container, target, comments, { onChange }) {
   const actors = await actorsById().catch(() => new Map());
+  // A reply whose parent is gone (deleted, hidden) is shown at the top level rather than lost.
+  const known = new Set(comments.map((entry) => entry.id));
   const byParent = new Map();
   for (const entry of comments) {
-    const key = entry.parentCommentId ?? "";
+    const key = entry.parentCommentId && known.has(entry.parentCommentId) ? entry.parentCommentId : "";
     if (!byParent.has(key)) byParent.set(key, []);
     byParent.get(key).push(entry);
   }
   const sorted = (list) => [...list].sort((a, b) => String(a.createdAt).localeCompare(String(b.createdAt)));
-  const render = (parentId) => sorted(byParent.get(parentId ?? "") ?? []).map((entry) => comment(entry, actors, render(entry.id)));
-  const roots = render(null);
+  const render = (parentId) => sorted(byParent.get(parentId) ?? []).map((entry) => comment(entry, actors, render(entry.id)));
+  const roots = render("");
 
   mount(container, html`
     ${roots.length ? html`<ul class="comments">${roots}</ul>` : html`<p class="muted">No comments yet.</p>`}
@@ -51,31 +53,32 @@ export async function renderDiscussion(container, target, comments, { onChange }
         </form>`
       : html`<p class="muted small"><a href="${loginUrl()}" data-native>Sign in with GitHub</a> to join the discussion.</p>`}
   `);
-  await typeset(container);
 
   const form = $("#composer", container);
-  if (!form) return;
-  for (const button of $$("[data-reply]", container)) {
-    button.addEventListener("click", () => {
-      form.parentCommentId.value = button.dataset.reply;
-      const box = $("#replying", form);
-      box.hidden = false;
-      box.innerHTML = String(html`Replying to a comment. <button type="button" class="button small quiet" id="cancel-reply">Cancel</button>`);
-      $("#cancel-reply", box).addEventListener("click", () => { form.parentCommentId.value = ""; box.hidden = true; });
-      form.body.focus();
+  if (form) {
+    for (const button of $$("[data-reply]", container)) {
+      button.addEventListener("click", () => {
+        form.parentCommentId.value = button.dataset.reply;
+        const box = $("#replying", form);
+        box.hidden = false;
+        box.innerHTML = String(html`Replying to a comment. <button type="button" class="button small quiet" id="cancel-reply">Cancel</button>`);
+        $("#cancel-reply", box).addEventListener("click", () => { form.parentCommentId.value = ""; box.hidden = true; });
+        form.body.focus();
+      });
+    }
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const button = $("button[type=submit]", form);
+      button.disabled = true;
+      try {
+        await submitBatch([{ type: "Comment", targetType: target.targetType, targetId: target.targetId, parentCommentId: form.parentCommentId.value || null, promotedToContributionId: null, body: form.body.value.trim() }]);
+        toast("Comment posted");
+        await onChange();
+      } catch (error) {
+        mount($("#composer-error", form), errorBox(error));
+        button.disabled = false;
+      }
     });
   }
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const button = $("button[type=submit]", form);
-    button.disabled = true;
-    try {
-      await submitBatch([{ type: "Comment", targetType: target.targetType, targetId: target.targetId, parentCommentId: form.parentCommentId.value || null, promotedToContributionId: null, body: form.body.value.trim() }]);
-      toast("Comment posted");
-      await onChange();
-    } catch (error) {
-      mount($("#composer-error", form), errorBox(error));
-      button.disabled = false;
-    }
-  });
+  await typeset(container);
 }

@@ -60,7 +60,12 @@ export function renderTopbar() {
   });
 
   $("#sign-out", bar)?.addEventListener("click", async () => {
-    await logout();
+    try {
+      await logout();
+    } catch (error) {
+      toast(`Could not sign out: ${error.message}`, "error");
+      return;
+    }
     toast("Signed out");
     renderTopbar();
     navigate(location.pathname + location.search, { replace: true });

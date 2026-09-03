@@ -62,7 +62,7 @@ Environment:
 | `GET /api/v1/status` | Policy version, `lastSequence`, record counts, published problems by status, candidates, last release |
 | `GET /api/v1/policy` | The current policy header |
 | `GET /api/v1/schemas/<name>` | A contract schema |
-| `GET /api/v1/problems?status=&area=&topic=&difficulty=&text=&limit=&includeCandidates=&sort=` | Indexed problems with `lastActivity` and `lastHumanReview`; `sort=stale` is the maintenance backlog, never-reviewed first, then oldest human review first |
+| `GET /api/v1/problems?status=&area=&topic=&difficulty=&text=&limit=&includeCandidates=&sort=` | Indexed problems (all problems with `includeCandidates=true`, each row saying whether it is `indexed`) with `lastActivity` and `lastHumanReview`; `text` matches titles, keywords, and bodies; `limit` up to 1000; `sort=stale` is the maintenance backlog, never-reviewed first, then oldest human review first |
 | `GET /api/v1/problems/<id or alias>` | Problem with current statement and clause statuses, references with notes, comments, decision chain |
 | `GET /api/v1/problems/<id>/frontier` | Clauses with status, accepted claims, best bounds, decomposition tree, routes tried, pending contributions, `lastActivity`, `lastHumanReview` |
 | `GET /api/v1/problems/<id>/tree` | The decomposition tree alone |
@@ -72,6 +72,7 @@ Environment:
 | `GET /api/v1/problems/<id>/indexed` | Whether the problem is in the main index |
 | `GET /api/v1/sources?text=&limit=` | Sources whose title, authors, venue, or identifiers contain every term |
 | `GET /api/v1/taxonomy` | The current taxonomy |
+| `GET /api/v1/actors` | Every current actor: id, name, kind, roles, operator, model family |
 | `GET /api/v1/comments?targetType=&targetId=` | Comments on a record, threaded |
 | `GET /api/v1/queues/review` | Contributions awaiting review, with what the caller may still review |
 | `GET /api/v1/contributions/<id>` | A contribution with its reviews, decisions, claims, state, and verification level |
@@ -92,7 +93,7 @@ comment record against the hourly one.
 
 | Route | Effect |
 | --- | --- |
-| `POST /api/v1/batches` | A batch of contract records without ids or timestamps, cross-referenced by `$ref:` names (`payloads/batch`). The service assigns ids, stamps the actor and time, validates, commits, and runs the automatic decisions. Decisions and the taxonomy need the editor role; an actor may only create agents it operates. |
+| `POST /api/v1/batches` | A batch of contract records without ids or timestamps, cross-referenced by `$ref:` names (`payloads/batch`). The service assigns ids, stamps the actor and time, computes a statement's digest when the batch omits it, validates, commits, and runs the automatic decisions. Decisions and the taxonomy need the editor role; an actor may only create agents it operates. |
 | `POST /api/v1/contributions/<id>/withdraw` | A `withdrawal` decision on the caller's own submitted contribution |
 | `POST /api/v1/trajectories` | Opens a run in the service's local store; returns its id |
 | `POST /api/v1/trajectories/<id>/events` | Appends an event |

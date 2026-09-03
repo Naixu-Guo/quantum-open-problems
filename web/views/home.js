@@ -1,12 +1,11 @@
 /** The front page: what the ledger holds, what moved recently, what needs a person. */
 import { html, mount } from "../lib/dom.js";
 import { get } from "../lib/api.js";
-import { setTitle } from "../router.js";
 import { taxonomy, problemRow } from "./shared.js";
 import { config } from "../config.js";
 import { typeset } from "../lib/math.js";
 
-export async function view({ main }) {
+export async function view({ main, setTitle, alive }) {
   setTitle("");
   const [status, list, tax, queue] = await Promise.all([
     get("/api/v1/status"),
@@ -14,10 +13,10 @@ export async function view({ main }) {
     taxonomy(),
     get("/api/v1/queues/review").catch(() => ({ items: [] })),
   ]);
-  const problems = list.problems;
-  const published = problems.filter((p) => p.catalogState === "published");
-  const recent = [...published].filter((p) => p.lastActivity).sort((a, b) => String(b.lastActivity).localeCompare(String(a.lastActivity))).slice(0, 8);
-  const stale = [...published].filter((p) => p.status !== "solved").sort((a, b) => String(a.lastHumanReview ?? "").localeCompare(String(b.lastHumanReview ?? ""))).slice(0, 5);
+  if (!alive()) return;
+  const indexed = list.problems.filter((p) => p.indexed);
+  const recent = indexed.filter((p) => p.lastActivity).sort((a, b) => String(b.lastActivity).localeCompare(String(a.lastActivity))).slice(0, 8);
+  const stale = indexed.filter((p) => p.status !== "solved").sort((a, b) => String(a.lastHumanReview ?? "").localeCompare(String(b.lastHumanReview ?? ""))).slice(0, 5);
   const by = status.problems.byStatus ?? {};
 
   mount(main, html`

@@ -45,6 +45,7 @@ export function sourcePicker(container) {
   const details = $("details", container);
   let chosen = null;
   let timer = null;
+  let sequence = 0;
 
   const choose = (source) => {
     chosen = source;
@@ -61,19 +62,21 @@ export function sourcePicker(container) {
     }
   };
 
-  search.addEventListener("input", () => {
-    clearTimeout(timer);
+  // Results are plain buttons: the title is text here, not a link, so a click picks rather than leaves.
+  const lookUp = async () => {
     const text = search.value.trim();
     if (text.length < 2) { results.hidden = true; return; }
-    timer = setTimeout(async () => {
-      const found = await get(`/api/v1/sources?text=${encodeURIComponent(text)}&limit=8`).catch(() => ({ sources: [] }));
-      mount(results, found.sources.length
-        ? found.sources.map((s) => html`<button type="button" data-id="${s.id}">${sourceLine(s)}</button>`)
-        : html`<button type="button" disabled>No source matches; describe it below.</button>`);
-      results.hidden = false;
-      for (const button of $$("button[data-id]", results)) button.addEventListener("click", () => choose(found.sources.find((s) => s.id === button.dataset.id)));
-    }, 250);
-  });
+    const mine = ++sequence;
+    const found = await get(`/api/v1/sources?text=${encodeURIComponent(text)}&limit=8`).catch(() => ({ sources: [] }));
+    if (mine !== sequence) return;
+    mount(results, found.sources.length
+      ? found.sources.map((s) => html`<button type="button" data-id="${s.id}">${sourceLine(s, { link: false })}</button>`)
+      : html`<button type="button" disabled>No source matches; describe it below.</button>`);
+    results.hidden = false;
+    for (const button of $$("button[data-id]", results)) button.addEventListener("click", () => choose(found.sources.find((s) => s.id === button.dataset.id)));
+  };
+  search.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(lookUp, 250); });
+  search.addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); clearTimeout(timer); lookUp(); } });
   search.addEventListener("blur", () => setTimeout(() => { results.hidden = true; }, 200));
 
   const fields = () => Object.fromEntries($$("[data-field]", container).map((el) => [el.dataset.field, el.value.trim()]));
@@ -99,7 +102,7 @@ export function sourcePicker(container) {
       const out = [];
       if (!v.title) out.push("Choose a source or give the new source a title.");
       if (v.date && !DATE.test(v.date)) out.push("The source date must be YYYY, YYYY-MM, or YYYY-MM-DD.");
-      if (v.url && !/^https?:\/\//.test(v.url)) out.push("The source URL must start with http:// or https://.");
+      if (v.url && !/^https?:\/\/\S+$/.test(v.url)) out.push("The source URL must start with http:// or https://.");
       return out;
     },
     title() { return chosen ? chosen.title : fields().title; },

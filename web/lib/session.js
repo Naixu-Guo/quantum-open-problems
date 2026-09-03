@@ -21,8 +21,9 @@ export function loginUrl(returnTo = location.pathname + location.search + locati
   return `/auth/login?return_to=${encodeURIComponent(returnTo)}`;
 }
 
+/** Ends the session on the service; throws when the service refused, so the caller does not claim success. */
 export async function logout() {
-  await post("/auth/logout", {}).catch(() => null);
+  await post("/auth/logout", {});
   current = nobody;
   forget();
 }
@@ -31,9 +32,4 @@ export async function logout() {
 export async function actorsById() {
   const list = await cached("/api/v1/actors");
   return new Map(list.actors.map((entry) => [entry.id, entry]));
-}
-
-export async function actorName(id) {
-  const actors = await actorsById().catch(() => new Map());
-  return actors.get(id)?.name ?? id;
 }

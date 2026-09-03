@@ -49,6 +49,7 @@ export function relativeTime(iso, now = Date.now()) {
   if (!iso) return "";
   const seconds = Math.round((now - Date.parse(iso)) / 1000);
   if (!Number.isFinite(seconds)) return formatDate(iso);
+  if (seconds < 0) return "just now";
   const units = [["year", 31536000], ["month", 2592000], ["week", 604800], ["day", 86400], ["hour", 3600], ["minute", 60]];
   for (const [name, size] of units) {
     if (Math.abs(seconds) >= size) {
@@ -88,14 +89,14 @@ export async function copyText(text) {
   }
 }
 
-/** Read a form into an object of trimmed strings by field name. */
-export function formValues(form) {
-  const values = {};
-  for (const [name, value] of new FormData(form)) values[name] = typeof value === "string" ? value.trim() : value;
-  return values;
+/** Turn a title into a slug that fits the contract's alias pattern: letters lose their accents, everything else becomes a hyphen. */
+export function slugify(text) {
+  const plain = String(text).normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase();
+  return plain.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80).replace(/-+$/g, "");
 }
 
-/** Turn a title into a slug that fits the contract's alias pattern. */
-export function slugify(text) {
-  return String(text).toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80);
+/** A random id for idempotency keys; `randomUUID` exists only in secure contexts, `getRandomValues` everywhere. */
+export function randomId() {
+  if (typeof crypto.randomUUID === "function") return crypto.randomUUID();
+  return [...crypto.getRandomValues(new Uint8Array(16))].map((b) => b.toString(16).padStart(2, "0")).join("");
 }

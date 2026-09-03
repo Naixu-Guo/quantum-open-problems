@@ -3,6 +3,7 @@
  * records sent with the session cookie, an idempotency key, and our own origin. Errors carry
  * the service's status and message, and the validator's issues when a batch was refused.
  */
+import { randomId } from "./dom.js";
 
 export class ApiError extends Error {
   constructor(status, message, issues = []) {
@@ -38,7 +39,7 @@ export async function post(path, body) {
   const response = await fetch(path, {
     method: "POST",
     credentials: "same-origin",
-    headers: { "Content-Type": "application/json", Accept: "application/json", "Idempotency-Key": crypto.randomUUID() },
+    headers: { "Content-Type": "application/json", Accept: "application/json", "Idempotency-Key": randomId() },
     body: JSON.stringify(body),
   });
   const reply = await parse(response);

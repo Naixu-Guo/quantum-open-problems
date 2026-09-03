@@ -1,7 +1,7 @@
 /** One problem: statement, clauses, progress, references, discussion, history. */
-import { html, mount, $, $$, label, formatDate, shortId, copyText } from "../lib/dom.js";
+import { html, mount, $, label, formatDate, shortId, copyText } from "../lib/dom.js";
 import { get } from "../lib/api.js";
-import { setTitle, refresh } from "../router.js";
+import { refresh } from "../router.js";
 import { signedIn, loginUrl, actorsById } from "../lib/session.js";
 import { markdown, inlineMarkup, statusChip, chip, taxonomy, sourceLine, openDialog, groupBy, problemPath, copyButton } from "./shared.js";
 import { renderDiscussion } from "./comments.js";
@@ -12,15 +12,16 @@ import { config } from "../config.js";
 const ROLE_ORDER = REFERENCE_ROLES.map(([value]) => value);
 const ROLE_TEXT = new Map(REFERENCE_ROLES);
 
+/** What a decision did, in words; a rejected decision changed nothing. */
 function decisionText(decision) {
-  const outcome = decision.outcome === "accepted";
+  const accepted = decision.outcome === "accepted";
   switch (decision.kind) {
-    case "admission": return outcome ? "Admitted to the catalog" : "Admission refused";
-    case "status": return `Status set to ${decision.status}`;
+    case "admission": return accepted ? "Admitted to the catalog" : "Admission refused";
+    case "status": return accepted ? `Status set to ${decision.status}` : `Status change to ${decision.status} refused`;
     case "maintenance": return "Reviewed by a human editor";
-    case "promotion": return outcome ? "Promoted to the main index" : "Promotion refused";
-    case "merge": return "Merged into another problem";
-    case "retire": return "Retired";
+    case "promotion": return accepted ? "Promoted to the main index" : "Promotion refused";
+    case "merge": return accepted ? "Merged into another problem" : "Merge refused";
+    case "retire": return accepted ? "Retired from the catalog" : "Retirement refused";
     default: return `${label(decision.kind)} ${decision.outcome}`;
   }
 }
@@ -46,18 +47,52 @@ function citeDialog(problem, statement) {
     <div class="copy-block"><pre>${bibtex}</pre>${copyButton(bibtex, "Copy BibTeX")}</div>`);
 }
 
-export async function view({ main, params }) {
-  const problem = await get(`/api/v1/problems/${encodeURIComponent(params[0])}`);
-  const [front, tax, actors, parent] = await Promise.all([
-    get(`/api/v1/problems/${problem.id}/frontier`).catch(() => null),
+/** The problem's ancestors, nearest first; an auxiliary problem lives under its parent's directory. */
+async function ancestors(problem) {
+  const chain = [];
+  let parentId = problem.parentProblemId;
+  while (parentId && chain.length < 8) {
+    const parent = await get(`/api/v1/problems/${parentId}`).catch(() => null);
+    if (!parent) break;
+    chain.push(parent);
+    parentId = parent.parentProblemId;
+  }
+  return chain;
+}
+
+function ledgerDirectory(problem, chain) {
+  if (!problem.aliases?.[0] || chain.some((p) => !p.aliases?.[0])) return null;
+  const root = chain[chain.length - 1] ?? problem;
+  const below = [...chain.slice(0, -1).reverse(), ...(chain.length ? [problem] : [])];
+  return `problems/${root.aliases[0]}${below.map((p) => `/auxiliary/${p.aliases[0]}`).join("")}`;
+}
+
+function stateNotice(problem, proposal, mergedInto) {
+  switch (problem.catalogState) {
+    case "candidate": return html`<div class="notice">This problem is a candidate: its proposal waits for a review, and it is not in the index yet.${proposal ? html` <a href="/contributions/${proposal.id}">Open the proposal</a>.` : ""}</div>`;
+    case "merged": return html`<div class="notice warn">This problem was merged${mergedInto ? html` into <a href="${problemPath(mergedInto)}">${inlineMarkup(mergedInto.title)}</a>` : " into another problem"}; it stays here for the record.</div>`;
+    case "retired": return html`<div class="notice warn">This problem was retired from the catalog; it stays here for the record.</div>`;
+    default: return "";
+  }
+}
+
+export async function view({ main, params, setTitle, alive }) {
+  const key = encodeURIComponent(params[0]);
+  const [problem, front, tax, actors] = await Promise.all([
+    get(`/api/v1/problems/${key}`),
+    get(`/api/v1/problems/${key}/frontier`).catch(() => null),
     taxonomy(),
     actorsById().catch(() => new Map()),
-    problem.parentProblemId ? get(`/api/v1/problems/${problem.parentProblemId}`).catch(() => null) : null,
   ]);
+  const chain = await ancestors(problem);
+  const merge = problem.catalogState === "merged" ? problem.decisions.find((d) => d.kind === "merge" && d.outcome === "accepted") : null;
+  const mergedInto = merge?.mergeIntoProblemId ? await get(`/api/v1/problems/${merge.mergeIntoProblemId}`).catch(() => null) : null;
+  if (!alive()) return;
   setTitle(problem.title);
+  const parent = chain[0] ?? null;
   const alias = problem.aliases?.[0];
+  const directory = ledgerDirectory(problem, chain);
   const statement = problem.statement;
-  const candidate = problem.catalogState !== "published";
   const proposal = front?.pendingContributions?.find((c) => c.kind === "problem-proposal") ?? null;
   const groups = groupBy(problem.references, (r) => r.role);
   const roles = [...ROLE_ORDER.filter((r) => groups.has(r)), ...[...groups.keys()].filter((r) => !ROLE_ORDER.includes(r))];
@@ -78,7 +113,7 @@ export async function view({ main, params }) {
         ${problem.posed ? html`<span>posed ${problem.posed}</span>` : ""}
         <span title="How the problem entered the ledger">${label(problem.origin)}</span>
       </div>
-      ${candidate ? html`<div class="notice">This problem is a candidate: its proposal waits for a review, and it is not in the index yet.${proposal ? html` <a href="/contributions/${proposal.id}">Open the proposal</a>.` : ""}</div>` : ""}
+      ${stateNotice(problem, proposal, mergedInto)}
       <div class="doc-actions">
         ${signedIn() ? html`<button class="button small" id="add-reference" type="button">Add reference</button>` : html`<a class="button small" href="${loginUrl()}" data-native title="Sign in to add references and comments">Sign in to contribute</a>`}
         <a class="button small" href="#discussion">Comment</a>
@@ -86,7 +121,7 @@ export async function view({ main, params }) {
         <button class="button small" id="share" type="button">Share</button>
         <a class="button small quiet" href="/api/v1/problems/${problem.id}" data-native>JSON</a>
         <a class="button small quiet" href="/api/v1/problems/${problem.id}/context" data-native title="What an agent starts from, cut to a token budget">Context bundle</a>
-        ${alias ? html`<a class="button small quiet" href="${config.ledgerUrl}/problems/${alias}" rel="noopener" title="The files behind this page">Ledger files</a>` : ""}
+        ${directory ? html`<a class="button small quiet" href="${config.ledgerUrl}/${directory}" rel="noopener" title="The files behind this page">Ledger files</a>` : ""}
       </div>
 
       ${problem.body ? html`<section id="background"><h2>Background</h2><div class="prose">${markdown(problem.body, { headingOffset: 2 })}</div></section>` : ""}
@@ -122,7 +157,7 @@ export async function view({ main, params }) {
 
       <section id="references">
         <h2>References <span class="small muted">${problem.references.length}</span></h2>
-        ${roles.map((role) => html`<h3 class="group-title" title="${ROLE_TEXT.get(role) ?? ""}">${ROLE_TEXT.get(role) ?? label(role)}</h3><ul class="refs">${groups.get(role).map((ref) => html`<li class="ref" id="reference-${ref.id}">
+        ${roles.map((role) => html`<h3 class="group-title">${ROLE_TEXT.get(role) ?? label(role)}</h3><ul class="refs">${groups.get(role).map((ref) => html`<li class="ref" id="reference-${ref.id}">
           <div>${sourceLine(ref.source)}</div>
           ${ref.locator ? html`<div class="ref-meta">${ref.locator}</div>` : ""}
           ${ref.body ? html`<div class="ref-note prose">${markdown(ref.body)}</div>` : ""}

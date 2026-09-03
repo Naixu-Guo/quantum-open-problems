@@ -1,8 +1,7 @@
 /** Small pieces several pages use: chips, rows, source lines, dialogs, error boxes. */
 import { html, raw, label, formatDate, relativeTime, $, copyText } from "../lib/dom.js";
 import { renderMarkdown, inline, excerpt } from "../lib/markdown.js";
-import { cached } from "../lib/api.js";
-import { ApiError } from "../lib/api.js";
+import { cached, ApiError } from "../lib/api.js";
 
 export const markdown = (text, options) => raw(renderMarkdown(text ?? "", options));
 export const inlineMarkup = (text) => raw(inline(text ?? ""));
@@ -10,9 +9,12 @@ export { excerpt, formatDate, relativeTime };
 
 export const chip = (value, extra = "") => html`<span class="chip ${value} ${extra}">${label(value)}</span>`;
 
-/** A problem's status chip; candidates are not admitted yet and show that instead of a status. */
+/** A problem's chip: its status once published; otherwise where it stands in the catalog. */
 export function statusChip(problem) {
-  if (problem.catalogState && problem.catalogState !== "published") return html`<span class="chip candidate" title="Proposed; awaits admission by review">candidate</span>`;
+  const state = problem.catalogState ?? "published";
+  if (state === "candidate") return html`<span class="chip candidate" title="Proposed; awaits admission by review">candidate</span>`;
+  if (state === "merged") return html`<span class="chip merged" title="Merged into another problem">merged</span>`;
+  if (state === "retired") return html`<span class="chip retired" title="Retired from the catalog">retired</span>`;
   return chip(problem.status ?? "open");
 }
 
@@ -41,21 +43,25 @@ export function problemRow(problem, tax) {
   </div></li>`;
 }
 
+/** Where a source can be opened: its URL when it is a web address, else its DOI or arXiv page. */
 export function sourceHref(source) {
   if (!source) return null;
-  if (source.url) return source.url;
+  if (typeof source.url === "string" && /^https?:\/\//i.test(source.url)) return source.url;
   if (source.doi) return `https://doi.org/${source.doi}`;
   if (source.arxivId) return `https://arxiv.org/abs/${source.arxivId}`;
   return null;
 }
 
-/** One line for a source: authors, title (linked when we can), venue and year. */
-export function sourceLine(source) {
+/** One line for a source: authors, title (linked when asked and we can), venue and year. */
+export function sourceLine(source, { link = true } = {}) {
   if (!source) return html`<span class="muted">unknown source</span>`;
   if (source.redacted) return html`<span class="muted">redacted source</span>`;
-  const href = sourceHref(source);
+  const href = link ? sourceHref(source) : null;
   const authors = (source.authors ?? []).join(", ");
-  return html`${authors ? html`<span class="ref-authors">${authors}. </span>` : ""}${href ? html`<a class="ref-title" href="${href}" rel="noopener">${inlineMarkup(source.title)}</a>` : html`<span class="ref-title">${inlineMarkup(source.title)}</span>`}${source.venue ? html`<span class="ref-meta"> · ${source.venue}</span>` : source.date ? html`<span class="ref-meta"> · ${source.date}</span>` : ""}${source.arxivId && !String(source.venue ?? "").includes(source.arxivId) ? html`<span class="ref-meta"> · arXiv:${source.arxivId}</span>` : ""}`;
+  const title = href ? html`<a class="ref-title" href="${href}" rel="noopener">${inlineMarkup(source.title)}</a>` : html`<span class="ref-title">${inlineMarkup(source.title)}</span>`;
+  const venue = source.venue ? html`<span class="ref-meta"> · ${source.venue}</span>` : source.date ? html`<span class="ref-meta"> · ${source.date}</span>` : "";
+  const arxiv = source.arxivId && !String(source.venue ?? "").includes(source.arxivId) ? html`<span class="ref-meta"> · arXiv:${source.arxivId}</span>` : "";
+  return html`${authors ? html`<span class="ref-authors">${authors}. </span>` : ""}${title}${venue}${arxiv}`;
 }
 
 /** Open a modal with the given body markup. Returns the dialog; it removes itself when closed. */
@@ -77,6 +83,7 @@ export function errorBox(error) {
   return html`<div class="notice error" role="alert"><strong>${error.message}</strong>${hint}${details.length ? html`<ul>${details.map((line) => html`<li>${line}</li>`)}</ul>` : ""}</div>`;
 }
 
+/** A button that copies `text`; wire it after the markup is in the document. */
 export function copyButton(text, caption = "Copy") {
   const id = `copy-${Math.random().toString(36).slice(2, 8)}`;
   queueMicrotask(() => document.getElementById(id)?.addEventListener("click", () => copyText(text)));
@@ -91,10 +98,4 @@ export function groupBy(items, key) {
     groups.get(k).push(item);
   }
   return groups;
-}
-
-export { formatDateLong };
-function formatDateLong(iso) {
-  if (!iso) return "";
-  try { return new Date(iso).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }); } catch { return formatDate(iso); }
 }

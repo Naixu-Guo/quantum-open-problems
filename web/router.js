@@ -2,6 +2,10 @@
  * Path-based routing inside one page. The service serves `index.html` for any path that is not
  * a file, an API route, or an auth route, so links stay ordinary anchors: the router intercepts
  * same-origin clicks and renders the matching view into `main`.
+ *
+ * A view gets `{ main, params, url, setTitle, alive }`. Views fetch before they mount, so a
+ * slow navigation can finish after a newer one: `alive()` says whether this navigation is still
+ * the current one, and a view checks it before touching the page. `setTitle` ignores stale calls.
  */
 import { view as home } from "./views/home.js";
 import { view as problems } from "./views/problems.js";
@@ -27,7 +31,7 @@ const routes = [
 
 let generation = 0;
 
-export function setTitle(text) {
+function applyTitle(text) {
   document.title = text ? `${text} · Quantum Open Problems` : "Quantum Open Problems";
 }
 
@@ -43,10 +47,13 @@ export function refresh() {
 
 async function dispatch({ keepScroll = false } = {}) {
   const token = ++generation;
+  const alive = () => token === generation;
+  const setTitle = (text) => { if (alive()) applyTitle(text); };
   const url = new URL(location.href);
   const main = document.getElementById("main");
   const match = routes.find(([pattern]) => pattern.test(url.pathname));
   document.documentElement.dataset.route = match ? url.pathname.split("/")[1] || "home" : "not-found";
+  document.documentElement.dataset.loading = "1";
   highlightCurrent();
   resetMath();
   const scrollY = window.scrollY;
@@ -56,19 +63,20 @@ async function dispatch({ keepScroll = false } = {}) {
       mount(main, html`<section class="empty"><h1>Nothing here</h1><p>No page at <code>${url.pathname}</code>. <a href="/problems">Browse the problems</a> instead.</p></section>`);
     } else {
       const params = url.pathname.match(match[0]).slice(1).map(decodeURIComponent);
-      await match[1]({ main, params, url });
+      await match[1]({ main, params, url, setTitle, alive });
     }
   } catch (error) {
-    if (token !== generation) return;
-    renderError(main, error);
+    if (!alive()) return;
+    renderError(main, error, setTitle);
   }
-  if (token !== generation) return;
+  if (!alive()) return;
+  delete document.documentElement.dataset.loading;
   if (keepScroll) window.scrollTo(0, scrollY);
   else if (url.hash) document.getElementById(url.hash.slice(1))?.scrollIntoView();
   else window.scrollTo(0, 0);
 }
 
-function renderError(main, error) {
+function renderError(main, error, setTitle) {
   console.error(error);
   const status = error instanceof ApiError ? error.status : null;
   setTitle(status === 404 ? "Not found" : "Error");

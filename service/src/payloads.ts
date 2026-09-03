@@ -8,7 +8,7 @@ import path from "node:path";
 import type { Ledger } from "../../contract/src/ledger.ts";
 import { REVISABLE_TYPES, type RecordType } from "../../contract/src/targets.ts";
 import { hasRole, actorKind } from "../../contract/src/types/actor.ts";
-import { bytesDigest } from "../../contract/src/digest.ts";
+import { bytesDigest, statementDigest } from "../../contract/src/digest.ts";
 import type { NewRecord } from "./ledger-repo.ts";
 import type { AuthStore, OpenTrajectory } from "./auth.ts";
 import { newId, nowIso } from "./ids.ts";
@@ -107,6 +107,7 @@ export function materialize(ledger: Ledger, actorId: string, records: BatchRecor
       createdAt: at,
       ...(revisable ? { revision: typeof resolved["revision"] === "number" ? resolved["revision"] : 1 } : { supersedes: resolved["supersedes"] ?? null }),
     };
+    if (record.type === "Statement" && typeof stamped["digest"] !== "string") stamped["digest"] = statementDigest(body);
     if (record.type === "Contribution") stamped["actorId"] = actorId;
     if (record.type === "Review") stamped["reviewerId"] = actorId;
     authorize(ledger, actorId, stamped);

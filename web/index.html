@@ -16,7 +16,8 @@
       options: { skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"], ignoreHtmlClass: "no-math" },
       startup: {
         typeset: false,
-        ready() { MathJax.startup.defaultReady(); MathJax.startup.promise.then(() => window.dispatchEvent(new Event("mathjax-ready"))); },
+        // The typeset methods exist once defaultReady has run; the page waits for this event, not for an initial typeset.
+        ready() { MathJax.startup.defaultReady(); window.dispatchEvent(new Event("mathjax-ready")); },
       },
     };
   </script>

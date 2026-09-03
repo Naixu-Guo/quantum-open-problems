@@ -129,7 +129,7 @@ function routes(service: Service): Route[] {
         limit: integer(query, "limit", 50),
         sort: query.get("sort") === "stale" ? "stale" : "title",
       });
-      return ok({ count: rows.length, problems: rows.map((row) => ({ id: row.id, alias: row.alias, title: row.title, role: row.role, catalogState: row.catalog_state, status: row.status, areaIds: JSON.parse(row.area_ids), topicIds: JSON.parse(row.topic_ids), difficulty: row.difficulty, lastActivity: row.last_activity, lastHumanReview: row.last_human_review })) });
+      return ok({ count: rows.length, problems: rows.map((row) => ({ id: row.id, alias: row.alias, title: row.title, role: row.role, catalogState: row.catalog_state, status: row.status, indexed: row.indexed === 1, areaIds: JSON.parse(row.area_ids), topicIds: JSON.parse(row.topic_ids), difficulty: row.difficulty, lastActivity: row.last_activity, lastHumanReview: row.last_human_review })) });
     } },
     { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)$/u, auth: false, handler: ({ params }) => ok(notNull(problemView(ledger(), resolveProblem(params[0]!)), "problem")) },
     { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)\/frontier$/u, auth: false, handler: ({ params }) => ok(notNull(frontier(ledger(), resolveProblem(params[0]!)), "problem")) },

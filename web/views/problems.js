@@ -1,15 +1,17 @@
 /**
  * The directory: every indexed problem, filtered in the page. Filters live in the URL so a
- * filtered view can be shared. Candidates (proposed, not yet admitted) are hidden unless asked.
+ * filtered view can be shared. Search goes to the service, which matches keywords and bodies;
+ * everything else is filtered here. Problems outside the index (candidates, auxiliaries not yet
+ * promoted) are hidden unless asked for.
  */
 import { html, mount, $, $$ } from "../lib/dom.js";
 import { get } from "../lib/api.js";
-import { setTitle } from "../router.js";
 import { taxonomy, problemRow } from "./shared.js";
 import { typeset } from "../lib/math.js";
 
 const STATUSES = ["open", "partial", "solved", "refuted"];
 const SORTS = [["title", "Title"], ["activity", "Recently active"], ["stale", "Longest without human review"]];
+const PAGE = 1000;
 
 function readFilters(url) {
   const p = url.searchParams;
@@ -30,17 +32,13 @@ function writeFilters(filters) {
   history.replaceState({}, "", `/problems${query ? `?${query}` : ""}`);
 }
 
-function matches(problem, filters, tax) {
-  if (!filters.candidates && problem.catalogState !== "published") return false;
-  if (filters.state === "candidate" && problem.catalogState === "published") return false;
+function matches(problem, filters) {
+  if (!filters.candidates && !problem.indexed) return false;
+  if (filters.state === "candidate" && problem.catalogState !== "candidate") return false;
   if (filters.status && problem.status !== filters.status) return false;
   if (filters.area && !problem.areaIds.includes(filters.area)) return false;
   if (filters.topic && !problem.topicIds.includes(filters.topic)) return false;
   if (filters.difficulty && problem.difficulty !== filters.difficulty) return false;
-  if (filters.q) {
-    const hay = [problem.title, problem.alias, ...problem.areaIds.map(tax.areaLabel), ...problem.topicIds.map(tax.topicLabel)].join(" ").toLowerCase();
-    if (!filters.q.toLowerCase().split(/\s+/).every((term) => hay.includes(term))) return false;
-  }
   return true;
 }
 
@@ -51,18 +49,21 @@ function sortBy(problems, sort) {
   return list.sort((a, b) => a.title.localeCompare(b.title));
 }
 
-export async function view({ main, url }) {
+export async function view({ main, url, setTitle, alive }) {
   setTitle("Problems");
   const filters = readFilters(url);
-  const [list, tax] = await Promise.all([get("/api/v1/problems?limit=1000&includeCandidates=true"), taxonomy()]);
   if (filters.state === "candidate") filters.candidates = true;
+  const query = `limit=${PAGE}&includeCandidates=true${filters.q ? `&text=${encodeURIComponent(filters.q)}` : ""}`;
+  const [list, tax] = await Promise.all([get(`/api/v1/problems?${query}`), taxonomy()]);
+  if (!alive()) return;
+  const pressed = (value) => String(filters.status === value);
 
   mount(main, html`
     <div class="directory">
       <aside class="filters" aria-label="Filters">
         <fieldset><legend>Status</legend><div class="choice" id="status-choice">
-          <button type="button" data-status="" aria-pressed="${!filters.status}">All</button>
-          ${STATUSES.map((s) => html`<button type="button" data-status="${s}" aria-pressed="${filters.status === s}">${s}</button>`)}
+          <button type="button" data-status="" aria-pressed="${pressed("")}">All</button>
+          ${STATUSES.map((s) => html`<button type="button" data-status="${s}" aria-pressed="${pressed(s)}">${s}</button>`)}
         </div></fieldset>
         <fieldset><legend>Area</legend>
           <select name="area" id="area"><option value="">Any area</option>${tax.areas.map((a) => html`<option value="${a.id}" ${filters.area === a.id ? "selected" : ""}>${a.label}</option>`)}</select>
@@ -76,7 +77,7 @@ export async function view({ main, url }) {
         <fieldset><legend>Sort</legend>
           <select name="sort" id="sort">${SORTS.map(([value, text]) => html`<option value="${value}" ${filters.sort === value ? "selected" : ""}>${text}</option>`)}</select>
         </fieldset>
-        <fieldset><label class="check"><input type="checkbox" id="candidates" ${filters.candidates ? "checked" : ""}> Include candidates</label></fieldset>
+        <fieldset><label class="check"><input type="checkbox" id="candidates" ${filters.candidates ? "checked" : ""}> Include candidates and unpromoted auxiliaries</label></fieldset>
       </aside>
       <section>
         <p class="result-count" id="count"></p>
@@ -86,8 +87,10 @@ export async function view({ main, url }) {
   `);
 
   const apply = async () => {
-    const shown = sortBy(list.problems.filter((p) => matches(p, filters, tax)), filters.sort);
-    $("#count", main).textContent = `${shown.length} of ${list.problems.length} problems${filters.q ? ` matching “${filters.q}”` : ""}`;
+    if (!alive()) return;
+    const shown = sortBy(list.problems.filter((p) => matches(p, filters)), filters.sort);
+    const scope = filters.q ? `matching “${filters.q}”` : "";
+    $("#count", main).textContent = `${shown.length} of ${list.problems.length} problems ${scope}${list.problems.length >= PAGE ? " (first page only)" : ""}`.trim();
     mount($("#results", main), shown.length ? shown.map((p) => problemRow(p, tax)) : html`<li><p class="muted" style="padding:16px 0">Nothing matches. <a href="/problems">Clear the filters</a> or <a href="/propose">propose a problem</a>.</p></li>`);
     writeFilters(filters);
     await typeset($("#results", main));
@@ -103,8 +106,7 @@ export async function view({ main, url }) {
   $("#area", main).addEventListener("change", (event) => {
     filters.area = event.target.value;
     filters.topic = "";
-    const topic = $("#topic", main);
-    mount(topic, html`<option value="">Any topic</option>${tax.topics.filter((t) => !filters.area || t.areaId === filters.area).map((t) => html`<option value="${t.id}">${t.label}</option>`)}`);
+    mount($("#topic", main), html`<option value="">Any topic</option>${tax.topics.filter((t) => !filters.area || t.areaId === filters.area).map((t) => html`<option value="${t.id}">${t.label}</option>`)}`);
     apply();
   });
   $("#topic", main).addEventListener("change", (event) => { filters.topic = event.target.value; apply(); });

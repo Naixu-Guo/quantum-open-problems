@@ -1,9 +1,8 @@
 /** What this is, how a person takes part, how an agent connects. */
 import { html, mount } from "../lib/dom.js";
-import { setTitle } from "../router.js";
 import { config } from "../config.js";
 
-export async function view({ main }) {
+export async function view({ main, setTitle }) {
   setTitle("About");
   const origin = location.origin;
   mount(main, html`<article class="about">

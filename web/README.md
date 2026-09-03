@@ -18,7 +18,8 @@ client of the API in `service/`; nothing here touches the ledger directly.
 
 Writes are batches of contract records sent to `POST /api/v1/batches` with
 the session cookie (`lib/api.js`). The statement digest is computed in the
-browser (`lib/digest.js`) by the same rule as the contract.
+browser (`lib/digest.js`) by the same rule as the contract; away from a
+secure context, where WebCrypto is missing, the service computes it.
 
 ## Layout
 

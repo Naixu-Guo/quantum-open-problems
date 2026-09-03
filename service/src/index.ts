@@ -179,7 +179,7 @@ export class Index {
       for (const term of terms) { clauses.push("search_text LIKE ? ESCAPE '\\'"); params.push(`%${term.replace(/[\\%_]/gu, (c) => `\\${c}`)}%`); }
     }
     const where = clauses.length ? `WHERE ${clauses.join(" AND ")}` : "";
-    const limit = Math.min(Math.max(filter.limit ?? 50, 1), 200);
+    const limit = Math.min(Math.max(filter.limit ?? 50, 1), 1000);
     // "stale" is the maintenance backlog: never looked at by a human first, then oldest human review first.
     const order = filter.sort === "stale" ? "ORDER BY last_human_review IS NOT NULL, last_human_review, title" : "ORDER BY title";
     return this.db.prepare(`SELECT * FROM problems ${where} ${order} LIMIT ${limit}`).all(...params) as unknown as ProblemRow[];
