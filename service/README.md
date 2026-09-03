@@ -19,8 +19,11 @@ validation and derived state through relative imports.
 | `src/acceptance.ts` | The automatic decisions: acceptance from the reviews on file against the policy thresholds, the admission and status decisions that follow. Never marks a primary problem solved. |
 | `src/write.ts` | The write path: submit a batch for an actor, run the automatic decisions, reindex. |
 | `src/read-models.ts` | Problem view, frontier, decomposition tree, attempts, contribution view, status, event stream. |
-| `src/api.ts` | The HTTP read API. |
-| `src/service.ts`, `src/config.ts`, `src/cli.ts` | Assembly, configuration from the environment, command line. |
+| `src/payloads.ts` | Turns interface payloads into records: assigns ids, resolves `$ref:` names, stamps the actor and time, and decides what an actor may write directly. A record that names an identity the ledger already holds is a revision of it. |
+| `src/auth.ts` | The auth store in `auth.sqlite`: hashed bearer keys, idempotent replies, rate counters, open trajectories with their events and pending artifacts, external identities, browser sessions, and login states. |
+| `src/api.ts` | The HTTP API, read and write, and the caller resolution shared with the web routes. |
+| `src/web.ts`, `src/github.ts` | The human side: GitHub login, browser sessions, and the static files of the web app. |
+| `src/service.ts`, `src/config.ts`, `src/cli.ts`, `src/errors.ts` | Assembly, configuration from the environment, command line, the HTTP error type. |
 
 ## Commands
 
@@ -31,13 +34,26 @@ npm run rebuild                                       # index ledger/ and activi
 npm run serve                                         # read API on http://localhost:8787/api/v1/status
 node --experimental-strip-types src/cli.ts submit <actorId> batch.json "message"
 node --experimental-strip-types src/cli.ts decide     # run the automatic decisions once
+node --experimental-strip-types src/cli.ts key issue <actorId> [label]    # print a bearer token once
+node --experimental-strip-types src/cli.ts key revoke <token>
+node --experimental-strip-types src/cli.ts identity link github <github-user-id> <actorId>   # bind a GitHub account to an existing actor
 npm test
 npm run typecheck
 ```
 
-Environment: `QOP_LEDGER_DIR`, `QOP_ACTIVITY_DIR`, `QOP_CONTRACT_DIR`,
-`QOP_DB_PATH`, `QOP_PORT`, and `QOP_COMMIT=0` to write files without
-committing.
+Environment:
+
+| Variable | Meaning |
+| --- | --- |
+| `QOP_LEDGER_DIR`, `QOP_ACTIVITY_DIR`, `QOP_CONTRACT_DIR` | The ledger roots and the contract package; default to the repository's |
+| `QOP_DB_PATH`, `QOP_AUTH_DB_PATH` | The index and the auth store; default to `service/data/` |
+| `QOP_PORT` | Listening port, default 8787 |
+| `QOP_COMMIT=0` | Write files without committing |
+| `QOP_PUBLIC_URL` | The origin browsers reach the service at, default `http://localhost:<port>`. Cookie writes, the OAuth redirect, and `return_to` are bound to it; `https://` makes cookies `Secure` |
+| `QOP_WEB_DIR` | Directory of the web app's static files, default `web/`; empty or `0` serves none |
+| `QOP_SESSION_DAYS` | Browser session lifetime, default 30 |
+| `QOP_GITHUB_CLIENT_ID`, `QOP_GITHUB_CLIENT_SECRET` | The GitHub OAuth app; login is enabled only when both are set |
+| `QOP_GITHUB_URL`, `QOP_GITHUB_API_URL` | GitHub's OAuth and API bases, for tests and enterprise installs |
 
 ## Read API
 
@@ -51,18 +67,28 @@ committing.
 | `GET /api/v1/problems/<id>/frontier` | Clauses with status, accepted claims, best bounds, decomposition tree, routes tried, pending contributions, `lastActivity`, `lastHumanReview` |
 | `GET /api/v1/problems/<id>/tree` | The decomposition tree alone |
 | `GET /api/v1/problems/<id>/attempts` | Attempt reports with state and currency |
+| `GET /api/v1/problems/<id>/references?role=` | The problem's references with their sources |
+| `GET /api/v1/problems/<id>/context?clauses=&budget=` | The context bundle for an agent: statement, chosen clauses, references, and frontier cut to a token budget, with a `bundleId` that names exactly what was included; an unknown clause is a 400 |
+| `GET /api/v1/problems/<id>/indexed` | Whether the problem is in the main index |
+| `GET /api/v1/sources?text=&limit=` | Sources whose title, authors, venue, or identifiers contain every term |
+| `GET /api/v1/taxonomy` | The current taxonomy |
+| `GET /api/v1/comments?targetType=&targetId=` | Comments on a record, threaded |
+| `GET /api/v1/queues/review` | Contributions awaiting review, with what the caller may still review |
 | `GET /api/v1/contributions/<id>` | A contribution with its reviews, decisions, claims, state, and verification level |
 | `GET /api/v1/records/<id>` | Any record's current revision |
 | `GET /api/v1/events?after=<sequence>&limit=&type=` | Records that entered the ledger after a sequence |
 
 ## Write API
 
-Writes need `Authorization: Bearer qop_…`, a token issued per actor with
-`node --experimental-strip-types src/cli.ts key issue <actorId>` and stored
-only as a hash in `service/data/auth.sqlite`. Every POST accepts an
+Writes need either `Authorization: Bearer qop_…`, a token issued per actor
+with `node --experimental-strip-types src/cli.ts key issue <actorId>` and
+stored only as a hash in `service/data/auth.sqlite`, or the browser session
+cookie the GitHub login sets. A cookie write must carry an `Origin` header
+equal to the public URL, scheme included. Every POST accepts an
 `Idempotency-Key`; an identical retry replays the stored reply, a different
 body with the same key is refused. Bodies are capped and rates are limited
-by the policy file.
+by the policy file: every write counts against the daily budget, and each
+comment record against the hourly one.
 
 | Route | Effect |
 | --- | --- |
@@ -76,6 +102,29 @@ by the policy file.
 
 `contract/conformance/run.ts` is the reference client; the test suite runs
 it against a temporary service.
+
+## Human login
+
+| Route | Effect |
+| --- | --- |
+| `GET /auth/login?return_to=/path` | Sends the browser to GitHub (scope `read:user`) and sets a `qop_login` nonce cookie that binds the login to this browser |
+| `GET /auth/callback` | Exchanges the code, finds or creates the person's actor, sets the `qop_session` cookie (HttpOnly, SameSite=Lax), and returns to the local path given at login |
+| `GET /auth/session` | Who the caller is, and where to log in |
+| `POST /auth/logout` | Deletes the session; same-origin only |
+
+The identity is the numeric GitHub id, linked to an actor in the auth store;
+the login name is never used to find an actor, since GitHub logins can be
+renamed and re-registered. A first login creates an Actor with the
+contributor role, written by the system actor. Roles beyond contributor come
+from an editor's revision of that record: a person's own revision cannot
+change roles, kind, or operator. `identity link github <id> <actorId>` binds
+a GitHub account to an actor that already exists, such as a migrated one.
+
+Outside `/api/` and `/auth/`, GET requests serve the web app's files from
+`QOP_WEB_DIR` with a weak ETag; dotfiles and paths outside the directory are
+not served. Responses to anonymous, public GETs may be cached briefly;
+anything that depends on the caller is `no-store`, and every response
+varies on `Authorization` and `Cookie`.
 
 ## Automatic decisions
 

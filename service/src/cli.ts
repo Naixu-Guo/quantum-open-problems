@@ -7,6 +7,7 @@
  *   node --experimental-strip-types src/cli.ts id               print a fresh ULID
  *   node --experimental-strip-types src/cli.ts key issue <actorId> [label]   print a new bearer token once
  *   node --experimental-strip-types src/cli.ts key revoke <token>
+ *   node --experimental-strip-types src/cli.ts identity link github <github-user-id> <actorId>   bind a GitHub account to an existing actor
  */
 import fs from "node:fs";
 import { configFromEnv } from "./config.ts";
@@ -63,6 +64,18 @@ switch (command) {
     }
     break;
   }
+  case "identity": {
+    const [action, provider, subject, actorId] = args;
+    if (action === "link" && provider && subject && actorId) {
+      if (!service.repo.current().find("Actor", actorId)) { console.error(`unknown actor ${actorId}`); process.exit(1); }
+      service.auth.linkIdentity(provider, subject, actorId, "");
+      console.log(`linked ${provider}:${subject} to ${actorId}`);
+    } else {
+      console.error("usage: identity link <provider> <subject> <actorId>");
+      process.exit(2);
+    }
+    break;
+  }
   case "decide": {
     const automatic = runAutomaticDecisions(service);
     reindex(service);
@@ -71,6 +84,6 @@ switch (command) {
     break;
   }
   default:
-    console.error("usage: serve | rebuild | submit <actorId> <batch.json> [message] | decide | key issue|revoke | id");
+    console.error("usage: serve | rebuild | submit <actorId> <batch.json> [message] | decide | key issue|revoke | identity link | id");
     process.exit(2);
 }
