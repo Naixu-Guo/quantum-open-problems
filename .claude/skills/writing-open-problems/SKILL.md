@@ -29,7 +29,7 @@ Ask the expert, one topic at a time. Do not guess answers; record what they actu
 4. **Why it matters**: the motivation in the expert's words (why this problem, what a solution unlocks).
 5. **Known partial results / prior attempts**: papers, theorems, failed routes → become references with roles (and possibly claims).
 6. **Openness**: what is the most recent work, and why does it not settle it? If you cannot answer this, the admission gate is not met — say so and stop.
-7. **Metadata**: keywords; area/topic (must exist in the taxonomy — `ledger/problems/*/problem.r1.md` show valid `areaIds`/`topicIds`); related problems; `difficulty`/`verificationCost` only if the expert commits (else `unrated`); `posed` year if known.
+7. **Metadata**: keywords; area/topic — must exist in `ledger/taxonomy.r1.md`, the authoritative registry (5 areas, 11+ topics; unknown topic → `topicIds: []` and a note for the editor, never a new topic id); related problems; `difficulty`/`verificationCost` only if the expert commits (else `unrated`); `posed` year if known.
 
 ### 2. Literature and duplicate check (admission prerequisite)
 
@@ -60,7 +60,7 @@ aliases:
 origin: source-stated        # or derived | editor-formulated
 posed: "2005"                # year or null
 areaIds:
-  - quantum-information      # must exist in the taxonomy in use
+  - quantum-information      # must exist in ledger/taxonomy.r1.md
 topicIds:
   - <existing topic or []>
 keywords: [<lowercase search terms>]
