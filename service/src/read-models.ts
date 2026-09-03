@@ -32,6 +32,7 @@ export function problemView(ledger: Ledger, problemId: string) {
     indexed: isIndexed(ledger, problemId, decisions),
     statement: statement ? {
       ...statement,
+      body: ledger.find("Statement", statement.id)?.body ?? "",
       clauses: statement.clauses.map((clause) => ({ ...clause, ref: `${statement.id}#${clause.id}`, status: clauseStatus(ledger, `${statement.id}#${clause.id}`, claims) })),
     } : null,
     references,
@@ -260,6 +261,11 @@ export function taxonomyView(ledger: Ledger) {
 }
 
 /** A request for a context bundle that cannot be built as asked. */
+/** Every current actor, so pages can name who wrote a record. Keys and identities stay in the auth store. */
+export function actorsView(ledger: Ledger) {
+  return ledger.currentOf("Actor").map((a) => ({ id: a.id, name: a.fields["name"], kind: a.fields["kind"], roles: a.fields["roles"], operatorId: a.fields["operatorId"], modelFamily: a.fields["modelFamily"] }));
+}
+
 export class ContextError extends Error {}
 
 /** Sources matching every whitespace-separated term in title, authors, DOI, arXiv id, URL, or venue, for attaching a reference without creating a duplicate. */

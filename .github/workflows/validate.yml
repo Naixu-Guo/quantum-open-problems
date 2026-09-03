@@ -111,6 +111,10 @@ jobs:
         run: npm test
         working-directory: service
 
+      - name: Test the web app
+        run: npm test
+        working-directory: web
+
       - name: Type-check the MCP adapter
         run: npm run typecheck
         working-directory: mcp

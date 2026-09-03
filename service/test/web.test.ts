@@ -265,6 +265,27 @@ test("static files are served with validators, dotfiles are not, and a read erro
   assert.equal((await call("GET", "/api/v1/status")).status, 200, "the service is still up");
 });
 
+test("a page navigation to an app path gets the shell; file, API, and auth paths do not", async () => {
+  const page = await call("GET", "/problems/some-alias", { headers: { Accept: "text/html,application/xhtml+xml" } });
+  assert.equal(page.status, 200, page.text);
+  assert.match(page.text, /<title>QOP<\/title>/u);
+  assert.equal((await call("GET", "/problems/some-alias", { headers: { Accept: "application/json" } })).status, 404, "a JSON client gets a 404, not the shell");
+  assert.equal((await call("GET", "/missing.png", { headers: { Accept: "text/html" } })).status, 404);
+  assert.equal((await call("GET", "/auth/nothing", { headers: { Accept: "text/html" } })).status, 404);
+  assert.equal((await call("GET", "/api/v1/nothing", { headers: { Accept: "text/html" } })).status, 404);
+});
+
+test("the actor list and the problem view carry what the pages need", async () => {
+  const actors = await call("GET", "/api/v1/actors");
+  assert.equal(actors.status, 200);
+  assert.ok(actors.body.actors.some((a: { name: string; roles: string[] }) => a.name === "Legacy audit editor" && a.roles.includes("editor")));
+  assert.ok(actors.body.actors.every((a: Record<string, unknown>) => !("externalIdentity" in a) && !("keys" in a)), "identities and keys stay out of the list");
+  const problem = service.repo.current().currentOf("Problem").find((p) => (p.fields["aliases"] as string[])[0] === "example-conformance-problem")!;
+  const view = await call("GET", `/api/v1/problems/${problem.id}`);
+  assert.equal(view.status, 200);
+  assert.ok(typeof view.body.statement.body === "string" && view.body.statement.body.length > 0, "the statement Markdown is in the problem view");
+});
+
 test("source search matches every term", async () => {
   const one = await call("GET", "/api/v1/sources?text=ruskai");
   assert.ok(one.body.count >= 1);

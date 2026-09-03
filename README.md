@@ -15,8 +15,10 @@ The design is in [`docs/DESIGN.md`](docs/DESIGN.md). Work proceeds in four
 phases: contract, database, operation, community. Phase 0 is delivered and
 phase 1 is in progress: the contract package under `contract/`, the seed
 ledger produced by `tools/migrate-legacy/` under `ledger/` and `activity/`,
-the domain service with its read and write API under `service/`, and the
-MCP adapter under `mcp/src/`. Validate the ledger with:
+the domain service with its read and write API under `service/`, the
+MCP adapter under `mcp/src/`, and the web app under `web/`, which the
+service serves for people to browse, propose, reference, discuss, and
+review. Validate the ledger with:
 
 ```sh
 cd contract && npm ci && node --experimental-strip-types src/cli/validate.ts ../ledger ../activity

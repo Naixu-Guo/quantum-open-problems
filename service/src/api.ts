@@ -11,7 +11,7 @@ import path from "node:path";
 import { createHash } from "node:crypto";
 import type { Service } from "./write.ts";
 import { submit } from "./write.ts";
-import { problemView, frontier, tree, attempts, contributionView, recordView, status, events, referencesOf, commentsOn, reviewQueue, contextBundle, taxonomyView, searchSources, ContextError } from "./read-models.ts";
+import { problemView, frontier, tree, attempts, contributionView, recordView, status, events, referencesOf, commentsOn, reviewQueue, contextBundle, taxonomyView, actorsView, searchSources, ContextError } from "./read-models.ts";
 import { currentDecisions, isIndexed, contributionState } from "../../contract/src/derive.ts";
 import { validatePayload } from "../../contract/src/validate.ts";
 import { materialize, acceptArtifact, closeRecords, PayloadError, type BatchRecord } from "./payloads.ts";
@@ -116,6 +116,7 @@ function routes(service: Service): Route[] {
     { method: "GET", pattern: /^\/api\/v1\/schemas\/payloads\/([a-z-]+)$/u, auth: false, handler: ({ params }) => ok(readSchema(path.join(service.repo.schemaDir, "payloads", `${params[0]}.schema.json`), params[0]!)) },
     { method: "GET", pattern: /^\/api\/v1\/schemas\/([a-z-]+)$/u, auth: false, handler: ({ params }) => ok(readSchema(path.join(service.repo.schemaDir, `${params[0]}.schema.json`), params[0]!)) },
     { method: "GET", pattern: /^\/api\/v1\/taxonomy$/u, auth: false, handler: () => ok(notNull(taxonomyView(ledger()), "taxonomy")) },
+    { method: "GET", pattern: /^\/api\/v1\/actors$/u, auth: false, handler: () => ok({ actors: actorsView(ledger()) }) },
     { method: "GET", pattern: /^\/api\/v1\/sources$/u, auth: false, handler: ({ query }) => ok(searchSources(ledger(), query.get("text") ?? "", integer(query, "limit", 20))) },
     { method: "GET", pattern: /^\/api\/v1\/problems$/u, auth: false, handler: ({ query }) => {
       const rows = service.index.problemRows({
