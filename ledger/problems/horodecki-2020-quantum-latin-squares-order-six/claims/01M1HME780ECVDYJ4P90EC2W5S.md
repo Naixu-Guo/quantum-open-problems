@@ -12,67 +12,7 @@ clauseIds:
 relation: resolves
 bound: null
 support:
-  - sourceId: 01M1HME780HYJWRMJ8K4S54900
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
   - sourceId: 01M1HME7804DXYVB5JM5QYW52N
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME780RMWRZ59391WC4J2C
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME780YHQMB54J3DZBPS48
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME780E64WKZ2KW29QYEZ9
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME780JSHF6ZW1VEA53N13
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME780MQ8PX824BS4ATATW
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME7805G7P0JX1SVAT1WEV
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME780D2MS60KF03X3QE2W
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME780925XHGH3XA3NQQMP
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME780T7MNMBF6SZE6M553
     artifactId: null
     locator: ""
     date: null

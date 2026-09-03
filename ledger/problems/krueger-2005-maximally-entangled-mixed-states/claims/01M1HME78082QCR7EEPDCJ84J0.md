@@ -12,25 +12,7 @@ clauseIds:
 relation: refutes
 bound: null
 support:
-  - sourceId: 01M1HME780AG8JDYJFV8M6NDRJ
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: counterexample
-  - sourceId: 01M1HME780J59ZH0EA6JK356TW
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: counterexample
   - sourceId: 01M1HME780D1539RN6XJCY7JYQ
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: counterexample
-  - sourceId: 01M1HME780V8SDNBRMXMA4Q8VE
     artifactId: null
     locator: ""
     date: null

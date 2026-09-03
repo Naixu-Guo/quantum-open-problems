@@ -468,7 +468,7 @@ for (const slug of slugs) {
     const resolutionLines = status.split("\n").filter((line) => /\*\*(Status|Resolution|Concurrent|Solved|Answer)/iu.test(line));
     const resolutionText = resolutionLines.length > 0 ? resolutionLines.join("\n") : (status.split(/\n\s*\n/u)[0] ?? "");
     const negative = /solved (negatively|in the negative)|answer is no|is false|disproved|counterexample/i.test(resolutionText) && !/solved affirmatively|solved positively/i.test(resolutionText);
-    const supporters = biblio.filter((entry) => entry.surname.length >= 3 && new RegExp(`\\b${entry.surname.replace(/[^\\p{L}]/gu, "")}\\b`, "u").test(resolutionText))
+    const supporters = biblio.filter((entry) => entry.surname.length >= 3 && new RegExp(`\\b${entry.surname.replace(/[^\p{L}]/gu, "")}\\b`, "u").test(resolutionText))
       .filter((entry) => entry.sourceId !== statingSourceId);
     if (supporters.length === 0) summary.unsupportedSolved.push(slug);
     const support = supporters.map((entry) => {

@@ -12,25 +12,7 @@ clauseIds:
 relation: resolves
 bound: null
 support:
-  - sourceId: 01M1HME780CTT84YTCMXZFQ3WV
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: exact-theorem
-  - sourceId: 01M1HME780DCYEYPFH3D8S7FJ5
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
   - sourceId: 01M1HME7806JDYP1Q5F2G2GRPD
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME78027K8V8769WE8BJCW
     artifactId: null
     locator: ""
     date: null
@@ -41,60 +23,6 @@ support:
     locator: ""
     date: null
     maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME780S038CC0SFHV7M5M5
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME780P9E536TG72P3A3N0
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: exact-theorem
-  - sourceId: 01M1HME780KP11VD2X3QY392P0
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME780V5NE7PBG0JEMA0GC
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME7802GPB5MK22P4CKJZE
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: exact-theorem
-  - sourceId: 01M1HME780WW8VCAEFR431S59E
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME780KQSGWV2YPQSRPWKK
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: exact-theorem
-  - sourceId: 01M1HME780M74K8QDZ2CCZYMFR
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: exact-theorem
-  - sourceId: 01M1HME780ANAESCCKTT06Y0BV
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
     strength: exact-theorem
   - sourceId: 01M1HME780D542V7N6KMTM3GV9
     artifactId: null
@@ -108,115 +36,13 @@ support:
     date: null
     maturity: preprint
     strength: exact-theorem
-  - sourceId: 01M1HME780HFGASM64WE5ZSVBB
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME780HRMP3QGPY08F85EJ
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: exact-theorem
-  - sourceId: 01M1HME78057MEKRZHE9XFWFJ5
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: exact-theorem
-  - sourceId: 01M1HME780G448VKWBCVRT4W7X
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: exact-theorem
-  - sourceId: 01M1HME780YV000A7MHMY6YS9Q
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: exact-theorem
-  - sourceId: 01M1HME780MTV88DAXHST8MCTA
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: exact-theorem
-  - sourceId: 01M1HME780QSJ5QMGGWS13JR1G
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: exact-theorem
-  - sourceId: 01M1HME7809B95WN9NDTRZ7TSG
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: exact-theorem
-  - sourceId: 01M1HME7806FCPN6DYDVHVPYK2
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: exact-theorem
-  - sourceId: 01M1HME780489780WX508HX625
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: exact-theorem
-  - sourceId: 01M1HME7809QYRSAV9BSP03D9T
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: exact-theorem
   - sourceId: 01M1HME7806A5V87P2YK0GE0MW
     artifactId: null
     locator: ""
     date: null
     maturity: peer-reviewed
     strength: exact-theorem
-  - sourceId: 01M1HME780AW9T1GESWH4JEGW9
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: exact-theorem
   - sourceId: 01M1HME780B636RJXRP9ETMG9N
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: exact-theorem
-  - sourceId: 01M1HME780BE04T27RCYJ2J17F
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: exact-theorem
-  - sourceId: 01M1HME780XXBGHDGHVFGVH1YW
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: exact-theorem
-  - sourceId: 01M1HME780XCNR63HR0WXRBMW3
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME780GHAHKN1FYA81EPNC
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: exact-theorem
-  - sourceId: 01M1HME780PXYBVYETS6SR3WA2
     artifactId: null
     locator: ""
     date: null

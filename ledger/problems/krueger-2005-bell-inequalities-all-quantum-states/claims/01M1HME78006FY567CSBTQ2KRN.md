@@ -11,55 +11,7 @@ clauseIds:
   - 01M1HME780A6MNAT4E737NC16C#main
 relation: refutes
 bound: null
-support:
-  - sourceId: 01M1HME780XE204JVBJVBK6APG
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: counterexample
-  - sourceId: 01M1HME7800V3XJNZKRZ2SZWR6
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: counterexample
-  - sourceId: 01M1HME78088NQYT7AQMNVEYM7
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: counterexample
-  - sourceId: 01M1HME780PVHM7VZ05GHK5YAP
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: counterexample
-  - sourceId: 01M1HME780Y83DQ7VXACST0ANH
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: counterexample
-  - sourceId: 01M1HME780NYFBPKDTMMPQ72MB
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: counterexample
-  - sourceId: 01M1HME7803NANE4ZGGNPTNXMC
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: counterexample
-  - sourceId: 01M1HME780FJ02TN2GB7QJT6RG
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: counterexample
+support: []
 ---
 **Status: solved negatively.** Both universal questions have counterexamples.
 

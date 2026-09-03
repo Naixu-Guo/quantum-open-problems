@@ -11,55 +11,7 @@ clauseIds:
   - 01M1HME780V2PAHM8G7B868GAC#main
 relation: refutes
 bound: null
-support:
-  - sourceId: 01M1HME780JC3THY6Z4FX9H6M2
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: counterexample
-  - sourceId: 01M1HME780KKEXCK06EGSWPEQR
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: counterexample
-  - sourceId: 01M1HME780HFGASM64WE5ZSVBB
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: counterexample
-  - sourceId: 01M1HME780KXQZYP16R2PK3B7J
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: counterexample
-  - sourceId: 01M1HME780PDRYX1RGNTNGTC5N
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: counterexample
-  - sourceId: 01M1HME780W7HKT4SZPDQP50YS
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: counterexample
-  - sourceId: 01M1HME780BMA1N74EQW4G0DE4
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: counterexample
-  - sourceId: 01M1HME78095KP2YZG1JVRBDNH
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: counterexample
+support: []
 ---
 This problem has been resolved in the negative.
 

@@ -12,25 +12,7 @@ clauseIds:
 relation: resolves
 bound: null
 support:
-  - sourceId: 01M1HME780PVHM7VZ05GHK5YAP
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
   - sourceId: 01M1HME780KZGX96XV1K0732YS
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME780XR8HV99G42556STK
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME780RFFXYTSD8K1EJNMZ
     artifactId: null
     locator: ""
     date: null

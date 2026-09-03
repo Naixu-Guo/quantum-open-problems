@@ -11,37 +11,7 @@ clauseIds:
   - 01M1HME780167WPEZPHA906YT7#main
 relation: refutes
 bound: null
-support:
-  - sourceId: 01M1HME780AG8JDYJFV8M6NDRJ
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: counterexample
-  - sourceId: 01M1HME780K0PR13RSWYGDDKHF
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: counterexample
-  - sourceId: 01M1HME780X5SVXXKNBPC7T0P8
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: counterexample
-  - sourceId: 01M1HME780WMSMFY029CS0JHWT
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: preprint
-    strength: counterexample
-  - sourceId: 01M1HME780T2PS9R66TG1A1CHN
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: counterexample
+support: []
 ---
 **Solved (disproved).** The additivity of entanglement of formation is now known to be *false* in general.
 

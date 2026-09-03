@@ -12,25 +12,13 @@ clauseIds:
 relation: resolves
 bound: null
 support:
-  - sourceId: 01M1HME780WE0E9B4B55R55GQ8
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME780QAK8Q1MSAM3YB6C2
+  - sourceId: 01M1HME7805TNH2WT1BXFVVNF6
     artifactId: null
     locator: ""
     date: null
     maturity: peer-reviewed
     strength: exact-theorem
   - sourceId: 01M1HME780FFGPP997FPABA7QS
-    artifactId: null
-    locator: ""
-    date: null
-    maturity: peer-reviewed
-    strength: exact-theorem
-  - sourceId: 01M1HME780DR15ZNJQTG5AJ9Y7
     artifactId: null
     locator: ""
     date: null
