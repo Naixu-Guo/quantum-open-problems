@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/contract/v1/trajectory.schema.json",
+  "title": "Trajectory",
+  "description": "One run by one actor, written once at close. The event log is an artifact named by digest. A research trajectory names its attempt report.",
+  "allOf": [{ "$ref": "common.schema.json#/$defs/immutableBase" }],
+  "unevaluatedProperties": false,
+  "required": ["type", "kind", "actorId", "operatorId", "problemIds", "statementDigests", "clauseIds", "contextBundleId", "startedAt", "endedAt", "harnessConfig", "budget", "cost", "eventsArtifactId", "eventCount", "attemptReportId", "artifactIds", "visibility", "embargoUntil", "body"],
+  "properties": {
+    "type": { "const": "Trajectory" },
+    "kind": { "enum": ["research", "verification", "maintenance", "ingestion"] },
+    "actorId": { "$ref": "common.schema.json#/$defs/ulid" },
+    "operatorId": { "$ref": "common.schema.json#/$defs/ulidOrNull" },
+    "problemIds": { "$ref": "common.schema.json#/$defs/ulidList" },
+    "statementDigests": { "$ref": "common.schema.json#/$defs/digestList" },
+    "clauseIds": { "$ref": "common.schema.json#/$defs/clauseRefList" },
+    "contextBundleId": { "$ref": "common.schema.json#/$defs/textOrNull" },
+    "startedAt": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "endedAt": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "harnessConfig": { "$ref": "common.schema.json#/$defs/text" },
+    "budget": { "$ref": "common.schema.json#/$defs/text" },
+    "cost": { "$ref": "common.schema.json#/$defs/cost" },
+    "eventsArtifactId": { "$ref": "common.schema.json#/$defs/ulidOrNull" },
+    "eventCount": { "type": "integer", "minimum": 0 },
+    "attemptReportId": { "$ref": "common.schema.json#/$defs/ulidOrNull" },
+    "artifactIds": { "$ref": "common.schema.json#/$defs/ulidList" },
+    "visibility": { "enum": ["public", "embargoed"] },
+    "embargoUntil": { "$ref": "common.schema.json#/$defs/dateOrNull" },
+    "body": { "$ref": "common.schema.json#/$defs/text" }
+  }
+}

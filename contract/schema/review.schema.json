@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/contract/v1/review.schema.json",
+  "title": "Review",
+  "description": "One assessment of one contribution. Immutable. An input to decisions, never state.",
+  "allOf": [{ "$ref": "common.schema.json#/$defs/immutableBase" }],
+  "unevaluatedProperties": false,
+  "required": ["type", "contributionId", "reviewerId", "trajectoryId", "kind", "independence", "methods", "checks", "verdict", "body"],
+  "properties": {
+    "type": { "const": "Review" },
+    "contributionId": { "$ref": "common.schema.json#/$defs/ulid" },
+    "reviewerId": { "$ref": "common.schema.json#/$defs/ulid" },
+    "trajectoryId": { "$ref": "common.schema.json#/$defs/ulidOrNull" },
+    "kind": { "enum": ["triage", "verification", "audit"] },
+    "independence": { "$ref": "common.schema.json#/$defs/independence" },
+    "methods": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "enum": ["citation-check", "artifact-execution", "argument-read", "formal-check", "reproduction", "scope-check", "duplicate-check"] } },
+    "checks": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/reviewCheck" } },
+    "verdict": { "enum": ["rejected", "duplicate", "junk", "incomplete", "scope-mismatch", "unverified-plausible", "verified-partial", "verified"] },
+    "body": { "$ref": "common.schema.json#/$defs/text" }
+  }
+}

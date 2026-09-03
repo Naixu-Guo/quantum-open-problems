@@ -1,0 +1,25 @@
+{
+  "name": "@quantum-open-problems/contract",
+  "version": "1.0.0-alpha.1",
+  "description": "Contract package for the Quantum Open Problems ledger: record schemas, policy, fixtures, and the ledger validator.",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.6"
+  },
+  "scripts": {
+    "validate": "node --experimental-strip-types --no-warnings src/cli/validate.ts fixtures/ledger fixtures/activity",
+    "test": "node --experimental-strip-types --no-warnings --test \"test/*.test.ts\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "yaml": "^2.6.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  },
+  "license": "MIT"
+}

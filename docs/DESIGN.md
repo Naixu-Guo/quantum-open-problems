@@ -105,7 +105,8 @@ so the main ledger's history stays readable.
 Two kinds of type.
 
 **Immutable objects** are written once. Their `id` is the record.
-`Statement, Claim, Contribution, Review, Decision, Artifact, Trajectory`.
+`Statement, Clause, Claim, Contribution, Review, Decision, Artifact,
+Trajectory`.
 
 ```text
 id             opaque permanent identifier
@@ -116,7 +117,7 @@ supersedes     id of the object this one replaces, or null
 ```
 
 **Revisable entities** keep one `id` and accumulate numbered revisions.
-`Problem, Clause, Source, Reference, Actor, Comment`.
+`Problem, Source, Reference, Actor, Comment`.
 
 ```text
 id             opaque permanent entity identifier
@@ -172,8 +173,9 @@ index with its own page while staying in the tree.
 The digest is computed over the normalized body (see 3.7). A new statement
 names the one it supersedes.
 
-**Clause** (revisable, child of Statement). A named target inside a
-statement, addressed by `statementId + id`.
+**Clause** (immutable, child of Statement). A named target inside a
+statement, addressed by `statementId + id`. A clause changes only through a
+new statement version; `supersedesClauseId` carries its lineage.
 `statementId, label, text, kind (existence | universal | value |
 construction | bound | decision), resolutionCriteria, supersedesClauseId
 (the clause in the previous statement version it continues), quantity

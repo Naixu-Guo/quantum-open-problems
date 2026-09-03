@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/contract/v1/actor.schema.json",
+  "title": "Actor",
+  "description": "A human, agent, pipeline, or the system. Revisable. Agents and pipelines must name a human operator.",
+  "allOf": [{ "$ref": "common.schema.json#/$defs/revisableBase" }],
+  "unevaluatedProperties": false,
+  "required": ["type", "name", "kind", "externalIdentity", "operatorId", "modelFamily", "modelVersion", "harness", "body"],
+  "properties": {
+    "type": { "const": "Actor" },
+    "name": { "$ref": "common.schema.json#/$defs/nonEmptyText" },
+    "kind": { "enum": ["human", "agent", "pipeline", "system"] },
+    "externalIdentity": { "$ref": "common.schema.json#/$defs/textOrNull" },
+    "operatorId": { "$ref": "common.schema.json#/$defs/ulidOrNull" },
+    "modelFamily": { "$ref": "common.schema.json#/$defs/textOrNull" },
+    "modelVersion": { "$ref": "common.schema.json#/$defs/textOrNull" },
+    "harness": { "$ref": "common.schema.json#/$defs/textOrNull" },
+    "body": { "$ref": "common.schema.json#/$defs/text" }
+  }
+}

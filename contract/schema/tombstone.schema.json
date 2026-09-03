@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/contract/v1/tombstone.schema.json",
+  "title": "Redacted record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "type", "schemaVersion", "redacted", "redactionDecisionId", "body"],
+  "properties": {
+    "id": { "$ref": "common.schema.json#/$defs/ulid" },
+    "type": { "enum": ["Problem", "Statement", "Claim", "Source", "Reference", "Actor", "Trajectory", "Contribution", "Artifact", "Review", "Comment", "Decision"] },
+    "schemaVersion": { "$ref": "common.schema.json#/$defs/schemaVersion" },
+    "revision": { "type": "integer", "minimum": 1 },
+    "redacted": { "const": true },
+    "redactionDecisionId": { "$ref": "common.schema.json#/$defs/ulid" },
+    "body": { "const": "" }
+  }
+}

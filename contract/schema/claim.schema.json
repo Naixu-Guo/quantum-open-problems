@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/contract/v1/claim.schema.json",
+  "title": "Claim",
+  "description": "A scoped assertion about clauses of one statement, with its support. Immutable.",
+  "allOf": [{ "$ref": "common.schema.json#/$defs/immutableBase" }],
+  "unevaluatedProperties": false,
+  "required": ["type", "title", "statementId", "clauseIds", "relation", "bound", "support", "body"],
+  "properties": {
+    "type": { "const": "Claim" },
+    "title": { "$ref": "common.schema.json#/$defs/nonEmptyText" },
+    "statementId": { "$ref": "common.schema.json#/$defs/ulid" },
+    "clauseIds": { "$ref": "common.schema.json#/$defs/clauseRefList", "minItems": 1 },
+    "relation": { "enum": ["resolves", "refutes", "narrows", "supports", "bounds"] },
+    "bound": { "$ref": "common.schema.json#/$defs/bound" },
+    "support": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/support" } },
+    "body": { "$ref": "common.schema.json#/$defs/nonEmptyText" }
+  }
+}
