@@ -1,6 +1,24 @@
 name: Validate catalog contribution
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "contract/**"
+      - "ledger/**"
+      - "activity/**"
+      - "tools/**"
+      - "catalog/**"
+      - "docs/adr/**"
+      - "open_prob/**"
+      - "open_problem_v2/**"
+      - "site/**"
+      - "mcp/**"
+      - "package.json"
+      - "CONTRIBUTING.md"
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/workflows/validate.yml"
+
   pull_request:
     paths:
       - "contract/**"
