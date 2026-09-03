@@ -4,7 +4,7 @@ import { LedgerRepo } from "./ledger-repo.ts";
 import { Index } from "./index.ts";
 import { AuthStore } from "./auth.ts";
 import { loadPolicy, currentPolicyVersion } from "../../contract/src/policy.ts";
-import type { Config } from "./config.ts";
+import { webDefaults, type Config } from "./config.ts";
 import type { Service } from "./write.ts";
 import { reindex } from "./write.ts";
 
@@ -21,6 +21,7 @@ export function createService(config: Config): Service {
     policy,
     systemActorId: system.id,
     artifactStoreDir: path.join(repo.activityRoot, "artifact-store"),
+    web: webDefaults(config),
   };
   reindex(service);
   return service;

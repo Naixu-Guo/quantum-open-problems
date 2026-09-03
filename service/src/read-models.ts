@@ -9,7 +9,7 @@ import type { Statement } from "../../contract/src/types/statement.ts";
 import type { Contribution } from "../../contract/src/types/contribution.ts";
 import type { Decision } from "../../contract/src/types/decision.ts";
 import type { Index } from "./index.ts";
-import { createHash } from "node:crypto";
+import { bytesDigest } from "../../contract/src/digest.ts";
 
 const view = (record: LoadedRecord) => ({ ...record.fields, body: record.body });
 
@@ -23,11 +23,8 @@ export function problemView(ledger: Ledger, problemId: string) {
   const decisions = currentDecisions(ledger);
   const claims = acceptedClaims(ledger, decisions);
   const statement = currentStatement(ledger, problemId);
-  const references = ledger.currentOf("Reference").filter((r) => {
-    const targetId = String(r.fields["targetId"]);
-    return targetId === problemId || (statement && (targetId === statement.id || targetId.startsWith(`${statement.id}#`)));
-  }).map((r) => ({ ...view(r), source: sourceSummary(ledger, String(r.fields["sourceId"])) }));
-  const comments = ledger.currentOf("Comment").filter((c) => c.fields["targetId"] === problemId).map(view);
+  const references = referencesOf(ledger, problemId);
+  const comments = commentsOn(ledger, "problem", problemId);
   return {
     ...view(problem),
     catalogState: catalogState(ledger, problemId, decisions),
@@ -178,6 +175,10 @@ export function contextBundle(ledger: Ledger, problemId: string, clauseIds: stri
   const problem = ledger.find("Problem", problemId);
   if (!front || !problem) return null;
   const statement = currentStatement(ledger, problemId)!;
+  if (clauseIds && clauseIds.length) {
+    const unknown = clauseIds.filter((ref) => !front.clauses.some((c) => c.ref === ref));
+    if (unknown.length > 0) throw new ContextError(`unknown clause(s) for the current statement: ${unknown.join(", ")}`);
+  }
   const chosen = clauseIds && clauseIds.length ? front.clauses.filter((c) => clauseIds.includes(c.ref)) : front.clauses;
   const included = new Map<string, string | null>([[problem.id, null], [statement.id, statement.digest]]);
   const sections: { name: string; text: string; ids: string[] }[] = [];
@@ -204,8 +205,10 @@ export function contextBundle(ledger: Ledger, problemId: string, clauseIds: stri
     kept.push({ name: section.name, text, truncated: text.length < section.text.length });
     if (!kept[kept.length - 1]!.truncated) for (const id of section.ids) if (!included.has(id)) included.set(id, null);
   }
+  // The bundle id covers what was read: the records included, the clauses chosen, and which sections were cut.
   const pairs = [...included.entries()].map(([id, digest]) => `${id}:${digest ?? ""}`).sort();
-  const bundleId = `sha256:${createHash("sha256").update(pairs.join("\n")).digest("hex")}`;
+  const shape = [...chosen.map((c) => `clause:${c.ref}`), ...kept.map((k) => `${k.name}:${k.truncated ? "cut" : "full"}`)];
+  const bundleId = bytesDigest(Buffer.from([...pairs, ...shape].join("\n"), "utf8"));
   return { bundleId, problemId, statementId: statement.id, statementDigest: statement.digest, clauseIds: chosen.map((c) => c.ref), tokenBudget, approximateTokens: Math.ceil(used / 4), sections: kept, included: pairs };
 }
 
@@ -248,3 +251,25 @@ export function events(ledger: Ledger, index: Index, after: number, limit: numbe
   };
 }
 
+
+/** The current taxonomy: areas and topics for the collection forms and filters. */
+export function taxonomyView(ledger: Ledger) {
+  const taxonomy = ledger.currentOf("Taxonomy")[0];
+  if (!taxonomy) return null;
+  return { id: taxonomy.id, revision: revisionOf(taxonomy), areas: taxonomy.fields["areas"], topics: taxonomy.fields["topics"] };
+}
+
+/** A request for a context bundle that cannot be built as asked. */
+export class ContextError extends Error {}
+
+/** Sources matching every whitespace-separated term in title, authors, DOI, arXiv id, URL, or venue, for attaching a reference without creating a duplicate. */
+export function searchSources(ledger: Ledger, text: string, limit: number) {
+  const terms = text.trim().toLowerCase().split(/\s+/u).filter(Boolean).slice(0, 8);
+  const all = ledger.currentOf("Source");
+  const matches = terms.length === 0 ? all : all.filter((s) => {
+    const f = s.fields;
+    const haystack = [f["title"], ...(f["authors"] as string[]), f["doi"], f["arxivId"], f["url"], f["venue"]].filter((v) => typeof v === "string").join(" ").toLowerCase();
+    return terms.every((term) => haystack.includes(term));
+  });
+  return { text, count: matches.length, sources: matches.slice(0, limit).map((s) => sourceSummary(ledger, s.id)) };
+}

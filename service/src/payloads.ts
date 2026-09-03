@@ -43,14 +43,41 @@ function resolveRefs(value: unknown, ids: Map<string, string>): unknown {
   return value;
 }
 
-/** What an actor may write directly. Decisions and the taxonomy need the editor role; an actor record must be the actor's own agent or pipeline. */
+const ROLE_FIELDS = ["roles", "kind", "operatorId"] as const;
+
+/**
+ * What an actor may write directly. Decisions and the taxonomy need the editor role. Actor
+ * records: a human may create agents and pipelines it operates and may revise itself, but a
+ * self-revision cannot touch roles, kind, or operator; only an editor revises other actors,
+ * which is how roles are granted.
+ */
 function authorize(ledger: Ledger, actorId: string, record: Record<string, unknown>): void {
   const type = record["type"] as RecordType;
-  if ((type === "Decision" || type === "Taxonomy") && !hasRole(ledger, actorId, "editor")) throw new PayloadError(403, `${type} records need the editor role`);
-  if (type === "Actor") {
-    if (actorKind(ledger, actorId) !== "human") throw new PayloadError(403, "only a human creates actors");
-    if (record["id"] !== actorId && record["operatorId"] !== actorId) throw new PayloadError(403, "an actor may only create agents and pipelines it operates, or revise itself");
+  const editor = hasRole(ledger, actorId, "editor");
+  if ((type === "Decision" || type === "Taxonomy") && !editor) throw new PayloadError(403, `${type} records need the editor role`);
+  if (type !== "Actor") return;
+  if (actorKind(ledger, actorId) !== "human") throw new PayloadError(403, "only a human creates or revises actors");
+  const targetId = String(record["id"]);
+  const current = ledger.find("Actor", targetId);
+  if (targetId === actorId) {
+    for (const field of ROLE_FIELDS) {
+      if (JSON.stringify(record[field]) !== JSON.stringify(current?.fields[field])) throw new PayloadError(403, `an actor cannot change its own ${field}; an editor does that`);
+    }
+    return;
   }
+  if (current) {
+    if (!editor) throw new PayloadError(403, "revising another actor needs the editor role");
+    return;
+  }
+  const createsOwnAgent = (record["kind"] === "agent" || record["kind"] === "pipeline") && record["operatorId"] === actorId;
+  if (!createsOwnAgent && !editor) throw new PayloadError(403, "an actor may only create agents and pipelines it operates; other actors are created by an editor");
+}
+
+/** A record that names an identity the ledger already holds is a revision of it and keeps that id; anything else gets a fresh one. */
+function revisionTarget(ledger: Ledger, record: BatchRecord): string | null {
+  const id = record["id"];
+  if (typeof id !== "string" || !REVISABLE_TYPES.has(record.type)) return null;
+  return ledger.find(record.type, id) ? id : null;
 }
 
 /** Materialize a batch for one actor: assign ids, resolve refs, stamp provenance, authorize. */
@@ -59,7 +86,7 @@ export function materialize(ledger: Ledger, actorId: string, records: BatchRecor
   const at = nowIso();
   const assigned: { ref: string | undefined; id: string; record: BatchRecord }[] = [];
   for (const record of records) {
-    const id = typeof record["id"] === "string" && record["id"] === actorId ? actorId : newId();
+    const id = revisionTarget(ledger, record) ?? newId();
     if (record.ref) {
       if (ids.has(record.ref)) throw new PayloadError(422, `duplicate ref ${record.ref}`);
       ids.set(record.ref, id);
@@ -82,7 +109,6 @@ export function materialize(ledger: Ledger, actorId: string, records: BatchRecor
     };
     if (record.type === "Contribution") stamped["actorId"] = actorId;
     if (record.type === "Review") stamped["reviewerId"] = actorId;
-    if (record.type === "Actor" && record["id"] === actorId) stamped["id"] = actorId;
     authorize(ledger, actorId, stamped);
     out.push({ fields: stamped, body });
   }

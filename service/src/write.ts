@@ -10,6 +10,7 @@ import type { Issue } from "../../contract/src/validate.ts";
 import type { Index } from "./index.ts";
 import type { AuthStore } from "./auth.ts";
 import type { Policy } from "../../contract/src/policy.ts";
+import type { WebConfig } from "./config.ts";
 import type { Contribution } from "../../contract/src/types/contribution.ts";
 import { evaluate, unreviewedAcceptance, acceptanceDecision, consequences, pending, type AcceptanceContext } from "./acceptance.ts";
 
@@ -20,6 +21,8 @@ export interface Service {
   policy: Policy;
   systemActorId: string;
   artifactStoreDir: string;
+  /** The web app and human login; see `config.ts`. */
+  web: WebConfig;
 }
 
 export interface SubmitResult extends WriteResult {

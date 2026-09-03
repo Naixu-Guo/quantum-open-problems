@@ -1,8 +1,9 @@
 /**
- * The HTTP API. Reads are public. Writes need a bearer token for an actor, pass through body
- * limits, rate limits, and idempotency, and land in the ledger through the same write path
- * as every other client. Every route is a function of the ledger, the index, and the
- * service-local auth store.
+ * The HTTP API. Reads are public. Writes need an actor, named by a bearer token or, for the web
+ * app, by a session cookie; they pass through body limits, rate limits, and idempotency, and
+ * land in the ledger through the same write path as every other client. Every route is a
+ * function of the ledger, the index, and the service-local auth store. Paths outside `/api/`
+ * go to `web.ts`: the login routes and the web app's files.
  */
 import http from "node:http";
 import fs from "node:fs";
@@ -10,20 +11,14 @@ import path from "node:path";
 import { createHash } from "node:crypto";
 import type { Service } from "./write.ts";
 import { submit } from "./write.ts";
-import { problemView, frontier, tree, attempts, contributionView, recordView, status, events, referencesOf, commentsOn, reviewQueue, contextBundle } from "./read-models.ts";
+import { problemView, frontier, tree, attempts, contributionView, recordView, status, events, referencesOf, commentsOn, reviewQueue, contextBundle, taxonomyView, searchSources, ContextError } from "./read-models.ts";
 import { currentDecisions, isIndexed, contributionState } from "../../contract/src/derive.ts";
 import { validatePayload } from "../../contract/src/validate.ts";
 import { materialize, acceptArtifact, closeRecords, PayloadError, type BatchRecord } from "./payloads.ts";
 import type { NewRecord } from "./ledger-repo.ts";
 import { newId, nowIso } from "./ids.ts";
-
-class HttpError extends Error {
-  status: number;
-  constructor(status: number, message: string) {
-    super(message);
-    this.status = status;
-  }
-}
+import { HttpError } from "./errors.ts";
+import { handleWeb, parseCookies, SESSION_COOKIE, LOGIN_COOKIE, type Caller } from "./web.ts";
 
 interface Call {
   params: string[];
@@ -42,10 +37,13 @@ interface Route {
   method: "GET" | "POST";
   pattern: RegExp;
   auth: boolean;
+  /** The reply depends on who is asking, so it must never be cached by a shared cache. */
+  callerSpecific?: boolean;
   handler: (call: Call) => Reply;
 }
 
 const DAY = 24 * 60 * 60 * 1000;
+const HOUR = 60 * 60 * 1000;
 const MINUTE = 60 * 1000;
 const ok = (body: unknown): Reply => ({ status: 200, body });
 
@@ -99,8 +97,14 @@ function routes(service: Service): Route[] {
     return open;
   };
   const write = (actorId: string, records: NewRecord[], message: string, extra: Record<string, unknown> = {}): Reply => {
-    const limit = service.policy.rateLimits["contributionsPerActorPerDay"] ?? 20;
-    if (auth.bump(`writes:${actorId}`, DAY) > limit) throw new HttpError(429, `more than ${limit} writes today`);
+    // Every write counts against the daily budget; each comment record also counts against the hourly discussion budget.
+    const dailyLimit = service.policy.rateLimits["contributionsPerActorPerDay"] ?? 20;
+    if (auth.bump(`writes:${actorId}`, DAY) > dailyLimit) throw new HttpError(429, `more than ${dailyLimit} writes today`);
+    const comments = records.filter((r) => r.fields["type"] === "Comment").length;
+    if (comments > 0) {
+      const hourlyLimit = service.policy.rateLimits["commentsPerActorPerHour"] ?? 30;
+      if (auth.bump(`comments:${actorId}`, HOUR, Date.now(), comments) > hourlyLimit) throw new HttpError(429, `more than ${hourlyLimit} comments this hour`);
+    }
     const result = submit(service, actorId, records, message);
     if (!result.ok) return { status: 422, body: { accepted: false, issues: result.issues, ...extra } };
     return { status: 201, body: { accepted: true, commit: result.commit, recordIds: records.map((r) => String(r.fields["id"])), decisions: result.decisions, automaticIssues: result.automaticIssues, ...extra } };
@@ -111,6 +115,8 @@ function routes(service: Service): Route[] {
     { method: "GET", pattern: /^\/api\/v1\/policy$/u, auth: false, handler: () => ok({ policyVersion: service.policy.policyVersion, thresholds: service.policy.thresholds, independence: service.policy.independence, mechanicalMethods: service.policy.mechanicalMethods, rateLimits: service.policy.rateLimits, bodyLimits: service.policy.bodyLimits, licenses: service.policy.licenses }) },
     { method: "GET", pattern: /^\/api\/v1\/schemas\/payloads\/([a-z-]+)$/u, auth: false, handler: ({ params }) => ok(readSchema(path.join(service.repo.schemaDir, "payloads", `${params[0]}.schema.json`), params[0]!)) },
     { method: "GET", pattern: /^\/api\/v1\/schemas\/([a-z-]+)$/u, auth: false, handler: ({ params }) => ok(readSchema(path.join(service.repo.schemaDir, `${params[0]}.schema.json`), params[0]!)) },
+    { method: "GET", pattern: /^\/api\/v1\/taxonomy$/u, auth: false, handler: () => ok(notNull(taxonomyView(ledger()), "taxonomy")) },
+    { method: "GET", pattern: /^\/api\/v1\/sources$/u, auth: false, handler: ({ query }) => ok(searchSources(ledger(), query.get("text") ?? "", integer(query, "limit", 20))) },
     { method: "GET", pattern: /^\/api\/v1\/problems$/u, auth: false, handler: ({ query }) => {
       const rows = service.index.problemRows({
         ...(query.get("status") ? { status: query.get("status")! } : {}),
@@ -129,10 +135,15 @@ function routes(service: Service): Route[] {
     { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)\/tree$/u, auth: false, handler: ({ params }) => ok({ problemId: resolveProblem(params[0]!), tree: tree(ledger(), resolveProblem(params[0]!)) }) },
     { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)\/attempts$/u, auth: false, handler: ({ params }) => ok({ problemId: resolveProblem(params[0]!), attempts: attempts(ledger(), resolveProblem(params[0]!)) }) },
     { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)\/indexed$/u, auth: false, handler: ({ params }) => ok({ problemId: resolveProblem(params[0]!), indexed: isIndexed(ledger(), resolveProblem(params[0]!), currentDecisions(ledger())) }) },
-    { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)\/references$/u, auth: false, handler: ({ params, query }) => ({ status: 200, body: { problemId: resolveProblem(params[0]!), references: referencesOf(ledger(), resolveProblem(params[0]!), query.get("role") ?? undefined) } }) },
+    { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)\/references$/u, auth: false, handler: ({ params, query }) => ok({ problemId: resolveProblem(params[0]!), references: referencesOf(ledger(), resolveProblem(params[0]!), query.get("role") ?? undefined) }) },
     { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)\/context$/u, auth: false, handler: ({ params, query }) => {
       const clauses = query.get("clauses")?.split(",").filter(Boolean);
-      return ok(notNull(contextBundle(ledger(), resolveProblem(params[0]!), clauses, integer(query, "budget", 8000)), "problem"));
+      try {
+        return ok(notNull(contextBundle(ledger(), resolveProblem(params[0]!), clauses, integer(query, "budget", 8000)), "problem"));
+      } catch (error) {
+        if (error instanceof ContextError) throw new HttpError(400, error.message);
+        throw error;
+      }
     } },
     { method: "GET", pattern: /^\/api\/v1\/comments$/u, auth: false, handler: ({ query }) => {
       const targetType = query.get("targetType");
@@ -140,11 +151,11 @@ function routes(service: Service): Route[] {
       if (!targetType || !targetId) throw new HttpError(400, "targetType and targetId are required");
       return ok({ targetType, targetId, comments: commentsOn(ledger(), targetType, targetId) });
     } },
-    { method: "GET", pattern: /^\/api\/v1\/queues\/review$/u, auth: false, handler: (call) => ok({ queue: "review", items: reviewQueue(ledger(), call.actorId) }) },
+    { method: "GET", pattern: /^\/api\/v1\/queues\/review$/u, auth: false, callerSpecific: true, handler: (call) => ok({ queue: "review", items: reviewQueue(ledger(), call.actorId) }) },
     { method: "GET", pattern: /^\/api\/v1\/contributions\/([^/]+)$/u, auth: false, handler: ({ params }) => ok(notNull(contributionView(ledger(), params[0]!), "contribution")) },
     { method: "GET", pattern: /^\/api\/v1\/records\/([^/]+)$/u, auth: false, handler: ({ params }) => ok(notNull(recordView(ledger(), params[0]!), "record")) },
     { method: "GET", pattern: /^\/api\/v1\/events$/u, auth: false, handler: ({ query }) => ok(events(ledger(), service.index, integer(query, "after", 0), integer(query, "limit", 100), query.get("type") ?? undefined)) },
-    { method: "GET", pattern: /^\/api\/v1\/actors\/me$/u, auth: true, handler: (call) => ok({ ...notNull(recordView(ledger(), actor(call)), "actor"), keys: auth.keysFor(actor(call)) }) },
+    { method: "GET", pattern: /^\/api\/v1\/actors\/me$/u, auth: true, callerSpecific: true, handler: (call) => ok({ ...notNull(recordView(ledger(), actor(call)), "actor"), keys: auth.keysFor(actor(call)) }) },
 
     { method: "POST", pattern: /^\/api\/v1\/batches$/u, auth: true, handler: (call) => {
       const payload = json<{ message?: string; records: BatchRecord[] }>(call, "batch");
@@ -187,8 +198,9 @@ function routes(service: Service): Route[] {
     } },
     { method: "POST", pattern: /^\/api\/v1\/trajectories\/([^/]+)\/artifacts$/u, auth: true, handler: (call) => {
       const open = openTrajectory(call, call.params[0]!);
-      const kind = String(call.headers["x-artifact-kind"] ?? "");
-      const title = String(call.headers["x-artifact-title"] ?? "");
+      // Header values are percent-encoded UTF-8 so titles may carry any character.
+      const kind = decodeHeader(call.headers["x-artifact-kind"]);
+      const title = decodeHeader(call.headers["x-artifact-title"]);
       const mediaType = String(call.headers["content-type"] ?? "application/octet-stream").split(";")[0]!.trim();
       if (!kind || !title) throw new HttpError(400, "X-Artifact-Kind and X-Artifact-Title headers are required");
       if (call.raw.length === 0) throw new HttpError(400, "the artifact is empty");
@@ -224,34 +236,80 @@ function readBody(request: http.IncomingMessage, limit: number): Promise<Buffer>
   });
 }
 
+/** The request's Origin is exactly the service's public origin, scheme included; sessions exist on no other origin. */
+function sameOrigin(request: http.IncomingMessage, publicUrl: string): boolean {
+  const origin = request.headers.origin;
+  if (typeof origin !== "string") return false;
+  try {
+    return new URL(origin).origin === new URL(publicUrl).origin;
+  } catch {
+    return false;
+  }
+}
+
+function decodeHeader(value: string | string[] | undefined): string {
+  const raw = Array.isArray(value) ? value[0] ?? "" : value ?? "";
+  try {
+    return decodeURIComponent(raw);
+  } catch {
+    return raw;
+  }
+}
+
 export function createServer(service: Service): http.Server {
   const table = routes(service);
   const bodyLimit = service.policy.bodyLimits["contributionBytes"] ?? 262144;
   const perMinute = service.policy.rateLimits["requestsPerAddressPerMinute"] ?? 600;
 
   return http.createServer(async (request, response) => {
+    // Only anonymous reads of caller-independent routes are cacheable by shared caches.
+    let cacheable = false;
     const send = (code: number, payload: unknown, extra: Record<string, string> = {}) => {
       const body = JSON.stringify(payload, null, 1);
-      response.writeHead(code, { "Content-Type": "application/json; charset=utf-8", "Content-Length": Buffer.byteLength(body), "Cache-Control": code === 200 && request.method === "GET" ? "public, max-age=15" : "no-store", ...extra });
+      response.writeHead(code, { "Content-Type": "application/json; charset=utf-8", "Content-Length": Buffer.byteLength(body), "Cache-Control": code === 200 && cacheable ? "public, max-age=15" : "no-store", Vary: "Authorization, Cookie", ...extra });
       response.end(body);
     };
     try {
-      const address = request.socket.remoteAddress ?? "unknown";
-      if (service.auth.bump(`address:${address}`, MINUTE) > perMinute) throw new HttpError(429, "too many requests from this address");
       const method = request.method === "GET" || request.method === "POST" ? request.method : null;
       if (!method) throw new HttpError(405, "GET or POST only");
       const url = new URL(request.url ?? "/", "http://localhost");
+      const isApi = url.pathname.startsWith("/api/");
+      const isAuth = url.pathname.startsWith("/auth/");
+      // The per-address budget is for API and login calls; a page's static assets do not spend it.
+      if (isApi || isAuth) {
+        const address = request.socket.remoteAddress ?? "unknown";
+        if (service.auth.bump(`address:${address}`, MINUTE) > perMinute) throw new HttpError(429, "too many requests from this address");
+      }
+
+      // Who is calling. On the API a bearer token names the actor and an invalid one is refused;
+      // everywhere the web app's session cookie names the actor. The cookies are read raw.
+      const cookies = parseCookies(request.headers.cookie);
+      const caller: Caller = { actorId: null, viaSession: false, sessionToken: cookies[SESSION_COOKIE] ?? null, loginNonce: cookies[LOGIN_COOKIE] ?? null, sameOrigin: sameOrigin(request, service.web.publicUrl) };
+      const header = request.headers.authorization;
+      if (isApi && header?.startsWith("Bearer ")) {
+        caller.actorId = service.auth.actorForToken(header.slice(7).trim());
+        if (!caller.actorId) throw new HttpError(401, "the token is unknown or revoked");
+        if (!service.repo.current().find("Actor", caller.actorId)) throw new HttpError(401, "the token's actor is not in the ledger");
+      } else if (caller.sessionToken) {
+        const actorId = service.auth.actorForSession(caller.sessionToken);
+        if (actorId && service.repo.current().find("Actor", actorId)) {
+          caller.actorId = actorId;
+          caller.viaSession = true;
+        }
+      }
+
+      if (!isApi) {
+        if (await handleWeb(service, request, response, url, caller)) return;
+        throw new HttpError(404, `no route for ${method} ${url.pathname}`);
+      }
+
       const route = table.find((candidate) => candidate.method === method && candidate.pattern.test(url.pathname));
       if (!route) throw new HttpError(404, `no route for ${method} ${url.pathname}`);
-
-      let actorId: string | null = null;
-      const header = request.headers.authorization;
-      if (header?.startsWith("Bearer ")) {
-        actorId = service.auth.actorForToken(header.slice(7).trim());
-        if (!actorId) throw new HttpError(401, "the token is unknown or revoked");
-        if (!service.repo.current().find("Actor", actorId)) throw new HttpError(401, "the token's actor is not in the ledger");
-      }
-      if (route.auth && !actorId) throw new HttpError(401, "a bearer token for an actor is required");
+      cacheable = method === "GET" && !route.auth && !route.callerSpecific && caller.actorId === null;
+      if (route.auth && !caller.actorId) throw new HttpError(401, "a bearer token or a login session for an actor is required");
+      // A cookie is sent by the browser on its own, so a write it authenticates must come from our own pages.
+      if (method === "POST" && caller.viaSession && !caller.sameOrigin) throw new HttpError(403, "cross-site request refused");
+      const actorId = caller.actorId;
 
       const raw = method === "POST" ? await readBody(request, bodyLimit) : Buffer.alloc(0);
       const idempotencyKey = method === "POST" ? request.headers["idempotency-key"] : undefined;
@@ -271,6 +329,7 @@ export function createServer(service: Service): http.Server {
       if (typeof idempotencyKey === "string" && actorId) service.auth.remember(actorId, idempotencyKey, requestHash, reply.status, JSON.stringify(reply.body));
       send(reply.status, reply.body);
     } catch (error) {
+      if (response.headersSent) { response.end(); return; }
       if (error instanceof HttpError || error instanceof PayloadError) send(error.status, { error: error.message });
       else send(500, { error: error instanceof Error ? error.message : String(error) });
     }

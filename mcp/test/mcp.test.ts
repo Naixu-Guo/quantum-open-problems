@@ -111,6 +111,18 @@ test("read tools return records with ids and digests", async () => {
   assert.equal(unknown.isError, true);
 });
 
+test("a null line, a bad tool argument, and a service error are all reported in band and the server keeps running", async () => {
+  child.stdin.write("null\n");
+  child.stdin.write("[1,2]\n");
+  const missing = await tool("get_problem", {});
+  assert.equal(missing.isError, true);
+  assert.match(missing.body.error, /id is required/u);
+  const notUlid = await tool("get_record", { id: "01M1GZV1G0YW6HZP3QV230QWSR#capacity-lower-bound" });
+  assert.equal(notUlid.isError, true, "a clause reference is not a record id");
+  const ping = await rpc("ping");
+  assert.deepEqual(ping.result, {});
+});
+
 test("a run flows through start, events, artifact, and close with an attempt report", async () => {
   const frontier = (await tool("get_frontier", { id: "example-conformance-problem" })).body;
   const clause = frontier.clauses[0].ref;
@@ -120,7 +132,7 @@ test("a run flows through start, events, artifact, and close with an attempt rep
   const trajectoryId = started.body.trajectoryId;
   const logged = await tool("log_event", { trajectoryId, kind: "read", summary: "Read the bundle", problemId: frontier.problemId, clauseId: clause });
   assert.equal(logged.body.seq, 1);
-  const uploaded = await tool("upload_artifact", { trajectoryId, kind: "proof-text", title: "Notes", mediaType: "text/markdown", text: "# Notes\n\nNothing yet.\n" });
+  const uploaded = await tool("upload_artifact", { trajectoryId, kind: "proof-text", title: "Notes — 草稿 ✎", mediaType: "text/markdown", text: "# Notes\n\nNothing yet.\n" });
   assert.equal(uploaded.isError, false, JSON.stringify(uploaded.body));
   const closed = await tool("end_trajectory", { trajectoryId, cost: { tokens: 10, wallTimeSeconds: 1, moneyUsd: 0 }, body: "Abandoned.", attemptReport: { records: [
     { ref: "report", type: "Contribution", body: "Nothing found.", title: "MCP attempt", kind: "attempt-report", trajectoryId: "$ref:trajectory", problemIds: [frontier.problemId], statementId: frontier.statement.id, statementDigest: frontier.statement.digest, clauseIds: [clause], stopReason: "abandoned", newProblemIds: [], newStatementId: null, referenceIds: [], claimIds: [], artifactIds: [uploaded.body.id], declaredReadIds: [frontier.statement.id], revisions: [], aiInvolvement: "autonomous", license: "CC-BY-4.0" },
@@ -131,8 +143,13 @@ test("a run flows through start, events, artifact, and close with an attempt rep
   assert.equal(record.body.attemptReportId, closed.body.attemptReportId);
   const status = await tool("get_contribution_status", { contributionId: closed.body.attemptReportId });
   assert.equal(status.body.state, "submitted");
+  const artifact = await tool("get_record", { id: uploaded.body.id });
+  assert.equal(artifact.body.title, "Notes — 草稿 ✎", "the title survives the header round trip");
   const comment = await tool("post_comment", { targetType: "contribution", targetId: closed.body.attemptReportId, body: "Note to self." });
   assert.equal(comment.isError, false, JSON.stringify(comment.body));
+  const review = await tool("submit_review", { contributionId: closed.body.attemptReportId, kind: "triage", type: "ignored", summary: "ignored too", independence: { differentOperator: true, differentModelFamily: true, noSharedReads: true }, conflictOfInterest: { declared: false, statement: "" }, methods: ["duplicate-check"], checks: [], verdict: "unverified-plausible", body: "Self-triage attempt." });
+  assert.equal(review.isError, true, "an actor cannot review its own contribution, but the extra arguments did not break the batch");
+  assert.doesNotMatch(JSON.stringify(review.body), /unevaluated|additional properties/iu);
   const queue = await tool("claim_queue_item");
   assert.notEqual(queue.body.item?.id, closed.body.attemptReportId, "the caller's own contribution is not offered to it for review");
   assert.equal(queue.body.item?.kind, "problem-proposal", "the fixture's pending proposal is offered instead");
