@@ -31,14 +31,17 @@ Editors may record a failed approach when it rules out a reusable route or docum
 
 A new entry needs an independent mathematical source, a formal statement, evidence that the question remains open, and a reason it belongs in a quantum-science field. Editors reject duplicates and broad topics that lack a checkable resolution criterion.
 
-Add accepted problems under `open_prob/<stable-id>/` with `problem.md` and `metadata.json`. Register the collection, field, and topic in `site/data/problems.js`.
+New problems enter the ledger as records under `ledger/problems/<slug>/`: a problem record, a statement with clauses and resolution criteria, references with verified locators, deduplicated sources, and a `problem-proposal` contribution. Admission to the published catalog is a review decision (policy v1); a proposal never publishes itself. The legacy `open_prob/<stable-id>/` layout is seed data, not an authoring surface.
+
+**When an agent drafts a new problem on a contributor's behalf, it must follow [.claude/skills/writing-open-problems/SKILL.md](.claude/skills/writing-open-problems/SKILL.md).** The skill encodes the intake interview, the duplicate and openness checks, the record templates, and the quality bar, so every new record has the same shape regardless of who or what drafts it.
 
 ## Local checks
 
 Run:
 
 ```sh
-node site/build.mjs
+node site/build.mjs          # legacy read models (seed data)
+cd contract && npm ci && node --experimental-strip-types src/cli/validate.ts ../ledger ../activity   # the ledger
 ```
 
 The build generates formal statements, problem-source citations, Markdown research briefs, the compact browser index, and API v1. The validator rejects stale generated files, invalid taxonomy references, status mismatches, and inconsistent catalog totals.
