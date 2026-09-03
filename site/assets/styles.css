@@ -1,7 +1,8 @@
 /* QIQCOP Zoo — stylesheet
    Palette continues the previous site: warm paper, deep navy, mint, coral,
    amber. Status colours: unsolved = red, solved = cyan; amber highlights a
-   targeted reference. Logo letters: light grey, O light cyan, P light red. */
+   targeted reference. Logo: QIQC and P light red, O and ZOO light cyan,
+   ket delimiters light grey. */
 
 :root {
   color-scheme: light;
@@ -131,8 +132,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   flex-shrink: 0;
 }
 .logo-line { display: flex; align-items: baseline; }
-.logo-bar { display: inline-block; width: 0.075em; height: 0.7em; margin: 0 0.06em 0 0.01em; background: currentColor; }
-.logo-ket { display: inline-block; width: 0.3em; height: 0.7em; margin-left: -0.06em; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: butt; stroke-linejoin: miter; }
+.logo-q { color: var(--logo-red); }
+.logo-line-2 { color: var(--logo-cyan); }
+.logo-bar { display: inline-block; width: 0.075em; height: 0.7em; margin: 0 0.06em 0 0.01em; background: var(--logo-gray); }
+.logo-ket { display: inline-block; width: 0.3em; height: 0.7em; margin-left: -0.06em; fill: none; stroke: var(--logo-gray); stroke-width: 2.6; stroke-linecap: butt; stroke-linejoin: miter; }
 .logo-ghost { visibility: hidden; }
 .logo-oo { position: relative; }
 .logo-z { position: absolute; right: 100%; top: 0; }
