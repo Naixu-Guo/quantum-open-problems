@@ -12,10 +12,11 @@ process, including auxiliary problems, failed routes, and verifications, is
 recorded so the next attempt starts from the tree of what has been tried.
 
 The design is in [`docs/DESIGN.md`](docs/DESIGN.md). Work proceeds in four
-phases: contract, database, operation, community. The repository is between
-phase 0 and phase 1: the contract package exists under `contract/`, and the
-seed ledger produced by `tools/migrate-legacy/` lives under `ledger/` and
-`activity/`. Validate it with:
+phases: contract, database, operation, community. Phase 0 is delivered and
+phase 1 is in progress: the contract package under `contract/`, the seed
+ledger produced by `tools/migrate-legacy/` under `ledger/` and `activity/`,
+the domain service with its read and write API under `service/`, and the
+MCP adapter under `mcp/src/`. Validate the ledger with:
 
 ```sh
 cd contract && npm ci && node --experimental-strip-types src/cli/validate.ts ../ledger ../activity

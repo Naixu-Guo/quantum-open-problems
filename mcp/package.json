@@ -1,0 +1,16 @@
+{
+  "name": "@quantum-open-problems/mcp",
+  "version": "1.0.0",
+  "description": "MCP adapter over the Quantum Open Problems service: read problems and frontiers, record trajectories, submit contributions and reviews.",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node --experimental-strip-types --no-warnings src/server.ts",
+    "test": "node --experimental-strip-types --no-warnings --test \"test/*.test.ts\"",
+    "typecheck": "../contract/node_modules/.bin/tsc -p tsconfig.json"
+  },
+  "license": "MIT"
+}
