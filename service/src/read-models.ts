@@ -3,7 +3,7 @@
  */
 import type { Ledger, LoadedRecord } from "../../contract/src/ledger.ts";
 import { revisionOf } from "../../contract/src/ledger.ts";
-import { currentDecisions, acceptedClaims, clauseStatus, problemStatus, catalogState, isIndexed, contributionState, verificationLevel, statementIsCurrent, lineageOf } from "../../contract/src/derive.ts";
+import { currentDecisions, acceptedClaims, clauseStatus, problemStatus, catalogState, isIndexed, contributionState, verificationLevel, statementIsCurrent, lineageOf, lastActivity, lastHumanReview } from "../../contract/src/derive.ts";
 import type { Claim } from "../../contract/src/types/claim.ts";
 import type { Statement } from "../../contract/src/types/statement.ts";
 import type { Contribution } from "../../contract/src/types/contribution.ts";
@@ -119,7 +119,8 @@ export function frontier(ledger: Ledger, problemId: string) {
     tree: tree(ledger, problemId, decisions, claims),
     routesTried: attemptReports.map((a) => ({ id: a.id, title: a.title, stopReason: a.stopReason, actorId: a.actorId, trajectoryId: a.trajectoryId, newProblemIds: a.newProblemIds, statementIsCurrent: a.statementIsCurrent })),
     pendingContributions,
-    lastReviewed: decisions.filter((d) => d.targetType === "problem" && d.targetId === problemId && d.outcome === "accepted").map((d) => d.effectiveAt).sort().at(-1) ?? null,
+    lastActivity: lastActivity(ledger, problemId, decisions),
+    lastHumanReview: lastHumanReview(ledger, problemId, decisions),
   };
 }
 

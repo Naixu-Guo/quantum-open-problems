@@ -8,7 +8,7 @@
   "required": ["type", "kind", "targetType", "targetId", "mergeIntoProblemId", "outcome", "status", "verificationLevel", "reviewIds", "contributionIds", "policyVersion", "effectiveAt", "body"],
   "properties": {
     "type": { "const": "Decision" },
-    "kind": { "enum": ["admission", "promotion", "acceptance", "withdrawal", "status", "merge", "retire", "moderation", "redaction", "release"] },
+    "kind": { "enum": ["admission", "promotion", "acceptance", "withdrawal", "status", "merge", "retire", "moderation", "redaction", "maintenance", "release"] },
     "targetType": { "enum": ["problem", "contribution", "comment", "statement", "claim", "reference", "trajectory", "review", "source", "artifact", "ledger"] },
     "targetId": { "type": "string", "minLength": 1 },
     "mergeIntoProblemId": { "$ref": "common.schema.json#/$defs/ulidOrNull" },

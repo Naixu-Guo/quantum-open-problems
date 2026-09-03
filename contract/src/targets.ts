@@ -63,6 +63,7 @@ export const DECISION_TARGETS: Readonly<Record<string, readonly string[]>> = {
   retire: ["problem"],
   moderation: ["comment"],
   redaction: ["problem", "contribution", "comment", "statement", "claim", "reference", "trajectory", "review", "source", "artifact"],
+  maintenance: ["problem"],
   release: ["ledger"],
 };
 

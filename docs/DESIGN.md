@@ -87,8 +87,8 @@ contract package, not in the ledger; a decision names a policy by version.
   its revisions are numbered. References always name the entity id, never a
   revision.
 - **Decisions are the only source of state.** Problem status, contribution
-  state, verification level, and `lastReviewed` are read from accepted
-  decisions. Reviews are inputs to decisions, not state.
+  state, verification level, `lastActivity`, and `lastHumanReview` are read
+  from accepted decisions and the reviews they rest on. Reviews are inputs to decisions, not state.
 - **Provenance on everything.** Every record names its actor; activity
   records name their trajectory.
 - **Content addressing.** Statements and artifacts have digests; every
@@ -282,7 +282,7 @@ Moderation is a decision, not a field. Never cited by a status decision.
 
 **Decision** (immutable). The only source of state.
 `kind (admission | promotion | acceptance | withdrawal | status | merge |
-retire | moderation | redaction | release), targetType, targetId,
+retire | moderation | redaction | maintenance | release), targetType, targetId,
 mergeIntoProblemId, outcome, status (open | partial | solved | refuted),
 verificationLevel (unreviewed | triaged | ai-verified | machine-verified |
 human-signed), reviewIds[], contributionIds[], policyVersion, effectiveAt,
@@ -362,7 +362,14 @@ Everything below is computed from decisions and the objects they cite.
 - **Frontier** per problem: open clauses, best bound per quantity, accepted
   partial results, the decomposition tree with node statuses, routes tried
   (from accepted attempt reports, with stop reason), pending contributions,
-  `lastReviewed`.
+  `lastActivity`, `lastHumanReview`.
+- **Last activity and last human review** per problem. `lastActivity` is
+  the latest accepted decision on the problem by any actor. `lastHumanReview`
+  is the latest time a human looked at it: a decision by a human actor,
+  including a `maintenance` decision that records "checked, no change", or a
+  human verification review of a contribution that targets or introduces
+  it. System decisions never move it. The maintenance backlog orders by
+  `lastHumanReview`, so automatic activity cannot hide a stale problem.
 - **Contribution currency**: `statementIsCurrent`, whether the statement
   digest a contribution pinned is still the problem's current statement.
   Stale contributions stay valid; the frontier shows them against the
@@ -372,7 +379,8 @@ Everything below is computed from decisions and the objects they cite.
   saw and asks for everything after it. The release manifest carries
   `lastSequence` as the cheap poll target.
 - **Queues**: contributions without an `acceptance` decision, grouped by
-  what they still need; `solved` sign-off; maintenance backlog.
+  what they still need; `solved` sign-off; maintenance backlog ordered by
+  `lastHumanReview`, oldest first.
 - **Actor record**: contributions, reviews, trajectories, acceptance and
   rejection counts.
 
@@ -598,8 +606,9 @@ Humans with AI run a `maintenance` trajectory on a fixed interval:
 5. resolve appeals; purge hidden junk past the retention window;
 6. cut a `release`.
 
-`lastReviewed` per problem derives from the latest maintenance decision
-touching it.
+A maintenance run issues one `maintenance` decision per problem it
+checked, whether or not anything changed, so `lastHumanReview` advances for
+every problem a human looked at and the backlog stays honest.
 
 ## 6. Lifecycles
 
@@ -699,3 +708,7 @@ Defaults adopted on 2026-09-02; each can be revisited by a later decision.
     decisions, the policy-1 threshold check on `solved`, tombstone-safe
     references, and the sequence and bundle specifications; aligned the
     type listings with the contract package.
+11. **Last human review, 3 September 2026.** `lastReviewed` is replaced by
+    two derived timestamps: `lastActivity` (any accepted decision) and
+    `lastHumanReview` (human decisions, `maintenance` decisions, human
+    verification reviews). Backlogs order by the second.

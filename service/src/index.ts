@@ -7,7 +7,7 @@ import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import type { Ledger } from "../../contract/src/ledger.ts";
 import { revisionOf } from "../../contract/src/ledger.ts";
-import { summarizeProblems, contributionState, verificationLevel, statementIsCurrent, currentDecisions } from "../../contract/src/derive.ts";
+import { summarizeProblems, contributionState, verificationLevel, statementIsCurrent, currentDecisions, lastActivity, lastHumanReview } from "../../contract/src/derive.ts";
 
 const SCHEMA = `
 CREATE TABLE IF NOT EXISTS records (
@@ -38,7 +38,8 @@ CREATE TABLE IF NOT EXISTS problems (
   topic_ids TEXT NOT NULL,
   keywords TEXT NOT NULL,
   difficulty TEXT NOT NULL,
-  last_reviewed TEXT,
+  last_activity TEXT,
+  last_human_review TEXT,
   search_text TEXT NOT NULL
 );
 CREATE TABLE IF NOT EXISTS clauses (
@@ -79,7 +80,8 @@ export interface ProblemRow {
   topic_ids: string;
   keywords: string;
   difficulty: string;
-  last_reviewed: string | null;
+  last_activity: string | null;
+  last_human_review: string | null;
 }
 
 export class Index {
@@ -113,14 +115,8 @@ export class Index {
       }
 
       const decisions = currentDecisions(ledger);
-      const lastReviewed = new Map<string, string>();
-      for (const decision of decisions) {
-        if (decision.targetType !== "problem" || decision.outcome !== "accepted") continue;
-        const previous = lastReviewed.get(decision.targetId);
-        if (!previous || previous < decision.effectiveAt) lastReviewed.set(decision.targetId, decision.effectiveAt);
-      }
       const insertProblem = db.prepare(
-        "INSERT INTO problems (id, alias, title, role, parent_id, catalog_state, status, indexed, area_ids, topic_ids, keywords, difficulty, last_reviewed, search_text) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO problems (id, alias, title, role, parent_id, catalog_state, status, indexed, area_ids, topic_ids, keywords, difficulty, last_activity, last_human_review, search_text) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       );
       const insertClause = db.prepare("INSERT INTO clauses (statement_id, clause_id, problem_id, kind, label, status) VALUES (?, ?, ?, ?, ?, ?)");
       for (const summary of summarizeProblems(ledger)) {
@@ -132,7 +128,7 @@ export class Index {
           summary.id, summary.alias, summary.title, summary.role, (problem.fields["parentProblemId"] as string | null),
           summary.catalogState, summary.status, summary.indexed ? 1 : 0,
           JSON.stringify(problem.fields["areaIds"]), JSON.stringify(problem.fields["topicIds"]), JSON.stringify(keywords),
-          String(problem.fields["difficulty"]), lastReviewed.get(summary.id) ?? null, searchText,
+          String(problem.fields["difficulty"]), lastActivity(ledger, summary.id, decisions), lastHumanReview(ledger, summary.id, decisions), searchText,
         );
         for (const clause of summary.clauses) {
           const [statementId, clauseId] = clause.ref.split("#") as [string, string];
@@ -170,7 +166,7 @@ export class Index {
     return row ? Number(row.value) : 0;
   }
 
-  problemRows(filter: { status?: string; area?: string; topic?: string; difficulty?: string; text?: string; indexedOnly?: boolean; limit?: number }): ProblemRow[] {
+  problemRows(filter: { status?: string; area?: string; topic?: string; difficulty?: string; text?: string; indexedOnly?: boolean; limit?: number; sort?: "title" | "stale" }): ProblemRow[] {
     const clauses: string[] = [];
     const params: (string | number)[] = [];
     if (filter.indexedOnly !== false) clauses.push("indexed = 1");
@@ -184,7 +180,9 @@ export class Index {
     }
     const where = clauses.length ? `WHERE ${clauses.join(" AND ")}` : "";
     const limit = Math.min(Math.max(filter.limit ?? 50, 1), 200);
-    return this.db.prepare(`SELECT * FROM problems ${where} ORDER BY title LIMIT ${limit}`).all(...params) as unknown as ProblemRow[];
+    // "stale" is the maintenance backlog: never looked at by a human first, then oldest human review first.
+    const order = filter.sort === "stale" ? "ORDER BY last_human_review IS NOT NULL, last_human_review, title" : "ORDER BY title";
+    return this.db.prepare(`SELECT * FROM problems ${where} ${order} LIMIT ${limit}`).all(...params) as unknown as ProblemRow[];
   }
 
   recordsAfter(after: number, limit: number, type?: string): { id: string; revision: number; type: string; path: string; sequence: number; created_at: string; created_by: string }[] {

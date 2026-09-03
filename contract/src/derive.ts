@@ -147,6 +147,39 @@ export function consistencyErrors(ledger: Ledger): { problemId: string; message:
   return errors;
 }
 
+/** The latest accepted decision on a problem by any actor, including the system. */
+export function lastActivity(ledger: Ledger, problemId: string, decisions = currentDecisions(ledger)): string | null {
+  return decisions
+    .filter((d) => d.targetType === "problem" && d.targetId === problemId && d.outcome === "accepted")
+    .map((d) => d.effectiveAt)
+    .sort()
+    .at(-1) ?? null;
+}
+
+/**
+ * The latest time a human looked at a problem: a decision on it by a human actor (including
+ * a maintenance decision that records "checked, no change"), or a human verification review of
+ * a contribution that targets or introduces it. System decisions never count.
+ */
+export function lastHumanReview(ledger: Ledger, problemId: string, decisions = currentDecisions(ledger)): string | null {
+  const isHuman = (actorId: string) => ledger.find("Actor", actorId)?.fields["kind"] === "human";
+  const times: string[] = [];
+  for (const decision of decisions) {
+    if (decision.targetType === "problem" && decision.targetId === problemId && decision.outcome === "accepted" && isHuman(decision.createdBy)) times.push(decision.effectiveAt);
+  }
+  const contributionIds = new Set(
+    ledger.currentOf("Contribution")
+      .filter((c) => (c.fields["problemIds"] as string[]).includes(problemId) || (c.fields["newProblemIds"] as string[]).includes(problemId))
+      .map((c) => c.id),
+  );
+  for (const review of ledger.currentOf("Review")) {
+    if (review.fields["kind"] === "verification" && contributionIds.has(review.fields["contributionId"] as string) && isHuman(review.fields["reviewerId"] as string)) {
+      times.push(String(review.fields["createdAt"]));
+    }
+  }
+  return times.sort().at(-1) ?? null;
+}
+
 export interface ProblemSummary {
   id: string;
   alias: string;

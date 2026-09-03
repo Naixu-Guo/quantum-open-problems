@@ -326,6 +326,24 @@ test("a superseded review no longer counts", async () => {
   assert.equal(view.body.state, "accepted");
 });
 
+test("lastHumanReview moves only when a human looks; lastActivity moves on any decision", async () => {
+  const problem = problemByAlias("example-second-candidate");
+  const before = await getJson(`/api/v1/problems/${problem.id}/frontier`);
+  assert.equal(before.body.lastHumanReview, null, "admitted by two AI reviews, never seen by a human");
+  assert.ok(before.body.lastActivity, "the system admission counts as activity");
+  const editor = actorByName("Legacy audit editor");
+  const at = nowIso();
+  const result = submit(service, editor, [{
+    fields: { id: newId(), type: "Decision", schemaVersion: "1.0", createdBy: editor, createdAt: at, supersedes: null, kind: "maintenance", targetType: "problem", targetId: problem.id, mergeIntoProblemId: null, outcome: "accepted", status: null, verificationLevel: null, reviewIds: [], contributionIds: [], policyVersion: "1", effectiveAt: at },
+    body: "Maintenance pass: statement re-read, no change.",
+  }], "Maintenance decision");
+  assert.ok(result.ok, JSON.stringify(result.issues));
+  const after = await getJson(`/api/v1/problems/${problem.id}/frontier`);
+  assert.equal(after.body.lastHumanReview, at);
+  const backlog = await getJson("/api/v1/problems?sort=stale&limit=3");
+  assert.ok(backlog.body.problems.every((p: { lastHumanReview: string | null }) => p.lastHumanReview === null || p.lastHumanReview <= at));
+});
+
 test("statement digests in the ledger match the contract digest rule", () => {
   for (const statement of service.repo.current().currentOf("Statement")) {
     assert.equal(statement.fields["digest"], statementDigest(statement.body));
