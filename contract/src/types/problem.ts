@@ -15,6 +15,7 @@ export interface Problem extends RevisableBase {
   parentClauseId: string | null;
   aliases: string[];
   origin: ProblemOrigin;
+  posed: string | null;
   areaIds: string[];
   topicIds: string[];
   keywords: string[];

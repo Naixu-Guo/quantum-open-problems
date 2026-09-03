@@ -1,0 +1,47 @@
+---
+id: 01M1HME780H10V79002GQ2NW0P
+type: Contribution
+schemaVersion: "1.0"
+createdBy: 01M1HME780JC7TB3G87MSB1YG9
+createdAt: 2026-09-02T18:00:00Z
+supersedes: null
+title: "Migrate legacy record: Undistillability implies PPT?"
+kind: problem-proposal
+actorId: 01M1HME780JC7TB3G87MSB1YG9
+trajectoryId: 01M1HME780VDHBF4KJB1PEKW78
+problemIds: []
+statementId: null
+statementDigest: null
+clauseIds: []
+stopReason: none
+newProblemIds:
+  - 01M1HME780MK1919S315SGB9K4
+newStatementId: 01M1HME780Q3X5SDRK9591SD9Z
+referenceIds:
+  - 01M1HME7807X2ZJHR6CH6SZY9X
+  - 01M1HME780H1RZV172ENBSMVXM
+  - 01M1HME780K1CYGHETQ2A97WYK
+  - 01M1HME7804DZJ4X956Y97RW1Q
+  - 01M1HME780WHEEP8Q6H56E6QHK
+  - 01M1HME780H8XVWTS1KQZ8HY7Z
+  - 01M1HME780QWFKEMYKH5BJ03R4
+  - 01M1HME780HNE76E3TA1VX5CTP
+  - 01M1HME7804H5864WT2B6H64NS
+  - 01M1HME780HHM6Q9PSN1VBC76T
+  - 01M1HME7806PWP0W28G7FZYQZE
+  - 01M1HME780MKKVXMCYVVRAK73M
+  - 01M1HME780TRKH4ZGV4HTTY0EB
+  - 01M1HME780W2MK9XN6K4C7JNY0
+  - 01M1HME780HQKT7SXCN0487GZD
+  - 01M1HME7803KJV61VD8J08R5CV
+  - 01M1HME780KK2D34J3YV0E6RRA
+  - 01M1HME7806CD9NEJN4FXP1FEC
+  - 01M1HME780WJYN2HEKZBDDYSJ1
+  - 01M1HME780HZZEHMT2T1W7VYV8
+claimIds: []
+artifactIds: []
+declaredReadIds: []
+aiInvolvement: none
+license: CC-BY-4.0
+---
+Problem, statement, and references migrated from `open_prob/krueger-2005-undistillability-implies-ppt` and `site/data/problems.js` without semantic editing. Values the legacy record lacked were left empty.

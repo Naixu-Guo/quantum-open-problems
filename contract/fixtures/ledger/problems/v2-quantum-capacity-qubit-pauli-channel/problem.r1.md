@@ -14,6 +14,7 @@ aliases:
   - open-problem-v2-problem-1
   - op-43d4aca67bd52554
 origin: source-stated
+posed: null
 areaIds:
   - quantum-information
 topicIds:

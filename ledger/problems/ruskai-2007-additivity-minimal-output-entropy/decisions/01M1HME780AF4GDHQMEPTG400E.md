@@ -1,0 +1,20 @@
+---
+id: 01M1HME780AF4GDHQMEPTG400E
+type: Decision
+schemaVersion: "1.0"
+createdBy: 01M1HME780YJYGYBQ9AQNK1KDR
+createdAt: 2026-09-02T18:00:00Z
+supersedes: null
+kind: acceptance
+targetType: contribution
+targetId: 01M1HME78018B7TDDAS9JA9M2W
+outcome: accepted
+status: null
+verificationLevel: human-signed
+reviewIds:
+  - 01M1HME780QQNYXGTDG0H71TDM
+contributionIds: []
+policyVersion: "1"
+effectiveAt: 2026-09-02T18:00:00Z
+---
+Human review on file; accepted under policy 1.

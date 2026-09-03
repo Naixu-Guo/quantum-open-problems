@@ -1,0 +1,30 @@
+---
+id: 01M1HME7808STFNMJ6WPWFGATN
+type: Reference
+schemaVersion: "1.0"
+revision: 1
+createdBy: 01M1HME780JC7TB3G87MSB1YG9
+createdAt: 2026-09-02T18:00:00Z
+sourceId: 01M1HME7808D6CJRFT57W6QR8D
+targetType: problem
+targetId: 01M1HME780AZ2GCKS76GDX97RQ
+role: prior-attempt
+locator: ""
+---
+Optimizing the one-use coherent information over all single-mode
+  Gaussian input states gives exactly
+  \begin{equation}
+    \sup_{\rho\in\mathsf G_1}I_{\rm c}(\rho,\Phi_{\eta,\nu})
+    =\left[\log_2\frac{\eta}{1-\eta}-g(\nu)\right]_+,
+    \qquad
+    g(x):=(x+1)\log_2(x+1)-x\log_2x.
+    \label{eq:p49-gaussian-coherent-information}
+  \end{equation}
+  Holevo and Werner computed the thermal-input limit, Brádler proved that
+  the thermal-state supremum is attained asymptotically at infinite input
+  energy, and Mele et al.\ proved that squeezing cannot improve it within
+  $\mathsf G_1$.  Equation \eqref{eq:p49-gaussian-coherent-information} is
+  nevertheless not optimal over arbitrary non-Gaussian inputs
+  [HW01],
+  [Br15],
+  [MCF+26].

@@ -1,0 +1,20 @@
+---
+id: 01M1HME7802DVTW1C86ENWGT2N
+type: Reference
+schemaVersion: "1.0"
+revision: 1
+createdBy: 01M1HME780JC7TB3G87MSB1YG9
+createdAt: 2026-09-02T18:00:00Z
+sourceId: 01M1HME780P183HTMDCAD84FB1
+targetType: problem
+targetId: 01M1HME780DC6ZS9XG3V0R6V1A
+role: prior-attempt
+locator: ""
+---
+If $J(\Phi^c)$ is separable, then $\Phi^c$ is entanglement breaking and
+  $\Phi$ is a Hadamard channel, hence degradable.  Any strict example must
+  therefore have a PPT-entangled complementary Choi operator.  Moreover,
+  transpose-degradable pcubed channels are always ordinarily degradable, so
+  that structured family contains no strict example
+  [Bra15],
+  [SG16].

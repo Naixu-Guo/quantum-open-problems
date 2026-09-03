@@ -12,6 +12,7 @@ parentClauseId: null
 aliases:
   - ruskai-2007-multiplicativity-p2-channel-classes
 origin: source-stated
+posed: null
 areaIds:
   - quantum-information
 topicIds:

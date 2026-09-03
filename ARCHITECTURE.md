@@ -1,4 +1,4 @@
-> **Superseded (2026-09-02).** This document describes the legacy static release and its migration plan. The current design is
+> **Superseded (2026-09-02).** This document describes the legacy static release and its migration plan. The `catalog/` slice it mentions has been removed; its four problems live on as fixtures under `contract/fixtures/`. The current design is
 > [`docs/DESIGN.md`](docs/DESIGN.md). This file is kept for the history
 > of the decision and as a description of the legacy release that now
 > serves as seed data.

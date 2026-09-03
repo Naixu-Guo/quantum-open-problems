@@ -4,6 +4,9 @@ on:
   pull_request:
     paths:
       - "contract/**"
+      - "ledger/**"
+      - "activity/**"
+      - "tools/**"
       - "catalog/**"
       - "docs/adr/**"
       - "open_prob/**"
@@ -55,6 +58,9 @@ jobs:
 
       - name: Validate fixture ledger
         run: npm run validate
+
+      - name: Validate seed ledger
+        run: node --experimental-strip-types --no-warnings src/cli/validate.ts ../ledger ../activity
 
       - name: Test
         run: npm test

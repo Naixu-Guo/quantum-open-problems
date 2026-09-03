@@ -192,8 +192,8 @@ table because claims, events, and auxiliary problems point at them.
 **Source** (revisable). A bibliographic record.
 `title, kind (paper | preprint | book | problem-list | dataset | thesis |
 web-record), authors[], venue, date, doi, arxivId, url, version`.
-Uniqueness: one source per DOI; one per arXiv id and version; otherwise
-one per normalized URL.
+Uniqueness: one source per DOI; one per arXiv id and version; else one per
+normalized URL; else one per title, first author, and date.
 
 **Reference** (revisable). A source attached to a problem, statement,
 clause, or claim, with the human's note on why it matters. This is the
@@ -372,7 +372,8 @@ Everything below is computed from decisions and the objects they cite.
 - **Numbers in bounds.** `value` is a string; `valueForm` says how to read
   it. Floats are never stored as the primary form of a mathematical bound.
 - **Uniqueness.** Source by DOI, else arXiv id and version, else normalized
-  URL. Problem aliases unique across the catalog. One `acceptance` decision
+  URL, else title, first author, and date. Problem aliases unique across the
+  catalog. One `acceptance` decision
   per contribution per policy version.
 - **Time.** All timestamps UTC ISO 8601; `effectiveAt` on decisions may
   precede `createdAt` when recording history.

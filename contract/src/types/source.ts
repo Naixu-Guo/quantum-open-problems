@@ -21,17 +21,17 @@ export function references(source: Source): Ref[] {
   return ref("createdBy", "Actor", source.createdBy);
 }
 
-/** The key a source is unique by: DOI, else arXiv id and version, else normalized URL. */
-export function uniquenessKey(source: Source): string | null {
+/** The key a source is unique by: DOI, else arXiv id and version, else normalized URL, else title, first author, and date. */
+export function uniquenessKey(source: Source): string {
   if (source.doi) return `doi:${source.doi.toLowerCase()}`;
   if (source.arxivId) return `arxiv:${source.arxivId.toLowerCase()}${source.version ? `v${source.version}` : ""}`;
   if (source.url) return `url:${source.url.replace(/\/+$/u, "").toLowerCase()}`;
-  return null;
+  const author = (source.authors[0] ?? "").toLowerCase().replace(/[^a-z]/gu, "");
+  return `text:${source.title.toLowerCase().replace(/[^a-z0-9]/gu, "")}|${author}|${source.date ?? ""}`;
 }
 
 export function rules(source: Source, _ledger: Ledger): string[] {
   const errors: string[] = [];
-  if (uniquenessKey(source) === null) errors.push("a source needs a DOI, an arXiv id, or a URL");
   if (source.doi && !/^10\.\d{4,}\//u.test(source.doi)) errors.push(`doi ${source.doi} is not a bare DOI`);
   return errors;
 }

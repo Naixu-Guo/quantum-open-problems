@@ -12,6 +12,7 @@ parentClauseId: null
 aliases:
   - example-conformance-problem
 origin: editor-formulated
+posed: null
 areaIds:
   - quantum-information
 topicIds:

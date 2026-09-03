@@ -12,6 +12,7 @@ parentClauseId: null
 aliases:
   - krueger-2005-qubit-bi-negativity
 origin: source-stated
+posed: null
 areaIds:
   - quantum-information
 topicIds:

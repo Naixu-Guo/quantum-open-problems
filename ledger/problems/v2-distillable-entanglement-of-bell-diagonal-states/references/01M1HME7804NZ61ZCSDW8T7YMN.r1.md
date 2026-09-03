@@ -1,0 +1,25 @@
+---
+id: 01M1HME7804NZ61ZCSDW8T7YMN
+type: Reference
+schemaVersion: "1.0"
+revision: 1
+createdBy: 01M1HME780JC7TB3G87MSB1YG9
+createdAt: 2026-09-02T18:00:00Z
+sourceId: 01M1HME780PT88VYVQCGR434VM
+targetType: problem
+targetId: 01M1HME780NTMHKFB95TSXKKFW
+role: prior-attempt
+locator: ""
+---
+Two-way protocols can strictly exceed the hashing rate in
+  Eq. \eqref{eq:p3-hashing-bound}.  Recurrence--hashing interpolation improves
+  the rate for every full-rank entangled Bell-diagonal state, including the
+  high-fidelity regime $p_I\to1$ [VV05].  Adaptive
+  protocols give related improvements for Werner/depolarizing states
+  [HDM06], [AJSS26].
+  Most recently, a receding-horizon search over asymptotic parity-check
+  protocols produced higher numerical yields for qubit Werner states across a
+  broad tested fidelity range, thereby improving the corresponding known lower
+  bounds on depolarizing-channel two-way capacity.  This is a constructive
+  lower-bound improvement, not a determination of $D(\rho_{\mathbf p})$
+  [BP26].

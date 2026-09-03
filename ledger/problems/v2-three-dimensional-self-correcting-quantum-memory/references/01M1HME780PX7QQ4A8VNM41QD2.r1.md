@@ -1,0 +1,21 @@
+---
+id: 01M1HME780PX7QQ4A8VNM41QD2
+type: Reference
+schemaVersion: "1.0"
+revision: 1
+createdBy: 01M1HME780JC7TB3G87MSB1YG9
+createdAt: 2026-09-02T18:00:00Z
+sourceId: 01M1HME78061WGAEBBN3V922K8
+targetType: problem
+targetId: 01M1HME780CWYHZHQFF0KN89BM
+role: prior-attempt
+locator: ""
+---
+Recent three-dimensional layer codes have polynomial energy barriers
+  and provably exhibit partial self-correction.  For suitable families, their
+  memory time grows exponentially with $L$ only up to a temperature-dependent
+  cutoff that is exponential in $\beta$
+  [Wil25].  Baspin then proved that these codes
+  have a constant free-energy barrier and at most polynomial thermalization
+  time under Davies dynamics, ruling them out as strict self-correcting
+  memories [Bas25].

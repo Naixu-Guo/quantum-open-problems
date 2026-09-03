@@ -12,8 +12,14 @@ process, including auxiliary problems, failed routes, and verifications, is
 recorded so the next attempt starts from the tree of what has been tried.
 
 The design is in [`docs/DESIGN.md`](docs/DESIGN.md). Work proceeds in four
-phases: contract, database, operation, community. The repository is in
-phase 0.
+phases: contract, database, operation, community. The repository is between
+phase 0 and phase 1: the contract package exists under `contract/`, and the
+seed ledger produced by `tools/migrate-legacy/` lives under `ledger/` and
+`activity/`. Validate it with:
+
+```sh
+cd contract && npm ci && node --experimental-strip-types src/cli/validate.ts ../ledger ../activity
+```
 
 ## Legacy release
 
@@ -28,7 +34,6 @@ partially solved, 20 solved) and 55 further candidates under
 
 - `site/`: dependency-free GitHub Pages website and structured active-problem catalog
 - `mcp/`: zero-dependency MCP server exposing the catalog to AI agents over stdio
-- `catalog/`: canonical data contract, schemas, representative records, and compatibility projector
 - `open_prob/`: one Markdown article and one metadata record for each of the 58 cataloged problems
 - `docs/adr/`: accepted architecture decisions, beginning with the database-first boundary
 - `ARCHITECTURE.md`: scale plan for canonical records, evidence events, review, and agent interfaces
@@ -43,12 +48,6 @@ node site/build.mjs
 ```
 
 The build generates the website read models and API, then checks them against source metadata, taxonomy, status, and catalog totals.
-
-The build also validates the canonical vertical slice. That slice proves that
-canonical Problem, StatementVersion, Source, Claim, Evidence, and Decision
-objects can reproduce existing API v1 records and research packets without
-changing their public revisions. See [`catalog/README.md`](catalog/README.md)
-and [ADR 0001](docs/adr/0001-database-first-architecture.md).
 
 ## Catalog architecture
 

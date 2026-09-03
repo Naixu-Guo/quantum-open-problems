@@ -5,7 +5,7 @@
   "description": "A permanent question, primary or auxiliary. Revisable. Catalog state and research status are read from decisions.",
   "allOf": [{ "$ref": "common.schema.json#/$defs/revisableBase" }],
   "unevaluatedProperties": false,
-  "required": ["type", "title", "role", "parentProblemId", "parentClauseId", "aliases", "origin", "areaIds", "topicIds", "keywords", "difficulty", "verificationCost", "relatedProblemIds", "body"],
+  "required": ["type", "title", "role", "parentProblemId", "parentClauseId", "aliases", "origin", "posed", "areaIds", "topicIds", "keywords", "difficulty", "verificationCost", "relatedProblemIds", "body"],
   "properties": {
     "type": { "const": "Problem" },
     "title": { "$ref": "common.schema.json#/$defs/nonEmptyText" },
@@ -14,6 +14,7 @@
     "parentClauseId": { "type": ["string", "null"], "pattern": "^[0-9A-HJKMNP-TV-Z]{26}#[a-z0-9]+(?:-[a-z0-9]+)*$" },
     "aliases": { "$ref": "common.schema.json#/$defs/slugList", "minItems": 1 },
     "origin": { "enum": ["source-stated", "derived", "editor-formulated", "agent-formulated"] },
+    "posed": { "$ref": "common.schema.json#/$defs/dateOrNull" },
     "areaIds": { "$ref": "common.schema.json#/$defs/slugList" },
     "topicIds": { "$ref": "common.schema.json#/$defs/slugList" },
     "keywords": { "$ref": "common.schema.json#/$defs/stringList" },

@@ -12,6 +12,7 @@ parentClauseId: "01M1GZV1G0YW6HZP3QV230QWSR#perfect-code-exists"
 aliases:
   - example-auxiliary-lemma
 origin: agent-formulated
+posed: null
 areaIds:
   - quantum-information
 topicIds:
