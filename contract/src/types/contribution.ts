@@ -82,6 +82,9 @@ export function rules(contribution: Contribution, ledger: Ledger): string[] {
   }
   if (contribution.kind === "statement-revision" && contribution.newStatementId === null) errors.push("a statement revision introduces a statement");
   if (contribution.kind === "reference" && contribution.referenceIds.length === 0) errors.push("a reference contribution introduces at least one reference");
+  const carriesResults = contribution.kind === "attempt-report" || contribution.kind === "evidence-import";
+  if (!carriesResults && contribution.claimIds.length > 0) errors.push(`a ${contribution.kind} contribution does not carry claims`);
+  if (!carriesResults && contribution.kind !== "problem-proposal" && contribution.artifactIds.length > 0) errors.push(`a ${contribution.kind} contribution does not carry artifacts`);
   if (contribution.kind === "evidence-import" && contribution.claimIds.length === 0) errors.push("an evidence import introduces at least one claim");
   if (contribution.statementId !== null && contribution.statementDigest === null) errors.push("a contribution that names a statement must pin its digest");
   if (contribution.statementId !== null && contribution.statementDigest !== null) {

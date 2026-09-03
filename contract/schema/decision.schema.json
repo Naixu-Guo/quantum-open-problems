@@ -14,7 +14,7 @@
     "mergeIntoProblemId": { "$ref": "common.schema.json#/$defs/ulidOrNull" },
     "outcome": { "enum": ["accepted", "rejected"] },
     "status": { "enum": ["open", "partial", "solved", "refuted", null] },
-    "verificationLevel": { "enum": ["unreviewed", "triaged", "ai-verified", "machine-verified", "human-signed", null] },
+    "verificationLevel": { "enum": ["unreviewed", "reviewed", "triaged", "ai-verified", "machine-verified", "human-signed", null] },
     "reviewIds": { "$ref": "common.schema.json#/$defs/ulidList" },
     "contributionIds": { "$ref": "common.schema.json#/$defs/ulidList" },
     "policyVersion": { "$ref": "common.schema.json#/$defs/nonEmptyText" },

@@ -7,7 +7,7 @@ export const TYPE = "Decision" as const;
 
 export type DecisionKind = "admission" | "promotion" | "acceptance" | "withdrawal" | "status" | "merge" | "retire" | "moderation" | "redaction" | "release";
 export type ProblemStatus = "open" | "partial" | "solved" | "refuted";
-export type VerificationLevel = "unreviewed" | "triaged" | "ai-verified" | "machine-verified" | "human-signed";
+export type VerificationLevel = "unreviewed" | "reviewed" | "triaged" | "ai-verified" | "machine-verified" | "human-signed";
 
 /** The policy version under which the legacy audit decisions were recorded; threshold checks start at policy 1. */
 const LEGACY_POLICY = "0";
@@ -54,7 +54,10 @@ export function rules(decision: Decision, ledger: Ledger): string[] {
   if (decision.kind !== "acceptance" && decision.verificationLevel !== null) errors.push("only an acceptance decision carries a verification level");
 
   const unreviewedAcceptance = decision.kind === "acceptance" && decision.verificationLevel === "unreviewed";
-  if (REVIEW_CITING_KINDS.has(decision.kind) && decision.reviewIds.length === 0 && decision.outcome === "accepted" && !unreviewedAcceptance) {
+  // An admission or status decision may rest on a cited contribution whose acceptance was a passing machine check.
+  const restsOnMachineCheck = decision.contributionIds.some((contributionId) =>
+    ledger.currentOf("Decision").some((other) => other.fields["kind"] === "acceptance" && other.fields["targetId"] === contributionId && other.fields["outcome"] === "accepted" && other.fields["verificationLevel"] === "machine-verified"));
+  if (REVIEW_CITING_KINDS.has(decision.kind) && decision.reviewIds.length === 0 && decision.outcome === "accepted" && !unreviewedAcceptance && !restsOnMachineCheck) {
     errors.push(`an accepted ${decision.kind} decision must cite at least one review`);
   }
   if (decision.kind === "merge" && decision.mergeIntoProblemId === null) errors.push("a merge decision names the problem merged into");
