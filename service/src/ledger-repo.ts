@@ -12,6 +12,7 @@ import { validateLedger, validateRecordShape, expectedRelPath, type Issue } from
 import { Ledger, type LoadedRecord } from "../../contract/src/ledger.ts";
 import { serializeRecord } from "../../contract/src/record.ts";
 import type { RecordType } from "../../contract/src/targets.ts";
+import { GitSync, type SyncConfig, type SyncState } from "./sync.ts";
 
 const ACTIVITY_TYPES: ReadonlySet<RecordType> = new Set(["Trajectory", "Artifact", "Comment"]);
 const GIT_MAX_BUFFER = 1024 * 1024 * 1024;
@@ -41,16 +42,33 @@ export class LedgerRepo {
   readonly schemaDir: string;
   readonly policyDir: string;
   readonly commitEnabled: boolean;
+  /** Keeps the clone in step with a remote; null when no remote is configured or commits are off. */
+  private readonly sync: GitSync | null;
   private ledger: Ledger;
 
-  constructor(options: { mainRoot: string; activityRoot: string; contractDir: string; commit: boolean }) {
+  constructor(options: { mainRoot: string; activityRoot: string; contractDir: string; commit: boolean; sync?: SyncConfig | null }) {
     // Real paths: git reports resolved paths, and sequence numbers are keyed by path.
     this.mainRoot = fs.realpathSync(options.mainRoot);
     this.activityRoot = fs.realpathSync(options.activityRoot);
     this.schemaDir = path.join(options.contractDir, "schema");
     this.policyDir = path.join(options.contractDir, "policy");
     this.commitEnabled = options.commit;
+    this.sync = options.sync && options.commit ? new GitSync(this.roots.map((root) => this.git(root, ["rev-parse", "--show-toplevel"])), options.sync) : null;
     this.ledger = this.reload();
+  }
+
+  /** Where the clone stands against its remote, per repository; null without a remote. */
+  syncState(): SyncState[] | null {
+    return this.sync?.state() ?? null;
+  }
+
+  /** Catch up with the remote and push whatever is unpushed; for the operator's command line. */
+  synchronize(): { refused: string | null; pushed: boolean; state: SyncState[] | null } {
+    if (!this.sync) return { refused: "no remote configured", pushed: false, state: null };
+    const caught = this.sync.catchUp();
+    if (caught.moved) this.ledger = this.reload();
+    const pushed = caught.refused ? false : this.sync.push();
+    return { refused: caught.refused, pushed, state: this.sync.state() };
   }
 
   get roots(): string[] {
@@ -113,6 +131,18 @@ export class LedgerRepo {
    * validation or git are turned into issues, never left as files on disk.
    */
   write(batch: NewRecord[], message: string, author: CommitAuthor): WriteResult {
+    if (this.sync) {
+      // Catch up first, so the commit lands on top of what the remote already has.
+      const caught = this.sync.catchUp();
+      if (caught.refused) return failure("commit", "ledger", `the ledger clone could not catch up with its remote: ${caught.refused}`);
+      if (caught.moved) {
+        try {
+          this.ledger = this.reload();
+        } catch (error) {
+          return failure("commit", "ledger", `the remote brought an invalid ledger: ${error instanceof Error ? error.message : String(error)}`);
+        }
+      }
+    }
     const placement = this.place(batch);
     if ("ok" in placement) return placement;
     const written: string[] = [];
@@ -142,6 +172,8 @@ export class LedgerRepo {
         }
       }
       this.ledger = this.reload();
+      // A failed push is recorded in the sync state and retried on the next write; the commit stands.
+      if (commit && this.sync) this.sync.push();
       return { ok: true, issues: [], paths: written, commit };
     } catch (error) {
       this.remove(written);

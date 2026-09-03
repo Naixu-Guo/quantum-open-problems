@@ -34,6 +34,7 @@ npm run rebuild                                       # index ledger/ and activi
 npm run serve                                         # read API on http://localhost:8787/api/v1/status
 node --experimental-strip-types src/cli.ts submit <actorId> batch.json "message"
 node --experimental-strip-types src/cli.ts decide     # run the automatic decisions once
+node --experimental-strip-types src/cli.ts sync       # catch up with the git remote and push what is unpushed
 node --experimental-strip-types src/cli.ts key issue <actorId> [label]    # print a bearer token once
 node --experimental-strip-types src/cli.ts key revoke <token>
 node --experimental-strip-types src/cli.ts identity link github <github-user-id> <actorId>   # bind a GitHub account to an existing actor
@@ -49,6 +50,7 @@ Environment:
 | `QOP_DB_PATH`, `QOP_AUTH_DB_PATH` | The index and the auth store; default to `service/data/` |
 | `QOP_PORT` | Listening port, default 8787 |
 | `QOP_COMMIT=0` | Write files without committing |
+| `QOP_GIT_REMOTE`, `QOP_GIT_BRANCH` | The remote the clone pushes to after each commit and catches up with before each write (see "Ledger synchronization"); unset keeps commits local. The branch defaults to the clone's current one |
 | `QOP_PUBLIC_URL` | The origin browsers reach the service at, default `http://localhost:<port>`. Cookie writes, the OAuth redirect, and `return_to` are bound to it; `https://` makes cookies `Secure` |
 | `QOP_WEB_DIR` | Directory of the web app's static files, default `web/`; empty or `0` serves none |
 | `QOP_SESSION_DAYS` | Browser session lifetime, default 30 |
@@ -59,7 +61,7 @@ Environment:
 
 | Route | Returns |
 | --- | --- |
-| `GET /api/v1/status` | Policy version, `lastSequence`, record counts, published problems by status, candidates, last release |
+| `GET /api/v1/status` | Policy version, `lastSequence`, record counts, published problems by status, candidates, last release, and `sync`: per repository, how far the clone is ahead of or behind its remote, the last push, the last error |
 | `GET /api/v1/policy` | The current policy header |
 | `GET /api/v1/schemas/<name>` | A contract schema |
 | `GET /api/v1/problems?status=&area=&topic=&difficulty=&text=&limit=&includeCandidates=&sort=` | Indexed problems (all problems with `includeCandidates=true`, each row saying whether it is `indexed`) with `lastActivity` and `lastHumanReview`; `text` matches titles, keywords, and bodies; `limit` up to 1000; `sort=stale` is the maintenance backlog, never-reviewed first, then oldest human review first |
@@ -126,6 +128,32 @@ Outside `/api/` and `/auth/`, GET requests serve the web app's files from
 not served. Responses to anonymous, public GETs may be cached briefly;
 anything that depends on the caller is `no-store`, and every response
 varies on `Authorization` and `Cookie`.
+
+## Ledger synchronization
+
+The service's clone is the canonical ledger (DESIGN.md decision 12). With
+`QOP_GIT_REMOTE` set, every write first catches up with the remote branch
+(fast-forward, or a rebase of unpushed ledger commits onto it) and every
+commit is pushed afterwards. An unreachable remote does not block writes:
+the commit stays local, `status.sync` shows the clone ahead with the error,
+and the next write or `cli.ts sync` retries. A catch-up that cannot rebase,
+which takes someone editing ledger files behind the service's back, refuses
+the write with a `commit` issue until an operator resolves it in the clone.
+Pull requests do not touch `ledger/` or `activity/`; CI refuses one that does
+unless it carries the `ledger-change` label.
+
+## Running locally with GitHub login
+
+1. Register an OAuth App on GitHub (Settings → Developer settings → OAuth
+   Apps): homepage `http://localhost:8787`, callback
+   `http://localhost:8787/auth/callback`.
+2. Export `QOP_GITHUB_CLIENT_ID` and `QOP_GITHUB_CLIENT_SECRET`, then
+   `npm run serve` and open `http://localhost:8787/`. The first login creates
+   your actor with the contributor role.
+3. To act as an editor, bind your GitHub account to the editor actor that
+   the seed ledger already holds: find its id in `ledger/actors/`, find your
+   numeric GitHub id at `https://api.github.com/users/<login>`, and run
+   `node --experimental-strip-types src/cli.ts identity link github <id> <actorId>`.
 
 ## Automatic decisions
 

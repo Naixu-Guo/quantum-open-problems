@@ -9,7 +9,8 @@ import type { Service } from "./write.ts";
 import { reindex } from "./write.ts";
 
 export function createService(config: Config): Service {
-  const repo = new LedgerRepo({ mainRoot: config.ledgerDir, activityRoot: config.activityDir, contractDir: config.contractDir, commit: config.commit });
+  const sync = config.git?.remote ? { remote: config.git.remote, branch: config.git.branch ?? null } : null;
+  const repo = new LedgerRepo({ mainRoot: config.ledgerDir, activityRoot: config.activityDir, contractDir: config.contractDir, commit: config.commit, sync });
   const policyDir = path.join(config.contractDir, "policy");
   const policy = loadPolicy(currentPolicyVersion(policyDir), policyDir);
   const system = repo.current().currentOf("Actor").find((actor) => actor.fields["kind"] === "system");

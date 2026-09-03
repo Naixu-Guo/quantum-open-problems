@@ -111,7 +111,7 @@ function routes(service: Service): Route[] {
   };
 
   return [
-    { method: "GET", pattern: /^\/api\/v1\/status$/u, auth: false, handler: () => ok(status(ledger(), service.index, service.policy.policyVersion)) },
+    { method: "GET", pattern: /^\/api\/v1\/status$/u, auth: false, handler: () => ok({ ...status(ledger(), service.index, service.policy.policyVersion), sync: service.repo.syncState() }) },
     { method: "GET", pattern: /^\/api\/v1\/policy$/u, auth: false, handler: () => ok({ policyVersion: service.policy.policyVersion, thresholds: service.policy.thresholds, independence: service.policy.independence, mechanicalMethods: service.policy.mechanicalMethods, rateLimits: service.policy.rateLimits, bodyLimits: service.policy.bodyLimits, licenses: service.policy.licenses }) },
     { method: "GET", pattern: /^\/api\/v1\/schemas\/payloads\/([a-z-]+)$/u, auth: false, handler: ({ params }) => ok(readSchema(path.join(service.repo.schemaDir, "payloads", `${params[0]}.schema.json`), params[0]!)) },
     { method: "GET", pattern: /^\/api\/v1\/schemas\/([a-z-]+)$/u, auth: false, handler: ({ params }) => ok(readSchema(path.join(service.repo.schemaDir, `${params[0]}.schema.json`), params[0]!)) },

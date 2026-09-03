@@ -718,3 +718,13 @@ Defaults adopted on 2026-09-02; each can be revisited by a later decision.
     two derived timestamps: `lastActivity` (any accepted decision) and
     `lastHumanReview` (human decisions, `maintenance` decisions, human
     verification reviews). Backlogs order by the second.
+12. **Ledger synchronization, 3 September 2026.** The service's working
+    clone is the canonical copy of the ledger; the GitHub repository mirrors
+    it. After every commit the service pushes to the configured remote.
+    Before every write it catches up with the remote: a fast-forward when it
+    has nothing unpushed, otherwise a rebase of its unpushed ledger commits,
+    which only add files. A push that fails leaves the commit local and is
+    retried on the next write; a catch-up that cannot rebase refuses the
+    write until an operator resolves it. `ledger/` and `activity/` are not
+    edited through pull requests; a deliberate migration carries the
+    `ledger-change` label so the guard in CI lets it through.
