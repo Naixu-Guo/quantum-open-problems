@@ -10,7 +10,7 @@ import path from "node:path";
 import { createHash } from "node:crypto";
 import type { Service } from "./write.ts";
 import { submit } from "./write.ts";
-import { problemView, frontier, tree, attempts, contributionView, recordView, status, events } from "./read-models.ts";
+import { problemView, frontier, tree, attempts, contributionView, recordView, status, events, referencesOf, commentsOn, reviewQueue, contextBundle } from "./read-models.ts";
 import { currentDecisions, isIndexed, contributionState } from "../../contract/src/derive.ts";
 import { validatePayload } from "../../contract/src/validate.ts";
 import { materialize, acceptArtifact, closeRecords, PayloadError, type BatchRecord } from "./payloads.ts";
@@ -129,6 +129,18 @@ function routes(service: Service): Route[] {
     { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)\/tree$/u, auth: false, handler: ({ params }) => ok({ problemId: resolveProblem(params[0]!), tree: tree(ledger(), resolveProblem(params[0]!)) }) },
     { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)\/attempts$/u, auth: false, handler: ({ params }) => ok({ problemId: resolveProblem(params[0]!), attempts: attempts(ledger(), resolveProblem(params[0]!)) }) },
     { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)\/indexed$/u, auth: false, handler: ({ params }) => ok({ problemId: resolveProblem(params[0]!), indexed: isIndexed(ledger(), resolveProblem(params[0]!), currentDecisions(ledger())) }) },
+    { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)\/references$/u, auth: false, handler: ({ params, query }) => ({ status: 200, body: { problemId: resolveProblem(params[0]!), references: referencesOf(ledger(), resolveProblem(params[0]!), query.get("role") ?? undefined) } }) },
+    { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)\/context$/u, auth: false, handler: ({ params, query }) => {
+      const clauses = query.get("clauses")?.split(",").filter(Boolean);
+      return ok(notNull(contextBundle(ledger(), resolveProblem(params[0]!), clauses, integer(query, "budget", 8000)), "problem"));
+    } },
+    { method: "GET", pattern: /^\/api\/v1\/comments$/u, auth: false, handler: ({ query }) => {
+      const targetType = query.get("targetType");
+      const targetId = query.get("targetId");
+      if (!targetType || !targetId) throw new HttpError(400, "targetType and targetId are required");
+      return ok({ targetType, targetId, comments: commentsOn(ledger(), targetType, targetId) });
+    } },
+    { method: "GET", pattern: /^\/api\/v1\/queues\/review$/u, auth: false, handler: (call) => ok({ queue: "review", items: reviewQueue(ledger(), call.actorId) }) },
     { method: "GET", pattern: /^\/api\/v1\/contributions\/([^/]+)$/u, auth: false, handler: ({ params }) => ok(notNull(contributionView(ledger(), params[0]!), "contribution")) },
     { method: "GET", pattern: /^\/api\/v1\/records\/([^/]+)$/u, auth: false, handler: ({ params }) => ok(notNull(recordView(ledger(), params[0]!), "record")) },
     { method: "GET", pattern: /^\/api\/v1\/events$/u, auth: false, handler: ({ query }) => ok(events(ledger(), service.index, integer(query, "after", 0), integer(query, "limit", 100), query.get("type") ?? undefined)) },

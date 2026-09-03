@@ -6,6 +6,7 @@ on:
     paths:
       - "contract/**"
       - "service/**"
+      - "mcp/**"
       - "ledger/**"
       - "activity/**"
       - "tools/**"
@@ -109,3 +110,11 @@ jobs:
       - name: Test the service
         run: npm test
         working-directory: service
+
+      - name: Type-check the MCP adapter
+        run: npm run typecheck
+        working-directory: mcp
+
+      - name: Test the MCP adapter
+        run: npm test
+        working-directory: mcp

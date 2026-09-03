@@ -9,6 +9,7 @@ import type { Statement } from "../../contract/src/types/statement.ts";
 import type { Contribution } from "../../contract/src/types/contribution.ts";
 import type { Decision } from "../../contract/src/types/decision.ts";
 import type { Index } from "./index.ts";
+import { createHash } from "node:crypto";
 
 const view = (record: LoadedRecord) => ({ ...record.fields, body: record.body });
 
@@ -140,6 +141,72 @@ export function contributionView(ledger: Ledger, contributionId: string) {
     decisions: related.map((d: Decision) => ({ id: d.id, kind: d.kind, outcome: d.outcome, verificationLevel: d.verificationLevel, policyVersion: d.policyVersion, effectiveAt: d.effectiveAt, body: d.body })),
     claims,
   };
+}
+
+export function referencesOf(ledger: Ledger, problemId: string, role?: string) {
+  const statement = currentStatement(ledger, problemId);
+  return ledger.currentOf("Reference")
+    .filter((r) => {
+      const targetId = String(r.fields["targetId"]);
+      const about = targetId === problemId || (statement !== undefined && (targetId === statement.id || targetId.startsWith(`${statement.id}#`)));
+      return about && (!role || r.fields["role"] === role);
+    })
+    .map((r) => ({ ...view(r), source: sourceSummary(ledger, String(r.fields["sourceId"])) }));
+}
+
+export function commentsOn(ledger: Ledger, targetType: string, targetId: string) {
+  return ledger.currentOf("Comment").filter((c) => c.fields["targetType"] === targetType && c.fields["targetId"] === targetId).map(view);
+}
+
+/** Contributions waiting for review, oldest first, excluding the caller's own and those the caller already reviewed. */
+export function reviewQueue(ledger: Ledger, callerId: string | null) {
+  const decisions = currentDecisions(ledger);
+  const reviewedByCaller = new Set(ledger.currentOf("Review").filter((r) => r.fields["reviewerId"] === callerId).map((r) => String(r.fields["contributionId"])));
+  return ledger.currentOf("Contribution")
+    .filter((c) => contributionState(ledger, c.id, decisions) === "submitted" && c.fields["actorId"] !== callerId && !reviewedByCaller.has(c.id))
+    .sort((a, b) => String(a.fields["createdAt"]).localeCompare(String(b.fields["createdAt"])))
+    .map((c) => ({ id: c.id, kind: c.fields["kind"], title: c.fields["title"], actorId: c.fields["actorId"], problemIds: c.fields["problemIds"], newProblemIds: c.fields["newProblemIds"], createdAt: c.fields["createdAt"], reviews: ledger.currentOf("Review").filter((r) => r.fields["contributionId"] === c.id).length }));
+}
+
+/**
+ * A bounded bundle for one problem: what an agent needs to start, cut to a token budget in
+ * priority order. The bundle id is the digest of the sorted (id, digest) pairs it was built
+ * from, so a trajectory can name exactly what it read.
+ */
+export function contextBundle(ledger: Ledger, problemId: string, clauseIds: string[] | undefined, tokenBudget: number) {
+  const front = frontier(ledger, problemId);
+  const problem = ledger.find("Problem", problemId);
+  if (!front || !problem) return null;
+  const statement = currentStatement(ledger, problemId)!;
+  const chosen = clauseIds && clauseIds.length ? front.clauses.filter((c) => clauseIds.includes(c.ref)) : front.clauses;
+  const included = new Map<string, string | null>([[problem.id, null], [statement.id, statement.digest]]);
+  const sections: { name: string; text: string; ids: string[] }[] = [];
+  sections.push({ name: "problem", text: `# ${String(problem.fields["title"])}\n\n${problem.body}`, ids: [problem.id] });
+  sections.push({ name: "statement", text: ledger.find("Statement", statement.id)?.body ?? "", ids: [statement.id] });
+  sections.push({ name: "clauses", text: chosen.map((c) => `- ${c.ref} [${c.status}] ${c.label}: ${c.resolutionCriteria}`).join("\n"), ids: [] });
+  const claims = front.acceptedClaims.filter((claim) => claim.clauseIds.some((ref) => chosen.some((c) => c.ref === ref)));
+  sections.push({ name: "acceptedClaims", text: claims.map((c) => `- ${c.id} (${c.relation}) ${c.title}`).join("\n"), ids: claims.map((c) => c.id) });
+  sections.push({ name: "tree", text: JSON.stringify(front.tree.map((node: any) => ({ id: node.id, title: node.title, status: node.status, parentClauseId: node.parentClauseId }))), ids: front.tree.map((node: any) => node.id as string) });
+  sections.push({ name: "routesTried", text: front.routesTried.map((r) => `- ${r.id} [${String(r.stopReason)}] ${String(r.title)}`).join("\n"), ids: front.routesTried.map((r) => r.id) });
+  const references = referencesOf(ledger, problemId);
+  sections.push({ name: "references", text: references.map((r: any) => `- (${r.role}) ${r.source?.title ?? r.sourceId}${r.locator ? `, ${r.locator}` : ""}${r.body ? `: ${r.body}` : ""}`).join("\n"), ids: references.map((r: any) => String(r.id)) });
+  const comments = commentsOn(ledger, "problem", problemId);
+  sections.push({ name: "comments", text: comments.map((c: any) => `- ${c.body}`).join("\n"), ids: comments.map((c: any) => String(c.id)) });
+
+  const budgetChars = Math.max(tokenBudget, 200) * 4;
+  let used = 0;
+  const kept: { name: string; text: string; truncated: boolean }[] = [];
+  for (const section of sections) {
+    const room = budgetChars - used;
+    if (room <= 0) { kept.push({ name: section.name, text: "", truncated: true }); continue; }
+    const text = section.text.length > room ? section.text.slice(0, room) : section.text;
+    used += text.length;
+    kept.push({ name: section.name, text, truncated: text.length < section.text.length });
+    if (!kept[kept.length - 1]!.truncated) for (const id of section.ids) if (!included.has(id)) included.set(id, null);
+  }
+  const pairs = [...included.entries()].map(([id, digest]) => `${id}:${digest ?? ""}`).sort();
+  const bundleId = `sha256:${createHash("sha256").update(pairs.join("\n")).digest("hex")}`;
+  return { bundleId, problemId, statementId: statement.id, statementDigest: statement.digest, clauseIds: chosen.map((c) => c.ref), tokenBudget, approximateTokens: Math.ceil(used / 4), sections: kept, included: pairs };
 }
 
 export function recordView(ledger: Ledger, id: string) {
