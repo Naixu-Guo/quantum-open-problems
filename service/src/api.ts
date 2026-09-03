@@ -11,7 +11,7 @@ import path from "node:path";
 import { createHash } from "node:crypto";
 import type { Service } from "./write.ts";
 import { submit } from "./write.ts";
-import { problemView, frontier, tree, attempts, contributionView, recordView, status, events, referencesOf, commentsOn, reviewQueue, contextBundle, taxonomyView, searchSources, ContextError } from "./read-models.ts";
+import { problemView, frontier, tree, attempts, contributionView, recordView, status, events, referencesOf, commentsOn, reviewQueue, contextBundle, taxonomyView, actorsView, searchSources, ContextError } from "./read-models.ts";
 import { currentDecisions, isIndexed, contributionState } from "../../contract/src/derive.ts";
 import { validatePayload } from "../../contract/src/validate.ts";
 import { materialize, acceptArtifact, closeRecords, PayloadError, type BatchRecord } from "./payloads.ts";
@@ -116,6 +116,7 @@ function routes(service: Service): Route[] {
     { method: "GET", pattern: /^\/api\/v1\/schemas\/payloads\/([a-z-]+)$/u, auth: false, handler: ({ params }) => ok(readSchema(path.join(service.repo.schemaDir, "payloads", `${params[0]}.schema.json`), params[0]!)) },
     { method: "GET", pattern: /^\/api\/v1\/schemas\/([a-z-]+)$/u, auth: false, handler: ({ params }) => ok(readSchema(path.join(service.repo.schemaDir, `${params[0]}.schema.json`), params[0]!)) },
     { method: "GET", pattern: /^\/api\/v1\/taxonomy$/u, auth: false, handler: () => ok(notNull(taxonomyView(ledger()), "taxonomy")) },
+    { method: "GET", pattern: /^\/api\/v1\/actors$/u, auth: false, handler: () => ok({ actors: actorsView(ledger()) }) },
     { method: "GET", pattern: /^\/api\/v1\/sources$/u, auth: false, handler: ({ query }) => ok(searchSources(ledger(), query.get("text") ?? "", integer(query, "limit", 20))) },
     { method: "GET", pattern: /^\/api\/v1\/problems$/u, auth: false, handler: ({ query }) => {
       const rows = service.index.problemRows({
@@ -128,7 +129,7 @@ function routes(service: Service): Route[] {
         limit: integer(query, "limit", 50),
         sort: query.get("sort") === "stale" ? "stale" : "title",
       });
-      return ok({ count: rows.length, problems: rows.map((row) => ({ id: row.id, alias: row.alias, title: row.title, role: row.role, catalogState: row.catalog_state, status: row.status, areaIds: JSON.parse(row.area_ids), topicIds: JSON.parse(row.topic_ids), difficulty: row.difficulty, lastActivity: row.last_activity, lastHumanReview: row.last_human_review })) });
+      return ok({ count: rows.length, problems: rows.map((row) => ({ id: row.id, alias: row.alias, title: row.title, role: row.role, catalogState: row.catalog_state, status: row.status, indexed: row.indexed === 1, areaIds: JSON.parse(row.area_ids), topicIds: JSON.parse(row.topic_ids), difficulty: row.difficulty, lastActivity: row.last_activity, lastHumanReview: row.last_human_review })) });
     } },
     { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)$/u, auth: false, handler: ({ params }) => ok(notNull(problemView(ledger(), resolveProblem(params[0]!)), "problem")) },
     { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)\/frontier$/u, auth: false, handler: ({ params }) => ok(notNull(frontier(ledger(), resolveProblem(params[0]!)), "problem")) },

@@ -19,7 +19,7 @@
     "text": { "type": "string" },
     "nonEmptyText": { "type": "string", "minLength": 1 },
     "textOrNull": { "type": ["string", "null"] },
-    "url": { "type": ["string", "null"], "format": "uri" },
+    "url": { "type": ["string", "null"], "pattern": "^https?://[^\\s]+$" },
     "schemaVersion": { "const": "1.0" },
     "stringList": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
 

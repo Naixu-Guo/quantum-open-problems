@@ -32,11 +32,12 @@ export function problemView(ledger: Ledger, problemId: string) {
     indexed: isIndexed(ledger, problemId, decisions),
     statement: statement ? {
       ...statement,
+      body: ledger.find("Statement", statement.id)?.body ?? "",
       clauses: statement.clauses.map((clause) => ({ ...clause, ref: `${statement.id}#${clause.id}`, status: clauseStatus(ledger, `${statement.id}#${clause.id}`, claims) })),
     } : null,
     references,
     comments,
-    decisions: decisions.filter((d) => d.targetType === "problem" && d.targetId === problemId).map((d) => ({ id: d.id, kind: d.kind, outcome: d.outcome, status: d.status, effectiveAt: d.effectiveAt, policyVersion: d.policyVersion, body: d.body })),
+    decisions: decisions.filter((d) => d.targetType === "problem" && d.targetId === problemId).map((d) => ({ id: d.id, kind: d.kind, outcome: d.outcome, status: d.status, mergeIntoProblemId: d.mergeIntoProblemId, effectiveAt: d.effectiveAt, policyVersion: d.policyVersion, body: d.body })),
   };
 }
 
@@ -129,8 +130,10 @@ export function contributionView(ledger: Ledger, contributionId: string) {
   const reviews = ledger.currentOf("Review").filter((r) => r.fields["contributionId"] === contributionId).map(view);
   const related = decisions.filter((d) => d.targetType === "contribution" && d.targetId === contributionId);
   const claims = (contribution.fields["claimIds"] as string[]).map((id) => ledger.find("Claim", id)).filter((c): c is LoadedRecord => Boolean(c)).map(view);
+  const references = (contribution.fields["referenceIds"] as string[]).map((id) => ledger.find("Reference", id)).filter((r): r is LoadedRecord => Boolean(r)).map((r) => ({ ...view(r), source: sourceSummary(ledger, String(r.fields["sourceId"])) }));
   return {
     ...view(contribution),
+    references,
     state: contributionState(ledger, contributionId, decisions),
     verificationLevel: verificationLevel(ledger, contributionId, decisions),
     statementIsCurrent: statementIsCurrent(ledger, contributionId),
@@ -257,6 +260,11 @@ export function taxonomyView(ledger: Ledger) {
   const taxonomy = ledger.currentOf("Taxonomy")[0];
   if (!taxonomy) return null;
   return { id: taxonomy.id, revision: revisionOf(taxonomy), areas: taxonomy.fields["areas"], topics: taxonomy.fields["topics"] };
+}
+
+/** Every current actor, so pages can name who wrote a record. Keys and identities stay in the auth store. */
+export function actorsView(ledger: Ledger) {
+  return ledger.currentOf("Actor").map((a) => ({ id: a.id, name: a.fields["name"], kind: a.fields["kind"], roles: a.fields["roles"], operatorId: a.fields["operatorId"], modelFamily: a.fields["modelFamily"] }));
 }
 
 /** A request for a context bundle that cannot be built as asked. */

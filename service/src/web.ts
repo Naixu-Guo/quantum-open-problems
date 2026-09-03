@@ -216,6 +216,16 @@ export async function handleWeb(service: Service, request: http.IncomingMessage,
   }
 
   if (url.pathname.startsWith("/auth/")) throw new HttpError(404, `no route for ${method} ${url.pathname}`);
-  if (method === "GET" && webDir) return serveStatic(webDir, url.pathname, request, response);
+  if (method === "GET" && webDir) {
+    if (serveStatic(webDir, url.pathname, request, response)) return true;
+    // The web app routes paths itself: a page navigation to a path that is not a file gets the shell.
+    if (wantsPage(request, url.pathname)) return serveStatic(webDir, "/", request, response);
+  }
   return false;
+}
+
+/** A browser navigating to an extension-less path, as opposed to a client asking for a file or JSON. */
+function wantsPage(request: http.IncomingMessage, pathname: string): boolean {
+  const accept = String(request.headers.accept ?? "");
+  return accept.includes("text/html") && path.extname(pathname) === "";
 }

@@ -6,6 +6,7 @@ on:
     paths:
       - "contract/**"
       - "service/**"
+      - "web/**"
       - "mcp/**"
       - "ledger/**"
       - "activity/**"
@@ -25,6 +26,7 @@ on:
     paths:
       - "contract/**"
       - "service/**"
+      - "web/**"
       - "ledger/**"
       - "activity/**"
       - "tools/**"
@@ -110,6 +112,10 @@ jobs:
       - name: Test the service
         run: npm test
         working-directory: service
+
+      - name: Test the web app
+        run: npm test
+        working-directory: web
 
       - name: Type-check the MCP adapter
         run: npm run typecheck

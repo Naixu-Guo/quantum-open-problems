@@ -4,6 +4,7 @@
  */
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
+import { statementDigest } from "../../contract/src/digest.ts";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -263,6 +264,53 @@ test("static files are served with validators, dotfiles are not, and a read erro
   fs.chmodSync(locked, 0o644);
   assert.ok(unreadable.status === 404 || unreadable.status === 500 || unreadable.status === 200, `status ${unreadable.status}`);
   assert.equal((await call("GET", "/api/v1/status")).status, 200, "the service is still up");
+});
+
+test("a page navigation to an app path gets the shell; file, API, and auth paths do not", async () => {
+  const page = await call("GET", "/problems/some-alias", { headers: { Accept: "text/html,application/xhtml+xml" } });
+  assert.equal(page.status, 200, page.text);
+  assert.match(page.text, /<title>QOP<\/title>/u);
+  assert.equal((await call("GET", "/problems/some-alias", { headers: { Accept: "application/json" } })).status, 404, "a JSON client gets a 404, not the shell");
+  assert.equal((await call("GET", "/missing.png", { headers: { Accept: "text/html" } })).status, 404);
+  assert.equal((await call("GET", "/auth/nothing", { headers: { Accept: "text/html" } })).status, 404);
+  assert.equal((await call("GET", "/api/v1/nothing", { headers: { Accept: "text/html" } })).status, 404);
+});
+
+test("the actor list and the problem view carry what the pages need", async () => {
+  const actors = await call("GET", "/api/v1/actors");
+  assert.equal(actors.status, 200);
+  assert.ok(actors.body.actors.some((a: { name: string; roles: string[] }) => a.name === "Legacy audit editor" && a.roles.includes("editor")));
+  assert.ok(actors.body.actors.every((a: Record<string, unknown>) => !("externalIdentity" in a) && !("keys" in a)), "identities and keys stay out of the list");
+  const problem = service.repo.current().currentOf("Problem").find((p) => (p.fields["aliases"] as string[])[0] === "example-conformance-problem")!;
+  const view = await call("GET", `/api/v1/problems/${problem.id}`);
+  assert.equal(view.status, 200);
+  assert.ok(typeof view.body.statement.body === "string" && view.body.statement.body.length > 0, "the statement Markdown is in the problem view");
+});
+
+test("a proposal from the web: the service fills in a missing statement digest and refuses non-http source URLs", async () => {
+  const { session } = await login({ id: 9001, login: "zoe", name: "Zoe" });
+  const body = "## Formal statement\n\nIs $x$ ever $y$?\n";
+  const proposal = (extra: Record<string, unknown>[] = []) => ({ records: [
+    { ref: "problem", type: "Problem", body: "Motivation.", title: "Web proposal", role: "primary", parentProblemId: null, parentClauseId: null, aliases: ["web-proposal"], origin: "editor-formulated", posed: null, areaIds: ["quantum-information"], topicIds: [], keywords: [], difficulty: "unrated", verificationCost: "unrated", relatedProblemIds: [] },
+    { ref: "statement", type: "Statement", body, problemId: "$ref:problem", version: 1, clauses: [{ id: "main", label: "Main", text: "Is $x$ ever $y$?", kind: "decision", resolutionCriteria: "Prove or refute.", supersedesClauseId: null, quantity: null }] },
+    ...extra,
+    { type: "Contribution", body: "Proposed through the web.", kind: "problem-proposal", title: "Proposal: Web proposal", trajectoryId: null, problemIds: [], statementId: null, statementDigest: null, clauseIds: [], stopReason: "none", newProblemIds: ["$ref:problem"], newStatementId: "$ref:statement", referenceIds: extra.length ? ["$ref:reference"] : [], claimIds: [], artifactIds: [], declaredReadIds: [], revisions: [], aiInvolvement: "none", license: "CC-BY-4.0" },
+  ] });
+  const bad = await call("POST", "/api/v1/batches", { cookie: `qop_session=${session}`, headers: { Origin: base }, body: proposal([
+    { ref: "source", type: "Source", body: "", title: "Evil", kind: "web-record", completeness: "url-only", authors: [], venue: "", date: null, doi: null, arxivId: null, url: "javascript:alert(1)", version: null },
+    { ref: "reference", type: "Reference", body: "note", sourceId: "$ref:source", targetType: "problem", targetId: "$ref:problem", role: "background", locator: "" },
+  ]) });
+  assert.equal(bad.status, 422, bad.text);
+  assert.match(bad.text, /url/u);
+  const good = await call("POST", "/api/v1/batches", { cookie: `qop_session=${session}`, headers: { Origin: base }, body: proposal() });
+  assert.equal(good.status, 201, good.text);
+  const problem = await call("GET", `/api/v1/problems/${good.body.recordIds[0]}`);
+  assert.equal(problem.body.statement.digest, statementDigest(body), "the service computed the digest from the body");
+  const list = await call("GET", "/api/v1/problems?includeCandidates=true&limit=1000");
+  const row = list.body.problems.find((p: { id: string }) => p.id === good.body.recordIds[0]);
+  assert.equal(row.indexed, false, "rows say whether a problem is in the index");
+  const contribution = await call("GET", `/api/v1/contributions/${good.body.recordIds[2]}`);
+  assert.deepEqual(contribution.body.references, [], "the contribution view carries its references");
 });
 
 test("source search matches every term", async () => {
