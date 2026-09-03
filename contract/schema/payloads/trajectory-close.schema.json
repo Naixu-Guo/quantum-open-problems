@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/contract/v1/payloads/trajectory-close.schema.json",
+  "title": "Trajectory close",
+  "description": "Closes a run. The service writes the trajectory, its event log artifact, every artifact uploaded during the run, and the attempt report's records in one batch. A research trajectory must carry an attempt report: a batch whose records include exactly one Contribution of kind attempt-report, which may use `$ref:trajectory` for its trajectoryId.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["cost", "body"],
+  "properties": {
+    "cost": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tokens", "wallTimeSeconds", "moneyUsd"],
+      "properties": {
+        "tokens": { "type": ["integer", "null"], "minimum": 0 },
+        "wallTimeSeconds": { "type": ["number", "null"], "minimum": 0 },
+        "moneyUsd": { "type": ["number", "null"], "minimum": 0 }
+      }
+    },
+    "body": { "type": "string" },
+    "attemptReport": { "$ref": "batch.schema.json" }
+  }
+}

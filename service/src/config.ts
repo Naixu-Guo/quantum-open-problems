@@ -10,6 +10,8 @@ export interface Config {
   activityDir: string;
   contractDir: string;
   dbPath: string;
+  /** Service-local store for API keys, idempotency, and open runs. Never rebuilt from the ledger. */
+  authDbPath: string;
   port: number;
   /** Whether the service commits to git after each accepted write. Tests turn it on against a temporary repository. */
   commit: boolean;
@@ -21,6 +23,7 @@ export function configFromEnv(env: NodeJS.ProcessEnv = process.env): Config {
     activityDir: path.resolve(env["QOP_ACTIVITY_DIR"] ?? path.join(repoRoot, "activity")),
     contractDir: path.resolve(env["QOP_CONTRACT_DIR"] ?? path.join(repoRoot, "contract")),
     dbPath: path.resolve(env["QOP_DB_PATH"] ?? path.join(repoRoot, "service", "data", "index.sqlite")),
+    authDbPath: path.resolve(env["QOP_AUTH_DB_PATH"] ?? path.join(repoRoot, "service", "data", "auth.sqlite")),
     port: Number(env["QOP_PORT"] ?? 8787),
     commit: env["QOP_COMMIT"] !== "0",
   };
