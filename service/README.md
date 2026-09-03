@@ -46,9 +46,9 @@ committing.
 | `GET /api/v1/status` | Policy version, `lastSequence`, record counts, published problems by status, candidates, last release |
 | `GET /api/v1/policy` | The current policy header |
 | `GET /api/v1/schemas/<name>` | A contract schema |
-| `GET /api/v1/problems?status=&area=&topic=&difficulty=&text=&limit=&includeCandidates=` | Indexed problems |
+| `GET /api/v1/problems?status=&area=&topic=&difficulty=&text=&limit=&includeCandidates=&sort=` | Indexed problems with `lastActivity` and `lastHumanReview`; `sort=stale` is the maintenance backlog, never-reviewed first, then oldest human review first |
 | `GET /api/v1/problems/<id or alias>` | Problem with current statement and clause statuses, references with notes, comments, decision chain |
-| `GET /api/v1/problems/<id>/frontier` | Clauses with status, accepted claims, best bounds, decomposition tree, routes tried, pending contributions, `lastReviewed` |
+| `GET /api/v1/problems/<id>/frontier` | Clauses with status, accepted claims, best bounds, decomposition tree, routes tried, pending contributions, `lastActivity`, `lastHumanReview` |
 | `GET /api/v1/problems/<id>/tree` | The decomposition tree alone |
 | `GET /api/v1/problems/<id>/attempts` | Attempt reports with state and currency |
 | `GET /api/v1/contributions/<id>` | A contribution with its reviews, decisions, claims, state, and verification level |

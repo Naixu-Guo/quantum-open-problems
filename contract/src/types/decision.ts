@@ -5,7 +5,7 @@ import { actorKind, hasRole } from "./actor.ts";
 
 export const TYPE = "Decision" as const;
 
-export type DecisionKind = "admission" | "promotion" | "acceptance" | "withdrawal" | "status" | "merge" | "retire" | "moderation" | "redaction" | "release";
+export type DecisionKind = "admission" | "promotion" | "acceptance" | "withdrawal" | "status" | "merge" | "retire" | "moderation" | "redaction" | "maintenance" | "release";
 export type ProblemStatus = "open" | "partial" | "solved" | "refuted";
 export type VerificationLevel = "unreviewed" | "reviewed" | "triaged" | "ai-verified" | "machine-verified" | "human-signed";
 
@@ -39,7 +39,7 @@ export function references(decision: Decision): Ref[] {
   ];
 }
 
-const HUMAN_ONLY_KINDS: ReadonlySet<DecisionKind> = new Set(["promotion", "merge", "retire", "moderation", "redaction"]);
+const HUMAN_ONLY_KINDS: ReadonlySet<DecisionKind> = new Set(["promotion", "merge", "retire", "moderation", "redaction", "maintenance"]);
 const REVIEW_CITING_KINDS: ReadonlySet<DecisionKind> = new Set(["admission", "acceptance", "status", "promotion"]);
 
 export function rules(decision: Decision, ledger: Ledger): string[] {

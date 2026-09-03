@@ -59,8 +59,9 @@ function routes(service: Service): [RegExp, Handler][] {
         ...(query.get("text") ? { text: query.get("text")! } : {}),
         indexedOnly: query.get("includeCandidates") !== "true",
         limit: integer(query, "limit", 50),
+        sort: query.get("sort") === "stale" ? "stale" : "title",
       });
-      return { count: rows.length, problems: rows.map((row) => ({ id: row.id, alias: row.alias, title: row.title, role: row.role, catalogState: row.catalog_state, status: row.status, areaIds: JSON.parse(row.area_ids), topicIds: JSON.parse(row.topic_ids), difficulty: row.difficulty, lastReviewed: row.last_reviewed })) };
+      return { count: rows.length, problems: rows.map((row) => ({ id: row.id, alias: row.alias, title: row.title, role: row.role, catalogState: row.catalog_state, status: row.status, areaIds: JSON.parse(row.area_ids), topicIds: JSON.parse(row.topic_ids), difficulty: row.difficulty, lastActivity: row.last_activity, lastHumanReview: row.last_human_review })) };
     }],
     [/^\/api\/v1\/problems\/([^/]+)$/u, ([id]) => notNull(problemView(ledger(), resolveProblem(id!)), "problem")],
     [/^\/api\/v1\/problems\/([^/]+)\/frontier$/u, ([id]) => notNull(frontier(ledger(), resolveProblem(id!)), "problem")],
