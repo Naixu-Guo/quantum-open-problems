@@ -175,6 +175,28 @@ function validatorsFor(schemaDir: string): ReturnType<typeof buildValidators> {
   return cachedValidators.validators;
 }
 
+const payloadValidators = new Map<string, Map<string, ValidateFunction>>();
+
+/** Validate an interface payload against `schema/payloads/<name>.schema.json`. */
+export function validatePayload(name: string, object: unknown, schemaDir: string = DEFAULT_SCHEMA_DIR): string[] {
+  let byName = payloadValidators.get(schemaDir);
+  if (!byName) {
+    const ajv = new Ajv2020({ allErrors: true, strict: true, strictTypes: false, strictRequired: false, allowUnionTypes: true });
+    addFormats(ajv);
+    const dir = path.join(schemaDir, "payloads");
+    for (const file of fs.readdirSync(dir).filter((f) => f.endsWith(".schema.json"))) ajv.addSchema(JSON.parse(fs.readFileSync(path.join(dir, file), "utf8")));
+    byName = new Map();
+    for (const file of fs.readdirSync(dir).filter((f) => f.endsWith(".schema.json"))) {
+      const validate = ajv.getSchema(`https://naixu-guo.github.io/quantum-open-problems/contract/v1/payloads/${file}`);
+      if (validate) byName.set(file.replace(".schema.json", ""), validate);
+    }
+    payloadValidators.set(schemaDir, byName);
+  }
+  const validate = byName.get(name);
+  if (!validate) return [`unknown payload schema ${name}`];
+  return validate(object) ? [] : [formatAjvErrors(validate)];
+}
+
 /** Schema-check one record object (header fields plus body) before it touches the ledger. */
 export function validateRecordShape(object: Record<string, unknown>, schemaDir: string = DEFAULT_SCHEMA_DIR): string[] {
   const type = object["type"];

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/contract/v1/payloads/trajectory-event.schema.json",
+  "title": "Trajectory event",
+  "description": "One event appended to an open trajectory. The service assigns seq and at.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "summary"],
+  "properties": {
+    "kind": { "enum": ["read", "decompose", "attempt", "prove", "refute", "compute", "stuck", "revise", "submit", "note"] },
+    "summary": { "type": "string", "minLength": 1, "maxLength": 2000 },
+    "problemId": { "type": ["string", "null"], "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$" },
+    "clauseId": { "type": ["string", "null"], "pattern": "^[0-9A-HJKMNP-TV-Z]{26}#[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "obstacle": { "enum": ["missing-lemma", "refuted-subgoal", "computational-limit", "ambiguous-statement", "out-of-budget", "none"] },
+    "objectIds": { "type": "array", "items": { "type": "string", "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$" }, "uniqueItems": true },
+    "artifactId": { "type": ["string", "null"], "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$" }
+  }
+}

@@ -42,7 +42,7 @@ before(async () => {
   git(tmp, ["init", "-q", "-b", "main"]);
   git(tmp, ["add", "-A"]);
   git(tmp, ["-c", "user.name=fixture", "-c", "user.email=fixture@example.invalid", "commit", "-q", "-m", "Seed fixtures"]);
-  service = createService({ ledgerDir: path.join(tmp, "ledger"), activityDir: path.join(tmp, "activity"), contractDir, dbPath: ":memory:", port: 0, commit: true });
+  service = createService({ ledgerDir: path.join(tmp, "ledger"), activityDir: path.join(tmp, "activity"), contractDir, dbPath: ":memory:", authDbPath: ":memory:", port: 0, commit: true });
   server = createServer(service);
   await new Promise<void>((resolve) => server.listen(0, "127.0.0.1", resolve));
   const address = server.address();
@@ -52,6 +52,7 @@ before(async () => {
 after(() => {
   server.close();
   service.index.close();
+  service.auth.close();
   fs.rmSync(tmp, { recursive: true, force: true });
 });
 

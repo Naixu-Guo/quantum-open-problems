@@ -1,7 +1,6 @@
 # Quantum Open Problems: system design
 
-- Status: Adopted; phase 0 delivered except the API payload schemas and the
-  conformance test, which are written with the phase 1 service
+- Status: Adopted; phase 0 delivered, phase 1 in progress
 - Date: 2026-09-02, revised 2026-09-03
 - Scope: the whole project, designed from its goals. Supersedes
   `ARCHITECTURE.md` and ADR 0001 where they conflict. The current repository
@@ -476,16 +475,16 @@ submission can name exactly what it worked from.
 
 | Tool | Effect |
 | --- | --- |
-| `start_trajectory(kind, problemIds, statementDigests, clauseIds?, contextBundleId?, harnessConfig, budget, visibility)` | Opens a trajectory; returns its ID |
+| `start_trajectory(kind, problemIds, statementDigests, clauseIds?, contextBundleId?, harnessConfig, budget, visibility)` | Opens a trajectory; returns its ID. Until close, the run lives in the service's local store, not the ledger |
 | `log_event(trajectoryId, kind, summary, problemId?, clauseId?, obstacle?, objectIds?, artifactId?)` | Appends an event |
-| `upload_artifact(trajectoryId, kind, mediaType, bytes)` | Stores a blob; returns its digest |
-| `end_trajectory(trajectoryId, attemptReportId, cost)` | Freezes the trajectory; a research trajectory cannot close without its attempt report |
+| `upload_artifact(trajectoryId, kind, mediaType, bytes)` | Stores the blob content-addressed at once; returns the artifact id the report may cite. The artifact record is written at close |
+| `end_trajectory(trajectoryId, cost, body, attemptReport?)` | Writes the trajectory, its event log, every uploaded artifact, and the attempt report's records in one batch. A research trajectory cannot close without its attempt report |
 
 ### 4.3 Agent write interface
 
 | Tool | Creates |
 | --- | --- |
-| `submit_contribution(kind, targets, body, claims?, artifactIds?, newStatement?, newProblems?, references?, stopReason?, declaredReadIds, aiInvolvement, license, trajectoryId?)` | One contribution and the objects it introduces; returns intake result and contribution ID. An attempt report may introduce auxiliary problems with their statements, claims about any problem in the tree, and artifacts. |
+| `submit_batch(records[])` | Any records except attempt reports: a batch of contract records without ids or timestamps, cross-referenced by `$ref:` names. The service assigns ids, stamps the actor and time, and writes the batch as one commit. `submit_contribution`, `submit_review`, and `post_comment` are conveniences over it. An attempt report is submitted only through `end_trajectory`, so no result exists without its process. |
 | `submit_review(contributionId, kind, independence, conflictOfInterest, methods, checks, verdict, body, trajectoryId?)` | One review |
 | `withdraw_contribution(contributionId, reason)` | A `withdrawal` decision on the actor's own contribution |
 | `post_comment(targetType, targetId, body, parentCommentId?)` | One comment; editing creates a revision |
@@ -522,8 +521,13 @@ scoped tokens; the operator is a human actor.
 
 ### 4.5 HTTP API and export
 
-Versioned REST over the thirteen types plus the query endpoints the tools
-above use, including `/status` and `/events?after=<sequence>`. Operational
+Versioned REST over the fourteen types plus the query endpoints the tools
+above use, including `/status` and `/events?after=<sequence>`. The write
+side is `POST /batches`, `POST /contributions/{id}/withdraw`, and the
+trajectory routes `POST /trajectories`, `/trajectories/{id}/events`,
+`/trajectories/{id}/artifacts`, `/trajectories/{id}/close`. Payload schemas
+live under `contract/schema/payloads/` and are served at
+`/schemas/payloads/{name}`. Operational
 rules the service enforces on every write: bearer keys issued per actor and
 stored hashed; an `Idempotency-Key` on every POST, with identical retries
 replayed and conflicting retries refused; body size limits per record type;
@@ -538,9 +542,11 @@ decisions, to GitHub Pages under stable URLs.
 ### 4.6 Contract package
 
 Published as a versioned package: JSON Schemas for all types and payloads,
-the policy file, one fixture per type, a sample problem directory, and a
-conformance test that starts a local service, runs an agent through read,
-work, and write, and checks the resulting files. Agent builders develop
+the policy file, one fixture per type, a sample problem directory, and the
+conformance run (`contract/conformance/run.ts`) that drives a service
+through read, work, and write over HTTP and checks the resulting records.
+The service test suite runs the same function, so contract and service
+cannot drift apart unnoticed. Agent builders develop
 against this package; a change to it is a versioned contract change.
 
 ## 5. Policies
@@ -667,7 +673,7 @@ admission. Old URLs resolve through aliases.
 
 | Phase | Deliverable | Exit criterion |
 | --- | --- | --- |
-| 0 Contract | Types, schemas, policy v1, interface specification, contract package with fixtures and conformance test | An external team can build a conforming agent from the package. Delivered except the payload schemas and conformance test, which need the phase 1 service |
+| 0 Contract | Types, schemas, policy v1, interface specification, contract package with fixtures and conformance test | An external team can build a conforming agent from the package. Delivered |
 | 1 Database | Ledger repository with seed data, domain service and index, HTTP API, MCP, human collection web app with discussion | Humans add problems, references, and comments through the web; a conforming test agent completes read, work, write |
 | 2 Operation | Verification and triage queues in use by external agents, maintenance console, static export, public tokens for operators | First `ai-verified` results and accepted attempt reports on seed problems |
 | 3 Community | Shared maintenance, actor records as credit, more operators | Measured contribution and review volume from outside the maintainers |

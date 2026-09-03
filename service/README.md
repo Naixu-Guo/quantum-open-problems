@@ -55,9 +55,27 @@ committing.
 | `GET /api/v1/records/<id>` | Any record's current revision |
 | `GET /api/v1/events?after=<sequence>&limit=&type=` | Records that entered the ledger after a sequence |
 
-The authenticated write endpoints, the MCP adapter, and the API payload
-schemas follow in later changes; writes today go through `submit` in
-`src/write.ts` and the `submit` command.
+## Write API
+
+Writes need `Authorization: Bearer qop_…`, a token issued per actor with
+`node --experimental-strip-types src/cli.ts key issue <actorId>` and stored
+only as a hash in `service/data/auth.sqlite`. Every POST accepts an
+`Idempotency-Key`; an identical retry replays the stored reply, a different
+body with the same key is refused. Bodies are capped and rates are limited
+by the policy file.
+
+| Route | Effect |
+| --- | --- |
+| `POST /api/v1/batches` | A batch of contract records without ids or timestamps, cross-referenced by `$ref:` names (`payloads/batch`). The service assigns ids, stamps the actor and time, validates, commits, and runs the automatic decisions. Decisions and the taxonomy need the editor role; an actor may only create agents it operates. |
+| `POST /api/v1/contributions/<id>/withdraw` | A `withdrawal` decision on the caller's own submitted contribution |
+| `POST /api/v1/trajectories` | Opens a run in the service's local store; returns its id |
+| `POST /api/v1/trajectories/<id>/events` | Appends an event |
+| `POST /api/v1/trajectories/<id>/artifacts` | Raw bytes with `X-Artifact-Kind` and `X-Artifact-Title`; stored content-addressed at once, recorded at close; returns the artifact id |
+| `POST /api/v1/trajectories/<id>/close` | Writes the trajectory, its event log, the uploaded artifacts, and the attempt report batch in one commit. A research run must carry an attempt report whose `trajectoryId` is `$ref:trajectory` |
+| `GET /api/v1/actors/me` | The token's actor and its keys |
+
+`contract/conformance/run.ts` is the reference client; the test suite runs
+it against a temporary service.
 
 ## Automatic decisions
 

@@ -8,6 +8,7 @@
 import type { LedgerRepo, NewRecord, WriteResult } from "./ledger-repo.ts";
 import type { Issue } from "../../contract/src/validate.ts";
 import type { Index } from "./index.ts";
+import type { AuthStore } from "./auth.ts";
 import type { Policy } from "../../contract/src/policy.ts";
 import type { Contribution } from "../../contract/src/types/contribution.ts";
 import { evaluate, unreviewedAcceptance, acceptanceDecision, consequences, pending, type AcceptanceContext } from "./acceptance.ts";
@@ -15,8 +16,10 @@ import { evaluate, unreviewedAcceptance, acceptanceDecision, consequences, pendi
 export interface Service {
   repo: LedgerRepo;
   index: Index;
+  auth: AuthStore;
   policy: Policy;
   systemActorId: string;
+  artifactStoreDir: string;
 }
 
 export interface SubmitResult extends WriteResult {

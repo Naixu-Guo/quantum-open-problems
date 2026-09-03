@@ -5,6 +5,8 @@
  *   node --experimental-strip-types src/cli.ts submit <actorId> <batch.json> [message]
  *   node --experimental-strip-types src/cli.ts decide           run the automatic decisions once
  *   node --experimental-strip-types src/cli.ts id               print a fresh ULID
+ *   node --experimental-strip-types src/cli.ts key issue <actorId> [label]   print a new bearer token once
+ *   node --experimental-strip-types src/cli.ts key revoke <token>
  */
 import fs from "node:fs";
 import { configFromEnv } from "./config.ts";
@@ -48,6 +50,19 @@ switch (command) {
     for (const issue of result.automaticIssues) console.error(`  automatic decision skipped: [${issue.category}] ${issue.path}: ${issue.message}`);
     break;
   }
+  case "key": {
+    const [action, subject, label] = args;
+    if (action === "issue" && subject) {
+      if (!service.repo.current().find("Actor", subject)) { console.error(`unknown actor ${subject}`); process.exit(1); }
+      console.log(service.auth.issueKey(subject, label ?? "cli"));
+    } else if (action === "revoke" && subject) {
+      console.log(service.auth.revokeKey(subject) ? "revoked" : "no such active key");
+    } else {
+      console.error("usage: key issue <actorId> [label] | key revoke <token>");
+      process.exit(2);
+    }
+    break;
+  }
   case "decide": {
     const automatic = runAutomaticDecisions(service);
     reindex(service);
@@ -56,6 +71,6 @@ switch (command) {
     break;
   }
   default:
-    console.error("usage: serve | rebuild | submit <actorId> <batch.json> [message] | decide | id");
+    console.error("usage: serve | rebuild | submit <actorId> <batch.json> [message] | decide | key issue|revoke | id");
     process.exit(2);
 }
