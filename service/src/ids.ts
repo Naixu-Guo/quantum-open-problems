@@ -1,12 +1,11 @@
-/** ULIDs: 48-bit millisecond time plus 80 random bits, Crockford base32. */
+/** ULIDs: 48-bit millisecond time plus 80 random bits, Crockford base32, 26 characters. */
 import { randomBytes } from "node:crypto";
 
 const CROCKFORD = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
 
 export function newId(now: number = Date.now()): string {
-  const random = randomBytes(10);
-  let value = BigInt(now) << 80n;
-  for (const byte of random) value = (value << 8n) | BigInt(byte);
+  let value = BigInt(now);
+  for (const byte of randomBytes(10)) value = (value << 8n) | BigInt(byte);
   let text = "";
   for (let i = 0; i < 26; i += 1) {
     text = CROCKFORD[Number(value & 31n)] + text;
@@ -15,4 +14,5 @@ export function newId(now: number = Date.now()): string {
   return text;
 }
 
-export const nowIso = (): string => new Date().toISOString().replace(/\.\d{3}Z$/u, "Z");
+/** UTC timestamp with millisecond precision, so decisions made in the same second still order. */
+export const nowIso = (): string => new Date().toISOString();

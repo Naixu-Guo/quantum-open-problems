@@ -17,7 +17,9 @@ const asDecision = (record: LoadedRecord): Decision => record.fields as unknown 
 export function currentDecisions(ledger: Ledger): Decision[] {
   const all = ledger.currentOf("Decision").map(asDecision);
   const superseded = new Set(all.map((decision) => decision.supersedes).filter((id): id is string => id !== null));
-  return all.filter((decision) => !superseded.has(decision.id)).sort((a, b) => (a.effectiveAt < b.effectiveAt ? 1 : a.effectiveAt > b.effectiveAt ? -1 : 0));
+  // Newest first by effectiveAt, then createdAt, then id, so ties never depend on file order.
+  const key = (d: Decision) => `${d.effectiveAt}|${d.createdAt}|${d.id}`;
+  return all.filter((decision) => !superseded.has(decision.id)).sort((a, b) => (key(a) < key(b) ? 1 : key(a) > key(b) ? -1 : 0));
 }
 
 function latest(decisions: Decision[], predicate: (decision: Decision) => boolean): Decision | undefined {
@@ -84,15 +86,30 @@ function clauseLineage(ledger: Ledger, clauseRef: string): Set<string> {
   return lineage;
 }
 
-export function clauseStatus(ledger: Ledger, clauseRef: string, claims = acceptedClaims(ledger)): ClauseStatus {
+export type ClauseOutcome = "open" | "partial" | "resolved" | "refuted";
+
+/** What accepted claims say about a clause, following lineage; `refuted` is distinguished from `resolved`. */
+export function clauseOutcome(ledger: Ledger, clauseRef: string, claims = acceptedClaims(ledger)): ClauseOutcome {
   const lineage = clauseLineage(ledger, clauseRef);
   let partial = false;
+  let resolved = false;
   for (const claim of claims) {
     if (!claim.clauseIds.some((id) => lineage.has(id))) continue;
-    if (claim.relation === "resolves" || claim.relation === "refutes") return "resolved";
-    partial = true;
+    if (claim.relation === "refutes") return "refuted";
+    if (claim.relation === "resolves") resolved = true;
+    else partial = true;
   }
-  return partial ? "partial" : "open";
+  return resolved ? "resolved" : partial ? "partial" : "open";
+}
+
+export function clauseStatus(ledger: Ledger, clauseRef: string, claims = acceptedClaims(ledger)): ClauseStatus {
+  const outcome = clauseOutcome(ledger, clauseRef, claims);
+  return outcome === "refuted" ? "resolved" : outcome;
+}
+
+/** Every clause reference a clause continues, including itself. Exported for read models that must follow lineage. */
+export function lineageOf(ledger: Ledger, clauseRef: string): Set<string> {
+  return clauseLineage(ledger, clauseRef);
 }
 
 /** Whether the statement a contribution pinned is still its problem's current statement. */

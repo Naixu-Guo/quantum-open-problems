@@ -3,7 +3,7 @@
  */
 import type { Ledger, LoadedRecord } from "../../contract/src/ledger.ts";
 import { revisionOf } from "../../contract/src/ledger.ts";
-import { currentDecisions, acceptedClaims, clauseStatus, problemStatus, catalogState, isIndexed, contributionState, verificationLevel, statementIsCurrent } from "../../contract/src/derive.ts";
+import { currentDecisions, acceptedClaims, clauseStatus, problemStatus, catalogState, isIndexed, contributionState, verificationLevel, statementIsCurrent, lineageOf } from "../../contract/src/derive.ts";
 import type { Claim } from "../../contract/src/types/claim.ts";
 import type { Statement } from "../../contract/src/types/statement.ts";
 import type { Contribution } from "../../contract/src/types/contribution.ts";
@@ -54,7 +54,7 @@ export function tree(ledger: Ledger, problemId: string, decisions = currentDecis
   const children = ledger.currentOf("Problem").filter((p) => p.fields["parentProblemId"] === problemId);
   return children.map((child) => {
     const statement = currentStatement(ledger, child.id);
-    const reports = ledger.currentOf("Contribution").filter((c) => (c.fields["newProblemIds"] as string[]).includes(child.id) || (c.fields["problemIds"] as string[]).includes(child.id));
+    const reports = ledger.currentOf("Contribution").filter((c) => c.fields["kind"] === "attempt-report" && ((c.fields["newProblemIds"] as string[]).includes(child.id) || (c.fields["problemIds"] as string[]).includes(child.id)));
     return {
       id: child.id,
       alias: (child.fields["aliases"] as string[])[0],
@@ -90,11 +90,13 @@ export function frontier(ledger: Ledger, problemId: string) {
   const claims = acceptedClaims(ledger, decisions);
   const statement = currentStatement(ledger, problemId);
   if (!statement) return null;
-  const clauseRefs = statement.clauses.map((clause) => `${statement.id}#${clause.id}`);
-  const relevant = claims.filter((claim) => claim.clauseIds.some((ref) => clauseRefs.includes(ref)));
+  // Claims are matched through clause lineage, so results accepted against an earlier statement version still show.
+  const lineages = new Map(statement.clauses.map((clause) => [`${statement.id}#${clause.id}`, lineageOf(ledger, `${statement.id}#${clause.id}`)]));
+  const covers = (claim: Claim, ref: string) => claim.clauseIds.some((id) => lineages.get(ref)?.has(id));
+  const relevant = claims.filter((claim) => [...lineages.keys()].some((ref) => covers(claim, ref)));
   const bestBounds = statement.clauses.filter((clause) => clause.quantity).map((clause) => {
     const ref = `${statement.id}#${clause.id}`;
-    const bounds = relevant.filter((claim) => claim.bound && claim.bound.clauseId === ref).map((claim) => ({ claimId: claim.id, ...claim.bound! }));
+    const bounds = relevant.filter((claim) => claim.bound && lineages.get(ref)?.has(claim.bound.clauseId)).map((claim) => ({ claimId: claim.id, ...claim.bound! }));
     return { clauseRef: ref, quantity: clause.quantity, bounds };
   });
   const attemptReports = attempts(ledger, problemId).filter((a) => a.state === "accepted");
@@ -110,7 +112,7 @@ export function frontier(ledger: Ledger, problemId: string) {
     statement: { id: statement.id, version: statement.version, digest: statement.digest },
     clauses: statement.clauses.map((clause) => {
       const ref = `${statement.id}#${clause.id}`;
-      return { ref, label: clause.label, kind: clause.kind, resolutionCriteria: clause.resolutionCriteria, status: clauseStatus(ledger, ref, claims), claimIds: relevant.filter((claim) => claim.clauseIds.includes(ref)).map((claim) => claim.id) };
+      return { ref, label: clause.label, kind: clause.kind, resolutionCriteria: clause.resolutionCriteria, status: clauseStatus(ledger, ref, claims), claimIds: relevant.filter((claim) => covers(claim, ref)).map((claim) => claim.id) };
     }),
     acceptedClaims: relevant.map((claim) => ({ id: claim.id, title: claim.title, relation: claim.relation, clauseIds: claim.clauseIds, bound: claim.bound, support: claim.support.map((s) => ({ ...s, source: s.sourceId ? sourceSummary(ledger, s.sourceId) : null })) })),
     bestBounds,
@@ -178,4 +180,3 @@ export function events(ledger: Ledger, index: Index, after: number, limit: numbe
   };
 }
 
-export type { Claim, Contribution };

@@ -25,7 +25,7 @@ function knownPolicyVersions(policyDir: string): Set<string> {
   return new Set(fs.readdirSync(policyDir).map((name) => name.match(/^v(\d+)\.md$/u)?.[1]).filter((v): v is string => Boolean(v)));
 }
 
-export type IssueCategory = "parse" | "schema" | "identity" | "layout" | "reference" | "rule" | "uniqueness";
+export type IssueCategory = "parse" | "schema" | "identity" | "layout" | "reference" | "rule" | "uniqueness" | "commit";
 
 export interface Issue {
   category: IssueCategory;
@@ -169,6 +169,22 @@ export function expectedRelPath(record: LoadedRecord, ledger: Ledger): string | 
   }
 }
 
+let cachedValidators: { schemaDir: string; validators: ReturnType<typeof buildValidators> } | null = null;
+function validatorsFor(schemaDir: string): ReturnType<typeof buildValidators> {
+  if (!cachedValidators || cachedValidators.schemaDir !== schemaDir) cachedValidators = { schemaDir, validators: buildValidators(schemaDir) };
+  return cachedValidators.validators;
+}
+
+/** Schema-check one record object (header fields plus body) before it touches the ledger. */
+export function validateRecordShape(object: Record<string, unknown>, schemaDir: string = DEFAULT_SCHEMA_DIR): string[] {
+  const type = object["type"];
+  if (typeof type !== "string" || !RECORD_TYPES.includes(type as RecordType)) return [`unknown record type ${String(type)}`];
+  const validators = validatorsFor(schemaDir);
+  const validate = object["redacted"] === true ? validators.tombstone : validators.byType.get(type as RecordType);
+  if (!validate) return [`no schema for ${type}`];
+  return validate(object) ? [] : [formatAjvErrors(validate)];
+}
+
 export function validateLedger(roots: string[], schemaDir: string = DEFAULT_SCHEMA_DIR, policyDir: string = DEFAULT_POLICY_DIR): ValidationReport {
   const issues: Issue[] = [];
   const push = (category: IssueCategory, record: { relPath: string } | string, message: string) =>
@@ -176,15 +192,20 @@ export function validateLedger(roots: string[], schemaDir: string = DEFAULT_SCHE
 
   const { records, issues: loadIssues } = loadRecords(roots);
   for (const issue of loadIssues) push("parse", issue.path, issue.message);
-  const ledger = new Ledger(records);
-  const validators = buildValidators(schemaDir);
+  const validators = validatorsFor(schemaDir);
 
-  // Schema.
+  // Schema. Records that fail it are excluded from every later check, so a malformed file can
+  // only ever produce a schema issue, never an exception inside a rule.
+  const malformed = new Set<LoadedRecord>();
   for (const record of records) {
     const validate = record.redacted ? validators.tombstone : validators.byType.get(record.type);
     if (!validate) continue;
-    if (!validate(recordObject(record))) push("schema", record, formatAjvErrors(validate));
+    if (!validate(recordObject(record))) {
+      push("schema", record, formatAjvErrors(validate));
+      malformed.add(record);
+    }
   }
+  const ledger = new Ledger(records.filter((record) => !malformed.has(record)));
 
   // Identity: one type per id, unique immutable ids, contiguous revisions.
   for (const [id, list] of ledger.revisions) {
@@ -205,14 +226,14 @@ export function validateLedger(roots: string[], schemaDir: string = DEFAULT_SCHE
   }
 
   // Layout.
-  for (const record of records) {
+  for (const record of ledger.records) {
     const expected = expectedRelPath(record, ledger);
     if (expected === undefined) push("layout", record, "cannot determine where this record belongs (an owner it names is missing)");
     else if (expected !== record.relPath) push("layout", record, `expected at ${expected}`);
   }
 
   // References and rules, on current, non-redacted records.
-  for (const record of records) {
+  for (const record of ledger.records) {
     if (record.redacted) continue;
     const module = TYPE_MODULES[record.type];
     const object = recordObject(record) as never;
@@ -301,7 +322,7 @@ export function validateLedger(roots: string[], schemaDir: string = DEFAULT_SCHE
   for (const contribution of ledger.currentOf("Contribution")) {
     for (const item of (contribution.fields as unknown as ContributionRecord).revisions) introduced.add(`${item.entityId}@${item.revision}`);
   }
-  for (const record of records) {
+  for (const record of ledger.records) {
     if (record.redacted || !REVIEWED_REVISION_TYPES.has(record.type)) continue;
     const revision = revisionOf(record);
     if (revision > 1 && !introduced.has(`${record.id}@${revision}`)) push("rule", record, `revision ${revision} is not introduced by an entity-revision contribution`);

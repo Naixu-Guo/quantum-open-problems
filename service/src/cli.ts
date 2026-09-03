@@ -45,12 +45,14 @@ switch (command) {
       process.exit(1);
     }
     console.log(`Committed ${result.paths.length} record(s)${result.commit ? ` in ${result.commit.slice(0, 7)}` : ""}; ${result.decisions.length} automatic decision(s).`);
+    for (const issue of result.automaticIssues) console.error(`  automatic decision skipped: [${issue.category}] ${issue.path}: ${issue.message}`);
     break;
   }
   case "decide": {
-    const issued = runAutomaticDecisions(service);
+    const automatic = runAutomaticDecisions(service);
     reindex(service);
-    console.log(`Issued ${issued.length} decision(s).`);
+    console.log(`Issued ${automatic.issued.length} decision(s).`);
+    for (const issue of automatic.issues) console.error(`  [${issue.category}] ${issue.path}: ${issue.message}`);
     break;
   }
   default:

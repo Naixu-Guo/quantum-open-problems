@@ -20,6 +20,15 @@ class HttpError extends Error {
 
 type Handler = (params: string[], query: URLSearchParams) => unknown;
 
+/** A non-negative integer query parameter, or the default when absent or malformed. */
+function integer(query: URLSearchParams, name: string, fallback: number): number {
+  const raw = query.get(name);
+  if (raw === null) return fallback;
+  const value = Number(raw);
+  if (!Number.isInteger(value) || value < 0) throw new HttpError(400, `${name} must be a non-negative integer`);
+  return value;
+}
+
 function routes(service: Service): [RegExp, Handler][] {
   const ledger = () => service.repo.current();
   const resolveProblem = (idOrAlias: string): string => {
@@ -49,7 +58,7 @@ function routes(service: Service): [RegExp, Handler][] {
         ...(query.get("difficulty") ? { difficulty: query.get("difficulty")! } : {}),
         ...(query.get("text") ? { text: query.get("text")! } : {}),
         indexedOnly: query.get("includeCandidates") !== "true",
-        limit: Number(query.get("limit") ?? 50),
+        limit: integer(query, "limit", 50),
       });
       return { count: rows.length, problems: rows.map((row) => ({ id: row.id, alias: row.alias, title: row.title, role: row.role, catalogState: row.catalog_state, status: row.status, areaIds: JSON.parse(row.area_ids), topicIds: JSON.parse(row.topic_ids), difficulty: row.difficulty, lastReviewed: row.last_reviewed })) };
     }],
@@ -60,7 +69,7 @@ function routes(service: Service): [RegExp, Handler][] {
     [/^\/api\/v1\/problems\/([^/]+)\/indexed$/u, ([id]) => ({ problemId: resolveProblem(id!), indexed: isIndexed(ledger(), resolveProblem(id!), currentDecisions(ledger())) })],
     [/^\/api\/v1\/contributions\/([^/]+)$/u, ([id]) => notNull(contributionView(ledger(), id!), "contribution")],
     [/^\/api\/v1\/records\/([^/]+)$/u, ([id]) => notNull(recordView(ledger(), id!), "record")],
-    [/^\/api\/v1\/events$/u, (_p, query) => events(ledger(), service.index, Number(query.get("after") ?? 0), Number(query.get("limit") ?? 100), query.get("type") ?? undefined)],
+    [/^\/api\/v1\/events$/u, (_p, query) => events(ledger(), service.index, integer(query, "after", 0), integer(query, "limit", 100), query.get("type") ?? undefined)],
   ];
 }
 

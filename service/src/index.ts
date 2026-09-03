@@ -179,7 +179,8 @@ export class Index {
     if (filter.topic) { clauses.push("topic_ids LIKE ?"); params.push(`%"${filter.topic}"%`); }
     if (filter.difficulty) { clauses.push("difficulty = ?"); params.push(filter.difficulty); }
     if (filter.text) {
-      for (const term of filter.text.toLowerCase().split(/\s+/u).filter(Boolean)) { clauses.push("search_text LIKE ?"); params.push(`%${term}%`); }
+      const terms = filter.text.toLowerCase().split(/\s+/u).filter(Boolean).slice(0, 8);
+      for (const term of terms) { clauses.push("search_text LIKE ? ESCAPE '\\'"); params.push(`%${term.replace(/[\\%_]/gu, (c) => `\\${c}`)}%`); }
     }
     const where = clauses.length ? `WHERE ${clauses.join(" AND ")}` : "";
     const limit = Math.min(Math.max(filter.limit ?? 50, 1), 200);

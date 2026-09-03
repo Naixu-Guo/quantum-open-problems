@@ -14,7 +14,7 @@ validation and derived state through relative imports.
 
 | Module | Role |
 | --- | --- |
-| `src/ledger-repo.ts` | The ledger on disk. Places each new record by the contract layout rules, writes, validates, commits with the actor as git author, rolls back on any issue. Computes sequence numbers from first-parent commit order. |
+| `src/ledger-repo.ts` | The ledger on disk. Schema-checks each new record, places it by the contract layout rules inside its root, writes, validates, commits only the batch with the actor as git author, and rolls back on any issue or git failure. Computes sequence numbers from first-parent commit order. |
 | `src/index.ts` | The SQLite index: every record revision with its sequence, plus derived problem, clause, and contribution tables. Rebuilt from the ledger; never a source of truth. |
 | `src/acceptance.ts` | The automatic decisions: acceptance from the reviews on file against the policy thresholds, the admission and status decisions that follow. Never marks a primary problem solved. |
 | `src/write.ts` | The write path: submit a batch for an actor, run the automatic decisions, reindex. |
@@ -67,11 +67,19 @@ an acceptance decision:
 - a review with a negative verdict rejects it;
 - a human verification review accepts it at `human-signed`;
 - an artifact with a passing check accepts it at `machine-verified`;
-- the number of independent AI verification reviews the policy asks for
-  (two for admission and results, one for attempt reports and references)
-  accepts it at `ai-verified`;
+- the number of independent AI verification reviews the policy asks for,
+  from distinct model families and operators (two for admission and
+  results, one for attempt reports), accepts it at `ai-verified`;
+- one review of any kind with a non-negative verdict accepts a reference or
+  entity revision at `reviewed`;
 - an entity revision by a human editor, or a reference by a human with a
   prior accepted contribution, is accepted at `unreviewed` on submission.
+
+Independence is computed from actor records, not taken from a review's
+flags; a review that another review supersedes does not count. Status
+changes need the policy's status bar (the `aiVerified` row for `partial`,
+the `auxiliaryStatus` row for an auxiliary `solved` or `refuted`), and a new
+status decision supersedes the previous one.
 
 An accepted proposal or attempt report admits the problems it introduced.
 Accepted claims move an open problem to `partial`, and an auxiliary problem
