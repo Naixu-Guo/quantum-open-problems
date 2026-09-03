@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "contract/**"
+      - "service/**"
       - "ledger/**"
       - "activity/**"
       - "tools/**"
@@ -22,6 +23,7 @@ on:
   pull_request:
     paths:
       - "contract/**"
+      - "service/**"
       - "ledger/**"
       - "activity/**"
       - "tools/**"
@@ -82,3 +84,28 @@ jobs:
 
       - name: Test
         run: npm test
+
+  service:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: contract/package-lock.json
+
+      - name: Install contract dependencies
+        run: npm ci
+        working-directory: contract
+
+      - name: Type-check the service
+        run: npm run typecheck
+        working-directory: service
+
+      - name: Test the service
+        run: npm test
+        working-directory: service
