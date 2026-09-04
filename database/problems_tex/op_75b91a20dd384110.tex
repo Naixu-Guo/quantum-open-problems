@@ -1,0 +1,126 @@
+% Problem record following database/_template.tex.
+\section{Closed-form exact PPT distillable entanglement}
+\label{sec:problem-75b9}
+
+\paragraph{Problem.}
+What computable expression, if any, equals the regularized exact PPT
+distillable entanglement of a bipartite state?  Let $\rho_{AB}$ be a state
+on $\mathbb C^{d_A}\otimes\mathbb C^{d_B}$ with support projector
+$P:=\Pi_{\operatorname{supp}(\rho)}$, and let $\Gamma$ denote partial
+transposition on $B$.  Exact (zero-error) distillation under
+PPT-preserving operations converts $\rho^{\otimes n}$ into a maximally
+entangled state of Schmidt rank $M_n$ with unit fidelity.  The largest
+one-shot rate is governed by the semidefinite program
+\begin{equation}
+  W_0(P):=\min\bigl\{\|E^{\Gamma}\|_\infty:\ P\leq E\leq\mathbb 1\bigr\},
+  \qquad
+  E^{(1)}_{0,\mathrm{PPT}}(\rho):=-\log_2W_0(P),
+  \label{eq:75b9-one-shot}
+\end{equation}
+which depends on $\rho$ only through its support.  The regularized exact
+PPT distillable entanglement is
+\begin{equation}
+  E^{\infty}_{0,\mathrm{PPT}}(\rho)
+  :=\lim_{n\to\infty}\frac1n E^{(1)}_{0,\mathrm{PPT}}(\rho^{\otimes n})
+  =\lim_{n\to\infty}-\frac1n\log_2W_0(P^{\otimes n}).
+  \label{eq:75b9-regularized}
+\end{equation}
+Is there a single-letter, efficiently computable formula, for example a
+semidefinite program in $P$ alone, that equals
+Eq.~\eqref{eq:75b9-regularized} for every bipartite state?
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Zhu and Wang disprove the previously conjectured formula and state that
+determining the closed form of the exact PPT distillable entanglement
+remains open \sourcecite{ref:75b9-zhu-wang}{ZW26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Wang and Duan characterize one-copy deterministic PPT distillation
+  by a semidefinite program: a maximally entangled state of integer
+  Schmidt rank $M$ can be distilled exactly from $\rho$ if and only if
+  $M\leq W_0(P)^{-1}$, which gives the one-shot rate in
+  Eq.~\eqref{eq:75b9-one-shot} \sourcecite{ref:75b9-wang-duan-sdp}{WD16}.
+
+  \item Dropping the constraint $E\leq\mathbb 1$ in
+  Eq.~\eqref{eq:75b9-one-shot} yields the min-Rains relative entropy
+  \begin{equation}
+    R_{\min}(\rho):=-\log_2M(P),
+    \qquad
+    M(P):=\min\bigl\{\|R^{\Gamma}\|_\infty:\ R\geq P\bigr\},
+    \label{eq:75b9-min-rains}
+  \end{equation}
+  which is multiplicative, $M(P\otimes Q)=M(P)M(Q)$, and therefore an
+  additive single-letter upper bound
+  $E^{\infty}_{0,\mathrm{PPT}}(\rho)\leq R_{\min}(\rho)$.  It is attained
+  for all pure states and for some classes of mixed states, which made
+  Eq.~\eqref{eq:75b9-min-rains} the candidate closed form
+  \sourcecite{ref:75b9-wang-duan-nonadditivity}{WD17}.
+
+  \item Every feasible effect in Eq.~\eqref{eq:75b9-one-shot} must act as
+  the identity on the support of $\rho$, a constraint absent from
+  Eq.~\eqref{eq:75b9-min-rains}.  Exploiting it, Zhu and Wang construct a
+  rank-three qutrit--qutrit support $P$ for which every state supported on
+  $P$ satisfies
+  \begin{equation}
+    E^{\infty}_{0,\mathrm{PPT}}(\rho)
+    <\log_2\frac{391}{250}
+    <-\log_2\frac{6393}{10000}
+    \leq R_{\min}(\rho),
+    \label{eq:75b9-separation}
+  \end{equation}
+  so the min-Rains relative entropy is not the exact rate.  The improved
+  bound in Eq.~\eqref{eq:75b9-separation} comes from a non-Hermitian,
+  range-supported witness and is not known to be additive or tight
+  \sourcecite{ref:75b9-zhu-wang}{ZW26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[WD16]}]\label{ref:75b9-wang-duan-sdp}
+  X. Wang and R. Duan, ``Improved Semidefinite Programming Upper Bound on
+  Distillable Entanglement,'' \emph{Physical Review A} \textbf{94}, 050301
+  (2016).
+  \href{https://doi.org/10.1103/PhysRevA.94.050301}%
+       {doi:10.1103/PhysRevA.94.050301};
+  \href{https://arxiv.org/abs/1601.07940}{arXiv:1601.07940}.
+
+  \item[\textup{[WD17]}]\label{ref:75b9-wang-duan-nonadditivity}
+  X. Wang and R. Duan, ``Nonadditivity of Rains' Bound for Distillable
+  Entanglement,'' \emph{Physical Review A} \textbf{95}, 062322 (2017).
+  \href{https://doi.org/10.1103/PhysRevA.95.062322}%
+       {doi:10.1103/PhysRevA.95.062322};
+  \href{https://arxiv.org/abs/1605.00348}{arXiv:1605.00348}.
+
+  \item[\textup{[ZW26]}]\label{ref:75b9-zhu-wang}
+  C. Zhu and X. Wang, ``The Min-Rains Relative Entropy Is Not Tight for
+  Exact PPT Entanglement Distillation,'' arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2608.12135}{arXiv:2608.12135}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The former candidate formula is disproved, but the support quantity whose
+regularization gives the exact zero-error rate in
+Eq.~\eqref{eq:75b9-regularized} has no known closed form.  The remaining
+task is to find a tensor-stable relaxation of Eq.~\eqref{eq:75b9-one-shot}
+that retains the identity-on-support constraint and equals the regularized
+rate, or to show that no single-letter formula exists.
+
+\subsection*{Tag}
+
+Entanglement distillation; PPT-preserving operations; Rains bound;
+Semidefinite programming; Zero-error quantum information; Entanglement
+theory
+
+\subsection*{ID}
+
+\texttt{op\_75b91a20dd384110}

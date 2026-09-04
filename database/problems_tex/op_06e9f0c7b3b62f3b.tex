@@ -1,0 +1,115 @@
+% Problem record following database/_template.tex.
+\section{Multi-slot overhead of virtual channel conjugation}
+\label{sec:problem-06e9}
+
+\paragraph{Problem.}
+What is the optimal quasiprobability overhead of implementing the complex
+conjugate of an unknown quantum channel from $n$ queries?  Let
+$\mathcal N:\mathcal L(A)\to\mathcal L(B)$ be an unknown channel with
+$d_A:=\dim A$ and $d_B:=\dim B$, and fix orthonormal bases of $A$ and $B$.
+The complex conjugate of $\mathcal N$ is the channel
+\begin{equation}
+  \mathcal N^{*}(X):=\overline{\mathcal N(\overline X)},
+  \label{eq:06e9-conjugate}
+\end{equation}
+where the bar is entrywise complex conjugation in the fixed bases, so the
+Choi operator of $\mathcal N^{*}$ is the entrywise conjugate of that of
+$\mathcal N$.  An $n$-slot quantum comb is a physically realizable circuit
+with $n$ open slots, each receiving one use of the unknown channel, whose
+overall action is again a channel from $A$ to $B$; write
+$\mathrm{Comb}_n$ for the set of such combs.  An $n$-slot virtual comb is
+a real linear combination $\widetilde{\mathcal C}=\sum_i c_i\mathcal C_i$
+with $\mathcal C_i\in\mathrm{Comb}_n$, and its base norm
+\begin{equation}
+  \|\widetilde{\mathcal C}\|_{\mathrm{base}}
+  :=\min\Bigl\{\sum_i|c_i|:
+    \widetilde{\mathcal C}=\sum_ic_i\mathcal C_i,\
+    c_i\in\mathbb R,\ \mathcal C_i\in\mathrm{Comb}_n\Bigr\}
+  \label{eq:06e9-base-norm}
+\end{equation}
+is the sampling overhead: estimating an expectation value of the output of
+$\widetilde{\mathcal C}$ to additive error $\varepsilon$ by Monte Carlo
+sampling of the $\mathcal C_i$ costs
+$O(\|\widetilde{\mathcal C}\|_{\mathrm{base}}^{2}\varepsilon^{-2})$ runs.
+Define the optimal $n$-query overhead of universal conjugation by
+\begin{equation}
+  g_n(d_A,d_B)
+  :=\inf\Bigl\{\|\widetilde{\mathcal C}\|_{\mathrm{base}}:
+    \widetilde{\mathcal C}\text{ is an $n$-slot virtual comb with }
+    \widetilde{\mathcal C}(\mathcal N^{\otimes n})=\mathcal N^{*}
+    \text{ for every channel }\mathcal N\Bigr\}.
+  \label{eq:06e9-overhead}
+\end{equation}
+Since the extra slots may be discarded, $g_n\leq g_1$.  Determine
+$g_n(d_A,d_B)$ in Eq.~\eqref{eq:06e9-overhead} for $n\geq2$: is
+$g_n(d_A,d_B)<g_1(d_A,d_B)$ for some $n$, and what is
+$\inf_{n}g_n(d_A,d_B)$?
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+The question is implicit in Zhu, Tang, Zhen, Li, Bai, and Wang, who
+determine $g_1$ exactly and name multi-slot virtual protocols as future
+work \sourcecite{ref:06e9-zhu-et-al}{ZTZ+26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item No completely positive supermap using any finite number of queries
+  implements $\mathcal N^{*}$ of Eq.~\eqref{eq:06e9-conjugate} for every
+  channel $\mathcal N$, and the same obstruction rules out a universal
+  physical implementation of the adjoint $\mathcal N^{\dagger}$; the
+  transpose, by contrast, admits a probabilistic single-query
+  implementation.  Hence any universal conjugation must be virtual, with an
+  overhead of the form Eq.~\eqref{eq:06e9-base-norm}
+  \sourcecite{ref:06e9-zhu-et-al}{ZTZ+26}.
+
+  \item A one-slot virtual comb implements complex conjugation, and its
+  base norm is optimal among one-slot protocols:
+  \begin{equation}
+    g_1(d_A,d_B)=d_Ad_B-d_A+1.
+    \label{eq:06e9-one-slot}
+  \end{equation}
+  The optimality proof in Eq.~\eqref{eq:06e9-one-slot} uses semidefinite
+  duality for a single slot and does not extend to correlated multi-slot
+  strategies \sourcecite{ref:06e9-zhu-et-al}{ZTZ+26}.
+
+  \item Composing virtual conjugation with the probabilistic transpose
+  gives black-box access to $\mathcal N^{\dagger}$ and, for a unital
+  channel, estimates expectation values of the Petz recovery map to error
+  $\varepsilon$ with failure probability at most $\delta$ from
+  $O(d_A^{3}d_B^{3}\varepsilon^{-2}\log(1/\delta))$ samples of the channel,
+  so the value of $g_n$ directly controls the cost of such applications
+  \sourcecite{ref:06e9-zhu-et-al}{ZTZ+26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[ZTZ+26]}]\label{ref:06e9-zhu-et-al}
+  C. Zhu, Z. Tang, G. Zhen, Y. Li, G. Bai, and X. Wang, ``Simulation of
+  Adjoints and Petz Recovery Maps for Unknown Quantum Channels,'' arXiv
+  preprint (2026).
+  \href{https://arxiv.org/abs/2602.05828}{arXiv:2602.05828}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+One-slot optimality does not imply multi-slot optimality: correlated
+virtual combs might amortize negativity across queries and lower the
+variance per sample, and no theorem determines $g_n$ in
+Eq.~\eqref{eq:06e9-overhead} for any $n\geq2$ or its behaviour as
+$n\to\infty$.
+
+\subsection*{Tag}
+
+Superchannels; Channel simulation; Quantum error mitigation; Quantum
+channels; Semidefinite programming
+
+\subsection*{ID}
+
+\texttt{op\_06e9f0c7b3b62f3b}
