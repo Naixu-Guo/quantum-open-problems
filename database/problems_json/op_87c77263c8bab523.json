@@ -1,11 +1,42 @@
 {
-  "schema": "qiqcop-zoo/record/1",
+  "schema": "qiqcop-zoo/record/3",
   "id": "op_87c77263c8bab523",
+  "ulid": "01M1Q787QRJ5ASJACQYA9R7N35",
+  "aliases": [
+    "op_87c77263c8bab523",
+    "01M1Q787QRJ5ASJACQYA9R7N35",
+    "op-87c77263c8bab523"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-04T22:04:59Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-information-theory"
+    ],
+    "topicIds": [
+      "quantum-channels",
+      "one-shot-quantum-information"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
   "title": "Ordinary-Petz recovery bound for conditional mutual information",
   "status": "Unsolved",
-  "tags": [
+  "fields": [
+    "Quantum information theory"
+  ],
+  "topics": [
     "Quantum channels",
-    "Quantum information theory",
     "One-shot quantum information"
   ],
   "statement": "Does the ordinary, unrotated Petz map universally recover a tripartite state\nwith fidelity controlled by its conditional mutual information?  For a\nfinite-dimensional state $\\rho_{ABC}$, define\n\\begin{equation}\n  I(A;B\\mid C)_\\rho\n  :=S(AC)_\\rho+S(BC)_\\rho-S(C)_\\rho-S(ABC)_\\rho,\n  \\qquad\n  S(\\tau):=-\\operatorname{Tr}(\\tau\\log_2\\tau).\n  \\label{eq:p70-cmi}\n\\end{equation}\nThe ordinary Petz map associated with $\\rho_{AC}$ and the channel\n$\\operatorname{Tr}_A:AC\\to C$ is\n\\begin{equation}\n  \\mathcal P^{\\rho}_{C\\to AC}(X_C)\n  :=\\rho_{AC}^{1/2}\\!\\left[\n      I_A\\otimes\\rho_C^{-1/2}X_C\\rho_C^{-1/2}\n    \\right]\\rho_{AC}^{1/2},\n  \\label{eq:p70-petz-map}\n\\end{equation}\nwhere the inverse is taken on $\\operatorname{supp}\\rho_C$.  With squared\nfidelity $F(\\tau,\\omega):=\\lVert\\sqrt\\tau\\sqrt\\omega\\rVert_1^2$, determine\nwhether the quantity in Eq.~\\eqref{eq:p70-cmi} always satisfies\n\\begin{equation}\n  I(A;B\\mid C)_\\rho\n  \\stackrel{?}{\\geq}\n  -\\log_2 F\\!\\left(\n    \\rho_{ABC},\n    (\\operatorname{id}_B\\otimes\\mathcal P^{\\rho}_{C\\to AC})(\\rho_{BC})\n  \\right),\n  \\label{eq:p70-ordinary-petz-cmi}\n\\end{equation}\nwith the recovered systems ordered canonically as $ABC$.",

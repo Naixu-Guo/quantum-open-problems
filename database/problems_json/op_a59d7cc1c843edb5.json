@@ -1,15 +1,49 @@
 {
-  "schema": "qiqcop-zoo/record/1",
+  "schema": "qiqcop-zoo/record/3",
   "id": "op_a59d7cc1c843edb5",
+  "ulid": "01M1Q787QRJWENG45M2E70WZXW",
+  "aliases": [
+    "op_a59d7cc1c843edb5",
+    "01M1Q787QRJWENG45M2E70WZXW",
+    "op-a59d7cc1c843edb5"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-04T22:04:59Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-shannon-theory"
+    ],
+    "topicIds": [
+      "amplitude-damping-channels",
+      "quantum-capacity",
+      "coherent-information",
+      "quantum-channels",
+      "qutrit-systems"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
   "title": "Exactly solvable nondegradable quantum channels",
   "status": "Solved",
-  "tags": [
+  "fields": [
+    "Quantum Shannon theory"
+  ],
+  "topics": [
     "Amplitude-damping channels",
     "Quantum capacity",
     "Coherent information",
     "Quantum channels",
-    "Qutrit systems",
-    "Quantum Shannon theory"
+    "Qutrit systems"
   ],
   "statement": "Does there exist a finite-dimensional quantum channel that is neither\ndegradable nor antidegradable and whose unassisted quantum capacity is known\nexactly?  For a channel $\\mathcal N_{A\\to B}$ with complementary channel\n$\\mathcal N^c_{A\\to E}$, degradability and antidegradability mean,\nrespectively, that there is a channel $\\mathcal D$ or $\\mathcal A$ satisfying\n\\begin{equation}\n  \\mathcal N^c=\\mathcal D_{B\\to E}\\circ\\mathcal N,\n  \\qquad\\text{or}\\qquad\n  \\mathcal N=\\mathcal A_{E\\to B}\\circ\\mathcal N^c.\n  \\label{eq:p74-degradability-definitions}\n\\end{equation}\nThe channel sought must satisfy neither identity in\nEq.~\\eqref{eq:p74-degradability-definitions}.  Its quantum capacity is\ndefined by the coherent-information regularization\n\\begin{equation}\n  Q(\\mathcal N)\n  :=\\sup_{n\\geq1}\\frac1n\\max_{\\rho_{A^n}}\n  \\left[\n    S(\\mathcal N^{\\otimes n}(\\rho_{A^n}))\n    -S((\\mathcal N^c)^{\\otimes n}(\\rho_{A^n}))\n  \\right].\n  \\label{eq:p74-quantum-capacity}\n\\end{equation}\nThe question asks for an explicit channel outside both classes in\nEq.~\\eqref{eq:p74-degradability-definitions} together with an exact evaluation\nof Eq.~\\eqref{eq:p74-quantum-capacity}.",
   "source": "Wilde explicitly identified finding the quantum capacity of a nondegradable\nchannel as an important open challenge\n\\sourcecite{ref:p74-wilde}{Wil17}.",

@@ -1,15 +1,49 @@
 {
-  "schema": "qiqcop-zoo/record/1",
+  "schema": "qiqcop-zoo/record/3",
   "id": "op_cdad869fc8c3c0ea",
+  "ulid": "01M1Q787QRY0AKF1CQTFSQME12",
+  "aliases": [
+    "op_cdad869fc8c3c0ea",
+    "01M1Q787QRY0AKF1CQTFSQME12",
+    "op-cdad869fc8c3c0ea"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-04T22:04:59Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-shannon-theory"
+    ],
+    "topicIds": [
+      "degradable-channels",
+      "erasure-channels",
+      "quantum-capacity",
+      "strong-converse",
+      "finite-blocklength-quantum-information"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
   "title": "All-code exponential strong converse for degradable channels",
   "status": "Solved",
-  "tags": [
+  "fields": [
+    "Quantum Shannon theory"
+  ],
+  "topics": [
     "Degradable channels",
     "Erasure channels",
     "Quantum capacity",
     "Strong converse",
-    "Finite-blocklength quantum information",
-    "Quantum Shannon theory"
+    "Finite-blocklength quantum information"
   ],
   "statement": "Does every finite-dimensional degradable quantum channel satisfy an all-code\nexponential strong converse for quantum communication at its quantum capacity?\nLet $V:A\\to B\\otimes E$ be a Stinespring isometry, and define the channel and\none complementary channel by\n\\begin{equation}\n  \\mathcal N(\\rho):=\\operatorname{Tr}_E(V\\rho V^\\dagger),\n  \\qquad\n  \\mathcal N^c(\\rho):=\\operatorname{Tr}_B(V\\rho V^\\dagger).\n  \\label{eq:p77-complementary-channels}\n\\end{equation}\nThe channel in Eq.~\\eqref{eq:p77-complementary-channels} is degradable when\nthere is a completely positive trace-preserving map\n$\\mathcal D:\\mathcal L(B)\\to\\mathcal L(E)$ such that\n\\begin{equation}\n  \\mathcal N^c=\\mathcal D\\circ\\mathcal N.\n  \\label{eq:p77-degradability}\n\\end{equation}\nFor a channel satisfying Eq.~\\eqref{eq:p77-degradability}, its quantum\ncapacity is the single-letter coherent information\n\\begin{equation}\n  Q(\\mathcal N)=Q^{(1)}(\\mathcal N)\n  :=\\max_{\\rho_A}\n    \\left[S(\\mathcal N(\\rho_A))-S(\\mathcal N^c(\\rho_A))\\right],\n  \\qquad\n  S(\\tau):=-\\operatorname{Tr}(\\tau\\log_2\\tau).\n  \\label{eq:p77-degradable-capacity}\n\\end{equation}\n\nFor an arbitrary $n$-use entanglement-transmission code, let the encoder and\ndecoder be CPTP maps\n$\\mathcal E_n:\\mathcal L(S_n)\\to\\mathcal L(A^{\\otimes n})$ and\n$\\mathcal R_n:\\mathcal L(B^{\\otimes n})\\to\\mathcal L(\\widehat S_n)$, with\n$\\dim S_n=\\dim\\widehat S_n=M_n$.  If\n$\\Phi_{M_n}^{R_nS_n}$ is maximally entangled, define the code rate and\nentanglement fidelity by\n\\begin{equation}\n  r_n:=\\frac{1}{n}\\log_2 M_n,\n  \\qquad\n  F_n:=\\operatorname{Tr}\\!\\left[\n    \\Phi_{M_n}^{R_n\\widehat S_n}\n    \\bigl(\\operatorname{id}_{R_n}\\otimes\n      \\mathcal R_n\\circ\\mathcal N^{\\otimes n}\\circ\\mathcal E_n\\bigr)\n      (\\Phi_{M_n}^{R_nS_n})\n  \\right].\n  \\label{eq:p77-code-fidelity}\n\\end{equation}\nThe all-code exponential strong converse asks whether, for every\n$R>Q(\\mathcal N)$, there are constants $\\gamma_R>0$ and $n_R$ such that every\ncode in Eq.~\\eqref{eq:p77-code-fidelity} obeys\n\\begin{equation}\n  r_n\\geq R,\\qquad n\\geq n_R\n  \\quad\\Longrightarrow\\quad\n  F_n\\leq 2^{-\\gamma_R n}.\n  \\label{eq:p77-exponential-strong-converse}\n\\end{equation}\nEquation~\\eqref{eq:p77-exponential-strong-converse} requires a bound for every\nencoder--decoder pair, rather than for almost every member of a random code\nensemble.",
   "source": "Morgan and Winter explicitly isolated the upgrade from their pretty-strong\nconverse to a full strong converse for degradable channels\n\\sourcecite{ref:p77-morgan-winter}{MW14}.  Wilde records this gap, together\nwith the corresponding all-code gap for the quantum erasure channel, in\nSection~24.10 of his text \\sourcecite{ref:p77-wilde}{Wil17}.",

@@ -8,20 +8,24 @@
 //
 // For each JSON record the TeX file database/problems_tex/<id>.tex is
 // compared with the record's content. A TeX file that already agrees is left
-// untouched, so imported TeX sources keep their original formatting; a
-// missing or outdated one is rewritten in the layout of database/_template.tex.
-// Without explicit IDs, TeX files that have no JSON record are deleted.
+// untouched, so imported TeX sources keep their original formatting (including
+// a legacy single Tag subsection whose names sort into the record's fields and
+// topics); a missing or outdated one is rewritten in the layout of
+// database/_template.tex. Without explicit IDs, TeX files that have no JSON
+// record are deleted.
 
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseTexRecord, TexError } from "../site/lib/tex.mjs";
 import { recordToTex, recordDifferences, validateRecordShape, RecordError } from "../site/lib/record.mjs";
+import { loadTaxonomy } from "../site/lib/taxonomy.mjs";
 
 const repoRoot = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const config = JSON.parse(fs.readFileSync(path.join(repoRoot, "site", "config.json"), "utf8"));
 const jsonDir = path.join(repoRoot, config.databasePath);
 const texDir = path.join(repoRoot, config.texPath);
+const taxonomy = loadTaxonomy(path.join(repoRoot, "database", "tags.json"));
 
 const args = process.argv.slice(2);
 const check = args.includes("--check");
@@ -51,7 +55,8 @@ for (const name of names) {
     reason = "missing";
   } else {
     try {
-      const differences = recordDifferences(record, parseTexRecord(fs.readFileSync(texPath, "utf8"), { fileName: `${record.id}.tex` }));
+      const fromTex = parseTexRecord(fs.readFileSync(texPath, "utf8"), { fileName: `${record.id}.tex`, taxonomy });
+      const differences = recordDifferences(record, fromTex);
       if (differences.length) reason = `differs in ${differences.join(", ")}`;
     } catch (error) {
       reason = error instanceof TexError ? "cannot be parsed" : error.message;

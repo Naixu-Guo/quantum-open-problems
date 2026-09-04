@@ -6,6 +6,8 @@ on:
       - "database/**"
       - "site/**"
       - "scripts/**"
+      - "tests/**"
+      - "package.json"
       - ".github/workflows/validate.yml"
 
 permissions:
@@ -19,6 +21,11 @@ jobs:
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           fetch-depth: 0
+
+      - name: Verify metadata and identifier preservation
+        run: |
+          node scripts/migrate-metadata.mjs --check
+          npm test
 
       - name: Build and validate every record
         run: node site/build.mjs --out "${RUNNER_TEMP}/qiqcop-dist"

@@ -1,15 +1,51 @@
 {
-  "schema": "qiqcop-zoo/record/1",
+  "schema": "qiqcop-zoo/record/3",
   "id": "op_4cf3e7b8663b1d41",
+  "ulid": "01M1HME78004TME758T7JBWF1D",
+  "aliases": [
+    "op_4cf3e7b8663b1d41",
+    "01M1HME78004TME758T7JBWF1D",
+    "op-4cf3e7b8663b1d41",
+    "v2-achievability-of-the-rains-bound-under-ppt-preserving-channels",
+    "open-problem-v2-problem-4"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 2,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-04T22:04:59Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "entanglement-theory"
+    ],
+    "topicIds": [
+      "bell-diagonal-states",
+      "rains-bound",
+      "ppt-preserving-operations",
+      "entanglement-distillation",
+      "semidefinite-programming"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
   "title": "Achievability of the Rains bound under PPT-preserving channels",
   "status": "Unsolved",
-  "tags": [
+  "fields": [
+    "Entanglement theory"
+  ],
+  "topics": [
     "Bell-diagonal states",
     "Rains bound",
     "PPT-preserving operations",
     "Entanglement distillation",
-    "Semidefinite programming",
-    "Entanglement measures"
+    "Semidefinite programming"
   ],
   "statement": "Consider distilling the bipartite Bell-diagonal state\n\\begin{equation}\n  \\rho_{\\mathbf p}\n  =p_I\\lvert\\Phi^+\\rangle\\!\\langle\\Phi^+\\rvert\n  +p_X\\lvert\\Psi^+\\rangle\\!\\langle\\Psi^+\\rvert\n  +p_Y\\lvert\\Psi^-\\rangle\\!\\langle\\Psi^-\\rvert\n  +p_Z\\lvert\\Phi^-\\rangle\\!\\langle\\Phi^-\\rvert,\n  \\label{eq:p4-bell-diagonal-state}\n\\end{equation}\nwhere $p_i>0$ and $p_I+p_X+p_Y+p_Z=1$, and\n$\\lvert\\Phi^\\pm\\rangle:=(\\lvert00\\rangle\\pm\\lvert11\\rangle)/\\sqrt2$ and\n$\\lvert\\Psi^\\pm\\rangle:=(\\lvert01\\rangle\\pm\\lvert10\\rangle)/\\sqrt2$.\nIs the Rains bound of the state in Eq.~\\eqref{eq:p4-bell-diagonal-state}\nachievable by a positive-partial-transpose-state-preserving\n(PPT-state-preserving, or PPT-preserving) quantum channel?  If so, what is the\nconstructive quantum channel?  A channel is PPT-state-preserving if every PPT\ninput state is mapped to a PPT output state.",
   "source": "Rains introduced the PPT-preserving distillation framework and its\nsemidefinite-programming bound; the present Bell-diagonal achievability\nquestion is an implicit specialization of that work\n\\sourcecite{ref:p4-rains-1999}{Rai99},\n\\sourcecite{ref:p4-rains-2001}{Rai01}.",

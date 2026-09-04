@@ -8,32 +8,94 @@ validation workflow runs it on each pull request.
 
 ## Record format
 
-Copy `database/_template.json` to `database/problems_json/<id>.json` and fill
-in its fields. Every text field holds TeX, written exactly as in a TeX file
+Run `node scripts/new-problem-id.mjs --create` to create a record scaffold
+in `database/problems_json/<id>.json`, then fill in its authored fields.
+The command generates permanent identifiers and metadata. The template is
+a format reference; do not copy its example identifiers into a new record.
+Use `--json` instead of `--create` to print a fresh scaffold without writing
+a file; the command without options continues to print only a new `op_` ID.
+
+Authored research text holds TeX, written exactly as in a TeX file
 except for JSON escaping: backslashes are doubled (`\\emph{...}`) and line
 breaks are written as `\n`.
 
 | Field | Content |
 | --- | --- |
-| `schema` | `qiqcop-zoo/record/1`. |
+| `schema` | `qiqcop-zoo/record/3`. |
 | `id` | `op_` followed by sixteen hexadecimal digits, generated once with `node scripts/new-problem-id.mjs` and never changed. The file is named `<id>.json`. |
+| `ulid` | A permanent main-compatible identifier, assigned by the new-record command or the metadata migration. Never regenerate it for an existing problem. |
+| `aliases` | The original `op_` identifier, the ULID, the equivalent `op-` alias, and any confirmed legacy aliases. Keep them unique across records and preserve existing aliases. |
+| `metadata` | Main-compatible Problem attributes, including record type and version, revision, creator and creation time, role, parent relationships, origin, posed date, taxonomy IDs, keywords, difficulty, verification cost, and related problem IDs. Initialize missing values with the metadata migration script; consult the template for the exact structure. |
 | `title` | The descriptive title only, on one line; the site never shows a problem number. |
 | `status` | Exactly `Unsolved` or `Solved`. |
-| `tags` | One to six names from `database/tags.json`, spelled exactly. |
+| `fields` | One or two names from the `fields` list of `database/tags.json`, spelled exactly: the broad research areas the problem belongs to. |
+| `topics` | One to five names from the `topics` list of `database/tags.json`, spelled exactly: the specific objects, techniques, and settings it concerns. |
 | `statement` | The self-contained statement. |
 | `source` | The paper that posed the problem, or the papers in which it is implicit, cited with `\\sourcecite{ref:...}{KEY}`. Write `Contributor: Full Name.` when no literature source exists, or `unknown`. |
 | `progress` | An array of accurately scoped results, one TeX item each. |
 | `references` | An array of `{ "key": "KEY", "label": "ref:...", "tex": "..." }`, each `tex` giving the full entry with DOI and arXiv links. |
 | `comment` | The precise remaining gap and relations to other problems. |
 
-After editing a record, run `node scripts/sync-tex.mjs` to write its TeX form
+For a new record, run `node scripts/migrate-metadata.mjs` after filling the
+authored fields. It initializes missing metadata using the pinned crosswalk
+in `database/metadata.json` and syncs taxonomy IDs with the authored field
+and topic names. It does not replace authored JSON content or refresh
+records from main. Use the same command with
+`--check` to check without writing. Include changes to the metadata files
+with the new record.
+
+After any content edit, run `node scripts/sync-tex.mjs` to write its TeX form
 to `database/problems_tex/<id>.tex`, then `node site/build.mjs`. The build
 fails when the TeX file is missing or disagrees with the record, so commit the
-two files together.
+two files together. The additional identifiers and metadata live in JSON;
+they are excluded from the TeX content comparison but included in the JSON
+hash. When editing fields or topics, run the metadata migration before
+syncing TeX to update the derived taxonomy IDs.
 
 A record can also be written in TeX following `database/_template.tex`, whose
-sections map one to one onto the JSON fields, and imported with
-`node scripts/import-problems.mjs <file>`; the import writes both files.
+sections map onto the authored JSON content fields, and imported with
+`node scripts/import-problems.mjs <file>`; the import writes both files. A TeX
+import that replaces an existing record requires `--replace` and preserves
+that record's identifiers and metadata. Review the incoming content before
+replacing a record, since an old TeX copy can contain outdated science. A TeX
+file may carry `Field` and `Topic` subsections or, in the older layout, a
+single `Tag` subsection whose names are sorted into fields and topics by
+`database/tags.json`; either way the build enforces one or two fields and one
+to five topics.
+
+## Metadata and main exports
+
+The metadata `areaIds` and `topicIds` are the URL slugs of the authored
+`fields` and `topics`, in the same order. The metadata migration keeps these
+arrays in step when taxonomy assignments change. Adding compatibility
+metadata preserves the existing JSON keys and field and topic names; it does not change the
+scientific content or status. A main ledger integration must also reconcile
+these taxonomy IDs with its registry. The migration actor in
+`database/actors.json` identifies the system migration; it does not claim
+authorship or human review of the research.
+
+The build publishes every alias for record lookup and redirects it to the
+existing `op_` page. `/api/main/problems/<ulid>.json` wraps a strict main
+Problem projection in `problem`, with the zoo's binary `status` and the full
+authored JSON in `record`. Aliases that main's slug rules reject remain in
+the full record and `/api/identifiers.json`.
+
+This export is an adapter for main's Problem format. Main still needs
+admission or revision contributions and its review and decision process;
+adopting binary statuses and raw aliases requires deliberate policy or
+schema changes. Do not create fictional reviews, decisions, or research
+attribution to make an export appear admitted.
+
+## Fields and topics
+
+A **field** is a broad research area (for example Quantum Shannon theory,
+Entanglement theory, Quantum error correction); a **topic** is a specific
+object, technique, or setting (for example Degradable channels, Semidefinite
+programming, Qudit systems). Each name belongs to exactly one of the two lists
+in `database/tags.json`. Give a problem the one or two fields that a
+specialist would file it under, then one to five topics that pin down what it
+is about. To add a name, append it to the right list in the same pull request
+as the first record that uses it; do not add a third kind of tag.
 
 ## Writing rules
 

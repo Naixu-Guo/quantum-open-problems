@@ -1,15 +1,49 @@
 {
-  "schema": "qiqcop-zoo/record/1",
+  "schema": "qiqcop-zoo/record/3",
   "id": "op_3cd14aef409b226b",
+  "ulid": "01M1Q787QRE9WF0NXMX32BQDCQ",
+  "aliases": [
+    "op_3cd14aef409b226b",
+    "01M1Q787QRE9WF0NXMX32BQDCQ",
+    "op-3cd14aef409b226b"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-04T22:04:59Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-shannon-theory"
+    ],
+    "topicIds": [
+      "bosonic-channels",
+      "bosonic-systems",
+      "continuous-variable-systems",
+      "gaussian-quantum-information",
+      "classical-capacity"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
   "title": "Multimode constrained output entropy of a pure-loss channel",
   "status": "Unsolved",
-  "tags": [
+  "fields": [
+    "Quantum Shannon theory"
+  ],
+  "topics": [
     "Bosonic channels",
     "Bosonic systems",
     "Continuous-variable systems",
     "Gaussian quantum information",
-    "Classical capacity",
-    "Quantum Shannon theory"
+    "Classical capacity"
   ],
   "statement": "Is Guha's multimode Strong Conjecture~2 true for every correlated input state?\nFix $n\\geq1$, $K\\geq0$, and $0<\\eta<1$.  Let the modes\n$A_1,\\ldots,A_n$ be in the vacuum and let $\\rho_{B^n}$ be an arbitrary joint\n$n$-mode state.  Apply identical beam splitters whose output annihilation\noperators satisfy\n\\begin{equation}\n  \\hat c_i=\\sqrt{\\eta}\\,\\hat a_i\n    +\\sqrt{1-\\eta}\\,\\hat b_i,\n  \\qquad i\\in\\{1,\\ldots,n\\},\n  \\label{eq:p75-beamsplitter-output}\n\\end{equation}\nand denote the resulting joint state of $C_1,\\ldots,C_n$ by\n$\\rho_{C^n}$.  In the convention of Eq.~\\eqref{eq:p75-beamsplitter-output},\n$\\eta$ multiplies the vacuum $A$ port, so the attenuator from the\ninformation-bearing $B$ port to $C$ has transmissivity $1-\\eta$.  Define the\nthermal entropy function by\n\\begin{equation}\n  g(x):=(x+1)\\log_2(x+1)-x\\log_2x,\n  \\qquad x\\geq0,\n  \\label{eq:p75-thermal-entropy}\n\\end{equation}\nwith $0\\log_2 0:=0$.  Using the function in\nEq.~\\eqref{eq:p75-thermal-entropy}, impose the sole\ninput-entropy constraint $S(\\rho_{B^n})=ng(K)$.  Does the state produced in\nEq.~\\eqref{eq:p75-beamsplitter-output} always obey\n\\begin{equation}\n  S(\\rho_{C^n})\\geq ng((1-\\eta)K)?\n  \\label{eq:p75-strong-conjecture-two}\n\\end{equation}\nEquality in Eq.~\\eqref{eq:p75-strong-conjecture-two} is attained when\n$\\rho_{B^n}$ is a tensor product of $n$ thermal states of mean photon number\n$K$; the conjecture asserts that arbitrary correlations cannot lower the\noutput entropy further.",
   "source": "Guha, Shapiro, and Erkmen explicitly formulated\nEq.~\\eqref{eq:p75-strong-conjecture-two} as Strong Conjecture~2\n\\sourcecite{ref:p75-guha-shapiro-erkmen}{GSE07}.  Wilde records the same\nmultimode statement as the hypothesis needed for the converse in the\npure-loss dynamic-capacity theorem\n\\sourcecite{ref:p75-wilde}{Wil17}.",

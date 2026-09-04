@@ -53,10 +53,18 @@ body:
       required: true
 
   - type: input
-    id: tags
+    id: fields
     attributes:
-      label: Tags
-      description: One to six canonical names from database/tags.json, separated by semicolons.
+      label: Fields
+      description: One or two names from the "fields" list of database/tags.json, separated by semicolons.
+    validations:
+      required: true
+
+  - type: input
+    id: topics
+    attributes:
+      label: Topics
+      description: One to five names from the "topics" list of database/tags.json, separated by semicolons.
     validations:
       required: true
 

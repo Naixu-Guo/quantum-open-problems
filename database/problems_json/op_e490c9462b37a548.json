@@ -1,13 +1,48 @@
 {
-  "schema": "qiqcop-zoo/record/1",
+  "schema": "qiqcop-zoo/record/3",
   "id": "op_e490c9462b37a548",
+  "ulid": "01M1HME780DDSDKPH6BERTWRWB",
+  "aliases": [
+    "op_e490c9462b37a548",
+    "01M1HME780DDSDKPH6BERTWRWB",
+    "op-e490c9462b37a548",
+    "v2-two-way-quantum-capacity-amplitude-damping-channel",
+    "open-problem-v2-problem-5"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 2,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-04T22:04:59Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-shannon-theory",
+      "quantum-communication"
+    ],
+    "topicIds": [
+      "amplitude-damping-channels",
+      "two-way-quantum-capacity",
+      "qubit-systems"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
   "title": "Two-way quantum capacity: amplitude-damping channel",
   "status": "Unsolved",
-  "tags": [
+  "fields": [
+    "Quantum Shannon theory",
+    "Quantum communication"
+  ],
+  "topics": [
     "Amplitude-damping channels",
     "Two-way quantum capacity",
-    "Quantum Shannon theory",
-    "Quantum communication",
     "Qubit systems"
   ],
   "statement": "What is the two-way quantum capacity $\\mathcal{Q}_2(\\mathcal A_p)$ of the\nqubit amplitude-damping channel\n\\begin{equation}\n  \\mathcal A_p(\\rho)=A_0\\rho A_0^\\dagger+A_1\\rho A_1^\\dagger,\n  \\qquad 0\\le p\\le1?\n  \\label{eq:p5-amplitude-damping}\n\\end{equation}\nThe operators in Eq.~\\eqref{eq:p5-amplitude-damping} are\n\\begin{equation}\n  \\begin{aligned}\n    A_0&=\\lvert0\\rangle\\!\\langle0\\rvert\n         +\\sqrt{1-p}\\,\\lvert1\\rangle\\!\\langle1\\rvert\n       =\\begin{pmatrix}1&0\\\\0&\\sqrt{1-p}\\end{pmatrix},\\\\\n    A_1&=\\sqrt p\\,\\lvert0\\rangle\\!\\langle1\\rvert\n       =\\begin{pmatrix}0&\\sqrt p\\\\0&0\\end{pmatrix}.\n  \\end{aligned}\n  \\label{eq:p5-kraus-operators}\n\\end{equation}\nEquation~\\eqref{eq:p5-kraus-operators} uses $p$ as the decay probability of\nthe excited state.  Here $\\mathcal{Q}_2$ permits adaptive local operations and\nunlimited two-way classical communication between uses of the channel.",

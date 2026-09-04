@@ -1,14 +1,50 @@
 {
-  "schema": "qiqcop-zoo/record/1",
+  "schema": "qiqcop-zoo/record/3",
   "id": "op_7e7e4a25fef5c994",
+  "ulid": "01M1HME780DC6ZS9XG3V0R6V1A",
+  "aliases": [
+    "op_7e7e4a25fef5c994",
+    "01M1HME780DC6ZS9XG3V0R6V1A",
+    "op-7e7e4a25fef5c994",
+    "v2-transpose-degradability-beyond-degradability",
+    "open-problem-v2-problem-53"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 2,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-04T22:04:59Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-shannon-theory"
+    ],
+    "topicIds": [
+      "transpose-degradable-channels",
+      "transpose-antidegradable-channels",
+      "degradable-channels",
+      "antidegradable-channels",
+      "quantum-capacity"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
   "title": "Transpose degradability beyond degradability",
   "status": "Unsolved",
-  "tags": [
+  "fields": [
+    "Quantum Shannon theory"
+  ],
+  "topics": [
     "Transpose-degradable channels",
     "Transpose-antidegradable channels",
     "Degradable channels",
     "Antidegradable channels",
-    "Coherent information",
     "Quantum capacity"
   ],
   "statement": "Does there exist a finite-dimensional transpose-degradable quantum channel\nthat is not degradable?  Let $V:A\\to B\\otimes E$ be an isometry defining a\nchannel and a complementary channel by\n\\begin{equation}\n  \\Phi(X):=\\operatorname{Tr}_E(VXV^\\dagger),\n  \\qquad\n  \\Phi^c(X):=\\operatorname{Tr}_B(VXV^\\dagger).\n  \\label{eq:p53-complementary-pair}\n\\end{equation}\nEquation~\\eqref{eq:p53-complementary-pair} fixes the output space $B$ and\nenvironment space $E$.  For the transpose $\\mathsf T_E$ in a fixed basis of\n$E$, transpose degradability means that a completely positive trace-preserving\nmap $\\mathcal D:\\mathcal L(B)\\to\\mathcal L(E)$ satisfies\n\\begin{equation}\n  \\mathsf T_E\\circ\\Phi^c=\\mathcal D\\circ\\Phi.\n  \\label{eq:p53-transpose-degradable}\n\\end{equation}\nOrdinary degradability instead requires a completely positive\ntrace-preserving map\n$\\widetilde{\\mathcal D}:\\mathcal L(B)\\to\\mathcal L(E)$ satisfying\n\\begin{equation}\n  \\Phi^c=\\widetilde{\\mathcal D}\\circ\\Phi.\n  \\label{eq:p53-degradable}\n\\end{equation}\nThe question is whether Eq.~\\eqref{eq:p53-transpose-degradable} can hold while\nno map satisfying Eq.~\\eqref{eq:p53-degradable} exists.",

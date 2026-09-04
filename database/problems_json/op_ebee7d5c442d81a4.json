@@ -1,13 +1,47 @@
 {
-  "schema": "qiqcop-zoo/record/1",
+  "schema": "qiqcop-zoo/record/3",
   "id": "op_ebee7d5c442d81a4",
+  "ulid": "01M1HME780M4B4RRABEG3RDDCZ",
+  "aliases": [
+    "op_ebee7d5c442d81a4",
+    "01M1HME780M4B4RRABEG3RDDCZ",
+    "op-ebee7d5c442d81a4",
+    "v2-complete-facet-descriptions-for-bell-polytopes",
+    "open-problem-v2-problem-11"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 2,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-04T22:04:59Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-foundations"
+    ],
+    "topicIds": [
+      "bell-nonlocality",
+      "convex-geometry",
+      "combinatorics"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
   "title": "Complete facet descriptions for Bell polytopes",
   "status": "Unsolved",
-  "tags": [
+  "fields": [
+    "Quantum foundations"
+  ],
+  "topics": [
     "Bell nonlocality",
     "Convex geometry",
-    "Combinatorics",
-    "Quantum foundations"
+    "Combinatorics"
   ],
   "statement": "Determine complete facet descriptions for local-behavior polytopes beyond the\npresently solved Bell scenarios, either for a specified unresolved finite\nscenario or for a nontrivial infinite family with additional structure.  For\npositive integers $N$, $M$, and $K$, let\n$\\mathbf{x}\\in\\{1,\\ldots,M\\}^{N}$ denote the measurement settings and\n$\\mathbf{a}\\in\\{1,\\ldots,K\\}^{N}$ the outcomes.  The relevant local polytope\nis\n\\begin{equation}\n  \\mathcal{L}_{N,M,K}\n  :=\\operatorname{conv}\\!\\left\\{\n    p_{\\mathbf f}:p_{\\mathbf f}(\\mathbf a\\mid\\mathbf x)\n    =\\prod_{i=1}^{N}\\mathbf{1}\\!\\left\\{a_i=f_i(x_i)\\right\\},\\quad\n    f_i:\\{1,\\ldots,M\\}\\to\\{1,\\ldots,K\\}\n  \\right\\}.\n  \\label{eq:p11-local-polytope}\n\\end{equation}\nHere $\\mathbf 1\\{\\cdot\\}$ is the indicator function.\nThe task is to characterize all facet-defining inequalities of the polytope\nin Eq.~\\eqref{eq:p11-local-polytope} in a chosen unresolved regime, modulo\npermutations of parties, settings, and outcomes and modulo liftings obtained\nby adjoining redundant settings or outcomes.  A solution must carry a proof\nof completeness, not merely generate a large collection of facets.",
   "source": "Kr\\\"uger and Werner explicitly pose the search for completeness-certified\nfacet descriptions of Bell polytopes in tractable finite scenarios and\nstructured families \\sourcecite{ref:p11-krueger-werner}{KW05}.",

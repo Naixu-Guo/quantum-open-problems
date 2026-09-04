@@ -9,6 +9,9 @@
     "serve": "python3 -m http.server 8000 --directory dist",
     "import": "node scripts/import-problems.mjs",
     "sync-tex": "node scripts/sync-tex.mjs",
+    "migrate-metadata": "node scripts/migrate-metadata.mjs",
+    "check-metadata": "node scripts/migrate-metadata.mjs --check",
+    "test": "node --test tests/*.test.mjs",
     "new-id": "node scripts/new-problem-id.mjs"
   },
   "engines": {

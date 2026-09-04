@@ -2,12 +2,15 @@
 //
 // Each record follows database/_template.tex: a \section title, a
 // \paragraph{Problem.} statement, then the subsections Status, Source,
-// Progress, References, Comment, Tag, and ID. Mathematics is left as TeX
-// for MathJax; every text-mode construct used by the collection is converted
-// to HTML here. Unknown commands throw, so the build cannot silently drop
-// content.
+// Progress, References, Comment, Field, Topic, and ID. Files written before
+// the taxonomy was split carry a single Tag subsection instead of Field and
+// Topic; they are still read, with the names sorted into fields and topics
+// by database/tags.json. Mathematics is left as TeX for MathJax; every
+// text-mode construct used by the collection is converted to HTML here.
+// Unknown commands throw, so the build cannot silently drop content.
 
 import { createHash } from "node:crypto";
+import { classifyTags, FIELD_LIMITS, TOPIC_LIMITS } from "./taxonomy.mjs";
 
 const SECTION_MARKERS = [
   ["statement", "\\paragraph{Problem.}"],
@@ -16,6 +19,9 @@ const SECTION_MARKERS = [
   ["progress", "\\subsection*{Progress}"],
   ["references", "\\subsection*{References}"],
   ["comment", "\\subsection*{Comment}"],
+  // Either Field and Topic, or the legacy Tag subsection.
+  ["field", "\\subsection*{Field}"],
+  ["topic", "\\subsection*{Topic}"],
   ["tag", "\\subsection*{Tag}"],
   ["id", "\\subsection*{ID}"]
 ];
@@ -556,11 +562,16 @@ function collectEquations(tex) {
 }
 
 function extractSections(tex) {
-  const positions = SECTION_MARKERS.map(([name, marker]) => {
-    const position = tex.indexOf(marker);
-    if (position < 0) throw new TexError(`Missing required marker ${marker}`);
-    return { name, marker, position };
-  });
+  const found = SECTION_MARKERS.map(([name, marker]) => ({ name, marker, position: tex.indexOf(marker) }));
+  const has = (name) => found.find((entry) => entry.name === name).position >= 0;
+  if (has("tag") && (has("field") || has("topic"))) {
+    throw new TexError("Use either Field and Topic subsections or the legacy Tag subsection, not both");
+  }
+  const optional = has("tag") ? new Set(["field", "topic"]) : new Set(["tag"]);
+  const positions = found.filter((entry) => !optional.has(entry.name));
+  for (const entry of positions) {
+    if (entry.position < 0) throw new TexError(`Missing required marker ${entry.marker}`);
+  }
   for (let i = 1; i < positions.length; i += 1) {
     if (positions[i].position < positions[i - 1].position) {
       throw new TexError("Subsections do not follow the canonical order");
@@ -642,8 +653,9 @@ const withFileName = (fileName, run) => {
 
 // Split a TeX record into the fields of the JSON record: the TeX fragment of
 // every section with comments removed. Only the structure is checked here;
-// renderRecord validates the content.
-export function parseTexRecord(sourceTex, { fileName = "" } = {}) {
+// renderRecord validates the content. A legacy Tag subsection is split into
+// fields and topics with the taxonomy, which is therefore required for it.
+export function parseTexRecord(sourceTex, { fileName = "", taxonomy = null } = {}) {
   const fail = (message) => { throw new TexError(`${fileName || "record"}: ${message}`); };
   return withFileName(fileName, () => {
     const tex = sourceTex.replace(/\r\n/g, "\n");
@@ -652,11 +664,21 @@ export function parseTexRecord(sourceTex, { fileName = "" } = {}) {
     const sections = extractSections(tex);
     const idMatch = stripComments(sections.id).trim().match(/^\\texttt\{(op\\_[A-Za-z0-9]{16})\}$/);
     if (!idMatch) fail("invalid or missing problem ID");
+    let fields;
+    let topics;
+    if (sections.tag !== undefined) {
+      if (!taxonomy) fail("the legacy Tag subsection can only be read with the taxonomy of database/tags.json");
+      ({ fields, topics } = classifyTags(splitTags(sections.tag), taxonomy));
+    } else {
+      fields = splitTags(sections.field);
+      topics = splitTags(sections.topic);
+    }
     return {
       id: idMatch[1].replace("\\_", "_"),
       title: stripComments(titleMatch[1]).trim(),
       status: stripComments(sections.status).trim(),
-      tags: splitTags(sections.tag),
+      fields,
+      topics,
       statement: stripComments(sections.statement).trim(),
       source: stripComments(sections.source).trim(),
       progress: extractProgressItems(sections.progress),
@@ -668,16 +690,32 @@ export function parseTexRecord(sourceTex, { fileName = "" } = {}) {
 
 // Validate the content of a record and convert every TeX fragment to HTML
 // and plain text. This is what the site is built from.
-export function renderRecord(record, { canonicalTags = null, fileName = "" } = {}) {
+export function renderRecord(record, { taxonomy = null, fileName = "" } = {}) {
   const fail = (message) => { throw new TexError(`${fileName || "record"}: ${message}`); };
   return withFileName(fileName, () => {
-    const { id, status, tags } = record;
-    if (!(status in STATUSES)) fail(`invalid status "${status}"; the zoo has exactly two statuses, Unsolved and Solved`);
-    if (tags.length < 1 || tags.length > 6) fail("a problem needs between one and six tags");
-    if (new Set(tags).size !== tags.length) fail("duplicate tags");
-    if (canonicalTags) {
-      const unknown = tags.filter((tag) => !canonicalTags.has(tag));
-      if (unknown.length) fail(`unknown tags: ${unknown.join(", ")}`);
+    const { id, status } = record;
+    const fields = record.fields.map((name) => name.trim());
+    const topics = record.topics.map((name) => name.trim());
+    if (!Object.hasOwn(STATUSES, status)) fail(`invalid status "${status}"; the zoo has exactly two statuses, Unsolved and Solved`);
+    if (fields.length < FIELD_LIMITS.min || fields.length > FIELD_LIMITS.max) {
+      fail(`a problem needs between ${FIELD_LIMITS.min} and ${FIELD_LIMITS.max} fields, not ${fields.length} (${fields.join("; ") || "none"})`);
+    }
+    if (topics.length < TOPIC_LIMITS.min || topics.length > TOPIC_LIMITS.max) {
+      fail(`a problem needs between ${TOPIC_LIMITS.min} and ${TOPIC_LIMITS.max} topics, not ${topics.length} (${topics.join("; ") || "none"})`);
+    }
+    const tags = [...fields, ...topics];
+    if (new Set(tags).size !== tags.length) fail("duplicate fields or topics");
+    if (taxonomy) {
+      const problems = [];
+      for (const name of fields) {
+        if (taxonomy.topicSet.has(name)) problems.push(`"${name}" is a topic, not a field`);
+        else if (!taxonomy.fieldSet.has(name)) problems.push(`unknown field "${name}"`);
+      }
+      for (const name of topics) {
+        if (taxonomy.fieldSet.has(name)) problems.push(`"${name}" is a field, not a topic`);
+        else if (!taxonomy.topicSet.has(name)) problems.push(`unknown topic "${name}"`);
+      }
+      if (problems.length) fail(`${problems.join("; ")} (see database/tags.json)`);
     }
 
     // Equations are numbered in order of appearance across the record.
@@ -726,7 +764,9 @@ export function renderRecord(record, { canonicalTags = null, fileName = "" } = {
       title: { tex: record.title, html: titleHtml, text: htmlToText(titleHtml) },
       status,
       statusSlug: STATUSES[status].slug,
-      tags: tags.slice(),
+      fields,
+      topics,
+      tags,
       statement: { tex: record.statement.trim(), html: statementHtml, text: htmlToText(statementHtml) },
       source: {
         tex: record.source.trim(),
@@ -745,10 +785,10 @@ export function renderRecord(record, { canonicalTags = null, fileName = "" } = {
 
 // Parse and render a complete TeX record in one step (used by the import
 // script and by the sync check).
-export function parseProblem(sourceTex, { canonicalTags = null, fileName = "" } = {}) {
-  const record = parseTexRecord(sourceTex, { fileName });
+export function parseProblem(sourceTex, { taxonomy = null, fileName = "" } = {}) {
+  const record = parseTexRecord(sourceTex, { fileName, taxonomy });
   return {
-    ...renderRecord(record, { canonicalTags, fileName }),
+    ...renderRecord(record, { taxonomy, fileName }),
     record,
     sha256: createHash("sha256").update(sourceTex).digest("hex"),
     sourceTex

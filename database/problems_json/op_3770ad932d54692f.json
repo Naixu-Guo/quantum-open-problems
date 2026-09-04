@@ -1,13 +1,49 @@
 {
-  "schema": "qiqcop-zoo/record/1",
+  "schema": "qiqcop-zoo/record/3",
   "id": "op_3770ad932d54692f",
+  "ulid": "01M1HME780BM029QANMMXSYJXR",
+  "aliases": [
+    "op_3770ad932d54692f",
+    "01M1HME780BM029QANMMXSYJXR",
+    "op-3770ad932d54692f",
+    "v2-unconditional-classical-verification-with-one-quantum-prover",
+    "open-problem-v2-problem-39"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 2,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-04T22:04:59Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-complexity-theory",
+      "quantum-computation"
+    ],
+    "topicIds": [
+      "interactive-proof-systems",
+      "delegated-quantum-computation",
+      "verification-and-validation"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
   "title": "Unconditional classical verification with one quantum prover",
   "status": "Unsolved",
-  "tags": [
+  "fields": [
+    "Quantum complexity theory",
+    "Quantum computation"
+  ],
+  "topics": [
     "Interactive proof systems",
     "Delegated quantum computation",
-    "Verification and validation",
-    "Quantum complexity theory"
+    "Verification and validation"
   ],
   "statement": "Does every language $L\\in\\mathsf{BQP}$ admit a single-prover interactive proof\nwith a fully classical verifier, an efficient quantum honest prover, and\ninformation-theoretic soundness?  Precisely, require a probabilistic classical\npolynomial-time verifier exchanging only classical messages with one prover;\na uniform quantum polynomial-time honest prover; acceptance probability at\nleast $2/3$ for every yes-instance when the honest prover is used; and\nacceptance probability at most $1/3$ for every no-instance against every\nprover, including a computationally unbounded one.  Equivalently, can one\nclassically verify an arbitrary efficient quantum computation with one\nefficient quantum prover, no quantum capability for the verifier, and no\ncryptographic assumption?",
   "source": "Aharonov, Ben-Or, Eban, and Mahadev explicitly ask whether the verifier's\nremaining quantum register can be eliminated from an unconditional\nsingle-prover verification protocol\n\\sourcecite{ref:p39-aharonov}{ABE+17}.",

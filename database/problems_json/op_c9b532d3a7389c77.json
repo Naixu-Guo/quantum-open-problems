@@ -1,12 +1,43 @@
 {
-  "schema": "qiqcop-zoo/record/1",
+  "schema": "qiqcop-zoo/record/3",
   "id": "op_c9b532d3a7389c77",
+  "ulid": "01M1Q787QRSHGZH7NDSMFG88GH",
+  "aliases": [
+    "op_c9b532d3a7389c77",
+    "01M1Q787QRSHGZH7NDSMFG88GH",
+    "op-c9b532d3a7389c77"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-04T22:04:59Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-shannon-theory",
+      "quantum-information-theory"
+    ],
+    "topicIds": [
+      "strong-converse"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
   "title": "Strong converse for general mixed-state quantum compression",
   "status": "Unsolved",
-  "tags": [
+  "fields": [
     "Quantum Shannon theory",
-    "Strong converse",
     "Quantum information theory"
+  ],
+  "topics": [
+    "Strong converse"
   ],
   "statement": "Does general finite-dimensional i.i.d. mixed-state quantum compression obey\nan unrestricted strong converse?  Let $\\rho^{AR}$ be a finite-dimensional\nsource state, where only $A$ is available to the encoder and $R$ is an\ninaccessible reference.  Fix a Koashi--Imoto isometry $U:A\\to CNQ$ for which\nthe source has the form\n\\begin{equation}\n  \\omega^{CNQR}\n  :=(U\\otimes I_R)\\rho^{AR}(U^\\dagger\\otimes I_R)\n  =\\sum_j p_j|j\\rangle\\!\\langle j|^C\n     \\otimes\\omega_j^N\\otimes\\rho_j^{QR},\n  \\label{eq:p71-koashi-imoto}\n\\end{equation}\nwhere $C$ is classical, $N$ is redundant relative to $R$ conditioned on\n$C$, and $Q$ carries the remaining source--reference correlations.  At\nblocklength $n$, allow arbitrary encoding and decoding channels\n$\\mathcal E_n:A^{\\otimes n}\\to M_n$ and\n$\\mathcal D_n:M_n\\to\\widehat A^{\\otimes n}$, with\n$\\widehat A\\cong A$.  Their reference-preserving squared fidelity is\n\\begin{equation}\n  F_n:=F\\!\\left(\n    (\\rho^{AR})^{\\otimes n},\n    \\left[(\\mathcal D_n\\circ\\mathcal E_n)\n      \\otimes\\operatorname{id}_{R^{\\otimes n}}\\right]\n      ((\\rho^{AR})^{\\otimes n})\n  \\right),\n  \\qquad\n  F(\\tau,\\zeta):=\\lVert\\sqrt\\tau\\sqrt\\zeta\\rVert_1^2.\n  \\label{eq:p71-code-fidelity}\n\\end{equation}\nThe optimal first-order qubit rate is $S(CQ)_\\omega$.  Determine whether every\nsequence of unrestricted channels defining Eq.~\\eqref{eq:p71-code-fidelity}\nsatisfies the strong-converse implication\n\\begin{equation}\n  \\limsup_{n\\to\\infty}\\frac1n\\log_2|M_n|<S(CQ)_\\omega\n  \\quad\\Longrightarrow\\quad\n  \\lim_{n\\to\\infty}F_n=0.\n  \\label{eq:p71-strong-converse}\n\\end{equation}\nEquation~\\eqref{eq:p71-strong-converse} imposes no unitality, isometry, or\ndimension-expansion condition on the encoder or decoder.",
   "source": "Wilde records the unresolved mixed-state compression problem in\nSections~18.4--18.5.  Khanian and Winter solve its general finite-dimensional\nfirst-order formulation and explicitly leave the strong converse in\nEq.~\\eqref{eq:p71-strong-converse} open\n\\sourcecite{ref:p71-wilde}{Wil17},\n\\sourcecite{ref:p71-khanian-winter}{KW22}.",

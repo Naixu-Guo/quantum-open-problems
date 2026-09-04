@@ -1,12 +1,44 @@
 {
-  "schema": "qiqcop-zoo/record/1",
+  "schema": "qiqcop-zoo/record/3",
   "id": "op_8c6e6d0cc3d28e86",
+  "ulid": "01M1Q787QRMK8JJ7BH5J7A8VXS",
+  "aliases": [
+    "op_8c6e6d0cc3d28e86",
+    "01M1Q787QRMK8JJ7BH5J7A8VXS",
+    "op-8c6e6d0cc3d28e86"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-04T22:04:59Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-information-theory",
+      "quantum-shannon-theory"
+    ],
+    "topicIds": [
+      "quantum-channels",
+      "convex-optimization"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
   "title": "Umegaki relative entropy of local recovery",
   "status": "Solved",
-  "tags": [
-    "Quantum channels",
+  "fields": [
     "Quantum information theory",
-    "Quantum Shannon theory",
+    "Quantum Shannon theory"
+  ],
+  "topics": [
+    "Quantum channels",
     "Convex optimization"
   ],
   "statement": "Does the conditional mutual information of every finite-dimensional\ntripartite state dominate its Umegaki relative entropy of local recovery?\nFor a state $\\rho_{ABC}$, define\n\\begin{equation}\n  I(A:C\\mid B)_\\rho\n  :=S(AB)_\\rho+S(BC)_\\rho-S(B)_\\rho-S(ABC)_\\rho.\n  \\label{eq:p46-cmi}\n\\end{equation}\nWith $D(\\tau\\Vert\\omega):=\\operatorname{Tr}[\\tau(\\log\\tau-\\log\\omega)]$\nwhen $\\operatorname{supp}\\tau\\subseteq\\operatorname{supp}\\omega$, the\nquestion is whether the quantity in Eq.~\\eqref{eq:p46-cmi} always satisfies\n\\begin{equation}\n  I(A:C\\mid B)_\\rho\n  \\stackrel{?}{\\ge}\n  \\min_{\\mathcal R_{B\\to BC}}\n  D\\!\\left(\n    \\rho_{ABC}\n    \\middle\\Vert\n    (\\operatorname{id}_A\\otimes\\mathcal R_{B\\to BC})(\\rho_{AB})\n  \\right),\n  \\label{eq:p46-recovery-bound}\n\\end{equation}\nwhere the minimum in Eq.~\\eqref{eq:p46-recovery-bound} is over all completely\npositive trace-preserving recovery maps $\\mathcal R_{B\\to BC}$.",

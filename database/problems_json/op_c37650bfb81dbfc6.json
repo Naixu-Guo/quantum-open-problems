@@ -1,14 +1,47 @@
 {
-  "schema": "qiqcop-zoo/record/1",
+  "schema": "qiqcop-zoo/record/3",
   "id": "op_c37650bfb81dbfc6",
+  "ulid": "01M1Q787QR08CREPZSZYDXBTGN",
+  "aliases": [
+    "op_c37650bfb81dbfc6",
+    "01M1Q787QR08CREPZSZYDXBTGN",
+    "op-c37650bfb81dbfc6"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-04T22:04:59Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "entanglement-theory"
+    ],
+    "topicIds": [
+      "local-unitary-equivalence",
+      "graph-theory",
+      "stabilizer-codes",
+      "qubit-systems"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
   "title": "Minimum LU--LC counterexample for graph states",
   "status": "Solved",
-  "tags": [
+  "fields": [
+    "Entanglement theory"
+  ],
+  "topics": [
     "Local unitary equivalence",
     "Graph theory",
     "Stabilizer codes",
-    "Qubit systems",
-    "Entanglement theory"
+    "Qubit systems"
   ],
   "statement": "What is the least number of qubits for which two graph states can be locally\nunitary equivalent without being locally Clifford equivalent?  For a simple\ngraph $G=(V,E)$ with $V=\\{1,\\ldots,n\\}$, define its graph state by\n\\begin{equation}\n  \\lvert G\\rangle\n  :=\\left(\\prod_{\\{u,v\\}\\in E}\\mathrm{CZ}_{uv}\\right)\n    \\lvert+\\rangle^{\\otimes n},\n  \\qquad\n  \\lvert+\\rangle:=\\frac{\\lvert0\\rangle+\\lvert1\\rangle}{\\sqrt2}.\n  \\label{eq:p48-graph-state}\n\\end{equation}\nFor graphs $G$ and $H$ on $n$ vertices, use the state convention in\nEq.~\\eqref{eq:p48-graph-state} and write\n\\begin{equation}\n  \\begin{aligned}\n    G\\sim_{\\mathrm{LU}}H\n    &\\iff\n      \\lvert H\\rangle=e^{i\\phi}\n      \\left(\\bigotimes_{j=1}^{n}U_j\\right)\\lvert G\\rangle\n      &&\\text{for some }U_j\\in U(2),\\ \\phi\\in\\mathbb R,\\\\\n    G\\sim_{\\mathrm{LC}}H\n    &\\iff\n      \\lvert H\\rangle=e^{i\\theta}\n      \\left(\\bigotimes_{j=1}^{n}C_j\\right)\\lvert G\\rangle\n      &&\\text{for some }C_j\\in\\mathcal C_1,\\ \\theta\\in\\mathbb R,\n  \\end{aligned}\n  \\label{eq:p48-lu-lc-equivalence}\n\\end{equation}\nwhere $\\mathcal C_1$ is the single-qubit Clifford group.  Since\n$\\mathcal C_1\\subset U(2)$, LC equivalence implies LU equivalence.  Define the\nminimum counterexample size by\n\\begin{equation}\n  n_{\\min}\n  :=\\min\\left\\{n:\\text{there exist $n$-vertex graphs $G,H$ with\n  $G\\sim_{\\mathrm{LU}}H$ and $G\\not\\sim_{\\mathrm{LC}}H$}\\right\\}.\n  \\label{eq:p48-minimum-counterexample}\n\\end{equation}\nDetermine the integer in Eq.~\\eqref{eq:p48-minimum-counterexample}.",
   "source": "Kr\\\"uger and Werner record the original conjecture that LU equivalence of\ngraph states always implies LC equivalence\n\\sourcecite{ref:p48-krueger-werner}{KW05}.  After Ji, Chen, Wei, and Ying\nconstructed a 27-qubit counterexample, Claudet isolated and resolved the\nminimum-size question in Eq.~\\eqref{eq:p48-minimum-counterexample}\n\\sourcecite{ref:p48-ji-et-al}{JCWY10},\n\\sourcecite{ref:p48-claudet}{Cla26}.",

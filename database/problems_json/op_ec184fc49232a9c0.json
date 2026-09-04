@@ -1,14 +1,49 @@
 {
-  "schema": "qiqcop-zoo/record/1",
+  "schema": "qiqcop-zoo/record/3",
   "id": "op_ec184fc49232a9c0",
+  "ulid": "01M1HME78078BW0JG3X252BVX5",
+  "aliases": [
+    "op_ec184fc49232a9c0",
+    "01M1HME78078BW0JG3X252BVX5",
+    "op-ec184fc49232a9c0",
+    "v2-constant-trace-distance-separability-testing",
+    "open-problem-v2-problem-36"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 2,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-04T22:04:59Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-complexity-theory",
+      "entanglement-theory"
+    ],
+    "topicIds": [
+      "quantum-separability",
+      "convex-optimization",
+      "semidefinite-programming"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
   "title": "Constant trace-distance separability testing",
   "status": "Unsolved",
-  "tags": [
-    "Quantum separability",
+  "fields": [
     "Quantum complexity theory",
-    "Convex optimization",
-    "Semidefinite programming",
     "Entanglement theory"
+  ],
+  "topics": [
+    "Quantum separability",
+    "Convex optimization",
+    "Semidefinite programming"
   ],
   "statement": "What is the computational complexity of testing bipartite separability with\na constant trace-distance promise gap?  For local dimension $d$, define\n\\begin{equation}\n  \\operatorname{Sep}(d,d)\n  :=\\operatorname{conv}\\!\\left\\{\n    \\alpha\\otimes\\beta:\n    \\alpha,\\beta\\in\\mathcal D(\\mathbb C^d)\n  \\right\\}.\n  \\label{eq:p36-separable-set}\n\\end{equation}\nFix a constant $0<\\varepsilon_0<1$.  Given a rational description of\n$\\rho\\in\\mathcal D(\\mathbb C^d\\otimes\\mathbb C^d)$, promised that exactly\none of the following alternatives holds,\n\\begin{equation}\n  \\begin{aligned}\n    \\text{YES:}\\quad&\\rho\\in\\operatorname{Sep}(d,d),\\\\\n    \\text{NO:}\\quad&\n      \\inf_{\\sigma\\in\\operatorname{Sep}(d,d)}\n      \\frac12\\lVert\\rho-\\sigma\\rVert_1\\geq\\varepsilon_0,\n  \\end{aligned}\n  \\label{eq:p36-trace-promise}\n\\end{equation}\ndecide which case in Eq.~\\eqref{eq:p36-trace-promise} holds.  Is there an\nalgorithm polynomial or quasipolynomial in $d$?  More generally, when the gap\n$\\varepsilon$ is part of the input, determine the optimal dependence of the\ncomplexity on $d$ and $\\varepsilon$.",
   "source": "Harrow and Montanaro explicitly pose constant-gap weak membership for\nseparability in trace norm as an open complexity problem\n\\sourcecite{ref:p36-harrow}{HM13}.",

@@ -1,14 +1,49 @@
 {
-  "schema": "qiqcop-zoo/record/1",
+  "schema": "qiqcop-zoo/record/3",
   "id": "op_12fc55f67580588e",
+  "ulid": "01M1HME780WGX30SANKVAEX4S2",
+  "aliases": [
+    "op_12fc55f67580588e",
+    "01M1HME780WGX30SANKVAEX4S2",
+    "op-12fc55f67580588e",
+    "v2-regularized-less-noisy-channels-beyond-degradability",
+    "open-problem-v2-problem-52"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 2,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-04T22:04:59Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-shannon-theory"
+    ],
+    "topicIds": [
+      "less-noisy-channels",
+      "degradable-channels",
+      "private-capacity",
+      "quantum-channels"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
   "title": "Regularized less-noisy channels beyond degradability",
   "status": "Unsolved",
-  "tags": [
+  "fields": [
+    "Quantum Shannon theory"
+  ],
+  "topics": [
     "Less-noisy channels",
     "Degradable channels",
     "Private capacity",
-    "Quantum channels",
-    "Quantum Shannon theory"
+    "Quantum channels"
   ],
   "statement": "Does there exist a finite-dimensional regularized less-noisy quantum channel\nthat is not degradable?  Let\n$\\mathcal T:\\mathcal L(\\mathcal H_A)\\to\\mathcal L(\\mathcal H_B)$ have a\nStinespring isometry\n$V:\\mathcal H_A\\to\\mathcal H_B\\otimes\\mathcal H_E$, defining the channel and\none complementary channel by\n\\begin{equation}\n  \\mathcal T(\\rho)=\\operatorname{Tr}_E(V\\rho V^\\dagger),\n  \\qquad\n  \\mathcal T^c(\\rho)=\\operatorname{Tr}_B(V\\rho V^\\dagger).\n  \\label{eq:p52-channel-complement}\n\\end{equation}\nEquation~\\eqref{eq:p52-channel-complement} fixes the complementary-channel\nnotation; changing the Stinespring representation only changes\n$\\mathcal T^c$ by an output isometry.\n\nThe channel $\\mathcal T$ is degradable if there exists a channel\n$\\mathcal D:\\mathcal L(\\mathcal H_B)\\to\\mathcal L(\\mathcal H_E)$ satisfying\n\\begin{equation}\n  \\mathcal T^c=\\mathcal D\\circ\\mathcal T.\n  \\label{eq:p52-degradable}\n\\end{equation}\nThus Eq.~\\eqref{eq:p52-degradable} requires exact, rather than approximate,\ndegradability.\n\nFor a channel $\\mathcal N:A\\to B$ with complement $\\mathcal N^c:A\\to E$,\nlet\n$\\omega_{XBE}:=\\sum_x p_x\\lvert x\\rangle\\!\\langle x\\rvert_X\\otimes\nV_{\\mathcal N}\\rho_A^xV_{\\mathcal N}^\\dagger$ for a finite cq ensemble\n$\\{p_x,\\rho_A^x\\}$.  Define its one-shot private information and private\ncapacity by\n\\begin{equation}\n  \\begin{aligned}\n    \\mathcal C_p^{(1)}(\\mathcal N)\n      &:=\\max_{\\{p_x,\\rho_A^x\\}}\n          \\bigl[I(X;B)_\\omega-I(X;E)_\\omega\\bigr],\\\\\n    \\mathcal C_p(\\mathcal N)\n      &:=\\sup_{n\\ge1}\\frac1n\n          \\mathcal C_p^{(1)}(\\mathcal N^{\\otimes n}).\n  \\end{aligned}\n  \\label{eq:p52-private-capacity}\n\\end{equation}\nThe regularization in Eq.~\\eqref{eq:p52-private-capacity} distinguishes the\nquestion from its single-letter counterpart.  In particular, define\n\\begin{equation}\n  \\mathfrak D\n    :=\\{\\mathcal T:\\mathcal T\\text{ satisfies\n        Eq.~\\eqref{eq:p52-degradable}}\\}.\n  \\label{eq:p52-degradable-class}\n\\end{equation}\n\\begin{equation}\n  \\mathfrak L_1\n    :=\\{\\mathcal T:\\mathcal C_p^{(1)}(\\mathcal T^c)=0\\}.\n  \\label{eq:p52-one-shot-less-noisy-class}\n\\end{equation}\n\\begin{equation}\n  \\mathfrak L_\\infty\n    :=\\{\\mathcal T:\\mathcal C_p(\\mathcal T^c)=0\\}.\n  \\label{eq:p52-regularized-less-noisy-class}\n\\end{equation}\n\\begin{equation}\n  \\mathfrak D\\subseteq\\mathfrak L_\\infty\\subseteq\\mathfrak L_1.\n  \\label{eq:p52-less-noisy-inclusions}\n\\end{equation}\nA channel in $\\mathfrak L_\\infty$, as defined in\nEq.~\\eqref{eq:p52-regularized-less-noisy-class}, is regularized less noisy.\nThe problem is whether the first inclusion in\nEq.~\\eqref{eq:p52-less-noisy-inclusions} is strict.",
   "source": "Belzig, Gao, Smith, and Wu explicitly state that it remains open whether a\nregularized less-noisy channel can fail to be degradable\n\\sourcecite{ref:p52-belzig-et-al}{BGSW25}.  Hirche and Leditzky previously\nisolated the same strict-inclusion question and related it to superactivation\nof private capacity \\sourcecite{ref:p52-hirche-leditzky}{HL23}.",

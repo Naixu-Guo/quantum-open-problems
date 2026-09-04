@@ -1,14 +1,49 @@
 {
-  "schema": "qiqcop-zoo/record/1",
+  "schema": "qiqcop-zoo/record/3",
   "id": "op_96cf7aa1c1be9be2",
+  "ulid": "01M1HME780TJ3Z7X332QY1GWFR",
+  "aliases": [
+    "op_96cf7aa1c1be9be2",
+    "01M1HME780TJ3Z7X332QY1GWFR",
+    "op-96cf7aa1c1be9be2",
+    "v2-polynomial-shared-resource-lower-bounds-for-routing",
+    "open-problem-v2-problem-38"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 2,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-04T22:04:59Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-communication",
+      "quantum-cryptography"
+    ],
+    "topicIds": [
+      "position-based-quantum-cryptography",
+      "distributed-quantum-computing",
+      "quantum-communication-complexity"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
   "title": "Polynomial shared-resource lower bounds for routing",
   "status": "Unsolved",
-  "tags": [
-    "Position-based quantum cryptography",
-    "Distributed quantum computing",
-    "Quantum communication complexity",
+  "fields": [
     "Quantum communication",
     "Quantum cryptography"
+  ],
+  "topics": [
+    "Position-based quantum cryptography",
+    "Distributed quantum computing",
+    "Quantum communication complexity"
   ],
   "statement": "Does an explicit total Boolean family require polynomial shared-state cost for\nbounded-error one-round $f$-routing?  More precisely, do there exist constants\n$c>0$ and $\\varepsilon>0$ and a sequence\n\\begin{equation}\n  f_n:\\{0,1\\}^n\\times\\{0,1\\}^n\\longrightarrow\\{0,1\\}\n  \\label{eq:p38-boolean-family}\n\\end{equation}\nsuch that one uniform deterministic algorithm computes $f_n(x,y)$ from\n$(n,x,y)$ in time polynomial in $n$, and every routing protocol for the map in\nEq.~\\eqref{eq:p38-boolean-family} with worst-case diamond-norm error at most\n$\\varepsilon$ has cost at least $n^c$?\n\nIn an $f$-routing protocol, Alice receives $x$ and an unknown qubit $Q$, Bob\nreceives $y$, and they may share an arbitrary state $\\rho_{LR}$ before the\ninputs arrive.  After one simultaneous message in each direction, Alice must\nrecover $Q$ when $f(x,y)=0$, and Bob must recover it when $f(x,y)=1$.  Message\nsizes and local operations are unrestricted.  Measure only the shared state\nby\n\\begin{equation}\n  E_{\\mathrm{dim}}(\\rho_{LR})\n  :=\\log_2\\min\\!\\left\\{\n    \\operatorname{rank}\\rho_L,\\operatorname{rank}\\rho_R\n  \\right\\}.\n  \\label{eq:p38-dimension-cost}\n\\end{equation}\nThe target is a family in Eq.~\\eqref{eq:p38-boolean-family} for which every\nvalid protocol satisfies $E_{\\mathrm{dim}}(\\rho_{LR})\\geq n^c$, with the cost\ndefined in Eq.~\\eqref{eq:p38-dimension-cost}.",
   "source": "Bogner explicitly asks for polynomial, or even superlogarithmic for an\nexplicit total family, shared-resource lower bounds for $f$-routing\n\\sourcecite{ref:p38-bogner}{Bog26}.",

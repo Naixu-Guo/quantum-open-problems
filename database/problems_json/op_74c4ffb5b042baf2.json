@@ -1,14 +1,50 @@
 {
-  "schema": "qiqcop-zoo/record/1",
+  "schema": "qiqcop-zoo/record/3",
   "id": "op_74c4ffb5b042baf2",
+  "ulid": "01M1HME780V1V27MDXXVA3SCW5",
+  "aliases": [
+    "op_74c4ffb5b042baf2",
+    "01M1HME780V1V27MDXXVA3SCW5",
+    "op-74c4ffb5b042baf2",
+    "v2-npt-bound-entanglement-and-the-rank-five-frontier",
+    "open-problem-v2-problem-10"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 2,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-04T22:04:59Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "entanglement-theory"
+    ],
+    "topicIds": [
+      "npt-states",
+      "bound-entanglement",
+      "entanglement-distillation",
+      "low-rank-quantum-states",
+      "local-operations-and-classical-communication"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
   "title": "NPT bound entanglement and the rank-five frontier",
   "status": "Unsolved",
-  "tags": [
+  "fields": [
+    "Entanglement theory"
+  ],
+  "topics": [
     "NPT states",
     "Bound entanglement",
     "Entanglement distillation",
     "Low-rank quantum states",
-    "Partial transpose criterion",
     "Local operations and classical communication"
   ],
   "statement": "Does there exist a finite-dimensional bipartite state with non-positive\npartial transpose (NPT) that is undistillable by local operations and\nclassical communication (LOCC)?  For a density operator $\\rho_{AB}$, partial\ntransposition on $B$ is denoted by\n$\\rho_{AB}^{T_B}:=(\\operatorname{id}_A\\otimes T_B)(\\rho_{AB})$.  The\nfinite-copy criterion makes the counterexample sought by the general problem\nprecise:\n\\begin{equation}\n  \\exists\\,\\rho_{AB}:\\quad\n  \\rho_{AB}^{T_B}\\not\\succeq0,\n  \\qquad\n  \\forall\\,n\\geq1\\ \\ \\forall\\,\\lvert\\psi_n\\rangle\n  \\text{ with }\\operatorname{SR}_{A^n:B^n}(\\lvert\\psi_n\\rangle)\\leq2,\n  \\quad\n  \\langle\\psi_n\\rvert\n    (\\rho_{AB}^{T_B})^{\\otimes n}\n  \\lvert\\psi_n\\rangle\\geq0.\n  \\label{eq:p10-npt-undistillability}\n\\end{equation}\nHere $\\operatorname{SR}_{A^n:B^n}$ is Schmidt rank across the indicated cut.\nA state satisfying Eq.~\\eqref{eq:p10-npt-undistillability} would be NPT bound\nentangled; equivalently, the question is whether every NPT state instead has\na negative expectation on some Schmidt-rank-at-most-two vector at some finite\ncopy number.\n\nThe nested low-rank frontier asks whether the counterexample in\nEq.~\\eqref{eq:p10-npt-undistillability} can additionally satisfy\n\\begin{equation}\n  \\operatorname{rank}(\\rho_{AB})=5.\n  \\label{eq:p10-rank-five-frontier}\n\\end{equation}\nThus Eq.~\\eqref{eq:p10-rank-five-frontier} asks for the lowest rank not already\nexcluded by known one-copy results.",

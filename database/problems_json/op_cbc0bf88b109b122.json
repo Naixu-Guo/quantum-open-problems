@@ -1,11 +1,42 @@
 {
-  "schema": "qiqcop-zoo/record/1",
+  "schema": "qiqcop-zoo/record/3",
   "id": "op_cbc0bf88b109b122",
+  "ulid": "01M1Q787QR701HKYB3YDFJ15TK",
+  "aliases": [
+    "op_cbc0bf88b109b122",
+    "01M1Q787QR701HKYB3YDFJ15TK",
+    "op-cbc0bf88b109b122"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-04T22:04:59Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-information-theory"
+    ],
+    "topicIds": [
+      "quantum-channels",
+      "one-shot-quantum-information"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
   "title": "Ordinary-Petz fidelity remainder for relative-entropy data processing",
   "status": "Solved",
-  "tags": [
+  "fields": [
+    "Quantum information theory"
+  ],
+  "topics": [
     "Quantum channels",
-    "Quantum information theory",
     "One-shot quantum information"
   ],
   "statement": "Does the ordinary Petz recovery map give a universal fidelity remainder for\nmonotonicity of quantum relative entropy?  Let\n$\\mathcal N:\\mathcal L(A)\\to\\mathcal L(B)$ be a finite-dimensional quantum\nchannel, and let $\\rho,\\sigma\\in\\mathcal D(A)$ satisfy\n$\\operatorname{supp}\\rho\\subseteq\\operatorname{supp}\\sigma$.  With inverses\ntaken on the relevant supports, define the Petz map by\n\\begin{equation}\n  \\mathcal P_{\\sigma,\\mathcal N}(X)\n  :=\\sigma^{1/2}\\mathcal N^{\\dagger}\\!\\left(\n      \\mathcal N(\\sigma)^{-1/2}X\n      \\mathcal N(\\sigma)^{-1/2}\n    \\right)\\sigma^{1/2},\n  \\label{eq:p69-petz-map}\n\\end{equation}\nwhere $\\mathcal N^{\\dagger}$ is the Hilbert--Schmidt adjoint.  Write\n$D(\\tau\\Vert\\omega):=\\operatorname{Tr}[\\tau(\\log_2\\tau-\n\\log_2\\omega)]$ and use squared fidelity\n$F(\\tau,\\omega):=\\lVert\\sqrt\\tau\\sqrt\\omega\\rVert_1^2$.  The proposed\nremainder bound for the map in Eq.~\\eqref{eq:p69-petz-map} is\n\\begin{equation}\n  D(\\rho\\Vert\\sigma)\n  -D\\!\\left(\\mathcal N(\\rho)\\middle\\Vert\\mathcal N(\\sigma)\\right)\n  \\stackrel{?}{\\geq}\n  -\\log_2 F\\!\\left(\n    \\rho,\n    \\mathcal P_{\\sigma,\\mathcal N}(\\mathcal N(\\rho))\n  \\right).\n  \\label{eq:p69-petz-remainder}\n\\end{equation}\nDetermine whether Eq.~\\eqref{eq:p69-petz-remainder} holds for every such\ntriple $(\\rho,\\sigma,\\mathcal N)$.",

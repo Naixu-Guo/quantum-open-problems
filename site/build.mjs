@@ -5,9 +5,9 @@
 //   node site/build.mjs --out DIR  # build somewhere else
 //
 // The build validates every record and fails loudly on a malformed JSON
-// record, unsupported text-mode TeX, unknown tags, unresolved citations,
-// unlabeled equations, or a TeX file in database/problems_tex that is missing
-// or disagrees with its JSON record.
+// record, unsupported text-mode TeX, an unknown field or topic or the wrong
+// number of them, unresolved citations, unlabeled equations, or a TeX file in
+// database/problems_tex that is missing or disagrees with its JSON record.
 
 import fs from "node:fs";
 import path from "node:path";
@@ -16,6 +16,8 @@ import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { parseTexRecord, renderRecord, STATUSES, slug, TexError } from "./lib/tex.mjs";
 import { validateRecordShape, canonicalJson, recordDifferences, RecordError } from "./lib/record.mjs";
+import { loadTaxonomy } from "./lib/taxonomy.mjs";
+import { validateRecordIdentities, metadataToMainProblem, ULID_PATTERN } from "./lib/metadata.mjs";
 import {
   renderHome, renderProblemPage, renderDirectory, renderTagsIndex, renderTagPage,
   renderAbout, renderRandomPage, renderNotFound
@@ -47,9 +49,17 @@ const write = (relative, content) => {
 // Load and validate records
 // ---------------------------------------------------------------------------
 
-const canonicalTags = JSON.parse(fs.readFileSync(tagsPath, "utf8")).tags;
-if (new Set(canonicalTags).size !== canonicalTags.length) throw new Error("database/tags.json contains duplicate tags");
-const canonicalSet = new Set(canonicalTags);
+// The taxonomy: fields and topics. Pages live at tag/<slug>/ for both kinds,
+// so every name needs a distinct slug.
+const taxonomy = loadTaxonomy(tagsPath);
+{
+  const slugs = new Map();
+  for (const name of [...taxonomy.fields, ...taxonomy.topics]) {
+    const key = slug(name);
+    if (slugs.has(key)) throw new Error(`database/tags.json: "${name}" and "${slugs.get(key)}" share the URL slug ${key}`);
+    slugs.set(key, name);
+  }
+}
 
 // Creation and last-edit times from git history, to the second. The history
 // of a record is the history of its TeX file, which has accompanied the
@@ -99,6 +109,15 @@ const readJson = (filePath, name) => {
 
 const jsonFiles = fs.readdirSync(databaseDir).filter((name) => name.endsWith(".json")).sort();
 const strayTex = new Set(fs.readdirSync(texDir).filter((name) => name.endsWith(".tex")));
+const metadataManifest = readJson(path.join(repoRoot, "database", "metadata.json"), "database/metadata.json");
+const actorRegistry = readJson(path.join(repoRoot, "database", "actors.json"), "database/actors.json");
+if (actorRegistry.schema !== "qiqcop-zoo/actors/1" || !Array.isArray(actorRegistry.actors)) throw new RecordError("Invalid database/actors.json");
+const actorIds = new Set();
+for (const actor of actorRegistry.actors) {
+  if (actor.type !== "Actor" || !ULID_PATTERN.test(actor.id) || actorIds.has(actor.id)) throw new RecordError(`Invalid or duplicate Actor ID: ${actor.id}`);
+  actorIds.add(actor.id);
+}
+if (metadataManifest.schema !== "qiqcop-zoo/metadata/1" || !metadataManifest.mappings || !actorIds.has(metadataManifest.actorId)) throw new RecordError("Invalid database/metadata.json or missing migration actor");
 const records = [];
 const errors = [];
 for (const name of jsonFiles) {
@@ -106,7 +125,14 @@ for (const name of jsonFiles) {
   try {
     const stored = validateRecordShape(readJson(filePath, name), name);
     if (`${stored.id}.json` !== name) throw new RecordError(`${name}: file name does not match the record ID ${stored.id}`);
-    const record = renderRecord(stored, { canonicalTags: canonicalSet, fileName: name });
+    if (!actorIds.has(stored.metadata.createdBy)) throw new RecordError(`${name}: metadata.createdBy has no Actor in database/actors.json`);
+    const pinnedIdentity = metadataManifest.mappings[stored.id];
+    if (pinnedIdentity && pinnedIdentity.ulid !== stored.ulid) throw new RecordError(`${name}: permanent ULID disagrees with database/metadata.json`);
+    const record = renderRecord(stored, { taxonomy, fileName: name });
+    record.ulid = stored.ulid;
+    record.aliases = stored.aliases;
+    record.metadata = stored.metadata;
+    record.storedRecord = stored;
 
     // The TeX companion must exist and carry the same content.
     const texName = `${stored.id}.tex`;
@@ -116,7 +142,7 @@ for (const name of jsonFiles) {
     const sourceTex = fs.readFileSync(texPath, "utf8");
     let fromTex;
     try {
-      fromTex = parseTexRecord(sourceTex, { fileName: texName });
+      fromTex = parseTexRecord(sourceTex, { fileName: texName, taxonomy });
     } catch (error) {
       throw new RecordError(`${name}: ${config.texPath}/${texName} cannot be parsed (${error.message}); ${fix}`);
     }
@@ -139,6 +165,7 @@ if (errors.length) {
   console.error(`Build failed with ${errors.length} invalid record(s):\n- ${errors.join("\n- ")}`);
   process.exit(1);
 }
+validateRecordIdentities(records.map((record) => record.storedRecord));
 const seen = new Map();
 for (const record of records) {
   if (seen.has(record.id)) errors.push(`duplicate ID ${record.id} in ${seen.get(record.id)} and ${record.file}`);
@@ -155,12 +182,14 @@ records.sort((a, b) => a.title.text.localeCompare(b.title.text, "en"));
 // ---------------------------------------------------------------------------
 
 const stats = { total: records.length, unsolved: 0, solved: 0, references: 0, equations: 0 };
-const tagCounts = new Map();
+const fieldCounts = new Map();
+const topicCounts = new Map();
 for (const record of records) {
   stats[record.statusSlug] += 1;
   stats.references += record.references.length;
   stats.equations += record.equations.length;
-  for (const tag of record.tags) tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+  for (const name of record.fields) fieldCounts.set(name, (fieldCounts.get(name) ?? 0) + 1);
+  for (const name of record.topics) topicCounts.set(name, (topicCounts.get(name) ?? 0) + 1);
 }
 const dates = {
   today,
@@ -168,15 +197,20 @@ const dates = {
 };
 if (dates.updated === "0000-00-00") dates.updated = today;
 
+// Related problems share fields or topics. A shared topic counts twice as
+// much as a shared field, because fields are broad and topics specific.
 const relatedFor = (record) => records
   .filter((other) => other.id !== record.id)
   .map((other) => {
-    const shared = record.tags.filter((tag) => other.tags.includes(tag));
-    const union = new Set([...record.tags, ...other.tags]).size;
-    return { record: other, shared, score: shared.length / union };
+    const sharedFields = record.fields.filter((name) => other.fields.includes(name));
+    const sharedTopics = record.topics.filter((name) => other.topics.includes(name));
+    const fieldUnion = new Set([...record.fields, ...other.fields]).size;
+    const topicUnion = new Set([...record.topics, ...other.topics]).size;
+    const score = (2 * sharedTopics.length + sharedFields.length) / (2 * topicUnion + fieldUnion);
+    return { record: other, sharedFields, sharedTopics, shared: [...sharedFields, ...sharedTopics], score };
   })
   .filter((item) => item.shared.length > 0)
-  .sort((a, b) => b.score - a.score || b.shared.length - a.shared.length || a.record.title.text.localeCompare(b.record.title.text))
+  .sort((a, b) => b.score - a.score || b.sharedTopics.length - a.sharedTopics.length || a.record.title.text.localeCompare(b.record.title.text))
   .slice(0, 6);
 
 const pools = {
@@ -199,9 +233,9 @@ config.assetVersions.random = createHash("sha256").update(randomPayload).digest(
 fs.mkdirSync(outDir, { recursive: true });
 for (const entry of fs.readdirSync(outDir)) fs.rmSync(path.join(outDir, entry), { recursive: true, force: true });
 
-write("index.html", renderHome({ config, root: "", records, stats, tagCounts, initial, dates }));
-write("problems/index.html", renderDirectory({ config, root: "../", records, tagCounts }));
-write("tags/index.html", renderTagsIndex({ config, root: "../", tagCounts, canonicalTags }));
+write("index.html", renderHome({ config, root: "", records, stats, fieldCounts, topicCounts, initial, dates }));
+write("problems/index.html", renderDirectory({ config, root: "../", records, fieldCounts, topicCounts }));
+write("tags/index.html", renderTagsIndex({ config, root: "../", taxonomy, fieldCounts, topicCounts }));
 write("about/index.html", renderAbout({ config, root: "../", stats, dates }));
 write("404.html", renderNotFound({ config, root: "/" + config.siteUrl.replace(/^https?:\/\/[^/]+\/?/, "") }));
 
@@ -209,12 +243,23 @@ for (const record of records) {
   const root = "../../";
   write(`problem/${record.id}/index.html`, renderProblemPage({ record, config, root, related: relatedFor(record), dates }));
   write(`problem/${record.id}/${record.id}.tex`, record.sourceTex);
+  for (const alias of record.aliases) {
+    if (alias === record.id) continue;
+    const target = `../${record.id}/`;
+    write(`problem/${alias}/index.html`, `<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><title>Problem ${record.id}</title><link rel="canonical" href="${config.siteUrl.replace(/\/$/, "")}/problem/${record.id}/"><meta http-equiv="refresh" content="0;url=${target}"></head><body><a href="${target}">Open ${record.id}</a><script>location.replace(${JSON.stringify(target)} + location.search + location.hash);</script></body></html>\n`);
+  }
 }
 
-for (const [tag, count] of tagCounts) {
-  const tagged = records.filter((record) => record.tags.includes(tag));
-  if (tagged.length !== count) throw new Error(`tag count mismatch for ${tag}`);
-  write(`tag/${slug(tag)}/index.html`, renderTagPage({ config, root: "../../", tag, records: tagged }));
+// One page per field and per topic in use. A field page lists the topics of
+// its problems, a topic page the fields of its problems.
+for (const [kind, counts, key, otherKey] of [["field", fieldCounts, "fields", "topics"], ["topic", topicCounts, "topics", "fields"]]) {
+  for (const [tag, count] of counts) {
+    const tagged = records.filter((record) => record[key].includes(tag));
+    if (tagged.length !== count) throw new Error(`${kind} count mismatch for ${tag}`);
+    const related = new Map();
+    for (const record of tagged) for (const name of record[otherKey]) related.set(name, (related.get(name) ?? 0) + 1);
+    write(`tag/${slug(tag)}/index.html`, renderTagPage({ config, root: "../../", kind, tag, records: tagged, related }));
+  }
 }
 
 for (const [pool, label] of [["unsolved", "unsolved"], ["solved", "solved"]]) {
@@ -232,11 +277,14 @@ write("data/random.js", randomPayload);
 // Client-side index for the random panels and search.
 const indexEntries = records.map((record) => ({
   id: record.id,
+  ulid: record.ulid,
+  aliases: record.aliases,
   title: record.title.html,
   titleText: record.title.text,
   status: record.status,
   statusSlug: record.statusSlug,
-  tags: record.tags,
+  fields: record.fields,
+  topics: record.topics,
   statement: record.statement.html,
   updated: record.dates.updated,
   updatedAt: record.dates.updatedAt,
@@ -254,11 +302,16 @@ const apiIndex = {
   repositoryUrl: config.repositoryUrl,
   generated: today,
   updated: dates.updated,
-  counts: { total: stats.total, unsolved: stats.unsolved, solved: stats.solved, tags: tagCounts.size, references: stats.references, equations: stats.equations },
+  counts: { total: stats.total, unsolved: stats.unsolved, solved: stats.solved, fields: fieldCounts.size, topics: topicCounts.size, references: stats.references, equations: stats.equations },
   problems: records.map((record) => ({
     id: record.id,
+    ulid: record.ulid,
+    aliases: record.aliases,
+    metadata: record.metadata,
     title: record.title.text,
     status: record.status,
+    fields: record.fields,
+    topics: record.topics,
     tags: record.tags,
     statement: record.statement.text,
     url: `${siteUrl}/problem/${record.id}/`,
@@ -272,17 +325,32 @@ const apiIndex = {
   }))
 };
 write("api/index.json", `${JSON.stringify(apiIndex, null, 2)}\n`);
+write("api/identifiers.json", `${JSON.stringify({
+  schema: "qiqcop-zoo/identifiers/1",
+  problems: records.map((record) => ({ id: record.id, ulid: record.ulid, aliases: record.aliases })),
+  aliases: Object.fromEntries(records.flatMap((record) => record.aliases.map((alias) => [alias, { id: record.id, ulid: record.ulid }])))
+}, null, 2)}\n`);
+write("api/main/actors.json", `${JSON.stringify(actorRegistry.actors, null, 2)}\n`);
+const describeTags = (kind, names, counts) => names.map((name) => ({
+  name, kind, slug: slug(name), count: counts.get(name) ?? 0, url: counts.has(name) ? `${siteUrl}/tag/${slug(name)}/` : null
+}));
 write("api/tags.json", `${JSON.stringify({
   generated: today,
-  tags: canonicalTags.map((tag) => ({ tag, slug: slug(tag), count: tagCounts.get(tag) ?? 0, url: tagCounts.has(tag) ? `${siteUrl}/tag/${slug(tag)}/` : null }))
+  fields: describeTags("field", taxonomy.fields, fieldCounts),
+  topics: describeTags("topic", taxonomy.topics, topicCounts)
 }, null, 2)}\n`);
 for (const record of records) {
   const payload = {
-    schema: "qiqcop-zoo/problem/1",
+    schema: "qiqcop-zoo/problem/3",
     id: record.id,
+    ulid: record.ulid,
+    aliases: record.aliases,
+    metadata: record.metadata,
     url: `${siteUrl}/problem/${record.id}/`,
     title: { tex: record.title.tex, html: record.title.html, text: record.title.text },
     status: record.status,
+    fields: record.fields,
+    topics: record.topics,
     tags: record.tags,
     created: record.dates.created,
     updated: record.dates.updated,
@@ -294,18 +362,28 @@ for (const record of records) {
     comment: record.comment,
     references: record.references,
     equations: record.equations,
-    related: relatedFor(record).map((item) => ({ id: item.record.id, title: item.record.title.text, sharedTags: item.shared })),
+    related: relatedFor(record).map((item) => ({ id: item.record.id, title: item.record.title.text, sharedFields: item.sharedFields, sharedTopics: item.sharedTopics })),
     sha256: record.sha256,
     sourceTex: record.sourceTex
   };
-  write(`api/problems/${record.id}.json`, `${JSON.stringify(payload, null, 2)}\n`);
+  const jsonPayload = `${JSON.stringify(payload, null, 2)}\n`;
+  for (const alias of record.aliases) write(`api/problems/${alias}.json`, jsonPayload);
+  // An explicit adapter envelope: the main Problem object conforms to its
+  // metadata schema; our status and authored record remain authoritative.
+  // This is a source snapshot, not fabricated admission/review decisions.
+  write(`api/main/problems/${record.ulid}.json`, `${JSON.stringify({
+    schema: "qiqcop-zoo/main-adapter/1",
+    problem: metadataToMainProblem(record.storedRecord),
+    status: record.status,
+    record: record.storedRecord
+  }, null, 2)}\n`);
 }
 
 // Sitemap, robots, llms.txt
 const urls = [
   "", "problems/", "tags/", "about/",
   ...records.map((record) => `problem/${record.id}/`),
-  ...[...tagCounts.keys()].map((tag) => `tag/${slug(tag)}/`)
+  ...[...fieldCounts.keys(), ...topicCounts.keys()].map((tag) => `tag/${slug(tag)}/`)
 ];
 write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((url) => `  <url><loc>${siteUrl}/${url}</loc><lastmod>${dates.updated}</lastmod></url>`).join("\n")}\n</urlset>\n`);
 write("robots.txt", `User-agent: *\nAllow: /\nDisallow: /random/\nSitemap: ${siteUrl}/sitemap.xml\n`);
@@ -313,13 +391,15 @@ write("llms.txt", `# ${config.fullName} (${config.shortName})
 
 > ${config.tagline}
 
-The zoo holds ${stats.total} problems (${stats.unsolved} unsolved, ${stats.solved} solved). Each record has a self-contained statement with TeX mathematics, a source attribution, scoped progress items, a comment on the remaining gap, and full references with alpha-style labels.
+The zoo holds ${stats.total} problems (${stats.unsolved} unsolved, ${stats.solved} solved). Each record has a self-contained statement with TeX mathematics, a source attribution, scoped progress items, a comment on the remaining gap, full references with alpha-style labels, one or two fields (broad research areas), and one to five topics (specific objects and techniques).
 
 ## Machine-readable access
 
-- ${siteUrl}/api/index.json: every problem with title, status, tags, plain-text statement, and links.
+- ${siteUrl}/api/index.json: every problem with title, status, fields, topics, plain-text statement, and links.
 - ${siteUrl}/api/problems/<id>.json: one full record (TeX source, HTML, plain text, references, equation labels).
-- ${siteUrl}/api/tags.json: the tag taxonomy with counts.
+- ${siteUrl}/api/identifiers.json: permanent op IDs, ULIDs, and aliases; every alias resolves through the problem API.
+- ${siteUrl}/api/main/problems/<ulid>.json: main-compatible Problem metadata with our binary status and complete authored record.
+- ${siteUrl}/api/tags.json: the taxonomy of fields and topics with counts.
 - ${siteUrl}/problem/<id>/<id>.tex: the TeX form of one record.
 
 ## Contributing
@@ -327,7 +407,7 @@ The zoo holds ${stats.total} problems (${stats.unsolved} unsolved, ${stats.solve
 Records are JSON files in ${config.repositoryUrl}/tree/${config.branch}/${config.databasePath}, with a TeX form of each in ${config.texPath}. Follow database/_template.json and open a pull request; the build validates every record.
 `);
 
-console.log(`Built ${records.length} problems, ${tagCounts.size} tags into ${path.relative(repoRoot, outDir) || "."}`);
+console.log(`Built ${records.length} problems, ${fieldCounts.size} fields, ${topicCounts.size} topics into ${path.relative(repoRoot, outDir) || "."}`);
 console.log(`Status: ${stats.unsolved} unsolved, ${stats.solved} solved; ${stats.references} references; ${stats.equations} equations.`);
 const untracked = records.filter((record) => !record.dates.tracked).length;
 if (untracked) console.log(`Note: ${untracked} record(s) have no git history yet; today's date is used for them.`);

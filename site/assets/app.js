@@ -113,12 +113,16 @@
   });
 
   // ------------------------------------------------------------------ keyboard
+  // "/" focuses the search box of the page (home panel or catalog sidebar);
+  // on pages without one it opens the catalog with the search box focused.
   document.addEventListener("keydown", (event) => {
     if (event.key !== "/" || event.metaKey || event.ctrlKey || event.altKey) return;
     const active = document.activeElement;
     if (active && (active.tagName === "INPUT" || active.tagName === "TEXTAREA" || active.isContentEditable)) return;
-    const search = $("#problem-search") || $("#site-search");
-    if (search) { event.preventDefault(); search.focus(); }
+    event.preventDefault();
+    const search = $("#problem-search") || $("#home-search");
+    if (search) search.focus();
+    else location.href = `${root}problems/#search`;
   });
 
   // ------------------------------------------------------------------ math helper
@@ -144,6 +148,7 @@
     unsolved: { label: "Unsolved", title: "No complete solution is known." },
     solved: { label: "Solved", title: "A complete solution is known; see Progress and Comment." }
   };
+  const tagHtml = (name, kind) => `<li><a class="tag tag-${kind}" href="${root}tag/${slugify(name)}/" title="${kind === "field" ? "Field" : "Topic"}: ${escapeHtml(name)}">${escapeHtml(name)}</a></li>`;
   const cardHtml = (problem) => {
     const meta = statusMeta[problem.statusSlug];
     return `<article class="problem-card status-${problem.statusSlug}" data-id="${problem.id}">
@@ -153,7 +158,7 @@
   </div>
   <h3 class="card-title"><a href="${root}problem/${problem.id}/">${problem.title}</a></h3>
   <div class="card-statement">${problem.statement}</div>
-  <ul class="tag-list">${problem.tags.map((tag) => `<li><a class="tag" href="${root}tag/${slugify(tag)}/">${escapeHtml(tag)}</a></li>`).join("")}</ul>
+  <ul class="tag-list">${(problem.fields || []).map((name) => tagHtml(name, "field")).join("")}${(problem.topics || []).map((name) => tagHtml(name, "topic")).join("")}</ul>
   <a class="card-link" href="${root}problem/${problem.id}/">Open problem page <span aria-hidden="true">→</span></a>
 </article>`;
   };
@@ -205,29 +210,44 @@
   if (list) {
     const rows = $$(".problem-row", list);
     const searchInput = $("#problem-search");
-    const statusButtons = $$(".segmented-control button");
-    const tagSelect = $("#tag-filter");
+    const statusButtons = $$(".filter-panel [data-status]");
+    const fieldButtons = $$(".filter-panel [data-field]");
+    const topicSelect = $("#topic-filter");
     const sortSelect = $("#sort-filter");
     const count = $("#results-count");
     const label = $("#results-label");
     const empty = $("#empty-state");
     const params = new URLSearchParams(location.search);
+    const fieldSlugs = new Set(fieldButtons.map((button) => button.dataset.field));
+    const topicSlugs = new Set(topicSelect ? [...topicSelect.options].map((option) => option.value) : []);
     const state = {
       q: (params.get("q") || "").trim().toLowerCase(),
       status: params.get("status") || "all",
-      tag: params.get("tag") || "all",
+      field: params.get("field") || "all",
+      topic: params.get("topic") || "all",
       sort: params.get("sort") || "updated"
     };
+    // Links written before the taxonomy was split use ?tag=; honour them.
+    const legacyTag = params.get("tag");
+    if (legacyTag) {
+      if (fieldSlugs.has(legacyTag) && state.field === "all") state.field = legacyTag;
+      else if (topicSlugs.has(legacyTag) && state.topic === "all") state.topic = legacyTag;
+    }
+    if (!["all", "unsolved", "solved"].includes(state.status)) state.status = "all";
+    if (!fieldSlugs.has(state.field)) state.field = "all";
+    if (!topicSlugs.has(state.topic)) state.topic = "all";
+    if (!sortSelect || ![...sortSelect.options].some((option) => option.value === state.sort)) state.sort = "updated";
     if (searchInput) searchInput.value = params.get("q") || "";
-    if (tagSelect && [...tagSelect.options].some((option) => option.value === state.tag)) tagSelect.value = state.tag;
-    else state.tag = "all";
-    if (sortSelect && [...sortSelect.options].some((option) => option.value === state.sort)) sortSelect.value = state.sort;
-    else state.sort = "updated";
-    statusButtons.forEach((button) => {
-      const active = button.dataset.status === state.status;
+    if (topicSelect) topicSelect.value = state.topic;
+    if (sortSelect) sortSelect.value = state.sort;
+
+    const activate = (buttons, attr, value) => buttons.forEach((button) => {
+      const active = button.dataset[attr] === value;
       button.classList.toggle("is-active", active);
       button.setAttribute("aria-pressed", String(active));
     });
+    activate(statusButtons, "status", state.status);
+    activate(fieldButtons, "field", state.field);
 
     const statusOrder = { unsolved: 0, solved: 1 };
     const apply = () => {
@@ -235,10 +255,11 @@
       let visible = 0;
       rows.forEach((row) => {
         const matchesStatus = state.status === "all" || row.dataset.status === state.status;
-        const matchesTag = state.tag === "all" || row.dataset.tags.split(" ").includes(state.tag);
+        const matchesField = state.field === "all" || row.dataset.fields.split(" ").includes(state.field);
+        const matchesTopic = state.topic === "all" || row.dataset.topics.split(" ").includes(state.topic);
         const haystack = row.dataset.search;
         const matchesQuery = terms.every((term) => haystack.includes(term));
-        const show = matchesStatus && matchesTag && matchesQuery;
+        const show = matchesStatus && matchesField && matchesTopic && matchesQuery;
         row.hidden = !show;
         if (show) visible += 1;
       });
@@ -254,38 +275,38 @@
       const next = new URLSearchParams();
       if (state.q) next.set("q", state.q);
       if (state.status !== "all") next.set("status", state.status);
-      if (state.tag !== "all") next.set("tag", state.tag);
+      if (state.field !== "all") next.set("field", state.field);
+      if (state.topic !== "all") next.set("topic", state.topic);
       if (state.sort !== "updated") next.set("sort", state.sort);
       const query = next.toString();
-      history.replaceState(null, "", `${location.pathname}${query ? `?${query}` : ""}`);
+      history.replaceState(null, "", `${location.pathname}${query ? `?${query}` : ""}${location.hash}`);
     };
 
     searchInput?.addEventListener("input", () => { state.q = searchInput.value.trim().toLowerCase(); apply(); });
     statusButtons.forEach((button) => button.addEventListener("click", () => {
       state.status = button.dataset.status;
-      statusButtons.forEach((other) => {
-        const active = other === button;
-        other.classList.toggle("is-active", active);
-        other.setAttribute("aria-pressed", String(active));
-      });
+      activate(statusButtons, "status", state.status);
       apply();
     }));
-    tagSelect?.addEventListener("change", () => { state.tag = tagSelect.value; apply(); });
+    fieldButtons.forEach((button) => button.addEventListener("click", () => {
+      state.field = button.dataset.field;
+      activate(fieldButtons, "field", state.field);
+      apply();
+    }));
+    topicSelect?.addEventListener("change", () => { state.topic = topicSelect.value; apply(); });
     sortSelect?.addEventListener("change", () => { state.sort = sortSelect.value; apply(); });
     const clear = () => {
-      state.q = ""; state.status = "all"; state.tag = "all"; state.sort = "updated";
+      state.q = ""; state.status = "all"; state.field = "all"; state.topic = "all"; state.sort = "updated";
       if (searchInput) searchInput.value = "";
-      if (tagSelect) tagSelect.value = "all";
+      if (topicSelect) topicSelect.value = "all";
       if (sortSelect) sortSelect.value = "updated";
-      statusButtons.forEach((button) => {
-        const active = button.dataset.status === "all";
-        button.classList.toggle("is-active", active);
-        button.setAttribute("aria-pressed", String(active));
-      });
+      activate(statusButtons, "status", "all");
+      activate(fieldButtons, "field", "all");
       apply();
     };
     $("#clear-filters")?.addEventListener("click", clear);
     $$("[data-clear-filters]").forEach((button) => button.addEventListener("click", clear));
     apply();
+    if (location.hash === "#search" && searchInput) searchInput.focus();
   }
 })();

@@ -2,6 +2,7 @@
 // strings out. No runtime dependencies.
 
 import { STATUSES, slug } from "./tex.mjs";
+import { TAG_KINDS } from "./taxonomy.mjs";
 
 const escape = (value = "") => String(value)
   .replaceAll("&", "&amp;")
@@ -47,6 +48,8 @@ const THEME_BOOT = `<script>
       })();
     </script>`;
 
+const SEARCH_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>`;
+
 export const logo = (extraClass = "") => `<span class="logo ${extraClass}" aria-hidden="true">
         <span class="logo-line"><span class="logo-q">QIQC</span><span class="logo-bar"></span><span class="logo-o">O</span><span class="logo-p">P</span><svg class="logo-ket" viewBox="0 0 10 24"><path d="M1.6 1.2 L8.4 12 L1.6 22.8"/></svg></span>
         <span class="logo-line logo-line-2"><span class="logo-ghost">QIQC<span class="logo-bar"></span></span><span class="logo-oo"><span class="logo-z">Z</span>OO</span></span>
@@ -61,7 +64,15 @@ export const statusTag = (status, extraClass = "") => {
   return `<span class="status-tag status-${meta.slug} ${extraClass}" title="${titles[meta.slug]}">${meta.label}</span>`;
 };
 
-export const tagLink = (tag, root) => `<a class="tag" href="${root}tag/${slug(tag)}/">${escape(tag)}</a>`;
+// A field or topic pill. Fields are primary (solid), topics secondary (outlined).
+export const tagLink = (tag, root, kind = "topic", count = null) =>
+  `<a class="tag tag-${kind}" href="${root}tag/${slug(tag)}/" title="${TAG_KINDS[kind].label}: ${escape(tag)}">${escape(tag)}${count === null ? "" : ` <span class="tag-count">${count}</span>`}</a>`;
+
+// The list items of a record's fields followed by its topics.
+export const tagItems = (record, root) => [
+  ...record.fields.map((name) => `<li>${tagLink(name, root, "field")}</li>`),
+  ...record.topics.map((name) => `<li>${tagLink(name, root, "topic")}</li>`)
+].join("");
 
 export function layout({ config, root, title, description, path, body, current = "", extraHead = "", bodyClass = "", withMath = true, extraScripts = "" }) {
   const canonical = `${config.siteUrl.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
@@ -106,10 +117,6 @@ export function layout({ config, root, title, description, path, body, current =
         <a href="${config.repositoryUrl}" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
       </nav>
       <div class="header-tools">
-        <form class="search-form" action="${root}problems/" method="get" role="search">
-          <label class="visually-hidden" for="site-search">Search problems</label>
-          <input id="site-search" name="q" type="search" placeholder="Search problems" autocomplete="off">
-        </form>
         <span class="random-control" role="group" aria-label="Open a random problem">
           <span class="random-label">Random</span>
           <a class="random-pill random-unsolved" href="${root}random/unsolved/">Unsolved</a>
@@ -130,7 +137,7 @@ ${body}
       </div>
       <nav class="footer-links" aria-label="Footer">
         <a href="${root}problems/">All problems</a>
-        <a href="${root}tags/">Tags</a>
+        <a href="${root}tags/">Fields and topics</a>
         <a href="${root}about/">About and how to cite</a>
         <a href="${root}about/#contribute">Contribute</a>
         <a href="${root}api/index.json">JSON API</a>
@@ -178,7 +185,7 @@ export function problemCard(record, root, { showStatement = true } = {}) {
   </div>
   <h3 class="card-title"><a href="${root}problem/${record.id}/">${record.title.html}</a></h3>
   ${showStatement ? `<div class="card-statement">${record.statement.html}</div>` : ""}
-  <ul class="tag-list">${record.tags.map((tag) => `<li>${tagLink(tag, root)}</li>`).join("")}</ul>
+  <ul class="tag-list">${tagItems(record, root)}</ul>
   <a class="card-link" href="${root}problem/${record.id}/">Open problem page <span aria-hidden="true">→</span></a>
 </article>`;
 }
@@ -227,12 +234,12 @@ export function leadSentenceHtml(html, limit = 260) {
 export const byRecentEdit = (records) => records.slice().sort((a, b) => b.dates.updatedAt.localeCompare(a.dates.updatedAt) || a.title.text.localeCompare(b.title.text));
 
 export function problemRow(record, root) {
-  const search = [record.title.text, record.id, record.tags.join(" "), record.statement.text].join(" ").toLowerCase();
-  return `<li class="problem-row status-${record.statusSlug}" data-id="${record.id}" data-status="${record.statusSlug}" data-tags="${escape(record.tags.map(slug).join(" "))}" data-title="${escape(record.title.text.toLowerCase())}" data-updated="${record.dates.updatedAt}" data-search="${escape(search)}">
+  const search = [record.title.text, record.id, ...(record.aliases ?? []), record.fields.join(" "), record.topics.join(" "), record.statement.text].join(" ").toLowerCase();
+  return `<li class="problem-row status-${record.statusSlug}" data-id="${record.id}" data-status="${record.statusSlug}" data-fields="${escape(record.fields.map(slug).join(" "))}" data-topics="${escape(record.topics.map(slug).join(" "))}" data-title="${escape(record.title.text.toLowerCase())}" data-updated="${record.dates.updatedAt}" data-search="${escape(search)}">
   <div class="row-main">
     <a class="row-title" href="${root}problem/${record.id}/">${record.title.html}</a>
     <p class="row-excerpt">${leadSentenceHtml(record.statement.html)}</p>
-    <ul class="tag-list tag-list-compact">${record.tags.map((tag) => `<li>${tagLink(tag, root)}</li>`).join("")}</ul>
+    <ul class="tag-list tag-list-compact">${tagItems(record, root)}</ul>
   </div>
   <div class="row-side">
     ${statusTag(record.status)}
@@ -257,7 +264,11 @@ export function renderProblemPage({ record, config, root, related, dates }) {
         ${statusTag(item.record.status, "status-tag-small")}
         <span class="related-tags">${item.shared.map((tag) => escape(tag)).join(" · ")}</span>
       </li>`).join("")}</ul>`
-    : `<p class="muted">No other problem shares a tag with this one yet.</p>`;
+    : `<p class="muted">No other problem shares a field or topic with this one yet.</p>`;
+  const taxonomyRow = (kind, names) => `<div class="taxonomy-row">
+            <dt>${names.length === 1 ? TAG_KINDS[kind].label : TAG_KINDS[kind].plural}</dt>
+            <dd><ul class="tag-list">${names.map((name) => `<li>${tagLink(name, root, kind)}</li>`).join("")}</ul></dd>
+          </div>`;
   const body = `
     <div class="problem-layout">
       <article class="problem" id="${record.id}">
@@ -269,7 +280,10 @@ export function renderProblemPage({ record, config, root, related, dates }) {
             <span class="problem-id">ID <code>${record.id}</code></span>
             <span class="problem-updated">Last edited ${displayDate(record.dates.updated)}</span>
           </div>
-          <ul class="tag-list">${record.tags.map((tag) => `<li>${tagLink(tag, root)}</li>`).join("")}</ul>
+          <dl class="taxonomy">
+          ${taxonomyRow("field", record.fields)}
+          ${taxonomyRow("topic", record.topics)}
+          </dl>
           <div class="problem-actions no-math">
             <a class="action" href="${editUrl}" rel="noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3Z"/><path d="m13.5 6.5 3 3"/></svg>Edit</a>
             <button class="action" type="button" data-dialog="cite-dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h4v4H7zM13 7h4v4h-4zM11 11c0 3-1 4-4 5M17 11c0 3-1 4-4 5"/></svg>Cite</button>
@@ -351,6 +365,8 @@ export function renderProblemPage({ record, config, root, related, dates }) {
         <div class="dialog-head"><h2 id="share-title">Share this problem</h2><button class="dialog-close" type="submit" aria-label="Close">×</button></div>
         <h3>Permanent link</h3>
         <div class="copy-block"><pre id="share-link">${escape(permalink)}</pre><button class="copy-button" type="button" data-copy="share-link">Copy</button></div>
+        <h3>Identifiers</h3>
+        <div class="copy-block"><pre id="share-identifiers">${escape(record.id)}\n${escape(record.ulid)}</pre><button class="copy-button" type="button" data-copy="share-identifiers">Copy</button></div>
         <div class="share-links">
           <a href="https://bsky.app/intent/compose?text=${encodeURIComponent(`${record.title.text} — ${config.shortName} ${permalink}`)}" rel="noreferrer">Bluesky</a>
           <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(`${record.title.text} — ${config.shortName}`)}&url=${encodeURIComponent(permalink)}" rel="noreferrer">X / Twitter</a>
@@ -368,9 +384,12 @@ export function renderProblemPage({ record, config, root, related, dates }) {
   });
 }
 
-export function renderHome({ config, root, records, stats, tagCounts, initial, dates }) {
+const byCountThenName = (counts) => [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+
+export function renderHome({ config, root, records, stats, fieldCounts, topicCounts, initial, dates }) {
   const metric = (value, label, cls = "") => `<div class="metric ${cls}"><strong>${value}</strong><span>${label}</span></div>`;
-  const topTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 12);
+  const fields = byCountThenName(fieldCounts);
+  const topTopics = byCountThenName(topicCounts).slice(0, 12);
   const total = stats.total || 1;
   const bar = ["unsolved", "solved"].map((key) => `<span class="bar-${key}" style="width:${(100 * stats[key] / total).toFixed(1)}%" title="${STATUSES[key === "unsolved" ? "Unsolved" : "Solved"].label}: ${stats[key]}"></span>`).join("");
   const body = `
@@ -380,16 +399,28 @@ export function renderHome({ config, root, records, stats, tagCounts, initial, d
           <h2>The database at a glance</h2>
           <span class="panel-note">Updated ${displayDate(dates.updated)}</span>
         </div>
+        <form class="hero-search no-math" action="${root}problems/" method="get" role="search">
+          <label class="visually-hidden" for="home-search">Search problems</label>
+          ${SEARCH_ICON}
+          <input id="home-search" name="q" type="search" placeholder="Search ${stats.total} problems by title, statement, ID, field, or topic" autocomplete="off">
+          <button class="hero-search-button" type="submit">Search</button>
+        </form>
+        <p class="hero-search-hint">Press <kbd>/</kbd> to start typing. Try “capacity”, “SIC”, “Bell”, or an identifier such as <code>${records[0]?.id ?? "op_"}</code>.</p>
         <div class="metric-grid">
           ${metric(stats.total, "Problems")}
           ${metric(stats.unsolved, "Unsolved", "metric-unsolved")}
           ${metric(stats.solved, "Solved", "metric-solved")}
-          ${metric(tagCounts.size, "Categories (tags)")}
+          ${metric(fieldCounts.size, "Fields")}
+          ${metric(topicCounts.size, "Topics")}
         </div>
         <div class="status-bar" role="img" aria-label="${stats.unsolved} unsolved, ${stats.solved} solved">${bar}</div>
         <div class="top-tags">
-          <span class="top-tags-label">Most frequent categories</span>
-          <ul class="tag-list">${topTags.map(([tag, count]) => `<li>${tagLink(tag, root).replace("</a>", ` <span class="tag-count">${count}</span></a>`)}</li>`).join("")}<li><a class="tag tag-more" href="${root}tags/">All ${tagCounts.size} tags →</a></li></ul>
+          <span class="top-tags-label">Fields</span>
+          <ul class="tag-list">${fields.map(([tag, count]) => `<li>${tagLink(tag, root, "field", count)}</li>`).join("")}</ul>
+        </div>
+        <div class="top-tags">
+          <span class="top-tags-label">Most frequent topics</span>
+          <ul class="tag-list">${topTopics.map(([tag, count]) => `<li>${tagLink(tag, root, "topic", count)}</li>`).join("")}<li><a class="tag tag-more" href="${root}tags/#topics">All ${topicCounts.size} topics →</a></li></ul>
         </div>
       </div>
 
@@ -429,59 +460,83 @@ export function renderHome({ config, root, records, stats, tagCounts, initial, d
   });
 }
 
-export function renderDirectory({ config, root, records, tagCounts }) {
-  const tags = [...tagCounts.keys()].sort((a, b) => a.localeCompare(b));
+export function renderDirectory({ config, root, records, fieldCounts, topicCounts }) {
+  const fields = byCountThenName(fieldCounts);
+  const topics = [...topicCounts.keys()].sort((a, b) => a.localeCompare(b));
+  const unsolved = records.filter((r) => r.statusSlug === "unsolved").length;
+  const solved = records.filter((r) => r.statusSlug === "solved").length;
+  const facet = (attr, value, label, count, active = false) =>
+    `<button type="button"${active ? ' class="is-active"' : ""} data-${attr}="${value}" aria-pressed="${active}"><span class="facet-name">${label}</span><span class="facet-count">${count}</span></button>`;
   const body = `
     <section class="section-shell directory">
       <div class="section-heading">
         <div><p class="section-index">Catalog</p><h1>All problems</h1></div>
-        <p>${records.length} records. Filter by status or tag, or search titles, identifiers, and statements.</p>
+        <p>${records.length} records. Search titles, identifiers, and statements, or narrow the list by status, field, and topic.</p>
       </div>
-      <div class="filter-panel no-math" aria-label="Filters">
-        <div class="search-field">
-          <label for="problem-search">Search</label>
-          <input id="problem-search" type="search" placeholder="Try “capacity”, “SIC”, “Bell”, or an ID" autocomplete="off">
-        </div>
-        <fieldset class="status-filter">
-          <legend>Status</legend>
-          <div class="segmented-control">
-            <button type="button" class="is-active" data-status="all" aria-pressed="true">All <span>${records.length}</span></button>
-            <button type="button" data-status="unsolved" aria-pressed="false">Unsolved <span>${records.filter((r) => r.statusSlug === "unsolved").length}</span></button>
-            <button type="button" data-status="solved" aria-pressed="false">Solved <span>${records.filter((r) => r.statusSlug === "solved").length}</span></button>
+      <div class="directory-layout">
+        <aside class="filter-sidebar no-math" aria-label="Search and filters">
+          <div class="filter-panel">
+            <div class="filter-group search-field">
+              <label for="problem-search">Search</label>
+              <div class="search-box">
+                ${SEARCH_ICON}
+                <input id="problem-search" type="search" placeholder="Try “capacity”, “SIC”, “Bell”, or an ID" autocomplete="off">
+              </div>
+            </div>
+            <fieldset class="filter-group">
+              <legend>Status</legend>
+              <div class="facet-list">
+                ${facet("status", "all", "All", records.length, true)}
+                ${facet("status", "unsolved", '<span class="facet-dot dot-unsolved"></span>Unsolved', unsolved)}
+                ${facet("status", "solved", '<span class="facet-dot dot-solved"></span>Solved', solved)}
+              </div>
+            </fieldset>
+            <fieldset class="filter-group">
+              <legend>Field</legend>
+              <div class="facet-list">
+                ${facet("field", "all", "All fields", records.length, true)}
+                ${fields.map(([tag, count]) => facet("field", slug(tag), escape(tag), count)).join("\n                ")}
+              </div>
+            </fieldset>
+            <div class="filter-group select-filter">
+              <label for="topic-filter">Topic</label>
+              <select id="topic-filter"><option value="all">All topics</option>${topics.map((tag) => `<option value="${slug(tag)}">${escape(tag)} (${topicCounts.get(tag)})</option>`).join("")}</select>
+            </div>
+            <div class="filter-group select-filter">
+              <label for="sort-filter">Sort</label>
+              <select id="sort-filter"><option value="updated">Recently edited</option><option value="title">Title A–Z</option><option value="status">Status</option></select>
+            </div>
+            <button class="clear-button" id="clear-filters" type="button">Clear filters</button>
           </div>
-        </fieldset>
-        <div class="select-filter">
-          <label for="tag-filter">Tag</label>
-          <select id="tag-filter"><option value="all">All tags</option>${tags.map((tag) => `<option value="${slug(tag)}">${escape(tag)} (${tagCounts.get(tag)})</option>`).join("")}</select>
+        </aside>
+        <div class="directory-results">
+          <p class="results-toolbar" aria-live="polite"><strong id="results-count">${records.length}</strong> <span id="results-label">problems</span></p>
+          <ul class="problem-list" id="problem-list">
+            ${byRecentEdit(records).map((record) => problemRow(record, root)).join("\n            ")}
+          </ul>
+          <div class="empty-state" id="empty-state" hidden>
+            <p>No problems match these filters.</p>
+            <button type="button" class="button button-ghost" data-clear-filters>Reset filters</button>
+          </div>
         </div>
-        <div class="select-filter">
-          <label for="sort-filter">Sort</label>
-          <select id="sort-filter"><option value="updated">Recently edited</option><option value="title">Title A–Z</option><option value="status">Status</option></select>
-        </div>
-        <button class="clear-button" id="clear-filters" type="button">Clear</button>
-      </div>
-      <p class="results-toolbar" aria-live="polite"><strong id="results-count">${records.length}</strong> <span id="results-label">problems</span></p>
-      <ul class="problem-list" id="problem-list">
-        ${byRecentEdit(records).map((record) => problemRow(record, root)).join("\n        ")}
-      </ul>
-      <div class="empty-state" id="empty-state" hidden>
-        <p>No problems match these filters.</p>
-        <button type="button" class="button button-ghost" data-clear-filters>Reset filters</button>
       </div>
     </section>`;
   return layout({
     config, root, path: "problems/", current: "problems",
     title: "All problems",
-    description: `Browse all ${records.length} problems of the ${config.shortName} by status, tag, or keyword.`,
+    description: `Browse all ${records.length} problems of the ${config.shortName} by status, field, topic, or keyword.`,
     body, bodyClass: "page-directory"
   });
 }
 
-export function renderTagsIndex({ config, root, tagCounts, canonicalTags }) {
-  const used = [...tagCounts.entries()].sort((a, b) => a[0].localeCompare(b[0]));
-  const unused = canonicalTags.filter((tag) => !tagCounts.has(tag));
+export function renderTagsIndex({ config, root, taxonomy, fieldCounts, topicCounts }) {
+  const usedFields = byCountThenName(fieldCounts);
+  const usedTopics = [...topicCounts.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+  const unusedFields = taxonomy.fields.filter((name) => !fieldCounts.has(name));
+  const unusedTopics = taxonomy.topics.filter((name) => !topicCounts.has(name));
+  const unused = unusedFields.length + unusedTopics.length;
   const groups = new Map();
-  for (const [tag, count] of used) {
+  for (const [tag, count] of usedTopics) {
     const letter = tag[0].toUpperCase();
     if (!groups.has(letter)) groups.set(letter, []);
     groups.get(letter).push([tag, count]);
@@ -489,43 +544,56 @@ export function renderTagsIndex({ config, root, tagCounts, canonicalTags }) {
   const body = `
     <section class="section-shell">
       <div class="section-heading">
-        <div><p class="section-index">Taxonomy</p><h1>Tags</h1></div>
-        <p>${used.length} tags are in use across the zoo; ${unused.length} further canonical tags are reserved for future records. Tags are assigned from a controlled list, one to six per problem.</p>
+        <div><p class="section-index">Taxonomy</p><h1>Fields and topics</h1></div>
+        <p>Every problem carries one or two <strong>fields</strong>, the broad research areas it belongs to, and one to five <strong>topics</strong>, the specific objects, techniques, and settings it concerns. ${usedFields.length} fields and ${usedTopics.length} topics are in use; ${unused} further names are reserved for future records.</p>
       </div>
+      <h2 class="taxonomy-heading" id="fields">Fields <span>${usedFields.length}</span></h2>
+      <ul class="tag-list tag-list-large">${usedFields.map(([tag, count]) => `<li>${tagLink(tag, root, "field", count)}</li>`).join("")}</ul>
+      <h2 class="taxonomy-heading" id="topics">Topics <span>${usedTopics.length}</span></h2>
       <div class="tag-groups">
-        ${[...groups.entries()].map(([letter, entries]) => `<div class="tag-group"><h2>${letter}</h2><ul class="tag-list tag-list-large">${entries.map(([tag, count]) => `<li>${tagLink(tag, root).replace("</a>", ` <span class="tag-count">${count}</span></a>`)}</li>`).join("")}</ul></div>`).join("\n        ")}
+        ${[...groups.entries()].map(([letter, entries]) => `<div class="tag-group"><h3>${letter}</h3><ul class="tag-list tag-list-large">${entries.map(([tag, count]) => `<li>${tagLink(tag, root, "topic", count)}</li>`).join("")}</ul></div>`).join("\n        ")}
       </div>
       <details class="unused-tags">
-        <summary>Reserved tags without problems yet (${unused.length})</summary>
-        <ul class="tag-list">${unused.map((tag) => `<li><span class="tag tag-muted">${escape(tag)}</span></li>`).join("")}</ul>
+        <summary>Reserved names without problems yet (${unused})</summary>
+        ${unusedFields.length ? `<p class="unused-label">Fields</p>
+        <ul class="tag-list">${unusedFields.map((tag) => `<li><span class="tag tag-field tag-muted">${escape(tag)}</span></li>`).join("")}</ul>` : ""}
+        ${unusedTopics.length ? `<p class="unused-label">Topics</p>
+        <ul class="tag-list">${unusedTopics.map((tag) => `<li><span class="tag tag-topic tag-muted">${escape(tag)}</span></li>`).join("")}</ul>` : ""}
       </details>
     </section>`;
   return layout({
     config, root, path: "tags/", current: "tags",
-    title: "Tags",
-    description: `All ${used.length} tags used to classify the problems of the ${config.shortName}.`,
+    title: "Fields and topics",
+    description: `The ${usedFields.length} fields and ${usedTopics.length} topics used to classify the problems of the ${config.shortName}.`,
     body, bodyClass: "page-tags", withMath: false
   });
 }
 
-export function renderTagPage({ config, root, tag, records }) {
+export function renderTagPage({ config, root, kind, tag, records, related }) {
+  const meta = TAG_KINDS[kind];
+  const otherKind = kind === "field" ? "topic" : "field";
   const counts = { unsolved: 0, solved: 0 };
   for (const record of records) counts[record.statusSlug] += 1;
+  const relatedEntries = byCountThenName(related);
   const body = `
     <section class="section-shell">
-      <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><a href="${root}tags/">Tags</a><span aria-hidden="true">›</span><span>${escape(tag)}</span></nav>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><a href="${root}tags/">Fields and topics</a><span aria-hidden="true">›</span><span>${escape(tag)}</span></nav>
       <div class="section-heading">
-        <div><p class="section-index">Tag</p><h1>${escape(tag)}</h1></div>
-        <p>${records.length} problem${records.length === 1 ? "" : "s"}: ${counts.unsolved} unsolved, ${counts.solved} solved.</p>
+        <div><p class="section-index">${meta.label}</p><h1>${escape(tag)}</h1></div>
+        <p>${records.length} problem${records.length === 1 ? "" : "s"}: ${counts.unsolved} unsolved, ${counts.solved} solved. <a class="text-link" href="${root}problems/?${kind}=${slug(tag)}">Filter the catalog by this ${kind} →</a></p>
       </div>
+      ${relatedEntries.length ? `<div class="top-tags tag-page-related">
+        <span class="top-tags-label">${kind === "field" ? "Topics in this field" : "Fields of these problems"}</span>
+        <ul class="tag-list">${relatedEntries.map(([name, count]) => `<li>${tagLink(name, root, otherKind, count)}</li>`).join("")}</ul>
+      </div>` : ""}
       <ul class="problem-list">
         ${byRecentEdit(records).map((record) => problemRow(record, root)).join("\n        ")}
       </ul>
     </section>`;
   return layout({
     config, root, path: `tag/${slug(tag)}/`, current: "tags",
-    title: `${tag} · Tag`,
-    description: `${records.length} problems tagged “${tag}” in the ${config.shortName}.`,
+    title: `${tag} · ${meta.label}`,
+    description: `${records.length} problems in the ${kind} “${tag}” of the ${config.shortName}.`,
     body, bodyClass: "page-tag"
   });
 }
@@ -555,11 +623,14 @@ export function renderAbout({ config, root, stats, dates }) {
         </ul>
         <p>Progress on a nearby variant does not change a status. A status records the state of the literature at the last edit date shown on the page, so verify it against the cited sources before relying on it.</p>
 
+        <h2 id="taxonomy">How problems are classified</h2>
+        <p>Each problem carries one or two <strong>fields</strong> and one to five <strong>topics</strong>, chosen from the controlled list in <code>database/tags.json</code>. A field is the broad research area a problem belongs to, such as quantum Shannon theory or entanglement theory. A topic is the specific object, technique, or setting it concerns, such as degradable channels or semidefinite programming. Fields appear as solid labels and topics as outlined labels throughout the site; the <a href="${root}tags/">taxonomy page</a> lists both with counts, and the <a href="${root}problems/">catalog</a> filters by either.</p>
+
         <h2 id="contribute">How to contribute</h2>
         <ol>
-          <li>Fork the <a href="${config.repositoryUrl}" rel="noreferrer">repository</a> and copy <code>database/_template.json</code> to <code>database/problems_json/&lt;id&gt;.json</code>, where the ID comes from <code>node scripts/new-problem-id.mjs</code>.</li>
-          <li>Write the statement, status, source, progress, references, comment, and one to six tags from <code>database/tags.json</code> as TeX fragments in the record's fields, following the contribution guide.</li>
-          <li>Run <code>node scripts/sync-tex.mjs</code> to write the record's TeX form, then <code>node site/build.mjs</code>. The build rejects records with missing fields, unknown tags, unresolved citations, or unlabeled equations.</li>
+          <li>Fork the <a href="${config.repositoryUrl}" rel="noreferrer">repository</a> and run <code>node scripts/new-problem-id.mjs --create</code> to create a problem template with permanent identifiers.</li>
+          <li>Write the statement, status, source, progress, references, and comment as TeX fragments in the record's fields, following the contribution guide, and choose one or two fields and one to five topics from <code>database/tags.json</code>. Run <code>node scripts/migrate-metadata.mjs</code> after changing the classifications.</li>
+          <li>Run <code>node scripts/sync-tex.mjs</code> to write the record's TeX form, then <code>node site/build.mjs</code>. The build rejects records with missing fields, unknown or miscounted fields and topics, unresolved citations, or unlabeled equations.</li>
           <li>Open a pull request. To report progress on an existing problem, use the Edit button on its page or open an issue with the primary sources.</li>
         </ol>
 
@@ -569,9 +640,9 @@ export function renderAbout({ config, root, stats, dates }) {
 
         <h2 id="api">Machine-readable access</h2>
         <ul>
-          <li><a href="${root}api/index.json">api/index.json</a>: every problem with title, status, tags, plain-text statement, and links.</li>
+          <li><a href="${root}api/index.json">api/index.json</a>: every problem with title, status, fields, topics, plain-text statement, and links.</li>
           <li><code>api/problems/&lt;id&gt;.json</code>: one full record with TeX source, converted HTML, plain text, references, and equation labels.</li>
-          <li><a href="${root}api/tags.json">api/tags.json</a>: the tag taxonomy with counts.</li>
+          <li><a href="${root}api/tags.json">api/tags.json</a>: the taxonomy of fields and topics with counts.</li>
           <li><a href="${root}llms.txt">llms.txt</a>: a short guide for AI agents.</li>
         </ul>
 

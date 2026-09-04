@@ -4,8 +4,8 @@
 % the source of truth (see _template.json); this layout maps onto it section
 % by section: \section is "title", \paragraph{Problem.} is "statement", each
 % \item of Progress is one "progress" entry, each labeled \item of References
-% is one "references" entry, and the remaining subsections are the fields of
-% the same name.
+% is one "references" entry, Field and Topic are the "fields" and "topics"
+% arrays, and the remaining subsections are the record keys of the same name.
 %
 % Rules:
 % 1. To author in TeX, copy this structure into a problem_N.tex file and run
@@ -25,8 +25,10 @@
 %    states the problem explicitly, or identify concise implicit sources. If no
 %    literature source exists, give the contributor's name; use "unknown" only
 %    when the contributor is also unknown.
-% 8. Keep Tag and ID as the final two subsections, in that order. Assign one
-%    to six canonical tags from database/tags.json, separated by semicolons.
+% 8. Keep Field, Topic, and ID as the final three subsections, in that order.
+%    Assign one or two fields from the "fields" list and one to five topics
+%    from the "topics" list of database/tags.json, separated by semicolons.
+%    (Older files carry a single Tag subsection instead; it is still read.)
 % 9. Run `node site/build.mjs` before committing; the build rejects records
 %    that break these rules.
 
@@ -79,11 +81,17 @@ State precisely what remains unresolved.  If this problem is related to
 another problem in the zoo, explain that relationship here rather than in the
 problem statement.
 
-\subsection*{Tag}
+\subsection*{Field}
 
-% Use one to six names from database/tags.json exactly as written and
-% separate multiple tags with semicolons.
-Canonical tag one; Canonical tag two
+% One or two names from the "fields" list of database/tags.json, exactly as
+% written, separated by semicolons: the broad research areas of the problem.
+Canonical field
+
+\subsection*{Topic}
+
+% One to five names from the "topics" list of database/tags.json, exactly as
+% written, separated by semicolons: the specific objects and techniques.
+Canonical topic one; Canonical topic two
 
 \subsection*{ID}
 
