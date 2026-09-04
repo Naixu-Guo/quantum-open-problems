@@ -1,13 +1,46 @@
-name: Validate problem records
+name: Validate database and research service
 
 on:
-  pull_request:
+  push:
+    branches: [main]
     paths:
       - "database/**"
-      - "site/**"
       - "scripts/**"
       - "tests/**"
+      - "contract/**"
+      - "service/**"
+      - "web/**"
+      - "mcp/**"
+      - "ledger/**"
+      - "activity/**"
+      - "tools/**"
+      - "docs/adr/**"
+      - "site/**"
+      - "mcp/**"
       - "package.json"
+      - "CONTRIBUTING.md"
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/workflows/validate.yml"
+
+  pull_request:
+    # labeled/unlabeled: the ledger guard reads the labels, so adding or removing one must re-run it.
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+    paths:
+      - "database/**"
+      - "scripts/**"
+      - "tests/**"
+      - "contract/**"
+      - "service/**"
+      - "web/**"
+      - "ledger/**"
+      - "activity/**"
+      - "tools/**"
+      - "docs/adr/**"
+      - "site/**"
+      - "mcp/**"
+      - "package.json"
+      - "CONTRIBUTING.md"
+      - ".github/ISSUE_TEMPLATE/**"
       - ".github/workflows/validate.yml"
 
 permissions:
@@ -21,11 +54,110 @@ jobs:
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           fetch-depth: 0
-
-      - name: Verify metadata and identifier preservation
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: contract/package-lock.json
+      - name: Install contract dependencies
+        run: npm ci --ignore-scripts
+        working-directory: contract
+      - name: Check authoritative metadata and ledger projection
         run: |
           node scripts/migrate-metadata.mjs --check
+          npm run check-ledger
+      - name: Test the database and build
+        run: |
           npm test
+          node site/build.mjs --out "${RUNNER_TEMP}/qiqcop-dist"
 
-      - name: Build and validate every record
-        run: node site/build.mjs --out "${RUNNER_TEMP}/qiqcop-dist"
+  contract:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: contract
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: contract/package-lock.json
+
+      - name: Install
+        run: npm ci
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Validate fixture ledger
+        run: npm run validate
+
+      - name: Validate seed ledger
+        run: node --experimental-strip-types --no-warnings src/cli/validate.ts ../ledger ../activity
+
+      - name: Test
+        run: npm test
+
+  ledger-guard:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Require deliberate ledger migration
+        env:
+          LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
+          BASE: ${{ github.base_ref }}
+        run: |
+          changed=$(git diff --name-only "origin/$BASE...HEAD" -- ledger activity)
+          if [ -n "$changed" ] && ! printf ',%s,' "$LABELS" | grep -q ',ledger-change,'; then
+            echo "This pull request changes ledger files:"
+            echo "$changed"
+            echo "The service and the authoritative database exporter write the ledger; a pull request that edits ledger/ or activity/ needs the 'ledger-change' label to identify a deliberate update."
+            exit 1
+          fi
+
+  service:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: contract/package-lock.json
+
+      - name: Install contract dependencies
+        run: npm ci
+        working-directory: contract
+
+      - name: Type-check the service
+        run: npm run typecheck
+        working-directory: service
+
+      - name: Test the service
+        run: npm test
+        working-directory: service
+
+      - name: Test the web app
+        run: npm test
+        working-directory: web
+
+      - name: Type-check the MCP adapter
+        run: npm run typecheck
+        working-directory: mcp
+
+      - name: Test the MCP adapter
+        run: npm test
+        working-directory: mcp

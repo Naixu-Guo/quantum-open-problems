@@ -1,0 +1,47 @@
+---
+id: "01M1HME780THG7M7MWH1AKVSRS"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1Q787QRVXGPCXG6KEQTF7N1"
+createdAt: "2026-09-04T22:04:59Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-error-correction","entanglement-theory"]
+topicIds: ["absolutely-maximally-entangled-states","multipartite-entanglement","qudit-systems","quantum-coding-theory","tensor-networks"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Existence of an eight-ququart perfect tensor"
+aliases: ["op-b08ad9d4371ed0cb","op_b08ad9d4371ed0cb","01M1HME780THG7M7MWH1AKVSRS","v2-existence-of-an-eight-ququart-perfect-tensor","open-problem-v2-problem-40"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_b08ad9d4371ed0cb.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_b08ad9d4371ed0cb","ulid":"01M1HME780THG7M7MWH1AKVSRS","aliases":["op_b08ad9d4371ed0cb","01M1HME780THG7M7MWH1AKVSRS","op-b08ad9d4371ed0cb","v2-existence-of-an-eight-ququart-perfect-tensor","open-problem-v2-problem-40"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":2,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-04T22:04:59Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-error-correction","entanglement-theory"],"topicIds":["absolutely-maximally-entangled-states","multipartite-entanglement","qudit-systems","quantum-coding-theory","tensor-networks"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Existence of an eight-ququart perfect tensor","status":"Unsolved","fields":["Quantum error correction","Entanglement theory"],"topics":["Absolutely maximally entangled states","Multipartite entanglement","Qudit systems","Quantum coding theory","Tensor networks"],"statement":"Does an absolutely maximally entangled state of eight ququarts exist?  More\nprecisely, with $[8]=\\{1,\\ldots,8\\}$, determine whether there is a unit vector\n$|\\psi\\rangle\\in(\\mathbb{C}^{4})^{\\otimes 8}$ such that\n\\begin{equation}\n  \\operatorname{Tr}_{S^{c}}\\!\\left(|\\psi\\rangle\\!\\langle\\psi|\\right)\n  =\\frac{I_{4^{4}}}{4^{4}}\n  \\qquad\\text{for every }S\\subseteq[8]\\text{ with }|S|=4.\n  \\label{eq:p40-ame-condition}\n\\end{equation}\nCondition~\\eqref{eq:p40-ame-condition} is equivalently the existence of a\nrank-eight perfect tensor of bond dimension $4$: every flattening across a\n$4|4$ partition is proportional to a unitary\n\\sourcecite{ref:p40-pastawski}{PYHP15}.  Under the pure-code correspondence,\nit is also equivalent to a pure quantum MDS code with parameters\n$\\bigl[\\!\\bigl[8,0,5\\bigr]\\!\\bigr]_{4}$\n\\sourcecite{ref:p40-shi}{SZZL26}.","source":"Shi, Zhang, Zhao, and Li complete the seven-party AME classification and\nexplicitly identify $\\operatorname{AME}(8,4)$ as the first remaining\nhomogeneous existence case \\sourcecite{ref:p40-shi}{SZZL26}.","progress":["Bernal proved that a minimally supported $\\operatorname{AME}(N,4)$\n  state exists only for $N\\leq 6$.  Thus any solution of\n  \\eqref{eq:p40-ame-condition} must have strictly more than $4^{4}$ nonzero\n  coefficients in every local product basis\n  \\sourcecite{ref:p40-bernal}{Ber19}.","W\\'ojcik, Makuta, Bruzda, and Augusiak proved that no canonical\n  $\\mathbb{Z}_{d}$ graph state can be $\\operatorname{AME}(N,d)$ when $4$\n  divides $N$ and $d$ is even.  This excludes canonical $\\mathbb{Z}_{4}$\n  graph-state constructions for \\eqref{eq:p40-ame-condition}, but their\n  theorem does not exclude stabilizer constructions over $\\mathbb{F}_{4}$ or\n  general non-stabilizer states\n  \\sourcecite{ref:p40-wojcik}{WMB+26}.","Shi, Zhang, Zhao, and Li proved that\n  $\\operatorname{AME}(7,d)$ exists exactly for $d\\geq 3$, completing the\n  homogeneous existence classification through seven parties.  They identify\n  $\\operatorname{AME}(8,4)$ as the first remaining open case\n  \\sourcecite{ref:p40-shi}{SZZL26}."],"references":[{"key":"PYHP15","label":"ref:p40-pastawski","tex":"F. Pastawski, B. Yoshida, D. Harlow, and J. Preskill,\n  ``Holographic Quantum Error-Correcting Codes: Toy Models for the\n  Bulk/Boundary Correspondence,'' \\emph{Journal of High Energy Physics}\n  \\textbf{2015}(6), 149 (2015).\n  \\href{https://doi.org/10.1007/JHEP06(2015)149}{doi:10.1007/JHEP06(2015)149};\n  \\href{https://arxiv.org/abs/1503.06237}{arXiv:1503.06237}."},{"key":"Ber19","label":"ref:p40-bernal","tex":"A. Bernal,\n  ``On the Existence of Absolutely Maximally Entangled States of Minimal\n  Support II,'' \\emph{Quantum Physics Letters} \\textbf{8}, 1--4 (2019).\n  \\href{https://doi.org/10.18576/qpl/080101}{doi:10.18576/qpl/080101};\n  \\href{https://arxiv.org/abs/1807.00218}{arXiv:1807.00218}."},{"key":"WMB+26","label":"ref:p40-wojcik","tex":"J. W\\'ojcik, O. Makuta, W. Bruzda, and R. Augusiak,\n  ``On Non-Existence of Stabilizer Absolutely Maximally Entangled States in\n  Even Local Dimensions,'' arXiv:2603.18193 (2026).\n  \\href{https://doi.org/10.48550/arXiv.2603.18193}{doi:10.48550/arXiv.2603.18193};\n  \\href{https://arxiv.org/abs/2603.18193}{arXiv:2603.18193}."},{"key":"SZZL26","label":"ref:p40-shi","tex":"F. Shi, X. Zhang, Q. Zhao, and L. Li,\n  ``Complete Existence Classification of Seven-Partite Absolutely Maximally\n  Entangled States,'' arXiv:2608.01011 (2026).\n  \\href{https://doi.org/10.48550/arXiv.2608.01011}{doi:10.48550/arXiv.2608.01011};\n  \\href{https://arxiv.org/abs/2608.01011}{arXiv:2608.01011}."}],"comment":"The unresolved question concerns arbitrary complex states satisfying\n\\eqref{eq:p40-ame-condition}.  Existing no-go results cover minimal-support\nstates and canonical $\\mathbb{Z}_{4}$ graph states, but do not rule out\nnon-minimal-support $\\mathbb{F}_{4}$ stabilizer states or non-stabilizer\nconstructions."}}
+---
+## Source
+
+Shi, Zhang, Zhao, and Li complete the seven-party AME classification and explicitly identify $\operatorname{AME}(8,4)$ as the first remaining homogeneous existence case [SZZL26](https://doi.org/10.48550/arXiv.2608.01011).
+
+## Progress
+
+Bernal proved that a minimally supported $\operatorname{AME}(N,4)$ state exists only for $N\leq 6$. Thus any solution of (1) must have strictly more than $4^{4}$ nonzero coefficients in every local product basis [Ber19](https://doi.org/10.18576/qpl/080101).
+
+Wójcik, Makuta, Bruzda, and Augusiak proved that no canonical $\mathbb{Z}_{d}$ graph state can be $\operatorname{AME}(N,d)$ when $4$ divides $N$ and $d$ is even. This excludes canonical $\mathbb{Z}_{4}$ graph-state constructions for (1), but their theorem does not exclude stabilizer constructions over $\mathbb{F}_{4}$ or general non-stabilizer states [WMB+26](https://doi.org/10.48550/arXiv.2603.18193).
+
+Shi, Zhang, Zhao, and Li proved that $\operatorname{AME}(7,d)$ exists exactly for $d\geq 3$, completing the homogeneous existence classification through seven parties. They identify $\operatorname{AME}(8,4)$ as the first remaining open case [SZZL26](https://doi.org/10.48550/arXiv.2608.01011).
+
+## Comment
+
+The unresolved question concerns arbitrary complex states satisfying (1). Existing no-go results cover minimal-support states and canonical $\mathbb{Z}_{4}$ graph states, but do not rule out non-minimal-support $\mathbb{F}_{4}$ stabilizer states or non-stabilizer constructions.
+
+## References
+
+**PYHP15** F. Pastawski, B. Yoshida, D. Harlow, and J. Preskill, “Holographic Quantum Error-Correcting Codes: Toy Models for the Bulk/Boundary Correspondence,” *Journal of High Energy Physics* **2015**(6), 149 (2015). [doi:10.1007/JHEP06(2015)149](https://doi.org/10.1007/JHEP06\(2015\)149); [arXiv:1503.06237](https://arxiv.org/abs/1503.06237).
+
+**Ber19** A. Bernal, “On the Existence of Absolutely Maximally Entangled States of Minimal Support II,” *Quantum Physics Letters* **8**, 1–4 (2019). [doi:10.18576/qpl/080101](https://doi.org/10.18576/qpl/080101); [arXiv:1807.00218](https://arxiv.org/abs/1807.00218).
+
+**WMB+26** J. Wójcik, O. Makuta, W. Bruzda, and R. Augusiak, “On Non-Existence of Stabilizer Absolutely Maximally Entangled States in Even Local Dimensions,” arXiv:2603.18193 (2026). [doi:10.48550/arXiv.2603.18193](https://doi.org/10.48550/arXiv.2603.18193); [arXiv:2603.18193](https://arxiv.org/abs/2603.18193).
+
+**SZZL26** F. Shi, X. Zhang, Q. Zhao, and L. Li, “Complete Existence Classification of Seven-Partite Absolutely Maximally Entangled States,” arXiv:2608.01011 (2026). [doi:10.48550/arXiv.2608.01011](https://doi.org/10.48550/arXiv.2608.01011); [arXiv:2608.01011](https://arxiv.org/abs/2608.01011).

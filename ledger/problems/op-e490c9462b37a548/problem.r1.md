@@ -1,0 +1,51 @@
+---
+id: "01M1HME780DDSDKPH6BERTWRWB"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1Q787QRVXGPCXG6KEQTF7N1"
+createdAt: "2026-09-04T22:04:59Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-shannon-theory","quantum-communication"]
+topicIds: ["amplitude-damping-channels","two-way-quantum-capacity","qubit-systems"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Two-way quantum capacity: amplitude-damping channel"
+aliases: ["op-e490c9462b37a548","op_e490c9462b37a548","01M1HME780DDSDKPH6BERTWRWB","v2-two-way-quantum-capacity-amplitude-damping-channel","open-problem-v2-problem-5"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_e490c9462b37a548.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_e490c9462b37a548","ulid":"01M1HME780DDSDKPH6BERTWRWB","aliases":["op_e490c9462b37a548","01M1HME780DDSDKPH6BERTWRWB","op-e490c9462b37a548","v2-two-way-quantum-capacity-amplitude-damping-channel","open-problem-v2-problem-5"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":2,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-04T22:04:59Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-shannon-theory","quantum-communication"],"topicIds":["amplitude-damping-channels","two-way-quantum-capacity","qubit-systems"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Two-way quantum capacity: amplitude-damping channel","status":"Unsolved","fields":["Quantum Shannon theory","Quantum communication"],"topics":["Amplitude-damping channels","Two-way quantum capacity","Qubit systems"],"statement":"What is the two-way quantum capacity $\\mathcal{Q}_2(\\mathcal A_p)$ of the\nqubit amplitude-damping channel\n\\begin{equation}\n  \\mathcal A_p(\\rho)=A_0\\rho A_0^\\dagger+A_1\\rho A_1^\\dagger,\n  \\qquad 0\\le p\\le1?\n  \\label{eq:p5-amplitude-damping}\n\\end{equation}\nThe operators in Eq.~\\eqref{eq:p5-amplitude-damping} are\n\\begin{equation}\n  \\begin{aligned}\n    A_0&=\\lvert0\\rangle\\!\\langle0\\rvert\n         +\\sqrt{1-p}\\,\\lvert1\\rangle\\!\\langle1\\rvert\n       =\\begin{pmatrix}1&0\\\\0&\\sqrt{1-p}\\end{pmatrix},\\\\\n    A_1&=\\sqrt p\\,\\lvert0\\rangle\\!\\langle1\\rvert\n       =\\begin{pmatrix}0&\\sqrt p\\\\0&0\\end{pmatrix}.\n  \\end{aligned}\n  \\label{eq:p5-kraus-operators}\n\\end{equation}\nEquation~\\eqref{eq:p5-kraus-operators} uses $p$ as the decay probability of\nthe excited state.  Here $\\mathcal{Q}_2$ permits adaptive local operations and\nunlimited two-way classical communication between uses of the channel.","source":"The question is implicit in the nonmatching achievable and converse bounds\nfor the amplitude-damping channel reported by Pirandola, Laurenza,\nOttaviani, and Banchi \\sourcecite{ref:p5-pirandola}{PLOB17}.","progress":["Pirandola, Laurenza, Ottaviani, and Banchi bounded the two-way quantum\n  capacity using an achievable reverse-coherent-information rate from below\n  and the channel's squashed entanglement from above:\n  \\begin{equation}\n    \\max_{0\\le u\\le1}\\bigl[h_2(u)-h_2(pu)\\bigr]\n    \\le \\mathcal{Q}_2(\\mathcal A_p)\n    \\le h_2\\!\\left(\\frac12-\\frac p4\\right)\n       -h_2\\!\\left(1-\\frac p4\\right),\n    \\label{eq:p5-two-way-bounds}\n  \\end{equation}\n  where $h_2(x):=-x\\log_2x-(1-x)\\log_2(1-x)$, with $0\\log_2 0:=0$.  The lower rate in\n  Eq.~\\eqref{eq:p5-two-way-bounds} is achievable with a final round of\n  backward classical communication, whereas the upper rate follows from a\n  balanced amplitude-damping squashing channel\n  \\sourcecite{ref:p5-pirandola}{PLOB17}.","Fawzi, Shayeghi, and Ta developed a symmetry-reduced hierarchy of\n  semidefinite programs giving strong-converse upper bounds on two-way- and\n  PPT-assisted quantum capacity.  For the qubit amplitude-damping channel,\n  their six-copy $D^{\\#}_2$ bound improves the previously best single-copy\n  bound throughout the parameter range displayed in their numerical study.\n  The hierarchy tightens the converse side but still does not meet the\n  achievable lower bound in Eq.~\\eqref{eq:p5-two-way-bounds}\n  \\sourcecite{ref:p5-fawzi-shayeghi-ta}{FST22}."],"references":[{"key":"PLOB17","label":"ref:p5-pirandola","tex":"S. Pirandola, R. Laurenza, C. Ottaviani, and L. Banchi,\n  ``Fundamental Limits of Repeaterless Quantum Communications,''\n  \\emph{Nature Communications} \\textbf{8}, 15043 (2017).\n  \\href{https://doi.org/10.1038/ncomms15043}{doi:10.1038/ncomms15043};\n  \\href{https://arxiv.org/pdf/1510.08863}{arXiv:1510.08863}."},{"key":"FST22","label":"ref:p5-fawzi-shayeghi-ta","tex":"O. Fawzi, A. Shayeghi, and H. Ta,\n  ``A Hierarchy of Efficient Bounds on Quantum Capacities Exploiting\n  Symmetry,'' \\emph{IEEE Transactions on Information Theory} \\textbf{68},\n  7346--7360 (2022).\n  \\href{https://doi.org/10.1109/TIT.2022.3182101}{doi:10.1109/TIT.2022.3182101};\n  \\href{https://arxiv.org/abs/2203.02127}{arXiv:2203.02127}."}],"comment":"The bounds in Eq.~\\eqref{eq:p5-two-way-bounds} do not coincide in general.\nDetermining $\\mathcal{Q}_2(\\mathcal A_p)$ therefore requires either an improved\ntwo-way-assisted protocol, a tighter converse bound, or both.\nThis problem concerns the same amplitude-damping channel as Problem~2, but\nProblem~2 asks for a constructive code achieving the unassisted quantum\ncapacity $\\mathcal{Q}(\\mathcal A_p)$, whereas the present problem asks for the\ntwo-way quantum capacity $\\mathcal{Q}_2(\\mathcal A_p)$."}}
+---
+## Source
+
+The question is implicit in the nonmatching achievable and converse bounds for the amplitude-damping channel reported by Pirandola, Laurenza, Ottaviani, and Banchi [PLOB17](https://doi.org/10.1038/ncomms15043).
+
+## Progress
+
+Pirandola, Laurenza, Ottaviani, and Banchi bounded the two-way quantum capacity using an achievable reverse-coherent-information rate from below and the channel’s squashed entanglement from above:
+
+$$
+\max_{0\le u\le1}\bigl[h_2(u)-h_2(pu)\bigr]
+ \le \mathcal{Q}_2(\mathcal A_p)
+ \le h_2\!\left(\frac12-\frac p4\right)
+ -h_2\!\left(1-\frac p4\right),
+ \tag{3}
+$$
+
+where $h_2(x):=-x\log_2x-(1-x)\log_2(1-x)$, with $0\log_2 0:=0$. The lower rate in Eq. (3) is achievable with a final round of backward classical communication, whereas the upper rate follows from a balanced amplitude-damping squashing channel [PLOB17](https://doi.org/10.1038/ncomms15043).
+
+Fawzi, Shayeghi, and Ta developed a symmetry-reduced hierarchy of semidefinite programs giving strong-converse upper bounds on two-way- and PPT-assisted quantum capacity. For the qubit amplitude-damping channel, their six-copy $D^{\#}_2$ bound improves the previously best single-copy bound throughout the parameter range displayed in their numerical study. The hierarchy tightens the converse side but still does not meet the achievable lower bound in Eq. (3) [FST22](https://doi.org/10.1109/TIT.2022.3182101).
+
+## Comment
+
+The bounds in Eq. (3) do not coincide in general. Determining $\mathcal{Q}_2(\mathcal A_p)$ therefore requires either an improved two-way-assisted protocol, a tighter converse bound, or both. This problem concerns the same amplitude-damping channel as Problem 2, but Problem 2 asks for a constructive code achieving the unassisted quantum capacity $\mathcal{Q}(\mathcal A_p)$, whereas the present problem asks for the two-way quantum capacity $\mathcal{Q}_2(\mathcal A_p)$.
+
+## References
+
+**PLOB17** S. Pirandola, R. Laurenza, C. Ottaviani, and L. Banchi, “Fundamental Limits of Repeaterless Quantum Communications,” *Nature Communications* **8**, 15043 (2017). [doi:10.1038/ncomms15043](https://doi.org/10.1038/ncomms15043); [arXiv:1510.08863](https://arxiv.org/pdf/1510.08863).
+
+**FST22** O. Fawzi, A. Shayeghi, and H. Ta, “A Hierarchy of Efficient Bounds on Quantum Capacities Exploiting Symmetry,” *IEEE Transactions on Information Theory* **68**, 7346–7360 (2022). [doi:10.1109/TIT.2022.3182101](https://doi.org/10.1109/TIT.2022.3182101); [arXiv:2203.02127](https://arxiv.org/abs/2203.02127).

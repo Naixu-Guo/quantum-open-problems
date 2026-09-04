@@ -1,0 +1,48 @@
+---
+id: "01M1HME780M4B4RRABEG3RDDCZ"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1Q787QRVXGPCXG6KEQTF7N1"
+createdAt: "2026-09-04T22:04:59Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-foundations"]
+topicIds: ["bell-nonlocality","convex-geometry","combinatorics"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Complete facet descriptions for Bell polytopes"
+aliases: ["op-ebee7d5c442d81a4","op_ebee7d5c442d81a4","01M1HME780M4B4RRABEG3RDDCZ","v2-complete-facet-descriptions-for-bell-polytopes","open-problem-v2-problem-11"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_ebee7d5c442d81a4.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_ebee7d5c442d81a4","ulid":"01M1HME780M4B4RRABEG3RDDCZ","aliases":["op_ebee7d5c442d81a4","01M1HME780M4B4RRABEG3RDDCZ","op-ebee7d5c442d81a4","v2-complete-facet-descriptions-for-bell-polytopes","open-problem-v2-problem-11"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":2,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-04T22:04:59Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-foundations"],"topicIds":["bell-nonlocality","convex-geometry","combinatorics"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Complete facet descriptions for Bell polytopes","status":"Unsolved","fields":["Quantum foundations"],"topics":["Bell nonlocality","Convex geometry","Combinatorics"],"statement":"Determine complete facet descriptions for local-behavior polytopes beyond the\npresently solved Bell scenarios, either for a specified unresolved finite\nscenario or for a nontrivial infinite family with additional structure.  For\npositive integers $N$, $M$, and $K$, let\n$\\mathbf{x}\\in\\{1,\\ldots,M\\}^{N}$ denote the measurement settings and\n$\\mathbf{a}\\in\\{1,\\ldots,K\\}^{N}$ the outcomes.  The relevant local polytope\nis\n\\begin{equation}\n  \\mathcal{L}_{N,M,K}\n  :=\\operatorname{conv}\\!\\left\\{\n    p_{\\mathbf f}:p_{\\mathbf f}(\\mathbf a\\mid\\mathbf x)\n    =\\prod_{i=1}^{N}\\mathbf{1}\\!\\left\\{a_i=f_i(x_i)\\right\\},\\quad\n    f_i:\\{1,\\ldots,M\\}\\to\\{1,\\ldots,K\\}\n  \\right\\}.\n  \\label{eq:p11-local-polytope}\n\\end{equation}\nHere $\\mathbf 1\\{\\cdot\\}$ is the indicator function.\nThe task is to characterize all facet-defining inequalities of the polytope\nin Eq.~\\eqref{eq:p11-local-polytope} in a chosen unresolved regime, modulo\npermutations of parties, settings, and outcomes and modulo liftings obtained\nby adjoining redundant settings or outcomes.  A solution must carry a proof\nof completeness, not merely generate a large collection of facets.","source":"Kr\\\"uger and Werner explicitly pose the search for completeness-certified\nfacet descriptions of Bell polytopes in tractable finite scenarios and\nstructured families \\sourcecite{ref:p11-krueger-werner}{KW05}.","progress":["Fine proved that positivity, normalization, and the\n  Clauser--Horne--Shimony--Holt inequalities completely describe the\n  $(N,M,K)=(2,2,2)$ local scenario.  This settles only the smallest\n  nontrivial case\n  \\sourcecite{ref:p11-fine}{Fin82}.","Werner and Wolf classified all full-correlation facets for arbitrary\n  $N$ when every party has two dichotomic observables.  Their theorem concerns\n  a correlator projection of Eq.~\\eqref{eq:p11-local-polytope}, not the full\n  conditional-probability polytope\n  \\sourcecite{ref:p11-werner-wolf}{WW01}.","Staufenbiel's polyhedral-sampling method found more than\n  $1.29\\times10^8$ inequivalent facet classes in one unresolved scenario, but\n  the method intentionally sacrifices completeness.  Thus the computation\n  enlarges the known catalog without supplying the required certificate\n  \\sourcecite{ref:p11-staufenbiel}{Sta26}."],"references":[{"key":"Fin82","label":"ref:p11-fine","tex":"A. Fine,\n  ``Hidden Variables, Joint Probability, and the Bell Inequalities,''\n  \\emph{Physical Review Letters} \\textbf{48}, 291--295 (1982).\n  \\href{https://doi.org/10.1103/PhysRevLett.48.291}{doi:10.1103/PhysRevLett.48.291}."},{"key":"WW01","label":"ref:p11-werner-wolf","tex":"R. F. Werner and M. M. Wolf,\n  ``All Multipartite Bell Correlation Inequalities for Two Dichotomic\n  Observables per Site,''\n  \\emph{Physical Review A} \\textbf{64}, 032112 (2001).\n  \\href{https://doi.org/10.1103/PhysRevA.64.032112}{doi:10.1103/PhysRevA.64.032112};\n  \\href{https://arxiv.org/abs/quant-ph/0102024}{arXiv:quant-ph/0102024}."},{"key":"Sta26","label":"ref:p11-staufenbiel","tex":"C. Staufenbiel,\n  ``Bell Inequalities from Polyhedral Sampling,'' arXiv:2604.22859 (2026).\\newline\n  \\href{https://doi.org/10.48550/arXiv.2604.22859}{doi:10.48550/arXiv.2604.22859};\n  \\href{https://arxiv.org/abs/2604.22859}{arXiv:2604.22859}."},{"key":"KW05","label":"ref:p11-krueger-werner","tex":"O. Krüger and R. F. Werner (eds.),\n  ``Some Open Problems in Quantum Information Theory,''\n  arXiv:quant-ph/0504166 (2005).\n  \\href{https://doi.org/10.48550/arXiv.quant-ph/0504166}{doi:10.48550/arXiv.quant-ph/0504166};\n  \\href{https://arxiv.org/abs/quant-ph/0504166}{arXiv:quant-ph/0504166}."}],"comment":"The source problem explicitly replaces an implausible classification uniform\nin all $(N,M,K)$ by completeness-certified finite cases and structured\nfamilies \\sourcecite{ref:p11-krueger-werner}{KW05}.  The unresolved gap is a\nnew theorem of completeness for one such nontrivial regime; heuristic\ncompleteness or sampling without a certificate is insufficient."}}
+---
+## Source
+
+Krüger and Werner explicitly pose the search for completeness-certified facet descriptions of Bell polytopes in tractable finite scenarios and structured families [KW05](https://doi.org/10.48550/arXiv.quant-ph/0504166).
+
+## Progress
+
+Fine proved that positivity, normalization, and the Clauser–Horne–Shimony–Holt inequalities completely describe the $(N,M,K)=(2,2,2)$ local scenario. This settles only the smallest nontrivial case [Fin82](https://doi.org/10.1103/PhysRevLett.48.291).
+
+Werner and Wolf classified all full-correlation facets for arbitrary $N$ when every party has two dichotomic observables. Their theorem concerns a correlator projection of Eq. (1), not the full conditional-probability polytope [WW01](https://doi.org/10.1103/PhysRevA.64.032112).
+
+Staufenbiel’s polyhedral-sampling method found more than $1.29\times10^8$ inequivalent facet classes in one unresolved scenario, but the method intentionally sacrifices completeness. Thus the computation enlarges the known catalog without supplying the required certificate [Sta26](https://doi.org/10.48550/arXiv.2604.22859).
+
+## Comment
+
+The source problem explicitly replaces an implausible classification uniform in all $(N,M,K)$ by completeness-certified finite cases and structured families [KW05](https://doi.org/10.48550/arXiv.quant-ph/0504166). The unresolved gap is a new theorem of completeness for one such nontrivial regime; heuristic completeness or sampling without a certificate is insufficient.
+
+## References
+
+**Fin82** A. Fine, “Hidden Variables, Joint Probability, and the Bell Inequalities,” *Physical Review Letters* **48**, 291–295 (1982). [doi:10.1103/PhysRevLett.48.291](https://doi.org/10.1103/PhysRevLett.48.291).
+
+**WW01** R. F. Werner and M. M. Wolf, “All Multipartite Bell Correlation Inequalities for Two Dichotomic Observables per Site,” *Physical Review A* **64**, 032112 (2001). [doi:10.1103/PhysRevA.64.032112](https://doi.org/10.1103/PhysRevA.64.032112); [arXiv:quant-ph/0102024](https://arxiv.org/abs/quant-ph/0102024).
+
+**Sta26** C. Staufenbiel, “Bell Inequalities from Polyhedral Sampling,” arXiv:2604.22859 (2026).
+ [doi:10.48550/arXiv.2604.22859](https://doi.org/10.48550/arXiv.2604.22859); [arXiv:2604.22859](https://arxiv.org/abs/2604.22859).
+
+**KW05** O. Krüger and R. F. Werner (eds.), “Some Open Problems in Quantum Information Theory,” arXiv:quant-ph/0504166 (2005). [doi:10.48550/arXiv.quant-ph/0504166](https://doi.org/10.48550/arXiv.quant-ph/0504166); [arXiv:quant-ph/0504166](https://arxiv.org/abs/quant-ph/0504166).

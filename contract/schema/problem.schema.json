@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/contract/v1/problem.schema.json",
+  "title": "Problem",
+  "description": "A permanent question, primary or auxiliary. Revisable. Research status is Solved or Unsolved; an authoritative authored catalog snapshot takes precedence over decisions.",
+  "allOf": [{ "$ref": "common.schema.json#/$defs/revisableBase" }],
+  "unevaluatedProperties": false,
+  "required": ["type", "title", "role", "parentProblemId", "parentClauseId", "aliases", "origin", "posed", "areaIds", "topicIds", "keywords", "difficulty", "verificationCost", "relatedProblemIds", "body"],
+  "properties": {
+    "type": { "const": "Problem" },
+    "title": { "$ref": "common.schema.json#/$defs/nonEmptyText" },
+    "role": { "enum": ["primary", "auxiliary"] },
+    "parentProblemId": { "$ref": "common.schema.json#/$defs/ulidOrNull" },
+    "parentClauseId": { "type": ["string", "null"], "pattern": "^[0-9A-HJKMNP-TV-Z]{26}#[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "aliases": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^(?:op_[A-Za-z0-9]{16}|[0-7][0-9A-HJKMNP-TV-Z]{25}|[a-z0-9]+(?:-[a-z0-9]+)*)$" } },
+    "authoredCatalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "sourcePath"],
+      "properties": {
+        "status": { "enum": ["Solved", "Unsolved"] },
+        "sourcePath": { "$ref": "common.schema.json#/$defs/nonEmptyText" },
+        "record": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "origin": { "enum": ["source-stated", "derived", "editor-formulated", "agent-formulated"] },
+    "posed": { "$ref": "common.schema.json#/$defs/dateOrNull" },
+    "areaIds": { "$ref": "common.schema.json#/$defs/slugList" },
+    "topicIds": { "$ref": "common.schema.json#/$defs/slugList" },
+    "keywords": { "$ref": "common.schema.json#/$defs/stringList" },
+    "difficulty": { "enum": ["unrated", "accessible", "hard", "very-hard"] },
+    "verificationCost": { "enum": ["unrated", "low", "medium", "high"] },
+    "relatedProblemIds": { "$ref": "common.schema.json#/$defs/ulidList" },
+    "body": { "$ref": "common.schema.json#/$defs/text" }
+  }
+}

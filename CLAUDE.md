@@ -59,11 +59,14 @@ each mirrored by a TeX file (`database/problems_tex/`).
    fills missing metadata without replacing scientific content, field or
    topic names, or binary statuses. `database/actors.json` records an honest
    system migration actor. Main exports contain a strict Problem projection
-   alongside the full source record and binary status; only the projection
-   filters aliases to main's slug rules. Do not invent reviews or decisions.
-   Ledger admission or revision remains a separate contribution process,
-   and adopting raw aliases or binary statuses there needs explicit schema
-   or policy changes.
+   alongside the full source record and binary status, preserving all aliases.
+   After authoring changes, run `npm run export-ledger` and commit the ledger
+   projection. Its `authoredCatalog` provenance makes the maintained records
+   visible to the research service with their authoritative status. Do not
+   invent reviews or decisions. Regular exports preserve subsequent service
+   activity; full replacement requires the explicit `--replace-authoritative`
+   flag. The contract accepts both identifiers, binary research statuses,
+   and an independent field/topic taxonomy.
 
 ## Design conventions
 

@@ -59,13 +59,15 @@ The site exports alias lookups at `/api/problems/<alias>.json`, the crosswalk
 at `/api/identifiers.json`, and main-compatible envelopes at
 `/api/main/problems/<ulid>.json`. Each envelope contains a strict `problem`
 projection, the binary `status`, and the full authored `record`. The
-projection filters aliases through main's slug rules; the full record and
-crosswalk preserve all aliases. `/api/main/actors.json` exports the migration
-actor. These are derived views of this database. Importing them into main's
-ledger still requires admission or revision contributions and decisions,
-taxonomy reconciliation, and explicit policy or schema changes for binary
-statuses and raw aliases. Metadata taxonomy IDs are the slugs of this
-database's authored field and topic names.
+projection, full record, and crosswalk preserve all aliases.
+`/api/main/actors.json` exports the migration actor. These are derived views
+of this database. `npm run export-ledger` also publishes the authoritative
+content to `ledger/` for the research service, with explicit catalog
+provenance and exactly the same binary statuses. It retains the full JSON,
+including every local key, in `authoredCatalog.record`; it creates no
+fictional research or review events. Metadata taxonomy IDs are the slugs
+of this database's authored field and topic names. The ledger taxonomy
+preserves their independence.
 
 Run `node site/build.mjs` after any change; the build validates every record
 and fails on schema violations. See `../CONTRIBUTING.md` for the writing

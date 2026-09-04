@@ -1,3 +1,7 @@
 .DS_Store
 dist/
 node_modules/
+ref/*.pdf
+# Uploaded blobs are served by the domain service, outside the mirrored ledger.
+activity/artifact-store/*
+!activity/artifact-store/*.jsonl

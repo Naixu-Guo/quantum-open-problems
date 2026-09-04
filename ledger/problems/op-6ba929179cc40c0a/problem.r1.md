@@ -1,0 +1,45 @@
+---
+id: "01M1HME780146X04XW01Y1DZHB"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1Q787QRVXGPCXG6KEQTF7N1"
+createdAt: "2026-09-04T22:04:59Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-measurement-theory"]
+topicIds: ["symmetric-informationally-complete-measurements","qudit-systems","representation-theory"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Weyl--Heisenberg-covariant SICs in every dimension"
+aliases: ["op-6ba929179cc40c0a","op_6ba929179cc40c0a","01M1HME780146X04XW01Y1DZHB","v2-weyl-heisenberg-covariant-sics-in-every-dimension","open-problem-v2-problem-18"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_6ba929179cc40c0a.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_6ba929179cc40c0a","ulid":"01M1HME780146X04XW01Y1DZHB","aliases":["op_6ba929179cc40c0a","01M1HME780146X04XW01Y1DZHB","op-6ba929179cc40c0a","v2-weyl-heisenberg-covariant-sics-in-every-dimension","open-problem-v2-problem-18"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":2,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-04T22:04:59Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-measurement-theory"],"topicIds":["symmetric-informationally-complete-measurements","qudit-systems","representation-theory"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Weyl--Heisenberg-covariant SICs in every dimension","status":"Unsolved","fields":["Quantum measurement theory"],"topics":["Symmetric informationally complete measurements","Qudit systems","Representation theory"],"statement":"Does every finite dimension admit a symmetric informationally complete\nmeasurement that is a single Weyl--Heisenberg orbit?  For an integer $d\\geq2$,\nlet $\\omega_d=e^{2\\pi i/d}$ and define shift, phase, and displacement operators\non the computational basis by\n\\begin{equation}\n  X_d\\lvert j\\rangle=\\lvert j+1\\!\\!\\pmod d\\rangle,\n  \\qquad\n  Z_d\\lvert j\\rangle=\\omega_d^j\\lvert j\\rangle,\n  \\qquad\n  D_{p,q}=X_d^pZ_d^q,\n  \\quad (p,q)\\in\\mathbb Z_d^2.\n  \\label{eq:p18-displacements}\n\\end{equation}\nEquation~\\eqref{eq:p18-displacements} fixes a phase convention that does not\naffect the orbit of rank-one projectors.  The question is whether, for every\n$d\\geq2$, there is a unit vector $\\lvert\\phi\\rangle\\in\\mathbb C^d$ satisfying\n\\begin{equation}\n  \\bigl|\\langle\\phi\\rvert D_{p,q}\\lvert\\phi\\rangle\\bigr|^2\n  =\\frac{1}{d+1}\n  \\qquad\n  \\text{for every }(p,q)\\in\\mathbb Z_d^2\\setminus\\{(0,0)\\}.\n  \\label{eq:p18-wh-sic-condition}\n\\end{equation}\nIf Eq.~\\eqref{eq:p18-wh-sic-condition} holds, the $d^2$ projectors in the\nWeyl--Heisenberg orbit of $\\lvert\\phi\\rangle$ form a SIC.","source":"Renes, Blume-Kohout, Scott, and Caves explicitly conjecture the existence of a\nWeyl--Heisenberg-covariant SIC in every finite dimension\n\\sourcecite{ref:p18-renes}{RBS+04}.","progress":["Renes, Blume-Kohout, Scott, and Caves stated\n  Eq.~\\eqref{eq:p18-wh-sic-condition} in every dimension as Conjecture~1 and\n  found numerical solutions through $d=45$\n  \\sourcecite{ref:p18-renes}{RBS+04}.","Appleby, Bengtsson, Flammia, and Goyeneche reported numerical\n  Weyl--Heisenberg SICs in every dimension through $d=181$ and in many larger\n  dimensions.  These computations establish individual finite cases, not the\n  all-dimensional assertion\n  \\sourcecite{ref:p18-appleby-data}{ABFG19}.","Appleby, Flammia, and Kopp give a construction for all $d>3$\n  conditional on the order-one abelian Stark conjecture and a special-value\n  identity for the Shintani--Faddeev modular cocycle.  The hypotheses remain\n  unproved, so the construction is not unconditional\n  \\sourcecite{ref:p18-appleby-stark}{AFK25}."],"references":[{"key":"RBS+04","label":"ref:p18-renes","tex":"J. M. Renes, R. Blume-Kohout, A. J. Scott, and C. M. Caves,\n  ``Symmetric Informationally Complete Quantum Measurements,''\n  \\emph{Journal of Mathematical Physics} \\textbf{45}, 2171--2180 (2004).\n  \\href{https://doi.org/10.1063/1.1737053}{doi:10.1063/1.1737053};\n  \\href{https://arxiv.org/abs/quant-ph/0310075}{arXiv:quant-ph/0310075}."},{"key":"ABFG19","label":"ref:p18-appleby-data","tex":"M. Appleby, I. Bengtsson, S. Flammia, and D. Goyeneche,\n  ``Tight Frames, Hadamard Matrices and Zauner's Conjecture,''\n  \\emph{Journal of Physics A: Mathematical and Theoretical} \\textbf{52},\n  295301 (2019).\n  \\href{https://doi.org/10.1088/1751-8121/ab25ad}{doi:10.1088/1751-8121/ab25ad};\n  \\href{https://arxiv.org/abs/1903.06721}{arXiv:1903.06721}."},{"key":"AFK25","label":"ref:p18-appleby-stark","tex":"M. Appleby, S. T. Flammia, and G. S. Kopp,\n  ``A Constructive Approach to Zauner's Conjecture via the Stark\n  Conjectures,'' arXiv:2501.03970 (2025).\n  \\href{https://arxiv.org/abs/2501.03970}{arXiv:2501.03970}."}],"comment":"The unresolved step is an unconditional construction, or existence proof, for\nEq.~\\eqref{eq:p18-wh-sic-condition} in every $d$.  Problem~19 imposes the\nadditional requirement that the fiducial be Zauner symmetric."}}
+---
+## Source
+
+Renes, Blume-Kohout, Scott, and Caves explicitly conjecture the existence of a Weyl–Heisenberg-covariant SIC in every finite dimension [RBS+04](https://doi.org/10.1063/1.1737053).
+
+## Progress
+
+Renes, Blume-Kohout, Scott, and Caves stated Eq. (2) in every dimension as Conjecture 1 and found numerical solutions through $d=45$ [RBS+04](https://doi.org/10.1063/1.1737053).
+
+Appleby, Bengtsson, Flammia, and Goyeneche reported numerical Weyl–Heisenberg SICs in every dimension through $d=181$ and in many larger dimensions. These computations establish individual finite cases, not the all-dimensional assertion [ABFG19](https://doi.org/10.1088/1751-8121/ab25ad).
+
+Appleby, Flammia, and Kopp give a construction for all $d>3$ conditional on the order-one abelian Stark conjecture and a special-value identity for the Shintani–Faddeev modular cocycle. The hypotheses remain unproved, so the construction is not unconditional [AFK25](https://doi.org/10.48550/arXiv.2501.03970).
+
+## Comment
+
+The unresolved step is an unconditional construction, or existence proof, for Eq. (2) in every $d$. Problem 19 imposes the additional requirement that the fiducial be Zauner symmetric.
+
+## References
+
+**RBS+04** J. M. Renes, R. Blume-Kohout, A. J. Scott, and C. M. Caves, “Symmetric Informationally Complete Quantum Measurements,” *Journal of Mathematical Physics* **45**, 2171–2180 (2004). [doi:10.1063/1.1737053](https://doi.org/10.1063/1.1737053); [arXiv:quant-ph/0310075](https://arxiv.org/abs/quant-ph/0310075).
+
+**ABFG19** M. Appleby, I. Bengtsson, S. Flammia, and D. Goyeneche, “Tight Frames, Hadamard Matrices and Zauner’s Conjecture,” *Journal of Physics A: Mathematical and Theoretical* **52**, 295301 (2019). [doi:10.1088/1751-8121/ab25ad](https://doi.org/10.1088/1751-8121/ab25ad); [arXiv:1903.06721](https://arxiv.org/abs/1903.06721).
+
+**AFK25** M. Appleby, S. T. Flammia, and G. S. Kopp, “A Constructive Approach to Zauner’s Conjecture via the Stark Conjectures,” arXiv:2501.03970 (2025). [arXiv:2501.03970](https://arxiv.org/abs/2501.03970).

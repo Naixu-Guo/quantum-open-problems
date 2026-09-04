@@ -1,0 +1,17 @@
+{
+  "name": "@quantum-open-problems/service",
+  "version": "0.1.0",
+  "description": "Domain service for the Quantum Open Problems ledger: the only committer, the SQLite index, automatic acceptance decisions, and the HTTP API.",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "serve": "node --experimental-strip-types --no-warnings src/cli.ts serve",
+    "rebuild": "node --experimental-strip-types --no-warnings src/cli.ts rebuild",
+    "test": "node --experimental-strip-types --no-warnings --test \"test/*.test.ts\"",
+    "typecheck": "../contract/node_modules/.bin/tsc -p tsconfig.json"
+  },
+  "license": "MIT"
+}

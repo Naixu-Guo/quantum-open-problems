@@ -69,22 +69,25 @@ The metadata `areaIds` and `topicIds` are the URL slugs of the authored
 `fields` and `topics`, in the same order. The metadata migration keeps these
 arrays in step when taxonomy assignments change. Adding compatibility
 metadata preserves the existing JSON keys and field and topic names; it does not change the
-scientific content or status. A main ledger integration must also reconcile
-these taxonomy IDs with its registry. The migration actor in
+scientific content or status. The ledger exporter preserves this registry
+with independent topics. The migration actor in
 `database/actors.json` identifies the system migration; it does not claim
 authorship or human review of the research.
 
 The build publishes every alias for record lookup and redirects it to the
 existing `op_` page. `/api/main/problems/<ulid>.json` wraps a strict main
 Problem projection in `problem`, with the zoo's binary `status` and the full
-authored JSON in `record`. Aliases that main's slug rules reject remain in
-the full record and `/api/identifiers.json`.
+authored JSON in `record`. All aliases are retained in the projection and
+`/api/identifiers.json`.
 
-This export is an adapter for main's Problem format. Main still needs
-admission or revision contributions and its review and decision process;
-adopting binary statuses and raw aliases requires deliberate policy or
-schema changes. Do not create fictional reviews, decisions, or research
-attribution to make an export appear admitted.
+Run `npm run export-ledger` after a database change to update the service's
+ledger projection, then `npm run check-ledger` and `npm run validate:ledger`.
+The projection embeds the authored JSON and its binary status. Imported
+catalog entries are published through that explicit catalog provenance;
+do not create fictional reviews, decisions, or research attribution.
+Service contributions and reviews remain in the ledger. Pull requests
+changing the ledger or activity roots need the `ledger-change` label to
+identify a deliberate update.
 
 ## Fields and topics
 

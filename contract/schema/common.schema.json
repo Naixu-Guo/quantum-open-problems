@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/contract/v1/common.schema.json",
+  "title": "Shared definitions for Quantum Open Problems records",
+  "$defs": {
+    "ulid": { "type": "string", "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$" },
+    "ulidOrNull": { "type": ["string", "null"], "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$" },
+    "ulidList": { "type": "array", "items": { "$ref": "#/$defs/ulid" }, "uniqueItems": true },
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "slugList": { "type": "array", "items": { "$ref": "#/$defs/slug" }, "uniqueItems": true },
+    "clauseRef": { "type": "string", "pattern": "^[0-9A-HJKMNP-TV-Z]{26}#[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "clauseRefList": { "type": "array", "items": { "$ref": "#/$defs/clauseRef" }, "uniqueItems": true },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "date": { "type": "string", "pattern": "^[0-9]{4}(?:-[0-9]{2}(?:-[0-9]{2})?)?$" },
+    "dateOrNull": { "type": ["string", "null"], "pattern": "^[0-9]{4}(?:-[0-9]{2}(?:-[0-9]{2})?)?$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "digestOrNull": { "type": ["string", "null"], "pattern": "^sha256:[a-f0-9]{64}$" },
+    "digestList": { "type": "array", "items": { "$ref": "#/$defs/digest" }, "uniqueItems": true },
+    "text": { "type": "string" },
+    "nonEmptyText": { "type": "string", "minLength": 1 },
+    "textOrNull": { "type": ["string", "null"] },
+    "url": { "type": ["string", "null"], "pattern": "^https?://[^\\s]+$" },
+    "schemaVersion": { "const": "1.0" },
+    "stringList": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+
+    "immutableBase": {
+      "type": "object",
+      "required": ["id", "type", "schemaVersion", "createdBy", "createdAt", "supersedes"],
+      "properties": {
+        "id": { "$ref": "#/$defs/ulid" },
+        "schemaVersion": { "$ref": "#/$defs/schemaVersion" },
+        "createdBy": { "$ref": "#/$defs/ulid" },
+        "createdAt": { "$ref": "#/$defs/timestamp" },
+        "supersedes": { "$ref": "#/$defs/ulidOrNull" }
+      }
+    },
+    "revisableBase": {
+      "type": "object",
+      "required": ["id", "type", "schemaVersion", "revision", "createdBy", "createdAt"],
+      "properties": {
+        "id": { "$ref": "#/$defs/ulid" },
+        "schemaVersion": { "$ref": "#/$defs/schemaVersion" },
+        "revision": { "type": "integer", "minimum": 1 },
+        "createdBy": { "$ref": "#/$defs/ulid" },
+        "createdAt": { "$ref": "#/$defs/timestamp" }
+      }
+    },
+
+    "quantity": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["name", "symbol", "direction"],
+      "properties": {
+        "name": { "$ref": "#/$defs/nonEmptyText" },
+        "symbol": { "$ref": "#/$defs/text" },
+        "direction": { "enum": ["upper", "lower", "exact"] }
+      }
+    },
+    "clause": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "text", "kind", "resolutionCriteria", "supersedesClauseId", "quantity"],
+      "properties": {
+        "id": { "$ref": "#/$defs/slug" },
+        "label": { "$ref": "#/$defs/nonEmptyText" },
+        "text": { "$ref": "#/$defs/nonEmptyText" },
+        "kind": { "enum": ["existence", "universal", "value", "construction", "bound", "decision"] },
+        "resolutionCriteria": { "$ref": "#/$defs/nonEmptyText" },
+        "supersedesClauseId": { "type": ["string", "null"], "pattern": "^[0-9A-HJKMNP-TV-Z]{26}#[a-z0-9]+(?:-[a-z0-9]+)*$" },
+        "quantity": { "$ref": "#/$defs/quantity" }
+      }
+    },
+    "bound": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["clauseId", "direction", "value", "valueForm", "conditions"],
+      "properties": {
+        "clauseId": { "$ref": "#/$defs/clauseRef" },
+        "direction": { "enum": ["upper", "lower", "exact"] },
+        "value": { "$ref": "#/$defs/nonEmptyText" },
+        "valueForm": { "enum": ["exact-rational", "decimal", "expression"] },
+        "conditions": { "$ref": "#/$defs/text" }
+      }
+    },
+    "support": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceId", "artifactId", "locator", "date", "maturity", "strength"],
+      "properties": {
+        "sourceId": { "$ref": "#/$defs/ulidOrNull" },
+        "artifactId": { "$ref": "#/$defs/ulidOrNull" },
+        "locator": { "$ref": "#/$defs/text" },
+        "date": { "$ref": "#/$defs/dateOrNull" },
+        "maturity": { "enum": ["peer-reviewed", "preprint", "withdrawn", "conditional", "unreviewed-artifact", "machine-checked-artifact", "ai-verified-artifact", "web-record"] },
+        "strength": { "enum": ["exact-theorem", "restricted-theorem", "bound", "numerical-evidence", "construction", "counterexample", "survey-assessment", "correction", "unaccepted-claim", "related-result"] }
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["actorId", "method", "outcome", "log"],
+      "properties": {
+        "actorId": { "$ref": "#/$defs/ulid" },
+        "method": { "$ref": "#/$defs/nonEmptyText" },
+        "outcome": { "enum": ["pass", "fail", "error"] },
+        "log": { "$ref": "#/$defs/text" }
+      }
+    },
+    "reviewCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "outcome", "note"],
+      "properties": {
+        "name": { "$ref": "#/$defs/nonEmptyText" },
+        "outcome": { "enum": ["pass", "fail", "error"] },
+        "note": { "$ref": "#/$defs/text" }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["seq", "at", "kind", "summary", "problemId", "clauseId", "obstacle", "objectIds", "artifactId"],
+      "properties": {
+        "seq": { "type": "integer", "minimum": 1 },
+        "at": { "$ref": "#/$defs/timestamp" },
+        "kind": { "enum": ["read", "decompose", "attempt", "prove", "refute", "compute", "stuck", "revise", "submit", "note"] },
+        "summary": { "$ref": "#/$defs/nonEmptyText" },
+        "problemId": { "$ref": "#/$defs/ulidOrNull" },
+        "clauseId": { "type": ["string", "null"], "pattern": "^[0-9A-HJKMNP-TV-Z]{26}#[a-z0-9]+(?:-[a-z0-9]+)*$" },
+        "obstacle": { "enum": ["missing-lemma", "refuted-subgoal", "computational-limit", "ambiguous-statement", "out-of-budget", "none"] },
+        "objectIds": { "$ref": "#/$defs/ulidList" },
+        "artifactId": { "$ref": "#/$defs/ulidOrNull" }
+      }
+    },
+    "cost": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tokens", "wallTimeSeconds", "moneyUsd"],
+      "properties": {
+        "tokens": { "type": ["integer", "null"], "minimum": 0 },
+        "wallTimeSeconds": { "type": ["number", "null"], "minimum": 0 },
+        "moneyUsd": { "type": ["number", "null"], "minimum": 0 }
+      }
+    },
+    "revision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entityId", "revision"],
+      "properties": {
+        "entityId": { "$ref": "#/$defs/ulid" },
+        "revision": { "type": "integer", "minimum": 2 }
+      }
+    },
+    "conflictOfInterest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["declared", "statement"],
+      "properties": {
+        "declared": { "type": "boolean" },
+        "statement": { "$ref": "#/$defs/text" }
+      }
+    },
+    "independence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["differentOperator", "differentModelFamily", "noSharedReads"],
+      "properties": {
+        "differentOperator": { "type": "boolean" },
+        "differentModelFamily": { "type": "boolean" },
+        "noSharedReads": { "type": "boolean" }
+      }
+    }
+  }
+}

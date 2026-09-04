@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/contract/v1/artifact.schema.json",
+  "title": "Artifact",
+  "description": "A content-addressed blob and its check results. Immutable. The blob itself lives in the artifact store.",
+  "allOf": [{ "$ref": "common.schema.json#/$defs/immutableBase" }],
+  "unevaluatedProperties": false,
+  "required": ["type", "title", "digest", "kind", "mediaType", "size", "uri", "trajectoryId", "checkable", "checks", "body"],
+  "properties": {
+    "type": { "const": "Artifact" },
+    "title": { "$ref": "common.schema.json#/$defs/nonEmptyText" },
+    "digest": { "$ref": "common.schema.json#/$defs/digest" },
+    "kind": { "enum": ["proof-text", "lean", "coq", "code", "certificate", "notebook", "dataset", "transcript", "event-log", "log", "figure"] },
+    "mediaType": { "$ref": "common.schema.json#/$defs/nonEmptyText" },
+    "size": { "type": "integer", "minimum": 0 },
+    "uri": { "$ref": "common.schema.json#/$defs/nonEmptyText" },
+    "trajectoryId": { "$ref": "common.schema.json#/$defs/ulidOrNull" },
+    "checkable": { "type": "boolean" },
+    "checks": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/check" } },
+    "body": { "$ref": "common.schema.json#/$defs/text" }
+  }
+}

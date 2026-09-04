@@ -1,0 +1,55 @@
+---
+id: "01M1Q787QRH2ASM04Q5SDG2H88"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1Q787QRVXGPCXG6KEQTF7N1"
+createdAt: "2026-09-04T22:04:59Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-complexity-theory","quantum-shannon-theory"]
+topicIds: ["quantum-capacity","quantum-channels","coherent-information"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Computability of ordinary quantum capacity"
+aliases: ["op-54aa8f0f61ecc5b1","op_54aa8f0f61ecc5b1","01M1Q787QRH2ASM04Q5SDG2H88"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_54aa8f0f61ecc5b1.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_54aa8f0f61ecc5b1","ulid":"01M1Q787QRH2ASM04Q5SDG2H88","aliases":["op_54aa8f0f61ecc5b1","01M1Q787QRH2ASM04Q5SDG2H88","op-54aa8f0f61ecc5b1"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":1,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-04T22:04:59Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-complexity-theory","quantum-shannon-theory"],"topicIds":["quantum-capacity","quantum-channels","coherent-information"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Computability of ordinary quantum capacity","status":"Unsolved","fields":["Quantum complexity theory","Quantum Shannon theory"],"topics":["Quantum capacity","Quantum channels","Coherent information"],"statement":"Is the ordinary unassisted quantum capacity a computable function of a finite\ndescription of a finite-dimensional quantum channel?  Let\n$\\mathcal N:\\mathcal L(A)\\to\\mathcal L(B)$ be specified either by an exact\nfinite list of Kraus matrices with computable algebraic entries (including\nrational entries) or by a finite quantum circuit over a fixed algebraic gate\nset, allowing state preparation and partial trace.  For a complementary\nchannel $\\mathcal N^c$, define coherent information and quantum capacity by\n\\begin{equation}\n  I_c(\\rho,\\mathcal N)\n  :=S(\\mathcal N(\\rho))-S(\\mathcal N^c(\\rho)),\n  \\qquad\n  Q(\\mathcal N)\n  :=\\sup_{n\\geq1}\\frac1n\n       \\max_{\\rho_{A^{\\otimes n}}}\n       I_c(\\rho_{A^{\\otimes n}},\\mathcal N^{\\otimes n}),\n  \\label{eq:p72-quantum-capacity}\n\\end{equation}\nwhere $S(\\tau):=-\\operatorname{Tr}(\\tau\\log_2\\tau)$.  Writing\n$\\langle\\mathcal N\\rangle$ for either finite encoding above, the question is\nwhether there exists a Turing machine $T$ satisfying\n\\begin{equation}\n  \\forall\\,\\langle\\mathcal N\\rangle\\ \\forall k\\in\\mathbb N:\n  \\quad\n  T(\\langle\\mathcal N\\rangle,k)=q_{\\mathcal N,k}\\in\\mathbb Q,\n  \\qquad\n  |q_{\\mathcal N,k}-Q(\\mathcal N)|\\leq2^{-k}.\n  \\label{eq:p72-computability}\n\\end{equation}\nDetermine whether the algorithm in Eq.~\\eqref{eq:p72-computability} exists\nfor the capacity in Eq.~\\eqref{eq:p72-quantum-capacity}, without imposing a\nrunning-time bound.","source":"Wilde explicitly asks whether quantum channel capacities are computable or\nundecidable.  Bhattacharyya, Mehta, and Zhao formalize the complexity question\nfor succinct circuit descriptions and state that uncomputability of ordinary\nquantum capacity remains unresolved\n\\sourcecite{ref:p72-wilde}{Wil17},\n\\sourcecite{ref:p72-bhattacharyya-mehta-zhao}{BMZ26}.","progress":["Cubitt, Elkouss, Matthews, Ozols, P\\'erez-Garc\\'ia, and Strelchuk prove\n  that no universal fixed tensor power detects all positive quantum\n  capacities.  For every $m\\in\\mathbb N$, they construct a channel\n  $\\mathcal N_m$ such that\n  \\begin{equation}\n    \\max_{\\rho_{A^{\\otimes m}}}\n      I_c(\\rho_{A^{\\otimes m}},\\mathcal N_m^{\\otimes m})=0,\n    \\qquad\n    Q(\\mathcal N_m)>0.\n    \\label{eq:p72-unbounded-uses}\n  \\end{equation}\n  Equation~\\eqref{eq:p72-unbounded-uses} rules out evaluating\n  Eq.~\\eqref{eq:p72-quantum-capacity} at one channel-independent blocklength,\n  but it does not rule out a different terminating algorithm\n  \\sourcecite{ref:p72-cubitt-et-al}{CEM+15}.","Bhattacharyya, Mehta, and Zhao prove that, for a channel supplied by a\n  succinct quantum-circuit description, deciding whether\n  $Q(\\mathcal N)\\geq3/4$ or $Q(\\mathcal N)\\leq1/4$, under that promise, is\n  QMA-hard.  This is a lower bound on efficient computation, not a proof that\n  the unrestricted Turing machine in Eq.~\\eqref{eq:p72-computability} cannot\n  exist \\sourcecite{ref:p72-bhattacharyya-mehta-zhao}{BMZ26}.","The same 2026 preprint proves an uncomputability result only for the\n  restricted one-shot zero-error classical quantity\n  $C^{(1)}_{0,\\mathrm{PME}}$ of classical--quantum channels, where the shared\n  state is maximally entangled and decoding is by a projective measurement.\n  That theorem is not an ordinary-quantum-capacity result and therefore does\n  not settle Eq.~\\eqref{eq:p72-computability}.  The cited work is an\n  unrefereed version~3 preprint; its authors report that version~2 contained\n  an error in the undecidability section that version~3 corrects\n  \\sourcecite{ref:p72-bhattacharyya-mehta-zhao}{BMZ26}."],"references":[{"key":"Wil17","label":"ref:p72-wilde","tex":"M. M. Wilde, \\emph{Quantum Information Theory}, 2nd ed., Cambridge\n  University Press (2017), Sec.~26.6.\n  \\href{https://doi.org/10.1017/9781316809976}{doi:10.1017/9781316809976};\n  \\href{https://arxiv.org/abs/1106.1445}{arXiv:1106.1445}."},{"key":"CEM+15","label":"ref:p72-cubitt-et-al","tex":"T. Cubitt, D. Elkouss, W. Matthews, M. Ozols, D. P\\'erez-Garc\\'ia, and\n  S. Strelchuk, ``Unbounded Number of Channel Uses May Be Required to Detect\n  Quantum Capacity,'' \\emph{Nature Communications} \\textbf{6}, 6739 (2015).\n  \\href{https://doi.org/10.1038/ncomms7739}{doi:10.1038/ncomms7739};\n  \\href{https://arxiv.org/abs/1408.5115}{arXiv:1408.5115}."},{"key":"BMZ26","label":"ref:p72-bhattacharyya-mehta-zhao","tex":"A. Bhattacharyya, A. Mehta, and Y. Zhao,\n  ``On the Undecidability of Quantum Channel Capacities,'' arXiv preprint\n  (2026), version~3.\n  \\href{https://arxiv.org/abs/2601.22471v3}{arXiv:2601.22471v3}."}],"comment":"The precise gap is computability with no complexity bound, as formalized in\nEq.~\\eqref{eq:p72-computability}.  QMA-hardness for succinct inputs, failure\nof every universal fixed-block truncation, and uncomputability of a restricted\nzero-error assisted capacity are all compatible with either answer to this\nproblem."}}
+---
+## Source
+
+Wilde explicitly asks whether quantum channel capacities are computable or undecidable. Bhattacharyya, Mehta, and Zhao formalize the complexity question for succinct circuit descriptions and state that uncomputability of ordinary quantum capacity remains unresolved [Wil17](https://doi.org/10.1017/9781316809976), [BMZ26](https://arxiv.org/abs/2601.22471v3).
+
+## Progress
+
+Cubitt, Elkouss, Matthews, Ozols, Pérez-García, and Strelchuk prove that no universal fixed tensor power detects all positive quantum capacities. For every $m\in\mathbb N$, they construct a channel $\mathcal N_m$ such that
+
+$$
+\max_{\rho_{A^{\otimes m}}}
+ I_c(\rho_{A^{\otimes m}},\mathcal N_m^{\otimes m})=0,
+ \qquad
+ Q(\mathcal N_m)>0.
+ \tag{3}
+$$
+
+Equation (3) rules out evaluating Eq. (1) at one channel-independent blocklength, but it does not rule out a different terminating algorithm [CEM+15](https://doi.org/10.1038/ncomms7739).
+
+Bhattacharyya, Mehta, and Zhao prove that, for a channel supplied by a succinct quantum-circuit description, deciding whether $Q(\mathcal N)\geq3/4$ or $Q(\mathcal N)\leq1/4$, under that promise, is QMA-hard. This is a lower bound on efficient computation, not a proof that the unrestricted Turing machine in Eq. (2) cannot exist [BMZ26](https://arxiv.org/abs/2601.22471v3).
+
+The same 2026 preprint proves an uncomputability result only for the restricted one-shot zero-error classical quantity $C^{(1)}_{0,\mathrm{PME}}$ of classical–quantum channels, where the shared state is maximally entangled and decoding is by a projective measurement. That theorem is not an ordinary-quantum-capacity result and therefore does not settle Eq. (2). The cited work is an unrefereed version 3 preprint; its authors report that version 2 contained an error in the undecidability section that version 3 corrects [BMZ26](https://arxiv.org/abs/2601.22471v3).
+
+## Comment
+
+The precise gap is computability with no complexity bound, as formalized in Eq. (2). QMA-hardness for succinct inputs, failure of every universal fixed-block truncation, and uncomputability of a restricted zero-error assisted capacity are all compatible with either answer to this problem.
+
+## References
+
+**Wil17** M. M. Wilde, *Quantum Information Theory*, 2nd ed., Cambridge University Press (2017), Sec. 26.6. [doi:10.1017/9781316809976](https://doi.org/10.1017/9781316809976); [arXiv:1106.1445](https://arxiv.org/abs/1106.1445).
+
+**CEM+15** T. Cubitt, D. Elkouss, W. Matthews, M. Ozols, D. Pérez-García, and S. Strelchuk, “Unbounded Number of Channel Uses May Be Required to Detect Quantum Capacity,” *Nature Communications* **6**, 6739 (2015). [doi:10.1038/ncomms7739](https://doi.org/10.1038/ncomms7739); [arXiv:1408.5115](https://arxiv.org/abs/1408.5115).
+
+**BMZ26** A. Bhattacharyya, A. Mehta, and Y. Zhao, “On the Undecidability of Quantum Channel Capacities,” arXiv preprint (2026), version 3. [arXiv:2601.22471v3](https://arxiv.org/abs/2601.22471v3).

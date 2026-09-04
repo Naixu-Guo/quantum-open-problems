@@ -1,0 +1,70 @@
+---
+id: "01M1HME780DC6ZS9XG3V0R6V1A"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1Q787QRVXGPCXG6KEQTF7N1"
+createdAt: "2026-09-04T22:04:59Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-shannon-theory"]
+topicIds: ["transpose-degradable-channels","transpose-antidegradable-channels","degradable-channels","antidegradable-channels","quantum-capacity"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Transpose degradability beyond degradability"
+aliases: ["op-7e7e4a25fef5c994","op_7e7e4a25fef5c994","01M1HME780DC6ZS9XG3V0R6V1A","v2-transpose-degradability-beyond-degradability","open-problem-v2-problem-53"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_7e7e4a25fef5c994.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_7e7e4a25fef5c994","ulid":"01M1HME780DC6ZS9XG3V0R6V1A","aliases":["op_7e7e4a25fef5c994","01M1HME780DC6ZS9XG3V0R6V1A","op-7e7e4a25fef5c994","v2-transpose-degradability-beyond-degradability","open-problem-v2-problem-53"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":2,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-04T22:04:59Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-shannon-theory"],"topicIds":["transpose-degradable-channels","transpose-antidegradable-channels","degradable-channels","antidegradable-channels","quantum-capacity"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Transpose degradability beyond degradability","status":"Unsolved","fields":["Quantum Shannon theory"],"topics":["Transpose-degradable channels","Transpose-antidegradable channels","Degradable channels","Antidegradable channels","Quantum capacity"],"statement":"Does there exist a finite-dimensional transpose-degradable quantum channel\nthat is not degradable?  Let $V:A\\to B\\otimes E$ be an isometry defining a\nchannel and a complementary channel by\n\\begin{equation}\n  \\Phi(X):=\\operatorname{Tr}_E(VXV^\\dagger),\n  \\qquad\n  \\Phi^c(X):=\\operatorname{Tr}_B(VXV^\\dagger).\n  \\label{eq:p53-complementary-pair}\n\\end{equation}\nEquation~\\eqref{eq:p53-complementary-pair} fixes the output space $B$ and\nenvironment space $E$.  For the transpose $\\mathsf T_E$ in a fixed basis of\n$E$, transpose degradability means that a completely positive trace-preserving\nmap $\\mathcal D:\\mathcal L(B)\\to\\mathcal L(E)$ satisfies\n\\begin{equation}\n  \\mathsf T_E\\circ\\Phi^c=\\mathcal D\\circ\\Phi.\n  \\label{eq:p53-transpose-degradable}\n\\end{equation}\nOrdinary degradability instead requires a completely positive\ntrace-preserving map\n$\\widetilde{\\mathcal D}:\\mathcal L(B)\\to\\mathcal L(E)$ satisfying\n\\begin{equation}\n  \\Phi^c=\\widetilde{\\mathcal D}\\circ\\Phi.\n  \\label{eq:p53-degradable}\n\\end{equation}\nThe question is whether Eq.~\\eqref{eq:p53-transpose-degradable} can hold while\nno map satisfying Eq.~\\eqref{eq:p53-degradable} exists.","source":"Singh and Datta explicitly ask whether transpose-degradable channels differ\nfrom ordinary degradable channels\n\\sourcecite{ref:p53-singh-datta}{SD22}.  Br{\\'a}dler had posed the same\nstrict-separation question using the earlier \\lq\\lq conjugate degradable\\rq\\rq{}\nterminology \\sourcecite{ref:p53-bradler}{Bra15}.","progress":["Writing $J(\\mathcal N)$ for the Choi operator of a channel\n  $\\mathcal N$, Eq.~\\eqref{eq:p53-transpose-degradable} implies\n  \\begin{equation}\n    J(\\Phi^c)^{T_E}\\geq0,\n    \\qquad\n    Q(\\Phi)=Q^{(1)}(\\Phi)\n    :=\\max_{\\rho_A}\n       \\left[S(\\Phi(\\rho_A))-S(\\Phi^c(\\rho_A))\\right].\n    \\label{eq:p53-ppt-and-capacity}\n  \\end{equation}\n  Thus Eq.~\\eqref{eq:p53-ppt-and-capacity} gives a PPT complementary Choi\n  operator and additive coherent information, but neither property supplies an\n  ordinary degrading map \\sourcecite{ref:p53-singh-datta}{SD22}.","If $J(\\Phi^c)$ is separable, then $\\Phi^c$ is entanglement breaking and\n  $\\Phi$ is a Hadamard channel, hence degradable.  Any strict example must\n  therefore have a PPT-entangled complementary Choi operator.  Moreover,\n  transpose-degradable pcubed channels are always ordinarily degradable, so\n  that structured family contains no strict example\n  \\sourcecite{ref:p53-bradler}{Bra15},\n  \\sourcecite{ref:p53-siddhu-griffiths}{SG16}.","The universal-cloning family also provides no strict example.  For all\n  $d\\geq2$ and $N,K\\geq1$, the optimal symmetric cloner\n  $\\mathcal C_{N\\to N+K}^{(d)}$ and optimal pure-state transposition channel\n  $\\mathcal T_{N\\to K}^{(d)}$ obey\n  \\begin{equation}\n    \\left(\\mathcal C_{N\\to N+K}^{(d)}\\right)^c\n      =\\mathcal T_{N\\to K}^{(d)},\n    \\qquad\n    \\mathcal T_{N\\to K}^{(d)}\\ \\text{is entanglement breaking},\n    \\qquad\n    \\mathcal C_{N\\to N+K}^{(d)}\\ \\text{is degradable}.\n    \\label{eq:p53-cloning-family}\n  \\end{equation}\n  Equation~\\eqref{eq:p53-cloning-family} eliminates the cloning channels that\n  motivated conjugate degradability, but does not prove a general containment\n  theorem \\sourcecite{ref:p53-brzic-et-al}{BGS+26}."],"references":[{"key":"SD22","label":"ref:p53-singh-datta","tex":"S. Singh and N. Datta,\n  \\lq\\lq Detecting Positive Quantum Capacities of Quantum Channels,\\rq\\rq{}\n  \\emph{npj Quantum Information} \\textbf{8}, 50 (2022).\n  \\href{https://doi.org/10.1038/s41534-022-00550-2}{doi:10.1038/s41534-022-00550-2};\n  \\href{https://arxiv.org/abs/2105.06327}{arXiv:2105.06327}."},{"key":"Bra15","label":"ref:p53-bradler","tex":"K. Br{\\'a}dler,\n  \\lq\\lq The Pitfalls of Deciding Whether a Quantum Channel Is (Conjugate)\n  Degradable and How to Avoid Them,\\rq\\rq{}\n  \\emph{Open Systems \\& Information Dynamics} \\textbf{22}, 1550026 (2015).\n  \\href{https://doi.org/10.1142/S1230161215500262}{doi:10.1142/S1230161215500262};\n  \\href{https://arxiv.org/abs/1507.06159}{arXiv:1507.06159}."},{"key":"SG16","label":"ref:p53-siddhu-griffiths","tex":"V. Siddhu and R. B. Griffiths,\n  \\lq\\lq Degradable Quantum Channels Using Pure-State to Product-of-Pure-State\n  Isometries,\\rq\\rq{} \\emph{Physical Review A} \\textbf{94}, 052331 (2016).\n  \\href{https://doi.org/10.1103/PhysRevA.94.052331}{doi:10.1103/PhysRevA.94.052331};\n  \\href{https://arxiv.org/abs/1511.05532}{arXiv:1511.05532}."},{"key":"BGS+26","label":"ref:p53-brzic-et-al","tex":"V. Brzi{\\'c}, D. Grinko, M. Studzi{\\'n}ski, and M. T. Quintino,\n  \\lq\\lq Optimal Pure State Cloning and Transposition Are Complementary\n  Channels,\\rq\\rq{} arXiv preprint (2026).\n  \\href{https://arxiv.org/abs/2603.23628}{arXiv:2603.23628}."}],"comment":"No strict example and no equality theorem are known.  Complementation turns\nEq.~\\eqref{eq:p53-transpose-degradable} into transpose antidegradability and\nEq.~\\eqref{eq:p53-degradable} into ordinary antidegradability.  Consequently,\nthe source document's transpose-antidegradable separation question is exactly\nthe same existence problem, not a distinct problem."}}
+---
+## Source
+
+Singh and Datta explicitly ask whether transpose-degradable channels differ from ordinary degradable channels [SD22](https://doi.org/10.1038/s41534-022-00550-2). Brádler had posed the same strict-separation question using the earlier “ conjugate degradable” terminology [Bra15](https://doi.org/10.1142/S1230161215500262).
+
+## Progress
+
+Writing $J(\mathcal N)$ for the Choi operator of a channel $\mathcal N$, Eq. (2) implies
+
+$$
+J(\Phi^c)^{T_E}\geq0,
+ \qquad
+ Q(\Phi)=Q^{(1)}(\Phi)
+ :=\max_{\rho_A}
+ \left[S(\Phi(\rho_A))-S(\Phi^c(\rho_A))\right].
+ \tag{4}
+$$
+
+Thus Eq. (4) gives a PPT complementary Choi operator and additive coherent information, but neither property supplies an ordinary degrading map [SD22](https://doi.org/10.1038/s41534-022-00550-2).
+
+If $J(\Phi^c)$ is separable, then $\Phi^c$ is entanglement breaking and $\Phi$ is a Hadamard channel, hence degradable. Any strict example must therefore have a PPT-entangled complementary Choi operator. Moreover, transpose-degradable pcubed channels are always ordinarily degradable, so that structured family contains no strict example [Bra15](https://doi.org/10.1142/S1230161215500262), [SG16](https://doi.org/10.1103/PhysRevA.94.052331).
+
+The universal-cloning family also provides no strict example. For all $d\geq2$ and $N,K\geq1$, the optimal symmetric cloner $\mathcal C_{N\to N+K}^{(d)}$ and optimal pure-state transposition channel $\mathcal T_{N\to K}^{(d)}$ obey
+
+$$
+\left(\mathcal C_{N\to N+K}^{(d)}\right)^c
+ =\mathcal T_{N\to K}^{(d)},
+ \qquad
+ \mathcal T_{N\to K}^{(d)}\ \text{is entanglement breaking},
+ \qquad
+ \mathcal C_{N\to N+K}^{(d)}\ \text{is degradable}.
+ \tag{5}
+$$
+
+Equation (5) eliminates the cloning channels that motivated conjugate degradability, but does not prove a general containment theorem [BGS+26](https://arxiv.org/abs/2603.23628).
+
+## Comment
+
+No strict example and no equality theorem are known. Complementation turns Eq. (2) into transpose antidegradability and Eq. (3) into ordinary antidegradability. Consequently, the source document’s transpose-antidegradable separation question is exactly the same existence problem, not a distinct problem.
+
+## References
+
+**SD22** S. Singh and N. Datta, “ Detecting Positive Quantum Capacities of Quantum Channels,” *npj Quantum Information* **8**, 50 (2022). [doi:10.1038/s41534-022-00550-2](https://doi.org/10.1038/s41534-022-00550-2); [arXiv:2105.06327](https://arxiv.org/abs/2105.06327).
+
+**Bra15** K. Brádler, “ The Pitfalls of Deciding Whether a Quantum Channel Is (Conjugate) Degradable and How to Avoid Them,” *Open Systems & Information Dynamics* **22**, 1550026 (2015). [doi:10.1142/S1230161215500262](https://doi.org/10.1142/S1230161215500262); [arXiv:1507.06159](https://arxiv.org/abs/1507.06159).
+
+**SG16** V. Siddhu and R. B. Griffiths, “ Degradable Quantum Channels Using Pure-State to Product-of-Pure-State Isometries,” *Physical Review A* **94**, 052331 (2016). [doi:10.1103/PhysRevA.94.052331](https://doi.org/10.1103/PhysRevA.94.052331); [arXiv:1511.05532](https://arxiv.org/abs/1511.05532).
+
+**BGS+26** V. Brzić, D. Grinko, M. Studziński, and M. T. Quintino, “ Optimal Pure State Cloning and Transposition Are Complementary Channels,” arXiv preprint (2026). [arXiv:2603.23628](https://arxiv.org/abs/2603.23628).

@@ -144,7 +144,7 @@ export function metadataToMainProblem(record) {
     id: record.ulid,
     ...Object.fromEntries(METADATA_KEYS.map((key) => [key, Array.isArray(record.metadata[key]) ? record.metadata[key].slice() : record.metadata[key]])),
     title: record.title,
-    aliases: record.aliases.filter((alias) => SLUG_PATTERN.test(alias)),
+    aliases: record.aliases.slice(),
     body: record.comment
   };
 }

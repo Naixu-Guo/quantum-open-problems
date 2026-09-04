@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/contract/v1/reference.schema.json",
+  "title": "Reference",
+  "description": "A source attached to a problem, statement, clause, or claim, with a note on why it matters. Revisable.",
+  "allOf": [{ "$ref": "common.schema.json#/$defs/revisableBase" }],
+  "unevaluatedProperties": false,
+  "required": ["type", "sourceId", "targetType", "targetId", "role", "locator", "body"],
+  "properties": {
+    "type": { "const": "Reference" },
+    "sourceId": { "$ref": "common.schema.json#/$defs/ulid" },
+    "targetType": { "enum": ["problem", "statement", "clause", "claim"] },
+    "targetId": { "type": "string", "minLength": 1 },
+    "role": { "enum": ["states-problem", "listed-in", "background", "defines", "prior-attempt", "partial-result", "technique", "related", "survey", "resolves"] },
+    "locator": { "$ref": "common.schema.json#/$defs/text" },
+    "body": { "$ref": "common.schema.json#/$defs/text" }
+  }
+}

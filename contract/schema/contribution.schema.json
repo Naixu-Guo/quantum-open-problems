@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/contract/v1/contribution.schema.json",
+  "title": "Contribution",
+  "description": "One submission of knowledge. Immutable. Its state is read from acceptance decisions.",
+  "allOf": [{ "$ref": "common.schema.json#/$defs/immutableBase" }],
+  "unevaluatedProperties": false,
+  "required": ["type", "title", "kind", "actorId", "trajectoryId", "problemIds", "statementId", "statementDigest", "clauseIds", "stopReason", "newProblemIds", "newStatementId", "referenceIds", "claimIds", "artifactIds", "declaredReadIds", "revisions", "aiInvolvement", "license", "body"],
+  "properties": {
+    "type": { "const": "Contribution" },
+    "title": { "$ref": "common.schema.json#/$defs/nonEmptyText" },
+    "kind": { "enum": ["problem-proposal", "statement-revision", "reference", "attempt-report", "evidence-import", "merge-proposal", "retire-proposal", "entity-revision"] },
+    "actorId": { "$ref": "common.schema.json#/$defs/ulid" },
+    "trajectoryId": { "$ref": "common.schema.json#/$defs/ulidOrNull" },
+    "problemIds": { "$ref": "common.schema.json#/$defs/ulidList" },
+    "statementId": { "$ref": "common.schema.json#/$defs/ulidOrNull" },
+    "statementDigest": { "$ref": "common.schema.json#/$defs/digestOrNull" },
+    "clauseIds": { "$ref": "common.schema.json#/$defs/clauseRefList" },
+    "stopReason": { "enum": ["solved", "partial", "obstacle", "refuted-subgoal", "ambiguous-statement", "out-of-budget", "abandoned", "none"] },
+    "newProblemIds": { "$ref": "common.schema.json#/$defs/ulidList" },
+    "newStatementId": { "$ref": "common.schema.json#/$defs/ulidOrNull" },
+    "referenceIds": { "$ref": "common.schema.json#/$defs/ulidList" },
+    "claimIds": { "$ref": "common.schema.json#/$defs/ulidList" },
+    "artifactIds": { "$ref": "common.schema.json#/$defs/ulidList" },
+    "declaredReadIds": { "$ref": "common.schema.json#/$defs/ulidList" },
+    "revisions": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/revision" } },
+    "aiInvolvement": { "enum": ["none", "assisted", "autonomous"] },
+    "license": { "$ref": "common.schema.json#/$defs/nonEmptyText" },
+    "body": { "$ref": "common.schema.json#/$defs/text" }
+  }
+}

@@ -1,0 +1,70 @@
+---
+id: "01M1HME7805PVXXPJE60E83TJ5"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1Q787QRVXGPCXG6KEQTF7N1"
+createdAt: "2026-09-04T22:04:59Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-error-correction","entanglement-theory"]
+topicIds: ["absolutely-maximally-entangled-states","multipartite-entanglement","qudit-systems","quantum-coding-theory","combinatorics"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Minimal-support frontier for absolutely maximally entangled states"
+aliases: ["op-7a17786328198e24","op_7a17786328198e24","01M1HME7805PVXXPJE60E83TJ5","v2-minimal-support-frontier-for-absolutely-maximally-entangled-states","open-problem-v2-problem-42"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_7a17786328198e24.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_7a17786328198e24","ulid":"01M1HME7805PVXXPJE60E83TJ5","aliases":["op_7a17786328198e24","01M1HME7805PVXXPJE60E83TJ5","op-7a17786328198e24","v2-minimal-support-frontier-for-absolutely-maximally-entangled-states","open-problem-v2-problem-42"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":2,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-04T22:04:59Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-error-correction","entanglement-theory"],"topicIds":["absolutely-maximally-entangled-states","multipartite-entanglement","qudit-systems","quantum-coding-theory","combinatorics"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Minimal-support frontier for absolutely maximally entangled states","status":"Unsolved","fields":["Quantum error correction","Entanglement theory"],"topics":["Absolutely maximally entangled states","Multipartite entanglement","Qudit systems","Quantum coding theory","Combinatorics"],"statement":"Determine, for every integer $d\\geq 2$, the largest number $\\mathcal N(d)$ of\n$d$-level parties that admit an absolutely maximally entangled state of\nminimal computational-basis support.  To make this precise, let\n$m=\\lfloor N/2\\rfloor$ and write a normalized state as\n$|\\psi\\rangle=\\sum_{\\boldsymbol{x}\\in[d]^N}c_{\\boldsymbol{x}}\n|\\boldsymbol{x}\\rangle$, where $[d]=\\{0,\\ldots,d-1\\}$.  The state is\n$\\operatorname{AME}(N,d)$ when every subsystem $S\\subseteq\\{1,\\ldots,N\\}$\nwith $|S|\\leq m$ has reduced state\n\\begin{equation}\n  \\operatorname{Tr}_{S^{\\mathrm c}}|\\psi\\rangle\\!\\langle\\psi|\n  =\\frac{I_{d^{|S|}}}{d^{|S|}}.\n  \\label{eq:p42-ame-condition}\n\\end{equation}\nCondition~\\eqref{eq:p42-ame-condition} implies the computational-basis\nsupport bound\n\\begin{equation}\n  \\bigl|\\operatorname{supp}_{\\mathrm{comp}}(\\psi)\\bigr|\n  :=\\bigl|\\{\\boldsymbol{x}:c_{\\boldsymbol{x}}\\neq0\\}\\bigr|\n  \\geq d^{m}.\n  \\label{eq:p42-support-bound}\n\\end{equation}\nMinimal support means equality in \\eqref{eq:p42-support-bound}, and the\nfrontier to be determined is\n\\begin{equation}\n  \\mathcal N(d):=\\max\\bigl\\{N\\geq2:\\text{a minimal-support }\n  \\operatorname{AME}(N,d)\\text{ state exists}\\bigr\\}.\n  \\label{eq:p42-frontier}\n\\end{equation}\nEquivalently, for any alphabet $\\mathcal A$ of size $d$, the existence event\nin \\eqref{eq:p42-frontier} is characterized by\n\\begin{equation}\n  \\begin{split}\n  &\\text{a minimal-support }\\operatorname{AME}(N,d)\\text{ state exists}\n  \\\\\n  &\\quad\\Longleftrightarrow\\quad\n  \\exists\\,\\mathcal C\\subseteq\\mathcal A^N:\\quad\n  |\\mathcal C|=d^{\\lfloor N/2\\rfloor},\\qquad\n  \\min_{\\substack{\\boldsymbol{x},\\boldsymbol{y}\\in\\mathcal C\\\\\n                   \\boldsymbol{x}\\neq\\boldsymbol{y}}}\n  d_{\\mathrm H}(\\boldsymbol{x},\\boldsymbol{y})\n  =\\left\\lceil\\frac N2\\right\\rceil+1.\n  \\end{split}\n  \\label{eq:p42-mds-equivalence}\n\\end{equation}\nThus \\eqref{eq:p42-mds-equivalence} asks for general, possibly nonlinear,\nMDS codes rather than only linear codes\n\\sourcecite{ref:p42-goyeneche}{GAL+15},\n\\sourcecite{ref:p42-bernal}{Ber19}.","source":"Bernal formulates the minimal-support AME frontier through its equivalent\nmaximum-distance-separable-code problem and obtains only a conditional general\ndetermination \\sourcecite{ref:p42-bernal}{Ber19}.","progress":["Goyeneche et al. proved the MDS equivalence\n  \\eqref{eq:p42-mds-equivalence}, while Bernal proved that, for fixed $d$,\n  the admissible party numbers form the initial interval\n  $2\\leq N\\leq\\mathcal N(d)$\n  \\sourcecite{ref:p42-goyeneche}{GAL+15},\n  \\sourcecite{ref:p42-bernal}{Ber19}.  This reduces the frontier problem to a\n  maximum-length question for unrestricted $d$-ary MDS codes, which is not\n  known in general.","Bernal obtained the exact small-alphabet values and the prime-power\n  lower bound\n  \\begin{equation}\n    \\begin{gathered}\n      \\mathcal N(2)=3,\\quad \\mathcal N(3)=4,\\quad \\mathcal N(4)=6,\n      \\quad \\mathcal N(5)=6,\\quad \\mathcal N(6)=3,\\quad \\mathcal N(7)=8,\\\\\n      \\mathcal N(d)\\geq d+1\n      \\quad\\text{for every prime power }d\\geq3.\n    \\end{gathered}\n    \\label{eq:p42-known-values}\n  \\end{equation}\n  The value $\\mathcal N(4)=6=d+2$ in \\eqref{eq:p42-known-values} comes from\n  the even-field exceptional MDS parameters at combinatorial dimension $3$;\n  consequently, equality with $d+1$ cannot hold uniformly over prime powers\n  \\sourcecite{ref:p42-bernal}{Ber19}.","Let $M(k,d)$ denote the maximum length of any, not necessarily\n  linear, $d$-ary MDS code of cardinality $d^k$.  Bernal proved the\n  conditional implication\n  \\begin{equation}\n    \\left.\n    \\begin{gathered}\n      d\\geq8\\text{ is a prime power},\\qquad\n      k_0=\\left\\lfloor\\frac{d+2}{2}\\right\\rfloor,\\\\\n      M(k_0,d)=d+1\n    \\end{gathered}\n    \\right\\}\n    \\quad\\Longrightarrow\\quad\n    \\mathcal N(d)=d+1.\n    \\label{eq:p42-conditional-frontier}\n  \\end{equation}\n  The general MDS conjecture supplies the premise in\n  \\eqref{eq:p42-conditional-frontier}.  Its possible $d+2$ exceptions for\n  $d=2^j$ and $k\\in\\{3,d-1\\}$ do not apply here because\n  $3<k_0<d-1$ for $d\\geq8$; the missing step is the conjecture for general\n  nonlinear codes\n  \\sourcecite{ref:p42-bernal}{Ber19}."],"references":[{"key":"GAL+15","label":"ref:p42-goyeneche","tex":"D. Goyeneche, D. Alsina, J. I. Latorre, A. Riera, and K. \\.{Z}yczkowski,\n  ``Absolutely Maximally Entangled States, Combinatorial Designs, and\n  Multiunitary Matrices,'' \\emph{Physical Review A} \\textbf{92}, 032316\n  (2015).\n  \\href{https://doi.org/10.1103/PhysRevA.92.032316}{doi:10.1103/PhysRevA.92.032316};\n  \\href{https://arxiv.org/abs/1506.08857}{arXiv:1506.08857}."},{"key":"Ber19","label":"ref:p42-bernal","tex":"A. Bernal, ``On the Existence of Absolutely Maximally Entangled States of\n  Minimal Support II,'' \\emph{Quantum Physics Letters} \\textbf{8}, 1--4\n  (2019).\n  \\href{https://doi.org/10.18576/qpl/080101}{doi:10.18576/qpl/080101};\n  \\href{https://arxiv.org/abs/1807.00218}{arXiv:1807.00218}."}],"comment":"The unresolved task is the exact existence frontier, not the classification\nof states realizing it.  Support is measured in the fixed computational\nbasis used in \\eqref{eq:p42-support-bound}, and the equivalent coding problem\nallows arbitrary alphabets and nonlinear codes.  The linear MDS conjecture\nalone therefore does not settle \\eqref{eq:p42-frontier}."}}
+---
+## Source
+
+Bernal formulates the minimal-support AME frontier through its equivalent maximum-distance-separable-code problem and obtains only a conditional general determination [Ber19](https://doi.org/10.18576/qpl/080101).
+
+## Progress
+
+Goyeneche et al. proved the MDS equivalence (4), while Bernal proved that, for fixed $d$, the admissible party numbers form the initial interval $2\leq N\leq\mathcal N(d)$ [GAL+15](https://doi.org/10.1103/PhysRevA.92.032316), [Ber19](https://doi.org/10.18576/qpl/080101). This reduces the frontier problem to a maximum-length question for unrestricted $d$-ary MDS codes, which is not known in general.
+
+Bernal obtained the exact small-alphabet values and the prime-power lower bound
+
+$$
+\begin{gathered}
+ \mathcal N(2)=3,\quad \mathcal N(3)=4,\quad \mathcal N(4)=6,
+ \quad \mathcal N(5)=6,\quad \mathcal N(6)=3,\quad \mathcal N(7)=8,\\
+ \mathcal N(d)\geq d+1
+ \quad\text{for every prime power }d\geq3.
+ \end{gathered}
+ \tag{5}
+$$
+
+The value $\mathcal N(4)=6=d+2$ in (5) comes from the even-field exceptional MDS parameters at combinatorial dimension $3$; consequently, equality with $d+1$ cannot hold uniformly over prime powers [Ber19](https://doi.org/10.18576/qpl/080101).
+
+Let $M(k,d)$ denote the maximum length of any, not necessarily linear, $d$-ary MDS code of cardinality $d^k$. Bernal proved the conditional implication
+
+$$
+\left.
+ \begin{gathered}
+ d\geq8\text{ is a prime power},\qquad
+ k_0=\left\lfloor\frac{d+2}{2}\right\rfloor,\\
+ M(k_0,d)=d+1
+ \end{gathered}
+ \right\}
+ \quad\Longrightarrow\quad
+ \mathcal N(d)=d+1.
+ \tag{6}
+$$
+
+The general MDS conjecture supplies the premise in (6). Its possible $d+2$ exceptions for $d=2^j$ and $k\in\{3,d-1\}$ do not apply here because $3<k_0<d-1$ for $d\geq8$; the missing step is the conjecture for general nonlinear codes [Ber19](https://doi.org/10.18576/qpl/080101).
+
+## Comment
+
+The unresolved task is the exact existence frontier, not the classification of states realizing it. Support is measured in the fixed computational basis used in (2), and the equivalent coding problem allows arbitrary alphabets and nonlinear codes. The linear MDS conjecture alone therefore does not settle (3).
+
+## References
+
+**GAL+15** D. Goyeneche, D. Alsina, J. I. Latorre, A. Riera, and K. Życzkowski, “Absolutely Maximally Entangled States, Combinatorial Designs, and Multiunitary Matrices,” *Physical Review A* **92**, 032316 (2015). [doi:10.1103/PhysRevA.92.032316](https://doi.org/10.1103/PhysRevA.92.032316); [arXiv:1506.08857](https://arxiv.org/abs/1506.08857).
+
+**Ber19** A. Bernal, “On the Existence of Absolutely Maximally Entangled States of Minimal Support II,” *Quantum Physics Letters* **8**, 1–4 (2019). [doi:10.18576/qpl/080101](https://doi.org/10.18576/qpl/080101); [arXiv:1807.00218](https://arxiv.org/abs/1807.00218).

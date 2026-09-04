@@ -1,0 +1,56 @@
+---
+id: "01M1HME780PY65PJ3HAY1NNW15"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1Q787QRVXGPCXG6KEQTF7N1"
+createdAt: "2026-09-04T22:04:59Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-foundations"]
+topicIds: ["bell-nonlocality","quantum-communication-complexity","qubit-systems"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "One-bit simulation of partially entangled qubits"
+aliases: ["op-64db785888803dd3","op_64db785888803dd3","01M1HME780PY65PJ3HAY1NNW15","v2-one-bit-simulation-of-partially-entangled-qubits","open-problem-v2-problem-27"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_64db785888803dd3.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_64db785888803dd3","ulid":"01M1HME780PY65PJ3HAY1NNW15","aliases":["op_64db785888803dd3","01M1HME780PY65PJ3HAY1NNW15","op-64db785888803dd3","v2-one-bit-simulation-of-partially-entangled-qubits","open-problem-v2-problem-27"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":2,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-04T22:04:59Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-foundations"],"topicIds":["bell-nonlocality","quantum-communication-complexity","qubit-systems"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"One-bit simulation of partially entangled qubits","status":"Unsolved","fields":["Quantum foundations"],"topics":["Bell nonlocality","Quantum communication complexity","Qubit systems"],"statement":"Can shared randomness and one classical bit exactly simulate every pair of\nlocal projective measurements on every pure entangled two-qubit state?  In\nSchmidt form the state is\n\\begin{equation}\n  \\lvert\\psi_p\\rangle\n  =\\sqrt p\\,\\lvert00\\rangle+\\sqrt{1-p}\\,\\lvert11\\rangle,\n  \\qquad \\frac12<p<1.\n  \\label{eq:p27-schmidt-state}\n\\end{equation}\nFor arbitrary Bloch vectors $\\mathbf x,\\mathbf y\\in S^2$ and outcomes\n$a,b\\in\\{0,1\\}$, the target distribution associated with\nEq.~\\eqref{eq:p27-schmidt-state} is\n\\begin{equation}\n  \\begin{aligned}\n  P_p(a,b\\mid\\mathbf x,\\mathbf y)\n    &=\\operatorname{Tr}\\!\\left[\n      \\lvert\\psi_p\\rangle\\!\\langle\\psi_p\\rvert\n      \\bigl(M_{a\\mid\\mathbf x}\\otimes M_{b\\mid\\mathbf y}\\bigr)\n      \\right],\\\\\n  M_{a\\mid\\mathbf x}\n    &=\\frac{I+(-1)^a\\mathbf x\\cdot\\boldsymbol\\sigma}{2},\n  \\qquad\n  M_{b\\mid\\mathbf y}\n    =\\frac{I+(-1)^b\\mathbf y\\cdot\\boldsymbol\\sigma}{2}.\n  \\end{aligned}\n  \\label{eq:p27-target-correlation}\n\\end{equation}\nThe protocol may use unlimited shared randomness; after receiving\n$\\mathbf x$, Alice sends Bob one bit, and their local outputs must reproduce\nEq.~\\eqref{eq:p27-target-correlation} for every pair of measurement\ndirections.  If no such universal protocol exists, find a finite-setting\nlinear inequality satisfied by all one-bit protocols and violated by one of\nthese target distributions.","source":"Gisin explicitly asks whether one classical bit simulates every partially\nentangled two-qubit state; Renner and Quintino restate the surviving question\nafter narrowing the parameter range\n\\sourcecite{ref:p27-gisin}{Gis09},\n\\sourcecite{ref:p27-renner-quintino}{RQ23}.","progress":["Gisin posed the separating-inequality question for one-bit-assisted\n  correlations \\sourcecite{ref:p27-gisin}{Gis09}.  At the maximally entangled\n  endpoint $p=1/2$, Toner and Bacon gave an exact one-bit protocol for all\n  projective measurements \\sourcecite{ref:p27-toner-bacon}{TB03}; this does\n  not cover the nonmaximally entangled interval in\n  Eq.~\\eqref{eq:p27-schmidt-state}.","Renner and Quintino constructed a one-trit protocol for every\n  $1/2\\leq p\\leq1$.  For $1/2<p<1$, their protocol uses only one bit whenever\n  \\begin{equation}\n    \\frac{2p(1-p)}{2p-1}\\log\\!\\left(\\frac{p}{1-p}\\right)+2(1-p)\\leq1,\n    \\label{eq:p27-one-bit-region}\n  \\end{equation}\n  which holds approximately for $0.835\\leq p<1$; the product-state endpoint\n  $p=1$ requires no communication.  Thus\n  Eq.~\\eqref{eq:p27-one-bit-region} leaves the interval\n  $1/2<p<0.835$ unresolved \\sourcecite{ref:p27-renner-quintino}{RQ23}.","Numerical and semianalytical models support one-bit simulation beyond\n  the proved range, but do not supply an exact protocol for all directions\n  \\sourcecite{ref:p27-sidajaya}{SLYS23}.  Conversely, finite-scenario\n  inequalities for one-bit-assisted correlations can be enumerated, but no\n  known inequality separates the remaining targets in\n  Eq.~\\eqref{eq:p27-target-correlation}\n  \\sourcecite{ref:p27-bacon-toner}{BT03}."],"references":[{"key":"Gis09","label":"ref:p27-gisin","tex":"N. Gisin, ``Bell Inequalities: Many Questions, a Few Answers,'' in\n  W. C. Myrvold and J. Christian (eds.), \\emph{Quantum Reality, Relativistic\n  Causality, and Closing the Epistemic Circle}, The Western Ontario Series in\n  Philosophy of Science \\textbf{73}, 125--138 (Springer, 2009).\n  \\href{https://doi.org/10.1007/978-1-4020-9107-0_9}{doi:10.1007/978-1-4020-9107-0\\_9};\n  \\href{https://arxiv.org/abs/quant-ph/0702021}{arXiv:quant-ph/0702021}."},{"key":"TB03","label":"ref:p27-toner-bacon","tex":"B. F. Toner and D. Bacon, ``Communication Cost of Simulating Bell\n  Correlations,'' \\emph{Physical Review Letters} \\textbf{91}, 187904 (2003).\n  \\href{https://doi.org/10.1103/PhysRevLett.91.187904}{doi:10.1103/PhysRevLett.91.187904};\n  \\href{https://arxiv.org/abs/quant-ph/0304076}{arXiv:quant-ph/0304076}."},{"key":"RQ23","label":"ref:p27-renner-quintino","tex":"M. J. Renner and M. T. Quintino, ``The Minimal Communication Cost for\n  Simulating Entangled Qubits,'' \\emph{Quantum} \\textbf{7}, 1149 (2023).\n  \\href{https://doi.org/10.22331/q-2023-10-24-1149}{doi:10.22331/q-2023-10-24-1149};\n  \\href{https://arxiv.org/abs/2207.12457}{arXiv:2207.12457}."},{"key":"SLYS23","label":"ref:p27-sidajaya","tex":"P. Sidajaya, A. D. Lim, B. Yu, and V. Scarani, ``Neural Network Approach to\n  the Simulation of Entangled States with One Bit of Communication,''\n  \\emph{Quantum} \\textbf{7}, 1150 (2023).\n  \\href{https://doi.org/10.22331/q-2023-10-24-1150}{doi:10.22331/q-2023-10-24-1150};\n  \\href{https://arxiv.org/abs/2305.19935}{arXiv:2305.19935}."},{"key":"BT03","label":"ref:p27-bacon-toner","tex":"D. Bacon and B. F. Toner, ``Bell Inequalities with Auxiliary\n  Communication,'' \\emph{Physical Review Letters} \\textbf{90}, 157904\n  (2003). \\href{https://doi.org/10.1103/PhysRevLett.90.157904}{doi:10.1103/PhysRevLett.90.157904};\n  \\href{https://arxiv.org/abs/quant-ph/0208057}{arXiv:quant-ph/0208057}."}],"comment":"The unresolved parameter range is approximately $1/2<p<0.835$.  It is not\nknown whether one bit always suffices there or whether a finite-setting\ninequality can prove that it does not."}}
+---
+## Source
+
+Gisin explicitly asks whether one classical bit simulates every partially entangled two-qubit state; Renner and Quintino restate the surviving question after narrowing the parameter range [Gis09](https://doi.org/10.1007/978-1-4020-9107-0_9), [RQ23](https://doi.org/10.22331/q-2023-10-24-1149).
+
+## Progress
+
+Gisin posed the separating-inequality question for one-bit-assisted correlations [Gis09](https://doi.org/10.1007/978-1-4020-9107-0_9). At the maximally entangled endpoint $p=1/2$, Toner and Bacon gave an exact one-bit protocol for all projective measurements [TB03](https://doi.org/10.1103/PhysRevLett.91.187904); this does not cover the nonmaximally entangled interval in Eq. (1).
+
+Renner and Quintino constructed a one-trit protocol for every $1/2\leq p\leq1$. For $1/2<p<1$, their protocol uses only one bit whenever
+
+$$
+\frac{2p(1-p)}{2p-1}\log\!\left(\frac{p}{1-p}\right)+2(1-p)\leq1,
+ \tag{3}
+$$
+
+which holds approximately for $0.835\leq p<1$; the product-state endpoint $p=1$ requires no communication. Thus Eq. (3) leaves the interval $1/2<p<0.835$ unresolved [RQ23](https://doi.org/10.22331/q-2023-10-24-1149).
+
+Numerical and semianalytical models support one-bit simulation beyond the proved range, but do not supply an exact protocol for all directions [SLYS23](https://doi.org/10.22331/q-2023-10-24-1150). Conversely, finite-scenario inequalities for one-bit-assisted correlations can be enumerated, but no known inequality separates the remaining targets in Eq. (2) [BT03](https://doi.org/10.1103/PhysRevLett.90.157904).
+
+## Comment
+
+The unresolved parameter range is approximately $1/2<p<0.835$. It is not known whether one bit always suffices there or whether a finite-setting inequality can prove that it does not.
+
+## References
+
+**Gis09** N. Gisin, “Bell Inequalities: Many Questions, a Few Answers,” in W. C. Myrvold and J. Christian (eds.), *Quantum Reality, Relativistic Causality, and Closing the Epistemic Circle*, The Western Ontario Series in Philosophy of Science **73**, 125–138 (Springer, 2009). [doi:10.1007/978-1-4020-9107-0_9](https://doi.org/10.1007/978-1-4020-9107-0_9); [arXiv:quant-ph/0702021](https://arxiv.org/abs/quant-ph/0702021).
+
+**TB03** B. F. Toner and D. Bacon, “Communication Cost of Simulating Bell Correlations,” *Physical Review Letters* **91**, 187904 (2003). [doi:10.1103/PhysRevLett.91.187904](https://doi.org/10.1103/PhysRevLett.91.187904); [arXiv:quant-ph/0304076](https://arxiv.org/abs/quant-ph/0304076).
+
+**RQ23** M. J. Renner and M. T. Quintino, “The Minimal Communication Cost for Simulating Entangled Qubits,” *Quantum* **7**, 1149 (2023). [doi:10.22331/q-2023-10-24-1149](https://doi.org/10.22331/q-2023-10-24-1149); [arXiv:2207.12457](https://arxiv.org/abs/2207.12457).
+
+**SLYS23** P. Sidajaya, A. D. Lim, B. Yu, and V. Scarani, “Neural Network Approach to the Simulation of Entangled States with One Bit of Communication,” *Quantum* **7**, 1150 (2023). [doi:10.22331/q-2023-10-24-1150](https://doi.org/10.22331/q-2023-10-24-1150); [arXiv:2305.19935](https://arxiv.org/abs/2305.19935).
+
+**BT03** D. Bacon and B. F. Toner, “Bell Inequalities with Auxiliary Communication,” *Physical Review Letters* **90**, 157904 (2003). [doi:10.1103/PhysRevLett.90.157904](https://doi.org/10.1103/PhysRevLett.90.157904); [arXiv:quant-ph/0208057](https://arxiv.org/abs/quant-ph/0208057).

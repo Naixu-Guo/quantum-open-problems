@@ -84,10 +84,12 @@ function parseMainIdentity(text, file) {
   const revision = Number(scalar("revision"));
   if (!ULID_PATTERN.test(id) || !Number.isSafeInteger(revision) || revision < 1) fail(`${file}: invalid main identity or revision`);
   const lines = header.split(/\r?\n/);
-  const aliasLine = lines.findIndex((line) => line === "aliases:" || line === "aliases: []");
+  const aliasLine = lines.findIndex((line) => /^aliases:(?:\s|$)/.test(line));
   if (aliasLine < 0) fail(`${file}: expected an aliases array`);
-  const aliases = [];
-  for (let i = aliasLine + 1; i < lines.length && /^  - /.test(lines[i]); i += 1) aliases.push(unquote(lines[i].slice(4)));
+  const inline = lines[aliasLine].slice("aliases:".length).trim();
+  const aliases = inline ? JSON.parse(inline) : [];
+  if (!inline) for (let i = aliasLine + 1; i < lines.length && /^  - /.test(lines[i]); i += 1) aliases.push(unquote(lines[i].slice(4)));
+  if (!Array.isArray(aliases) || !aliases.every((alias) => typeof alias === "string")) fail(`${file}: invalid aliases array`);
   return { id, revision, aliases };
 }
 

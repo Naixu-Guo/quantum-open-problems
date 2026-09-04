@@ -1,0 +1,51 @@
+---
+id: "01M1HME780BM029QANMMXSYJXR"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1Q787QRVXGPCXG6KEQTF7N1"
+createdAt: "2026-09-04T22:04:59Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-complexity-theory","quantum-computation"]
+topicIds: ["interactive-proof-systems","delegated-quantum-computation","verification-and-validation"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Unconditional classical verification with one quantum prover"
+aliases: ["op-3770ad932d54692f","op_3770ad932d54692f","01M1HME780BM029QANMMXSYJXR","v2-unconditional-classical-verification-with-one-quantum-prover","open-problem-v2-problem-39"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_3770ad932d54692f.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_3770ad932d54692f","ulid":"01M1HME780BM029QANMMXSYJXR","aliases":["op_3770ad932d54692f","01M1HME780BM029QANMMXSYJXR","op-3770ad932d54692f","v2-unconditional-classical-verification-with-one-quantum-prover","open-problem-v2-problem-39"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":2,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-04T22:04:59Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-complexity-theory","quantum-computation"],"topicIds":["interactive-proof-systems","delegated-quantum-computation","verification-and-validation"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Unconditional classical verification with one quantum prover","status":"Unsolved","fields":["Quantum complexity theory","Quantum computation"],"topics":["Interactive proof systems","Delegated quantum computation","Verification and validation"],"statement":"Does every language $L\\in\\mathsf{BQP}$ admit a single-prover interactive proof\nwith a fully classical verifier, an efficient quantum honest prover, and\ninformation-theoretic soundness?  Precisely, require a probabilistic classical\npolynomial-time verifier exchanging only classical messages with one prover;\na uniform quantum polynomial-time honest prover; acceptance probability at\nleast $2/3$ for every yes-instance when the honest prover is used; and\nacceptance probability at most $1/3$ for every no-instance against every\nprover, including a computationally unbounded one.  Equivalently, can one\nclassically verify an arbitrary efficient quantum computation with one\nefficient quantum prover, no quantum capability for the verifier, and no\ncryptographic assumption?","source":"Aharonov, Ben-Or, Eban, and Mahadev explicitly ask whether the verifier's\nremaining quantum register can be eliminated from an unconditional\nsingle-prover verification protocol\n\\sourcecite{ref:p39-aharonov}{ABE+17}.","progress":["The inclusions\n  $\\mathsf{BQP}\\subseteq\\mathsf{PSPACE}=\\mathsf{IP}$ give classical-verifier\n  interactive proofs for $\\mathsf{BQP}$, but do not ensure that the honest\n  prover is implementable in quantum polynomial time\n  \\sourcecite{ref:p39-adleman}{ADH97},\n  \\sourcecite{ref:p39-shamir}{Sha92}.","Unconditional protocols with an honest $\\mathsf{BQP}$ prover are\n  known when the verifier retains a constant-size quantum register or\n  exchanges a small number of qubits\n  \\sourcecite{ref:p39-aharonov}{ABE+17}.  They do not meet the fully classical\n  verifier and classical-message requirements.","A fully classical single-verifier protocol is known under the\n  learning-with-errors assumption\n  \\sourcecite{ref:p39-mahadev}{Mah18}.  Its soundness is computational against\n  efficient quantum provers, rather than information theoretic against\n  arbitrary provers.","Fully classical and unconditional verification is possible with\n  multiple noncommunicating entangled provers\n  \\sourcecite{ref:p39-reichardt}{RUV13}.  This changes the single-prover model\n  required in the problem statement."],"references":[{"key":"ADH97","label":"ref:p39-adleman","tex":"L. M. Adleman, J. DeMarrais, and M.-D. A. Huang,\n  ``Quantum Computability,'' \\emph{SIAM Journal on Computing} \\textbf{26},\n  1524--1540 (1997).\n  \\href{https://doi.org/10.1137/S0097539795293639}{doi:10.1137/S0097539795293639}."},{"key":"Sha92","label":"ref:p39-shamir","tex":"A. Shamir, ``IP $=$ PSPACE,'' \\emph{Journal of the ACM} \\textbf{39},\n  869--877 (1992).\n  \\href{https://doi.org/10.1145/146585.146609}{doi:10.1145/146585.146609}."},{"key":"ABE+17","label":"ref:p39-aharonov","tex":"D. Aharonov, M. Ben-Or, E. Eban, and U. Mahadev,\n  ``Interactive Proofs for Quantum Computations,'' arXiv:1704.04487 (2017).\n  \\href{https://arxiv.org/abs/1704.04487}{arXiv:1704.04487}."},{"key":"Mah18","label":"ref:p39-mahadev","tex":"U. Mahadev, ``Classical Verification of Quantum Computations,'' in\n  \\emph{Proceedings of the 59th IEEE Symposium on Foundations of Computer\n  Science}, 259--267 (2018).\n  \\href{https://doi.org/10.1109/FOCS.2018.00033}{doi:10.1109/FOCS.2018.00033};\n  \\href{https://arxiv.org/abs/1804.01082}{arXiv:1804.01082}."},{"key":"RUV13","label":"ref:p39-reichardt","tex":"B. W. Reichardt, F. Unger, and U. Vazirani,\n  ``Classical Command of Quantum Systems,'' \\emph{Nature} \\textbf{496},\n  456--460 (2013).\n  \\href{https://doi.org/10.1038/nature12035}{doi:10.1038/nature12035};\n  \\href{https://arxiv.org/abs/1209.0449}{arXiv:1209.0449}."}],"comment":"Section~1.8 of \\sourcecite{ref:p39-aharonov}{ABE+17} explicitly asks whether\nthe verifier's remaining quantum register can be eliminated.  The unresolved\nconjunction is one prover, a fully classical verifier, a $\\mathsf{BQP}$ honest\nprover, and unconditional soundness; relaxing any one of these requirements\nleads to known protocols."}}
+---
+## Source
+
+Aharonov, Ben-Or, Eban, and Mahadev explicitly ask whether the verifier’s remaining quantum register can be eliminated from an unconditional single-prover verification protocol [ABE+17](https://arxiv.org/abs/1704.04487).
+
+## Progress
+
+The inclusions $\mathsf{BQP}\subseteq\mathsf{PSPACE}=\mathsf{IP}$ give classical-verifier interactive proofs for $\mathsf{BQP}$, but do not ensure that the honest prover is implementable in quantum polynomial time [ADH97](https://doi.org/10.1137/S0097539795293639), [Sha92](https://doi.org/10.1145/146585.146609).
+
+Unconditional protocols with an honest $\mathsf{BQP}$ prover are known when the verifier retains a constant-size quantum register or exchanges a small number of qubits [ABE+17](https://arxiv.org/abs/1704.04487). They do not meet the fully classical verifier and classical-message requirements.
+
+A fully classical single-verifier protocol is known under the learning-with-errors assumption [Mah18](https://doi.org/10.1109/FOCS.2018.00033). Its soundness is computational against efficient quantum provers, rather than information theoretic against arbitrary provers.
+
+Fully classical and unconditional verification is possible with multiple noncommunicating entangled provers [RUV13](https://doi.org/10.1038/nature12035). This changes the single-prover model required in the problem statement.
+
+## Comment
+
+Section 1.8 of [ABE+17](https://arxiv.org/abs/1704.04487) explicitly asks whether the verifier’s remaining quantum register can be eliminated. The unresolved conjunction is one prover, a fully classical verifier, a $\mathsf{BQP}$ honest prover, and unconditional soundness; relaxing any one of these requirements leads to known protocols.
+
+## References
+
+**ADH97** L. M. Adleman, J. DeMarrais, and M.-D. A. Huang, “Quantum Computability,” *SIAM Journal on Computing* **26**, 1524–1540 (1997). [doi:10.1137/S0097539795293639](https://doi.org/10.1137/S0097539795293639).
+
+**Sha92** A. Shamir, “IP $=$ PSPACE,” *Journal of the ACM* **39**, 869–877 (1992). [doi:10.1145/146585.146609](https://doi.org/10.1145/146585.146609).
+
+**ABE+17** D. Aharonov, M. Ben-Or, E. Eban, and U. Mahadev, “Interactive Proofs for Quantum Computations,” arXiv:1704.04487 (2017). [arXiv:1704.04487](https://arxiv.org/abs/1704.04487).
+
+**Mah18** U. Mahadev, “Classical Verification of Quantum Computations,” in *Proceedings of the 59th IEEE Symposium on Foundations of Computer Science*, 259–267 (2018). [doi:10.1109/FOCS.2018.00033](https://doi.org/10.1109/FOCS.2018.00033); [arXiv:1804.01082](https://arxiv.org/abs/1804.01082).
+
+**RUV13** B. W. Reichardt, F. Unger, and U. Vazirani, “Classical Command of Quantum Systems,” *Nature* **496**, 456–460 (2013). [doi:10.1038/nature12035](https://doi.org/10.1038/nature12035); [arXiv:1209.0449](https://arxiv.org/abs/1209.0449).

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/contract/v1/payloads/withdrawal.schema.json",
+  "title": "Withdrawal",
+  "description": "Withdraws the caller's own contribution.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["reason"],
+  "properties": {
+    "reason": { "type": "string", "minLength": 1, "maxLength": 2000 }
+  }
+}

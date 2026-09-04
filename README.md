@@ -74,7 +74,7 @@ node site/build.mjs                       # or: npm run build
 python3 -m http.server 8000 --directory dist   # or: npm run serve
 ```
 
-Then open `http://localhost:8000/`. Node 18 or newer is the only requirement.
+Then open `http://localhost:8000/`. The repository requires Node 22.13 or newer.
 The build fails when a record breaks the schema: missing or unknown fields,
 unknown fields or topics or the wrong number of them, citations without a
 reference entry, `\eqref` targets without an equation, an unsupported
@@ -132,15 +132,30 @@ keeps metadata taxonomy IDs in step with the authored field and topic names. Use
 
 An export at `/api/main/problems/<ulid>.json` contains `problem`, a strict
 main Problem projection; `status`, the zoo's `Unsolved` or `Solved` value;
-and `record`, the complete authored JSON. The projection includes only
-aliases accepted by main's slug rules. The enclosing record and identifier
-crosswalk retain every alias, including the original `op_` identifier.
+and `record`, the complete authored JSON. Both identifiers and all registered
+aliases are preserved in the projection and identifier crosswalk.
 
-These exports do not admit records to main's ledger or invent reviews and
-decisions. A ledger integration still needs taxonomy reconciliation,
-admission or revision contributions, and decisions; using the zoo's binary
-statuses and raw aliases there also requires explicit policy or schema
-changes. The site continues to build from `database/problems_json/`.
+The research service reads `ledger/`, exported from this authoritative
+database by `npm run export-ledger`. The export includes problems,
+statements, bibliography sources, reference links, actors, and the existing
+independent field/topic taxonomy. Each problem embeds its complete source
+JSON in `authoredCatalog.record` and carries the source's binary status.
+The contract recognizes this maintained catalog as published without
+inventing reviews, claims, or admission decisions. Research contributions
+continue through the service's review workflow. The static website still
+builds directly from `database/problems_json/`.
+
+After changing the database, install the locked contract dependencies with
+`npm ci --prefix contract --ignore-scripts`, run `npm run export-ledger`,
+and include the resulting ledger changes. `npm run check-ledger` verifies
+the projection without writing. The regular exporter preserves subsequent
+service activity; `--replace-authoritative` explicitly replaces the entire
+ledger and activity roots and was used for the initial database replacement.
+
+Run `npm run service` to serve the HTTP API and review app, or `npm run mcp`
+to start the MCP adapter. See [service/README.md](service/README.md) for
+configuration and [docs/CATALOG_INTEGRATION.md](docs/CATALOG_INTEGRATION.md)
+for the database boundary.
 
 ## How the build works
 

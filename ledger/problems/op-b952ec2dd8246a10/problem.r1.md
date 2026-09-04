@@ -1,0 +1,41 @@
+---
+id: "01M1HME780SNG2DQVEGCDB0XSK"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1Q787QRVXGPCXG6KEQTF7N1"
+createdAt: "2026-09-04T22:04:59Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-cryptography","entanglement-theory"]
+topicIds: ["bound-entanglement","local-operations-and-classical-communication"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Secret key from every entangled state"
+aliases: ["op-b952ec2dd8246a10","op_b952ec2dd8246a10","01M1HME780SNG2DQVEGCDB0XSK","v2-secret-key-from-every-entangled-state","open-problem-v2-problem-20"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_b952ec2dd8246a10.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_b952ec2dd8246a10","ulid":"01M1HME780SNG2DQVEGCDB0XSK","aliases":["op_b952ec2dd8246a10","01M1HME780SNG2DQVEGCDB0XSK","op-b952ec2dd8246a10","v2-secret-key-from-every-entangled-state","open-problem-v2-problem-20"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":2,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-04T22:04:59Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-cryptography","entanglement-theory"],"topicIds":["bound-entanglement","local-operations-and-classical-communication"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Secret key from every entangled state","status":"Unsolved","fields":["Quantum cryptography","Entanglement theory"],"topics":["Bound entanglement","Local operations and classical communication"],"statement":"Does every finite-dimensional entangled bipartite state have positive\nasymptotic distillable secret key?  For a state $\\rho_{AB}$, with an adversary\nholding a purification, define its distillable-key rate by\n\\begin{equation}\n  K_D(\\rho_{AB})\n  :=\\sup\\left\\{R\\geq0:\n    \\begin{array}{l}\n      \\text{there are LOPC protocols $\\Lambda_n$ and private states\n      $\\gamma^{(n)}_{K_n}$, with $K_n=2^{\\lfloor nR\\rfloor}$, such that}\\\\[-1mm]\n      \\displaystyle\n      \\lim_{n\\to\\infty}\n      \\left\\|\\Lambda_n(\\rho_{AB}^{\\otimes n})\n      -\\gamma^{(n)}_{K_n}\\right\\|_1=0\n    \\end{array}\n  \\right\\},\n  \\label{eq:p20-distillable-key}\n\\end{equation}\nwhere each target $\\gamma^{(n)}_{K_n}$ may have its own shield system and has\nkey registers of dimension $K_n$.  With the operational convention in\nEq.~\\eqref{eq:p20-distillable-key},\nthe question is whether the implication\n\\begin{equation}\n  \\rho_{AB}\\ \\text{entangled}\n  \\quad\\Longrightarrow\\quad\n  K_D(\\rho_{AB})>0\n  \\label{eq:p20-entanglement-implies-key}\n\\end{equation}\nholds for every finite-dimensional $\\rho_{AB}$.","source":"Horodecki, Sikorski, Das, and Wilde explicitly identify the question whether\nevery entangled state has positive distillable key\n\\sourcecite{ref:p20-key-cost}{HSDW26}.","progress":["Horodecki, Horodecki, Horodecki, and Oppenheim constructed\n  bound-entangled states with positive distillable key.  Thus zero\n  distillable entanglement does not provide a counterexample to\n  Eq.~\\eqref{eq:p20-entanglement-implies-key}\n  \\sourcecite{ref:p20-bound-key}{HHHO05}.","Horodecki, Sikorski, Das, and Wilde explicitly state that the\n  existence of an entangled state with zero distillable key remains open.\n  Their 2026 result therefore confirms the unresolved scope of\n  Eq.~\\eqref{eq:p20-entanglement-implies-key} close to the present cutoff\n  \\sourcecite{ref:p20-key-cost}{HSDW26}."],"references":[{"key":"HHHO05","label":"ref:p20-bound-key","tex":"K. Horodecki, M. Horodecki, P. Horodecki, and J. Oppenheim,\n  ``Secure Key from Bound Entanglement,''\n  \\emph{Physical Review Letters} \\textbf{94}, 160502 (2005).\n  \\href{https://doi.org/10.1103/PhysRevLett.94.160502}{doi:10.1103/PhysRevLett.94.160502};\n  \\href{https://arxiv.org/abs/quant-ph/0309110}{arXiv:quant-ph/0309110}."},{"key":"HSDW26","label":"ref:p20-key-cost","tex":"K. Horodecki, L. Sikorski, S. Das, and M. M. Wilde,\n  ``Cost of Quantum Secret Key,'' \\emph{Quantum} \\textbf{10}, 2098 (2026).\n  \\href{https://doi.org/10.22331/q-2026-05-06-2098}{doi:10.22331/q-2026-05-06-2098};\n  \\href{https://arxiv.org/abs/2402.17007}{arXiv:2402.17007}."}],"comment":"The unresolved alternative is either to prove\nEq.~\\eqref{eq:p20-entanglement-implies-key} or to construct an entangled state\nwith $K_D=0$.  The question concerns the asymptotic key rate, not one-shot key\nextraction or distillable entanglement."}}
+---
+## Source
+
+Horodecki, Sikorski, Das, and Wilde explicitly identify the question whether every entangled state has positive distillable key [HSDW26](https://doi.org/10.22331/q-2026-05-06-2098).
+
+## Progress
+
+Horodecki, Horodecki, Horodecki, and Oppenheim constructed bound-entangled states with positive distillable key. Thus zero distillable entanglement does not provide a counterexample to Eq. (2) [HHHO05](https://doi.org/10.1103/PhysRevLett.94.160502).
+
+Horodecki, Sikorski, Das, and Wilde explicitly state that the existence of an entangled state with zero distillable key remains open. Their 2026 result therefore confirms the unresolved scope of Eq. (2) close to the present cutoff [HSDW26](https://doi.org/10.22331/q-2026-05-06-2098).
+
+## Comment
+
+The unresolved alternative is either to prove Eq. (2) or to construct an entangled state with $K_D=0$. The question concerns the asymptotic key rate, not one-shot key extraction or distillable entanglement.
+
+## References
+
+**HHHO05** K. Horodecki, M. Horodecki, P. Horodecki, and J. Oppenheim, “Secure Key from Bound Entanglement,” *Physical Review Letters* **94**, 160502 (2005). [doi:10.1103/PhysRevLett.94.160502](https://doi.org/10.1103/PhysRevLett.94.160502); [arXiv:quant-ph/0309110](https://arxiv.org/abs/quant-ph/0309110).
+
+**HSDW26** K. Horodecki, L. Sikorski, S. Das, and M. M. Wilde, “Cost of Quantum Secret Key,” *Quantum* **10**, 2098 (2026). [doi:10.22331/q-2026-05-06-2098](https://doi.org/10.22331/q-2026-05-06-2098); [arXiv:2402.17007](https://arxiv.org/abs/2402.17007).

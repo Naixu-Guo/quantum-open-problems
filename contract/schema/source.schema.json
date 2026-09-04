@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/contract/v1/source.schema.json",
+  "title": "Source",
+  "description": "A bibliographic record. Revisable. Unique by DOI, else arXiv id and version, else normalized URL.",
+  "allOf": [{ "$ref": "common.schema.json#/$defs/revisableBase" }],
+  "unevaluatedProperties": false,
+  "required": ["type", "title", "kind", "completeness", "authors", "venue", "date", "doi", "arxivId", "url", "version", "body"],
+  "properties": {
+    "type": { "const": "Source" },
+    "title": { "$ref": "common.schema.json#/$defs/nonEmptyText" },
+    "kind": { "enum": ["paper", "preprint", "book", "problem-list", "dataset", "thesis", "web-record"] },
+    "completeness": { "enum": ["complete", "partial", "url-only"] },
+    "authors": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "venue": { "$ref": "common.schema.json#/$defs/text" },
+    "date": { "$ref": "common.schema.json#/$defs/dateOrNull" },
+    "doi": { "$ref": "common.schema.json#/$defs/textOrNull" },
+    "arxivId": { "$ref": "common.schema.json#/$defs/textOrNull" },
+    "url": { "$ref": "common.schema.json#/$defs/url" },
+    "version": { "$ref": "common.schema.json#/$defs/textOrNull" },
+    "body": { "$ref": "common.schema.json#/$defs/text" }
+  }
+}

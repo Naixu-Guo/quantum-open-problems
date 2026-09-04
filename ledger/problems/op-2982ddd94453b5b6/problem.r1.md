@@ -1,0 +1,53 @@
+---
+id: "01M1HME780WBAHVDTT361D6NNF"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1Q787QRVXGPCXG6KEQTF7N1"
+createdAt: "2026-09-04T22:04:59Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-measurement-theory","entanglement-theory"]
+topicIds: ["quantum-steering","qudit-systems"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "POVM steering threshold of higher-dimensional Werner states"
+aliases: ["op-2982ddd94453b5b6","op_2982ddd94453b5b6","01M1HME780WBAHVDTT361D6NNF","v2-povm-steering-threshold-of-higher-dimensional-werner-states","open-problem-v2-problem-33"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_2982ddd94453b5b6.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_2982ddd94453b5b6","ulid":"01M1HME780WBAHVDTT361D6NNF","aliases":["op_2982ddd94453b5b6","01M1HME780WBAHVDTT361D6NNF","op-2982ddd94453b5b6","v2-povm-steering-threshold-of-higher-dimensional-werner-states","open-problem-v2-problem-33"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":2,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-04T22:04:59Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-measurement-theory","entanglement-theory"],"topicIds":["quantum-steering","qudit-systems"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"POVM steering threshold of higher-dimensional Werner states","status":"Unsolved","fields":["Quantum measurement theory","Entanglement theory"],"topics":["Quantum steering","Qudit systems"],"statement":"What is the exact steering threshold for arbitrary POVMs on a\nhigher-dimensional Werner state?  For $d\\geq3$, let $F$ be the swap operator\non $\\mathbb C^d\\otimes\\mathbb C^d$ and define\n\\begin{equation}\n  \\rho_f^{(d)}\n  :=\\frac{(d-f)I+(df-1)F}{d(d^2-1)},\n  \\qquad -1\\leq f\\leq1.\n  \\label{eq:p33-werner-state}\n\\end{equation}\nIf Alice applies a POVM $\\{M_{a\\mid x}\\}_a$ to the state in\nEq.~\\eqref{eq:p33-werner-state}, Bob's subnormalized conditional states are\n\\begin{equation}\n  \\sigma_{a\\mid x}\n  :=\\operatorname{Tr}_A\\!\\left[\n    (M_{a\\mid x}\\otimes I)\\rho_f^{(d)}\n    \\right].\n  \\label{eq:p33-assemblage}\n\\end{equation}\nThe assemblage in Eq.~\\eqref{eq:p33-assemblage} is unsteerable when it admits\na local-hidden-state decomposition\n\\begin{equation}\n  \\sigma_{a\\mid x}\n  =\\int_\\Lambda\\mu(d\\lambda)\\,\n    p(a\\mid x,\\lambda)\\tau_\\lambda,\n  \\label{eq:p33-lhs-model}\n\\end{equation}\nwhere $\\mu$ is a probability measure, $p(a\\mid x,\\lambda)$ are response\nfunctions, and $\\tau_\\lambda$ are density operators.  Determine the critical\nvalue $f_{\\mathrm{POVM}}(d)$ characterized by\n\\begin{equation}\n  \\rho_f^{(d)}\\ \\text{is unsteerable from Alice to Bob for every POVM}\n  \\quad\\Longleftrightarrow\\quad\n  f\\geq f_{\\mathrm{POVM}}(d).\n  \\label{eq:p33-povm-threshold}\n\\end{equation}\nIn particular, decide whether the threshold in\nEq.~\\eqref{eq:p33-povm-threshold} equals the exact projective-measurement\nthreshold\n\\begin{equation}\n  f_{\\mathrm{PVM}}(d)=-1+\\frac1d+\\frac1{d^2}\n  \\label{eq:p33-pvm-threshold}\n\\end{equation}\nfor every $d\\geq3$.  Equation~\\eqref{eq:p33-lhs-model} fixes the notion of\nunsteerability used in both threshold statements.","source":"After resolving the qubit case, Zhang--Chitambar and Renner explicitly leave\nthe arbitrary-POVM steering threshold of higher-dimensional Werner states\nopen \\sourcecite{ref:p33-zhang}{ZC24},\n\\sourcecite{ref:p33-renner}{Ren24}.","progress":["The projective-measurement boundary is exactly\n  Eq.~\\eqref{eq:p33-pvm-threshold}\n  \\sourcecite{ref:p33-werner}{Wer89},\n  \\sourcecite{ref:p33-jones}{JWD07}.","Explicit local-hidden-state constructions give nontrivial\n  arbitrary-POVM unsteerable intervals in every dimension, but for $d\\geq3$\n  their bounds do not reach Eq.~\\eqref{eq:p33-pvm-threshold}\n  \\sourcecite{ref:p33-nguyen}{NG20}.","For $d=2$, projective measurements and arbitrary POVMs have the same\n  exact threshold.  In the visibility parametrization\n  $\\rho_W(r)=r\\lvert\\Psi^-\\rangle\\!\\langle\\Psi^-\\rvert+(1-r)I/4$, the state\n  is unsteerable for every POVM exactly when $r\\leq1/2$\n  \\sourcecite{ref:p33-zhang}{ZC24},\n  \\sourcecite{ref:p33-renner}{Ren24}.  These qubit constructions have not\n  determined Eq.~\\eqref{eq:p33-povm-threshold} for $d\\geq3$.","Higher-dimensional steering inequalities detect steering for\n  selected measurement families, but do not determine the all-POVM boundary\n  \\sourcecite{ref:p33-yang}{YQ26}."],"references":[{"key":"Wer89","label":"ref:p33-werner","tex":"R. F. Werner, ``Quantum States with Einstein--Podolsky--Rosen Correlations\n  Admitting a Hidden-Variable Model,'' \\emph{Physical Review A} \\textbf{40},\n  4277--4281 (1989).\n  \\href{https://doi.org/10.1103/PhysRevA.40.4277}{doi:10.1103/PhysRevA.40.4277}."},{"key":"JWD07","label":"ref:p33-jones","tex":"S. J. Jones, H. M. Wiseman, and A. C. Doherty, ``Entanglement,\n  EPR-Correlations, Bell-Nonlocality, and Steering,'' \\emph{Physical Review A}\n  \\textbf{76}, 052116 (2007).\n  \\href{https://doi.org/10.1103/PhysRevA.76.052116}{doi:10.1103/PhysRevA.76.052116};\n  \\href{https://arxiv.org/abs/0709.0390}{arXiv:0709.0390}."},{"key":"NG20","label":"ref:p33-nguyen","tex":"H. C. Nguyen and O. G\\\"uhne, ``Some Quantum Measurements with Three\n  Outcomes Can Reveal Nonclassicality Where All Two-Outcome Measurements Fail\n  to Do So,'' \\emph{Physical Review Letters} \\textbf{125}, 230402 (2020).\n  \\href{https://doi.org/10.1103/PhysRevLett.125.230402}{doi:10.1103/PhysRevLett.125.230402};\n  \\href{https://arxiv.org/abs/2001.03514}{arXiv:2001.03514}."},{"key":"ZC24","label":"ref:p33-zhang","tex":"Y. Zhang and E. Chitambar, ``Exact Steering Bound for Two-Qubit Werner\n  States,'' \\emph{Physical Review Letters} \\textbf{132}, 250201 (2024).\n  \\href{https://doi.org/10.1103/PhysRevLett.132.250201}{doi:10.1103/PhysRevLett.132.250201};\n  \\href{https://arxiv.org/abs/2309.09960}{arXiv:2309.09960}."},{"key":"Ren24","label":"ref:p33-renner","tex":"M. J. Renner, ``Compatibility of Generalized Noisy Qubit Measurements,''\n  \\emph{Physical Review Letters} \\textbf{132}, 250202 (2024).\n  \\href{https://doi.org/10.1103/PhysRevLett.132.250202}{doi:10.1103/PhysRevLett.132.250202};\n  \\href{https://arxiv.org/abs/2309.12290}{arXiv:2309.12290}."},{"key":"YQ26","label":"ref:p33-yang","tex":"M.-C. Yang and C.-F. Qiao, ``Witness High-Dimensional Quantum Steering via\n  Majorization Lattice,'' \\emph{npj Quantum Information} \\textbf{12}, 55\n  (2026). \\href{https://doi.org/10.1038/s41534-026-01204-3}{doi:10.1038/s41534-026-01204-3}."}],"comment":"The exact arbitrary-POVM boundary is known in dimension two but not for any\ngeneral $d\\geq3$.  The remaining question is whether genuinely\nnonprojective POVMs lower the unsteerable Werner interval below the\nprojective threshold."}}
+---
+## Source
+
+After resolving the qubit case, Zhang–Chitambar and Renner explicitly leave the arbitrary-POVM steering threshold of higher-dimensional Werner states open [ZC24](https://doi.org/10.1103/PhysRevLett.132.250201), [Ren24](https://doi.org/10.1103/PhysRevLett.132.250202).
+
+## Progress
+
+The projective-measurement boundary is exactly Eq. (5) [Wer89](https://doi.org/10.1103/PhysRevA.40.4277), [JWD07](https://doi.org/10.1103/PhysRevA.76.052116).
+
+Explicit local-hidden-state constructions give nontrivial arbitrary-POVM unsteerable intervals in every dimension, but for $d\geq3$ their bounds do not reach Eq. (5) [NG20](https://doi.org/10.1103/PhysRevLett.125.230402).
+
+For $d=2$, projective measurements and arbitrary POVMs have the same exact threshold. In the visibility parametrization $\rho_W(r)=r\lvert\Psi^-\rangle\!\langle\Psi^-\rvert+(1-r)I/4$, the state is unsteerable for every POVM exactly when $r\leq1/2$ [ZC24](https://doi.org/10.1103/PhysRevLett.132.250201), [Ren24](https://doi.org/10.1103/PhysRevLett.132.250202). These qubit constructions have not determined Eq. (4) for $d\geq3$.
+
+Higher-dimensional steering inequalities detect steering for selected measurement families, but do not determine the all-POVM boundary [YQ26](https://doi.org/10.1038/s41534-026-01204-3).
+
+## Comment
+
+The exact arbitrary-POVM boundary is known in dimension two but not for any general $d\geq3$. The remaining question is whether genuinely nonprojective POVMs lower the unsteerable Werner interval below the projective threshold.
+
+## References
+
+**Wer89** R. F. Werner, “Quantum States with Einstein–Podolsky–Rosen Correlations Admitting a Hidden-Variable Model,” *Physical Review A* **40**, 4277–4281 (1989). [doi:10.1103/PhysRevA.40.4277](https://doi.org/10.1103/PhysRevA.40.4277).
+
+**JWD07** S. J. Jones, H. M. Wiseman, and A. C. Doherty, “Entanglement, EPR-Correlations, Bell-Nonlocality, and Steering,” *Physical Review A* **76**, 052116 (2007). [doi:10.1103/PhysRevA.76.052116](https://doi.org/10.1103/PhysRevA.76.052116); [arXiv:0709.0390](https://arxiv.org/abs/0709.0390).
+
+**NG20** H. C. Nguyen and O. Gühne, “Some Quantum Measurements with Three Outcomes Can Reveal Nonclassicality Where All Two-Outcome Measurements Fail to Do So,” *Physical Review Letters* **125**, 230402 (2020). [doi:10.1103/PhysRevLett.125.230402](https://doi.org/10.1103/PhysRevLett.125.230402); [arXiv:2001.03514](https://arxiv.org/abs/2001.03514).
+
+**ZC24** Y. Zhang and E. Chitambar, “Exact Steering Bound for Two-Qubit Werner States,” *Physical Review Letters* **132**, 250201 (2024). [doi:10.1103/PhysRevLett.132.250201](https://doi.org/10.1103/PhysRevLett.132.250201); [arXiv:2309.09960](https://arxiv.org/abs/2309.09960).
+
+**Ren24** M. J. Renner, “Compatibility of Generalized Noisy Qubit Measurements,” *Physical Review Letters* **132**, 250202 (2024). [doi:10.1103/PhysRevLett.132.250202](https://doi.org/10.1103/PhysRevLett.132.250202); [arXiv:2309.12290](https://arxiv.org/abs/2309.12290).
+
+**YQ26** M.-C. Yang and C.-F. Qiao, “Witness High-Dimensional Quantum Steering via Majorization Lattice,” *npj Quantum Information* **12**, 55 (2026). [doi:10.1038/s41534-026-01204-3](https://doi.org/10.1038/s41534-026-01204-3).

@@ -11,11 +11,16 @@
     "sync-tex": "node scripts/sync-tex.mjs",
     "migrate-metadata": "node scripts/migrate-metadata.mjs",
     "check-metadata": "node scripts/migrate-metadata.mjs --check",
-    "test": "node --test tests/*.test.mjs",
-    "new-id": "node scripts/new-problem-id.mjs"
+    "test": "node --experimental-strip-types --no-warnings --test tests/*.test.mjs",
+    "new-id": "node scripts/new-problem-id.mjs",
+    "export-ledger": "node --experimental-strip-types --no-warnings scripts/export-ledger.mjs",
+    "check-ledger": "node --experimental-strip-types --no-warnings scripts/export-ledger.mjs --check",
+    "validate:ledger": "node --experimental-strip-types --no-warnings contract/src/cli/validate.ts ledger activity",
+    "service": "npm --prefix service run serve",
+    "mcp": "npm --prefix mcp start"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22.13"
   },
   "repository": {
     "type": "git",

@@ -136,6 +136,25 @@ test("new JSON scaffolds receive unique identifiers and can synchronize edited c
   assert.equal(read(file).ulid, fresh.ulid);
 });
 
+test("explicit identity refresh reads the exported ledger's inline aliases without importing its content", (t) => {
+  const root = fixture(t);
+  const ledgerDir = path.join(root, "ledger/problems/example");
+  fs.mkdirSync(ledgerDir, { recursive: true });
+  fs.writeFileSync(path.join(ledgerDir, "problem.r1.md"), `---\nid: ${JSON.stringify(example.ulid)}\ntype: "Problem"\nrevision: 1\naliases: ${JSON.stringify(example.aliases)}\n---\nStale content that must never replace the authored record.\n`);
+  const git = (...args) => spawnSync("git", args, { cwd: root, encoding: "utf8" });
+  succeed(git("init", "--quiet"));
+  succeed(git("add", "ledger"));
+  succeed(git("-c", "user.name=Database test", "-c", "user.email=database-test@example.invalid", "commit", "--quiet", "-m", "Identity fixture"));
+  const jsonPath = path.join(root, `database/problems_json/${example.id}.json`);
+  const before = fs.readFileSync(jsonPath, "utf8");
+  succeed(script("migrate-metadata.mjs", ["--root", root, "--main-ref", "HEAD"]));
+  assert.equal(fs.readFileSync(jsonPath, "utf8"), before);
+  const mapping = read(path.join(root, "database/metadata.json")).mappings[example.id];
+  assert.equal(mapping.mainId, example.ulid);
+  assert.ok(mapping.mainAliases.includes(example.id));
+  assert.ok(mapping.mainAliases.includes(example.ulid));
+});
+
 test("built aliases and main adapter preserve every authored record and binary status", (t) => {
   const output = fs.mkdtempSync(path.join(os.tmpdir(), "qiqcop-alias-build-"));
   t.after(() => fs.rmSync(output, { recursive: true, force: true }));

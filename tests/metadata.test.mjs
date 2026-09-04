@@ -79,7 +79,7 @@ test("main projection uses the ULID, compatible aliases, and current content", (
   assert.equal(problem.id, current.ulid);
   assert.equal(problem.title, current.title);
   assert.equal(problem.body, current.comment);
-  assert.deepEqual(problem.aliases, ["op-0123456789abcdef", "existing-main-alias"]);
+  assert.deepEqual(problem.aliases, current.aliases);
   assert.equal(problem.type, "Problem");
   for (const excluded of ["status", "catalogState", "reviews", "decisions", "statement", "ulid", "metadata"]) assert.equal(Object.hasOwn(problem, excluded), false);
   assert.equal(current.status, "Solved");

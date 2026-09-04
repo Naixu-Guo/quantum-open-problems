@@ -1,0 +1,14 @@
+---
+id: "01M1Q787QRMZBCMMFHYFXX108P"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1Q787QRVXGPCXG6KEQTF7N1"
+createdAt: "2026-09-04T22:04:59Z"
+type: "Reference"
+sourceId: "01M1Q787QRKH74GH2DG37YS79X"
+targetType: "problem"
+targetId: "01M1Q787QR71ZZJVC3XC65A5F3"
+role: "states-problem"
+locator: "LN25"
+---
+M. Lin and K. Noh, “Exploring the Quantum Capacity of a Gaussian Random-Displacement Channel Using Gottesman–Kitaev–Preskill Codes and Maximum-Likelihood Decoding,” *Physical Review A* **111**, 052445 (2025). [doi:10.1103/PhysRevA.111.052445](https://doi.org/10.1103/PhysRevA.111.052445); [arXiv:2411.04277](https://arxiv.org/abs/2411.04277).
