@@ -21,13 +21,12 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "entanglement-theory"
+      "quantum-resource-theory"
     ],
     "topicIds": [
       "entanglement-measures",
-      "qubit-systems",
-      "convex-optimization",
-      "quantum-separability"
+      "quantum-separability",
+      "quantum-relative-entropy"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -37,13 +36,12 @@
   "title": "Relative entropy of entanglement for two qubits",
   "status": "Unsolved",
   "fields": [
-    "Entanglement theory"
+    "Quantum Resource Theory"
   ],
   "topics": [
     "Entanglement measures",
-    "Qubit systems",
-    "Convex optimization",
-    "Quantum separability"
+    "Quantum separability",
+    "Quantum relative entropy"
   ],
   "statement": "Find a closed formula for the relative entropy of entanglement of every\ntwo-qubit density operator $\\rho$, including an explicit closest separable\nstate.  With $\\operatorname{Sep}(\\mathbb{C}^2:\\mathbb{C}^2)$ denoting the\ntwo-qubit separable states, the quantity is\n\\begin{equation}\n  E_R(\\rho)\n  :=\\min_{\\sigma\\in\\operatorname{Sep}(\\mathbb{C}^2:\\mathbb{C}^2)}\n       D(\\rho\\Vert\\sigma),\n  \\qquad\n  D(\\rho\\Vert\\sigma)\n  :=\\begin{cases}\n    \\operatorname{Tr}\\!\\left[\\rho(\\log\\rho-\\log\\sigma)\\right],\n      &\\operatorname{supp}\\rho\\subseteq\\operatorname{supp}\\sigma,\\\\\n    +\\infty,&\\text{otherwise}.\n  \\end{cases}\n  \\label{eq:p12-relative-entropy-entanglement}\n\\end{equation}\nIn the finite branch of Eq.~\\eqref{eq:p12-relative-entropy-entanglement}, the\ntrace is evaluated on $\\operatorname{supp}\\rho$, with $0\\log 0:=0$.  The\nformula sought must determine at least one minimizing state $\\sigma_\\rho$ for\nevery $\\rho$.",
   "source": "The general two-qubit formula is listed by Kr\\\"uger and Werner, and\nMiranowicz and Ishizaka explicitly distinguish this unresolved forward\nproblem from their solved inverse construction\n\\sourcecite{ref:p12-krueger-werner}{KW05},\n\\sourcecite{ref:p12-miranowicz-ishizaka}{MI08}.",

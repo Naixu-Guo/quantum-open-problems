@@ -21,14 +21,12 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "entanglement-theory"
+      "quantum-resource-theory"
     ],
     "topicIds": [
-      "bell-diagonal-states",
       "entanglement-distillation",
-      "local-operations-and-classical-communication",
-      "rains-bound",
-      "qubit-systems"
+      "bell-diagonal-states",
+      "local-operations-and-classical-communication"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -38,14 +36,12 @@
   "title": "Distillable entanglement of Bell-diagonal states",
   "status": "Unsolved",
   "fields": [
-    "Entanglement theory"
+    "Quantum Resource Theory"
   ],
   "topics": [
-    "Bell-diagonal states",
     "Entanglement distillation",
-    "Local operations and classical communication",
-    "Rains bound",
-    "Qubit systems"
+    "Bell-diagonal states",
+    "Local operations and classical communication"
   ],
   "statement": "What is the distillable entanglement $D(\\rho_{\\mathbf p})$ under local\noperations and classical communication (LOCC) for the Bell-diagonal state\n\\begin{equation}\n  \\rho_{\\mathbf p}\n  =p_I\\lvert\\Phi^+\\rangle\\!\\langle\\Phi^+\\rvert\n  +p_X\\lvert\\Psi^+\\rangle\\!\\langle\\Psi^+\\rvert\n  +p_Y\\lvert\\Psi^-\\rangle\\!\\langle\\Psi^-\\rvert\n  +p_Z\\lvert\\Phi^-\\rangle\\!\\langle\\Phi^-\\rvert?\n  \\label{eq:p3-bell-diagonal-state}\n\\end{equation}\nWhat is this LOCC protocol?\n\nThe Bell states in Eq.~\\eqref{eq:p3-bell-diagonal-state} are defined by\n\\begin{equation}\n  \\lvert\\Phi^\\pm\\rangle:=\\frac{\\lvert00\\rangle\\pm\\lvert11\\rangle}{\\sqrt2},\n  \\qquad\n  \\lvert\\Psi^\\pm\\rangle:=\\frac{\\lvert01\\rangle\\pm\\lvert10\\rangle}{\\sqrt2}.\n  \\label{eq:p3-bell-basis}\n\\end{equation}\nEquation~\\eqref{eq:p3-bell-basis} fixes the phase convention.  Assume\n$\\sum_i p_i=1$ and $p_I\\ge1/2\\ge p_i>0$ for $i\\in\\{X,Y,Z\\}$.",
   "source": "The problem is implicit in the gap between the Bell-diagonal distillation\nprotocols of Bennett et al. and the PPT-based converse bounds introduced by\nRains \\sourcecite{ref:p3-bennett-pra}{BDSW96},\n\\sourcecite{ref:p3-rains-1999}{Rai99}.",

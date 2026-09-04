@@ -21,14 +21,11 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-shannon-theory"
+      "quantum-communication"
     ],
     "topicIds": [
-      "bosonic-channels",
       "quantum-capacity",
-      "coherent-information",
-      "gaussian-quantum-information",
-      "continuous-variable-systems"
+      "bosonic-channels"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -38,14 +35,11 @@
   "title": "Energy-constrained quantum capacity of a thermal attenuator",
   "status": "Unsolved",
   "fields": [
-    "Quantum Shannon theory"
+    "Quantum Communication"
   ],
   "topics": [
-    "Bosonic channels",
     "Quantum capacity",
-    "Coherent information",
-    "Gaussian quantum information",
-    "Continuous-variable systems"
+    "Bosonic channels"
   ],
   "statement": "For $0<\\eta<1$ and $0<\\nu<\\infty$, let the single-mode bosonic thermal\nattenuator be\n\\begin{equation}\n  \\Phi_{\\eta,\\nu}(\\rho_A)\n  :=\\operatorname{Tr}_{E'}\\!\\left[\n     U_\\eta(\\rho_A\\otimes\\tau_{\\nu,E})U_\\eta^\\dagger\n  \\right],\n  \\qquad\n  \\tau_{\\nu,E}:=\\sum_{k=0}^{\\infty}\n     \\frac{\\nu^k}{(\\nu+1)^{k+1}}\n     |k\\rangle_E\\!\\langle k|_E,\n  \\label{eq:p51-thermal-attenuator}\n\\end{equation}\nwhere $U_\\eta:AE\\to BE'$ is a beam-splitter unitary and\n$\\tau_{\\nu,E}$ acts on the environment mode $E$.  For an environment mode\nof angular frequency $\\omega_E$ at temperature $T$,\n$\\nu=(e^{\\hbar\\omega_E/(k_{\\rm B}T)}-1)^{-1}$.  Thus $0<T<\\infty$ is\nequivalent to $0<\\nu<\\infty$ for fixed $\\omega_E>0$; $\\nu=0$ corresponds\nto $T=0$, while $\\nu\\to\\infty$ as $T\\to\\infty$.  For a finite mean input photon\nnumber $0<N_{\\rm S}<\\infty$, define the energy-constrained unassisted quantum\ncapacity by\n\\begin{equation}\n  \\mathcal Q(\\Phi_{\\eta,\\nu},N_{\\rm S})\n  :=\\lim_{n\\to\\infty}\\frac1n\n  \\sup_{\\substack{\\rho_{A^n}:\\\\\n       \\operatorname{Tr}[\\rho_{A^n}\\sum_{j=1}^n\\hat n_j]\n       \\leq nN_{\\rm S}}}\n       I_{\\rm c}(\\rho_{A^n},\\Phi_{\\eta,\\nu}^{\\otimes n}),\n  \\label{eq:p51-energy-constrained-capacity}\n\\end{equation}\nwhere $\\hat n_j$ is the photon-number operator of the $j$th mode and\n$I_{\\rm c}(\\rho,\\mathcal N)\n:=S(\\mathcal N(\\rho))-S(\\mathcal N^{\\rm c}(\\rho))$.  Determine\nEq.~\\eqref{eq:p51-energy-constrained-capacity} for the thermal channel in\nEq.~\\eqref{eq:p51-thermal-attenuator}.",
   "source": "The problem is implicit in the nonmatching energy-constrained bounds of\nSharma et al. and the strict multimode achievable-rate improvements of Noh,\nPirandola, and Jiang \\sourcecite{ref:p51-sharma-et-al}{SWA+18},\n\\sourcecite{ref:p51-noh-pirandola-jiang}{NPJ20}.",

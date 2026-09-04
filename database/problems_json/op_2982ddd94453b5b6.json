@@ -21,12 +21,10 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-measurement-theory",
-      "entanglement-theory"
+      "quantum-resource-theory"
     ],
     "topicIds": [
-      "quantum-steering",
-      "qudit-systems"
+      "quantum-steering"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -36,12 +34,10 @@
   "title": "POVM steering threshold of higher-dimensional Werner states",
   "status": "Unsolved",
   "fields": [
-    "Quantum measurement theory",
-    "Entanglement theory"
+    "Quantum Resource Theory"
   ],
   "topics": [
-    "Quantum steering",
-    "Qudit systems"
+    "Quantum steering"
   ],
   "statement": "What is the exact steering threshold for arbitrary POVMs on a\nhigher-dimensional Werner state?  For $d\\geq3$, let $F$ be the swap operator\non $\\mathbb C^d\\otimes\\mathbb C^d$ and define\n\\begin{equation}\n  \\rho_f^{(d)}\n  :=\\frac{(d-f)I+(df-1)F}{d(d^2-1)},\n  \\qquad -1\\leq f\\leq1.\n  \\label{eq:p33-werner-state}\n\\end{equation}\nIf Alice applies a POVM $\\{M_{a\\mid x}\\}_a$ to the state in\nEq.~\\eqref{eq:p33-werner-state}, Bob's subnormalized conditional states are\n\\begin{equation}\n  \\sigma_{a\\mid x}\n  :=\\operatorname{Tr}_A\\!\\left[\n    (M_{a\\mid x}\\otimes I)\\rho_f^{(d)}\n    \\right].\n  \\label{eq:p33-assemblage}\n\\end{equation}\nThe assemblage in Eq.~\\eqref{eq:p33-assemblage} is unsteerable when it admits\na local-hidden-state decomposition\n\\begin{equation}\n  \\sigma_{a\\mid x}\n  =\\int_\\Lambda\\mu(d\\lambda)\\,\n    p(a\\mid x,\\lambda)\\tau_\\lambda,\n  \\label{eq:p33-lhs-model}\n\\end{equation}\nwhere $\\mu$ is a probability measure, $p(a\\mid x,\\lambda)$ are response\nfunctions, and $\\tau_\\lambda$ are density operators.  Determine the critical\nvalue $f_{\\mathrm{POVM}}(d)$ characterized by\n\\begin{equation}\n  \\rho_f^{(d)}\\ \\text{is unsteerable from Alice to Bob for every POVM}\n  \\quad\\Longleftrightarrow\\quad\n  f\\geq f_{\\mathrm{POVM}}(d).\n  \\label{eq:p33-povm-threshold}\n\\end{equation}\nIn particular, decide whether the threshold in\nEq.~\\eqref{eq:p33-povm-threshold} equals the exact projective-measurement\nthreshold\n\\begin{equation}\n  f_{\\mathrm{PVM}}(d)=-1+\\frac1d+\\frac1{d^2}\n  \\label{eq:p33-pvm-threshold}\n\\end{equation}\nfor every $d\\geq3$.  Equation~\\eqref{eq:p33-lhs-model} fixes the notion of\nunsteerability used in both threshold statements.",
   "source": "After resolving the qubit case, Zhang--Chitambar and Renner explicitly leave\nthe arbitrary-POVM steering threshold of higher-dimensional Werner states\nopen \\sourcecite{ref:p33-zhang}{ZC24},\n\\sourcecite{ref:p33-renner}{Ren24}.",

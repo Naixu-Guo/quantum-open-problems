@@ -3,7 +3,7 @@
 // (the specific objects, techniques, and settings it concerns). A name is
 // either a field or a topic, never both, and records use the names verbatim.
 //
-//   { "fields": ["Entanglement theory", ...], "topics": ["Bell nonlocality", ...] }
+//   { "fields": ["Quantum Resource Theory", ...], "topics": ["Bell nonlocality", ...] }
 //
 // No runtime dependencies.
 

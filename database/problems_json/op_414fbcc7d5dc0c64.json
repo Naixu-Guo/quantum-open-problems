@@ -21,13 +21,12 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-shannon-theory"
+      "quantum-communication"
     ],
     "topicIds": [
-      "transpose-degradable-channels",
-      "strong-converse",
       "quantum-capacity",
-      "finite-blocklength-quantum-information"
+      "channel-degradability",
+      "strong-converses"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -37,13 +36,12 @@
   "title": "Exponential strong converse for transpose-degradable channels",
   "status": "Unsolved",
   "fields": [
-    "Quantum Shannon theory"
+    "Quantum Communication"
   ],
   "topics": [
-    "Transpose-degradable channels",
-    "Strong converse",
     "Quantum capacity",
-    "Finite-blocklength quantum information"
+    "Channel degradability",
+    "Strong converses"
   ],
   "statement": "Does every finite-dimensional transpose-degradable channel satisfy an\nexponential strong converse for quantum communication at its single-letter\nquantum capacity?  Let $V:A\\to B\\otimes E$ be an isometry and suppose that\n\\begin{equation}\n  \\Phi(X):=\\operatorname{Tr}_E(VXV^\\dagger),\n  \\qquad\n  \\Phi^c(X):=\\operatorname{Tr}_B(VXV^\\dagger),\n  \\qquad\n  \\mathsf T_E\\circ\\Phi^c=\\mathcal G\\circ\\Phi,\n  \\label{eq:p55-transpose-degradable}\n\\end{equation}\nwhere $\\mathsf T_E$ is transpose in a fixed basis of $E$ and\n$\\mathcal G:\\mathcal L(B)\\to\\mathcal L(E)$ is completely positive and\ntrace preserving.  For the channel in\nEq.~\\eqref{eq:p55-transpose-degradable}, transpose degradability gives\n\\begin{equation}\n  Q(\\Phi)=Q^{(1)}(\\Phi)\n  :=\\max_{\\rho_A}\n     \\left[S(\\Phi(\\rho_A))-S(\\Phi^c(\\rho_A))\\right],\n  \\qquad\n  S(\\sigma):=-\\operatorname{Tr}(\\sigma\\log_2\\sigma).\n  \\label{eq:p55-single-letter-capacity}\n\\end{equation}\nEquation~\\eqref{eq:p55-single-letter-capacity} fixes the rate threshold.\n\nAt blocklength $n$, let\n$\\mathcal E_n:\\mathcal L(S_n)\\to\\mathcal L(A^{\\otimes n})$ and\n$\\mathcal R_n:\\mathcal L(B^{\\otimes n})\\to\\mathcal L(\\widehat S_n)$ be\narbitrary encoder and decoder channels, with\n$\\dim R_n=\\dim S_n=\\dim\\widehat S_n=M_n$.  Define the maximally entangled\ntarget by\n\\begin{equation}\n  \\varphi_{M_n}:=\n  |\\varphi_{M_n}\\rangle\\!\\langle\\varphi_{M_n}|,\n  \\qquad\n  |\\varphi_{M_n}\\rangle\n  :=\\frac1{\\sqrt{M_n}}\\sum_{i=1}^{M_n}|i\\rangle_{R_n}|i\\rangle_{S_n}.\n  \\label{eq:p55-maximally-entangled-target}\n\\end{equation}\nUsing the target in Eq.~\\eqref{eq:p55-maximally-entangled-target}, let\n\\begin{equation}\n  \\omega_n:=\n  \\left(\\operatorname{id}_{R_n}\\otimes\n  \\mathcal R_n\\circ\\Phi^{\\otimes n}\\circ\\mathcal E_n\\right)(\\varphi_{M_n}),\n  \\qquad\n  r_n:=\\frac1n\\log_2M_n,\n  \\qquad\n  F_n:=\\operatorname{Tr}(\\varphi_{M_n}^{R_n\\widehat S_n}\\omega_n).\n  \\label{eq:p55-code-fidelity}\n\\end{equation}\nThe problem is whether, for every channel in\nEq.~\\eqref{eq:p55-transpose-degradable}, the quantities in\nEq.~\\eqref{eq:p55-code-fidelity} satisfy\n\\begin{equation}\n  \\forall R>Q(\\Phi)\\ \\exists\\,\\gamma_R>0,\\ n_R\\in\\mathbb N:\n  \\quad\n  r_n\\geq R,\\ n\\geq n_R\n  \\ \\Longrightarrow\\\n  F_n\\leq2^{-\\gamma_R n}\n  \\label{eq:p55-exponential-strong-converse}\n\\end{equation}\nfor every encoder--decoder sequence.  Equation~\n\\eqref{eq:p55-exponential-strong-converse} is the all-code exponential\nstrong-converse property at the threshold in\nEq.~\\eqref{eq:p55-single-letter-capacity}.",
   "source": "Singh and Datta supply the complex-linear transpose-degradable formulation and\nits single-letter capacity\n\\sourcecite{ref:p55-singh-datta}{SD22}.  Morgan and Winter explicitly note\nthat extending their degradable-channel converse method to the corresponding\nconjugate-degradable class requires arguments not provided there; together\nthese papers pose the present class-wide question implicitly\n\\sourcecite{ref:p55-morgan-winter}{MW14}.",

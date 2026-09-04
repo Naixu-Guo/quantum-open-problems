@@ -22,13 +22,11 @@
     "posed": null,
     "areaIds": [
       "quantum-cryptography",
-      "entanglement-theory"
+      "quantum-resource-theory"
     ],
     "topicIds": [
-      "entanglement-measures",
-      "local-operations-and-classical-communication",
-      "resource-conversion",
-      "qubit-systems"
+      "secret-key-distillation",
+      "local-operations-and-classical-communication"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -38,14 +36,12 @@
   "title": "Honest-party lockability of distillable key",
   "status": "Unsolved",
   "fields": [
-    "Quantum cryptography",
-    "Entanglement theory"
+    "Quantum Cryptography",
+    "Quantum Resource Theory"
   ],
   "topics": [
-    "Entanglement measures",
-    "Local operations and classical communication",
-    "Resource conversion",
-    "Qubit systems"
+    "Secret-key distillation",
+    "Local operations and classical communication"
   ],
   "statement": "Can loss of one qubit held by an honest party reduce the two-way distillable\nsecret key by an arbitrarily large amount?  Let $K_D(A:B)_\\rho$ denote the\nasymptotic secret-key rate obtainable from $\\rho_{AB}$ by local operations and\npublic two-way classical communication, with an adversary holding a\npurification.  The question is whether there are finite-dimensional states\n$\\rho^{(r)}_{A_ra:B_r}$, with $\\dim a=2$, such that\n\\begin{equation}\n  K_D(A_ra:B_r)_{\\rho^{(r)}}\n  -K_D(A_r:B_r)_{\\operatorname{Tr}_a\\rho^{(r)}}\n  \\xrightarrow[r\\to\\infty]{}\\infty.\n  \\label{eq:p22-ab-key-locking}\n\\end{equation}\nEquation~\\eqref{eq:p22-ab-key-locking} is the $AB$-locking question: the\ndiscarded qubit belongs to Alice rather than being transferred to the\nadversary.",
   "source": "Christandl et al. explicitly ask whether distillable key is lockable when the\ndiscarded subsystem is held by an honest party\n\\sourcecite{ref:p22-unifying-key}{CEH+07}.",

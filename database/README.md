@@ -22,6 +22,9 @@ This directory is the only content source of the QIQCOP Zoo website.
   before the split carry a single `Tag` subsection; the parser sorts its
   names into fields and topics, and `sync-tex` leaves such a file untouched
   while it agrees with its record, so the record's edit date survives.
+- `TAXONOMY.md`: the six fields' scope and the criteria for assigning and
+  maintaining topics. Read it together with the current `tags.json` when
+  classifying a problem.
 - `_template.json` and `_template.tex`: the required structure of a record in
   each form.
 - `metadata.json`: the pinned identifier crosswalk, matching provenance, and

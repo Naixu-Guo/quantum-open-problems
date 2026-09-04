@@ -21,13 +21,10 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-error-correction",
-      "mathematics-of-quantum-information"
+      "quantum-error-correction"
     ],
     "topicIds": [
-      "quantum-coding-theory",
-      "operator-algebras",
-      "matrix-analysis"
+      "quantum-coding-theory"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -37,13 +34,10 @@
   "title": "Tough error models",
   "status": "Unsolved",
   "fields": [
-    "Quantum error correction",
-    "Mathematics of quantum information"
+    "Quantum Error Correction"
   ],
   "topics": [
-    "Quantum coding theory",
-    "Operator algebras",
-    "Matrix analysis"
+    "Quantum coding theory"
   ],
   "statement": "Determine $c(e,n)$ and construct tough error models in the sense of\n\\sourcecite{ref:p14-krueger-werner}{KW05}.  Let\n$H=\\mathbb{C}^n$, and let an $e$-dimensional error model be a complex linear\nsubspace $E\\subseteq\\operatorname{End}(H)$ with $1\\le e\\le n^2$.  A linear\nsubspace $C\\subseteq H$ corrects $E$ exactly when, for every $A,B\\in E$, there\nis a scalar $\\lambda(A,B)\\in\\mathbb{C}$ such that\n\\begin{equation}\n  P_C A^\\dagger B P_C=\\lambda(A,B)P_C,\n  \\label{eq:p14-error-correction-condition}\n\\end{equation}\nwhere $P_C$ is the orthogonal projector onto $C$.  Define the guaranteed code\ndimension by\n\\begin{equation}\n  c(e,n)\n  :=\\min_{\\substack{E\\subseteq\\operatorname{End}(H)\\\\\n                    \\dim E=e}}\n    \\max\\left\\{\n      \\dim C:\n      \\begin{array}{l}\n        C\\subseteq H\\text{ is a linear subspace, and}\\\\\n        \\forall A,B\\in E\\ \\exists\\lambda(A,B)\\in\\mathbb{C}:\\\n        P_C A^\\dagger B P_C=\\lambda(A,B)P_C\n      \\end{array}\n    \\right\\}.\n  \\label{eq:p14-guaranteed-code-dimension}\n\\end{equation}\nDetermine $c(e,n)$ in Eq.~\\eqref{eq:p14-guaranteed-code-dimension}, exactly\nor with asymptotically matching bounds, and exhibit explicit tough error\nmodels whose largest correcting code is close to this value.",
   "source": "Kr\\\"uger and Werner explicitly introduce the extremal function $c(e,n)$ and\nask for tough error models attaining its scale\n\\sourcecite{ref:p14-krueger-werner}{KW05}.",

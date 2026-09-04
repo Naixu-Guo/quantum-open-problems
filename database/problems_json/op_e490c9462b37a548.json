@@ -21,13 +21,11 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-shannon-theory",
       "quantum-communication"
     ],
     "topicIds": [
-      "amplitude-damping-channels",
-      "two-way-quantum-capacity",
-      "qubit-systems"
+      "quantum-capacity",
+      "local-operations-and-classical-communication"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -37,13 +35,11 @@
   "title": "Two-way quantum capacity: amplitude-damping channel",
   "status": "Unsolved",
   "fields": [
-    "Quantum Shannon theory",
-    "Quantum communication"
+    "Quantum Communication"
   ],
   "topics": [
-    "Amplitude-damping channels",
-    "Two-way quantum capacity",
-    "Qubit systems"
+    "Quantum capacity",
+    "Local operations and classical communication"
   ],
   "statement": "What is the two-way quantum capacity $\\mathcal{Q}_2(\\mathcal A_p)$ of the\nqubit amplitude-damping channel\n\\begin{equation}\n  \\mathcal A_p(\\rho)=A_0\\rho A_0^\\dagger+A_1\\rho A_1^\\dagger,\n  \\qquad 0\\le p\\le1?\n  \\label{eq:p5-amplitude-damping}\n\\end{equation}\nThe operators in Eq.~\\eqref{eq:p5-amplitude-damping} are\n\\begin{equation}\n  \\begin{aligned}\n    A_0&=\\lvert0\\rangle\\!\\langle0\\rvert\n         +\\sqrt{1-p}\\,\\lvert1\\rangle\\!\\langle1\\rvert\n       =\\begin{pmatrix}1&0\\\\0&\\sqrt{1-p}\\end{pmatrix},\\\\\n    A_1&=\\sqrt p\\,\\lvert0\\rangle\\!\\langle1\\rvert\n       =\\begin{pmatrix}0&\\sqrt p\\\\0&0\\end{pmatrix}.\n  \\end{aligned}\n  \\label{eq:p5-kraus-operators}\n\\end{equation}\nEquation~\\eqref{eq:p5-kraus-operators} uses $p$ as the decay probability of\nthe excited state.  Here $\\mathcal{Q}_2$ permits adaptive local operations and\nunlimited two-way classical communication between uses of the channel.",
   "source": "The question is implicit in the nonmatching achievable and converse bounds\nfor the amplitude-damping channel reported by Pirandola, Laurenza,\nOttaviani, and Banchi \\sourcecite{ref:p5-pirandola}{PLOB17}.",

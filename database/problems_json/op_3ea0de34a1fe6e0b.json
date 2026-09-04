@@ -19,13 +19,13 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-shannon-theory"
+      "quantum-communication",
+      "quantum-cryptography"
     ],
     "topicIds": [
       "quantum-capacity",
       "private-capacity",
-      "coherent-information",
-      "quantum-channels"
+      "additivity-and-regularization"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -35,13 +35,13 @@
   "title": "Universal finite truncation of quantum and private capacities",
   "status": "Solved",
   "fields": [
-    "Quantum Shannon theory"
+    "Quantum Communication",
+    "Quantum Cryptography"
   ],
   "topics": [
     "Quantum capacity",
     "Private capacity",
-    "Coherent information",
-    "Quantum channels"
+    "Additivity and regularization"
   ],
   "statement": "Do there exist channel-independent finite integers $m_Q$ and $m_P$ that\ndetermine, respectively, the quantum capacity and the private classical\ncapacity of every finite-dimensional quantum channel?  Let $V_{A\\to BE}$ be\na Stinespring isometry for a channel and its\ncomplement, and define coherent information by\n\\begin{equation}\n  \\mathcal N_{A\\to B}(\\rho):=\\operatorname{Tr}_{E}[V\\rho V^\\dagger],\n  \\qquad\n  \\mathcal N^c_{A\\to E}(\\rho):=\\operatorname{Tr}_{B}[V\\rho V^\\dagger],\n  \\qquad\n  I_{\\rm c}(\\rho,\\mathcal N):=\n  S(\\mathcal N(\\rho))-S(\\mathcal N^c(\\rho)).\n  \\label{eq:p73-channel-and-coherent-information}\n\\end{equation}\nFor each $m\\geq1$, use Eq.~\\eqref{eq:p73-channel-and-coherent-information}\nto set\n\\begin{equation}\n  Q^{(m)}(\\mathcal N)\n  :=\\frac1m\\max_{\\rho_{A^m}}\n       I_{\\rm c}(\\rho_{A^m},\\mathcal N^{\\otimes m}),\n  \\qquad\n  Q(\\mathcal N):=\\sup_{m\\geq1}Q^{(m)}(\\mathcal N).\n  \\label{eq:p73-quantum-regularization}\n\\end{equation}\nFor an ensemble $\\{p_x,\\rho_x^{A^m}\\}$, let its joint channel output be\n\\begin{equation}\n  \\omega^{XB^mE^m}\n  :=\\sum_x p_x|x\\rangle\\!\\langle x|^X\\otimes\n    V^{\\otimes m}\\rho_x^{A^m}(V^\\dagger)^{\\otimes m}.\n  \\label{eq:p73-private-output-state}\n\\end{equation}\nIn terms of the state in Eq.~\\eqref{eq:p73-private-output-state}, define\n\\begin{equation}\n  P^{(m)}(\\mathcal N)\n  :=\\frac1m\\max_{\\{p_x,\\rho_x^{A^m}\\}}\n       \\bigl[I(X;B^m)_\\omega-I(X;E^m)_\\omega\\bigr],\n  \\qquad\n  P(\\mathcal N):=\\sup_{m\\geq1}P^{(m)}(\\mathcal N).\n  \\label{eq:p73-private-regularization}\n\\end{equation}\nThe question is whether there exist finite integers $m_Q$ and $m_P$,\nindependent of the channel dimensions and of $\\mathcal N$, such that\n\\begin{equation}\n  Q(\\mathcal N)=Q^{(m_Q)}(\\mathcal N)\n  \\quad\\text{and}\\quad\n  P(\\mathcal N)=P^{(m_P)}(\\mathcal N)\n  \\quad\\text{for every finite-dimensional }\\mathcal N.\n  \\label{eq:p73-universal-truncations}\n\\end{equation}",
   "source": "Wilde asks whether an entropic formula evaluated on some finite tensor power\ncould replace the regularizations in Eqs.~\\eqref{eq:p73-quantum-regularization}\nand \\eqref{eq:p73-private-regularization}.  Equation~\\eqref{eq:p73-universal-truncations}\nrecords the uniform, channel-independent interpretation of that question\n\\sourcecite{ref:p73-wilde}{Wil17}.",

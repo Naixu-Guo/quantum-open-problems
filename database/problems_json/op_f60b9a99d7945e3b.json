@@ -21,13 +21,10 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "entanglement-theory"
+      "quantum-resource-theory"
     ],
     "topicIds": [
-      "absolutely-maximally-entangled-states",
-      "multipartite-entanglement",
-      "qudit-systems",
-      "matrix-analysis"
+      "absolutely-maximally-entangled-states"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -37,13 +34,10 @@
   "title": "Real four-quhex absolutely maximally entangled state",
   "status": "Unsolved",
   "fields": [
-    "Entanglement theory"
+    "Quantum Resource Theory"
   ],
   "topics": [
-    "Absolutely maximally entangled states",
-    "Multipartite entanglement",
-    "Qudit systems",
-    "Matrix analysis"
+    "Absolutely maximally entangled states"
   ],
   "statement": "Does there exist an $\\operatorname{AME}(4,6)$ state whose coefficients are\nreal in a product basis?  Fix $[6]=\\{0,\\ldots,5\\}$ and ask for a normalized\nstate\n\\begin{equation}\n  |\\psi\\rangle\n  =\\sum_{i,j,k,l\\in[6]}T_{ijkl}|i\\rangle_A|j\\rangle_B\n    |k\\rangle_C|l\\rangle_D,\n  \\qquad\n  T_{ijkl}\\in\\mathbb{R},\n  \\qquad\n  \\sum_{i,j,k,l\\in[6]}T_{ijkl}^{2}=1 .\n  \\label{eq:p41-real-state}\n\\end{equation}\nThe state in \\eqref{eq:p41-real-state} must have maximally mixed reductions\non every pair of parties: for each $S\\subseteq\\{A,B,C,D\\}$ with $|S|=2$,\n\\begin{equation}\n  \\rho_S:=\\operatorname{Tr}_{S^{c}}|\\psi\\rangle\\!\\langle\\psi|\n  =\\frac{I_{36}}{36} .\n  \\label{eq:p41-ame-condition}\n\\end{equation}\n\nEquivalently, define the $36\\times36$ flattening $U$ and its reshuffling\n$U^R$ and second-factor partial transpose $U^\\Gamma$ by\n\\begin{equation}\n  U_{(i,j),(k,l)}:=6T_{ijkl},\n  \\qquad\n  (U^R)_{(i,k),(j,l)}:=U_{(i,j),(k,l)},\n  \\qquad\n  (U^\\Gamma)_{(i,j),(k,l)}:=U_{(i,l),(k,j)} .\n  \\label{eq:p41-rearrangements}\n\\end{equation}\nHere the three matrices in \\eqref{eq:p41-rearrangements} are the coefficient\nflattenings for the bipartitions $AB|CD$, $AC|BD$, and $AD|CB$, up to the\ndisplayed ordering of tensor factors.  Consequently,\n\\eqref{eq:p41-ame-condition} is equivalent to the orthogonal\n$2$-unitarity conditions\n\\begin{equation}\n  U\\in O(36),\n  \\qquad\n  U^R\\in O(36),\n  \\qquad\n  U^\\Gamma\\in O(36) .\n  \\label{eq:p41-orthogonal-two-unitarity}\n\\end{equation}\nThus the problem is also to construct an orthogonal $2$-unitary matrix of\norder $36$, or prove that none exists.",
   "source": "Rajchel-Mieldzio\\'c et al. explicitly ask whether a real\n$\\operatorname{AME}(4,6)$ state, equivalently an orthogonal $2$-unitary\nmatrix of order $36$, exists \\sourcecite{ref:p41-review}{RBR+26}.",

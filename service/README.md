@@ -1,6 +1,9 @@
 # Domain service
 
-The domain service is the only writer of the ledger. It turns a batch of
+The domain service writes research contributions to the ledger; the catalog
+exporter also writes the projection of `database/problems_json/`. The
+[catalog integration guide](../docs/CATALOG_INTEGRATION.md) defines that
+boundary. The service turns a batch of
 new records into files, validates the whole ledger with the contract
 validator, commits or rolls back as a unit, issues the automatic decisions
 the policy allows, and rebuilds the SQLite index that the read API serves.
@@ -166,10 +169,13 @@ unless it carries the `ledger-change` label.
 2. Export `QOP_GITHUB_CLIENT_ID` and `QOP_GITHUB_CLIENT_SECRET`, then
    `npm run serve` and open `http://localhost:8787/`. The first login creates
    your actor with the contributor role.
-3. To act as an editor, bind your GitHub account to the editor actor that
-   the seed ledger already holds: find its id in `ledger/actors/`, find your
-   numeric GitHub id at `https://api.github.com/users/<login>`, and run
+3. Editor access requires an existing human Actor with the editor role.
+   The replaced catalog contains only a migration system actor; it does not
+   include the old seed editor. An operator must provision a human editor
+   before linking that person's numeric GitHub id with
    `node --experimental-strip-types src/cli.ts identity link github <id> <actorId>`.
+   Linking does not grant roles. A supported first-editor bootstrap command
+   is still missing; see the [workspace audit](../docs/WORKSPACE_AUDIT.md).
 
 ## Automatic decisions
 

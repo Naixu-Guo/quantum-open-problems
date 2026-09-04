@@ -21,12 +21,10 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-measurement-theory"
+      "quantum-metrology"
     ],
     "topicIds": [
-      "symmetric-informationally-complete-measurements",
-      "qudit-systems",
-      "representation-theory"
+      "symmetric-informationally-complete-measurements"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -36,12 +34,10 @@
   "title": "Zauner-symmetric Weyl--Heisenberg SIC fiducials",
   "status": "Unsolved",
   "fields": [
-    "Quantum measurement theory"
+    "Quantum metrology"
   ],
   "topics": [
-    "Symmetric informationally complete measurements",
-    "Qudit systems",
-    "Representation theory"
+    "Symmetric informationally complete measurements"
   ],
   "statement": "Does every finite dimension admit a Weyl--Heisenberg SIC fiducial that is an\neigenvector of a Zauner Clifford unitary?  For $d\\geq2$, define the displacement\noperators $D_{\\mathbf p}:=D_{p,q}:=X_d^pZ_d^q$ for\n$\\mathbf p=(p,q)^{\\mathsf T}\\in\\mathbb Z_d^2$, using\n\\begin{equation}\n  X_d\\lvert j\\rangle=\\lvert j+1\\!\\!\\pmod d\\rangle,\n  \\qquad\n  Z_d\\lvert j\\rangle=e^{2\\pi i j/d}\\lvert j\\rangle,\n  \\qquad \\mathbf p=(p,q)^{\\mathsf T}\\in\\mathbb Z_d^2.\n  \\label{eq:p19-displacements}\n\\end{equation}\nEquation~\\eqref{eq:p19-displacements} fixes the Weyl--Heisenberg orbit up to\nirrelevant phases.  Let $U_Z$ be a Clifford unitary whose action on displacement\noperators is\n\\begin{equation}\n  U_ZD_{\\mathbf p}U_Z^\\dagger\\doteq D_{F_Z\\mathbf p},\n  \\qquad\n  F_Z=\n  \\begin{pmatrix}\n    0&-1\\\\\n    1&-1\n  \\end{pmatrix},\n  \\label{eq:p19-zauner-action}\n\\end{equation}\nwhere indices are reduced modulo $d$ and $\\doteq$ denotes equality up to phase.\nEquation~\\eqref{eq:p19-zauner-action} fixes the distinguished order-three\nClifford symmetry.\nThe question is whether, for every $d\\geq2$, there are a unit vector\n$\\lvert\\phi\\rangle$ and a phase $e^{i\\theta}$ such that\n\\begin{equation}\n  U_Z\\lvert\\phi\\rangle=e^{i\\theta}\\lvert\\phi\\rangle,\n  \\qquad\n  \\bigl|\\langle\\phi\\rvert D_{\\mathbf p}\\lvert\\phi\\rangle\\bigr|^2\n  =\\frac{1}{d+1}\n  \\quad\\text{for every }\\mathbf p\\in\\mathbb Z_d^2\\setminus\\{\\mathbf0\\}.\n  \\label{eq:p19-zauner-sic-condition}\n\\end{equation}\nEquation~\\eqref{eq:p19-zauner-sic-condition} simultaneously imposes Zauner\nsymmetry and the SIC overlap equations.",
   "source": "Appleby states the all-dimensional existence of a Zauner-symmetric\nWeyl--Heisenberg SIC fiducial as Conjecture~B\n\\sourcecite{ref:p19-appleby-clifford}{App05}.",

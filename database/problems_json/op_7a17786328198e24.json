@@ -21,15 +21,12 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-error-correction",
-      "entanglement-theory"
+      "quantum-resource-theory",
+      "quantum-error-correction"
     ],
     "topicIds": [
       "absolutely-maximally-entangled-states",
-      "multipartite-entanglement",
-      "qudit-systems",
-      "quantum-coding-theory",
-      "combinatorics"
+      "quantum-coding-theory"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -39,15 +36,12 @@
   "title": "Minimal-support frontier for absolutely maximally entangled states",
   "status": "Unsolved",
   "fields": [
-    "Quantum error correction",
-    "Entanglement theory"
+    "Quantum Resource Theory",
+    "Quantum Error Correction"
   ],
   "topics": [
     "Absolutely maximally entangled states",
-    "Multipartite entanglement",
-    "Qudit systems",
-    "Quantum coding theory",
-    "Combinatorics"
+    "Quantum coding theory"
   ],
   "statement": "Determine, for every integer $d\\geq 2$, the largest number $\\mathcal N(d)$ of\n$d$-level parties that admit an absolutely maximally entangled state of\nminimal computational-basis support.  To make this precise, let\n$m=\\lfloor N/2\\rfloor$ and write a normalized state as\n$|\\psi\\rangle=\\sum_{\\boldsymbol{x}\\in[d]^N}c_{\\boldsymbol{x}}\n|\\boldsymbol{x}\\rangle$, where $[d]=\\{0,\\ldots,d-1\\}$.  The state is\n$\\operatorname{AME}(N,d)$ when every subsystem $S\\subseteq\\{1,\\ldots,N\\}$\nwith $|S|\\leq m$ has reduced state\n\\begin{equation}\n  \\operatorname{Tr}_{S^{\\mathrm c}}|\\psi\\rangle\\!\\langle\\psi|\n  =\\frac{I_{d^{|S|}}}{d^{|S|}}.\n  \\label{eq:p42-ame-condition}\n\\end{equation}\nCondition~\\eqref{eq:p42-ame-condition} implies the computational-basis\nsupport bound\n\\begin{equation}\n  \\bigl|\\operatorname{supp}_{\\mathrm{comp}}(\\psi)\\bigr|\n  :=\\bigl|\\{\\boldsymbol{x}:c_{\\boldsymbol{x}}\\neq0\\}\\bigr|\n  \\geq d^{m}.\n  \\label{eq:p42-support-bound}\n\\end{equation}\nMinimal support means equality in \\eqref{eq:p42-support-bound}, and the\nfrontier to be determined is\n\\begin{equation}\n  \\mathcal N(d):=\\max\\bigl\\{N\\geq2:\\text{a minimal-support }\n  \\operatorname{AME}(N,d)\\text{ state exists}\\bigr\\}.\n  \\label{eq:p42-frontier}\n\\end{equation}\nEquivalently, for any alphabet $\\mathcal A$ of size $d$, the existence event\nin \\eqref{eq:p42-frontier} is characterized by\n\\begin{equation}\n  \\begin{split}\n  &\\text{a minimal-support }\\operatorname{AME}(N,d)\\text{ state exists}\n  \\\\\n  &\\quad\\Longleftrightarrow\\quad\n  \\exists\\,\\mathcal C\\subseteq\\mathcal A^N:\\quad\n  |\\mathcal C|=d^{\\lfloor N/2\\rfloor},\\qquad\n  \\min_{\\substack{\\boldsymbol{x},\\boldsymbol{y}\\in\\mathcal C\\\\\n                   \\boldsymbol{x}\\neq\\boldsymbol{y}}}\n  d_{\\mathrm H}(\\boldsymbol{x},\\boldsymbol{y})\n  =\\left\\lceil\\frac N2\\right\\rceil+1.\n  \\end{split}\n  \\label{eq:p42-mds-equivalence}\n\\end{equation}\nThus \\eqref{eq:p42-mds-equivalence} asks for general, possibly nonlinear,\nMDS codes rather than only linear codes\n\\sourcecite{ref:p42-goyeneche}{GAL+15},\n\\sourcecite{ref:p42-bernal}{Ber19}.",
   "source": "Bernal formulates the minimal-support AME frontier through its equivalent\nmaximum-distance-separable-code problem and obtains only a conditional general\ndetermination \\sourcecite{ref:p42-bernal}{Ber19}.",

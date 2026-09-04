@@ -21,14 +21,13 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-thermodynamics",
-      "quantum-resource-theories"
+      "quantum-resource-theory"
     ],
     "topicIds": [
-      "thermal-operations",
-      "asymmetry-and-quantum-reference-frames",
-      "quantum-channels",
-      "one-shot-quantum-information"
+      "quantum-thermodynamics",
+      "channel-simulation",
+      "one-shot-and-finite-blocklength-bounds",
+      "resource-conversion"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -38,14 +37,13 @@
   "title": "Resources for implementing Gibbs-preserving channels",
   "status": "Unsolved",
   "fields": [
-    "Quantum thermodynamics",
-    "Quantum resource theories"
+    "Quantum Resource Theory"
   ],
   "topics": [
-    "Thermal operations",
-    "Asymmetry and quantum reference frames",
-    "Quantum channels",
-    "One-shot quantum information"
+    "Quantum thermodynamics",
+    "Channel simulation",
+    "One-shot and finite-blocklength bounds",
+    "Resource conversion"
   ],
   "statement": "What are the exact one-shot coherence and work costs of implementing an\narbitrary Gibbs-preserving channel by thermal operations?  Let finite systems\n$S$ and $S'$ have Hamiltonians $H_S$ and $H_{S'}$ at inverse temperature\n$\\beta$, with Gibbs states\n\\begin{equation}\n  \\gamma_X:=\\frac{e^{-\\beta H_X}}{\\operatorname{Tr}(e^{-\\beta H_X})},\n  \\qquad X\\in\\{S,S'\\}.\n  \\label{eq:p37-gibbs-states}\n\\end{equation}\nA channel $\\Phi:S\\to S'$ is Gibbs preserving when it maps the first state in\nEq.~\\eqref{eq:p37-gibbs-states} to the second.  For approximation error\n$\\varepsilon\\geq0$, define its quantum-Fisher-information coherence cost by\n\\begin{equation}\n  F_c^{\\varepsilon}(\\Phi)\n  :=\\inf_{\\substack{(R,H_R),\\ \\eta_R\\in\\mathcal D(R)\\\\\n                    \\mathcal T:S\\otimes R\\to S'\\ \\mathrm{thermal}}}\n  \\left\\{\n    F_Q(\\eta_R,H_R):\n    D_{\\mathrm{ch}}\\!\\left(\n      \\Phi,\\mathcal T(\\,\\cdot\\,\\otimes\\eta_R)\n    \\right)\\leq\\varepsilon\n  \\right\\},\n  \\label{eq:p37-coherence-cost}\n\\end{equation}\nwhere the infimum ranges over finite resource systems $R$ with Hamiltonian\n$H_R$, and $\\mathcal T$ is a thermal operation implemented with Gibbs\nancillas and an energy-conserving unitary; set $\\inf\\varnothing:=+\\infty$.\nThe distance $D_{\\mathrm{ch}}$ is the supremum\nof purified distance between the two channel outputs over inputs entangled\nwith an arbitrary reference.  If\n$\\eta_R=\\sum_j\\lambda_j\\lvert j\\rangle\\!\\langle j\\rvert$, the quantity in\nEq.~\\eqref{eq:p37-coherence-cost} is\n\\begin{equation}\n  F_Q(\\eta_R,H_R)\n  :=2\\!\\sum_{j,k:\\,\\lambda_j+\\lambda_k>0}\n  \\frac{(\\lambda_j-\\lambda_k)^2}{\\lambda_j+\\lambda_k}\n  \\left\\lvert\\langle j\\rvert H_R\\lvert k\\rangle\\right\\rvert^2.\n  \\label{eq:p37-quantum-fisher-information}\n\\end{equation}\nEquation~\\eqref{eq:p37-quantum-fisher-information} fixes the normalization of\nthe coherence measure used in Eq.~\\eqref{eq:p37-coherence-cost}.\nDetermine Eq.~\\eqref{eq:p37-coherence-cost}, up to matching bounds, for every\nGibbs-preserving $\\Phi$ and every $\\varepsilon$.  Give the analogous tight\ndeterministic work cost when an ideal battery begins and ends in sharp energy\nstates and the battery's energy loss is charged as work.  Which structural\nfeatures of $\\Phi$ determine whether the exact costs are finite, and what is\ntheir sharp divergence as $\\varepsilon\\downarrow0$ when they are infinite at\nzero error?",
   "source": "Tajima and Takagi explicitly leave a tight channel-by-channel\ncharacterization of coherence and work costs for Gibbs-preserving operations\nopen \\sourcecite{ref:p37-tajima}{TT25}.",

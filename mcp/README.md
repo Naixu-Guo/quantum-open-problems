@@ -36,8 +36,9 @@ id, `log_event` as you work, `upload_artifact` for anything you produce,
 problems and claims. For a verifier: `claim_queue_item`, examine, then
 `submit_review`.
 
-`mcp/server.mjs` is the legacy stdio server over the old static catalog; it
-stays until the static site is retired.
+The legacy static-catalog server was removed during the catalog integration.
+Use `mcp/src/server.ts`; its service reads the ledger projection exported from
+`database/problems_json/` (see [the catalog boundary](../docs/CATALOG_INTEGRATION.md)).
 
 ```sh
 npm test          # spawns the server against a temporary service

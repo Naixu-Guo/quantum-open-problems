@@ -19,15 +19,13 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-information-theory",
-      "quantum-computation"
+      "quantum-algorithm",
+      "quantum-resource-theory"
     ],
     "topicIds": [
-      "superchannels",
       "channel-simulation",
-      "quantum-error-mitigation",
-      "quantum-channels",
-      "semidefinite-programming"
+      "superchannels-and-quantum-combs",
+      "quantum-error-mitigation"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -37,15 +35,13 @@
   "title": "Multi-slot overhead of virtual channel conjugation",
   "status": "Unsolved",
   "fields": [
-    "Quantum information theory",
-    "Quantum computation"
+    "Quantum algorithm",
+    "Quantum Resource Theory"
   ],
   "topics": [
-    "Superchannels",
     "Channel simulation",
-    "Quantum error mitigation",
-    "Quantum channels",
-    "Semidefinite programming"
+    "Superchannels and quantum combs",
+    "Quantum error mitigation"
   ],
   "statement": "What is the optimal quasiprobability overhead of implementing the complex\nconjugate of an unknown quantum channel from $n$ queries?  Let\n$\\mathcal N:\\mathcal L(A)\\to\\mathcal L(B)$ be an unknown channel with\n$d_A:=\\dim A$ and $d_B:=\\dim B$, and fix orthonormal bases of $A$ and $B$.\nThe complex conjugate of $\\mathcal N$ is the channel\n\\begin{equation}\n  \\mathcal N^{*}(X):=\\overline{\\mathcal N(\\overline X)},\n  \\label{eq:06e9-conjugate}\n\\end{equation}\nwhere the bar is entrywise complex conjugation in the fixed bases, so the\nChoi operator of $\\mathcal N^{*}$ is the entrywise conjugate of that of\n$\\mathcal N$.  An $n$-slot quantum comb is a physically realizable circuit\nwith $n$ open slots, each receiving one use of the unknown channel, whose\noverall action is again a channel from $A$ to $B$; write\n$\\mathrm{Comb}_n$ for the set of such combs.  An $n$-slot virtual comb is\na real linear combination $\\widetilde{\\mathcal C}=\\sum_i c_i\\mathcal C_i$\nwith $\\mathcal C_i\\in\\mathrm{Comb}_n$, and its base norm\n\\begin{equation}\n  \\|\\widetilde{\\mathcal C}\\|_{\\mathrm{base}}\n  :=\\min\\Bigl\\{\\sum_i|c_i|:\n    \\widetilde{\\mathcal C}=\\sum_ic_i\\mathcal C_i,\\\n    c_i\\in\\mathbb R,\\ \\mathcal C_i\\in\\mathrm{Comb}_n\\Bigr\\}\n  \\label{eq:06e9-base-norm}\n\\end{equation}\nis the sampling overhead: estimating an expectation value of the output of\n$\\widetilde{\\mathcal C}$ to additive error $\\varepsilon$ by Monte Carlo\nsampling of the $\\mathcal C_i$ costs\n$O(\\|\\widetilde{\\mathcal C}\\|_{\\mathrm{base}}^{2}\\varepsilon^{-2})$ runs.\nDefine the optimal $n$-query overhead of universal conjugation by\n\\begin{equation}\n  g_n(d_A,d_B)\n  :=\\inf\\Bigl\\{\\|\\widetilde{\\mathcal C}\\|_{\\mathrm{base}}:\n    \\widetilde{\\mathcal C}\\text{ is an $n$-slot virtual comb with }\n    \\widetilde{\\mathcal C}(\\mathcal N^{\\otimes n})=\\mathcal N^{*}\n    \\text{ for every channel }\\mathcal N\\Bigr\\}.\n  \\label{eq:06e9-overhead}\n\\end{equation}\nSince the extra slots may be discarded, $g_n\\leq g_1$.  Determine\n$g_n(d_A,d_B)$ in Eq.~\\eqref{eq:06e9-overhead} for $n\\geq2$: is\n$g_n(d_A,d_B)<g_1(d_A,d_B)$ for some $n$, and what is\n$\\inf_{n}g_n(d_A,d_B)$?",
   "source": "The question is implicit in Zhu, Tang, Zhen, Li, Bai, and Wang, who\ndetermine $g_1$ exactly and name multi-slot virtual protocols as future\nwork \\sourcecite{ref:06e9-zhu-et-al}{ZTZ+26}.",

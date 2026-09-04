@@ -22,12 +22,12 @@
     "posed": null,
     "areaIds": [
       "quantum-cryptography",
-      "quantum-foundations"
+      "quantum-resource-theory"
     ],
     "topicIds": [
-      "bell-nonlocality",
-      "device-independent-quantum-information",
-      "quantum-key-distribution"
+      "secret-key-distillation",
+      "device-independent-cryptography",
+      "bell-nonlocality"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -37,13 +37,13 @@
   "title": "Secret key from every Bell-nonlocal behavior",
   "status": "Unsolved",
   "fields": [
-    "Quantum cryptography",
-    "Quantum foundations"
+    "Quantum Cryptography",
+    "Quantum Resource Theory"
   ],
   "topics": [
-    "Bell nonlocality",
-    "Device-independent quantum information",
-    "Quantum key distribution"
+    "Secret-key distillation",
+    "Device-independent cryptography",
+    "Bell nonlocality"
   ],
   "statement": "Does every finite-alphabet Bell-nonlocal behavior have a strictly positive\nasymptotic secret-key rate against arbitrary individual nonsignalling attacks?\nLet $P(a,b\\mid x,y)$ be bipartite and nonsignalling, and suppose that it has no\nlocal decomposition of the form\n\\begin{equation}\n  P(a,b\\mid x,y)\n  =\\int_\\Lambda \\mu(d\\lambda)\\,\n    P_A(a\\mid x,\\lambda)P_B(b\\mid y,\\lambda).\n  \\label{eq:p30-local-decomposition}\n\\end{equation}\nThus Eq.~\\eqref{eq:p30-local-decomposition} fails for every probability\nmeasure $\\mu$ and local response functions $P_A,P_B$.  Alice and Bob receive\nindependent copies of $P$; on each copy, an adversary may hold an arbitrary\nnonsignalling extension.  The honest parties may choose their inputs, process\nall outputs locally, and communicate publicly.  The question asks whether\nsome such protocol always extracts secret key at a nonzero asymptotic rate.",
   "source": "Gisin explicitly asks whether every Bell-nonlocal behavior can yield secret\nkey against nonsignalling individual attacks\n\\sourcecite{ref:p30-gisin}{Gis09}.",

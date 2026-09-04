@@ -19,13 +19,12 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-complexity-theory",
-      "quantum-shannon-theory"
+      "quantum-communication",
+      "quantum-algorithm"
     ],
     "topicIds": [
       "quantum-capacity",
-      "quantum-channels",
-      "coherent-information"
+      "computational-complexity-and-computability"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -35,13 +34,12 @@
   "title": "Computability of ordinary quantum capacity",
   "status": "Unsolved",
   "fields": [
-    "Quantum complexity theory",
-    "Quantum Shannon theory"
+    "Quantum Communication",
+    "Quantum algorithm"
   ],
   "topics": [
     "Quantum capacity",
-    "Quantum channels",
-    "Coherent information"
+    "Computational complexity and computability"
   ],
   "statement": "Is the ordinary unassisted quantum capacity a computable function of a finite\ndescription of a finite-dimensional quantum channel?  Let\n$\\mathcal N:\\mathcal L(A)\\to\\mathcal L(B)$ be specified either by an exact\nfinite list of Kraus matrices with computable algebraic entries (including\nrational entries) or by a finite quantum circuit over a fixed algebraic gate\nset, allowing state preparation and partial trace.  For a complementary\nchannel $\\mathcal N^c$, define coherent information and quantum capacity by\n\\begin{equation}\n  I_c(\\rho,\\mathcal N)\n  :=S(\\mathcal N(\\rho))-S(\\mathcal N^c(\\rho)),\n  \\qquad\n  Q(\\mathcal N)\n  :=\\sup_{n\\geq1}\\frac1n\n       \\max_{\\rho_{A^{\\otimes n}}}\n       I_c(\\rho_{A^{\\otimes n}},\\mathcal N^{\\otimes n}),\n  \\label{eq:p72-quantum-capacity}\n\\end{equation}\nwhere $S(\\tau):=-\\operatorname{Tr}(\\tau\\log_2\\tau)$.  Writing\n$\\langle\\mathcal N\\rangle$ for either finite encoding above, the question is\nwhether there exists a Turing machine $T$ satisfying\n\\begin{equation}\n  \\forall\\,\\langle\\mathcal N\\rangle\\ \\forall k\\in\\mathbb N:\n  \\quad\n  T(\\langle\\mathcal N\\rangle,k)=q_{\\mathcal N,k}\\in\\mathbb Q,\n  \\qquad\n  |q_{\\mathcal N,k}-Q(\\mathcal N)|\\leq2^{-k}.\n  \\label{eq:p72-computability}\n\\end{equation}\nDetermine whether the algorithm in Eq.~\\eqref{eq:p72-computability} exists\nfor the capacity in Eq.~\\eqref{eq:p72-quantum-capacity}, without imposing a\nrunning-time bound.",
   "source": "Wilde explicitly asks whether quantum channel capacities are computable or\nundecidable.  Bhattacharyya, Mehta, and Zhao formalize the complexity question\nfor succinct circuit descriptions and state that uncomputability of ordinary\nquantum capacity remains unresolved\n\\sourcecite{ref:p72-wilde}{Wil17},\n\\sourcecite{ref:p72-bhattacharyya-mehta-zhao}{BMZ26}.",

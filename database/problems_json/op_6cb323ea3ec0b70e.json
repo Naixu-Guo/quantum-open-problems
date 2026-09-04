@@ -21,11 +21,10 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "mathematics-of-quantum-information"
+      "quantum-communication"
     ],
     "topicIds": [
-      "matrix-analysis",
-      "combinatorics"
+      "matrix-and-entropy-inequalities"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -35,11 +34,10 @@
   "title": "Trace-exponential lower bound for matrix-word averages",
   "status": "Unsolved",
   "fields": [
-    "Mathematics of quantum information"
+    "Quantum Communication"
   ],
   "topics": [
-    "Matrix analysis",
-    "Combinatorics"
+    "Matrix and entropy inequalities"
   ],
   "statement": "Is the normalized trace average of all words in two positive-definite matrices\nalways bounded below by the corresponding trace exponential?  Let\n$A,B\\in M_d(\\mathbb C)$ be positive definite, let $n,m\\geq1$, and let\n$\\mathcal W_{n,m}$ be the set of words containing exactly $n$ letters $A$ and\n$m$ letters $B$.  Define the normalized average by\n\\begin{equation}\n  p_{n,m}(A,B)\n  :=\\frac{1}{\\binom{n+m}{n}}\n    \\sum_{W\\in\\mathcal W_{n,m}}\\operatorname{Tr}W(A,B).\n  \\label{eq:p34-word-average}\n\\end{equation}\nThe question is whether the quantity in Eq.~\\eqref{eq:p34-word-average}\nsatisfies\n\\begin{equation}\n  p_{n,m}(A,B)\n  \\geq \\operatorname{Tr}\\exp\\!\\bigl(n\\log A+m\\log B\\bigr)\n  \\label{eq:p34-trace-exponential-bound}\n\\end{equation}\nfor every finite $d$ and all $n,m\\geq1$.  A positive-semidefinite extension\nis obtained, whenever the limit exists, by applying\nEq.~\\eqref{eq:p34-trace-exponential-bound} to $A+\\varepsilon I$ and\n$B+\\varepsilon I$ and then taking $\\varepsilon\\downarrow0$.",
   "source": "Cha and Lee formulate a two-sided refined BMV inequality and disprove only\nits upper half, leaving the lower trace-exponential comparison stated here\nopen \\sourcecite{ref:p34-cha-lee}{CL26}.",

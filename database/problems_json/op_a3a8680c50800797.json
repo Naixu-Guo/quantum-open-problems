@@ -19,13 +19,11 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "entanglement-theory"
+      "quantum-resource-theory"
     ],
     "topicIds": [
-      "bell-diagonal-states",
       "entanglement-measures",
-      "qudit-systems",
-      "convex-optimization"
+      "bell-diagonal-states"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -35,13 +33,11 @@
   "title": "Entanglement of formation of generalized Bell-diagonal states",
   "status": "Unsolved",
   "fields": [
-    "Entanglement theory"
+    "Quantum Resource Theory"
   ],
   "topics": [
-    "Bell-diagonal states",
     "Entanglement measures",
-    "Qudit systems",
-    "Convex optimization"
+    "Bell-diagonal states"
   ],
   "statement": "For every local dimension $d\\geq3$, determine the entanglement of formation\nof an arbitrary Weyl--Bell-diagonal state.  Let\n$\\omega_d:=\\exp(2\\pi i/d)$ and define the generalized Pauli operators and\ntheir associated Bell basis by\n\\begin{equation}\n  X\\lvert j\\rangle:=\\lvert j+1\\!\\!\\pmod d\\rangle,\n  \\qquad\n  Z\\lvert j\\rangle:=\\omega_d^j\\lvert j\\rangle,\n  \\qquad\n  \\lvert\\Phi_{a,b}\\rangle\n  :=(I\\otimes X^aZ^b)\\lvert\\Phi_d\\rangle,\n  \\qquad\n  \\lvert\\Phi_d\\rangle:=\\frac1{\\sqrt d}\\sum_{j=0}^{d-1}\\lvert j,j\\rangle,\n  \\label{eq:p56-weyl-bell-basis}\n\\end{equation}\nwhere $a,b\\in\\mathbb Z_d$.  In this problem, ``Pauli-diagonal'' means\ndiagonal in the generalized Bell basis in\nEq.~\\eqref{eq:p56-weyl-bell-basis}.  Thus the state is\n\\begin{equation}\n  \\rho_{\\mathbf p}\n  :=\\sum_{a,b\\in\\mathbb Z_d}p_{a,b}\n     \\lvert\\Phi_{a,b}\\rangle\\!\\langle\\Phi_{a,b}\\rvert,\n  \\qquad\n  p_{a,b}\\geq0,\n  \\qquad\n  \\sum_{a,b\\in\\mathbb Z_d}p_{a,b}=1.\n  \\label{eq:p56-weyl-bell-diagonal-state}\n\\end{equation}\nFor every probability array $\\mathbf p$ in\nEq.~\\eqref{eq:p56-weyl-bell-diagonal-state}, determine an evaluable exact\nformula and an optimal pure-state ensemble for\n\\begin{equation}\n  E_F(\\rho_{\\mathbf p})\n  :=\\inf_{\\rho_{\\mathbf p}=\\sum_i q_i\n                    \\lvert\\psi_i\\rangle\\!\\langle\\psi_i\\rvert}\n       \\sum_i q_i\\,\n       S\\!\\left(\\operatorname{Tr}_B\n          \\lvert\\psi_i\\rangle\\!\\langle\\psi_i\\rvert\\right),\n  \\qquad\n  S(\\sigma):=-\\operatorname{Tr}(\\sigma\\log_2\\sigma).\n  \\label{eq:p56-eof}\n\\end{equation}\nThe infimum in Eq.~\\eqref{eq:p56-eof} is over finite pure-state ensembles\nwith $q_i\\geq0$ and $\\sum_iq_i=1$.",
   "source": "The problem is implicit in Vollbrecht and Werner's finite-Weyl symmetry\nconstruction and general convex-roof reduction\n\\sourcecite{ref:p56-vollbrecht-werner}{VW01}.  Terhal and Vollbrecht's\nsolution of the isotropic subfamily isolates a one-parameter slice rather\nthan the full generalized Bell simplex\n\\sourcecite{ref:p56-terhal-vollbrecht}{TV00}.",

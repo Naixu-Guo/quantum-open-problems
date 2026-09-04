@@ -9,7 +9,7 @@ import {
 function record(id = "op_0123456789abcdef", options = {}) {
   const authored = {
     id, title: "An unchanged $d$-dimensional question", status: "Solved",
-    fields: ["Quantum information theory"], topics: ["Bell nonlocality"],
+    fields: ["Quantum Resource Theory"], topics: ["Bell nonlocality"],
     statement: "Does the example exist?", source: "The current source.",
     progress: ["The current result."], references: [{ key: "AB26", label: "ref:ab", tex: "The current reference." }],
     comment: "The current comment."
@@ -41,9 +41,9 @@ test("metadata creation retains authored content and existing identity on reruns
   assert.ok(original.aliases.includes(original.ulid));
   assert.ok(original.aliases.includes("op-0123456789abcdef"));
   assert.ok(original.aliases.every((alias) => ALIAS_PATTERN.test(alias)));
-  assert.equal(metadataSlug("Quantum information theory"), "quantum-information-theory");
+  assert.equal(metadataSlug("Quantum Resource Theory"), "quantum-resource-theory");
   rerun.metadata.areaIds.push("another-area");
-  assert.deepEqual(original.metadata.areaIds, ["quantum-information-theory"]);
+  assert.deepEqual(original.metadata.areaIds, ["quantum-resource-theory"]);
   original.metadata.extra = "must not be silently removed";
   assert.throws(() => createRecordMetadata(original), /unknown metadata/);
 });

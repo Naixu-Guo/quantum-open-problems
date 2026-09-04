@@ -19,14 +19,13 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-information-theory"
+      "quantum-metrology",
+      "quantum-communication"
     ],
     "topicIds": [
       "channel-discrimination",
-      "one-shot-quantum-information",
-      "quantum-networks",
-      "strong-converse",
-      "superchannels"
+      "quantum-relative-entropy",
+      "superchannels-and-quantum-combs"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -36,14 +35,13 @@
   "title": "Amortization collapse for superchannel divergences",
   "status": "Unsolved",
   "fields": [
-    "Quantum information theory"
+    "Quantum metrology",
+    "Quantum Communication"
   ],
   "topics": [
     "Channel discrimination",
-    "One-shot quantum information",
-    "Quantum networks",
-    "Strong converse",
-    "Superchannels"
+    "Quantum relative entropy",
+    "Superchannels and quantum combs"
   ],
   "statement": "Does amortization collapse for the max-relative entropy and geometric\nR\\'enyi divergence of arbitrary finite-dimensional quantum superchannels?\nFor compatible states, let\n\\begin{equation}\n  \\begin{aligned}\n  D_{\\max}(\\rho\\|\\sigma)\n    &:=\\inf\\{\\lambda:\\rho\\leq2^\\lambda\\sigma\\},\\\\\n  \\widehat D_\\alpha(\\rho\\|\\sigma)\n    &:=\\frac1{\\alpha-1}\\log_2\\operatorname{Tr}\\!\\left[\n      \\sigma\\bigl(\\sigma^{-1/2}\\rho\\sigma^{-1/2}\\bigr)^\\alpha\n      \\right],\\qquad 1<\\alpha\\leq2,\n  \\end{aligned}\n  \\label{eq:p68-state-divergences}\n\\end{equation}\nwith the standard support conventions.  For either divergence\n$\\mathbf D\\in\\{D_{\\max},\\widehat D_\\alpha\\}$, define its channel extension\nand channel-amortized extension by\n\\begin{equation}\n  \\begin{aligned}\n  \\mathbf D_{\\rm ch}(\\mathcal N\\|\\mathcal M)\n    &:=\\sup_{\\rho_{RA}}\n       \\mathbf D(\\mathcal N(\\rho)\\|\\mathcal M(\\rho)),\\\\\n  \\mathbf D_{\\rm ch}^{A}(\\mathcal N\\|\\mathcal M)\n    &:=\\sup_{\\rho_{RA},\\sigma_{RA}}\n       \\{\\mathbf D(\\mathcal N(\\rho)\\|\\mathcal M(\\sigma))\n         -\\mathbf D(\\rho\\|\\sigma)\\},\n  \\end{aligned}\n  \\label{eq:p68-channel-amortization}\n\\end{equation}\nIn Eq.~\\eqref{eq:p68-channel-amortization}, identity maps on $R$ are implicit,\nand the optimizations allow an arbitrary reference of sufficient finite\ndimension.  For superchannels\n$\\Theta_1,\\Theta_2$, set\n\\begin{equation}\n  \\begin{aligned}\n  \\mathbf D_{\\rm sc}(\\Theta_1\\|\\Theta_2)\n    &:=\\sup_{\\mathcal N}\n      \\mathbf D_{\\rm ch}(\\Theta_1(\\mathcal N)\\|\\Theta_2(\\mathcal N)),\\\\\n  \\mathbf D_{\\rm sc}^{A}(\\Theta_1\\|\\Theta_2)\n    &:=\\sup_{\\mathcal N,\\mathcal M}\n      \\{\\mathbf D_{\\rm ch}^{A}\n          (\\Theta_1(\\mathcal N)\\|\\Theta_2(\\mathcal M))\n        -\\mathbf D_{\\rm ch}^{A}(\\mathcal N\\|\\mathcal M)\\}.\n  \\end{aligned}\n  \\label{eq:p68-superchannel-amortization}\n\\end{equation}\nIs\n\\begin{equation}\n  \\mathbf D_{\\rm sc}^{A}(\\Theta_1\\|\\Theta_2)\n  =\\mathbf D_{\\rm sc}(\\Theta_1\\|\\Theta_2)\n  \\label{eq:p68-superchannel-collapse}\n\\end{equation}\nfor both choices of $\\mathbf D$ in Eq.~\\eqref{eq:p68-state-divergences} and\nall superchannel pairs?",
   "source": "Hirche explicitly left Eq.~\\eqref{eq:p68-superchannel-collapse} open while\nderiving strong-converse bounds for adaptive superchannel discrimination\n\\sourcecite{ref:p68-hirche}{Hir23}.",

@@ -20,15 +20,10 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-information-theory",
-      "mathematics-of-quantum-information"
+      "quantum-communication"
     ],
     "topicIds": [
-      "quantum-channels",
-      "choi-states",
-      "convex-geometry",
-      "convex-optimization",
-      "matrix-analysis"
+      "quantum-channel-structure"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -38,15 +33,10 @@
   "title": "Equal-weight low-Choi-rank decompositions of quantum channels",
   "status": "Unsolved",
   "fields": [
-    "Quantum information theory",
-    "Mathematics of quantum information"
+    "Quantum Communication"
   ],
   "topics": [
-    "Quantum channels",
-    "Choi states",
-    "Convex geometry",
-    "Convex optimization",
-    "Matrix analysis"
+    "Quantum channel structure"
   ],
   "statement": "Can every finite-dimensional quantum channel be written as the uniform\nmixture of $d_B$ channels whose Choi ranks are at most the input dimension?\nLet $A$ and $B$ have dimensions $d_A$ and $d_B$, respectively, and let\n$\\Phi:\\mathcal L(A)\\to\\mathcal L(B)$ be completely positive and trace\npreserving.  In a fixed orthonormal basis of $A$, define its Choi operator by\n\\begin{equation}\n  J(\\Phi)\n  :=\\sum_{i,j=1}^{d_A}\n      \\lvert i\\rangle\\!\\langle j\\rvert_A\\otimes\n      \\Phi\\!\\left(\\lvert i\\rangle\\!\\langle j\\rvert_A\\right),\n  \\label{eq:p58-choi-operator}\n\\end{equation}\nThe rank of the operator in Eq.~\\eqref{eq:p58-choi-operator} is independent\nof the chosen basis.  Determine whether every $\\Phi$ admits completely\npositive trace-preserving maps\n$\\Phi_1,\\ldots,\\Phi_{d_B}:\\mathcal L(A)\\to\\mathcal L(B)$ satisfying\n\\begin{equation}\n  \\Phi=\\frac1{d_B}\\sum_{r=1}^{d_B}\\Phi_r,\n  \\qquad\n  \\operatorname{rank}J(\\Phi_r)\\leq d_A\n  \\quad\\text{for every }r\\in\\{1,\\ldots,d_B\\}.\n  \\label{eq:p58-equal-weight-decomposition}\n\\end{equation}\nThus Eq.~\\eqref{eq:p58-equal-weight-decomposition} requires both the\nprescribed input-dimension rank bound and exactly equal mixing weights.",
   "source": "Ruskai records the Audenaert--Ruskai channel-decomposition conjecture and its\nunital and positive-block-matrix formulations explicitly\n\\sourcecite{ref:p58-ruskai}{Rus07}.  The Choi-rank bound $d_A$ in\nEq.~\\eqref{eq:p58-equal-weight-decomposition} is the audited correction of\nthe inconsistent $d_B$ bound printed in the source's channel formulation;\nit agrees with the companion formulations and the modern statement studied\nby Kumar and Wolf \\sourcecite{ref:p58-kumar-wolf}{KW26}.",

@@ -21,12 +21,10 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-foundations"
+      "quantum-resource-theory"
     ],
     "topicIds": [
-      "bell-nonlocality",
-      "convex-geometry",
-      "combinatorics"
+      "bell-nonlocality"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -36,12 +34,10 @@
   "title": "Complete facet descriptions for Bell polytopes",
   "status": "Unsolved",
   "fields": [
-    "Quantum foundations"
+    "Quantum Resource Theory"
   ],
   "topics": [
-    "Bell nonlocality",
-    "Convex geometry",
-    "Combinatorics"
+    "Bell nonlocality"
   ],
   "statement": "Determine complete facet descriptions for local-behavior polytopes beyond the\npresently solved Bell scenarios, either for a specified unresolved finite\nscenario or for a nontrivial infinite family with additional structure.  For\npositive integers $N$, $M$, and $K$, let\n$\\mathbf{x}\\in\\{1,\\ldots,M\\}^{N}$ denote the measurement settings and\n$\\mathbf{a}\\in\\{1,\\ldots,K\\}^{N}$ the outcomes.  The relevant local polytope\nis\n\\begin{equation}\n  \\mathcal{L}_{N,M,K}\n  :=\\operatorname{conv}\\!\\left\\{\n    p_{\\mathbf f}:p_{\\mathbf f}(\\mathbf a\\mid\\mathbf x)\n    =\\prod_{i=1}^{N}\\mathbf{1}\\!\\left\\{a_i=f_i(x_i)\\right\\},\\quad\n    f_i:\\{1,\\ldots,M\\}\\to\\{1,\\ldots,K\\}\n  \\right\\}.\n  \\label{eq:p11-local-polytope}\n\\end{equation}\nHere $\\mathbf 1\\{\\cdot\\}$ is the indicator function.\nThe task is to characterize all facet-defining inequalities of the polytope\nin Eq.~\\eqref{eq:p11-local-polytope} in a chosen unresolved regime, modulo\npermutations of parties, settings, and outcomes and modulo liftings obtained\nby adjoining redundant settings or outcomes.  A solution must carry a proof\nof completeness, not merely generate a large collection of facets.",
   "source": "Kr\\\"uger and Werner explicitly pose the search for completeness-certified\nfacet descriptions of Bell polytopes in tractable finite scenarios and\nstructured families \\sourcecite{ref:p11-krueger-werner}{KW05}.",

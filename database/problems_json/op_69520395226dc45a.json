@@ -21,13 +21,12 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "entanglement-theory"
+      "quantum-resource-theory",
+      "quantum-communication"
     ],
     "topicIds": [
-      "entanglement-breaking-channels",
-      "choi-states",
-      "partial-transpose-criterion",
-      "quantum-channels"
+      "quantum-separability",
+      "quantum-channel-structure"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -37,13 +36,12 @@
   "title": "The PPT-squared conjecture",
   "status": "Unsolved",
   "fields": [
-    "Entanglement theory"
+    "Quantum Resource Theory",
+    "Quantum Communication"
   ],
   "topics": [
-    "Entanglement-breaking channels",
-    "Choi states",
-    "Partial transpose criterion",
-    "Quantum channels"
+    "Quantum separability",
+    "Quantum channel structure"
   ],
   "statement": "Must the composition of any two compatible PPT completely positive maps be\nentanglement breaking?  Let\n$\\Phi:M_{d_1}(\\mathbb C)\\to M_{d_2}(\\mathbb C)$ and\n$\\Psi:M_{d_2}(\\mathbb C)\\to M_{d_3}(\\mathbb C)$ be completely positive.  The\nChoi operator of $\\Phi$ is\n\\begin{equation}\n  J(\\Phi)\n  :=\\sum_{i,j=1}^{d_1}\\lvert i\\rangle\\!\\langle j\\rvert\n       \\otimes\\Phi(\\lvert i\\rangle\\!\\langle j\\rvert),\n  \\label{eq:p32-choi-operator}\n\\end{equation}\nand $J(\\Psi)$ is defined analogously.  In the convention of\nEq.~\\eqref{eq:p32-choi-operator}, a map $\\Phi$ is PPT when\n\\begin{equation}\n  (T\\otimes\\operatorname{id})\\bigl(J(\\Phi)\\bigr)\\succeq0,\n  \\label{eq:p32-ppt-condition}\n\\end{equation}\nand it is entanglement breaking when $J(\\Phi)$ is separable; the same\ndefinitions apply to $\\Psi$.  Under condition\nEq.~\\eqref{eq:p32-ppt-condition} for both maps, is\n$J(\\Psi\\circ\\Phi)$ necessarily separable?  Equivalently, does postselection\non any joint measurement outcome on the middle systems of two PPT bipartite\nstates always leave a separable state on the two outer systems?",
   "source": "Christandl, M\\\"uller--Hermes, and Wolf formulate the PPT-squared statement as\nan explicit conjecture about compositions of PPT maps\n\\sourcecite{ref:p32-christandl}{CMW19}.",

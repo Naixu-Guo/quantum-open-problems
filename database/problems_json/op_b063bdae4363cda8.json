@@ -21,13 +21,10 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "entanglement-theory"
+      "quantum-resource-theory"
     ],
     "topicIds": [
-      "quantum-separability",
-      "partial-transpose-criterion",
-      "convex-geometry",
-      "qudit-systems"
+      "quantum-separability"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -37,13 +34,10 @@
   "title": "Absolute separability from spectra",
   "status": "Unsolved",
   "fields": [
-    "Entanglement theory"
+    "Quantum Resource Theory"
   ],
   "topics": [
-    "Quantum separability",
-    "Partial transpose criterion",
-    "Convex geometry",
-    "Qudit systems"
+    "Quantum separability"
   ],
   "statement": "Characterize the spectra of bipartite states that remain separable under every\nglobal unitary, and decide whether absolute separability equals absolute\npositivity under partial transpose in higher local dimensions.  Let\n$2\\le m\\le n$ and let\n$\\lambda=(\\lambda_1,\\ldots,\\lambda_{mn})$ be a decreasing probability vector.\nDefine the absolutely separable spectra by\n\\begin{equation}\n  \\operatorname{ASEP}_{m,n}\n  :=\\left\\{\n    \\lambda:\n    U\\operatorname{diag}(\\lambda)U^\\dagger\n    \\text{ is separable on }\\mathbb{C}^m\\otimes\\mathbb{C}^n\n    \\text{ for every }U\\in\\mathrm{U}(mn)\n  \\right\\}.\n  \\label{eq:p15-asep-spectra}\n\\end{equation}\nThe relaxation by positivity under partial transpose is\n\\begin{equation}\n  \\operatorname{APPT}_{m,n}\n  :=\\left\\{\n    \\lambda:\n    \\left(U\\operatorname{diag}(\\lambda)U^\\dagger\\right)^{T_B}\\succeq0\n    \\text{ for every }U\\in\\mathrm{U}(mn)\n  \\right\\}.\n  \\label{eq:p15-appt-spectra}\n\\end{equation}\nThe task is to characterize the set in Eq.~\\eqref{eq:p15-asep-spectra} and,\nfor $3\\le m\\le n$, decide whether it equals the set in\nEq.~\\eqref{eq:p15-appt-spectra}.",
   "source": "Kr\\\"uger and Werner pose the spectral characterization of absolute\nseparability, and Ahiable, Kothakonda, and Winter explicitly retain the\nhigher-dimensional characterization and ASEP--APPT equality as open\n\\sourcecite{ref:p15-krueger-werner}{KW05},\n\\sourcecite{ref:p15-ahiable-et-al}{AKW26}.",

@@ -230,12 +230,15 @@ export function leadSentenceHtml(html, limit = 260) {
   return out.trim();
 }
 
-// Newest edit first, to the second; ties broken by title.
-export const byRecentEdit = (records) => records.slice().sort((a, b) => b.dates.updatedAt.localeCompare(a.dates.updatedAt) || a.title.text.localeCompare(b.title.text));
+// Keep batch edits chronological by creation time; exact ties use the stable ID.
+export const byRecentEdit = (records) => records.slice().sort((a, b) =>
+  Date.parse(b.dates.updatedAt) - Date.parse(a.dates.updatedAt)
+  || Date.parse(b.dates.createdAt) - Date.parse(a.dates.createdAt)
+  || a.id.localeCompare(b.id, "en"));
 
 export function problemRow(record, root) {
   const search = [record.title.text, record.id, ...(record.aliases ?? []), record.fields.join(" "), record.topics.join(" "), record.statement.text].join(" ").toLowerCase();
-  return `<li class="problem-row status-${record.statusSlug}" data-id="${record.id}" data-status="${record.statusSlug}" data-fields="${escape(record.fields.map(slug).join(" "))}" data-topics="${escape(record.topics.map(slug).join(" "))}" data-title="${escape(record.title.text.toLowerCase())}" data-updated="${record.dates.updatedAt}" data-search="${escape(search)}">
+  return `<li class="problem-row status-${record.statusSlug}" data-id="${record.id}" data-status="${record.statusSlug}" data-fields="${escape(record.fields.map(slug).join(" "))}" data-topics="${escape(record.topics.map(slug).join(" "))}" data-title="${escape(record.title.text.toLowerCase())}" data-updated="${record.dates.updatedAt}" data-created="${record.dates.createdAt}" data-search="${escape(search)}">
   <div class="row-main">
     <a class="row-title" href="${root}problem/${record.id}/">${record.title.html}</a>
     <p class="row-excerpt">${leadSentenceHtml(record.statement.html)}</p>
@@ -396,7 +399,7 @@ export function renderHome({ config, root, records, stats, fieldCounts, topicCou
     <section class="panels" aria-label="Database overview">
       <div class="panel panel-stats">
         <div class="panel-head">
-          <h2>The database at a glance</h2>
+          <h2><a href="${root}problems/">View all problems</a></h2>
           <span class="panel-note">Updated ${displayDate(dates.updated)}</span>
         </div>
         <form class="hero-search no-math" action="${root}problems/" method="get" role="search">
@@ -471,7 +474,6 @@ export function renderDirectory({ config, root, records, fieldCounts, topicCount
     <section class="section-shell directory">
       <div class="section-heading">
         <div><p class="section-index">Catalog</p><h1>All problems</h1></div>
-        <p>${records.length} records. Search titles, identifiers, and statements, or narrow the list by status, field, and topic.</p>
       </div>
       <div class="directory-layout">
         <aside class="filter-sidebar no-math" aria-label="Search and filters">
@@ -504,7 +506,7 @@ export function renderDirectory({ config, root, records, fieldCounts, topicCount
             </div>
             <div class="filter-group select-filter">
               <label for="sort-filter">Sort</label>
-              <select id="sort-filter"><option value="updated">Recently edited</option><option value="title">Title A–Z</option><option value="status">Status</option></select>
+              <select id="sort-filter"><option value="updated" selected>Newest first</option><option value="title">Title A–Z</option><option value="status">Status</option></select>
             </div>
             <button class="clear-button" id="clear-filters" type="button">Clear filters</button>
           </div>
@@ -624,7 +626,7 @@ export function renderAbout({ config, root, stats, dates }) {
         <p>Progress on a nearby variant does not change a status. A status records the state of the literature at the last edit date shown on the page, so verify it against the cited sources before relying on it.</p>
 
         <h2 id="taxonomy">How problems are classified</h2>
-        <p>Each problem carries one or two <strong>fields</strong> and one to five <strong>topics</strong>, chosen from the controlled list in <code>database/tags.json</code>. A field is the broad research area a problem belongs to, such as quantum Shannon theory or entanglement theory. A topic is the specific object, technique, or setting it concerns, such as degradable channels or semidefinite programming. Fields appear as solid labels and topics as outlined labels throughout the site; the <a href="${root}tags/">taxonomy page</a> lists both with counts, and the <a href="${root}problems/">catalog</a> filters by either.</p>
+        <p>Each problem carries one or two <strong>fields</strong> and one to five <strong>topics</strong>. The six fields cover quantum algorithms, communication, metrology, cryptography, resource theory, and error correction. Topics identify the central question or task, such as entanglement distillation or channel discrimination, and can span fields. Fields appear as solid labels and topics as outlined labels throughout the site; the <a href="${root}tags/">taxonomy page</a> lists both with counts, and the <a href="${root}problems/">catalog</a> filters by either.</p>
 
         <h2 id="contribute">How to contribute</h2>
         <ol>

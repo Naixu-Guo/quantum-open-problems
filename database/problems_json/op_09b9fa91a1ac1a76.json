@@ -22,14 +22,11 @@
     "posed": null,
     "areaIds": [
       "quantum-metrology",
-      "quantum-foundations"
+      "quantum-resource-theory"
     ],
     "topicIds": [
-      "quantum-sensing",
       "quantum-estimation",
-      "indefinite-causal-order",
-      "quantum-channels",
-      "process-matrices"
+      "indefinite-causal-order"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -40,14 +37,11 @@
   "status": "Unsolved",
   "fields": [
     "Quantum metrology",
-    "Quantum foundations"
+    "Quantum Resource Theory"
   ],
   "topics": [
-    "Quantum sensing",
     "Quantum estimation",
-    "Indefinite causal order",
-    "Quantum channels",
-    "Process matrices"
+    "Indefinite causal order"
   ],
   "statement": "Does quantum control of causal order yield a persistent asymptotic\nmetrological advantage over parallel access for some smooth\nfinite-dimensional channel family?  Let\n$\\Lambda_\\theta:\\mathcal L(A)\\to\\mathcal L(B)$ be a smooth one-parameter\nfamily, and let $\\mathcal F_{\\mathrm{PAR}}^{(N)}(\\theta)$ and\n$\\mathcal F_{\\mathrm{QCQC}}^{(N)}(\\theta)$ be the largest output-state\nquantum Fisher information attainable from $N$ black-box uses by,\nrespectively, a parallel strategy and a quantum circuit with quantum control\nof causal order (QC-QC).  In a QC-QC strategy, a coherent control can\ndynamically select which unused black-box call occurs next; this is more\ngeneral than coherently superposing fixed causal orders.  At every regular\nparameter value for which $\\mathcal F_{\\mathrm{PAR}}^{(N)}(\\theta)>0$ for\nall sufficiently large $N$, decide whether every channel family satisfies\n\\begin{equation}\n  \\limsup_{N\\to\\infty}\n  \\frac{\\mathcal F_{\\mathrm{QCQC}}^{(N)}(\\theta)}\n       {\\mathcal F_{\\mathrm{PAR}}^{(N)}(\\theta)}\n  =1.\n  \\label{eq:p61-asymptotic-qcqc-ratio}\n\\end{equation}\nEquivalently, either prove Eq.~\\eqref{eq:p61-asymptotic-qcqc-ratio} or\nconstruct a noisy finite-dimensional family and physical QC-QC strategies\nwith a persistent constant-factor advantage or a larger scaling exponent.",
   "source": "Mothe, Branciard, and Abbott explicitly ask whether the finite-use QC-QC\nadvantage that they establish can persist asymptotically\n\\sourcecite{ref:p61-mothe}{MBA24}.",

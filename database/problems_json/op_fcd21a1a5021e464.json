@@ -22,14 +22,12 @@
     "posed": null,
     "areaIds": [
       "quantum-error-correction",
-      "quantum-shannon-theory"
+      "quantum-communication"
     ],
     "topicIds": [
-      "amplitude-damping-channels",
       "quantum-capacity",
       "quantum-coding-theory",
-      "quantum-polar-codes",
-      "degradable-channels"
+      "decoding-algorithms"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -39,15 +37,13 @@
   "title": "Capacity-achieving codes for amplitude damping",
   "status": "Solved",
   "fields": [
-    "Quantum error correction",
-    "Quantum Shannon theory"
+    "Quantum Error Correction",
+    "Quantum Communication"
   ],
   "topics": [
-    "Amplitude-damping channels",
     "Quantum capacity",
     "Quantum coding theory",
-    "Quantum polar codes",
-    "Degradable channels"
+    "Decoding algorithms"
   ],
   "statement": "What is the constructive quantum code for achieving the quantum capacity\n$\\mathcal{Q}(\\mathcal A_p)$ of the qubit amplitude-damping channel\n\\begin{equation}\n  \\mathcal A_p(\\rho)=A_0\\rho A_0^\\dagger+A_1\\rho A_1^\\dagger,\n  \\qquad 0\\le p\\le1?\n  \\label{eq:p2-amplitude-damping}\n\\end{equation}\nThe operators appearing in Eq.~\\eqref{eq:p2-amplitude-damping} are\n\\begin{equation}\n  \\begin{aligned}\n    A_0&=\\lvert0\\rangle\\!\\langle0\\rvert\n         +\\sqrt{1-p}\\,\\lvert1\\rangle\\!\\langle1\\rvert\n       =\\begin{pmatrix}1&0\\\\0&\\sqrt{1-p}\\end{pmatrix},\\\\\n    A_1&=\\sqrt p\\,\\lvert0\\rangle\\!\\langle1\\rvert\n       =\\begin{pmatrix}0&\\sqrt p\\\\0&0\\end{pmatrix}.\n  \\end{aligned}\n  \\label{eq:p2-kraus-operators}\n\\end{equation}\nEquation~\\eqref{eq:p2-kraus-operators} uses $p$ as the decay probability of\nthe excited state.",
   "source": "This constructive gap is implicit in the exact capacity formula of Wolf and\nP\\'erez-Garc\\'ia and the polar-code construction of Wilde and Guha, which\nattains only the symmetric coherent-information rate for this channel\n\\sourcecite{ref:p2-wolf}{WPG07},\n\\sourcecite{ref:p2-wilde-guha}{WG13}.",

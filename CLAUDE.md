@@ -85,7 +85,9 @@ each mirrored by a TeX file (`database/problems_tex/`).
 - References show DOI and arXiv as buttons only; inline identifier links are
   stripped by the converter.
 - Lists of problems are ordered by exact last-edit time (git author timestamp,
-  seconds precision), newest first. A record's history is the git history of
+  seconds precision), newest first. Equal edit times use creation time,
+  newest first, then the stable ID for exact ties; alphabetical sorting is
+  an explicit catalog option. A record's history is the git history of
   its TeX file, followed across renames; a pure rename is not an edit. That is
   why moving the TeX files from `database/problems/` to
   `database/problems_tex/` did not reset any date.

@@ -15,8 +15,9 @@ decisions still govern catalog visibility. Ordinary API clients cannot
 manufacture or replace this catalog provenance.
 
 The export preserves the original `op_` identifier, its equivalent `op-`
-alias, the permanent ULID, and confirmed historical aliases. Topic and field
-names retain their original meaning: an exported taxonomy declares
+alias, the permanent ULID, and confirmed historical aliases. The current
+vocabulary is defined by `database/tags.json` and its
+[classification guide](../database/TAXONOMY.md). An exported taxonomy declares
 `independentTopics`, so a topic can occur across research fields without
 inventing a single parent field.
 
@@ -45,3 +46,23 @@ replaces both ledger and activity roots. Old seed data remains recoverable
 from Git history. The earlier process design remains useful for the review
 workflow; this document governs the authoritative catalog, identifiers,
 taxonomy, and binary research status when the descriptions differ.
+
+## Remaining maintenance boundaries
+
+The exporter currently replaces its owned revision-one files. If a later
+service record depends on an entity being changed, the exporter refuses the
+update. Preserve that guard and the dependent history; routine authoring must
+not use `--replace-authoritative` to bypass it. A supported reconciliation
+workflow using new revisions and statement versions is still needed.
+
+For an intentionally reviewed catalog update in a deployed service clone,
+the operator runs `node --experimental-strip-types src/cli.ts sync --allow-edits`
+from `service/` before resuming writes, then rebuilds the index. Ordinary sync
+rejects edits to historical ledger files. This command can push local commits;
+run it only as an authorized deployment step.
+
+Accepted service proposals also need an explicit authoring handoff into
+`database/problems_json/` before they appear on the static site. Preserve the
+service identity and check the existing aliases during that handoff. See
+[the workspace audit](WORKSPACE_AUDIT.md) for the event-feed, bootstrap,
+compatibility, rendering, and content conflicts still requiring follow-up.

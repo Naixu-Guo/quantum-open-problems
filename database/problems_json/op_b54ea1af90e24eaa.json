@@ -21,13 +21,10 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-foundations",
-      "mathematics-of-quantum-information"
+      "quantum-resource-theory"
     ],
     "topicIds": [
-      "bell-nonlocality",
-      "convex-geometry",
-      "operator-algebras"
+      "bell-nonlocality"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -37,13 +34,10 @@
   "title": "Semialgebraicity of closed quantum correlations",
   "status": "Unsolved",
   "fields": [
-    "Quantum foundations",
-    "Mathematics of quantum information"
+    "Quantum Resource Theory"
   ],
   "topics": [
-    "Bell nonlocality",
-    "Convex geometry",
-    "Operator algebras"
+    "Bell nonlocality"
   ],
   "statement": "Is the closure of the finite-dimensional tensor-product correlation set\nsemialgebraic in every fixed bipartite Bell scenario?  Fix positive integers\n$n_A,n_B,m_A,m_B$.  Inputs satisfy $1\\leq x\\leq n_A$ and\n$1\\leq y\\leq n_B$, while outputs satisfy $1\\leq a\\leq m_A$ and\n$1\\leq b\\leq m_B$.  The set\n$\\mathcal C_q(n_A,n_B,m_A,m_B)$ consists of behaviors\n\\begin{equation}\n  p(a,b\\mid x,y)\n  =\\operatorname{Tr}\\!\\left[\n    \\rho\\bigl(E_a^x\\otimes F_b^y\\bigr)\n    \\right]\n  \\label{eq:p31-quantum-behavior}\n\\end{equation}\nobtained from arbitrary finite-dimensional local Hilbert spaces, a density\noperator $\\rho$, and local POVMs satisfying\n\\begin{equation}\n  E_a^x\\succeq0,\\qquad F_b^y\\succeq0,\\qquad\n  \\sum_{a=1}^{m_A}E_a^x=I,\\qquad\n  \\sum_{b=1}^{m_B}F_b^y=I.\n  \\label{eq:p31-povm-constraints}\n\\end{equation}\nEquation~\\eqref{eq:p31-povm-constraints} fixes the measurement class in\nEq.~\\eqref{eq:p31-quantum-behavior}.  Define the closed correlation set by\n\\begin{equation}\n  \\mathcal C_{qa}(n_A,n_B,m_A,m_B)\n  :=\\overline{\\mathcal C_q(n_A,n_B,m_A,m_B)}.\n  \\label{eq:p31-closed-correlation-set}\n\\end{equation}\nFor every fixed tuple, is the set in\nEq.~\\eqref{eq:p31-closed-correlation-set} a finite Boolean combination of\npolynomial equalities and inequalities with real coefficients?  The\ncoefficients may be arbitrary real numbers, and the description need not be\none conjunction of weak inequalities.",
   "source": "Tsirelson explicitly asks whether the quantum-correlation set in each fixed\nfinite Bell scenario is semialgebraic\n\\sourcecite{ref:p31-tsirelson}{Tsi93}.",

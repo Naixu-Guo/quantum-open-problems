@@ -21,14 +21,11 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-shannon-theory"
+      "quantum-communication"
     ],
     "topicIds": [
-      "bosonic-channels",
       "quantum-capacity",
-      "antidegradable-channels",
-      "coherent-information",
-      "continuous-variable-systems"
+      "bosonic-channels"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -38,14 +35,11 @@
   "title": "Positivity threshold for thermal-attenuator quantum capacity",
   "status": "Unsolved",
   "fields": [
-    "Quantum Shannon theory"
+    "Quantum Communication"
   ],
   "topics": [
-    "Bosonic channels",
     "Quantum capacity",
-    "Antidegradable channels",
-    "Coherent information",
-    "Continuous-variable systems"
+    "Bosonic channels"
   ],
   "statement": "For $0<\\eta<1$ and $0<\\nu<\\infty$, let the single-mode bosonic thermal\nattenuator be\n\\begin{equation}\n  \\Phi_{\\eta,\\nu}(\\rho_A)\n  :=\\operatorname{Tr}_{E'}\\!\\left[\n     U_\\eta(\\rho_A\\otimes\\tau_{\\nu,E})U_\\eta^\\dagger\n  \\right],\n  \\qquad\n  \\tau_{\\nu,E}:=\\sum_{k=0}^{\\infty}\n     \\frac{\\nu^k}{(\\nu+1)^{k+1}}\n     |k\\rangle_E\\!\\langle k|_E,\n  \\label{eq:p50-thermal-attenuator}\n\\end{equation}\nwhere $U_\\eta:AE\\to BE'$ is a beam-splitter unitary and\n$\\tau_{\\nu,E}$ acts on the environment mode $E$.  For an environment mode\nof angular frequency $\\omega_E$ at temperature $T$,\n$\\nu=(e^{\\hbar\\omega_E/(k_{\\rm B}T)}-1)^{-1}$.  Thus $0<T<\\infty$ is\nequivalent to $0<\\nu<\\infty$ for fixed $\\omega_E>0$; $\\nu=0$ corresponds\nto $T=0$, while $\\nu\\to\\infty$ as $T\\to\\infty$.  Define its unassisted quantum\ncapacity and its critical transmissivity by\n\\begin{equation}\n  \\mathcal Q(\\Phi_{\\eta,\\nu})\n  :=\\lim_{n\\to\\infty}\\frac1n\\sup_{\\rho_{A^n}}\n       I_{\\rm c}(\\rho_{A^n},\\Phi_{\\eta,\\nu}^{\\otimes n}),\n  \\qquad\n  \\eta_{\\rm c}(\\nu)\n  :=\\inf\\{\\eta\\in(0,1):\\mathcal Q(\\Phi_{\\eta,\\nu})>0\\},\n  \\label{eq:p50-critical-transmissivity}\n\\end{equation}\nwhere $I_{\\rm c}(\\rho,\\mathcal N)\n:=S(\\mathcal N(\\rho))-S(\\mathcal N^{\\rm c}(\\rho))$.  Determine the exact\nthreshold curve in Eq.~\\eqref{eq:p50-critical-transmissivity} for the channel\nin Eq.~\\eqref{eq:p50-thermal-attenuator}.",
   "source": "The exact positivity threshold is implicit in the gap between the\nantidegradability boundary of Lami et al. and the non-Gaussian positive-rate\nwitnesses of Mele et al. \\sourcecite{ref:p50-lami-et-al}{LKA+19},\n\\sourcecite{ref:p50-mele-et-al}{MCF+26}.",

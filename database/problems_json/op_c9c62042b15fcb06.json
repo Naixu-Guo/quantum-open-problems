@@ -21,13 +21,10 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-measurement-theory"
+      "quantum-metrology"
     ],
     "topicIds": [
-      "mutually-unbiased-bases",
-      "quantum-state-tomography",
-      "combinatorics",
-      "semidefinite-programming"
+      "mutually-unbiased-bases"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -37,13 +34,10 @@
   "title": "Maximum number of mutually unbiased bases",
   "status": "Unsolved",
   "fields": [
-    "Quantum measurement theory"
+    "Quantum metrology"
   ],
   "topics": [
-    "Mutually unbiased bases",
-    "Quantum state tomography",
-    "Combinatorics",
-    "Semidefinite programming"
+    "Mutually unbiased bases"
   ],
   "statement": "For each integer $d\\geq2$, determine the maximum number $\\mu(d)$ of pairwise\nmutually unbiased orthonormal bases of $\\mathbb C^d$.  Two orthonormal bases\n$\\mathcal B_r=\\{|e_i^{(r)}\\rangle\\}_{i=1}^{d}$ and\n$\\mathcal B_s=\\{|e_j^{(s)}\\rangle\\}_{j=1}^{d}$ are mutually unbiased when\n\\begin{equation}\n  \\bigl|\\langle e_i^{(r)}|e_j^{(s)}\\rangle\\bigr|^2=\\frac1d\n  \\qquad\\text{for every }i,j\\in\\{1,\\ldots,d\\}.\n  \\label{eq:p44-mutual-unbiasedness}\n\\end{equation}\nThus the extremal quantity defined by Eq.~\\eqref{eq:p44-mutual-unbiasedness}\nis\n\\begin{equation}\n  \\mu(d):=\\max\\left\\{m:\\text{there exist $m$ orthonormal bases of\n  $\\mathbb C^d$ that are pairwise mutually unbiased}\\right\\}.\n  \\label{eq:p44-maximum-mubs}\n\\end{equation}\nDetermine Eq.~\\eqref{eq:p44-maximum-mubs} in the non-prime-power regime, in\nparticular for $d\\in\\{6,10,12,14,15\\}$.",
   "source": "Kr\\\"uger and Werner explicitly pose determination of the maximum number of\nmutually unbiased bases in arbitrary dimension; McNulty and Weigert retain\nthe composite-dimensional cases as open\n\\sourcecite{ref:p44-krueger-werner}{KW05},\n\\sourcecite{ref:p44-mcnulty-weigert}{MW26}.",

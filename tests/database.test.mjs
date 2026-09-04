@@ -8,6 +8,7 @@ import { spawnSync } from "node:child_process";
 import { canonicalJson, canonicalRecord, recordToTex, validateRecordShape } from "../site/lib/record.mjs";
 import { parseProblem } from "../site/lib/tex.mjs";
 import { loadTaxonomy } from "../site/lib/taxonomy.mjs";
+import { metadataSlug } from "../site/lib/metadata.mjs";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (file) => JSON.parse(fs.readFileSync(file, "utf8"));
@@ -104,14 +105,17 @@ test("metadata migration preserves content, detects taxonomy drift, and is idemp
   const once = fs.readFileSync(jsonPath, "utf8");
   succeed(script("migrate-metadata.mjs", ["--root", root]));
   assert.equal(fs.readFileSync(jsonPath, "utf8"), once);
-  const changed = { ...migrated, fields: ["Quantum information theory"] };
+  const taxonomy = loadTaxonomy(path.join(root, "database/tags.json"));
+  const changedField = taxonomy.fields.find((field) => !migrated.fields.includes(field));
+  assert.ok(changedField, "fixture needs a different canonical field");
+  const changed = { ...migrated, fields: [changedField] };
   fs.writeFileSync(jsonPath, JSON.stringify(changed, null, 2) + "\n");
   if (JSON.stringify(changed.fields) !== JSON.stringify(migrated.fields)) {
     assert.equal(script("migrate-metadata.mjs", ["--root", root, "--check"]).status, 1);
   }
   succeed(script("migrate-metadata.mjs", ["--root", root]));
   const synchronized = read(jsonPath);
-  assert.deepEqual(synchronized.metadata.areaIds, ["quantum-information-theory"]);
+  assert.deepEqual(synchronized.metadata.areaIds, [metadataSlug(changedField)]);
   assert.equal(synchronized.ulid, example.ulid);
   assert.deepEqual(canonicalRecord(synchronized), canonicalRecord(changed));
   synchronized.status = "Partially solved";

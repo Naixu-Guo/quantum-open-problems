@@ -21,14 +21,11 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-shannon-theory"
+      "quantum-communication"
     ],
     "topicIds": [
-      "transpose-degradable-channels",
-      "transpose-antidegradable-channels",
-      "degradable-channels",
-      "antidegradable-channels",
-      "quantum-capacity"
+      "channel-degradability",
+      "quantum-channel-structure"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -38,14 +35,11 @@
   "title": "Transpose degradability beyond degradability",
   "status": "Unsolved",
   "fields": [
-    "Quantum Shannon theory"
+    "Quantum Communication"
   ],
   "topics": [
-    "Transpose-degradable channels",
-    "Transpose-antidegradable channels",
-    "Degradable channels",
-    "Antidegradable channels",
-    "Quantum capacity"
+    "Channel degradability",
+    "Quantum channel structure"
   ],
   "statement": "Does there exist a finite-dimensional transpose-degradable quantum channel\nthat is not degradable?  Let $V:A\\to B\\otimes E$ be an isometry defining a\nchannel and a complementary channel by\n\\begin{equation}\n  \\Phi(X):=\\operatorname{Tr}_E(VXV^\\dagger),\n  \\qquad\n  \\Phi^c(X):=\\operatorname{Tr}_B(VXV^\\dagger).\n  \\label{eq:p53-complementary-pair}\n\\end{equation}\nEquation~\\eqref{eq:p53-complementary-pair} fixes the output space $B$ and\nenvironment space $E$.  For the transpose $\\mathsf T_E$ in a fixed basis of\n$E$, transpose degradability means that a completely positive trace-preserving\nmap $\\mathcal D:\\mathcal L(B)\\to\\mathcal L(E)$ satisfies\n\\begin{equation}\n  \\mathsf T_E\\circ\\Phi^c=\\mathcal D\\circ\\Phi.\n  \\label{eq:p53-transpose-degradable}\n\\end{equation}\nOrdinary degradability instead requires a completely positive\ntrace-preserving map\n$\\widetilde{\\mathcal D}:\\mathcal L(B)\\to\\mathcal L(E)$ satisfying\n\\begin{equation}\n  \\Phi^c=\\widetilde{\\mathcal D}\\circ\\Phi.\n  \\label{eq:p53-degradable}\n\\end{equation}\nThe question is whether Eq.~\\eqref{eq:p53-transpose-degradable} can hold while\nno map satisfying Eq.~\\eqref{eq:p53-degradable} exists.",
   "source": "Singh and Datta explicitly ask whether transpose-degradable channels differ\nfrom ordinary degradable channels\n\\sourcecite{ref:p53-singh-datta}{SD22}.  Br{\\'a}dler had posed the same\nstrict-separation question using the earlier \\lq\\lq conjugate degradable\\rq\\rq{}\nterminology \\sourcecite{ref:p53-bradler}{Bra15}.",

@@ -21,13 +21,12 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-complexity-theory",
-      "entanglement-theory"
+      "quantum-algorithm",
+      "quantum-resource-theory"
     ],
     "topicIds": [
       "quantum-separability",
-      "convex-optimization",
-      "semidefinite-programming"
+      "computational-complexity-and-computability"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -37,13 +36,12 @@
   "title": "Constant trace-distance separability testing",
   "status": "Unsolved",
   "fields": [
-    "Quantum complexity theory",
-    "Entanglement theory"
+    "Quantum algorithm",
+    "Quantum Resource Theory"
   ],
   "topics": [
     "Quantum separability",
-    "Convex optimization",
-    "Semidefinite programming"
+    "Computational complexity and computability"
   ],
   "statement": "What is the computational complexity of testing bipartite separability with\na constant trace-distance promise gap?  For local dimension $d$, define\n\\begin{equation}\n  \\operatorname{Sep}(d,d)\n  :=\\operatorname{conv}\\!\\left\\{\n    \\alpha\\otimes\\beta:\n    \\alpha,\\beta\\in\\mathcal D(\\mathbb C^d)\n  \\right\\}.\n  \\label{eq:p36-separable-set}\n\\end{equation}\nFix a constant $0<\\varepsilon_0<1$.  Given a rational description of\n$\\rho\\in\\mathcal D(\\mathbb C^d\\otimes\\mathbb C^d)$, promised that exactly\none of the following alternatives holds,\n\\begin{equation}\n  \\begin{aligned}\n    \\text{YES:}\\quad&\\rho\\in\\operatorname{Sep}(d,d),\\\\\n    \\text{NO:}\\quad&\n      \\inf_{\\sigma\\in\\operatorname{Sep}(d,d)}\n      \\frac12\\lVert\\rho-\\sigma\\rVert_1\\geq\\varepsilon_0,\n  \\end{aligned}\n  \\label{eq:p36-trace-promise}\n\\end{equation}\ndecide which case in Eq.~\\eqref{eq:p36-trace-promise} holds.  Is there an\nalgorithm polynomial or quasipolynomial in $d$?  More generally, when the gap\n$\\varepsilon$ is part of the input, determine the optimal dependence of the\ncomplexity on $d$ and $\\varepsilon$.",
   "source": "Harrow and Montanaro explicitly pose constant-gap weak membership for\nseparability in trace norm as an open complexity problem\n\\sourcecite{ref:p36-harrow}{HM13}.",

@@ -389,10 +389,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 /* Problem page                                                             */
 /* ---------------------------------------------------------------------- */
 
-.problem-layout { width: min(880px, var(--shell)); margin: 0 auto; padding: 36px 0 72px; }
-.problem-header { padding-bottom: 6px; margin-bottom: 26px; }
-.problem-title { font-size: clamp(1.9rem, 3.4vw, 2.6rem); margin-bottom: 14px; }
-.status-row { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin-bottom: 16px; }
+.problem-layout { width: min(880px, var(--shell)); margin: 0 auto; padding: 28px 0 56px; }
+.problem { font-size: 15px; line-height: 1.55; }
+.problem .crumbs { margin-bottom: 14px; font-size: 12.5px; }
+.problem .tag-list { gap: 6px; }
+.problem .tag { font-size: 12px; }
+.problem-header { padding-bottom: 6px; margin-bottom: 22px; }
+.problem-title { font-size: clamp(1.65rem, 3vw, 2.2rem); margin-bottom: 12px; }
+.status-row { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin-bottom: 12px; }
 .problem-id { color: var(--ink-soft); font-size: 13px; }
 .problem-id code { font-size: 12.5px; }
 .problem-updated { color: var(--ink-faint); font-size: 13px; }
@@ -400,7 +404,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .taxonomy-row { display: grid; grid-template-columns: 58px minmax(0, 1fr); gap: 10px; align-items: start; }
 .taxonomy-row dt { padding-top: 6px; color: var(--ink-faint); font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
 .taxonomy-row dd { margin: 0; min-width: 0; }
-.problem-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.problem-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .action {
   display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px;
   border-radius: 999px; border: 1px solid var(--line-strong); background: var(--card-raised);
@@ -409,16 +413,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .action:hover { border-color: var(--mint-deep); color: var(--mint-deep); }
 .action svg { width: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-.problem-section { margin-bottom: 34px; }
+.problem-section { margin-bottom: 26px; }
 .problem-section h2 {
-  display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
-  font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mint-deep);
+  display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+  font-family: var(--sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mint-deep);
 }
 .problem-section h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
-.statement { padding: 22px 26px; border-radius: var(--radius-md); border: 1px solid var(--line); background: var(--card); font-size: 16.5px; }
+.statement { padding: 18px 22px; border-radius: var(--radius-md); border: 1px solid var(--line); background: var(--card); font-size: inherit; }
 .statement > :last-child { margin-bottom: 0; }
 .progress-list { margin: 0; padding-left: 22px; }
-.progress-list > li { margin-bottom: 12px; }
+.progress-list > li { margin-bottom: 10px; }
 .progress-list > li > :last-child { margin-bottom: 0; }
 .cite, .eqref { color: var(--cite); text-decoration: none; font-weight: 600; }
 .cite:hover, .eqref:hover { text-decoration: underline; color: var(--cite); }
@@ -428,7 +432,7 @@ mjx-container[display="true"] { margin: 0.5em 0 !important; }
 mjx-container { max-width: 100%; }
 .math { white-space: nowrap; }
 
-.references { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 10px 14px; margin: 0; font-size: 14.5px; }
+.references { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 12px; margin: 0; font-size: 14px; }
 .references .reference { display: contents; }
 .references dt { font-family: var(--mono); font-size: 12.5px; font-weight: 600; padding-top: 3px; }
 .references dt a { color: var(--cite); text-decoration: none; }
@@ -445,9 +449,9 @@ mjx-container { max-width: 100%; }
 .related-list a:hover { color: var(--mint-deep); }
 .related-tags { color: var(--ink-faint); font-size: 12.5px; }
 
-.problem-footer { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 44px; padding-top: 30px; border-top: 1px solid var(--line); font-size: 14px; }
+.problem-footer { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 34px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 13.5px; }
 .problem-footer h2 { margin-bottom: 10px; font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
-.problem-footer > div { min-width: 0; padding: 18px 20px; border-radius: var(--radius-md); border: 1px solid var(--line); background: var(--card); overflow-wrap: anywhere; }
+.problem-footer > div { min-width: 0; padding: 16px 18px; border-radius: var(--radius-md); border: 1px solid var(--line); background: var(--card); overflow-wrap: anywhere; }
 .problem-footer p { margin: 0; color: var(--ink-soft); }
 .edit-log ul { margin: 0 0 10px; padding: 0; list-style: none; }
 .edit-log li { display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; border-bottom: 1px dashed var(--line); }

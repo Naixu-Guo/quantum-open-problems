@@ -21,14 +21,12 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-error-correction",
-      "quantum-thermodynamics"
+      "quantum-error-correction"
     ],
     "topicIds": [
       "self-correcting-quantum-memories",
-      "open-quantum-systems",
-      "many-body-quantum-systems",
-      "topological-quantum-codes"
+      "quantum-thermodynamics",
+      "quantum-coding-theory"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -38,14 +36,12 @@
   "title": "Three-dimensional self-correcting quantum memory",
   "status": "Unsolved",
   "fields": [
-    "Quantum error correction",
-    "Quantum thermodynamics"
+    "Quantum Error Correction"
   ],
   "topics": [
     "Self-correcting quantum memories",
-    "Open quantum systems",
-    "Many-body quantum systems",
-    "Topological quantum codes"
+    "Quantum thermodynamics",
+    "Quantum coding theory"
   ],
   "statement": "Does there exist a passive self-correcting quantum memory in three spatial\ndimensions?  Consider finite-dimensional spins on a three-dimensional lattice\n$\\Lambda_L$ of linear size $L$ and a Hamiltonian\n$H_L=\\sum_{X\\subseteq\\Lambda_L}h_X$ whose interaction range, local strength\n$\\lVert h_X\\rVert$, and number of terms incident on each spin are bounded\nindependently of $L$.  Let its ground space $\\mathcal C_L$ encode a logical\nspace $\\mathcal Q_L$ with $\\dim\\mathcal Q_L\\ge2$, and let\n$\\mathcal V_L:\\mathcal S(\\mathcal Q_L)\\to\\mathcal S(\\mathcal C_L)$ be the\nchannel induced by an isometric encoding into $\\mathcal C_L$.\n\nDuring storage no active control or error correction is permitted.  The\nencoded state evolves under a local thermal channel\n$\\mathcal E_{t,\\beta}^{(L)}$ at inverse temperature $\\beta$, such as a Davies\nsemigroup, followed only at readout by a decoder $\\mathcal D_L$.  For a fixed\n$0<\\varepsilon<1$, define the worst-case storage time by\n\\begin{equation}\n  \\tau_L(\\beta,\\varepsilon)\n  :=\\sup\\!\\left\\{t\\ge0:\n       \\sup_{0\\le s\\le t}\\ \\sup_{\\rho\\in\\mathcal S(\\mathcal Q_L)}\n       \\left\\|\n         \\bigl(\\mathcal D_L\\circ\\mathcal E_{s,\\beta}^{(L)}\n         \\circ\\mathcal V_L\\bigr)(\\rho)-\\rho\n       \\right\\|_1\n       \\le\\varepsilon\\right\\},\n  \\label{eq:p9-memory-time}\n\\end{equation}\nwhere $\\mathcal S(\\mathcal Q_L)$ is the set of logical states.  The problem is\nto construct such a Hamiltonian family with efficient decoders and a finite\ncritical inverse temperature $\\beta_c$ for which\n\\begin{equation}\n  \\beta>\\beta_c\n  \\quad\\Longrightarrow\\quad\n  \\lim_{L\\to\\infty}\\tau_L(\\beta,\\varepsilon)=\\infty.\n  \\label{eq:p9-self-correction-condition}\n\\end{equation}\nEquation~\\eqref{eq:p9-self-correction-condition} requires the lifetime in\nEq.~\\eqref{eq:p9-memory-time} to diverge at fixed nonzero temperature as\n$L\\to\\infty$; growth that terminates at a temperature-dependent system size is\nonly partial self-correction.",
   "source": "Brown et al. explicitly identify the construction of a self-correcting\nquantum memory in three spatial dimensions as an outstanding open problem\n\\sourcecite{ref:p9-brown-review}{BLP+16}.",

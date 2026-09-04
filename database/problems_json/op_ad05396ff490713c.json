@@ -20,12 +20,12 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-shannon-theory"
+      "quantum-communication"
     ],
     "topicIds": [
-      "quantum-channels",
-      "matrix-analysis",
-      "qudit-systems"
+      "additivity-and-regularization",
+      "quantum-channel-structure",
+      "matrix-and-entropy-inequalities"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -35,12 +35,12 @@
   "title": "Multiplicativity for polarized Werner--Holevo channels",
   "status": "Unsolved",
   "fields": [
-    "Quantum Shannon theory"
+    "Quantum Communication"
   ],
   "topics": [
-    "Quantum channels",
-    "Matrix analysis",
-    "Qudit systems"
+    "Additivity and regularization",
+    "Quantum channel structure",
+    "Matrix and entropy inequalities"
   ],
   "statement": "For every integer $d\\geq3$, every $x\\in(0,1)$, and every $1<p<2$, is the\nmaximal output Schatten $p$-norm of the polarized Werner--Holevo channel\nmultiplicative on two identical copies?  Define the Werner--Holevo channel and\nits polarized interpolation with the identity channel by\n\\begin{equation}\n  \\mathcal W_d(X):=\\frac{\\operatorname{Tr}(X)I_d-X^{\\mathsf T}}{d-1},\n  \\qquad\n  \\Phi_{x,d}:=x\\,\\operatorname{id}_d+(1-x)\\mathcal W_d,\n  \\label{eq:p60-polarized-werner-holevo}\n\\end{equation}\nwhere the transpose in Eq.~\\eqref{eq:p60-polarized-werner-holevo} is taken in\na fixed basis.  For a channel $\\Phi$ with $d$-dimensional input, set\n\\begin{equation}\n  \\lVert A\\rVert_p:=\\bigl(\\operatorname{Tr}\\lvert A\\rvert^p\\bigr)^{1/p},\n  \\qquad\n  \\nu_p(\\Phi):=\\max_{\\rho\\in\\mathcal D(\\mathbb C^d)}\n    \\lVert\\Phi(\\rho)\\rVert_p.\n  \\label{eq:p60-maximal-output-norm}\n\\end{equation}\nWith the convention in Eq.~\\eqref{eq:p60-maximal-output-norm}, determine\nwhether\n\\begin{equation}\n  \\nu_p(\\Phi_{x,d}\\otimes\\Phi_{x,d})\n    =\\nu_p(\\Phi_{x,d})^2\n  \\label{eq:p60-multiplicativity}\n\\end{equation}\nholds throughout the stated parameter range.",
   "source": "Ruskai explicitly asked for Eq.~\\eqref{eq:p60-multiplicativity} for\n$x\\in[0,1]$ and $1\\leq p\\leq2$\n\\sourcecite{ref:p60-ruskai}{Rus07}.  The formulation above removes all regimes\nsettled by the results below.",

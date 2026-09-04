@@ -264,7 +264,9 @@
         if (show) visible += 1;
       });
       const sorted = rows.slice().sort((a, b) => {
-        if (state.sort === "updated") return b.dataset.updated.localeCompare(a.dataset.updated) || a.dataset.title.localeCompare(b.dataset.title);
+        if (state.sort === "updated") return Date.parse(b.dataset.updated) - Date.parse(a.dataset.updated)
+          || Date.parse(b.dataset.created) - Date.parse(a.dataset.created)
+          || a.dataset.id.localeCompare(b.dataset.id, "en");
         if (state.sort === "status") return statusOrder[a.dataset.status] - statusOrder[b.dataset.status] || a.dataset.title.localeCompare(b.dataset.title);
         return a.dataset.title.localeCompare(b.dataset.title);
       });

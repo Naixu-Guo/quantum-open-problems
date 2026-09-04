@@ -19,13 +19,11 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-shannon-theory"
+      "quantum-communication"
     ],
     "topicIds": [
-      "degradable-channels",
-      "antidegradable-channels",
-      "private-capacity",
-      "quantum-channels"
+      "channel-degradability",
+      "private-capacity"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -35,13 +33,11 @@
   "title": "Strict inclusion of degradable channels in the less-noisy class",
   "status": "Solved",
   "fields": [
-    "Quantum Shannon theory"
+    "Quantum Communication"
   ],
   "topics": [
-    "Degradable channels",
-    "Antidegradable channels",
-    "Private capacity",
-    "Quantum channels"
+    "Channel degradability",
+    "Private capacity"
   ],
   "statement": "Do there exist finite-dimensional quantum channels that are less noisy in\nWatanabe's regularized sense but are not degradable?  Let\n$V_{A\\to BE}$ be a Stinespring isometry defining a channel and a complementary\nchannel by\n\\begin{equation}\n  \\mathcal N_{A\\to B}(X)\n  :=\\operatorname{Tr}_E[VXV^\\dagger],\n  \\qquad\n  \\mathcal N^c_{A\\to E}(X)\n  :=\\operatorname{Tr}_B[VXV^\\dagger].\n  \\label{eq:p47-complementary-pair}\n\\end{equation}\nThe channel in Eq.~\\eqref{eq:p47-complementary-pair} is degradable if there is\na completely positive trace-preserving map $\\mathcal D_{B\\to E}$ such that\n\\begin{equation}\n  \\mathcal N^c=\\mathcal D\\circ\\mathcal N.\n  \\label{eq:p47-degradable}\n\\end{equation}\nWriting $P$ for the unassisted private classical capacity, Watanabe calls\n$\\mathcal N$ less noisy when\n\\begin{equation}\n  P(\\mathcal N^c)=0.\n  \\label{eq:p47-watanabe-less-noisy}\n\\end{equation}\nEquivalently, Eq.~\\eqref{eq:p47-watanabe-less-noisy} requires that, for every\n$n\\ge1$ and every classical--quantum ensemble on $UA^{n}$, the receiver and\nenvironment outputs obey\n\\begin{equation}\n  I(U:B^n)_{(\\operatorname{id}_U\\otimes\\mathcal N^{\\otimes n})(\\omega)}\n  \\ge\n  I(U:E^n)_{(\\operatorname{id}_U\\otimes(\\mathcal N^c)^{\\otimes n})(\\omega)}.\n  \\label{eq:p47-regularized-order}\n\\end{equation}\nThus the question asks whether the inclusion implied by\nEqs.~\\eqref{eq:p47-degradable}--\\eqref{eq:p47-regularized-order} is strict.",
   "source": "Watanabe proved the inclusion of degradable channels in the regularized\nless-noisy class and explicitly left open whether it is strict\n\\sourcecite{ref:p47-watanabe}{Wat12}.",

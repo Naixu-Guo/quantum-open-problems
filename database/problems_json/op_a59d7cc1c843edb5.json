@@ -19,14 +19,11 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-shannon-theory"
+      "quantum-communication"
     ],
     "topicIds": [
-      "amplitude-damping-channels",
       "quantum-capacity",
-      "coherent-information",
-      "quantum-channels",
-      "qutrit-systems"
+      "channel-degradability"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -36,14 +33,11 @@
   "title": "Exactly solvable nondegradable quantum channels",
   "status": "Solved",
   "fields": [
-    "Quantum Shannon theory"
+    "Quantum Communication"
   ],
   "topics": [
-    "Amplitude-damping channels",
     "Quantum capacity",
-    "Coherent information",
-    "Quantum channels",
-    "Qutrit systems"
+    "Channel degradability"
   ],
   "statement": "Does there exist a finite-dimensional quantum channel that is neither\ndegradable nor antidegradable and whose unassisted quantum capacity is known\nexactly?  For a channel $\\mathcal N_{A\\to B}$ with complementary channel\n$\\mathcal N^c_{A\\to E}$, degradability and antidegradability mean,\nrespectively, that there is a channel $\\mathcal D$ or $\\mathcal A$ satisfying\n\\begin{equation}\n  \\mathcal N^c=\\mathcal D_{B\\to E}\\circ\\mathcal N,\n  \\qquad\\text{or}\\qquad\n  \\mathcal N=\\mathcal A_{E\\to B}\\circ\\mathcal N^c.\n  \\label{eq:p74-degradability-definitions}\n\\end{equation}\nThe channel sought must satisfy neither identity in\nEq.~\\eqref{eq:p74-degradability-definitions}.  Its quantum capacity is\ndefined by the coherent-information regularization\n\\begin{equation}\n  Q(\\mathcal N)\n  :=\\sup_{n\\geq1}\\frac1n\\max_{\\rho_{A^n}}\n  \\left[\n    S(\\mathcal N^{\\otimes n}(\\rho_{A^n}))\n    -S((\\mathcal N^c)^{\\otimes n}(\\rho_{A^n}))\n  \\right].\n  \\label{eq:p74-quantum-capacity}\n\\end{equation}\nThe question asks for an explicit channel outside both classes in\nEq.~\\eqref{eq:p74-degradability-definitions} together with an exact evaluation\nof Eq.~\\eqref{eq:p74-quantum-capacity}.",
   "source": "Wilde explicitly identified finding the quantum capacity of a nondegradable\nchannel as an important open challenge\n\\sourcecite{ref:p74-wilde}{Wil17}.",

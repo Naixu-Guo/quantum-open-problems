@@ -21,12 +21,12 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-foundations"
+      "quantum-communication",
+      "quantum-resource-theory"
     ],
     "topicIds": [
       "bell-nonlocality",
-      "quantum-communication-complexity",
-      "qubit-systems"
+      "quantum-communication-complexity"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -36,12 +36,12 @@
   "title": "One-bit simulation of partially entangled qubits",
   "status": "Unsolved",
   "fields": [
-    "Quantum foundations"
+    "Quantum Communication",
+    "Quantum Resource Theory"
   ],
   "topics": [
     "Bell nonlocality",
-    "Quantum communication complexity",
-    "Qubit systems"
+    "Quantum communication complexity"
   ],
   "statement": "Can shared randomness and one classical bit exactly simulate every pair of\nlocal projective measurements on every pure entangled two-qubit state?  In\nSchmidt form the state is\n\\begin{equation}\n  \\lvert\\psi_p\\rangle\n  =\\sqrt p\\,\\lvert00\\rangle+\\sqrt{1-p}\\,\\lvert11\\rangle,\n  \\qquad \\frac12<p<1.\n  \\label{eq:p27-schmidt-state}\n\\end{equation}\nFor arbitrary Bloch vectors $\\mathbf x,\\mathbf y\\in S^2$ and outcomes\n$a,b\\in\\{0,1\\}$, the target distribution associated with\nEq.~\\eqref{eq:p27-schmidt-state} is\n\\begin{equation}\n  \\begin{aligned}\n  P_p(a,b\\mid\\mathbf x,\\mathbf y)\n    &=\\operatorname{Tr}\\!\\left[\n      \\lvert\\psi_p\\rangle\\!\\langle\\psi_p\\rvert\n      \\bigl(M_{a\\mid\\mathbf x}\\otimes M_{b\\mid\\mathbf y}\\bigr)\n      \\right],\\\\\n  M_{a\\mid\\mathbf x}\n    &=\\frac{I+(-1)^a\\mathbf x\\cdot\\boldsymbol\\sigma}{2},\n  \\qquad\n  M_{b\\mid\\mathbf y}\n    =\\frac{I+(-1)^b\\mathbf y\\cdot\\boldsymbol\\sigma}{2}.\n  \\end{aligned}\n  \\label{eq:p27-target-correlation}\n\\end{equation}\nThe protocol may use unlimited shared randomness; after receiving\n$\\mathbf x$, Alice sends Bob one bit, and their local outputs must reproduce\nEq.~\\eqref{eq:p27-target-correlation} for every pair of measurement\ndirections.  If no such universal protocol exists, find a finite-setting\nlinear inequality satisfied by all one-bit protocols and violated by one of\nthese target distributions.",
   "source": "Gisin explicitly asks whether one classical bit simulates every partially\nentangled two-qubit state; Renner and Quintino restate the surviving question\nafter narrowing the parameter range\n\\sourcecite{ref:p27-gisin}{Gis09},\n\\sourcecite{ref:p27-renner-quintino}{RQ23}.",

@@ -21,13 +21,13 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-resource-theories",
-      "quantum-information-theory"
+      "quantum-resource-theory",
+      "quantum-metrology"
     ],
     "topicIds": [
       "quantum-hypothesis-testing",
-      "quantum-channels",
-      "superchannels"
+      "channel-discrimination",
+      "quantum-relative-entropy"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -37,13 +37,13 @@
   "title": "Generalized Stein lemma for fully quantum channel resources",
   "status": "Unsolved",
   "fields": [
-    "Quantum resource theories",
-    "Quantum information theory"
+    "Quantum Resource Theory",
+    "Quantum metrology"
   ],
   "topics": [
     "Quantum hypothesis testing",
-    "Quantum channels",
-    "Superchannels"
+    "Channel discrimination",
+    "Quantum relative entropy"
   ],
   "statement": "Let $\\mathcal N:\\mathcal L(A)\\to\\mathcal L(B)$ be a finite-dimensional\nquantum channel.  For each $n$, let $\\mathfrak F_n$ be a nonempty compact,\nconvex, permutation-invariant set of channels from $A^{\\otimes n}$ to\n$B^{\\otimes n}$, closed under tensor products and containing\n$\\mathcal R_\\omega^{\\otimes n}$ for one full-rank state $\\omega$, where\n$\\mathcal R_\\omega(X):=\\operatorname{Tr}(X)\\omega$.  Define\n\\begin{equation}\n  D_{\\rm ch}(\\mathcal N^{\\otimes n}\\|\\mathcal M_n)\n  :=\\sup_{\\psi_{R_nA^n}}\n  D\\!\\left(\n    (\\operatorname{id}_{R_n}\\otimes\\mathcal N^{\\otimes n})(\\psi)\n    \\middle\\|\n    (\\operatorname{id}_{R_n}\\otimes\\mathcal M_n)(\\psi)\n  \\right),\n  \\qquad R_n\\simeq A^{\\otimes n},\n  \\label{eq:p47-channel-relative-entropy}\n\\end{equation}\nwhere the supremum in Eq.~\\eqref{eq:p47-channel-relative-entropy} is over\ndensity operators and $D$ is the quantum relative entropy.  The distance to\nthe free set is\n\\begin{equation}\n  E_n^{\\rm QQ}(\\mathcal N\\|\\mathfrak F_n)\n  :=\\inf_{\\mathcal M_n\\in\\mathfrak F_n}\n  D_{\\rm ch}(\\mathcal N^{\\otimes n}\\|\\mathcal M_n).\n  \\label{eq:p47-free-channel-distance}\n\\end{equation}\nEquation~\\eqref{eq:p47-free-channel-distance} is the $n$-use relative-entropy\ndistance to the free channel set.  For $\\varepsilon\\in(0,1)$, define the\noptimal worst-case type-II error of a\nparallel quantum-input/quantum-output test by\n\\begin{equation}\n  \\begin{aligned}\n  \\beta_{\\varepsilon,n}^{\\rm QQ}(\\mathcal N\\|\\mathfrak F_n)\n  :=\\inf_{\\substack{\\psi_{R_nA^n},\\ 0\\leq Q\\leq I\\\\\n       \\operatorname{Tr}[Q(\\operatorname{id}_{R_n}\\otimes\n       \\mathcal N^{\\otimes n})(\\psi)]\\geq1-\\varepsilon}}\n  \\ \\sup_{\\mathcal M_n\\in\\mathfrak F_n}\n  \\operatorname{Tr}\\!\\left[\n       Q(\\operatorname{id}_{R_n}\\otimes\\mathcal M_n)(\\psi)\n  \\right].\n  \\end{aligned}\n  \\label{eq:p47-composite-type-two-error}\n\\end{equation}\nUnder what additional structural assumptions on $(\\mathfrak F_n)_{n\\geq1}$,\nif any, do both limits exist and obey the fully quantum generalized Stein\nidentity\n\\begin{equation}\n  \\lim_{n\\to\\infty}-\\frac1n\\log_2\n  \\beta_{\\varepsilon,n}^{\\rm QQ}(\\mathcal N\\|\\mathfrak F_n)\n  =\\lim_{n\\to\\infty}\\frac1n\n  E_n^{\\rm QQ}(\\mathcal N\\|\\mathfrak F_n)\n  \\qquad\\text{for every }\\varepsilon\\in(0,1)?\n  \\label{eq:p47-fully-quantum-stein}\n\\end{equation}",
   "source": "The fully quantum formulation is implicit in the two generalized Stein\ntheorems for classical-input channels, both of which isolate their\nclassical-input structure from the unresolved quantum-input setting\n\\sourcecite{ref:p47-hayashi-yamasaki-cq}{HY25b},\n\\sourcecite{ref:p47-bergh-datta-khaitan}{BDK25}.",

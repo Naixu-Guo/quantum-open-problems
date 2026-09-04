@@ -19,13 +19,11 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-information-theory"
+      "quantum-communication"
     ],
     "topicIds": [
-      "quantum-channels",
-      "one-shot-quantum-information",
-      "quantum-hypothesis-testing",
-      "strong-converse"
+      "quantum-relative-entropy",
+      "one-shot-and-finite-blocklength-bounds"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -35,13 +33,11 @@
   "title": "Diamond-smoothed max-relative-entropy AEP for quantum channels",
   "status": "Unsolved",
   "fields": [
-    "Quantum information theory"
+    "Quantum Communication"
   ],
   "topics": [
-    "Quantum channels",
-    "One-shot quantum information",
-    "Quantum hypothesis testing",
-    "Strong converse"
+    "Quantum relative entropy",
+    "One-shot and finite-blocklength bounds"
   ],
   "statement": "Does the max-relative entropy of finite-dimensional quantum channels satisfy an\nasymptotic equipartition property under uniform diamond-norm smoothing?  Let\n$\\mathcal N,\\mathcal M:\\mathcal L(A)\\to\\mathcal L(B)$ be quantum channels\nwith $D_{\\max}(\\mathcal N\\|\\mathcal M)<\\infty$.  Using unnormalized Choi\noperators, define the channel max-relative entropy and its smoothed version by\n\\begin{equation}\n  \\begin{aligned}\n  D_{\\max}(\\mathcal N\\|\\mathcal M)\n    &:=\\inf\\{\\lambda:J_{\\mathcal N}\\leq2^\\lambda J_{\\mathcal M}\\},\\\\\n  D_{\\max}^{\\varepsilon}(\\mathcal N\\|\\mathcal M)\n    &:=\\inf_{\\substack{\\widetilde{\\mathcal N}\\ {\\rm CPTP}:\\\\\n              \\frac12\\|\\widetilde{\\mathcal N}-\\mathcal N\\|_\\diamond\n              \\leq\\varepsilon}}\n       D_{\\max}(\\widetilde{\\mathcal N}\\|\\mathcal M).\n  \\end{aligned}\n  \\label{eq:p65-smooth-channel-max}\n\\end{equation}\nThe smoothing in Eq.~\\eqref{eq:p65-smooth-channel-max} requires one channel\n$\\widetilde{\\mathcal N}$ that approximates $\\mathcal N$ uniformly over all\nancilla-assisted inputs.  Define\n\\begin{equation}\n  \\begin{aligned}\n  D_{\\max}^{\\varepsilon,\\infty}(\\mathcal N\\|\\mathcal M)\n    &:=\\limsup_{n\\to\\infty}\\frac1n\n       D_{\\max}^{\\varepsilon}\n       (\\mathcal N^{\\otimes n}\\|\\mathcal M^{\\otimes n}),\\\\\n  D_{\\rm ch}^{\\infty}(\\mathcal N\\|\\mathcal M)\n    &:=\\lim_{n\\to\\infty}\\frac1n\n      \\sup_{\\psi_{R A^n}}\n      D\\!\\left((\\operatorname{id}_R\\otimes\\mathcal N^{\\otimes n})(\\psi)\n      \\middle\\|\n      (\\operatorname{id}_R\\otimes\\mathcal M^{\\otimes n})(\\psi)\\right),\n  \\end{aligned}\n  \\label{eq:p65-regularized-divergences}\n\\end{equation}\nwhere $R\\simeq A^{\\otimes n}$ suffices and $D$ is quantum relative entropy.\nIs the following identity valid for every such channel pair, and can the\n$\\limsup$ in Eq.~\\eqref{eq:p65-regularized-divergences} be replaced by a\nlimit?\n\\begin{equation}\n  \\sup_{\\varepsilon>0}\n  D_{\\max}^{\\varepsilon,\\infty}(\\mathcal N\\|\\mathcal M)\n  =D_{\\rm ch}^{\\infty}(\\mathcal N\\|\\mathcal M).\n  \\label{eq:p65-channel-aep}\n\\end{equation}",
   "source": "Winter first proposed the identity in Eq.~\\eqref{eq:p65-channel-aep}; Liu and\nWinter discussed it formally in the setting of channel-resource erasure\n\\sourcecite{ref:p65-liu-winter}{LW19}.  Hirche restated it explicitly as the\ntechnical conjecture needed in quantum-network discrimination\n\\sourcecite{ref:p65-hirche}{Hir23}.",

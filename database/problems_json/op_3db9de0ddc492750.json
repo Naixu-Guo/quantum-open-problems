@@ -21,12 +21,11 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-foundations"
+      "quantum-resource-theory"
     ],
     "topicIds": [
       "bell-nonlocality",
-      "resource-conversion",
-      "qubit-systems"
+      "resource-conversion"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -36,12 +35,11 @@
   "title": "Finite-alphabet nonsignalling simulation of entangled qubits",
   "status": "Unsolved",
   "fields": [
-    "Quantum foundations"
+    "Quantum Resource Theory"
   ],
   "topics": [
     "Bell nonlocality",
-    "Resource conversion",
-    "Qubit systems"
+    "Resource conversion"
   ],
   "statement": "For every partially entangled two-qubit pure state, does some fixed\nfinite-alphabet nonsignalling resource give an exact noncommunicating\nsimulation of all local projective measurements?  Fix\n\\begin{equation}\n  \\lvert\\psi_\\theta\\rangle\n  =\\cos\\theta\\,\\lvert00\\rangle+\\sin\\theta\\,\\lvert11\\rangle,\n  \\qquad 0<\\theta<\\frac{\\pi}{4}.\n  \\label{eq:p29-partially-entangled-state}\n\\end{equation}\nThe target correlations for Bloch directions\n$\\mathbf x,\\mathbf y\\in S^2$ are\n\\begin{equation}\n  P_\\theta(a,b\\mid\\mathbf x,\\mathbf y)\n  =\\operatorname{Tr}\\!\\left[\n    \\lvert\\psi_\\theta\\rangle\\!\\langle\\psi_\\theta\\rvert\n    \\bigl(M_{a\\mid\\mathbf x}\\otimes M_{b\\mid\\mathbf y}\\bigr)\n    \\right],\n  \\qquad a,b\\in\\{0,1\\},\n  \\label{eq:p29-target-correlation}\n\\end{equation}\nwhere $M_{a\\mid\\mathbf x}=(I+(-1)^a\\mathbf x\\cdot\\boldsymbol\\sigma)/2$\nand similarly for Bob.  For each $\\theta$ in\nEq.~\\eqref{eq:p29-partially-entangled-state}, one may choose a nonsignalling\nbox $R(u,v\\mid s,t)$ with finite input and output alphabets and a finite\nnumber of copies of it.  The box, the number of copies, and the local wiring\nmay depend on $\\theta$ but not on $\\mathbf x$ or $\\mathbf y$, and the wiring\nmay use unlimited shared randomness but no communication.  It must reproduce\nEq.~\\eqref{eq:p29-target-correlation} exactly.",
   "source": "Gisin explicitly poses finite-alphabet nonsignalling simulation, while\nBrunner et al. isolate the same finiteness gap after giving a continuous-input\nconstruction \\sourcecite{ref:p29-gisin}{Gis09},\n\\sourcecite{ref:p29-brunner-pra}{BGPS08}.",

@@ -19,7 +19,7 @@ import { validateRecordShape, canonicalJson, recordDifferences, RecordError } fr
 import { loadTaxonomy } from "./lib/taxonomy.mjs";
 import { validateRecordIdentities, metadataToMainProblem, ULID_PATTERN } from "./lib/metadata.mjs";
 import {
-  renderHome, renderProblemPage, renderDirectory, renderTagsIndex, renderTagPage,
+  renderHome, renderProblemPage, renderDirectory, renderTagsIndex, renderTagPage, byRecentEdit,
   renderAbout, renderRandomPage, renderNotFound
 } from "./lib/render.mjs";
 
@@ -175,7 +175,7 @@ if (errors.length) {
   console.error(`Build failed:\n- ${errors.join("\n- ")}`);
   process.exit(1);
 }
-records.sort((a, b) => a.title.text.localeCompare(b.title.text, "en"));
+records.splice(0, records.length, ...byRecentEdit(records));
 
 // ---------------------------------------------------------------------------
 // Derived data

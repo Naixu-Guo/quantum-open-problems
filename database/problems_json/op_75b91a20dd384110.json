@@ -19,14 +19,13 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "entanglement-theory"
+      "quantum-resource-theory"
     ],
     "topicIds": [
       "entanglement-distillation",
       "ppt-preserving-operations",
-      "rains-bound",
-      "semidefinite-programming",
-      "zero-error-quantum-information"
+      "additivity-and-regularization",
+      "one-shot-and-finite-blocklength-bounds"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -36,14 +35,13 @@
   "title": "Closed-form exact PPT distillable entanglement",
   "status": "Unsolved",
   "fields": [
-    "Entanglement theory"
+    "Quantum Resource Theory"
   ],
   "topics": [
     "Entanglement distillation",
     "PPT-preserving operations",
-    "Rains bound",
-    "Semidefinite programming",
-    "Zero-error quantum information"
+    "Additivity and regularization",
+    "One-shot and finite-blocklength bounds"
   ],
   "statement": "What computable expression, if any, equals the regularized exact PPT\ndistillable entanglement of a bipartite state?  Let $\\rho_{AB}$ be a state\non $\\mathbb C^{d_A}\\otimes\\mathbb C^{d_B}$ with support projector\n$P:=\\Pi_{\\operatorname{supp}(\\rho)}$, and let $\\Gamma$ denote partial\ntransposition on $B$.  Exact (zero-error) distillation under\nPPT-preserving operations converts $\\rho^{\\otimes n}$ into a maximally\nentangled state of Schmidt rank $M_n$ with unit fidelity.  The largest\none-shot rate is governed by the semidefinite program\n\\begin{equation}\n  W_0(P):=\\min\\bigl\\{\\|E^{\\Gamma}\\|_\\infty:\\ P\\leq E\\leq\\mathbb 1\\bigr\\},\n  \\qquad\n  E^{(1)}_{0,\\mathrm{PPT}}(\\rho):=-\\log_2W_0(P),\n  \\label{eq:75b9-one-shot}\n\\end{equation}\nwhich depends on $\\rho$ only through its support.  The regularized exact\nPPT distillable entanglement is\n\\begin{equation}\n  E^{\\infty}_{0,\\mathrm{PPT}}(\\rho)\n  :=\\lim_{n\\to\\infty}\\frac1n E^{(1)}_{0,\\mathrm{PPT}}(\\rho^{\\otimes n})\n  =\\lim_{n\\to\\infty}-\\frac1n\\log_2W_0(P^{\\otimes n}).\n  \\label{eq:75b9-regularized}\n\\end{equation}\nIs there a single-letter, efficiently computable formula, for example a\nsemidefinite program in $P$ alone, that equals\nEq.~\\eqref{eq:75b9-regularized} for every bipartite state?",
   "source": "Zhu and Wang disprove the previously conjectured formula and state that\ndetermining the closed form of the exact PPT distillable entanglement\nremains open \\sourcecite{ref:75b9-zhu-wang}{ZW26}.",

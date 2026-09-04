@@ -19,14 +19,12 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-shannon-theory"
+      "quantum-communication"
     ],
     "topicIds": [
       "bosonic-channels",
       "classical-capacity",
-      "finite-blocklength-quantum-information",
-      "strong-converse",
-      "continuous-variable-systems"
+      "one-shot-and-finite-blocklength-bounds"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -36,14 +34,12 @@
   "title": "Candidate pure-loss second-order converse",
   "status": "Unsolved",
   "fields": [
-    "Quantum Shannon theory"
+    "Quantum Communication"
   ],
   "topics": [
     "Bosonic channels",
     "Classical capacity",
-    "Finite-blocklength quantum information",
-    "Strong converse",
-    "Continuous-variable systems"
+    "One-shot and finite-blocklength bounds"
   ],
   "statement": "Does the pure-loss bosonic channel admit the following candidate second-order\nclassical converse under a maximum-photon-number occupation constraint?  Let\n$\\mathcal N_\\eta$ be the single-mode pure-loss channel with transmissivity\n$0<\\eta<1$, defined in the Heisenberg picture by\n\\begin{equation}\n  \\hat b=\\sqrt{\\eta}\\,\\hat a+\\sqrt{1-\\eta}\\,\\hat e,\n  \\label{eq:p76-pure-loss-channel}\n\\end{equation}\nwhere the environment mode $E$ is in the vacuum.  In an $n$-use code, the\nchannel in Eq.~\\eqref{eq:p76-pure-loss-channel} is used to transmit one of\n$M$ input states $\\rho_m^{A^n}$, with a decoding POVM\n$\\{\\Lambda_m^{B^n}\\}_{m=1}^M$.  Write\n$\\overline\\rho_{A^n}:=M^{-1}\\sum_m\\rho_m^{A^n}$ and let\n$\\Pi_{\\lceil nN_S\\rceil}$ project onto the $n$-mode subspace of total photon\nnumber at most $\\lceil nN_S\\rceil$.  For fixed $N_S>0$,\n$\\varepsilon\\in(0,1)$, and $c>0$, impose\n\\begin{equation}\n  \\frac1M\\sum_{m=1}^M\n    \\operatorname{Tr}\\!\\left[\n      \\Lambda_m\\mathcal N_\\eta^{\\otimes n}(\\rho_m)\n    \\right]\n    \\geq1-\\varepsilon,\n  \\qquad\n  \\operatorname{Tr}\\!\\left[\n    \\Pi_{\\lceil nN_S\\rceil}\\overline\\rho_{A^n}\n  \\right]\n    \\geq1-\\delta_n,\n  \\qquad\n  0\\leq\\delta_n\\leq2^{-cn}.\n  \\label{eq:p76-code-constraints}\n\\end{equation}\nLet $M^*_{\\rm occ}(n,\\eta,N_S,\\varepsilon,c)$ be the largest $M$ satisfying\nEq.~\\eqref{eq:p76-code-constraints}.  Define the thermal entropy and its\nentropy variance by\n\\begin{equation}\n  g(x):=(x+1)\\log_2(x+1)-x\\log_2x,\n  \\qquad\n  v(x):=x(x+1)\n    \\left[\\log_2(x+1)-\\log_2x\\right]^2,\n  \\label{eq:p76-thermal-entropy-and-variance}\n\\end{equation}\nwhere $0\\log_2 0:=0$.  With the functions in\nEq.~\\eqref{eq:p76-thermal-entropy-and-variance}, is the following upper bound\nvalid as $n\\to\\infty$?\n\\begin{equation}\n  \\log_2 M^*_{\\rm occ}(n,\\eta,N_S,\\varepsilon,c)\n  \\leq ng(\\eta N_S)\n    +\\sqrt{n\\,v(\\eta N_S)}\\,\\Phi^{-1}(\\varepsilon)\n    +O(\\log n),\n  \\label{eq:p76-second-order-converse}\n\\end{equation}\nHere $\\Phi^{-1}$ in Eq.~\\eqref{eq:p76-second-order-converse} is the inverse\nstandard-normal cumulative distribution function, and the implicit constant\nmay depend on $\\eta,N_S,\\varepsilon,$ and $c$, but not on $n$.",
   "source": "Wilde, Renes, and Guha leave open whether their Gaussian second-order\nexpression is an upper bound and observe that such a converse should impose a\nphoton-number occupation constraint similar to Wilde and Winter's.\nEquation~\\eqref{eq:p76-code-constraints} adopts a particular exponentially\nstrong version of that suggestion, so Eq.~\\eqref{eq:p76-second-order-converse}\nis a precise strengthened formulation rather than a verbatim conjecture from\ntheir paper\n\\sourcecite{ref:p76-wilde-renes-guha}{WRG16}.",

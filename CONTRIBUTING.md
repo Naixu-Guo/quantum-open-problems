@@ -91,14 +91,21 @@ identify a deliberate update.
 
 ## Fields and topics
 
-A **field** is a broad research area (for example Quantum Shannon theory,
-Entanglement theory, Quantum error correction); a **topic** is a specific
-object, technique, or setting (for example Degradable channels, Semidefinite
-programming, Qudit systems). Each name belongs to exactly one of the two lists
-in `database/tags.json`. Give a problem the one or two fields that a
-specialist would file it under, then one to five topics that pin down what it
-is about. To add a name, append it to the right list in the same pull request
-as the first record that uses it; do not add a third kind of tag.
+A **field** is one of the six research areas in `database/tags.json`;
+a **topic** names the central question, resource, or operational task.
+Use [the taxonomy guide](database/TAXONOMY.md) for field boundaries and
+examples. Give a problem one primary field and a second only when its
+statement materially spans both, then one to five topics that help a reader
+find related questions. Classify the statement, rather than every technique
+or system mentioned in its progress notes. Topics are independent of fields.
+
+Reuse the controlled vocabulary. Avoid dimension-only tags, generic labels
+such as "Quantum channels", and overlapping descriptions of the same setting.
+A new topic should express a useful distinction absent from the registry and
+arrive with its first problem in the same pull request. Keep the six fields
+fixed unless a maintainer requests a taxonomy revision. Every renamed or
+removed tag must be reconciled across all records, metadata, TeX, and ledger
+exports in the same change.
 
 ## Writing rules
 

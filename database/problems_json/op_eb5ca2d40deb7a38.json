@@ -21,12 +21,13 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-information-theory"
+      "quantum-resource-theory",
+      "quantum-communication"
     ],
     "topicIds": [
       "quantum-hypothesis-testing",
-      "finite-blocklength-quantum-information",
-      "one-shot-quantum-information"
+      "quantum-relative-entropy",
+      "one-shot-and-finite-blocklength-bounds"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -36,12 +37,13 @@
   "title": "Square-root remainder in generalized quantum equipartition",
   "status": "Unsolved",
   "fields": [
-    "Quantum information theory"
+    "Quantum Resource Theory",
+    "Quantum Communication"
   ],
   "topics": [
     "Quantum hypothesis testing",
-    "Finite-blocklength quantum information",
-    "One-shot quantum information"
+    "Quantum relative entropy",
+    "One-shot and finite-blocklength bounds"
   ],
   "statement": "Let $H$ be a $d$-dimensional Hilbert space.  For each $n$, let\n$\\mathcal A_n\\subseteq\\mathcal D(H^{\\otimes n})$ and\n$\\mathcal B_n\\subseteq\\mathcal L(H^{\\otimes n})_+$ be nonempty compact,\nconvex, permutation-invariant sets, each closed under tensor products.  For a\npositive-operator set $\\mathcal C$, define its positive polar by\n\\begin{equation}\n  \\mathcal C_+^\\circ\n  :=\\{X\\geq0:\\operatorname{Tr}(XY)\\leq1\n      \\text{ for every }Y\\in\\mathcal C\\}.\n  \\label{eq:p48-positive-polar}\n\\end{equation}\nAssume that both families of polars from\nEq.~\\eqref{eq:p48-positive-polar} satisfy\n\\begin{equation}\n  (\\mathcal A_m)_+^\\circ\\otimes(\\mathcal A_n)_+^\\circ\n    \\subseteq(\\mathcal A_{m+n})_+^\\circ,\n  \\qquad\n  (\\mathcal B_m)_+^\\circ\\otimes(\\mathcal B_n)_+^\\circ\n    \\subseteq(\\mathcal B_{m+n})_+^\\circ.\n  \\label{eq:p48-polar-tensor-stability}\n\\end{equation}\nIn addition to Eq.~\\eqref{eq:p48-polar-tensor-stability}, assume that some\nconstant $C<\\infty$ satisfies\n\\begin{equation}\n  D_{\\max}(\\rho_n\\|\\sigma_n)\\leq Cn,\n  \\qquad \\log_2\\operatorname{Tr}\\sigma_n\\leq Cn\n  \\label{eq:p48-linear-growth}\n\\end{equation}\nfor all $\\rho_n\\in\\mathcal A_n$ and $\\sigma_n\\in\\mathcal B_n$.  The linear\ngrowth condition in Eq.~\\eqref{eq:p48-linear-growth} uses\n$D_{\\max}(\\rho\\|\\sigma):=\\inf\\{\\lambda:\\rho\\leq2^\\lambda\\sigma\\}$.\nFor positive operators $\\rho$ and $\\sigma$, define\n\\begin{equation}\n  \\begin{aligned}\n  D(\\rho\\|\\sigma)\n    &:=\\operatorname{Tr}[\\rho(\\log_2\\rho-\\log_2\\sigma)],\\\\\n  D_H^\\varepsilon(\\rho\\|\\sigma)\n    &:=-\\log_2\\inf_{\\substack{0\\leq Q\\leq I\\\\\n                    \\operatorname{Tr}(Q\\rho)\\geq1-\\varepsilon}}\n                    \\operatorname{Tr}(Q\\sigma),\n  \\end{aligned}\n  \\label{eq:p48-state-divergences}\n\\end{equation}\nwhere $D(\\rho\\|\\sigma)=+\\infty$ unless\n$\\operatorname{supp}\\rho\\subseteq\\operatorname{supp}\\sigma$.  Define the\ndivergences between the two sets from Eq.~\\eqref{eq:p48-state-divergences} by\n\\begin{equation}\n  \\begin{aligned}\n  D(\\mathcal A_n\\|\\mathcal B_n)\n    &:=\\inf_{\\rho_n\\in\\mathcal A_n,\\,\\sigma_n\\in\\mathcal B_n}\n      D(\\rho_n\\|\\sigma_n),\\\\\n  D_H^\\varepsilon(\\mathcal A_n\\|\\mathcal B_n)\n    &:=\\inf_{\\rho_n\\in\\mathcal A_n,\\,\\sigma_n\\in\\mathcal B_n}\n      D_H^\\varepsilon(\\rho_n\\|\\sigma_n),\n  \\end{aligned}\n  \\label{eq:p48-set-divergences}\n\\end{equation}\nThe two quantities in Eq.~\\eqref{eq:p48-set-divergences} determine the\nfirst- and finite-blocklength orders of interest.  Set\n\\begin{equation}\n  D^\\infty(\\mathcal A\\|\\mathcal B)\n  :=\\lim_{n\\to\\infty}\\frac1nD(\\mathcal A_n\\|\\mathcal B_n).\n  \\label{eq:p48-regularized-set-entropy}\n\\end{equation}\nDoes every fixed $\\varepsilon\\in(0,1)$ admit a constant\n$K_\\varepsilon<\\infty$ such that, for all sufficiently large $n$,\n\\begin{equation}\n  \\left|D_H^\\varepsilon(\\mathcal A_n\\|\\mathcal B_n)\n       -nD^\\infty(\\mathcal A\\|\\mathcal B)\\right|\n  \\leq K_\\varepsilon\\sqrt n?\n  \\label{eq:p48-square-root-remainder}\n\\end{equation}",
   "source": "Fang, Fawzi, and Fawzi establish an $O(n^{2/3}\\log n)$ generalized\nequipartition remainder and explicitly leave improvement to the\n$O(\\sqrt n)$ scale open \\sourcecite{ref:p48-fang-fawzi-fawzi}{FFF26}.",

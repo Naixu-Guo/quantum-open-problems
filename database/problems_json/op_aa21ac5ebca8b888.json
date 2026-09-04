@@ -21,14 +21,12 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "entanglement-theory"
+      "quantum-resource-theory"
     ],
     "topicIds": [
-      "bell-diagonal-states",
       "entanglement-cost",
-      "entanglement-measures",
-      "local-operations-and-classical-communication",
-      "qubit-systems"
+      "bell-diagonal-states",
+      "local-operations-and-classical-communication"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -38,14 +36,12 @@
   "title": "Entanglement cost of a qubit Bell-diagonal state",
   "status": "Unsolved",
   "fields": [
-    "Entanglement theory"
+    "Quantum Resource Theory"
   ],
   "topics": [
-    "Bell-diagonal states",
     "Entanglement cost",
-    "Entanglement measures",
-    "Local operations and classical communication",
-    "Qubit systems"
+    "Bell-diagonal states",
+    "Local operations and classical communication"
   ],
   "statement": "What is the entanglement cost of a qubit Bell-diagonal state for an arbitrary\nprobability vector $\\mathbf p=(p_I,p_X,p_Y,p_Z)$?  Let\n$\\lvert\\Phi^+\\rangle=(\\lvert00\\rangle+\\lvert11\\rangle)/\\sqrt2$ and\n$\\lvert\\Phi_P\\rangle=(I\\otimes P)\\lvert\\Phi^+\\rangle$ for\n$P\\in\\{I,X,Y,Z\\}$.  The state is\n\\begin{equation}\n  \\rho_{\\mathbf p}\n  :=\\sum_{P\\in\\{I,X,Y,Z\\}}p_P\n      \\lvert\\Phi_P\\rangle\\!\\langle\\Phi_P\\rvert,\n  \\qquad p_P\\geq0,\n  \\qquad \\sum_{P\\in\\{I,X,Y,Z\\}}p_P=1.\n  \\label{eq:p7-bell-diagonal-state}\n\\end{equation}\nFor the state in Eq.~\\eqref{eq:p7-bell-diagonal-state}, determine\n$E_C(\\rho_{\\mathbf p})$ for every $\\mathbf p$ in the probability simplex,\nwhere $E_C$ is the infimum asymptotic rate of ebits consumed by LOCC protocols\nthat prepare $\\rho_{\\mathbf p}^{\\otimes n}$ with trace-norm error tending to\nzero.",
   "source": "The problem is implicit in the regularized-entanglement-of-formation\ncharacterization of entanglement cost and Wootters' one-copy formula for\ntwo-qubit states \\sourcecite{ref:p7-hayden-horodecki-terhal}{HHT01},\n\\sourcecite{ref:p7-wootters}{Woo98}.",

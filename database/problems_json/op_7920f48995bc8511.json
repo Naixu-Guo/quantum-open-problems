@@ -20,12 +20,11 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-shannon-theory"
+      "quantum-communication"
     ],
     "topicIds": [
-      "quantum-channels",
-      "degradable-channels",
-      "choi-states"
+      "channel-degradability",
+      "quantum-channel-structure"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -35,12 +34,11 @@
   "title": "Nontrivial mutually degradable channel pairs",
   "status": "Unsolved",
   "fields": [
-    "Quantum Shannon theory"
+    "Quantum Communication"
   ],
   "topics": [
-    "Quantum channels",
-    "Degradable channels",
-    "Choi states"
+    "Channel degradability",
+    "Quantum channel structure"
   ],
   "statement": "Does there exist an integer $d\\geq2$ and a pair of distinct channels\n$\\mathcal M,\\mathcal N:\\mathcal L(A)\\to\\mathcal L(B)$, with\n$A\\simeq B\\simeq\\mathbb C^d$, that both have Choi rank exactly $d$, are\nmutually degradable, and are each nondegradable?  Let\n$E\\simeq\\mathbb C^d$ and choose minimal Stinespring isometries\n$V_{\\mathcal M},V_{\\mathcal N}:A\\to B\\otimes E$ defining the channels and\ntheir complements by\n\\begin{equation}\n  \\begin{aligned}\n    \\mathcal M(\\rho)&=\\operatorname{Tr}_E\n      (V_{\\mathcal M}\\rho V_{\\mathcal M}^{\\dagger}),\n    &\\mathcal M^c(\\rho)&=\\operatorname{Tr}_B\n      (V_{\\mathcal M}\\rho V_{\\mathcal M}^{\\dagger}),\\\\\n    \\mathcal N(\\rho)&=\\operatorname{Tr}_E\n      (V_{\\mathcal N}\\rho V_{\\mathcal N}^{\\dagger}),\n    &\\mathcal N^c(\\rho)&=\\operatorname{Tr}_B\n      (V_{\\mathcal N}\\rho V_{\\mathcal N}^{\\dagger}).\n  \\end{aligned}\n  \\label{eq:p59-complementary-pairs}\n\\end{equation}\nEquation~\\eqref{eq:p59-complementary-pairs} fixes representatives of the\ncomplementary channels; changing a minimal dilation only applies an output\nunitary to a complement.\n\nFor\n$\\lvert\\Omega_d\\rangle:=\\sum_{j=1}^d\\lvert j\\rangle_{A'}\\lvert j\\rangle_A$,\nthe required Choi-rank condition is\n\\begin{equation}\n  J(\\mathcal T):=(\\operatorname{id}_{A'}\\otimes\\mathcal T)\n    (\\lvert\\Omega_d\\rangle\\!\\langle\\Omega_d\\rvert),\n  \\qquad\n  \\operatorname{rank}J(\\mathcal M)\n   =\\operatorname{rank}J(\\mathcal N)=d.\n  \\label{eq:p59-choi-rank}\n\\end{equation}\nThe equality in Eq.~\\eqref{eq:p59-choi-rank} makes the environment dimension\nin Eq.~\\eqref{eq:p59-complementary-pairs} minimal.\n\nMutual degradability requires channels\n$\\mathcal X,\\mathcal Y:\\mathcal L(B)\\to\\mathcal L(E)$ such that\n\\begin{equation}\n  \\mathcal X\\circ\\mathcal M=\\mathcal N^c,\n  \\qquad\n  \\mathcal Y\\circ\\mathcal N=\\mathcal M^c.\n  \\label{eq:p59-mutual-degradability}\n\\end{equation}\nIn addition to Eq.~\\eqref{eq:p59-mutual-degradability}, neither channel may\nadmit its own degrading map:\n\\begin{equation}\n  \\begin{aligned}\n    &\\nexists\\ \\mathcal D_{\\mathcal M}:\\mathcal L(B)\\to\\mathcal L(E)\n      \\quad\\text{CPTP with}\\quad\n      \\mathcal M^c=\\mathcal D_{\\mathcal M}\\circ\\mathcal M,\\\\\n    &\\nexists\\ \\mathcal D_{\\mathcal N}:\\mathcal L(B)\\to\\mathcal L(E)\n      \\quad\\text{CPTP with}\\quad\n      \\mathcal N^c=\\mathcal D_{\\mathcal N}\\circ\\mathcal N.\n  \\end{aligned}\n  \\label{eq:p59-individual-nondegradability}\n\\end{equation}\nEquation~\\eqref{eq:p59-individual-nondegradability}, together with\n$\\mathcal M\\neq\\mathcal N$, excludes the known degenerate constructions.",
   "source": "Ruskai posed mutual degradability explicitly and singled out the case of two\nChoi-rank-$d$ channels that are not individually degradable\n\\sourcecite{ref:p59-ruskai}{Rus07}.",

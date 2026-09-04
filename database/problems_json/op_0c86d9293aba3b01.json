@@ -21,13 +21,11 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "entanglement-theory"
+      "quantum-resource-theory"
     ],
     "topicIds": [
       "absolutely-maximally-entangled-states",
-      "multipartite-entanglement",
-      "local-unitary-equivalence",
-      "qudit-systems"
+      "local-unitary-equivalence"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -37,13 +35,11 @@
   "title": "Finite nontrivial LU moduli of AME states",
   "status": "Unsolved",
   "fields": [
-    "Entanglement theory"
+    "Quantum Resource Theory"
   ],
   "topics": [
     "Absolutely maximally entangled states",
-    "Multipartite entanglement",
-    "Local unitary equivalence",
-    "Qudit systems"
+    "Local unitary equivalence"
   ],
   "statement": "Do there exist integers $N,d\\geq 2$ for which the absolutely maximally\nentangled states of $N$ qudits of local dimension $d$ form finitely many, but\nmore than one, local-unitary equivalence classes?  A normalized vector\n$|\\psi\\rangle\\in(\\mathbb{C}^{d})^{\\otimes N}$ is an $\\operatorname{AME}(N,d)$\nstate when every subsystem of at most half the parties is maximally mixed:\n\\begin{equation}\n  \\operatorname{Tr}_{S^{c}}\\!\\left(|\\psi\\rangle\\!\\langle\\psi|\\right)\n  =\\frac{I_{d^{|S|}}}{d^{|S|}}\n  \\quad\\text{for every }S\\subseteq\\{1,\\ldots,N\\}\n  \\text{ with }|S|\\leq\\left\\lfloor\\frac{N}{2}\\right\\rfloor .\n  \\label{eq:p43-ame-condition}\n\\end{equation}\nFor normalized states satisfying Eq.~\\eqref{eq:p43-ame-condition}, define\nlocal-unitary equivalence by\n\\begin{equation}\n  |\\psi\\rangle\\sim_{\\mathrm{LU}}|\\phi\\rangle\n  \\quad\\Longleftrightarrow\\quad\n  |\\psi\\rangle=(U_1\\otimes\\cdots\\otimes U_N)|\\phi\\rangle\n  \\quad\\text{for some }U_1,\\ldots,U_N\\in U(d).\n  \\label{eq:p43-lu-equivalence}\n\\end{equation}\nIf $\\mathcal{A}_{N,d}$ denotes the set specified by\nEq.~\\eqref{eq:p43-ame-condition}, determine whether the quotient under\nEq.~\\eqref{eq:p43-lu-equivalence} can satisfy\n\\begin{equation}\n  \\mathfrak{M}_{N,d}:=\\mathcal{A}_{N,d}/\\!\\sim_{\\mathrm{LU}},\n  \\qquad\n  1<\\lvert\\mathfrak{M}_{N,d}\\rvert<\\infty .\n  \\label{eq:p43-finite-nontrivial-moduli}\n\\end{equation}",
   "source": "Rajchel-Mieldzio\\'c et al. explicitly ask whether an AME family can have a\nfinite number of local-unitary equivalence classes greater than one\n\\sourcecite{ref:p43-review}{RBR+26}.",
