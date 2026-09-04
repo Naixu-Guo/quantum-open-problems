@@ -1,0 +1,30 @@
+{
+  "schema": "qiqcop-zoo/record/1",
+  "id": "op_7920f48995bc8511",
+  "title": "Nontrivial mutually degradable channel pairs",
+  "status": "Unsolved",
+  "tags": [
+    "Quantum channels",
+    "Degradable channels",
+    "Choi states"
+  ],
+  "statement": "Does there exist an integer $d\\geq2$ and a pair of distinct channels\n$\\mathcal M,\\mathcal N:\\mathcal L(A)\\to\\mathcal L(B)$, with\n$A\\simeq B\\simeq\\mathbb C^d$, that both have Choi rank exactly $d$, are\nmutually degradable, and are each nondegradable?  Let\n$E\\simeq\\mathbb C^d$ and choose minimal Stinespring isometries\n$V_{\\mathcal M},V_{\\mathcal N}:A\\to B\\otimes E$ defining the channels and\ntheir complements by\n\\begin{equation}\n  \\begin{aligned}\n    \\mathcal M(\\rho)&=\\operatorname{Tr}_E\n      (V_{\\mathcal M}\\rho V_{\\mathcal M}^{\\dagger}),\n    &\\mathcal M^c(\\rho)&=\\operatorname{Tr}_B\n      (V_{\\mathcal M}\\rho V_{\\mathcal M}^{\\dagger}),\\\\\n    \\mathcal N(\\rho)&=\\operatorname{Tr}_E\n      (V_{\\mathcal N}\\rho V_{\\mathcal N}^{\\dagger}),\n    &\\mathcal N^c(\\rho)&=\\operatorname{Tr}_B\n      (V_{\\mathcal N}\\rho V_{\\mathcal N}^{\\dagger}).\n  \\end{aligned}\n  \\label{eq:p59-complementary-pairs}\n\\end{equation}\nEquation~\\eqref{eq:p59-complementary-pairs} fixes representatives of the\ncomplementary channels; changing a minimal dilation only applies an output\nunitary to a complement.\n\nFor\n$\\lvert\\Omega_d\\rangle:=\\sum_{j=1}^d\\lvert j\\rangle_{A'}\\lvert j\\rangle_A$,\nthe required Choi-rank condition is\n\\begin{equation}\n  J(\\mathcal T):=(\\operatorname{id}_{A'}\\otimes\\mathcal T)\n    (\\lvert\\Omega_d\\rangle\\!\\langle\\Omega_d\\rvert),\n  \\qquad\n  \\operatorname{rank}J(\\mathcal M)\n   =\\operatorname{rank}J(\\mathcal N)=d.\n  \\label{eq:p59-choi-rank}\n\\end{equation}\nThe equality in Eq.~\\eqref{eq:p59-choi-rank} makes the environment dimension\nin Eq.~\\eqref{eq:p59-complementary-pairs} minimal.\n\nMutual degradability requires channels\n$\\mathcal X,\\mathcal Y:\\mathcal L(B)\\to\\mathcal L(E)$ such that\n\\begin{equation}\n  \\mathcal X\\circ\\mathcal M=\\mathcal N^c,\n  \\qquad\n  \\mathcal Y\\circ\\mathcal N=\\mathcal M^c.\n  \\label{eq:p59-mutual-degradability}\n\\end{equation}\nIn addition to Eq.~\\eqref{eq:p59-mutual-degradability}, neither channel may\nadmit its own degrading map:\n\\begin{equation}\n  \\begin{aligned}\n    &\\nexists\\ \\mathcal D_{\\mathcal M}:\\mathcal L(B)\\to\\mathcal L(E)\n      \\quad\\text{CPTP with}\\quad\n      \\mathcal M^c=\\mathcal D_{\\mathcal M}\\circ\\mathcal M,\\\\\n    &\\nexists\\ \\mathcal D_{\\mathcal N}:\\mathcal L(B)\\to\\mathcal L(E)\n      \\quad\\text{CPTP with}\\quad\n      \\mathcal N^c=\\mathcal D_{\\mathcal N}\\circ\\mathcal N.\n  \\end{aligned}\n  \\label{eq:p59-individual-nondegradability}\n\\end{equation}\nEquation~\\eqref{eq:p59-individual-nondegradability}, together with\n$\\mathcal M\\neq\\mathcal N$, excludes the known degenerate constructions.",
+  "source": "Ruskai posed mutual degradability explicitly and singled out the case of two\nChoi-rank-$d$ channels that are not individually degradable\n\\sourcecite{ref:p59-ruskai}{Rus07}.",
+  "progress": [
+    "At unrestricted rank, Ruskai observed that the identity channel and an\n  arbitrary channel form a mutually degradable pair.  Also, any degradable\n  channel paired with itself satisfies\n  Eq.~\\eqref{eq:p59-mutual-degradability}.  The rank, distinctness, and\n  nondegradability requirements exclude both constructions\n  \\sourcecite{ref:p59-ruskai}{Rus07}.",
+    "Cubitt, Ruskai, and Smith proved that every qubit channel with two\n  Kraus operators is either degradable or antidegradable.  Consequently, any\n  $d=2$ solution satisfying Eq.~\\eqref{eq:p59-individual-nondegradability}\n  must consist of two antidegradable channels.  Their classification neither\n  constructs nor excludes such a pair satisfying\n  Eq.~\\eqref{eq:p59-mutual-degradability}\n  \\sourcecite{ref:p59-cubitt-ruskai-smith}{CRS08}."
+  ],
+  "references": [
+    {
+      "key": "Rus07",
+      "label": "ref:p59-ruskai",
+      "tex": "M. B. Ruskai, ``Open Problems in Quantum Information Theory,''\n  arXiv preprint arXiv:0708.1902 (2007).\n  \\newline\n  \\href{https://doi.org/10.48550/arXiv.0708.1902}{doi:10.48550/arXiv.0708.1902};\n  \\href{https://arxiv.org/abs/0708.1902}{arXiv:0708.1902}."
+    },
+    {
+      "key": "CRS08",
+      "label": "ref:p59-cubitt-ruskai-smith",
+      "tex": "T. S. Cubitt, M. B. Ruskai, and G. Smith,\n  ``The Structure of Degradable Quantum Channels,''\n  \\emph{Journal of Mathematical Physics} \\textbf{49}, 102104 (2008).\n  \\href{https://doi.org/10.1063/1.2953685}{doi:10.1063/1.2953685};\n  \\href{https://arxiv.org/abs/0802.1360}{arXiv:0802.1360}."
+    }
+  ],
+  "comment": "The remaining task is either to construct a distinct pair satisfying\nEqs.~\\eqref{eq:p59-choi-rank}--\\eqref{eq:p59-individual-nondegradability} for\nsome $d$, or to prove that mutual degradability at Choi rank $d$ forces\nequality of the channels or individual degradability."
+}

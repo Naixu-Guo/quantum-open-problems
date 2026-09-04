@@ -1,0 +1,53 @@
+{
+  "schema": "qiqcop-zoo/record/1",
+  "id": "op_aa21ac5ebca8b888",
+  "title": "Entanglement cost of a qubit Bell-diagonal state",
+  "status": "Unsolved",
+  "tags": [
+    "Bell-diagonal states",
+    "Entanglement cost",
+    "Entanglement measures",
+    "Local operations and classical communication",
+    "Qubit systems"
+  ],
+  "statement": "What is the entanglement cost of a qubit Bell-diagonal state for an arbitrary\nprobability vector $\\mathbf p=(p_I,p_X,p_Y,p_Z)$?  Let\n$\\lvert\\Phi^+\\rangle=(\\lvert00\\rangle+\\lvert11\\rangle)/\\sqrt2$ and\n$\\lvert\\Phi_P\\rangle=(I\\otimes P)\\lvert\\Phi^+\\rangle$ for\n$P\\in\\{I,X,Y,Z\\}$.  The state is\n\\begin{equation}\n  \\rho_{\\mathbf p}\n  :=\\sum_{P\\in\\{I,X,Y,Z\\}}p_P\n      \\lvert\\Phi_P\\rangle\\!\\langle\\Phi_P\\rvert,\n  \\qquad p_P\\geq0,\n  \\qquad \\sum_{P\\in\\{I,X,Y,Z\\}}p_P=1.\n  \\label{eq:p7-bell-diagonal-state}\n\\end{equation}\nFor the state in Eq.~\\eqref{eq:p7-bell-diagonal-state}, determine\n$E_C(\\rho_{\\mathbf p})$ for every $\\mathbf p$ in the probability simplex,\nwhere $E_C$ is the infimum asymptotic rate of ebits consumed by LOCC protocols\nthat prepare $\\rho_{\\mathbf p}^{\\otimes n}$ with trace-norm error tending to\nzero.",
+  "source": "The problem is implicit in the regularized-entanglement-of-formation\ncharacterization of entanglement cost and Wootters' one-copy formula for\ntwo-qubit states \\sourcecite{ref:p7-hayden-horodecki-terhal}{HHT01},\n\\sourcecite{ref:p7-wootters}{Woo98}.",
+  "progress": [
+    "Let $p_\\star:=\\max\\{p_I,p_X,p_Y,p_Z\\}$,\n  $C_{\\mathbf p}:=\\max\\{0,2p_\\star-1\\}$, and\n  $h_2(x):=-x\\log_2x-(1-x)\\log_2(1-x)$, with $0\\log_2 0:=0$.  Regularized relative entropy of\n  entanglement, entanglement cost, and Wootters' one-copy entanglement of\n  formation give the rigorous bounds\n  \\begin{equation}\n    L(p_\\star)=E_R^\\infty(\\rho_{\\mathbf p})\n    \\leq E_C(\\rho_{\\mathbf p})\n    \\leq E_F(\\rho_{\\mathbf p})\n    =h_2\\!\\left(\\frac{1+\\sqrt{1-C_{\\mathbf p}^{2}}}{2}\\right),\n    \\qquad\n    L(t):=\n    \\begin{cases}\n      0, & 0\\leq t\\leq\\tfrac12,\\\\\n      1-h_2(t), & \\tfrac12<t\\leq1.\n    \\end{cases}\n    \\label{eq:p7-cost-bounds}\n  \\end{equation}\n  Here $E_C=E_F^\\infty$\n  \\sourcecite{ref:p7-hayden-horodecki-terhal}{HHT01}; Wootters gives the\n  right endpoint \\sourcecite{ref:p7-wootters}{Woo98}; and additivity of the\n  relative entropy of entanglement gives\n  $E_R^\\infty(\\rho_{\\mathbf p})=L(p_\\star)$\n  \\sourcecite{ref:p7-zhu-chen-hayashi}{ZCH10}.  Thus\n  Eq.~\\eqref{eq:p7-cost-bounds} solves $p_\\star\\leq1/2$ but generally leaves\n  a gap for $p_\\star>1/2$.  A recent semidefinite-programming construction\n  gives a faithful, efficiently computable lower bound on\n  $E_C(\\rho_{\\mathbf p})$ for every entangled two-qubit Bell-diagonal state,\n  but does not close the gap\n  \\sourcecite{ref:p7-wang-jing-zhu}{WJZ25}.",
+    "If at most two Bell probabilities are nonzero, say $q$ and\n  $1-q$, then the entanglement of formation is strongly additive and\n  \\begin{equation}\n    E_C(\\rho_{\\mathbf p})=E_F(\\rho_{\\mathbf p})\n    =h_2\\!\\left(\\frac12+\\sqrt{q(1-q)}\\right).\n    \\label{eq:p7-two-bell-cost}\n  \\end{equation}\n  Vidal, D\\\"ur, and Cirac proved Eq.~\\eqref{eq:p7-two-bell-cost} for a\n  mixture of $\\lvert\\Phi^+\\rangle$ and $\\lvert\\Phi^-\\rangle$; local\n  unitaries extend it to any pair of Bell states\n  \\sourcecite{ref:p7-vidal-dur-cirac}{VDC02}.  This settles the rank-at-most-two\n  boundary of the family, not generic rank-three or rank-four states.",
+    "On the isotropic line singled out in the question,\n  $p_X=p_Y=p_Z$, write the probabilities and the known one-copy value as\n  \\begin{equation}\n    p_I=F,\n    \\qquad p_X=p_Y=p_Z=\\frac{1-F}{3},\n    \\qquad\n    E_F(\\rho_{\\mathbf p})=\n    \\begin{cases}\n      0, & 0\\leq F\\leq\\tfrac12,\\\\\n      h_2\\!\\left(\\dfrac12+\\sqrt{F(1-F)}\\right),\n        & \\tfrac12<F\\leq1.\n    \\end{cases}\n    \\label{eq:p7-isotropic-eof}\n  \\end{equation}\n  Terhal and Vollbrecht determined this one-copy quantity\n  \\sourcecite{ref:p7-terhal-vollbrecht}{TV00}; it is also the qubit\n  specialization of Wootters' formula.  For $1/2<F<1$, no proof is known\n  that it equals the asymptotic LOCC entanglement cost."
+  ],
+  "references": [
+    {
+      "key": "HHT01",
+      "label": "ref:p7-hayden-horodecki-terhal",
+      "tex": "P. M. Hayden, M. Horodecki, and B. M. Terhal,\n  ``The Asymptotic Entanglement Cost of Preparing a Quantum State,''\n  \\emph{Journal of Physics A: Mathematical and General} \\textbf{34},\n  6891--6898 (2001).\n  \\href{https://doi.org/10.1088/0305-4470/34/35/314}{doi:10.1088/0305-4470/34/35/314};\n  \\href{https://arxiv.org/abs/quant-ph/0008134}{arXiv:quant-ph/0008134}."
+    },
+    {
+      "key": "Woo98",
+      "label": "ref:p7-wootters",
+      "tex": "W. K. Wootters,\n  ``Entanglement of Formation of an Arbitrary State of Two Qubits,''\n  \\emph{Physical Review Letters} \\textbf{80}, 2245--2248 (1998).\n  \\href{https://doi.org/10.1103/PhysRevLett.80.2245}{doi:10.1103/PhysRevLett.80.2245};\n  \\href{https://arxiv.org/abs/quant-ph/9709029}{arXiv:quant-ph/9709029}."
+    },
+    {
+      "key": "ZCH10",
+      "label": "ref:p7-zhu-chen-hayashi",
+      "tex": "H. Zhu, L. Chen, and M. Hayashi,\n  ``Additivity and Non-Additivity of Multipartite Entanglement Measures,''\n  \\emph{New Journal of Physics} \\textbf{12}, 083002 (2010).\n  \\href{https://doi.org/10.1088/1367-2630/12/8/083002}{doi:10.1088/1367-2630/12/8/083002};\n  \\href{https://arxiv.org/abs/1002.2511}{arXiv:1002.2511}."
+    },
+    {
+      "key": "WJZ25",
+      "label": "ref:p7-wang-jing-zhu",
+      "tex": "X. Wang, M. Jing, and C. Zhu,\n  ``Computable and Faithful Lower Bound on Entanglement Cost,''\n  \\emph{Physical Review Letters} \\textbf{134}, 190202 (2025).\n  \\href{https://doi.org/10.1103/PhysRevLett.134.190202}{doi:10.1103/PhysRevLett.134.190202};\n  \\href{https://arxiv.org/abs/2311.10649}{arXiv:2311.10649}."
+    },
+    {
+      "key": "VDC02",
+      "label": "ref:p7-vidal-dur-cirac",
+      "tex": "G. Vidal, W. D\\\"ur, and J. I. Cirac,\n  ``Entanglement Cost of Bipartite Mixed States,''\n  \\emph{Physical Review Letters} \\textbf{89}, 027901 (2002).\n  \\href{https://doi.org/10.1103/PhysRevLett.89.027901}{doi:10.1103/PhysRevLett.89.027901};\n  \\href{https://arxiv.org/abs/quant-ph/0112131}{arXiv:quant-ph/0112131}."
+    },
+    {
+      "key": "TV00",
+      "label": "ref:p7-terhal-vollbrecht",
+      "tex": "B. M. Terhal and K. G. H. Vollbrecht,\n  ``Entanglement of Formation for Isotropic States,''\n  \\emph{Physical Review Letters} \\textbf{85}, 2625--2628 (2000).\n  \\href{https://doi.org/10.1103/PhysRevLett.85.2625}{doi:10.1103/PhysRevLett.85.2625};\n  \\href{https://arxiv.org/abs/quant-ph/0005062}{arXiv:quant-ph/0005062}."
+    }
+  ],
+  "comment": "Equation~\\eqref{eq:p7-isotropic-eof} determines $E_C$ only for $F\\leq1/2$\nand $F=1$; for $1/2<F<1$ it is an $E_F$ formula.  The open task is to\nregularize $E_F$ for entangled rank-three and rank-four Bell-diagonal states.\nProblem~8 asks the analogous question for a different two-qubit family."
+}

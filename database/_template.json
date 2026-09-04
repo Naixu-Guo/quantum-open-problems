@@ -1,0 +1,23 @@
+{
+  "schema": "qiqcop-zoo/record/1",
+  "id": "op_0123456789abcdef",
+  "title": "Short descriptive title",
+  "status": "Unsolved",
+  "tags": [
+    "Canonical tag one",
+    "Canonical tag two"
+  ],
+  "statement": "State the problem here without relying on another problem's definitions or\nnotation.  Introduce each displayed equation in the prose, then use a numbered\nand labeled equation environment.  Refer back to every display using\n\\eqref{eq:PREFIX-description}.\n\\begin{equation}\n  f(x)=x,\n  \\label{eq:PREFIX-description}\n\\end{equation}",
+  "source": "Briefly identify the paper or preprint that posed the problem, and state\nwhether the attribution is explicit or implicit\n\\sourcecite{ref:PREFIX-source}{AutYY}.  Multiple sources may be cited when\nneeded.  If no literature source exists, write \\texttt{Contributor: Full\nName.}; if the contributor is unknown, write \\texttt{unknown}.",
+  "progress": [
+    "Summarize a known result and cite its source with\n\\sourcecite{ref:PREFIX-source}{AutYY}."
+  ],
+  "references": [
+    {
+      "key": "AutYY",
+      "label": "ref:PREFIX-source",
+      "tex": "Author, ``Title,'' \\emph{Journal} \\textbf{volume}, pages (year).\n\\href{https://doi.org/example}{doi:example};\n\\href{https://arxiv.org/abs/example}{arXiv:example}."
+    }
+  ],
+  "comment": "State precisely what remains unresolved.  If this problem is related to\nanother problem in the zoo, explain that relationship here rather than in the\nproblem statement."
+}

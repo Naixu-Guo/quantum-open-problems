@@ -1,0 +1,45 @@
+{
+  "schema": "qiqcop-zoo/record/1",
+  "id": "op_09b9fa91a1ac1a76",
+  "title": "Asymptotic metrology with quantum-controlled causal order",
+  "status": "Unsolved",
+  "tags": [
+    "Quantum metrology",
+    "Quantum sensing",
+    "Quantum estimation",
+    "Indefinite causal order",
+    "Quantum channels",
+    "Process matrices"
+  ],
+  "statement": "Does quantum control of causal order yield a persistent asymptotic\nmetrological advantage over parallel access for some smooth\nfinite-dimensional channel family?  Let\n$\\Lambda_\\theta:\\mathcal L(A)\\to\\mathcal L(B)$ be a smooth one-parameter\nfamily, and let $\\mathcal F_{\\mathrm{PAR}}^{(N)}(\\theta)$ and\n$\\mathcal F_{\\mathrm{QCQC}}^{(N)}(\\theta)$ be the largest output-state\nquantum Fisher information attainable from $N$ black-box uses by,\nrespectively, a parallel strategy and a quantum circuit with quantum control\nof causal order (QC-QC).  In a QC-QC strategy, a coherent control can\ndynamically select which unused black-box call occurs next; this is more\ngeneral than coherently superposing fixed causal orders.  At every regular\nparameter value for which $\\mathcal F_{\\mathrm{PAR}}^{(N)}(\\theta)>0$ for\nall sufficiently large $N$, decide whether every channel family satisfies\n\\begin{equation}\n  \\limsup_{N\\to\\infty}\n  \\frac{\\mathcal F_{\\mathrm{QCQC}}^{(N)}(\\theta)}\n       {\\mathcal F_{\\mathrm{PAR}}^{(N)}(\\theta)}\n  =1.\n  \\label{eq:p61-asymptotic-qcqc-ratio}\n\\end{equation}\nEquivalently, either prove Eq.~\\eqref{eq:p61-asymptotic-qcqc-ratio} or\nconstruct a noisy finite-dimensional family and physical QC-QC strategies\nwith a persistent constant-factor advantage or a larger scaling exponent.",
+  "source": "Mothe, Branciard, and Abbott explicitly ask whether the finite-use QC-QC\nadvantage that they establish can persist asymptotically\n\\sourcecite{ref:p61-mothe}{MBA24}.",
+  "progress": [
+    "Kurdzia\\l ek, G\\'orecki, Albarelli, and Demkowicz-Dobrza\\'nski prove\n  that adaptive strategies and coherent superpositions of fixed causal\n  orders are asymptotically equivalent to parallel strategies for repeated\n  estimation of a finite-dimensional channel\n  \\sourcecite{ref:p61-kurdzialek}{KGAD23}.  Their recursion does not cover\n  the dynamically controlled QC-QC class in\n  Eq.~\\eqref{eq:p61-asymptotic-qcqc-ratio}.",
+    "Mothe, Branciard, and Abbott exhibit noisy channel families for which\n  QC-QC strictly outperforms parallel, sequential, and causal-superposition\n  strategies at three uses \\sourcecite{ref:p61-mothe}{MBA24}.  This proves a\n  finite-resource separation but neither a nonunit asymptotic ratio nor a\n  different scaling exponent.",
+    "Abbott, Mhalla, and Pocreau show that QC-QC gives no query advantage\n  for Boolean-function tasks formed by repeated access to one unitary\n  \\sourcecite{ref:p61-abbott}{AMP24}.  The restriction to unitary queries\n  leaves open the noisy metrological families relevant to\n  Eq.~\\eqref{eq:p61-asymptotic-qcqc-ratio}.",
+    "Salzger and Vilasini show that higher-order processes satisfying\n  their spacetime, Acting Once, and Local Order assumptions reduce\n  operationally to QC-QC processes\n  \\sourcecite{ref:p61-salzger}{SV26}.  This identifies QC-QC as the physical\n  target class under those assumptions but supplies no asymptotic Fisher\n  information bound."
+  ],
+  "references": [
+    {
+      "key": "MBA24",
+      "label": "ref:p61-mothe",
+      "tex": "R. Mothe, C. Branciard, and A. A. Abbott,\n  ``Reassessing the Advantage of Indefinite Causal Orders for Quantum\n  Metrology,'' \\emph{Physical Review A} \\textbf{109}, 062435 (2024).\n  \\href{https://doi.org/10.1103/PhysRevA.109.062435}{doi:10.1103/PhysRevA.109.062435};\n  \\href{https://arxiv.org/abs/2312.12172}{arXiv:2312.12172}."
+    },
+    {
+      "key": "KGAD23",
+      "label": "ref:p61-kurdzialek",
+      "tex": "S. Kurdzia\\l ek, W. G\\'orecki, F. Albarelli, and\n  R. Demkowicz-Dobrza\\'nski,\n  ``Using Adaptiveness and Causal Superpositions Against Noise in Quantum\n  Metrology,'' \\emph{Physical Review Letters} \\textbf{131}, 090801 (2023).\n  \\href{https://doi.org/10.1103/PhysRevLett.131.090801}{doi:10.1103/PhysRevLett.131.090801};\n  \\href{https://arxiv.org/abs/2212.08106}{arXiv:2212.08106}."
+    },
+    {
+      "key": "AMP24",
+      "label": "ref:p61-abbott",
+      "tex": "A. A. Abbott, M. Mhalla, and P. Pocreau,\n  ``Quantum Query Complexity of Boolean Functions under Indefinite Causal\n  Order,'' \\emph{Physical Review Research} \\textbf{6}, L032020 (2024).\n  \\href{https://doi.org/10.1103/PhysRevResearch.6.L032020}{doi:10.1103/PhysRevResearch.6.L032020};\n  \\href{https://arxiv.org/abs/2307.10285}{arXiv:2307.10285}."
+    },
+    {
+      "key": "SV26",
+      "label": "ref:p61-salzger",
+      "tex": "M. Salzger and V. Vilasini,\n  ``Higher-Order Quantum Processes Respecting Closed Labs in a Spacetime\n  Have Quantum-Controlled Causal Order,'' arXiv:2605.08351 (2026).\n  \\href{https://arxiv.org/abs/2605.08351}{arXiv:2605.08351}."
+    }
+  ],
+  "comment": "The known three-use separation does not determine the leading asymptotic\ncoefficient or scaling exponent.  The unresolved alternatives are precisely\nEq.~\\eqref{eq:p61-asymptotic-qcqc-ratio} for every smooth finite-dimensional\nfamily or one noisy counterexample with a persistent QC-QC advantage."
+}

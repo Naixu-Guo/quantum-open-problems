@@ -1,29 +1,39 @@
 # Contributing to the QIQCOP Zoo
 
-Problems are TeX records in `database/problems/`. A pull request that adds or
-edits a record is the only way content enters the site; the build validates
-every record, and the validation workflow runs it on each pull request.
+Problems are JSON records in `database/problems_json/`, one file per problem
+named by its stable ID, with the TeX form of each record in
+`database/problems_tex/`. A pull request that adds or edits a record is the
+only way content enters the site; the build validates every record, and the
+validation workflow runs it on each pull request.
 
 ## Record format
 
-Copy `database/_template.tex` and keep its section order:
+Copy `database/_template.json` to `database/problems_json/<id>.json` and fill
+in its fields. Every text field holds TeX, written exactly as in a TeX file
+except for JSON escaping: backslashes are doubled (`\\emph{...}`) and line
+breaks are written as `\n`.
 
-1. `\section{Title}` — only the descriptive title.
-2. `\paragraph{Problem.}` — the self-contained statement.
-3. `\subsection*{Status}` — exactly `Unsolved` or `Solved`.
-4. `\subsection*{Source}` — the paper that posed the problem, or the papers in
-   which it is implicit, cited with `\sourcecite{ref:...}{KEY}`. Write
-   `Contributor: Full Name.` when no literature source exists, or `unknown`.
-5. `\subsection*{Progress}` — one `itemize` list of accurately scoped results.
-6. `\subsection*{References}` — one `enumerate` list; each item starts with
-   `\item[\textup{[KEY]}]\label{ref:...}` and gives the full entry with DOI and
-   arXiv links.
-7. `\subsection*{Comment}` — the precise remaining gap and relations to other
-   problems.
-8. `\subsection*{Tag}` — one to six names from `database/tags.json`,
-   separated by semicolons.
-9. `\subsection*{ID}` — `\texttt{op\_...}`, generated once with
-   `node scripts/new-problem-id.mjs` and never changed.
+| Field | Content |
+| --- | --- |
+| `schema` | `qiqcop-zoo/record/1`. |
+| `id` | `op_` followed by sixteen hexadecimal digits, generated once with `node scripts/new-problem-id.mjs` and never changed. The file is named `<id>.json`. |
+| `title` | The descriptive title only, on one line; the site never shows a problem number. |
+| `status` | Exactly `Unsolved` or `Solved`. |
+| `tags` | One to six names from `database/tags.json`, spelled exactly. |
+| `statement` | The self-contained statement. |
+| `source` | The paper that posed the problem, or the papers in which it is implicit, cited with `\\sourcecite{ref:...}{KEY}`. Write `Contributor: Full Name.` when no literature source exists, or `unknown`. |
+| `progress` | An array of accurately scoped results, one TeX item each. |
+| `references` | An array of `{ "key": "KEY", "label": "ref:...", "tex": "..." }`, each `tex` giving the full entry with DOI and arXiv links. |
+| `comment` | The precise remaining gap and relations to other problems. |
+
+After editing a record, run `node scripts/sync-tex.mjs` to write its TeX form
+to `database/problems_tex/<id>.tex`, then `node site/build.mjs`. The build
+fails when the TeX file is missing or disagrees with the record, so commit the
+two files together.
+
+A record can also be written in TeX following `database/_template.tex`, whose
+sections map one to one onto the JSON fields, and imported with
+`node scripts/import-problems.mjs <file>`; the import writes both files.
 
 ## Writing rules
 

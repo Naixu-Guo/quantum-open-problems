@@ -241,8 +241,8 @@ export function problemRow(record, root) {
 }
 
 export function renderProblemPage({ record, config, root, related, dates }) {
-  const editUrl = `${config.repositoryUrl}/edit/${config.branch}/${config.databasePath}/${record.id}.tex`;
-  const historyUrl = `${config.repositoryUrl}/commits/${config.branch}/${config.databasePath}/${record.id}.tex`;
+  const editUrl = `${config.repositoryUrl}/edit/${config.branch}/${config.databasePath}/${record.id}.json`;
+  const historyUrl = `${config.repositoryUrl}/commits/${config.branch}/${config.databasePath}/${record.id}.json`;
   const issueUrl = `${config.repositoryUrl}/issues/new?template=research-update.yml&title=${encodeURIComponent(`[Update] ${record.title.text} (${record.id})`)}`;
   const permalink = problemUrl(config, record.id);
   const bib = bibtex(record, config, dates);
@@ -557,9 +557,9 @@ export function renderAbout({ config, root, stats, dates }) {
 
         <h2 id="contribute">How to contribute</h2>
         <ol>
-          <li>Fork the <a href="${config.repositoryUrl}" rel="noreferrer">repository</a> and copy <code>database/_template.tex</code> to <code>database/problems/&lt;id&gt;.tex</code>, where the ID comes from <code>node scripts/new-problem-id.mjs</code>.</li>
-          <li>Write the statement, status, source, progress, references, comment, and one to six tags from <code>database/tags.json</code>, following the template comments.</li>
-          <li>Run <code>node site/build.mjs</code>. The build rejects records with missing sections, unknown tags, unresolved citations, or unlabeled equations.</li>
+          <li>Fork the <a href="${config.repositoryUrl}" rel="noreferrer">repository</a> and copy <code>database/_template.json</code> to <code>database/problems_json/&lt;id&gt;.json</code>, where the ID comes from <code>node scripts/new-problem-id.mjs</code>.</li>
+          <li>Write the statement, status, source, progress, references, comment, and one to six tags from <code>database/tags.json</code> as TeX fragments in the record's fields, following the contribution guide.</li>
+          <li>Run <code>node scripts/sync-tex.mjs</code> to write the record's TeX form, then <code>node site/build.mjs</code>. The build rejects records with missing fields, unknown tags, unresolved citations, or unlabeled equations.</li>
           <li>Open a pull request. To report progress on an existing problem, use the Edit button on its page or open an issue with the primary sources.</li>
         </ol>
 

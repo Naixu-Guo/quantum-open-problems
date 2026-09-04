@@ -1,0 +1,47 @@
+{
+  "schema": "qiqcop-zoo/record/1",
+  "id": "op_b54ea1af90e24eaa",
+  "title": "Semialgebraicity of closed quantum correlations",
+  "status": "Unsolved",
+  "tags": [
+    "Bell nonlocality",
+    "Convex geometry",
+    "Operator algebras"
+  ],
+  "statement": "Is the closure of the finite-dimensional tensor-product correlation set\nsemialgebraic in every fixed bipartite Bell scenario?  Fix positive integers\n$n_A,n_B,m_A,m_B$.  Inputs satisfy $1\\leq x\\leq n_A$ and\n$1\\leq y\\leq n_B$, while outputs satisfy $1\\leq a\\leq m_A$ and\n$1\\leq b\\leq m_B$.  The set\n$\\mathcal C_q(n_A,n_B,m_A,m_B)$ consists of behaviors\n\\begin{equation}\n  p(a,b\\mid x,y)\n  =\\operatorname{Tr}\\!\\left[\n    \\rho\\bigl(E_a^x\\otimes F_b^y\\bigr)\n    \\right]\n  \\label{eq:p31-quantum-behavior}\n\\end{equation}\nobtained from arbitrary finite-dimensional local Hilbert spaces, a density\noperator $\\rho$, and local POVMs satisfying\n\\begin{equation}\n  E_a^x\\succeq0,\\qquad F_b^y\\succeq0,\\qquad\n  \\sum_{a=1}^{m_A}E_a^x=I,\\qquad\n  \\sum_{b=1}^{m_B}F_b^y=I.\n  \\label{eq:p31-povm-constraints}\n\\end{equation}\nEquation~\\eqref{eq:p31-povm-constraints} fixes the measurement class in\nEq.~\\eqref{eq:p31-quantum-behavior}.  Define the closed correlation set by\n\\begin{equation}\n  \\mathcal C_{qa}(n_A,n_B,m_A,m_B)\n  :=\\overline{\\mathcal C_q(n_A,n_B,m_A,m_B)}.\n  \\label{eq:p31-closed-correlation-set}\n\\end{equation}\nFor every fixed tuple, is the set in\nEq.~\\eqref{eq:p31-closed-correlation-set} a finite Boolean combination of\npolynomial equalities and inequalities with real coefficients?  The\ncoefficients may be arbitrary real numbers, and the description need not be\none conjunction of weak inequalities.",
+  "source": "Tsirelson explicitly asks whether the quantum-correlation set in each fixed\nfinite Bell scenario is semialgebraic\n\\sourcecite{ref:p31-tsirelson}{Tsi93}.",
+  "progress": [
+    "In the scenario with two binary measurements per party, Jordan-type\n  dimension reduction and finite convexification give a semialgebraic\n  parametrization \\sourcecite{ref:p31-tsirelson}{Tsi93},\n  \\sourcecite{ref:p31-masanes}{Mas05}.  This does not extend to every fixed\n  input--output tuple.",
+    "The zero-marginal correlator slice in the smallest bipartite scenario\n  has an explicit semialgebraic description but is not basic semialgebraic.\n  Consequently, asking for one finite conjunction of polynomial inequalities\n  would already be too strong \\sourcecite{ref:p31-le}{LMSWZ23}.",
+    "The finite-dimensional set $\\mathcal C_q$ defined by\n  Eqs.~\\eqref{eq:p31-quantum-behavior}--\\eqref{eq:p31-povm-constraints} is not\n  closed in sufficiently large fixed scenarios.  This necessitates the\n  closure in Eq.~\\eqref{eq:p31-closed-correlation-set}\n  \\sourcecite{ref:p31-slofstra}{Slo19}.",
+    "For sufficiently large fixed input and output sizes, membership in\n  $\\mathcal C_{qa}$ is undecidable even for behaviors with algebraic\n  coordinates.  This excludes effective polynomial descriptions with\n  computable algebraic coefficients, but it does not exclude a non-effective\n  semialgebraic presentation using arbitrary real coefficients\n  \\sourcecite{ref:p31-fu}{FMS25}."
+  ],
+  "references": [
+    {
+      "key": "Tsi93",
+      "label": "ref:p31-tsirelson",
+      "tex": "B. S. Tsirelson, ``Some Results and Problems on Quantum Bell-Type\n  Inequalities,'' \\emph{Hadronic Journal Supplement} \\textbf{8}(4), 329--345\n  (1993).\n  \\href{https://cris.tau.ac.il/en/publications/some-results-and-problems-on-quantum-bell-type-inequalities/}{publication record};\n  \\href{https://ma.huji.ac.il/~ohadfeld/Tsirelson/download/hadron.html}{full text}."
+    },
+    {
+      "key": "Mas05",
+      "label": "ref:p31-masanes",
+      "tex": "Ll. Masanes, ``Extremal Quantum Correlations for $N$ Parties with Two\n  Dichotomic Observables per Site,'' arXiv:quant-ph/0512100 (2005).\n  \\href{https://doi.org/10.48550/arXiv.quant-ph/0512100}{doi:10.48550/arXiv.quant-ph/0512100};\n  \\href{https://arxiv.org/abs/quant-ph/0512100}{arXiv:quant-ph/0512100}."
+    },
+    {
+      "key": "LMSWZ23",
+      "label": "ref:p31-le",
+      "tex": "T. P. Le, C. Meroni, B. Sturmfels, R. F. Werner, and T. Ziegler, ``Quantum\n  Correlations in the Minimal Scenario,'' \\emph{Quantum} \\textbf{7}, 947\n  (2023). \\href{https://doi.org/10.22331/q-2023-03-16-947}{doi:10.22331/q-2023-03-16-947};\n  \\href{https://arxiv.org/abs/2111.06270}{arXiv:2111.06270}."
+    },
+    {
+      "key": "Slo19",
+      "label": "ref:p31-slofstra",
+      "tex": "W. Slofstra, ``The Set of Quantum Correlations Is Not Closed,''\n  \\emph{Forum of Mathematics, Pi} \\textbf{7}, e1 (2019).\n  \\href{https://doi.org/10.1017/fmp.2018.3}{doi:10.1017/fmp.2018.3};\n  \\href{https://arxiv.org/abs/1703.08618}{arXiv:1703.08618}."
+    },
+    {
+      "key": "FMS25",
+      "label": "ref:p31-fu",
+      "tex": "H. Fu, C. A. Miller, and W. Slofstra, ``The Membership Problem for\n  Constant-Sized Quantum Correlations Is Undecidable,'' \\emph{Communications\n  in Mathematical Physics} \\textbf{406}, 96 (2025).\n  \\href{https://doi.org/10.1007/s00220-024-05229-7}{doi:10.1007/s00220-024-05229-7};\n  \\href{https://arxiv.org/abs/2101.11087}{arXiv:2101.11087}."
+    }
+  ],
+  "comment": "Undecidable membership rules out effective descriptions of the usual kind,\nbut semialgebraicity with unrestricted real coefficients is a set-theoretic\nexistence question and remains unresolved for general fixed scenarios."
+}

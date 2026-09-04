@@ -1,8 +1,16 @@
-% Canonical template for every problem record in database/problems/.
+% The TeX form of a problem record: the layout accepted by
+% `node scripts/import-problems.mjs` and written to database/problems_tex/ by
+% `node scripts/sync-tex.mjs`. The JSON record in database/problems_json/ is
+% the source of truth (see _template.json); this layout maps onto it section
+% by section: \section is "title", \paragraph{Problem.} is "statement", each
+% \item of Progress is one "progress" entry, each labeled \item of References
+% is one "references" entry, and the remaining subsections are the fields of
+% the same name.
 %
 % Rules:
-% 1. Copy this structure into database/problems/<op_id>.tex, where <op_id> is
-%    the stable ID printed by `node scripts/new-problem-id.mjs`.
+% 1. To author in TeX, copy this structure into a problem_N.tex file and run
+%    `node scripts/import-problems.mjs <file>`; <op_id> is the stable ID
+%    printed by `node scripts/new-problem-id.mjs`.
 % 2. Put only the descriptive title in \section; the site never shows a
 %    problem number, so do not prefix the title with "Problem N".
 % 3. Put every displayed expression in a numbered equation environment, give

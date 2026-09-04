@@ -629,19 +629,50 @@ function referenceLinks(tex) {
   return links;
 }
 
-export function parseProblem(sourceTex, { canonicalTags = null, fileName = "" } = {}) {
-  const fail = (message) => { throw new TexError(`${fileName || "record"}: ${message}`); };
+const withFileName = (fileName, run) => {
   try {
+    return run();
+  } catch (error) {
+    if (error instanceof TexError && !error.message.startsWith(fileName || "record")) {
+      throw new TexError(`${fileName || "record"}: ${error.message}`);
+    }
+    throw error;
+  }
+};
+
+// Split a TeX record into the fields of the JSON record: the TeX fragment of
+// every section with comments removed. Only the structure is checked here;
+// renderRecord validates the content.
+export function parseTexRecord(sourceTex, { fileName = "" } = {}) {
+  const fail = (message) => { throw new TexError(`${fileName || "record"}: ${message}`); };
+  return withFileName(fileName, () => {
     const tex = sourceTex.replace(/\r\n/g, "\n");
     const titleMatch = tex.match(/^\\section\{(.+)\}$/m);
     if (!titleMatch) fail("missing \\section title");
     const sections = extractSections(tex);
-    const status = stripComments(sections.status).trim();
-    if (!(status in STATUSES)) fail(`invalid status "${status}"; the zoo has exactly two statuses, Unsolved and Solved`);
     const idMatch = stripComments(sections.id).trim().match(/^\\texttt\{(op\\_[A-Za-z0-9]{16})\}$/);
     if (!idMatch) fail("invalid or missing problem ID");
-    const id = idMatch[1].replace("\\_", "_");
-    const tags = splitTags(sections.tag);
+    return {
+      id: idMatch[1].replace("\\_", "_"),
+      title: stripComments(titleMatch[1]).trim(),
+      status: stripComments(sections.status).trim(),
+      tags: splitTags(sections.tag),
+      statement: stripComments(sections.statement).trim(),
+      source: stripComments(sections.source).trim(),
+      progress: extractProgressItems(sections.progress),
+      references: extractReferences(sections.references).map((entry) => ({ key: entry.key, label: entry.label, tex: entry.tex })),
+      comment: stripComments(sections.comment).trim()
+    };
+  });
+}
+
+// Validate the content of a record and convert every TeX fragment to HTML
+// and plain text. This is what the site is built from.
+export function renderRecord(record, { canonicalTags = null, fileName = "" } = {}) {
+  const fail = (message) => { throw new TexError(`${fileName || "record"}: ${message}`); };
+  return withFileName(fileName, () => {
+    const { id, status, tags } = record;
+    if (!(status in STATUSES)) fail(`invalid status "${status}"; the zoo has exactly two statuses, Unsolved and Solved`);
     if (tags.length < 1 || tags.length > 6) fail("a problem needs between one and six tags");
     if (new Set(tags).size !== tags.length) fail("duplicate tags");
     if (canonicalTags) {
@@ -649,9 +680,14 @@ export function parseProblem(sourceTex, { canonicalTags = null, fileName = "" } 
       if (unknown.length) fail(`unknown tags: ${unknown.join(", ")}`);
     }
 
-    const { equations, numbers } = collectEquations(stripComments(tex));
-    const references = extractReferences(sections.references).map((entry) => ({
-      ...entry,
+    // Equations are numbered in order of appearance across the record.
+    const body = [record.statement, record.source, ...record.progress, ...record.references.map((entry) => entry.tex), record.comment].join("\n\n");
+    const { equations, numbers } = collectEquations(stripComments(body));
+    const references = record.references.map((entry) => ({
+      key: entry.key.trim(),
+      label: entry.label.trim(),
+      anchor: anchorFor(entry.label.trim()),
+      tex: entry.tex.trim(),
       html: texToInlineHtml(stripIdentifierLinks(entry.tex), { equationNumbers: numbers, dropNewline: true }),
       links: referenceLinks(entry.tex)
     }));
@@ -663,12 +699,12 @@ export function parseProblem(sourceTex, { canonicalTags = null, fileName = "" } 
     const convert = (section) => texToHtml(section, { equationNumbers: numbers, citations, eqrefs });
 
     const sourceCitations = [];
-    const statementHtml = convert(sections.statement);
-    const sourceHtml = texToHtml(sections.source, { equationNumbers: numbers, citations: sourceCitations, eqrefs });
+    const statementHtml = convert(record.statement);
+    const sourceHtml = texToHtml(record.source, { equationNumbers: numbers, citations: sourceCitations, eqrefs });
     citations.push(...sourceCitations);
-    const progressItems = extractProgressItems(sections.progress).map((item) => ({ tex: item, html: convert(item) }));
-    const commentHtml = convert(sections.comment);
-    const titleHtml = texToInlineHtml(titleMatch[1], { equationNumbers: numbers });
+    const progressItems = record.progress.map((item) => ({ tex: item.trim(), html: convert(item) }));
+    const commentHtml = convert(record.comment);
+    const titleHtml = texToInlineHtml(record.title, { equationNumbers: numbers });
 
     for (const citation of citations) {
       const entry = referenceByLabel.get(citation.label);
@@ -678,7 +714,7 @@ export function parseProblem(sourceTex, { canonicalTags = null, fileName = "" } 
     const citedLabels = new Set(citations.map((c) => c.label));
     const uncited = references.filter((entry) => !citedLabels.has(entry.label));
     for (const label of eqrefs) if (!numbers.has(label)) fail(`\\eqref{${label}} has no equation`);
-    const sourceText = stripComments(sections.source).trim();
+    const sourceText = stripComments(record.source).trim();
     if (!sourceText) fail("empty source attribution");
     if (sourceCitations.length === 0 && sourceText !== "unknown" && !sourceText.startsWith("Contributor:")) {
       fail("source must cite literature, name a contributor, or be 'unknown'");
@@ -687,13 +723,13 @@ export function parseProblem(sourceTex, { canonicalTags = null, fileName = "" } 
     return {
       id,
       file: fileName,
-      title: { tex: titleMatch[1], html: titleHtml, text: htmlToText(titleHtml) },
+      title: { tex: record.title, html: titleHtml, text: htmlToText(titleHtml) },
       status,
       statusSlug: STATUSES[status].slug,
-      tags,
-      statement: { tex: sections.statement.trim(), html: statementHtml, text: htmlToText(statementHtml) },
+      tags: tags.slice(),
+      statement: { tex: record.statement.trim(), html: statementHtml, text: htmlToText(statementHtml) },
       source: {
-        tex: sections.source.trim(),
+        tex: record.source.trim(),
         html: sourceHtml,
         text: htmlToText(sourceHtml),
         citations: sourceCitations.map((c) => ({ label: c.label, key: c.key }))
@@ -701,15 +737,20 @@ export function parseProblem(sourceTex, { canonicalTags = null, fileName = "" } 
       progress: progressItems.map((item) => ({ tex: item.tex, html: item.html, text: htmlToText(item.html) })),
       references: references.map((entry) => ({ key: entry.key, label: entry.label, anchor: entry.anchor, tex: entry.tex, html: entry.html, text: htmlToText(entry.html), links: entry.links })),
       uncitedReferences: uncited.map((entry) => entry.key),
-      comment: { tex: sections.comment.trim(), html: commentHtml, text: htmlToText(commentHtml) },
-      equations,
-      sha256: createHash("sha256").update(sourceTex).digest("hex"),
-      sourceTex
+      comment: { tex: record.comment.trim(), html: commentHtml, text: htmlToText(commentHtml) },
+      equations
     };
-  } catch (error) {
-    if (error instanceof TexError && !error.message.startsWith(fileName)) {
-      throw new TexError(`${fileName || "record"}: ${error.message}`);
-    }
-    throw error;
-  }
+  });
+}
+
+// Parse and render a complete TeX record in one step (used by the import
+// script and by the sync check).
+export function parseProblem(sourceTex, { canonicalTags = null, fileName = "" } = {}) {
+  const record = parseTexRecord(sourceTex, { fileName });
+  return {
+    ...renderRecord(record, { canonicalTags, fileName }),
+    record,
+    sha256: createHash("sha256").update(sourceTex).digest("hex"),
+    sourceTex
+  };
 }

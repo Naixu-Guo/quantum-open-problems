@@ -1,0 +1,36 @@
+{
+  "schema": "qiqcop-zoo/record/1",
+  "id": "op_f60b9a99d7945e3b",
+  "title": "Real four-quhex absolutely maximally entangled state",
+  "status": "Unsolved",
+  "tags": [
+    "Absolutely maximally entangled states",
+    "Multipartite entanglement",
+    "Qudit systems",
+    "Matrix analysis"
+  ],
+  "statement": "Does there exist an $\\operatorname{AME}(4,6)$ state whose coefficients are\nreal in a product basis?  Fix $[6]=\\{0,\\ldots,5\\}$ and ask for a normalized\nstate\n\\begin{equation}\n  |\\psi\\rangle\n  =\\sum_{i,j,k,l\\in[6]}T_{ijkl}|i\\rangle_A|j\\rangle_B\n    |k\\rangle_C|l\\rangle_D,\n  \\qquad\n  T_{ijkl}\\in\\mathbb{R},\n  \\qquad\n  \\sum_{i,j,k,l\\in[6]}T_{ijkl}^{2}=1 .\n  \\label{eq:p41-real-state}\n\\end{equation}\nThe state in \\eqref{eq:p41-real-state} must have maximally mixed reductions\non every pair of parties: for each $S\\subseteq\\{A,B,C,D\\}$ with $|S|=2$,\n\\begin{equation}\n  \\rho_S:=\\operatorname{Tr}_{S^{c}}|\\psi\\rangle\\!\\langle\\psi|\n  =\\frac{I_{36}}{36} .\n  \\label{eq:p41-ame-condition}\n\\end{equation}\n\nEquivalently, define the $36\\times36$ flattening $U$ and its reshuffling\n$U^R$ and second-factor partial transpose $U^\\Gamma$ by\n\\begin{equation}\n  U_{(i,j),(k,l)}:=6T_{ijkl},\n  \\qquad\n  (U^R)_{(i,k),(j,l)}:=U_{(i,j),(k,l)},\n  \\qquad\n  (U^\\Gamma)_{(i,j),(k,l)}:=U_{(i,l),(k,j)} .\n  \\label{eq:p41-rearrangements}\n\\end{equation}\nHere the three matrices in \\eqref{eq:p41-rearrangements} are the coefficient\nflattenings for the bipartitions $AB|CD$, $AC|BD$, and $AD|CB$, up to the\ndisplayed ordering of tensor factors.  Consequently,\n\\eqref{eq:p41-ame-condition} is equivalent to the orthogonal\n$2$-unitarity conditions\n\\begin{equation}\n  U\\in O(36),\n  \\qquad\n  U^R\\in O(36),\n  \\qquad\n  U^\\Gamma\\in O(36) .\n  \\label{eq:p41-orthogonal-two-unitarity}\n\\end{equation}\nThus the problem is also to construct an orthogonal $2$-unitary matrix of\norder $36$, or prove that none exists.",
+  "source": "Rajchel-Mieldzio\\'c et al. explicitly ask whether a real\n$\\operatorname{AME}(4,6)$ state, equivalently an orthogonal $2$-unitary\nmatrix of order $36$, exists \\sourcecite{ref:p41-review}{RBR+26}.",
+  "progress": [
+    "Rather, Burchardt, Bruzda, Rajchel-Mieldzio\\'c, Lakshminarayan, and\n  \\.{Z}yczkowski constructed an exact\n  $\\operatorname{AME}(4,6)$ state, equivalently a complex $2$-unitary matrix\n  of order $36$.  Its entries use nontrivial twentieth-root phases.  Their\n  numerical searches found high-entangling-power orthogonal matrices but no\n  orthogonal $2$-unitary, leading them to conjecture nonexistence in $O(36)$;\n  this is numerical evidence, not a proof\n  \\sourcecite{ref:p41-rather}{RBB+22}.",
+    "Cha proved, for the generalized-Pauli stabilizer convention used in\n  that work, that no stabilizer $\\operatorname{AME}(4,6)$ state exists.\n  Hence any real solution of \\eqref{eq:p41-ame-condition} must lie outside\n  that stabilizer class, but the theorem does not exclude real\n  nonstabilizer states \\sourcecite{ref:p41-cha}{Cha26}."
+  ],
+  "references": [
+    {
+      "key": "RBB+22",
+      "label": "ref:p41-rather",
+      "tex": "S. A. Rather, A. Burchardt, W. Bruzda, G. Rajchel-Mieldzio\\'c,\n  A. Lakshminarayan, and K. \\.{Z}yczkowski,\n  ``Thirty-six Entangled Officers of Euler: Quantum Solution to a\n  Classically Impossible Problem,'' \\emph{Physical Review Letters}\n  \\textbf{128}, 080507 (2022).\n  \\href{https://doi.org/10.1103/PhysRevLett.128.080507}{doi:10.1103/PhysRevLett.128.080507};\n  \\href{https://arxiv.org/abs/2104.05122}{arXiv:2104.05122}."
+    },
+    {
+      "key": "Cha26",
+      "label": "ref:p41-cha",
+      "tex": "H. Cha, ``Non-existence of Stabilizer Absolutely Maximally Entangled\n  States across Infinitely Many Configurations,''\\newline\n  arXiv:2603.13442v2\n  [quant-ph] (2026).\n  \\href{https://arxiv.org/abs/2603.13442}{arXiv:2603.13442}."
+    },
+    {
+      "key": "RBR+26",
+      "label": "ref:p41-review",
+      "tex": "G. Rajchel-Mieldzio\\'c, R. Bistro\\'n, A. Rico, A. Lakshminarayan, and\n  K. \\.{Z}yczkowski,\n  ``Absolutely Maximally Entangled Pure States of Multipartite Quantum\n  Systems,'' \\emph{Reports on Progress in Physics} \\textbf{89}, 057601\n  (2026).\n  \\href{https://doi.org/10.1088/1361-6633/ae672a}{doi:10.1088/1361-6633/ae672a};\n  \\href{https://arxiv.org/abs/2508.04777}{arXiv:2508.04777}."
+    }
+  ],
+  "comment": "Item T2 of \\sourcecite{ref:p41-review}{RBR+26} explicitly retains the real\n$\\operatorname{AME}(4,6)$ problem and its orthogonal $2$-unitary formulation.\nThe precise unresolved gap is whether the three simultaneous orthogonality\nconditions in \\eqref{eq:p41-orthogonal-two-unitarity} have any real solution;\nneither the known complex constructions nor the stabilizer obstruction\nanswers this question."
+}

@@ -1,0 +1,34 @@
+{
+  "schema": "qiqcop-zoo/record/1",
+  "id": "op_89fb664ba06ba5de",
+  "title": "Candidate pure-loss second-order converse",
+  "status": "Unsolved",
+  "tags": [
+    "Bosonic channels",
+    "Classical capacity",
+    "Finite-blocklength quantum information",
+    "Strong converse",
+    "Continuous-variable systems",
+    "Quantum Shannon theory"
+  ],
+  "statement": "Does the pure-loss bosonic channel admit the following candidate second-order\nclassical converse under a maximum-photon-number occupation constraint?  Let\n$\\mathcal N_\\eta$ be the single-mode pure-loss channel with transmissivity\n$0<\\eta<1$, defined in the Heisenberg picture by\n\\begin{equation}\n  \\hat b=\\sqrt{\\eta}\\,\\hat a+\\sqrt{1-\\eta}\\,\\hat e,\n  \\label{eq:p76-pure-loss-channel}\n\\end{equation}\nwhere the environment mode $E$ is in the vacuum.  In an $n$-use code, the\nchannel in Eq.~\\eqref{eq:p76-pure-loss-channel} is used to transmit one of\n$M$ input states $\\rho_m^{A^n}$, with a decoding POVM\n$\\{\\Lambda_m^{B^n}\\}_{m=1}^M$.  Write\n$\\overline\\rho_{A^n}:=M^{-1}\\sum_m\\rho_m^{A^n}$ and let\n$\\Pi_{\\lceil nN_S\\rceil}$ project onto the $n$-mode subspace of total photon\nnumber at most $\\lceil nN_S\\rceil$.  For fixed $N_S>0$,\n$\\varepsilon\\in(0,1)$, and $c>0$, impose\n\\begin{equation}\n  \\frac1M\\sum_{m=1}^M\n    \\operatorname{Tr}\\!\\left[\n      \\Lambda_m\\mathcal N_\\eta^{\\otimes n}(\\rho_m)\n    \\right]\n    \\geq1-\\varepsilon,\n  \\qquad\n  \\operatorname{Tr}\\!\\left[\n    \\Pi_{\\lceil nN_S\\rceil}\\overline\\rho_{A^n}\n  \\right]\n    \\geq1-\\delta_n,\n  \\qquad\n  0\\leq\\delta_n\\leq2^{-cn}.\n  \\label{eq:p76-code-constraints}\n\\end{equation}\nLet $M^*_{\\rm occ}(n,\\eta,N_S,\\varepsilon,c)$ be the largest $M$ satisfying\nEq.~\\eqref{eq:p76-code-constraints}.  Define the thermal entropy and its\nentropy variance by\n\\begin{equation}\n  g(x):=(x+1)\\log_2(x+1)-x\\log_2x,\n  \\qquad\n  v(x):=x(x+1)\n    \\left[\\log_2(x+1)-\\log_2x\\right]^2,\n  \\label{eq:p76-thermal-entropy-and-variance}\n\\end{equation}\nwhere $0\\log_2 0:=0$.  With the functions in\nEq.~\\eqref{eq:p76-thermal-entropy-and-variance}, is the following upper bound\nvalid as $n\\to\\infty$?\n\\begin{equation}\n  \\log_2 M^*_{\\rm occ}(n,\\eta,N_S,\\varepsilon,c)\n  \\leq ng(\\eta N_S)\n    +\\sqrt{n\\,v(\\eta N_S)}\\,\\Phi^{-1}(\\varepsilon)\n    +O(\\log n),\n  \\label{eq:p76-second-order-converse}\n\\end{equation}\nHere $\\Phi^{-1}$ in Eq.~\\eqref{eq:p76-second-order-converse} is the inverse\nstandard-normal cumulative distribution function, and the implicit constant\nmay depend on $\\eta,N_S,\\varepsilon,$ and $c$, but not on $n$.",
+  "source": "Wilde, Renes, and Guha leave open whether their Gaussian second-order\nexpression is an upper bound and observe that such a converse should impose a\nphoton-number occupation constraint similar to Wilde and Winter's.\nEquation~\\eqref{eq:p76-code-constraints} adopts a particular exponentially\nstrong version of that suggestion, so Eq.~\\eqref{eq:p76-second-order-converse}\nis a precise strengthened formulation rather than a verbatim conjecture from\ntheir paper\n\\sourcecite{ref:p76-wilde-renes-guha}{WRG16}.",
+  "progress": [
+    "Wilde, Renes, and Guha proved the corresponding second-order\n  achievability expression\n  \\begin{equation}\n    \\log_2 M^*(\\mathcal N_\\eta^{\\otimes n},N_S,\\varepsilon)\n    \\geq ng(\\eta N_S)\n      +\\sqrt{n\\,v(\\eta N_S)}\\,\\Phi^{-1}(\\varepsilon)\n      +O(\\log n).\n    \\label{eq:p76-second-order-achievability}\n  \\end{equation}\n  Their basic derivation of\n  Eq.~\\eqref{eq:p76-second-order-achievability} uses a mean-photon-number\n  ensemble.  They also modify the construction to obtain exponentially small\n  leakage outside the cutoff subspace, but with degraded second-order\n  parameters; neither argument supplies\n  Eq.~\\eqref{eq:p76-second-order-converse}\n  \\sourcecite{ref:p76-wilde-renes-guha}{WRG16}.",
+    "Wilde and Winter proved a first-order strong converse at the rate\n  $g(\\eta N_S)$ under the maximum-photon-number occupation constraint.  For\n  every fixed energy and rate backoff, their modified coherent-state codes\n  have exponentially small cutoff leakage.  This does not establish the\n  exact $g(\\eta N_S)$ first-order term and the stated dispersion while also\n  maintaining an arbitrary prescribed exponent $c$ in\n  Eq.~\\eqref{eq:p76-code-constraints}.  Moreover, a first-order strong\n  converse controls rates a fixed distance above capacity and does not\n  determine the\n  $\\sqrt n$ coefficient in Eq.~\\eqref{eq:p76-second-order-converse}\n  \\sourcecite{ref:p76-wilde-winter}{WW14}.",
+    "Under only a mean-photon-number constraint, Wilde and Winter\n  constructed codes with nonvanishing success probability at rates above\n  $g(\\eta N_S)$.  Hence a converse of the form\n  Eq.~\\eqref{eq:p76-second-order-converse} is false under that weaker\n  constraint; the occupation hypothesis in\n  Eq.~\\eqref{eq:p76-code-constraints} is essential\n  \\sourcecite{ref:p76-wilde-winter}{WW14}."
+  ],
+  "references": [
+    {
+      "key": "WRG16",
+      "label": "ref:p76-wilde-renes-guha",
+      "tex": "M. M. Wilde, J. M. Renes, and S. Guha, ``Second-Order Coding Rates for\n  Pure-Loss Bosonic Channels,'' \\emph{Quantum Information Processing}\n  \\textbf{15}, 1289--1308 (2016).\n  \\href{https://doi.org/10.1007/s11128-015-0997-x}{doi:10.1007/s11128-015-0997-x};\n  \\href{https://arxiv.org/abs/1408.5328}{arXiv:1408.5328}."
+    },
+    {
+      "key": "WW14",
+      "label": "ref:p76-wilde-winter",
+      "tex": "M. M. Wilde and A. Winter, ``Strong Converse for the Classical Capacity of\n  the Pure-Loss Bosonic Channel,'' \\emph{Problems of Information\n  Transmission} \\textbf{50}, 117--132 (2014).\n  \\href{https://doi.org/10.1134/S003294601402001X}{doi:10.1134/S003294601402001X};\n  \\href{https://arxiv.org/abs/1308.6732}{arXiv:1308.6732}."
+    }
+  ],
+  "comment": "The unresolved task is the candidate sharp Gaussian $\\sqrt n$ converse term\nunder the stated fixed-exponent occupation constraint, not the first-order\ncapacity or strong converse.  No matching achievability theorem is known for\nthis exact constraint.  The exclusion of $\\eta=1$ is essential: at the\nidentity-channel endpoint, the dimension of the cutoff Fock subspace itself\nviolates Eq.~\\eqref{eq:p76-second-order-converse} for\n$\\varepsilon<\\tfrac12$."
+}

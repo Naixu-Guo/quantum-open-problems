@@ -1,0 +1,44 @@
+{
+  "schema": "qiqcop-zoo/record/1",
+  "id": "op_ec184fc49232a9c0",
+  "title": "Constant trace-distance separability testing",
+  "status": "Unsolved",
+  "tags": [
+    "Quantum separability",
+    "Quantum complexity theory",
+    "Convex optimization",
+    "Semidefinite programming",
+    "Entanglement theory"
+  ],
+  "statement": "What is the computational complexity of testing bipartite separability with\na constant trace-distance promise gap?  For local dimension $d$, define\n\\begin{equation}\n  \\operatorname{Sep}(d,d)\n  :=\\operatorname{conv}\\!\\left\\{\n    \\alpha\\otimes\\beta:\n    \\alpha,\\beta\\in\\mathcal D(\\mathbb C^d)\n  \\right\\}.\n  \\label{eq:p36-separable-set}\n\\end{equation}\nFix a constant $0<\\varepsilon_0<1$.  Given a rational description of\n$\\rho\\in\\mathcal D(\\mathbb C^d\\otimes\\mathbb C^d)$, promised that exactly\none of the following alternatives holds,\n\\begin{equation}\n  \\begin{aligned}\n    \\text{YES:}\\quad&\\rho\\in\\operatorname{Sep}(d,d),\\\\\n    \\text{NO:}\\quad&\n      \\inf_{\\sigma\\in\\operatorname{Sep}(d,d)}\n      \\frac12\\lVert\\rho-\\sigma\\rVert_1\\geq\\varepsilon_0,\n  \\end{aligned}\n  \\label{eq:p36-trace-promise}\n\\end{equation}\ndecide which case in Eq.~\\eqref{eq:p36-trace-promise} holds.  Is there an\nalgorithm polynomial or quasipolynomial in $d$?  More generally, when the gap\n$\\varepsilon$ is part of the input, determine the optimal dependence of the\ncomplexity on $d$ and $\\varepsilon$.",
+  "source": "Harrow and Montanaro explicitly pose constant-gap weak membership for\nseparability in trace norm as an open complexity problem\n\\sourcecite{ref:p36-harrow}{HM13}.",
+  "progress": [
+    "Harrow and Montanaro formulate the constant trace-distance promise in\n  Eq.~\\eqref{eq:p36-trace-promise} explicitly and relate it to estimating\n  acceptance probabilities in $\\mathsf{QMA}(2)$\n  \\sourcecite{ref:p36-harrow}{HM13}.",
+    "Weak membership for the set in\n  Eq.~\\eqref{eq:p36-separable-set} is strongly $\\mathsf{NP}$-hard when the\n  promised distance is inverse-polynomial in the input dimension\n  \\sourcecite{ref:p36-gharibian}{Gha10}.  This hardness regime does not\n  classify the fixed constant gap in Eq.~\\eqref{eq:p36-trace-promise}.",
+    "A symmetric-extension algorithm has running time\n  \\begin{equation}\n    \\exp\\!\\left(\n      O\\!\\left(\\varepsilon^{-2}(\\log d)^2\\right)\n    \\right)\n    \\label{eq:p36-extension-runtime}\n  \\end{equation}\n  for Euclidean distance or an operational $\\mathsf{LOCC}$ norm\n  \\sourcecite{ref:p36-brandao}{BCY11}.  The bound in\n  Eq.~\\eqref{eq:p36-extension-runtime} does not hold as stated for trace\n  distance.",
+    "For each fixed constant gap, randomized polynomial time is now known\n  for Euclidean-norm weak membership\n  \\sourcecite{ref:p36-malavolta}{Mal26}.  Constant trace distance can coexist\n  with Euclidean distance that vanishes with $d$, so this result does not\n  solve Eq.~\\eqref{eq:p36-trace-promise}."
+  ],
+  "references": [
+    {
+      "key": "HM13",
+      "label": "ref:p36-harrow",
+      "tex": "A. W. Harrow and A. Montanaro, ``Testing Product States, Quantum\n  Merlin--Arthur Games and Tensor Optimization,''\n  \\emph{Journal of the ACM} \\textbf{60}, Article 3 (2013).\n  \\href{https://doi.org/10.1145/2432622.2432625}{doi:10.1145/2432622.2432625};\n  \\href{https://arxiv.org/abs/1001.0017}{arXiv:1001.0017}."
+    },
+    {
+      "key": "Gha10",
+      "label": "ref:p36-gharibian",
+      "tex": "S. Gharibian, ``Strong NP-Hardness of the Quantum Separability Problem,''\n  \\emph{Quantum Information and Computation} \\textbf{10}, 343--360 (2010).\n  \\href{https://arxiv.org/abs/0810.4507}{arXiv:0810.4507}."
+    },
+    {
+      "key": "BCY11",
+      "label": "ref:p36-brandao",
+      "tex": "F. G. S. L. Brand\\~ao, M. Christandl, and J. Yard,\n  ``A Quasipolynomial-Time Algorithm for the Quantum Separability Problem,''\n  in \\emph{Proceedings of the 43rd Annual ACM Symposium on Theory of\n  Computing}, 343--351 (2011).\n  \\href{https://doi.org/10.1145/1993636.1993683}{doi:10.1145/1993636.1993683};\n  \\href{https://arxiv.org/abs/1011.2751}{arXiv:1011.2751}."
+    },
+    {
+      "key": "Mal26",
+      "label": "ref:p36-malavolta",
+      "tex": "G. Malavolta, ``Quantum Separability in Polynomial Time,''\n  arXiv:2607.23773 (2026).\n  \\href{https://arxiv.org/abs/2607.23773}{arXiv:2607.23773}."
+    }
+  ],
+  "comment": "The constant-gap trace-norm task in\nEq.~\\eqref{eq:p36-trace-promise} is posed explicitly in Section~4.2,\nitem~14 of \\sourcecite{ref:p36-harrow}{HM13}.  The norm is essential: the\nconstant-gap Euclidean problem has been solved, but that result does not\nclassify trace-norm weak membership."
+}

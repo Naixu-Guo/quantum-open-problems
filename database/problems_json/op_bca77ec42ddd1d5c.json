@@ -1,0 +1,38 @@
+{
+  "schema": "qiqcop-zoo/record/1",
+  "id": "op_bca77ec42ddd1d5c",
+  "title": "The quantum PCP conjecture",
+  "status": "Unsolved",
+  "tags": [
+    "Quantum PCP conjecture",
+    "Hamiltonian complexity",
+    "Quantum complexity theory",
+    "Quantum LDPC codes",
+    "Quantum locally testable codes"
+  ],
+  "statement": "Is the constant-relative-gap local Hamiltonian problem QMA-hard?  More\nprecisely, do there exist fixed integers $q,k\\geq2$ and constants\n$0\\leq a<b\\leq1$ such that the following promise problem is QMA-hard?  An\ninstance consists of $n$ subsystems of local dimension $q$ and\n$m=\\operatorname{poly}(n)$ positive semidefinite terms, each specified with\npolynomially many bits, for which\n\\begin{equation}\n  H:=\\sum_{i=1}^{m}H_i,\n  \\qquad\n  0\\preceq H_i\\preceq I,\n  \\qquad\n  \\lvert\\operatorname{supp}(H_i)\\rvert\\leq k.\n  \\label{eq:p62-local-hamiltonian}\n\\end{equation}\nGiven the Hamiltonian in Eq.~\\eqref{eq:p62-local-hamiltonian}, distinguish\nthe promised alternatives\n\\begin{equation}\n  \\lambda_{\\min}(H)\\leq am\n  \\qquad\\text{and}\\qquad\n  \\lambda_{\\min}(H)\\geq bm.\n  \\label{eq:p62-constant-gap-promise}\n\\end{equation}\nThus the gap in Eq.~\\eqref{eq:p62-constant-gap-promise} is a fixed positive\nfraction $(b-a)m$ of the number of local terms, independent of $n$.",
+  "source": "Aharonov, Arad, and Vidick give the standard constant-relative-gap local\nHamiltonian formulation as Conjecture~1.3 of their quantum-PCP survey\n\\sourcecite{ref:p62-aharonov}{AAV13}.",
+  "progress": [
+    "Aharonov, Arad, and Vidick review the QMA-completeness of local\n  Hamiltonian with an inverse-polynomial promise gap and formulate the\n  constant-gap strengthening in\n  Eq.~\\eqref{eq:p62-constant-gap-promise}\n  \\sourcecite{ref:p62-aharonov}{AAV13}.  Gap amplification methods known for\n  classical constraint systems do not establish the quantum statement.",
+    "Anshu, Breuckmann, and Nirkhe construct local Hamiltonians with the\n  no-low-energy-trivial-states property from good quantum LDPC codes\n  \\sourcecite{ref:p62-anshu}{ABN23}.  This establishes the required\n  low-energy entanglement phenomenon but does not prove QMA-hardness of the\n  promise problem in Eqs.~\\eqref{eq:p62-local-hamiltonian} and\n  \\eqref{eq:p62-constant-gap-promise}.",
+    "Buhrman, Helsen, and Weggemans prove reductions among several\n  quantum-PCP formulations and oracle separations showing that a proof of\n  constant-gap local-Hamiltonian hardness must use nonrelativizing\n  techniques \\sourcecite{ref:p62-buhrman}{BHW25}.  Their results restrict\n  possible proofs but neither prove nor refute the conjecture."
+  ],
+  "references": [
+    {
+      "key": "AAV13",
+      "label": "ref:p62-aharonov",
+      "tex": "D. Aharonov, I. Arad, and T. Vidick,\n  ``Guest Column: The Quantum PCP Conjecture,''\n  \\emph{ACM SIGACT News} \\textbf{44}(2), 47--79 (2013).\n  \\href{https://doi.org/10.1145/2491533.2491549}{doi:10.1145/2491533.2491549};\n  \\href{https://arxiv.org/abs/1309.7495}{arXiv:1309.7495}."
+    },
+    {
+      "key": "ABN23",
+      "label": "ref:p62-anshu",
+      "tex": "A. Anshu, N. P. Breuckmann, and C. Nirkhe,\n  ``NLTS Hamiltonians from Good Quantum Codes,'' in\n  \\emph{Proceedings of the 55th Annual ACM Symposium on Theory of Computing},\n  1090--1096 (2023).\n  \\href{https://doi.org/10.1145/3564246.3585114}{doi:10.1145/3564246.3585114};\n  \\href{https://arxiv.org/abs/2206.13228}{arXiv:2206.13228}."
+    },
+    {
+      "key": "BHW25",
+      "label": "ref:p62-buhrman",
+      "tex": "H. Buhrman, J. Helsen, and J. Weggemans,\n  ``Quantum PCPs: On Adaptivity, Multiple Provers and Reductions to Local\n  Hamiltonians,'' \\emph{Quantum} \\textbf{9}, 1791 (2025).\n  \\href{https://doi.org/10.22331/q-2025-07-11-1791}{doi:10.22331/q-2025-07-11-1791};\n  \\href{https://arxiv.org/abs/2403.04841}{arXiv:2403.04841}."
+    }
+  ],
+  "comment": "NLTS supplies a central structural prerequisite, and the known reductions\nclarify which formulations and proof methods are viable, but neither gives\nthe constant-gap QMA-hardness required by\nEq.~\\eqref{eq:p62-constant-gap-promise}.  No algorithmic obstruction that\nwould refute that hardness statement is known either."
+}

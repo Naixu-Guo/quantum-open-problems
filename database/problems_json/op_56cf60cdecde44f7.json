@@ -1,0 +1,41 @@
+{
+  "schema": "qiqcop-zoo/record/1",
+  "id": "op_56cf60cdecde44f7",
+  "title": "Collective cost of tensor-power state preparation",
+  "status": "Unsolved",
+  "tags": [
+    "Quantum state preparation",
+    "Quantum circuit complexity",
+    "Qubit systems"
+  ],
+  "statement": "Determine the asymptotic weighted circuit cost of preparing tensor powers of a\nknown pure state, and characterize when collective preparation is cheaper per\ncopy than independent preparation.  On an arbitrary qubit register, allow\nPauli-product rotations $e^{i\\phi P}$ with $\\phi\\in\\mathbb{R}$ and\n$P\\in\\{I,X,Y,Z\\}^{\\otimes q}$, assigning each such gate the cost $|\\phi|$.\nFor a known $m$-qubit state $\\lvert\\psi\\rangle$, let\n$U(\\boldsymbol\\phi,\\boldsymbol P):=\\prod_{j=1}^r e^{i\\phi_jP_j}$ for a finite\nsequence of angles and Pauli products.  Define the phase-independent exact\n$n$-copy cost by\n\\begin{equation}\n  C_n(\\psi)\n  :=\\inf\\left\\{\n    \\sum_{j=1}^{r}|\\phi_j|:\n    \\begin{array}{l}\n      r\\in\\mathbb N_0,\\ \\phi_j\\in\\mathbb R,\\ \n      P_j\\in\\{I,X,Y,Z\\}^{\\otimes mn}\\ (1\\le j\\le r),\\\\\n      U(\\boldsymbol\\phi,\\boldsymbol P)\n      \\lvert0^{mn}\\rangle\\!\\langle0^{mn}\\rvert\n      U(\\boldsymbol\\phi,\\boldsymbol P)^\\dagger\n      =(\\lvert\\psi\\rangle\\!\\langle\\psi\\rvert)^{\\otimes n}\n    \\end{array}\n  \\right\\}.\n  \\label{eq:p16-exact-preparation-cost}\n\\end{equation}\nDetermine the growth of Eq.~\\eqref{eq:p16-exact-preparation-cost} with $n$\nand characterize the states for which the regularized cost\n\\begin{equation}\n  C_\\infty(\\psi)\n  :=\\lim_{n\\to\\infty}\\frac{C_n(\\psi)}{n}\n  =\\inf_{n\\ge1}\\frac{C_n(\\psi)}{n}\n  \\label{eq:p16-regularized-cost}\n\\end{equation}\nsatisfies $C_\\infty(\\psi)<C_1(\\psi)$.  For an approximation tolerance\n$\\varepsilon\\ge0$, also determine the scaling of\n\\begin{equation}\n  C_n^\\varepsilon(\\psi)\n  :=\\inf_U\\left\\{\n    \\operatorname{cost}(U):\n    \\frac12\\left\\|\n      U\\lvert0^{mn}\\rangle\\!\\langle0^{mn}\\rvert U^\\dagger\n      -(\\lvert\\psi\\rangle\\!\\langle\\psi\\rvert)^{\\otimes n}\n    \\right\\|_1\\le\\varepsilon\n  \\right\\},\n  \\label{eq:p16-approximate-preparation-cost}\n\\end{equation}\nwhere $U$ ranges over all finite circuits of Pauli-product rotations on the\n$mn$-qubit register and $\\operatorname{cost}(U)$ is the corresponding sum of\nabsolute rotation angles, as in\nEq.~\\eqref{eq:p16-exact-preparation-cost}.  The question for\nEq.~\\eqref{eq:p16-approximate-preparation-cost} includes fixed and vanishing\nerror sequences.",
+  "source": "The exact and approximate tensor-power preparation questions are posed in the\nopen-problem collection of Kr\\\"uger and Werner; Scarani et al. independently\nidentify collective product-state preparation complexity as an open direction\n\\sourcecite{ref:p16-krueger-werner}{KW05},\n\\sourcecite{ref:p16-scarani-et-al}{SIG+05}.",
+  "progress": [
+    "Independent preparation gives\n  $C_n(\\psi)\\le nC_1(\\psi)$.  Concatenation gives\n  $C_{n+k}(\\psi)\\le C_n(\\psi)+C_k(\\psi)$, so Fekete's lemma establishes the\n  equality in Eq.~\\eqref{eq:p16-regularized-cost}.  These elementary bounds do\n  not decide whether the inequality can be strict.",
+    "Plesch and Brukner gave nearly optimal worst-case state-synthesis\n  circuits on a fixed register.  Their discrete local-gate count neither uses\n  the weighted Pauli-string metric in\n  Eq.~\\eqref{eq:p16-exact-preparation-cost} nor exploits a tensor-power promise\n  \\sourcecite{ref:p16-plesch-brukner}{PB11}.",
+    "Mora and Briegel related precision-dependent quantum-state\n  algorithmic complexity to entanglement for several state families.  Their\n  framework does not determine the direct-product scaling in\n  Eq.~\\eqref{eq:p16-approximate-preparation-cost}\n  \\sourcecite{ref:p16-mora-briegel}{MB05}."
+  ],
+  "references": [
+    {
+      "key": "PB11",
+      "label": "ref:p16-plesch-brukner",
+      "tex": "M. Plesch and Č. Brukner,\n  ``Quantum-State Preparation with Universal Gate Decompositions,''\n  \\emph{Physical Review A} \\textbf{83}, 032302 (2011).\n  \\href{https://doi.org/10.1103/PhysRevA.83.032302}{doi:10.1103/PhysRevA.83.032302};\n  \\href{https://arxiv.org/abs/1003.5760}{arXiv:1003.5760}."
+    },
+    {
+      "key": "MB05",
+      "label": "ref:p16-mora-briegel",
+      "tex": "C. Mora and H. J. Briegel,\n  ``Algorithmic Complexity and Entanglement of Quantum States,''\n  \\emph{Physical Review Letters} \\textbf{95}, 200503 (2005).\n  \\href{https://doi.org/10.1103/PhysRevLett.95.200503}{doi:10.1103/PhysRevLett.95.200503};\n  \\href{https://arxiv.org/abs/quant-ph/0505200}{arXiv:quant-ph/0505200}."
+    },
+    {
+      "key": "SIG+05",
+      "label": "ref:p16-scarani-et-al",
+      "tex": "V. Scarani, S. Iblisdir, N. Gisin, and A. Acín,\n  ``Quantum Cloning,''\n  \\emph{Reviews of Modern Physics} \\textbf{77}, 1225--1256 (2005).\n  \\href{https://doi.org/10.1103/RevModPhys.77.1225}{doi:10.1103/RevModPhys.77.1225};\n  \\href{https://arxiv.org/abs/quant-ph/0511088}{arXiv:quant-ph/0511088}."
+    },
+    {
+      "key": "KW05",
+      "label": "ref:p16-krueger-werner",
+      "tex": "O. Krüger and R. F. Werner (eds.),\n  ``Some Open Problems in Quantum Information Theory,''\n  arXiv:quant-ph/0504166 (2005).\n  \\href{https://doi.org/10.48550/arXiv.quant-ph/0504166}{doi:10.48550/arXiv.quant-ph/0504166};\n  \\href{https://arxiv.org/abs/quant-ph/0504166}{arXiv:quant-ph/0504166}."
+    }
+  ],
+  "comment": "The exact cost model and its approximate variant are posed in the source\ncollection \\sourcecite{ref:p16-krueger-werner}{KW05}; a cloning review also\nidentifies product-preparation complexity as an open direction\n\\sourcecite{ref:p16-scarani-et-al}{SIG+05}.  The state is known, so the problem\nis not universal cloning.  The unresolved quantity is the collective saving\nin Eqs.~\\eqref{eq:p16-regularized-cost} and\n\\eqref{eq:p16-approximate-preparation-cost} for this specific continuous gate\nmetric."
+}

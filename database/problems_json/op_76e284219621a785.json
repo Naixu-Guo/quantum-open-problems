@@ -1,0 +1,37 @@
+{
+  "schema": "qiqcop-zoo/record/1",
+  "id": "op_76e284219621a785",
+  "title": "Convergence of the JRF iteration for mixed-state discrimination",
+  "status": "Unsolved",
+  "tags": [
+    "Quantum state discrimination",
+    "Quantum measurement theory",
+    "Convex optimization",
+    "Semidefinite programming"
+  ],
+  "statement": "Does the Je\\v{z}ek--\\v{R}eh\\'{a}\\v{c}ek--Fiur\\'{a}\\v{s}ek (JRF) iteration,\ninitialized by the uniform POVM, converge to a globally optimal\nminimum-error measurement for every finite ensemble containing mixed quantum\nstates?  Let $m\\geq2$, let $p_i>0$ be prior probabilities, and let $\\rho_i$ be\ndensity operators on a finite-dimensional Hilbert space.  Define\n\\begin{equation}\n  \\xi_i:=p_i\\rho_i,\n  \\qquad\n  \\operatorname{Tr}\\rho_i=1,\n  \\qquad\n  \\sum_{i=1}^{m}p_i=1,\n  \\qquad\n  \\mathcal H_0:=\\operatorname{supp}\\!\\left(\\sum_{i=1}^{m}\\xi_i\\right),\n  \\label{eq:p63-weighted-ensemble}\n\\end{equation}\nwhere at least one $\\rho_i$ has rank greater than one.  On the signal space\n$\\mathcal H_0$ in Eq.~\\eqref{eq:p63-weighted-ensemble}, the optimal guessing\nprobability is\n\\begin{equation}\n  P_{\\mathrm{opt}}\n  :=\\max_{\\substack{\\Pi_i\\succeq0\\\\\n                    \\sum_{i=1}^{m}\\Pi_i=I_{\\mathcal H_0}}}\n       \\sum_{i=1}^{m}\\operatorname{Tr}(\\xi_i\\Pi_i).\n  \\label{eq:p63-optimal-guessing-probability}\n\\end{equation}\nStarting from $\\Pi_i^{(0)}:=I_{\\mathcal H_0}/m$, define the JRF iterates by\n\\begin{equation}\n  \\Lambda_k\n  :=\\left(\\sum_{j=1}^{m}\n       \\xi_j\\Pi_j^{(k)}\\xi_j\\right)^{1/2},\n  \\qquad\n  \\Pi_i^{(k+1)}\n  :=\\Lambda_k^{-1}\\xi_i\\Pi_i^{(k)}\\xi_i\\Lambda_k^{-1}\n  \\quad (i=1,\\ldots,m).\n  \\label{eq:p63-jrf-iteration}\n\\end{equation}\nFor this initialization, $\\Lambda_k$ is inverted on $\\mathcal H_0$ and the\noperators in Eq.~\\eqref{eq:p63-jrf-iteration} form a POVM at every step.\nDetermine whether there always exists an optimal POVM\n$\\{\\Pi_i^\\star\\}_{i=1}^{m}$ attaining\nEq.~\\eqref{eq:p63-optimal-guessing-probability} such that\n\\begin{equation}\n  \\lim_{k\\to\\infty}\n       \\sum_{i=1}^{m}\\lVert\\Pi_i^{(k)}-\\Pi_i^\\star\\rVert_2=0,\n  \\qquad\n  \\lim_{k\\to\\infty}\n       \\sum_{i=1}^{m}\\operatorname{Tr}(\\xi_i\\Pi_i^{(k)})\n       =P_{\\mathrm{opt}},\n  \\label{eq:p63-global-convergence}\n\\end{equation}\nwhere $\\lVert\\cdot\\rVert_2$ is the Hilbert--Schmidt norm.  If\nEq.~\\eqref{eq:p63-global-convergence} fails, construct an explicit\nmixed-state counterexample and characterize its limiting behavior.",
+  "source": "Je\\v{z}ek, \\v{R}eh\\'{a}\\v{c}ek, and Fiur\\'{a}\\v{s}ek introduced the\niteration and explicitly reported that its numerically observed global\nconvergence lacked a general proof\n\\sourcecite{ref:p63-jezek-rehacek-fiurasek}{JRF02}.  L\\\"u and Dong proved\nthe pure-state case and explicitly left convergence for general mixed-state\nensembles open \\sourcecite{ref:p63-lu-dong}{LD26}.",
+  "progress": [
+    "The original work observed monotonic convergence to the global optimum\n  in extensive tests on ensembles of up to four pure or mixed states in\n  dimensions two through four, but supplied neither a proof nor a\n  counterexample for arbitrary ensembles\n  \\sourcecite{ref:p63-jezek-rehacek-fiurasek}{JRF02}.",
+    "Tyson's directional-iterate framework proves the general monotonicity\n  bound\n  \\begin{equation}\n    P_k\\leq\\operatorname{Tr}\\Lambda_k\n        \\leq P_{k+1}\\leq P_{\\mathrm{opt}},\n    \\qquad\n    P_k:=\\sum_{i=1}^{m}\\operatorname{Tr}(\\xi_i\\Pi_i^{(k)}),\n    \\label{eq:p63-monotonicity}\n  \\end{equation}\n  which L\\\"u and Dong rederive from a polar decomposition\n  \\sourcecite{ref:p63-tyson}{Tys10},\n  \\sourcecite{ref:p63-lu-dong}{LD26}.  Equation~\\eqref{eq:p63-monotonicity}\n  implies that $P_k$ has a limit, but does not show that the limit equals\n  $P_{\\mathrm{opt}}$ or that the POVM sequence converges.",
+    "L\\\"u and Dong prove convergence to an optimal measurement for every\n  pure-state ensemble under a mild support condition satisfied by the uniform\n  initialization in Eq.~\\eqref{eq:p63-jrf-iteration}.  They also obtain a\n  conditional result for a special embedded class of mixed-state ensembles,\n  but explain that their accumulation-point argument does not extend to\n  arbitrary mixed states \\sourcecite{ref:p63-lu-dong}{LD26}."
+  ],
+  "references": [
+    {
+      "key": "JRF02",
+      "label": "ref:p63-jezek-rehacek-fiurasek",
+      "tex": "M. Je\\v{z}ek, J. \\v{R}eh\\'{a}\\v{c}ek, and J. Fiur\\'{a}\\v{s}ek,\n  ``Finding Optimal Strategies for Minimum-Error Quantum-State\n  Discrimination,'' \\emph{Physical Review A} \\textbf{65}, 060301(R) (2002).\n  \\href{https://doi.org/10.1103/PhysRevA.65.060301}{doi:10.1103/PhysRevA.65.060301};\n  \\href{https://arxiv.org/abs/quant-ph/0201109}{arXiv:quant-ph/0201109}."
+    },
+    {
+      "key": "Tys10",
+      "label": "ref:p63-tyson",
+      "tex": "J. Tyson,\n  ``Two-Sided Bounds on Minimum-Error Quantum Measurement, on the\n  Reversibility of Quantum Dynamics, and on the Maximum Overlap Problem Using\n  Directional Iterates,'' \\emph{Journal of Mathematical Physics} \\textbf{51},\n  092204 (2010).\n  \\href{https://doi.org/10.1063/1.3463451}{doi:10.1063/1.3463451};\n  \\href{https://arxiv.org/abs/0907.3386}{arXiv:0907.3386}."
+    },
+    {
+      "key": "LD26",
+      "label": "ref:p63-lu-dong",
+      "tex": "X. L\\\"u and S.-H. Dong,\n  ``Iterative Algorithm for Minimum-Error Quantum State Discrimination:\n  Convergence for Pure-State Ensembles,''\n  \\emph{Physical Review A} \\textbf{113}, 022451 (2026).\n  \\href{https://doi.org/10.1103/q7wq-ygm9}{doi:10.1103/q7wq-ygm9}."
+    }
+  ],
+  "comment": "The pure-state case is solved.  The remaining issue is whether the uniform\ninitialization prevents nonoptimal accumulation points or nonconvergent\nlast-iterate behavior for arbitrary mixed-state ensembles.  The existence of\nconvergent semidefinite-programming methods for\nEq.~\\eqref{eq:p63-optimal-guessing-probability} does not establish convergence\nof the specific nonlinear map in Eq.~\\eqref{eq:p63-jrf-iteration}."
+}

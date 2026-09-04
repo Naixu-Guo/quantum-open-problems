@@ -1,18 +1,21 @@
 #!/usr/bin/env node
-// Build the QIQCOP Zoo static site from database/problems/*.tex into dist/.
+// Build the QIQCOP Zoo static site from database/problems_json/*.json into dist/.
 //
 //   node site/build.mjs            # build into <repo>/dist
 //   node site/build.mjs --out DIR  # build somewhere else
 //
-// The build validates every record and fails loudly on malformed TeX,
-// unknown tags, unresolved citations, or unlabeled equations.
+// The build validates every record and fails loudly on a malformed JSON
+// record, unsupported text-mode TeX, unknown tags, unresolved citations,
+// unlabeled equations, or a TeX file in database/problems_tex that is missing
+// or disagrees with its JSON record.
 
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
-import { parseProblem, STATUSES, slug, TexError } from "./lib/tex.mjs";
+import { parseTexRecord, renderRecord, STATUSES, slug, TexError } from "./lib/tex.mjs";
+import { validateRecordShape, canonicalJson, recordDifferences, RecordError } from "./lib/record.mjs";
 import {
   renderHome, renderProblemPage, renderDirectory, renderTagsIndex, renderTagPage,
   renderAbout, renderRandomPage, renderNotFound
@@ -22,6 +25,7 @@ const siteDir = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.dirname(siteDir);
 const config = JSON.parse(fs.readFileSync(path.join(siteDir, "config.json"), "utf8"));
 const databaseDir = path.join(repoRoot, config.databasePath);
+const texDir = path.join(repoRoot, config.texPath);
 const tagsPath = path.join(repoRoot, "database", "tags.json");
 
 // Short content hashes so browsers refetch changed assets (favicons are cached aggressively).
@@ -47,18 +51,35 @@ const canonicalTags = JSON.parse(fs.readFileSync(tagsPath, "utf8")).tags;
 if (new Set(canonicalTags).size !== canonicalTags.length) throw new Error("database/tags.json contains duplicate tags");
 const canonicalSet = new Set(canonicalTags);
 
-// Creation and last-edit times from git history, to the second. Files that
-// are not committed yet fall back to their modification time.
-const gitDates = (relativePath) => {
+// Creation and last-edit times from git history, to the second. The history
+// of a record is the history of its TeX file, which has accompanied the
+// record since the zoo's TeX-only days and is regenerated on every content
+// change; it is followed across renames, and a pure rename is not an edit.
+// Files that are not committed yet fall back to their modification time.
+const toPosix = (value) => value.split(path.sep).join("/");
+const gitHistory = (relativePath) => {
+  const output = execFileSync("git", ["log", "--follow", "--format=%x1e%H%x09%at", "--name-status", "--", toPosix(relativePath)], {
+    cwd: repoRoot, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"]
+  });
+  const commits = [];
+  for (const chunk of output.split("\x1e")) {
+    const lines = chunk.split("\n").map((line) => line.trim()).filter(Boolean);
+    if (lines.length === 0) continue;
+    const [hash, at] = lines[0].split("\t");
+    if (!/^[0-9a-f]{40}$/.test(hash ?? "")) continue;
+    const status = lines.slice(1).find((line) => /^[A-Z]/.test(line)) ?? "";
+    if (/^R100\b/.test(status)) continue;
+    commits.push({ hash, at: new Date(Number(at) * 1000).toISOString() });
+  }
+  return commits;
+};
+const gitDates = (historyPath, fallbackPath) => {
   const fromMtime = () => {
-    const stamp = fs.statSync(path.join(repoRoot, relativePath)).mtime.toISOString();
+    const stamp = fs.statSync(path.join(repoRoot, fallbackPath)).mtime.toISOString();
     return { created: stamp.slice(0, 10), updated: stamp.slice(0, 10), createdAt: stamp, updatedAt: stamp, revisions: 0, tracked: false };
   };
   try {
-    const output = execFileSync("git", ["log", "--follow", "--format=%at", "--", relativePath], {
-      cwd: repoRoot, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"]
-    }).trim();
-    const stamps = output ? output.split("\n").filter(Boolean).map((line) => new Date(Number(line) * 1000).toISOString()) : [];
+    const stamps = gitHistory(historyPath).map((commit) => commit.at);
     if (stamps.length === 0) return fromMtime();
     const updatedAt = stamps[0];
     const createdAt = stamps[stamps.length - 1];
@@ -68,19 +89,51 @@ const gitDates = (relativePath) => {
   }
 };
 
-const files = fs.readdirSync(databaseDir).filter((name) => name.endsWith(".tex")).sort();
+const readJson = (filePath, name) => {
+  try {
+    return JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch (error) {
+    throw new RecordError(`${name}: invalid JSON (${error.message})`);
+  }
+};
+
+const jsonFiles = fs.readdirSync(databaseDir).filter((name) => name.endsWith(".json")).sort();
+const strayTex = new Set(fs.readdirSync(texDir).filter((name) => name.endsWith(".tex")));
 const records = [];
 const errors = [];
-for (const name of files) {
+for (const name of jsonFiles) {
   const filePath = path.join(databaseDir, name);
   try {
-    const record = parseProblem(fs.readFileSync(filePath, "utf8"), { canonicalTags: canonicalSet, fileName: name });
-    if (`${record.id}.tex` !== name) throw new TexError(`${name}: file name does not match the record ID ${record.id}`);
-    record.dates = gitDates(path.relative(repoRoot, filePath));
+    const stored = validateRecordShape(readJson(filePath, name), name);
+    if (`${stored.id}.json` !== name) throw new RecordError(`${name}: file name does not match the record ID ${stored.id}`);
+    const record = renderRecord(stored, { canonicalTags: canonicalSet, fileName: name });
+
+    // The TeX companion must exist and carry the same content.
+    const texName = `${stored.id}.tex`;
+    const texPath = path.join(texDir, texName);
+    const fix = `run: node scripts/sync-tex.mjs ${stored.id}`;
+    if (!fs.existsSync(texPath)) throw new RecordError(`${name}: ${config.texPath}/${texName} is missing; ${fix}`);
+    const sourceTex = fs.readFileSync(texPath, "utf8");
+    let fromTex;
+    try {
+      fromTex = parseTexRecord(sourceTex, { fileName: texName });
+    } catch (error) {
+      throw new RecordError(`${name}: ${config.texPath}/${texName} cannot be parsed (${error.message}); ${fix}`);
+    }
+    const differences = recordDifferences(stored, fromTex);
+    if (differences.length) throw new RecordError(`${name}: ${config.texPath}/${texName} disagrees with the JSON record in ${differences.join(", ")}; ${fix}`);
+    strayTex.delete(texName);
+
+    record.sourceTex = sourceTex;
+    record.sha256 = createHash("sha256").update(canonicalJson(stored)).digest("hex");
+    record.dates = gitDates(path.relative(repoRoot, texPath), path.relative(repoRoot, filePath));
     records.push(record);
   } catch (error) {
-    errors.push(error instanceof TexError ? error.message : `${name}: ${error.stack}`);
+    errors.push(error instanceof TexError || error instanceof RecordError ? error.message : `${name}: ${error.stack}`);
   }
+}
+for (const name of strayTex) {
+  errors.push(`${config.texPath}/${name} has no JSON record in ${config.databasePath}; import it with node scripts/import-problems.mjs or delete it`);
 }
 if (errors.length) {
   console.error(`Build failed with ${errors.length} invalid record(s):\n- ${errors.join("\n- ")}`);
@@ -267,11 +320,11 @@ The zoo holds ${stats.total} problems (${stats.unsolved} unsolved, ${stats.solve
 - ${siteUrl}/api/index.json: every problem with title, status, tags, plain-text statement, and links.
 - ${siteUrl}/api/problems/<id>.json: one full record (TeX source, HTML, plain text, references, equation labels).
 - ${siteUrl}/api/tags.json: the tag taxonomy with counts.
-- ${siteUrl}/problem/<id>/<id>.tex: the TeX source of one record.
+- ${siteUrl}/problem/<id>/<id>.tex: the TeX form of one record.
 
 ## Contributing
 
-Records live in ${config.repositoryUrl}/tree/${config.branch}/${config.databasePath}. Follow database/_template.tex and open a pull request; the build validates every record.
+Records are JSON files in ${config.repositoryUrl}/tree/${config.branch}/${config.databasePath}, with a TeX form of each in ${config.texPath}. Follow database/_template.json and open a pull request; the build validates every record.
 `);
 
 console.log(`Built ${records.length} problems, ${tagCounts.size} tags into ${path.relative(repoRoot, outDir) || "."}`);
