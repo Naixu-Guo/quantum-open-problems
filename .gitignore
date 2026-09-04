@@ -1,2 +1,5 @@
 .DS_Store
 ref/*.pdf
+# Uploaded artifact blobs are an object store the service serves, not part of the mirrored history.
+activity/artifact-store/*
+!activity/artifact-store/*.jsonl

@@ -106,12 +106,13 @@ function routes(service: Service): Route[] {
       if (auth.bump(`comments:${actorId}`, HOUR, Date.now(), comments) > hourlyLimit) throw new HttpError(429, `more than ${hourlyLimit} comments this hour`);
     }
     const result = submit(service, actorId, records, message);
-    if (!result.ok) return { status: 422, body: { accepted: false, issues: result.issues, ...extra } };
+    // A clone that cannot take writes right now is the service's condition, not the batch's: 503, and never replayed.
+    if (!result.ok) return { status: result.retryable ? 503 : 422, body: { accepted: false, issues: result.issues, ...extra } };
     return { status: 201, body: { accepted: true, commit: result.commit, recordIds: records.map((r) => String(r.fields["id"])), decisions: result.decisions, automaticIssues: result.automaticIssues, ...extra } };
   };
 
   return [
-    { method: "GET", pattern: /^\/api\/v1\/status$/u, auth: false, handler: () => ok({ ...status(ledger(), service.index, service.policy.policyVersion), sync: service.repo.syncState() }) },
+    { method: "GET", pattern: /^\/api\/v1\/status$/u, auth: false, handler: () => ok({ ...status(ledger(), service.index, service.policy.policyVersion), sync: service.repo.publicSyncState() }) },
     { method: "GET", pattern: /^\/api\/v1\/policy$/u, auth: false, handler: () => ok({ policyVersion: service.policy.policyVersion, thresholds: service.policy.thresholds, independence: service.policy.independence, mechanicalMethods: service.policy.mechanicalMethods, rateLimits: service.policy.rateLimits, bodyLimits: service.policy.bodyLimits, licenses: service.policy.licenses }) },
     { method: "GET", pattern: /^\/api\/v1\/schemas\/payloads\/([a-z-]+)$/u, auth: false, handler: ({ params }) => ok(readSchema(path.join(service.repo.schemaDir, "payloads", `${params[0]}.schema.json`), params[0]!)) },
     { method: "GET", pattern: /^\/api\/v1\/schemas\/([a-z-]+)$/u, auth: false, handler: ({ params }) => ok(readSchema(path.join(service.repo.schemaDir, `${params[0]}.schema.json`), params[0]!)) },
@@ -327,7 +328,7 @@ export function createServer(service: Service): http.Server {
 
       const match = url.pathname.match(route.pattern)!;
       const reply = route.handler({ params: match.slice(1).map((s) => decodeURIComponent(s)), query: url.searchParams, actorId, raw, headers: request.headers });
-      if (typeof idempotencyKey === "string" && actorId) service.auth.remember(actorId, idempotencyKey, requestHash, reply.status, JSON.stringify(reply.body));
+      if (typeof idempotencyKey === "string" && actorId && reply.status !== 503) service.auth.remember(actorId, idempotencyKey, requestHash, reply.status, JSON.stringify(reply.body));
       send(reply.status, reply.body);
     } catch (error) {
       if (response.headersSent) { response.end(); return; }

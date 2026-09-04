@@ -41,8 +41,12 @@ function actorAuthor(service: Service, actorId: string): { name: string; email: 
 /** Write a batch on behalf of an actor, then run the automatic decisions and reindex. */
 export function submit(service: Service, actorId: string, batch: NewRecord[], message: string): SubmitResult {
   const result = service.repo.write(batch, message, actorAuthor(service, actorId));
-  if (!result.ok) return { ...result, decisions: [], automaticIssues: [] };
-  const automatic = runAutomaticDecisions(service);
+  if (!result.ok) {
+    // The clone may have caught up with its remote before the batch was refused; the index must follow.
+    if (result.reloaded) reindex(service);
+    return { ...result, decisions: [], automaticIssues: [] };
+  }
+  const automatic = runAutomaticDecisions(service, { catchUp: false });
   reindex(service);
   return { ...result, decisions: automatic.issued, automaticIssues: automatic.issues };
 }
@@ -52,7 +56,7 @@ export function submit(service: Service, actorId: string, batch: NewRecord[], me
  * consequences, reload, repeat. Stops when no pending contribution has a verdict or when a
  * write fails; a failed contribution is skipped for the rest of this run and reported.
  */
-export function runAutomaticDecisions(service: Service): { issued: string[]; issues: Issue[] } {
+export function runAutomaticDecisions(service: Service, options: { catchUp?: boolean } = {}): { issued: string[]; issues: Issue[] } {
   const issued: string[] = [];
   const issues: Issue[] = [];
   const skipped = new Set<string>();
@@ -67,7 +71,7 @@ export function runAutomaticDecisions(service: Service): { issued: string[]; iss
       const verdict = unreviewedAcceptance(context, contribution) ?? evaluate(context, contribution);
       if (!verdict) continue;
       const batch = [acceptanceDecision(context, contribution, verdict), ...consequences(context, contribution, verdict)];
-      const result = service.repo.write(batch, `Automatic decisions on ${contribution.id} under policy ${service.policy.policyVersion}`, actorAuthor(service, service.systemActorId));
+      const result = service.repo.write(batch, `Automatic decisions on ${contribution.id} under policy ${service.policy.policyVersion}`, actorAuthor(service, service.systemActorId), options);
       if (!result.ok) {
         skipped.add(record.id);
         issues.push(...result.issues.map((issue) => ({ ...issue, path: `${record.id}: ${issue.path}` })));

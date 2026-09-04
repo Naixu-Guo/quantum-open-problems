@@ -4,7 +4,7 @@
  *   node --experimental-strip-types src/cli.ts rebuild          rebuild the index from the ledger
  *   node --experimental-strip-types src/cli.ts submit <actorId> <batch.json> [message]
  *   node --experimental-strip-types src/cli.ts decide           run the automatic decisions once
- *   node --experimental-strip-types src/cli.ts sync             catch up with the git remote and push unpushed commits
+ *   node --experimental-strip-types src/cli.ts sync [--allow-edits]   catch up with the git remote and push unpushed commits
  *   node --experimental-strip-types src/cli.ts id               print a fresh ULID
  *   node --experimental-strip-types src/cli.ts key issue <actorId> [label]   print a new bearer token once
  *   node --experimental-strip-types src/cli.ts key revoke <token>
@@ -78,9 +78,10 @@ switch (command) {
     break;
   }
   case "sync": {
-    const result = service.repo.synchronize();
+    const result = service.repo.synchronize({ allowEdits: args.includes("--allow-edits") });
     if (result.refused) { console.error(`refused: ${result.refused}`); process.exit(1); }
     for (const state of result.state ?? []) console.log(`${state.repository}: ${state.remote}/${state.branch} ahead ${state.ahead ?? "?"} behind ${state.behind ?? "?"}${state.lastError ? ` (${state.lastError})` : ""}`);
+    reindex(service);
     if (!result.pushed) process.exit(1);
     break;
   }

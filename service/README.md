@@ -34,7 +34,7 @@ npm run rebuild                                       # index ledger/ and activi
 npm run serve                                         # read API on http://localhost:8787/api/v1/status
 node --experimental-strip-types src/cli.ts submit <actorId> batch.json "message"
 node --experimental-strip-types src/cli.ts decide     # run the automatic decisions once
-node --experimental-strip-types src/cli.ts sync       # catch up with the git remote and push what is unpushed
+node --experimental-strip-types src/cli.ts sync [--allow-edits]   # catch up with the git remote and push what is unpushed
 node --experimental-strip-types src/cli.ts key issue <actorId> [label]    # print a bearer token once
 node --experimental-strip-types src/cli.ts key revoke <token>
 node --experimental-strip-types src/cli.ts identity link github <github-user-id> <actorId>   # bind a GitHub account to an existing actor
@@ -61,7 +61,7 @@ Environment:
 
 | Route | Returns |
 | --- | --- |
-| `GET /api/v1/status` | Policy version, `lastSequence`, record counts, published problems by status, candidates, last release, and `sync`: per repository, how far the clone is ahead of or behind its remote, the last push, the last error |
+| `GET /api/v1/status` | Policy version, `lastSequence`, record counts, published problems by status, candidates, last release, and `sync`: per repository, whether the clone is in step with its remote, how far ahead or behind, and the last push |
 | `GET /api/v1/policy` | The current policy header |
 | `GET /api/v1/schemas/<name>` | A contract schema |
 | `GET /api/v1/problems?status=&area=&topic=&difficulty=&text=&limit=&includeCandidates=&sort=` | Indexed problems (all problems with `includeCandidates=true`, each row saying whether it is `indexed`) with `lastActivity` and `lastHumanReview`; `text` matches titles, keywords, and bodies; `limit` up to 1000; `sort=stale` is the maintenance backlog, never-reviewed first, then oldest human review first |
@@ -133,12 +133,28 @@ varies on `Authorization` and `Cookie`.
 
 The service's clone is the canonical ledger (DESIGN.md decision 12). With
 `QOP_GIT_REMOTE` set, every write first catches up with the remote branch
-(fast-forward, or a rebase of unpushed ledger commits onto it) and every
-commit is pushed afterwards. An unreachable remote does not block writes:
-the commit stays local, `status.sync` shows the clone ahead with the error,
-and the next write or `cli.ts sync` retries. A catch-up that cannot rebase,
-which takes someone editing ledger files behind the service's back, refuses
-the write with a `commit` issue until an operator resolves it in the clone.
+(a fast-forward, or a merge with the clone's history as first parent, so
+served sequence numbers never move) and every commit is pushed afterwards.
+An unreachable or slow remote does not block writes: network commands time
+out, the commit stays local, `status.sync` shows the clone out of step, and
+the next write or `cli.ts sync` retries. The catch-up refuses a write, with
+a 503 that idempotent retries do not replay, when the clone is on another
+branch, has a rebase or merge in progress, has uncommitted tracked changes,
+when the remote's commits modify or delete ledger files (accept a deliberate
+migration with `cli.ts sync --allow-edits`), when a merge conflicts, or when
+the remote brings an invalid ledger, which is undone. The service notices a
+clone that moved under it (an operator's repair, another process's sync) at
+the next write. Details of the sync state, including git's messages, go to
+the log and `cli.ts sync`; the public status only says whether the mirror is
+current.
+
+Deploy with two checkouts: the service runs from one, and `QOP_LEDGER_DIR`
+and `QOP_ACTIVITY_DIR` point into a second clone of the repository that only
+the service touches. Otherwise merged code changes land under the running
+process, which keeps the validators and policy it started with until it
+restarts. Uploaded artifact blobs under `activity/artifact-store/` are an
+object store the service serves; they are not committed or mirrored.
+
 Pull requests do not touch `ledger/` or `activity/`; CI refuses one that does
 unless it carries the `ledger-change` label.
 

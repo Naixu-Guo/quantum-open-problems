@@ -23,6 +23,8 @@ on:
       - ".github/workflows/validate.yml"
 
   pull_request:
+    # labeled/unlabeled: the ledger guard reads the labels, so adding or removing one must re-run it.
+    types: [opened, synchronize, reopened, labeled, unlabeled]
     paths:
       - "contract/**"
       - "service/**"
