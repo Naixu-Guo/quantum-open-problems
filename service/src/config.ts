@@ -36,6 +36,8 @@ export interface Config {
   commit: boolean;
   /** The human-facing web app and its login. Absent fields take the defaults in `webDefaults`. */
   web?: Partial<WebConfig>;
+  /** The remote the ledger clone pushes to after each commit and catches up with before each write; null keeps commits local. */
+  git?: { remote: string | null; branch?: string | null };
 }
 
 const stripSlash = (url: string): string => url.replace(/\/+$/u, "");
@@ -69,6 +71,7 @@ export function configFromEnv(env: NodeJS.ProcessEnv = process.env): Config {
     authDbPath: path.resolve(env["QOP_AUTH_DB_PATH"] ?? path.join(repoRoot, "service", "data", "auth.sqlite")),
     port,
     commit: env["QOP_COMMIT"] !== "0",
+    git: { remote: env["QOP_GIT_REMOTE"] || null, branch: env["QOP_GIT_BRANCH"] || null },
     web: {
       // Unset serves the repository's web/ directory; "0" or an empty value serves nothing.
       webDir: env["QOP_WEB_DIR"] === undefined ? path.join(repoRoot, "web") : env["QOP_WEB_DIR"] === "" || env["QOP_WEB_DIR"] === "0" ? null : env["QOP_WEB_DIR"],

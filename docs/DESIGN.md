@@ -718,3 +718,19 @@ Defaults adopted on 2026-09-02; each can be revisited by a later decision.
     two derived timestamps: `lastActivity` (any accepted decision) and
     `lastHumanReview` (human decisions, `maintenance` decisions, human
     verification reviews). Backlogs order by the second.
+12. **Ledger synchronization, 3 September 2026.** The service's working
+    clone is the canonical copy of the ledger; the GitHub repository mirrors
+    it. After every commit the service pushes to the configured remote.
+    Before every write it catches up with the remote: a fast-forward when it
+    has nothing unpushed, otherwise a merge whose first parent is the clone's
+    own history, so sequence numbers already served never move. The catch-up
+    refuses, and leaves to an operator: a clone on another branch or with a
+    rebase in progress, uncommitted tracked changes, remote commits that
+    modify or delete ledger files (the service only adds; a deliberate
+    migration is accepted with `sync --allow-edits`), a merge that conflicts,
+    and a remote that brings an invalid ledger, which is undone. A push that
+    fails leaves the commit local and is retried. `ledger/` and `activity/`
+    are not edited through pull requests; a migration carries the
+    `ledger-change` label so the guard in CI lets it through. In deployment
+    the service runs from its own checkout and the ledger roots point at a
+    second clone of the repository that only the service touches.

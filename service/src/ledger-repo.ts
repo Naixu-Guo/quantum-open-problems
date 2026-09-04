@@ -12,6 +12,7 @@ import { validateLedger, validateRecordShape, expectedRelPath, type Issue } from
 import { Ledger, type LoadedRecord } from "../../contract/src/ledger.ts";
 import { serializeRecord } from "../../contract/src/record.ts";
 import type { RecordType } from "../../contract/src/targets.ts";
+import { GitSync, type SyncConfig, type SyncState, type PublicSyncState } from "./sync.ts";
 
 const ACTIVITY_TYPES: ReadonlySet<RecordType> = new Set(["Trajectory", "Artifact", "Comment"]);
 const GIT_MAX_BUFFER = 1024 * 1024 * 1024;
@@ -26,6 +27,10 @@ export interface WriteResult {
   issues: Issue[];
   paths: string[];
   commit: string | null;
+  /** The failure is a condition of the clone, not of the batch; the same batch may succeed once an operator has acted. */
+  retryable?: boolean;
+  /** The ledger was re-read from disk during this write (the clone caught up, or moved under the service), so the index is stale. */
+  reloaded?: boolean;
 }
 
 export interface CommitAuthor {
@@ -34,6 +39,7 @@ export interface CommitAuthor {
 }
 
 const failure = (category: Issue["category"], relPath: string, message: string): WriteResult => ({ ok: false, issues: [{ category, path: relPath, message }], paths: [], commit: null });
+const unavailable = (message: string, reloaded: boolean): WriteResult => ({ ...failure("commit", "ledger", message), retryable: true, reloaded });
 
 export class LedgerRepo {
   readonly mainRoot: string;
@@ -41,16 +47,72 @@ export class LedgerRepo {
   readonly schemaDir: string;
   readonly policyDir: string;
   readonly commitEnabled: boolean;
+  /** Keeps the clone in step with a remote; null when no remote is configured or commits are off. */
+  private readonly sync: GitSync | null;
   private ledger: Ledger;
+  /** The commits the loaded ledger came from, so a clone that moved under the service is noticed. */
+  private loadedHeads = "";
 
-  constructor(options: { mainRoot: string; activityRoot: string; contractDir: string; commit: boolean }) {
+  constructor(options: { mainRoot: string; activityRoot: string; contractDir: string; commit: boolean; sync?: SyncConfig | null }) {
     // Real paths: git reports resolved paths, and sequence numbers are keyed by path.
     this.mainRoot = fs.realpathSync(options.mainRoot);
     this.activityRoot = fs.realpathSync(options.activityRoot);
     this.schemaDir = path.join(options.contractDir, "schema");
     this.policyDir = path.join(options.contractDir, "policy");
     this.commitEnabled = options.commit;
+    this.sync = null;
+    if (options.sync && options.commit) {
+      try {
+        this.sync = new GitSync(this.roots, options.sync);
+      } catch (error) {
+        throw new Error(`QOP_GIT_REMOTE needs both ledger roots inside a git clone on the ledger branch: ${error instanceof Error ? error.message : String(error)}`);
+      }
+    }
     this.ledger = this.reload();
+  }
+
+  /** Where the clone stands against its remote, per repository; null without a remote. */
+  syncState(): SyncState[] | null {
+    return this.sync?.state() ?? null;
+  }
+
+  publicSyncState(): PublicSyncState[] | null {
+    return this.sync?.publicState() ?? null;
+  }
+
+  /** The HEAD of each repository behind the roots, joined; empty when they are not git working trees. */
+  private heads(): string {
+    return this.roots.map((root) => this.tryGit(root, ["rev-parse", "HEAD"]) ?? "").join(" ");
+  }
+
+  /** Re-read the ledger if the clone moved under the service (an operator's repair, another process's sync). Returns whether it did. */
+  refreshIfMoved(): boolean {
+    if (!this.commitEnabled || this.heads() === this.loadedHeads) return false;
+    this.ledger = this.reload();
+    return true;
+  }
+
+  /**
+   * Catch up with the remote and push whatever is unpushed; for the operator's command line.
+   * A remote that brings an invalid ledger is undone, so the clone never stays on a bad commit.
+   */
+  synchronize(options: { allowEdits?: boolean } = {}): { refused: string | null; pushed: boolean; state: SyncState[] | null } {
+    if (!this.sync) return { refused: "no remote configured", pushed: false, state: null };
+    this.refreshIfMoved();
+    const caught = this.sync.catchUp({ allowEdits: options.allowEdits ?? false });
+    if (caught.moved) {
+      try {
+        this.ledger = this.reload();
+      } catch (error) {
+        const reason = `the remote brought an invalid ledger; the clone was put back: ${error instanceof Error ? error.message : String(error)}`;
+        this.sync.undo(reason);
+        return { refused: reason, pushed: false, state: this.sync.state() };
+      }
+    }
+    if (caught.refused) return { refused: caught.refused, pushed: false, state: this.sync.state() };
+    const pushed = this.sync.push();
+    if (pushed.moved) this.ledger = this.reload();
+    return { refused: null, pushed: pushed.pushed, state: this.sync.state() };
   }
 
   get roots(): string[] {
@@ -69,6 +131,7 @@ export class LedgerRepo {
       throw new Error(`ledger is invalid (${report.issues.length} issue(s)):\n${first}`);
     }
     this.ledger = report.ledger;
+    this.loadedHeads = this.heads();
     return this.ledger;
   }
 
@@ -110,11 +173,34 @@ export class LedgerRepo {
   /**
    * Write a batch of new records, validate the whole ledger, and commit. On any failure the
    * files are removed again and the issues are returned; nothing is committed. Exceptions from
-   * validation or git are turned into issues, never left as files on disk.
+   * validation or git are turned into issues, never left as files on disk. With a remote, the
+   * clone catches up first unless the caller says it just did (`catchUp: false`, for the
+   * follow-up writes of one submission).
    */
-  write(batch: NewRecord[], message: string, author: CommitAuthor): WriteResult {
+  write(batch: NewRecord[], message: string, author: CommitAuthor, options: { catchUp?: boolean } = {}): WriteResult {
+    let reloaded = false;
+    try {
+      reloaded = this.refreshIfMoved();
+    } catch (error) {
+      return unavailable(`the ledger clone moved to an invalid state: ${error instanceof Error ? error.message : String(error)}`, false);
+    }
+    if (this.sync && options.catchUp !== false) {
+      // Catch up first, so the commit lands on top of what the remote already has.
+      const caught = this.sync.catchUp();
+      if (caught.moved) {
+        try {
+          this.ledger = this.reload();
+          reloaded = true;
+        } catch (error) {
+          const reason = `the remote brought an invalid ledger; the clone was put back: ${error instanceof Error ? error.message : String(error)}`;
+          this.sync.undo(reason);
+          return unavailable(reason, reloaded);
+        }
+      }
+      if (caught.refused) return unavailable(`the ledger clone could not catch up with its remote: ${caught.refused}`, reloaded);
+    }
     const placement = this.place(batch);
-    if ("ok" in placement) return placement;
+    if ("ok" in placement) return { ...placement, reloaded };
     const written: string[] = [];
     try {
       for (const { record, file } of placement.placed) {
@@ -130,7 +216,7 @@ export class LedgerRepo {
       }
       if (issues.length > 0) {
         this.remove(written);
-        return { ok: false, issues, paths: [], commit: null };
+        return { ok: false, issues, paths: [], commit: null, reloaded };
       }
       let commit: string | null = null;
       if (this.commitEnabled) {
@@ -142,7 +228,13 @@ export class LedgerRepo {
         }
       }
       this.ledger = this.reload();
-      return { ok: true, issues: [], paths: written, commit };
+      // A failed push is recorded in the sync state and retried on the next write; the commit stands.
+      // A push that had to merge first moved HEAD: re-read, and report the commit that now holds the batch.
+      if (commit && this.sync && this.sync.push().moved) {
+        this.ledger = this.reload();
+        commit = this.tryGit(written[0] ? path.dirname(written[0]) : this.mainRoot, ["rev-parse", "HEAD"]) ?? commit;
+      }
+      return { ok: true, issues: [], paths: written, commit, reloaded: true };
     } catch (error) {
       this.remove(written);
       return failure("commit", written[0] ?? "?", error instanceof Error ? error.message : String(error));

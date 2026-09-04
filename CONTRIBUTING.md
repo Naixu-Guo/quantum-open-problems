@@ -27,6 +27,14 @@ Editors compare the contribution with the archived formal statement. They record
 
 Editors may record a failed approach when it rules out a reusable route or documents a scope error that another researcher could repeat.
 
+## The ledger is written by the service
+
+`ledger/` and `activity/` are the database. The service writes them, commits
+each batch, and pushes; people add problems, references, and comments
+through the web app or the API, and agents through MCP. A pull request that
+edits those directories directly is refused by CI unless it carries the
+`ledger-change` label, which marks a deliberate migration.
+
 ## Adding a new problem
 
 A new entry needs an independent mathematical source, a formal statement, evidence that the question remains open, and a reason it belongs in a quantum-science field. Editors reject duplicates and broad topics that lack a checkable resolution criterion.
