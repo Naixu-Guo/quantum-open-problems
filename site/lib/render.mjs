@@ -282,16 +282,16 @@ export function renderProblemPage({ record, config, root, related, dates }) {
             ${statusTag(record.status)}
             <span class="problem-id">ID <code>${record.id}</code></span>
             <span class="problem-updated">Last edited ${displayDate(record.dates.updated)}</span>
+            <div class="problem-actions no-math">
+              <a class="action" href="${editUrl}" rel="noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3Z"/><path d="m13.5 6.5 3 3"/></svg>Edit</a>
+              <button class="action" type="button" data-dialog="cite-dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h4v4H7zM13 7h4v4h-4zM11 11c0 3-1 4-4 5M17 11c0 3-1 4-4 5"/></svg>Cite</button>
+              <button class="action" type="button" data-dialog="share-dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.6M8.2 13.2l7.6 4.6"/></svg>Share</button>
+            </div>
           </div>
           <dl class="taxonomy">
           ${taxonomyRow("field", record.fields)}
           ${taxonomyRow("topic", record.topics)}
           </dl>
-          <div class="problem-actions no-math">
-            <a class="action" href="${editUrl}" rel="noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3Z"/><path d="m13.5 6.5 3 3"/></svg>Edit</a>
-            <button class="action" type="button" data-dialog="cite-dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h4v4H7zM13 7h4v4h-4zM11 11c0 3-1 4-4 5M17 11c0 3-1 4-4 5"/></svg>Cite</button>
-            <button class="action" type="button" data-dialog="share-dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.6M8.2 13.2l7.6 4.6"/></svg>Share</button>
-          </div>
         </header>
 
         <section class="problem-section" id="problem">
