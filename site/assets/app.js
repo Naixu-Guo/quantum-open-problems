@@ -227,6 +227,9 @@
       topic: params.get("topic") || "all",
       sort: params.get("sort") || "updated"
     };
+    const historicalTags = window.QIQCOP_LEGACY_TAGS || {};
+    state.legacyTag = [params.get("legacyTag"), params.get("tag"), params.get("field"), params.get("topic")]
+      .find((key) => key && historicalTags[key] && !fieldSlugs.has(key) && !topicSlugs.has(key)) || "";
     // Links written before the taxonomy was split use ?tag=; honour them.
     const legacyTag = params.get("tag");
     if (legacyTag) {
@@ -259,7 +262,8 @@
         const matchesTopic = state.topic === "all" || row.dataset.topics.split(" ").includes(state.topic);
         const haystack = row.dataset.search;
         const matchesQuery = terms.every((term) => haystack.includes(term));
-        const show = matchesStatus && matchesField && matchesTopic && matchesQuery;
+        const matchesHistory = !state.legacyTag || historicalTags[state.legacyTag].ids.includes(row.dataset.id);
+        const show = matchesStatus && matchesField && matchesTopic && matchesQuery && matchesHistory;
         row.hidden = !show;
         if (show) visible += 1;
       });
@@ -272,7 +276,7 @@
       });
       sorted.forEach((row) => list.append(row));
       if (count) count.textContent = String(visible);
-      if (label) label.textContent = visible === 1 ? "problem" : "problems";
+      if (label) label.textContent = (visible === 1 ? "problem" : "problems") + (state.legacyTag ? ` · historical classification: ${historicalTags[state.legacyTag].name}` : "");
       if (empty) empty.hidden = visible > 0;
       const next = new URLSearchParams();
       if (state.q) next.set("q", state.q);
@@ -280,6 +284,7 @@
       if (state.field !== "all") next.set("field", state.field);
       if (state.topic !== "all") next.set("topic", state.topic);
       if (state.sort !== "updated") next.set("sort", state.sort);
+      if (state.legacyTag) next.set("legacyTag", state.legacyTag);
       const query = next.toString();
       history.replaceState(null, "", `${location.pathname}${query ? `?${query}` : ""}${location.hash}`);
     };
@@ -299,6 +304,7 @@
     sortSelect?.addEventListener("change", () => { state.sort = sortSelect.value; apply(); });
     const clear = () => {
       state.q = ""; state.status = "all"; state.field = "all"; state.topic = "all"; state.sort = "updated";
+      state.legacyTag = "";
       if (searchInput) searchInput.value = "";
       if (topicSelect) topicSelect.value = "all";
       if (sortSelect) sortSelect.value = "updated";

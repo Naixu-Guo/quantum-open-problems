@@ -74,6 +74,8 @@ export function loadRecords(roots: string[]): { records: LoadedRecord[]; issues:
 }
 
 export class Ledger {
+  /** Revisions pinned by the operator-controlled catalog export manifest. */
+  readonly catalogExports = new Set<string>();
   readonly records: LoadedRecord[];
   readonly byType: Map<RecordType, LoadedRecord[]>;
   /** id → current revision for revisable types, the single record for immutable types. */

@@ -129,7 +129,14 @@ class RepositorySync {
   private ledgerEdits(reference: string): string[] {
     const diff = run(this.top, ["diff", "--name-status", "--no-renames", `HEAD...${reference}`, "--", ...this.roots]);
     if (!diff.ok) return [];
-    return diff.out.split("\n").filter((line) => line && !line.startsWith("A\t")).map((line) => line.replace("\t", " "));
+    const metadata = new Set(this.roots.flatMap((root) => [path.posix.join(root, "export-manifest.json"), path.posix.join(root, "README.md")]));
+    return diff.out.split("\n").filter((line) => {
+      if (!line || line.startsWith("A\t")) return false;
+      const [status, file] = line.split("\t");
+      // Mutable export bookkeeping is checked by full-ledger validation after
+      // the merge. Historical record edits and all deletions still require an operator.
+      return !(status === "M" && file && metadata.has(file));
+    }).map((line) => line.replace("\t", " "));
   }
 
   private fetch(): boolean {

@@ -49,6 +49,9 @@ test("the authoritative export round-trips every authored record and both public
 });
 
 test("Markdown conversion preserves nested math environments and working reference links", () => {
+  const nested = texToHtml("$\\text{See Eq.~\\eqref{eq:known}}$", { equationNumbers: new Map([["eq:known", 2]]) });
+  assert.ok(nested.includes("\\text{See Eq.~(2)}"));
+  assert.throws(() => texToHtml("$\\text{See Eq.~\\eqref{eq:missing}}$", { equationNumbers: new Map() }), /no matching labeled equation/);
   const tex = "Let $x$ satisfy \\begin{equation*}\\begin{aligned}x&=1\\\\y&=2\\end{aligned}\\end{equation*}. See \\href{https://example.org/a(b)}{a source}.";
   const markdown = htmlToMarkdown(texToHtml(tex));
   assert.match(markdown, /Let \$x\$/);
@@ -68,7 +71,7 @@ test("Markdown conversion preserves nested math environments and working referen
   }
 });
 
-test("replacement removes stale records; normal export preserves activity and refuses to overwrite its dependencies", async () => {
+test("catalog updates append versions while preserving pinned research history", async () => {
   const fixture = fs.mkdtempSync(path.join(os.tmpdir(), "qop-ledger-test-"));
   try {
     fs.mkdirSync(path.join(fixture, "database/problems_json"), { recursive: true });
@@ -101,7 +104,14 @@ test("replacement removes stale records; normal export preserves activity and re
     const before = fs.readFileSync(statementPath, "utf8");
     fs.writeFileSync(sourcePath, JSON.stringify({ ...original, statement: `${original.statement}\nAn additional authored clarification.` }));
     await assert.rejects(exportLedger({ root: fixture, check: true }), /Ledger export drift/);
-    await assert.rejects(exportLedger({ root: fixture }), /Refusing to overwrite exported records referenced by/);
+    await exportLedger({ root: fixture });
+    const newer = parse(fs.readFileSync(statementPath.replace("v1.md", "v2.md"), "utf8"));
+    assert.equal(newer.version, 2);
+    assert.equal(newer.supersedes, statement.id);
+    assert.notEqual(newer.id, statement.id);
+    assert.equal(newer.clauses[0].supersedesClauseId, null, "changed statements must not inherit old resolution claims");
+    await exportLedger({ root: fixture, check: true });
+    assert.equal((await exportLedger({ root: fixture })).changed, 0, "repeat export is a no-op");
     assert.equal(fs.readFileSync(statementPath, "utf8"), before);
     assert.equal(fs.readFileSync(commentPath, "utf8"), commentText);
   } finally {

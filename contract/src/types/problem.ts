@@ -46,7 +46,7 @@ export function references(problem: Problem): Ref[] {
 export function rules(problem: Problem, ledger: Ledger): string[] {
   const errors: string[] = [];
   const previous = (ledger.revisions.get(problem.id) ?? []).find((record) => record.type === "Problem" && record.fields["revision"] === problem.revision - 1);
-  if (previous && !isDeepStrictEqual(previous.fields["authoredCatalog"], problem.authoredCatalog)) {
+  if (previous && !isDeepStrictEqual(previous.fields["authoredCatalog"], problem.authoredCatalog) && !ledger.catalogExports.has(`${problem.id}@${problem.revision}`)) {
     errors.push("authoredCatalog is an authoritative import snapshot and cannot be added, removed, or changed by a problem revision");
   }
   const hasParent = problem.parentProblemId !== null;

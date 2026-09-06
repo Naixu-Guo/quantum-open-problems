@@ -1,6 +1,7 @@
 /**
  * The ledger on disk: two roots (main and activity), each a git working tree or a directory
- * inside one. The service is the only writer. A write lands as files, is validated with the
+ * inside one. The service appends contributions; the catalog exporter appends its
+ * authoritative revisions. A write lands as files, is validated with the
  * contract validator, and is committed or rolled back as a unit. No path derived from a batch
  * may leave its root, no exception may leave a file behind, and no commit may carry anything
  * but the batch.

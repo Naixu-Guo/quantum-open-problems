@@ -34,7 +34,7 @@ test("the catalog initially renders edits to the second, then creation time, the
 
 // Exercise the shipped script against the attributes emitted by the renderer.
 // DOM movement and filter events are enough here; no browser dependency is needed.
-function loadCatalog(search = "") {
+function loadCatalog(search = "", historicalTags = {}) {
   const element = (properties = {}) => ({
     dataset: {}, listeners: {}, classList: { toggle() {} },
     setAttribute() {}, addEventListener(event, listener) { this.listeners[event] = listener; },
@@ -57,11 +57,20 @@ function loadCatalog(search = "") {
     querySelectorAll: (selector) => selector === ".filter-panel [data-field]" ? [field] : []
   });
   vm.runInNewContext(clientScript, {
-    document, window: {}, location, URLSearchParams,
+    document, window: { QIQCOP_LEGACY_TAGS: historicalTags }, location, URLSearchParams,
     history: { replaceState(_state, _title, url) { location.search = new URL(url, "https://example.test").search; } }
   });
-  return { ids: () => rows.map((row) => row.dataset.id), sort, clear, location };
+  return { ids: () => rows.map((row) => row.dataset.id), visibleIds: () => rows.filter((row) => !row.hidden).map((row) => row.dataset.id), sort, clear, location };
 }
+
+test("retired taxonomy bookmarks retain their cohort until the filters are cleared", () => {
+  const catalog = loadCatalog("?topic=retired-topic", { "retired-topic": { name: "Retired topic", ids: ["op_003", "op_001"] } });
+  assert.deepEqual(catalog.visibleIds(), ["op_003", "op_001"]);
+  assert.equal(catalog.location.search, "?legacyTag=retired-topic");
+  catalog.clear.listeners.click();
+  assert.deepEqual(catalog.visibleIds(), expected);
+  assert.equal(catalog.location.search, "");
+});
 
 test("browser initialization and filter reset preserve newest-first ordering at second precision", () => {
   const catalog = loadCatalog();

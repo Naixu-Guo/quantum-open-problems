@@ -169,13 +169,26 @@ unless it carries the `ledger-change` label.
 2. Export `QOP_GITHUB_CLIENT_ID` and `QOP_GITHUB_CLIENT_SECRET`, then
    `npm run serve` and open `http://localhost:8787/`. The first login creates
    your actor with the contributor role.
-3. Editor access requires an existing human Actor with the editor role.
-   The replaced catalog contains only a migration system actor; it does not
-   include the old seed editor. An operator must provision a human editor
-   before linking that person's numeric GitHub id with
-   `node --experimental-strip-types src/cli.ts identity link github <id> <actorId>`.
-   Linking does not grant roles. A supported first-editor bootstrap command
-   is still missing; see the [workspace audit](../docs/WORKSPACE_AUDIT.md).
+3. On the service checkout, provision and link the first human editor:
+
+   ```sh
+   node --experimental-strip-types src/cli.ts bootstrap-editor <numeric-github-user-id> "Full Name"
+   ```
+
+   Use the numeric ID from GitHub's user API, not a login name. The command
+   creates a human actor or promotes an existing linked contributor while
+   preserving their history. Repeating it with the same identity is harmless;
+   a different identity is refused once an editor exists. It can recover a
+   missing local auth link from the committed numeric identity. The migration
+   system actor is never promoted. Run provisioning as an operator command,
+   not through a contributor's HTTP session. If Git synchronization is
+   configured, the ordinary ledger write can push the committed actor.
+
+Catalog exports now append revisions and statement versions. Ordinary sync
+accepts their manifest updates after ledger validation; it still refuses
+edits to old record files. Upgrade the service before importing version-2
+export manifests. See the [catalog integration guide](../docs/CATALOG_INTEGRATION.md)
+for reconciliation and the accepted-contribution handoff command.
 
 ## Automatic decisions
 

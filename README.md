@@ -148,14 +148,15 @@ builds directly from `database/problems_json/`.
 After changing the database, install the locked contract dependencies with
 `npm ci --prefix contract --ignore-scripts`, run `npm run export-ledger`,
 and include the resulting ledger changes. `npm run check-ledger` verifies
-the projection without writing. The regular exporter preserves subsequent
-service activity; `--replace-authoritative` explicitly replaces the entire
+the projection without writing. The regular exporter appends revisions and statement versions, preserving
+subsequent service activity and incremental events; `--replace-authoritative` explicitly replaces the entire
 ledger and activity roots and was used for the initial database replacement.
 
 Run `npm run service` to serve the HTTP API and review app, or `npm run mcp`
 to start the MCP adapter. See [service/README.md](service/README.md) for
 configuration and [docs/CATALOG_INTEGRATION.md](docs/CATALOG_INTEGRATION.md)
-for the database boundary.
+for versioned reconciliation, first-editor setup, historical interfaces, and
+the `npm run handoff-catalog` authoring handoff.
 
 ## How the build works
 

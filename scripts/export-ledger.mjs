@@ -6,6 +6,8 @@ import os from "node:os";
 import path from "node:path";
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
+import { parseRecordText, recordObject } from "../contract/src/record.ts";
+import { Ledger, loadRecords } from "../contract/src/ledger.ts";
 import { deterministicUlid, metadataSlug, validateRecordIdentities } from "../site/lib/metadata.mjs";
 import { validateRecordShape } from "../site/lib/record.mjs";
 import { renderRecord, texToHtml } from "../site/lib/tex.mjs";
@@ -97,6 +99,8 @@ export function buildLedger(root = ROOT) {
   if (!records.length) throw new Error("Refusing to export an empty database");
   validateRecordIdentities(records);
   const rendered = new Map(records.map((record) => [record.id, renderRecord(record)]));
+  const serviceSources = fs.existsSync(path.join(root, "ledger")) && fs.existsSync(path.join(root, "activity"))
+    ? new Ledger(loadRecords([path.join(root, "ledger"), path.join(root, "activity")]).records).currentOf("Source") : [];
   const files = new Map();
   const counts = {};
   const put = (relative, record) => {
@@ -141,6 +145,11 @@ export function buildLedger(root = ROOT) {
     })[0];
     const source = { ...base(`source:${identity}`), type: "Source", ...info,
       body: unique(group.entries.map(({ reference }) => htmlToMarkdown(texToHtml(reference.tex)))).join("\n\n") };
+    const existingSource = serviceSources.find(({ fields }) =>
+      (source.doi && String(fields.doi).toLowerCase() === source.doi.toLowerCase()) ||
+      (source.arxivId && fields.arxivId === source.arxivId && fields.version === source.version) ||
+      (source.url && fields.url === source.url));
+    if (existingSource) source.id = existingSource.id;
     group.source = source;
     put(`ledger/sources/${source.id}.r1.md`, source);
   }
@@ -189,19 +198,103 @@ function writeFiles(root, files) {
   }
 }
 
-export async function exportLedger({ root = ROOT, check = false, replaceAuthoritative = false } = {}) {
+const hash = (value) => createHash("sha256").update(value).digest("hex");
+const fieldHashes = (record) => Object.fromEntries(Object.entries(record).map(([key, value]) => [key, hash(JSON.stringify(value))]));
+const parsed = (file, text) => recordObject(parseRecordText(file, text));
+const safePath = (file) => typeof file === "string" && /^(ledger|activity)\//.test(file) && !file.split("/").some((part) => ["..", ".", ""].includes(part)) && !file.includes("\\");
+
+// A manifest pins immutable exported files and the last desired value of each
+// field. The latter makes reconciliation a three-way merge with service edits.
+export async function exportLedger({ root = ROOT, check = false, replaceAuthoritative = false, reconcileCatalog = false } = {}) {
   if (check && replaceAuthoritative) throw new Error("--check and --replace-authoritative cannot be combined");
-  const { files, counts } = buildLedger(root);
+  const desired = buildLedger(root);
   const manifestPath = path.join(root, MANIFEST);
-  const previous = fs.existsSync(manifestPath) ? readJson(manifestPath) : null;
-  if (previous && (previous.schema !== "qiqcop-zoo/ledger-export/1" || !Array.isArray(previous.files) || previous.files.some((file) => !/^(ledger|activity)\//.test(file) || file.split("/").includes("..")))) throw new Error("Invalid ledger export manifest");
-  const stale = (previous?.files ?? []).filter((file) => !files.has(file));
-  const changed = [...files].filter(([file, content]) => !fs.existsSync(path.join(root, file)) || fs.readFileSync(path.join(root, file), "utf8") !== content);
-  if (check) {
-    if (changed.length || stale.length) throw new Error(`Ledger export drift: ${changed.length} changed or missing file(s), ${stale.length} obsolete export(s). Run npm run export-ledger.`);
-    return { counts, changed: 0 };
-  }
+  const previous = !replaceAuthoritative && fs.existsSync(manifestPath) ? readJson(manifestPath) : null;
+  if (previous && (!["qiqcop-zoo/ledger-export/1", "qiqcop-zoo/ledger-export/2"].includes(previous.schema) || !Array.isArray(previous.files) || previous.files.some((file) => !safePath(file)))) throw new Error("Invalid ledger export manifest");
   if (!previous && !replaceAuthoritative && fs.existsSync(path.join(root, "ledger"))) throw new Error("Existing ledger has no export manifest. An intentional initial replacement requires --replace-authoritative.");
+  const existing = previous ? new Ledger(loadRecords([path.join(root, "ledger"), path.join(root, "activity")]).records) : new Ledger([]);
+  const owned = { ...(previous?.fileHashes ?? {}) };
+  const projections = { ...(previous?.projections ?? {}) };
+  if (previous?.schema === "qiqcop-zoo/ledger-export/1") {
+    for (const file of previous.files) {
+      if (!file.endsWith(".md") || file.endsWith("README.md")) continue;
+      const content = fs.readFileSync(path.join(root, file), "utf8");
+      owned[file] = hash(content);
+      projections[file] = { path: file, digest: hash(content), fields: fieldHashes(parsed(file, content)) };
+    }
+  }
+  for (const [file, digest] of Object.entries(owned)) {
+    if (!safePath(file) || !fs.existsSync(path.join(root, file)) || hash(fs.readFileSync(path.join(root, file))) !== digest) throw new Error(`Export history changed or missing: ${file}. Restore its committed contents before exporting.`);
+  }
+  const writes = new Map();
+  const now = new Date().toISOString();
+  for (const [file, content] of desired.files) {
+    if (!content.startsWith("---\n")) continue;
+    const wanted = parsed(file, content);
+    const baseline = projections[file];
+    if (baseline?.digest === hash(content)) continue;
+    if (check) throw new Error(`Ledger export drift: ${file}. Run npm run export-ledger.`);
+    let destination = file;
+    let next = { ...wanted };
+    const current = wanted.type === "Statement"
+      ? existing.currentOf("Statement").filter((record) => record.fields.problemId === wanted.problemId).sort((a, b) => b.fields.version - a.fields.version)[0]
+      : existing.current.get(wanted.id);
+    const owner = wanted.type === "Statement" ? wanted.problemId : wanted.type === "Reference" && wanted.targetType === "problem" ? wanted.targetId : null;
+    if (!current && owner && existing.problemDir(owner)) destination = file.replace(/^ledger\/problems\/[^/]+/, `ledger/${existing.problemDir(owner)}`);
+    if (current) {
+      const latest = recordObject(current);
+      if (!baseline && !reconcileCatalog) throw new Error(`Existing service identity ${wanted.id} needs --reconcile-catalog for an explicit catalog handoff.`);
+      if (wanted.type === "Statement") {
+        if (baseline && current.path !== path.join(root, baseline.path) && !reconcileCatalog) throw new Error(`A service statement supersedes ${baseline.path}. Review it before using --reconcile-catalog.`);
+        const version = latest.version + 1;
+        // A changed statement does not inherit old resolution claims. Only a
+        // byte-equivalent formulation can continue the old clause lineage.
+        const sameStatement = latest.digest === wanted.digest;
+        next = { ...wanted, id: deterministicUlid(`statement:${wanted.problemId}:v${version}:${hash(content)}`, now), version, supersedes: latest.id, createdAt: now,
+          clauses: wanted.clauses.map((clause) => ({ ...clause, supersedesClauseId: sameStatement && latest.clauses.some((old) => old.id === clause.id) ? `${latest.id}#${clause.id}` : null })) };
+        destination = path.relative(root, current.path).split(path.sep).join("/").replace(/v\d+\.md$/, `v${version}.md`);
+      } else {
+        next = { ...latest };
+        for (const [key, value] of Object.entries(wanted)) {
+          if (["revision", "createdAt", "createdBy"].includes(key)) continue;
+          const before = baseline?.fields[key];
+          const incoming = hash(JSON.stringify(value));
+          const present = latest[key] === undefined ? undefined : hash(JSON.stringify(latest[key]));
+          if (before === incoming) continue;
+          if (before !== undefined && present !== before && present !== incoming && !reconcileCatalog) throw new Error(`Catalog/service conflict at ${file}: ${key}. Reconcile the source or review --reconcile-catalog.`);
+          next[key] = value;
+        }
+        // Alias order controls on-disk layout. Keep the service's primary alias
+        // and retain every public identity during an explicit handoff.
+        if (wanted.type === "Problem") next.aliases = unique([...(latest.aliases ?? []), ...wanted.aliases]);
+        next.revision = latest.revision + 1;
+        next.createdAt = now;
+        next.createdBy = wanted.createdBy;
+        destination = path.relative(root, current.path).split(path.sep).join("/").replace(/\.r\d+\.md$/, `.r${next.revision}.md`);
+      }
+    }
+    if (fs.existsSync(path.join(root, destination)) && !replaceAuthoritative) throw new Error(`Refusing to overwrite existing record ${destination}`);
+    const exported = serializeRecord(next);
+    writes.set(destination, exported);
+    owned[destination] = hash(exported);
+    projections[file] = { path: destination, digest: hash(content), fields: fieldHashes(wanted) };
+  }
+  const removed = Object.keys(projections).filter((file) => !desired.files.has(file));
+  // Removing an identity is not a content update. Keep archived records in the
+  // catalog, or explicitly reconcile their retirement in the service first.
+  if (removed.length) throw new Error(`Exported entities disappeared from the catalog: ${removed.join(", ")}. Preserve their identities and references.`);
+  const manifest = { schema: "qiqcop-zoo/ledger-export/2", source: "database/problems_json", generatedAt: previous?.generatedAt ?? readJson(path.join(root, "database/metadata.json")).migrationTimestamp,
+    counts: desired.counts, files: [...Object.keys(owned), "ledger/README.md", "activity/README.md"].sort(), fileHashes: owned, projections };
+  const manifestText = json(manifest);
+  const manifestChanged = !fs.existsSync(manifestPath) || fs.readFileSync(manifestPath, "utf8") !== manifestText;
+  if (check) {
+    if (manifestChanged) throw new Error("Ledger export drift: export manifest needs migration. Run npm run export-ledger.");
+    return { counts: desired.counts, changed: 0 };
+  }
+  if (manifestChanged) writes.set(MANIFEST, manifestText);
+  for (const file of ["ledger/README.md", "activity/README.md"]) {
+    if (!fs.existsSync(path.join(root, file)) || replaceAuthoritative) writes.set(file, desired.files.get(file));
+  }
   const stage = fs.mkdtempSync(path.join(os.tmpdir(), "qop-ledger-export-"));
   try {
     for (const dir of ["ledger", "activity"]) {
@@ -209,38 +302,35 @@ export async function exportLedger({ root = ROOT, check = false, replaceAuthorit
       if (!replaceAuthoritative && fs.existsSync(current)) fs.cpSync(current, path.join(stage, dir), { recursive: true });
       else fs.mkdirSync(path.join(stage, dir), { recursive: true });
     }
-    for (const file of stale) fs.rmSync(path.join(stage, file), { force: true });
-    writeFiles(stage, files);
+    writeFiles(stage, writes);
     const { validateLedger } = await import("../contract/src/validate.ts");
-    if (!replaceAuthoritative && changed.length) {
-      // Reviewed revisions and service activity are not export-owned. Do not
-      // silently change an identity or formulation they already depend on.
-      const { loadRecords } = await import("../contract/src/ledger.ts");
-      const existing = loadRecords([path.join(root, "ledger"), path.join(root, "activity")]).records;
-      const changedPaths = new Set([...changed.map(([file]) => file), ...stale]);
-      const owned = new Set(previous?.files ?? []);
-      const relative = (record) => path.relative(root, record.path).split(path.sep).join("/");
-      const changingIds = new Set(existing.filter((record) => changedPaths.has(relative(record))).map((record) => record.id));
-      const dependsOn = (value) => {
-        if (typeof value === "string") return changingIds.has(value) || changingIds.has(value.split("#")[0]);
-        if (Array.isArray(value)) return value.some(dependsOn);
-        return value !== null && typeof value === "object" && Object.values(value).some(dependsOn);
-      };
-      const dependent = existing.find((record) => !owned.has(relative(record)) && dependsOn(record.fields));
-      if (dependent) throw new Error(`Refusing to overwrite exported records referenced by ${relative(dependent)}. Reconcile the existing ledger history before exporting; --replace-authoritative explicitly resets that history.`);
-    }
     const { issues } = validateLedger([path.join(stage, "ledger"), path.join(stage, "activity")]);
     if (issues.length) throw new Error(`Generated ledger failed validation:\n${issues.map((issue) => `${issue.path}: ${issue.message}`).join("\n")}`);
-    if (replaceAuthoritative) {
-      for (const dir of ["ledger", "activity"]) fs.rmSync(path.join(root, dir), { recursive: true, force: true });
-    } else {
-      for (const file of stale) fs.rmSync(path.join(root, file), { force: true });
+    if (replaceAuthoritative) for (const dir of ["ledger", "activity"]) fs.rmSync(path.join(root, dir), { recursive: true, force: true });
+    // Stage validation precedes every write. Roll back partial filesystem writes
+    // so an I/O error cannot leave a new revision without its manifest.
+    const backups = new Map([...writes.keys()].map((file) => [file, fs.existsSync(path.join(root, file)) ? fs.readFileSync(path.join(root, file)) : null]));
+    const applied = [];
+    try {
+      for (const [file, content] of writes) {
+        const target = path.join(root, file);
+        fs.mkdirSync(path.dirname(target), { recursive: true });
+        // Exclusive creation also protects a revision added by a concurrent
+        // service write after the staging check.
+        fs.writeFileSync(target, content, { flag: content.startsWith("---\n") ? "wx" : "w" });
+        applied.push(file);
+      }
     }
-    writeFiles(root, files);
-    return { counts, changed: changed.length };
-  } finally {
-    fs.rmSync(stage, { recursive: true, force: true });
-  }
+    catch (error) {
+      for (const file of applied.reverse()) {
+        const before = backups.get(file);
+        if (before === null) fs.rmSync(path.join(root, file), { force: true });
+        else fs.writeFileSync(path.join(root, file), before);
+      }
+      throw error;
+    }
+    return { counts: desired.counts, changed: writes.size };
+  } finally { fs.rmSync(stage, { recursive: true, force: true }); }
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
@@ -249,9 +339,10 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     for (let i = 2; i < process.argv.length; i += 1) {
       const argument = process.argv[i];
       if (argument === "--check") options.check = true;
+      else if (argument === "--reconcile-catalog") options.reconcileCatalog = true;
       else if (argument === "--replace-authoritative") options.replaceAuthoritative = true;
       else if (argument === "--root" && process.argv[i + 1] && !process.argv[i + 1].startsWith("--")) options.root = path.resolve(process.argv[++i]);
-      else if (argument === "--help") { console.log("Usage: node --experimental-strip-types scripts/export-ledger.mjs [--check | --replace-authoritative] [--root DIR]"); process.exit(0); }
+      else if (argument === "--help") { console.log("Usage: node --experimental-strip-types scripts/export-ledger.mjs [--check | --replace-authoritative] [--reconcile-catalog] [--root DIR]"); process.exit(0); }
       else throw new Error(`Unknown or incomplete option: ${argument}`);
     }
     const result = await exportLedger(options);

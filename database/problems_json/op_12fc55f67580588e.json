@@ -30,10 +30,12 @@
     "keywords": [],
     "difficulty": "unrated",
     "verificationCost": "unrated",
-    "relatedProblemIds": []
+    "relatedProblemIds": [
+      "01M1Q787QRG3HGYA0Y8F8JBPTE"
+    ]
   },
   "title": "Regularized less-noisy channels beyond degradability",
-  "status": "Unsolved",
+  "status": "Solved",
   "fields": [
     "Quantum Communication"
   ],
@@ -46,7 +48,8 @@
   "progress": [
     "Data processing proves\n  $\\mathfrak D\\subseteq\\mathfrak L_\\infty$.  Watanabe showed that regularized\n  less-noisy channels have single-letter quantum and private capacities,\n  $\\mathcal Q(\\mathcal T)=\\mathcal C_p(\\mathcal T)\n  =\\mathcal Q^{(1)}(\\mathcal T)$\n  \\sourcecite{ref:p52-watanabe}{Wat12}.  Hirche and Leditzky further proved\n  that superactivation of private capacity would imply\n  $\\mathfrak D\\subsetneq\\mathfrak L_\\infty$; neither result decides whether\n  the inclusion is strict \\sourcecite{ref:p52-hirche-leditzky}{HL23}.",
     "Belzig et al. constructed explicit flagged mixtures of qubit\n  amplitude-damping channels that belong to\n  $\\mathfrak L_1\\setminus\\mathfrak D$, including the parameter point\n  $(p,\\gamma_1,\\gamma_2)=(0.75,0.2,0.81)$.  This proves\n  $\\mathfrak D\\subsetneq\\mathfrak L_1$, but the construction's membership in\n  $\\mathfrak L_\\infty$ is unknown and therefore does not settle\n  Eq.~\\eqref{eq:p52-less-noisy-inclusions}\n  \\sourcecite{ref:p52-belzig-et-al}{BGSW25}.",
-    "Smith and Wu derived a sufficient condition under which a flagged\n  mixture of degradable and antidegradable channels is regularized less noisy\n  while remaining nondegradable.  For their amplitude-damping candidates, the\n  condition reduces to strict positivity of a multi-copy comparison\n  coefficient; they leave that positivity unproved.  Their construction is\n  therefore a conditional route to a separation, not a counterexample\n  \\sourcecite{ref:p52-smith-wu}{SW25}."
+    "Smith and Wu derived a sufficient condition under which a flagged\n  mixture of degradable and antidegradable channels is regularized less noisy\n  while remaining nondegradable.  For their amplitude-damping candidates, the\n  condition reduces to strict positivity of a multi-copy comparison\n  coefficient; they leave that positivity unproved.  Their construction is\n  therefore a conditional route to a separation, not a counterexample\n  \\sourcecite{ref:p52-smith-wu}{SW25}.",
+    "Zhu and Wang's Theorem 1.1 gives a finite-dimensional channel $\\Lambda$ with $\\mathcal C_p(\\Lambda)=0$ that is not antidegradable \\sourcecite{ref:p52-zhu-wang}{ZW26}. Taking $\\mathcal T=\\Lambda^c$ yields $\\mathcal C_p(\\mathcal T^c)=0$. Degradability of $\\mathcal T$ would make $\\Lambda$ antidegradable, so $\\mathcal T\\in\\mathfrak L_\\infty\\setminus\\mathfrak D$."
   ],
   "references": [
     {
@@ -68,7 +71,12 @@
       "key": "BGSW25",
       "label": "ref:p52-belzig-et-al",
       "tex": "P. Belzig, L. Gao, G. Smith, and P. Wu,\n  ``Reverse-Type Data Processing Inequality,''\n  \\emph{Communications in Mathematical Physics} \\textbf{406}, 295 (2025).\n  \\href{https://doi.org/10.1007/s00220-025-05474-4}{doi:10.1007/s00220-025-05474-4};\n  \\href{https://arxiv.org/abs/2411.19890}{arXiv:2411.19890}."
+    },
+    {
+      "key": "ZW26",
+      "label": "ref:p52-zhu-wang",
+      "tex": "C. Zhu and X. Wang, ``Quantum Incapacity beyond No-Cloning and PPT\n  Mechanisms,'' arXiv preprint (2026).\n  \\href{https://arxiv.org/abs/2607.24693}{arXiv:2607.24693}."
     }
   ],
-  "comment": "A solution must either exhibit a nondegradable channel whose complementary\nprivate capacity vanishes after regularization, or prove\n$\\mathfrak D=\\mathfrak L_\\infty$.  Determining whether the Belzig et al.\nflagged channel remains less noisy under every tensor power would resolve this\nproblem or separate $\\mathfrak L_\\infty$ from $\\mathfrak L_1$."
+  "comment": "The existence question is answered affirmatively by the complementary-channel argument in Progress \\sourcecite{ref:p52-zhu-wang}{ZW26}. The cited result is an arXiv preprint (version 2, checked 6 September 2026); this status does not assert peer review. This is the same archived question as ``Strict inclusion of degradable channels in the less-noisy class.'' Both permanent identities are retained."
 }

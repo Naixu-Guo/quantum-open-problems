@@ -384,14 +384,23 @@ function handleCommand(name, text, at, ctx) {
 
 // Turn stored mathematics back into MathJax-ready markup.
 function renderMath(entry, ctx) {
+  // Labels are replaced by explicit tags below, so MathJax cannot resolve
+  // nested eqrefs itself. Resolve them against the same record-local map as prose.
+  const resolvedTex = entry.tex.replace(/\\eqref\{([^}]+)\}/g, (_, label) => {
+    const key = label.trim();
+    const number = ctx.equationNumbers?.get(key);
+    if (number === undefined) throw new TexError(`\\eqref{${key}} has no matching labeled equation`);
+    ctx.eqrefs?.push(key);
+    return `(${number})`;
+  });
   if (entry.kind === "inline") {
-    return `<span class="math">\\(${escapeHtml(entry.tex.trim())}\\)</span>`;
+    return `<span class="math">\\(${escapeHtml(resolvedTex.trim())}\\)</span>`;
   }
   if (entry.kind === "display") {
-    return `<div class="equation">\\[${escapeHtml(entry.tex.trim())}\\]</div>`;
+    return `<div class="equation">\\[${escapeHtml(resolvedTex.trim())}\\]</div>`;
   }
   // Numbered environment: replace the label by an explicit tag.
-  let tex = entry.tex;
+  let tex = resolvedTex;
   const labelMatch = tex.match(/\\label\{([^}]+)\}/);
   let anchor = "";
   if (labelMatch) {
