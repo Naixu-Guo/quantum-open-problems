@@ -30,6 +30,7 @@ artifactIds:
 declaredReadIds:
   - "01M1GZV1G0YW6HZP3QV230QWSR"
   - "01M1GZV1G00FPM0Z99H8EY3ZJV"
+revisions: []
 aiInvolvement: autonomous
 license: CC-BY-4.0
 ---

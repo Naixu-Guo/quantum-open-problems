@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naixu-guo.github.io/quantum-open-problems/contract/v1/payloads/trajectory-start.schema.json",
+  "title": "Trajectory start",
+  "description": "Opens a run. The service returns the trajectory id; events and artifacts accumulate against it until close.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "problemIds", "statementDigests", "harnessConfig", "budget", "visibility"],
+  "properties": {
+    "kind": { "enum": ["research", "verification", "maintenance", "ingestion"] },
+    "problemIds": { "type": "array", "items": { "type": "string", "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$" }, "uniqueItems": true },
+    "statementDigests": { "type": "array", "items": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }, "uniqueItems": true },
+    "clauseIds": { "type": "array", "items": { "type": "string", "pattern": "^[0-9A-HJKMNP-TV-Z]{26}#[a-z0-9]+(?:-[a-z0-9]+)*$" }, "uniqueItems": true },
+    "contextBundleId": { "type": ["string", "null"] },
+    "harnessConfig": { "type": "string" },
+    "budget": { "type": "string" },
+    "visibility": { "enum": ["public", "embargoed"] },
+    "embargoUntil": { "type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" }
+  }
+}

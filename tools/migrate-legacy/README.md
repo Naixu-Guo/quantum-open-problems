@@ -1,5 +1,10 @@
 # Legacy migration
 
+This tool describes the historical seed import. Its source catalogs have
+been replaced by the maintained database. Use `npm run export-ledger` from
+the repository root for current updates; see
+[the catalog integration](../../docs/CATALOG_INTEGRATION.md).
+
 `migrate.ts` performs the one-time ingestion described in section 7 of
 [`docs/DESIGN.md`](../../docs/DESIGN.md). It reads the legacy authoring
 surfaces and writes a ledger:

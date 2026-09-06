@@ -105,6 +105,21 @@ export class Ledger {
     return record && record.type === type && !record.redacted ? record : undefined;
   }
 
+  /** Like find, but a redacted record still resolves: references to tombstones are valid. */
+  findAny(type: RecordType, id: string): LoadedRecord | undefined {
+    const record = this.current.get(id);
+    return record && record.type === type ? record : undefined;
+  }
+
+  /** Whether a clause reference resolves, counting a redacted statement as resolving. */
+  clauseResolves(clauseRef: string): boolean {
+    const parts = parseClauseRef(clauseRef);
+    if (!parts) return false;
+    const statement = this.findAny("Statement", parts.statementId);
+    if (!statement) return false;
+    return statement.redacted || this.clause(clauseRef) !== undefined;
+  }
+
   /** Current, non-redacted records of one type. */
   currentOf(type: RecordType): LoadedRecord[] {
     return [...this.current.values()].filter((record) => record.type === type && !record.redacted);

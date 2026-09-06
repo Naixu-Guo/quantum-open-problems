@@ -1,10 +1,11 @@
 /**
- * Derived state. Everything here is computed from decisions and the records they cite.
+ * Derived state from authoritative catalog snapshots, decisions, and cited records.
  * Plain functions over plain lists; no state is stored.
  */
 import type { Ledger, LoadedRecord } from "./ledger.ts";
 import type { Decision, ProblemStatus, VerificationLevel } from "./types/decision.ts";
 import type { Claim } from "./types/claim.ts";
+import type { AuthoredCatalog } from "./types/problem.ts";
 import type { Statement } from "./types/statement.ts";
 
 export type CatalogState = "candidate" | "published" | "retired" | "merged";
@@ -17,7 +18,9 @@ const asDecision = (record: LoadedRecord): Decision => record.fields as unknown 
 export function currentDecisions(ledger: Ledger): Decision[] {
   const all = ledger.currentOf("Decision").map(asDecision);
   const superseded = new Set(all.map((decision) => decision.supersedes).filter((id): id is string => id !== null));
-  return all.filter((decision) => !superseded.has(decision.id)).sort((a, b) => (a.effectiveAt < b.effectiveAt ? 1 : a.effectiveAt > b.effectiveAt ? -1 : 0));
+  // Newest first by effectiveAt, then createdAt, then id, so ties never depend on file order.
+  const key = (d: Decision) => `${d.effectiveAt}|${d.createdAt}|${d.id}`;
+  return all.filter((decision) => !superseded.has(decision.id)).sort((a, b) => (key(a) < key(b) ? 1 : key(a) > key(b) ? -1 : 0));
 }
 
 function latest(decisions: Decision[], predicate: (decision: Decision) => boolean): Decision | undefined {
@@ -28,13 +31,16 @@ export function catalogState(ledger: Ledger, problemId: string, decisions = curr
   const about = (decision: Decision) => decision.targetType === "problem" && decision.targetId === problemId;
   if (latest(decisions, (d) => about(d) && d.kind === "merge")) return "merged";
   if (latest(decisions, (d) => about(d) && d.kind === "retire")) return "retired";
+  if (ledger.find("Problem", problemId)?.fields["authoredCatalog"]) return "published";
   if (latest(decisions, (d) => about(d) && d.kind === "admission")) return "published";
   return "candidate";
 }
 
 export function problemStatus(ledger: Ledger, problemId: string, decisions = currentDecisions(ledger)): ProblemStatus {
+  const authored = ledger.find("Problem", problemId)?.fields["authoredCatalog"] as AuthoredCatalog | undefined;
+  if (authored) return authored.status;
   const decision = latest(decisions, (d) => d.kind === "status" && d.targetType === "problem" && d.targetId === problemId);
-  return decision?.status ?? "open";
+  return decision?.status ?? "Unsolved";
 }
 
 export function isIndexed(ledger: Ledger, problemId: string, decisions = currentDecisions(ledger)): boolean {
@@ -49,6 +55,7 @@ export function contributionState(ledger: Ledger, contributionId: string, decisi
   if (!contribution) return "submitted";
   const supersededBy = ledger.currentOf("Contribution").some((other) => other.fields["supersedes"] === contributionId);
   if (supersededBy) return "superseded";
+  if (latest(decisions, (d) => d.kind === "withdrawal" && d.targetType === "contribution" && d.targetId === contributionId)) return "withdrawn";
   const acceptance = decisions.find((d) => d.kind === "acceptance" && d.targetType === "contribution" && d.targetId === contributionId);
   if (!acceptance) return "submitted";
   if (acceptance.outcome === "rejected") return "rejected";
@@ -83,15 +90,30 @@ function clauseLineage(ledger: Ledger, clauseRef: string): Set<string> {
   return lineage;
 }
 
-export function clauseStatus(ledger: Ledger, clauseRef: string, claims = acceptedClaims(ledger)): ClauseStatus {
+export type ClauseOutcome = "open" | "partial" | "resolved" | "refuted";
+
+/** What accepted claims say about a clause, following lineage; `refuted` is distinguished from `resolved`. */
+export function clauseOutcome(ledger: Ledger, clauseRef: string, claims = acceptedClaims(ledger)): ClauseOutcome {
   const lineage = clauseLineage(ledger, clauseRef);
   let partial = false;
+  let resolved = false;
   for (const claim of claims) {
     if (!claim.clauseIds.some((id) => lineage.has(id))) continue;
-    if (claim.relation === "resolves" || claim.relation === "refutes") return "resolved";
-    partial = true;
+    if (claim.relation === "refutes") return "refuted";
+    if (claim.relation === "resolves") resolved = true;
+    else partial = true;
   }
-  return partial ? "partial" : "open";
+  return resolved ? "resolved" : partial ? "partial" : "open";
+}
+
+export function clauseStatus(ledger: Ledger, clauseRef: string, claims = acceptedClaims(ledger)): ClauseStatus {
+  const outcome = clauseOutcome(ledger, clauseRef, claims);
+  return outcome === "refuted" ? "resolved" : outcome;
+}
+
+/** Every clause reference a clause continues, including itself. Exported for read models that must follow lineage. */
+export function lineageOf(ledger: Ledger, clauseRef: string): Set<string> {
+  return clauseLineage(ledger, clauseRef);
 }
 
 /** Whether the statement a contribution pinned is still its problem's current statement. */
@@ -113,20 +135,52 @@ export function statementIsCurrent(ledger: Ledger, contributionId: string): bool
 export function consistencyErrors(ledger: Ledger): { problemId: string; message: string }[] {
   const errors: { problemId: string; message: string }[] = [];
   for (const summary of summarizeProblems(ledger)) {
+    // Imported status records editorial authority, without claiming ledger verification.
+    if (ledger.find("Problem", summary.id)?.fields["authoredCatalog"]) continue;
     const states = summary.clauses.map((clause) => clause.status);
     if (states.length === 0) continue;
     const resolved = states.filter((state) => state === "resolved").length;
-    if ((summary.status === "solved" || summary.status === "refuted") && resolved !== states.length) {
+    if (summary.status === "Solved" && resolved !== states.length) {
       errors.push({ problemId: summary.id, message: `status ${summary.status} requires every clause resolved by an accepted claim (${resolved} of ${states.length})` });
     }
-    if (summary.status === "open" && resolved > 0) {
-      errors.push({ problemId: summary.id, message: "status open conflicts with a clause resolved by an accepted claim" });
-    }
-    if (summary.status === "partial" && !states.some((state) => state !== "open")) {
-      errors.push({ problemId: summary.id, message: "status partial requires at least one clause narrowed, bounded, or supported by an accepted claim" });
+    if (summary.status === "Unsolved" && resolved === states.length) {
+      errors.push({ problemId: summary.id, message: "status Unsolved conflicts with every clause resolved by an accepted claim" });
     }
   }
   return errors;
+}
+
+/** The latest accepted decision on a problem by any actor, including the system. */
+export function lastActivity(ledger: Ledger, problemId: string, decisions = currentDecisions(ledger)): string | null {
+  return decisions
+    .filter((d) => d.targetType === "problem" && d.targetId === problemId && d.outcome === "accepted")
+    .map((d) => d.effectiveAt)
+    .sort()
+    .at(-1) ?? null;
+}
+
+/**
+ * The latest time a human looked at a problem: a decision on it by a human actor (including
+ * a maintenance decision that records "checked, no change"), or a human verification review of
+ * a contribution that targets or introduces it. System decisions never count.
+ */
+export function lastHumanReview(ledger: Ledger, problemId: string, decisions = currentDecisions(ledger)): string | null {
+  const isHuman = (actorId: string) => ledger.find("Actor", actorId)?.fields["kind"] === "human";
+  const times: string[] = [];
+  for (const decision of decisions) {
+    if (decision.targetType === "problem" && decision.targetId === problemId && decision.outcome === "accepted" && isHuman(decision.createdBy)) times.push(decision.effectiveAt);
+  }
+  const contributionIds = new Set(
+    ledger.currentOf("Contribution")
+      .filter((c) => (c.fields["problemIds"] as string[]).includes(problemId) || (c.fields["newProblemIds"] as string[]).includes(problemId))
+      .map((c) => c.id),
+  );
+  for (const review of ledger.currentOf("Review")) {
+    if (review.fields["kind"] === "verification" && contributionIds.has(review.fields["contributionId"] as string) && isHuman(review.fields["reviewerId"] as string)) {
+      times.push(String(review.fields["createdAt"]));
+    }
+  }
+  return times.sort().at(-1) ?? null;
 }
 
 export interface ProblemSummary {

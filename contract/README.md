@@ -46,7 +46,9 @@ role: primary
 The source asked whether …
 ```
 
-Identifiers are ULIDs. A clause is addressed as `<statementId>#<clauseId>`.
+Research statuses are exactly `Solved` and `Unsolved`. Authoritative catalog imports carry `Problem.authoredCatalog`; this records the authored status without inventing reviews or claims. Its `sourcePath` points to the maintained JSON record, and an optional `record` preserves all original keys. Normal API revisions must preserve this snapshot. Independent topic classifications use `Taxonomy.independentTopics: true` and nullable topic `areaId`.
+
+Identifiers are ULIDs. Problems also accept original `op_…` IDs and human-readable slugs as aliases. A clause is addressed as `<statementId>#<clauseId>`.
 Digests are `sha256:<hex>`.
 
 ## Commands

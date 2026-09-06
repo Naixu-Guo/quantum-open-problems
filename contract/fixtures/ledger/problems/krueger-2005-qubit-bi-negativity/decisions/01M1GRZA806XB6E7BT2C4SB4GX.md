@@ -8,6 +8,7 @@ supersedes: null
 kind: acceptance
 targetType: contribution
 targetId: "01M1GRZA80DJB2T0PH81Z5CAFJ"
+mergeIntoProblemId: null
 outcome: accepted
 status: null
 verificationLevel: human-signed

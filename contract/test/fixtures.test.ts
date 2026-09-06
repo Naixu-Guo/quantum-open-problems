@@ -19,15 +19,15 @@ test("derived state of the fixture problems", () => {
 
   const binegativity = byAlias.get("krueger-2005-qubit-bi-negativity");
   assert.equal(binegativity?.catalogState, "published");
-  assert.equal(binegativity?.status, "solved");
+  assert.equal(binegativity?.status, "Solved");
   assert.equal(binegativity?.clauses[0]?.status, "resolved");
 
   const ruskai = byAlias.get("ruskai-2007-multiplicativity-p2-channel-classes");
-  assert.equal(ruskai?.status, "partial");
+  assert.equal(ruskai?.status, "Unsolved");
   assert.equal(ruskai?.clauses[0]?.status, "partial");
 
   const kashaev = byAlias.get("theoremdb-p3114-kashaev-volume-conjecture");
-  assert.equal(kashaev?.status, "open");
+  assert.equal(kashaev?.status, "Unsolved");
   assert.equal(kashaev?.clauses[0]?.status, "open");
 
   const pauli = byAlias.get("v2-quantum-capacity-qubit-pauli-channel");
@@ -36,12 +36,12 @@ test("derived state of the fixture problems", () => {
 
   const example = byAlias.get("example-conformance-problem");
   assert.equal(example?.catalogState, "published");
-  assert.equal(example?.status, "partial");
+  assert.equal(example?.status, "Unsolved");
 
   const auxiliary = byAlias.get("example-auxiliary-lemma");
   assert.equal(auxiliary?.role, "auxiliary");
   assert.equal(auxiliary?.catalogState, "published");
-  assert.equal(auxiliary?.status, "refuted");
+  assert.equal(auxiliary?.status, "Solved");
   assert.equal(auxiliary?.indexed, false);
 });
 

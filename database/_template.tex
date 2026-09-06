@@ -1,0 +1,100 @@
+% The TeX form of a problem record: the layout accepted by
+% `node scripts/import-problems.mjs` and written to database/problems_tex/ by
+% `node scripts/sync-tex.mjs`. The JSON record in database/problems_json/ is
+% the source of truth (see _template.json); this layout maps onto it section
+% by section: \section is "title", \paragraph{Problem.} is "statement", each
+% \item of Progress is one "progress" entry, each labeled \item of References
+% is one "references" entry, Field and Topic are the "fields" and "topics"
+% arrays, and the remaining subsections are the record keys of the same name.
+%
+% Rules:
+% 1. To author in TeX, copy this structure into a problem_N.tex file and run
+%    `node scripts/import-problems.mjs <file>`; <op_id> is the stable ID
+%    printed by `node scripts/new-problem-id.mjs`.
+% 2. Put only the descriptive title in \section; the site never shows a
+%    problem number, so do not prefix the title with "Problem N".
+% 3. Put every displayed expression in a numbered equation environment, give
+%    it a unique label of the form eq:<prefix>-description, and cite it with
+%    \eqref. Choose a short prefix unique to this record (for example the last
+%    four characters of the ID).
+% 4. Use record-specific reference labels of the form ref:<prefix>-description.
+% 5. Make each problem statement independent and self-contained. Describe
+%    relationships to other problems only in the Comment subsection.
+% 6. Use alpha-style author--year labels for references and citations.
+% 7. Place Source between Status and Progress. Cite the paper or preprint that
+%    states the problem explicitly, or identify concise implicit sources. If no
+%    literature source exists, give the contributor's name; use "unknown" only
+%    when the contributor is also unknown.
+% 8. Keep Field, Topic, and ID as the final three subsections, in that order.
+%    Assign one or two fields from the "fields" list and one to five topics
+%    from the "topics" list of database/tags.json, separated by semicolons.
+%    (Older files carry a single Tag subsection instead; it is still read.)
+% 9. Run `node site/build.mjs` before committing; the build rejects records
+%    that break these rules.
+
+\section{Short descriptive title}
+\label{sec:problem-PREFIX}
+
+\paragraph{Problem.}
+State the problem here without relying on another problem's definitions or
+notation.  Introduce each displayed equation in the prose, then use a numbered
+and labeled equation environment.  Refer back to every display using
+\eqref{eq:PREFIX-description}.
+\begin{equation}
+  f(x)=x,
+  \label{eq:PREFIX-description}
+\end{equation}
+
+\subsection*{Status}
+
+% Use exactly one of: Solved, Unsolved.
+Unsolved
+
+\subsection*{Source}
+
+Briefly identify the paper or preprint that posed the problem, and state
+whether the attribution is explicit or implicit
+\sourcecite{ref:PREFIX-source}{AutYY}.  Multiple sources may be cited when
+needed.  If no literature source exists, write \texttt{Contributor: Full
+Name.}; if the contributor is unknown, write \texttt{unknown}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Summarize a known result and cite its source with
+  \sourcecite{ref:PREFIX-source}{AutYY}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[AutYY]}]\label{ref:PREFIX-source}
+  Author, ``Title,'' \emph{Journal} \textbf{volume}, pages (year).
+  \href{https://doi.org/example}{doi:example};
+  \href{https://arxiv.org/abs/example}{arXiv:example}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+State precisely what remains unresolved.  If this problem is related to
+another problem in the zoo, explain that relationship here rather than in the
+problem statement.
+
+\subsection*{Field}
+
+% One or two names from the "fields" list of database/tags.json, exactly as
+% written, separated by semicolons: the broad research areas of the problem.
+Canonical field
+
+\subsection*{Topic}
+
+% One to five names from the "topics" list of database/tags.json, exactly as
+% written, separated by semicolons: the specific objects and techniques.
+Canonical topic one; Canonical topic two
+
+\subsection*{ID}
+
+% Paste the output of `node scripts/new-problem-id.mjs` and escape the
+% underscore for LaTeX.  Never reuse or regenerate an assigned ID.
+\texttt{op\_0123456789abcdef}

@@ -15,8 +15,17 @@ import { RECORD_TYPES, TARGET_TYPE_TO_KIND, parseClauseRef, type RecordType, typ
 import { uniquenessKey, type Source } from "./types/source.ts";
 import { primaryProblemId, type Contribution } from "./types/contribution.ts";
 import { consistencyErrors } from "./derive.ts";
+import { REVIEWED_REVISION_TYPES } from "./targets.ts";
+import type { Contribution as ContributionRecord } from "./types/contribution.ts";
 
-export type IssueCategory = "parse" | "schema" | "identity" | "layout" | "reference" | "rule" | "uniqueness";
+const DEFAULT_POLICY_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "policy");
+
+function knownPolicyVersions(policyDir: string): Set<string> {
+  if (!fs.existsSync(policyDir)) return new Set();
+  return new Set(fs.readdirSync(policyDir).map((name) => name.match(/^v(\d+)\.md$/u)?.[1]).filter((v): v is string => Boolean(v)));
+}
+
+export type IssueCategory = "parse" | "schema" | "identity" | "layout" | "reference" | "rule" | "uniqueness" | "commit";
 
 export interface Issue {
   category: IssueCategory;
@@ -153,27 +162,72 @@ export function expectedRelPath(record: LoadedRecord, ledger: Ledger): string | 
       return `artifacts/${record.id}.md`;
     case "Comment":
       return `comments/${String(f["targetType"])}/${String(f["targetId"]).replace("#", "--")}/${record.id}.r${rev}.md`;
+    case "Taxonomy":
+      return `taxonomy.r${rev}.md`;
     default:
       return undefined;
   }
 }
 
-export function validateLedger(roots: string[], schemaDir: string = DEFAULT_SCHEMA_DIR): ValidationReport {
+let cachedValidators: { schemaDir: string; validators: ReturnType<typeof buildValidators> } | null = null;
+function validatorsFor(schemaDir: string): ReturnType<typeof buildValidators> {
+  if (!cachedValidators || cachedValidators.schemaDir !== schemaDir) cachedValidators = { schemaDir, validators: buildValidators(schemaDir) };
+  return cachedValidators.validators;
+}
+
+const payloadValidators = new Map<string, Map<string, ValidateFunction>>();
+
+/** Validate an interface payload against `schema/payloads/<name>.schema.json`. */
+export function validatePayload(name: string, object: unknown, schemaDir: string = DEFAULT_SCHEMA_DIR): string[] {
+  let byName = payloadValidators.get(schemaDir);
+  if (!byName) {
+    const ajv = new Ajv2020({ allErrors: true, strict: true, strictTypes: false, strictRequired: false, allowUnionTypes: true });
+    addFormats(ajv);
+    const dir = path.join(schemaDir, "payloads");
+    for (const file of fs.readdirSync(dir).filter((f) => f.endsWith(".schema.json"))) ajv.addSchema(JSON.parse(fs.readFileSync(path.join(dir, file), "utf8")));
+    byName = new Map();
+    for (const file of fs.readdirSync(dir).filter((f) => f.endsWith(".schema.json"))) {
+      const validate = ajv.getSchema(`https://naixu-guo.github.io/quantum-open-problems/contract/v1/payloads/${file}`);
+      if (validate) byName.set(file.replace(".schema.json", ""), validate);
+    }
+    payloadValidators.set(schemaDir, byName);
+  }
+  const validate = byName.get(name);
+  if (!validate) return [`unknown payload schema ${name}`];
+  return validate(object) ? [] : [formatAjvErrors(validate)];
+}
+
+/** Schema-check one record object (header fields plus body) before it touches the ledger. */
+export function validateRecordShape(object: Record<string, unknown>, schemaDir: string = DEFAULT_SCHEMA_DIR): string[] {
+  const type = object["type"];
+  if (typeof type !== "string" || !RECORD_TYPES.includes(type as RecordType)) return [`unknown record type ${String(type)}`];
+  const validators = validatorsFor(schemaDir);
+  const validate = object["redacted"] === true ? validators.tombstone : validators.byType.get(type as RecordType);
+  if (!validate) return [`no schema for ${type}`];
+  return validate(object) ? [] : [formatAjvErrors(validate)];
+}
+
+export function validateLedger(roots: string[], schemaDir: string = DEFAULT_SCHEMA_DIR, policyDir: string = DEFAULT_POLICY_DIR): ValidationReport {
   const issues: Issue[] = [];
   const push = (category: IssueCategory, record: { relPath: string } | string, message: string) =>
     issues.push({ category, path: typeof record === "string" ? record : record.relPath, message });
 
   const { records, issues: loadIssues } = loadRecords(roots);
   for (const issue of loadIssues) push("parse", issue.path, issue.message);
-  const ledger = new Ledger(records);
-  const validators = buildValidators(schemaDir);
+  const validators = validatorsFor(schemaDir);
 
-  // Schema.
+  // Schema. Records that fail it are excluded from every later check, so a malformed file can
+  // only ever produce a schema issue, never an exception inside a rule.
+  const malformed = new Set<LoadedRecord>();
   for (const record of records) {
     const validate = record.redacted ? validators.tombstone : validators.byType.get(record.type);
     if (!validate) continue;
-    if (!validate(recordObject(record))) push("schema", record, formatAjvErrors(validate));
+    if (!validate(recordObject(record))) {
+      push("schema", record, formatAjvErrors(validate));
+      malformed.add(record);
+    }
   }
+  const ledger = new Ledger(records.filter((record) => !malformed.has(record)));
 
   // Identity: one type per id, unique immutable ids, contiguous revisions.
   for (const [id, list] of ledger.revisions) {
@@ -194,14 +248,14 @@ export function validateLedger(roots: string[], schemaDir: string = DEFAULT_SCHE
   }
 
   // Layout.
-  for (const record of records) {
+  for (const record of ledger.records) {
     const expected = expectedRelPath(record, ledger);
     if (expected === undefined) push("layout", record, "cannot determine where this record belongs (an owner it names is missing)");
     else if (expected !== record.relPath) push("layout", record, `expected at ${expected}`);
   }
 
   // References and rules, on current, non-redacted records.
-  for (const record of records) {
+  for (const record of ledger.records) {
     if (record.redacted) continue;
     const module = TYPE_MODULES[record.type];
     const object = recordObject(record) as never;
@@ -214,10 +268,10 @@ export function validateLedger(roots: string[], schemaDir: string = DEFAULT_SCHE
     for (const reference of outgoing) {
       if (reference.target === "Ledger") continue;
       if (reference.target === "Clause") {
-        if (!ledger.clause(reference.id)) push("reference", record, `${reference.field}: clause ${reference.id} does not resolve`);
+        if (!ledger.clauseResolves(reference.id)) push("reference", record, `${reference.field}: clause ${reference.id} does not resolve`);
         continue;
       }
-      if (!ledger.find(reference.target, reference.id)) push("reference", record, `${reference.field}: ${reference.target} ${reference.id} does not resolve`);
+      if (!ledger.findAny(reference.target, reference.id)) push("reference", record, `${reference.field}: ${reference.target} ${reference.id} does not resolve`);
     }
     try {
       for (const message of module.rules(object, ledger)) push("rule", record, message);
@@ -259,6 +313,41 @@ export function validateLedger(roots: string[], schemaDir: string = DEFAULT_SCHE
       if (seen.has(version)) push("uniqueness", statement, `statement version ${version} appears twice for this problem`);
       seen.add(version);
     }
+  }
+
+  // Taxonomy: exactly one, and every area and topic a problem names exists.
+  const taxonomies = ledger.currentOf("Taxonomy");
+  if (taxonomies.length !== 1) push("uniqueness", taxonomies[1] ?? taxonomies[0] ?? "taxonomy.r1.md", `the ledger needs exactly one taxonomy record (found ${taxonomies.length})`);
+  const taxonomy = taxonomies[0];
+  if (taxonomy) {
+    const areaIds = new Set((taxonomy.fields["areas"] as { id: string }[]).map((area) => area.id));
+    const topics = new Map((taxonomy.fields["topics"] as { id: string; areaId: string | null }[]).map((topic) => [topic.id, topic.areaId]));
+    for (const problem of ledger.currentOf("Problem")) {
+      for (const areaId of problem.fields["areaIds"] as string[]) if (!areaIds.has(areaId)) push("reference", problem, `areaIds: unknown area ${areaId}`);
+      for (const topicId of problem.fields["topicIds"] as string[]) {
+        const areaId = topics.get(topicId);
+        if (areaId === undefined) push("reference", problem, `topicIds: unknown topic ${topicId}`);
+        else if (taxonomy.fields["independentTopics"] !== true && (areaId === null || !(problem.fields["areaIds"] as string[]).includes(areaId))) push("rule", problem, `topic ${topicId} belongs to area ${areaId}, which the problem does not list`);
+      }
+    }
+  }
+
+  // Policy versions named by decisions must exist.
+  const policyVersions = knownPolicyVersions(policyDir);
+  for (const decision of ledger.currentOf("Decision")) {
+    const version = String(decision.fields["policyVersion"]);
+    if (policyVersions.size > 0 && !policyVersions.has(version)) push("reference", decision, `policyVersion ${version} is not a published policy`);
+  }
+
+  // Later revisions of reviewed entities must be introduced by an entity-revision contribution.
+  const introduced = new Set<string>();
+  for (const contribution of ledger.currentOf("Contribution")) {
+    for (const item of (contribution.fields as unknown as ContributionRecord).revisions) introduced.add(`${item.entityId}@${item.revision}`);
+  }
+  for (const record of ledger.records) {
+    if (record.redacted || !REVIEWED_REVISION_TYPES.has(record.type)) continue;
+    const revision = revisionOf(record);
+    if (revision > 1 && !introduced.has(`${record.id}@${revision}`)) push("rule", record, `revision ${revision} is not introduced by an entity-revision contribution`);
   }
 
   // Status-versus-clause consistency.

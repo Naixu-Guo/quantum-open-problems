@@ -8,8 +8,9 @@ supersedes: null
 kind: status
 targetType: problem
 targetId: "01M1GZV1G0Y151A2VCJHPX93VG"
+mergeIntoProblemId: null
 outcome: accepted
-status: partial
+status: Unsolved
 verificationLevel: null
 reviewIds:
   - "01M1HDJG00T1ZF52D75H8DQGFN"

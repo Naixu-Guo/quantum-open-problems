@@ -1,4 +1,5 @@
-> **Superseded (2026-09-02).** This document describes the legacy static release and its migration plan. The `catalog/` slice it mentions has been removed; its four problems live on as fixtures under `contract/fixtures/`. The current design is
+> **Historical design.** The current catalog and ledger boundary is documented in
+> [`docs/CATALOG_INTEGRATION.md`](docs/CATALOG_INTEGRATION.md). This document describes the legacy static release and its migration plan. The `catalog/` slice it mentions has been removed; its four problems live on as fixtures under `contract/fixtures/`. The process design is
 > [`docs/DESIGN.md`](docs/DESIGN.md). This file is kept for the history
 > of the decision and as a description of the legacy release that now
 > serves as seed data.

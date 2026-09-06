@@ -1,0 +1,19 @@
+---
+id: "01M1Q787QRDTZFS48RF7FPBAWB"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1Q787QRVXGPCXG6KEQTF7N1"
+createdAt: "2026-09-04T22:04:59Z"
+type: "Source"
+title: "Towards the Ultimate Limits of Quantum Channel Discrimination and Quantum Communication"
+kind: "paper"
+completeness: "partial"
+authors: []
+venue: ""
+date: "2025"
+doi: "10.1007/s11432-024-4488-0"
+arxivId: "2110.14842"
+url: "https://doi.org/10.1007/s11432-024-4488-0"
+version: null
+---
+K. Fang, G. Gour, and X. Wang, “Towards the Ultimate Limits of Quantum Channel Discrimination and Quantum Communication,” *Science China Information Sciences* **68**, 180509 (2025). [doi:10.1007/s11432-024-4488-0](https://doi.org/10.1007/s11432-024-4488-0); [arXiv:2110.14842](https://arxiv.org/abs/2110.14842).
