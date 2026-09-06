@@ -571,7 +571,7 @@ export function renderTagsIndex({ config, root, taxonomy, fieldCounts, topicCoun
   });
 }
 
-export function renderTagPage({ config, root, kind, tag, records, related }) {
+export function renderTagPage({ config, root, kind, tag, tagSlug = slug(tag), historical = false, records, related }) {
   const meta = TAG_KINDS[kind];
   const otherKind = kind === "field" ? "topic" : "field";
   const counts = { unsolved: 0, solved: 0 };
@@ -581,8 +581,8 @@ export function renderTagPage({ config, root, kind, tag, records, related }) {
     <section class="section-shell">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><a href="${root}tags/">Fields and topics</a><span aria-hidden="true">›</span><span>${escape(tag)}</span></nav>
       <div class="section-heading">
-        <div><p class="section-index">${meta.label}</p><h1>${escape(tag)}</h1></div>
-        <p>${records.length} problem${records.length === 1 ? "" : "s"}: ${counts.unsolved} unsolved, ${counts.solved} solved. <a class="text-link" href="${root}problems/?${kind}=${slug(tag)}">Filter the catalog by this ${kind} →</a></p>
+        <div><p class="section-index">${historical ? "Historical classification" : meta.label}</p><h1>${escape(tag)}</h1></div>
+        <p>${records.length} problem${records.length === 1 ? "" : "s"}: ${counts.unsolved} unsolved, ${counts.solved} solved. <a class="text-link" href="${root}problems/?${historical ? "legacyTag" : kind}=${encodeURIComponent(tagSlug)}">Filter the catalog by this ${kind} →</a></p>
       </div>
       ${relatedEntries.length ? `<div class="top-tags tag-page-related">
         <span class="top-tags-label">${kind === "field" ? "Topics in this field" : "Fields of these problems"}</span>
@@ -593,7 +593,7 @@ export function renderTagPage({ config, root, kind, tag, records, related }) {
       </ul>
     </section>`;
   return layout({
-    config, root, path: `tag/${slug(tag)}/`, current: "tags",
+    config, root, path: `tag/${tagSlug}/`, current: "tags",
     title: `${tag} · ${meta.label}`,
     description: `${records.length} problems in the ${kind} “${tag}” of the ${config.shortName}.`,
     body, bodyClass: "page-tag"

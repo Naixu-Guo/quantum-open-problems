@@ -229,7 +229,7 @@
     };
     const historicalTags = window.QIQCOP_LEGACY_TAGS || {};
     state.legacyTag = [params.get("legacyTag"), params.get("tag"), params.get("field"), params.get("topic")]
-      .find((key) => key && historicalTags[key] && !fieldSlugs.has(key) && !topicSlugs.has(key)) || "";
+      .find((key) => key && Object.hasOwn(historicalTags, key) && Array.isArray(historicalTags[key]?.ids) && !fieldSlugs.has(key) && !topicSlugs.has(key)) || "";
     // Links written before the taxonomy was split use ?tag=; honour them.
     const legacyTag = params.get("tag");
     if (legacyTag) {

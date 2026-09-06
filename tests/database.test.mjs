@@ -14,9 +14,25 @@ const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."
 const read = (file) => JSON.parse(fs.readFileSync(file, "utf8"));
 const records = fs.readdirSync(path.join(repoRoot, "database/problems_json")).filter((name) => name.endsWith(".json"))
   .map((name) => read(path.join(repoRoot, "database/problems_json", name)));
-const example = records.find((record) => record.status === "Solved" && record.metadata.relatedProblemIds.length === 0 && record.metadata.parentProblemId === null);
+const example = records.find((record) => record.status === "Solved");
 const script = (name, args = []) => spawnSync(process.execPath, [path.join(repoRoot, "scripts", name), ...args], { encoding: "utf8" });
 const succeed = (result) => assert.equal(result.status, 0, result.stdout + result.stderr);
+
+// Include the relationship closure instead of choosing a conveniently isolated record.
+function fixtureRecords(seed) {
+  const included = new Map();
+  function visit(record) {
+    if (included.has(record.id)) return;
+    included.set(record.id, record);
+    for (const id of [...record.metadata.relatedProblemIds, ...[record.metadata.parentProblemId].filter(Boolean)]) {
+      const dependency = records.find((other) => other.ulid === id);
+      assert.ok(dependency, `missing related fixture record ${id}`);
+      visit(dependency);
+    }
+  }
+  visit(seed);
+  return [...included.values()];
+}
 
 function fixture(t) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "qiqcop-metadata-test-"));
@@ -25,7 +41,7 @@ function fixture(t) {
   fs.mkdirSync(path.join(root, "database/problems_json"), { recursive: true });
   fs.mkdirSync(path.join(root, "database/problems_tex"));
   for (const file of ["site/config.json", "database/tags.json", "database/metadata.json", "database/actors.json", "database/_template.json",
-    `database/problems_json/${example.id}.json`, `database/problems_tex/${example.id}.tex`]) {
+    ...fixtureRecords(example).flatMap((record) => [`database/problems_json/${record.id}.json`, `database/problems_tex/${record.id}.tex`])]) {
     fs.copyFileSync(path.join(repoRoot, file), path.join(root, file));
   }
   return root;
@@ -189,5 +205,11 @@ test("built aliases and main adapter preserve every authored record and binary s
   }
   assert.equal(fs.readFileSync(path.join(output, "api/v1/problems.jsonl"), "utf8").trim().split("\n").length, records.length);
   assert.equal(read(path.join(output, "feed.json")).items.length, records.length);
+  for (const dir of fs.readdirSync(path.join(output, "tag"))) {
+    const page = fs.readFileSync(path.join(output, "tag", dir, "index.html"), "utf8");
+    if (!page.includes("Historical classification")) continue;
+    assert.ok(page.includes(`href="../../problems/?legacyTag=${dir}"`));
+    assert.ok(page.includes(`rel="canonical" href="${read(path.join(repoRoot, "site/config.json")).siteUrl.replace(/\/$/, "")}/tag/${dir}/"`));
+  }
   assert.ok(read(path.join(output, "api/v1/release.json")).catalogDigest.startsWith("sha256:"));
 });

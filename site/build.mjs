@@ -301,7 +301,7 @@ fs.writeFileSync(directoryPath, fs.readFileSync(directoryPath, "utf8").replace("
 for (const [key, entry] of Object.entries(historicalTags)) {
   if (fs.existsSync(path.join(outDir, `tag/${key}/index.html`))) continue;
   const tagged = records.filter((record) => entry.ids.includes(record.id));
-  write(`tag/${key}/index.html`, renderTagPage({ config, root: "../../", kind: entry.kind, tag: `${entry.name} (historical classification)`, records: tagged, related: new Map() }));
+  write(`tag/${key}/index.html`, renderTagPage({ config, root: "../../", kind: entry.kind, tag: entry.name, tagSlug: key, historical: true, records: tagged, related: new Map() }));
 }
 
 // JSON API

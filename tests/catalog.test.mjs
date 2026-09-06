@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import vm from "node:vm";
-import { renderDirectory } from "../site/lib/render.mjs";
+import { renderDirectory, renderTagPage } from "../site/lib/render.mjs";
 
 const config = JSON.parse(fs.readFileSync(new URL("../site/config.json", import.meta.url), "utf8"));
 const clientScript = fs.readFileSync(new URL("../site/assets/app.js", import.meta.url), "utf8");
@@ -88,4 +88,23 @@ test("browser initialization and filter reset preserve newest-first ordering at 
 test("an explicit title sort remains available while invalid sort links use newest first", () => {
   assert.deepEqual(loadCatalog("?sort=title").ids(), records.map((entry) => entry.id));
   assert.deepEqual(loadCatalog("?sort=invalid").ids(), expected);
+});
+
+
+test("prototype names and malformed historical tags do not crash catalog filters", () => {
+  for (const param of ["topic", "field", "tag", "legacyTag"]) {
+    for (const key of ["constructor", "__proto__", "toString", "hasOwnProperty"]) {
+      assert.deepEqual(loadCatalog(`?${param}=${key}`).visibleIds(), expected);
+    }
+  }
+  assert.deepEqual(loadCatalog("?legacyTag=broken", { broken: { name: "Broken", ids: null } }).visibleIds(), expected);
+});
+
+test("historical tag presentation retains its real canonical URL and working filter", () => {
+  const html = renderTagPage({ config, root: "../../", kind: "field", tag: "Quantum information theory",
+    tagSlug: "quantum-information-theory", historical: true, records, related: new Map() });
+  assert.ok(html.includes('href="../../problems/?legacyTag=quantum-information-theory"'));
+  assert.ok(html.includes(`rel="canonical" href="${config.siteUrl.replace(/\/$/, "")}/tag/quantum-information-theory/"`));
+  assert.ok(html.includes("Historical classification"));
+  assert.ok(!html.includes("quantum-information-theory-historical-classification"));
 });
