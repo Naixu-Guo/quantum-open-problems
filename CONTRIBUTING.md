@@ -6,6 +6,12 @@ named by its stable ID, with the TeX form of each record in
 only way content enters the site; the build validates every record, and the
 validation workflow runs it on each pull request.
 
+For agent-assisted additions and revisions, follow the repository's
+[writing-open-problems skill](.claude/skills/writing-open-problems/SKILL.md).
+It covers primary-source verification, semantic duplicate checks, the current
+JSON format, and synchronization of derived outputs. Use the supplied sources
+and ask only for information needed to make the question or attribution precise.
+
 ## Record format
 
 Run `node scripts/new-problem-id.mjs --create` to create a record scaffold
