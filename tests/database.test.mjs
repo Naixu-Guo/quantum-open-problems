@@ -14,6 +14,10 @@ const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."
 const read = (file) => JSON.parse(fs.readFileSync(file, "utf8"));
 const records = fs.readdirSync(path.join(repoRoot, "database/problems_json")).filter((name) => name.endsWith(".json"))
   .map((name) => read(path.join(repoRoot, "database/problems_json", name)));
+const canonicalQuestions = records.filter((record) => !record.metadata.equivalentToProblemId);
+const expectedQuestionCounts = { total: canonicalQuestions.length,
+  unsolved: canonicalQuestions.filter((record) => record.status === "Unsolved").length,
+  solved: canonicalQuestions.filter((record) => record.status === "Solved").length };
 const example = records.find((record) => record.status === "Solved");
 const script = (name, args = []) => spawnSync(process.execPath, [path.join(repoRoot, "scripts", name), ...args], { encoding: "utf8" });
 const succeed = (result) => assert.equal(result.status, 0, result.stdout + result.stderr);
@@ -183,10 +187,10 @@ test("built aliases and main adapter preserve every authored record and binary s
   const identities = read(path.join(output, "api/identifiers.json"));
   const index = read(path.join(output, "api/index.json"));
   assert.equal(index.counts.total, records.length, "compatible counts remain record counts");
-  assert.deepEqual(index.counts.distinctQuestions, { total: 85, unsolved: 77, solved: 8 });
+  assert.deepEqual(index.counts.distinctQuestions, expectedQuestionCounts);
   const home = fs.readFileSync(path.join(output, "index.html"), "utf8");
-  assert.ok(home.includes("<strong>85</strong><span>Distinct questions</span>"));
-  assert.ok(home.includes("<strong>8</strong><span>Solved</span>"));
+  assert.ok(home.includes(`<strong>${expectedQuestionCounts.total}</strong><span>Distinct questions</span>`));
+  assert.ok(home.includes(`<strong>${expectedQuestionCounts.solved}</strong><span>Solved</span>`));
   const catalog = fs.readFileSync(path.join(output, "problems/index.html"), "utf8");
   assert.equal(identities.problems.length, records.length);
   for (const record of records) {
@@ -229,10 +233,20 @@ test("equivalent records retain both identities but count as one question", () =
   assert.notEqual(duplicate.id, canonical.id);
   assert.equal(duplicate.status, canonical.status);
   validateRecordIdentities([duplicate, canonical]);
-  assert.deepEqual(distinctQuestionCounts([duplicate, canonical]), { total: 1, unsolved: 0, solved: 1 });
-  assert.deepEqual(distinctQuestionCounts(records), { total: records.length - 1, unsolved: 77, solved: 8 });
+  assert.deepEqual(distinctQuestionCounts([duplicate, canonical]), { total: 1, unsolved: canonical.status === "Unsolved" ? 1 : 0, solved: canonical.status === "Solved" ? 1 : 0 });
+  assert.deepEqual(distinctQuestionCounts(records), expectedQuestionCounts);
   const loop = structuredClone(canonical);
   loop.metadata.equivalentToProblemId = duplicate.ulid;
   assert.throws(() => validateRecordIdentities([duplicate, loop]), /canonical problem/);
-  assert.throws(() => validateRecordIdentities([{ ...duplicate, status: "Unsolved" }, canonical]), /same status/);
+  assert.throws(() => validateRecordIdentities([{ ...duplicate, status: canonical.status === "Solved" ? "Unsolved" : "Solved" }, canonical]), /same status/);
+});
+
+
+test("question totals grow with new independent records without revising count fixtures", () => {
+  for (const status of ["Solved", "Unsolved"]) {
+    const fresh = { ...example, id: `fixture-${status}`, ulid: `fixture-${status}`, status, metadata: {} };
+    const expected = { ...expectedQuestionCounts, total: expectedQuestionCounts.total + 1 };
+    expected[status.toLowerCase()] += 1;
+    assert.deepEqual(distinctQuestionCounts([...records, fresh]), expected);
+  }
 });

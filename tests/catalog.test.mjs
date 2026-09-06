@@ -105,6 +105,8 @@ test("historical tag presentation retains its real canonical URL and working fil
     tagSlug: "quantum-information-theory", historical: true, records, related: new Map() });
   assert.ok(html.includes('href="../../problems/?legacyTag=quantum-information-theory"'));
   assert.ok(html.includes(`rel="canonical" href="${config.siteUrl.replace(/\/$/, "")}/tag/quantum-information-theory/"`));
-  assert.ok(html.includes("Historical classification"));
+  assert.ok(html.includes("Quantum information theory · Historical classification"));
+  assert.ok(html.includes("records from the historical classification"));
+  assert.ok(!html.includes("Quantum information theory · Field"));
   assert.ok(!html.includes("quantum-information-theory-historical-classification"));
 });

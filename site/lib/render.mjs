@@ -238,7 +238,7 @@ export const byRecentEdit = (records) => records.slice().sort((a, b) =>
   || a.id.localeCompare(b.id, "en"));
 
 const equivalenceLinks = (record, root) => (record.equivalentRecords ?? []).length
-  ? `<p>Equivalent question: ${(record.equivalentRecords ?? []).map((other) => `<a href="${root}problem/${other.id}/">${escape(other.id)}</a>`).join(", ")}. Counted once in question totals.</p>` : "";
+  ? `<p>Equivalent question: ${(record.equivalentRecords ?? []).map((other) => `<a href="${root}problem/${other.id}/">${escape(other.title || other.id)}</a>`).join(", ")}. Counted once in question totals.</p>` : "";
 
 export function problemRow(record, root) {
   const search = [record.title.text, record.id, ...(record.aliases ?? []), record.fields.join(" "), record.topics.join(" "), record.statement.text].join(" ").toLowerCase();
@@ -591,7 +591,7 @@ export function renderTagPage({ config, root, kind, tag, tagSlug = slug(tag), hi
       <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><a href="${root}tags/">Fields and topics</a><span aria-hidden="true">›</span><span>${escape(tag)}</span></nav>
       <div class="section-heading">
         <div><p class="section-index">${historical ? "Historical classification" : meta.label}</p><h1>${escape(tag)}</h1></div>
-        <p>${records.length} record${records.length === 1 ? "" : "s"}: ${counts.unsolved} unsolved, ${counts.solved} solved. <a class="text-link" href="${root}problems/?${historical ? "legacyTag" : kind}=${encodeURIComponent(tagSlug)}">Filter the catalog by this ${kind} →</a></p>
+        <p>${records.length} record${records.length === 1 ? "" : "s"}: ${counts.unsolved} unsolved, ${counts.solved} solved. <a class="text-link" href="${root}problems/?${historical ? "legacyTag" : kind}=${encodeURIComponent(tagSlug)}">Filter the catalog by this ${historical ? "historical classification" : kind} →</a></p>
       </div>
       ${relatedEntries.length ? `<div class="top-tags tag-page-related">
         <span class="top-tags-label">${kind === "field" ? "Topics in this field" : "Fields of these problems"}</span>
@@ -603,8 +603,8 @@ export function renderTagPage({ config, root, kind, tag, tagSlug = slug(tag), hi
     </section>`;
   return layout({
     config, root, path: `tag/${tagSlug}/`, current: "tags",
-    title: `${tag} · ${meta.label}`,
-    description: `${records.length} problems in the ${kind} “${tag}” of the ${config.shortName}.`,
+    title: `${tag} · ${historical ? "Historical classification" : meta.label}`,
+    description: historical ? `${records.length} records from the historical classification “${tag}” of the ${config.shortName}.` : `${records.length} problem records in the ${kind} “${tag}” of the ${config.shortName}.`,
     body, bodyClass: "page-tag"
   });
 }

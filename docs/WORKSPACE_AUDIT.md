@@ -218,3 +218,20 @@ The previous broad merge remains part of Git history. These corrections are
 split into scoped local commits; that is not a claim of independent human
 review of the earlier scientific status change. Historical incorrect export
 headers are documented in CATALOG_PROVENANCE.md rather than rewritten.
+
+## Workflow regression follow-up (2026-09-07)
+
+The next review identified overly strict adoption of service bibliography,
+a global signup block around legacy actors, fixed catalog counts in tests,
+and a gap in source uniqueness after retirement. Regression fixtures now
+cover complete bibliography in proposal handoff, export and reconciliation;
+retired-source lookup, duplicate rejection and reintroduction; and unrelated
+new users alongside legacy identities. Partial catalog fields preserve richer
+service metadata. Legacy handle conflicts affect only the corresponding login.
+
+The static converter also rejects external links outside absolute HTTP(S),
+including links inside mathematics and stripped bibliography identifiers;
+an unsafe link stops the build before publishing pages or packets. Counts
+and assertions derive from current records. Equivalence links display titles,
+historical pages describe historical classifications, and newly allocated
+export IDs persist their actual allocation time without changing existing IDs.
