@@ -17,7 +17,7 @@ import { fileURLToPath } from "node:url";
 import { parseTexRecord, renderRecord, STATUSES, slug, TexError } from "./lib/tex.mjs";
 import { validateRecordShape, canonicalJson, recordDifferences, RecordError } from "./lib/record.mjs";
 import { loadTaxonomy } from "./lib/taxonomy.mjs";
-import { validateRecordIdentities, metadataToMainProblem, ULID_PATTERN } from "./lib/metadata.mjs";
+import { distinctQuestionCounts, validateRecordIdentities, metadataToMainProblem, ULID_PATTERN } from "./lib/metadata.mjs";
 import { buildCompatibility, legacyTagIndex } from "./lib/compatibility.mjs";
 import {
   renderHome, renderProblemPage, renderDirectory, renderTagsIndex, renderTagPage, byRecentEdit,
@@ -183,7 +183,11 @@ records.splice(0, records.length, ...byRecentEdit(records));
 // Derived data
 // ---------------------------------------------------------------------------
 
-const stats = { total: records.length, unsolved: 0, solved: 0, references: 0, equations: 0 };
+for (const record of records) {
+  const questionId = record.metadata.equivalentToProblemId ?? record.ulid;
+  record.equivalentRecords = records.filter((other) => other.id !== record.id && (other.metadata.equivalentToProblemId ?? other.ulid) === questionId).map((other) => ({ id: other.id, title: other.title.text }));
+}
+const stats = { distinctQuestions: distinctQuestionCounts(records), total: records.length, unsolved: 0, solved: 0, references: 0, equations: 0 };
 const fieldCounts = new Map();
 const topicCounts = new Map();
 for (const record of records) {
@@ -313,7 +317,7 @@ const apiIndex = {
   repositoryUrl: config.repositoryUrl,
   generated: today,
   updated: dates.updated,
-  counts: { total: stats.total, unsolved: stats.unsolved, solved: stats.solved, fields: fieldCounts.size, topics: topicCounts.size, references: stats.references, equations: stats.equations },
+  counts: { distinctQuestions: stats.distinctQuestions, total: stats.total, unsolved: stats.unsolved, solved: stats.solved, fields: fieldCounts.size, topics: topicCounts.size, references: stats.references, equations: stats.equations },
   problems: records.map((record) => ({
     id: record.id,
     ulid: record.ulid,
@@ -374,6 +378,7 @@ for (const record of records) {
     comment: record.comment,
     references: record.references,
     equations: record.equations,
+    equivalentRecords: record.equivalentRecords,
     related: relatedFor(record).map((item) => ({ id: item.record.id, title: item.record.title.text, sharedFields: item.sharedFields, sharedTopics: item.sharedTopics })),
     sha256: record.sha256,
     sourceTex: record.sourceTex
@@ -423,6 +428,8 @@ Records are JSON files in ${config.repositoryUrl}/tree/${config.branch}/${config
 `);
 
 console.log(`Built ${records.length} problems, ${fieldCounts.size} fields, ${topicCounts.size} topics into ${path.relative(repoRoot, outDir) || "."}`);
-console.log(`Status: ${stats.unsolved} unsolved, ${stats.solved} solved; ${stats.references} references; ${stats.equations} equations.`);
+console.log(`Records: ${stats.unsolved} unsolved, ${stats.solved} solved; ${stats.references} references; ${stats.equations} equations.`);
 const untracked = records.filter((record) => !record.dates.tracked).length;
 if (untracked) console.log(`Note: ${untracked} record(s) have no git history yet; today's date is used for them.`);
+
+console.log(`Distinct questions: ${stats.distinctQuestions.total} total, ${stats.distinctQuestions.unsolved} unsolved, ${stats.distinctQuestions.solved} solved.`);

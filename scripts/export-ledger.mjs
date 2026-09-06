@@ -268,8 +268,14 @@ export async function exportLedger({ root = ROOT, check = false, replaceAuthorit
           const incoming = hash(JSON.stringify(value));
           const present = latest[key] === undefined ? undefined : hash(JSON.stringify(latest[key]));
           if (before === incoming) continue;
-          if ((before === undefined ? present !== incoming : present !== before && present !== incoming) && !canReconcile) throw new Error(`Catalog/service conflict at ${file}: ${key}. Reconcile the source or review --reconcile-catalog.`);
+          if ((!baseline ? present !== incoming : present !== before && present !== incoming) && !canReconcile) throw new Error(`Catalog/service conflict at ${file}: ${key}. Reconcile the source or review --reconcile-catalog.`);
           next[key] = value;
+        }
+        for (const [key, before] of Object.entries(baseline?.fields ?? {})) {
+          if (Object.hasOwn(wanted, key) || ["revision", "createdAt", "createdBy"].includes(key)) continue;
+          const present = latest[key] === undefined ? undefined : hash(JSON.stringify(latest[key]));
+          if (present !== undefined && present !== before && !canReconcile) throw new Error(`Catalog/service conflict at ${file}: ${key}. Reconcile the source before removing the field.`);
+          delete next[key];
         }
         // Alias order controls on-disk layout. Keep the service's primary alias
         // and retain every public identity during an explicit handoff.

@@ -276,7 +276,7 @@
       });
       sorted.forEach((row) => list.append(row));
       if (count) count.textContent = String(visible);
-      if (label) label.textContent = (visible === 1 ? "problem" : "problems") + (state.legacyTag ? ` · historical classification: ${historicalTags[state.legacyTag].name}` : "");
+      if (label) label.textContent = (visible === 1 ? "record" : "records") + (state.legacyTag ? ` · historical classification: ${historicalTags[state.legacyTag].name}` : "");
       if (empty) empty.hidden = visible > 0;
       const next = new URLSearchParams();
       if (state.q) next.set("q", state.q);

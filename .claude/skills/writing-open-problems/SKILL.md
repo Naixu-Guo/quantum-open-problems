@@ -46,7 +46,11 @@ hypotheses, quantifiers, resource models, and requested outputs.
 If the question already exists, update that record rather than create a new
 identity. If two existing records are equivalent, reconcile their evidence
 and status together, retain both permanent IDs and links, and document their
-relationship in Comment and `metadata.relatedProblemIds`. Never delete an
+relationship in Comment. Set `metadata.equivalentToProblemId` on the duplicate
+formulation to the canonical record's ULID; retain related links where useful.
+The canonical record cannot itself point to another equivalent record, and
+equivalent records must have the same binary status. Question totals count
+that group once; record counts retain every permanent entry. Never delete an
 archived identity merely to remove a duplicate. Different regimes or targets
 can remain separate records with an explicit relationship.
 

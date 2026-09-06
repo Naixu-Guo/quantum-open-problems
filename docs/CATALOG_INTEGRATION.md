@@ -1,6 +1,6 @@
 # Authoritative catalog and research ledger
 
-The maintained catalog is `database/problems_json/`. Its 86 records replace
+The maintained catalog is `database/problems_json/`. Its permanent records replace
 the older seed catalog while preserving every authored field, classification,
 status, and permanent identifier. Research status is exactly `Solved` or
 `Unsolved`; settled subcases remain in the progress text and clause history.
@@ -155,3 +155,26 @@ historical commits. Unmapped old records receive an explicit archive link,
 never an unverified identity redirect. Removed tag pages and query filters
 show their historical problem cohort with current content and statuses.
 Current taxonomy pages continue to use only `database/tags.json`.
+
+
+## Equivalent questions and counts
+
+`metadata.equivalentToProblemId` points directly to the canonical ULID of an
+equivalent question. The target must exist, cannot itself redirect through
+another equivalence, and must have the same binary status. This relation is
+stronger than `relatedProblemIds`; adding it requires comparing the complete
+mathematical questions. It changes neither permanent identity nor original
+statement, citation, or historical review.
+
+The less-noisy pair now has this explicit relationship: op-12fc is an
+equivalent formulation of op-fd756. Both records retain the previously
+recorded theorem locator and preprint qualification. No scientific status
+is changed by the equivalence metadata commit.
+
+The archive contains 86 records (77 Unsolved, 9 Solved), representing 85
+distinct questions (77 Unsolved, 8 Solved). Home-page question totals count
+an equivalence class once. Catalog filtering and historical taxonomy pages
+list records, keeping both formulations searchable. For compatibility,
+`api/index.json` retains record counts in `counts.total`, `counts.unsolved`,
+and `counts.solved`; `counts.distinctQuestions` exposes the deduplicated
+question totals. Individual API payloads include equivalent-record links.

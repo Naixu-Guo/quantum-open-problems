@@ -357,3 +357,27 @@ test("new catalog bibliography uses export provenance and manifest counts includ
   assert.equal((await exportLedger({ root })).changed, 0);
   assert.deepEqual(fs.readFileSync(manifestPath), bytes);
 });
+
+
+test("optional equivalence fields can be added and removed without losing history", async (t) => {
+  const { root, record, recordPath, service } = await fixture(t);
+  const other = structuredClone(record);
+  other.id = "op_1111222233334444";
+  other.ulid = deterministicUlid("equivalence-fixture");
+  other.aliases = [other.id, other.ulid, "op-1111222233334444"];
+  fs.writeFileSync(path.join(root, "database/problems_json", `${other.id}.json`), JSON.stringify(other));
+  const linked = structuredClone(record);
+  linked.metadata.equivalentToProblemId = other.ulid;
+  fs.writeFileSync(recordPath, JSON.stringify(linked));
+  await exportLedger({ root });
+  let ledger = validateLedger(service.repo.roots).ledger;
+  const revision = ledger.find("Problem", record.ulid);
+  assert.equal(revision.fields.equivalentToProblemId, other.ulid);
+  const bytes = fs.readFileSync(revision.path);
+  fs.writeFileSync(recordPath, JSON.stringify(record));
+  await exportLedger({ root });
+  ledger = validateLedger(service.repo.roots).ledger;
+  assert.equal(ledger.find("Problem", record.ulid).fields.equivalentToProblemId, undefined);
+  assert.deepEqual(fs.readFileSync(revision.path), bytes);
+  await exportLedger({ root, check: true });
+});

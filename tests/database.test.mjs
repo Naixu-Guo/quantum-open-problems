@@ -8,7 +8,7 @@ import { spawnSync } from "node:child_process";
 import { canonicalJson, canonicalRecord, recordToTex, validateRecordShape } from "../site/lib/record.mjs";
 import { parseProblem } from "../site/lib/tex.mjs";
 import { loadTaxonomy } from "../site/lib/taxonomy.mjs";
-import { metadataSlug } from "../site/lib/metadata.mjs";
+import { metadataSlug, validateRecordIdentities, distinctQuestionCounts } from "../site/lib/metadata.mjs";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (file) => JSON.parse(fs.readFileSync(file, "utf8"));
@@ -24,7 +24,7 @@ function fixtureRecords(seed) {
   function visit(record) {
     if (included.has(record.id)) return;
     included.set(record.id, record);
-    for (const id of [...record.metadata.relatedProblemIds, ...[record.metadata.parentProblemId].filter(Boolean)]) {
+    for (const id of [...record.metadata.relatedProblemIds, ...[record.metadata.parentProblemId, record.metadata.equivalentToProblemId].filter(Boolean)]) {
       const dependency = records.find((other) => other.ulid === id);
       assert.ok(dependency, `missing related fixture record ${id}`);
       visit(dependency);
@@ -181,6 +181,12 @@ test("built aliases and main adapter preserve every authored record and binary s
   const build = spawnSync(process.execPath, [path.join(repoRoot, "site/build.mjs"), "--out", output], { encoding: "utf8" });
   succeed(build);
   const identities = read(path.join(output, "api/identifiers.json"));
+  const index = read(path.join(output, "api/index.json"));
+  assert.equal(index.counts.total, records.length, "compatible counts remain record counts");
+  assert.deepEqual(index.counts.distinctQuestions, { total: 85, unsolved: 77, solved: 8 });
+  const home = fs.readFileSync(path.join(output, "index.html"), "utf8");
+  assert.ok(home.includes("<strong>85</strong><span>Distinct questions</span>"));
+  assert.ok(home.includes("<strong>8</strong><span>Solved</span>"));
   const catalog = fs.readFileSync(path.join(output, "problems/index.html"), "utf8");
   assert.equal(identities.problems.length, records.length);
   for (const record of records) {
@@ -212,4 +218,21 @@ test("built aliases and main adapter preserve every authored record and binary s
     assert.ok(page.includes(`rel="canonical" href="${read(path.join(repoRoot, "site/config.json")).siteUrl.replace(/\/$/, "")}/tag/${dir}/"`));
   }
   assert.ok(read(path.join(output, "api/v1/release.json")).catalogDigest.startsWith("sha256:"));
+});
+
+
+test("equivalent records retain both identities but count as one question", () => {
+  const duplicate = records.find((record) => record.metadata.equivalentToProblemId);
+  assert.ok(duplicate);
+  const canonical = records.find((record) => record.ulid === duplicate.metadata.equivalentToProblemId);
+  assert.ok(canonical);
+  assert.notEqual(duplicate.id, canonical.id);
+  assert.equal(duplicate.status, canonical.status);
+  validateRecordIdentities([duplicate, canonical]);
+  assert.deepEqual(distinctQuestionCounts([duplicate, canonical]), { total: 1, unsolved: 0, solved: 1 });
+  assert.deepEqual(distinctQuestionCounts(records), { total: records.length - 1, unsolved: 77, solved: 8 });
+  const loop = structuredClone(canonical);
+  loop.metadata.equivalentToProblemId = duplicate.ulid;
+  assert.throws(() => validateRecordIdentities([duplicate, loop]), /canonical problem/);
+  assert.throws(() => validateRecordIdentities([{ ...duplicate, status: "Unsolved" }, canonical]), /same status/);
 });

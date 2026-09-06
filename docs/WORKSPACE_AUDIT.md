@@ -192,3 +192,29 @@ and an independent duplicate-handling scenario that found the contradictory
 less-noisy pair without creating another record. Markdown documents and
 changed generated bodies are parse-checked separately. These checks do not
 constitute scientific status reverification or a live research-service update.
+
+
+## Corrections after the integration review (2026-09-06)
+
+The subsequent review correctly identified failures in routine bibliography
+maintenance and overly broad handoff reconciliation. Follow-up local commits
+cover export retirement and restoration, handoff scope and no-op adoption,
+durable GitHub actor recovery, prototype-key filtering, historical canonical
+URLs, clause lineage, and export timestamps and actor attribution. Regression
+fixtures exercise those paths, including preserved old record bytes.
+
+Manifest counts now distinguish historical files from active projections;
+its generation time advances only when export changes. The generated ledger
+README describes append semantics, and the service README agrees that catalog
+PRs include exported ledger changes under `ledger-change`. Database fixtures
+include the closure of related records instead of avoiding relationships.
+
+Equivalent less-noisy formulations now carry an explicit canonical relation.
+Both permanent records and their scientific text remain; distinct-question
+counts count their shared question once. See the integration guide for the
+record and question count definitions.
+
+The previous broad merge remains part of Git history. These corrections are
+split into scoped local commits; that is not a claim of independent human
+review of the earlier scientific status change. Historical incorrect export
+headers are documented in CATALOG_PROVENANCE.md rather than rewritten.
