@@ -212,6 +212,16 @@ const unescapeUrl = (value) => value
   .replace(/\\textasciitilde\{?\}?/g, "~")
   .trim();
 
+function externalUrl(value) {
+  const url = unescapeUrl(value);
+  try {
+    if (!/^https?:\/\//i.test(url) || /[\u0000-\u0020\u007f\\]/u.test(url)) throw new Error();
+    const parsed = new URL(url);
+    if (!["http:", "https:"].includes(parsed.protocol) || !parsed.hostname) throw new Error();
+  } catch { throw new TexError("External links must use an absolute http:// or https:// URL"); }
+  return url;
+}
+
 // Convert an inline TeX fragment (with mathematics already protected).
 function convertInline(text, ctx) {
   let out = "";
@@ -318,12 +328,12 @@ function handleCommand(name, text, at, ctx) {
     case "href": {
       const [url, afterUrl] = arg(at);
       const [label, next] = arg(afterUrl);
-      const href = escapeAttribute(unescapeUrl(url));
+      const href = escapeAttribute(externalUrl(url));
       return { html: `<a href="${href}" rel="noreferrer">${convertInline(label, ctx)}</a>`, next };
     }
     case "url": {
       const [url, next] = arg(at);
-      const href = escapeAttribute(unescapeUrl(url));
+      const href = escapeAttribute(externalUrl(url));
       return { html: `<a href="${href}" rel="noreferrer">${escapeHtml(unescapeUrl(url))}</a>`, next };
     }
     case "sourcecite": {
@@ -384,6 +394,12 @@ function handleCommand(name, text, at, ctx) {
 
 // Turn stored mathematics back into MathJax-ready markup.
 function renderMath(entry, ctx) {
+  // Mathematics is passed through to MathJax, including its link commands.
+  // Apply the same URL gate before protecting that content from the converter.
+  for (const match of entry.tex.matchAll(/\\(?:href|url)\s*\{/g)) {
+    const [url] = readGroup(entry.tex, match.index + match[0].length - 1);
+    externalUrl(url);
+  }
   // Labels are replaced by explicit tags below, so MathJax cannot resolve
   // nested eqrefs itself. Resolve them against the same record-local map as prose.
   const resolvedTex = entry.tex.replace(/\\eqref\{([^}]+)\}/g, (_, label) => {
@@ -641,7 +657,7 @@ function referenceLinks(tex) {
   const pattern = /\\href\{([^}]+)\}/g;
   let match;
   while ((match = pattern.exec(tex))) {
-    const url = unescapeUrl(match[1]);
+    const url = externalUrl(match[1]);
     if (/arxiv\.org\/abs\//.test(url)) links.push({ kind: "arxiv", url, id: url.replace(/^.*arxiv\.org\/abs\//, "").replace(/v\d+$/, "") });
     else if (/doi\.org\//.test(url)) links.push({ kind: "doi", url, id: url.replace(/^.*doi\.org\//, "") });
     else links.push({ kind: "url", url, id: url });
