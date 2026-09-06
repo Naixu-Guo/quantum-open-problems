@@ -321,8 +321,7 @@ test("legacy username-only actors require an explicit link instead of silent dup
   assert.ok(changed.ok);
   service.auth.close();
   service.auth = new AuthStore(":memory:");
-  assert.throws(() => bootstrapEditor(service, "123456", "Contributor"), /Legacy GitHub actors/);
-  assert.throws(() => ensureHumanActor(service, { id: 123456, login: "legacy", name: "Contributor" }), /Legacy GitHub actors/);
+  assert.throws(() => ensureHumanActor(service, { id: 123456, login: "legacy", name: "Contributor" }), /legacy GitHub actor/);
   linkGitHubIdentity(service, "123456", id);
   service.auth.close();
   service.auth = new AuthStore(":memory:");
@@ -452,4 +451,25 @@ test("retired sources remain searchable and unique across catalog reintroduction
   assert.equal(ledger.currentOf("Source").length, 1);
   assert.equal(ledger.currentOf("Source")[0].id, source.id);
   await exportLedger({ root, check: true });
+});
+
+test("unrelated signups and editor bootstrap continue while legacy actors await linking", async (t) => {
+  const { service } = await fixture(t);
+  const legacy = ensureHumanActor(service, { id: 100, login: "old-user", name: "Old user" });
+  const actor = service.repo.current().find("Actor", legacy);
+  assert.ok(service.repo.write([{ fields: { ...actor.fields, revision: 2, externalIdentity: "github:old-user" }, body: actor.body }],
+    "Legacy login fixture", { name: "fixture", email: "fixture@example.invalid" }).ok);
+  service.auth.close();
+  service.auth = new AuthStore(":memory:");
+  const fresh = ensureHumanActor(service, { id: 200, login: "new-user", name: "New user" });
+  assert.notEqual(fresh, legacy);
+  assert.throws(() => ensureHumanActor(service, { id: 201, login: "OLD-USER", name: "Reused login" }), /legacy GitHub actor/);
+  const editor = bootstrapEditor(service, "300", "New editor");
+  assert.notEqual(editor, legacy);
+  assert.ok(service.repo.current().find("Actor", editor).fields.roles.includes("editor"));
+  assert.equal(service.repo.current().find("Actor", legacy).fields.externalIdentity, "github:old-user");
+  // A surviving numeric auth link migrates the old actor on its next login.
+  service.auth.linkIdentity("github", "100", legacy, "old-user");
+  assert.equal(ensureHumanActor(service, { id: 100, login: "renamed-user", name: "Old user" }), legacy);
+  assert.equal(service.repo.current().find("Actor", legacy).fields.externalIdentity, "github-id:100");
 });

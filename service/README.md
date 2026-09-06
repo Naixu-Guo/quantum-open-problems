@@ -129,9 +129,12 @@ Login, bootstrap, and that operator command persist `github-id:<numeric-id>`
 in the actor ledger before linking the disposable auth database. Recovery
 therefore preserves contributions even after a login rename. Older
 `github:<login>` records must be explicitly linked while ownership can be
-verified; usernames are never treated as durable identity proof. Until those
-legacy records are migrated, unlinked signups and bootstrap refuse to create
-a potentially duplicate actor. API batches cannot assign GitHub identities.
+verified; usernames are never treated as durable identity proof. A surviving
+numeric auth link migrates a legacy actor on its next login. Without that link,
+only a login matching the legacy handle is refused pending an operator link;
+unrelated signups continue. Numeric editor bootstrap also remains available.
+When promoting a legacy actor after auth-store loss, explicitly link its numeric
+ID before bootstrap. API batches cannot assign GitHub identities.
 
 Outside `/api/` and `/auth/`, GET requests serve the web app's files from
 `QOP_WEB_DIR` with a weak ETag; dotfiles and paths outside the directory are

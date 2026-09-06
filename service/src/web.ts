@@ -91,7 +91,7 @@ export function safeReturnTo(raw: string | null, publicUrl: string): string {
 export function ensureHumanActor(service: Service, user: GitHubUser): string {
   service.repo.refreshIfMoved();
   const subject = String(user.id);
-  let actorId = githubActor(service, subject)?.id;
+  let actorId = githubActor(service, subject, user.login)?.id;
   if (!actorId) {
     const id = newId();
     const result = submit(service, service.systemActorId, [{

@@ -3,7 +3,7 @@ import type { Service } from "./write.ts";
 import { reindex } from "./write.ts";
 import { nowIso } from "./ids.ts";
 
-export function githubActor(service: Service, subject: string) {
+export function githubActor(service: Service, subject: string, login?: string) {
   if (!/^[1-9][0-9]*$/.test(subject)) throw new Error("Provide a numeric GitHub user ID.");
   const actors = service.repo.current().currentOf("Actor");
   const linked = service.auth.actorForIdentity("github", subject);
@@ -12,8 +12,8 @@ export function githubActor(service: Service, subject: string) {
   const actor = linked ? actors.find((actor) => actor.id === linked) : matches[0];
   if (linked && !actor) throw new Error("The GitHub identity points at a missing actor; repair that link first.");
   if (actor && actor.fields["kind"] !== "human") throw new Error("A GitHub identity must belong to a human actor.");
-  if (!actor && actors.some((actor) => String(actor.fields["externalIdentity"]).startsWith("github:"))) {
-    throw new Error("Legacy GitHub actors lack durable numeric identities. Use identity link github <numeric-id> <actor-id> after verifying ownership; a login name cannot safely recover an identity.");
+  if (!actor && login && actors.some((actor) => String(actor.fields["externalIdentity"]).toLowerCase() === `github:${login.toLowerCase()}`)) {
+    throw new Error("A legacy GitHub actor has this login but no verified numeric link. Use identity link github <numeric-id> <actor-id> after verifying ownership; a login name cannot safely recover an identity.");
   }
   return actor;
 }
