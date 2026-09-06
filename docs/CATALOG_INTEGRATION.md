@@ -72,6 +72,10 @@ while `migrationTimestamp` retains the initial metadata migration date.
 A repeated export or `--check` does not advance the clock.
 
 New export records use the export time and a dedicated system exporter actor.
+New Source, Reference, and initial Statement ULIDs use their allocation time.
+The manifest preserves those key-to-ID assignments across exports. Existing
+identifiers remain permanent, including ones allocated with a migration-date
+prefix; that prefix is not a publication timestamp.
 This is operational attribution: the original scientific sources stay in the
 bibliography, the catalog snapshot retains its original metadata, and Git
 records editorial authorship. It does not impersonate a scientific author.
@@ -88,12 +92,17 @@ content in JSON, then explicitly run:
 npm run export-ledger -- --reconcile-catalog
 ```
 
-This selects catalog values for colliding fields while retaining all old
-revisions. It can also supersede a newer service statement after review.
+This selects catalog values for colliding problem fields while retaining all
+old revisions. Source projections are partial: they fill missing bibliography
+fields and update earlier catalog values, while preserving populated service
+metadata and its completeness even with this flag. It can also supersede a
+newer service statement after review.
 Removing or renaming a reference appends a retirement revision for the old
 link; unused catalog sources are retired too. Retired bibliography is omitted
-from active listings but still resolves for historical citations. Reintroducing
-it appends a revision under the original identity. Problem identities cannot
+from active reference listings but still resolves for historical citations.
+Source search and source uniqueness include retired papers, so contributors
+can reuse them and cannot register another identity for the same paper.
+Reintroducing it appends a revision under the original identity. Problem identities cannot
 be removed by export. Redactions are never restored by reconciliation.
 `--replace-authoritative` remains an explicit whole-ledger reset, not a
 maintenance workflow.
@@ -171,8 +180,8 @@ equivalent formulation of op-fd756. Both records retain the previously
 recorded theorem locator and preprint qualification. No scientific status
 is changed by the equivalence metadata commit.
 
-The archive contains 86 records (77 Unsolved, 9 Solved), representing 85
-distinct questions (77 Unsolved, 8 Solved). Home-page question totals count
+Record and question totals are derived from the current catalog on every
+build. Home-page question totals count
 an equivalence class once. Catalog filtering and historical taxonomy pages
 list records, keeping both formulations searchable. For compatibility,
 `api/index.json` retains record counts in `counts.total`, `counts.unsolved`,

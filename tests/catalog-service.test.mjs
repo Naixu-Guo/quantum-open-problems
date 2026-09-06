@@ -14,7 +14,7 @@ import { materialize } from "../service/src/payloads.ts";
 import { AuthStore } from "../service/src/auth.ts";
 import { validateLedger } from "../contract/src/validate.ts";
 import { deterministicUlid } from "../site/lib/metadata.mjs";
-import { referencesOf } from "../service/src/read-models.ts";
+import { referencesOf, searchSources } from "../service/src/read-models.ts";
 import { handoffCatalog } from "../scripts/handoff-catalog.mjs";
 
 const repo = path.resolve(import.meta.dirname, "..");
@@ -144,7 +144,7 @@ test("a newly admitted service proposal can enter the catalog under its original
   const stamp = nowIso();
   const originalStatement = service.repo.current().currentOf("Statement")[0];
   const base = { schemaVersion: "1.0", createdBy: author, createdAt: stamp };
-  const source = service.repo.current().currentOf("Source")[0];
+  const source = registerFullSource(service, author);
   const proposal = submit(service, author, [
     { fields: { ...record.metadata, ...base, id: problemId, revision: 1, title: "Synthetic handoff fixture", aliases: ["synthetic-handoff-fixture"] }, body: "Synthetic fixture for catalog identity transfer." },
     { fields: { ...originalStatement.fields, ...base, id: statementId, problemId }, body: originalStatement.body },
@@ -154,7 +154,7 @@ test("a newly admitted service proposal can enter the catalog under its original
   assert.ok(proposal.ok, JSON.stringify(proposal.issues));
   const draft = path.join(root, "draft.json");
   const opId = "op_1111222233334444";
-  fs.writeFileSync(draft, JSON.stringify({ ...record, id: opId, ulid: problemId, aliases: [opId, problemId, "op-1111222233334444"], title: "Synthetic handoff fixture" }));
+  fs.writeFileSync(draft, JSON.stringify({ ...record, id: opId, ulid: problemId, aliases: [opId, problemId, "op-1111222233334444"], title: "Synthetic handoff fixture", references: [...record.references, fullCitation] }));
   await assert.rejects(handoffCatalog({ root, problemId, recordFile: draft }), /admitted/);
   const review = submit(service, editor, [{ fields: {
     ...base, id: newId(), createdBy: editor, type: "Review", supersedes: null, contributionId, reviewerId: editor, trajectoryId: null,
@@ -169,6 +169,8 @@ test("a newly admitted service proposal can enter the catalog under its original
   const afterHandoff = validateLedger(service.repo.roots).ledger;
   assert.equal(afterHandoff.revisions.get(author).length, actorRevisions, "handoff must not create a no-op Actor revision");
   assert.deepEqual(fs.readFileSync(afterHandoff.find("Actor", author).path), actorBytes);
+  assert.deepEqual(afterHandoff.find("Source", source.id).fields.authors, source.fields.authors);
+  assert.equal(afterHandoff.revisions.get(source.id).length, 1);
   assert.equal(result.ulid, problemId);
   assert.equal(validateLedger(service.repo.roots).issues.length, 0);
   assert.ok(fs.existsSync(path.join(root, "ledger/problems/synthetic-handoff-fixture/problem.r2.md")));
@@ -345,6 +347,12 @@ test("new catalog bibliography uses export provenance and manifest counts includ
     assert.equal(entry.fields.createdBy, actor.id);
     assert.ok(Date.parse(entry.fields.createdAt) >= before);
   }
+  for (const entry of [reference, source]) {
+    const alphabet = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
+    const allocatedAt = [...entry.id.slice(0, 10)].reduce((value, char) => value * 32 + alphabet.indexOf(char), 0);
+    assert.ok(allocatedAt >= before, "new identity must not inherit the migration date");
+    assert.ok(allocatedAt <= Date.parse(entry.fields.createdAt));
+  }
   const manifestPath = path.join(root, "ledger/export-manifest.json");
   const bytes = fs.readFileSync(manifestPath);
   const manifest = JSON.parse(bytes);
@@ -379,5 +387,69 @@ test("optional equivalence fields can be added and removed without losing histor
   ledger = validateLedger(service.repo.roots).ledger;
   assert.equal(ledger.find("Problem", record.ulid).fields.equivalentToProblemId, undefined);
   assert.deepEqual(fs.readFileSync(revision.path), bytes);
+  await exportLedger({ root, check: true });
+});
+
+
+const fullCitation = {"key": "Complete", "label": "ref:complete", "tex": "A. Author, ``Paper title,'' (2026). \\href{https://doi.org/10.5555/full-fixture}{doi:10.5555/full-fixture}."};
+function registerFullSource(service, actorId = service.systemActorId) {
+  const id = deterministicUlid("complete-source-fixture");
+  const fields = { id, type: "Source", schemaVersion: "1.0", revision: 1, createdBy: actorId, createdAt: new Date().toISOString(),
+    title: "A curated full paper title", kind: "paper", completeness: "complete", authors: ["Alice Author", "Bob Writer"],
+    venue: "Fixture Journal", date: "2026", doi: "10.5555/full-fixture", arxivId: "2601.12345", version: "2", url: "https://doi.org/10.5555/full-fixture" };
+  const result = service.repo.write([{ fields, body: "Curated full bibliographic description." }], "Register complete source fixture", { name: "fixture", email: "fixture@example.invalid" });
+  assert.ok(result.ok, JSON.stringify(result.issues));
+  return service.repo.current().find("Source", id);
+}
+
+for (const mode of ["export", "handoff", "reconcile"]) test(`${mode} adopts complete service bibliography without downgrading it`, async (t) => {
+  const { root, record, recordPath, service } = await fixture(t);
+  const source = registerFullSource(service);
+  const original = fs.readFileSync(source.path);
+  const authored = { ...record, references: [...record.references, fullCitation] };
+  if (mode === "handoff") {
+    const draft = path.join(root, "draft.json");
+    fs.writeFileSync(draft, JSON.stringify(authored));
+    await handoffCatalog({ root, problemId: record.ulid, recordFile: draft });
+  } else {
+    fs.writeFileSync(recordPath, JSON.stringify(authored));
+    await exportLedger({ root, reconcileCatalog: mode === "reconcile" });
+  }
+  const { ledger, issues } = validateLedger(service.repo.roots);
+  assert.deepEqual(issues, []);
+  assert.equal(ledger.revisions.get(source.id).length, 1);
+  assert.deepEqual(fs.readFileSync(source.path), original);
+  assert.ok(referencesOf(ledger, record.ulid).some((ref) => ref.source.id === source.id));
+  const edited = JSON.parse(fs.readFileSync(recordPath));
+  edited.references.at(-1).tex = edited.references.at(-1).tex.replace("Paper title", "An abbreviated catalog title");
+  fs.writeFileSync(recordPath, JSON.stringify(edited));
+  await exportLedger({ root, reconcileCatalog: true });
+  assert.deepEqual(fs.readFileSync(source.path), original);
+  assert.equal(validateLedger(service.repo.roots).ledger.revisions.get(source.id).length, 1);
+  await exportLedger({ root, check: true });
+});
+
+test("retired sources remain searchable and unique across catalog reintroduction", async (t) => {
+  const { root, record, recordPath, service } = await fixture(t);
+  const source = service.repo.current().currentOf("Source")[0];
+  assert.ok(source.fields.doi);
+  fs.writeFileSync(recordPath, JSON.stringify({ ...record, source: "unknown", progress: ["Synthetic progress."], comment: "Synthetic fixture.", references: [fullCitation] }));
+  await exportLedger({ root });
+  commit(root, "Retire original catalog bibliography");
+  service.repo.refreshIfMoved();
+  const results = searchSources(service.repo.current(), source.fields.doi, 100);
+  assert.equal(results.count, 1);
+  assert.equal(results.sources[0].id, source.id);
+  assert.equal(results.sources[0].retired, true);
+  const duplicate = service.repo.write([{ fields: { ...source.fields, id: deterministicUlid("duplicate-source-fixture") }, body: source.body }],
+    "Duplicate source fixture", { name: "fixture", email: "fixture@example.invalid" });
+  assert.equal(duplicate.ok, false);
+  assert.ok(duplicate.issues.some((issue) => /source duplicates/.test(issue.message)));
+  fs.writeFileSync(recordPath, JSON.stringify(record));
+  await exportLedger({ root });
+  const { ledger, issues } = validateLedger(service.repo.roots);
+  assert.deepEqual(issues, []);
+  assert.equal(ledger.currentOf("Source").length, 1);
+  assert.equal(ledger.currentOf("Source")[0].id, source.id);
   await exportLedger({ root, check: true });
 });
