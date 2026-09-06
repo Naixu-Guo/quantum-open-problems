@@ -1,7 +1,8 @@
 # Workspace audit after the catalog replacement
 
-Follow-up: 2026-09-06. All six implementation/content findings below have
-been addressed in the catalog-integration follow-up. The dated findings are
+Follow-up: 2026-09-06. The initial catalog-integration follow-up made the seven changes listed
+below. A subsequent review found defects in several of those changes; the
+correction history is recorded below and in Git. The dated findings are
 retained as the audit trail, not the current backlog.
 
 - PR #8's writing skill now authors the authoritative JSON format, reads the

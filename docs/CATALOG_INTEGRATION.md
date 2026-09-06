@@ -53,8 +53,10 @@ Ordinary `npm run export-ledger` appends `.r2.md`, `.r3.md`, and subsequent
 entity revisions. Statement changes append `v2.md`, `v3.md`, and subsequent
 versions, with fresh identities and a `supersedes` link. Existing files are
 never rewritten or removed. Comments and reviews remain attached to the
-statement and digest they actually examined. A changed statement does not
-inherit resolution claims merely because its clause is still named `main`.
+statement and digest they actually examined. Changed clause TeX or resolution conditions do not inherit claims merely
+because the clause is still named `main`. Renderer-only changes keep clause
+lineage. For early pinned exports that omitted that edge, the read model
+recovers it only when both statements are pinned and clause content is identical.
 
 `ledger/export-manifest.json` version 2 pins the bytes of exported history
 and the last desired values of projected fields. The contract recognizes
@@ -63,6 +65,18 @@ contributions or reviews. API clients cannot write the manifest, and an
 unmanifested Problem revision cannot change `authoredCatalog`. Missing or
 modified pinned files fail validation and export. The first ordinary export
 migrates a version-1 manifest without rewriting its historical records.
+`counts` counts every pinned exported record file, including old revisions,
+statement versions, and retired bibliography. `projectionCounts` counts the
+active desired catalog projection. `generatedAt` is the last changed export,
+while `migrationTimestamp` retains the initial metadata migration date.
+A repeated export or `--check` does not advance the clock.
+
+New export records use the export time and a dedicated system exporter actor.
+This is operational attribution: the original scientific sources stay in the
+bibliography, the catalog snapshot retains its original metadata, and Git
+records editorial authorship. It does not impersonate a scientific author.
+See [historical provenance corrections](CATALOG_PROVENANCE.md) for already
+committed headers that incorrectly reused the migration actor or timestamp.
 
 When a service revision changes a different field, export preserves that
 edit and applies the catalog change in the next revision. If both paths

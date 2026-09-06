@@ -31,6 +31,12 @@ export interface Statement extends ImmutableBase {
   clauses: Clause[];
 }
 
+/** Rendering and display labels do not change a clause's mathematical content. */
+export function sameClause(left: Clause, right: Clause): boolean {
+  return left.id === right.id && left.text === right.text && left.kind === right.kind
+    && left.resolutionCriteria === right.resolutionCriteria && JSON.stringify(left.quantity) === JSON.stringify(right.quantity);
+}
+
 export function references(statement: Statement): Ref[] {
   return [
     ...ref("createdBy", "Actor", statement.createdBy),

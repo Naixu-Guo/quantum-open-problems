@@ -327,3 +327,33 @@ test("legacy username-only actors require an explicit link instead of silent dup
   assert.equal(bootstrapEditor(service, "123456", "Contributor"), id);
   assert.equal(service.repo.current().currentOf("Actor").filter((a) => a.fields.kind === "human").length, 1);
 });
+
+
+test("new catalog bibliography uses export provenance and manifest counts include historical revisions", async (t) => {
+  const { root, record, recordPath, service } = await fixture(t);
+  const before = Date.now();
+  fs.writeFileSync(recordPath, JSON.stringify({ ...record, statement: `${record.statement}\nA revised fixture hypothesis.`,
+    references: [...record.references, { label: "ref:later", key: "Later", tex: "Later fixture reference. \\url{https://example.invalid/later}" }] }));
+  await exportLedger({ root });
+  const report = validateLedger(service.repo.roots);
+  assert.deepEqual(report.issues, []);
+  const actor = report.ledger.currentOf("Actor").find((a) => a.fields.harness === "scripts/export-ledger.mjs");
+  const reference = report.ledger.currentOf("Reference").find((r) => r.fields.locator === "Later");
+  const source = report.ledger.find("Source", reference.fields.sourceId);
+  const problem = report.ledger.find("Problem", record.ulid);
+  for (const entry of [reference, source, problem]) {
+    assert.equal(entry.fields.createdBy, actor.id);
+    assert.ok(Date.parse(entry.fields.createdAt) >= before);
+  }
+  const manifestPath = path.join(root, "ledger/export-manifest.json");
+  const bytes = fs.readFileSync(manifestPath);
+  const manifest = JSON.parse(bytes);
+  assert.equal(manifest.counts.Statement, 2);
+  assert.equal(manifest.projectionCounts.Statement, 1);
+  assert.equal(manifest.counts.Problem, 2);
+  assert.notEqual(manifest.generatedAt, manifest.migrationTimestamp);
+  assert.ok(Date.parse(manifest.generatedAt) >= before);
+  await exportLedger({ root, check: true });
+  assert.equal((await exportLedger({ root })).changed, 0);
+  assert.deepEqual(fs.readFileSync(manifestPath), bytes);
+});

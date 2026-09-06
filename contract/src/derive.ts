@@ -7,6 +7,7 @@ import type { Decision, ProblemStatus, VerificationLevel } from "./types/decisio
 import type { Claim } from "./types/claim.ts";
 import type { AuthoredCatalog } from "./types/problem.ts";
 import type { Statement } from "./types/statement.ts";
+import { sameClause } from "./types/statement.ts";
 
 export type CatalogState = "candidate" | "published" | "retired" | "merged";
 export type ContributionState = "submitted" | "triaged" | "accepted" | "rejected" | "superseded" | "withdrawn";
@@ -86,6 +87,13 @@ function clauseLineage(ledger: Ledger, clauseRef: string): Set<string> {
     lineage.add(cursor);
     const found = ledger.clause(cursor);
     cursor = found ? found.clause.supersedesClauseId : null;
+    // Early catalog exports lost lineage when only their Markdown renderer
+    // changed. Recover that edge from immutable, pinned original clause TeX.
+    // Service-authored statements still require their explicit lineage links.
+    if (!cursor && found?.statement.supersedes && ledger.catalogExports.has(`${found.statement.id}@1`)) {
+      const previous = ledger.clause(`${found.statement.supersedes}#${found.clause.id}`);
+      if (previous && ledger.catalogExports.has(`${previous.statement.id}@1`) && sameClause(found.clause, previous.clause)) cursor = `${previous.statement.id}#${previous.clause.id}`;
+    }
   }
   return lineage;
 }
