@@ -11,6 +11,8 @@ import { bootstrapEditor } from "../service/src/bootstrap.ts";
 import { ensureHumanActor } from "../service/src/web.ts";
 import { AuthStore } from "../service/src/auth.ts";
 import { validateLedger } from "../contract/src/validate.ts";
+import { deterministicUlid } from "../site/lib/metadata.mjs";
+import { referencesOf } from "../service/src/read-models.ts";
 import { handoffCatalog } from "../scripts/handoff-catalog.mjs";
 
 const repo = path.resolve(import.meta.dirname, "..");
@@ -159,7 +161,12 @@ test("a newly admitted service proposal can enter the catalog under its original
   }, body: "Synthetic review for the admission workflow." }], "Fixture review");
   assert.ok(review.ok, JSON.stringify(review.issues));
   assert.equal(catalogState(service.repo.current(), problemId), "published");
+  const actorBytes = fs.readFileSync(service.repo.current().find("Actor", author).path);
+  const actorRevisions = service.repo.current().revisions.get(author).length;
   const result = await handoffCatalog({ root, problemId, recordFile: draft });
+  const afterHandoff = validateLedger(service.repo.roots).ledger;
+  assert.equal(afterHandoff.revisions.get(author).length, actorRevisions, "handoff must not create a no-op Actor revision");
+  assert.deepEqual(fs.readFileSync(afterHandoff.find("Actor", author).path), actorBytes);
   assert.equal(result.ulid, problemId);
   assert.equal(validateLedger(service.repo.roots).issues.length, 0);
   assert.ok(fs.existsSync(path.join(root, "ledger/problems/synthetic-handoff-fixture/problem.r2.md")));
@@ -198,4 +205,86 @@ test("reconciliation preserves independent service edits and requires an explici
   assert.equal(final.ledger.find("Problem", record.ulid).fields.title, "An explicitly reconciled title");
   assert.equal(final.ledger.find("Problem", record.ulid).fields.revision, 4);
   assert.equal(fs.readFileSync(revised.path, "utf8"), bytes);
+});
+
+
+test("reference renames, removals, merges and reintroductions preserve history and remain exportable", async (t) => {
+  const { root, record, recordPath, service } = await fixture(t);
+  const original = service.repo.current().currentOf("Reference")[0];
+  const originalBytes = fs.readFileSync(original.path);
+  const label = record.references[0].label;
+  const renamed = JSON.parse(JSON.stringify(record).replaceAll(label, `${label}-fixed`));
+  fs.writeFileSync(recordPath, JSON.stringify(renamed));
+  await exportLedger({ root });
+  let report = validateLedger(service.repo.roots);
+  assert.deepEqual(report.issues, []);
+  assert.equal(report.ledger.find("Reference", original.id).fields.retired, true);
+  assert.deepEqual(fs.readFileSync(original.path), originalBytes);
+  assert.equal(referencesOf(report.ledger, record.ulid).length, record.references.length);
+  assert.equal((await exportLedger({ root })).changed, 0);
+  // Add and merge a second label for the same source.
+  renamed.references.push({ ...renamed.references[0], label: `${label}-duplicate`, key: "Duplicate" });
+  fs.writeFileSync(recordPath, JSON.stringify(renamed));
+  await exportLedger({ root });
+  renamed.references.pop();
+  fs.writeFileSync(recordPath, JSON.stringify(renamed));
+  await exportLedger({ root });
+  // Replace the original bibliography entry and remove its authored citations.
+  const removed = { ...renamed, source: "unknown", progress: ["Synthetic fixture progress."], comment: "Synthetic fixture.", references: [{ key: "Fixture", label: "ref:replacement", tex: "Synthetic replacement. \\url{https://example.invalid/replacement}" }] };
+  fs.writeFileSync(recordPath, JSON.stringify(removed));
+  await exportLedger({ root });
+  report = validateLedger(service.repo.roots);
+  assert.deepEqual(report.issues, []);
+  assert.equal(referencesOf(report.ledger, record.ulid).length, 1);
+  assert.ok(referencesOf(report.ledger, record.ulid).every((ref) => ref.id !== original.id));
+  assert.equal(report.ledger.currentOf("Source").length, 1);
+  assert.equal(report.ledger.find("Source", original.fields.sourceId).fields.retired, true);
+  assert.equal((await exportLedger({ root })).changed, 0);
+  fs.writeFileSync(recordPath, JSON.stringify(record));
+  await exportLedger({ root });
+  report = validateLedger(service.repo.roots);
+  assert.deepEqual(report.issues, []);
+  assert.equal(report.ledger.find("Reference", original.id).fields.retired, undefined);
+  assert.equal(report.ledger.currentOf("Source").length, 1);
+  assert.equal(referencesOf(report.ledger, record.ulid)[0].id, original.id);
+  await exportLedger({ root, check: true });
+});
+
+test("handoff cannot reconcile conflicts on another catalog problem", async (t) => {
+  const { root, record, recordPath, service } = await fixture(t);
+  const other = structuredClone(record);
+  other.id = "op_1111222233334444";
+  other.ulid = deterministicUlid("other-handoff-problem");
+  other.aliases = [other.id, other.ulid, "op-1111222233334444"];
+  fs.writeFileSync(path.join(root, "database/problems_json", `${other.id}.json`), JSON.stringify(other));
+  await exportLedger({ root });
+  commit(root, "Second problem fixture");
+  service.repo.refreshIfMoved();
+  const current = service.repo.current().find("Problem", record.ulid);
+  // A valid pinned fixture revision establishes divergent service-side content.
+  const revisedPath = current.path.replace("r1.md", "r2.md");
+  fs.writeFileSync(revisedPath, serializeRecord({ ...current.fields, revision: 2, title: "Service title", body: current.body }));
+  const { createHash } = await import("node:crypto");
+  const manifestPath = path.join(root, "ledger/export-manifest.json");
+  const manifest = JSON.parse(fs.readFileSync(manifestPath));
+  manifest.fileHashes[path.relative(root, revisedPath)] = createHash("sha256").update(fs.readFileSync(revisedPath)).digest("hex");
+  fs.writeFileSync(manifestPath, JSON.stringify(manifest));
+  fs.writeFileSync(recordPath, JSON.stringify({ ...record, title: "Catalog title" }));
+  const draft = path.join(root, "draft.json");
+  fs.writeFileSync(draft, JSON.stringify({ ...other, comment: "Intended handoff only." }));
+  const before = fs.readFileSync(manifestPath);
+  await assert.rejects(handoffCatalog({ root, problemId: other.ulid, recordFile: draft }), /Catalog\/service conflict.*title/);
+  assert.deepEqual(fs.readFileSync(manifestPath), before, "rejected handoff is atomic");
+  assert.equal(validateLedger(service.repo.roots).ledger.find("Problem", record.ulid).fields.title, "Service title");
+});
+
+test("catalog reconciliation cannot resurrect a redacted problem", async (t) => {
+  const { root, record, recordPath, service } = await fixture(t);
+  const current = service.repo.current().find("Problem", record.ulid);
+  const tombstone = current.path.replace("r1.md", "r2.md");
+  fs.writeFileSync(tombstone, serializeRecord({ id: record.ulid, type: "Problem", schemaVersion: "1.0", revision: 2,
+    redacted: true, redactionDecisionId: deterministicUlid("fixture-takedown"), body: "" }));
+  fs.writeFileSync(recordPath, JSON.stringify({ ...record, title: "Updated catalog title" }));
+  for (const reconcileCatalog of [false, true]) await assert.rejects(exportLedger({ root, reconcileCatalog }), /Refusing to restore redacted/);
+  assert.equal(fs.existsSync(current.path.replace("r1.md", "r3.md")), false);
 });

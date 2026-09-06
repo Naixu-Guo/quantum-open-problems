@@ -5,6 +5,7 @@ import { ref, type Ref } from "../targets.ts";
 export const TYPE = "Source" as const;
 
 export interface Source extends RevisableBase {
+  retired?: boolean;
   type: typeof TYPE;
   title: string;
   kind: "paper" | "preprint" | "book" | "problem-list" | "dataset" | "thesis" | "web-record";

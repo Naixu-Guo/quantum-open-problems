@@ -54,7 +54,7 @@ export async function handoffCatalog({ root = ROOT, problemId, recordFile } = {}
     fs.writeFileSync(path.join(stage, "database/problems_tex", `${record.id}.tex`), recordToTex(record));
     fs.writeFileSync(path.join(stage, "database/actors.json"), json(registry));
     execFileSync(process.execPath, [path.join(ROOT, "scripts/migrate-metadata.mjs"), "--root", stage], { stdio: "pipe" });
-    await exportLedger({ root: stage, reconcileCatalog: true });
+    await exportLedger({ root: stage, reconcileProblemIds: [problemId] });
     const writes = [];
     function collect(directory, prefix = "") {
       for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {

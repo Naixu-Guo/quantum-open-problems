@@ -76,8 +76,11 @@ npm run export-ledger -- --reconcile-catalog
 
 This selects catalog values for colliding fields while retaining all old
 revisions. It can also supersede a newer service statement after review.
-Retain existing reference labels and archived identities; removing owned
-entities is rejected rather than silently deleting research history.
+Removing or renaming a reference appends a retirement revision for the old
+link; unused catalog sources are retired too. Retired bibliography is omitted
+from active listings but still resolves for historical citations. Reintroducing
+it appends a revision under the original identity. Problem identities cannot
+be removed by export. Redactions are never restored by reconciliation.
 `--replace-authoritative` remains an explicit whole-ledger reset, not a
 maintenance workflow.
 
@@ -109,6 +112,9 @@ npm run build
 The handoff requires a published service problem, preserves its ULID and
 aliases (and any existing catalog op ID), imports the creator's actor
 provenance, and validates the authored record against the current taxonomy.
+Reconciliation is restricted to that problem and its statements and references.
+Conflicts on other problems or shared sources abort the entire handoff.
+Identical imported actors are adopted without creating an empty revision.
 It stages the JSON, TeX, metadata, and versioned ledger export together before
 writing. Inspect and commit that diff through the normal catalog PR workflow.
 The command performs no Git push, admission decision, or invented review.

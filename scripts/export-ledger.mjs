@@ -100,7 +100,7 @@ export function buildLedger(root = ROOT) {
   validateRecordIdentities(records);
   const rendered = new Map(records.map((record) => [record.id, renderRecord(record)]));
   const serviceSources = fs.existsSync(path.join(root, "ledger")) && fs.existsSync(path.join(root, "activity"))
-    ? new Ledger(loadRecords([path.join(root, "ledger"), path.join(root, "activity")]).records).currentOf("Source") : [];
+    ? [...new Ledger(loadRecords([path.join(root, "ledger"), path.join(root, "activity")]).records).current.values()].filter((record) => record.type === "Source" && !record.redacted) : [];
   const files = new Map();
   const counts = {};
   const put = (relative, record) => {
@@ -205,7 +205,7 @@ const safePath = (file) => typeof file === "string" && /^(ledger|activity)\//.te
 
 // A manifest pins immutable exported files and the last desired value of each
 // field. The latter makes reconciliation a three-way merge with service edits.
-export async function exportLedger({ root = ROOT, check = false, replaceAuthoritative = false, reconcileCatalog = false } = {}) {
+export async function exportLedger({ root = ROOT, check = false, replaceAuthoritative = false, reconcileCatalog = false, reconcileProblemIds = [] } = {}) {
   if (check && replaceAuthoritative) throw new Error("--check and --replace-authoritative cannot be combined");
   const desired = buildLedger(root);
   const manifestPath = path.join(root, MANIFEST);
@@ -215,6 +215,8 @@ export async function exportLedger({ root = ROOT, check = false, replaceAuthorit
   const existing = previous ? new Ledger(loadRecords([path.join(root, "ledger"), path.join(root, "activity")]).records) : new Ledger([]);
   const owned = { ...(previous?.fileHashes ?? {}) };
   const projections = { ...(previous?.projections ?? {}) };
+  const retiredProjections = { ...(previous?.retiredProjections ?? {}) };
+  const reconcileIds = new Set(reconcileProblemIds);
   if (previous?.schema === "qiqcop-zoo/ledger-export/1") {
     for (const file of previous.files) {
       if (!file.endsWith(".md") || file.endsWith("README.md")) continue;
@@ -231,8 +233,9 @@ export async function exportLedger({ root = ROOT, check = false, replaceAuthorit
   for (const [file, content] of desired.files) {
     if (!content.startsWith("---\n")) continue;
     const wanted = parsed(file, content);
-    const baseline = projections[file];
-    if (baseline?.digest === hash(content)) continue;
+    const retired = retiredProjections[file];
+    const baseline = projections[file] ?? retired;
+    if (!retired && baseline?.digest === hash(content)) continue;
     if (check) throw new Error(`Ledger export drift: ${file}. Run npm run export-ledger.`);
     let destination = file;
     let next = { ...wanted };
@@ -240,12 +243,14 @@ export async function exportLedger({ root = ROOT, check = false, replaceAuthorit
       ? existing.currentOf("Statement").filter((record) => record.fields.problemId === wanted.problemId).sort((a, b) => b.fields.version - a.fields.version)[0]
       : existing.current.get(wanted.id);
     const owner = wanted.type === "Statement" ? wanted.problemId : wanted.type === "Reference" && wanted.targetType === "problem" ? wanted.targetId : null;
+    if (current?.redacted || existing.current.get(wanted.id)?.redacted || existing.current.get(owner)?.redacted) throw new Error(`Refusing to restore redacted catalog content: ${file}. Resolve the takedown explicitly before exporting.`);
+    const canReconcile = reconcileCatalog || reconcileIds.has(wanted.type === "Problem" ? wanted.id : owner);
     if (!current && owner && existing.problemDir(owner)) destination = file.replace(/^ledger\/problems\/[^/]+/, `ledger/${existing.problemDir(owner)}`);
     if (current) {
       const latest = recordObject(current);
-      if (!baseline && !reconcileCatalog) throw new Error(`Existing service identity ${wanted.id} needs --reconcile-catalog for an explicit catalog handoff.`);
       if (wanted.type === "Statement") {
-        if (baseline && current.path !== path.join(root, baseline.path) && !reconcileCatalog) throw new Error(`A service statement supersedes ${baseline.path}. Review it before using --reconcile-catalog.`);
+        if (!baseline && !canReconcile) throw new Error(`Existing service identity ${wanted.id} needs an explicit catalog handoff.`);
+        if (baseline && current.path !== path.join(root, baseline.path) && !canReconcile) throw new Error(`A service statement supersedes ${baseline.path}. Review it before using --reconcile-catalog.`);
         const version = latest.version + 1;
         // A changed statement does not inherit old resolution claims. Only a
         // byte-equivalent formulation can continue the old clause lineage.
@@ -261,12 +266,20 @@ export async function exportLedger({ root = ROOT, check = false, replaceAuthorit
           const incoming = hash(JSON.stringify(value));
           const present = latest[key] === undefined ? undefined : hash(JSON.stringify(latest[key]));
           if (before === incoming) continue;
-          if (before !== undefined && present !== before && present !== incoming && !reconcileCatalog) throw new Error(`Catalog/service conflict at ${file}: ${key}. Reconcile the source or review --reconcile-catalog.`);
+          if ((before === undefined ? present !== incoming : present !== before && present !== incoming) && !canReconcile) throw new Error(`Catalog/service conflict at ${file}: ${key}. Reconcile the source or review --reconcile-catalog.`);
           next[key] = value;
         }
         // Alias order controls on-disk layout. Keep the service's primary alias
         // and retain every public identity during an explicit handoff.
         if (wanted.type === "Problem") next.aliases = unique([...(latest.aliases ?? []), ...wanted.aliases]);
+        if (retired) delete next.retired;
+        // Adopting identical service data only records the projection baseline.
+        // It must not manufacture a revision or an incremental event.
+        if (JSON.stringify(next) === JSON.stringify(latest)) {
+          projections[file] = { path: path.relative(root, current.path).split(path.sep).join("/"), digest: hash(content), fields: fieldHashes(wanted) };
+          delete retiredProjections[file];
+          continue;
+        }
         next.revision = latest.revision + 1;
         next.createdAt = now;
         next.createdBy = wanted.createdBy;
@@ -278,13 +291,32 @@ export async function exportLedger({ root = ROOT, check = false, replaceAuthorit
     writes.set(destination, exported);
     owned[destination] = hash(exported);
     projections[file] = { path: destination, digest: hash(content), fields: fieldHashes(wanted) };
+    delete retiredProjections[file];
   }
   const removed = Object.keys(projections).filter((file) => !desired.files.has(file));
-  // Removing an identity is not a content update. Keep archived records in the
-  // catalog, or explicitly reconcile their retirement in the service first.
-  if (removed.length) throw new Error(`Exported entities disappeared from the catalog: ${removed.join(", ")}. Preserve their identities and references.`);
+  for (const file of removed) {
+    const baseline = projections[file];
+    const prior = parsed(baseline.path, fs.readFileSync(path.join(root, baseline.path), "utf8"));
+    if (!["Reference", "Source"].includes(prior.type)) throw new Error(`Exported entity disappeared from the catalog: ${file}. Preserve its identity.`);
+    if (check) throw new Error(`Ledger export drift: ${file} needs retirement. Run npm run export-ledger.`);
+    const current = existing.current.get(prior.id);
+    if (!current || current.redacted) throw new Error(`Cannot retire missing or redacted catalog entity ${prior.id}.`);
+    const latest = recordObject(current);
+    const canReconcile = reconcileCatalog || (prior.type === "Reference" && reconcileIds.has(prior.targetId));
+    if (current.path !== path.join(root, baseline.path) && !canReconcile) throw new Error(`Catalog/service conflict at ${file}: retirement would discard service edits.`);
+    if (!latest.retired) {
+      const next = { ...latest, retired: true, revision: latest.revision + 1, createdAt: now };
+      const destination = path.relative(root, current.path).split(path.sep).join("/").replace(/\.r\d+\.md$/, `.r${next.revision}.md`);
+      const exported = serializeRecord(next);
+      writes.set(destination, exported);
+      owned[destination] = hash(exported);
+      baseline.path = destination;
+    }
+    retiredProjections[file] = baseline;
+    delete projections[file];
+  }
   const manifest = { schema: "qiqcop-zoo/ledger-export/2", source: "database/problems_json", generatedAt: previous?.generatedAt ?? readJson(path.join(root, "database/metadata.json")).migrationTimestamp,
-    counts: desired.counts, files: [...Object.keys(owned), "ledger/README.md", "activity/README.md"].sort(), fileHashes: owned, projections };
+    counts: desired.counts, files: [...Object.keys(owned), "ledger/README.md", "activity/README.md"].sort(), fileHashes: owned, projections, ...(Object.keys(retiredProjections).length ? { retiredProjections } : {}) };
   const manifestText = json(manifest);
   const manifestChanged = !fs.existsSync(manifestPath) || fs.readFileSync(manifestPath, "utf8") !== manifestText;
   if (check) {

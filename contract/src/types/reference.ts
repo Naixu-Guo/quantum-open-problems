@@ -17,6 +17,7 @@ export type ReferenceRole =
   | "resolves";
 
 export interface Reference extends RevisableBase {
+  retired?: boolean;
   type: typeof TYPE;
   sourceId: string;
   targetType: "problem" | "statement" | "clause" | "claim";

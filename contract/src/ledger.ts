@@ -122,9 +122,9 @@ export class Ledger {
     return statement.redacted || this.clause(clauseRef) !== undefined;
   }
 
-  /** Current, non-redacted records of one type. */
+  /** Current active records. Retired bibliography still resolves via find for historical citations. */
   currentOf(type: RecordType): LoadedRecord[] {
-    return [...this.current.values()].filter((record) => record.type === type && !record.redacted);
+    return [...this.current.values()].filter((record) => record.type === type && !record.redacted && record.fields["retired"] !== true);
   }
 
   clause(clauseRef: string): { statement: Statement; clause: Clause } | undefined {
