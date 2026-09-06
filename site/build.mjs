@@ -18,6 +18,7 @@ import { parseTexRecord, renderRecord, STATUSES, slug, TexError } from "./lib/te
 import { validateRecordShape, canonicalJson, recordDifferences, RecordError } from "./lib/record.mjs";
 import { loadTaxonomy } from "./lib/taxonomy.mjs";
 import { validateRecordIdentities, metadataToMainProblem, ULID_PATTERN } from "./lib/metadata.mjs";
+import { buildCompatibility, legacyTagIndex } from "./lib/compatibility.mjs";
 import {
   renderHome, renderProblemPage, renderDirectory, renderTagsIndex, renderTagPage, byRecentEdit,
   renderAbout, renderRandomPage, renderNotFound
@@ -29,6 +30,7 @@ const config = JSON.parse(fs.readFileSync(path.join(siteDir, "config.json"), "ut
 const databaseDir = path.join(repoRoot, config.databasePath);
 const texDir = path.join(repoRoot, config.texPath);
 const tagsPath = path.join(repoRoot, "database", "tags.json");
+const legacy = JSON.parse(fs.readFileSync(path.join(repoRoot, "database", "legacy-routes.json"), "utf8"));
 
 // Short content hashes so browsers refetch changed assets (favicons are cached aggressively).
 const assetVersion = (name) => createHash("sha256").update(fs.readFileSync(path.join(siteDir, "assets", name))).digest("hex").slice(0, 8);
@@ -292,6 +294,15 @@ const indexEntries = records.map((record) => ({
   equations: record.equations.length
 }));
 write("data/index.js", `window.QIQCOP_INDEX = ${JSON.stringify({ generated: today, updated: dates.updated, problems: indexEntries })};\n`);
+const historicalTags = legacyTagIndex(legacy);
+write("data/legacy-tags.js", `window.QIQCOP_LEGACY_TAGS = ${JSON.stringify(historicalTags)};\n`);
+const directoryPath = path.join(outDir, "problems/index.html");
+fs.writeFileSync(directoryPath, fs.readFileSync(directoryPath, "utf8").replace("</head>", '<script src="../data/legacy-tags.js"></script></head>'));
+for (const [key, entry] of Object.entries(historicalTags)) {
+  if (fs.existsSync(path.join(outDir, `tag/${key}/index.html`))) continue;
+  const tagged = records.filter((record) => entry.ids.includes(record.id));
+  write(`tag/${key}/index.html`, renderTagPage({ config, root: "../../", kind: entry.kind, tag: `${entry.name} (historical classification)`, records: tagged, related: new Map() }));
+}
 
 // JSON API
 const siteUrl = config.siteUrl.replace(/\/$/, "");
@@ -339,6 +350,7 @@ write("api/tags.json", `${JSON.stringify({
   fields: describeTags("field", taxonomy.fields, fieldCounts),
   topics: describeTags("topic", taxonomy.topics, topicCounts)
 }, null, 2)}\n`);
+const payloads = new Map();
 for (const record of records) {
   const payload = {
     schema: "qiqcop-zoo/problem/3",
@@ -367,6 +379,7 @@ for (const record of records) {
     sourceTex: record.sourceTex
   };
   const jsonPayload = `${JSON.stringify(payload, null, 2)}\n`;
+  payloads.set(record.id, payload);
   for (const alias of record.aliases) write(`api/problems/${alias}.json`, jsonPayload);
   // An explicit adapter envelope: the main Problem object conforms to its
   // metadata schema; our status and authored record remain authoritative.
@@ -378,6 +391,8 @@ for (const record of records) {
     record: record.storedRecord
   }, null, 2)}\n`);
 }
+
+buildCompatibility({ write, records, payloads, apiIndex, legacy, config });
 
 // Sitemap, robots, llms.txt
 const urls = [

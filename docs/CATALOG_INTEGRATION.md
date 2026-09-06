@@ -47,22 +47,91 @@ from Git history. The earlier process design remains useful for the review
 workflow; this document governs the authoritative catalog, identifiers,
 taxonomy, and binary research status when the descriptions differ.
 
-## Remaining maintenance boundaries
+## Versioned updates and reconciliation
 
-The exporter currently replaces its owned revision-one files. If a later
-service record depends on an entity being changed, the exporter refuses the
-update. Preserve that guard and the dependent history; routine authoring must
-not use `--replace-authoritative` to bypass it. A supported reconciliation
-workflow using new revisions and statement versions is still needed.
+Ordinary `npm run export-ledger` appends `.r2.md`, `.r3.md`, and subsequent
+entity revisions. Statement changes append `v2.md`, `v3.md`, and subsequent
+versions, with fresh identities and a `supersedes` link. Existing files are
+never rewritten or removed. Comments and reviews remain attached to the
+statement and digest they actually examined. A changed statement does not
+inherit resolution claims merely because its clause is still named `main`.
 
-For an intentionally reviewed catalog update in a deployed service clone,
-the operator runs `node --experimental-strip-types src/cli.ts sync --allow-edits`
-from `service/` before resuming writes, then rebuilds the index. Ordinary sync
-rejects edits to historical ledger files. This command can push local commits;
-run it only as an authorized deployment step.
+`ledger/export-manifest.json` version 2 pins the bytes of exported history
+and the last desired values of projected fields. The contract recognizes
+these operator-authored catalog revisions without inventing research
+contributions or reviews. API clients cannot write the manifest, and an
+unmanifested Problem revision cannot change `authoredCatalog`. Missing or
+modified pinned files fail validation and export. The first ordinary export
+migrates a version-1 manifest without rewriting its historical records.
 
-Accepted service proposals also need an explicit authoring handoff into
-`database/problems_json/` before they appear on the static site. Preserve the
-service identity and check the existing aliases during that handoff. See
-[the workspace audit](WORKSPACE_AUDIT.md) for the event-feed, bootstrap,
-compatibility, rendering, and content conflicts still requiring follow-up.
+When a service revision changes a different field, export preserves that
+edit and applies the catalog change in the next revision. If both paths
+change the same field, export reports the conflicting field before writing.
+Review the current service version and the authored JSON, reconcile the
+content in JSON, then explicitly run:
+
+```sh
+npm run export-ledger -- --reconcile-catalog
+```
+
+This selects catalog values for colliding fields while retaining all old
+revisions. It can also supersede a newer service statement after review.
+Retain existing reference labels and archived identities; removing owned
+entities is rejected rather than silently deleting research history.
+`--replace-authoritative` remains an explicit whole-ledger reset, not a
+maintenance workflow.
+
+Each new record path receives a new service event sequence. After a catalog
+commit, ordinary `sync` accepts the appended records and updated export
+manifest, validates the merged ledger, and rebuilds the index. Existing
+record edits and deletions still require an operator's deliberate
+`sync --allow-edits`. Sync can push local commits and remains an authorized
+deployment operation. Deploy the new service code before syncing version-2
+exports into a running instance.
+
+## Accepted service contributions to the static catalog
+
+The publication boundary is explicit: acceptance alone does not synthesize
+a scientific JSON record. Prepare the authored TeX fields using the
+[writing skill](../.claude/skills/writing-open-problems/SKILL.md), preserving
+the exact accepted statement, its evidence, and binary research status.
+Then, in a checkout containing the accepted service history, run:
+
+```sh
+npm run handoff-catalog -- --problem <service-problem-ULID> --record <authored.json>
+npm run check-metadata
+npm run check-ledger
+npm run validate:ledger
+npm test
+npm run build
+```
+
+The handoff requires a published service problem, preserves its ULID and
+aliases (and any existing catalog op ID), imports the creator's actor
+provenance, and validates the authored record against the current taxonomy.
+It stages the JSON, TeX, metadata, and versioned ledger export together before
+writing. Inspect and commit that diff through the normal catalog PR workflow.
+The command performs no Git push, admission decision, or invented review.
+Related and parent problems must already have catalog identities.
+
+## Editor setup and historical interfaces
+
+The operator provisions the first real human editor with
+`node --experimental-strip-types service/src/cli.ts bootstrap-editor <numeric-github-id> "Full Name"`.
+This creates or promotes that human actor and links the numeric GitHub identity.
+Repeating it is idempotent; further editors use the existing editor workflow.
+The migration actor receives no human role. See [service setup](../service/README.md).
+
+Both `/problem/<alias>/` and the historical `/problems/<alias>/` resolve for
+known identities. Former static JSON lookup paths under `/api/v1/problems/`
+serve the current `qiqcop-zoo/problem/3` payload, and `/packets/<alias>.md`
+serves a current research brief. Release polling, JSONL snapshots, the evidence
+endpoint, JSON Feed, and Atom are available. Their dates describe catalog
+edits, not inferred publication dates for scientific results. The old static
+write schema is explicitly retired; clients use service schemas or catalog PRs.
+
+`database/legacy-routes.json` pins old identifiers and taxonomy membership to
+historical commits. Unmapped old records receive an explicit archive link,
+never an unverified identity redirect. Removed tag pages and query filters
+show their historical problem cohort with current content and statuses.
+Current taxonomy pages continue to use only `database/tags.json`.

@@ -1,5 +1,37 @@
 # Workspace audit after the catalog replacement
 
+Follow-up: 2026-09-06. All six implementation/content findings below have
+been addressed in the catalog-integration follow-up. The dated findings are
+retained as the audit trail, not the current backlog.
+
+- PR #8's writing skill now authors the authoritative JSON format, reads the
+  live taxonomy, checks equivalent questions and primary sources, and
+  synchronizes all derived outputs. It is tracked in the repository.
+- The less-noisy pair now consistently reads `Solved`, with reciprocal
+  identities and a checked Theorem 1.1 locator in Zhu–Wang arXiv:2607.24693v2.
+  Both permanent records remain. The cited resolution is labeled a preprint.
+- Export appends revisions and statement versions; pinned history and
+  field-level reconciliation preserve service activity and expose updates
+  through existing incremental events. Changed statements retain historical
+  citations without automatically inheriting old resolution claims.
+- `bootstrap-editor` provisions and links a real human; it preserves an
+  existing contributor identity and is idempotent, including link recovery.
+- Historical problem/packet/API/feed entry points and taxonomy cohorts now
+  have explicit compatibility or archive responses. API clients can detect
+  the current response schema; the former static write schema is retired.
+- The research UI links an export's whole-statement clause to the rendered
+  statement above, preventing raw text-mode TeX and duplicate equations.
+  Equation references nested inside mathematics now resolve against the
+  record-local numbering map, removing the observed `???` output.
+- `handoff-catalog` provides the explicit path from an admitted service
+  identity and authored JSON to synchronized catalog outputs.
+
+See [the current integration guide](CATALOG_INTEGRATION.md) for commands and
+operational boundaries. These code and fixture checks do not provision a
+production editor or restart an independently deployed research service.
+
+## Original audit (2026-09-04)
+
 Audit date: 2026-09-04. Baseline: merge `7654b789ae0a1ab54e53e9823d39583153dc0bf1`.
 Its second parent, `fc28fa4a9e6fd8e7c7e2c0e4cd4179188ea99571`, is the original
 main before integration; its first parent is the redesigned catalog.
@@ -35,7 +67,7 @@ the stale marker without changing commits or working files.
   the obsolete MCP entry point, and documented the absent seed editor and
   the explicit deployment synchronization boundary.
 
-## Remaining conflicts, in priority order
+## Findings at the audit baseline (resolved above)
 
 ### 1. Equivalent questions have contradictory research statuses
 

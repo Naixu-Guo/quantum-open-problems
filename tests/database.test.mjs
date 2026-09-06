@@ -14,7 +14,7 @@ const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."
 const read = (file) => JSON.parse(fs.readFileSync(file, "utf8"));
 const records = fs.readdirSync(path.join(repoRoot, "database/problems_json")).filter((name) => name.endsWith(".json"))
   .map((name) => read(path.join(repoRoot, "database/problems_json", name)));
-const example = records.find((record) => record.status === "Solved");
+const example = records.find((record) => record.status === "Solved" && record.metadata.relatedProblemIds.length === 0 && record.metadata.parentProblemId === null);
 const script = (name, args = []) => spawnSync(process.execPath, [path.join(repoRoot, "scripts", name), ...args], { encoding: "utf8" });
 const succeed = (result) => assert.equal(result.status, 0, result.stdout + result.stderr);
 
@@ -172,6 +172,9 @@ test("built aliases and main adapter preserve every authored record and binary s
     for (const alias of record.aliases) {
       assert.equal(identities.aliases[alias].ulid, record.ulid);
       assert.equal(fs.readFileSync(path.join(output, `api/problems/${alias}.json`), "utf8"), canonical);
+      assert.equal(fs.readFileSync(path.join(output, `api/v1/problems/${alias}.json`), "utf8"), canonical);
+      assert.ok(fs.readFileSync(path.join(output, `problems/${alias}/index.html`), "utf8").includes(`../../problem/${record.id}/`));
+      assert.ok(fs.readFileSync(path.join(output, `packets/${alias}.md`), "utf8").includes(record.statement));
       if (alias !== record.id) assert.match(fs.readFileSync(path.join(output, `problem/${alias}/index.html`), "utf8"), new RegExp(`../${record.id}/`));
     }
     assert.ok(catalog.includes(record.ulid.toLowerCase()));
@@ -184,4 +187,7 @@ test("built aliases and main adapter preserve every authored record and binary s
     assert.ok(adapter.problem.aliases.includes(record.id.replace("_", "-").toLowerCase()));
     assert.equal(Object.hasOwn(adapter.problem, "status"), false);
   }
+  assert.equal(fs.readFileSync(path.join(output, "api/v1/problems.jsonl"), "utf8").trim().split("\n").length, records.length);
+  assert.equal(read(path.join(output, "feed.json")).items.length, records.length);
+  assert.ok(read(path.join(output, "api/v1/release.json")).catalogDigest.startsWith("sha256:"));
 });

@@ -9,6 +9,7 @@
  *   node --experimental-strip-types src/cli.ts key issue <actorId> [label]   print a new bearer token once
  *   node --experimental-strip-types src/cli.ts key revoke <token>
  *   node --experimental-strip-types src/cli.ts identity link github <github-user-id> <actorId>   bind a GitHub account to an existing actor
+ *   node --experimental-strip-types src/cli.ts bootstrap-editor <github-user-id> <name>   provision and link the first human editor
  */
 import fs from "node:fs";
 import { configFromEnv } from "./config.ts";
@@ -16,6 +17,7 @@ import { createService } from "./service.ts";
 import { createServer } from "./api.ts";
 import { submit, runAutomaticDecisions, reindex } from "./write.ts";
 import { newId } from "./ids.ts";
+import { bootstrapEditor } from "./bootstrap.ts";
 
 const [command, ...args] = process.argv.slice(2);
 
@@ -28,6 +30,15 @@ const config = configFromEnv();
 const service = createService(config);
 
 switch (command) {
+  case "bootstrap-editor": {
+    try {
+      if (args.length !== 2) throw new Error("usage: bootstrap-editor <numeric-github-user-id> <name>");
+      console.log(`Editor ${bootstrapEditor(service, args[0]!, args[1]!)} linked to GitHub user ${args[0]}.`);
+    } catch (error) { console.error(String(error)); process.exitCode = 1; }
+    service.index.close();
+    service.auth.close();
+    break;
+  }
   case "serve": {
     const server = createServer(service);
     server.listen(config.port, () => console.log(`Quantum Open Problems service on http://localhost:${config.port}/api/v1/status`));
@@ -93,6 +104,6 @@ switch (command) {
     break;
   }
   default:
-    console.error("usage: serve | rebuild | submit <actorId> <batch.json> [message] | decide | sync | key issue|revoke | identity link | id");
+    console.error("usage: serve | rebuild | submit <actorId> <batch.json> [message] | decide | sync | bootstrap-editor <github-id> <name> | key issue|revoke | identity link | id");
     process.exit(2);
 }

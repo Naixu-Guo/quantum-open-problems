@@ -14,6 +14,7 @@
     "test": "node --experimental-strip-types --no-warnings --test tests/*.test.mjs",
     "new-id": "node scripts/new-problem-id.mjs",
     "export-ledger": "node --experimental-strip-types --no-warnings scripts/export-ledger.mjs",
+    "handoff-catalog": "node --experimental-strip-types --no-warnings scripts/handoff-catalog.mjs",
     "check-ledger": "node --experimental-strip-types --no-warnings scripts/export-ledger.mjs --check",
     "validate:ledger": "node --experimental-strip-types --no-warnings contract/src/cli/validate.ts ledger activity",
     "service": "npm --prefix service run serve",

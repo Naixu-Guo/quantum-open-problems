@@ -3,6 +3,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { Ajv2020, type ValidateFunction } from "ajv/dist/2020.js";
 import addFormatsModule from "ajv-formats";
@@ -229,6 +230,25 @@ export function validateLedger(roots: string[], schemaDir: string = DEFAULT_SCHE
   }
   const ledger = new Ledger(records.filter((record) => !malformed.has(record)));
 
+  // The API cannot write this manifest. An operator's catalog export pins exact
+  // bytes so it can append authoritative revisions without inventing reviews.
+  for (const root of roots) {
+    const manifestPath = path.join(root, "export-manifest.json");
+    if (!fs.existsSync(manifestPath)) continue;
+    try {
+      const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+      if (manifest.schema === "qiqcop-zoo/ledger-export/1") continue;
+      if (manifest.schema !== "qiqcop-zoo/ledger-export/2" || !manifest.fileHashes || typeof manifest.fileHashes !== "object" || Array.isArray(manifest.fileHashes)) throw new Error("invalid catalog export manifest");
+      for (const [file, digest] of Object.entries(manifest.fileHashes)) {
+        if (!/^ledger\/(?!.*(?:\.\.|\\))[^\s]+\.md$/.test(file) || typeof digest !== "string" || !/^[a-f0-9]{64}$/.test(digest)) throw new Error(`invalid catalog export path or hash: ${file}`);
+        const absolute = path.join(root, file.slice("ledger/".length));
+        const record = ledger.records.find((item) => item.path === absolute);
+        if (!record || createHash("sha256").update(fs.readFileSync(absolute)).digest("hex") !== digest) throw new Error(`catalog export history changed or missing: ${file}`);
+        ledger.catalogExports.add(`${record.id}@${revisionOf(record)}`);
+      }
+    } catch (error) { push("rule", manifestPath, String(error)); }
+  }
+
   // Identity: one type per id, unique immutable ids, contiguous revisions.
   for (const [id, list] of ledger.revisions) {
     const types = new Set(list.map((record) => record.type));
@@ -347,7 +367,7 @@ export function validateLedger(roots: string[], schemaDir: string = DEFAULT_SCHE
   for (const record of ledger.records) {
     if (record.redacted || !REVIEWED_REVISION_TYPES.has(record.type)) continue;
     const revision = revisionOf(record);
-    if (revision > 1 && !introduced.has(`${record.id}@${revision}`)) push("rule", record, `revision ${revision} is not introduced by an entity-revision contribution`);
+    if (revision > 1 && !introduced.has(`${record.id}@${revision}`) && !ledger.catalogExports.has(`${record.id}@${revision}`)) push("rule", record, `revision ${revision} is not introduced by an entity-revision contribution or pinned catalog export`);
   }
 
   // Status-versus-clause consistency.

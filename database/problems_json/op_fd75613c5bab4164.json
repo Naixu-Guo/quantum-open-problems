@@ -28,7 +28,9 @@
     "keywords": [],
     "difficulty": "unrated",
     "verificationCost": "unrated",
-    "relatedProblemIds": []
+    "relatedProblemIds": [
+      "01M1HME780WGX30SANKVAEX4S2"
+    ]
   },
   "title": "Strict inclusion of degradable channels in the less-noisy class",
   "status": "Solved",
@@ -44,7 +46,7 @@
   "progress": [
     "Watanabe proved that every degradable channel satisfies\n  Eq.~\\eqref{eq:p47-watanabe-less-noisy}, but left open whether this inclusion\n  is strict \\sourcecite{ref:p47-watanabe}{Wat12}.",
     "Belzig, Gao, Smith, and Wu constructed nondegradable channels satisfying\n  the one-copy version of Eq.~\\eqref{eq:p47-regularized-order}.  Their result\n  separates degradability from the level-1 less-noisy condition, while\n  explicitly leaving the all-blocklength condition in\n  Eq.~\\eqref{eq:p47-regularized-order} unresolved\n  \\sourcecite{ref:p47-belzig}{BGSW25}.",
-    "Zhu and Wang subsequently considered the qutrit channel\n  \\begin{equation}\n    \\Lambda(X)\n    =\\frac12X+\\frac14\\bigl(\\operatorname{Tr}(X)I-X^{\\mathsf T}\\bigr)\n    \\label{eq:p47-zhu-wang-channel}\n  \\end{equation}\n  and proved at every blocklength that\n  \\begin{equation}\n    P(\\Lambda)=Q(\\Lambda)=0,\n    \\qquad\n    \\Lambda\\ \\text{is not antidegradable}.\n    \\label{eq:p47-zhu-wang-properties}\n  \\end{equation}\n  Setting $\\mathcal N=\\Lambda^c$, Eq.~\\eqref{eq:p47-zhu-wang-properties}\n  gives $P(\\mathcal N^c)=0$, so $\\mathcal N$ is Watanabe-less-noisy.  If\n  $\\mathcal N$ were degradable, then\n  $\\Lambda=\\mathcal D\\circ\\Lambda^c$ for some channel $\\mathcal D$, contrary\n  to the non-antidegradability statement in\n  Eq.~\\eqref{eq:p47-zhu-wang-properties}.  Hence $\\Lambda^c$ is less noisy but\n  nondegradable \\sourcecite{ref:p47-zhu-wang}{ZW26}."
+    "Zhu and Wang subsequently considered the qutrit channel\n  \\begin{equation}\n    \\Lambda(X)\n    =\\frac12X+\\frac14\\bigl(\\operatorname{Tr}(X)I-X^{\\mathsf T}\\bigr)\n    \\label{eq:p47-zhu-wang-channel}\n  \\end{equation}\n  and proved in Theorem 1.1 that\n  \\begin{equation}\n    P(\\Lambda)=Q(\\Lambda)=0,\n    \\qquad\n    \\Lambda\\ \\text{is not antidegradable}.\n    \\label{eq:p47-zhu-wang-properties}\n  \\end{equation}\n  Setting $\\mathcal N=\\Lambda^c$, Eq.~\\eqref{eq:p47-zhu-wang-properties}\n  gives $P(\\mathcal N^c)=0$, so $\\mathcal N$ is Watanabe-less-noisy.  If\n  $\\mathcal N$ were degradable, then\n  $\\Lambda=\\mathcal D\\circ\\Lambda^c$ for some channel $\\mathcal D$, contrary\n  to the non-antidegradability statement in\n  Eq.~\\eqref{eq:p47-zhu-wang-properties}.  Hence $\\Lambda^c$ is less noisy but\n  nondegradable \\sourcecite{ref:p47-zhu-wang}{ZW26}."
   ],
   "references": [
     {
@@ -63,5 +65,5 @@
       "tex": "C. Zhu and X. Wang, ``Quantum Incapacity beyond No-Cloning and PPT\n  Mechanisms,'' arXiv preprint (2026).\n  \\href{https://arxiv.org/abs/2607.24693}{arXiv:2607.24693}."
     }
   ],
-  "comment": "The answer is affirmative: the complement of the channel in\nEq.~\\eqref{eq:p47-zhu-wang-channel} proves that degradable channels form a\nproper subset of Watanabe-less-noisy channels.  The resolving result\n\\sourcecite{ref:p47-zhu-wang}{ZW26} is, as of August 2026, a recent preprint;\nthe solved status records its theorem rather than peer-review history."
+  "comment": "The answer is affirmative: the complement of the channel in\nEq.~\\eqref{eq:p47-zhu-wang-channel} proves that degradable channels form a\nproper subset of Watanabe-less-noisy channels.  The resolving result\n\\sourcecite{ref:p47-zhu-wang}{ZW26} is, as of August 2026, a recent preprint;\nthe solved status records its theorem rather than peer-review history. This is the same archived question as ``Regularized less-noisy channels beyond degradability.'' Both permanent identities are retained; the resolving theorem was checked in version 2 on 6 September 2026."
 }

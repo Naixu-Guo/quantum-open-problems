@@ -126,6 +126,8 @@ publishing; the skill itself does not authorize external actions.
 A request specifically for a service proposal or review uses the service API
 and `contract/policy/v1.md`. It is a different publication path: a candidate
 needs the policy's actual acceptance decision. Do not write a decision to
-make a proposal appear reviewed. Accepted contributions need the documented
-catalog handoff before they appear on the static website. Preserve the
+make a proposal appear reviewed. For an accepted problem, prepare the authored JSON and run
+`npm run handoff-catalog -- --problem <service-ULID> --record <authored.json>`
+as documented in `docs/CATALOG_INTEGRATION.md`, then inspect and commit the
+synchronized outputs before they appear on the static website. Preserve the
 service problem's identity and provenance during that handoff.
