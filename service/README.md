@@ -125,6 +125,13 @@ contributor role, written by the system actor. Roles beyond contributor come
 from an editor's revision of that record: a person's own revision cannot
 change roles, kind, or operator. `identity link github <id> <actorId>` binds
 a GitHub account to an actor that already exists, such as a migrated one.
+Login, bootstrap, and that operator command persist `github-id:<numeric-id>`
+in the actor ledger before linking the disposable auth database. Recovery
+therefore preserves contributions even after a login rename. Older
+`github:<login>` records must be explicitly linked while ownership can be
+verified; usernames are never treated as durable identity proof. Until those
+legacy records are migrated, unlinked signups and bootstrap refuse to create
+a potentially duplicate actor. API batches cannot assign GitHub identities.
 
 Outside `/api/` and `/auth/`, GET requests serve the web app's files from
 `QOP_WEB_DIR` with a weak ETag; dotfiles and paths outside the directory are

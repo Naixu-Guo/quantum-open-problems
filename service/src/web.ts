@@ -17,6 +17,7 @@ import { authorizeUrl, exchangeCode, fetchUser, type GitHubUser } from "./github
 import { HttpError } from "./errors.ts";
 import { hashKey } from "./auth.ts";
 import { newId, nowIso } from "./ids.ts";
+import { githubActor, linkGitHubIdentity } from "./github-identity.ts";
 
 export const SESSION_COOKIE = "qop_session";
 export const LOGIN_COOKIE = "qop_login";
@@ -88,16 +89,15 @@ export function safeReturnTo(raw: string | null, publicUrl: string): string {
  * pre-existing actor to an id with the `identity link` command.
  */
 export function ensureHumanActor(service: Service, user: GitHubUser): string {
-  const ledger = service.repo.current();
+  service.repo.refreshIfMoved();
   const subject = String(user.id);
-  let actorId = service.auth.actorForIdentity("github", subject);
-  if (actorId && !ledger.find("Actor", actorId)) actorId = null;
+  let actorId = githubActor(service, subject)?.id;
   if (!actorId) {
     const id = newId();
     const result = submit(service, service.systemActorId, [{
       fields: {
         id, type: "Actor", schemaVersion: "1.0", revision: 1, createdBy: service.systemActorId, createdAt: nowIso(),
-        name: user.name ?? user.login, kind: "human", roles: ["contributor"], externalIdentity: `github:${user.login}`, operatorId: null, modelFamily: null, modelVersion: null, harness: null,
+        name: user.name ?? user.login, kind: "human", roles: ["contributor"], externalIdentity: `github-id:${subject}`, operatorId: null, modelFamily: null, modelVersion: null, harness: null,
       },
       body: "Created by the service at this person's first GitHub login. Roles beyond contributor are granted by an editor's revision of this record.",
     }], `Create actor for GitHub user ${user.login}`);
@@ -105,7 +105,7 @@ export function ensureHumanActor(service: Service, user: GitHubUser): string {
     for (const issue of result.automaticIssues) console.error(`automatic decision skipped after login: ${issue.path}: ${issue.message}`);
     actorId = id;
   }
-  service.auth.linkIdentity("github", subject, actorId, user.login);
+  linkGitHubIdentity(service, subject, actorId, user.login);
   return actorId;
 }
 

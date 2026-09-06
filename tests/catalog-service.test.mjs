@@ -9,6 +9,8 @@ import { createService } from "../service/src/service.ts";
 import { reindex } from "../service/src/write.ts";
 import { bootstrapEditor } from "../service/src/bootstrap.ts";
 import { ensureHumanActor } from "../service/src/web.ts";
+import { linkGitHubIdentity } from "../service/src/github-identity.ts";
+import { materialize } from "../service/src/payloads.ts";
 import { AuthStore } from "../service/src/auth.ts";
 import { validateLedger } from "../contract/src/validate.ts";
 import { deterministicUlid } from "../site/lib/metadata.mjs";
@@ -287,4 +289,41 @@ test("catalog reconciliation cannot resurrect a redacted problem", async (t) => 
   fs.writeFileSync(recordPath, JSON.stringify({ ...record, title: "Updated catalog title" }));
   for (const reconcileCatalog of [false, true]) await assert.rejects(exportLedger({ root, reconcileCatalog }), /Refusing to restore redacted/);
   assert.equal(fs.existsSync(current.path.replace("r1.md", "r3.md")), false);
+});
+
+
+test("web login and bootstrap recover the same contributor after auth-store loss and account rename", async (t) => {
+  const { service } = await fixture(t);
+  const id = ensureHumanActor(service, { id: 123456, login: "old-name", name: "Contributor" });
+  const original = service.repo.current().find("Actor", id);
+  assert.equal(original.fields.externalIdentity, "github-id:123456");
+  service.auth.close();
+  service.auth = new AuthStore(":memory:");
+  assert.equal(ensureHumanActor(service, { id: 123456, login: "new-name", name: "Contributor" }), id);
+  service.auth.close();
+  service.auth = new AuthStore(":memory:");
+  assert.equal(bootstrapEditor(service, "123456", "Contributor"), id);
+  assert.equal(service.repo.current().currentOf("Actor").filter((a) => a.fields.kind === "human").length, 1);
+  assert.equal(service.repo.current().revisions.get(id).length, 2);
+  assert.equal(service.repo.current().revisions.get(id)[0].path, original.path);
+  assert.throws(() => materialize(service.repo.current(), id, [{ ...service.repo.current().find("Actor", id).fields,
+    revision: 3, externalIdentity: "github-id:999", body: "" }]), /GitHub identities are assigned/);
+});
+
+test("legacy username-only actors require an explicit link instead of silent duplication", async (t) => {
+  const { service } = await fixture(t);
+  const id = ensureHumanActor(service, { id: 123456, login: "legacy", name: "Contributor" });
+  const actor = service.repo.current().find("Actor", id);
+  const changed = service.repo.write([{ fields: { ...actor.fields, revision: 2, externalIdentity: "github:legacy" }, body: actor.body }],
+    "Legacy actor fixture", { name: "fixture", email: "fixture@example.invalid" });
+  assert.ok(changed.ok);
+  service.auth.close();
+  service.auth = new AuthStore(":memory:");
+  assert.throws(() => bootstrapEditor(service, "123456", "Contributor"), /Legacy GitHub actors/);
+  assert.throws(() => ensureHumanActor(service, { id: 123456, login: "legacy", name: "Contributor" }), /Legacy GitHub actors/);
+  linkGitHubIdentity(service, "123456", id);
+  service.auth.close();
+  service.auth = new AuthStore(":memory:");
+  assert.equal(bootstrapEditor(service, "123456", "Contributor"), id);
+  assert.equal(service.repo.current().currentOf("Actor").filter((a) => a.fields.kind === "human").length, 1);
 });
