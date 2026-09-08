@@ -21,7 +21,7 @@ import { distinctQuestionCounts, validateRecordIdentities, metadataToMainProblem
 import { buildCompatibility, legacyTagIndex } from "./lib/compatibility.mjs";
 import {
   renderHome, renderProblemPage, renderDirectory, renderTagsIndex, renderTagPage, byRecentEdit,
-  renderAbout, renderRandomPage, renderNotFound
+  renderAbout, renderContribute, renderRandomPage, renderNotFound
 } from "./lib/render.mjs";
 
 const siteDir = path.dirname(fileURLToPath(import.meta.url));
@@ -243,6 +243,7 @@ write("index.html", renderHome({ config, root: "", records, stats, fieldCounts, 
 write("problems/index.html", renderDirectory({ config, root: "../", records, fieldCounts, topicCounts }));
 write("tags/index.html", renderTagsIndex({ config, root: "../", taxonomy, fieldCounts, topicCounts }));
 write("about/index.html", renderAbout({ config, root: "../", stats, dates }));
+write("contribute/index.html", renderContribute({ config, root: "../", taxonomy, fieldCounts, topicCounts }));
 write("404.html", renderNotFound({ config, root: "/" + config.siteUrl.replace(/^https?:\/\/[^/]+\/?/, "") }));
 
 for (const record of records) {
@@ -401,7 +402,7 @@ buildCompatibility({ write, records, payloads, apiIndex, legacy, config });
 
 // Sitemap, robots, llms.txt
 const urls = [
-  "", "problems/", "tags/", "about/",
+  "", "problems/", "tags/", "about/", "contribute/",
   ...records.map((record) => `problem/${record.id}/`),
   ...[...fieldCounts.keys(), ...topicCounts.keys()].map((tag) => `tag/${slug(tag)}/`)
 ];
@@ -424,7 +425,7 @@ The zoo holds ${stats.total} problems (${stats.unsolved} unsolved, ${stats.solve
 
 ## Contributing
 
-Records are JSON files in ${config.repositoryUrl}/tree/${config.branch}/${config.databasePath}, with a TeX form of each in ${config.texPath}. Follow database/_template.json and open a pull request; the build validates every record.
+Records are JSON files in ${config.repositoryUrl}/tree/${config.branch}/${config.databasePath}, with a TeX form of each in ${config.texPath}. Follow database/_template.json and open a pull request; the build validates every record. People without a GitHub account can propose a problem at ${siteUrl}/contribute/; proposals are reviewed and rewritten by the maintainers before publication.
 `);
 
 console.log(`Built ${records.length} problems, ${fieldCounts.size} fields, ${topicCounts.size} topics into ${path.relative(repoRoot, outDir) || "."}`);

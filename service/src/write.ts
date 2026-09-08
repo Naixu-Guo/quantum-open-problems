@@ -11,6 +11,7 @@ import type { Index } from "./index.ts";
 import type { AuthStore } from "./auth.ts";
 import type { Policy } from "../../contract/src/policy.ts";
 import type { WebConfig } from "./config.ts";
+import type { SubmissionStore, SubmissionsConfig } from "./submissions.ts";
 import type { Contribution } from "../../contract/src/types/contribution.ts";
 import { evaluate, unreviewedAcceptance, acceptanceDecision, consequences, pending, type AcceptanceContext } from "./acceptance.ts";
 
@@ -23,6 +24,9 @@ export interface Service {
   artifactStoreDir: string;
   /** The web app and human login; see `config.ts`. */
   web: WebConfig;
+  /** The public proposal inbox and its rules; see `submissions.ts`. */
+  submissions: SubmissionStore;
+  submissionsConfig: SubmissionsConfig;
 }
 
 export interface SubmitResult extends WriteResult {

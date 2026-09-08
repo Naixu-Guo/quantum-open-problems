@@ -1,0 +1,119 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_25e23d6e92ebce9d",
+  "ulid": "01M202HP8CMK4SGZZE0FHGAXC1",
+  "aliases": [
+    "op_25e23d6e92ebce9d",
+    "01M202HP8CMK4SGZZE0FHGAXC1",
+    "op-25e23d6e92ebce9d"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-08T08:35:55.788Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-communication",
+      "quantum-resource-theory"
+    ],
+    "topicIds": [
+      "classical-capacity",
+      "additivity-and-regularization",
+      "entanglement-measures"
+    ],
+    "keywords": [
+      "entanglement of formation",
+      "Holevo capacity",
+      "classical capacity",
+      "minimum output entropy",
+      "additivity",
+      "explicit counterexample"
+    ],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": [
+      "01M1HME78010TTEQK6NFPRCGZT",
+      "01M1HME780XSRZ7K9HQJSZ176R"
+    ]
+  },
+  "title": "Closed-form nonadditivity of the Holevo capacity and entanglement of formation",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum Communication",
+    "Quantum Resource Theory"
+  ],
+  "topics": [
+    "Classical capacity",
+    "Additivity and regularization",
+    "Entanglement measures"
+  ],
+  "statement": "Construct a simple closed-form or practically computable counterexample to additivity of the Holevo capacity or the entanglement of formation, together with a rigorous certificate of a strict violation.\n\nFor a density operator $\\rho$, write $S(\\rho)=-\\operatorname{Tr}\\rho\\log_2\\rho$. For a bipartite state $\\rho_{AB}$, the \\emph{entanglement of formation} is\n\\begin{equation}\n  E_F(\\rho_{AB})=\\inf_{\\{p_x,\\psi_x\\}}\\ \\sum_x p_x\\, S\\big(\\operatorname{Tr}_B\\lvert\\psi_x\\rangle\\!\\langle\\psi_x\\rvert\\big),\n  \\label{eq:cf-eof-def}\n\\end{equation}\nwhere the infimum runs over pure-state ensembles with $\\sum_x p_x\\lvert\\psi_x\\rangle\\!\\langle\\psi_x\\rvert=\\rho_{AB}$; and for a channel $\\mathcal N$, the \\emph{Holevo capacity} is\n\\begin{equation}\n  \\chi(\\mathcal N)=\\sup_{\\{p_x,\\rho_x\\}}\\ \\Big[ S\\Big(\\sum_x p_x\\,\\mathcal N(\\rho_x)\\Big)-\\sum_x p_x\\,S\\big(\\mathcal N(\\rho_x)\\big)\\Big],\n  \\label{eq:cf-holevo-def}\n\\end{equation}\nwhere the supremum runs over finite input ensembles. The target is at least one of the inequalities\n\\begin{equation}\n  E_F(\\rho\\otimes\\sigma)<E_F(\\rho)+E_F(\\sigma)\n  \\qquad\\text{and}\\qquad\n  \\chi(\\mathcal N_1\\otimes\\mathcal N_2)>\\chi(\\mathcal N_1)+\\chi(\\mathcal N_2),\n  \\label{eq:cf-violations}\n\\end{equation}\n\nA solution must specify the finite states or channel operators completely, give their dimensions, and certify the corresponding inequality in \\eqref{eq:cf-violations} for the quantities defined in \\eqref{eq:cf-eof-def} and \\eqref{eq:cf-holevo-def}. For example, a certificate may combine rigorous one-copy bounds with an explicit two-copy input or ensemble. A simple closed-form construction must include a proof; a computational construction must include the actual instance and reproducible error bounds. An asymptotic algorithm or an existence proof alone does not supply such an instance. No universal upper bound on the witness dimensions is imposed.\n\nThe two formulations share the universal additivity equivalences discussed in Progress. Any use of a reduction to produce a witness must also specify the resulting data and certificate; the equivalence alone does not guarantee practical size. Counterexamples for minimum output R\\'enyi entropy at orders $p\\ne1$ do not answer this question.",
+  "source": "Lovitz and Wu explicitly identify the search for a simple closed-form or practically computable counterexample as open \\sourcecite{ref:cf-lovwu26}{LovWu26}, Abstract and Section~1.1. The entanglement-of-formation formulation is motivated by Shor's equivalence of the universal additivity conjectures \\sourcecite{ref:cf-sho04}{Sho04}; this connection does not assert that their smallest or most practical witnesses have the same dimensions.",
+  "progress": [
+    "Hastings constructed random unitary channels whose minimum output entropy is nonadditive in sufficiently large dimension, yielding existentially the violations of \\eqref{eq:cf-violations}, with superadditivity of the Holevo capacity under entangled inputs \\sourcecite{ref:cf-has09}{Has09}.",
+    "Shor proved equivalence of the universal additivity conjectures for $\\chi$, minimum output von Neumann entropy, $E_F$, and strong superadditivity of $E_F$ \\sourcecite{ref:cf-sho04}{Sho04}. Pomeransky proved that additivity of $E_F$ implies its strong superadditivity \\sourcecite{ref:cf-pom03}{Pom03}. Together with Hastings' result, these establish nonadditivity existentially; obtaining explicit, manageable witnesses requires control of the reductions and their dimensions.",
+    "Belinschi, Collins, and Nechita obtained random-channel violations at output dimension $183$, and entropy gaps approaching one bit in a suitable asymptotic regime \\sourcecite{ref:cf-bcn16}{BCN16}. These are separate parameter statements, not a one-bit gap at dimension $183$.",
+    "For R\\'enyi entropy away from order one, Cubitt, Harrow, Leung, Montanaro, and Winter supplied an explicit pair of channels from dimension $4$ to $3$ with nonadditive minimum output rank \\sourcecite{ref:cf-crs08}{CHL+08}. Derksen and Lovitz gave constructive counterexamples for every $p>1$ \\sourcecite{ref:cf-dl26}{DL26}. Krohn-Grimberghe certified a positive-order violation for the normalized explicit pair over $0<p\\le1/22$ \\sourcecite{ref:cf-kg26}{KG26}. The last two works are preprints.",
+    "Leung, Lovitz, and Wu's July 2026 preprint gives random-channel counterexamples for $p>3/4$ and $0\\le p<1/4$. Section~5.1 reports a numerically optimized von Neumann Bell-input threshold of output dimension $182$ for their ensemble, improving the earlier ensemble's threshold of $183$; this is not a universal minimum dimension \\sourcecite{ref:cf-llw26}{LLW26}.",
+    "Two August 2026 preprints give deterministic asymptotic constructions. Lovitz and Wu derandomize through permutations but report an impractically large quantitative size bound \\sourcecite{ref:cf-lovwu26}{LovWu26}. Zhen, Zhu, Chen, and Wang give a deterministic algorithm polynomial in the target size, for fixed channel parameters and sufficiently large sizes \\sourcecite{ref:cf-zzcw26}{ZZCW26}, Theorem~2.1. Neither work supplies a practically computed instance."
+  ],
+  "references": [
+    {
+      "key": "Has09",
+      "label": "ref:cf-has09",
+      "tex": "M. B. Hastings, ``Superadditivity of communication capacity using entangled inputs,'' \\emph{Nature Physics} \\textbf{5}, 255--257 (2009).\n\\href{https://doi.org/10.1038/nphys1224}{doi:10.1038/nphys1224};\n\\href{https://arxiv.org/abs/0809.3972}{arXiv:0809.3972}."
+    },
+    {
+      "key": "Sho04",
+      "label": "ref:cf-sho04",
+      "tex": "P. W. Shor, ``Equivalence of additivity questions in quantum information theory,'' \\emph{Communications in Mathematical Physics} \\textbf{246}, 453--472 (2004).\n\\href{https://arxiv.org/abs/quant-ph/0305035}{arXiv:quant-ph/0305035}."
+    },
+    {
+      "key": "Pom03",
+      "label": "ref:cf-pom03",
+      "tex": "A. A. Pomeransky, ``Strong superadditivity of the entanglement of formation follows from its additivity,'' \\emph{Physical Review A} \\textbf{68}, 032317 (2003).\n\\href{https://doi.org/10.1103/PhysRevA.68.032317}{doi:10.1103/PhysRevA.68.032317};\n\\href{https://arxiv.org/abs/quant-ph/0305056}{arXiv:quant-ph/0305056}."
+    },
+    {
+      "key": "BCN16",
+      "label": "ref:cf-bcn16",
+      "tex": "S. T. Belinschi, B. Collins, and I. Nechita, ``Almost one bit violation for the additivity of the minimum output entropy,'' \\emph{Communications in Mathematical Physics} \\textbf{341}(3), 885--909 (2016).\n\\href{https://arxiv.org/abs/1305.1567}{arXiv:1305.1567}."
+    },
+    {
+      "key": "CHL+08",
+      "label": "ref:cf-crs08",
+      "tex": "T. Cubitt, A. W. Harrow, D. Leung, A. Montanaro, and A. Winter, ``Counterexamples to additivity of minimum output $p$-R\\'enyi entropy for $p$ close to $0$,'' \\emph{Communications in Mathematical Physics} \\textbf{284}, 281--290 (2008).\n\\href{https://doi.org/10.1007/s00220-008-0625-z}{doi:10.1007/s00220-008-0625-z};\n\\href{https://arxiv.org/abs/0712.3628}{arXiv:0712.3628}."
+    },
+    {
+      "key": "DL26",
+      "label": "ref:cf-dl26",
+      "tex": "H. Derksen and B. Lovitz, ``Constructive counterexamples to the additivity of minimum output R\\'enyi entropy of quantum channels for all $p>1$,'' preprint (2025; v2 January 2026).\n\\href{https://arxiv.org/abs/2510.07547}{arXiv:2510.07547}."
+    },
+    {
+      "key": "KG26",
+      "label": "ref:cf-kg26",
+      "tex": "A. Krohn-Grimberghe, ``Exact certification of a positive-order R\\'enyi additivity violation for an explicit channel pair,'' preprint (2026; v2 August 2026).\n\\href{https://arxiv.org/abs/2608.17376}{arXiv:2608.17376}."
+    },
+    {
+      "key": "LLW26",
+      "label": "ref:cf-llw26",
+      "tex": "D. Leung, B. Lovitz, and P. Wu, ``Counterexamples to additivity of minimum output $p$-R\\'enyi entropy of quantum channels for $p>3/4$ and $0\\le p<1/4$,'' preprint (July 2026).\n\\href{https://arxiv.org/abs/2607.15210}{arXiv:2607.15210}."
+    },
+    {
+      "key": "LovWu26",
+      "label": "ref:cf-lovwu26",
+      "tex": "B. Lovitz and P. Wu, ``Superadditivity of classical communication over quantum channels via random and deterministic permutations,'' preprint (August 2026).\n\\href{https://arxiv.org/abs/2608.25961}{arXiv:2608.25961}."
+    },
+    {
+      "key": "ZZCW26",
+      "label": "ref:cf-zzcw26",
+      "tex": "G. Zhen, C. Zhu, R. Chen, and X. Wang, ``Deterministic minimum-output-entropy nonadditivity via Haagerup's inequality and near-free permutation representations,'' preprint (August 2026).\n\\href{https://arxiv.org/abs/2608.31081}{arXiv:2608.31081}."
+    }
+  ],
+  "comment": "Finite-dimensional violations are known to exist, and deterministic asymptotic constructions are now available. The remaining task is a fully specified, rigorously verifiable instance with a simple construction or a computation that can actually be carried out. Merely bounding the dimensions, or excluding violations in a small dimension, does not complete this construction task. The universal equivalences connect the Holevo-capacity and entanglement-of-formation questions but do not preserve a prescribed dimension bound. The separate minimum-output-entropy dimension question concerns where a violation can exist, regardless of whether an explicit instance is known. The delayed-onset additivity record concerns when self-power additivity first fails for R\\'enyi orders; the polarized Werner--Holevo record asks for multiplicativity in a particular family."
+}

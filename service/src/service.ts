@@ -4,7 +4,8 @@ import { LedgerRepo } from "./ledger-repo.ts";
 import { Index } from "./index.ts";
 import { AuthStore } from "./auth.ts";
 import { loadPolicy, currentPolicyVersion } from "../../contract/src/policy.ts";
-import { webDefaults, type Config } from "./config.ts";
+import { webDefaults, submissionsDefaults, type Config } from "./config.ts";
+import { SubmissionStore } from "./submissions.ts";
 import type { Service } from "./write.ts";
 import { reindex } from "./write.ts";
 
@@ -15,6 +16,7 @@ export function createService(config: Config): Service {
   const policy = loadPolicy(currentPolicyVersion(policyDir), policyDir);
   const system = repo.current().currentOf("Actor").find((actor) => actor.fields["kind"] === "system");
   if (!system) throw new Error("the ledger has no system actor");
+  const submissionsConfig = submissionsDefaults(config);
   const service: Service = {
     repo,
     index: new Index(config.dbPath),
@@ -23,6 +25,8 @@ export function createService(config: Config): Service {
     systemActorId: system.id,
     artifactStoreDir: path.join(repo.activityRoot, "artifact-store"),
     web: webDefaults(config),
+    submissions: new SubmissionStore(submissionsConfig.dbPath),
+    submissionsConfig,
   };
   reindex(service);
   return service;

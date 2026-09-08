@@ -84,6 +84,14 @@ each mirrored by a TeX file (`database/problems_tex/`).
   three stacked rows on phones.
 - References show DOI and arXiv as buttons only; inline identifier links are
   stripped by the converter.
+- The Contribute page (`/contribute/`) is the public proposal form. It posts
+  to the service's proposal inbox (`POST /api/v1/submissions`, stored in
+  `service/data/submissions.sqlite`), never to the database; maintainers
+  rewrite proposals into records by hand. The form's limits in
+  `site/lib/render.mjs` must equal `LIMITS` in `service/src/submissions.ts`
+  (a test enforces it). The page stays in an offline mode, loading no
+  third-party script, until `contribute.submissionUrl` and
+  `contribute.captcha.siteKey` are set in `site/config.json`.
 - Lists of problems are ordered by exact last-edit time (git author timestamp,
   seconds precision), newest first. Equal edit times use creation time,
   newest first, then the stable ID for exact ties; alphabetical sorting is
