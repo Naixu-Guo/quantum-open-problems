@@ -1,0 +1,25 @@
+# Maintainers review infrastructure and any new paths by default.
+# At least two owners keep maintainer-authored PRs reviewable by someone else.
+* @Naixu-Guo @bikunli @TanTsiChen
+
+# Scientific records and their generated projections can be reviewed by the
+# existing scientific collaborators. Mixed infrastructure changes still require
+# a maintainer through the rules below.
+/database/problems_json/ @Naixu-Guo @bikunli @TanTsiChen @Chengkai-Zhu @MinboGaoTHU @AlaricCheng @AndrewWayne @Changhao-Li
+/database/problems_tex/ @Naixu-Guo @bikunli @TanTsiChen @Chengkai-Zhu @MinboGaoTHU @AlaricCheng @AndrewWayne @Changhao-Li
+/database/merged_problems_json/ @Naixu-Guo @bikunli @TanTsiChen @Chengkai-Zhu @MinboGaoTHU @AlaricCheng @AndrewWayne @Changhao-Li
+/ledger/problems/ @Naixu-Guo @bikunli @TanTsiChen @Chengkai-Zhu @MinboGaoTHU @AlaricCheng @AndrewWayne @Changhao-Li
+/ledger/sources/ @Naixu-Guo @bikunli @TanTsiChen @Chengkai-Zhu @MinboGaoTHU @AlaricCheng @AndrewWayne @Changhao-Li
+/ledger/export-manifest.json @Naixu-Guo @bikunli @TanTsiChen @Chengkai-Zhu @MinboGaoTHU @AlaricCheng @AndrewWayne @Changhao-Li
+/ledger/README.md @Naixu-Guo @bikunli @TanTsiChen @Chengkai-Zhu @MinboGaoTHU @AlaricCheng @AndrewWayne @Changhao-Li
+
+# Explicit protected surfaces; the last matching pattern wins.
+/.github/ @Naixu-Guo @bikunli @TanTsiChen
+/site/ @Naixu-Guo @bikunli @TanTsiChen
+/scripts/ @Naixu-Guo @bikunli @TanTsiChen
+/service/ @Naixu-Guo @bikunli @TanTsiChen
+/contract/ @Naixu-Guo @bikunli @TanTsiChen
+/deploy/ @Naixu-Guo @bikunli @TanTsiChen
+/mcp/ @Naixu-Guo @bikunli @TanTsiChen
+/web/ @Naixu-Guo @bikunli @TanTsiChen
+/database/tags.json @Naixu-Guo @bikunli @TanTsiChen

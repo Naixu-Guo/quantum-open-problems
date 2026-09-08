@@ -3,45 +3,10 @@ name: Validate database and research service
 on:
   push:
     branches: [main]
-    paths:
-      - "database/**"
-      - "scripts/**"
-      - "tests/**"
-      - "contract/**"
-      - "service/**"
-      - "web/**"
-      - "mcp/**"
-      - "ledger/**"
-      - "activity/**"
-      - "tools/**"
-      - "docs/adr/**"
-      - "site/**"
-      - "mcp/**"
-      - "package.json"
-      - "CONTRIBUTING.md"
-      - ".github/ISSUE_TEMPLATE/**"
-      - ".github/workflows/validate.yml"
-
   pull_request:
-    # labeled/unlabeled: the ledger guard reads the labels, so adding or removing one must re-run it.
+    # Every PR must produce all required checks, including docs/config-only PRs.
+    # The ledger guard reads labels, so label changes must re-run it too.
     types: [opened, synchronize, reopened, labeled, unlabeled]
-    paths:
-      - "database/**"
-      - "scripts/**"
-      - "tests/**"
-      - "contract/**"
-      - "service/**"
-      - "web/**"
-      - "ledger/**"
-      - "activity/**"
-      - "tools/**"
-      - "docs/adr/**"
-      - "site/**"
-      - "mcp/**"
-      - "package.json"
-      - "CONTRIBUTING.md"
-      - ".github/ISSUE_TEMPLATE/**"
-      - ".github/workflows/validate.yml"
 
 permissions:
   contents: read

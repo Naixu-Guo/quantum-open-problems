@@ -172,3 +172,12 @@ genuinely needed.
 
 Open an issue with the *Report progress or a correction* template, quoting the
 problem ID, the exact claim, and the primary sources.
+
+## Required reviews and checks
+
+Changes to main require a PR, approval from a code owner, and all four CI checks
+against the latest main. New pushes dismiss earlier approvals. The infrastructure
+maintainers and scientific reviewers are listed in `.github/CODEOWNERS`; admins
+follow the same rules. Do not define TeX macros or aliases in records: write
+expressions with standard commands, using `\operatorname` for named operators.
+See [security operations](docs/SECURITY_OPERATIONS.md) for deployment boundaries.

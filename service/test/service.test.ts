@@ -15,6 +15,7 @@ import { submit, reindex } from "../src/write.ts";
 import { newId, nowIso } from "../src/ids.ts";
 import type { Service } from "../src/write.ts";
 import { statementDigest } from "../../contract/src/digest.ts";
+import { Index } from "../src/index.ts";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const contractDir = path.resolve(here, "..", "..", "contract");
@@ -104,6 +105,30 @@ test("GET /api/v1/events returns records after a sequence", async () => {
   assert.equal(body.events[0].sequence, 1);
   const rest = await getJson(`/api/v1/events?after=${body.nextAfter}&type=Decision`);
   assert.ok(rest.body.events.every((e: { type: string }) => e.type === "Decision"));
+});
+
+test("public pagination clamps oversized requests and rejects invalid integers", async () => {
+  const index = new Index(":memory:");
+  try {
+    const event = index.db.prepare("INSERT INTO records (id, revision, type, path, sequence, created_at, created_by, header, body) VALUES (?, 1, 'Problem', '', ?, '', '', '{}', '')");
+    const problem = index.db.prepare("INSERT INTO problems (id, alias, title, role, catalog_state, status, indexed, area_ids, topic_ids, keywords, difficulty, search_text) VALUES (?, ?, ?, 'primary', 'published', 'Unsolved', 1, '[]', '[]', '[]', 'unknown', '')");
+    for (let i = 1; i <= 1005; i++) { event.run(`fixture-${i}`, i); problem.run(`fixture-${i}`, `alias-${i}`, `title-${i}`); }
+    assert.equal(index.recordsAfter(0, 100000000).length, 500);
+    assert.equal(index.recordsAfter(500, 100000000)[0]?.sequence, 501);
+    const page = index.problemPage({ limit: 100000000 });
+    assert.equal(page.total, 1005); assert.equal(page.rows.length, 1000); assert.equal(page.nextOffset, 1000);
+    assert.equal(index.problemPage({ limit: 100000000, offset: 1000 }).rows.length, 5);
+  } finally { index.close(); }
+  const page = await getJson("/api/v1/problems?limit=100000000");
+  assert.equal(page.status, 200);
+  assert.equal(page.body.limit, 1000);
+  assert.ok(page.body.problems.length <= 1000);
+  const events = await getJson("/api/v1/events?limit=100000000");
+  assert.equal(events.status, 200);
+  assert.ok(events.body.events.length <= 500);
+  for (const endpoint of ["problems", "events"]) {
+    for (const limit of ["-1", "1.5", "Infinity", "9007199254740992"]) assert.equal((await getJson(`/api/v1/${endpoint}?limit=${limit}`)).status, 400);
+  }
 });
 
 test("a submitted comment is validated, committed, and indexed", async () => {
