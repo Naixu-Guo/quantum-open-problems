@@ -59,7 +59,7 @@ before(async () => {
   git(work, ["push", "-q", "-u", "origin", "main"]);
   other = path.join(tmp, "other");
   git(tmp, ["clone", "-q", bare, other]);
-  service = createService({ ledgerDir: path.join(work, "ledger"), activityDir: path.join(work, "activity"), contractDir, dbPath: ":memory:", authDbPath: ":memory:", port: 0, commit: true, git: { remote: "origin", branch: null } });
+  service = createService({ ledgerDir: path.join(work, "ledger"), activityDir: path.join(work, "activity"), contractDir, dbPath: ":memory:", authDbPath: ":memory:", port: 0, commit: true, git: { remote: "origin", branch: null, pollIntervalMs: 0 } });
   server = createServer(service);
   await new Promise<void>((resolve) => server!.listen(0, "127.0.0.1", resolve));
   const address = server.address();
