@@ -608,14 +608,12 @@ export function renderTagPage({ config, root, kind, tag, tagSlug = slug(tag), hi
 }
 
 export function renderAbout({ config, root, stats, dates }) {
-  const mcpSetup = `git clone ${config.repositoryUrl}.git`;
   const mcpServiceUrl = config.mcp.serviceUrl;
+  const mcpUrl = config.mcp.url;
   const mcpConfig = JSON.stringify({
     mcpServers: {
       "quantum-open-problems": {
-        command: "node",
-        args: ["--experimental-strip-types", "--no-warnings", "/absolute/path/quantum-open-problems/mcp/src/server.ts"],
-        env: { QOP_SERVICE_URL: mcpServiceUrl }
+        url: mcpUrl
       }
     }
   }, null, 2);
@@ -651,21 +649,21 @@ export function renderAbout({ config, root, stats, dates }) {
 
         <h2 id="mcp"><span id="api">Use the MCP server</span></h2>
         <p>Connect your AI assistant through the Model Context Protocol (MCP) to search the zoo, read problem statements and references, and gather the known results and remaining questions for a research session.</p>
-        <p>The MCP adapter connects your assistant to our hosted catalog. You need Git, Node.js 22.13 or later, and an MCP client that supports local <code>stdio</code> servers. Reading problems requires no API key.</p>
+        <p>Use a client that supports remote MCP servers over Streamable HTTP. Connect with the address below; no download, local setup, or API key is needed to read the catalog.</p>
         <ol>
-          <li><strong>Download the adapter.</strong> Run this command once in a terminal. If you already have the repository, use your existing checkout:
-            <div class="copy-block no-math"><pre id="mcp-setup">${escape(mcpSetup)}</pre><button class="copy-button" type="button" data-copy="mcp-setup" aria-label="Copy adapter download command">Copy</button></div>
+          <li><strong>Add the server.</strong> In your client's MCP or connector settings, add a remote server named <code>quantum-open-problems</code>. Paste this server URL and choose <strong>Streamable HTTP</strong> if a transport is requested:
+            <div class="copy-block no-math"><pre id="mcp-url">${escape(mcpUrl)}</pre><button class="copy-button" type="button" data-copy="mcp-url" aria-label="Copy MCP server URL">Copy</button></div>
           </li>
-          <li><strong>Connect your assistant.</strong> Add a local <code>stdio</code> MCP server in your client. If the client uses an <code>mcpServers</code> configuration, copy the entry below:
+          <li><strong>Connect your assistant.</strong> Save or enable the connection. For clients that accept URL entries in an <code>mcpServers</code> configuration:
             <details>
               <summary>JSON configuration for clients using <code>mcpServers</code></summary>
-              <p>Replace the example path with the full path to your cloned repository. If your client already has an <code>mcpServers</code> section, add this server to it. Save the configuration and reload the client's MCP connection.</p>
+              <p>Add this entry to your existing configuration, then reload the client's MCP connection. Some clients use a settings form instead.</p>
               <div class="copy-block no-math"><pre id="mcp-config">${escape(mcpConfig)}</pre><button class="copy-button" type="button" data-copy="mcp-config" aria-label="Copy MCP client configuration">Copy</button></div>
             </details>
           </li>
           <li><strong>Ask a research question.</strong> For example: “Use the quantum-open-problems MCP to find unsolved problems about quantum channel capacity, then summarize one problem's known progress and references.” The assistant can use <code>search_problems</code>, <code>get_problem</code>, <code>list_references</code>, and <code>build_context</code>.</li>
         </ol>
-        <p>Your client starts the adapter and queries the hosted service. You can check the <a href="${escape(mcpServiceUrl)}/api/v1/status" rel="noreferrer">catalog service status</a> or read the <a href="${config.repositoryUrl}/blob/${config.branch}/mcp/README.md" rel="noreferrer">MCP setup and tool guide</a> for troubleshooting and authenticated research contributions. For direct downloads, the <a href="${root}api/index.json">JSON catalog</a>, <a href="${root}api/tags.json">taxonomy</a>, and <a href="${root}llms.txt">agent guide</a> are also available.</p>
+        <p>The connection reads the current hosted catalog, including newly published problems. If it fails, check the <a href="${escape(mcpServiceUrl)}/api/v1/status" rel="noreferrer">catalog service status</a> and confirm that your client supports remote MCP. The <a href="${config.repositoryUrl}/blob/${config.branch}/mcp/README.md" rel="noreferrer">MCP setup and tool guide</a> also covers local clients and authenticated research contributions. For direct downloads, the <a href="${root}api/index.json">JSON catalog</a>, <a href="${root}api/tags.json">taxonomy</a>, and <a href="${root}llms.txt">agent guide</a> are available.</p>
 
         <h2 id="contributions"><span id="credits">Contributions</span></h2>
         <p>This project is developed and maintained by Bikun Li, Qicheng Tang, Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo.</p>
