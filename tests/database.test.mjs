@@ -226,10 +226,9 @@ test("built aliases and main adapter preserve every authored record and binary s
 
 
 test("equivalent records retain both identities but count as one question", () => {
-  const duplicate = records.find((record) => record.metadata.equivalentToProblemId);
-  assert.ok(duplicate);
-  const canonical = records.find((record) => record.ulid === duplicate.metadata.equivalentToProblemId);
-  assert.ok(canonical);
+  const base = { ...example, metadata: { ...example.metadata, relatedProblemIds: [] } };
+  const canonical = { ...base, id: "op_0000000000000aa1", ulid: "01AAAAAAAAAAAAAAAAAAAAAAAA", aliases: ["op_0000000000000aa1", "01AAAAAAAAAAAAAAAAAAAAAAAA", "op-0000000000000aa1"] };
+  const duplicate = { ...base, id: "op_0000000000000aa2", ulid: "01BBBBBBBBBBBBBBBBBBBBBBBB", aliases: ["op_0000000000000aa2", "01BBBBBBBBBBBBBBBBBBBBBBBB", "op-0000000000000aa2"], metadata: { ...base.metadata, equivalentToProblemId: "01AAAAAAAAAAAAAAAAAAAAAAAA" } };
   assert.notEqual(duplicate.id, canonical.id);
   assert.equal(duplicate.status, canonical.status);
   validateRecordIdentities([duplicate, canonical]);

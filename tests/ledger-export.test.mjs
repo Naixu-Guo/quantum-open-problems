@@ -125,6 +125,8 @@ test("renderer-only catalog versions preserve explicit lineage and repair pinned
   const { clauseOutcome } = await import("../contract/src/derive.ts");
   const { ledger, issues } = validateLedger([path.join(root, "ledger"), path.join(root, "activity")]);
   assert.deepEqual(issues, []);
+  // The ledger retains the preserved identity of the removed duplicate record
+  // op_12fc55f67580588e, whose renderer-only revision carries catalog-export trust only.
   const problemId = "01M1HME780WGX30SANKVAEX4S2";
   const versions = ledger.currentOf("Statement").filter((s) => s.fields.problemId === problemId).sort((a, b) => a.fields.version - b.fields.version);
   const [first, second] = versions;
@@ -141,7 +143,7 @@ test("renderer-only catalog versions preserve explicit lineage and repair pinned
     await exportLedger({ root: fixture });
     const manifestPath = path.join(fixture, "ledger/export-manifest.json");
     const manifest = JSON.parse(fs.readFileSync(manifestPath));
-    const key = "ledger/problems/op-12fc55f67580588e/statements/v1.md";
+    const key = "ledger/problems/op-25e23d6e92ebce9d/statements/v1.md";
     // Simulate a previous renderer's body, preserving the exact clause TeX.
     const file = path.join(fixture, key);
     const previous = parse(fs.readFileSync(file, "utf8"));
