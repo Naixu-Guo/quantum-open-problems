@@ -28,20 +28,21 @@ Let $\Phi_2$ be a maximally entangled state of Schmidt rank two.  The LOCC
 distillable entanglement of the state in
 Eq.~\eqref{eq:09dc-antisymmetric-state} is
 \begin{equation}
-  E_D\bigl(\rho_{\mathrm{as}}^{(d)}\bigr):=\sup\Bigl\{r\ge0:\ \exists\ 
-  \mathrm{LOCC}\ \Lambda_n\ \mathrm{with}\ 
+  E_D\bigl(\rho_{\mathrm{as}}^{(d)}\bigr):=\sup\Bigl\{r\ge0:\ \exists\
+  \mathrm{LOCC}\ \Lambda_n\ \mathrm{with}\
   \lim_{n\to\infty}\bigl\|\Lambda_n\bigl((\rho_{\mathrm{as}}^{(d)})^{\otimes n}\bigr)
   -\Phi_2^{\otimes\lfloor rn\rfloor}\bigr\|_1=0\Bigr\},
   \label{eq:09dc-distillable-entanglement}
 \end{equation}
 and replacing LOCC in Eq.~\eqref{eq:09dc-distillable-entanglement} by
 completely PPT-preserving operations defines the relaxation
-$E_{D,\mathrm{PPT}}(\rho_{\mathrm{as}}^{(d)})$.  Determine
-$E_D(\rho_{\mathrm{as}}^{(d)})$ or $E_{D,\mathrm{PPT}}(\rho_{\mathrm{as}}^{(d)})$
-exactly for any single $d\ge3$, or determine whether
-$\lim_{d\to\infty}d\,E_D(\rho_{\mathrm{as}}^{(d)})$ exists and what its value
-is.  A complete answer consists of an explicit achievable protocol together
-with a matching converse bound in the chosen operation class.
+$E_{D,\mathrm{PPT}}(\rho_{\mathrm{as}}^{(d)})$, which is exactly known ---
+see Progress --- so the open quantity is the LOCC rate itself.  Determine
+$E_D(\rho_{\mathrm{as}}^{(d)})$ exactly for every $d\ge3$: as a closed form,
+or asymptotically through the existence and value of
+$\lim_{d\to\infty}d\,E_D(\rho_{\mathrm{as}}^{(d)})$.  A complete answer
+consists of an explicit LOCC achievability protocol together with a
+matching converse bound.
 
 \subsection*{Status}
 
@@ -69,35 +70,84 @@ entanglement cost at $d=3$ settles the cost side of the same question
   $E_D(\rho_{\mathrm{as}}^{(d)})>0$
   \sourcecite{ref:09dc-divincenzo-et-al}{DST+00}.
 
+  \item A direct LOCC protocol quantifies the achievability side.  Partition the
+  local computational basis $\{1,\dots,d\}$ into $\lfloor d/2\rfloor$
+  disjoint pairs, together with one unpaired letter when $d$ is odd; both
+  parties measure in the computational basis and keep exactly the joint
+  outcomes $(i,j)$, $i\ne j$, whose two letters lie in the same pair.  On
+  the two-dimensional span of $\lvert ij\rangle$ and $\lvert ji\rangle$ the
+  state in Eq.~\eqref{eq:09dc-antisymmetric-state} is the singlet, so every
+  kept outcome is one ebit, and the $2\lfloor d/2\rfloor$ ordered same-pair
+  outcomes, each of probability $1/(d(d-1))$, occur with total probability
+  \begin{equation}
+    p_d:=\frac{2\lfloor d/2\rfloor}{d(d-1)}
+    =\begin{cases}
+       \dfrac{1}{d-1}, & d\ \text{even},\\[4pt]
+       \dfrac{1}{d}, & d\ \text{odd}.
+     \end{cases}
+    \label{eq:09dc-pairing-probability}
+  \end{equation}
+  Independent repetition converts each copy into a singlet with probability
+  $p_d$, so
+  \begin{equation}
+    E_D\bigl(\rho_{\mathrm{as}}^{(d)}\bigr)\ \ge\ p_d=\Omega(1/d),
+    \label{eq:09dc-pairing-bound}
+  \end{equation}
+  an $\Omega(1/d)$ achievable LOCC rate that coincides with the $1/d$ lower
+  bound on $E_D$ and $K_D$ recorded in
+  \sourcecite{ref:09dc-christandl-schuch-winter}{CSW12} for odd $d$ and
+  strengthens it to $1/(d-1)$ for even $d$.  The protocol extends the
+  one-copy Schmidt-rank-two projection witnessing distillability in
+  \sourcecite{ref:09dc-divincenzo-et-al}{DST+00}, which retains a single
+  basis pair and succeeds with probability $2/(d(d-1))$, to all
+  $\lfloor d/2\rfloor$ disjoint basis pairs at once; the quantitative bound
+  Eq.~\eqref{eq:09dc-pairing-probability} was recorded by Naixu Guo in the
+  review discussion of this catalog entry (September 2026) and is not stated
+  in the references above.
+
   \item The logarithmic negativity upper-bounds distillable entanglement
-  \sourcecite{ref:09dc-vidal-werner}{VW02}, and the Rains bound upper-bounds
-  distillation by completely PPT-preserving operations
-  \sourcecite{ref:09dc-rains}{Rai01}.  The partial transpose of the state in
-  Eq.~\eqref{eq:09dc-antisymmetric-state} has the single negative eigenvalue
-  $-1/d$ and the eigenvalue $1/(d(d-1))$ with multiplicity $d^2-1$,
+  \sourcecite{ref:09dc-vidal-werner}{VW02}, and the Rains bound
+  upper-bounds distillation by completely PPT-preserving operations
+  \sourcecite{ref:09dc-rains}{Rai01}.  The partial transpose of the state
+  in Eq.~\eqref{eq:09dc-antisymmetric-state} has the single negative
+  eigenvalue $-1/d$ and the eigenvalue $1/(d(d-1))$ with multiplicity
+  $d^2-1$,
   \begin{equation}
     \operatorname{spec}\bigl(\bigl(\rho_{\mathrm{as}}^{(d)}\bigr)^{\Gamma}\bigr)
     =\bigl\{-\tfrac1d\bigr\}\cup\bigl\{\tfrac{1}{d(d-1)}\ \text{with
     multiplicity}\ d^2-1\bigr\},
     \label{eq:09dc-pt-spectrum}
   \end{equation}
-  so its trace norm is $(d+2)/d$ and the converse bounds bracket the rates as
+  so its trace norm is $(d+2)/d$.  The PPT relaxation itself is exactly
+  solved: Rains's semidefinite program evaluates distillation under the
+  completely PPT-preserving operations defined in Sec.~2 of his paper, and
+  his Corollary~5.6 (Eq.~(5.40)) determines, with matching achievability
+  and converse, the distillable entanglement
+  $D_\Gamma(W_d(1))=\log_2\bigl(\frac{d+2}{d}\bigr)$ of the antisymmetric
+  Werner state $W_d(1)$ --- his Eq.~(5.34) at $p=1$, which is exactly the
+  state of Eq.~\eqref{eq:09dc-antisymmetric-state} --- with one-shot
+  achievability $F_\Gamma(W_d(1);\frac{d+2}{d})=1$ (his Eq.~(5.39)) and the
+  trace-norm converse $D_\Gamma\le
+  \log_2\operatorname{Tr}\lvert\rho^\Gamma\rvert$ evaluated through
+  Eq.~\eqref{eq:09dc-pt-spectrum}.  Combining with
+  Eq.~\eqref{eq:09dc-pairing-bound}, the known rates are bracketed by
   \begin{equation}
-    0<E_D\bigl(\rho_{\mathrm{as}}^{(d)}\bigr)
-    \le E_{D,\mathrm{PPT}}\bigl(\rho_{\mathrm{as}}^{(d)}\bigr)
-    \le\log_2\bigl(1+\tfrac2d\bigr).
+    p_d\ \le\ E_D\bigl(\rho_{\mathrm{as}}^{(d)}\bigr)\ \le\
+    E_{D,\mathrm{PPT}}\bigl(\rho_{\mathrm{as}}^{(d)}\bigr)
+    =\log_2\bigl(1+\tfrac2d\bigr),
     \label{eq:09dc-bracket}
   \end{equation}
-  The upper bound in Eq.~\eqref{eq:09dc-bracket} follows from
-  Eq.~\eqref{eq:09dc-pt-spectrum} and tends to zero as $d\to\infty$; whether
-  it is attained is open.  The Rains bound itself --- and the regularized
-  PPT relative entropy of entanglement --- is exactly known for this
-  state: Audenaert, Eisert, Jan{\'e}, Plenio, Virmani, and De Moor showed that
-  $E_{R,\mathrm{PPT}}^{\infty}(\rho_{\mathrm{as}}^{(d)})=\log_2\bigl(1+\tfrac2d\bigr)$
+  whose final inequality is Rains's exact equality for every $d$, including
+  $d=3$; the open gap is the middle one, LOCC versus completely
+  PPT-preserving distillation.  The same value was obtained independently
+  as the regularized PPT relative entropy of entanglement:
+  $E_{R,\mathrm{PPT}}^{\infty}(\rho_{\mathrm{as}}^{(d)})
+  =\log_2\bigl(1+\tfrac2d\bigr)$
   \sourcecite{ref:09dc-audenaert-et-al}{AEA+01}, and the chain
-  $E_{R,\mathrm{PPT}}^{\infty}=E_{\mathrm{Rains}}=E_N=\log_2\bigl(1+\tfrac2d\bigr)$,
-  with $E_{\mathrm{Rains}}$ the single-copy Rains bound, is recorded in
-  Sec.~III of \sourcecite{ref:09dc-christandl-schuch-winter}{CSW12}.
+  $E_{R,\mathrm{PPT}}^{\infty}=E_{\mathrm{Rains}}=E_N
+  =\log_2\bigl(1+\tfrac2d\bigr)$, with $E_{\mathrm{Rains}}$ the single-copy
+  Rains bound, is recorded in Sec.~III of
+  \sourcecite{ref:09dc-christandl-schuch-winter}{CSW12}.
 
   \item On the cost side, Yura computed $E_C(\rho_{\mathrm{as}}^{(3)})=1$ ebit
   exactly \sourcecite{ref:09dc-yura}{Yur03}.  Christandl, Schuch, and Winter
@@ -108,10 +158,10 @@ entanglement cost at $d=3$ settles the cost side of the same question
   constant, making asymptotic manipulation of the family irreversible in
   the limit $d\to\infty$ --- the cited bounds separate $E_D$ from $E_C$
   only for $d\ge7$ (and at $d=3$, via Yura's $E_C=1$), leaving $d=4$,
-  $5$, and $6$ open.  The best known lower bound is
-  $E_D(\rho_{\mathrm{as}}^{(d)})\ge1/d$, recorded for both $E_D$ and $K_D$,
-  making the $O(1/d)$ upper bound optimal up to a constant; the exact
-  distillable entanglement is left open
+  $5$, and $6$ open.  Together with the lower bound
+  Eq.~\eqref{eq:09dc-pairing-bound} and the $1/d$ bound on $E_D$ and
+  $K_D$ recorded there, the $O(1/d)$ upper bound is optimal up to a
+  constant; the exact distillable entanglement is left open
   \sourcecite{ref:09dc-christandl-schuch-winter}{CSW12}.
 
   \item For any rank-two mixed state supported on the $3\otimes3$ antisymmetric
@@ -122,30 +172,41 @@ entanglement cost at $d=3$ settles the cost side of the same question
   Eq.~\eqref{eq:09dc-distillable-entanglement}
   \sourcecite{ref:09dc-wang-duan}{WD17}.
 
-  \item Exact rates are known only beyond the PPT class or beyond quantum
-  operations: Lami and Regula computed the exact distillation rate under
-  dually non-entangling operations, a class strictly containing PPT-preserving
-  operations, so it does not determine either rate in
-  Eq.~\eqref{eq:09dc-bracket} \sourcecite{ref:09dc-lami-regula}{LR24}; and
-  Chen, Wang, Zhang, and Zhu established reversible exact state transfer under
-  trace-preserving PPT-preserving maps that need not be completely positive,
-  governed by logarithmic negativity, a zero-error non-CPTP setting distinct
-  from the vanishing-error rates posed here
+  \item Beyond LOCC and its PPT relaxation, other operation classes admit
+  exact general characterizations, none of which evaluates the LOCC rate
+  posed here.  Lami and Regula proved that the distillable entanglement
+  under dually non-entangling operations equals the separably measured
+  regularized relative entropy of entanglement for every state --- the
+  second exact regularized distillation formula after the Devetak--Winter
+  formula for one-way LOCC --- and in particular is strictly positive for
+  every entangled state \sourcecite{ref:09dc-lami-regula}{LR24}.  Dually
+  non-entangling operations do not contain the completely PPT-preserving
+  class, nor vice versa: a constant channel preparing a PPT entangled state
+  is completely PPT-preserving and CPTP yet not non-entangling, since it
+  outputs entanglement on separable inputs, while completely PPT-preserving
+  operations distill at zero rate from every PPT state
+  \sourcecite{ref:09dc-rains}{Rai01}, excluding the strict positivity that
+  holds under dually non-entangling operations.  The Lami--Regula formula
+  therefore determines neither rate in Eq.~\eqref{eq:09dc-bracket}.  Chen,
+  Wang, Zhang, and Zhu established reversible exact state transfer under
+  trace-preserving PPT-preserving maps that need not be completely
+  positive, governed by logarithmic negativity, a zero-error non-CPTP
+  setting distinct from the vanishing-error rates posed here
   \sourcecite{ref:09dc-chen-et-al}{CWZ+25}.
 
   \item Kondra, Brinster, Kampermann, Bru{\ss}, and Wyderka constructed
   analytically solvable families built from antisymmetric states exhibiting
-  exponential strong-converse irreversibility under completely PPT-preserving
-  operations \sourcecite{ref:09dc-kondra-et-al}{KBK+26}.  The results concern
-  cost and error exponents rather than the vanishing-error rate in
-  Eq.~\eqref{eq:09dc-distillable-entanglement}, and the LOCC-side analogues
-  are stated there as open.
+  exponential strong-converse irreversibility under completely
+  PPT-preserving operations \sourcecite{ref:09dc-kondra-et-al}{KBK+26}.
+  The results concern cost and error exponents rather than the
+  vanishing-error rate in Eq.~\eqref{eq:09dc-distillable-entanglement},
+  and the LOCC-side analogues are stated there as open.
 
-  \item Sen and Lami computed the main entanglement measures of the flower-state
-  family, whose distillable entanglement is exactly one ebit independent of
-  local dimension, citing the antisymmetric state as the standard example of
-  vanishing distillable entanglement at nonvanishing cost; the value for the
-  antisymmetric state itself is not computed
+  \item Sen and Lami computed the main entanglement measures of the
+  flower-state family, whose distillable entanglement is exactly one ebit
+  independent of local dimension, citing the antisymmetric state as the
+  standard example of vanishing distillable entanglement at nonvanishing
+  cost; the value for the antisymmetric state itself is not computed
   \sourcecite{ref:09dc-sen-lami}{SL26}.
 \end{itemize}
 
@@ -231,23 +292,26 @@ entanglement cost at $d=3$ settles the cost side of the same question
 
 \subsection*{Comment}
 
-Even at $d=3$ the exact value is unknown: Eq.~\eqref{eq:09dc-bracket}
-leaves $0<E_D\le E_{D,\mathrm{PPT}}\le\log_2(5/3)$, while the LOCC
-entanglement cost equals one ebit, so both the rate and the sharpness of the
-irreversibility are undetermined.  Asymptotically, the sharp question is the
-leading constant: $E_D(\rho_{\mathrm{as}}^{(d)})=O(1/d)$ by the key bound,
-while the achievability side is known only up to constants
-(\sourcecite{ref:09dc-christandl-schuch-winter}{CSW12} records a $1/d$ lower
-bound on $E_D$, matching the $\log_2\bigl(1+\tfrac2d\bigr)\sim 2/(d\ln 2)$
-converse up to a constant), so neither
-the existence nor the value of
-$\lim_{d\to\infty}d\,E_D(\rho_{\mathrm{as}}^{(d)})$ is established.  A proof that the LOCC and PPT rates differ on this family, or a
-determination whether the known Rains value $\log_2\bigl(1+\tfrac2d\bigr)$ is
-asymptotically attained by completely PPT-preserving distillation, would
-settle one of the posed alternatives.
-This record asks for the value of a rate on one explicit family, unlike
-Problem~\ref{sec:op_b93eb7197c926d9e}, the LOCC distillable entanglement of
-Bell-diagonal qubit states, and
+Even at $d=3$ the exact LOCC value is unknown:
+Eq.~\eqref{eq:09dc-bracket} leaves
+$\tfrac13\le E_D(\rho_{\mathrm{as}}^{(3)})\le\log_2(5/3)$, while the LOCC
+entanglement cost equals one ebit, so both the rate and the sharpness of
+the irreversibility are undetermined.  Asymptotically, the sharp question
+is the leading constant: $E_D(\rho_{\mathrm{as}}^{(d)})=O(1/d)$ by the key
+bound of \sourcecite{ref:09dc-christandl-schuch-winter}{CSW12} and
+$E_D(\rho_{\mathrm{as}}^{(d)})\ge p_d$ by
+Eq.~\eqref{eq:09dc-pairing-probability}, while the PPT relaxation is
+exactly $\log_2\bigl(1+\tfrac2d\bigr)\sim 2/(d\ln2)$, so neither the
+existence nor the value of
+$\lim_{d\to\infty}d\,E_D(\rho_{\mathrm{as}}^{(d)})$ is established; in
+particular whether the LOCC rate attains the PPT constant $2/\ln2$ or
+falls below it by a definite factor is open.  A proof that LOCC attains
+the PPT rate of Eq.~\eqref{eq:09dc-bracket} on this family, or a positive
+separation between the two rates, would settle the asymptotic
+alternative; the PPT side itself is closed.  This record asks for the
+value of a rate on one explicit family, unlike
+Problem~\ref{sec:op_b93eb7197c926d9e}, the LOCC distillable entanglement
+of Bell-diagonal qubit states, and
 Problem~\ref{sec:op_4cf3e7b8663b1d41}, whether the Rains bound of
 Bell-diagonal states is attained by a PPT-preserving channel;
 Problem~\ref{sec:op_75b91a20dd384110} asks for a closed form of the
