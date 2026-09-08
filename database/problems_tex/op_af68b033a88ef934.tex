@@ -51,11 +51,12 @@ failure probability below $1/4$, using $\mathrm{BPP}^{\mathrm{NP}}$ reductions
 this tolerance to $e^{-2n\log n-O(n)}$, as reported and explained by
 Bouland et al. (Section 1.2.1) \sourcecite{ref:pgc-bdfh}{BDFH25}.
 
-  \item 2025: Bouland et al.'s dilution method proves $\#\mathrm{P}$-hardness at
-additive error $n!e^{-O(n^\gamma)}$ for $|\operatorname{Per}(X)|^2$,
-for every fixed $\gamma>0$, with constant success probability, assuming
-permanent anticoncentration (Theorem 1, rescaled;
-$\mathrm{BPP}^{\mathrm{NP}}$ reduction) \sourcecite{ref:pgc-bdfh}{BDFH25}.
+  \item 2025 (real ensemble): for $R\sim\mathcal{N}(0,1)^{n\times n}$,
+Bouland et al. prove $\#\mathrm{P}$-hardness at additive error
+$n!e^{-O(n^\gamma)}$ for $|\operatorname{Per}(R)|^2$, for every fixed
+$\gamma>0$, with constant success probability, assuming permanent
+anticoncentration (Theorem 1, Section 4; $\mathrm{BPP}^{\mathrm{NP}}$ reduction)
+\sourcecite{ref:pgc-bdfh}{BDFH25}.
 \end{itemize}
 
 \subsection*{References}
@@ -94,13 +95,18 @@ arXiv preprint (July 2026).
 
 \subsection*{Comment}
 
-The original conjecture remains open. The squared-permanent error
-target is $\epsilon n!$; its equivalence to the relative-error task uses
+The complex-Gaussian conjecture remains open. Its squared-permanent
+counterpart has additive-error target $\epsilon n!$, equivalent under
 permanent anticoncentration (arXiv Theorem 7) \sourcecite{ref:pgc-aa}{AA13}.
 Koehler--Leung's July 2026 preprint proves this auxiliary conjecture
 (Theorem 1.1) \sourcecite{ref:pgc-kl}{KL26}.
-The hardness tolerance $n!e^{-O(n^\gamma)}$ still falls short of
-$n!/\operatorname{poly}(n)$ \sourcecite{ref:pgc-bdfh}{BDFH25}.
+
+The 2025 tolerance $n!e^{-O(n^\gamma)}$ is for real Gaussian matrices
+$R$, and still falls short of $n!/\operatorname{poly}(n)$ in that ensemble.
+It is not a hardness bound for the complex $X$ in the Problem.
+Appendix E leaves the complex square-method argument unproved
+\sourcecite{ref:pgc-bdfh}{BDFH25}; the anticoncentration result does not
+supply that separate missing argument.
 
 \subsection*{Field}
 
@@ -108,7 +114,7 @@ Quantum algorithm
 
 \subsection*{Topic}
 
-Computational complexity; Quantum supremacy; Boson sampling
+Computational complexity and computability; Quantum supremacy; Boson sampling
 
 \subsection*{ID}
 

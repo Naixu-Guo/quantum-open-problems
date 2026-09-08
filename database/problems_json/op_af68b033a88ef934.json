@@ -22,7 +22,7 @@
       "quantum-algorithm"
     ],
     "topicIds": [
-      "computational-complexity",
+      "computational-complexity-and-computability",
       "quantum-supremacy",
       "boson-sampling"
     ],
@@ -37,7 +37,7 @@
     "Quantum algorithm"
   ],
   "topics": [
-    "Computational complexity",
+    "Computational complexity and computability",
     "Quantum supremacy",
     "Boson sampling"
   ],
@@ -47,7 +47,7 @@
     "2010--2013: Aaronson--Arkhipov prove exact Gaussian-permanent\n$\\#\\mathrm{P}$-hardness at success fraction\n$3/4+1/\\operatorname{poly}(n)$, and hardness for estimating\n$|\\operatorname{Per}(X)|^2$ with exponentially small additive error\n(arXiv Theorems 60 and 62) \\sourcecite{ref:pgc-aa}{AA13}.",
     "2021: Bouland--Fefferman--Landau--Liu obtain additive tolerance\n$e^{-4n\\log n-O(n)}$ for $|\\operatorname{Per}(X)|^2$, with any constant\nfailure probability below $1/4$, using $\\mathrm{BPP}^{\\mathrm{NP}}$ reductions\n(proof of Corollary 1) \\sourcecite{ref:pgc-bfll}{BFLL22}.",
     "2023 (unpublished): Krovi's tighter total-variation estimate improves\nthis tolerance to $e^{-2n\\log n-O(n)}$, as reported and explained by\nBouland et al. (Section 1.2.1) \\sourcecite{ref:pgc-bdfh}{BDFH25}.",
-    "2025: Bouland et al.'s dilution method proves $\\#\\mathrm{P}$-hardness at\nadditive error $n!e^{-O(n^\\gamma)}$ for $|\\operatorname{Per}(X)|^2$,\nfor every fixed $\\gamma>0$, with constant success probability, assuming\npermanent anticoncentration (Theorem 1, rescaled;\n$\\mathrm{BPP}^{\\mathrm{NP}}$ reduction) \\sourcecite{ref:pgc-bdfh}{BDFH25}."
+    "2025 (real ensemble): for $R\\sim\\mathcal{N}(0,1)^{n\\times n}$,\nBouland et al. prove $\\#\\mathrm{P}$-hardness at additive error\n$n!e^{-O(n^\\gamma)}$ for $|\\operatorname{Per}(R)|^2$, for every fixed\n$\\gamma>0$, with constant success probability, assuming permanent\nanticoncentration (Theorem 1, Section 4; $\\mathrm{BPP}^{\\mathrm{NP}}$ reduction)\n\\sourcecite{ref:pgc-bdfh}{BDFH25}."
   ],
   "references": [
     {
@@ -71,5 +71,5 @@
       "tex": "F. Koehler and P. K. Leung,\n\"Anticoncentration of the Permanent in Ginibre Ensembles,\"\narXiv preprint (July 2026).\n\\href{https://doi.org/10.48550/arXiv.2607.20329}{doi:10.48550/arXiv.2607.20329};\n\\href{https://arxiv.org/abs/2607.20329v1}{arXiv:2607.20329v1}."
     }
   ],
-  "comment": "The original conjecture remains open. The squared-permanent error\ntarget is $\\epsilon n!$; its equivalence to the relative-error task uses\npermanent anticoncentration (arXiv Theorem 7) \\sourcecite{ref:pgc-aa}{AA13}.\nKoehler--Leung's July 2026 preprint proves this auxiliary conjecture\n(Theorem 1.1) \\sourcecite{ref:pgc-kl}{KL26}.\nThe hardness tolerance $n!e^{-O(n^\\gamma)}$ still falls short of\n$n!/\\operatorname{poly}(n)$ \\sourcecite{ref:pgc-bdfh}{BDFH25}."
+  "comment": "The complex-Gaussian conjecture remains open. Its squared-permanent\ncounterpart has additive-error target $\\epsilon n!$, equivalent under\npermanent anticoncentration (arXiv Theorem 7) \\sourcecite{ref:pgc-aa}{AA13}.\nKoehler--Leung's July 2026 preprint proves this auxiliary conjecture\n(Theorem 1.1) \\sourcecite{ref:pgc-kl}{KL26}.\n\nThe 2025 tolerance $n!e^{-O(n^\\gamma)}$ is for real Gaussian matrices\n$R$, and still falls short of $n!/\\operatorname{poly}(n)$ in that ensemble.\nIt is not a hardness bound for the complex $X$ in the Problem.\nAppendix E leaves the complex square-method argument unproved\n\\sourcecite{ref:pgc-bdfh}{BDFH25}; the anticoncentration result does not\nsupply that separate missing argument."
 }

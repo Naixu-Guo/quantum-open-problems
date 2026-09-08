@@ -1,9 +1,7 @@
 # Classifying problems
 
-`tags.json` is the canonical vocabulary. The catalog contains 91 problem
-records, six fields, and 59 topics. Every registered topic has at least one
-record. Classification changes must preserve statements, evidence, statuses,
-identifiers, and aliases.
+`tags.json` is the canonical vocabulary. Classification changes must
+preserve statements, evidence, statuses, identifiers, and aliases.
 
 ## Field boundaries
 
@@ -11,16 +9,16 @@ Use these exact spellings from `tags.json`. The requested spelling of
 “Quantum algorithm” and “Quantum metrology” is retained; “Cryptography” and
 “Resource Theory” correct the spelling in the request.
 
-| Field | Scope in this catalog | Current records |
-| --- | --- | ---: |
-| Quantum algorithm | Algorithms, circuit and Hamiltonian complexity, computability, state preparation, simulation, and verification of quantum computation. | 13 |
-| Quantum Communication | Transmission and compression, channel capacities and simulation, and their supporting channel structure, divergence, recovery, and entropy questions. | 37 |
-| Quantum metrology | Parameter estimation, measurement design, tomography, state and channel discrimination, and their statistical limits. | 13 |
-| Quantum Cryptography | Secret-key distillation, private communication, device-independent security, and position-based protocols. | 5 |
-| Quantum Resource Theory | Entanglement, nonlocality, steering, magic, thermodynamic and causal resources, their structure and conversion. | 41 |
-| Quantum Error Correction | Code constructions and limitations, quantum LDPC codes, self-correcting memories, and AME existence questions with explicit coding formulations. | 7 |
+| Field | Scope in this catalog |
+| --- | --- |
+| Quantum algorithm | Algorithms, circuit and Hamiltonian complexity, computability, state preparation, simulation, and verification of quantum computation. |
+| Quantum Communication | Transmission and compression, channel capacities and simulation, and their supporting channel structure, divergence, recovery, and entropy questions. |
+| Quantum metrology | Parameter estimation, measurement design, tomography, state and channel discrimination, and their statistical limits. |
+| Quantum Cryptography | Secret-key distillation, private communication, device-independent security, and position-based protocols. |
+| Quantum Resource Theory | Entanglement, nonlocality, steering, magic, thermodynamic and causal resources, their structure and conversion. |
+| Quantum Error Correction | Code constructions and limitations, quantum LDPC codes, self-correcting memories, and AME existence questions with explicit coding formulations. |
 
-The counts overlap because a problem can have two fields. Put its primary
+A problem can have two fields. Put its primary
 field first. Add a second when it captures another central aspect of the
 question, rather than a possible future application.
 
