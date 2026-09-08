@@ -414,7 +414,11 @@ write("llms.txt", `# ${config.fullName} (${config.shortName})
 
 The zoo holds ${stats.total} problems (${stats.unsolved} unsolved, ${stats.solved} solved). Each record has a self-contained statement with TeX mathematics, a source attribution, scoped progress items, a comment on the remaining gap, full references with alpha-style labels, one or two fields (broad research areas), and one to five topics (specific objects and techniques).
 
-## Machine-readable access
+## MCP access
+
+Connect a remote MCP client to ${config.mcp.url} using Streamable HTTP. Public catalog reads require no API key or local installation. Use search_problems, get_problem, list_references, and build_context to explore the current catalog. Setup guide: ${siteUrl}/about/#mcp.
+
+## Machine-readable downloads
 
 - ${siteUrl}/api/index.json: every problem with title, status, fields, topics, plain-text statement, and links.
 - ${siteUrl}/api/problems/<id>.json: one full record (TeX source, HTML, plain text, references, equation labels).

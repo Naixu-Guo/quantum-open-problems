@@ -33,17 +33,27 @@ export interface Config {
   /** Service-local store for API keys, sessions, idempotency, and open runs. Never rebuilt from the ledger. */
   authDbPath: string;
   port: number;
+  /** Optional bind address; deployments set loopback behind their HTTPS proxy. */
+  host?: string;
   /** Whether the service commits to git after each accepted write. Tests turn it on against a temporary repository. */
   commit: boolean;
   /** The human-facing web app and its login. Absent fields take the defaults in `webDefaults`. */
   web?: Partial<WebConfig>;
   /** The remote the ledger clone pushes to after each commit and catches up with before each write; null keeps commits local. */
-  git?: { remote: string | null; branch?: string | null };
+  git?: { remote: string | null; branch?: string | null; pollIntervalMs?: number };
   /** The public proposal inbox behind the static site's contribution form. Absent fields take the defaults in `submissionsDefaults`. */
   submissions?: Partial<SubmissionsConfig>;
 }
 
 const stripSlash = (url: string): string => url.replace(/\/+$/u, "");
+
+/** Zero disables background remote polling; local committed changes still refresh on reads. */
+export function syncIntervalMs(value: number | string | undefined): number {
+  if (value === undefined) return 5_000;
+  const interval = Number(value);
+  if (!Number.isSafeInteger(interval) || interval < 0 || interval > 2_147_483_647) throw new Error("QOP_SYNC_INTERVAL_MS must be an integer from 0 to 2147483647");
+  return interval;
+}
 
 /** A positive integer, else the default. */
 function positiveInteger(value: number | string | undefined, fallback: number): number {
@@ -108,8 +118,9 @@ export function configFromEnv(env: NodeJS.ProcessEnv = process.env): Config {
     dbPath: path.resolve(env["QOP_DB_PATH"] ?? path.join(repoRoot, "service", "data", "index.sqlite")),
     authDbPath: path.resolve(env["QOP_AUTH_DB_PATH"] ?? path.join(repoRoot, "service", "data", "auth.sqlite")),
     port,
+    ...(env["QOP_HOST"] ? { host: env["QOP_HOST"] } : {}),
     commit: env["QOP_COMMIT"] !== "0",
-    git: { remote: env["QOP_GIT_REMOTE"] || null, branch: env["QOP_GIT_BRANCH"] || null },
+    git: { remote: env["QOP_GIT_REMOTE"] || null, branch: env["QOP_GIT_BRANCH"] || null, pollIntervalMs: syncIntervalMs(env["QOP_SYNC_INTERVAL_MS"]) },
     web: {
       // Unset serves the repository's web/ directory; "0" or an empty value serves nothing.
       webDir: env["QOP_WEB_DIR"] === undefined ? path.join(repoRoot, "web") : env["QOP_WEB_DIR"] === "" || env["QOP_WEB_DIR"] === "0" ? null : env["QOP_WEB_DIR"],

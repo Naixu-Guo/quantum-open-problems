@@ -108,8 +108,13 @@ be removed by export. Redactions are never restored by reconciliation.
 maintenance workflow.
 
 Each new record path receives a new service event sequence. After a catalog
-commit, ordinary `sync` accepts the appended records and updated export
-manifest, validates the merged ledger, and rebuilds the index. Existing
+commit, a running service on the same checkout refreshes its in-memory ledger
+and index on the next API request. A separate service clone with
+`QOP_GIT_REMOTE` configured polls asynchronously on startup and every five
+seconds by default. It accepts the appended records and updated export manifest,
+validates the merged ledger, and rebuilds the index without restarting MCP.
+`QOP_SYNC_INTERVAL_MS=0` disables remote polling. Ordinary `sync` also accepts
+these catalog updates. Existing
 record edits and deletions still require an operator's deliberate
 `sync --allow-edits`. Sync can push local commits and remains an authorized
 deployment operation. Deploy the new service code before syncing version-2

@@ -1,0 +1,188 @@
+% Problem record op_36ac6718d2c37628. This TeX file is derived from
+% database/problems_json/op_36ac6718d2c37628.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Polynomial-time quantum algorithm for approximate Shortest Vector Problem}
+\label{sec:op_36ac6718d2c37628}
+
+\paragraph{Problem.}
+Does the polynomial-factor approximate Shortest Vector Problem admit a
+polynomial-time quantum algorithm?
+
+Let $B\in\mathbb Q^{n\times n}$ be a nonsingular lattice basis whose entries
+have polynomially bounded bit length, and let
+\begin{equation}
+  \mathcal L(B)=\{Bz:z\in\mathbb Z^n\}\subset\mathbb R^n .
+  \label{eq:36ac-appsvp-lattice}
+\end{equation}
+Define the length of a shortest nonzero lattice vector by
+\begin{equation}
+  \lambda_1(\mathcal L)=\min_{v\in\mathcal L\setminus\{0\}}|v|_2 .
+  \label{eq:36ac-appsvp-minimum}
+\end{equation}
+For an approximation factor $\gamma=\gamma(n)\geq 1$, the $\gamma$-approximate
+Shortest Vector Problem asks for a nonzero vector $v\in\mathcal L(B)$
+satisfying
+\begin{equation}
+  |v|_2\leq\gamma(n)\lambda_1(\mathcal L(B)).
+  \label{eq:36ac-appsvp-goal}
+\end{equation}
+The open question is whether, for polynomial approximation factors such as
+$\gamma(n)=n^c$ for a fixed constant $c>0$, there exists a bounded-error
+quantum algorithm that outputs a vector satisfying
+\eqref{eq:36ac-appsvp-goal} in time polynomial in the bit length of $B$.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Contributor: unknown.  The opening question is a contributor-formulated
+synthesis of a standard open algorithmic problem in the lattice and
+quantum-algorithms literature.  Biasse, Bonnetain, Kirshanova,
+Schrottenloher, and Song explicitly identify polynomial-factor approximate
+SVP as a principal regime of interest and survey the known quantum
+algorithms
+\sourcecite{ref:36ac-biasse}{Bia23}, but do not state the opening sentence
+verbatim as a named open question.  It should not be attributed verbatim to
+any of the cited authors.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Classical polynomial-time lattice reduction does not reach the
+polynomial-factor regime in general: the LLL algorithm gives only an
+approximation factor exponential in $n$ for arbitrary lattices, so a
+polynomial approximation factor in polynomial time would be a qualitatively
+stronger result rather than an improvement of the approximation constant in
+LLL
+\sourcecite{ref:36ac-lll}{LLL82}.
+
+  \item Known algorithms obtain substantially better approximation factors by
+spending exponential time: Aggarwal, Li, and Stephens-Davidowitz gave a
+$2^{n/2+o(n)}$-time algorithm achieving an approximation factor
+$\widetilde O(\sqrt{n})$ for both SVP and Hermite SVP (the tilde
+suppresses polylogarithmic factors), together with broader
+time--approximation tradeoffs.  Polynomial approximation factors are
+therefore accessible significantly faster than exact SVP in some regimes,
+but not in polynomial time
+\sourcecite{ref:36ac-als}{ALS21}.
+
+  \item Quantum computation provides speedups for exponential-time SVP
+approaches but no known technique reaches polynomial time: quantum
+lattice-sieving algorithms use amplitude amplification and quantum walks to
+reduce the exponential constant, and Bonnetain, Chailloux, Schrottenloher,
+and Shen obtained heuristic quantum sieving complexity
+$2^{0.2563n+o(n)}$ for SVP
+\sourcecite{ref:36ac-bcss}{BCSS23}.
+
+  \item There are also provable quantum algorithms outside the heuristic-sieving
+framework: Aggarwal, Chen, Kumar, and Shen gave a provable quantum algorithm
+for exact SVP running in $2^{0.950n+o(n)}$ time with exponential classical
+memory and polynomially many qubits, and in the QRAM model in
+$2^{0.835n+o(n)}$ time; since an exact-SVP solver also solves the
+approximate problem, these are quantum upper bounds for approximate SVP but
+remain exponential
+\sourcecite{ref:36ac-acks}{ACKS25}.
+
+  \item The problem is distinct from the unique Shortest Vector Problem: Regev
+showed that an efficient solution to the relevant dihedral coset problem
+--- in particular an appropriate coset-sampling solution of the Dihedral
+Hidden Subgroup Problem --- would yield a polynomial-time quantum algorithm
+for polynomial-factor unique-SVP.  The uniqueness promise is absent in the
+arbitrary-lattice problem here, so the DHSP--lattice reduction does not give
+a polynomial-time algorithm for general approximate SVP
+\sourcecite{ref:36ac-regev04}{Reg04}.
+
+  \item Approximate SVP is likewise distinct from GapSVP and SIVP: Regev's
+worst-case-to-average-case reduction for Learning With Errors is a quantum
+hardness reduction from worst-case approximate GapSVP and SIVP to LWE, not
+an algorithm for the search problem here.  The LWE, DHSP, and
+approximate-SVP questions are closely related but remain logically distinct
+open problems
+\sourcecite{ref:36ac-regev09}{Reg09}.
+
+  \item A survey of quantum cryptanalysis by Biasse, Bonnetain, Kirshanova,
+Schrottenloher, and Song treats polynomial-factor approximate SVP as the
+principal approximation regime relevant to lattice-based cryptographic
+constructions and surveys the known quantum enumeration, sieving, and
+BDD-based approaches; these methods provide at most exponential-time
+speedups in the general setting
+\sourcecite{ref:36ac-biasse}{Bia23}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[LLL82]}]\label{ref:36ac-lll}
+  Arjen K. Lenstra, Hendrik W. Lenstra, Jr., and L\'aszl\'o Lov\'asz,
+``Factoring Polynomials with Rational Coefficients,'' \emph{Mathematische
+Annalen} \textbf{261}, 515--534 (1982).
+\href{https://doi.org/10.1007/BF01457454}{doi:10.1007/BF01457454}.
+
+  \item[\textup{[Reg04]}]\label{ref:36ac-regev04}
+  Oded Regev, ``Quantum Computation and Lattice Problems,'' \emph{SIAM
+Journal on Computing} \textbf{33}, 738--760 (2004).
+\href{https://doi.org/10.1137/S0097539703440678}{doi:10.1137/S0097539703440678};
+\href{https://arxiv.org/abs/cs/0304005}{arXiv:cs/0304005}.
+
+  \item[\textup{[Reg09]}]\label{ref:36ac-regev09}
+  Oded Regev, ``On Lattices, Learning with Errors, Random Linear Codes,
+and Cryptography,'' \emph{Journal of the ACM} \textbf{56}, Article 34
+(2009).
+\href{https://doi.org/10.1145/1568318.1568324}{doi:10.1145/1568318.1568324}.
+
+  \item[\textup{[ALS21]}]\label{ref:36ac-als}
+  Divesh Aggarwal, Zeyong Li, and Noah Stephens-Davidowitz, ``A
+$2^{n/2}$-Time Algorithm for $\sqrt{n}$-SVP and $\sqrt{n}$-Hermite SVP, and
+an Improved Time-Approximation Tradeoff for (H)SVP,'' in \emph{Advances in
+Cryptology -- EUROCRYPT 2021}, Part I, 467--497 (2021).
+\href{https://doi.org/10.1007/978-3-030-77870-5_17}{doi:10.1007/978-3-030-77870-5_17};
+\href{https://arxiv.org/abs/2007.09556}{arXiv:2007.09556}.
+
+  \item[\textup{[BCSS23]}]\label{ref:36ac-bcss}
+  Xavier Bonnetain, Andr\'e Chailloux, Andr\'e Schrottenloher, and Yixin
+Shen, ``Finding Many Collisions via Reusable Quantum Walks -- Application
+to Lattice Sieving,'' in \emph{Advances in Cryptology -- EUROCRYPT 2023},
+Part V, 221--251 (2023).
+\href{https://doi.org/10.1007/978-3-031-30589-4_8}{doi:10.1007/978-3-031-30589-4_8};
+\href{https://arxiv.org/abs/2205.14023}{arXiv:2205.14023}.
+
+  \item[\textup{[ACKS25]}]\label{ref:36ac-acks}
+  Divesh Aggarwal, Yanlin Chen, Rajendra Kumar, and Yixin Shen,
+``Improved Classical and Quantum Algorithms for the Shortest Vector Problem
+via Bounded Distance Decoding,'' \emph{SIAM Journal on Computing}
+\textbf{54}, 233--278 (2025).
+\href{https://doi.org/10.1137/22M1486959}{doi:10.1137/22M1486959};
+\href{https://arxiv.org/abs/2002.07955}{arXiv:2002.07955}.
+
+  \item[\textup{[Bia23]}]\label{ref:36ac-biasse}
+  Jean-Fran\c{c}ois Biasse, Xavier Bonnetain, Elena Kirshanova, Andr\'e
+Schrottenloher, and Fang Song, ``Quantum Algorithms for Attacking Hardness
+Assumptions in Classical and Post-Quantum Cryptography,'' \emph{IET
+Information Security} \textbf{17}, 171--209 (2023).
+\href{https://doi.org/10.1049/ise2.12081}{doi:10.1049/ise2.12081}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The open question is whether any quantum algorithm breaks the
+polynomial-time barrier for polynomial approximation factors.  Known quantum
+algorithms for SVP and its variants remain exponential in the lattice
+dimension, and the LWE and DHSP reductions provide hardness reductions or
+require structural promises (uniqueness of the shortest vector) absent here.
+The related LWE and Dihedral Hidden Subgroup Problem records are given
+related problem links (Progress above).
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Computational complexity and computability
+
+\subsection*{ID}
+
+\texttt{op\_36ac6718d2c37628}

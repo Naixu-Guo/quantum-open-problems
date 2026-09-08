@@ -12,7 +12,7 @@
   "metadata": {
     "type": "Problem",
     "schemaVersion": "1.0",
-    "revision": 2,
+    "revision": 3,
     "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
     "createdAt": "2026-09-04T22:04:59Z",
     "role": "primary",
@@ -51,7 +51,8 @@
     "The equal-dimension conjecture holds for $d=3$\n  \\sourcecite{ref:p32-chen}{CYT19}.  Consequently, equal dimension $d\\geq4$\n  is the first unresolved regime.",
     "The conjecture holds for diagonal-unitary-covariant maps, a class\n  containing Choi-type, depolarizing, dephasing, and amplitude-damping\n  examples \\sourcecite{ref:p32-singh}{SN22}.  This covariance restriction\n  does not cover arbitrary PPT maps.",
     "Other repeated-composition theorems prove eventual entanglement\n  breaking for broad PPT families, but not after exactly two maps\n  \\sourcecite{ref:p32-kennedy}{KMP18}.",
-    "A 2026 qutrit theorem proves a stronger composition statement for\n  cones larger than the PPT cone and extends it to arbitrary selective\n  measurements.  Its dimension-specific hypothesis leaves higher dimensions\n  open \\sourcecite{ref:p32-an-lee}{AL26}."
+    "A 2026 qutrit theorem proves a stronger statement for cones larger\n  than the PPT cone: the composition of any completely positive map whose\n  Choi matrix is $1$-undistillable with any map whose Choi matrix has\n  Schmidt number at most two is entanglement breaking in either order, and\n  the $1$-undistillable cone is exactly the largest qutrit cone with this\n  property.  The result also extends to arbitrary selective measurements\n  on the intermediate systems, but its dimension-specific hypothesis\n  leaves higher dimensions open \\sourcecite{ref:p32-an-lee}{AL26}.",
+    "Nechita and Park introduced random covariant channels, including random\n  diagonal-orthogonal-covariant channels, and proved that the composition of\n  two random diagonal-orthogonal-covariant channels is generically\n  entanglement breaking, giving higher-dimensional generic evidence without\n  resolving the unrestricted conjecture\n  \\sourcecite{ref:p32-nechita-park}{NP26}."
   ],
   "references": [
     {
@@ -83,7 +84,12 @@
       "key": "AL26",
       "label": "ref:p32-an-lee",
       "tex": "J. An and S. Lee, ``Beyond the Positive Partial Transpose Squared\n  Conjecture: The Qutrit Case,'' arXiv:2607.15947 (2026).\n  \\href{https://doi.org/10.48550/arXiv.2607.15947}{doi:10.48550/arXiv.2607.15947};\n  \\href{https://arxiv.org/abs/2607.15947}{arXiv:2607.15947}."
+    },
+    {
+      "key": "NP26",
+      "label": "ref:p32-nechita-park",
+      "tex": "I. Nechita and S.-J. Park, ``Random Covariant Quantum Channels,'' \\emph{Annales\n  Henri Poincar\\'e} \\textbf{27}, 847--907 (2026).\n  \\href{https://doi.org/10.1007/s00023-025-01558-y}{doi:10.1007/s00023-025-01558-y};\n  \\href{https://arxiv.org/abs/2403.03667}{arXiv:2403.03667}."
     }
   ],
-  "comment": "The two-composition claim is settled in equal dimensions two and three and\nfor several structured families.  No proof or counterexample is known for\narbitrary compatible finite-dimensional PPT maps, with equal dimension four\nbeing the first open square case."
+  "comment": "The two-composition claim is settled in equal dimensions two and three,\nfor several structured families, and generically for random covariant\nchannels (Progress above).  No proof or counterexample is known for\narbitrary compatible finite-dimensional PPT maps, with equal dimension four\nbeing the first open square case."
 }

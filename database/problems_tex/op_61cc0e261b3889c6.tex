@@ -1,0 +1,177 @@
+% Problem record op_61cc0e261b3889c6. This TeX file is derived from
+% database/problems_json/op_61cc0e261b3889c6.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{QMA(2) versus QMA}
+\label{sec:op_61cc0e261b3889c6}
+
+\paragraph{Problem.}
+Is every promise problem verifiable by a quantum Merlin-Arthur protocol
+with two unentangled witnesses also verifiable by a protocol with a single
+arbitrary witness, that is, is $\mathsf{QMA}(2) = \mathsf{QMA}$ in the
+standard, unrelativized setting?  A promise problem $L = (L_{yes}, L_{no})$
+is in $\mathsf{QMA}(2)$ if some uniform polynomial-time quantum verifier,
+given an input $x$ of length $n$ and two witnesses of $\operatorname{poly}(n)$
+qubits each that are promised to be unentangled across the two registers,
+accepts some product state $\sigma_1 \otimes \sigma_2$ with probability at
+least $2/3$ for every $x \in L_{yes}$ and every product state
+$\tau_1 \otimes \tau_2$ with probability at most $1/3$ for every
+$x \in L_{no}$; $\mathsf{QMA}$ is the same model with a single,
+unrestricted witness.  Discarding one witness gives
+$\mathsf{QMA} \subseteq \mathsf{QMA}(2)$, and nondeterministically guessing
+classical descriptions of the two witnesses and simulating the verifier
+gives $\mathsf{QMA}(2) \subseteq \mathsf{NEXP}$, so
+\begin{equation}
+  \mathsf{QMA} \subseteq \mathsf{QMA}(2) \subseteq \mathsf{NEXP},
+  \label{eq:qma2-containment}
+\end{equation}
+while the SWAP-test reduction of Harrow and Montanaro gives
+$\mathsf{QMA}(k) = \mathsf{QMA}(2)$ for every constant $k \ge 2$.  The open
+question is whether the first inclusion in Eq.~\eqref{eq:qma2-containment}
+is an equality: can every protocol whose soundness is required only against
+separable pairs of witnesses be simulated by a single-witness protocol with
+polynomial overhead?  No improvement of either containment in
+Eq.~\eqref{eq:qma2-containment} is known in the unrelativized setting, and
+relativized evidence such as an oracle separation does not settle this
+question.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+The classes of problems verifiable with multiple unentangled quantum
+certificates were introduced as $\mathsf{QMA}(k)$ by Kobayashi, Matsumoto,
+and Yamakami \sourcecite{ref:qma2-kmy01}{KMY01}, and whether the
+unentanglement promise adds verification power has been open since; Jeronimo
+and Wu state that for $\mathsf{QMA}(2)$ itself only the trivial containments
+of Eq.~\eqref{eq:qma2-containment} are known
+\sourcecite{ref:qma2-jw24}{JW24}, as do Bostanci et al.
+\sourcecite{ref:qma2-bgh26}{BGH+26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Kobayashi, Matsumoto, and Yamakami defined $\mathsf{QMA}(k)$, quantum
+  certificate verification with $k$ unentangled certificates, in a work
+  devoted to the single-versus-multiple comparison
+  \sourcecite{ref:qma2-kmy01}{KMY01}.
+
+  \item Harrow and Montanaro proved $\mathsf{QMA}(k) = \mathsf{QMA}(2)$ for every
+  $k \ge 2$ by a SWAP-test reduction, so two unentangled witnesses already
+  capture any constant number of them \sourcecite{ref:qma2-hm13}{HM13}.
+
+  \item For the non-negative-amplitude variant, Jeronimo and Wu proved
+  $\mathsf{QMA}^{+}(2) = \mathsf{NEXP}$ and showed that
+  $\mathsf{QMA}^{+}(2)$ with completeness--soundness gap at least
+  $3/4 + 1/\operatorname{poly}(n)$ is contained in ordinary
+  $\mathsf{QMA}(2)$, so that $\mathsf{QMA}(2) = \mathsf{NEXP}$ would follow
+  if the gap of the non-negative-amplitude protocol could be strongly
+  amplified, a step their Section~8 leaves unresolved: within
+  $\mathsf{QMA}^{+}(2)$ they achieve only mild amplification, to gap $2/9$
+  from any inverse-polynomial gap and to $1 - e^{-\operatorname{poly}(n)}$
+  only from a gap of at least $7/8$.  For $\mathsf{QMA}(2)$ itself only the
+  trivial containments of Eq.~\eqref{eq:qma2-containment} are known
+  \sourcecite{ref:qma2-jw24}{JW24}.
+
+  \item Bassirian, Fefferman, Leigh, Marwaha, and Wu separated a single witness
+  from two unentangled witnesses only for the modified class
+  $\mathsf{QMA}_{IS}$ of internally separable proofs and only assuming
+  $\mathsf{EXP} \ne \mathsf{NEXP}$, framing $\mathsf{QMA}(2) = \mathsf{NEXP}$ as
+  the open target and leaving $\mathsf{QMA}(2)$ versus $\mathsf{QMA}$
+  untouched \sourcecite{ref:qma2-bfl24}{BFL+24}.
+
+  \item The survey of Jeronimo, Wu, and Leigh is devoted to the
+  $\mathsf{QMA}(2)$ universe of complexity, entanglement, and optimization
+  questions and describes the class as central yet poorly understood
+  \sourcecite{ref:qma2-jwl26}{JWL26}.
+
+  \item Bostanci, Grewal, Haferkamp, Huang, Hwang, Natarajan, and Nirkhe
+  constructed the first quantum, that is unitary, oracle relative to which
+  $\mathsf{QMA} \ne \mathsf{QMA}(2)$, resolving Watrous's no-disentanglers
+  conjecture that every $(\varepsilon, \delta)$-disentangler with
+  $\varepsilon + \delta < 1$ requires input size exponential in the number of output qubits.  They
+  state that in the unrelativized setting essentially all that is known is
+  the chain of Eq.~\eqref{eq:qma2-containment}, that a classical oracle
+  separation still eludes us, and that any in-place amplification implying
+  $\mathsf{QMA}(2) \subseteq \mathsf{QMA}$ must be non-relativizing; the
+  preprint, submitted 2 September 2026, is not yet refereed
+  \sourcecite{ref:qma2-bgh26}{BGH+26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[KMY01]}]\label{ref:qma2-kmy01}
+  H. Kobayashi, K. Matsumoto, and T. Yamakami, ``Quantum certificate
+  verification: Single versus multiple quantum certificates,''
+  \href{https://arxiv.org/abs/quant-ph/0110006}{arXiv:quant-ph/0110006}
+  (2001).
+
+  \item[\textup{[HM13]}]\label{ref:qma2-hm13}
+  A. W. Harrow and A. Montanaro, ``Testing Product States, Quantum
+  Merlin-Arthur Games and Tensor Optimization,'' \emph{Journal of the ACM}
+  \textbf{60}(1), Article 3 (2013).
+  \href{https://doi.org/10.1145/2432622.2432625}{doi:10.1145/2432622.2432625}.
+
+  \item[\textup{[JW24]}]\label{ref:qma2-jw24}
+  F. G. Jeronimo and P. Wu, ``The Power of Unentangled Quantum Proofs with
+  Non-negative Amplitudes,''
+  \href{https://arxiv.org/abs/2402.18790}{arXiv:2402.18790} (2024).
+
+  \item[\textup{[BFL+24]}]\label{ref:qma2-bfl24}
+  R. Bassirian, B. Fefferman, I. Leigh, K. Marwaha, and P. Wu, ``Quantum
+  Merlin-Arthur with an internally separable proof,''
+  \href{https://arxiv.org/abs/2410.19152}{arXiv:2410.19152} (2024).
+
+  \item[\textup{[JWL26]}]\label{ref:qma2-jwl26}
+  F. G. Jeronimo, P. Wu, and I. Leigh, ``The QMA(2) Universe: Complexity,
+  Entanglement, and Optimization,'' \emph{ACM SIGACT News} \textbf{57}(1),
+  64--99 (2026).
+  \href{https://doi.org/10.1145/3802807.3802814}{doi:10.1145/3802807.3802814}.
+
+  \item[\textup{[BGH+26]}]\label{ref:qma2-bgh26}
+  J. Bostanci, S. Grewal, J. Haferkamp, A. Huang, Y. Hwang, A. Natarajan,
+  and C. Nirkhe, ``A quantum oracle separation between QMA(2) and QMA,''
+  \href{https://arxiv.org/abs/2609.02865}{arXiv:2609.02865} (2026).
+\end{enumerate}
+
+\subsection*{Comment}
+
+What remains unresolved is the unrelativized class equality: no improvement
+of either containment in Eq.~\eqref{eq:qma2-containment} is known.  A proof
+that $\mathsf{QMA}(2) \subseteq \mathsf{QMA}$ settles it with equality; the
+quantum-oracle separation of \sourcecite{ref:qma2-bgh26}{BGH+26} shows that
+such a simulation must use non-relativizing techniques, and its resolution
+of the no-disentanglers conjecture closes the query-efficient route.
+Conversely, exhibiting any language in
+$\mathsf{QMA}(2) \setminus \mathsf{QMA}$ settles it with a strict
+inclusion; in particular, proving $\mathsf{QMA}(2) = \mathsf{NEXP}$, the
+target of the non-negative-amplitude and internally-separable-proof
+programs, would separate the classes assuming
+$\mathsf{EXP} \ne \mathsf{NEXP}$, since $\mathsf{QMA} \subseteq \mathsf{PP}
+\subseteq \mathsf{PSPACE} \subseteq \mathsf{EXP}$.  Weaker decisive
+progress would improve a single containment, for example
+$\mathsf{QMA}(2) \subseteq \mathsf{EXP}$ or
+$\mathsf{NEXP} \subseteq \mathsf{QMA}(2)$ at any constant
+completeness-soundness gap.  Finding a classical oracle separating
+$\mathsf{QMA}$ from $\mathsf{QMA}(2)$ is a further open relativized
+sub-question, distinct from the unitary-oracle version resolved in 2026.
+The zoo's neighboring records pose different questions: ``The quantum PCP
+conjecture'' asks for QMA-hardness of constant-relative-gap local
+Hamiltonians on a promise problem, and ``Constant trace-distance
+separability testing'' relates its promise gap to estimating
+$\mathsf{QMA}(2)$ acceptance probabilities.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Computational complexity and computability; Quantum separability
+
+\subsection*{ID}
+
+\texttt{op\_61cc0e261b3889c6}

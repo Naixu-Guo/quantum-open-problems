@@ -14,7 +14,8 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { spawnSync } from "node:child_process";
+import { spawnSync, execFile } from "node:child_process";
+import { randomUUID } from "node:crypto";
 
 export interface SyncConfig {
   remote: string;
@@ -58,6 +59,16 @@ const NETWORK_TIMEOUT_MS = 30_000;
 const IDENTITY = ["-c", "user.name=quantum-open-problems-service", "-c", "user.email=service@quantum-open-problems.invalid"];
 
 interface Outcome { ok: boolean; out: string; err: string }
+
+interface Fetched { reference: string | null; at: string; error: string | null }
+
+function runAsync(cwd: string, args: string[], signal: AbortSignal): Promise<Outcome> {
+  return new Promise((resolve) => {
+    execFile("git", args, { cwd, encoding: "utf8", maxBuffer: 64 * 1024 * 1024, timeout: NETWORK_TIMEOUT_MS, signal, env: { ...process.env, GIT_TERMINAL_PROMPT: "0" } }, (error, stdout, stderr) => {
+      resolve({ ok: error === null, out: stdout.trim(), err: error ? stderr.trim() || error.message : "" });
+    });
+  });
+}
 
 function run(cwd: string, args: string[], timeout?: number): Outcome {
   const result = spawnSync("git", args, { cwd, encoding: "utf8", maxBuffer: 64 * 1024 * 1024, timeout, env: { ...process.env, GIT_TERMINAL_PROMPT: "0" } });
@@ -147,6 +158,32 @@ class RepositorySync {
     return fetched.ok;
   }
 
+  /** A private ref avoids racing the write path's FETCH_HEAD or tracking refs. */
+  async fetchInBackground(signal: AbortSignal): Promise<Fetched> {
+    const ref = `refs/qop-background/${randomUUID()}`;
+    try {
+      const fetched = await runAsync(this.top, ["fetch", "-q", "--no-write-fetch-head", "--no-tags", "--refmap=", this.remote, `refs/heads/${this.branch}:${ref}`], signal);
+      const at = new Date().toISOString();
+      if (!fetched.ok) return { reference: null, at, error: `fetch: ${why(fetched)}` };
+      const resolved = run(this.top, ["rev-parse", "--verify", `${ref}^{commit}`]);
+      return resolved.ok ? { reference: resolved.out, at, error: null } : { reference: null, at, error: `fetch: ${why(resolved)}` };
+    } finally {
+      run(this.top, ["update-ref", "-d", ref]);
+    }
+  }
+
+  applyFetched(fetched: Fetched): CatchUp {
+    this.lastFetchAt = fetched.at;
+    this.lastFetchOk = fetched.reference !== null;
+    if (!fetched.reference) {
+      this.lastError = fetched.error;
+      return { refused: fetched.error, moved: false };
+    }
+    return this.mergeFetched(fetched.reference);
+  }
+
+  clearUndo(): void { this.before = null; }
+
   catchUp(options: CatchUpOptions = {}): CatchUp {
     const refuse = (reason: string): CatchUp => { this.lastError = reason; return { refused: reason, moved: false }; };
     const current = this.currentBranch();
@@ -155,28 +192,39 @@ class RepositorySync {
     if (busy) return refuse(busy);
     // An unreachable remote does not stop a write: the clone is canonical and the push is retried later.
     if (!this.fetch()) return { refused: null, moved: false };
-    this.countAgainst("FETCH_HEAD");
+    return this.mergeFetched("FETCH_HEAD", options);
+  }
+
+  /** Applies only already-fetched objects; no network process blocks a read here. */
+  private mergeFetched(reference: string, options: CatchUpOptions = {}): CatchUp {
+    const refuse = (reason: string): CatchUp => { this.lastError = reason; return { refused: reason, moved: false }; };
+    const current = this.currentBranch();
+    if (current !== this.branch) return refuse(`the clone is on ${current ? `branch ${current}` : "a detached HEAD"}, not the ledger branch ${this.branch}`);
+    const busy = this.inProgress();
+    if (busy) return refuse(busy);
+    this.countAgainst(reference);
     if (!this.behind) {
       this.lastError = null;
       return { refused: null, moved: false };
     }
     const dirty = run(this.top, ["status", "--porcelain", "--untracked-files=no"]);
     if (dirty.ok && dirty.out !== "") return refuse("the clone has uncommitted changes to tracked files");
-    const edits = this.ledgerEdits("FETCH_HEAD");
+    const edits = this.ledgerEdits(reference);
     if (edits.length > 0 && !options.allowEdits) return refuse(`the remote's commits modify or delete ledger files, which only the service writes: ${edits.slice(0, 5).join(", ")}${edits.length > 5 ? ` and ${edits.length - 5} more` : ""}; an operator accepts a deliberate migration with 'sync --allow-edits'`);
     const before = this.head();
     const merge = this.ahead
-      ? run(this.top, [...IDENTITY, "merge", "-q", "--no-edit", "-m", `Merge ${this.remote}/${this.branch} into the ledger clone`, "FETCH_HEAD"])
-      : run(this.top, ["merge", "-q", "--ff-only", "FETCH_HEAD"]);
+      ? run(this.top, [...IDENTITY, "merge", "-q", "--no-edit", "-m", `Merge ${this.remote}/${this.branch} into the ledger clone`, reference])
+      : run(this.top, ["merge", "-q", "--ff-only", reference]);
     if (!merge.ok) {
       if (this.inProgress()) run(this.top, ["merge", "--abort"]);
       return refuse(`the clone is ${this.behind} commit(s) behind ${this.remote}/${this.branch} and its ${this.ahead} unpushed commit(s) cannot be merged with it: ${why(merge)}`);
     }
     this.before = before;
-    this.countAgainst("FETCH_HEAD");
+    this.countAgainst(reference);
     this.lastError = null;
     const outside = run(this.top, ["diff", "--name-only", before, "HEAD", "--", ".", ...this.roots.map((root) => `:!${root}`)]);
-    if (outside.ok && outside.out) console.warn(`sync: files outside the ledger changed in ${this.top} (${outside.out.split("\n").length} file(s)); restart the service to run the new code`);
+    const runtimeFiles = outside.out.split("\n").filter((file) => /^(?:service\/|contract\/|web\/|mcp\/|package(?:-lock)?\.json$)/u.test(file));
+    if (outside.ok && runtimeFiles.length) console.warn(`sync: runtime files changed in ${this.top} (${runtimeFiles.length} file(s)); restart the service to run the new code`);
     return { refused: null, moved: true };
   }
 
@@ -232,6 +280,7 @@ export class GitSync {
 
   /** Catch up every repository. A refusal in a later one does not hide that an earlier one moved. */
   catchUp(options: CatchUpOptions = {}): CatchUp {
+    for (const repository of this.repositories) repository.clearUndo();
     let moved = false;
     for (const repository of this.repositories) {
       const result = repository.catchUp(options);
@@ -239,6 +288,21 @@ export class GitSync {
       if (result.refused) return { refused: `${result.refused} (${repository.top})`, moved };
     }
     return { refused: null, moved };
+  }
+
+  /** Network work is asynchronous; applying all repositories is one synchronous operation. */
+  async prepareCatchUp(signal: AbortSignal): Promise<() => CatchUp> {
+    const fetched = await Promise.all(this.repositories.map((repository) => repository.fetchInBackground(signal)));
+    return () => {
+      for (const repository of this.repositories) repository.clearUndo();
+      let moved = false;
+      for (const [index, repository] of this.repositories.entries()) {
+        const result = repository.applyFetched(fetched[index]!);
+        moved = moved || result.moved;
+        if (result.refused) return { refused: `${result.refused} (${repository.top})`, moved };
+      }
+      return { refused: null, moved };
+    };
   }
 
   undo(reason: string): void {
