@@ -90,7 +90,14 @@ entanglement cost at $d=3$ settles the cost side of the same question
   \end{equation}
   The upper bound in Eq.~\eqref{eq:09dc-bracket} follows from
   Eq.~\eqref{eq:09dc-pt-spectrum} and tends to zero as $d\to\infty$; whether
-  it is attained is open.
+  it is attained is open.  The Rains bound itself --- and the regularized
+  PPT relative entropy of entanglement --- is exactly known for this
+  state: Audenaert, Eisert, Jan{\'e}, Plenio, Virmani, and De Moor showed that
+  $E_{R,\mathrm{PPT}}^{\infty}(\rho_{\mathrm{as}}^{(d)})=\log_2\bigl(1+\tfrac2d\bigr)$
+  \sourcecite{ref:09dc-audenaert-et-al}{AEA+01}, and the chain
+  $E_{R,\mathrm{PPT}}^{\infty}=E_{\mathrm{Rains}}=E_N=\log_2\bigl(1+\tfrac2d\bigr)$,
+  with $E_{\mathrm{Rains}}$ the single-copy Rains bound, is recorded in
+  Sec.~III of \sourcecite{ref:09dc-christandl-schuch-winter}{CSW12}.
 
   \item On the cost side, Yura computed $E_C(\rho_{\mathrm{as}}^{(3)})=1$ ebit
   exactly \sourcecite{ref:09dc-yura}{Yur03}.  Christandl, Schuch, and Winter
@@ -98,8 +105,13 @@ entanglement cost at $d=3$ settles the cost side of the same question
   $K_D(\rho_{\mathrm{as}}^{(d)})=O(1/d)$, hence
   $E_D(\rho_{\mathrm{as}}^{(d)})\le K_D(\rho_{\mathrm{as}}^{(d)})\to0$ as
   $d\to\infty$, while the entanglement cost stays above a $d$-independent
-  constant, making asymptotic manipulation of the state irreversible at
-  every $d$; the exact distillable entanglement is left open
+  constant, making asymptotic manipulation of the family irreversible in
+  the limit $d\to\infty$ --- the cited bounds separate $E_D$ from $E_C$
+  only for $d\ge7$ (and at $d=3$, via Yura's $E_C=1$), leaving $d=4$,
+  $5$, and $6$ open.  The best known lower bound is
+  $E_D(\rho_{\mathrm{as}}^{(d)})\ge1/d$, recorded for both $E_D$ and $K_D$,
+  making the $O(1/d)$ upper bound optimal up to a constant; the exact
+  distillable entanglement is left open
   \sourcecite{ref:09dc-christandl-schuch-winter}{CSW12}.
 
   \item For any rank-two mixed state supported on the $3\otimes3$ antisymmetric
@@ -146,6 +158,13 @@ entanglement cost at $d=3$ settles the cost side of the same question
   Thapliyal, ``Evidence for Bound Entangled States with Negative Partial
   Transpose,'' \emph{Physical Review A} \textbf{61}, 062312 (2000).
   \href{https://arxiv.org/abs/quant-ph/9910026}{arXiv:quant-ph/9910026}.
+
+  \item[\textup{[AEA+01]}]\label{ref:09dc-audenaert-et-al}
+  K. Audenaert, J. Eisert, E. Jan{\'e}, M. B. Plenio, S. Virmani, and
+  B. De Moor, ``The Asymptotic Relative Entropy of Entanglement,''
+  \emph{Physical Review Letters} \textbf{87}, 217902 (2001).
+  \href{https://doi.org/10.1103/PhysRevLett.87.217902}{doi:10.1103/PhysRevLett.87.217902};
+  \href{https://arxiv.org/abs/quant-ph/0103096}{arXiv:quant-ph/0103096}.
 
   \item[\textup{[Rai01]}]\label{ref:09dc-rains}
   E. M. Rains, ``A Semidefinite Program for Distillable Entanglement,''
@@ -217,11 +236,15 @@ leaves $0<E_D\le E_{D,\mathrm{PPT}}\le\log_2(5/3)$, while the LOCC
 entanglement cost equals one ebit, so both the rate and the sharpness of the
 irreversibility are undetermined.  Asymptotically, the sharp question is the
 leading constant: $E_D(\rho_{\mathrm{as}}^{(d)})=O(1/d)$ by the key bound,
-while the achievability side is known only as strict positivity, so neither
+while the achievability side is known only up to constants
+(\sourcecite{ref:09dc-christandl-schuch-winter}{CSW12} records a $1/d$ lower
+bound on $E_D$, matching the $\log_2\bigl(1+\tfrac2d\bigr)\sim 2/(d\ln 2)$
+converse up to a constant), so neither
 the existence nor the value of
-$\lim_{d\to\infty}d\,E_D(\rho_{\mathrm{as}}^{(d)})$ is established.  A proof that the LOCC and PPT rates differ on this family, or
-an exact evaluation of the Rains bound of $\rho_{\mathrm{as}}^{(d)}$ with a
-matching achievable protocol, would settle one of the posed alternatives.
+$\lim_{d\to\infty}d\,E_D(\rho_{\mathrm{as}}^{(d)})$ is established.  A proof that the LOCC and PPT rates differ on this family, or a
+determination whether the known Rains value $\log_2\bigl(1+\tfrac2d\bigr)$ is
+asymptotically attained by completely PPT-preserving distillation, would
+settle one of the posed alternatives.
 This record asks for the value of a rate on one explicit family, unlike
 Problem~\ref{sec:op_b93eb7197c926d9e}, the LOCC distillable entanglement of
 Bell-diagonal qubit states, and
