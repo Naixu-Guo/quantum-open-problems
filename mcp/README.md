@@ -1,12 +1,54 @@
 # Use the MCP server
 
-Connect an MCP-compatible assistant to search open problems, read statements
-and references, and assemble research context. The adapter runs locally and
-queries the hosted catalog at `https://api.qiqc-op.com`. You need Git,
-Node.js 22.13 or later, and a client that supports local **stdio** MCP servers.
-No API key is needed to read problems.
+Connect your assistant directly to the hosted catalog to search open problems,
+read statements and references, and assemble research context. Public reads
+require no repository download, Node.js installation, account, or API key.
 
-## Download the adapter
+## Connect over HTTP
+
+In a client that supports remote MCP, add a server with:
+
+| Setting | Value |
+| --- | --- |
+| Name | `quantum-open-problems` |
+| Server URL | `https://api.qiqc-op.com/mcp` |
+| Transport | Streamable HTTP |
+| Authentication | None for public reads |
+
+Save or enable the connection. For clients that accept URL entries in an
+`mcpServers` configuration:
+
+```json
+{
+  "mcpServers": {
+    "quantum-open-problems": {
+      "url": "https://api.qiqc-op.com/mcp"
+    }
+  }
+}
+```
+
+Some clients use a settings form or another configuration format. Use the same
+URL and the remote HTTP transport supported by that client.
+
+Try asking: “Use the quantum-open-problems MCP to find unsolved problems about
+quantum channel capacity, then summarize one problem's known progress and
+references.” The tools include `search_problems`, `get_problem`,
+`list_references`, and `build_context`.
+
+Newly published records become available through the existing connection when
+the hosted API imports the catalog update. The HTTP endpoint uses the official
+MCP SDK and supports both the 2026 protocol and legacy Streamable HTTP clients.
+It exposes the Read tools and resources below. Research write tools remain
+available through the authenticated local adapter described next.
+
+If connecting fails, check the [catalog status](https://api.qiqc-op.com/api/v1/status),
+confirm remote MCP support, and use the full URL ending in `/mcp`. A browser GET
+may return 405 because an MCP client must negotiate the protocol. HTTP 429 asks
+the client to wait for the `Retry-After` interval; the public limit is 240 requests
+per minute per address.
+
+## Optional local adapter
 
 Run this command once in a terminal:
 
@@ -14,11 +56,13 @@ Run this command once in a terminal:
 git clone https://github.com/Naixu-Guo/quantum-open-problems.git
 ```
 
-If you already have a checkout, use it. The adapter needs no npm dependencies.
+This option is for clients that only support stdio, development, or authenticated
+research contributions. It requires Git and Node.js 22.13 or later. If you already
+have a checkout, use it. The stdio adapter itself needs no npm dependencies.
 Check the [hosted catalog status](https://api.qiqc-op.com/api/v1/status) to verify
 that the service is reachable.
 
-## Connect your assistant
+### Configure the local command
 
 Add a local MCP server with the following settings:
 
@@ -62,8 +106,8 @@ research bundle with `build_context`.
 
 If the client cannot start `node`, use the full path to the Node executable as
 the command. If queries fail, check the status URL above and the configured
-`QOP_SERVICE_URL`. This URL is an HTTPS API, not a Streamable HTTP MCP endpoint;
-configure the adapter as a local command using stdio.
+`QOP_SERVICE_URL`. This environment variable names the API origin, so omit the
+`/mcp` suffix when using the local adapter.
 
 To connect to another service, set `QOP_SERVICE_URL` to its origin.
 Authenticated research contributions also require a `QOP_API_KEY` issued by that
@@ -87,6 +131,9 @@ for the hosted service's setup and operations.
 
 ## Tools
 
+The public HTTP endpoint exposes the Read group. The local stdio adapter also
+provides Work and Write tools when authenticated.
+
 | Group | Tools |
 | --- | --- |
 | Read | `get_status`, `get_policy`, `get_schemas`, `search_problems`, `get_problem`, `get_frontier`, `get_tree`, `list_references`, `list_comments`, `list_attempts`, `build_context`, `list_events`, `get_contribution_status`, `get_record`, `claim_queue_item` |
@@ -107,7 +154,7 @@ problems and claims. For a verifier: `claim_queue_item`, examine, then
 The legacy static-catalog server was removed during the catalog integration.
 Use `mcp/src/server.ts`; its service reads the ledger projection exported from
 `database/problems_json/` (see [the catalog boundary](../docs/CATALOG_INTEGRATION.md)).
-The adapter forwards tools to the service's HTTP API; records carry stable ids
+Both transports forward tools to the service's HTTP API; records carry stable ids
 and statements carry content digests.
 
 New catalog problems need no MCP-specific registration. Commit the JSON, TeX,
@@ -121,6 +168,7 @@ frontier, references, and context. No MCP restart is needed. Service code or
 schema changes still require deploying and restarting the service.
 
 ```sh
-npm test          # spawns the server against a temporary service
+npm ci            # from mcp/: install the official SDK and test client
+npm test          # tests stdio and remote HTTP against temporary services
 npm run typecheck
 ```
