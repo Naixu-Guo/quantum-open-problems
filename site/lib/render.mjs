@@ -143,6 +143,7 @@ ${body}
         <a href="${root}api/index.json">JSON API</a>
         <a href="${config.repositoryUrl}" rel="noreferrer">Source repository</a>
       </nav>
+      ${current === "home" ? `<p class="footer-note footer-credit">Compiled and maintained by Naixu Guo, Bikun Li, and contributors. <a href="${root}about/#credits">Credits</a>.</p>` : ""}
       <p class="footer-note">A dated research index. Verify a status against the cited sources before relying on it. <a href="#top">Back to top ↑</a></p>
     </footer>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -390,7 +391,7 @@ export function renderProblemPage({ record, config, root, related, dates }) {
 const byCountThenName = (counts) => [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 
 export function renderHome({ config, root, records, stats, fieldCounts, topicCounts, initial, dates }) {
-  const metric = (value, label, cls = "") => `<div class="metric ${cls}"><strong>${value}</strong><span>${label}</span></div>`;
+  const metric = (value, label, href, cls = "") => `<a class="metric ${cls}" href="${escape(href)}"><strong>${value}</strong><span>${label}</span></a>`;
   const fields = byCountThenName(fieldCounts);
   const topTopics = byCountThenName(topicCounts).slice(0, 12);
   const total = stats.total || 1;
@@ -399,22 +400,19 @@ export function renderHome({ config, root, records, stats, fieldCounts, topicCou
     <section class="panels" aria-label="Database overview">
       <div class="panel panel-stats">
         <div class="panel-head">
-          <h2><a href="${root}problems/">View all problems</a></h2>
           <span class="panel-note">Updated ${displayDate(dates.updated)}</span>
         </div>
         <form class="hero-search no-math" action="${root}problems/" method="get" role="search">
           <label class="visually-hidden" for="home-search">Search problems</label>
           ${SEARCH_ICON}
-          <input id="home-search" name="q" type="search" placeholder="Search ${stats.total} problems by title, statement, ID, field, or topic" autocomplete="off">
+          <input id="home-search" name="q" type="search" placeholder="Search ${stats.total} problems by title, statement, ID, field, or topic" autocomplete="off" aria-describedby="home-search-hint">
           <button class="hero-search-button" type="submit">Search</button>
         </form>
-        <p class="hero-search-hint">Press <kbd>/</kbd> to start typing. Try “capacity”, “SIC”, “Bell”, or an identifier such as <code>${records[0]?.id ?? "op_"}</code>.</p>
+        <p class="hero-search-hint" id="home-search-hint">Click Search to explore the suggested topic, or type your own query. Press <kbd>/</kbd> to start typing.</p>
         <div class="metric-grid">
-          ${metric(stats.total, "Problems")}
-          ${metric(stats.unsolved, "Unsolved", "metric-unsolved")}
-          ${metric(stats.solved, "Solved", "metric-solved")}
-          ${metric(fieldCounts.size, "Fields")}
-          ${metric(topicCounts.size, "Topics")}
+          ${metric(stats.total, "Problems", `${root}problems/`)}
+          ${metric(stats.unsolved, "Unsolved", `${root}problems/?status=unsolved`, "metric-unsolved")}
+          ${metric(stats.solved, "Solved", `${root}problems/?status=solved`, "metric-solved")}
         </div>
         <div class="status-bar" role="img" aria-label="${stats.unsolved} unsolved, ${stats.solved} solved">${bar}</div>
         <div class="top-tags">
@@ -547,7 +545,6 @@ export function renderTagsIndex({ config, root, taxonomy, fieldCounts, topicCoun
     <section class="section-shell">
       <div class="section-heading">
         <div><p class="section-index">Taxonomy</p><h1>Fields and topics</h1></div>
-        <p>Every problem carries one or two <strong>fields</strong>, the broad research areas it belongs to, and one to five <strong>topics</strong>, the specific objects, techniques, and settings it concerns. ${usedFields.length} fields and ${usedTopics.length} topics are in use; ${unused} further names are reserved for future records.</p>
       </div>
       <h2 class="taxonomy-heading" id="fields">Fields <span>${usedFields.length}</span></h2>
       <ul class="tag-list tag-list-large">${usedFields.map(([tag, count]) => `<li>${tagLink(tag, root, "field", count)}</li>`).join("")}</ul>
@@ -649,7 +646,7 @@ export function renderAbout({ config, root, stats, dates }) {
         </ul>
 
         <h2 id="credits">Credits</h2>
-        <p>The problem collection is compiled and maintained by Bikun Li and the contributors to the <a href="${config.repositoryUrl}" rel="noreferrer">GitHub repository</a>. The site design draws on the <a href="https://errorcorrectionzoo.org/" rel="noreferrer">Error Correction Zoo</a> and the <a href="https://www.erdosproblems.com/" rel="noreferrer">Erdős Problems</a> database. Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
+        <p>The problem collection is compiled and maintained by Naixu Guo, Bikun Li, and the contributors to the <a href="${config.repositoryUrl}" rel="noreferrer">GitHub repository</a>. The site design draws on the <a href="https://errorcorrectionzoo.org/" rel="noreferrer">Error Correction Zoo</a> and the <a href="https://www.erdosproblems.com/" rel="noreferrer">Erdős Problems</a> database. Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
       </div>
     </section>`;
   return layout({
