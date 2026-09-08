@@ -94,8 +94,10 @@ each mirrored by a TeX file (`database/problems_tex/`).
   rewrite proposals into records by hand. The form's limits in
   `site/lib/render.mjs` must equal `LIMITS` in `service/src/submissions.ts`
   (a test enforces it). The page stays in an offline mode, loading no
-  third-party script, until `contribute.submissionUrl` and
-  `contribute.captcha.siteKey` are set in `site/config.json`.
+  third-party script, until `contribute.submissionUrl` and either explicit `spamProtection: "basic"`
+  or `contribute.captcha.siteKey` are set in `site/config.json`. The matching
+  server mode must be configured before publishing the enabled form. The project
+  inbox at `/inbox/` uses a separate access key; it has no mail-account integration.
 - Lists of problems are ordered by exact last-edit time (git author timestamp,
   seconds precision), newest first. Equal edit times use creation time,
   newest first, then the stable ID for exact ties; alphabetical sorting is

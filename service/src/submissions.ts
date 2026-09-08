@@ -5,10 +5,8 @@
  * or marks it rejected or spam. The inbox lives in its own SQLite file so the disposable index
  * and the auth store can be rebuilt or lost without losing a proposal.
  *
- * A proposal is accepted only with a CAPTCHA token that the provider's `siteverify` endpoint
- * confirms (Cloudflare Turnstile by default, hCaptcha as an alternative; both share the same
- * verification protocol), after the per-address budget, the honeypot field, and the field
- * limits below. Contact details are stored for the maintainers only and never served publicly.
+ * Public sending requires explicit basic or CAPTCHA mode. Both enforce the per-address
+ * budget, honeypot, and field limits; CAPTCHA mode also verifies a provider token. Contact details are stored for the maintainers only and never served publicly.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -36,8 +34,12 @@ export interface CaptchaConfig {
 export interface SubmissionsConfig {
   /** The inbox database: beside the auth store unless configured, `:memory:` when the auth store is. */
   dbPath: string;
-  /** The CAPTCHA the form must pass; null refuses every proposal with a 503, so the form is never open unverified. */
+  /** Explicit opt-in; missing configuration keeps public submissions closed. */
+  mode: "disabled" | "basic" | "captcha";
+  /** Required in captcha mode, optional in basic mode. */
   captcha: CaptchaConfig | null;
+  /** SHA-256 of a randomly generated inbox-only access key. Never a human-chosen password. */
+  inboxKeyHash: string | null;
   /** Origins of the pages that post proposals, for CORS: the static site, plus the service's own origin. */
   allowedOrigins: string[];
   /** Proposals one address may send per hour, counting attempts that fail verification. */
@@ -164,7 +166,7 @@ function names(value: unknown, what: string, max: number, issues: string[]): str
  * Check and normalize a proposal from the form. Every problem is reported at once, as a 422
  * whose message lists them, so the form can show the whole list.
  */
-export function parseSubmission(raw: unknown): ParsedSubmission {
+export function parseSubmission(raw: unknown, requireCaptcha = true): ParsedSubmission {
   if (!isRecord(raw)) throw new HttpError(422, "the proposal must be a JSON object");
   const issues: string[] = [];
   const text = (key: keyof typeof LIMITS & keyof SubmissionPayload, source: Record<string, unknown> = raw): string => {
@@ -204,7 +206,7 @@ export function parseSubmission(raw: unknown): ParsedSubmission {
   if (raw["consent"] !== true) issues.push("consent to storing your contact details for the review is required");
 
   const captchaToken = clean(raw["captchaToken"]);
-  if (!captchaToken) issues.push("complete the human verification");
+  if (!captchaToken && requireCaptcha) issues.push("complete the human verification");
   else if (captchaToken.length > LIMITS.captchaToken.max) issues.push("the verification token is malformed");
 
   if (issues.length > 0) throw new HttpError(422, issues.join("; "));
@@ -275,11 +277,12 @@ export class SubmissionStore {
     return row ? this.full(row) : null;
   }
 
-  list(options: { state?: SubmissionState | undefined; limit?: number | undefined } = {}): SubmissionRow[] {
+  list(options: { state?: SubmissionState | undefined; limit?: number | undefined; offset?: number | undefined } = {}): SubmissionRow[] {
     const limit = Math.min(Math.max(options.limit ?? 50, 1), 1000);
+    const offset = Math.max(options.offset ?? 0, 0);
     const rows = (options.state
-      ? this.db.prepare(`SELECT ${ROW_COLUMNS} FROM submissions WHERE state = ? ORDER BY received_at DESC LIMIT ?`).all(options.state, limit)
-      : this.db.prepare(`SELECT ${ROW_COLUMNS} FROM submissions ORDER BY received_at DESC LIMIT ?`).all(limit)) as unknown as StoredRow[];
+      ? this.db.prepare(`SELECT ${ROW_COLUMNS} FROM submissions WHERE state = ? ORDER BY received_at DESC, id DESC LIMIT ? OFFSET ?`).all(options.state, limit, offset)
+      : this.db.prepare(`SELECT ${ROW_COLUMNS} FROM submissions ORDER BY received_at DESC, id DESC LIMIT ? OFFSET ?`).all(limit, offset)) as unknown as StoredRow[];
     return rows.map((row) => this.summary(row));
   }
 

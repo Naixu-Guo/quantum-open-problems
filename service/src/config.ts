@@ -69,10 +69,17 @@ function positiveInteger(value: number | string | undefined, fallback: number): 
 export function submissionsDefaults(config: Config): SubmissionsConfig {
   const given = config.submissions ?? {};
   const captcha = given.captcha ?? null;
+  const mode = given.mode ?? (captcha ? "captcha" : "disabled");
+  if (!["disabled", "basic", "captcha"].includes(mode)) throw new Error("QOP_SUBMISSIONS_MODE must be disabled, basic, or captcha");
+  if (mode === "captcha" && !captcha) throw new Error("captcha submission mode requires QOP_CAPTCHA_SECRET");
+  const inboxKeyHash = given.inboxKeyHash || null;
+  if (inboxKeyHash && !/^[a-f0-9]{64}$/u.test(inboxKeyHash)) throw new Error("QOP_INBOX_KEY_HASH must be the SHA-256 hash of a random access key");
   if (captcha && !(captcha.provider in CAPTCHA_PROVIDERS)) throw new Error(`unknown CAPTCHA provider ${String(captcha.provider)}; use one of ${Object.keys(CAPTCHA_PROVIDERS).join(", ")}`);
   const besideAuth = config.authDbPath === ":memory:" ? ":memory:" : path.join(path.dirname(path.resolve(config.authDbPath)), "submissions.sqlite");
   return {
     dbPath: given.dbPath ?? besideAuth,
+    mode,
+    inboxKeyHash,
     captcha: captcha ? { provider: captcha.provider, secret: captcha.secret, verifyUrl: captcha.verifyUrl || CAPTCHA_PROVIDERS[captcha.provider].verifyUrl } : null,
     allowedOrigins: (given.allowedOrigins ?? []).map(stripSlash).filter(Boolean),
     perAddressPerHour: positiveInteger(given.perAddressPerHour, 10),
@@ -106,6 +113,8 @@ export function configFromEnv(env: NodeJS.ProcessEnv = process.env): Config {
   const captchaSecret = env["QOP_CAPTCHA_SECRET"];
   return {
     submissions: {
+      ...(env["QOP_SUBMISSIONS_MODE"] ? { mode: env["QOP_SUBMISSIONS_MODE"] as SubmissionsConfig["mode"] } : {}),
+      inboxKeyHash: env["QOP_INBOX_KEY_HASH"] || null,
       ...(env["QOP_SUBMISSIONS_DB_PATH"] ? { dbPath: path.resolve(env["QOP_SUBMISSIONS_DB_PATH"]) } : {}),
       captcha: captchaSecret ? { provider: captchaProvider as CaptchaProvider, secret: captchaSecret, verifyUrl: env["QOP_CAPTCHA_VERIFY_URL"] ?? CAPTCHA_PROVIDERS[captchaProvider as CaptchaProvider].verifyUrl } : null,
       allowedOrigins: (env["QOP_SUBMISSION_ORIGINS"] ?? "").split(",").map((origin) => origin.trim()).filter(Boolean),

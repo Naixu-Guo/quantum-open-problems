@@ -63,6 +63,11 @@ CREATE TABLE IF NOT EXISTS sessions (
   created_at TEXT NOT NULL,
   expires_at TEXT NOT NULL
 );
+CREATE TABLE IF NOT EXISTS inbox_sessions (
+  session_hash TEXT PRIMARY KEY,
+  key_hash TEXT NOT NULL,
+  expires_at INTEGER NOT NULL
+);
 CREATE TABLE IF NOT EXISTS oauth_states (
   state TEXT PRIMARY KEY,
   return_to TEXT NOT NULL,
@@ -88,6 +93,23 @@ export class AuthStore {
     this.db = new DatabaseSync(dbPath);
     this.db.exec("PRAGMA journal_mode = WAL");
     this.db.exec(SCHEMA);
+  }
+
+  /** Inbox sessions confer no actor identity or ledger permissions. Key rotation revokes them. */
+  createInboxSession(keyHash: string, now = Date.now()): string {
+    this.db.prepare("DELETE FROM inbox_sessions WHERE expires_at <= ? OR key_hash != ?").run(now, keyHash);
+    const token = randomBytes(32).toString("base64url");
+    this.db.prepare("INSERT INTO inbox_sessions VALUES (?, ?, ?)").run(hashKey(token), keyHash, now + 12 * 60 * 60 * 1000);
+    return token;
+  }
+
+  validInboxSession(token: string, keyHash: string | null, now = Date.now()): boolean {
+    if (!keyHash) return false;
+    return Boolean(this.db.prepare("SELECT 1 FROM inbox_sessions WHERE session_hash = ? AND key_hash = ? AND expires_at > ?").get(hashKey(token), keyHash, now));
+  }
+
+  deleteInboxSession(token: string): void {
+    this.db.prepare("DELETE FROM inbox_sessions WHERE session_hash = ?").run(hashKey(token));
   }
 
   /** Issue a bearer token for an actor. The token is returned once and stored only as a hash. */
