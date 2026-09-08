@@ -1,6 +1,7 @@
 /** Service configuration from the environment, with defaults that point at this repository. */
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { CAPTCHA_PROVIDERS, type CaptchaProvider, type SubmissionsConfig } from "./submissions.ts";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(here, "..", "..");
@@ -38,9 +39,36 @@ export interface Config {
   web?: Partial<WebConfig>;
   /** The remote the ledger clone pushes to after each commit and catches up with before each write; null keeps commits local. */
   git?: { remote: string | null; branch?: string | null };
+  /** The public proposal inbox behind the static site's contribution form. Absent fields take the defaults in `submissionsDefaults`. */
+  submissions?: Partial<SubmissionsConfig>;
 }
 
 const stripSlash = (url: string): string => url.replace(/\/+$/u, "");
+
+/** A positive integer, else the default. */
+function positiveInteger(value: number | string | undefined, fallback: number): number {
+  const number = typeof value === "string" ? Number(value) : value;
+  return typeof number === "number" && Number.isInteger(number) && number > 0 ? number : fallback;
+}
+
+/**
+ * Normalize the inbox configuration: no trailing slashes on origins, a sane budget, and a database
+ * beside the auth store by default, since both are service-local state that outlives the index; an
+ * in-memory auth store (a test's) means an in-memory inbox.
+ */
+export function submissionsDefaults(config: Config): SubmissionsConfig {
+  const given = config.submissions ?? {};
+  const captcha = given.captcha ?? null;
+  if (captcha && !(captcha.provider in CAPTCHA_PROVIDERS)) throw new Error(`unknown CAPTCHA provider ${String(captcha.provider)}; use one of ${Object.keys(CAPTCHA_PROVIDERS).join(", ")}`);
+  const besideAuth = config.authDbPath === ":memory:" ? ":memory:" : path.join(path.dirname(path.resolve(config.authDbPath)), "submissions.sqlite");
+  return {
+    dbPath: given.dbPath ?? besideAuth,
+    captcha: captcha ? { provider: captcha.provider, secret: captcha.secret, verifyUrl: captcha.verifyUrl || CAPTCHA_PROVIDERS[captcha.provider].verifyUrl } : null,
+    allowedOrigins: (given.allowedOrigins ?? []).map(stripSlash).filter(Boolean),
+    perAddressPerHour: positiveInteger(given.perAddressPerHour, 10),
+    trustProxy: given.trustProxy ?? false,
+  };
+}
 
 /** A positive number of days, else the default; NaN, zero, and negatives never reach a session. */
 function sessionDaysOf(value: number | string | undefined, fallback: number): number {
@@ -63,7 +91,17 @@ export function configFromEnv(env: NodeJS.ProcessEnv = process.env): Config {
   const port = Number(env["QOP_PORT"] ?? 8787);
   const clientId = env["QOP_GITHUB_CLIENT_ID"];
   const clientSecret = env["QOP_GITHUB_CLIENT_SECRET"];
+  const captchaProvider = env["QOP_CAPTCHA_PROVIDER"] ?? "turnstile";
+  if (!(captchaProvider in CAPTCHA_PROVIDERS)) throw new Error(`QOP_CAPTCHA_PROVIDER must be one of ${Object.keys(CAPTCHA_PROVIDERS).join(", ")}`);
+  const captchaSecret = env["QOP_CAPTCHA_SECRET"];
   return {
+    submissions: {
+      ...(env["QOP_SUBMISSIONS_DB_PATH"] ? { dbPath: path.resolve(env["QOP_SUBMISSIONS_DB_PATH"]) } : {}),
+      captcha: captchaSecret ? { provider: captchaProvider as CaptchaProvider, secret: captchaSecret, verifyUrl: env["QOP_CAPTCHA_VERIFY_URL"] ?? CAPTCHA_PROVIDERS[captchaProvider as CaptchaProvider].verifyUrl } : null,
+      allowedOrigins: (env["QOP_SUBMISSION_ORIGINS"] ?? "").split(",").map((origin) => origin.trim()).filter(Boolean),
+      perAddressPerHour: positiveInteger(env["QOP_SUBMISSIONS_PER_HOUR"], 10),
+      trustProxy: env["QOP_TRUST_PROXY"] === "1",
+    },
     ledgerDir: path.resolve(env["QOP_LEDGER_DIR"] ?? path.join(repoRoot, "ledger")),
     activityDir: path.resolve(env["QOP_ACTIVITY_DIR"] ?? path.join(repoRoot, "activity")),
     contractDir: path.resolve(env["QOP_CONTRACT_DIR"] ?? path.join(repoRoot, "contract")),

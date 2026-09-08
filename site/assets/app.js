@@ -332,4 +332,199 @@
     apply();
     if (location.hash === "#search" && searchInput) searchInput.focus();
   }
+
+  // ------------------------------------------------------------------ proposal form (contribute)
+  // The form posts a JSON proposal to the service's inbox with the CAPTCHA
+  // token the widget adds to the form. Drafts are kept in this browser until
+  // the proposal is accepted, so a failed send never loses a long statement.
+  const proposalForm = $("#proposal-form");
+  if (proposalForm) {
+    const statusLine = $("#proposal-status");
+    const submitButton = $("#proposal-submit");
+    const doneBox = $("#proposal-done");
+    const preview = $("#statement-preview");
+    const submitUrl = proposalForm.dataset.submitUrl || "";
+    const captchaProvider = proposalForm.dataset.captchaProvider || "";
+    const captchaField = proposalForm.dataset.captchaResponse || "";
+    let limits = {};
+    try { limits = JSON.parse(proposalForm.dataset.limits || "{}"); } catch (error) { limits = {}; }
+    const control = (name) => proposalForm.elements.namedItem(name);
+    const value = (name) => String(control(name)?.value ?? "").trim();
+    const say = (message, kind = "") => {
+      if (!statusLine) return;
+      statusLine.textContent = message;
+      statusLine.dataset.kind = kind;
+    };
+
+    // Fields and topics are limited groups; a counter says how many are chosen.
+    const group = (name, max, counter) => {
+      const boxes = $$(`input[name="${name}"]`, proposalForm);
+      const chosen = () => boxes.filter((box) => box.checked).map((box) => box.value);
+      const update = () => {
+        const count = chosen().length;
+        boxes.forEach((box) => { box.disabled = !box.checked && count >= max; });
+        if (counter) counter.textContent = `${count} of ${max} chosen`;
+      };
+      boxes.forEach((box) => box.addEventListener("change", update));
+      update();
+      return { boxes, chosen, update };
+    };
+    const fields = group("fields", limits.fields?.max ?? 2, $("#fields-count"));
+    const topics = group("topics", limits.topics?.max ?? 5, $("#topics-count"));
+    const topicSearch = $("#topic-search");
+    const topicItems = $$("#topic-options li");
+    topicSearch?.addEventListener("input", () => {
+      const query = topicSearch.value.trim().toLowerCase();
+      topicItems.forEach((item) => { item.hidden = Boolean(query) && !item.dataset.name.includes(query); });
+    });
+
+    // The proposal as the inbox expects it.
+    const proposal = () => ({
+      title: value("title"),
+      statement: value("statement"),
+      fields: fields.chosen(),
+      topics: topics.chosen(),
+      suggestedTopics: value("suggestedTopics"),
+      source: value("source"),
+      progress: value("progress"),
+      references: value("references"),
+      comment: value("comment"),
+      contributor: { name: value("name"), email: value("email"), affiliation: value("affiliation") },
+      consent: Boolean(control("consent")?.checked),
+      extra: value("extra"),
+      captchaToken: captchaField ? value(captchaField) : ""
+    });
+
+    // The same checks the inbox makes, so a proposal is complete before it leaves the browser.
+    const problems = (p) => {
+      const list = [];
+      const between = (text, limit, label, name) => {
+        if (limit.min && text.length < limit.min) list.push({ message: text ? `${label} needs at least ${limit.min} characters.` : `${label} is required.`, control: control(name) });
+        else if (limit.max && text.length > limit.max) list.push({ message: `${label} is longer than ${limit.max} characters.`, control: control(name) });
+      };
+      between(p.title, limits.title || {}, "The title", "title");
+      between(p.statement, limits.statement || {}, "The statement", "statement");
+      if (p.fields.length < (limits.fields?.min ?? 1)) list.push({ message: "Choose at least one field.", control: fields.boxes[0] });
+      if (p.topics.length === 0 && !p.suggestedTopics) list.push({ message: "Choose at least one topic or suggest a new one.", control: topicSearch });
+      between(p.contributor.name, limits.name || { min: 1 }, "Your name", "name");
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.contributor.email)) list.push({ message: "Enter a valid email address.", control: control("email") });
+      if (!p.consent) list.push({ message: "Tick the consent box.", control: control("consent") });
+      return list;
+    };
+
+    // Drafts.
+    const DRAFT_KEY = "qiqcop-proposal-draft";
+    const textNames = ["title", "statement", "suggestedTopics", "source", "progress", "references", "comment", "name", "email", "affiliation"];
+    const saveDraft = () => {
+      try {
+        const draft = { values: Object.fromEntries(textNames.map((name) => [name, String(control(name)?.value ?? "")])), fields: fields.chosen(), topics: topics.chosen() };
+        if (Object.values(draft.values).some(Boolean) || draft.fields.length || draft.topics.length) localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+        else localStorage.removeItem(DRAFT_KEY);
+      } catch (error) { /* storage unavailable */ }
+    };
+    const clearDraft = () => { try { localStorage.removeItem(DRAFT_KEY); } catch (error) { /* ignore */ } };
+    const restoreDraft = () => {
+      let draft = null;
+      try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null"); } catch (error) { draft = null; }
+      if (!draft || typeof draft !== "object") return false;
+      textNames.forEach((name) => { const element = control(name); if (element && draft.values?.[name]) element.value = draft.values[name]; });
+      const tick = (boxes, values) => (Array.isArray(values) ? values : []).forEach((item) => { const box = boxes.find((candidate) => candidate.value === item); if (box) box.checked = true; });
+      tick(fields.boxes, draft.fields);
+      tick(topics.boxes, draft.topics);
+      fields.update();
+      topics.update();
+      return true;
+    };
+    let saveTimer = 0;
+    proposalForm.addEventListener("input", () => { window.clearTimeout(saveTimer); saveTimer = window.setTimeout(saveDraft, 400); });
+    if (restoreDraft()) say("Restored the unsent draft kept in this browser.");
+
+    // Mathematics preview of the statement. $…$ and $…$ become the delimiters MathJax is configured with.
+    $("#statement-preview-button")?.addEventListener("click", () => {
+      if (!preview) return;
+      const text = value("statement");
+      preview.hidden = false;
+      preview.textContent = text
+        ? text.replace(/\$\$([\s\S]+?)\$\$/g, "\\[$1\\]").replace(/(^|[^\\$])\$([^$\n]+?)\$/g, "$1\\($2\\)")
+        : "Nothing to preview yet.";
+      typeset(preview);
+    });
+
+    // The proposal as text, the same shape the maintainers see in the inbox.
+    const asText = (p) => {
+      const section = (heading, body) => (body ? `## ${heading}\n\n${body}\n\n` : "");
+      return `# ${p.title || "(untitled)"}\n\n`
+        + `Contributor: ${p.contributor.name}${p.contributor.email ? ` <${p.contributor.email}>` : ""}${p.contributor.affiliation ? ` (${p.contributor.affiliation})` : ""}\n`
+        + `Fields: ${p.fields.join("; ") || "none"}\nTopics: ${p.topics.join("; ") || "none"}${p.suggestedTopics ? `\nSuggested topics: ${p.suggestedTopics}` : ""}\n\n`
+        + section("Statement", p.statement) + section("Source", p.source) + section("Progress", p.progress) + section("References", p.references) + section("Comment", p.comment);
+    };
+    $("#proposal-copy")?.addEventListener("click", async () => {
+      const ok = await copyText(`${asText(proposal()).trimEnd()}\n`);
+      notify(ok ? "Proposal copied as text" : "Copy failed; select the text manually");
+    });
+    $("#proposal-clear")?.addEventListener("click", () => {
+      proposalForm.reset();
+      fields.update();
+      topics.update();
+      topicItems.forEach((item) => { item.hidden = false; });
+      if (preview) { preview.hidden = true; preview.textContent = ""; }
+      clearDraft();
+      say("Form cleared.");
+    });
+
+    const resetCaptcha = () => {
+      try {
+        if (captchaProvider === "turnstile" && window.turnstile) window.turnstile.reset();
+        if (captchaProvider === "hcaptcha" && window.hcaptcha) window.hcaptcha.reset();
+      } catch (error) { /* the widget resets on reload */ }
+    };
+    const explain = (status, reply) => {
+      const detail = reply && typeof reply.error === "string" ? reply.error : "";
+      if (status === 403 && /verification/i.test(detail)) return "The human verification did not pass. Complete it again and send once more.";
+      if (status === 422) return `The proposal was not accepted: ${detail || "check the required fields"}.`;
+      if (status === 429) return "Too many proposals from this connection for now. Your draft is kept in this browser; try again in an hour.";
+      if (status === 503) return "The inbox is not accepting proposals at the moment. Use Copy as text and the GitHub route instead.";
+      if (status === 413) return "The proposal is too large to send; shorten the longest sections.";
+      return `The proposal could not be sent (${detail || `HTTP ${status}`}). Your draft is kept in this browser.`;
+    };
+    proposalForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const p = proposal();
+      const issues = problems(p);
+      if (issues.length) {
+        say(issues.map((issue) => issue.message).join(" "), "error");
+        issues[0].control?.focus?.();
+        return;
+      }
+      if (!submitUrl) { say("Online sending is not connected on this deployment; use Copy as text.", "error"); return; }
+      if (!p.captchaToken) { say("Complete the human verification above the Send button, then send again.", "error"); return; }
+      if (submitButton) submitButton.disabled = true;
+      say("Sending…");
+      try {
+        const response = await fetch(submitUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(p) });
+        let reply = {};
+        try { reply = await response.json(); } catch (error) { reply = {}; }
+        if (response.ok && reply.accepted) {
+          clearDraft();
+          proposalForm.hidden = true;
+          const receipt = $("#proposal-receipt");
+          if (receipt) receipt.textContent = reply.id || "";
+          if (doneBox) {
+            doneBox.hidden = false;
+            doneBox.scrollIntoView({ block: "start" });
+            doneBox.focus();
+          }
+          say("");
+          return;
+        }
+        resetCaptcha();
+        say(explain(response.status, reply), "error");
+      } catch (error) {
+        resetCaptcha();
+        say("The proposal could not be sent because the inbox could not be reached. Your draft is kept in this browser; try again later or use Copy as text.", "error");
+      } finally {
+        if (submitButton) submitButton.disabled = false;
+      }
+    });
+  }
 })();

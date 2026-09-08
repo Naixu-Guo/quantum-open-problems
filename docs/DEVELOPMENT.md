@@ -117,6 +117,7 @@ identifiers and metadata and writes both the JSON record and the TeX file.
 | `/tags/`, `/tag/<slug>/` | Index of fields and topics; one listing per field and per topic. |
 | `/random/unsolved/`, `/random/solved/` | Redirect to a random problem. |
 | `/about/` | Scope, status semantics, contribution guide, citation. |
+| `/contribute/` | The proposal form for external contributors: problem, classification, sources, progress, contact details, CAPTCHA. Posts to the service's proposal inbox; see [Contribution form](#contribution-form). |
 | `/api/index.json`, `/api/problems/<id>.json`, `/api/tags.json` | Machine-readable records and the taxonomy with counts. |
 | `/api/problems/<alias>.json`, `/api/identifiers.json` | Record lookup by any registered alias, and the identifier crosswalk. |
 | `/api/main/problems/<ulid>.json`, `/api/main/actors.json` | Main-compatible Problem projections with the full authored records, and the migration actor. |
@@ -200,7 +201,39 @@ Pull requests run the [validation workflow](../.github/workflows/validate.yml),
 which executes the same build into a temporary directory.
 
 Edit `site/config.json` to change the site name, public URL, repository URL,
-the branch used by the Edit and history links, or the database paths.
+the branch used by the Edit and history links, the database paths, or the
+contribution form's endpoint and CAPTCHA keys.
+
+### Contribution form
+
+`/contribute/` lets people propose a problem without a GitHub account. The
+form is part of the static site; the proposals go to the
+[service's proposal inbox](../service/README.md#proposal-inbox), where they
+wait until a maintainer rewrites them as authored records and publishes them
+through the ordinary workflow. Nothing on the site changes automatically.
+
+To put the form online:
+
+1. Deploy the service (see the service guide) with `QOP_CAPTCHA_SECRET` set
+   to the secret key of a [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/)
+   widget registered for the site's hostname, `QOP_SUBMISSION_ORIGINS` set
+   to the site's origin (`https://naixu-guo.github.io`), `QOP_PUBLIC_URL`
+   set to the service's public URL, and `QOP_TRUST_PROXY=1` if a reverse
+   proxy terminates TLS. hCaptcha works too with `QOP_CAPTCHA_PROVIDER=hcaptcha`.
+2. In `site/config.json`, set `contribute.submissionUrl` to the service's
+   `https://<host>/api/v1/submissions` and `contribute.captcha.siteKey` to
+   the widget's site key (`contribute.captcha.provider` names the provider).
+3. Rebuild and deploy the site. Until both values are set the page stays in
+   an offline mode: the form works, loads no third-party script, and offers
+   "Copy as text" and the GitHub issue route instead of sending.
+
+The maintainers read the inbox with `node --experimental-strip-types
+service/src/cli.ts proposals list` on the service host, or through
+`GET /api/v1/submissions` with an editor's token or session. The form's
+limits in `site/lib/render.mjs` mirror `LIMITS` in
+`service/src/submissions.ts`; `tests/contribute.test.mjs` fails when they drift.
+For local work, Turnstile's test keys always pass: site key
+`1x00000000000000000000AA`, secret `1x0000000000000000000000000000000AA`.
 
 ## License
 
