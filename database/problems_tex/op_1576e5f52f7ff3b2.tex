@@ -1,0 +1,97 @@
+% Problem record op_1576e5f52f7ff3b2. This TeX file is derived from
+% database/problems_json/op_1576e5f52f7ff3b2.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Is bipartite Quantum Max-Cut in BPP?}
+\label{sec:op_1576e5f52f7ff3b2}
+
+\paragraph{Problem.}
+Is the following bipartite Quantum Max-Cut promise problem in
+$\mathrm{BPP}$? Given a bipartite graph $G=(V,E)$ with $|V|=n$,
+polynomially bounded nonnegative rational weights $w_{ij}$, and rational
+thresholds $a<b$ with $b-a\geq1/\operatorname{poly}(n)$, define
+\begin{equation}
+  H_G:=\sum_{\{i,j\}\in E}w_{ij}(X_iX_j+Y_iY_j+Z_iZ_j),
+  \qquad E_0:=\lambda_{\min}(H_G).
+  \label{eq:bqmc-ground-energy}
+\end{equation}
+Here $X_i,Y_i,Z_i$ are Pauli operators on qubit $i$.
+For the energy in Eq.~\eqref{eq:bqmc-ground-energy}, distinguish
+$E_0\leq a$ from $E_0\geq b$, promised one holds, using a randomized
+classical algorithm polynomial in the input length and correct with
+probability at least $2/3$.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+The remaining classical part of Open question 3.4 in Gharibian's
+\emph{The 7 faces of quantum NP}, Section 3, arXiv page 7
+\sourcecite{ref:bqmc-gharibian}{Gha24}.
+The original question asks for the complexity of bipartite QMC;
+the present formulation focuses on $\mathrm{BPP}$ membership following
+the 2026 $\mathrm{BQP}$ upper bound \sourcecite{ref:bqmc-rt}{RT26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Earlier upper bound: conjugating one bipartition by Pauli $Y$ makes
+$H_G$ stoquastic, placing bipartite QMC in $\mathrm{StoqMA}$
+(summarized in Section 3) \sourcecite{ref:bqmc-gharibian}{Gha24}.
+
+  \item July 2026: Rayudu--Takahashi prove a Lee-Yang spectral gap at least
+$h/4$ under field strength $h>0$, enabling adiabatic ground-energy
+estimation to inverse-polynomial additive error and establishing
+$\mathrm{BQP}$ membership (Theorem 11; Section 1.1)
+\sourcecite{ref:bqmc-rt}{RT26}.
+
+  \item Independently, Bravyi--Gosset--Liu--Wong give a
+$\operatorname{poly}(n,J,1/\epsilon)$-time quantum algorithm for
+additive-$\epsilon$ ground-energy estimation on weighted bipartite graphs,
+where $J=\max_{\{i,j\}\in E}w_{ij}$ (Corollary 2)
+\sourcecite{ref:bqmc-bglw}{BGLW26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Gha24]}]\label{ref:bqmc-gharibian}
+  S. Gharibian, "Guest Column: The 7 faces of quantum NP,"
+\emph{ACM SIGACT News} \textbf{54}(4), 54--91 (2024).
+\href{https://doi.org/10.1145/3639528.3639535}{doi:10.1145/3639528.3639535};
+\href{https://arxiv.org/abs/2310.18010}{arXiv:2310.18010} (2023 preprint).
+
+  \item[\textup{[RT26]}]\label{ref:bqmc-rt}
+  C. Rayudu and J. Takahashi, "Spectral gap of Lee-Yang Hamiltonians,"
+arXiv preprint (July 2026).
+\href{https://doi.org/10.48550/arXiv.2607.10765}{doi:10.48550/arXiv.2607.10765};
+\href{https://arxiv.org/abs/2607.10765v1}{arXiv:2607.10765v1}.
+
+  \item[\textup{[BGLW26]}]\label{ref:bqmc-bglw}
+  S. Bravyi, D. Gosset, Y. Liu, and B. Wong,
+"Efficient quantum algorithm for Heisenberg spin systems,"
+arXiv preprint (July 2026).
+\href{https://doi.org/10.48550/arXiv.2607.14401}{doi:10.48550/arXiv.2607.14401};
+\href{https://arxiv.org/abs/2607.14401v1}{arXiv:2607.14401v1}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+Membership in $\mathrm{BPP}$ remains open: the quantum upper bound
+leaves classical complexity unresolved \sourcecite{ref:bqmc-rt}{RT26}.
+Here $\mathrm{BPP}$ and $\mathrm{BQP}$ denote their promise-problem
+versions. The target is inverse-polynomial additive precision.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Computational complexity; Hamiltonian complexity; Quantum Max-Cut
+
+\subsection*{ID}
+
+\texttt{op\_1576e5f52f7ff3b2}

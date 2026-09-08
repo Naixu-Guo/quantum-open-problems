@@ -1,0 +1,115 @@
+% Problem record op_af68b033a88ef934. This TeX file is derived from
+% database/problems_json/op_af68b033a88ef934.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Permanent-of-Gaussians Conjecture}
+\label{sec:op_af68b033a88ef934}
+
+\paragraph{Problem.}
+Is the following estimation task $\#\mathrm{P}$-hard under randomized
+polynomial-time Turing reductions? Given $X\in\mathbb{C}^{n\times n}$ with
+independent entries $X_{ij}=(a_{ij}+ib_{ij})/\sqrt{2}$, where all
+$a_{ij},b_{ij}\sim\mathcal{N}(0,1)$ independently, and
+$\epsilon,\delta\in(0,1)$, output $z(X)\in\mathbb{C}$ satisfying
+\begin{equation}
+  \operatorname{Per}(X):=\sum_{\sigma\in S_n}\prod_{j=1}^{n}X_{j,\sigma(j)},
+  \qquad
+  \Pr_X\!\left[|z(X)-\operatorname{Per}(X)|
+    \leq\epsilon|\operatorname{Per}(X)|\right]\geq1-\delta.
+  \label{eq:pgc-estimation}
+\end{equation}
+Here $S_n$ is the set of permutations of $\{1,\ldots,n\}$.
+The guarantee in Eq.~\eqref{eq:pgc-estimation} is required for arbitrary
+$\epsilon,\delta$, with running time measured in $n,1/\epsilon,1/\delta$.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Aaronson and Arkhipov's Permanent-of-Gaussians Conjecture:
+Conjecture 5 and the preceding definition of $\mathrm{GPE}_{\times}$
+in arXiv:1011.3245, Section 1.2.3 (2010 preprint; published 2013)
+\sourcecite{ref:pgc-aa}{AA13}.
+The original task approximates the complex permanent itself with relative error.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item 2010--2013: Aaronson--Arkhipov prove exact Gaussian-permanent
+$\#\mathrm{P}$-hardness at success fraction
+$3/4+1/\operatorname{poly}(n)$, and hardness for estimating
+$|\operatorname{Per}(X)|^2$ with exponentially small additive error
+(arXiv Theorems 60 and 62) \sourcecite{ref:pgc-aa}{AA13}.
+
+  \item 2021: Bouland--Fefferman--Landau--Liu obtain additive tolerance
+$e^{-4n\log n-O(n)}$ for $|\operatorname{Per}(X)|^2$, with any constant
+failure probability below $1/4$, using $\mathrm{BPP}^{\mathrm{NP}}$ reductions
+(proof of Corollary 1) \sourcecite{ref:pgc-bfll}{BFLL22}.
+
+  \item 2023 (unpublished): Krovi's tighter total-variation estimate improves
+this tolerance to $e^{-2n\log n-O(n)}$, as reported and explained by
+Bouland et al. (Section 1.2.1) \sourcecite{ref:pgc-bdfh}{BDFH25}.
+
+  \item 2025: Bouland et al.'s dilution method proves $\#\mathrm{P}$-hardness at
+additive error $n!e^{-O(n^\gamma)}$ for $|\operatorname{Per}(X)|^2$,
+for every fixed $\gamma>0$, with constant success probability, assuming
+permanent anticoncentration (Theorem 1, rescaled;
+$\mathrm{BPP}^{\mathrm{NP}}$ reduction) \sourcecite{ref:pgc-bdfh}{BDFH25}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[AA13]}]\label{ref:pgc-aa}
+  S. Aaronson and A. Arkhipov,
+"The computational complexity of linear optics,"
+\emph{Theory of Computing} \textbf{9}(4), 143--252 (2013).
+\href{https://doi.org/10.4086/toc.2013.v009a004}{doi:10.4086/toc.2013.v009a004};
+\href{https://arxiv.org/abs/1011.3245}{arXiv:1011.3245} (2010).
+
+  \item[\textup{[BFLL22]}]\label{ref:pgc-bfll}
+  A. Bouland, B. Fefferman, Z. Landau, and Y. Liu,
+"Noise and the frontier of quantum supremacy,"
+in \emph{FOCS 2021}, 1308--1317 (2022).
+\href{https://doi.org/10.1109/FOCS52979.2021.00127}{doi:10.1109/FOCS52979.2021.00127};
+\href{https://arxiv.org/abs/2102.01738v2}{arXiv:2102.01738v2}.
+
+  \item[\textup{[BDFH25]}]\label{ref:pgc-bdfh}
+  A. Bouland, I. Datta, B. Fefferman, and F. Hernandez,
+"Exponential improvements to the average-case hardness of BosonSampling,"
+in \emph{FOCS 2025}, 912--933 (2025).
+\href{https://doi.org/10.1109/FOCS63196.2025.00047}{doi:10.1109/FOCS63196.2025.00047};
+\href{https://arxiv.org/abs/2411.04566v2}{arXiv:2411.04566v2}.
+The cited Krovi improvement is attributed there to a November 2023 personal communication.
+
+  \item[\textup{[KL26]}]\label{ref:pgc-kl}
+  F. Koehler and P. K. Leung,
+"Anticoncentration of the Permanent in Ginibre Ensembles,"
+arXiv preprint (July 2026).
+\href{https://doi.org/10.48550/arXiv.2607.20329}{doi:10.48550/arXiv.2607.20329};
+\href{https://arxiv.org/abs/2607.20329v1}{arXiv:2607.20329v1}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The original conjecture remains open. The squared-permanent error
+target is $\epsilon n!$; its equivalence to the relative-error task uses
+permanent anticoncentration (arXiv Theorem 7) \sourcecite{ref:pgc-aa}{AA13}.
+Koehler--Leung's July 2026 preprint proves this auxiliary conjecture
+(Theorem 1.1) \sourcecite{ref:pgc-kl}{KL26}.
+The hardness tolerance $n!e^{-O(n^\gamma)}$ still falls short of
+$n!/\operatorname{poly}(n)$ \sourcecite{ref:pgc-bdfh}{BDFH25}.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Computational complexity; Quantum supremacy; Boson sampling
+
+\subsection*{ID}
+
+\texttt{op\_af68b033a88ef934}
