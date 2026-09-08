@@ -33,6 +33,8 @@ export interface Config {
   /** Service-local store for API keys, sessions, idempotency, and open runs. Never rebuilt from the ledger. */
   authDbPath: string;
   port: number;
+  /** Optional bind address; deployments set loopback behind their HTTPS proxy. */
+  host?: string;
   /** Whether the service commits to git after each accepted write. Tests turn it on against a temporary repository. */
   commit: boolean;
   /** The human-facing web app and its login. Absent fields take the defaults in `webDefaults`. */
@@ -116,6 +118,7 @@ export function configFromEnv(env: NodeJS.ProcessEnv = process.env): Config {
     dbPath: path.resolve(env["QOP_DB_PATH"] ?? path.join(repoRoot, "service", "data", "index.sqlite")),
     authDbPath: path.resolve(env["QOP_AUTH_DB_PATH"] ?? path.join(repoRoot, "service", "data", "auth.sqlite")),
     port,
+    ...(env["QOP_HOST"] ? { host: env["QOP_HOST"] } : {}),
     commit: env["QOP_COMMIT"] !== "0",
     git: { remote: env["QOP_GIT_REMOTE"] || null, branch: env["QOP_GIT_BRANCH"] || null, pollIntervalMs: syncIntervalMs(env["QOP_SYNC_INTERVAL_MS"]) },
     web: {

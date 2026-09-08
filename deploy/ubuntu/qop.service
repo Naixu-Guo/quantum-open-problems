@@ -1,0 +1,25 @@
+[Unit]
+Description=Quantum Open Problems API
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=qop
+Group=qop
+WorkingDirectory=/opt/qop/current
+EnvironmentFile=/etc/qop/service.env
+ExecStart=/opt/node/bin/node --experimental-strip-types --no-warnings service/src/cli.ts serve
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=20
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/qop
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+[Install]
+WantedBy=multi-user.target

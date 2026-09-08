@@ -52,6 +52,7 @@ Environment:
 | `QOP_LEDGER_DIR`, `QOP_ACTIVITY_DIR`, `QOP_CONTRACT_DIR` | The ledger roots and the contract package; default to the repository's |
 | `QOP_DB_PATH`, `QOP_AUTH_DB_PATH` | The index and the auth store; default to `service/data/` |
 | `QOP_PORT` | Listening port, default 8787 |
+| `QOP_HOST` | Optional listening address; set `127.0.0.1` behind a local HTTPS proxy. Unset uses Node's default listening address |
 | `QOP_COMMIT=0` | Write files without committing |
 | `QOP_GIT_REMOTE`, `QOP_GIT_BRANCH` | The remote the clone pushes to after each commit and catches up with before each write (see "Ledger synchronization"); unset keeps commits local. The branch defaults to the clone's current one |
 | `QOP_SYNC_INTERVAL_MS` | Background remote polling interval after each fetch completes; default `5000`. Set `0` to disable remote polling. Local committed changes still refresh on the next API or authentication request |
