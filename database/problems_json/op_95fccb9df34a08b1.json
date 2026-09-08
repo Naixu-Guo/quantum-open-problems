@@ -1,0 +1,84 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_95fccb9df34a08b1",
+  "ulid": "01M20F505SW8RJ6Z0WK8B31TEH",
+  "aliases": [
+    "op_95fccb9df34a08b1",
+    "01M20F505SW8RJ6Z0WK8B31TEH",
+    "op-95fccb9df34a08b1"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-08T12:16:11.449Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "editor-formulated",
+    "posed": null,
+    "areaIds": [
+      "quantum-algorithm"
+    ],
+    "topicIds": [
+      "quantum-circuit-complexity"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
+  "title": "Parity is not in QAC0",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum algorithm"
+  ],
+  "topics": [
+    "Quantum circuit complexity"
+  ],
+  "statement": "Can polynomial-size constant-depth $\\mathsf{QAC}^0$ circuits compute the\nparity function, or equivalently, is\n$\\mathrm{PARITY}\\notin\\mathsf{QAC}^0$?\n\nFor $x=(x_1,\\ldots,x_n)\\in\\{0,1\\}^n$, define\n\\begin{equation}\n  \\mathrm{PARITY}_n(x)=x_1\\oplus x_2\\oplus\\cdots\\oplus x_n.\n  \\label{eq:95fc-parity}\n\\end{equation}\nA $\\mathsf{QAC}^0$ circuit family consists of polynomial-size quantum\ncircuits of constant depth built from arbitrary single-qubit gates and\ngeneralized Toffoli gates, with polynomially many ancilla qubits initialized\nto a fixed computational-basis state.\n\nThe conjecture is that there do not exist a constant $d$, a polynomial $p$,\nand a family of depth-at-most-$d$ $\\mathsf{QAC}^0$ circuits $C_n$ of size\nand ancilla count at most $p(n)$ such that, for every $n$ and every\n$x\\in\\{0,1\\}^n$, measurement of a designated output qubit gives\n\\begin{equation}\n  \\Pr\\bigl[\\,C_n(x)\\text{ outputs }\\mathrm{PARITY}_n(x)\\,\\bigr]=1.\n  \\label{eq:95fc-compute}\n\\end{equation}\nEquivalently, the conjecture asserts that no polynomial-size\nconstant-depth $\\mathsf{QAC}^0$ family satisfies\n\\eqref{eq:95fc-compute} for the function defined in\n\\eqref{eq:95fc-parity}.",
+  "source": "Moore explicitly posed the question whether ordinary $\\mathsf{QAC}^0$ can\nimplement fanout; his constant-depth equivalence between fanout and parity\nmakes this the foundational form of the problem\n\\sourcecite{ref:95fc-moore}{Moo99}.  Later literature explicitly formulates\nthe expected negative answer as the conjecture that\n$\\mathrm{PARITY}\\notin\\mathsf{QAC}^0$, and the statement above is a\ncontributor-normalized formulation of that conjecture.",
+  "progress": [
+    "Moore introduced $\\mathsf{QAC}^0$ as a quantum analogue of classical\n$\\mathsf{AC}^0$ and showed that constant-depth quantum fanout and parity are\nequivalent up to constant-depth reductions; determining whether fanout can be\nimplemented in ordinary $\\mathsf{QAC}^0$ is equivalent to determining whether\nparity belongs to $\\mathsf{QAC}^0$\n\\sourcecite{ref:95fc-moore}{Moo99}.",
+    "Rosenthal established strong lower bounds for depth-two $\\mathsf{QAC}^0$\ncircuits approximating parity and gave the principal known constant-depth\nupper bound for approximating parity with superpolynomially many resources;\npolynomial-size arbitrary-constant-depth circuits remain unresolved\n\\sourcecite{ref:95fc-rosenthal}{Ros21}.",
+    "Nadimpalli, Parham, Vasconcelos, and Yuen defined the Pauli spectrum of a\n$\\mathsf{QAC}^0$ circuit and proved a quantum analogue of low-degree Fourier\nconcentration for classical $\\mathsf{AC}^0$, together with strong parity\nlower bounds, when the number of auxiliary qubits is sufficiently restricted\nas a function of circuit depth\n\\sourcecite{ref:95fc-npv}{NPVY24}.",
+    "For depth $d$, Anshu, Dong, Ou, and Yao proved that computing functions of\nlinear approximate degree, including parity, requires at least\n$n^{1+3^{-d}}$ ancilla qubits; since $\\mathsf{QAC}^0$ permits an arbitrary\npolynomial number of ancillae, this does not by itself resolve the\nconjecture, but a sufficiently stronger depth-dependent exponent would imply\n$\\mathrm{PARITY}\\notin\\mathsf{QAC}^0$\n\\sourcecite{ref:95fc-adoy}{ADOY25}.",
+    "Joshi, Tal, Vasconcelos, and Wright proved that depth-three $\\mathsf{QAC}^0$\ncircuits cannot compute parity, regardless of their size or number of ancilla\nqubits, and proved stronger approximation lower bounds at depth two; the\nseparation is therefore established for depth at most three\n\\sourcecite{ref:95fc-jtvw}{JTVW26}.",
+    "Gretta, Gupta, and Joshi proved that if a polynomial-size $\\mathsf{QAC}^0$\ncircuit family has nonzero Fourier mass at sufficiently high levels, then\nparity can be computed exactly in $\\mathsf{QAC}^0$; in their formulation the\ncorresponding Fourier-concentration statement is equivalent to separating\nparity from $\\mathsf{QAC}^0$\n\\sourcecite{ref:95fc-ggj}{GGJ26}.",
+    "Sufficiently noticeable correlation with parity can be amplified and, with\nconstant-factor depth overhead and polynomial resources in the relevant\nregime, converted into exact parity computation; average-case or\napproximation lower bounds can therefore contribute directly to resolving\nthe exact conjecture\n\\sourcecite{ref:95fc-jtvw}{JTVW26}."
+  ],
+  "references": [
+    {
+      "key": "Moo99",
+      "label": "ref:95fc-moore",
+      "tex": "Cristopher Moore, ``Quantum Circuits: Fanout, Parity, and Counting''\n(1999).\n\\href{https://arxiv.org/abs/quant-ph/9903046}{arXiv:quant-ph/9903046}."
+    },
+    {
+      "key": "Ros21",
+      "label": "ref:95fc-rosenthal",
+      "tex": "Gregory Rosenthal, ``Bounds on the QAC$^0$ Complexity of Approximating\nParity,'' in \\emph{12th Innovations in Theoretical Computer Science\nConference (ITCS 2021)}, LIPIcs \\textbf{185}, 32:1--32:20 (2021).\n\\href{https://doi.org/10.4230/LIPIcs.ITCS.2021.32}{doi:10.4230/LIPIcs.ITCS.2021.32};\n\\href{https://arxiv.org/abs/2008.07470}{arXiv:2008.07470}."
+    },
+    {
+      "key": "NPVY24",
+      "label": "ref:95fc-npv",
+      "tex": "Shivam Nadimpalli, Natalie Parham, Francisca Vasconcelos, and Henry Yuen,\n``On the Pauli Spectrum of QAC0,'' in \\emph{Proceedings of the 56th Annual\nACM Symposium on Theory of Computing (STOC 2024)}, 1498--1506 (2024).\n\\href{https://doi.org/10.1145/3618260.3649662}{doi:10.1145/3618260.3649662};\n\\href{https://arxiv.org/abs/2311.09631}{arXiv:2311.09631}."
+    },
+    {
+      "key": "ADOY25",
+      "label": "ref:95fc-adoy",
+      "tex": "Anurag Anshu, Yangjing Dong, Fengning Ou, and Penghui Yao, ``On the\nComputational Power of QAC0 with Barely Superlinear Ancillae,'' in\n\\emph{Proceedings of the 57th Annual ACM Symposium on Theory of Computing\n(STOC 2025)}, 1476--1487 (2025).\n\\href{https://doi.org/10.1145/3717823.3718189}{doi:10.1145/3717823.3718189};\n\\href{https://arxiv.org/abs/2410.06499}{arXiv:2410.06499}."
+    },
+    {
+      "key": "JTVW26",
+      "label": "ref:95fc-jtvw",
+      "tex": "Malvika Raj Joshi, Avishay Tal, Francisca Vasconcelos, and John Wright,\n``Improved Lower Bounds for QAC0,'' in \\emph{Proceedings of the 58th Annual\nACM Symposium on Theory of Computing (STOC 2026)}, 2199--2209 (2026).\n\\href{https://doi.org/10.1145/3798129.3800922}{doi:10.1145/3798129.3800922};\n\\href{https://arxiv.org/abs/2512.14643}{arXiv:2512.14643}."
+    },
+    {
+      "key": "GGJ26",
+      "label": "ref:95fc-ggj",
+      "tex": "Lucas Gretta, Meghal Gupta, and Malvika Raj Joshi, ``Parity\n$\\notin$ QAC0 $\\Longleftrightarrow$ QAC0 is Fourier-Concentrated,'' in\n\\emph{67th Annual IEEE Symposium on Foundations of Computer Science (FOCS\n2026)} (2026).\n\\href{https://arxiv.org/abs/2604.02793}{arXiv:2604.02793}."
+    }
+  ],
+  "comment": "The conjecture remains open for every sufficiently large constant depth\nand in the regime of arbitrary polynomial ancilla count.  Known techniques\nseparate parity from $\\mathsf{QAC}^0$ only in restricted regimes: depth at\nmost three, bounded ancilla, or approximation.  In particular, the\ndepth-dependent ancilla lower bound (Progress above) does not rule out\npolynomial ancillae, and no Fourier-concentration lower bound is known for\n$\\mathsf{QAC}^0$ circuits with unrestricted ancilla.  The equivalence of\nGretta, Gupta, and Joshi (Progress above) shows that the conjecture is not\nmerely one algorithmic route but a precisely equivalent open question."
+}
