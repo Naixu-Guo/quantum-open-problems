@@ -17,8 +17,10 @@ where the minimum ranges over all pure states $\psi$ on $AA'BB'$ with
 purifying systems $A'$, $B'$ of arbitrary finite dimension such that
 $\operatorname{Tr}_{A'B'}\psi=\rho_{AB}$, and $S$ denotes the von Neumann
 entropy.  Taking the product of optimal purifications gives
-$E_P(\rho\otimes\sigma)\leq E_P(\rho)+E_P(\sigma)$, so the sequence
-$\frac1nE_P(\rho^{\otimes n})$ is nonincreasing and the regularization
+$E_P(\rho\otimes\sigma)\leq E_P(\rho)+E_P(\sigma)$, so by Fekete's lemma for
+subadditive sequences the normalized values $\frac1nE_P(\rho^{\otimes n})$
+converge to their infimum rather than decrease monotonically, and the
+regularization
 \begin{equation}
   E_P^\infty(\rho)
   :=\lim_{n\to\infty}\frac1nE_P\bigl(\rho^{\otimes n}\bigr)
@@ -32,9 +34,10 @@ does
   \quad\text{for all finite-dimensional bipartite }\rho\text{ and }\sigma,
   \label{eq:epur-additivity}
 \end{equation}
-hold?  Eq.~\eqref{eq:epur-additivity} would make the regularization of
-Eq.~\eqref{eq:epur-regularization} collapse to
-$E_P^\infty(\rho)=E_P(\rho)$ for every $\rho$; whether such collapse on
+hold?  Applied inductively to the pairs $(\rho,\rho^{\otimes(n-1)})$,
+Eq.~\eqref{eq:epur-additivity} would give $E_P(\rho^{\otimes n})=nE_P(\rho)$
+and hence make the regularization of Eq.~\eqref{eq:epur-regularization}
+collapse to $E_P^\infty(\rho)=E_P(\rho)$ for every $\rho$; whether such collapse on
 single-state tensor powers would already force Eq.~\eqref{eq:epur-additivity}
 for arbitrary pairs is not known.  Since Eq.~\eqref{eq:epur-additivity} can
 only fail through strict subadditivity for some pair, the simplest

@@ -22,10 +22,13 @@ relative entropy of entanglement and its regularization by
   :=\lim_{n\to\infty}\frac1nE_R\bigl(\rho^{\otimes n}\bigr).
   \label{eq:rer-definition}
 \end{equation}
-The limit in Eq.~\eqref{eq:rer-definition} exists because the product of
-minimizing separable states is separable and $D$ is additive on tensor
-products, which gives $E_R(\rho\otimes\sigma)\leq E_R(\rho)+E_R(\sigma)$ and
-makes $\frac1nE_R(\rho^{\otimes n})$ nonincreasing.  The archived question is
+The limit in Eq.~\eqref{eq:rer-definition} exists and equals
+$\inf_{n\geq1}\frac1nE_R(\rho^{\otimes n})$ by Fekete's lemma: the product
+of minimizing separable states is separable and $D$ is additive on tensor
+products, which gives the subadditivity
+$E_R(\rho\otimes\sigma)\leq E_R(\rho)+E_R(\sigma)$, and subadditivity implies
+convergence of the normalized terms to their infimum, not that each of them
+is nonincreasing.  The archived question is
 whether single copies already suffice, that is, whether
 \begin{equation}
   E_R^\infty(\rho)=E_R(\rho)
@@ -51,7 +54,8 @@ the additivity question raised with the asymptotic relative entropy of
 entanglement: Vollbrecht and Werner's study of entanglement measures under
 symmetry, which supplied the antisymmetric counterexample recorded in
 Progress \sourcecite{ref:rer-vollbrecht-werner}{VW01}, and the closed-form
-evaluation of $E_R^\infty$ for Werner states by Audenaert et al.
+evaluation by Audenaert et al. of the asymptotic relative entropy of
+entanglement taken with respect to the PPT states for Werner states
 \sourcecite{ref:rer-audenaert}{AEM+01} together frame the universal equality
 of Eq.~\eqref{eq:rer-question}.
 
@@ -70,13 +74,20 @@ the antisymmetric subspace, already fails additivity of
 Eq.~\eqref{eq:rer-definition} on tensor powers
 \sourcecite{ref:rer-vollbrecht-werner}{VW01}.
 
-  \item Audenaert, Eisert, Jan\'e, Plenio, Virmani, and De Moor computed $E_R^\infty$
-in closed analytical form for Werner states of arbitrary dimension,
-\sourcecite{ref:rer-audenaert}{AEM+01}, with the companion extension to
-orthogonally invariant states with respect to the PPT set
-\sourcecite{ref:rer-audenaert-orthogonal}{ADM+02},
-so even the regularized value of the state in
-Eq.~\eqref{eq:rer-antisymmetric-state} is fully known.
+  \item Audenaert, Eisert, Jan\'e, Plenio, Virmani, and De Moor computed in closed
+analytical form the asymptotic relative entropy of entanglement with respect
+to the PPT states --- the regularization of
+$\min_{\sigma\in\operatorname{PPT}(A{:}B)}D(\rho\Vert\sigma)$ over the set of
+states with positive partial transpose --- for Werner states of arbitrary
+dimension \sourcecite{ref:rer-audenaert}{AEM+01}, with the companion extension
+to orthogonally invariant states
+\sourcecite{ref:rer-audenaert-orthogonal}{ADM+02}.  This is a different
+quantity from the separable-reference regularization of
+Eq.~\eqref{eq:rer-definition}: since
+$\operatorname{Sep}(A{:}B)\subseteq\operatorname{PPT}(A{:}B)$, the PPT values
+only lower-bound the separable ones, and for the state of
+Eq.~\eqref{eq:rer-antisymmetric-state} the PPT-reference value is
+$\log_2\frac{d+2}{d}$, which does not determine the separable $E_R^\infty$.
 
   \item Zhu, Chen, and Hayashi established the exact one- and two-copy values
 \begin{equation}
@@ -182,7 +193,11 @@ and Rubboli and Tomamichel in \emph{Communications in Mathematical Physics},
 which verified the separable optimizer and extended the counterexample to
 every relative-entropy-based monotone
 \sourcecite{ref:rer-rubboli-tomamichel}{RT24}.  The reverse inequality
-$E_R^\infty(\rho)>E_R(\rho)$ cannot occur, since subadditivity is trivial.
+$E_R^\infty(\rho)>E_R(\rho)$ cannot occur, since subadditivity is trivial.  The closed forms of
+\sourcecite{ref:rer-audenaert}{AEM+01} and
+\sourcecite{ref:rer-audenaert-orthogonal}{ADM+02} concern the PPT-reference
+regularization, a different quantity, and do not by themselves evaluate the
+separable regularization of Eq.~\eqref{eq:rer-definition}.
 Two residues lie outside this record: deciding additivity for a given state
 is governed by the single-copy optimizer criterion of
 \sourcecite{ref:rer-beigi}{BRT26}, and the general two-qubit case turns on

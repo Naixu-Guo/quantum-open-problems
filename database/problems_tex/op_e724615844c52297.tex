@@ -32,10 +32,12 @@ output-dimension threshold
   \label{eq:dmin-threshold}
 \end{equation}
 with input and environment dimensions arbitrary.  Determine the exact value of
-$d_{\min}$ in Eq.~\eqref{eq:dmin-threshold}.  The companion constructive
-target, also open at every output dimension, is a deterministically specified
-(non-random) pair of finite-dimensional channels with a certified instance of
-Eq.~\eqref{eq:dmin-violation}.
+$d_{\min}$ in Eq.~\eqref{eq:dmin-threshold}.  The companion constructive target, also open at every output dimension, is a
+practically computable, explicitly presented pair of finite-dimensional
+channels with a certified instance of Eq.~\eqref{eq:dmin-violation}:
+deterministic asymptotic algorithms now output violating pairs once their
+size parameter is sufficiently large, but none supplies a practically
+computable finite-dimensional instance.
 
 \subsection*{Status}
 
@@ -48,9 +50,11 @@ Eq.~\eqref{eq:dmin-violation} probabilistically
 \sourcecite{ref:dmin-hastings}{Has09}.  The threshold formulation of
 Eq.~\eqref{eq:dmin-threshold} is derived from the quantitative dimension
 analysis of Belinschi, Collins, and Nechita
-\sourcecite{ref:dmin-belinschi}{BCN16} together with the recorded absence of
-any deterministic $p=1$ realization \sourcecite{ref:dmin-leung}{LLW26}; no
-single source states it as a numbered open problem.
+\sourcecite{ref:dmin-belinschi}{BCN16} together with the recorded constructive status at $p=1$ --- where
+deterministic asymptotic algorithms exist but no practically computable
+finite-dimensional realization is known \sourcecite{ref:dmin-leung}{LLW26},
+\sourcecite{ref:dmin-lovwu}{LovWu26}, \sourcecite{ref:dmin-zzcw}{ZZCW26};
+no single source states it as a numbered open problem.
 
 \subsection*{Progress}
 
@@ -70,19 +74,29 @@ their ensemble; the bound $d_{\min}\leq183$ in Eq.~\eqref{eq:dmin-threshold}
 follows, but the threshold is ensemble-specific \sourcecite{ref:dmin-belinschi}{BCN16}.
 
   \item Leung, Lovitz, and Wu proved nonadditivity of the minimum output R\'enyi
-entropy for $p\in[0,1/4)\cup(3/4,\infty]$ and numerically improved the
-ensemble-specific threshold of \sourcecite{ref:dmin-belinschi}{BCN16} from
-$183$ to $182$, stating that the improvement is witness-specific and not a
-universal threshold over all channels, and that at $p=1$ all arguments remain
-probabilistic, so no deterministic realization of
-Eq.~\eqref{eq:dmin-violation} is known \sourcecite{ref:dmin-leung}{LLW26}.
+entropy for $p\in[0,1/4)\cup(3/4,\infty]$
+\sourcecite{ref:dmin-leung}{LLW26}.  At $p=1$ all their arguments remain
+probabilistic; within their locally normalized projection ensemble,
+high-precision numerical optimization evaluates the Bell-state criterion as
+detecting a violation already at output dimension $182$, against $183$ for
+the ensemble criterion of \sourcecite{ref:dmin-belinschi}{BCN16}, a
+threshold they state is ensemble- and witness-specific and not universal
+over all channels.  Deterministic asymptotic algorithms followed: Lovitz
+and Wu replace Haar randomness by permutations and derandomize via the
+O'Donnell--Wu construction, polynomial-time for fixed channel parameters
+and accuracy but with size estimates beyond practical reach
+\sourcecite{ref:dmin-lovwu}{LovWu26}, and Zhen, Zhu, Chen, and Wang,
+Theorem~2.1, deterministically output near-free permutation representations
+with a certified entropy gap for all sufficiently large target sizes
+\sourcecite{ref:dmin-zzcw}{ZZCW26}; neither supplies a practically computed
+instance.
 
-  \item Deterministic counterexamples exist only for R\'enyi orders away from $p=1$:
-Hayden and Winter gave counterexamples for every $p>1$
-\sourcecite{ref:dmin-hayden-winter}{HW08}, Grudka, Horodecki, and Pankowski
-constructed them for every $p>2$ \sourcecite{ref:dmin-grudka}{GHP10}, and
-Derksen and Lovitz constructed them for every $p>1$ from subspaces with high
-geometric measure of entanglement
+  \item Counterexamples away from the von Neumann order $p=1$ split by construction
+type: Hayden and Winter proved nonadditivity for every $p>1$ using random
+channels \sourcecite{ref:dmin-hayden-winter}{HW08}, while the deterministic
+constructions are due to Grudka, Horodecki, and Pankowski for every $p>2$
+\sourcecite{ref:dmin-grudka}{GHP10} and to Derksen and Lovitz for every
+$p>1$, from subspaces with high geometric measure of entanglement
 \sourcecite{ref:dmin-derksen-lovitz}{DL26}.  None of these produces a
 violation of Eq.~\eqref{eq:dmin-violation} at the von Neumann order $p=1$.
 
@@ -183,26 +197,48 @@ known.
   Conjecture,'' \emph{Open Systems & Information Dynamics} \textbf{17}(1),
   31--52 (2010).
   \href{https://arxiv.org/abs/0907.3210}{arXiv:0907.3210}.
+
+  \item[\textup{[LovWu26]}]\label{ref:dmin-lovwu}
+  B. Lovitz and P. Wu,
+  ``Superadditivity of Classical Communication over Quantum Channels via
+  Random and Deterministic Permutations,'' preprint (August 2026).
+  \href{https://arxiv.org/abs/2608.25961}{arXiv:2608.25961}.
+
+  \item[\textup{[ZZCW26]}]\label{ref:dmin-zzcw}
+  G. Zhen, C. Zhu, R. Chen, and X. Wang,
+  ``Deterministic Minimum-Output-Entropy Nonadditivity via Haagerup's
+  Inequality and Near-Free Permutation Representations,'' preprint
+  (August 2026).
+  \href{https://arxiv.org/abs/2608.31081}{arXiv:2608.31081}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-The unresolved gap is the full range $2\leq d_{\min}\leq183$ of
-Eq.~\eqref{eq:dmin-threshold}: the upper bound is the ensemble-specific
-analysis of \sourcecite{ref:dmin-belinschi}{BCN16}, the lower bound is the
-trivial additivity of one-dimensional outputs, and the strongest structural
+The unresolved gap is the range $2\leq d_{\min}\leq183$ of
+Eq.~\eqref{eq:dmin-threshold}: the rigorous upper bound is the
+ensemble-specific analysis of \sourcecite{ref:dmin-belinschi}{BCN16}, whose
+Bell-state criterion detects a violation at output dimension $183$ and fails
+almost surely through $182$ within that ensemble, while the threshold $182$
+of \sourcecite{ref:dmin-leung}{LLW26} is the numerical evaluation, by
+high-precision optimization, of the corresponding criterion in a different,
+locally normalized ensemble --- numerical evidence that a violation may
+already exist at output dimension $182$, not a certified bound, so the
+certified upper endpoint remains $183$; the lower bound is the trivial
+additivity of one-dimensional outputs, and the strongest structural
 constraint is that a $d=2$ violation needs two non-unital channels
-\sourcecite{ref:dmin-king}{Kin02}.  No deterministically specified pair
-realizing Eq.~\eqref{eq:dmin-violation} at $p=1$ is known in any dimension;
-every $p=1$ construction remains probabilistic
-\sourcecite{ref:dmin-hastings}{Has09}, \sourcecite{ref:dmin-leung}{LLW26}.
-The sibling extremal question of the maximal violation size
+\sourcecite{ref:dmin-king}{Kin02}.  No practically computable
+finite-dimensional pair realizing Eq.~\eqref{eq:dmin-violation} at $p=1$ is
+known in any dimension: existence is probabilistic
+\sourcecite{ref:dmin-hastings}{Has09}, \sourcecite{ref:dmin-leung}{LLW26},
+and the deterministic algorithms of \sourcecite{ref:dmin-lovwu}{LovWu26} and
+\sourcecite{ref:dmin-zzcw}{ZZCW26} reach violations only asymptotically,
+without a practical instance; that constructive target is archived in the
+closed-form nonadditivity record.  The sibling extremal question of the
+maximal violation size
 $S_{\min}(\Phi)+S_{\min}(\Psi)-S_{\min}(\Phi\otimes\Psi)$ at fixed output
 dimension is not archived here.  The delayed-onset additivity-violation
 problem poses the orthogonal onset question for a single channel and its
-tensor powers, so neither record subsumes the other; a complementary record on
-closed-form nonadditivity of the Holevo capacity and entanglement of
-formation is currently under review elsewhere.
+tensor powers, so neither record subsumes the other.
 
 \subsection*{Field}
 
