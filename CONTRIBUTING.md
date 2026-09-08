@@ -6,6 +6,13 @@ named by its stable ID, with the TeX form of each record in
 only way content enters the site; the build validates every record, and the
 validation workflow runs it on each pull request.
 
+If you would rather not work with Git, use the
+[proposal form](https://naixu-guo.github.io/quantum-open-problems/contribute/):
+describe the problem, its sources, and what is known, and leave your name and
+email. The maintainers check every proposal against the literature, rewrite
+it in the format below, and publish it with credit to you. The rest of this
+guide is for people who write the record themselves.
+
 For agent-assisted additions and revisions, follow the repository's
 [writing-open-problems skill](.claude/skills/writing-open-problems/SKILL.md).
 It covers primary-source verification, semantic duplicate checks, the current

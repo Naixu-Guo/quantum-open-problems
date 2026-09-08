@@ -1,0 +1,99 @@
+% Problem record op_406a00f7c5a9398c. This TeX file is derived from
+% database/problems_json/op_406a00f7c5a9398c.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Average-case approximation hardness of squared normalized gaps of random cubic polynomials}
+\label{sec:op_406a00f7c5a9398c}
+
+\paragraph{Problem.}
+Is it $\#\mathrm{P}$-hard to approximate $\operatorname{ngap}(f)^2$ to
+relative multiplicative error $a+o(1)$ on a $b$ fraction of uniformly random
+degree-3 polynomials over $\mathbb{F}_2$?
+Here $a>0$ and $0<b\leq1$ are constant parameters independent of the number
+of variables $n$, specifying the relative error and polynomial fraction.
+
+Write the random polynomial in multilinear form as
+\begin{equation}
+  f(x)=\sum_{i<j<k}\alpha_{ijk}x_i x_j x_k
+       +\sum_{i<j}\beta_{ij}x_i x_j
+       +\sum_i\gamma_i x_i \pmod{2},
+  \qquad x\in\{0,1\}^n.
+  \label{eq:bms-poly-ensemble}
+\end{equation}
+In Eq.~\eqref{eq:bms-poly-ensemble}, all coefficients are independent uniform
+bits. The degree-3 ensemble allows terms of degrees one through three,
+without conditioning on a nonzero cubic term. A constant term is omitted
+because it changes only the sign of the gap. Define
+\begin{equation}
+  \operatorname{gap}(f)
+    =|\{x\in\{0,1\}^n:f(x)=0\}|-|\{x\in\{0,1\}^n:f(x)=1\}|,
+  \qquad
+  \operatorname{ngap}(f)=2^{-n}\operatorname{gap}(f).
+  \label{eq:bms-poly-gap}
+\end{equation}
+The target is the square of the normalized gap in Eq.~\eqref{eq:bms-poly-gap}.
+An estimate $\widetilde Q_f$ is required to satisfy
+\begin{equation}
+  \bigl|\widetilde Q_f-\operatorname{ngap}(f)^2\bigr|
+    \leq(a+o(1))\operatorname{ngap}(f)^2.
+  \label{eq:bms-poly-approximation}
+\end{equation}
+The $b$ fraction in the question is measured over the coefficient choices
+for which Eq.~\eqref{eq:bms-poly-approximation} holds; $o(1)$ tends to zero
+as $n\to\infty$.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Conjecture 3 of Bremner, Montanaro, and Shepherd, on page 2 of arXiv v2,
+states this average-case hardness conjecture with $a=1/4$ and $b=1/24$
+\sourcecite{ref:bms-poly-source}{BMS16}.
+The present formulation replaces those two numerical constants by the
+parameters $a$ and $b$, as requested by the contributor, and retains the
+original $o(1)$ term and squared normalized-gap target.
+The parameterized formulation is not a verbatim claim of the paper.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Appendix D proves worst-case $\#\mathrm{P}$-hardness of approximating
+$\operatorname{ngap}(f)^2$ with relative multiplicative error less than $1/2$
+\sourcecite{ref:bms-poly-source}{BMS16}.
+This worst-case result does not establish hardness on a constant fraction
+of uniformly random polynomials.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[BMS16]}]\label{ref:bms-poly-source}
+  M. J. Bremner, A. Montanaro, and D. J. Shepherd,
+"Average-case complexity versus approximate simulation of commuting quantum computations,"
+\emph{Physical Review Letters} \textbf{117}, 080501 (2016).
+\href{https://doi.org/10.1103/PhysRevLett.117.080501}{doi:10.1103/PhysRevLett.117.080501};
+\href{https://arxiv.org/abs/1504.07999v2}{arXiv:1504.07999v2}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The remaining task is to establish average-case approximation hardness
+for the uniform polynomial ensemble. The pair $(a,b)$ indexes a family of
+questions; hardness for every pair is not asserted. The source's original
+parameter choice is $(a,b)=(1/4,1/24)$.
+The instance fraction $b$ concerns polynomials, not an algorithm's internal
+success probability. The target remains the square of the normalized gap.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Computational complexity and computability; Quantum supremacy; IQP sampling
+
+\subsection*{ID}
+
+\texttt{op\_406a00f7c5a9398c}

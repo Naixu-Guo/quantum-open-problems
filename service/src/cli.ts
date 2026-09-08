@@ -10,6 +10,10 @@
  *   node --experimental-strip-types src/cli.ts key revoke <token>
  *   node --experimental-strip-types src/cli.ts identity link github <github-user-id> <actorId>   bind a GitHub account to an existing actor
  *   node --experimental-strip-types src/cli.ts bootstrap-editor <github-user-id> <name>   provision and link the first human editor
+ *   node --experimental-strip-types src/cli.ts proposals list [state] [limit]   the inbox of proposals from the contribution form, newest first
+ *   node --experimental-strip-types src/cli.ts proposals show <id>              one proposal as text
+ *   node --experimental-strip-types src/cli.ts proposals export <id> [file]     one proposal as JSON, to stdout or a file
+ *   node --experimental-strip-types src/cli.ts proposals set <id> <state> [note]   move a proposal to new, in-review, accepted, rejected, or spam
  */
 import fs from "node:fs";
 import { configFromEnv } from "./config.ts";
@@ -19,6 +23,7 @@ import { submit, runAutomaticDecisions, reindex } from "./write.ts";
 import { newId } from "./ids.ts";
 import { bootstrapEditor } from "./bootstrap.ts";
 import { linkGitHubIdentity } from "./github-identity.ts";
+import { submissionText, SUBMISSION_STATES, type SubmissionState } from "./submissions.ts";
 
 const [command, ...args] = process.argv.slice(2);
 
@@ -105,7 +110,37 @@ switch (command) {
     for (const issue of automatic.issues) console.error(`  [${issue.category}] ${issue.path}: ${issue.message}`);
     break;
   }
+  case "proposals": {
+    const [action, first, second, ...rest] = args;
+    const inbox = service.submissions;
+    const isState = (value: string | undefined): value is SubmissionState => value !== undefined && (SUBMISSION_STATES as readonly string[]).includes(value);
+    if (action === "list") {
+      if (first !== undefined && !isState(first)) { console.error(`state must be one of ${SUBMISSION_STATES.join(", ")}`); process.exit(2); }
+      const counts = inbox.counts();
+      console.log(SUBMISSION_STATES.map((state) => `${state} ${counts[state]}`).join("  "));
+      for (const row of inbox.list({ state: first, limit: second ? Number(second) : 50 })) {
+        console.log(`${row.id}  ${row.receivedAt}  ${row.state.padEnd(9)}  ${row.title}  —  ${row.contributor.name} <${row.contributor.email}>`);
+      }
+    } else if (action === "show" && first) {
+      const found = inbox.get(first);
+      if (!found) { console.error(`no proposal ${first}`); process.exit(1); }
+      console.log(submissionText(found));
+    } else if (action === "export" && first) {
+      const found = inbox.get(first);
+      if (!found) { console.error(`no proposal ${first}`); process.exit(1); }
+      const json = `${JSON.stringify(found, null, 2)}\n`;
+      if (second) { fs.writeFileSync(second, json); console.log(`wrote ${second}`); } else process.stdout.write(json);
+    } else if (action === "set" && first && isState(second)) {
+      const updated = inbox.setState(first, second, rest.join(" "), null);
+      if (!updated) { console.error(`no proposal ${first}`); process.exit(1); }
+      console.log(`${updated.id} is now ${updated.state}`);
+    } else {
+      console.error("usage: proposals list [state] [limit] | proposals show <id> | proposals export <id> [file] | proposals set <id> <state> [note]");
+      process.exit(2);
+    }
+    break;
+  }
   default:
-    console.error("usage: serve | rebuild | submit <actorId> <batch.json> [message] | decide | sync | bootstrap-editor <github-id> <name> | key issue|revoke | identity link | id");
+    console.error("usage: serve | rebuild | submit <actorId> <batch.json> [message] | decide | sync | bootstrap-editor <github-id> <name> | key issue|revoke | identity link | proposals list|show|export|set | id");
     process.exit(2);
 }
