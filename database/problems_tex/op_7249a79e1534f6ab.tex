@@ -1,0 +1,103 @@
+% Problem record op_7249a79e1534f6ab. This TeX file is derived from
+% database/problems_json/op_7249a79e1534f6ab.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Polynomial-time quantum algorithm for Graph Isomorphism}
+\label{sec:op_7249a79e1534f6ab}
+
+\paragraph{Problem.}
+Does the Graph Isomorphism problem admit a polynomial-time quantum algorithm?
+
+Let $G=(V_G,E_G)$ and $H=(V_H,E_H)$ be finite simple graphs with
+$|V_G|=|V_H|=n$.  The graphs are isomorphic if there exists a bijection
+$\pi:V_G\to V_H$ satisfying
+\begin{equation}
+  \{u,v\}\in E_G
+  \Longleftrightarrow
+  \{\pi(u),\pi(v)\}\in E_H
+  \qquad
+  \forall u,v\in V_G .
+  \label{eq:7249-gi-isomorphism}
+\end{equation}
+The open question is whether there is a bounded-error quantum algorithm running
+in time polynomial in $n$ that, given $G$ and $H$, decides whether a bijection
+satisfying \eqref{eq:7249-gi-isomorphism} exists.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Implicit in Hallgren, Russell, and Ta-Shma (2003), who show that an
+efficient solution of the relevant non-Abelian hidden subgroup problem would
+yield an efficient quantum algorithm for Graph Isomorphism
+\sourcecite{ref:7249-hrt}{HRT03}.  The wording of the question is a
+contributor formulation of the broader open problem, not a verbatim question
+attributed to those authors.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item An efficient solution of the non-Abelian hidden subgroup problem over the
+symmetric-group wreath product would yield an efficient quantum algorithm for
+Graph Isomorphism, while the direct extension of Abelian Fourier sampling does
+not suffice
+\sourcecite{ref:7249-hrt}{HRT03}.
+
+  \item Strong Fourier sampling on a single coset state reveals insufficient
+information for the hidden subgroup instances relevant to Graph Isomorphism;
+a coset-state approach must therefore use genuinely multiregister entangled
+measurements
+\sourcecite{ref:7249-mrs-sampling}{MRS08}.
+
+  \item A broad class of Kuperberg-style quantum sieve algorithms for the
+symmetric-group formulation cannot run in polynomial time: algorithms in that
+sieve family require at least $\exp(\Omega(\sqrt{n}))$ time for the Graph
+Isomorphism instances \sourcecite{ref:7249-mrs-sieve}{MRS10}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[HRT03]}]\label{ref:7249-hrt}
+  Sean Hallgren, Alexander Russell, and Amnon Ta-Shma, ``The Hidden Subgroup
+Problem and Quantum Computation Using Group Representations,'' \emph{SIAM
+Journal on Computing} \textbf{32}, 916--934 (2003).
+\href{https://doi.org/10.1137/S009753970139450X}{doi:10.1137/S009753970139450X}.
+
+  \item[\textup{[MRS08]}]\label{ref:7249-mrs-sampling}
+  Cristopher Moore, Alexander Russell, and Leonard J. Schulman, ``The
+Symmetric Group Defies Strong Fourier Sampling,'' \emph{SIAM Journal on
+Computing} \textbf{37}, 1842--1864 (2008).
+\href{https://doi.org/10.1137/050644896}{doi:10.1137/050644896};
+\href{https://arxiv.org/abs/quant-ph/0501056}{arXiv:quant-ph/0501056}.
+
+  \item[\textup{[MRS10]}]\label{ref:7249-mrs-sieve}
+  Cristopher Moore, Alexander Russell, and Piotr \v{S}niady, ``On the
+Impossibility of a Quantum Sieve Algorithm for Graph Isomorphism,'' \emph{SIAM
+Journal on Computing} \textbf{39}, 2377--2396 (2010).
+\href{https://doi.org/10.1137/080724101}{doi:10.1137/080724101};
+\href{https://arxiv.org/abs/quant-ph/0612089}{arXiv:quant-ph/0612089}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+A successful coset-state approach must use genuinely multiregister entangled
+measurements, and polynomial-time quantum sieve algorithms are ruled out for
+the relevant instances.  The open problem is not simply to implement the
+non-Abelian Fourier transform efficiently, but to find a substantially
+different way to extract and process the hidden symmetry, or a quantum
+approach to Graph Isomorphism outside this hidden-subgroup framework.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Computational complexity and computability
+
+\subsection*{ID}
+
+\texttt{op\_7249a79e1534f6ab}
