@@ -7,7 +7,7 @@ information and quantum computation. It brings together precise questions,
 their origins, and progress toward their resolution, helping researchers
 explore the field and find questions to work on.
 
-**[Explore the zoo](https://naixu-guo.github.io/quantum-open-problems/)**
+**[Explore the zoo](https://qiqc-op.com/)**
 
 Each problem includes a self-contained statement, its sources, known progress,
 an explanation of what remains open, and references to the literature. Browse
@@ -19,18 +19,20 @@ collection with their resolutions, preserving the history and references.
 ## Contribute
 
 Suggestions for new problems, research updates, and corrections are welcome.
-Propose a problem through the
-[proposal form](https://naixu-guo.github.io/quantum-open-problems/contribute/),
-which needs no account, see the [contribution guide](CONTRIBUTING.md), or
-[open an issue](https://github.com/Naixu-Guo/quantum-open-problems/issues/new/choose).
+Use the [proposal worksheet](https://qiqc-op.com/contribute/) to prepare and
+copy your text, then [open an issue](https://github.com/Naixu-Guo/quantum-open-problems/issues/new/choose)
+with a GitHub account. Direct online sending is not enabled yet.
+See the [contribution guide](CONTRIBUTING.md) for authoring a record by pull request.
 Please cite the original research sources when using a problem or result.
 
-## Credits
+## Contributions
 
-The problem collection is compiled and maintained by Naixu Guo, Bikun Li, and
-the contributors to this repository. See the
-[project credits](https://naixu-guo.github.io/quantum-open-problems/about/#credits)
+This project is developed and maintained by Bikun Li, Qicheng Tang,
+Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo. See the
+[project contributions](https://qiqc-op.com/about/#contributions)
 for acknowledgments.
+
+We thank [GaugeForge](https://gauge-forge.com/) for its financial support of this project.
 
 For local setup, backend services, maintenance, and deployment, see the
 [development guide](docs/DEVELOPMENT.md).

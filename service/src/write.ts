@@ -13,6 +13,7 @@ import type { Policy } from "../../contract/src/policy.ts";
 import type { WebConfig } from "./config.ts";
 import type { SubmissionStore, SubmissionsConfig } from "./submissions.ts";
 import type { Contribution } from "../../contract/src/types/contribution.ts";
+import type { Ledger } from "../../contract/src/ledger.ts";
 import { evaluate, unreviewedAcceptance, acceptanceDecision, consequences, pending, type AcceptanceContext } from "./acceptance.ts";
 
 export interface Service {
@@ -27,6 +28,7 @@ export interface Service {
   /** The public proposal inbox and its rules; see `submissions.ts`. */
   submissions: SubmissionStore;
   submissionsConfig: SubmissionsConfig;
+  syncIntervalMs: number;
 }
 
 export interface SubmitResult extends WriteResult {
@@ -90,6 +92,17 @@ export function runAutomaticDecisions(service: Service, options: { catchUp?: boo
   return { issued, issues };
 }
 
+const indexedLedgers = new WeakMap<Service, Ledger>();
+
+/** Keep the in-memory ledger and SQLite projection together before serving a request. */
+export function refresh(service: Service): void {
+  service.repo.refreshIfMoved();
+  if (indexedLedgers.get(service) !== service.repo.current()) reindex(service);
+}
+
 export function reindex(service: Service): { records: number; lastSequence: number } {
-  return service.index.rebuild(service.repo.current(), service.repo.sequences());
+  const ledger = service.repo.current();
+  const result = service.index.rebuild(ledger, service.repo.sequences());
+  indexedLedgers.set(service, ledger);
+  return result;
 }

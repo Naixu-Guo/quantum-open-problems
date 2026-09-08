@@ -47,7 +47,7 @@ switch (command) {
   }
   case "serve": {
     const server = createServer(service);
-    server.listen(config.port, () => console.log(`Quantum Open Problems service on http://localhost:${config.port}/api/v1/status`));
+    server.listen(config.port, config.host, () => console.log(`Quantum Open Problems service on http://${config.host ?? "localhost"}:${config.port}/api/v1/status`));
     break;
   }
   case "rebuild": {

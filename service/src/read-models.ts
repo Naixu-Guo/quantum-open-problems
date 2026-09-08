@@ -17,7 +17,7 @@ export function currentStatement(ledger: Ledger, problemId: string): Statement |
   return ledger.currentOf("Statement").map((s) => s.fields as unknown as Statement).filter((s) => s.problemId === problemId).sort((a, b) => b.version - a.version)[0];
 }
 
-export function problemView(ledger: Ledger, problemId: string) {
+export function problemView(ledger: Ledger, problemId: string, includeAuthoredRecord = false) {
   const problem = ledger.find("Problem", problemId);
   if (!problem) return null;
   const decisions = currentDecisions(ledger);
@@ -25,15 +25,22 @@ export function problemView(ledger: Ledger, problemId: string) {
   const statement = currentStatement(ledger, problemId);
   const references = referencesOf(ledger, problemId);
   const comments = commentsOn(ledger, "problem", problemId);
+  const fields: Record<string, unknown> = view(problem);
+  const catalog = fields["authoredCatalog"] as Record<string, unknown> | undefined;
+  const authoredRecord = catalog?.["record"] as Record<string, unknown> | undefined;
+  if (catalog && !includeAuthoredRecord) {
+    const { record: _record, ...provenance } = catalog;
+    fields["authoredCatalog"] = provenance;
+  }
   return {
-    ...view(problem),
+    ...fields,
     catalogState: catalogState(ledger, problemId, decisions),
     status: problemStatus(ledger, problemId, decisions),
     indexed: isIndexed(ledger, problemId, decisions),
     statement: statement ? {
       ...statement,
       body: ledger.find("Statement", statement.id)?.body ?? "",
-      clauses: statement.clauses.map((clause) => ({ ...clause, ref: `${statement.id}#${clause.id}`, status: clauseStatus(ledger, `${statement.id}#${clause.id}`, claims) })),
+      clauses: statement.clauses.map((clause) => ({ ...clause, textFormat: authoredRecord?.["statement"] === clause.text ? "tex" : "markdown", ref: `${statement.id}#${clause.id}`, status: clauseStatus(ledger, `${statement.id}#${clause.id}`, claims) })),
     } : null,
     references,
     comments,
@@ -226,18 +233,24 @@ export function recordView(ledger: Ledger, id: string) {
 export function status(ledger: Ledger, index: Index, policyVersion: string) {
   const decisions = currentDecisions(ledger);
   const problems = ledger.currentOf("Problem");
-  const byStatus: Record<string, number> = {};
+  const states = problems.map((p) => catalogState(ledger, p.id, decisions));
+  const byStatus: Record<string, number> = { Unsolved: 0, Solved: 0 };
+  const questions = new Map<string, string>();
   for (const problem of problems) {
     if (catalogState(ledger, problem.id, decisions) !== "published") continue;
     const status = problemStatus(ledger, problem.id, decisions);
     byStatus[status] = (byStatus[status] ?? 0) + 1;
+    questions.set(String(problem.fields["equivalentToProblemId"] ?? problem.id), status);
   }
   const release = decisions.find((d) => d.kind === "release");
   return {
     policyVersion,
     lastSequence: index.lastSequence(),
     counts: index.counts(),
-    problems: { total: problems.length, published: Object.values(byStatus).reduce((a, b) => a + b, 0), candidates: problems.filter((p) => catalogState(ledger, p.id, decisions) === "candidate").length, byStatus },
+    problems: { unit: "records", total: states.filter((state) => state === "published" || state === "candidate").length,
+      published: Object.values(byStatus).reduce((a, b) => a + b, 0), candidates: states.filter((state) => state === "candidate").length,
+      merged: states.filter((state) => state === "merged").length, retired: states.filter((state) => state === "retired").length, byStatus },
+    distinctQuestions: { unit: "distinct questions", scope: "published records", total: questions.size, byStatus: { Unsolved: [...questions.values()].filter(s => s === "Unsolved").length, Solved: [...questions.values()].filter(s => s === "Solved").length } },
     lastRelease: release ? { id: release.id, effectiveAt: release.effectiveAt, tag: release.targetId } : null,
   };
 }
@@ -264,6 +277,14 @@ export function taxonomyView(ledger: Ledger) {
   return { id: taxonomy.id, revision: revisionOf(taxonomy), areas: taxonomy.fields["areas"], topics: taxonomy.fields["topics"], independentTopics: taxonomy.fields["independentTopics"] === true };
 }
 
+/** Accept either a taxonomy id or its human label, independently of case and spacing. */
+export function taxonomyId(ledger: Ledger, kind: "areas" | "topics", value: string): string | null {
+  const fold = (text: string) => text.trim().replace(/\s+/gu, " ").toLowerCase();
+  const entries = taxonomyView(ledger)?.[kind] as { id: string; label: string }[] | undefined;
+  const found = entries?.find(entry => fold(entry.id) === fold(value) || fold(entry.label) === fold(value));
+  return found?.id ?? null;
+}
+
 /** Every current actor, so pages can name who wrote a record. Keys and identities stay in the auth store. */
 export function actorsView(ledger: Ledger) {
   return ledger.currentOf("Actor").map((a) => ({ id: a.id, name: a.fields["name"], kind: a.fields["kind"], roles: a.fields["roles"], operatorId: a.fields["operatorId"], modelFamily: a.fields["modelFamily"] }));
@@ -272,14 +293,17 @@ export function actorsView(ledger: Ledger) {
 /** A request for a context bundle that cannot be built as asked. */
 export class ContextError extends Error {}
 
-/** Sources matching every whitespace-separated term in title, authors, DOI, arXiv id, URL, or venue, for attaching a reference without creating a duplicate. */
-export function searchSources(ledger: Ledger, text: string, limit: number) {
+/** Include the preserved bibliography text when structured authors or venue are incomplete. */
+export function searchSources(ledger: Ledger, text: string, limit: number, offset = 0) {
   const terms = text.trim().toLowerCase().split(/\s+/u).filter(Boolean).slice(0, 8);
   const all = ledger.currentOf("Source", { includeRetired: true });
   const matches = terms.length === 0 ? all : all.filter((s) => {
     const f = s.fields;
-    const haystack = [f["title"], ...(f["authors"] as string[]), f["doi"], f["arxivId"], f["url"], f["venue"]].filter((v) => typeof v === "string").join(" ").toLowerCase();
+    const haystack = [f["title"], ...(f["authors"] as string[]), f["doi"], f["arxivId"], f["url"], f["venue"], s.body].filter((v) => typeof v === "string").join(" ").toLowerCase();
     return terms.every((term) => haystack.includes(term));
   });
-  return { text, count: matches.length, sources: matches.slice(0, limit).map((s) => sourceSummary(ledger, s.id)) };
+  matches.sort((a, b) => String(a.fields["title"]).localeCompare(String(b.fields["title"])) || a.id.localeCompare(b.id));
+  const pageSize = Math.min(Math.max(limit, 1), 200);
+  const sources = matches.slice(offset, offset + pageSize).map(s => ({ ...sourceSummary(ledger, s.id), citation: s.body }));
+  return { text, count: matches.length, total: matches.length, returned: sources.length, limit: pageSize, offset, nextOffset: offset + sources.length < matches.length ? offset + sources.length : null, sources };
 }

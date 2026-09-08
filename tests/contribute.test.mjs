@@ -68,9 +68,15 @@ test("without a submission URL the page keeps the form usable offline and never 
   assert.ok(missing.includes('id="proposal-offline"'), "a config without the block renders the offline form");
 });
 
-test("the about page and the problem page point at the form", () => {
-  const about = renderAbout({ config, root: "../", stats: { total: 1, unsolved: 1, solved: 0, distinctQuestions: { total: 1, unsolved: 1, solved: 0 } }, dates: { today: "2026-09-08", updated: "2026-09-08" } });
-  assert.ok(about.includes('<a href="../contribute/">proposal form</a>'));
+test("the about page advertises account-free sending only when the form is configured", () => {
+  const options = { root: "../", stats: { total: 1, unsolved: 1, solved: 0, distinctQuestions: { total: 1, unsolved: 1, solved: 0 } }, dates: { today: "2026-09-08", updated: "2026-09-08" } };
+  const off = renderAbout({ ...options, config: offline });
+  assert.ok(off.includes('<a href="../contribute/">proposal worksheet</a>'));
+  assert.ok(off.includes("a GitHub account is required"));
+  assert.ok(!off.includes("No account is needed"));
+  const on = renderAbout({ ...options, config: online });
+  assert.ok(on.includes('<a href="../contribute/">proposal form</a>'));
+  assert.ok(on.includes("No account is needed"));
 });
 
 // The shipped script must load on a page without the form, and on the form page it must

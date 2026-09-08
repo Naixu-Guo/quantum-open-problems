@@ -5,10 +5,12 @@ import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
+import { gunzipSync } from "node:zlib";
 import { canonicalJson, canonicalRecord, recordToTex, validateRecordShape } from "../site/lib/record.mjs";
 import { parseProblem } from "../site/lib/tex.mjs";
 import { loadTaxonomy } from "../site/lib/taxonomy.mjs";
 import { metadataSlug, validateRecordIdentities, distinctQuestionCounts } from "../site/lib/metadata.mjs";
+import { loadMergedProblems } from "../site/lib/merged-problems.mjs";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (file) => JSON.parse(fs.readFileSync(file, "utf8"));
@@ -214,7 +216,29 @@ test("built aliases and main adapter preserve every authored record and binary s
     assert.equal(Object.hasOwn(adapter.problem, "status"), false);
   }
   assert.equal(fs.readFileSync(path.join(output, "api/v1/problems.jsonl"), "utf8").trim().split("\n").length, records.length);
+  const jsonl = fs.readFileSync(path.join(output, "api/v1/problems.jsonl"));
+  const compressed = fs.readFileSync(path.join(output, "api/v1/problems.jsonl.gz"));
+  assert.deepEqual(gunzipSync(compressed), jsonl);
+  assert.ok(compressed.length < jsonl.length / 2);
+  assert.deepEqual(read(path.join(output, "api/v1/problems.json")), jsonl.toString().trim().split("\n").map(line => JSON.parse(line)));
+  const schema = read(path.join(output, "contract/v1/problem.schema.json"));
+  assert.equal(schema.$id, "https://qiqc-op.com/contract/v1/problem.schema.json");
   assert.equal(read(path.join(output, "feed.json")).items.length, records.length);
+  for (const { record, target } of loadMergedProblems(repoRoot, records)) {
+    assert.ok(!index.problems.some(p => p.id === record.id));
+    assert.ok(!catalog.includes(record.ulid.toLowerCase()));
+    for (const alias of record.aliases) {
+      assert.equal(identities.aliases[alias].ulid, target.ulid);
+      for (const prefix of ["api/problems", "api/v1/problems"]) {
+        const payload = read(path.join(output, `${prefix}/${alias}.json`));
+        assert.equal(payload.id, target.id);
+        assert.equal(payload.mergedFrom.ulid, record.ulid);
+      }
+      for (const prefix of ["problem", "problems"]) assert.ok(fs.readFileSync(path.join(output, `${prefix}/${alias}/index.html`), "utf8").includes(`/problem/${target.id}/`));
+      assert.ok(fs.readFileSync(path.join(output, `packets/${alias}.md`), "utf8").includes(`/packets/${target.id}.md`));
+    }
+    assert.equal(read(path.join(output, `api/main/problems/${record.ulid}.json`)).problem.id, target.ulid);
+  }
   for (const dir of fs.readdirSync(path.join(output, "tag"))) {
     const page = fs.readFileSync(path.join(output, "tag", dir, "index.html"), "utf8");
     if (!page.includes("Historical classification")) continue;

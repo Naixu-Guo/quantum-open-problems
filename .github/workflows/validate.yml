@@ -154,6 +154,10 @@ jobs:
         run: npm test
         working-directory: web
 
+      - name: Install MCP dependencies
+        run: npm ci --ignore-scripts
+        working-directory: mcp
+
       - name: Type-check the MCP adapter
         run: npm run typecheck
         working-directory: mcp

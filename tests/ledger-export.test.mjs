@@ -29,7 +29,8 @@ test("the authoritative export round-trips every authored record and both public
     const problem = parse(projection.files.get(`${dir}/problem.r1.md`));
     const statement = parse(projection.files.get(`${dir}/statements/v1.md`));
     assert.deepEqual(problem.authoredCatalog.record, original);
-    assert.equal(problem.authoredCatalog.status, original.status);
+    const canonical = projection.records.find(record => record.ulid === problem.authoredCatalog.mergedIntoProblemId);
+    assert.equal(problem.authoredCatalog.status, canonical?.status ?? original.status);
     assert.equal(problem.id, original.ulid);
     assert.equal(problem.aliases[0], metadataSlug(original.id));
     for (const alias of original.aliases) assert.ok(problem.aliases.includes(alias));

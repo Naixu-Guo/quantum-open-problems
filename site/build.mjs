@@ -18,7 +18,8 @@ import { parseTexRecord, renderRecord, STATUSES, slug, TexError } from "./lib/te
 import { validateRecordShape, canonicalJson, recordDifferences, RecordError } from "./lib/record.mjs";
 import { loadTaxonomy } from "./lib/taxonomy.mjs";
 import { distinctQuestionCounts, validateRecordIdentities, metadataToMainProblem, ULID_PATTERN } from "./lib/metadata.mjs";
-import { buildCompatibility, legacyTagIndex } from "./lib/compatibility.mjs";
+import { buildCompatibility, legacyTagIndex, redirect } from "./lib/compatibility.mjs";
+import { loadMergedProblems } from "./lib/merged-problems.mjs";
 import {
   renderHome, renderProblemPage, renderDirectory, renderTagsIndex, renderTagPage, byRecentEdit,
   renderAbout, renderContribute, renderRandomPage, renderNotFound
@@ -168,6 +169,7 @@ if (errors.length) {
   process.exit(1);
 }
 validateRecordIdentities(records.map((record) => record.storedRecord));
+const merges = loadMergedProblems(repoRoot, records.map((record) => record.storedRecord));
 const seen = new Map();
 for (const record of records) {
   if (seen.has(record.id)) errors.push(`duplicate ID ${record.id} in ${seen.get(record.id)} and ${record.file}`);
@@ -245,6 +247,8 @@ write("tags/index.html", renderTagsIndex({ config, root: "../", taxonomy, fieldC
 write("about/index.html", renderAbout({ config, root: "../", stats, dates }));
 write("contribute/index.html", renderContribute({ config, root: "../", taxonomy, fieldCounts, topicCounts }));
 write("404.html", renderNotFound({ config, root: "/" + config.siteUrl.replace(/^https?:\/\/[^/]+\/?/, "") }));
+// Publish schemas at their canonical $id URLs, including relative payload references.
+fs.cpSync(path.join(repoRoot, "contract/schema"), path.join(outDir, "contract/v1"), { recursive: true });
 
 for (const record of records) {
   const root = "../../";
@@ -255,6 +259,9 @@ for (const record of records) {
     const target = `../${record.id}/`;
     write(`problem/${alias}/index.html`, `<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><title>Problem ${record.id}</title><link rel="canonical" href="${config.siteUrl.replace(/\/$/, "")}/problem/${record.id}/"><meta http-equiv="refresh" content="0;url=${target}"></head><body><a href="${target}">Open ${record.id}</a><script>location.replace(${JSON.stringify(target)} + location.search + location.hash);</script></body></html>\n`);
   }
+}
+for (const { record, target } of merges) {
+  for (const alias of record.aliases) write(`problem/${alias}/index.html`, redirect(`${config.siteUrl.replace(/\/$/, "")}/problem/${target.id}/`, target.title));
 }
 
 // One page per field and per topic in use. A field page lists the topics of
@@ -318,7 +325,7 @@ const apiIndex = {
   repositoryUrl: config.repositoryUrl,
   generated: today,
   updated: dates.updated,
-  counts: { distinctQuestions: stats.distinctQuestions, total: stats.total, unsolved: stats.unsolved, solved: stats.solved, fields: fieldCounts.size, topics: topicCounts.size, references: stats.references, equations: stats.equations },
+  counts: { unit: "records", distinctQuestions: stats.distinctQuestions, total: stats.total, unsolved: stats.unsolved, solved: stats.solved, fields: fieldCounts.size, topics: topicCounts.size, references: stats.references, equations: stats.equations },
   problems: records.map((record) => ({
     id: record.id,
     ulid: record.ulid,
@@ -344,7 +351,10 @@ write("api/index.json", `${JSON.stringify(apiIndex, null, 2)}\n`);
 write("api/identifiers.json", `${JSON.stringify({
   schema: "qiqcop-zoo/identifiers/1",
   problems: records.map((record) => ({ id: record.id, ulid: record.ulid, aliases: record.aliases })),
-  aliases: Object.fromEntries(records.flatMap((record) => record.aliases.map((alias) => [alias, { id: record.id, ulid: record.ulid }])))
+  aliases: Object.fromEntries([
+    ...records.flatMap((record) => record.aliases.map((alias) => [alias, { id: record.id, ulid: record.ulid }])),
+    ...merges.flatMap(({ record, target }) => record.aliases.map((alias) => [alias, { id: target.id, ulid: target.ulid, mergedFrom: record.ulid }]))
+  ])
 }, null, 2)}\n`);
 write("api/main/actors.json", `${JSON.stringify(actorRegistry.actors, null, 2)}\n`);
 const describeTags = (kind, names, counts) => names.map((name) => ({
@@ -398,7 +408,12 @@ for (const record of records) {
   }, null, 2)}\n`);
 }
 
-buildCompatibility({ write, records, payloads, apiIndex, legacy, config });
+for (const { record, target, reason } of merges) {
+  const payload = payloads.get(target.id);
+  for (const alias of record.aliases) write(`api/problems/${alias}.json`, `${JSON.stringify({ ...payload, mergedFrom: { id: record.id, ulid: record.ulid, reason } }, null, 2)}\n`);
+  write(`api/main/problems/${record.ulid}.json`, `${JSON.stringify({ schema: "qiqcop-zoo/main-adapter/1", problem: metadataToMainProblem(target), status: target.status, record: target, mergedFrom: { id: record.id, ulid: record.ulid, reason } }, null, 2)}\n`);
+}
+buildCompatibility({ write, records, payloads, apiIndex, legacy, config, merges });
 
 // Sitemap, robots, llms.txt
 const urls = [
@@ -412,20 +427,26 @@ write("llms.txt", `# ${config.fullName} (${config.shortName})
 
 > ${config.tagline}
 
-The zoo holds ${stats.total} problems (${stats.unsolved} unsolved, ${stats.solved} solved). Each record has a self-contained statement with TeX mathematics, a source attribution, scoped progress items, a comment on the remaining gap, full references with alpha-style labels, one or two fields (broad research areas), and one to five topics (specific objects and techniques).
+The zoo holds ${stats.total} permanent records (${stats.unsolved} unsolved, ${stats.solved} solved), covering ${stats.distinctQuestions.total} distinct mathematical questions (${stats.distinctQuestions.unsolved} unsolved, ${stats.distinctQuestions.solved} solved). Explicitly equivalent formulations count once in the question totals. Search results and downloads count records. Each record has a self-contained statement with TeX mathematics, a source attribution, scoped progress items, a comment on the remaining gap, full references with alpha-style labels, one or two fields (broad research areas), and one to five topics (specific objects and techniques).
 
-## Machine-readable access
+## MCP access
+
+Connect a remote MCP client to ${config.mcp.url} using Streamable HTTP. Public catalog reads require no API key or local installation. Use get_taxonomy for area/topic labels and slugs; search_problems accepts either, case-insensitively. Search returns total matches and nextOffset; count is only the current page (50 by default). Continue with the same filters and offset=nextOffset until nextOffset is null. get_status separates permanent record counts from distinct-question counts. Use get_problem, list_references, search_sources, and build_context for details; build_context respects a token budget. Setup guide: ${siteUrl}/about/#mcp.
+
+## Machine-readable downloads
 
 - ${siteUrl}/api/index.json: every problem with title, status, fields, topics, plain-text statement, and links.
 - ${siteUrl}/api/problems/<id>.json: one full record (TeX source, HTML, plain text, references, equation labels).
 - ${siteUrl}/api/identifiers.json: permanent op IDs, ULIDs, and aliases; every alias resolves through the problem API.
 - ${siteUrl}/api/main/problems/<ulid>.json: main-compatible Problem metadata with our binary status and complete authored record.
 - ${siteUrl}/api/tags.json: the taxonomy of fields and topics with counts.
+- ${siteUrl}/api/v1/problems.jsonl.gz: compressed full static catalog snapshot. The legacy .jsonl URL remains a download; use .json for application/json.
+- ${config.mcp.serviceUrl}/api/v1/problems.jsonl: current service problem views as application/x-ndjson, with HTTP gzip when accepted.
 - ${siteUrl}/problem/<id>/<id>.tex: the TeX form of one record.
 
 ## Contributing
 
-Records are JSON files in ${config.repositoryUrl}/tree/${config.branch}/${config.databasePath}, with a TeX form of each in ${config.texPath}. Follow database/_template.json and open a pull request; the build validates every record. People without a GitHub account can propose a problem at ${siteUrl}/contribute/; proposals are reviewed and rewritten by the maintainers before publication.
+Records are JSON files in ${config.repositoryUrl}/tree/${config.branch}/${config.databasePath}, with a TeX form of each in ${config.texPath}. Follow database/_template.json and open a pull request; the build validates every record. ${config.contribute?.submissionUrl && config.contribute?.captcha?.siteKey ? `Send proposals without an account at ${siteUrl}/contribute/.` : `Direct online sending is not enabled. Prepare and copy a proposal at ${siteUrl}/contribute/, then submit a GitHub issue (a GitHub account is required).`} Proposals are reviewed by the maintainers before publication.
 `);
 
 console.log(`Built ${records.length} problems, ${fieldCounts.size} fields, ${topicCounts.size} topics into ${path.relative(repoRoot, outDir) || "."}`);

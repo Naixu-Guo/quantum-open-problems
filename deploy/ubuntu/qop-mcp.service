@@ -1,0 +1,24 @@
+[Unit]
+Description=Quantum Open Problems public MCP
+Wants=network-online.target qop.service
+After=network-online.target qop.service
+
+[Service]
+Type=simple
+User=qop
+Group=qop
+WorkingDirectory=/opt/qop/mcp-current
+EnvironmentFile=/etc/qop/mcp.env
+ExecStart=/opt/node/bin/node --experimental-strip-types --no-warnings mcp/src/http-server.ts
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=10
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+[Install]
+WantedBy=multi-user.target

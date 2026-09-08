@@ -6,12 +6,12 @@ named by its stable ID, with the TeX form of each record in
 only way content enters the site; the build validates every record, and the
 validation workflow runs it on each pull request.
 
-If you would rather not work with Git, use the
-[proposal form](https://naixu-guo.github.io/quantum-open-problems/contribute/):
-describe the problem, its sources, and what is known, and leave your name and
-email. The maintainers check every proposal against the literature, rewrite
-it in the format below, and publish it with credit to you. The rest of this
-guide is for people who write the record themselves.
+To suggest a problem without editing the repository, use the
+[proposal worksheet](https://qiqc-op.com/contribute/) to prepare and copy the
+statement, sources, and known progress, then submit a GitHub issue with an
+account. Direct online sending is not enabled yet. Maintainers review
+proposals and publish accepted records with contributor credit. The rest of
+this guide is for people who write the record themselves.
 
 For agent-assisted additions and revisions, follow the repository's
 [writing-open-problems skill](.claude/skills/writing-open-problems/SKILL.md).
@@ -101,6 +101,12 @@ do not create fictional reviews, decisions, or research attribution.
 Service contributions and reviews remain in the ledger. Pull requests
 changing the ledger or activity roots need the `ledger-change` label to
 identify a deliberate update.
+
+For an existing duplicate, consolidate its useful content into the canonical
+question and follow the [catalog merge procedure](docs/CATALOG_INTEGRATION.md#merging-duplicate-records).
+An explicit archive preserves the old identifiers and makes their URLs resolve
+to the canonical question while removing the duplicate from active lists and
+API/MCP counts. Deleting the active JSON alone is incomplete.
 
 ## Fields and topics
 
