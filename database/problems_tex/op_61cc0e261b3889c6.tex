@@ -62,10 +62,16 @@ of Eq.~\eqref{eq:qma2-containment} are known
   capture any constant number of them \sourcecite{ref:qma2-hm13}{HM13}.
 
   \item For the non-negative-amplitude variant, Jeronimo and Wu proved
-  $\mathsf{QMA}^{+}(2) = \mathsf{NEXP}$ and showed that $\mathsf{QMA}(2)$ with
-  a sufficiently large constant completeness-soundness gap coincides with
-  $\mathsf{QMA}^{+}(2)$, while stating that for $\mathsf{QMA}(2)$ itself only
-  the trivial containments of Eq.~\eqref{eq:qma2-containment} are known
+  $\mathsf{QMA}^{+}(2) = \mathsf{NEXP}$ and showed that
+  $\mathsf{QMA}^{+}(2)$ with completeness--soundness gap at least
+  $3/4 + 1/\operatorname{poly}(n)$ is contained in ordinary
+  $\mathsf{QMA}(2)$, so that $\mathsf{QMA}(2) = \mathsf{NEXP}$ would follow
+  if the gap of the non-negative-amplitude protocol could be strongly
+  amplified, a step their Section~8 leaves unresolved: within
+  $\mathsf{QMA}^{+}(2)$ they achieve only mild amplification, to gap $2/9$
+  from any inverse-polynomial gap and to $1 - e^{-\operatorname{poly}(n)}$
+  only from a gap of at least $7/8$.  For $\mathsf{QMA}(2)$ itself only the
+  trivial containments of Eq.~\eqref{eq:qma2-containment} are known
   \sourcecite{ref:qma2-jw24}{JW24}.
 
   \item Bassirian, Fefferman, Leigh, Marwaha, and Wu separated a single witness

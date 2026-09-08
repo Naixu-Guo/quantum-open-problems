@@ -21,9 +21,9 @@ is
   \label{eq:srtk-rank-def}
 \end{equation}
 where an $n$-qubit stabilizer state is the common $+1$ eigenstate of $n$
-commuting Pauli operators.  Which of the two alternatives holds for
+independent commuting Hermitian Pauli operators.  Which of the two alternatives holds for
 $\chi\bigl(|T\rangle^{\otimes n}\bigr)$: does there exist a constant $k$
-with $\chi\bigl(|T\rangle^{\otimes n}\bigr) \le n^{k}$ for all $n$, or is
+with $\chi\bigl(|T\rangle^{\otimes n}\bigr) \le n^{k}$ for all sufficiently large $n$, or is
 $\chi\bigl(|T\rangle^{\otimes n}\bigr)$ not bounded by any polynomial in
 $n$?  The best current bounds are
 \begin{equation}
@@ -34,15 +34,21 @@ $n$?  The best current bounds are
 \end{equation}
 which leave both alternatives open.  A sharper sub-question is whether the
 exponential rate $\gamma = \lim_{n\to\infty} \frac{1}{n}\log_{2}
-\chi\bigl(|T\rangle^{\otimes n}\bigr)$, if it exists, is strictly positive,
+\chi\bigl(|T\rangle^{\otimes n}\bigr)$, which exists by sub-multiplicativity
+of the rank under tensor product and Fekete's lemma, is strictly positive,
 since Eq.~\eqref{eq:srtk-bounds} only pins $\gamma$ to the interval
 $[0, 0.3963]$.  The small-copy frontier of the quantity in
 Eq.~\eqref{eq:srtk-rank-def} on copies of the state in
-Eq.~\eqref{eq:srtk-t-state} is also open: $\chi\bigl(|T\rangle^{\otimes
-t}\bigr) = t$ is established numerically for $2 \le t \le 4$ (and proved
-for $t = 4$ by exhaustive search), $\chi\bigl(|T\rangle^{\otimes 6}\bigr)
-\le 6$, and numerical evidence gives $\chi\bigl(|T\rangle^{\otimes 7}\bigr) = 12$; determine the exact
-values at $t = 5$, $6$, and $7$.
+Eq.~\eqref{eq:srtk-t-state} is also open: the exact values $\chi\bigl(|T\rangle^{\otimes 2}\bigr) = 2$
+and $\chi\bigl(|T\rangle^{\otimes 3}\bigr) = 3$ are proved, while at four
+through seven copies only upper bounds are known,
+$\chi\bigl(|T\rangle^{\otimes 4}\bigr) \le 4$,
+$\chi\bigl(|T\rangle^{\otimes 5}\bigr) \le 6$,
+$\chi\bigl(|T\rangle^{\otimes 6}\bigr) \le 6$, and
+$\chi\bigl(|T\rangle^{\otimes 7}\bigr) \le 12$, the four-copy bound having
+since been certified as the exact value $\chi\bigl(|T\rangle^{\otimes
+4}\bigr) = 4$ by an exhaustive computer search; determine the exact values
+at $t = 5$, $6$, and $7$.
 
 \subsection*{Status}
 
@@ -79,16 +85,22 @@ bounds \sourcecite{ref:srtk-bbc19}{BBC+19}.
   stabilizer decompositions \sourcecite{ref:srtk-bg16}{BG16}.
 
   \item Bravyi, Browne, Calpin, Campbell, Gosset, and Howard developed the theory
-  of exact and approximate stabilizer rank and confirmed
-  $\chi\bigl(|T\rangle^{\otimes t}\bigr) = t$ for $2 \le t \le 4$, with
-  the numerical value $\chi\bigl(|T\rangle^{\otimes 7}\bigr) = 12$ marking
-  the transition from linear to exponential scaling
-  \sourcecite{ref:srtk-bbc19}{BBC+19}.
+  of exact and approximate stabilizer rank; the proved exact values are
+  $\chi\bigl(|T\rangle^{\otimes 2}\bigr) = 2$ and
+  $\chi\bigl(|T\rangle^{\otimes 3}\bigr) = 3$, and past three copies only
+  upper bounds are known, namely $\chi\bigl(|T\rangle^{\otimes 4}\bigr)
+  \le 4$, $\chi\bigl(|T\rangle^{\otimes 5}\bigr) \le 6$, and
+  $\chi\bigl(|T\rangle^{\otimes 7}\bigr) \le 12$ as tabulated by Qassim,
+  Pashayan, and Gosset, and no finite set of copy counts can settle the
+  asymptotic growth in either direction
+  \sourcecite{ref:srtk-bbc19}{BBC+19},
+  \sourcecite{ref:srtk-qpg21}{QPG21}.
 
   \item The upper bound in Eq.~\eqref{eq:srtk-bounds} is due to Qassim, Pashayan,
   and Gosset: entangled six-qubit magic cat states of stabilizer rank
   exactly $3$ give $\chi\bigl(|T\rangle^{\otimes n}\bigr) \le
-  O\bigl(2^{\alpha n}\bigr)$, improving the previous
+  O\bigl(2^{\alpha n}\bigr)$, with the exponent attained only in the limit
+  of an infinitely long chain of contracted cat states, improving the previous
   $\chi\bigl(|T\rangle^{\otimes 12}\bigr) \le 47$, that is $\alpha \le
   0.463$, of Kocia \sourcecite{ref:srtk-koc20}{Koc20}, and disproving the
   conjectured value $7$ at six copies by showing
@@ -219,15 +231,27 @@ What remains unresolved is the alternative itself: neither an $n^{O(1)}$
 upper bound nor a super-polynomial lower bound on
 $\chi\bigl(|T\rangle^{\otimes n}\bigr)$ is known, and the two sides of
 Eq.~\eqref{eq:srtk-bounds} have stood since 2021 and 2024 respectively.
-An explicit polynomial upper bound would give, by gadgetizing every T gate
-through state injection into a Clifford circuit acting on
-$|T\rangle^{\otimes m}$, a polynomial-time classical strong-simulation
-algorithm for all Clifford+T circuits with polynomially many T gates, and by
-Theorem~1.6 of \sourcecite{ref:srtk-mt24}{MT24} would imply
+A polynomial upper bound established merely as a rank statement would
+not by itself give a uniform simulation: a bound on $\chi$ does not
+construct a stabilizer decomposition of $|T\rangle^{\otimes m}$ or compute
+its coefficients, and by gadgetizing every T gate through state injection
+into a Clifford circuit acting on $|T\rangle^{\otimes m}$ with the
+decomposition supplied as polynomial advice, Theorem~1.6 of
+\sourcecite{ref:srtk-mt24}{MT24} draws from such a bound only the
+nonuniform consequence
 $\mathsf{P}^{\#\mathsf{P}} \subseteq \mathsf{P}/\mathsf{poly}$, so it is
-believed false.  Any super-polynomial lower bound, even $n^{2+\varepsilon}$
-for some $\varepsilon > 0$, would settle the conjectured super-polynomial
-growth and be the first unconditional bound beyond the
+believed false.  A polynomial-time classical strong-simulation algorithm
+for all Clifford+T circuits with polynomially many T gates would need the
+additional hypothesis that some polynomial-length decomposition of
+$|T\rangle^{\otimes m}$ can be constructed, with coefficients computable
+to the required precision, in polynomial time, as the explicit cat-state
+constructions behind Eq.~\eqref{eq:srtk-bounds} can be.  Settling the super-polynomial alternative requires a lower bound that
+rules out $\chi\bigl(|T\rangle^{\otimes n}\bigr) \le n^{k}$ for every
+constant $k$; a bound of one fixed exponent, such as $n^{2+\varepsilon}$
+for some $\varepsilon > 0$, would improve the current
+$\Omega\bigl(n^{2}/\operatorname{polylog} n\bigr)$ but is still polynomial
+and would leave the alternative open.  A genuinely super-polynomial lower
+bound would be the first unconditional bound beyond the
 $\Omega\bigl(n^{2}/\operatorname{polylog} n\bigr)$ level, since the
 direct methods of Peleg, Shpilka, and Volk, Labib, and Lovitz and Steffan
 stop at linear and a quadratic approximate bound alone cannot give
