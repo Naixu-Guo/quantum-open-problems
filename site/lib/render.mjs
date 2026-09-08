@@ -145,7 +145,7 @@ ${body}
         <a href="${root}api/index.json">JSON API</a>
         <a href="${config.repositoryUrl}" rel="noreferrer">Source repository</a>
       </nav>
-      ${current === "home" ? `<p class="footer-note footer-credit">Compiled and maintained by Naixu Guo, Bikun Li, and contributors. <a href="${root}about/#credits">Credits</a>.</p>` : ""}
+      ${current === "home" ? `<p class="footer-note footer-credit">Compiled and maintained by Bikun Li, Qicheng Tang, Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo. <a href="${root}about/#credits">Credits</a>.</p>` : ""}
       <p class="footer-note">A dated research index. Verify a status against the cited sources before relying on it. <a href="#top">Back to top ↑</a></p>
     </footer>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -647,7 +647,7 @@ export function renderAbout({ config, root, stats, dates }) {
         </ul>
 
         <h2 id="credits">Credits</h2>
-        <p>The problem collection is compiled and maintained by Naixu Guo, Bikun Li, and the contributors to the <a href="${config.repositoryUrl}" rel="noreferrer">GitHub repository</a>. Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
+        <p>The problem collection is compiled and maintained by Bikun Li, Qicheng Tang, Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo. Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
       </div>
     </section>`;
   return layout({

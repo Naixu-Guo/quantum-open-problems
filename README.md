@@ -27,8 +27,8 @@ Please cite the original research sources when using a problem or result.
 
 ## Credits
 
-The problem collection is compiled and maintained by Naixu Guo, Bikun Li, and
-the contributors to this repository. See the
+The problem collection is compiled and maintained by Bikun Li, Qicheng Tang,
+Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo. See the
 [project credits](https://naixu-guo.github.io/quantum-open-problems/about/#credits)
 for acknowledgments.
 
