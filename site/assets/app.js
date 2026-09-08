@@ -541,7 +541,7 @@
         return;
       }
       if (!submitUrl) { say("Online sending is not connected on this deployment; use Copy as text.", "error"); return; }
-      if (!p.captchaToken) { say("Complete the human verification above the Send button, then send again.", "error"); return; }
+      if (captchaProvider && !p.captchaToken) { say("Complete the human verification above the Send button, then send again.", "error"); return; }
       if (submitButton) submitButton.disabled = true;
       say("Sending…");
       try {

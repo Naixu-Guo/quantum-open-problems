@@ -7,9 +7,8 @@ only way content enters the site; the build validates every record, and the
 validation workflow runs it on each pull request.
 
 To suggest a problem without editing the repository, use the
-[proposal worksheet](https://qiqc-op.com/contribute/) to prepare and copy the
-statement, sources, and known progress, then submit a GitHub issue with an
-account. Direct online sending is not enabled yet. Maintainers review
+[proposal form](https://qiqc-op.com/contribute/) to submit the statement,
+sources, and known progress without an account. Maintainers review
 proposals and publish accepted records with contributor credit. The rest of
 this guide is for people who write the record themselves.
 

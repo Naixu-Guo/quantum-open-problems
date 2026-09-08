@@ -36,28 +36,52 @@ file too; changing the default does not override a configured interval.
 
 ## Optional submissions and editor access
 
-The public deployment currently offers anonymous catalog reads. Direct proposal
-sending and authenticated research submissions are not provisioned. The static
-proposal page is a worksheet; sending its text through GitHub requires an account.
-Do not advertise these optional write paths as available until setup is complete.
+The project proposal inbox is separate from research contributions and all email
+accounts. Submitters need no login. Maintainers sign in at
+`https://api.qiqc-op.com/inbox/` using an inbox-only access key; this grants no
+ledger, MCP write, or personal mailbox access. The inbox files are served even
+with `QOP_WEB_DIR=0`.
 
-To enable them, first provision a human editor on the service checkout using
-`bootstrap-editor <numeric-github-user-id> "Full Name"` after verifying the
-numeric identity through GitHub. Issue an editor key with `key issue <actorId>`
-and store the resulting secret securely; the commands and recovery rules are in
-the [service guide](../../service/README.md#running-locally-with-github-login).
-Configure an authenticated Git remote for service commits and verify a write
-can sync before opening research contributions. Public HTTP MCP stays read-only.
+To enable basic protection, set these in the private `/etc/qop/service.env`:
 
-For the proposal inbox, register a production CAPTCHA widget for `qiqc-op.com`
-and `www.qiqc-op.com`. In the private `/etc/qop/service.env`, set
-`QOP_SUBMISSION_ORIGINS=https://qiqc-op.com,https://www.qiqc-op.com`,
-`QOP_CAPTCHA_PROVIDER=turnstile`, and `QOP_CAPTCHA_SECRET` to its secret.
+```ini
+QOP_SUBMISSIONS_MODE=basic
+QOP_SUBMISSION_ORIGINS=https://qiqc-op.com,https://www.qiqc-op.com
+QOP_SUBMISSIONS_PER_HOUR=10
+```
+
+Generate a new random key on the operator's computer:
+
+```sh
+node scripts/inbox-access-key.mjs /tmp/qop-inbox-access.txt
+```
+
+The access key is written only to the new file (mode 0600). The command prints
+`QOP_INBOX_KEY_HASH=...`; add that hash to the private server environment.
+Do not use a human-chosen password or commit the key file. Store the access key
+in your password manager. To rotate it, generate a new file, replace the hash,
+and restart the API; existing inbox sessions become invalid.
+
 Set `contribute.submissionUrl=https://api.qiqc-op.com/api/v1/submissions` and
-the matching public `contribute.captcha.siteKey` in `site/config.json`.
-Restart the API and verify an allowed-origin preflight, a CAPTCHA-backed
-submission, and editor-only inbox retrieval before publishing the enabled form.
-Never use the provider's test keys for the public deployment.
+`contribute.spamProtection=basic` in `site/config.json`. Install the nginx inbox
+location from `nginx-domain.conf`, restart the API, and verify allowed-origin
+submission, anonymous-read denial, login, review, and logout before publishing
+the enabled form. Basic mode uses limits, a honeypot, and duplicate suppression.
+For CAPTCHA protection, set server mode `captcha`, configure `QOP_CAPTCHA_SECRET`
+and the provider, change site `spamProtection` to `captcha`, and configure the
+matching public widget site key. Unconfigured deployments stay closed.
+
+Inbox sessions expire after twelve hours. JSON exports for AI omit contact email
+and request metadata and download to the maintainer's computer; no AI service is
+called. The review note and status can be saved in the inbox. Marking accepted
+does not publish a record. The usual catalog PR workflow still publishes it.
+The inbox SQLite file is included in the existing daily backup.
+
+Authenticated research writes remain a separate optional setup: provision a
+verified human editor with `bootstrap-editor <numeric-github-user-id> "Full Name"`,
+issue an editor key, configure an authenticated Git remote, and verify sync.
+See the [service guide](../../service/README.md#running-locally-with-github-login).
+Public HTTP MCP stays read-only.
 
 ## Public MCP endpoint
 

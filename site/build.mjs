@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { submissionsOnline } from "./lib/submission-settings.mjs";
 // Build the QIQCOP Zoo static site from database/problems_json/*.json into dist/.
 //
 //   node site/build.mjs            # build into <repo>/dist
@@ -446,7 +447,7 @@ Connect a remote MCP client to ${config.mcp.url} using Streamable HTTP. Public c
 
 ## Contributing
 
-Records are JSON files in ${config.repositoryUrl}/tree/${config.branch}/${config.databasePath}, with a TeX form of each in ${config.texPath}. Follow database/_template.json and open a pull request; the build validates every record. ${config.contribute?.submissionUrl && config.contribute?.captcha?.siteKey ? `Send proposals without an account at ${siteUrl}/contribute/.` : `Direct online sending is not enabled. Prepare and copy a proposal at ${siteUrl}/contribute/, then submit a GitHub issue (a GitHub account is required).`} Proposals are reviewed by the maintainers before publication.
+Records are JSON files in ${config.repositoryUrl}/tree/${config.branch}/${config.databasePath}, with a TeX form of each in ${config.texPath}. Follow database/_template.json and open a pull request; the build validates every record. ${submissionsOnline(config) ? `Send proposals without an account at ${siteUrl}/contribute/.` : `Direct online sending is not enabled. Prepare and copy a proposal at ${siteUrl}/contribute/, then submit a GitHub issue (a GitHub account is required).`} Proposals are reviewed by the maintainers before publication.
 `);
 
 console.log(`Built ${records.length} problems, ${fieldCounts.size} fields, ${topicCounts.size} topics into ${path.relative(repoRoot, outDir) || "."}`);

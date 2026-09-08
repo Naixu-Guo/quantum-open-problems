@@ -14,6 +14,17 @@ const counts = { fieldCounts: new Map([[taxonomy.fields[0], 3]]), topicCounts: n
 const online = { ...config, contribute: { submissionUrl: "https://inbox.example.org/api/v1/submissions", captcha: { provider: "turnstile", siteKey: "1x00000000000000000000AA" } } };
 const offline = { ...config, contribute: { submissionUrl: "", captcha: { provider: "turnstile", siteKey: "" } } };
 
+test("basic protection enables the form explicitly without a third-party widget", () => {
+  const basic = { ...online, contribute: { submissionUrl: online.contribute.submissionUrl, spamProtection: "basic" } };
+  const html = renderContribute({ config: basic, root: "../", taxonomy, ...counts });
+  assert.ok(!html.includes("proposal-offline"));
+  assert.ok(!html.includes("challenges.cloudflare.com"));
+  assert.ok(html.includes('id="proposal-submit">Send proposal'));
+  assert.ok(html.includes('data-captcha-provider="" data-captcha-response=""'));
+  const missingKey = renderContribute({ config: { ...online, contribute: { submissionUrl: online.contribute.submissionUrl } }, root: "../", taxonomy, ...counts });
+  assert.ok(missingKey.includes('id="proposal-submit" disabled'));
+});
+
 test("the form's limits are the inbox's limits", () => {
   for (const [key, limit] of Object.entries(PROPOSAL_LIMITS)) assert.deepEqual(limit, LIMITS[key], `limit for ${key}`);
 });

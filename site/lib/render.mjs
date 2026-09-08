@@ -1,3 +1,4 @@
+import { submissionsOnline as acceptsSubmissions } from "./submission-settings.mjs";
 // HTML templates for every page of the zoo. Pure functions: records in,
 // strings out. No runtime dependencies.
 
@@ -608,7 +609,7 @@ export function renderTagPage({ config, root, kind, tag, tagSlug = slug(tag), hi
 }
 
 export function renderAbout({ config, root, stats, dates }) {
-  const submissionsOnline = Boolean(config.contribute?.submissionUrl && config.contribute?.captcha?.siteKey);
+  const submissionsOnline = acceptsSubmissions(config);
   const mcpServiceUrl = config.mcp.serviceUrl;
   const mcpUrl = config.mcp.url;
   const mcpConfig = JSON.stringify({
@@ -712,7 +713,8 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
   const widget = CAPTCHA_WIDGETS[providerKey];
   if (!widget) throw new Error(`site/config.json: contribute.captcha.provider must be one of ${Object.keys(CAPTCHA_WIDGETS).join(", ")}`);
   const siteKey = String(settings.captcha?.siteKey ?? "").trim();
-  const online = Boolean(submissionUrl && siteKey);
+  const online = acceptsSubmissions(config);
+  const usesCaptcha = online && settings.spamProtection !== "basic";
   const issueUrl = `${config.repositoryUrl}/issues/new?template=new-problem.yml`;
   const L = PROPOSAL_LIMITS;
   const topics = taxonomy.topics.slice().sort((a, b) => a.localeCompare(b));
@@ -740,10 +742,10 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
           </div>`;
   const input = (id, name, attrs = "") => `<input id="${id}" name="${name}" type="text" ${attrs} aria-describedby="${id}-hint">`;
   const textarea = (id, name, rows, attrs = "") => `<textarea id="${id}" name="${name}" rows="${rows}" ${attrs} aria-describedby="${id}-hint"></textarea>`;
-  const captchaSlot = online
+  const captchaSlot = usesCaptcha
     ? `<div class="${widget.className}" data-sitekey="${escape(siteKey)}" data-theme="auto"></div>
             <p class="form-hint">Verification by <a href="${widget.privacyUrl}" rel="noreferrer">${widget.name}</a>, which keeps automated submissions out of the inbox.</p>`
-    : `<div class="form-notice" id="proposal-offline">Online sending is not enabled yet. Fill in this worksheet, use <strong>Copy as text</strong>, and paste it into a <a href="${issueUrl}" rel="noreferrer">new-problem issue on GitHub</a>. Submitting the issue requires a GitHub account. The worksheet does not send your details anywhere.</div>`;
+    : online ? "" : `<div class="form-notice" id="proposal-offline">Online sending is not enabled yet. Fill in this worksheet, use <strong>Copy as text</strong>, and paste it into a <a href="${issueUrl}" rel="noreferrer">new-problem issue on GitHub</a>. Submitting the issue requires a GitHub account. The worksheet does not send your details anywhere.</div>`;
   const body = `
     <div class="contribute-layout">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><span>Contribute</span></nav>
@@ -762,7 +764,7 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
         </div>
       </div>
 
-      <form class="proposal-form no-math" id="proposal-form" novalidate data-submit-url="${escape(submissionUrl)}" data-captcha-provider="${online ? providerKey : ""}" data-captcha-response="${online ? widget.responseField : ""}" data-limits='${escape(JSON.stringify(L))}'>
+      <form class="proposal-form no-math" id="proposal-form" novalidate data-submit-url="${escape(submissionUrl)}" data-captcha-provider="${usesCaptcha ? providerKey : ""}" data-captcha-response="${usesCaptcha ? widget.responseField : ""}" data-limits='${escape(JSON.stringify(L))}'>
         <fieldset>
           <legend>The problem</legend>
           ${field("proposal-title", "Title", input("proposal-title", "title", `required minlength="${L.title.min}" maxlength="${L.title.max}" autocomplete="off"`), "A short descriptive title, as it would head the problem page.")}
@@ -838,7 +840,7 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
     title: "Propose an open problem",
     description: `Propose an open problem for the ${config.shortName}: statement, fields and topics, sources, progress, and how to reach you. Proposals are reviewed and rewritten by the maintainers before publication.`,
     body, bodyClass: "page-contribute",
-    extraHead: online ? `<script src="${widget.script}" async defer></script>` : ""
+    extraHead: usesCaptcha ? `<script src="${widget.script}" async defer></script>` : ""
   });
 }
 

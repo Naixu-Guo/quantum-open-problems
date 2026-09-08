@@ -22,8 +22,10 @@ import { HttpError } from "./errors.ts";
 import { handleWeb, parseCookies, SESSION_COOKIE, LOGIN_COOKIE, type Caller } from "./web.ts";
 import { hasRole } from "../../contract/src/types/actor.ts";
 import { parseSubmission, verifyCaptcha, submissionText, SUBMISSION_STATES, type SubmissionState } from "./submissions.ts";
+import { handleInbox, INBOX_COOKIE } from "./inbox.ts";
 
 interface Call {
+  inboxSession: boolean;
   params: string[];
   query: URLSearchParams;
   actorId: string | null;
@@ -40,6 +42,8 @@ interface Reply {
 }
 
 interface Route {
+  /** A scoped project-inbox session may access this route, without becoming a ledger actor. */
+  inboxAccess?: boolean;
   method: "GET" | "POST";
   pattern: RegExp;
   auth: boolean;
@@ -202,33 +206,40 @@ function routes(service: Service): Route[] {
     { method: "GET", pattern: /^\/api\/v1\/events$/u, auth: false, handler: ({ query }) => ok(events(ledger(), service.index, integer(query, "after", 0), integer(query, "limit", 100), query.get("type") ?? undefined)) },
     { method: "GET", pattern: /^\/api\/v1\/actors\/me$/u, auth: true, callerSpecific: true, handler: (call) => ok({ ...notNull(recordView(ledger(), actor(call)), "actor"), keys: auth.keysFor(actor(call)) }) },
 
-    // The proposal inbox. Anyone may file a proposal from the static site's form, once the CAPTCHA
-    // provider confirms the token; only editors read the inbox, since it holds contact details.
+    // Public filing requires explicit basic or CAPTCHA mode. Reads require an editor
+    // or the scoped project inbox session, since proposals hold private contact details.
     { method: "POST", pattern: /^\/api\/v1\/submissions$/u, auth: false, cors: true, handler: async (call) => {
       const rules = service.submissionsConfig;
-      if (!rules.captcha) throw new HttpError(503, "online proposals are not enabled on this service; use the GitHub route described on the contribute page");
-      const parsed = parseSubmission(parseJson(call));
+      if (rules.mode === "disabled") throw new HttpError(503, "online proposals are not enabled on this service; use the GitHub route described on the contribute page");
       if (auth.bump(`submissions:${call.address}`, HOUR) > rules.perAddressPerHour) throw new HttpError(429, `more than ${rules.perAddressPerHour} proposals from this address within an hour; try again later`);
-      const verdict = await verifyCaptcha(rules.captcha, parsed.captchaToken, call.address);
-      if (!verdict.ok) throw new HttpError(403, "the human verification did not pass; complete it again and resubmit");
+      const parsed = parseSubmission(parseJson(call), rules.mode === "captcha");
+      if (rules.mode === "captcha") {
+        if (!rules.captcha) throw new HttpError(503, "the proposal verifier is not configured");
+        const verdict = await verifyCaptcha(rules.captcha, parsed.captchaToken, call.address);
+        if (!verdict.ok) throw new HttpError(403, "the human verification did not pass; complete it again and resubmit");
+      }
       const userAgent = Array.isArray(call.headers["user-agent"]) ? call.headers["user-agent"][0] ?? "" : call.headers["user-agent"] ?? "";
-      const receipt = service.submissions.accept(parsed.payload, { address: call.address, userAgent, captchaProvider: rules.captcha.provider });
+      const receipt = service.submissions.accept(parsed.payload, { address: call.address, userAgent, captchaProvider: rules.mode === "captcha" ? rules.captcha!.provider : "basic" });
       return { status: receipt.duplicate ? 200 : 201, body: { accepted: true, ...receipt } };
     } },
-    { method: "GET", pattern: /^\/api\/v1\/submissions$/u, auth: true, callerSpecific: true, handler: (call) => {
-      editor(call);
+    { method: "GET", pattern: /^\/api\/v1\/submissions$/u, auth: true, inboxAccess: true, callerSpecific: true, handler: (call) => {
+      if (!call.inboxSession) editor(call);
       const state = call.query.get("state");
       if (state !== null && !(SUBMISSION_STATES as readonly string[]).includes(state)) throw new HttpError(400, `state must be one of ${SUBMISSION_STATES.join(", ")}`);
-      const proposals = service.submissions.list({ state: (state as SubmissionState | null) ?? undefined, limit: integer(call.query, "limit", 50) });
-      return ok({ counts: service.submissions.counts(), count: proposals.length, submissions: proposals });
+      const offset = integer(call.query, "offset", 0);
+      const limit = Math.min(Math.max(integer(call.query, "limit", 50), 1), 1000);
+      const counts = service.submissions.counts();
+      const total = state ? counts[state as SubmissionState] : Object.values(counts).reduce((a, b) => a + b, 0);
+      const proposals = service.submissions.list({ state: (state as SubmissionState | null) ?? undefined, limit, offset });
+      return ok({ counts, count: proposals.length, total, offset, limit, nextOffset: offset + proposals.length < total ? offset + proposals.length : null, submissions: proposals });
     } },
-    { method: "GET", pattern: /^\/api\/v1\/submissions\/([^/]+)$/u, auth: true, callerSpecific: true, handler: (call) => {
-      editor(call);
+    { method: "GET", pattern: /^\/api\/v1\/submissions\/([^/]+)$/u, auth: true, inboxAccess: true, callerSpecific: true, handler: (call) => {
+      if (!call.inboxSession) editor(call);
       const found = submission(call.params[0]!);
       return ok({ ...found, text: submissionText(found) });
     } },
-    { method: "POST", pattern: /^\/api\/v1\/submissions\/([^/]+)\/state$/u, auth: true, handler: (call) => {
-      const actorId = editor(call);
+    { method: "POST", pattern: /^\/api\/v1\/submissions\/([^/]+)\/state$/u, auth: true, inboxAccess: true, handler: (call) => {
+      const actorId = call.inboxSession ? null : editor(call);
       const payload = parseJson(call);
       if (typeof payload !== "object" || payload === null || Array.isArray(payload)) throw new HttpError(422, "the body must be an object with state and an optional note");
       const { state, note } = payload as { state?: unknown; note?: unknown };
@@ -410,6 +421,8 @@ export function createServer(service: Service): http.Server {
       // Who is calling. On the API a bearer token names the actor and an invalid one is refused;
       // everywhere the web app's session cookie names the actor. The cookies are read raw.
       const cookies = parseCookies(request.headers.cookie);
+      const inboxSession = service.auth.validInboxSession(cookies[INBOX_COOKIE] ?? "", service.submissionsConfig.inboxKeyHash);
+      if (await handleInbox(service, request, response, url, { sameOrigin: sameOrigin(request, service.web.publicUrl), address, token: cookies[INBOX_COOKIE] ?? "", readBody })) return;
       const caller: Caller = { actorId: null, viaSession: false, sessionToken: cookies[SESSION_COOKIE] ?? null, loginNonce: cookies[LOGIN_COOKIE] ?? null, sameOrigin: sameOrigin(request, service.web.publicUrl) };
       const header = request.headers.authorization;
       if (isApi && header?.startsWith("Bearer ")) {
@@ -437,7 +450,8 @@ export function createServer(service: Service): http.Server {
         if (typeof request.headers.origin === "string" && !cors["Access-Control-Allow-Origin"]) throw new HttpError(403, "this origin may not post here");
       }
       cacheable = method === "GET" && !route.auth && !route.callerSpecific && caller.actorId === null;
-      if (route.auth && !caller.actorId) throw new HttpError(401, "a bearer token or a login session for an actor is required");
+      if (route.auth && !caller.actorId && !(route.inboxAccess && inboxSession)) throw new HttpError(401, "a bearer token or an authorized login session is required");
+      if (method === "POST" && route.inboxAccess && inboxSession && !caller.sameOrigin) throw new HttpError(403, "cross-site request refused");
       // A cookie is sent by the browser on its own, so a write it authenticates must come from our own pages.
       if (method === "POST" && caller.viaSession && !caller.sameOrigin) throw new HttpError(403, "cross-site request refused");
       const actorId = caller.actorId;
@@ -456,7 +470,7 @@ export function createServer(service: Service): http.Server {
       }
 
       const match = url.pathname.match(route.pattern)!;
-      const reply = await route.handler({ params: match.slice(1).map((s) => decodeURIComponent(s)), query: url.searchParams, actorId, raw, headers: request.headers, address });
+      const reply = await route.handler({ inboxSession, params: match.slice(1).map((s) => decodeURIComponent(s)), query: url.searchParams, actorId, raw, headers: request.headers, address });
       if (typeof idempotencyKey === "string" && actorId && reply.status !== 503) service.auth.remember(actorId, idempotencyKey, requestHash, reply.status, JSON.stringify(reply.body));
       send(reply.status, reply.body, {}, reply.contentType);
     } catch (error) {
