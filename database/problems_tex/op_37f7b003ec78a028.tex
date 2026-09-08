@@ -39,9 +39,9 @@ since Eq.~\eqref{eq:srtk-bounds} only pins $\gamma$ to the interval
 $[0, 0.3963]$.  The small-copy frontier of the quantity in
 Eq.~\eqref{eq:srtk-rank-def} on copies of the state in
 Eq.~\eqref{eq:srtk-t-state} is also open: $\chi\bigl(|T\rangle^{\otimes
-t}\bigr) = t$ is known for $2 \le t \le 4$,
-$\chi\bigl(|T\rangle^{\otimes 6}\bigr) \le 6$, and numerical evidence
-gives $\chi\bigl(|T\rangle^{\otimes 7}\bigr) = 12$; determine the exact
+t}\bigr) = t$ is established numerically for $2 \le t \le 4$ (and proved
+for $t = 4$ by exhaustive search), $\chi\bigl(|T\rangle^{\otimes 6}\bigr)
+\le 6$, and numerical evidence gives $\chi\bigl(|T\rangle^{\otimes 7}\bigr) = 12$; determine the exact
 values at $t = 5$, $6$, and $7$.
 
 \subsection*{Status}
@@ -50,15 +50,21 @@ Unsolved
 
 \subsection*{Source}
 
-Bravyi, Browne, Calpin, Campbell, Gosset, and Howard explicitly pose the
-asymptotic scaling of $\chi\bigl(|T\rangle^{\otimes n}\bigr)$, stating
-that polynomial scaling would entail complexity-theoretic heresies such as
-$\mathsf{BQP} = \mathsf{BPP}$ or $\mathsf{P} = \mathsf{NP}$ and that no
-techniques are known for proving unconditional super-polynomial lower
-bounds \sourcecite{ref:srtk-bbc19}{BBC+19}; the quantity
+Bravyi, Smith, and Smolin introduced the quantity
 $\chi\bigl(|T\rangle^{\otimes n}\bigr)$ and its use for classical
-simulation were introduced by Bravyi, Smith, and Smolin
-\sourcecite{ref:srtk-bss16}{BSS16}.
+simulation, explicitly posed its asymptotic scaling, observed that
+super-polynomial growth follows assuming universal quantum computation
+cannot be simulated classically in polynomial time, proved only an
+$\Omega(\sqrt{n}\,)$ lower bound while stating that they were unable to
+derive an unconditional super-polynomial one, and conjectured
+$\chi\bigl(|T\rangle^{\otimes n}\bigr) \ge 2^{\Omega(n)}$
+\sourcecite{ref:srtk-bss16}{BSS16}; Bravyi, Browne, Calpin, Campbell,
+Gosset, and Howard sharpened the question to its polynomial-or-not form,
+stating that polynomial scaling of the exact or approximate stabilizer
+rank would entail complexity-theoretic heresies such as
+$\mathsf{BQP} = \mathsf{BPP}$ or $\mathsf{P} = \mathsf{NP}$, and that no
+techniques are known for proving unconditional super-polynomial lower
+bounds \sourcecite{ref:srtk-bbc19}{BBC+19}.
 
 \subsection*{Progress}
 
@@ -66,9 +72,9 @@ simulation were introduced by Bravyi, Smith, and Smolin
   \item Bravyi, Smith, and Smolin introduced low-rank stabilizer decompositions
   of magic-state tensor powers for classical simulation and proved an
   $\Omega(\sqrt{n}\,)$ lower bound on the exact stabilizer rank of tensor
-  powers of a single-qubit magic state, conjecturing
-  $\chi\bigl(|T\rangle^{\otimes 6}\bigr) = 7$
-  \sourcecite{ref:srtk-bss16}{BSS16}; the sampling algorithm of Bravyi and
+  powers of a single-qubit magic state, finding
+  $\chi\bigl(|T\rangle^{\otimes 6}\bigr) = 7$ numerically, a value
+  conjectured optimal \sourcecite{ref:srtk-bss16}{BSS16}; the sampling algorithm of Bravyi and
   Gosset for circuits dominated by Clifford gates had used approximate
   stabilizer decompositions \sourcecite{ref:srtk-bg16}{BG16}.
 
@@ -129,9 +135,13 @@ simulation were introduced by Bravyi, Smith, and Smolin
   previously unbounded qutrit magic-state orbits, with per-copy exponents
   $0.316$ and $0.421$, and the first $\Omega(m/\log m)$ lower bounds for
   the qutrit Hadamard-eigenstate and Norrell orbits; for qubits, a
-  closed-form four-copy decomposition of the T-type orbit merely matches
-  the exponent $\alpha$ of Eq.~\eqref{eq:srtk-bounds}, so neither side of
-  the qubit question moves \sourcecite{ref:srtk-lr26}{LR26}.
+  closed-form four-copy decomposition of stabilizer rank exactly $3$ for
+  the face-center orbit (T-type in their naming, which swaps T and H
+  relative to this record: their H-type orbit contains the $|T\rangle$ of
+  Eq.~\eqref{eq:srtk-t-state}) merely matches the exponent $\alpha$ of
+  Eq.~\eqref{eq:srtk-bounds}, and an exhaustive search there rigorously
+  confirms $\chi\bigl(|T\rangle^{\otimes 4}\bigr) = 4$, so neither side
+  of the qubit question moves \sourcecite{ref:srtk-lr26}{LR26}.
 \end{itemize}
 
 \subsection*{References}
