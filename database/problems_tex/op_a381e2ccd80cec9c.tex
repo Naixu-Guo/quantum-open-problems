@@ -1,0 +1,205 @@
+% Problem record op_a381e2ccd80cec9c. This TeX file is derived from
+% database/problems_json/op_a381e2ccd80cec9c.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Additivity of the relative entropy of entanglement}
+\label{sec:op_a381e2ccd80cec9c}
+
+\paragraph{Problem.}
+Does the relative entropy of entanglement of every bipartite state equal its
+regularization, or is regularization genuinely necessary?  For a
+finite-dimensional bipartite system $A{:}B$, write $\operatorname{Sep}(A{:}B)$
+for the set of separable states and
+$D(\rho\Vert\sigma)=\operatorname{Tr}[\rho(\log_2\rho-\log_2\sigma)]$ for the
+Umegaki relative entropy, defined when
+$\operatorname{supp}\rho\subseteq\operatorname{supp}\sigma$, with the trace
+evaluated on $\operatorname{supp}\rho$ and $0\log_2 0:=0$.  Define the
+relative entropy of entanglement and its regularization by
+\begin{equation}
+  E_R(\rho)
+  :=\min_{\sigma\in\operatorname{Sep}(A{:}B)}D(\rho\Vert\sigma),
+  \qquad
+  E_R^\infty(\rho)
+  :=\lim_{n\to\infty}\frac1nE_R\bigl(\rho^{\otimes n}\bigr).
+  \label{eq:rer-definition}
+\end{equation}
+The limit in Eq.~\eqref{eq:rer-definition} exists because the product of
+minimizing separable states is separable and $D$ is additive on tensor
+products, which gives $E_R(\rho\otimes\sigma)\leq E_R(\rho)+E_R(\sigma)$ and
+makes $\frac1nE_R(\rho^{\otimes n})$ nonincreasing.  The archived question is
+whether single copies already suffice, that is, whether
+\begin{equation}
+  E_R^\infty(\rho)=E_R(\rho)
+  \quad\text{for every finite-dimensional bipartite state }\rho.
+  \label{eq:rer-question}
+\end{equation}
+Since $E_R^\infty(\rho)\leq E_R(\rho)$ always holds,
+Eq.~\eqref{eq:rer-question} can only fail strictly, through a single state
+$\rho$ with
+\begin{equation}
+  E_R^\infty(\rho)<E_R(\rho).
+  \label{eq:rer-failure}
+\end{equation}
+
+\subsection*{Status}
+
+Solved
+
+\subsection*{Source}
+
+Whether the regularization in Eq.~\eqref{eq:rer-definition} is necessary is
+the additivity question raised with the asymptotic relative entropy of
+entanglement: Vollbrecht and Werner's study of entanglement measures under
+symmetry, which supplied the antisymmetric counterexample recorded in
+Progress \sourcecite{ref:rer-vollbrecht-werner}{VW01}, and the closed-form
+evaluation of $E_R^\infty$ for Werner states by Audenaert et al.
+\sourcecite{ref:rer-audenaert}{AEM+01} together frame the universal equality
+of Eq.~\eqref{eq:rer-question}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Vollbrecht and Werner's analysis of entanglement measures under symmetry is
+the original source of the non-additivity of $E_R$: the normalized
+antisymmetric Werner state
+\begin{equation}
+  \rho_-:=\frac{2}{d(d-1)}P^{\mathrm{AS}},
+  \label{eq:rer-antisymmetric-state}
+\end{equation}
+on $\mathbb C^d\otimes\mathbb C^d$, with $P^{\mathrm{AS}}$ the projector onto
+the antisymmetric subspace, already fails additivity of
+Eq.~\eqref{eq:rer-definition} on tensor powers
+\sourcecite{ref:rer-vollbrecht-werner}{VW01}.
+
+  \item Audenaert, Eisert, Jan\'e, Plenio, Virmani, and De Moor computed $E_R^\infty$
+in closed analytical form for Werner states of arbitrary dimension,
+\sourcecite{ref:rer-audenaert}{AEM+01}, with the companion extension to
+orthogonally invariant states \sourcecite{ref:rer-audenaert-orthogonal}{ADM+02},
+so even the regularized value of the state in
+Eq.~\eqref{eq:rer-antisymmetric-state} is fully known.
+
+  \item Zhu, Chen, and Hayashi established the exact one- and two-copy values
+\begin{equation}
+  E_R(\rho_-)=1,
+  \qquad
+  E_R(\rho_-\otimes\rho_-)=1-\log_2\frac{d-1}{d}<2
+  \quad\text{for }d\geq3,
+  \label{eq:rer-two-copy-values}
+\end{equation}
+for the state of Eq.~\eqref{eq:rer-antisymmetric-state}, as instances of
+their antisymmetric counterexamples for relative-entropy entanglement
+measures \sourcecite{ref:rer-zhu-chen-hayashi}{ZCH10}.  Combined with
+subadditivity, Eq.~\eqref{eq:rer-two-copy-values} gives
+$E_R^\infty(\rho_-)\leq\frac12\bigl(1-\log_2\frac{d-1}{d}\bigr)<1=E_R(\rho_-)$
+for every $d\geq3$, exhibiting Eq.~\eqref{eq:rer-failure} and resolving
+Eq.~\eqref{eq:rer-question} negatively; the result is published in
+\emph{New Journal of Physics}.
+
+  \item Rubboli and Tomamichel re-derived the values of
+Eq.~\eqref{eq:rer-two-copy-values} with the separable optimizer verified
+explicitly, extended the antisymmetric counterexample to every entanglement
+monotone based on a quantum relative entropy, including the Umegaki $E_R$ of
+Eq.~\eqref{eq:rer-definition}, and proved additivity on tensor products
+whenever one factor is pure, maximally correlated, GHZ, Bell-diagonal,
+isotropic, or generalized Dicke
+\sourcecite{ref:rer-rubboli-tomamichel}{RT24}; the result is published in
+\emph{Communications in Mathematical Physics}.
+
+  \item The post-resolution frontier treats non-additivity as settled: Beigi,
+Rubboli, and Tomamichel characterize, for a broad class of composite
+hypothesis-testing and resource-theoretic problems, when regularization of
+the Umegaki relative entropy is unnecessary through an if-and-only-if
+single-copy optimizer criterion \sourcecite{ref:rer-beigi}{BRT26}, and Lami,
+Berta, and Regula prove that the Stein exponent of entanglement testing
+equals $E_R^\infty$ while the Sanov exponent equals a single-letter reverse
+relative entropy of entanglement \sourcecite{ref:rer-lami}{LBR26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[VW01]}]\label{ref:rer-vollbrecht-werner}
+  K. G. H. Vollbrecht and R. F. Werner,
+  ``Entanglement Measures under Symmetry,'' \emph{Physical Review A}
+  \textbf{64}, 062307 (2001).
+  \href{https://arxiv.org/abs/quant-ph/0010095}{arXiv:quant-ph/0010095}.
+
+  \item[\textup{[AEM+01]}]\label{ref:rer-audenaert}
+  K. Audenaert, J. Eisert, E. Jan\'e, M. B. Plenio, S. Virmani, and B. De Moor,
+  ``The Asymptotic Relative Entropy of Entanglement,'' \emph{Physical Review
+  Letters} \textbf{87}, 217902 (2001).
+  \href{https://arxiv.org/abs/quant-ph/0103096}{arXiv:quant-ph/0103096}.
+
+  \item[\textup{[ADM+02]}]\label{ref:rer-audenaert-orthogonal}
+  K. Audenaert, B. De Moor, K. G. H. Vollbrecht, and R. F. Werner,
+  ``Asymptotic Relative Entropy of Entanglement for Orthogonally Invariant
+  States,'' \emph{Physical Review A} \textbf{66}, 032310 (2002).
+  \href{https://arxiv.org/abs/quant-ph/0204143}{arXiv:quant-ph/0204143}.
+
+  \item[\textup{[ZCH10]}]\label{ref:rer-zhu-chen-hayashi}
+  H. Zhu, L. Chen, and M. Hayashi,
+  ``Additivity and Non-Additivity of Multipartite Entanglement Measures,''
+  \emph{New Journal of Physics} \textbf{12}, 083002 (2010).
+  \href{https://arxiv.org/abs/1002.2511}{arXiv:1002.2511}.
+
+  \item[\textup{[RT24]}]\label{ref:rer-rubboli-tomamichel}
+  R. Rubboli and M. Tomamichel,
+  ``New Additivity Properties of the Relative Entropy of Entanglement and Its
+  Generalizations,'' \emph{Communications in Mathematical Physics}
+  \textbf{405}, 162 (2024).
+  \href{https://arxiv.org/abs/2211.12804}{arXiv:2211.12804}.
+
+  \item[\textup{[BRT26]}]\label{ref:rer-beigi}
+  S. Beigi, R. Rubboli, and M. Tomamichel,
+  ``Additivity of Quantum Relative Entropies as a Single-Copy Criterion,''
+  \emph{Communications in Mathematical Physics} \textbf{407}, 134 (2026).
+  \href{https://arxiv.org/abs/2507.05696}{arXiv:2507.05696}.
+
+  \item[\textup{[LBR26]}]\label{ref:rer-lami}
+  L. Lami, M. Berta, and B. Regula,
+  ``Asymptotic Quantification of Entanglement with a Single Copy,''
+  \emph{Nature Physics} \textbf{22}, 439--445 (2026).
+  \href{https://doi.org/10.1038/s41567-026-03182-x}{doi:10.1038/s41567-026-03182-x}.
+
+  \item[\textup{[MI08]}]\label{ref:rer-miranowicz}
+  A. Miranowicz and S. Ishizaka,
+  ``Closed Formula for the Relative Entropy of Entanglement,''
+  \emph{Physical Review A} \textbf{78}, 032310 (2008).
+  \href{https://arxiv.org/abs/0805.3134}{arXiv:0805.3134}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The answer to Eq.~\eqref{eq:rer-question} is negative: for every $d\geq3$ the
+antisymmetric Werner state of Eq.~\eqref{eq:rer-antisymmetric-state}
+satisfies Eq.~\eqref{eq:rer-failure}, by Eq.~\eqref{eq:rer-two-copy-values}
+and subadditivity.  The resolving results are peer-reviewed: Vollbrecht and
+Werner in \emph{Physical Review A}
+\sourcecite{ref:rer-vollbrecht-werner}{VW01}, Zhu, Chen, and Hayashi in
+\emph{New Journal of Physics} \sourcecite{ref:rer-zhu-chen-hayashi}{ZCH10},
+and Rubboli and Tomamichel in \emph{Communications in Mathematical Physics},
+which verified the separable optimizer and extended the counterexample to
+every relative-entropy-based monotone
+\sourcecite{ref:rer-rubboli-tomamichel}{RT24}.  The reverse inequality
+$E_R^\infty(\rho)>E_R(\rho)$ cannot occur, since subadditivity is trivial.
+Two residues lie outside this record: deciding additivity for a given state
+is governed by the single-copy optimizer criterion of
+\sourcecite{ref:rer-beigi}{BRT26}, and the general two-qubit case turns on
+the closed formula and explicit optimizer archived in the two-qubit
+relative-entropy-of-entanglement record, weak additivity being known there
+for states commuting with their optimizer
+\sourcecite{ref:rer-miranowicz}{MI08}; the entanglement-cost record for a
+qubit Bell-diagonal state already uses the Bell-diagonal evaluation
+$E_R^\infty=L(p_*)$ \sourcecite{ref:rer-zhu-chen-hayashi}{ZCH10}.
+
+\subsection*{Field}
+
+Quantum Resource Theory
+
+\subsection*{Topic}
+
+Entanglement measures; Additivity and regularization; Quantum relative entropy
+
+\subsection*{ID}
+
+\texttt{op\_a381e2ccd80cec9c}
