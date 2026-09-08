@@ -1,8 +1,10 @@
 # Ubuntu deployment
 
-The first deployment serves the API on Tencent Cloud at `43.160.217.208`.
-The public catalog stays on GitHub Pages. These files are configuration
-templates for that host; they contain no credentials.
+The public catalog is hosted on GitHub Pages at `https://qiqc-op.com`.
+The API is hosted on Tencent Cloud at `https://api.qiqc-op.com`, on
+`43.160.217.208`. The original HTTPS IP endpoint remains available for
+existing clients. These files are configuration templates for that host;
+they contain no credentials.
 
 - `/opt/qop/releases/<commit>`: immutable application releases, including contract dependencies.
 - `/opt/qop/current`: symlink to the running application release.
@@ -27,7 +29,46 @@ service trusts them. No API keys, GitHub OAuth application, or CAPTCHA secrets
 are provisioned by these templates. Public catalog reads work without a key;
 research writes require separately issued credentials.
 
-## HTTPS without a domain
+## Domain names and HTTPS
+
+GitHub Pages uses the custom domain `qiqc-op.com` with a GitHub Actions
+publishing workflow. Set the domain in the repository's Pages settings; this
+workflow does not require a `CNAME` file. Enable HTTPS after GitHub provisions
+the certificate. The site's canonical origin is `siteUrl` in `site/config.json`;
+the MCP instructions use `mcp.serviceUrl` from the same file. Publish the site
+configuration changes with the next reviewed GitHub deployment.
+
+DNSPod records, with the default routing line and TTL:
+
+| Host | Type | Value |
+| --- | --- | --- |
+| `@` | A | `185.199.108.153` |
+| `@` | A | `185.199.109.153` |
+| `@` | A | `185.199.110.153` |
+| `@` | A | `185.199.111.153` |
+| `www` | CNAME | `naixu-guo.github.io` |
+| `api` | A | `43.160.217.208` |
+
+See [GitHub's custom domain instructions](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site).
+
+For the API, first configure an HTTP-only nginx server for `api.qiqc-op.com`
+with the webroot below. Once public DNS resolves to the server, obtain a
+certificate:
+
+```sh
+/opt/certbot/bin/certbot certonly --non-interactive --agree-tos \
+  --register-unsafely-without-email --webroot \
+  --webroot-path /var/lib/letsencrypt \
+  -d api.qiqc-op.com --cert-name qop-api
+```
+
+Install `nginx-domain.conf` alongside `nginx.conf`, validate with `nginx -t`,
+then reload nginx. Set `QOP_PUBLIC_URL=https://api.qiqc-op.com` in the existing
+`/etc/qop/service.env` and restart `qop`. Preserve all other settings and data.
+The existing `qop-certbot.timer` renews both certificates and reloads nginx.
+Test the new certificate with `certbot renew --cert-name qop-api --dry-run --run-deploy-hooks`.
+
+## Original IP endpoint
 
 Use a current Certbot release (5.4 or later) with the webroot authenticator.
 First serve `/var/lib/letsencrypt/.well-known/acme-challenge/` over HTTP on
@@ -56,12 +97,12 @@ See [Let's Encrypt's IP certificate instructions](https://letsencrypt.org/2026/0
 ```sh
 systemctl status qop nginx
 journalctl -u qop -n 80 --no-pager
-curl --fail https://43.160.217.208/api/v1/status
+curl --fail https://api.qiqc-op.com/api/v1/status
 systemctl list-timers 'qop-*'
 ```
 
 Point the local stdio MCP adapter's `QOP_SERVICE_URL` at
-`https://43.160.217.208`. This HTTPS API is not a Streamable HTTP MCP endpoint;
+`https://api.qiqc-op.com`. This HTTPS API is not a Streamable HTTP MCP endpoint;
 the client still launches `mcp/src/server.ts` locally.
 
 ## Backups and rollback

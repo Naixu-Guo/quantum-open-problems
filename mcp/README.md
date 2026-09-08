@@ -2,7 +2,7 @@
 
 Connect an MCP-compatible assistant to search open problems, read statements
 and references, and assemble research context. The adapter runs locally and
-queries the hosted catalog at `https://43.160.217.208`. You need Git,
+queries the hosted catalog at `https://api.qiqc-op.com`. You need Git,
 Node.js 22.13 or later, and a client that supports local **stdio** MCP servers.
 No API key is needed to read problems.
 
@@ -15,7 +15,7 @@ git clone https://github.com/Naixu-Guo/quantum-open-problems.git
 ```
 
 If you already have a checkout, use it. The adapter needs no npm dependencies.
-Check the [hosted catalog status](https://43.160.217.208/api/v1/status) to verify
+Check the [hosted catalog status](https://api.qiqc-op.com/api/v1/status) to verify
 that the service is reachable.
 
 ## Connect your assistant
@@ -28,7 +28,7 @@ Add a local MCP server with the following settings:
 | Transport | `stdio` |
 | Command | `node` |
 | Arguments, in order | `--experimental-strip-types`, `--no-warnings`, the absolute path to `mcp/src/server.ts` |
-| Environment | `QOP_SERVICE_URL=https://43.160.217.208` |
+| Environment | `QOP_SERVICE_URL=https://api.qiqc-op.com` |
 
 For clients using an `mcpServers` JSON configuration:
 
@@ -43,7 +43,7 @@ For clients using an `mcpServers` JSON configuration:
         "/absolute/path/quantum-open-problems/mcp/src/server.ts"
       ],
       "env": {
-        "QOP_SERVICE_URL": "https://43.160.217.208"
+        "QOP_SERVICE_URL": "https://api.qiqc-op.com"
       }
     }
   }
