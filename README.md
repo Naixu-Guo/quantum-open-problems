@@ -32,7 +32,7 @@ Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo. See the
 [project credits](https://naixu-guo.github.io/quantum-open-problems/about/#credits)
 for acknowledgments.
 
-Special thanks to GaugeForge.
+We thank GaugeForge for its financial support of this project.
 
 For local setup, backend services, maintenance, and deployment, see the
 [development guide](docs/DEVELOPMENT.md).
