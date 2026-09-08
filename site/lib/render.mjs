@@ -625,16 +625,6 @@ export function renderAbout({ config, root, stats, dates }) {
         <p>The ${escape(config.shortName)} collects research-level open problems in quantum information and quantum computation. Each record is written for readers with a PhD in the field: a self-contained statement with the definitions it needs, the paper that posed the problem, the results that delimit it, the precise remaining gap, and full references with author–year labels.</p>
         <p>The zoo holds ${stats.total} permanent records covering ${(stats.distinctQuestions ?? stats).total} distinct questions: ${(stats.distinctQuestions ?? stats).unsolved} unsolved and ${(stats.distinctQuestions ?? stats).solved} solved. Equivalent formulations are linked and count once in these question totals. Solved problems stay in the zoo with their resolution so that citations survive.</p>
 
-        <h2 id="status">How statuses are assigned</h2>
-        <ul>
-          <li><strong>Unsolved</strong>: no complete answer to the exact archived question is known, even when substantial subcases are settled; the Progress and Comment sections say what is known and what remains.</li>
-          <li><strong>Solved</strong>: a complete proof or counterexample exists for the archived statement. The Comment section says whether the resolving result is peer-reviewed.</li>
-        </ul>
-        <p>Progress on a nearby variant does not change a status. A status records the state of the literature at the last edit date shown on the page, so verify it against the cited sources before relying on it.</p>
-
-        <h2 id="taxonomy">How problems are classified</h2>
-        <p>Each problem carries one or two <strong>fields</strong> and one to five <strong>topics</strong>. The six fields cover quantum algorithms, communication, metrology, cryptography, resource theory, and error correction. Topics identify the central question or task, such as entanglement distillation or channel discrimination, and can span fields. Fields appear as solid labels and topics as outlined labels throughout the site; the <a href="${root}tags/">taxonomy page</a> lists both with counts, and the <a href="${root}problems/">catalog</a> filters by either.</p>
-
         <h2 id="contribute">How to contribute</h2>
         <p>The quickest route is the <a href="${root}contribute/">proposal form</a>: describe the problem, its sources, and what is known, and leave your name and email. No account is needed. The maintainers check every proposal against the literature, rewrite it in the zoo's format, and publish it with credit to you; nothing appears on the site automatically. To add a record yourself through GitHub:</p>
         <ol>
@@ -663,7 +653,7 @@ export function renderAbout({ config, root, stats, dates }) {
   return layout({
     config, root, path: "about/", current: "about",
     title: "About",
-    description: `What the ${config.shortName} is, how statuses are assigned, how to contribute, and how to cite.`,
+    description: `What the ${config.shortName} is, how to contribute, and how to cite.`,
     body, bodyClass: "page-about", withMath: false
   });
 }
