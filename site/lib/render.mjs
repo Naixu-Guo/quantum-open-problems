@@ -657,7 +657,7 @@ export function renderAbout({ config, root, stats, dates }) {
         </ul>
 
         <h2 id="credits">Credits</h2>
-        <p>The problem collection is compiled and maintained by Naixu Guo, Bikun Li, and the contributors to the <a href="${config.repositoryUrl}" rel="noreferrer">GitHub repository</a>. The site design draws on the <a href="https://errorcorrectionzoo.org/" rel="noreferrer">Error Correction Zoo</a> and the <a href="https://www.erdosproblems.com/" rel="noreferrer">Erdős Problems</a> database. Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
+        <p>The problem collection is compiled and maintained by Naixu Guo, Bikun Li, and the contributors to the <a href="${config.repositoryUrl}" rel="noreferrer">GitHub repository</a>. Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
       </div>
     </section>`;
   return layout({
