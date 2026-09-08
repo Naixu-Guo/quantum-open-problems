@@ -648,7 +648,7 @@ export function renderAbout({ config, root, stats, dates }) {
 
         <h2 id="credits">Credits</h2>
         <p>The problem collection is compiled and maintained by Bikun Li, Qicheng Tang, Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo. Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
-        <p>We thank GaugeForge for its financial support of this project.</p>
+        <p>We thank <a href="https://gauge-forge.com/" rel="noreferrer">GaugeForge</a> for its financial support of this project.</p>
       </div>
     </section>`;
   return layout({
