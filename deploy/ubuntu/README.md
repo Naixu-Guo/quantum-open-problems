@@ -29,6 +29,10 @@ service trusts them. No API keys, GitHub OAuth application, or CAPTCHA secrets
 are provisioned by these templates. Public catalog reads work without a key;
 research writes require separately issued credentials.
 
+Both HTTPS API hosts apply nginx per-client limits of 10 requests/second with a
+burst of 40 and return 429 on excess. These directives belong in the nginx
+HTTP context, as in the supplied site configuration files.
+
 Remote catalog polling defaults to 60 seconds (`QOP_SYNC_INTERVAL_MS=60000`).
 Each interval starts after the previous fetch completes. Local commits remain
 visible on the next API read. Deployment changes must update an existing env

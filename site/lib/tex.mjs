@@ -139,6 +139,12 @@ const skipSpaces = (text, start) => {
 // Replace every mathematical fragment with a placeholder so that the text
 // conversion never touches TeX mathematics.
 function protectMath(text) {
+  // Records describe mathematics; they cannot define a new TeX language that evades
+  // the URL checks. Scan after comment removal, before protecting any math fragment.
+  const forbidden = new Set(["newcommand", "renewcommand", "providecommand", "def", "gdef", "edef", "xdef", "let", "futurelet", "csname", "DeclareMathOperator", "newenvironment", "renewenvironment"]);
+  for (const match of text.matchAll(/\\([A-Za-z]+|[^A-Za-z])/gu)) {
+    if (forbidden.has(match[1])) throw new TexError(`Macro definitions and aliases are not allowed in records: \\${match[1]}; write the expression explicitly`);
+  }
   const store = [];
   let out = "";
   let i = 0;

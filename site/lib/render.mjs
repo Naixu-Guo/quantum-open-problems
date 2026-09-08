@@ -26,6 +26,7 @@ export const displayDateTime = (iso) => {
 
 const MATHJAX = `<script>
       window.MathJax = {
+        loader: { load: ["ui/safe"] },
         tex: {
           inlineMath: [["\\\\(", "\\\\)"]],
           displayMath: [["\\\\[", "\\\\]"]],
@@ -34,7 +35,13 @@ const MATHJAX = `<script>
           tags: "none"
         },
         svg: { fontCache: "global", scale: 1 },
-        options: { ignoreHtmlClass: "no-math", processHtmlClass: "math-ready" },
+        options: {
+          ignoreHtmlClass: "no-math", processHtmlClass: "math-ready",
+          safeOptions: {
+            allow: { URLs: "safe", classes: "none", cssIDs: "none", styles: "none" },
+            safeProtocols: { http: true, https: true, file: false, javascript: false, data: false }
+          }
+        },
         startup: { typeset: true }
       };
     </script>

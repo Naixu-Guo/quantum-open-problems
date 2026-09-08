@@ -6,9 +6,47 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { texToHtml, renderRecord } from "../site/lib/tex.mjs";
 import { recordToTex } from "../site/lib/record.mjs";
+import vm from "node:vm";
+import { layout } from "../site/lib/render.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const record = JSON.parse(fs.readFileSync(path.join(root, "database/problems_json/op_02bb8f8228649ac3.json")));
+
+test("records cannot define macros or aliases that evade link validation", () => {
+  const payloads = [
+    String.raw`\newcommand{\h}{\href}\h{javascript:alert(1)}{x}`,
+    String.raw`\let\h\href \h{javascript:alert(1)}{x}`,
+    ...["newcommand", "renewcommand", "providecommand", "def", "gdef", "edef", "xdef", "let", "futurelet", "csname", "DeclareMathOperator", "newenvironment", "renewenvironment"].map(name => `\\${name}{x}{y}`),
+    "\\new% comment joins the command\n  command{\\h}{x}",
+  ];
+  for (const payload of payloads) {
+    for (const tex of [`$${payload}$`, `\\[${payload}\\]`, `\\begin{equation}${payload}\\end{equation}`]) {
+      assert.throws(() => texToHtml(tex), /Macro definitions and aliases are not allowed/);
+    }
+  }
+  const bad = `$${payloads[0]}$`;
+  for (const key of ["title", "statement", "source", "comment"]) assert.throws(() => renderRecord({ ...record, [key]: bad }), /Macro definitions and aliases/);
+  assert.throws(() => renderRecord({ ...record, progress: [bad] }), /Macro definitions and aliases/);
+  assert.throws(() => renderRecord({ ...record, references: [{ ...record.references[0], tex: bad }] }), /Macro definitions and aliases/);
+  assert.match(texToHtml(String.raw`$\operatorname{Tr}(\rho)=1$`), /operatorname/);
+});
+
+test("both MathJax clients filter URLs and reject user CSS, classes, and IDs", () => {
+  const config = JSON.parse(fs.readFileSync(path.join(root, "site/config.json")));
+  const site = layout({ config, root: "./", title: "Safety fixture", description: "", path: "", body: "" });
+  const web = fs.readFileSync(path.join(root, "web/index.html"), "utf8");
+  for (const html of [site, web]) {
+    const script = html.match(/window\.MathJax\s*=\s*\{[\s\S]*?<\/script>/u)[0].replace(/<\/script>$/u, "");
+    const window = {};
+    vm.runInNewContext(script, { window });
+    const settings = window.MathJax;
+    assert.ok(settings.loader.load.includes("ui/safe"));
+    assert.equal(settings.options.safeOptions.allow.URLs, "safe");
+    for (const name of ["classes", "cssIDs", "styles"]) assert.equal(settings.options.safeOptions.allow[name], "none");
+    for (const name of ["javascript", "data", "file"]) assert.equal(settings.options.safeOptions.safeProtocols[name], false);
+    for (const name of ["http", "https"]) assert.equal(settings.options.safeOptions.safeProtocols[name], true);
+  }
+});
 test("external TeX links allow only absolute HTTP(S) URLs, including inside mathematics", () => {
   for (const url of ["http://example.org/a", "HTTPS://example.org/a?q=1&x=2#part"]) {
     for (const link of [`\\href{${url}}{a paper}`, `\\url{${url}}`]) assert.match(texToHtml(link), /<a href=/);
