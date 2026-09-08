@@ -40,6 +40,16 @@ The legacy static-catalog server was removed during the catalog integration.
 Use `mcp/src/server.ts`; its service reads the ledger projection exported from
 `database/problems_json/` (see [the catalog boundary](../docs/CATALOG_INTEGRATION.md)).
 
+New catalog problems need no MCP-specific registration. Commit the JSON, TeX,
+and exported ledger together. A service using the same checkout notices the
+commit on the next MCP read and refreshes its ledger and index. For a separate
+service clone, configure `QOP_GIT_REMOTE` and `QOP_GIT_BRANCH` on the service:
+it fetches in the background on startup and every five seconds by default
+(`QOP_SYNC_INTERVAL_MS`; `0` disables polling). After a valid update arrives,
+the existing MCP connection can search the problem and read its statement,
+frontier, references, and context. No MCP restart is needed. Service code or
+schema changes still require deploying and restarting the service.
+
 ```sh
 npm test          # spawns the server against a temporary service
 npm run typecheck

@@ -54,6 +54,7 @@ Environment:
 | `QOP_PORT` | Listening port, default 8787 |
 | `QOP_COMMIT=0` | Write files without committing |
 | `QOP_GIT_REMOTE`, `QOP_GIT_BRANCH` | The remote the clone pushes to after each commit and catches up with before each write (see "Ledger synchronization"); unset keeps commits local. The branch defaults to the clone's current one |
+| `QOP_SYNC_INTERVAL_MS` | Background remote polling interval after each fetch completes; default `5000`. Set `0` to disable remote polling. Local committed changes still refresh on the next API or authentication request |
 | `QOP_PUBLIC_URL` | The origin browsers reach the service at, default `http://localhost:<port>`. Cookie writes, the OAuth redirect, and `return_to` are bound to it; `https://` makes cookies `Secure` |
 | `QOP_WEB_DIR` | Directory of the web app's static files, default `web/`; empty or `0` serves none |
 | `QOP_SESSION_DAYS` | Browser session lifetime, default 30 |
@@ -199,7 +200,15 @@ offline mode that loads no third-party script.
 ## Ledger synchronization
 
 The service's clone is the canonical ledger (DESIGN.md decision 12). With
-`QOP_GIT_REMOTE` set, every write first catches up with the remote branch
+`QOP_GIT_REMOTE` set, the HTTP server fetches on startup and then every five
+seconds by default. Fetching runs asynchronously; a slow remote does not
+block MCP or HTTP reads. Valid appended catalog records are merged and the
+in-memory ledger and SQLite index are refreshed together. Background polling
+only imports remote changes; it never pushes local commits. Polling stops
+when the HTTP server closes. Configure the interval with
+`QOP_SYNC_INTERVAL_MS`, or set it to `0` for explicit remote synchronization only.
+
+Every write still first catches up with the remote branch
 (a fast-forward, or a merge with the clone's history as first parent, so
 served sequence numbers never move) and every commit is pushed afterwards.
 An unreachable or slow remote does not block writes: network commands time
@@ -211,7 +220,11 @@ when the remote's commits modify or delete ledger files (accept a deliberate
 migration with `cli.ts sync --allow-edits`), when a merge conflicts, or when
 the remote brings an invalid ledger, which is undone. The service notices a
 clone that moved under it (an operator's repair, another process's sync) at
-the next write. Details of the sync state, including git's messages, go to
+the next API or authentication request, including read-only MCP calls. This
+local refresh also works with `QOP_COMMIT=0`, provided another process commits
+the change. An invalid external commit returns a retryable 503 until repaired;
+an invalid remote update is rolled back and leaves the last valid data readable.
+Details of the sync state, including git's messages, go to
 the log and `cli.ts sync`; the public status only says whether the mirror is
 current.
 

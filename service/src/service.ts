@@ -4,7 +4,7 @@ import { LedgerRepo } from "./ledger-repo.ts";
 import { Index } from "./index.ts";
 import { AuthStore } from "./auth.ts";
 import { loadPolicy, currentPolicyVersion } from "../../contract/src/policy.ts";
-import { webDefaults, submissionsDefaults, type Config } from "./config.ts";
+import { webDefaults, submissionsDefaults, syncIntervalMs, type Config } from "./config.ts";
 import { SubmissionStore } from "./submissions.ts";
 import type { Service } from "./write.ts";
 import { reindex } from "./write.ts";
@@ -27,6 +27,7 @@ export function createService(config: Config): Service {
     web: webDefaults(config),
     submissions: new SubmissionStore(submissionsConfig.dbPath),
     submissionsConfig,
+    syncIntervalMs: syncIntervalMs(config.git?.pollIntervalMs),
   };
   reindex(service);
   return service;
