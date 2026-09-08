@@ -1,5 +1,5 @@
-// QIQCOP Zoo client script: theme toggle, dialogs, copy buttons, random
-// problem panels, directory filtering. No dependencies.
+// QIQCOP Zoo client script: theme toggle, dialogs, copy buttons, search
+// suggestions, random problem panels, directory filtering. No dependencies.
 (() => {
   const root = document.body.dataset.root || "";
   const $ = (selector, scope = document) => scope.querySelector(selector);
@@ -140,8 +140,23 @@
     }).then(() => markClipped(element)).catch((error) => console.error("MathJax typeset failed", error));
   };
 
-  // ------------------------------------------------------------------ random panels (home)
+  // ------------------------------------------------------------------ suggested topic (home)
   const index = window.QIQCOP_INDEX;
+  const homeSearch = $("#home-search");
+  if (homeSearch && Array.isArray(index?.problems)) {
+    const topics = [...new Set(index.problems.flatMap((problem) => problem.topics || []))];
+    const suggestedTopic = topics[Math.floor(Math.random() * topics.length)];
+    if (suggestedTopic) {
+      homeSearch.placeholder = document.activeElement === homeSearch ? "" : suggestedTopic;
+      homeSearch.addEventListener("focus", () => { homeSearch.placeholder = ""; });
+      homeSearch.addEventListener("blur", () => { homeSearch.placeholder = suggestedTopic; });
+      homeSearch.form?.addEventListener("submit", () => {
+        if (!homeSearch.value.trim()) homeSearch.value = suggestedTopic;
+      });
+    }
+  }
+
+  // ------------------------------------------------------------------ random panels (home)
   const escapeHtml = (value) => String(value).replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
   const slugify = (value) => String(value).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
   const statusMeta = {
