@@ -1,0 +1,135 @@
+% Problem record op_0c17d9fef967858d. This TeX file is derived from
+% database/problems_json/op_0c17d9fef967858d.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Quantum query complexity of Triangle Finding}
+\label{sec:op_0c17d9fef967858d}
+
+\paragraph{Problem.}
+What is the bounded-error quantum query complexity of finding a triangle
+in an $n$-vertex graph given oracle access to its adjacency matrix?
+
+Let $G=(V,E)$ be a simple undirected graph with $V=[n]$, and let
+$A\in\{0,1\}^{n\times n}$ be its adjacency matrix.  The input is accessed
+through a quantum oracle acting as
+\begin{equation}
+  O_A\lvert u,v,z\rangle
+  =\lvert u,v,z\oplus A_{uv}\rangle .
+  \label{eq:0c17-triangle-oracle}
+\end{equation}
+The task is to output three distinct vertices $u,v,w\in[n]$ satisfying
+\begin{equation}
+  A_{uv}=A_{vw}=A_{wu}=1,
+  \label{eq:0c17-triangle-certificate}
+\end{equation}
+if such vertices exist, and otherwise report that the graph is
+triangle-free.  Let $Q_{\triangle}(n)$ denote the minimum number of queries
+to the oracle in \eqref{eq:0c17-triangle-oracle} required by a
+bounded-error quantum algorithm for this task.
+
+The best known general bounds are
+\begin{equation}
+  Q_{\triangle}(n)=O\left(n^{5/4}\right)
+  \qquad\text{and}\qquad
+  Q_{\triangle}(n)=\Omega(n).
+  \label{eq:0c17-triangle-gap}
+\end{equation}
+The open question is to determine the asymptotic behavior of
+$Q_{\triangle}(n)$, equivalently to improve either the upper or lower bound
+in \eqref{eq:0c17-triangle-gap} until the bounds match.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Li and Li explicitly identify the gap between the $O(n^{5/4})$ upper
+bound and the $\Omega(n)$ lower bound as open for the ordinary
+adjacency-matrix problem
+\sourcecite{ref:0c17-li-li}{LL25}.  The precise statement above is
+contributor wording that packages this known gap as a standalone open
+problem; it is not a verbatim question attributed to Li and Li or to the
+authors of the earlier algorithms.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Le Gall obtained a bounded-error quantum algorithm with query complexity
+$\widetilde O(n^{5/4})$, using combinatorial properties specific to
+unweighted triangle finding together with quantum-search and quantum-walk
+techniques
+\sourcecite{ref:0c17-le-gall}{LG14}.
+
+  \item Carette, Lauri\`ere, and Magniez introduced extended learning graphs,
+removing the polylogarithmic overhead from the above bound and establishing
+the current best general upper bound $O(n^{5/4})$; their framework also
+yields improved bounds in several sparse-graph regimes
+\sourcecite{ref:0c17-carette}{CLM17}.
+
+  \item Belovs and Rosmanis proved an $\Omega(n^{9/7}/\sqrt{\log n})$ quantum
+query lower bound for the related edge-weighted triangle-sum problem and
+showed that the $O(n^{9/7})$ non-adaptive learning-graph approach to
+Triangle Finding is essentially optimal within that framework
+\sourcecite{ref:0c17-belovs}{BR14}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[LG14]}]\label{ref:0c17-le-gall}
+  Fran\c{c}ois Le Gall, ``Improved Quantum Algorithm for Triangle Finding
+via Combinatorial Arguments,'' in \emph{2014 IEEE 55th Annual Symposium on
+Foundations of Computer Science (FOCS)}, 216--225 (2014).
+\href{https://doi.org/10.1109/FOCS.2014.31}{doi:10.1109/FOCS.2014.31};
+\href{https://arxiv.org/abs/1407.0085}{arXiv:1407.0085}.
+
+  \item[\textup{[CLM17]}]\label{ref:0c17-carette}
+  Titouan Carette, Mathieu Lauri\`ere, and Fr\'ed\'eric Magniez,
+``Extended Learning Graphs for Triangle Finding,'' in \emph{34th Symposium on
+Theoretical Aspects of Computer Science (STACS 2017)}, LIPIcs
+\textbf{66}, Article 20 (2017).
+\href{https://doi.org/10.4230/LIPIcs.STACS.2017.20}{doi:10.4230/LIPIcs.STACS.2017.20};
+\href{https://arxiv.org/abs/1609.07786}{arXiv:1609.07786}.
+
+  \item[\textup{[BR14]}]\label{ref:0c17-belovs}
+  Aleksandrs Belovs and Ansis Rosmanis, ``On the Power of Non-Adaptive
+Learning Graphs,'' \emph{Computational Complexity} \textbf{23}, 323--354
+(2014).
+\href{https://doi.org/10.1007/s00037-014-0084-1}{doi:10.1007/s00037-014-0084-1};
+\href{https://arxiv.org/abs/1210.3279}{arXiv:1210.3279}.
+
+  \item[\textup{[LL25]}]\label{ref:0c17-li-li}
+  Guanzhong Li and Lvzhou Li, ``Derandomization of Quantum Algorithm for
+Triangle Finding,'' \emph{Information and Computation} \textbf{304}, 105295
+(2025).
+\href{https://doi.org/10.1016/j.ic.2025.105295}{doi:10.1016/j.ic.2025.105295};
+\href{https://arxiv.org/abs/2309.13268}{arXiv:2309.13268}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The open question is to determine the asymptotic behavior of
+$Q_{\triangle}(n)$: either an algorithm using $O(n^{5/4-\varepsilon})$
+queries for some constant $\varepsilon>0$, or a lower bound of
+$\Omega(n^{1+\varepsilon})$ for unrestricted bounded-error quantum
+algorithms; neither is known for general unweighted graphs in the
+adjacency-matrix oracle model.  The distinction between unweighted Triangle
+Finding and edge-weighted Triangle Sum is essential: the stronger lower
+bounds known for Triangle Sum (Progress above) must not be recorded as lower
+bounds for this problem.  Li and Li, who identify the gap as open, study a
+different question, namely derandomizing related triangle-finding algorithms
+under an additional uniqueness promise, and do not close this gap
+\sourcecite{ref:0c17-li-li}{LL25}.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Computational complexity and computability
+
+\subsection*{ID}
+
+\texttt{op\_0c17d9fef967858d}
