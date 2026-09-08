@@ -24,6 +24,14 @@ test("online backup restores committed WAL data, Git history, private config and
   git("add", "README.md", ".gitignore");
   git("-c", "user.name=fixture", "-c", "user.email=fixture@example.invalid", "commit", "-qm", "Seed");
   const head = git("rev-parse", "HEAD");
+  // Unchanged content with a stale stat cache makes plain `git status` rewrite
+  // the index. A root backup must leave the service-owned index untouched.
+  const readme = path.join(catalog, "README.md");
+  const older = new Date(Date.now() - 5000);
+  fs.utimesSync(readme, older, older);
+  const gitIndex = path.join(catalog, ".git/index");
+  const indexBefore = fs.readFileSync(gitIndex);
+  const indexStat = fs.statSync(gitIndex);
   fs.mkdirSync(path.join(catalog, "activity/artifact-store"), { recursive: true });
   fs.writeFileSync(path.join(catalog, "activity/artifact-store", "fixture-blob"), "Uncommitted trajectory artifact");
   fs.writeFileSync(path.join(config, "service.env"), "FIXTURE_PRIVATE_SETTING=preserved\n", { mode: 0o600 });
@@ -43,6 +51,9 @@ test("online backup restores committed WAL data, Git history, private config and
   } finally { clearInterval(writer); }
   assert.ok(writes > 0, "the live database kept accepting writes");
   assert.equal(fs.statSync(archive).mode & 0o077, 0);
+  assert.deepEqual(fs.readFileSync(gitIndex), indexBefore, "backup must not refresh the Git index");
+  const indexAfter = fs.statSync(gitIndex);
+  for (const key of ["ino", "uid", "gid", "mode", "mtimeMs"]) assert.equal(indexAfter[key], indexStat[key], `index ${key} must remain unchanged`);
   const extracted = path.join(root, "restored");
   fs.mkdirSync(extracted);
   execFileSync("tar", ["-xzf", archive, "-C", extracted]);
