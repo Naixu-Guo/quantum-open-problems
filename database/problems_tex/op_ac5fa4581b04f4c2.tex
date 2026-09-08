@@ -1,0 +1,208 @@
+% Problem record op_ac5fa4581b04f4c2. This TeX file is derived from
+% database/problems_json/op_ac5fa4581b04f4c2.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Additivity of the entanglement of purification}
+\label{sec:op_ac5fa4581b04f4c2}
+
+\paragraph{Problem.}
+Is the entanglement of purification additive on tensor products?  For a
+bipartite density operator $\rho_{AB}$ on finite-dimensional Hilbert spaces
+$A$ and $B$, define its entanglement of purification by
+\begin{equation}
+  E_P(A{:}B)_\rho
+  :=\min_{\psi}\ S(AA')_\psi,
+  \label{eq:epur-definition}
+\end{equation}
+where the minimum ranges over all pure states $\psi$ on $AA'BB'$ with
+purifying systems $A'$, $B'$ of arbitrary finite dimension such that
+$\operatorname{Tr}_{A'B'}\psi=\rho_{AB}$, and $S$ denotes the von Neumann
+entropy.  Taking the product of optimal purifications gives
+$E_P(\rho\otimes\sigma)\leq E_P(\rho)+E_P(\sigma)$, so by Fekete's lemma for
+subadditive sequences the normalized values $\frac1nE_P(\rho^{\otimes n})$
+converge to their infimum rather than decrease monotonically, and the
+regularization
+\begin{equation}
+  E_P^\infty(\rho)
+  :=\lim_{n\to\infty}\frac1nE_P\bigl(\rho^{\otimes n}\bigr)
+  =\inf_{n\geq1}\frac1nE_P\bigl(\rho^{\otimes n}\bigr)
+  \label{eq:epur-regularization}
+\end{equation}
+is well defined.  The question is whether regularization is unnecessary:
+does
+\begin{equation}
+  E_P(\rho\otimes\sigma)=E_P(\rho)+E_P(\sigma)
+  \quad\text{for all finite-dimensional bipartite }\rho\text{ and }\sigma,
+  \label{eq:epur-additivity}
+\end{equation}
+hold?  Applied inductively to the pairs $(\rho,\rho^{\otimes(n-1)})$,
+Eq.~\eqref{eq:epur-additivity} would give $E_P(\rho^{\otimes n})=nE_P(\rho)$
+and hence make the regularization of Eq.~\eqref{eq:epur-regularization}
+collapse to $E_P^\infty(\rho)=E_P(\rho)$ for every $\rho$; whether such collapse on
+single-state tensor powers would already force Eq.~\eqref{eq:epur-additivity}
+for arbitrary pairs is not known.  Since Eq.~\eqref{eq:epur-additivity} can
+only fail through strict subadditivity for some pair, the simplest
+potential witness is
+\begin{equation}
+  E_P\bigl(\rho^{\otimes2}\bigr)<2E_P(\rho),
+  \label{eq:epur-strict-subadditivity}
+\end{equation}
+a violating pair with $\sigma=\rho$; no reduction from a violation with
+distinct $\rho\neq\sigma$ to such a same-state violation is known.
+The sharpest openly posed subcase concerns two-qubit classical states
+$\rho=\sum_{i,j\in\{0,1\}}p_{ij}|ij\rangle\langle ij|$ at the von Neumann
+order: for this family the R\'enyi generalizations of
+Eq.~\eqref{eq:epur-definition} are settled non-additive for every order
+$\alpha\in[0,1)$ and additive for every $\alpha\in[2,\infty]$, while the
+interval $\alpha\in[1,2)$, which includes the von Neumann case $\alpha=1$
+of Eqs.~\eqref{eq:epur-additivity}--\eqref{eq:epur-strict-subadditivity},
+remains open.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+The additivity question accompanies the introduction of the measure: Terhal,
+Horodecki, Leung, and DiVincenzo define $E_P$ as in
+Eq.~\eqref{eq:epur-definition} and prove that the regularization of
+Eq.~\eqref{eq:epur-regularization} equals the entanglement cost of creating
+the state from maximally entangled states with negligible communication
+\sourcecite{ref:epur-terhal}{THLD02}, making its possible collapse to $E_P$
+the natural open question, and Chen and Winter investigate the failure
+alternative of Eq.~\eqref{eq:epur-strict-subadditivity} explicitly
+\sourcecite{ref:epur-chen-winter}{CW12}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Terhal, Horodecki, Leung, and DiVincenzo introduced $E_P$ in the form of
+Eq.~\eqref{eq:epur-definition}, proved that $E_P^\infty$ equals the
+entanglement cost of creating the state from maximally entangled states with
+negligible communication, and showed that $\frac12I(A{:}B)_\rho$ and the
+regularized classical mutual information --- maximized over local
+measurements, $I_c^\infty$ in THLD02's notation --- lower-bound
+$E_P^\infty(\rho)$; they also reported numerics on Werner states
+\sourcecite{ref:epur-terhal}{THLD02}.
+
+  \item Chen and Winter proved that $E_P^\infty(\rho)-S(\rho)$ is convex, via a new
+asymptotic preparation protocol, but their evidence for the failure of
+Eq.~\eqref{eq:epur-additivity} is numerical, from two-qubit Werner states;
+no rigorous witness of Eq.~\eqref{eq:epur-strict-subadditivity} is known
+\sourcecite{ref:epur-chen-winter}{CW12}.
+
+  \item Bagchi and Pati confirmed that $E_P$ is subadditive on tensor products, so
+that Eq.~\eqref{eq:epur-additivity} can only fail in the direction of
+Eq.~\eqref{eq:epur-strict-subadditivity}, identified classes of states on
+which $E_P$ is additive on tensor products, and proved polygamy of $E_P$ for
+tripartite pure states \sourcecite{ref:epur-bagchi-pati}{BP15}.
+
+  \item Baghali Khanian proved that the optimal visible-compression rate of mixed
+states is expressed through the entanglement of purification, with
+exponential fidelity decay below a regularized R\'enyi threshold, proved
+additivity in Eq.~\eqref{eq:epur-additivity} only for a variation of
+extendible states, and recorded that the additivity of $E_P$ remains unknown
+\sourcecite{ref:epur-khanian}{KB25}.
+
+  \item Faraji and Baghali Khanian proved additivity of the R\'enyi-2 entanglement of
+purification for the states associated with transpose-depolarizing and
+depolarizing channels and their complements, via multiplicativity of the
+constrained output 2-norm; their discussion records that for Werner states
+Eq.~\eqref{eq:epur-additivity} is known at the parameter values
+$t\in\{0,\,1/(1-d),\,1/(1+d)\}$, attributed to Terhal et al. and to
+Christandl and Winter, and that the putative $d=2$ violation rests on
+numerics, leaving the Werner R\'enyi additivity question open
+\sourcecite{ref:epur-faraji}{FBK26},
+\sourcecite{ref:epur-christandl-winter}{CW05},
+\sourcecite{ref:epur-terhal}{THLD02}.
+
+  \item Negari and Baghali Khanian solved the one-copy optimization for two-qubit
+classical states at every R\'enyi order, proved non-additivity for every
+$\alpha\in[0,1)$, witnessed by two copies of a single state, and additivity
+for every $\alpha\in[2,\infty]$; they state that the interval
+$\alpha\in[1,2)$, including the von Neumann case $\alpha=1$ of
+Eq.~\eqref{eq:epur-additivity}, remains open, with additivity conjectured
+there \sourcecite{ref:epur-negari}{NBK26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[THLD02]}]\label{ref:epur-terhal}
+  B. M. Terhal, M. Horodecki, D. W. Leung, and D. P. DiVincenzo,
+  ``The Entanglement of Purification,'' \emph{Journal of Mathematical Physics}
+  \textbf{43}(9), 4286--4298 (2002).
+  \href{https://arxiv.org/abs/quant-ph/0202044}{arXiv:quant-ph/0202044}.
+
+  \item[\textup{[CW12]}]\label{ref:epur-chen-winter}
+  J. Chen and A. Winter,
+  ``Non-Additivity of the Entanglement of Purification (Beyond Reasonable
+  Doubt),'' arXiv preprint (2012).
+  \href{https://arxiv.org/abs/1206.1307}{arXiv:1206.1307}.
+
+  \item[\textup{[BP15]}]\label{ref:epur-bagchi-pati}
+  S. Bagchi and A. K. Pati,
+  ``Monogamy, Polygamy, and Other Properties of Entanglement of
+  Purification,'' \emph{Physical Review A} \textbf{91}, 042323 (2015).
+  \href{https://arxiv.org/abs/1502.01272}{arXiv:1502.01272}.
+
+  \item[\textup{[KB25]}]\label{ref:epur-khanian}
+  Z. Baghali Khanian,
+  ``Strong Converse Bounds for Compression of Mixed States,'' arXiv preprint
+  (2025), version~2, revised 21 April 2025.
+  \href{https://arxiv.org/abs/2206.09415v2}{arXiv:2206.09415v2}.
+
+  \item[\textup{[FBK26]}]\label{ref:epur-faraji}
+  S. Faraji and Z. Baghali Khanian,
+  ``Additivity Results for the R\'enyi-2 Entanglement of Purification,''
+  arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2605.15439}{arXiv:2605.15439}.
+
+  \item[\textup{[NBK26]}]\label{ref:epur-negari}
+  A.-R. Negari and Z. Baghali Khanian,
+  ``R\'enyi Entanglement of Purification Is Non-additive,'' arXiv preprint
+  (2026).
+  \href{https://arxiv.org/abs/2608.28897}{arXiv:2608.28897}.
+
+  \item[\textup{[CW05]}]\label{ref:epur-christandl-winter}
+  M. Christandl and A. Winter,
+  ``Uncertainty, Monogamy, and Locking of Quantum Correlations,''
+  \emph{IEEE Transactions on Information Theory} \textbf{51}(9), 3159--3165
+  (2005).
+  \href{https://arxiv.org/abs/quant-ph/0501090}{arXiv:quant-ph/0501090}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+No rigorous witness of Eq.~\eqref{eq:epur-strict-subadditivity} is known: the
+two-qubit Werner-state evidence is numerical
+\sourcecite{ref:epur-chen-winter}{CW12}, and additivity in
+Eq.~\eqref{eq:epur-additivity} is proved only for restricted families ---
+pure states, Werner states at the parameter values
+$t\in\{0,\,1/(1-d),\,1/(1+d)\}$ \sourcecite{ref:epur-terhal}{THLD02},
+\sourcecite{ref:epur-christandl-winter}{CW05}, a variation of extendible
+states \sourcecite{ref:epur-khanian}{KB25}, and the R\'enyi-2 cases tied to
+output-2-norm multiplicativity \sourcecite{ref:epur-faraji}{FBK26} --- while
+the R\'enyi orders $\alpha\in[1,2)$, including $\alpha=1$, remain open even
+for two-qubit classical states, with additivity conjectured there
+\sourcecite{ref:epur-negari}{NBK26}.  A resolution would single-letter the
+operational rates controlled by Eq.~\eqref{eq:epur-regularization}: the
+entanglement cost with negligible communication
+\sourcecite{ref:epur-terhal}{THLD02} and the optimal visible-compression
+rate \sourcecite{ref:epur-khanian}{KB25}.  The strong-converse problem for
+general mixed-state quantum compression uses a regularized R\'enyi
+entanglement of purification as its converse bound, so its threshold
+inherits this open regularization.
+
+\subsection*{Field}
+
+Quantum Resource Theory
+
+\subsection*{Topic}
+
+Entanglement measures; Additivity and regularization
+
+\subsection*{ID}
+
+\texttt{op\_ac5fa4581b04f4c2}
