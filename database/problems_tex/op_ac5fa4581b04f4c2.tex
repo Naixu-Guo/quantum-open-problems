@@ -32,14 +32,19 @@ does
   \quad\text{for all finite-dimensional bipartite }\rho\text{ and }\sigma,
   \label{eq:epur-additivity}
 \end{equation}
-equivalently, by Eq.~\eqref{eq:epur-regularization},
-$E_P^\infty(\rho)=E_P(\rho)$ for every $\rho$?  Since
-Eq.~\eqref{eq:epur-additivity} can only fail through strict subadditivity,
-the question is equally whether some state $\rho$ satisfies
+hold?  Eq.~\eqref{eq:epur-additivity} would make the regularization of
+Eq.~\eqref{eq:epur-regularization} collapse to
+$E_P^\infty(\rho)=E_P(\rho)$ for every $\rho$; whether such collapse on
+single-state tensor powers would already force Eq.~\eqref{eq:epur-additivity}
+for arbitrary pairs is not known.  Since Eq.~\eqref{eq:epur-additivity} can
+only fail through strict subadditivity for some pair, the simplest
+potential witness is
 \begin{equation}
-  E_P\bigl(\rho^{\otimes2}\bigr)<2E_P(\rho)?
+  E_P\bigl(\rho^{\otimes2}\bigr)<2E_P(\rho),
   \label{eq:epur-strict-subadditivity}
 \end{equation}
+a violating pair with $\sigma=\rho$; no reduction from a violation with
+distinct $\rho\neq\sigma$ to such a same-state violation is known.
 The sharpest openly posed subcase concerns two-qubit classical states
 $\rho=\sum_{i,j\in\{0,1\}}p_{ij}|ij\rangle\langle ij|$ at the von Neumann
 order: for this family the R\'enyi generalizations of
@@ -72,8 +77,10 @@ alternative of Eq.~\eqref{eq:epur-strict-subadditivity} explicitly
 Eq.~\eqref{eq:epur-definition}, proved that $E_P^\infty$ equals the
 entanglement cost of creating the state from maximally entangled states with
 negligible communication, and showed that $\frac12I(A{:}B)_\rho$ and the
-coherent information lower-bound $E_P^\infty(\rho)$; they also reported
-numerics on Werner states \sourcecite{ref:epur-terhal}{THLD02}.
+regularized classical mutual information --- maximized over local
+measurements, $I_c^\infty$ in THLD02's notation --- lower-bound
+$E_P^\infty(\rho)$; they also reported numerics on Werner states
+\sourcecite{ref:epur-terhal}{THLD02}.
 
   \item Chen and Winter proved that $E_P^\infty(\rho)-S(\rho)$ is convex, via a new
 asymptotic preparation protocol, but their evidence for the failure of
