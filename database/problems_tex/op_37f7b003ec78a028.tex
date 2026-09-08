@@ -1,0 +1,242 @@
+% Problem record op_37f7b003ec78a028. This TeX file is derived from
+% database/problems_json/op_37f7b003ec78a028.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Asymptotic growth of the stabilizer rank of T-state tensor powers}
+\label{sec:op_37f7b003ec78a028}
+
+\paragraph{Problem.}
+Does the exact stabilizer rank of the tensor powers of the single-qubit
+magic state $|T\rangle$ grow polynomially in the number of copies, or is
+it not polynomially bounded?  The state is
+\begin{equation}
+  |T\rangle := 2^{-1/2}\bigl(|0\rangle + e^{i\pi/4}|1\rangle\bigr),
+  \label{eq:srtk-t-state}
+\end{equation}
+and, for an $n$-qubit pure state $|\psi\rangle$, its exact stabilizer rank
+is
+\begin{equation}
+  \chi(\psi) := \min\Bigl\{r : |\psi\rangle = \sum_{j=1}^{r} c_j\,|\varphi_j\rangle
+  \text{ for some } c_j \in \mathbb{C} \text{ and } n\text{-qubit stabilizer states }
+  |\varphi_j\rangle\Bigr\},
+  \label{eq:srtk-rank-def}
+\end{equation}
+where an $n$-qubit stabilizer state is the common $+1$ eigenstate of $n$
+commuting Pauli operators.  Which of the two alternatives holds for
+$\chi\bigl(|T\rangle^{\otimes n}\bigr)$: does there exist a constant $k$
+with $\chi\bigl(|T\rangle^{\otimes n}\bigr) \le n^{k}$ for all $n$, or is
+$\chi\bigl(|T\rangle^{\otimes n}\bigr)$ not bounded by any polynomial in
+$n$?  The best current bounds are
+\begin{equation}
+  \Omega\!\left(\frac{n^{2}}{\operatorname{polylog} n}\right) \le
+  \chi\bigl(|T\rangle^{\otimes n}\bigr) \le O\bigl(2^{\alpha n}\bigr),
+  \qquad \alpha = \tfrac{1}{4}\log_{2} 3 \le 0.3963,
+  \label{eq:srtk-bounds}
+\end{equation}
+which leave both alternatives open.  A sharper sub-question is whether the
+exponential rate $\gamma = \lim_{n\to\infty} \frac{1}{n}\log_{2}
+\chi\bigl(|T\rangle^{\otimes n}\bigr)$, if it exists, is strictly positive,
+since Eq.~\eqref{eq:srtk-bounds} only pins $\gamma$ to the interval
+$[0, 0.3963]$.  The small-copy frontier of the quantity in
+Eq.~\eqref{eq:srtk-rank-def} on copies of the state in
+Eq.~\eqref{eq:srtk-t-state} is also open: $\chi\bigl(|T\rangle^{\otimes
+t}\bigr) = t$ is known for $2 \le t \le 4$,
+$\chi\bigl(|T\rangle^{\otimes 6}\bigr) \le 6$, and numerical evidence
+gives $\chi\bigl(|T\rangle^{\otimes 7}\bigr) = 12$; determine the exact
+values at $t = 5$, $6$, and $7$.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Bravyi, Browne, Calpin, Campbell, Gosset, and Howard explicitly pose the
+asymptotic scaling of $\chi\bigl(|T\rangle^{\otimes n}\bigr)$, stating
+that polynomial scaling would entail complexity-theoretic heresies such as
+$\mathsf{BQP} = \mathsf{BPP}$ or $\mathsf{P} = \mathsf{NP}$ and that no
+techniques are known for proving unconditional super-polynomial lower
+bounds \sourcecite{ref:srtk-bbc19}{BBC+19}; the quantity
+$\chi\bigl(|T\rangle^{\otimes n}\bigr)$ and its use for classical
+simulation were introduced by Bravyi, Smith, and Smolin
+\sourcecite{ref:srtk-bss16}{BSS16}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Bravyi, Smith, and Smolin introduced low-rank stabilizer decompositions
+  of magic-state tensor powers for classical simulation and proved an
+  $\Omega(\sqrt{n}\,)$ lower bound on the exact stabilizer rank of tensor
+  powers of a single-qubit magic state, conjecturing
+  $\chi\bigl(|T\rangle^{\otimes 6}\bigr) = 7$
+  \sourcecite{ref:srtk-bss16}{BSS16}; the sampling algorithm of Bravyi and
+  Gosset for circuits dominated by Clifford gates had used approximate
+  stabilizer decompositions \sourcecite{ref:srtk-bg16}{BG16}.
+
+  \item Bravyi, Browne, Calpin, Campbell, Gosset, and Howard developed the theory
+  of exact and approximate stabilizer rank and confirmed
+  $\chi\bigl(|T\rangle^{\otimes t}\bigr) = t$ for $2 \le t \le 4$, with
+  the numerical value $\chi\bigl(|T\rangle^{\otimes 7}\bigr) = 12$ marking
+  the transition from linear to exponential scaling
+  \sourcecite{ref:srtk-bbc19}{BBC+19}.
+
+  \item The upper bound in Eq.~\eqref{eq:srtk-bounds} is due to Qassim, Pashayan,
+  and Gosset: entangled six-qubit magic cat states of stabilizer rank
+  exactly $3$ give $\chi\bigl(|T\rangle^{\otimes n}\bigr) \le
+  O\bigl(2^{\alpha n}\bigr)$, improving the previous
+  $\chi\bigl(|T\rangle^{\otimes 12}\bigr) \le 47$, that is $\alpha \le
+  0.463$, of Kocia \sourcecite{ref:srtk-koc20}{Koc20}, and disproving the
+  conjectured value $7$ at six copies by showing
+  $\chi\bigl(|T\rangle^{\otimes 6}\bigr) \le 6$
+  \sourcecite{ref:srtk-qpg21}{QPG21}.
+
+  \item Peleg, Shpilka, and Volk proved an $\Omega(n)$ lower bound on the exact
+  stabilizer rank of tensor powers of single-qubit magic states, improving
+  the $\Omega(\sqrt{n}\,)$ of Bravyi, Smith, and Smolin, as well as
+  $\Omega(\sqrt{n}/\log n)$ for $\delta$-close approximate rank, the
+  first nontrivial approximate bound; these direct exact-rank techniques
+  stop at linear \sourcecite{ref:srtk-psv22}{PSV22}.
+
+  \item Two further exact-rank techniques reach only linear lower bounds:
+  higher-order Fourier analysis \sourcecite{ref:srtk-lab22}{Lab22}, and the
+  new techniques of Lovitz and Steffan
+  \sourcecite{ref:srtk-ls22}{LS22}.
+
+  \item Mehraban and Tahmasbi proved $\chi_{\delta}\bigl(|T\rangle^{\otimes
+  m}\bigr) = \Omega\bigl((1-\delta^{2})^{2} m^{2}/\operatorname{polylog}
+  m\bigr)$ for every $0 < \delta < 1$, where $\chi_{\delta}(\psi)$ is the
+  least stabilizer rank of a pure state within $2$-norm distance $\delta$
+  of $|\psi\rangle$; fixing any constant $\delta$ and using the
+  monotonicity $\chi \ge \chi_{\delta}$ yields the lower bound in
+  Eq.~\eqref{eq:srtk-bounds}, the only super-linear technique known.  They
+  further show that polynomial exact rank would imply
+  $\mathsf{P}^{\#\mathsf{P}} \subseteq \mathsf{P}/\mathsf{poly}$
+  (Theorem~1.6), give a conditional super-polynomial approximate-rank bound
+  under average-case $\#\mathsf{P}$-hardness (Theorem~1.11), and prove that
+  a quadratic approximate bound alone cannot yield super-quadratic exact
+  bounds in general (Lemma~A.5) \sourcecite{ref:srtk-mt24}{MT24}.
+
+  \item Kalra and Sinha proved the first quantitative lower bound on the
+  stabilizer fidelity as a function of stabilizer rank, via Barnes-Wall
+  lattices and magic monotones, but for stabilizer rank it reproduces only
+  the existing lower bound, linear up to a logarithmic factor, on the
+  approximate rank of the tensor powers of the Hadamard magic state
+  $|H\rangle$, together with an elementary proof of the Lovitz-Steffan
+  density of maximal-stabilizer-rank product states; neither side of
+  Eq.~\eqref{eq:srtk-bounds} for $|T\rangle^{\otimes n}$ moves
+  \sourcecite{ref:srtk-ks25}{KS25}.
+
+  \item Labib and Russo gave explicit stabilizer decompositions for the three
+  previously unbounded qutrit magic-state orbits, with per-copy exponents
+  $0.316$ and $0.421$, and the first $\Omega(m/\log m)$ lower bounds for
+  the qutrit Hadamard-eigenstate and Norrell orbits; for qubits, a
+  closed-form four-copy decomposition of the T-type orbit merely matches
+  the exponent $\alpha$ of Eq.~\eqref{eq:srtk-bounds}, so neither side of
+  the qubit question moves \sourcecite{ref:srtk-lr26}{LR26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[BSS16]}]\label{ref:srtk-bss16}
+  S. Bravyi, G. Smith, and J. A. Smolin, ``Trading classical and quantum
+  computational resources,'' \emph{Physical Review X} \textbf{6}, 021043
+  (2016).
+  \href{https://doi.org/10.1103/PhysRevX.6.021043}{doi:10.1103/PhysRevX.6.021043};
+  \href{https://arxiv.org/abs/1506.01396}{arXiv:1506.01396}.
+
+  \item[\textup{[BG16]}]\label{ref:srtk-bg16}
+  S. Bravyi and D. Gosset, ``Improved classical simulation of quantum
+  circuits dominated by Clifford gates,'' \emph{Physical Review Letters}
+  \textbf{116}, 250501 (2016).
+  \href{https://doi.org/10.1103/PhysRevLett.116.250501}{doi:10.1103/PhysRevLett.116.250501}.
+
+  \item[\textup{[BBC+19]}]\label{ref:srtk-bbc19}
+  S. Bravyi, D. Browne, P. Calpin, E. Campbell, D. Gosset, and M. Howard,
+  ``Simulation of quantum circuits by low-rank stabilizer decompositions,''
+  \emph{Quantum} \textbf{3}, 181 (2019).
+  \href{https://doi.org/10.22331/q-2019-09-02-181}{doi:10.22331/q-2019-09-02-181};
+  \href{https://arxiv.org/abs/1808.00128}{arXiv:1808.00128}.
+
+  \item[\textup{[Koc20]}]\label{ref:srtk-koc20}
+  L. Kocia, ``Improved strong simulation of universal quantum circuits,''
+  \href{https://arxiv.org/abs/2012.11739}{arXiv:2012.11739} (2020).
+
+  \item[\textup{[QPG21]}]\label{ref:srtk-qpg21}
+  H. Qassim, H. Pashayan, and D. Gosset, ``Improved upper bounds on the
+  stabilizer rank of magic states,'' \emph{Quantum} \textbf{5}, 606
+  (2021).
+  \href{https://doi.org/10.22331/q-2021-12-20-606}{doi:10.22331/q-2021-12-20-606};
+  \href{https://arxiv.org/abs/2106.07740}{arXiv:2106.07740}.
+
+  \item[\textup{[PSV22]}]\label{ref:srtk-psv22}
+  S. Peleg, A. Shpilka, and B. L. Volk, ``Lower Bounds on Stabilizer
+  Rank,'' \emph{Quantum} \textbf{6}, 652 (2022).
+  \href{https://doi.org/10.22331/q-2022-02-15-652}{doi:10.22331/q-2022-02-15-652};
+  \href{https://arxiv.org/abs/2106.03214}{arXiv:2106.03214}.
+
+  \item[\textup{[Lab22]}]\label{ref:srtk-lab22}
+  F. Labib, ``Stabilizer rank and higher-order Fourier analysis,''
+  \emph{Quantum} \textbf{6}, 645 (2022).
+  \href{https://doi.org/10.22331/q-2022-02-09-645}{doi:10.22331/q-2022-02-09-645}.
+
+  \item[\textup{[LS22]}]\label{ref:srtk-ls22}
+  B. Lovitz and V. Steffan, ``New techniques for bounding stabilizer
+  rank,'' \emph{Quantum} \textbf{6}, 692 (2022).
+  \href{https://doi.org/10.22331/q-2022-04-20-692}{doi:10.22331/q-2022-04-20-692}.
+
+  \item[\textup{[MT24]}]\label{ref:srtk-mt24}
+  S. Mehraban and M. Tahmasbi, ``Quadratic Lower bounds on the Approximate
+  Stabilizer Rank: A Probabilistic Approach,'' in \emph{Proceedings of
+  STOC 2024} (2024).
+  \href{https://doi.org/10.1145/3618260.3649733}{doi:10.1145/3618260.3649733};
+  \href{https://arxiv.org/abs/2305.10277}{arXiv:2305.10277}.
+
+  \item[\textup{[KS25]}]\label{ref:srtk-ks25}
+  A. R. Kalra and P. Sinha, ``Stabilizer Ranks, Barnes Wall Lattices and
+  Magic Monotones,''
+  \href{https://arxiv.org/abs/2503.04101}{arXiv:2503.04101} (2025).
+
+  \item[\textup{[LR26]}]\label{ref:srtk-lr26}
+  F. Labib and V. Russo, ``Stabilizer rank bounds for magic-state
+  orbits,'' \href{https://arxiv.org/abs/2605.28586}{arXiv:2605.28586}
+  (2026).
+\end{enumerate}
+
+\subsection*{Comment}
+
+What remains unresolved is the alternative itself: neither an $n^{O(1)}$
+upper bound nor a super-polynomial lower bound on
+$\chi\bigl(|T\rangle^{\otimes n}\bigr)$ is known, and the two sides of
+Eq.~\eqref{eq:srtk-bounds} have stood since 2021 and 2024 respectively.
+An explicit polynomial upper bound would give, by gadgetizing every T gate
+through state injection into a Clifford circuit acting on
+$|T\rangle^{\otimes m}$, a polynomial-time classical strong-simulation
+algorithm for all Clifford+T circuits with polynomially many T gates, and by
+Theorem~1.6 of \sourcecite{ref:srtk-mt24}{MT24} would imply
+$\mathsf{P}^{\#\mathsf{P}} \subseteq \mathsf{P}/\mathsf{poly}$, so it is
+believed false.  Any super-polynomial lower bound, even $n^{2+\varepsilon}$
+for some $\varepsilon > 0$, would settle the conjectured super-polynomial
+growth and be the first unconditional bound beyond the
+$\Omega\bigl(n^{2}/\operatorname{polylog} n\bigr)$ level, since the
+direct methods of Peleg, Shpilka, and Volk, Labib, and Lovitz and Steffan
+stop at linear and a quadratic approximate bound alone cannot give
+super-quadratic exact bounds in general.  Constant-factor improvements ---
+a smaller $\alpha$ in Eq.~\eqref{eq:srtk-bounds}, sharpening the lower
+bound to $\Omega(n^{2})$, or new small-$n$ exact values --- do not settle
+the question.  The zoo's record ``Universal purification with classically
+simulable operations'' shares the boundary between stabilizer and magic
+resources but asks a dynamical resource-conversion question about
+purification fidelity, not a state-decomposition question.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Quantum magic; Quantum circuit complexity; Computational complexity and computability
+
+\subsection*{ID}
+
+\texttt{op\_37f7b003ec78a028}
