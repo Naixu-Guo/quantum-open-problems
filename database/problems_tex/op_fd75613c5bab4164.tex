@@ -49,7 +49,7 @@ Solved
 
 Watanabe proved the inclusion of degradable channels in the regularized
 less-noisy class and explicitly left open whether it is strict
-\sourcecite{ref:p47-watanabe}{Wat12}.
+\sourcecite{ref:p47-watanabe}{Wat12}. Hirche and Leditzky previously isolated the same strict-inclusion question and related it to superactivation of private capacity\sourcecite{ref:p47-hirche-leditzky}{HL23}.
 
 \subsection*{Progress}
 
@@ -58,12 +58,16 @@ less-noisy class and explicitly left open whether it is strict
   Eq.~\eqref{eq:p47-watanabe-less-noisy}, but left open whether this inclusion
   is strict \sourcecite{ref:p47-watanabe}{Wat12}.
 
-  \item Belzig, Gao, Smith, and Wu constructed nondegradable channels satisfying
-  the one-copy version of Eq.~\eqref{eq:p47-regularized-order}.  Their result
+  \item Belzig, Gao, Smith, and Wu constructed flagged mixtures of qubit amplitude-damping channels ---
+  including the parameter point $(p,\gamma_1,\gamma_2)=(0.75,0.2,0.81)$ ---
+  that are nondegradable yet satisfy the one-copy version of
+  Eq.~\eqref{eq:p47-regularized-order}.  Their result
   separates degradability from the level-1 less-noisy condition, while
   explicitly leaving the all-blocklength condition in
   Eq.~\eqref{eq:p47-regularized-order} unresolved
   \sourcecite{ref:p47-belzig}{BGSW25}.
+
+  \item Smith and Wu derived a sufficient condition under which a flagged mixture of degradable and antidegradable channels is regularized less noisy while remaining nondegradable; for their amplitude-damping candidates the condition reduces to strict positivity of a multi-copy comparison coefficient, which they leave unproved, making the construction a conditional route to a separation rather than a counterexample \sourcecite{ref:p47-smith-wu}{SW25}.
 
   \item Zhu and Wang subsequently considered the qutrit channel
   \begin{equation}
@@ -108,6 +112,21 @@ less-noisy class and explicitly left open whether it is strict
   C. Zhu and X. Wang, ``Quantum Incapacity beyond No-Cloning and PPT
   Mechanisms,'' arXiv preprint (2026).
   \href{https://arxiv.org/abs/2607.24693}{arXiv:2607.24693}.
+
+  \item[\textup{[HL23]}]\label{ref:p47-hirche-leditzky}
+  C. Hirche and F. Leditzky,
+  ``Bounding Quantum Capacities via Partial Orders and Complementarity,''
+  \emph{IEEE Transactions on Information Theory} \textbf{69}, 283--297
+  (2023). \href{https://doi.org/10.1109/TIT.2022.3199578}{doi:10.1109/TIT.2022.3199578};
+  \href{https://arxiv.org/abs/2202.11688}{arXiv:2202.11688}.
+
+  \item[\textup{[SW25]}]\label{ref:p47-smith-wu}
+  G. Smith and P. Wu,
+  ``Additivity of Quantum Capacities in Simple Non-Degradable Quantum
+  Channels,'' \emph{IEEE Transactions on Information Theory} \textbf{71},
+  6134--6154 (2025).
+  \href{https://doi.org/10.1109/TIT.2025.3583936}{doi:10.1109/TIT.2025.3583936};
+  \href{https://arxiv.org/abs/2409.03927}{arXiv:2409.03927}.
 \end{enumerate}
 
 \subsection*{Comment}
