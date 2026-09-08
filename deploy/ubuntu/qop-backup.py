@@ -15,8 +15,9 @@ import time
 
 
 def git(repo, *args):
+    # A root backup must not refresh/rewrite the service-owned Git index.
     return subprocess.check_output(
-        ["git", "-c", f"safe.directory={repo}", "-C", str(repo), *args],
+        ["git", "--no-optional-locks", "-c", f"safe.directory={repo}", "-C", str(repo), *args],
         text=True, stderr=subprocess.PIPE, timeout=120,
     ).strip()
 
