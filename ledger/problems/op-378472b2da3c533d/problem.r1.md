@@ -1,0 +1,37 @@
+---
+id: "01M20BHBAFHFJEYHE131WS8EJX"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-08T12:10:50.365Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "editor-formulated"
+posed: null
+areaIds: ["quantum-algorithm"]
+topicIds: ["computational-complexity","quantum-supremacy","iqp-sampling"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Average-case approximation hardness of random Ising partition functions"
+aliases: ["op-378472b2da3c533d","op_378472b2da3c533d","01M20BHBAFHFJEYHE131WS8EJX"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_378472b2da3c533d.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_378472b2da3c533d","ulid":"01M20BHBAFHFJEYHE131WS8EJX","aliases":["op_378472b2da3c533d","01M20BHBAFHFJEYHE131WS8EJX","op-378472b2da3c533d"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":1,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-08T11:13:01.775Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"editor-formulated","posed":null,"areaIds":["quantum-algorithm"],"topicIds":["computational-complexity","quantum-supremacy","iqp-sampling"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Average-case approximation hardness of random Ising partition functions","status":"Unsolved","fields":["Quantum algorithm"],"topics":["Computational complexity","Quantum supremacy","IQP sampling"],"statement":"Is it $\\#\\mathrm{P}$-hard to approximate $|Z_R|^2$ to relative multiplicative\nerror $a+o(1)$ on a $b$ fraction of random Ising instances?\nHere $a>0$ and $0<b\\leq1$ are constant parameters independent of the number\nof vertices $n$, specifying the relative error and instance fraction.\n\nTake the complete graph on $n$ vertices. Choose each edge weight $w_{ij}$\nand each vertex weight $v_k$ independently and uniformly from\n$\\{0,\\ldots,7\\}$. With $\\omega=e^{i\\pi/8}$, define\n\\begin{equation}\n  Z_R=\\sum_{z\\in\\{-1,1\\}^n}\n    \\omega^{\\sum_{i<j}w_{ij}z_i z_j+\\sum_{k=1}^n v_k z_k}.\n  \\label{eq:bms-ising-partition}\n\\end{equation}\nThe target is the squared modulus of Eq.~\\eqref{eq:bms-ising-partition}.\nAn estimate $\\widetilde Q_R$ is required to satisfy\n\\begin{equation}\n  \\bigl|\\widetilde Q_R-|Z_R|^2\\bigr|\n    \\leq (a+o(1))|Z_R|^2.\n  \\label{eq:bms-ising-approximation}\n\\end{equation}\nThe $b$ fraction in the question is measured over the random vertex and edge\nweights for which Eq.~\\eqref{eq:bms-ising-approximation} holds; $o(1)$ tends\nto zero as $n\\to\\infty$.","source":"Conjecture 2 of Bremner, Montanaro, and Shepherd, on page 2 of arXiv v2,\nstates this average-case hardness conjecture with $a=1/4$ and $b=1/24$\n\\sourcecite{ref:bms-ising-source}{BMS16}.\nThe present formulation replaces those two numerical constants by the\nparameters $a$ and $b$, as requested by the contributor, and retains the\noriginal $o(1)$ term, random-instance distribution, and squared-modulus target.\nThe parameterized formulation is not a verbatim claim of the paper.","progress":["None"],"references":[{"key":"BMS16","label":"ref:bms-ising-source","tex":"M. J. Bremner, A. Montanaro, and D. J. Shepherd,\n\"Average-case complexity versus approximate simulation of commuting quantum computations,\"\n\\emph{Physical Review Letters} \\textbf{117}, 080501 (2016).\n\\href{https://doi.org/10.1103/PhysRevLett.117.080501}{doi:10.1103/PhysRevLett.117.080501};\n\\href{https://arxiv.org/abs/1504.07999v2}{arXiv:1504.07999v2}."}],"comment":"The remaining task is an average-case hardness result for the specified\nrandom-weight distribution and relative-error guarantee. The pair $(a,b)$\nindexes a family of questions; hardness for every pair is not asserted.\nThe source's original parameter choice is $(a,b)=(1/4,1/24)$.\nThe instance fraction $b$ concerns inputs, not an algorithm's internal\nsuccess probability."}}
+---
+## Source
+
+Conjecture 2 of Bremner, Montanaro, and Shepherd, on page 2 of arXiv v2, states this average-case hardness conjecture with $a=1/4$ and $b=1/24$ [BMS16](https://doi.org/10.1103/PhysRevLett.117.080501). The present formulation replaces those two numerical constants by the parameters $a$ and $b$, as requested by the contributor, and retains the original $o(1)$ term, random-instance distribution, and squared-modulus target. The parameterized formulation is not a verbatim claim of the paper.
+
+## Progress
+
+None
+
+## Comment
+
+The remaining task is an average-case hardness result for the specified random-weight distribution and relative-error guarantee. The pair $(a,b)$ indexes a family of questions; hardness for every pair is not asserted. The source’s original parameter choice is $(a,b)=(1/4,1/24)$. The instance fraction $b$ concerns inputs, not an algorithm’s internal success probability.
+
+## References
+
+**BMS16** M. J. Bremner, A. Montanaro, and D. J. Shepherd, "Average-case complexity versus approximate simulation of commuting quantum computations," *Physical Review Letters* **117**, 080501 (2016). [doi:10.1103/PhysRevLett.117.080501](https://doi.org/10.1103/PhysRevLett.117.080501); [arXiv:1504.07999v2](https://arxiv.org/abs/1504.07999v2).

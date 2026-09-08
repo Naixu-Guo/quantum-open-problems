@@ -95,7 +95,7 @@ body {
 
 a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 2px; }
 a:hover { color: var(--mint-deep); }
-button, input, select { font: inherit; }
+button, input, select, textarea { font: inherit; }
 button, select { cursor: pointer; }
 code { font-family: var(--mono); font-size: 0.9em; background: color-mix(in srgb, var(--ink) 7%, transparent); padding: 0.08em 0.35em; border-radius: 5px; }
 kbd { font-family: var(--mono); font-size: 0.85em; padding: 0 6px; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 5px; background: var(--card-raised); }
@@ -105,7 +105,7 @@ p { margin: 0 0 1em; }
 .muted { color: var(--ink-soft); }
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible {
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible {
   outline: 3px solid var(--coral);
   outline-offset: 3px;
 }
@@ -489,6 +489,75 @@ mjx-container { max-width: 100%; }
 .prose ul, .prose ol { padding-left: 22px; }
 .prose li { margin-bottom: 6px; }
 
+/* Contribute: the proposal form. One centered column like a problem page;
+   fieldsets are cards whose legends match the problem-section headings. */
+.contribute-layout { width: min(880px, var(--shell)); margin: 0 auto; padding: 28px 0 56px; }
+.contribute-layout .crumbs { margin-bottom: 14px; font-size: 12.5px; }
+.contribute-routes { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 0 0 28px; }
+.route-card { padding: 18px 20px; border-radius: var(--radius-md); border: 1px solid var(--line); background: var(--card); }
+.route-card h2 { margin-bottom: 6px; font-size: 1.1rem; }
+.route-card p { margin: 0; color: var(--ink-soft); font-size: 14px; }
+.proposal-form { display: grid; gap: 18px; }
+.proposal-form fieldset { min-width: 0; margin: 0; padding: 18px 22px 22px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--card); }
+.proposal-form legend { padding: 0 6px; font-family: var(--sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mint-deep); }
+.form-row { display: grid; align-content: start; gap: 6px; min-width: 0; }
+/* Rows stack with a gap; inside a multi-column grid they sit side by side, so their labels and boxes line up. */
+fieldset > .form-row + .form-row, .form-grid-2 + .form-row { margin-top: 16px; }
+.form-row > label, .form-label { font-weight: 600; font-size: 14.5px; }
+.form-hint { margin: 0; color: var(--ink-soft); font-size: 13px; }
+.form-hint code { font-size: 0.85em; }
+.form-grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px 18px; }
+.proposal-form input[type="text"], .proposal-form input[type="email"], .proposal-form input[type="search"], .proposal-form textarea {
+  width: 100%; padding: 10px 12px; border-radius: var(--radius-sm); border: 1px solid var(--line-strong);
+  background: var(--card-raised); color: var(--ink); font-size: 15px; line-height: 1.5;
+}
+.proposal-form textarea { min-height: 110px; resize: vertical; font-family: var(--mono); font-size: 13.5px; }
+.proposal-form input:focus, .proposal-form textarea:focus { outline: none; border-color: var(--mint-deep); box-shadow: 0 0 0 3px color-mix(in srgb, var(--mint-deep) 20%, transparent); }
+.proposal-form input[type="checkbox"] { width: 16px; height: 16px; margin: 0; accent-color: var(--mint-deep); flex-shrink: 0; }
+.choice-count { color: var(--ink-faint); font-family: var(--mono); font-size: 11.5px; font-weight: 500; }
+/* Dropdown pickers for fields and topics: a select, an optional box for a name of the
+   contributor's own, and the chosen names as pills (fields solid, topics outlined). */
+.picker { display: grid; gap: 10px; }
+.picker select {
+  width: 100%; max-width: 480px; height: 44px; padding: 0 40px 0 12px; border-radius: var(--radius-sm); border: 1px solid var(--line-strong);
+  background: var(--card-raised); color: var(--ink); font-size: 15px; appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23516174' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center; background-size: 16px;
+}
+.picker select:focus { outline: none; border-color: var(--mint-deep); box-shadow: 0 0 0 3px color-mix(in srgb, var(--mint-deep) 20%, transparent); }
+.picker select:disabled { opacity: 0.55; cursor: not-allowed; }
+.picker-custom { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.picker-custom[hidden] { display: none; }
+.picker-custom input { flex: 1 1 240px; max-width: 480px; }
+.picker-chosen:empty { display: none; }
+.picker-chosen .tag { padding-right: 4px; gap: 4px; }
+.tag-new { border-style: dashed; }
+.tag-remove {
+  display: inline-grid; place-items: center; width: 20px; height: 20px; padding: 0; margin-left: 2px;
+  border: 0; border-radius: 50%; background: transparent; color: inherit; font-size: 15px; line-height: 1; opacity: 0.7; cursor: pointer;
+}
+.tag-remove:hover { opacity: 1; background: color-mix(in srgb, currentColor 16%, transparent); }
+.form-row-inline { margin-top: 10px; justify-items: start; }
+.button-small { padding: 8px 14px; font-size: 13px; }
+.statement-preview { justify-self: stretch; margin-top: 4px; padding: 12px 14px; border: 1px dashed var(--line-strong); border-radius: var(--radius-sm); background: var(--paper); white-space: pre-wrap; overflow-wrap: anywhere; font-size: 15px; }
+.statement-preview[hidden] { display: none; }
+.consent { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; font-weight: 400 !important; line-height: 1.5; cursor: pointer; }
+.consent input { margin-top: 3px !important; }
+.hp { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+.captcha-slot { display: grid; gap: 8px; min-height: 24px; }
+.form-notice { padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--highlight-line); background: var(--highlight-bg); font-size: 14px; }
+.form-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.button-primary { background: var(--accent-solid); color: var(--on-accent-solid); border-color: var(--accent-solid); }
+.button-primary:hover { background: var(--mint-deep); border-color: var(--mint-deep); color: #ffffff; }
+.button:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+.form-status { min-height: 1.5em; margin: 0; font-size: 14px; color: var(--ink-soft); }
+.form-status[data-kind="error"] { color: var(--unsolved-fg); font-weight: 600; }
+.proposal-done { padding: 24px 26px; border-radius: var(--radius-lg); border: 1px solid var(--solved-line); background: var(--solved-bg); color: var(--ink); }
+.proposal-done:focus { outline: none; }
+.proposal-done h2 { margin-bottom: 10px; font-size: 1.4rem; }
+.proposal-done p:last-child { margin-bottom: 0; }
+.proposal-form[hidden], .proposal-done[hidden] { display: none; }
+
 /* Footer */
 .site-footer { margin-top: 40px; padding: 40px max(24px, calc((100vw - 1200px) / 2)) 48px; background: var(--navy); color: var(--on-navy); }
 .footer-brand { display: flex; gap: 14px; align-items: center; margin-bottom: 20px; }
@@ -554,6 +623,8 @@ mjx-container { max-width: 100%; }
   .plain-list { columns: 1; }
   .copy-block { padding-right: 16px; }
   .copy-button { position: static; margin-top: 10px; }
+  .proposal-form fieldset { padding: 16px 14px 18px; }
+  .picker select, .picker-custom input { max-width: none; }
 }
 
 @media print {
