@@ -116,7 +116,7 @@ identifiers and metadata and writes both the JSON record and the TeX file.
 | `/problem/<id>/<id>.tex` | The TeX form of the record. |
 | `/tags/`, `/tag/<slug>/` | Index of fields and topics; one listing per field and per topic. |
 | `/random/unsolved/`, `/random/solved/` | Redirect to a random problem. |
-| `/about/` | Scope, contribution guide, citation, machine-readable access, credits. |
+| `/about/` | Scope, contribution guide, citation, machine-readable access, contributions. |
 | `/contribute/` | The proposal form for external contributors: problem, classification, sources, progress, contact details, CAPTCHA. Posts to the service's proposal inbox; see [Contribution form](#contribution-form). |
 | `/api/index.json`, `/api/problems/<id>.json`, `/api/tags.json` | Machine-readable records and the taxonomy with counts. |
 | `/api/problems/<alias>.json`, `/api/identifiers.json` | Record lookup by any registered alias, and the identifier crosswalk. |

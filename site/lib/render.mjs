@@ -145,7 +145,7 @@ ${body}
         <a href="${root}api/index.json">JSON API</a>
         <a href="${config.repositoryUrl}" rel="noreferrer">Source repository</a>
       </nav>
-      ${current === "home" ? `<p class="footer-note footer-credit">Compiled and maintained by Naixu Guo, Bikun Li, and contributors. <a href="${root}about/#credits">Credits</a>.</p>` : ""}
+      ${current === "home" ? `<p class="footer-note footer-credit">Developed and maintained by Bikun Li, Qicheng Tang, Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo. <a href="${root}about/#contributions">Contributions</a>.</p>` : ""}
       <p class="footer-note">A dated research index. Verify a status against the cited sources before relying on it. <a href="#top">Back to top ↑</a></p>
     </footer>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -608,6 +608,17 @@ export function renderTagPage({ config, root, kind, tag, tagSlug = slug(tag), hi
 }
 
 export function renderAbout({ config, root, stats, dates }) {
+  const mcpSetup = `git clone ${config.repositoryUrl}.git`;
+  const mcpServiceUrl = config.mcp.serviceUrl;
+  const mcpConfig = JSON.stringify({
+    mcpServers: {
+      "quantum-open-problems": {
+        command: "node",
+        args: ["--experimental-strip-types", "--no-warnings", "/absolute/path/quantum-open-problems/mcp/src/server.ts"],
+        env: { QOP_SERVICE_URL: mcpServiceUrl }
+      }
+    }
+  }, null, 2);
   const zooBib = `@misc{qiqcop_zoo,
   title = {${config.fullName} (${config.shortName})},
   howpublished = {\\url{${config.siteUrl}}},
@@ -638,22 +649,34 @@ export function renderAbout({ config, root, stats, dates }) {
         <p>Cite the primary sources for any mathematical claim. To cite a problem page for its statement, status, or stable identifier, use the Cite button on that page. To cite the zoo as a whole:</p>
         <div class="copy-block no-math"><pre id="zoo-bibtex">${escape(zooBib)}</pre><button class="copy-button" type="button" data-copy="zoo-bibtex">Copy</button></div>
 
-        <h2 id="api">Machine-readable access</h2>
-        <ul>
-          <li><a href="${root}api/index.json">api/index.json</a>: every problem with title, status, fields, topics, plain-text statement, and links.</li>
-          <li><code>api/problems/&lt;id&gt;.json</code>: one full record with TeX source, converted HTML, plain text, references, and equation labels.</li>
-          <li><a href="${root}api/tags.json">api/tags.json</a>: the taxonomy of fields and topics with counts.</li>
-          <li><a href="${root}llms.txt">llms.txt</a>: a short guide for AI agents.</li>
-        </ul>
+        <h2 id="mcp"><span id="api">Use the MCP server</span></h2>
+        <p>Connect your AI assistant through the Model Context Protocol (MCP) to search the zoo, read problem statements and references, and gather the known results and remaining questions for a research session.</p>
+        <p>The MCP adapter connects your assistant to our hosted catalog. You need Git, Node.js 22.13 or later, and an MCP client that supports local <code>stdio</code> servers. Reading problems requires no API key.</p>
+        <ol>
+          <li><strong>Download the adapter.</strong> Run this command once in a terminal. If you already have the repository, use your existing checkout:
+            <div class="copy-block no-math"><pre id="mcp-setup">${escape(mcpSetup)}</pre><button class="copy-button" type="button" data-copy="mcp-setup" aria-label="Copy adapter download command">Copy</button></div>
+          </li>
+          <li><strong>Connect your assistant.</strong> Add a local <code>stdio</code> MCP server in your client. If the client uses an <code>mcpServers</code> configuration, copy the entry below:
+            <details>
+              <summary>JSON configuration for clients using <code>mcpServers</code></summary>
+              <p>Replace the example path with the full path to your cloned repository. If your client already has an <code>mcpServers</code> section, add this server to it. Save the configuration and reload the client's MCP connection.</p>
+              <div class="copy-block no-math"><pre id="mcp-config">${escape(mcpConfig)}</pre><button class="copy-button" type="button" data-copy="mcp-config" aria-label="Copy MCP client configuration">Copy</button></div>
+            </details>
+          </li>
+          <li><strong>Ask a research question.</strong> For example: “Use the quantum-open-problems MCP to find unsolved problems about quantum channel capacity, then summarize one problem's known progress and references.” The assistant can use <code>search_problems</code>, <code>get_problem</code>, <code>list_references</code>, and <code>build_context</code>.</li>
+        </ol>
+        <p>Your client starts the adapter and queries the hosted service. You can check the <a href="${escape(mcpServiceUrl)}/api/v1/status" rel="noreferrer">catalog service status</a> or read the <a href="${config.repositoryUrl}/blob/${config.branch}/mcp/README.md" rel="noreferrer">MCP setup and tool guide</a> for troubleshooting and authenticated research contributions. For direct downloads, the <a href="${root}api/index.json">JSON catalog</a>, <a href="${root}api/tags.json">taxonomy</a>, and <a href="${root}llms.txt">agent guide</a> are also available.</p>
 
-        <h2 id="credits">Credits</h2>
-        <p>The problem collection is compiled and maintained by Naixu Guo, Bikun Li, and the contributors to the <a href="${config.repositoryUrl}" rel="noreferrer">GitHub repository</a>. Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
+        <h2 id="contributions"><span id="credits">Contributions</span></h2>
+        <p>This project is developed and maintained by Bikun Li, Qicheng Tang, Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo.</p>
+        <p>We thank <a href="https://gauge-forge.com/" rel="noreferrer">GaugeForge</a> for its financial support of this project.</p>
+        <p>Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
       </div>
     </section>`;
   return layout({
     config, root, path: "about/", current: "about",
     title: "About",
-    description: `What the ${config.shortName} is, how to contribute, and how to cite.`,
+    description: `What the ${config.shortName} is, how to contribute, how to cite, and how to connect an AI assistant through MCP.`,
     body, bodyClass: "page-about", withMath: false
   });
 }

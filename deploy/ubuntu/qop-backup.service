@@ -1,0 +1,6 @@
+[Unit]
+Description=Back up the Quantum Open Problems ledger and databases
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/libexec/qop-backup

@@ -10,7 +10,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { createHash } from "node:crypto";
 import type { Service } from "./write.ts";
-import { submit } from "./write.ts";
+import { submit, refresh } from "./write.ts";
+import { watchLedger } from "./refresh.ts";
 import { problemView, frontier, tree, attempts, contributionView, recordView, status, events, referencesOf, commentsOn, reviewQueue, contextBundle, taxonomyView, actorsView, searchSources, ContextError } from "./read-models.ts";
 import { currentDecisions, isIndexed, contributionState } from "../../contract/src/derive.ts";
 import { validatePayload } from "../../contract/src/validate.ts";
@@ -351,7 +352,7 @@ export function createServer(service: Service): http.Server {
   const bodyLimit = service.policy.bodyLimits["contributionBytes"] ?? 262144;
   const perMinute = service.policy.rateLimits["requestsPerAddressPerMinute"] ?? 600;
 
-  return http.createServer(async (request, response) => {
+  const server = http.createServer(async (request, response) => {
     // Only anonymous reads of caller-independent routes are cacheable by shared caches.
     let cacheable = false;
     // Set once the request is known to target a cross-origin route, so every reply to it, errors included, carries them.
@@ -381,6 +382,8 @@ export function createServer(service: Service): http.Server {
       // The per-address budget is for API and login calls; a page's static assets do not spend it.
       if (isApi || isAuth) {
         if (service.auth.bump(`address:${address}`, MINUTE) > perMinute) throw new HttpError(429, "too many requests from this address");
+        try { refresh(service); }
+        catch { throw new HttpError(503, "the ledger cannot be refreshed; retry after the catalog update is repaired"); }
       }
 
       // Who is calling. On the API a bearer token names the actor and an invalid one is refused;
@@ -441,4 +444,6 @@ export function createServer(service: Service): http.Server {
       else send(500, { error: error instanceof Error ? error.message : String(error) });
     }
   });
+  watchLedger(server, service);
+  return server;
 }

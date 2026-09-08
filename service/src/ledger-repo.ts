@@ -88,9 +88,28 @@ export class LedgerRepo {
 
   /** Re-read the ledger if the clone moved under the service (an operator's repair, another process's sync). Returns whether it did. */
   refreshIfMoved(): boolean {
-    if (!this.commitEnabled || this.heads() === this.loadedHeads) return false;
+    if (this.heads() === this.loadedHeads) return false;
     this.ledger = this.reload();
     return true;
+  }
+
+  /** Fetch asynchronously, then apply and validate on the service thread. Never pushes. */
+  async poll(signal: AbortSignal): Promise<void> {
+    if (!this.sync) return;
+    const apply = await this.sync.prepareCatchUp(signal);
+    if (signal.aborted) return;
+    this.refreshIfMoved();
+    const caught = apply();
+    if (caught.moved) {
+      try {
+        this.ledger = this.reload();
+      } catch (error) {
+        const reason = `the remote brought an invalid ledger; the clone was put back: ${error instanceof Error ? error.message : String(error)}`;
+        this.sync.undo(reason);
+        throw new Error(reason);
+      }
+    }
+    if (caught.refused) throw new Error(caught.refused);
   }
 
   /**
