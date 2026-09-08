@@ -19,7 +19,9 @@ collection with their resolutions, preserving the history and references.
 ## Contribute
 
 Suggestions for new problems, research updates, and corrections are welcome.
-See the [contribution guide](CONTRIBUTING.md) or
+Propose a problem through the
+[proposal form](https://naixu-guo.github.io/quantum-open-problems/contribute/),
+which needs no account, see the [contribution guide](CONTRIBUTING.md), or
 [open an issue](https://github.com/Naixu-Guo/quantum-open-problems/issues/new/choose).
 Please cite the original research sources when using a problem or result.
 

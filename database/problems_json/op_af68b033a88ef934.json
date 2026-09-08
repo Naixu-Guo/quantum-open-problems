@@ -1,0 +1,75 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_af68b033a88ef934",
+  "ulid": "01M20DFNK3W29RR12PZ50N40AH",
+  "aliases": [
+    "op_af68b033a88ef934",
+    "01M20DFNK3W29RR12PZ50N40AH",
+    "op-af68b033a88ef934"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-08T11:47:03.907Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-algorithm"
+    ],
+    "topicIds": [
+      "computational-complexity-and-computability",
+      "quantum-supremacy",
+      "boson-sampling"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
+  "title": "Permanent-of-Gaussians Conjecture",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum algorithm"
+  ],
+  "topics": [
+    "Computational complexity and computability",
+    "Quantum supremacy",
+    "Boson sampling"
+  ],
+  "statement": "Is the following estimation task $\\#\\mathrm{P}$-hard under randomized\npolynomial-time Turing reductions? Given $X\\in\\mathbb{C}^{n\\times n}$ with\nindependent entries $X_{ij}=(a_{ij}+ib_{ij})/\\sqrt{2}$, where all\n$a_{ij},b_{ij}\\sim\\mathcal{N}(0,1)$ independently, and\n$\\epsilon,\\delta\\in(0,1)$, output $z(X)\\in\\mathbb{C}$ satisfying\n\\begin{equation}\n  \\operatorname{Per}(X):=\\sum_{\\sigma\\in S_n}\\prod_{j=1}^{n}X_{j,\\sigma(j)},\n  \\qquad\n  \\Pr_X\\!\\left[|z(X)-\\operatorname{Per}(X)|\n    \\leq\\epsilon|\\operatorname{Per}(X)|\\right]\\geq1-\\delta.\n  \\label{eq:pgc-estimation}\n\\end{equation}\nHere $S_n$ is the set of permutations of $\\{1,\\ldots,n\\}$.\nThe guarantee in Eq.~\\eqref{eq:pgc-estimation} is required for arbitrary\n$\\epsilon,\\delta$, with running time measured in $n,1/\\epsilon,1/\\delta$.",
+  "source": "Aaronson and Arkhipov's Permanent-of-Gaussians Conjecture:\nConjecture 5 and the preceding definition of $\\mathrm{GPE}_{\\times}$\nin arXiv:1011.3245, Section 1.2.3 (2010 preprint; published 2013)\n\\sourcecite{ref:pgc-aa}{AA13}.\nThe original task approximates the complex permanent itself with relative error.",
+  "progress": [
+    "2010--2013: Aaronson--Arkhipov prove exact Gaussian-permanent\n$\\#\\mathrm{P}$-hardness at success fraction\n$3/4+1/\\operatorname{poly}(n)$, and hardness for estimating\n$|\\operatorname{Per}(X)|^2$ with exponentially small additive error\n(arXiv Theorems 60 and 62) \\sourcecite{ref:pgc-aa}{AA13}.",
+    "2021: Bouland--Fefferman--Landau--Liu obtain additive tolerance\n$e^{-4n\\log n-O(n)}$ for $|\\operatorname{Per}(X)|^2$, with any constant\nfailure probability below $1/4$, using $\\mathrm{BPP}^{\\mathrm{NP}}$ reductions\n(proof of Corollary 1) \\sourcecite{ref:pgc-bfll}{BFLL22}.",
+    "2023 (unpublished): Krovi's tighter total-variation estimate improves\nthis tolerance to $e^{-2n\\log n-O(n)}$, as reported and explained by\nBouland et al. (Section 1.2.1) \\sourcecite{ref:pgc-bdfh}{BDFH25}.",
+    "2025 (real ensemble): for $R\\sim\\mathcal{N}(0,1)^{n\\times n}$,\nBouland et al. prove $\\#\\mathrm{P}$-hardness at additive error\n$n!e^{-O(n^\\gamma)}$ for $|\\operatorname{Per}(R)|^2$, for every fixed\n$\\gamma>0$, with constant success probability, assuming permanent\nanticoncentration (Theorem 1, Section 4; $\\mathrm{BPP}^{\\mathrm{NP}}$ reduction)\n\\sourcecite{ref:pgc-bdfh}{BDFH25}."
+  ],
+  "references": [
+    {
+      "key": "AA13",
+      "label": "ref:pgc-aa",
+      "tex": "S. Aaronson and A. Arkhipov,\n\"The computational complexity of linear optics,\"\n\\emph{Theory of Computing} \\textbf{9}(4), 143--252 (2013).\n\\href{https://doi.org/10.4086/toc.2013.v009a004}{doi:10.4086/toc.2013.v009a004};\n\\href{https://arxiv.org/abs/1011.3245}{arXiv:1011.3245} (2010)."
+    },
+    {
+      "key": "BFLL22",
+      "label": "ref:pgc-bfll",
+      "tex": "A. Bouland, B. Fefferman, Z. Landau, and Y. Liu,\n\"Noise and the frontier of quantum supremacy,\"\nin \\emph{FOCS 2021}, 1308--1317 (2022).\n\\href{https://doi.org/10.1109/FOCS52979.2021.00127}{doi:10.1109/FOCS52979.2021.00127};\n\\href{https://arxiv.org/abs/2102.01738v2}{arXiv:2102.01738v2}."
+    },
+    {
+      "key": "BDFH25",
+      "label": "ref:pgc-bdfh",
+      "tex": "A. Bouland, I. Datta, B. Fefferman, and F. Hernandez,\n\"Exponential improvements to the average-case hardness of BosonSampling,\"\nin \\emph{FOCS 2025}, 912--933 (2025).\n\\href{https://doi.org/10.1109/FOCS63196.2025.00047}{doi:10.1109/FOCS63196.2025.00047};\n\\href{https://arxiv.org/abs/2411.04566v2}{arXiv:2411.04566v2}.\nThe cited Krovi improvement is attributed there to a November 2023 personal communication."
+    },
+    {
+      "key": "KL26",
+      "label": "ref:pgc-kl",
+      "tex": "F. Koehler and P. K. Leung,\n\"Anticoncentration of the Permanent in Ginibre Ensembles,\"\narXiv preprint (July 2026).\n\\href{https://doi.org/10.48550/arXiv.2607.20329}{doi:10.48550/arXiv.2607.20329};\n\\href{https://arxiv.org/abs/2607.20329v1}{arXiv:2607.20329v1}."
+    }
+  ],
+  "comment": "The complex-Gaussian conjecture remains open. Its squared-permanent\ncounterpart has additive-error target $\\epsilon n!$, equivalent under\npermanent anticoncentration (arXiv Theorem 7) \\sourcecite{ref:pgc-aa}{AA13}.\nKoehler--Leung's July 2026 preprint proves this auxiliary conjecture\n(Theorem 1.1) \\sourcecite{ref:pgc-kl}{KL26}.\n\nThe 2025 tolerance $n!e^{-O(n^\\gamma)}$ is for real Gaussian matrices\n$R$, and still falls short of $n!/\\operatorname{poly}(n)$ in that ensemble.\nIt is not a hardness bound for the complex $X$ in the Problem.\nAppendix E leaves the complex square-method argument unproved\n\\sourcecite{ref:pgc-bdfh}{BDFH25}; the anticoncentration result does not\nsupply that separate missing argument."
+}

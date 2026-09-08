@@ -332,4 +332,243 @@
     apply();
     if (location.hash === "#search" && searchInput) searchInput.focus();
   }
+
+  // ------------------------------------------------------------------ proposal form (contribute)
+  // The form posts a JSON proposal to the service's inbox with the CAPTCHA
+  // token the widget adds to the form. Drafts are kept in this browser until
+  // the proposal is accepted, so a failed send never loses a long statement.
+  const proposalForm = $("#proposal-form");
+  if (proposalForm) {
+    const statusLine = $("#proposal-status");
+    const submitButton = $("#proposal-submit");
+    const doneBox = $("#proposal-done");
+    const preview = $("#statement-preview");
+    const submitUrl = proposalForm.dataset.submitUrl || "";
+    const captchaProvider = proposalForm.dataset.captchaProvider || "";
+    const captchaField = proposalForm.dataset.captchaResponse || "";
+    let limits = {};
+    try { limits = JSON.parse(proposalForm.dataset.limits || "{}"); } catch (error) { limits = {}; }
+    const control = (name) => proposalForm.elements.namedItem(name);
+    const value = (name) => String(control(name)?.value ?? "").trim();
+    const say = (message, kind = "") => {
+      if (!statusLine) return;
+      statusLine.textContent = message;
+      statusLine.dataset.kind = kind;
+    };
+
+    // Fields and topics come from a dropdown of the existing names; "Other" opens a box for a
+    // name of the contributor's own. The chosen names are pills with a remove button, and a
+    // counter says how many of the allowed number are chosen.
+    const picker = (plural, counter) => {
+      const box = $(`[data-picker="${plural}"]`, proposalForm);
+      const empty = { select: null, chosen: () => [], custom: () => [], set() {} };
+      if (!box) return empty;
+      const max = Number(box.dataset.max) || 1;
+      const kind = box.dataset.kind || "topic";
+      const select = $("select", box);
+      const customRow = $(".picker-custom", box);
+      const customInput = customRow ? $("input", customRow) : null;
+      const list = $(".picker-chosen", box);
+      const known = select ? Array.from(select.options).map((option) => option.value).filter((name) => name && name !== "__other__") : [];
+      let items = [];
+      const render = () => {
+        if (list) {
+          list.innerHTML = items.map((item) => `<li><span class="tag tag-${kind}${item.custom ? " tag-new" : ""}">${escapeHtml(item.name)}${item.custom ? ' <span class="tag-count">new</span>' : ""}<button type="button" class="tag-remove" data-remove="${escapeHtml(item.name)}" aria-label="Remove ${escapeHtml(item.name)}">×</button></span></li>`).join("");
+        }
+        const full = items.length >= max;
+        if (select) { select.value = ""; select.disabled = full; }
+        if (full && customRow) customRow.hidden = true;
+        if (counter) counter.textContent = `${items.length} of ${max} chosen`;
+      };
+      const add = (name, custom) => {
+        const clean = String(name || "").replace(/\s+/g, " ").trim();
+        if (!clean || items.length >= max) return false;
+        if (items.some((item) => item.name.toLowerCase() === clean.toLowerCase())) { render(); return false; }
+        const existing = known.find((candidate) => candidate.toLowerCase() === clean.toLowerCase());
+        items.push(existing ? { name: existing, custom: false } : { name: clean, custom: Boolean(custom) });
+        render();
+        return true;
+      };
+      const closeCustom = () => { if (customRow) customRow.hidden = true; if (customInput) customInput.value = ""; };
+      select?.addEventListener("change", () => {
+        if (select.value === "__other__") {
+          select.value = "";
+          if (customRow) customRow.hidden = false;
+          customInput?.focus();
+          return;
+        }
+        if (select.value) add(select.value, false);
+      });
+      const addCustom = () => { if (add(customInput?.value, true)) closeCustom(); };
+      $("[data-picker-add]", box)?.addEventListener("click", addCustom);
+      $("[data-picker-cancel]", box)?.addEventListener("click", () => { closeCustom(); select?.focus(); });
+      customInput?.addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); addCustom(); } });
+      list?.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-remove]");
+        if (!button) return;
+        items = items.filter((item) => item.name !== button.dataset.remove);
+        render();
+        select?.focus();
+      });
+      render();
+      return {
+        select,
+        chosen: () => items.map((item) => item.name),
+        custom: () => items.filter((item) => item.custom).map((item) => item.name),
+        set(names, own) { items = []; (Array.isArray(names) ? names : []).forEach((name) => add(name, Array.isArray(own) && own.includes(name))); render(); }
+      };
+    };
+    const fields = picker("fields", $("#fields-count"));
+    const topics = picker("topics", $("#topics-count"));
+
+    // The proposal as the inbox expects it.
+    const proposal = () => ({
+      title: value("title"),
+      statement: value("statement"),
+      fields: fields.chosen(),
+      newFields: fields.custom(),
+      topics: topics.chosen(),
+      newTopics: topics.custom(),
+      source: value("source"),
+      progress: value("progress"),
+      references: value("references"),
+      comment: value("comment"),
+      contributor: { name: value("name"), email: value("email"), affiliation: value("affiliation") },
+      consent: Boolean(control("consent")?.checked),
+      extra: value("extra"),
+      captchaToken: captchaField ? value(captchaField) : ""
+    });
+
+    // The same checks the inbox makes, so a proposal is complete before it leaves the browser.
+    const problems = (p) => {
+      const list = [];
+      const between = (text, limit, label, name) => {
+        if (limit.min && text.length < limit.min) list.push({ message: text ? `${label} needs at least ${limit.min} characters.` : `${label} is required.`, control: control(name) });
+        else if (limit.max && text.length > limit.max) list.push({ message: `${label} is longer than ${limit.max} characters.`, control: control(name) });
+      };
+      between(p.title, limits.title || {}, "The title", "title");
+      between(p.statement, limits.statement || {}, "The statement", "statement");
+      if (p.fields.length < (limits.fields?.min ?? 1)) list.push({ message: "Choose at least one field.", control: fields.select });
+      if (p.topics.length < (limits.topics?.min ?? 1)) list.push({ message: "Choose at least one topic or add your own.", control: topics.select });
+      between(p.contributor.name, limits.name || { min: 1 }, "Your name", "name");
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.contributor.email)) list.push({ message: "Enter a valid email address.", control: control("email") });
+      if (!p.consent) list.push({ message: "Tick the consent box.", control: control("consent") });
+      return list;
+    };
+
+    // Drafts.
+    const DRAFT_KEY = "qiqcop-proposal-draft";
+    const textNames = ["title", "statement", "source", "progress", "references", "comment", "name", "email", "affiliation"];
+    const saveDraft = () => {
+      try {
+        const draft = { values: Object.fromEntries(textNames.map((name) => [name, String(control(name)?.value ?? "")])), fields: fields.chosen(), newFields: fields.custom(), topics: topics.chosen(), newTopics: topics.custom() };
+        if (Object.values(draft.values).some(Boolean) || draft.fields.length || draft.topics.length) localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+        else localStorage.removeItem(DRAFT_KEY);
+      } catch (error) { /* storage unavailable */ }
+    };
+    const clearDraft = () => { try { localStorage.removeItem(DRAFT_KEY); } catch (error) { /* ignore */ } };
+    const restoreDraft = () => {
+      let draft = null;
+      try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null"); } catch (error) { draft = null; }
+      if (!draft || typeof draft !== "object") return false;
+      textNames.forEach((name) => { const element = control(name); if (element && draft.values?.[name]) element.value = draft.values[name]; });
+      fields.set(draft.fields, draft.newFields);
+      topics.set(draft.topics, draft.newTopics);
+      return true;
+    };
+    let saveTimer = 0;
+    const scheduleSave = () => { window.clearTimeout(saveTimer); saveTimer = window.setTimeout(saveDraft, 400); };
+    proposalForm.addEventListener("input", scheduleSave);
+    proposalForm.addEventListener("change", scheduleSave);
+    proposalForm.addEventListener("click", (event) => { if (event.target.closest("[data-remove], [data-picker-add]")) scheduleSave(); });
+    if (restoreDraft()) say("Restored the unsent draft kept in this browser.");
+
+    // Mathematics preview of the statement. $…$ and $…$ become the delimiters MathJax is configured with.
+    $("#statement-preview-button")?.addEventListener("click", () => {
+      if (!preview) return;
+      const text = value("statement");
+      preview.hidden = false;
+      preview.textContent = text
+        ? text.replace(/\$\$([\s\S]+?)\$\$/g, "\\[$1\\]").replace(/(^|[^\\$])\$([^$\n]+?)\$/g, "$1\\($2\\)")
+        : "Nothing to preview yet.";
+      typeset(preview);
+    });
+
+    // The proposal as text, the same shape the maintainers see in the inbox.
+    const asText = (p) => {
+      const section = (heading, body) => (body ? `## ${heading}\n\n${body}\n\n` : "");
+      const marked = (all, own) => all.map((name) => (own.includes(name) ? `${name} (new)` : name)).join("; ") || "none";
+      return `# ${p.title || "(untitled)"}\n\n`
+        + `Contributor: ${p.contributor.name}${p.contributor.email ? ` <${p.contributor.email}>` : ""}${p.contributor.affiliation ? ` (${p.contributor.affiliation})` : ""}\n`
+        + `Fields: ${marked(p.fields, p.newFields)}\nTopics: ${marked(p.topics, p.newTopics)}\n\n`
+        + section("Statement", p.statement) + section("Source", p.source) + section("Progress", p.progress) + section("References", p.references) + section("Comment", p.comment);
+    };
+    $("#proposal-copy")?.addEventListener("click", async () => {
+      const ok = await copyText(`${asText(proposal()).trimEnd()}\n`);
+      notify(ok ? "Proposal copied as text" : "Copy failed; select the text manually");
+    });
+    $("#proposal-clear")?.addEventListener("click", () => {
+      proposalForm.reset();
+      fields.set([], []);
+      topics.set([], []);
+      if (preview) { preview.hidden = true; preview.textContent = ""; }
+      clearDraft();
+      say("Form cleared.");
+    });
+
+    const resetCaptcha = () => {
+      try {
+        if (captchaProvider === "turnstile" && window.turnstile) window.turnstile.reset();
+        if (captchaProvider === "hcaptcha" && window.hcaptcha) window.hcaptcha.reset();
+      } catch (error) { /* the widget resets on reload */ }
+    };
+    const explain = (status, reply) => {
+      const detail = reply && typeof reply.error === "string" ? reply.error : "";
+      if (status === 403 && /verification/i.test(detail)) return "The human verification did not pass. Complete it again and send once more.";
+      if (status === 422) return `The proposal was not accepted: ${detail || "check the required fields"}.`;
+      if (status === 429) return "Too many proposals from this connection for now. Your draft is kept in this browser; try again in an hour.";
+      if (status === 503) return "The inbox is not accepting proposals at the moment. Use Copy as text and the GitHub route instead.";
+      if (status === 413) return "The proposal is too large to send; shorten the longest sections.";
+      return `The proposal could not be sent (${detail || `HTTP ${status}`}). Your draft is kept in this browser.`;
+    };
+    proposalForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const p = proposal();
+      const issues = problems(p);
+      if (issues.length) {
+        say(issues.map((issue) => issue.message).join(" "), "error");
+        issues[0].control?.focus?.();
+        return;
+      }
+      if (!submitUrl) { say("Online sending is not connected on this deployment; use Copy as text.", "error"); return; }
+      if (!p.captchaToken) { say("Complete the human verification above the Send button, then send again.", "error"); return; }
+      if (submitButton) submitButton.disabled = true;
+      say("Sending…");
+      try {
+        const response = await fetch(submitUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(p) });
+        let reply = {};
+        try { reply = await response.json(); } catch (error) { reply = {}; }
+        if (response.ok && reply.accepted) {
+          clearDraft();
+          proposalForm.hidden = true;
+          const receipt = $("#proposal-receipt");
+          if (receipt) receipt.textContent = reply.id || "";
+          if (doneBox) {
+            doneBox.hidden = false;
+            doneBox.scrollIntoView({ block: "start" });
+            doneBox.focus();
+          }
+          say("");
+          return;
+        }
+        resetCaptcha();
+        say(explain(response.status, reply), "error");
+      } catch (error) {
+        resetCaptcha();
+        say("The proposal could not be sent because the inbox could not be reached. Your draft is kept in this browser; try again later or use Copy as text.", "error");
+      } finally {
+        if (submitButton) submitButton.disabled = false;
+      }
+    });
+  }
 })();

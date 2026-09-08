@@ -115,6 +115,7 @@ export function layout({ config, root, title, description, path, body, current =
         ${nav("problems/", "Problems", "problems")}
         ${nav("tags/", "Tags", "tags")}
         ${nav("about/", "About", "about")}
+        ${nav("contribute/", "Contribute", "contribute")}
         <a href="${config.repositoryUrl}" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
       </nav>
       <div class="header-tools">
@@ -140,7 +141,7 @@ ${body}
         <a href="${root}problems/">All problems</a>
         <a href="${root}tags/">Fields and topics</a>
         <a href="${root}about/">About and how to cite</a>
-        <a href="${root}about/#contribute">Contribute</a>
+        <a href="${root}contribute/">Contribute</a>
         <a href="${root}api/index.json">JSON API</a>
         <a href="${config.repositoryUrl}" rel="noreferrer">Source repository</a>
       </nav>
@@ -347,7 +348,7 @@ export function renderProblemPage({ record, config, root, related, dates }) {
           </div>
           <div class="contribute-box">
             <h2>Your contribution is welcome!</h2>
-            <p>Found progress, a correction, or a resolution? <a href="${editUrl}" rel="noreferrer">Edit this record on GitHub</a> and open a pull request, or <a href="${issueUrl}" rel="noreferrer">report an update</a> with the primary sources. See the <a href="${root}about/#contribute">contribution guide</a>.</p>
+            <p>Found progress, a correction, or a resolution? <a href="${editUrl}" rel="noreferrer">Edit this record on GitHub</a> and open a pull request, or <a href="${issueUrl}" rel="noreferrer">report an update</a> with the primary sources. To propose a new problem without a GitHub account, use the <a href="${root}contribute/">proposal form</a>; the <a href="${root}about/#contribute">contribution guide</a> covers both routes.</p>
           </div>
           <div class="cite-box">
             <h2>Cite this page</h2>
@@ -624,17 +625,8 @@ export function renderAbout({ config, root, stats, dates }) {
         <p>The ${escape(config.shortName)} collects research-level open problems in quantum information and quantum computation. Each record is written for readers with a PhD in the field: a self-contained statement with the definitions it needs, the paper that posed the problem, the results that delimit it, the precise remaining gap, and full references with author–year labels.</p>
         <p>The zoo holds ${stats.total} permanent records covering ${(stats.distinctQuestions ?? stats).total} distinct questions: ${(stats.distinctQuestions ?? stats).unsolved} unsolved and ${(stats.distinctQuestions ?? stats).solved} solved. Equivalent formulations are linked and count once in these question totals. Solved problems stay in the zoo with their resolution so that citations survive.</p>
 
-        <h2 id="status">How statuses are assigned</h2>
-        <ul>
-          <li><strong>Unsolved</strong>: no complete answer to the exact archived question is known, even when substantial subcases are settled; the Progress and Comment sections say what is known and what remains.</li>
-          <li><strong>Solved</strong>: a complete proof or counterexample exists for the archived statement. The Comment section says whether the resolving result is peer-reviewed.</li>
-        </ul>
-        <p>Progress on a nearby variant does not change a status. A status records the state of the literature at the last edit date shown on the page, so verify it against the cited sources before relying on it.</p>
-
-        <h2 id="taxonomy">How problems are classified</h2>
-        <p>Each problem carries one or two <strong>fields</strong> and one to five <strong>topics</strong>. The six fields cover quantum algorithms, communication, metrology, cryptography, resource theory, and error correction. Topics identify the central question or task, such as entanglement distillation or channel discrimination, and can span fields. Fields appear as solid labels and topics as outlined labels throughout the site; the <a href="${root}tags/">taxonomy page</a> lists both with counts, and the <a href="${root}problems/">catalog</a> filters by either.</p>
-
         <h2 id="contribute">How to contribute</h2>
+        <p>The quickest route is the <a href="${root}contribute/">proposal form</a>: describe the problem, its sources, and what is known, and leave your name and email. No account is needed. The maintainers check every proposal against the literature, rewrite it in the zoo's format, and publish it with credit to you; nothing appears on the site automatically. To add a record yourself through GitHub:</p>
         <ol>
           <li>Fork the <a href="${config.repositoryUrl}" rel="noreferrer">repository</a> and run <code>node scripts/new-problem-id.mjs --create</code> to create a problem template with permanent identifiers.</li>
           <li>Write the statement, status, source, progress, references, and comment as TeX fragments in the record's fields, following the contribution guide, and choose one or two fields and one to five topics from <code>database/tags.json</code>. Run <code>node scripts/migrate-metadata.mjs</code> after changing the classifications.</li>
@@ -655,14 +647,174 @@ export function renderAbout({ config, root, stats, dates }) {
         </ul>
 
         <h2 id="credits">Credits</h2>
-        <p>The problem collection is compiled and maintained by Naixu Guo, Bikun Li, and the contributors to the <a href="${config.repositoryUrl}" rel="noreferrer">GitHub repository</a>. The site design draws on the <a href="https://errorcorrectionzoo.org/" rel="noreferrer">Error Correction Zoo</a> and the <a href="https://www.erdosproblems.com/" rel="noreferrer">Erdős Problems</a> database. Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
+        <p>The problem collection is compiled and maintained by Naixu Guo, Bikun Li, and the contributors to the <a href="${config.repositoryUrl}" rel="noreferrer">GitHub repository</a>. Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
       </div>
     </section>`;
   return layout({
     config, root, path: "about/", current: "about",
     title: "About",
-    description: `What the ${config.shortName} is, how statuses are assigned, how to contribute, and how to cite.`,
+    description: `What the ${config.shortName} is, how to contribute, and how to cite.`,
     body, bodyClass: "page-about", withMath: false
+  });
+}
+
+// The proposal form's limits, as the inbox in service/src/submissions.ts enforces them;
+// tests/contribute.test.mjs checks that the two agree.
+export const PROPOSAL_LIMITS = {
+  title: { min: 3, max: 300 },
+  statement: { min: 20, max: 30000 },
+  fields: { min: 1, max: 2 },
+  topics: { min: 1, max: 5 },
+  source: { max: 5000 },
+  progress: { max: 30000 },
+  references: { max: 30000 },
+  comment: { max: 30000 },
+  name: { min: 1, max: 200 },
+  email: { max: 254 },
+  affiliation: { max: 300 }
+};
+
+// The CAPTCHA widgets the form can carry. Both add a hidden input with the
+// token to the form and verify through the same protocol on the service.
+export const CAPTCHA_WIDGETS = {
+  turnstile: { name: "Cloudflare Turnstile", script: "https://challenges.cloudflare.com/turnstile/v0/api.js", className: "cf-turnstile", responseField: "cf-turnstile-response", privacyUrl: "https://www.cloudflare.com/privacypolicy/" },
+  hcaptcha: { name: "hCaptcha", script: "https://js.hcaptcha.com/1/api.js", className: "h-captcha", responseField: "h-captcha-response", privacyUrl: "https://www.hcaptcha.com/privacy" }
+};
+
+export function renderContribute({ config, root, taxonomy, fieldCounts, topicCounts }) {
+  const settings = config.contribute ?? {};
+  const submissionUrl = String(settings.submissionUrl ?? "").trim();
+  const providerKey = settings.captcha?.provider ?? "turnstile";
+  const widget = CAPTCHA_WIDGETS[providerKey];
+  if (!widget) throw new Error(`site/config.json: contribute.captcha.provider must be one of ${Object.keys(CAPTCHA_WIDGETS).join(", ")}`);
+  const siteKey = String(settings.captcha?.siteKey ?? "").trim();
+  const online = Boolean(submissionUrl && siteKey);
+  const issueUrl = `${config.repositoryUrl}/issues/new?template=new-problem.yml`;
+  const L = PROPOSAL_LIMITS;
+  const topics = taxonomy.topics.slice().sort((a, b) => a.localeCompare(b));
+  // A dropdown of the existing names plus "Other", which opens a box for a name of the
+  // contributor's own; the chosen names appear as removable pills below it.
+  const picker = (kind, plural, names, counts, max, placeholder) => `<div class="picker" data-picker="${plural}" data-kind="${kind}" data-max="${max}">
+              <select id="${kind}-select" aria-describedby="${kind}-select-hint">
+                <option value="">${placeholder}</option>
+                ${names.map((name) => `<option value="${escape(name)}">${escape(name)}${counts.get(name) ? ` (${counts.get(name)})` : ""}</option>`).join("\n                ")}
+                <option value="__other__">Other: add a ${kind} of your own…</option>
+              </select>
+              <div class="picker-custom" hidden>
+                <label class="visually-hidden" for="${kind}-custom">Name of the new ${kind}</label>
+                <input id="${kind}-custom" type="text" maxlength="100" placeholder="Name the new ${kind}" autocomplete="off">
+                <button class="button button-ghost button-small" type="button" data-picker-add>Add</button>
+                <button class="button button-ghost button-small" type="button" data-picker-cancel>Cancel</button>
+              </div>
+              <ul class="tag-list picker-chosen" aria-live="polite" aria-label="Chosen ${plural}"></ul>
+            </div>`;
+  // A labelled control; the hint, when there is one, describes the control for assistive technology.
+  const field = (id, label, control, hint = "") => `<div class="form-row">
+            <label for="${id}">${label}</label>
+            ${hint ? control : control.replace(` aria-describedby="${id}-hint"`, "")}
+            ${hint ? `<p class="form-hint" id="${id}-hint">${hint}</p>` : ""}
+          </div>`;
+  const input = (id, name, attrs = "") => `<input id="${id}" name="${name}" type="text" ${attrs} aria-describedby="${id}-hint">`;
+  const textarea = (id, name, rows, attrs = "") => `<textarea id="${id}" name="${name}" rows="${rows}" ${attrs} aria-describedby="${id}-hint"></textarea>`;
+  const captchaSlot = online
+    ? `<div class="${widget.className}" data-sitekey="${escape(siteKey)}" data-theme="auto"></div>
+            <p class="form-hint">Verification by <a href="${widget.privacyUrl}" rel="noreferrer">${widget.name}</a>, which keeps automated submissions out of the inbox.</p>`
+    : `<div class="form-notice" id="proposal-offline">Online sending is not connected on this deployment yet. Fill in the form, use <strong>Copy as text</strong>, and paste the proposal into a <a href="${issueUrl}" rel="noreferrer">new-problem issue on GitHub</a> or an email to the maintainers.</div>`;
+  const body = `
+    <div class="contribute-layout">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><span>Contribute</span></nav>
+      <div class="section-heading">
+        <div><p class="section-index">Contribute</p><h1>Propose an open problem</h1></div>
+        <p>Anyone can propose a problem; no account is needed. Every proposal is checked, rewritten in the zoo's format, and published by the maintainers with credit to you.</p>
+      </div>
+      <div class="contribute-routes no-math">
+        <div class="route-card">
+          <h2>Use this form</h2>
+          <p>Describe the problem, where it was posed, and what is known. The maintainers take it from there and may email you about the details. Nothing appears on the site until it has been reviewed.</p>
+        </div>
+        <div class="route-card">
+          <h2>Or write the record yourself</h2>
+          <p>Comfortable with Git and TeX? Follow the <a href="${root}about/#contribute">contribution guide</a> and open a pull request, or <a href="${issueUrl}" rel="noreferrer">open a GitHub issue</a>. Updates to an existing problem go through the Edit button on its page.</p>
+        </div>
+      </div>
+
+      <form class="proposal-form no-math" id="proposal-form" novalidate data-submit-url="${escape(submissionUrl)}" data-captcha-provider="${online ? providerKey : ""}" data-captcha-response="${online ? widget.responseField : ""}" data-limits='${escape(JSON.stringify(L))}'>
+        <fieldset>
+          <legend>The problem</legend>
+          ${field("proposal-title", "Title", input("proposal-title", "title", `required minlength="${L.title.min}" maxlength="${L.title.max}" autocomplete="off"`), "A short descriptive title, as it would head the problem page.")}
+          ${field("proposal-statement", "Statement", textarea("proposal-statement", "statement", 12, `required minlength="${L.statement.min}" maxlength="${L.statement.max}" spellcheck="false"`), `Self-contained, with the definitions, hypotheses, and quantifiers a reader needs, and a checkable resolution criterion. Write mathematics as in TeX: <code>$\\ldots$</code> inline, <code>\\[ \\ldots \\]</code> or an <code>equation</code> environment for display. Up to ${L.statement.max.toLocaleString("en")} characters.`)}
+          <div class="form-row form-row-inline">
+            <button class="button button-ghost button-small" type="button" id="statement-preview-button">Preview</button>
+            <div class="statement-preview math-ready" id="statement-preview" hidden aria-live="polite"></div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Classification</legend>
+          <div class="form-row">
+            <label for="field-select">Fields <span class="choice-count" id="fields-count"></span></label>
+            <p class="form-hint" id="field-select-hint">One or two broad research areas. Pick from the list, or choose “Other” to name one of your own. Numbers show how many problems each field holds today.</p>
+            ${picker("field", "fields", taxonomy.fields, fieldCounts, L.fields.max, "Choose a field…")}
+          </div>
+          <div class="form-row">
+            <label for="topic-select">Topics <span class="choice-count" id="topics-count"></span></label>
+            <p class="form-hint" id="topic-select-hint">One to five specific objects, techniques, or settings. Pick from the list, or choose “Other” to name one of your own.</p>
+            ${picker("topic", "topics", topics, topicCounts, L.topics.max, "Choose a topic…")}
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Sources and progress</legend>
+          ${field("proposal-source", "Source", textarea("proposal-source", "source", 3, `maxlength="${L.source.max}"`), "The paper or preprint that posed the problem, or the papers in which it is implicit. Write “Contributor: your name” if it has no literature source.")}
+          ${field("proposal-progress", "Known progress", textarea("proposal-progress", "progress", 6, `maxlength="${L.progress.max}"`), "Results that delimit the problem, each with its source and a sentence on why it falls short of the full question.")}
+          ${field("proposal-references", "References", textarea("proposal-references", "references", 6, `maxlength="${L.references.max}"`), "Full bibliographic entries with DOI and arXiv identifiers, one per line. BibTeX is welcome.")}
+        </fieldset>
+
+        <fieldset>
+          <legend>Anything else</legend>
+          ${field("proposal-comment", "Comment (optional)", textarea("proposal-comment", "comment", 4, `maxlength="${L.comment.max}"`), "The remaining gap, relations to problems already in the zoo (give their IDs), naming conventions, or notes for the maintainers, such as how you would like to be credited.")}
+        </fieldset>
+
+        <fieldset>
+          <legend>About you</legend>
+          <div class="form-grid-2">
+            ${field("proposal-name", "Name", input("proposal-name", "name", `required maxlength="${L.name.max}" autocomplete="name"`), "As you would like to be credited.")}
+            ${field("proposal-email", "Email", `<input id="proposal-email" name="email" type="email" required maxlength="${L.email.max}" autocomplete="email" aria-describedby="proposal-email-hint">`, "For questions about the proposal only; never published.")}
+          </div>
+          ${field("proposal-affiliation", "Affiliation (optional)", input("proposal-affiliation", "affiliation", `maxlength="${L.affiliation.max}" autocomplete="organization"`))}
+          <div class="form-row">
+            <label class="consent"><input type="checkbox" name="consent" id="proposal-consent" required><span>I agree that the maintainers store this proposal with my name and email address to review it and to contact me about it, and that the problem, once rewritten, may be published in the zoo under its <a href="${config.repositoryUrl}/blob/${config.branch}/LICENSE" rel="noreferrer">license</a> with credit to me.</span></label>
+          </div>
+          <div class="hp" aria-hidden="true">
+            <label for="proposal-extra">Leave this field empty</label>
+            <input id="proposal-extra" name="extra" type="text" tabindex="-1" autocomplete="off">
+          </div>
+        </fieldset>
+
+        <div class="captcha-slot" id="captcha-slot">
+          ${captchaSlot}
+        </div>
+
+        <div class="form-actions">
+          <button class="button button-primary" type="submit" id="proposal-submit"${online ? "" : " disabled"}>Send proposal</button>
+          <button class="button button-ghost" type="button" id="proposal-copy">Copy as text</button>
+          <button class="button button-ghost" type="button" id="proposal-clear">Clear form</button>
+        </div>
+        <p class="form-status" id="proposal-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="proposal-done no-math" id="proposal-done" hidden tabindex="-1">
+        <h2>Thank you, your proposal is in the inbox</h2>
+        <p>Receipt <code id="proposal-receipt"></code>. The maintainers will check the sources, rewrite the statement in the zoo's format, and email you if anything is unclear. Nothing appears on the site until that review is done, so please allow some time.</p>
+        <p><a href="${root}contribute/">Propose another problem</a> · <a href="${root}problems/">Browse the catalog</a></p>
+      </div>
+    </div>`;
+  return layout({
+    config, root, path: "contribute/", current: "contribute",
+    title: "Propose an open problem",
+    description: `Propose an open problem for the ${config.shortName}: statement, fields and topics, sources, progress, and how to reach you. Proposals are reviewed and rewritten by the maintainers before publication.`,
+    body, bodyClass: "page-contribute",
+    extraHead: online ? `<script src="${widget.script}" async defer></script>` : ""
   });
 }
 
