@@ -145,7 +145,7 @@ ${body}
         <a href="${root}api/index.json">JSON API</a>
         <a href="${config.repositoryUrl}" rel="noreferrer">Source repository</a>
       </nav>
-      ${current === "home" ? `<p class="footer-note footer-credit">Compiled and maintained by Bikun Li, Qicheng Tang, Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo. <a href="${root}about/#credits">Credits</a>.</p>` : ""}
+      ${current === "home" ? `<p class="footer-note footer-credit">Developed and maintained by Bikun Li, Qicheng Tang, Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo. <a href="${root}about/#contributions">Contributions</a>.</p>` : ""}
       <p class="footer-note">A dated research index. Verify a status against the cited sources before relying on it. <a href="#top">Back to top ↑</a></p>
     </footer>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -646,9 +646,10 @@ export function renderAbout({ config, root, stats, dates }) {
           <li><a href="${root}llms.txt">llms.txt</a>: a short guide for AI agents.</li>
         </ul>
 
-        <h2 id="credits">Credits</h2>
-        <p>The problem collection is compiled and maintained by Bikun Li, Qicheng Tang, Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo. Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
+        <h2 id="contributions"><span id="credits">Contributions</span></h2>
+        <p>This project is developed and maintained by Bikun Li, Qicheng Tang, Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo.</p>
         <p>We thank <a href="https://gauge-forge.com/" rel="noreferrer">GaugeForge</a> for its financial support of this project.</p>
+        <p>Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
       </div>
     </section>`;
   return layout({

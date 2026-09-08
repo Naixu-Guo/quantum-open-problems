@@ -25,11 +25,11 @@ which needs no account, see the [contribution guide](CONTRIBUTING.md), or
 [open an issue](https://github.com/Naixu-Guo/quantum-open-problems/issues/new/choose).
 Please cite the original research sources when using a problem or result.
 
-## Credits
+## Contributions
 
-The problem collection is compiled and maintained by Bikun Li, Qicheng Tang,
+This project is developed and maintained by Bikun Li, Qicheng Tang,
 Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo. See the
-[project credits](https://naixu-guo.github.io/quantum-open-problems/about/#credits)
+[project contributions](https://naixu-guo.github.io/quantum-open-problems/about/#contributions)
 for acknowledgments.
 
 We thank [GaugeForge](https://gauge-forge.com/) for its financial support of this project.
