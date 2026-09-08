@@ -149,7 +149,10 @@ Text mode supports the constructs used by the collection: `\emph`, `\textbf`,
 `\texttt`, `\textup`, `\href`, `\url`, quotes and dashes, accents
 (`\'e`, `\"u`, `\v{s}`, `\.{Z}`, ...), `\ss`, `\l`, `\L`, `\DJ`, `\newline`,
 `itemize` and `enumerate`, `\sourcecite`, and `\eqref`. Mathematics passes
-through to MathJax unchanged. An unsupported text-mode command stops the build
+through to MathJax with record-local equation references resolved. External
+`\\href` and `\\url` targets must be absolute `http://` or `https://` URLs;
+the build checks these targets in prose, references, and mathematics.
+An unsupported text-mode command stops the build
 with the offending fragment; extend `site/lib/tex.mjs` if a new construct is
 genuinely needed.
 

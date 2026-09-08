@@ -31,6 +31,7 @@
     "difficulty": { "enum": ["unrated", "accessible", "hard", "very-hard"] },
     "verificationCost": { "enum": ["unrated", "low", "medium", "high"] },
     "relatedProblemIds": { "$ref": "common.schema.json#/$defs/ulidList" },
+    "equivalentToProblemId": { "$ref": "common.schema.json#/$defs/ulid", "description": "Canonical representative of the same mathematical question. Both permanent records remain available." },
     "body": { "$ref": "common.schema.json#/$defs/text" }
   }
 }

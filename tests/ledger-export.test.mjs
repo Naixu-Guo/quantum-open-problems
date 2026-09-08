@@ -118,3 +118,45 @@ test("catalog updates append versions while preserving pinned research history",
     fs.rmSync(fixture, { recursive: true, force: true });
   }
 });
+
+
+test("renderer-only catalog versions preserve explicit lineage and repair pinned historical edges", async () => {
+  const { validateLedger } = await import("../contract/src/validate.ts");
+  const { clauseOutcome } = await import("../contract/src/derive.ts");
+  const { ledger, issues } = validateLedger([path.join(root, "ledger"), path.join(root, "activity")]);
+  assert.deepEqual(issues, []);
+  const problemId = "01M1HME780WGX30SANKVAEX4S2";
+  const versions = ledger.currentOf("Statement").filter((s) => s.fields.problemId === problemId).sort((a, b) => a.fields.version - b.fields.version);
+  const [first, second] = versions;
+  assert.equal(first.fields.clauses[0].text, second.fields.clauses[0].text);
+  assert.notEqual(first.fields.digest, second.fields.digest);
+  const historicalClaim = [{ clauseIds: [`${first.id}#main`], relation: "resolves" }];
+  assert.equal(clauseOutcome(ledger, `${second.id}#main`, historicalClaim), "resolved");
+  ledger.catalogExports.clear();
+  assert.equal(clauseOutcome(ledger, `${second.id}#main`, historicalClaim), "open", "untrusted service statements need explicit lineage");
+
+  const fixture = fs.mkdtempSync(path.join(os.tmpdir(), "qop-renderer-lineage-"));
+  try {
+    fs.cpSync(path.join(root, "database"), path.join(fixture, "database"), { recursive: true });
+    await exportLedger({ root: fixture });
+    const manifestPath = path.join(fixture, "ledger/export-manifest.json");
+    const manifest = JSON.parse(fs.readFileSync(manifestPath));
+    const key = "ledger/problems/op-12fc55f67580588e/statements/v1.md";
+    // Simulate a previous renderer's body, preserving the exact clause TeX.
+    const file = path.join(fixture, key);
+    const previous = parse(fs.readFileSync(file, "utf8"));
+    previous.body += "\n\nEarlier renderer output.";
+    previous.digest = statementDigest(previous.body);
+    const bytes = serializeRecord(previous);
+    fs.writeFileSync(file, bytes);
+    const { createHash } = await import("node:crypto");
+    const hash = (value) => createHash("sha256").update(value).digest("hex");
+    manifest.fileHashes[key] = hash(bytes);
+    manifest.projections[key].digest = hash(bytes);
+    fs.writeFileSync(manifestPath, JSON.stringify(manifest));
+    await exportLedger({ root: fixture });
+    const next = parse(fs.readFileSync(file.replace("v1.md", "v2.md"), "utf8"));
+    assert.equal(next.clauses[0].supersedesClauseId, `${previous.id}#main`);
+    assert.equal(fs.readFileSync(file, "utf8"), bytes);
+  } finally { fs.rmSync(fixture, { recursive: true, force: true }); }
+});

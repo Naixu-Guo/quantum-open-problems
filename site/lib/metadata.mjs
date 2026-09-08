@@ -10,10 +10,19 @@ export const ALIAS_PATTERN = /^(?:op_[A-Za-z0-9]{16}|[0-7][0-9A-HJKMNP-TV-Z]{25}
 export const METADATA_KEYS = [
   "type", "schemaVersion", "revision", "createdBy", "createdAt", "role",
   "parentProblemId", "parentClauseId", "origin", "posed", "areaIds", "topicIds",
-  "keywords", "difficulty", "verificationCost", "relatedProblemIds"
+  "keywords", "difficulty", "verificationCost", "relatedProblemIds", "equivalentToProblemId"
 ];
+const OPTIONAL_METADATA_KEYS = new Set(["equivalentToProblemId"]);
 
 export class MetadataError extends Error {}
+
+/** Count mathematical questions while retaining each permanent catalog record. */
+export function distinctQuestionCounts(records) {
+  const questions = new Map(records.map((record) => [record.metadata?.equivalentToProblemId ?? record.ulid ?? record.id, record]));
+  const counts = { total: questions.size, unsolved: 0, solved: 0 };
+  for (const record of questions.values()) counts[record.status === "Solved" ? "solved" : "unsolved"] += 1;
+  return counts;
+}
 
 // Keep this identical to the public URL slug rule in tex.mjs, without making
 // the record and TeX libraries depend on each other.
@@ -84,7 +93,7 @@ export function createRecordMetadata(record, options = {}) {
   };
   const supplied = Object.fromEntries(METADATA_KEYS.filter((key) => options[key] !== undefined).map((key) => [key, options[key]]));
   const values = { ...defaults, ...existing, ...supplied };
-  const metadata = Object.fromEntries(METADATA_KEYS.map((key) => [key, Array.isArray(values[key]) ? values[key].slice() : values[key]]));
+  const metadata = Object.fromEntries(METADATA_KEYS.filter((key) => values[key] !== undefined).map((key) => [key, Array.isArray(values[key]) ? values[key].slice() : values[key]]));
   const aliases = unique([record.id, ulid, metadataSlug(record.id), ...(record.aliases ?? []), ...(options.aliases ?? [])]);
   const result = { ulid, aliases, metadata };
   validateRecordMetadata({ ...record, ...result });
@@ -106,7 +115,7 @@ export function validateRecordMetadata(record, fileName = "record") {
   }
   const metadata = record.metadata;
   if (!isObject(metadata)) fail("metadata must be an object");
-  const missing = METADATA_KEYS.filter((key) => !Object.hasOwn(metadata, key));
+  const missing = METADATA_KEYS.filter((key) => !OPTIONAL_METADATA_KEYS.has(key) && !Object.hasOwn(metadata, key));
   if (missing.length) fail(`metadata is missing field(s): ${missing.join(", ")}`);
   const unknown = Object.keys(metadata).filter((key) => !METADATA_KEYS.includes(key));
   if (unknown.length) fail(`unknown metadata field(s): ${unknown.join(", ")}`);
@@ -132,6 +141,7 @@ export function validateRecordMetadata(record, fileName = "record") {
   if (!["unrated", "accessible", "hard", "very-hard"].includes(metadata.difficulty)) fail("metadata.difficulty is not a main-compatible difficulty");
   if (!["unrated", "low", "medium", "high"].includes(metadata.verificationCost)) fail("metadata.verificationCost is not a main-compatible verification cost");
   list(metadata.relatedProblemIds, "metadata.relatedProblemIds", (value) => typeof value === "string" && ULID_PATTERN.test(value));
+  if (metadata.equivalentToProblemId !== undefined && (typeof metadata.equivalentToProblemId !== "string" || !ULID_PATTERN.test(metadata.equivalentToProblemId))) fail("metadata.equivalentToProblemId must be a canonical problem ULID");
   return record;
 }
 
@@ -142,7 +152,7 @@ export function metadataToMainProblem(record) {
   validateRecordMetadata(record);
   return {
     id: record.ulid,
-    ...Object.fromEntries(METADATA_KEYS.map((key) => [key, Array.isArray(record.metadata[key]) ? record.metadata[key].slice() : record.metadata[key]])),
+    ...Object.fromEntries(METADATA_KEYS.filter((key) => Object.hasOwn(record.metadata, key)).map((key) => [key, Array.isArray(record.metadata[key]) ? record.metadata[key].slice() : record.metadata[key]])),
     title: record.title,
     aliases: record.aliases.slice(),
     body: record.comment
@@ -166,6 +176,12 @@ export function validateRecordIdentities(records) {
   }
   for (const record of records) {
     const { parentProblemId, relatedProblemIds } = record.metadata;
+    const equivalent = record.metadata.equivalentToProblemId;
+    if (equivalent) {
+      const canonical = byUlid.get(equivalent);
+      if (!canonical || equivalent === record.ulid || canonical.metadata.equivalentToProblemId) throw new MetadataError(`${record.id}: equivalence must point directly to another canonical problem`);
+      if (canonical.status !== record.status) throw new MetadataError(`${record.id}: equivalent questions must have the same status`);
+    }
     for (const id of [...relatedProblemIds, ...(parentProblemId ? [parentProblemId] : [])]) {
       if (id === record.ulid) throw new MetadataError(`${record.id}: a relationship must not refer to the problem itself`);
       if (!byUlid.has(id)) throw new MetadataError(`${record.id}: related or parent problem ${id} does not exist`);

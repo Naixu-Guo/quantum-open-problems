@@ -1,7 +1,8 @@
 # Workspace audit after the catalog replacement
 
-Follow-up: 2026-09-06. All six implementation/content findings below have
-been addressed in the catalog-integration follow-up. The dated findings are
+Follow-up: 2026-09-06. The initial catalog-integration follow-up made the seven changes listed
+below. A subsequent review found defects in several of those changes; the
+correction history is recorded below and in Git. The dated findings are
 retained as the audit trail, not the current backlog.
 
 - PR #8's writing skill now authors the authoritative JSON format, reads the
@@ -191,3 +192,46 @@ and an independent duplicate-handling scenario that found the contradictory
 less-noisy pair without creating another record. Markdown documents and
 changed generated bodies are parse-checked separately. These checks do not
 constitute scientific status reverification or a live research-service update.
+
+
+## Corrections after the integration review (2026-09-06)
+
+The subsequent review correctly identified failures in routine bibliography
+maintenance and overly broad handoff reconciliation. Follow-up local commits
+cover export retirement and restoration, handoff scope and no-op adoption,
+durable GitHub actor recovery, prototype-key filtering, historical canonical
+URLs, clause lineage, and export timestamps and actor attribution. Regression
+fixtures exercise those paths, including preserved old record bytes.
+
+Manifest counts now distinguish historical files from active projections;
+its generation time advances only when export changes. The generated ledger
+README describes append semantics, and the service README agrees that catalog
+PRs include exported ledger changes under `ledger-change`. Database fixtures
+include the closure of related records instead of avoiding relationships.
+
+Equivalent less-noisy formulations now carry an explicit canonical relation.
+Both permanent records and their scientific text remain; distinct-question
+counts count their shared question once. See the integration guide for the
+record and question count definitions.
+
+The previous broad merge remains part of Git history. These corrections are
+split into scoped local commits; that is not a claim of independent human
+review of the earlier scientific status change. Historical incorrect export
+headers are documented in CATALOG_PROVENANCE.md rather than rewritten.
+
+## Workflow regression follow-up (2026-09-07)
+
+The next review identified overly strict adoption of service bibliography,
+a global signup block around legacy actors, fixed catalog counts in tests,
+and a gap in source uniqueness after retirement. Regression fixtures now
+cover complete bibliography in proposal handoff, export and reconciliation;
+retired-source lookup, duplicate rejection and reintroduction; and unrelated
+new users alongside legacy identities. Partial catalog fields preserve richer
+service metadata. Legacy handle conflicts affect only the corresponding login.
+
+The static converter also rejects external links outside absolute HTTP(S),
+including links inside mathematics and stripped bibliography identifiers;
+an unsafe link stops the build before publishing pages or packets. Counts
+and assertions derive from current records. Equivalence links display titles,
+historical pages describe historical classifications, and newly allocated
+export IDs persist their actual allocation time without changing existing IDs.

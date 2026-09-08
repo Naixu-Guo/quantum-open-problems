@@ -45,7 +45,7 @@ export function sourceSummary(ledger: Ledger, sourceId: string) {
   const source = ledger.findAny("Source", sourceId);
   if (!source) return null;
   const f = source.fields;
-  return { id: sourceId, redacted: source.redacted, title: f["title"], kind: f["kind"], completeness: f["completeness"], authors: f["authors"], venue: f["venue"], date: f["date"], doi: f["doi"], arxivId: f["arxivId"], url: f["url"] };
+  return { id: sourceId, redacted: source.redacted, retired: f["retired"] === true, title: f["title"], kind: f["kind"], completeness: f["completeness"], authors: f["authors"], venue: f["venue"], date: f["date"], doi: f["doi"], arxivId: f["arxivId"], url: f["url"] };
 }
 
 /** Auxiliary problems of a problem, recursively, with statuses. */
@@ -275,7 +275,7 @@ export class ContextError extends Error {}
 /** Sources matching every whitespace-separated term in title, authors, DOI, arXiv id, URL, or venue, for attaching a reference without creating a duplicate. */
 export function searchSources(ledger: Ledger, text: string, limit: number) {
   const terms = text.trim().toLowerCase().split(/\s+/u).filter(Boolean).slice(0, 8);
-  const all = ledger.currentOf("Source");
+  const all = ledger.currentOf("Source", { includeRetired: true });
   const matches = terms.length === 0 ? all : all.filter((s) => {
     const f = s.fields;
     const haystack = [f["title"], ...(f["authors"] as string[]), f["doi"], f["arxivId"], f["url"], f["venue"]].filter((v) => typeof v === "string").join(" ").toLowerCase();

@@ -18,6 +18,7 @@ import { createServer } from "./api.ts";
 import { submit, runAutomaticDecisions, reindex } from "./write.ts";
 import { newId } from "./ids.ts";
 import { bootstrapEditor } from "./bootstrap.ts";
+import { linkGitHubIdentity } from "./github-identity.ts";
 
 const [command, ...args] = process.argv.slice(2);
 
@@ -80,7 +81,8 @@ switch (command) {
     const [action, provider, subject, actorId] = args;
     if (action === "link" && provider && subject && actorId) {
       if (!service.repo.current().find("Actor", actorId)) { console.error(`unknown actor ${actorId}`); process.exit(1); }
-      service.auth.linkIdentity(provider, subject, actorId, "");
+      if (provider === "github") linkGitHubIdentity(service, subject, actorId);
+      else service.auth.linkIdentity(provider, subject, actorId, "");
       console.log(`linked ${provider}:${subject} to ${actorId}`);
     } else {
       console.error("usage: identity link <provider> <subject> <actorId>");

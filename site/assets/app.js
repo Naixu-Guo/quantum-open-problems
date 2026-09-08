@@ -244,7 +244,7 @@
     };
     const historicalTags = window.QIQCOP_LEGACY_TAGS || {};
     state.legacyTag = [params.get("legacyTag"), params.get("tag"), params.get("field"), params.get("topic")]
-      .find((key) => key && historicalTags[key] && !fieldSlugs.has(key) && !topicSlugs.has(key)) || "";
+      .find((key) => key && Object.hasOwn(historicalTags, key) && Array.isArray(historicalTags[key]?.ids) && !fieldSlugs.has(key) && !topicSlugs.has(key)) || "";
     // Links written before the taxonomy was split use ?tag=; honour them.
     const legacyTag = params.get("tag");
     if (legacyTag) {
@@ -291,7 +291,7 @@
       });
       sorted.forEach((row) => list.append(row));
       if (count) count.textContent = String(visible);
-      if (label) label.textContent = (visible === 1 ? "problem" : "problems") + (state.legacyTag ? ` · historical classification: ${historicalTags[state.legacyTag].name}` : "");
+      if (label) label.textContent = (visible === 1 ? "record" : "records") + (state.legacyTag ? ` · historical classification: ${historicalTags[state.legacyTag].name}` : "");
       if (empty) empty.hidden = visible > 0;
       const next = new URLSearchParams();
       if (state.q) next.set("q", state.q);

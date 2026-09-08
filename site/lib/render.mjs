@@ -2,6 +2,7 @@
 // strings out. No runtime dependencies.
 
 import { STATUSES, slug } from "./tex.mjs";
+import { distinctQuestionCounts } from "./metadata.mjs";
 import { TAG_KINDS } from "./taxonomy.mjs";
 
 const escape = (value = "") => String(value)
@@ -237,12 +238,16 @@ export const byRecentEdit = (records) => records.slice().sort((a, b) =>
   || Date.parse(b.dates.createdAt) - Date.parse(a.dates.createdAt)
   || a.id.localeCompare(b.id, "en"));
 
+const equivalenceLinks = (record, root) => (record.equivalentRecords ?? []).length
+  ? `<p>Equivalent question: ${(record.equivalentRecords ?? []).map((other) => `<a href="${root}problem/${other.id}/">${escape(other.title || other.id)}</a>`).join(", ")}. Counted once in question totals.</p>` : "";
+
 export function problemRow(record, root) {
   const search = [record.title.text, record.id, ...(record.aliases ?? []), record.fields.join(" "), record.topics.join(" "), record.statement.text].join(" ").toLowerCase();
   return `<li class="problem-row status-${record.statusSlug}" data-id="${record.id}" data-status="${record.statusSlug}" data-fields="${escape(record.fields.map(slug).join(" "))}" data-topics="${escape(record.topics.map(slug).join(" "))}" data-title="${escape(record.title.text.toLowerCase())}" data-updated="${record.dates.updatedAt}" data-created="${record.dates.createdAt}" data-search="${escape(search)}">
   <div class="row-main">
     <a class="row-title" href="${root}problem/${record.id}/">${record.title.html}</a>
     <p class="row-excerpt">${leadSentenceHtml(record.statement.html)}</p>
+    ${equivalenceLinks(record, root)}
     <ul class="tag-list tag-list-compact">${tagItems(record, root)}</ul>
   </div>
   <div class="row-side">
@@ -293,6 +298,7 @@ export function renderProblemPage({ record, config, root, related, dates }) {
           ${taxonomyRow("field", record.fields)}
           ${taxonomyRow("topic", record.topics)}
           </dl>
+          ${equivalenceLinks(record, root)}
         </header>
 
         <section class="problem-section" id="problem">
@@ -391,11 +397,12 @@ export function renderProblemPage({ record, config, root, related, dates }) {
 const byCountThenName = (counts) => [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 
 export function renderHome({ config, root, records, stats, fieldCounts, topicCounts, initial, dates }) {
+  const questions = stats.distinctQuestions ?? stats;
   const metric = (value, label, href, cls = "") => `<a class="metric ${cls}" href="${escape(href)}"><strong>${value}</strong><span>${label}</span></a>`;
   const fields = byCountThenName(fieldCounts);
   const topTopics = byCountThenName(topicCounts).slice(0, 12);
-  const total = stats.total || 1;
-  const bar = ["unsolved", "solved"].map((key) => `<span class="bar-${key}" style="width:${(100 * stats[key] / total).toFixed(1)}%" title="${STATUSES[key === "unsolved" ? "Unsolved" : "Solved"].label}: ${stats[key]}"></span>`).join("");
+  const total = questions.total || 1;
+  const bar = ["unsolved", "solved"].map((key) => `<span class="bar-${key}" style="width:${(100 * questions[key] / total).toFixed(1)}%" title="${STATUSES[key === "unsolved" ? "Unsolved" : "Solved"].label}: ${questions[key]}"></span>`).join("");
   const body = `
     <section class="panels" aria-label="Database overview">
       <div class="panel panel-stats">
@@ -405,16 +412,16 @@ export function renderHome({ config, root, records, stats, fieldCounts, topicCou
         <form class="hero-search no-math" action="${root}problems/" method="get" role="search">
           <label class="visually-hidden" for="home-search">Search problems</label>
           ${SEARCH_ICON}
-          <input id="home-search" name="q" type="search" placeholder="Search ${stats.total} problems by title, statement, ID, field, or topic" autocomplete="off" aria-describedby="home-search-hint">
+          <input id="home-search" name="q" type="search" placeholder="Search ${stats.total} records by title, statement, ID, field, or topic" autocomplete="off" aria-describedby="home-search-hint">
           <button class="hero-search-button" type="submit">Search</button>
         </form>
         <p class="hero-search-hint" id="home-search-hint">Click Search to explore the suggested topic, or type your own query. Press <kbd>/</kbd> to start typing.</p>
         <div class="metric-grid">
-          ${metric(stats.total, "Problems", `${root}problems/`)}
-          ${metric(stats.unsolved, "Unsolved", `${root}problems/?status=unsolved`, "metric-unsolved")}
-          ${metric(stats.solved, "Solved", `${root}problems/?status=solved`, "metric-solved")}
+          ${metric(questions.total, "Distinct questions", `${root}problems/`)}
+          ${metric(questions.unsolved, "Unsolved", `${root}problems/?status=unsolved`, "metric-unsolved")}
+          ${metric(questions.solved, "Solved", `${root}problems/?status=solved`, "metric-solved")}
         </div>
-        <div class="status-bar" role="img" aria-label="${stats.unsolved} unsolved, ${stats.solved} solved">${bar}</div>
+        <div class="status-bar" role="img" aria-label="${questions.unsolved} unsolved, ${questions.solved} solved">${bar}</div>
         <div class="top-tags">
           <span class="top-tags-label">Fields</span>
           <ul class="tag-list">${fields.map(([tag, count]) => `<li>${tagLink(tag, root, "field", count)}</li>`).join("")}</ul>
@@ -455,13 +462,14 @@ export function renderHome({ config, root, records, stats, fieldCounts, topicCou
   return layout({
     config, root, path: "", current: "home",
     title: "",
-    description: `${config.fullName}: ${stats.total} problems in quantum information and quantum computation with typeset statements, sources, progress, and references.`,
+    description: `${config.fullName}: ${questions.total} distinct questions in quantum information and quantum computation with typeset statements, sources, progress, and references.`,
     body, bodyClass: "page-home",
     extraScripts: `<script src="${root}data/index.js"></script>`
   });
 }
 
 export function renderDirectory({ config, root, records, fieldCounts, topicCounts }) {
+  const questions = distinctQuestionCounts(records);
   const fields = byCountThenName(fieldCounts);
   const topics = [...topicCounts.keys()].sort((a, b) => a.localeCompare(b));
   const unsolved = records.filter((r) => r.statusSlug === "unsolved").length;
@@ -471,7 +479,8 @@ export function renderDirectory({ config, root, records, fieldCounts, topicCount
   const body = `
     <section class="section-shell directory">
       <div class="section-heading">
-        <div><p class="section-index">Catalog</p><h1>All problems</h1></div>
+        <div><p class="section-index">Catalog</p><h1>All records</h1></div>
+        <p>${records.length} records covering ${questions.total} distinct questions. Filter counts refer to records.</p>
       </div>
       <div class="directory-layout">
         <aside class="filter-sidebar no-math" aria-label="Search and filters">
@@ -510,7 +519,7 @@ export function renderDirectory({ config, root, records, fieldCounts, topicCount
           </div>
         </aside>
         <div class="directory-results">
-          <p class="results-toolbar" aria-live="polite"><strong id="results-count">${records.length}</strong> <span id="results-label">problems</span></p>
+          <p class="results-toolbar" aria-live="polite"><strong id="results-count">${records.length}</strong> <span id="results-label">records</span></p>
           <ul class="problem-list" id="problem-list">
             ${byRecentEdit(records).map((record) => problemRow(record, root)).join("\n            ")}
           </ul>
@@ -523,8 +532,8 @@ export function renderDirectory({ config, root, records, fieldCounts, topicCount
     </section>`;
   return layout({
     config, root, path: "problems/", current: "problems",
-    title: "All problems",
-    description: `Browse all ${records.length} problems of the ${config.shortName} by status, field, topic, or keyword.`,
+    title: "All records",
+    description: `Browse all ${records.length} problem records of the ${config.shortName} by status, field, topic, or keyword.`,
     body, bodyClass: "page-directory"
   });
 }
@@ -568,7 +577,7 @@ export function renderTagsIndex({ config, root, taxonomy, fieldCounts, topicCoun
   });
 }
 
-export function renderTagPage({ config, root, kind, tag, records, related }) {
+export function renderTagPage({ config, root, kind, tag, tagSlug = slug(tag), historical = false, records, related }) {
   const meta = TAG_KINDS[kind];
   const otherKind = kind === "field" ? "topic" : "field";
   const counts = { unsolved: 0, solved: 0 };
@@ -578,8 +587,8 @@ export function renderTagPage({ config, root, kind, tag, records, related }) {
     <section class="section-shell">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><a href="${root}tags/">Fields and topics</a><span aria-hidden="true">›</span><span>${escape(tag)}</span></nav>
       <div class="section-heading">
-        <div><p class="section-index">${meta.label}</p><h1>${escape(tag)}</h1></div>
-        <p>${records.length} problem${records.length === 1 ? "" : "s"}: ${counts.unsolved} unsolved, ${counts.solved} solved. <a class="text-link" href="${root}problems/?${kind}=${slug(tag)}">Filter the catalog by this ${kind} →</a></p>
+        <div><p class="section-index">${historical ? "Historical classification" : meta.label}</p><h1>${escape(tag)}</h1></div>
+        <p>${records.length} record${records.length === 1 ? "" : "s"}: ${counts.unsolved} unsolved, ${counts.solved} solved. <a class="text-link" href="${root}problems/?${historical ? "legacyTag" : kind}=${encodeURIComponent(tagSlug)}">Filter the catalog by this ${historical ? "historical classification" : kind} →</a></p>
       </div>
       ${relatedEntries.length ? `<div class="top-tags tag-page-related">
         <span class="top-tags-label">${kind === "field" ? "Topics in this field" : "Fields of these problems"}</span>
@@ -590,9 +599,9 @@ export function renderTagPage({ config, root, kind, tag, records, related }) {
       </ul>
     </section>`;
   return layout({
-    config, root, path: `tag/${slug(tag)}/`, current: "tags",
-    title: `${tag} · ${meta.label}`,
-    description: `${records.length} problems in the ${kind} “${tag}” of the ${config.shortName}.`,
+    config, root, path: `tag/${tagSlug}/`, current: "tags",
+    title: `${tag} · ${historical ? "Historical classification" : meta.label}`,
+    description: historical ? `${records.length} records from the historical classification “${tag}” of the ${config.shortName}.` : `${records.length} problem records in the ${kind} “${tag}” of the ${config.shortName}.`,
     body, bodyClass: "page-tag"
   });
 }
@@ -613,7 +622,7 @@ export function renderAbout({ config, root, stats, dates }) {
       <div class="prose">
         <h2 id="what">What the zoo is</h2>
         <p>The ${escape(config.shortName)} collects research-level open problems in quantum information and quantum computation. Each record is written for readers with a PhD in the field: a self-contained statement with the definitions it needs, the paper that posed the problem, the results that delimit it, the precise remaining gap, and full references with author–year labels.</p>
-        <p>The zoo currently holds ${stats.total} problems: ${stats.unsolved} unsolved and ${stats.solved} solved. Solved problems stay in the zoo with their resolution so that citations survive.</p>
+        <p>The zoo holds ${stats.total} permanent records covering ${(stats.distinctQuestions ?? stats).total} distinct questions: ${(stats.distinctQuestions ?? stats).unsolved} unsolved and ${(stats.distinctQuestions ?? stats).solved} solved. Equivalent formulations are linked and count once in these question totals. Solved problems stay in the zoo with their resolution so that citations survive.</p>
 
         <h2 id="status">How statuses are assigned</h2>
         <ul>

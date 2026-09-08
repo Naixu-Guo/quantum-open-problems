@@ -310,7 +310,7 @@ export function validateLedger(roots: string[], schemaDir: string = DEFAULT_SCHE
     }
   }
   const sourceKeys = new Map<string, LoadedRecord>();
-  for (const source of ledger.currentOf("Source")) {
+  for (const source of ledger.currentOf("Source", { includeRetired: true })) {
     const key = uniquenessKey(source.fields as unknown as Source);
     const owner = sourceKeys.get(key);
     if (owner && owner.id !== source.id) push("uniqueness", source, `source duplicates ${owner.id} (${key})`);

@@ -32,6 +32,7 @@ export interface Problem extends RevisableBase {
   difficulty: "unrated" | "accessible" | "hard" | "very-hard";
   verificationCost: "unrated" | "low" | "medium" | "high";
   relatedProblemIds: string[];
+  equivalentToProblemId?: string;
 }
 
 export function references(problem: Problem): Ref[] {
@@ -40,6 +41,7 @@ export function references(problem: Problem): Ref[] {
     ...ref("parentProblemId", "Problem", problem.parentProblemId),
     ...ref("parentClauseId", "Clause", problem.parentClauseId),
     ...refs("relatedProblemIds", "Problem", problem.relatedProblemIds),
+    ...ref("equivalentToProblemId", "Problem", problem.equivalentToProblemId ?? null),
   ];
 }
 
@@ -60,5 +62,11 @@ export function rules(problem: Problem, ledger: Ledger): string[] {
     }
   }
   if (problem.relatedProblemIds.includes(problem.id)) errors.push("a problem cannot be related to itself");
+  if (problem.equivalentToProblemId) {
+    const canonical = ledger.find("Problem", problem.equivalentToProblemId);
+    if (problem.equivalentToProblemId === problem.id || canonical?.fields["equivalentToProblemId"]) errors.push("equivalence must point directly to another canonical problem");
+    const authored = canonical?.fields["authoredCatalog"] as AuthoredCatalog | undefined;
+    if (problem.authoredCatalog && authored && problem.authoredCatalog.status !== authored.status) errors.push("equivalent catalog questions must have the same status");
+  }
   return errors;
 }

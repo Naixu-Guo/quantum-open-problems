@@ -60,6 +60,9 @@ function authorize(ledger: Ledger, actorId: string, record: Record<string, unkno
   if (actorKind(ledger, actorId) !== "human") throw new PayloadError(403, "only a human creates or revises actors");
   const targetId = String(record["id"]);
   const current = ledger.find("Actor", targetId);
+  const identity = record["externalIdentity"];
+  const priorIdentity = current?.fields["externalIdentity"];
+  if (identity !== priorIdentity && [identity, priorIdentity].some((value) => typeof value === "string" && /^github(?:-id)?:/.test(value))) throw new PayloadError(403, "GitHub identities are assigned by verified login or the operator identity link command");
   if (targetId === actorId) {
     for (const field of ROLE_FIELDS) {
       if (JSON.stringify(record[field]) !== JSON.stringify(current?.fields[field])) throw new PayloadError(403, `an actor cannot change its own ${field}; an editor does that`);

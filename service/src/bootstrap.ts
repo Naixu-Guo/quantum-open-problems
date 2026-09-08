@@ -2,16 +2,15 @@
 import type { Service } from "./write.ts";
 import { reindex } from "./write.ts";
 import { newId, nowIso } from "./ids.ts";
+import { githubActor, linkGitHubIdentity } from "./github-identity.ts";
 
 export function bootstrapEditor(service: Service, githubId: string, name: string): string {
   if (!/^[1-9][0-9]*$/.test(githubId) || !name.trim()) throw new Error("Provide a numeric GitHub user ID and the person's name.");
   service.repo.refreshIfMoved();
   const actors = service.repo.current().currentOf("Actor");
-  const linked = service.auth.actorForIdentity("github", githubId);
   // Recover after a previous run committed the actor but could not update the
   // local auth store. Numeric IDs survive GitHub username changes.
-  const actor = linked ? actors.find((item) => item.id === linked) : actors.find((item) => item.fields["externalIdentity"] === `github-id:${githubId}`);
-  if (linked && !actor) throw new Error("The GitHub identity points at a missing actor; repair that link first.");
+  const actor = githubActor(service, githubId);
   if (actor && actor.fields["kind"] !== "human") throw new Error("An editor must be a human; this identity belongs to a non-human actor.");
   const editors = actors.filter((item) => item.fields["kind"] === "human" && (item.fields["roles"] as string[]).includes("editor"));
   if (editors.length && !editors.some((item) => item.id === actor?.id)) throw new Error("A human editor already exists. Further role grants use the editor workflow.");
@@ -26,6 +25,6 @@ export function bootstrapEditor(service: Service, githubId: string, name: string
     if (!result.ok) throw new Error(result.issues.map((issue) => issue.message).join("; "));
     reindex(service);
   }
-  service.auth.linkIdentity("github", githubId, id, "");
+  linkGitHubIdentity(service, githubId, id);
   return id;
 }

@@ -125,6 +125,16 @@ contributor role, written by the system actor. Roles beyond contributor come
 from an editor's revision of that record: a person's own revision cannot
 change roles, kind, or operator. `identity link github <id> <actorId>` binds
 a GitHub account to an actor that already exists, such as a migrated one.
+Login, bootstrap, and that operator command persist `github-id:<numeric-id>`
+in the actor ledger before linking the disposable auth database. Recovery
+therefore preserves contributions even after a login rename. Older
+`github:<login>` records must be explicitly linked while ownership can be
+verified; usernames are never treated as durable identity proof. A surviving
+numeric auth link migrates a legacy actor on its next login. Without that link,
+only a login matching the legacy handle is refused pending an operator link;
+unrelated signups continue. Numeric editor bootstrap also remains available.
+When promoting a legacy actor after auth-store loss, explicitly link its numeric
+ID before bootstrap. API batches cannot assign GitHub identities.
 
 Outside `/api/` and `/auth/`, GET requests serve the web app's files from
 `QOP_WEB_DIR` with a weak ETag; dotfiles and paths outside the directory are
@@ -158,8 +168,11 @@ process, which keeps the validators and policy it started with until it
 restarts. Uploaded artifact blobs under `activity/artifact-store/` are an
 object store the service serves; they are not committed or mirrored.
 
-Pull requests do not touch `ledger/` or `activity/`; CI refuses one that does
-unless it carries the `ledger-change` label.
+Catalog pull requests commit their generated `ledger/` revisions and export
+manifest, as required by CLAUDE.md. Such PRs need the `ledger-change` label.
+Other code PRs ordinarily leave `ledger/` and `activity/` untouched; CI requires
+the same label for deliberate changes to either root. Keep scientific edits
+separate from exporter/schema migrations so their source checks are reviewable.
 
 ## Running locally with GitHub login
 

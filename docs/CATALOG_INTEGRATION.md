@@ -1,6 +1,6 @@
 # Authoritative catalog and research ledger
 
-The maintained catalog is `database/problems_json/`. Its 86 records replace
+The maintained catalog is `database/problems_json/`. Its permanent records replace
 the older seed catalog while preserving every authored field, classification,
 status, and permanent identifier. Research status is exactly `Solved` or
 `Unsolved`; settled subcases remain in the progress text and clause history.
@@ -53,8 +53,10 @@ Ordinary `npm run export-ledger` appends `.r2.md`, `.r3.md`, and subsequent
 entity revisions. Statement changes append `v2.md`, `v3.md`, and subsequent
 versions, with fresh identities and a `supersedes` link. Existing files are
 never rewritten or removed. Comments and reviews remain attached to the
-statement and digest they actually examined. A changed statement does not
-inherit resolution claims merely because its clause is still named `main`.
+statement and digest they actually examined. Changed clause TeX or resolution conditions do not inherit claims merely
+because the clause is still named `main`. Renderer-only changes keep clause
+lineage. For early pinned exports that omitted that edge, the read model
+recovers it only when both statements are pinned and clause content is identical.
 
 `ledger/export-manifest.json` version 2 pins the bytes of exported history
 and the last desired values of projected fields. The contract recognizes
@@ -63,6 +65,22 @@ contributions or reviews. API clients cannot write the manifest, and an
 unmanifested Problem revision cannot change `authoredCatalog`. Missing or
 modified pinned files fail validation and export. The first ordinary export
 migrates a version-1 manifest without rewriting its historical records.
+`counts` counts every pinned exported record file, including old revisions,
+statement versions, and retired bibliography. `projectionCounts` counts the
+active desired catalog projection. `generatedAt` is the last changed export,
+while `migrationTimestamp` retains the initial metadata migration date.
+A repeated export or `--check` does not advance the clock.
+
+New export records use the export time and a dedicated system exporter actor.
+New Source, Reference, and initial Statement ULIDs use their allocation time.
+The manifest preserves those key-to-ID assignments across exports. Existing
+identifiers remain permanent, including ones allocated with a migration-date
+prefix; that prefix is not a publication timestamp.
+This is operational attribution: the original scientific sources stay in the
+bibliography, the catalog snapshot retains its original metadata, and Git
+records editorial authorship. It does not impersonate a scientific author.
+See [historical provenance corrections](CATALOG_PROVENANCE.md) for already
+committed headers that incorrectly reused the migration actor or timestamp.
 
 When a service revision changes a different field, export preserves that
 edit and applies the catalog change in the next revision. If both paths
@@ -74,10 +92,18 @@ content in JSON, then explicitly run:
 npm run export-ledger -- --reconcile-catalog
 ```
 
-This selects catalog values for colliding fields while retaining all old
-revisions. It can also supersede a newer service statement after review.
-Retain existing reference labels and archived identities; removing owned
-entities is rejected rather than silently deleting research history.
+This selects catalog values for colliding problem fields while retaining all
+old revisions. Source projections are partial: they fill missing bibliography
+fields and update earlier catalog values, while preserving populated service
+metadata and its completeness even with this flag. It can also supersede a
+newer service statement after review.
+Removing or renaming a reference appends a retirement revision for the old
+link; unused catalog sources are retired too. Retired bibliography is omitted
+from active reference listings but still resolves for historical citations.
+Source search and source uniqueness include retired papers, so contributors
+can reuse them and cannot register another identity for the same paper.
+Reintroducing it appends a revision under the original identity. Problem identities cannot
+be removed by export. Redactions are never restored by reconciliation.
 `--replace-authoritative` remains an explicit whole-ledger reset, not a
 maintenance workflow.
 
@@ -109,6 +135,9 @@ npm run build
 The handoff requires a published service problem, preserves its ULID and
 aliases (and any existing catalog op ID), imports the creator's actor
 provenance, and validates the authored record against the current taxonomy.
+Reconciliation is restricted to that problem and its statements and references.
+Conflicts on other problems or shared sources abort the entire handoff.
+Identical imported actors are adopted without creating an empty revision.
 It stages the JSON, TeX, metadata, and versioned ledger export together before
 writing. Inspect and commit that diff through the normal catalog PR workflow.
 The command performs no Git push, admission decision, or invented review.
@@ -135,3 +164,26 @@ historical commits. Unmapped old records receive an explicit archive link,
 never an unverified identity redirect. Removed tag pages and query filters
 show their historical problem cohort with current content and statuses.
 Current taxonomy pages continue to use only `database/tags.json`.
+
+
+## Equivalent questions and counts
+
+`metadata.equivalentToProblemId` points directly to the canonical ULID of an
+equivalent question. The target must exist, cannot itself redirect through
+another equivalence, and must have the same binary status. This relation is
+stronger than `relatedProblemIds`; adding it requires comparing the complete
+mathematical questions. It changes neither permanent identity nor original
+statement, citation, or historical review.
+
+The less-noisy pair now has this explicit relationship: op-12fc is an
+equivalent formulation of op-fd756. Both records retain the previously
+recorded theorem locator and preprint qualification. No scientific status
+is changed by the equivalence metadata commit.
+
+Record and question totals are derived from the current catalog on every
+build. Home-page question totals count
+an equivalence class once. Catalog filtering and historical taxonomy pages
+list records, keeping both formulations searchable. For compatibility,
+`api/index.json` retains record counts in `counts.total`, `counts.unsolved`,
+and `counts.solved`; `counts.distinctQuestions` exposes the deduplicated
+question totals. Individual API payloads include equivalent-record links.

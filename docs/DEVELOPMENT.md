@@ -135,7 +135,11 @@ keeps metadata taxonomy IDs in step with the authored field and topic names. Use
 An export at `/api/main/problems/<ulid>.json` contains `problem`, a strict
 main Problem projection; `status`, the zoo's `Unsolved` or `Solved` value;
 and `record`, the complete authored JSON. Both identifiers and all registered
-aliases are preserved in the projection and identifier crosswalk.
+aliases are preserved in the projection and identifier crosswalk. Optional
+`metadata.equivalentToProblemId` identifies an equivalent formulation without
+deleting either record. The homepage counts distinct questions; catalog filters
+and API `counts.total/unsolved/solved` count permanent records. API
+`counts.distinctQuestions` provides the deduplicated totals.
 
 The research service reads `ledger/`, exported from this authoritative
 database by `npm run export-ledger`. The export includes problems,

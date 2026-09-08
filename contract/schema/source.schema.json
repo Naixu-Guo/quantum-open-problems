@@ -7,6 +7,7 @@
   "unevaluatedProperties": false,
   "required": ["type", "title", "kind", "completeness", "authors", "venue", "date", "doi", "arxivId", "url", "version", "body"],
   "properties": {
+    "retired": { "type": "boolean", "description": "Withdrawn from active listings; its identity and historical citations still resolve." },
     "type": { "const": "Source" },
     "title": { "$ref": "common.schema.json#/$defs/nonEmptyText" },
     "kind": { "enum": ["paper", "preprint", "book", "problem-list", "dataset", "thesis", "web-record"] },

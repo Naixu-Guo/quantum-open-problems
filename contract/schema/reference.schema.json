@@ -7,6 +7,7 @@
   "unevaluatedProperties": false,
   "required": ["type", "sourceId", "targetType", "targetId", "role", "locator", "body"],
   "properties": {
+    "retired": { "type": "boolean", "description": "Withdrawn from active listings; its identity and historical citations still resolve." },
     "type": { "const": "Reference" },
     "sourceId": { "$ref": "common.schema.json#/$defs/ulid" },
     "targetType": { "enum": ["problem", "statement", "clause", "claim"] },
