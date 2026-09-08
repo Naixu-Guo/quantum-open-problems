@@ -19,6 +19,8 @@ import type { NewRecord } from "./ledger-repo.ts";
 import { newId, nowIso } from "./ids.ts";
 import { HttpError } from "./errors.ts";
 import { handleWeb, parseCookies, SESSION_COOKIE, LOGIN_COOKIE, type Caller } from "./web.ts";
+import { hasRole } from "../../contract/src/types/actor.ts";
+import { parseSubmission, verifyCaptcha, submissionText, SUBMISSION_STATES, type SubmissionState } from "./submissions.ts";
 
 interface Call {
   params: string[];
@@ -26,6 +28,8 @@ interface Call {
   actorId: string | null;
   raw: Buffer;
   headers: http.IncomingHttpHeaders;
+  /** The client's address as the rate limits see it: the socket's, or the proxy's forwarded one when configured. */
+  address: string;
 }
 
 interface Reply {
@@ -39,7 +43,9 @@ interface Route {
   auth: boolean;
   /** The reply depends on who is asking, so it must never be cached by a shared cache. */
   callerSpecific?: boolean;
-  handler: (call: Call) => Reply;
+  /** Pages on the configured foreign origins may call this route: the reply carries CORS headers and OPTIONS is answered. */
+  cors?: boolean;
+  handler: (call: Call) => Reply | Promise<Reply>;
 }
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -90,6 +96,19 @@ function routes(service: Service): Route[] {
     if (!call.actorId) throw new HttpError(401, "a bearer token for an actor is required");
     return call.actorId;
   };
+  const editor = (call: Call): string => {
+    const actorId = actor(call);
+    if (!hasRole(ledger(), actorId, "editor")) throw new HttpError(403, "the editor role is required");
+    return actorId;
+  };
+  const parseJson = (call: Call): unknown => {
+    try {
+      return JSON.parse(call.raw.toString("utf8"));
+    } catch {
+      throw new HttpError(400, "the body is not valid JSON");
+    }
+  };
+  const submission = (id: string) => notNull(service.submissions.get(id), "proposal");
   const openTrajectory = (call: Call, id: string) => {
     const open = auth.getOpenTrajectory(id);
     if (!open) throw new HttpError(404, `no open trajectory ${id}`);
@@ -160,6 +179,42 @@ function routes(service: Service): Route[] {
     { method: "GET", pattern: /^\/api\/v1\/records\/([^/]+)$/u, auth: false, handler: ({ params }) => ok(notNull(recordView(ledger(), params[0]!), "record")) },
     { method: "GET", pattern: /^\/api\/v1\/events$/u, auth: false, handler: ({ query }) => ok(events(ledger(), service.index, integer(query, "after", 0), integer(query, "limit", 100), query.get("type") ?? undefined)) },
     { method: "GET", pattern: /^\/api\/v1\/actors\/me$/u, auth: true, callerSpecific: true, handler: (call) => ok({ ...notNull(recordView(ledger(), actor(call)), "actor"), keys: auth.keysFor(actor(call)) }) },
+
+    // The proposal inbox. Anyone may file a proposal from the static site's form, once the CAPTCHA
+    // provider confirms the token; only editors read the inbox, since it holds contact details.
+    { method: "POST", pattern: /^\/api\/v1\/submissions$/u, auth: false, cors: true, handler: async (call) => {
+      const rules = service.submissionsConfig;
+      if (!rules.captcha) throw new HttpError(503, "online proposals are not enabled on this service; use the GitHub route described on the contribute page");
+      const parsed = parseSubmission(parseJson(call));
+      if (auth.bump(`submissions:${call.address}`, HOUR) > rules.perAddressPerHour) throw new HttpError(429, `more than ${rules.perAddressPerHour} proposals from this address within an hour; try again later`);
+      const verdict = await verifyCaptcha(rules.captcha, parsed.captchaToken, call.address);
+      if (!verdict.ok) throw new HttpError(403, "the human verification did not pass; complete it again and resubmit");
+      const userAgent = Array.isArray(call.headers["user-agent"]) ? call.headers["user-agent"][0] ?? "" : call.headers["user-agent"] ?? "";
+      const receipt = service.submissions.accept(parsed.payload, { address: call.address, userAgent, captchaProvider: rules.captcha.provider });
+      return { status: receipt.duplicate ? 200 : 201, body: { accepted: true, ...receipt } };
+    } },
+    { method: "GET", pattern: /^\/api\/v1\/submissions$/u, auth: true, callerSpecific: true, handler: (call) => {
+      editor(call);
+      const state = call.query.get("state");
+      if (state !== null && !(SUBMISSION_STATES as readonly string[]).includes(state)) throw new HttpError(400, `state must be one of ${SUBMISSION_STATES.join(", ")}`);
+      const proposals = service.submissions.list({ state: (state as SubmissionState | null) ?? undefined, limit: integer(call.query, "limit", 50) });
+      return ok({ counts: service.submissions.counts(), count: proposals.length, submissions: proposals });
+    } },
+    { method: "GET", pattern: /^\/api\/v1\/submissions\/([^/]+)$/u, auth: true, callerSpecific: true, handler: (call) => {
+      editor(call);
+      const found = submission(call.params[0]!);
+      return ok({ ...found, text: submissionText(found) });
+    } },
+    { method: "POST", pattern: /^\/api\/v1\/submissions\/([^/]+)\/state$/u, auth: true, handler: (call) => {
+      const actorId = editor(call);
+      const payload = parseJson(call);
+      if (typeof payload !== "object" || payload === null || Array.isArray(payload)) throw new HttpError(422, "the body must be an object with state and an optional note");
+      const { state, note } = payload as { state?: unknown; note?: unknown };
+      if (typeof state !== "string" || !(SUBMISSION_STATES as readonly string[]).includes(state)) throw new HttpError(422, `state must be one of ${SUBMISSION_STATES.join(", ")}`);
+      if (note !== undefined && typeof note !== "string") throw new HttpError(422, "note must be a string");
+      submission(call.params[0]!);
+      return ok(service.submissions.setState(call.params[0]!, state as SubmissionState, (note ?? "").slice(0, 2000), actorId));
+    } },
 
     { method: "POST", pattern: /^\/api\/v1\/batches$/u, auth: true, handler: (call) => {
       const payload = json<{ message?: string; records: BatchRecord[] }>(call, "batch");
@@ -260,6 +315,37 @@ function decodeHeader(value: string | string[] | undefined): string {
   }
 }
 
+/** The client's address: the socket's, or with a trusted reverse proxy the first entry of X-Forwarded-For. */
+function clientAddress(request: http.IncomingMessage, trustProxy: boolean): string {
+  if (trustProxy) {
+    const forwarded = request.headers["x-forwarded-for"];
+    const first = (Array.isArray(forwarded) ? forwarded[0] : forwarded)?.split(",")[0]?.trim();
+    if (first) return first;
+  }
+  return request.socket.remoteAddress ?? "unknown";
+}
+
+/**
+ * CORS headers for a route that foreign pages may call, when the request's Origin is one of the
+ * configured origins or the service's own. An Origin that is not allowed gets no headers, so the
+ * browser withholds the reply; a request without an Origin (a script, curl) needs none.
+ */
+function corsHeaders(request: http.IncomingMessage, service: Service): Record<string, string> {
+  const origin = request.headers.origin;
+  if (typeof origin !== "string") return {};
+  let normalized: string;
+  let own: string;
+  try {
+    normalized = new URL(origin).origin;
+    own = new URL(service.web.publicUrl).origin;
+  } catch {
+    return {};
+  }
+  const allowed = new Set([...service.submissionsConfig.allowedOrigins, own]);
+  if (!allowed.has(normalized)) return {};
+  return { "Access-Control-Allow-Origin": normalized, "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type", "Access-Control-Max-Age": "86400", Vary: "Origin" };
+}
+
 export function createServer(service: Service): http.Server {
   const table = routes(service);
   const bodyLimit = service.policy.bodyLimits["contributionBytes"] ?? 262144;
@@ -268,20 +354,32 @@ export function createServer(service: Service): http.Server {
   return http.createServer(async (request, response) => {
     // Only anonymous reads of caller-independent routes are cacheable by shared caches.
     let cacheable = false;
+    // Set once the request is known to target a cross-origin route, so every reply to it, errors included, carries them.
+    let cors: Record<string, string> = {};
     const send = (code: number, payload: unknown, extra: Record<string, string> = {}) => {
       const body = JSON.stringify(payload, null, 1);
-      response.writeHead(code, { "Content-Type": "application/json; charset=utf-8", "Content-Length": Buffer.byteLength(body), "Cache-Control": code === 200 && cacheable ? "public, max-age=15" : "no-store", Vary: "Authorization, Cookie", ...extra });
+      const { Vary: extraVary, ...rest } = { ...cors, ...extra };
+      const vary = ["Authorization", "Cookie", ...(extraVary ? [extraVary] : [])].join(", ");
+      response.writeHead(code, { "Content-Type": "application/json; charset=utf-8", "Content-Length": Buffer.byteLength(body), "Cache-Control": code === 200 && cacheable ? "public, max-age=15" : "no-store", Vary: vary, ...rest });
       response.end(body);
     };
     try {
-      const method = request.method === "GET" || request.method === "POST" ? request.method : null;
-      if (!method) throw new HttpError(405, "GET or POST only");
       const url = new URL(request.url ?? "/", "http://localhost");
       const isApi = url.pathname.startsWith("/api/");
       const isAuth = url.pathname.startsWith("/auth/");
+      // A preflight for a cross-origin route: answer it without spending the address budget.
+      if (request.method === "OPTIONS") {
+        const target = table.find((candidate) => candidate.cors && candidate.pattern.test(url.pathname));
+        if (!target) throw new HttpError(405, "GET or POST only");
+        response.writeHead(204, { ...corsHeaders(request, service), "Content-Length": 0, "Cache-Control": "no-store" });
+        response.end();
+        return;
+      }
+      const method = request.method === "GET" || request.method === "POST" ? request.method : null;
+      if (!method) throw new HttpError(405, "GET or POST only");
+      const address = clientAddress(request, service.submissionsConfig.trustProxy);
       // The per-address budget is for API and login calls; a page's static assets do not spend it.
       if (isApi || isAuth) {
-        const address = request.socket.remoteAddress ?? "unknown";
         if (service.auth.bump(`address:${address}`, MINUTE) > perMinute) throw new HttpError(429, "too many requests from this address");
       }
 
@@ -309,6 +407,11 @@ export function createServer(service: Service): http.Server {
 
       const route = table.find((candidate) => candidate.method === method && candidate.pattern.test(url.pathname));
       if (!route) throw new HttpError(404, `no route for ${method} ${url.pathname}`);
+      if (route.cors) {
+        cors = corsHeaders(request, service);
+        // A browser page on an origin that is not ours would never see the reply; do not act on its behalf either.
+        if (typeof request.headers.origin === "string" && !cors["Access-Control-Allow-Origin"]) throw new HttpError(403, "this origin may not post here");
+      }
       cacheable = method === "GET" && !route.auth && !route.callerSpecific && caller.actorId === null;
       if (route.auth && !caller.actorId) throw new HttpError(401, "a bearer token or a login session for an actor is required");
       // A cookie is sent by the browser on its own, so a write it authenticates must come from our own pages.
@@ -329,7 +432,7 @@ export function createServer(service: Service): http.Server {
       }
 
       const match = url.pathname.match(route.pattern)!;
-      const reply = route.handler({ params: match.slice(1).map((s) => decodeURIComponent(s)), query: url.searchParams, actorId, raw, headers: request.headers });
+      const reply = await route.handler({ params: match.slice(1).map((s) => decodeURIComponent(s)), query: url.searchParams, actorId, raw, headers: request.headers, address });
       if (typeof idempotencyKey === "string" && actorId && reply.status !== 503) service.auth.remember(actorId, idempotencyKey, requestHash, reply.status, JSON.stringify(reply.body));
       send(reply.status, reply.body);
     } catch (error) {

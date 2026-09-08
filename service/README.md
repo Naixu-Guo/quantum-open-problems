@@ -59,6 +59,13 @@ Environment:
 | `QOP_SESSION_DAYS` | Browser session lifetime, default 30 |
 | `QOP_GITHUB_CLIENT_ID`, `QOP_GITHUB_CLIENT_SECRET` | The GitHub OAuth app; login is enabled only when both are set |
 | `QOP_GITHUB_URL`, `QOP_GITHUB_API_URL` | GitHub's OAuth and API bases, for tests and enterprise installs |
+| `QOP_CAPTCHA_SECRET` | The CAPTCHA secret key of the proposal inbox (see "Proposal inbox"); unset keeps the inbox closed |
+| `QOP_CAPTCHA_PROVIDER` | `turnstile` (default) or `hcaptcha` |
+| `QOP_CAPTCHA_VERIFY_URL` | The provider's `siteverify` endpoint, for tests that point it at a fake |
+| `QOP_SUBMISSION_ORIGINS` | Comma-separated origins of the pages that post proposals, for CORS; the static site's origin, for example `https://naixu-guo.github.io` |
+| `QOP_SUBMISSIONS_DB_PATH` | The inbox database, default `submissions.sqlite` beside the auth store |
+| `QOP_SUBMISSIONS_PER_HOUR` | Proposals one address may send per hour, default 10 |
+| `QOP_TRUST_PROXY=1` | Take the client address from `X-Forwarded-For` because a reverse proxy sits in front of the service; otherwise every visitor shares the proxy's address budget |
 
 ## Read API
 
@@ -141,6 +148,53 @@ Outside `/api/` and `/auth/`, GET requests serve the web app's files from
 not served. Responses to anonymous, public GETs may be cached briefly;
 anything that depends on the caller is `no-store`, and every response
 varies on `Authorization` and `Cookie`.
+
+## Proposal inbox
+
+The static site's [contribute page](../docs/DEVELOPMENT.md#contribution-form)
+lets anyone propose a problem without an account. The form posts to this
+service, which files the proposal in an inbox that only editors read. A
+proposal is not a ledger record and changes nothing on the site: a maintainer
+reads it, rewrites it as an authored record in `database/problems_json/`,
+and publishes it through the ordinary catalog workflow, then marks the
+proposal accepted, rejected, or spam. The inbox is its own SQLite file
+(`QOP_SUBMISSIONS_DB_PATH`) so the disposable index and the auth store can
+be rebuilt or lost without losing a proposal. Contact details are stored
+for the maintainers only and never served publicly.
+
+The inbox opens only when `QOP_CAPTCHA_SECRET` is set. Every proposal must
+carry a token from the CAPTCHA widget on the form, and the service confirms
+it with the provider's `siteverify` endpoint before filing anything;
+Cloudflare Turnstile is the default and hCaptcha is supported through the
+same protocol. Turnstile's test keys (site key `1x00000000000000000000AA`,
+secret `1x0000000000000000000000000000000AA`) always pass and suit local
+work. In front of the CAPTCHA stand a per-address hourly budget (which counts
+failed verifications), a honeypot field, the request body cap, and the field
+limits that `src/submissions.ts` and the form share. Identical proposals
+sent twice within a day (same title, statement, and email, as when a browser
+retries) are filed once and answered with the same receipt.
+
+| Route | Effect |
+| --- | --- |
+| `POST /api/v1/submissions` | File a proposal: `title`, `statement`, `fields` (1–2) and `topics` (1–5) as the contributor classifies the problem, `newFields` and `newTopics` naming which of those the contributor made up rather than picked from the taxonomy, `source`, `progress`, `references`, `comment`, `contributor` {`name`, `email`, `affiliation`}, `consent: true`, `captchaToken`, and the empty honeypot `extra`. Public. 201 with a receipt `id`, 200 with `duplicate: true` for a repeat, 422 listing every problem, 403 for a token the provider rejects, 429 over the hourly budget, 502 when the provider cannot be reached, 503 while the inbox is closed |
+| `OPTIONS /api/v1/submissions` | The CORS preflight, answered for the origins in `QOP_SUBMISSION_ORIGINS` and the service's own |
+| `GET /api/v1/submissions?state=&limit=` | The inbox, newest first, with counts by state. Editors only |
+| `GET /api/v1/submissions/<id>` | One proposal with its full payload and a text rendering. Editors only |
+| `POST /api/v1/submissions/<id>/state` | `{ "state": "new" \| "in-review" \| "accepted" \| "rejected" \| "spam", "note": "…" }`, recorded with the editor's actor id. Editors only |
+
+The same inbox from the command line on the service host:
+
+```sh
+node --experimental-strip-types src/cli.ts proposals list [state] [limit]
+node --experimental-strip-types src/cli.ts proposals show <id>          # as text
+node --experimental-strip-types src/cli.ts proposals export <id> [file] # as JSON
+node --experimental-strip-types src/cli.ts proposals set <id> <state> [note]
+```
+
+To connect a deployed service to the site, set `contribute.submissionUrl`
+(the service's `/api/v1/submissions` URL) and `contribute.captcha.siteKey`
+in `site/config.json`; until both are set the page offers the form in an
+offline mode that loads no third-party script.
 
 ## Ledger synchronization
 
