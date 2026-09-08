@@ -1,0 +1,217 @@
+% Problem record op_e724615844c52297. This TeX file is derived from
+% database/problems_json/op_e724615844c52297.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Smallest output dimension violating minimum output entropy additivity}
+\label{sec:op_e724615844c52297}
+
+\paragraph{Problem.}
+What is the smallest output dimension in which the minimum output von Neumann
+entropy of quantum channels fails to be additive?  For a density operator
+$\sigma$ on a finite-dimensional Hilbert space write
+$H(\sigma)=-\operatorname{Tr}(\sigma\log_2\sigma)$ for its von Neumann
+entropy, and for a quantum channel $\Phi$ define its minimum output entropy by
+\begin{equation}
+  S_{\min}(\Phi):=\min_{\rho\in\mathcal D(A)}H\bigl(\Phi(\rho)\bigr),
+  \label{eq:dmin-minimum-output-entropy}
+\end{equation}
+where $\mathcal D(A)$ is the set of density operators on the input space $A$
+of $\Phi$.  A product input is always available in $\Phi\otimes\Psi$, so
+Eq.~\eqref{eq:dmin-minimum-output-entropy} gives
+$S_{\min}(\Phi\otimes\Psi)\leq S_{\min}(\Phi)+S_{\min}(\Psi)$ for any two
+channels; the phenomenon at issue is the strict inequality
+\begin{equation}
+  S_{\min}(\Phi\otimes\Psi)<S_{\min}(\Phi)+S_{\min}(\Psi),
+  \label{eq:dmin-violation}
+\end{equation}
+and a pair $(\Phi,\Psi)$ of channels satisfying
+Eq.~\eqref{eq:dmin-violation} is called a violation.  Define the
+output-dimension threshold
+\begin{equation}
+  d_{\min}:=\min\bigl\{d\in\mathbb N:\ \text{some violation }(\Phi,\Psi)
+  \text{ has both output spaces of dimension at most }d\bigr\},
+  \label{eq:dmin-threshold}
+\end{equation}
+with input and environment dimensions arbitrary.  Determine the exact value of
+$d_{\min}$ in Eq.~\eqref{eq:dmin-threshold}.  The companion constructive
+target, also open at every output dimension, is a deterministically specified
+(non-random) pair of finite-dimensional channels with a certified instance of
+Eq.~\eqref{eq:dmin-violation}.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Hastings settled the qualitative existence of violations of
+Eq.~\eqref{eq:dmin-violation} probabilistically
+\sourcecite{ref:dmin-hastings}{Has09}.  The threshold formulation of
+Eq.~\eqref{eq:dmin-threshold} is derived from the quantitative dimension
+analysis of Belinschi, Collins, and Nechita
+\sourcecite{ref:dmin-belinschi}{BCN16} together with the recorded absence of
+any deterministic $p=1$ realization \sourcecite{ref:dmin-leung}{LLW26}; no
+single source states it as a numbered open problem.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Hastings disproved additivity of the minimum output von Neumann entropy with
+finite-dimensional random channels, so the set in
+Eq.~\eqref{eq:dmin-threshold} is nonempty; the construction is probabilistic
+and yields no explicit pair \sourcecite{ref:dmin-hastings}{Has09}, as are its
+later simplifications \sourcecite{ref:dmin-brandao-horodecki}{BH10}.
+
+  \item Belinschi, Collins, and Nechita computed the exact limiting minimum output
+entropy of random conjugate pairs, exhibited violations of
+Eq.~\eqref{eq:dmin-violation} with size approaching one bit, and proved that
+their Bell-state criterion detects a violation at output dimension $183$ while
+failing almost surely up to dimension $182$ within their ensemble; the bound
+$d_{\min}\leq183$ in Eq.~\eqref{eq:dmin-threshold} follows, but the threshold
+is ensemble-specific \sourcecite{ref:dmin-belinschi}{BCN16}.
+
+  \item Leung, Lovitz, and Wu proved nonadditivity of the minimum output R\'enyi
+entropy for $p\in[0,1/4)\cup(3/4,\infty]$ and numerically improved the
+ensemble-specific threshold of \sourcecite{ref:dmin-belinschi}{BCN16} from
+$183$ to $182$, stating that the improvement is witness-specific and not a
+universal threshold over all channels, and that at $p=1$ all arguments remain
+probabilistic, so no deterministic realization of
+Eq.~\eqref{eq:dmin-violation} is known \sourcecite{ref:dmin-leung}{LLW26}.
+
+  \item Deterministic counterexamples exist only for R\'enyi orders away from $p=1$:
+Hayden and Winter gave counterexamples for every $p>1$
+\sourcecite{ref:dmin-hayden-winter}{HW08}, Grudka, Horodecki, and Pankowski
+constructed them for every $p>2$ \sourcecite{ref:dmin-grudka}{GHP10}, and
+Derksen and Lovitz constructed them for every $p>1$ from subspaces with high
+geometric measure of entanglement
+\sourcecite{ref:dmin-derksen-lovitz}{DL26}.  None of these produces a
+violation of Eq.~\eqref{eq:dmin-violation} at the von Neumann order $p=1$.
+
+  \item Krohn-Grimberghe certified, with exact rational witnesses, a strict violation
+of minimum output R\'enyi-entropy additivity for all $0<p\leq1/22$ for the
+explicit four-to-three channel pair of Cubitt et al.
+\sourcecite{ref:dmin-krohn}{KG26}, \sourcecite{ref:dmin-cubitt}{CHLMW08}:
+explicit small-dimension violations exist at small R\'enyi orders, sharpening
+the contrast with the open $p=1$ case.
+
+  \item Collins and Youn violated additivity of the regularized minimum output
+entropy through a non-random construction on an infinite-dimensional
+commuting-operator system and noted that it is not clear the approach works in
+finite dimensions, leaving Eq.~\eqref{eq:dmin-threshold} untouched
+\sourcecite{ref:dmin-collins-youn}{CY22}.
+
+  \item King proved that unital qubit channels are additive with an arbitrary partner
+\sourcecite{ref:dmin-king}{Kin02}, so a violation in
+Eq.~\eqref{eq:dmin-threshold} at $d=2$ would require both channels to be
+non-unital; beyond the trivial $d_{\min}\geq2$, reflecting that
+one-dimensional outputs are additive with every partner, no lower bound is
+known.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Has09]}]\label{ref:dmin-hastings}
+  M. B. Hastings,
+  ``Superadditivity of Communication Capacity Using Entangled Inputs,''
+  \emph{Nature Physics} \textbf{5}, 255--257 (2009).
+  \href{https://doi.org/10.1038/nphys1224}{doi:10.1038/nphys1224};
+  \href{https://arxiv.org/abs/0809.3972}{arXiv:0809.3972}.
+
+  \item[\textup{[BCN16]}]\label{ref:dmin-belinschi}
+  S. T. Belinschi, B. Collins, and I. Nechita,
+  ``Almost One Bit Violation for the Additivity of the Minimum Output
+  Entropy,'' \emph{Communications in Mathematical Physics} \textbf{341}(3),
+  885--909 (2016).
+  \href{https://arxiv.org/abs/1305.1567}{arXiv:1305.1567}.
+
+  \item[\textup{[LLW26]}]\label{ref:dmin-leung}
+  D. Leung, B. Lovitz, and P. Wu,
+  ``Counterexamples to Additivity of Minimum Output $p$-R\'enyi Entropy of
+  Quantum Channels for $p>3/4$ and $0\leq p<1/4$,'' arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2607.15210}{arXiv:2607.15210}.
+
+  \item[\textup{[DL26]}]\label{ref:dmin-derksen-lovitz}
+  H. Derksen and B. Lovitz,
+  ``Constructive Counterexamples to the Additivity of Minimum Output
+  R\'enyi Entropy of Quantum Channels for All $p>1$,'' arXiv preprint
+  (2026), version~2.
+  \href{https://arxiv.org/abs/2510.07547v2}{arXiv:2510.07547v2}.
+
+  \item[\textup{[GHP10]}]\label{ref:dmin-grudka}
+  A. Grudka, M. Horodecki, and L. Pankowski,
+  ``Constructive Counterexamples to Additivity of Minimum Output R\'enyi
+  Entropy of Quantum Channels for All $p>2$,'' \emph{Journal of Physics A}
+  \textbf{43}, 425304 (2010).
+  \href{https://arxiv.org/abs/0911.2515}{arXiv:0911.2515}.
+
+  \item[\textup{[CHLMW08]}]\label{ref:dmin-cubitt}
+  T. Cubitt, A. W. Harrow, D. Leung, A. Montanaro, and A. Winter,
+  ``Counterexamples to Additivity of Minimum Output $p$-R\'enyi Entropy for
+  $p$ Close to 0,'' \emph{Communications in Mathematical Physics}
+  \textbf{284}(1), 281--290 (2008).
+  \href{https://arxiv.org/abs/0712.3628}{arXiv:0712.3628}.
+
+  \item[\textup{[KG26]}]\label{ref:dmin-krohn}
+  A. Krohn-Grimberghe,
+  ``Exact Certification of a Positive-Order R\'enyi Additivity Violation for
+  an Explicit Channel Pair,'' arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2608.17376}{arXiv:2608.17376}.
+
+  \item[\textup{[CY22]}]\label{ref:dmin-collins-youn}
+  B. Collins and S.-G. Youn,
+  ``Additivity Violation of the Regularized Minimum Output Entropy,''
+  \emph{Documenta Mathematica} \textbf{27}, 1299--1320 (2022).
+  \href{https://arxiv.org/abs/1907.07856}{arXiv:1907.07856}.
+
+  \item[\textup{[HW08]}]\label{ref:dmin-hayden-winter}
+  P. Hayden and A. Winter,
+  ``Counterexamples to the Maximal $p$-Norm Multiplicativity Conjecture for
+  All $p>1$,'' \emph{Communications in Mathematical Physics} \textbf{284}(1),
+  263--280 (2008).
+  \href{https://arxiv.org/abs/0807.4753}{arXiv:0807.4753}.
+
+  \item[\textup{[Kin02]}]\label{ref:dmin-king}
+  C. King,
+  ``Additivity for Unital Qubit Channels,'' \emph{Journal of Mathematical
+  Physics} \textbf{43}, 4641--4653 (2002).
+  \href{https://arxiv.org/abs/quant-ph/0103156}{arXiv:quant-ph/0103156}.
+
+  \item[\textup{[BH10]}]\label{ref:dmin-brandao-horodecki}
+  F. G. S. L. Brandão and M. Horodecki,
+  ``On Hastings' Counterexamples to the Minimum Output Entropy Additivity
+  Conjecture,'' \emph{Open Systems & Information Dynamics} \textbf{17}(1),
+  31--52 (2010).
+  \href{https://arxiv.org/abs/0907.3210}{arXiv:0907.3210}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The unresolved gap is the full range $2\leq d_{\min}\leq183$ of
+Eq.~\eqref{eq:dmin-threshold}: the upper bound is the ensemble-specific
+analysis of \sourcecite{ref:dmin-belinschi}{BCN16}, the lower bound is the
+trivial additivity of one-dimensional outputs, and the strongest structural
+constraint is that a $d=2$ violation needs two non-unital channels
+\sourcecite{ref:dmin-king}{Kin02}.  No deterministically specified pair
+realizing Eq.~\eqref{eq:dmin-violation} at $p=1$ is known in any dimension;
+every $p=1$ construction remains probabilistic
+\sourcecite{ref:dmin-hastings}{Has09}, \sourcecite{ref:dmin-leung}{LLW26}.
+The sibling extremal question of the maximal violation size
+$S_{\min}(\Phi)+S_{\min}(\Psi)-S_{\min}(\Phi\otimes\Psi)$ at fixed output
+dimension is not archived here.  The delayed-onset additivity-violation
+problem poses the orthogonal onset question for a single channel and its
+tensor powers, so neither record subsumes the other; a complementary record on
+closed-form nonadditivity of the Holevo capacity and entanglement of
+formation is currently under review elsewhere.
+
+\subsection*{Field}
+
+Quantum Communication
+
+\subsection*{Topic}
+
+Additivity and regularization; Matrix and entropy inequalities; Quantum channel structure
+
+\subsection*{ID}
+
+\texttt{op\_e724615844c52297}
