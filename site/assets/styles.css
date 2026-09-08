@@ -500,8 +500,9 @@ mjx-container { max-width: 100%; }
 .proposal-form { display: grid; gap: 18px; }
 .proposal-form fieldset { min-width: 0; margin: 0; padding: 18px 22px 22px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--card); }
 .proposal-form legend { padding: 0 6px; font-family: var(--sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mint-deep); }
-.form-row { display: grid; gap: 6px; min-width: 0; }
-.form-row + .form-row, .form-grid-2 + .form-row { margin-top: 16px; }
+.form-row { display: grid; align-content: start; gap: 6px; min-width: 0; }
+/* Rows stack with a gap; inside a multi-column grid they sit side by side, so their labels and boxes line up. */
+fieldset > .form-row + .form-row, .form-grid-2 + .form-row { margin-top: 16px; }
 .form-row > label, .form-label { font-weight: 600; font-size: 14.5px; }
 .form-hint { margin: 0; color: var(--ink-soft); font-size: 13px; }
 .form-hint code { font-size: 0.85em; }
@@ -513,14 +514,29 @@ mjx-container { max-width: 100%; }
 .proposal-form textarea { min-height: 110px; resize: vertical; font-family: var(--mono); font-size: 13.5px; }
 .proposal-form input:focus, .proposal-form textarea:focus { outline: none; border-color: var(--mint-deep); box-shadow: 0 0 0 3px color-mix(in srgb, var(--mint-deep) 20%, transparent); }
 .proposal-form input[type="checkbox"] { width: 16px; height: 16px; margin: 0; accent-color: var(--mint-deep); flex-shrink: 0; }
-.choice-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 6px 16px; margin: 4px 0 0; padding: 0; list-style: none; }
-.choice-grid li[hidden] { display: none; }
-.choice-grid label { display: flex; align-items: flex-start; gap: 9px; font-size: 14px; font-weight: 500; line-height: 1.35; cursor: pointer; }
-.choice-grid input { margin-top: 2px !important; }
-.choice-grid input:disabled + span { opacity: 0.45; }
-.choice-grid .choice-count { margin-left: 2px; }
-.choice-scroll { max-height: 280px; overflow-y: auto; margin-top: 8px; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--card-raised); scrollbar-width: thin; }
 .choice-count { color: var(--ink-faint); font-family: var(--mono); font-size: 11.5px; font-weight: 500; }
+/* Dropdown pickers for fields and topics: a select, an optional box for a name of the
+   contributor's own, and the chosen names as pills (fields solid, topics outlined). */
+.picker { display: grid; gap: 10px; }
+.picker select {
+  width: 100%; max-width: 480px; height: 44px; padding: 0 40px 0 12px; border-radius: var(--radius-sm); border: 1px solid var(--line-strong);
+  background: var(--card-raised); color: var(--ink); font-size: 15px; appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23516174' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center; background-size: 16px;
+}
+.picker select:focus { outline: none; border-color: var(--mint-deep); box-shadow: 0 0 0 3px color-mix(in srgb, var(--mint-deep) 20%, transparent); }
+.picker select:disabled { opacity: 0.55; cursor: not-allowed; }
+.picker-custom { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.picker-custom[hidden] { display: none; }
+.picker-custom input { flex: 1 1 240px; max-width: 480px; }
+.picker-chosen:empty { display: none; }
+.picker-chosen .tag { padding-right: 4px; gap: 4px; }
+.tag-new { border-style: dashed; }
+.tag-remove {
+  display: inline-grid; place-items: center; width: 20px; height: 20px; padding: 0; margin-left: 2px;
+  border: 0; border-radius: 50%; background: transparent; color: inherit; font-size: 15px; line-height: 1; opacity: 0.7; cursor: pointer;
+}
+.tag-remove:hover { opacity: 1; background: color-mix(in srgb, currentColor 16%, transparent); }
 .form-row-inline { margin-top: 10px; justify-items: start; }
 .button-small { padding: 8px 14px; font-size: 13px; }
 .statement-preview { justify-self: stretch; margin-top: 4px; padding: 12px 14px; border: 1px dashed var(--line-strong); border-radius: var(--radius-sm); background: var(--paper); white-space: pre-wrap; overflow-wrap: anywhere; font-size: 15px; }
@@ -608,7 +624,7 @@ mjx-container { max-width: 100%; }
   .copy-block { padding-right: 16px; }
   .copy-button { position: static; margin-top: 10px; }
   .proposal-form fieldset { padding: 16px 14px 18px; }
-  .choice-grid { grid-template-columns: minmax(0, 1fr); }
+  .picker select, .picker-custom input { max-width: none; }
 }
 
 @media print {

@@ -674,8 +674,7 @@ export const PROPOSAL_LIMITS = {
   title: { min: 3, max: 300 },
   statement: { min: 20, max: 30000 },
   fields: { min: 1, max: 2 },
-  topics: { min: 0, max: 5 },
-  suggestedTopics: { max: 500 },
+  topics: { min: 1, max: 5 },
   source: { max: 5000 },
   progress: { max: 30000 },
   references: { max: 30000 },
@@ -703,7 +702,22 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
   const issueUrl = `${config.repositoryUrl}/issues/new?template=new-problem.yml`;
   const L = PROPOSAL_LIMITS;
   const topics = taxonomy.topics.slice().sort((a, b) => a.localeCompare(b));
-  const choice = (name, value, count) => `<li data-name="${escape(value.toLowerCase())}"><label><input type="checkbox" name="${name}" value="${escape(value)}"><span>${escape(value)}${count ? ` <span class="choice-count">${count}</span>` : ""}</span></label></li>`;
+  // A dropdown of the existing names plus "Other", which opens a box for a name of the
+  // contributor's own; the chosen names appear as removable pills below it.
+  const picker = (kind, plural, names, counts, max, placeholder) => `<div class="picker" data-picker="${plural}" data-kind="${kind}" data-max="${max}">
+              <select id="${kind}-select" aria-describedby="${kind}-select-hint">
+                <option value="">${placeholder}</option>
+                ${names.map((name) => `<option value="${escape(name)}">${escape(name)}${counts.get(name) ? ` (${counts.get(name)})` : ""}</option>`).join("\n                ")}
+                <option value="__other__">Other: add a ${kind} of your own…</option>
+              </select>
+              <div class="picker-custom" hidden>
+                <label class="visually-hidden" for="${kind}-custom">Name of the new ${kind}</label>
+                <input id="${kind}-custom" type="text" maxlength="100" placeholder="Name the new ${kind}" autocomplete="off">
+                <button class="button button-ghost button-small" type="button" data-picker-add>Add</button>
+                <button class="button button-ghost button-small" type="button" data-picker-cancel>Cancel</button>
+              </div>
+              <ul class="tag-list picker-chosen" aria-live="polite" aria-label="Chosen ${plural}"></ul>
+            </div>`;
   // A labelled control; the hint, when there is one, describes the control for assistive technology.
   const field = (id, label, control, hint = "") => `<div class="form-row">
             <label for="${id}">${label}</label>
@@ -740,7 +754,7 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
           ${field("proposal-title", "Title", input("proposal-title", "title", `required minlength="${L.title.min}" maxlength="${L.title.max}" autocomplete="off"`), "A short descriptive title, as it would head the problem page.")}
           ${field("proposal-statement", "Statement", textarea("proposal-statement", "statement", 12, `required minlength="${L.statement.min}" maxlength="${L.statement.max}" spellcheck="false"`), `Self-contained, with the definitions, hypotheses, and quantifiers a reader needs, and a checkable resolution criterion. Write mathematics as in TeX: <code>$\\ldots$</code> inline, <code>\\[ \\ldots \\]</code> or an <code>equation</code> environment for display. Up to ${L.statement.max.toLocaleString("en")} characters.`)}
           <div class="form-row form-row-inline">
-            <button class="button button-ghost button-small" type="button" id="statement-preview-button">Preview mathematics</button>
+            <button class="button button-ghost button-small" type="button" id="statement-preview-button">Preview</button>
             <div class="statement-preview math-ready" id="statement-preview" hidden aria-live="polite"></div>
           </div>
         </fieldset>
@@ -748,21 +762,15 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
         <fieldset>
           <legend>Classification</legend>
           <div class="form-row">
-            <span class="form-label" id="fields-label">Fields <span class="choice-count" id="fields-count"></span></span>
-            <p class="form-hint">One or two broad research areas. Numbers show how many problems each holds today.</p>
-            <ul class="choice-grid" role="group" aria-labelledby="fields-label">
-              ${taxonomy.fields.map((name) => choice("fields", name, fieldCounts.get(name) ?? 0)).join("\n              ")}
-            </ul>
+            <label for="field-select">Fields <span class="choice-count" id="fields-count"></span></label>
+            <p class="form-hint" id="field-select-hint">One or two broad research areas. Pick from the list, or choose “Other” to name one of your own. Numbers show how many problems each field holds today.</p>
+            ${picker("field", "fields", taxonomy.fields, fieldCounts, L.fields.max, "Choose a field…")}
           </div>
           <div class="form-row">
-            <label for="topic-search">Topics <span class="choice-count" id="topics-count"></span></label>
-            <p class="form-hint">Up to five specific objects, techniques, or settings. Type to filter the list.</p>
-            <input id="topic-search" type="search" placeholder="Filter topics" autocomplete="off" aria-controls="topic-options">
-            <ul class="choice-grid choice-scroll" id="topic-options" role="group" aria-label="Topics">
-              ${topics.map((name) => choice("topics", name, topicCounts.get(name) ?? 0)).join("\n              ")}
-            </ul>
+            <label for="topic-select">Topics <span class="choice-count" id="topics-count"></span></label>
+            <p class="form-hint" id="topic-select-hint">One to five specific objects, techniques, or settings. Pick from the list, or choose “Other” to name one of your own.</p>
+            ${picker("topic", "topics", topics, topicCounts, L.topics.max, "Choose a topic…")}
           </div>
-          ${field("proposal-suggested-topics", "Suggested new topics (optional)", input("proposal-suggested-topics", "suggestedTopics", `maxlength="${L.suggestedTopics.max}"`), "If no topic fits, name one or more you would add, separated by semicolons.")}
         </fieldset>
 
         <fieldset>

@@ -18,11 +18,19 @@ test("the form's limits are the inbox's limits", () => {
   for (const [key, limit] of Object.entries(PROPOSAL_LIMITS)) assert.deepEqual(limit, LIMITS[key], `limit for ${key}`);
 });
 
-test("the page offers every field and topic as a choice and carries the limits for the client", () => {
+test("the page offers every field and topic in a dropdown with an Other option and carries the limits for the client", () => {
   const html = renderContribute({ config: online, root: "../", taxonomy, ...counts });
-  for (const name of taxonomy.fields) assert.ok(html.includes(`<input type="checkbox" name="fields" value="${name}">`), `field ${name}`);
-  for (const name of taxonomy.topics) assert.ok(html.includes(`<input type="checkbox" name="topics" value="${name.replaceAll("&", "&amp;")}">`), `topic ${name}`);
-  assert.ok(html.includes(`<span class="choice-count">3</span>`), "counts accompany the names");
+  const fieldSelect = html.match(/<select id="field-select"[\s\S]*?<\/select>/u)?.[0] ?? "";
+  const topicSelect = html.match(/<select id="topic-select"[\s\S]*?<\/select>/u)?.[0] ?? "";
+  for (const name of taxonomy.fields) assert.ok(fieldSelect.includes(`<option value="${name}">`), `field ${name}`);
+  for (const name of taxonomy.topics) assert.ok(topicSelect.includes(`<option value="${name.replaceAll("&", "&amp;")}">`), `topic ${name}`);
+  assert.ok(fieldSelect.includes(`>${taxonomy.fields[0]} (3)</option>`), "counts accompany the names");
+  assert.ok(fieldSelect.endsWith(`<option value="__other__">Other: add a field of your own…</option>\n              </select>`), "Other comes last");
+  assert.ok(topicSelect.includes(`<option value="__other__">Other: add a topic of your own…</option>`));
+  assert.ok(!html.includes('type="checkbox" name="fields"') && !html.includes('type="checkbox" name="topics"'), "no checkbox grids remain");
+  assert.ok(html.includes('data-picker="fields" data-kind="field" data-max="2"'));
+  assert.ok(html.includes('data-picker="topics" data-kind="topic" data-max="5"'));
+  assert.ok(html.includes('<input id="field-custom" type="text" maxlength="100"'), "a box for a name of the contributor's own");
   assert.ok(html.includes(`data-limits='${JSON.stringify(PROPOSAL_LIMITS).replaceAll('"', "&quot;")}'`));
   assert.ok(html.includes(`maxlength="${PROPOSAL_LIMITS.statement.max}"`));
   assert.ok(html.includes('name="extra"'), "the honeypot is present");
@@ -76,15 +84,25 @@ test("the client script assembles a proposal from the form and checks it before 
   });
   const controls = new Map();
   const text = (name, value) => controls.set(name, element({ name, value }));
-  text("title", "A proposal title"); text("statement", "A statement long enough to pass the minimum length."); text("suggestedTopics", ""); text("source", "Src"); text("progress", ""); text("references", "Ref"); text("comment", ""); text("name", "Ada"); text("email", "ada@example.org"); text("affiliation", ""); text("extra", ""); text("cf-turnstile-response", "tok");
+  text("title", "A proposal title"); text("statement", "A statement long enough to pass the minimum length."); text("source", "Src"); text("progress", ""); text("references", "Ref"); text("comment", ""); text("name", "Ada"); text("email", "ada@example.org"); text("affiliation", ""); text("extra", ""); text("cf-turnstile-response", "tok");
   controls.set("consent", element({ name: "consent", checked: true }));
-  const box = (name, value, checked) => element({ name, value, checked });
-  const fieldBoxes = [box("fields", "Quantum algorithm", true), box("fields", "Quantum metrology", false)];
-  const topicBoxes = [box("topics", "Bell nonlocality", true), box("topics", "Quantum magic", false)];
+  // A picker: the select with its options, the row for a name of the contributor's own, and the list of pills.
+  const pickerBox = (plural, kind, max, names) => {
+    const select = element({ options: [{ value: "" }, ...names.map((value) => ({ value })), { value: "__other__" }] });
+    const customInput = element();
+    const addButton = element();
+    const customRow = element({ hidden: true, querySelector: () => customInput });
+    const list = element({ innerHTML: "" });
+    const parts = new Map([["select", select], [".picker-custom", customRow], [".picker-chosen", list], ["[data-picker-add]", addButton], ["[data-picker-cancel]", element()]]);
+    return { box: element({ dataset: { max: String(max), kind }, querySelector: (selector) => parts.get(selector) ?? null }), select, customInput, addButton, list, plural };
+  };
+  const fieldPicker = pickerBox("fields", "field", 2, ["Quantum algorithm", "Quantum metrology"]);
+  const topicPicker = pickerBox("topics", "topic", 5, ["Bell nonlocality", "Quantum magic"]);
   const form = element({
     dataset: { submitUrl: "https://inbox.example.org/api/v1/submissions", captchaProvider: "turnstile", captchaResponse: "cf-turnstile-response", limits: JSON.stringify(PROPOSAL_LIMITS) },
     elements: { namedItem: (name) => controls.get(name) ?? null },
-    querySelectorAll: (selector) => (selector.includes('"fields"') ? fieldBoxes : selector.includes('"topics"') ? topicBoxes : []),
+    querySelector: (selector) => (selector === '[data-picker="fields"]' ? fieldPicker.box : selector === '[data-picker="topics"]' ? topicPicker.box : null),
+    querySelectorAll: () => [],
     reset() {}
   });
   const statusLine = element();
@@ -104,26 +122,43 @@ test("the client script assembles a proposal from the form and checks it before 
     window: { setTimeout: () => 0, clearTimeout() {}, matchMedia: () => ({ matches: false }) }, navigator: {},
     fetch: async (url, init) => { fetched.push({ url, body: JSON.parse(init.body) }); return { ok: true, status: 201, json: async () => ({ accepted: true, id: "01TEST" }) }; }
   });
+  assert.equal(ids.get("#fields-count").textContent, "0 of 2 chosen");
+  assert.equal(ids.get("#topics-count").textContent, "0 of 5 chosen");
+  // Pick a field from the dropdown, then a topic, then a topic of the contributor's own through "Other".
+  const choose = (picker, value) => { picker.select.value = value; picker.select.listeners.change(); };
+  choose(fieldPicker, "Quantum algorithm");
   assert.equal(ids.get("#fields-count").textContent, "1 of 2 chosen");
-  assert.equal(ids.get("#topics-count").textContent, "1 of 5 chosen");
+  assert.match(fieldPicker.list.innerHTML, /class="tag tag-field">Quantum algorithm<button type="button" class="tag-remove" data-remove="Quantum algorithm"/u, "a chosen field is a solid pill with a remove button");
+  assert.equal(fieldPicker.select.value, "", "the dropdown returns to its placeholder");
+  choose(fieldPicker, "quantum algorithm");
+  assert.equal(ids.get("#fields-count").textContent, "1 of 2 chosen", "a name is chosen once, whatever its case");
+  choose(topicPicker, "Bell nonlocality");
+  choose(topicPicker, "__other__");
+  assert.equal(topicPicker.customInput.hidden, false);
+  assert.equal(topicPicker.customInput.focused, true, "Other opens the box for a name of the contributor's own");
+  topicPicker.customInput.value = "  Rényi   entropies ";
+  topicPicker.addButton.listeners.click();
+  assert.equal(ids.get("#topics-count").textContent, "2 of 5 chosen");
+  assert.match(topicPicker.list.innerHTML, /class="tag tag-topic tag-new">Rényi entropies <span class="tag-count">new<\/span>/u, "a name of the contributor's own is a dashed pill marked new");
   const submit = form.listeners.submit;
   assert.equal(typeof submit, "function");
   return submit({ preventDefault() {} }).then(async () => {
     assert.equal(fetched.length, 1, "a complete proposal is sent");
     assert.equal(fetched[0].url, "https://inbox.example.org/api/v1/submissions");
     assert.deepEqual(fetched[0].body, {
-      title: "A proposal title", statement: "A statement long enough to pass the minimum length.", fields: ["Quantum algorithm"], topics: ["Bell nonlocality"], suggestedTopics: "",
+      title: "A proposal title", statement: "A statement long enough to pass the minimum length.", fields: ["Quantum algorithm"], newFields: [], topics: ["Bell nonlocality", "Rényi entropies"], newTopics: ["Rényi entropies"],
       source: "Src", progress: "", references: "Ref", comment: "", contributor: { name: "Ada", email: "ada@example.org", affiliation: "" }, consent: true, extra: "", captchaToken: "tok"
     });
     assert.equal(form.hidden, true, "the form gives way to the receipt");
     form.hidden = false;
     controls.get("email").value = "not an address";
-    fieldBoxes[0].checked = false;
+    fieldPicker.list.listeners.click({ target: { closest: () => ({ dataset: { remove: "Quantum algorithm" } }) } });
+    assert.equal(ids.get("#fields-count").textContent, "0 of 2 chosen", "the remove button takes a pill away");
     await submit({ preventDefault() {} });
     assert.equal(fetched.length, 1, "an incomplete proposal is not sent");
     assert.match(statusLine.textContent, /Choose at least one field/u);
     assert.match(statusLine.textContent, /valid email/u);
     assert.equal(statusLine.dataset.kind, "error");
-    assert.equal(fieldBoxes[0].focused, true, "the first problem gets focus");
+    assert.equal(fieldPicker.select.focused, true, "the first problem gets focus");
   });
 });

@@ -51,9 +51,8 @@ export const LIMITS = {
   title: { min: 3, max: 300 },
   statement: { min: 20, max: 30_000 },
   fields: { min: 1, max: 2 },
-  topics: { min: 0, max: 5 },
+  topics: { min: 1, max: 5 },
   tagName: { max: 100 },
-  suggestedTopics: { max: 500 },
   source: { max: 5_000 },
   progress: { max: 30_000 },
   references: { max: 30_000 },
@@ -70,13 +69,18 @@ export interface Contributor {
   affiliation: string;
 }
 
-/** A proposal as the form sends it and as the inbox stores it, after normalization. */
+/**
+ * A proposal as the form sends it and as the inbox stores it, after normalization. `fields` and
+ * `topics` hold the classification the contributor intends; `newFields` and `newTopics` say
+ * which of those names the contributor made up instead of picking from the taxonomy.
+ */
 export interface SubmissionPayload {
   title: string;
   statement: string;
   fields: string[];
+  newFields: string[];
   topics: string[];
-  suggestedTopics: string;
+  newTopics: string[];
   source: string;
   progress: string;
   references: string;
@@ -179,8 +183,10 @@ export function parseSubmission(raw: unknown): ParsedSubmission {
   const fields = names(raw["fields"], "fields", LIMITS.fields.max, issues);
   if (fields.length < LIMITS.fields.min) issues.push("choose at least one field");
   const topics = names(raw["topics"], "topics", LIMITS.topics.max, issues);
-  const suggestedTopics = text("suggestedTopics");
-  if (topics.length === 0 && !suggestedTopics) issues.push("choose at least one topic or suggest a new one");
+  if (topics.length < LIMITS.topics.min) issues.push("choose at least one topic or add your own");
+  // The contributor's own names are a subset of the classification, never a separate list.
+  const newFields = names(raw["newFields"], "newFields", LIMITS.fields.max, issues).filter((name) => fields.includes(name) || (issues.push(`newFields: ${name} is not among the fields`), false));
+  const newTopics = names(raw["newTopics"], "newTopics", LIMITS.topics.max, issues).filter((name) => topics.includes(name) || (issues.push(`newTopics: ${name} is not among the topics`), false));
   const source = text("source");
   const progress = text("progress");
   const references = text("references");
@@ -203,7 +209,7 @@ export function parseSubmission(raw: unknown): ParsedSubmission {
 
   if (issues.length > 0) throw new HttpError(422, issues.join("; "));
   return {
-    payload: { title, statement, fields, topics, suggestedTopics, source, progress, references, comment, contributor: { name, email, affiliation } },
+    payload: { title, statement, fields, newFields, topics, newTopics, source, progress, references, comment, contributor: { name, email, affiliation } },
     captchaToken,
   };
 }
@@ -311,11 +317,12 @@ export class SubmissionStore {
 export function submissionText(submission: Submission): string {
   const p = submission.payload;
   const section = (heading: string, body: string): string => (body ? `## ${heading}\n\n${body}\n\n` : "");
+  const marked = (all: string[], own: string[]): string => all.map((name) => (own.includes(name) ? `${name} (new)` : name)).join("; ") || "none";
   return `# ${p.title}\n\n`
     + `Proposal ${submission.id}, received ${submission.receivedAt}, state ${submission.state}.\n`
     + `Contributor: ${p.contributor.name} <${p.contributor.email}>${p.contributor.affiliation ? ` (${p.contributor.affiliation})` : ""}\n`
-    + `Fields: ${p.fields.join("; ") || "none"}\n`
-    + `Topics: ${p.topics.join("; ") || "none"}${p.suggestedTopics ? `\nSuggested topics: ${p.suggestedTopics}` : ""}\n\n`
+    + `Fields: ${marked(p.fields, p.newFields)}\n`
+    + `Topics: ${marked(p.topics, p.newTopics)}\n\n`
     + section("Statement", p.statement)
     + section("Source", p.source)
     + section("Progress", p.progress)

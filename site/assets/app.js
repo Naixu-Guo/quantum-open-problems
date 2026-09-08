@@ -356,35 +356,79 @@
       statusLine.dataset.kind = kind;
     };
 
-    // Fields and topics are limited groups; a counter says how many are chosen.
-    const group = (name, max, counter) => {
-      const boxes = $$(`input[name="${name}"]`, proposalForm);
-      const chosen = () => boxes.filter((box) => box.checked).map((box) => box.value);
-      const update = () => {
-        const count = chosen().length;
-        boxes.forEach((box) => { box.disabled = !box.checked && count >= max; });
-        if (counter) counter.textContent = `${count} of ${max} chosen`;
+    // Fields and topics come from a dropdown of the existing names; "Other" opens a box for a
+    // name of the contributor's own. The chosen names are pills with a remove button, and a
+    // counter says how many of the allowed number are chosen.
+    const picker = (plural, counter) => {
+      const box = $(`[data-picker="${plural}"]`, proposalForm);
+      const empty = { select: null, chosen: () => [], custom: () => [], set() {} };
+      if (!box) return empty;
+      const max = Number(box.dataset.max) || 1;
+      const kind = box.dataset.kind || "topic";
+      const select = $("select", box);
+      const customRow = $(".picker-custom", box);
+      const customInput = customRow ? $("input", customRow) : null;
+      const list = $(".picker-chosen", box);
+      const known = select ? Array.from(select.options).map((option) => option.value).filter((name) => name && name !== "__other__") : [];
+      let items = [];
+      const render = () => {
+        if (list) {
+          list.innerHTML = items.map((item) => `<li><span class="tag tag-${kind}${item.custom ? " tag-new" : ""}">${escapeHtml(item.name)}${item.custom ? ' <span class="tag-count">new</span>' : ""}<button type="button" class="tag-remove" data-remove="${escapeHtml(item.name)}" aria-label="Remove ${escapeHtml(item.name)}">×</button></span></li>`).join("");
+        }
+        const full = items.length >= max;
+        if (select) { select.value = ""; select.disabled = full; }
+        if (full && customRow) customRow.hidden = true;
+        if (counter) counter.textContent = `${items.length} of ${max} chosen`;
       };
-      boxes.forEach((box) => box.addEventListener("change", update));
-      update();
-      return { boxes, chosen, update };
+      const add = (name, custom) => {
+        const clean = String(name || "").replace(/\s+/g, " ").trim();
+        if (!clean || items.length >= max) return false;
+        if (items.some((item) => item.name.toLowerCase() === clean.toLowerCase())) { render(); return false; }
+        const existing = known.find((candidate) => candidate.toLowerCase() === clean.toLowerCase());
+        items.push(existing ? { name: existing, custom: false } : { name: clean, custom: Boolean(custom) });
+        render();
+        return true;
+      };
+      const closeCustom = () => { if (customRow) customRow.hidden = true; if (customInput) customInput.value = ""; };
+      select?.addEventListener("change", () => {
+        if (select.value === "__other__") {
+          select.value = "";
+          if (customRow) customRow.hidden = false;
+          customInput?.focus();
+          return;
+        }
+        if (select.value) add(select.value, false);
+      });
+      const addCustom = () => { if (add(customInput?.value, true)) closeCustom(); };
+      $("[data-picker-add]", box)?.addEventListener("click", addCustom);
+      $("[data-picker-cancel]", box)?.addEventListener("click", () => { closeCustom(); select?.focus(); });
+      customInput?.addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); addCustom(); } });
+      list?.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-remove]");
+        if (!button) return;
+        items = items.filter((item) => item.name !== button.dataset.remove);
+        render();
+        select?.focus();
+      });
+      render();
+      return {
+        select,
+        chosen: () => items.map((item) => item.name),
+        custom: () => items.filter((item) => item.custom).map((item) => item.name),
+        set(names, own) { items = []; (Array.isArray(names) ? names : []).forEach((name) => add(name, Array.isArray(own) && own.includes(name))); render(); }
+      };
     };
-    const fields = group("fields", limits.fields?.max ?? 2, $("#fields-count"));
-    const topics = group("topics", limits.topics?.max ?? 5, $("#topics-count"));
-    const topicSearch = $("#topic-search");
-    const topicItems = $$("#topic-options li");
-    topicSearch?.addEventListener("input", () => {
-      const query = topicSearch.value.trim().toLowerCase();
-      topicItems.forEach((item) => { item.hidden = Boolean(query) && !item.dataset.name.includes(query); });
-    });
+    const fields = picker("fields", $("#fields-count"));
+    const topics = picker("topics", $("#topics-count"));
 
     // The proposal as the inbox expects it.
     const proposal = () => ({
       title: value("title"),
       statement: value("statement"),
       fields: fields.chosen(),
+      newFields: fields.custom(),
       topics: topics.chosen(),
-      suggestedTopics: value("suggestedTopics"),
+      newTopics: topics.custom(),
       source: value("source"),
       progress: value("progress"),
       references: value("references"),
@@ -404,8 +448,8 @@
       };
       between(p.title, limits.title || {}, "The title", "title");
       between(p.statement, limits.statement || {}, "The statement", "statement");
-      if (p.fields.length < (limits.fields?.min ?? 1)) list.push({ message: "Choose at least one field.", control: fields.boxes[0] });
-      if (p.topics.length === 0 && !p.suggestedTopics) list.push({ message: "Choose at least one topic or suggest a new one.", control: topicSearch });
+      if (p.fields.length < (limits.fields?.min ?? 1)) list.push({ message: "Choose at least one field.", control: fields.select });
+      if (p.topics.length < (limits.topics?.min ?? 1)) list.push({ message: "Choose at least one topic or add your own.", control: topics.select });
       between(p.contributor.name, limits.name || { min: 1 }, "Your name", "name");
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.contributor.email)) list.push({ message: "Enter a valid email address.", control: control("email") });
       if (!p.consent) list.push({ message: "Tick the consent box.", control: control("consent") });
@@ -414,10 +458,10 @@
 
     // Drafts.
     const DRAFT_KEY = "qiqcop-proposal-draft";
-    const textNames = ["title", "statement", "suggestedTopics", "source", "progress", "references", "comment", "name", "email", "affiliation"];
+    const textNames = ["title", "statement", "source", "progress", "references", "comment", "name", "email", "affiliation"];
     const saveDraft = () => {
       try {
-        const draft = { values: Object.fromEntries(textNames.map((name) => [name, String(control(name)?.value ?? "")])), fields: fields.chosen(), topics: topics.chosen() };
+        const draft = { values: Object.fromEntries(textNames.map((name) => [name, String(control(name)?.value ?? "")])), fields: fields.chosen(), newFields: fields.custom(), topics: topics.chosen(), newTopics: topics.custom() };
         if (Object.values(draft.values).some(Boolean) || draft.fields.length || draft.topics.length) localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
         else localStorage.removeItem(DRAFT_KEY);
       } catch (error) { /* storage unavailable */ }
@@ -428,15 +472,15 @@
       try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null"); } catch (error) { draft = null; }
       if (!draft || typeof draft !== "object") return false;
       textNames.forEach((name) => { const element = control(name); if (element && draft.values?.[name]) element.value = draft.values[name]; });
-      const tick = (boxes, values) => (Array.isArray(values) ? values : []).forEach((item) => { const box = boxes.find((candidate) => candidate.value === item); if (box) box.checked = true; });
-      tick(fields.boxes, draft.fields);
-      tick(topics.boxes, draft.topics);
-      fields.update();
-      topics.update();
+      fields.set(draft.fields, draft.newFields);
+      topics.set(draft.topics, draft.newTopics);
       return true;
     };
     let saveTimer = 0;
-    proposalForm.addEventListener("input", () => { window.clearTimeout(saveTimer); saveTimer = window.setTimeout(saveDraft, 400); });
+    const scheduleSave = () => { window.clearTimeout(saveTimer); saveTimer = window.setTimeout(saveDraft, 400); };
+    proposalForm.addEventListener("input", scheduleSave);
+    proposalForm.addEventListener("change", scheduleSave);
+    proposalForm.addEventListener("click", (event) => { if (event.target.closest("[data-remove], [data-picker-add]")) scheduleSave(); });
     if (restoreDraft()) say("Restored the unsent draft kept in this browser.");
 
     // Mathematics preview of the statement. $…$ and $…$ become the delimiters MathJax is configured with.
@@ -453,9 +497,10 @@
     // The proposal as text, the same shape the maintainers see in the inbox.
     const asText = (p) => {
       const section = (heading, body) => (body ? `## ${heading}\n\n${body}\n\n` : "");
+      const marked = (all, own) => all.map((name) => (own.includes(name) ? `${name} (new)` : name)).join("; ") || "none";
       return `# ${p.title || "(untitled)"}\n\n`
         + `Contributor: ${p.contributor.name}${p.contributor.email ? ` <${p.contributor.email}>` : ""}${p.contributor.affiliation ? ` (${p.contributor.affiliation})` : ""}\n`
-        + `Fields: ${p.fields.join("; ") || "none"}\nTopics: ${p.topics.join("; ") || "none"}${p.suggestedTopics ? `\nSuggested topics: ${p.suggestedTopics}` : ""}\n\n`
+        + `Fields: ${marked(p.fields, p.newFields)}\nTopics: ${marked(p.topics, p.newTopics)}\n\n`
         + section("Statement", p.statement) + section("Source", p.source) + section("Progress", p.progress) + section("References", p.references) + section("Comment", p.comment);
     };
     $("#proposal-copy")?.addEventListener("click", async () => {
@@ -464,9 +509,8 @@
     });
     $("#proposal-clear")?.addEventListener("click", () => {
       proposalForm.reset();
-      fields.update();
-      topics.update();
-      topicItems.forEach((item) => { item.hidden = false; });
+      fields.set([], []);
+      topics.set([], []);
       if (preview) { preview.hidden = true; preview.textContent = ""; }
       clearDraft();
       say("Form cleared.");
