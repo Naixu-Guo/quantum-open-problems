@@ -1,0 +1,10 @@
+[Unit]
+Description=Check the short-lived IP certificate every six hours
+
+[Timer]
+OnCalendar=*-*-* 00,06,12,18:00:00
+RandomizedDelaySec=300
+Persistent=true
+
+[Install]
+WantedBy=timers.target
