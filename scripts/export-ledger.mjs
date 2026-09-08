@@ -12,6 +12,7 @@ import { sameClause } from "../contract/src/types/statement.ts";
 import { deterministicUlid, metadataSlug, validateRecordIdentities } from "../site/lib/metadata.mjs";
 import { validateRecordShape } from "../site/lib/record.mjs";
 import { renderRecord, texToHtml } from "../site/lib/tex.mjs";
+import { loadMergedProblems } from "../site/lib/merged-problems.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MANIFEST = "ledger/export-manifest.json";
@@ -99,6 +100,10 @@ export function buildLedger(root = ROOT) {
   });
   if (!records.length) throw new Error("Refusing to export an empty database");
   validateRecordIdentities(records);
+  const activeProblemCount = records.length;
+  const merges = loadMergedProblems(root, records);
+  const mergedById = new Map(merges.map((entry) => [entry.record.id, entry]));
+  records.push(...merges.map(({ record }) => record));
   const rendered = new Map(records.map((record) => [record.id, renderRecord(record)]));
   const ledger = fs.existsSync(path.join(root, "ledger")) && fs.existsSync(path.join(root, "activity"))
     ? new Ledger(loadRecords([path.join(root, "ledger"), path.join(root, "activity")]).records) : new Ledger([]);
@@ -169,6 +174,7 @@ export function buildLedger(root = ROOT) {
   }
   for (const record of records) {
     const display = rendered.get(record.id);
+    const merge = mergedById.get(record.id);
     const dir = `ledger/problems/${metadataSlug(record.id)}`;
     const citations = new Map(display.references.map((reference) => [`#${reference.anchor}`, referenceGroups.get(`${record.id}:${reference.label}`).source.url ?? `references/${base(`reference:${record.id}:${reference.label}`).id}.r1.md`]));
     const markdown = (html) => htmlToMarkdown(html, citations);
@@ -177,7 +183,9 @@ export function buildLedger(root = ROOT) {
     put(`${dir}/problem.r1.md`, {
       id: record.ulid, ...record.metadata, revision: 1, title: record.title,
       aliases: unique([metadataSlug(record.id), ...record.aliases]),
-      authoredCatalog: { status: record.status, sourcePath: `database/problems_json/${record.id}.json`, record }, body
+      ...(merge ? { equivalentToProblemId: merge.target.ulid } : {}),
+      authoredCatalog: { status: merge?.target.status ?? record.status, sourcePath: `database/${merge ? "merged_problems_json" : "problems_json"}/${record.id}.json`, record,
+        ...(merge ? { mergedIntoProblemId: merge.target.ulid, mergeReason: merge.reason } : {}) }, body
     });
     const statementBody = markdown(display.statement.html);
     const statement = {
@@ -198,10 +206,10 @@ export function buildLedger(root = ROOT) {
       put(`${dir}/references/${projected.id}.r1.md`, projected);
     }
   }
-  files.set("ledger/README.md", "# Ledger\n\nThis ledger is generated from the authoritative records in `database/problems_json` by `scripts/export-ledger.mjs`. Each Problem retains the full source JSON in `authoredCatalog.record`, including extra keys and the original TeX. The catalog has exactly two authored statuses: Solved and Unsolved. Publication reflects the existing authored catalog; it does not assert a review or a verification result.\n\nProblem ULIDs, original `op_` IDs, and existing aliases remain usable. The first alias is the stable folder slug. Fields and topics retain independent membership. Bibliographic metadata is partial; full bibliography text is preserved. No scientific reviews, decisions, claims, or trajectories are generated.\n\nRun `npm run export-ledger` after changing JSON records, and `npm run check-ledger` to check for drift. Normal exports append immutable revisions and statement versions, preserve service activity, and validate the combined ledger before writing. Bibliography removal appends retirement records; it never deletes historical citations. Conflicting service edits require explicit reconciliation. The manifest pins exported history, counts all exported record files separately from active projections, and records the last changed export time. `--replace-authoritative` explicitly replaces the ledger and activity roots; use it only when intentionally resetting those derived databases.\n");
+  files.set("ledger/README.md", "# Ledger\n\nThis ledger is generated from the authoritative records in `database/problems_json` by `scripts/export-ledger.mjs`. Each Problem retains the full source JSON in `authoredCatalog.record`, including extra keys and the original TeX. The catalog has exactly two authored statuses: Solved and Unsolved. Publication reflects the existing authored catalog; it does not assert a review or a verification result.\n\nExplicit merge archives in `database/merged_problems_json` preserve removed duplicates and supply canonical targets. Merged identities are excluded from the active catalog; their statements and citations remain in the ledger. Problem ULIDs, original `op_` IDs, and existing aliases remain usable. The first alias is the stable folder slug. Fields and topics retain independent membership. Bibliographic metadata is partial; full bibliography text is preserved. No scientific reviews, decisions, claims, or trajectories are generated.\n\nRun `npm run export-ledger` after changing JSON records, and `npm run check-ledger` to check for drift. Normal exports append immutable revisions and statement versions, preserve service activity, and validate the combined ledger before writing. Bibliography removal appends retirement records; it never deletes historical citations. Conflicting service edits require explicit reconciliation. The manifest pins exported history, counts all exported record files separately from desired projections (including merge archives), and records the last changed export time. `--replace-authoritative` explicitly replaces the ledger and activity roots; use it only when intentionally resetting those derived databases.\n");
   files.set("activity/README.md", "# Activity\n\nThis activity root starts empty after replacing the stale catalog with the authoritative authored database. Future service activity belongs here and is preserved by normal database exports. No historical reviews or research activity are inferred from a problem's authored status.\n");
   files.set(MANIFEST, json({ schema: "qiqcop-zoo/ledger-export/1", source: "database/problems_json", generatedAt: metadata.migrationTimestamp, counts, files: [...files.keys()].sort() }));
-  return { files, counts, records, identities };
+  return { files, counts, records, identities, activeProblemCount, mergedProblemCount: merges.length };
 }
 
 function writeFiles(root, files) {
@@ -367,7 +375,7 @@ export async function exportLedger({ root = ROOT, check = false, replaceAuthorit
   const manifestChanged = !fs.existsSync(manifestPath) || fs.readFileSync(manifestPath, "utf8") !== json(manifest) || writes.size > 0;
   if (check) {
     if (manifestChanged) throw new Error("Ledger export drift: export manifest needs migration. Run npm run export-ledger.");
-    return { counts: desired.counts, changed: 0 };
+    return { counts: desired.counts, activeProblemCount: desired.activeProblemCount, mergedProblemCount: desired.mergedProblemCount, changed: 0 };
   }
   if (manifestChanged) { manifest.generatedAt = now; writes.set(MANIFEST, json(manifest)); }
   const stage = fs.mkdtempSync(path.join(os.tmpdir(), "qop-ledger-export-"));
@@ -404,7 +412,7 @@ export async function exportLedger({ root = ROOT, check = false, replaceAuthorit
       }
       throw error;
     }
-    return { counts: desired.counts, changed: writes.size };
+    return { counts: desired.counts, activeProblemCount: desired.activeProblemCount, mergedProblemCount: desired.mergedProblemCount, changed: writes.size };
   } finally { fs.rmSync(stage, { recursive: true, force: true }); }
 }
 
@@ -421,6 +429,6 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
       else throw new Error(`Unknown or incomplete option: ${argument}`);
     }
     const result = await exportLedger(options);
-    console.log(`${options.check ? "Checked" : "Exported"} ${result.counts.Problem} authored problems, ${result.counts.Statement} statements, ${result.counts.Source} sources, ${result.counts.Reference} references; ${result.changed} changed file(s).`);
+    console.log(`${options.check ? "Checked" : "Exported"} ${result.activeProblemCount} active problems, ${result.mergedProblemCount} merged identities, ${result.counts.Statement} statements, ${result.counts.Source} sources, ${result.counts.Reference} references; ${result.changed} changed file(s).`);
   } catch (error) { console.error(error.message); process.exitCode = 1; }
 }

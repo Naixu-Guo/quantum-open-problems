@@ -233,6 +233,7 @@ export function recordView(ledger: Ledger, id: string) {
 export function status(ledger: Ledger, index: Index, policyVersion: string) {
   const decisions = currentDecisions(ledger);
   const problems = ledger.currentOf("Problem");
+  const states = problems.map((p) => catalogState(ledger, p.id, decisions));
   const byStatus: Record<string, number> = { Unsolved: 0, Solved: 0 };
   const questions = new Map<string, string>();
   for (const problem of problems) {
@@ -246,7 +247,9 @@ export function status(ledger: Ledger, index: Index, policyVersion: string) {
     policyVersion,
     lastSequence: index.lastSequence(),
     counts: index.counts(),
-    problems: { unit: "records", total: problems.length, published: Object.values(byStatus).reduce((a, b) => a + b, 0), candidates: problems.filter((p) => catalogState(ledger, p.id, decisions) === "candidate").length, byStatus },
+    problems: { unit: "records", total: states.filter((state) => state === "published" || state === "candidate").length,
+      published: Object.values(byStatus).reduce((a, b) => a + b, 0), candidates: states.filter((state) => state === "candidate").length,
+      merged: states.filter((state) => state === "merged").length, retired: states.filter((state) => state === "retired").length, byStatus },
     distinctQuestions: { unit: "distinct questions", scope: "published records", total: questions.size, byStatus: { Unsolved: [...questions.values()].filter(s => s === "Unsolved").length, Solved: [...questions.values()].filter(s => s === "Solved").length } },
     lastRelease: release ? { id: release.id, effectiveAt: release.effectiveAt, tag: release.targetId } : null,
   };

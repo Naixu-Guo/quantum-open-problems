@@ -85,10 +85,17 @@ function routes(service: Service): Route[] {
   const auth = service.auth;
   const resolveProblem = (idOrAlias: string): string => {
     const l = ledger();
-    if (l.find("Problem", idOrAlias)) return idOrAlias;
-    const byAlias = l.currentOf("Problem").find((p) => (p.fields["aliases"] as string[]).includes(idOrAlias));
-    if (!byAlias) throw new HttpError(404, `unknown problem ${idOrAlias}`);
-    return byAlias.id;
+    let problem = l.find("Problem", idOrAlias) ?? l.currentOf("Problem").find((p) => (p.fields["aliases"] as string[]).includes(idOrAlias));
+    if (!problem) throw new HttpError(404, `unknown problem ${idOrAlias}`);
+    const visited = new Set<string>();
+    while (problem) {
+      if (visited.has(problem.id)) throw new HttpError(500, "cyclic catalog merge");
+      visited.add(problem.id);
+      const catalog = problem.fields["authoredCatalog"] as { mergedIntoProblemId?: string } | undefined;
+      if (!catalog?.mergedIntoProblemId) return problem.id;
+      problem = l.find("Problem", catalog.mergedIntoProblemId);
+    }
+    throw new HttpError(500, "missing catalog merge target");
   };
   const notNull = <T>(value: T | null | undefined, what: string): T => {
     if (value === null || value === undefined) throw new HttpError(404, `unknown ${what}`);

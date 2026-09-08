@@ -21,6 +21,10 @@ each mirrored by a TeX file (`database/problems_tex/`).
    original `op_` ID, ULID, `op-` alias, and confirmed main slugs. Initialize
    missing identifiers and metadata with `node scripts/migrate-metadata.mjs`,
    using the pinned crosswalk and provenance in `database/metadata.json`.
+   To remove a duplicate from the active catalog, consolidate its useful
+   content and use the explicit merge archive procedure in
+   `docs/CATALOG_INTEGRATION.md`. Old links resolve to the canonical record;
+   historical ledger revisions remain unchanged.
 3. **Canonical fields and topics only.** Every record has one or two `fields`
    and one to five `topics`, spelled exactly as in `database/tags.json`, whose
    `fields` and `topics` lists are disjoint: a name is either a field or a

@@ -10,7 +10,7 @@ export function redirect(target, title) {
 export function legacyTagIndex(legacy) {
   return Object.fromEntries(Object.entries(legacy.tags).map(([name, entry]) => [slug(name), { name, ...entry }]));
 }
-export function buildCompatibility({ write, records, payloads, apiIndex, legacy, config }) {
+export function buildCompatibility({ write, records, payloads, apiIndex, legacy, config, merges = [] }) {
   const siteUrl = config.siteUrl.replace(/\/$/, "");
   const aliases = new Map(records.flatMap((r) => r.aliases.map((alias) => [alias, r])));
   for (const record of records) {
@@ -19,6 +19,14 @@ export function buildCompatibility({ write, records, payloads, apiIndex, legacy,
       write(`problems/${alias}/index.html`, redirect(`../../problem/${record.id}/`, record.title.text));
       write(`api/v1/problems/${alias}.json`, json(payloads.get(record.id)));
       write(`packets/${alias}.md`, packet);
+    }
+  }
+  for (const { record, target, reason } of merges) {
+    for (const alias of record.aliases) {
+      aliases.set(alias, target);
+      write(`problems/${alias}/index.html`, redirect(`${siteUrl}/problem/${target.id}/`, target.title));
+      write(`api/v1/problems/${alias}.json`, json({ ...payloads.get(target.id), mergedFrom: { id: record.id, ulid: record.ulid, reason } }));
+      write(`packets/${alias}.md`, `# ${target.title}\n\nThis duplicate record was merged into [the canonical question](${siteUrl}/problem/${target.id}/).\n\n[Read the current Markdown packet](${siteUrl}/packets/${target.id}.md).\n`);
     }
   }
   for (const [id, entry] of Object.entries(legacy.problems)) {

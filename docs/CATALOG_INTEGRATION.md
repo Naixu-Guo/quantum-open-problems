@@ -10,8 +10,8 @@ reads a validated ledger projection created by `npm run export-ledger`.
 Each exported Problem contains the complete JSON in
 `authoredCatalog.record`, its source path, and its authoritative status.
 The contract treats these maintained primary problems as published without
-claiming that a review or admission decision occurred. Merge and retirement
-decisions still govern catalog visibility. Ordinary API clients cannot
+claiming that a review or admission decision occurred. Explicit catalog merges
+and service merge/retirement decisions govern catalog visibility. Ordinary API clients cannot
 manufacture or replace this catalog provenance.
 
 The export preserves the original `op_` identifier, its equivalent `op-`
@@ -67,7 +67,8 @@ modified pinned files fail validation and export. The first ordinary export
 migrates a version-1 manifest without rewriting its historical records.
 `counts` counts every pinned exported record file, including old revisions,
 statement versions, and retired bibliography. `projectionCounts` counts the
-active desired catalog projection. `generatedAt` is the last changed export,
+desired projection, including explicitly merged archive identities; it is not
+the public active-problem count. `generatedAt` is the last changed export,
 while `migrationTimestamp` retains the initial metadata migration date.
 A repeated export or `--check` does not advance the clock.
 
@@ -171,7 +172,43 @@ show their historical problem cohort with current content and statuses.
 Current taxonomy pages continue to use only `database/tags.json`.
 
 
-## Equivalent questions and counts
+## Merging duplicate records
+
+Consolidate the duplicate's useful sources, progress and qualifications into
+the canonical record first. Move the duplicate out of `database/problems_json/`
+into `database/merged_problems_json/<old-op-id>.json` using this wrapper:
+
+```json
+{
+  "schema": "qiqcop-zoo/merged-problem/1",
+  "mergedIntoProblemId": "<canonical ULID>",
+  "reason": "Why the complete mathematical questions are equivalent",
+  "record": { "...": "the complete original authored record, unchanged" }
+}
+```
+
+Remove its active TeX mirror and active records' links to the old identity,
+then synchronize and export normally. The archive is a reproducible migration
+input, excluded from website lists, downloads, random selection and question
+counts. It retains the old IDs, aliases and original statement. The target
+must be a current canonical problem; self-merges, chains,
+alias collisions and accidental reintroduction fail the build. The archived
+record retains its historical status; effective status follows the canonical
+question, including later resolutions.
+
+The exporter appends a Problem revision with
+`authoredCatalog.mergedIntoProblemId` and `mergeReason`. It retains historical
+statements, citations and activity, and never fabricates a review or overwrites
+ledger history. A subsequent export is a no-op. Removing a record without an
+explicit merge archive still fails export.
+
+Old web links and static JSON aliases resolve to the canonical record. REST
+problem routes, and therefore MCP problem tools, follow the same mapping;
+`get_record` can still retrieve the historical ledger identity. Public search
+and snapshots exclude merged records. API status reports active records in
+`problems.total`, with `merged` and `retired` reported separately.
+
+## Equivalent formulations and counts
 
 `metadata.equivalentToProblemId` points directly to the canonical ULID of an
 equivalent question. The target must exist, cannot itself redirect through
@@ -180,10 +217,11 @@ stronger than `relatedProblemIds`; adding it requires comparing the complete
 mathematical questions. It changes neither permanent identity nor original
 statement, citation, or historical review.
 
-The less-noisy pair now has this explicit relationship: op-12fc is an
-equivalent formulation of op-fd756. Both records retain the previously
-recorded theorem locator and preprint qualification. No scientific status
-is changed by the equivalence metadata commit.
+This metadata supports distinct formulations intentionally retained in the
+catalog. Exact duplicates should use the merge workflow above. The less-noisy
+duplicate op-12fc was merged into op-fd756, with its additional sources and
+progress consolidated into the canonical question. Its historical identity
+remains resolvable and contributes no second active record.
 
 Record and question totals are derived from the current catalog on every
 build. Home-page question totals count

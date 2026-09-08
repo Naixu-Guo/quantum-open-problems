@@ -44,15 +44,17 @@ related IDs too. Shared topics alone do not establish equivalence: compare
 hypotheses, quantifiers, resource models, and requested outputs.
 
 If the question already exists, update that record rather than create a new
-identity. If two existing records are equivalent, reconcile their evidence
-and status together, retain both permanent IDs and links, and document their
-relationship in Comment. Set `metadata.equivalentToProblemId` on the duplicate
-formulation to the canonical record's ULID; retain related links where useful.
-The canonical record cannot itself point to another equivalent record, and
-equivalent records must have the same binary status. Question totals count
-that group once; record counts retain every permanent entry. Never delete an
-archived identity merely to remove a duplicate. Different regimes or targets
-can remain separate records with an explicit relationship.
+identity. For an existing duplicate, consolidate its useful content and
+qualifications into the canonical record, then follow the explicit merge
+archive procedure in `docs/CATALOG_INTEGRATION.md`. Remove the active JSON and
+TeX entry together; the archive preserves its old identifiers and supplies
+canonical redirects to the website and API/MCP. Export normally and preserve
+all historical ledger revisions. Deleting only the active files is incomplete.
+
+Use `metadata.equivalentToProblemId` only when the maintainer intends to retain
+both equivalent formulations as separate catalog records. Its target must be
+canonical and have the same binary status. Different regimes or targets can
+remain separate records with an explicit relationship.
 
 ## Author the current format
 

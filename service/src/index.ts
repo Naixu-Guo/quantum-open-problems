@@ -176,7 +176,7 @@ export class Index {
   }
 
   problemPage(filter: ProblemFilter) {
-    const clauses: string[] = [];
+    const clauses: string[] = ["catalog_state IN ('published', 'candidate')"];
     const params: (string | number)[] = [];
     if (filter.indexedOnly !== false) clauses.push("indexed = 1");
     if (filter.status) { clauses.push("status = ?"); params.push(filter.status); }

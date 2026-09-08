@@ -102,6 +102,12 @@ Service contributions and reviews remain in the ledger. Pull requests
 changing the ledger or activity roots need the `ledger-change` label to
 identify a deliberate update.
 
+For an existing duplicate, consolidate its useful content into the canonical
+question and follow the [catalog merge procedure](docs/CATALOG_INTEGRATION.md#merging-duplicate-records).
+An explicit archive preserves the old identifiers and makes their URLs resolve
+to the canonical question while removing the duplicate from active lists and
+API/MCP counts. Deleting the active JSON alone is incomplete.
+
 ## Fields and topics
 
 A **field** is one of the six research areas in `database/tags.json`;

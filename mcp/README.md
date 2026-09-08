@@ -50,8 +50,11 @@ Search returns `total` matching records, `count` rows on this page (50 by
 default), and `nextOffset`. Continue with the same filters and `offset` set
 to `nextOffset` until it is null; a larger limit is not a promise of completeness.
 
-`get_status.problems` counts permanent records, while `distinctQuestions`
+`get_status.problems.total` counts active records, with merged and retired
+identities reported separately. `distinctQuestions`
 counts published mathematical questions once across equivalent formulations.
+Old problem IDs resolve to the canonical question after a catalog merge;
+`get_record` still exposes the archived ledger identity.
 `get_problem` omits the duplicate `authoredCatalog.record` unless
 `includeAuthoredRecord: true` is requested. Use `build_context` for a bounded
 token budget. `search_sources` also searches preserved bibliography text when

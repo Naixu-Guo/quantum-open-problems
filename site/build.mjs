@@ -18,7 +18,8 @@ import { parseTexRecord, renderRecord, STATUSES, slug, TexError } from "./lib/te
 import { validateRecordShape, canonicalJson, recordDifferences, RecordError } from "./lib/record.mjs";
 import { loadTaxonomy } from "./lib/taxonomy.mjs";
 import { distinctQuestionCounts, validateRecordIdentities, metadataToMainProblem, ULID_PATTERN } from "./lib/metadata.mjs";
-import { buildCompatibility, legacyTagIndex } from "./lib/compatibility.mjs";
+import { buildCompatibility, legacyTagIndex, redirect } from "./lib/compatibility.mjs";
+import { loadMergedProblems } from "./lib/merged-problems.mjs";
 import {
   renderHome, renderProblemPage, renderDirectory, renderTagsIndex, renderTagPage, byRecentEdit,
   renderAbout, renderContribute, renderRandomPage, renderNotFound
@@ -168,6 +169,7 @@ if (errors.length) {
   process.exit(1);
 }
 validateRecordIdentities(records.map((record) => record.storedRecord));
+const merges = loadMergedProblems(repoRoot, records.map((record) => record.storedRecord));
 const seen = new Map();
 for (const record of records) {
   if (seen.has(record.id)) errors.push(`duplicate ID ${record.id} in ${seen.get(record.id)} and ${record.file}`);
@@ -258,6 +260,9 @@ for (const record of records) {
     write(`problem/${alias}/index.html`, `<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><title>Problem ${record.id}</title><link rel="canonical" href="${config.siteUrl.replace(/\/$/, "")}/problem/${record.id}/"><meta http-equiv="refresh" content="0;url=${target}"></head><body><a href="${target}">Open ${record.id}</a><script>location.replace(${JSON.stringify(target)} + location.search + location.hash);</script></body></html>\n`);
   }
 }
+for (const { record, target } of merges) {
+  for (const alias of record.aliases) write(`problem/${alias}/index.html`, redirect(`${config.siteUrl.replace(/\/$/, "")}/problem/${target.id}/`, target.title));
+}
 
 // One page per field and per topic in use. A field page lists the topics of
 // its problems, a topic page the fields of its problems.
@@ -346,7 +351,10 @@ write("api/index.json", `${JSON.stringify(apiIndex, null, 2)}\n`);
 write("api/identifiers.json", `${JSON.stringify({
   schema: "qiqcop-zoo/identifiers/1",
   problems: records.map((record) => ({ id: record.id, ulid: record.ulid, aliases: record.aliases })),
-  aliases: Object.fromEntries(records.flatMap((record) => record.aliases.map((alias) => [alias, { id: record.id, ulid: record.ulid }])))
+  aliases: Object.fromEntries([
+    ...records.flatMap((record) => record.aliases.map((alias) => [alias, { id: record.id, ulid: record.ulid }])),
+    ...merges.flatMap(({ record, target }) => record.aliases.map((alias) => [alias, { id: target.id, ulid: target.ulid, mergedFrom: record.ulid }]))
+  ])
 }, null, 2)}\n`);
 write("api/main/actors.json", `${JSON.stringify(actorRegistry.actors, null, 2)}\n`);
 const describeTags = (kind, names, counts) => names.map((name) => ({
@@ -400,7 +408,12 @@ for (const record of records) {
   }, null, 2)}\n`);
 }
 
-buildCompatibility({ write, records, payloads, apiIndex, legacy, config });
+for (const { record, target, reason } of merges) {
+  const payload = payloads.get(target.id);
+  for (const alias of record.aliases) write(`api/problems/${alias}.json`, `${JSON.stringify({ ...payload, mergedFrom: { id: record.id, ulid: record.ulid, reason } }, null, 2)}\n`);
+  write(`api/main/problems/${record.ulid}.json`, `${JSON.stringify({ schema: "qiqcop-zoo/main-adapter/1", problem: metadataToMainProblem(target), status: target.status, record: target, mergedFrom: { id: record.id, ulid: record.ulid, reason } }, null, 2)}\n`);
+}
+buildCompatibility({ write, records, payloads, apiIndex, legacy, config, merges });
 
 // Sitemap, robots, llms.txt
 const urls = [

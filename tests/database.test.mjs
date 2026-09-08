@@ -10,6 +10,7 @@ import { canonicalJson, canonicalRecord, recordToTex, validateRecordShape } from
 import { parseProblem } from "../site/lib/tex.mjs";
 import { loadTaxonomy } from "../site/lib/taxonomy.mjs";
 import { metadataSlug, validateRecordIdentities, distinctQuestionCounts } from "../site/lib/metadata.mjs";
+import { loadMergedProblems } from "../site/lib/merged-problems.mjs";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (file) => JSON.parse(fs.readFileSync(file, "utf8"));
@@ -223,6 +224,21 @@ test("built aliases and main adapter preserve every authored record and binary s
   const schema = read(path.join(output, "contract/v1/problem.schema.json"));
   assert.equal(schema.$id, "https://qiqc-op.com/contract/v1/problem.schema.json");
   assert.equal(read(path.join(output, "feed.json")).items.length, records.length);
+  for (const { record, target } of loadMergedProblems(repoRoot, records)) {
+    assert.ok(!index.problems.some(p => p.id === record.id));
+    assert.ok(!catalog.includes(record.ulid.toLowerCase()));
+    for (const alias of record.aliases) {
+      assert.equal(identities.aliases[alias].ulid, target.ulid);
+      for (const prefix of ["api/problems", "api/v1/problems"]) {
+        const payload = read(path.join(output, `${prefix}/${alias}.json`));
+        assert.equal(payload.id, target.id);
+        assert.equal(payload.mergedFrom.ulid, record.ulid);
+      }
+      for (const prefix of ["problem", "problems"]) assert.ok(fs.readFileSync(path.join(output, `${prefix}/${alias}/index.html`), "utf8").includes(`/problem/${target.id}/`));
+      assert.ok(fs.readFileSync(path.join(output, `packets/${alias}.md`), "utf8").includes(`/packets/${target.id}.md`));
+    }
+    assert.equal(read(path.join(output, `api/main/problems/${record.ulid}.json`)).problem.id, target.ulid);
+  }
   for (const dir of fs.readdirSync(path.join(output, "tag"))) {
     const page = fs.readFileSync(path.join(output, "tag", dir, "index.html"), "utf8");
     if (!page.includes("Historical classification")) continue;
@@ -234,12 +250,9 @@ test("built aliases and main adapter preserve every authored record and binary s
 
 
 test("equivalent records retain both identities but count as one question", () => {
-  const duplicate = records.find((record) => record.metadata.equivalentToProblemId);
-  assert.ok(duplicate);
-  const canonical = records.find((record) => record.ulid === duplicate.metadata.equivalentToProblemId);
-  assert.ok(canonical);
-  assert.notEqual(duplicate.id, canonical.id);
-  assert.equal(duplicate.status, canonical.status);
+  const base = { ...example, metadata: { ...example.metadata, relatedProblemIds: [] } };
+  const canonical = { ...base, id: "op_0000000000000aa1", ulid: "01AAAAAAAAAAAAAAAAAAAAAAAA", aliases: ["op_0000000000000aa1", "01AAAAAAAAAAAAAAAAAAAAAAAA", "op-0000000000000aa1"] };
+  const duplicate = { ...base, id: "op_0000000000000aa2", ulid: "01BBBBBBBBBBBBBBBBBBBBBBBB", aliases: ["op_0000000000000aa2", "01BBBBBBBBBBBBBBBBBBBBBBBB", "op-0000000000000aa2"], metadata: { ...base.metadata, equivalentToProblemId: "01AAAAAAAAAAAAAAAAAAAAAAAA" } };
   validateRecordIdentities([duplicate, canonical]);
   assert.deepEqual(distinctQuestionCounts([duplicate, canonical]), { total: 1, unsolved: canonical.status === "Unsolved" ? 1 : 0, solved: canonical.status === "Solved" ? 1 : 0 });
   assert.deepEqual(distinctQuestionCounts(records), expectedQuestionCounts);

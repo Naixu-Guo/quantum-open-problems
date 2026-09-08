@@ -6,6 +6,7 @@ import path from "node:path";
 import { createService } from "../service/src/service.ts";
 import { createServer } from "../service/src/api.ts";
 import { distinctQuestionCounts, metadataSlug } from "../site/lib/metadata.mjs";
+import { loadMergedProblems } from "../site/lib/merged-problems.mjs";
 
 const repo = path.resolve(import.meta.dirname, "..");
 const records = fs.readdirSync(path.join(repo, "database/problems_json")).filter(f => f.endsWith(".json")).map(f => JSON.parse(fs.readFileSync(path.join(repo, "database/problems_json", f), "utf8")));
@@ -89,6 +90,32 @@ test("problem views omit the duplicate authored record while preserving full opt
   assert.ok(JSON.stringify(compact).length < JSON.stringify(full).length * 0.85);
   // A compact read must not mutate the ledger's authoritative copy.
   assert.deepEqual(service.repo.current().find("Problem", record.ulid).fields.authoredCatalog.record, record);
+});
+
+test("merged identities resolve to the canonical problem without entering search, counts or bulk downloads", async () => {
+  const merges = loadMergedProblems(repo, records);
+  const { body: status } = await get("/api/v1/status");
+  assert.equal(status.problems.merged, merges.length);
+  assert.equal(status.problems.total, records.length);
+  const { body: withCandidates } = await get("/api/v1/problems?includeCandidates=true&limit=1000");
+  assert.equal(withCandidates.total, records.length);
+  for (const { record, target } of merges) {
+    for (const alias of record.aliases) {
+      const { response, body } = await get(`/api/v1/problems/${alias}`);
+      assert.equal(response.status, 200);
+      assert.equal(body.id, target.ulid);
+      assert.equal(body.catalogState, "published");
+    }
+    const { body: search } = await get(`/api/v1/problems?text=${record.id}`);
+    assert.ok(search.problems.every(p => p.id !== record.ulid));
+    const { body: old } = await get(`/api/v1/records/${record.ulid}`);
+    assert.equal(old.authoredCatalog.mergedIntoProblemId, target.ulid);
+    assert.deepEqual(old.authoredCatalog.record, record);
+    const { body: refs } = await get(`/api/v1/problems/${record.id}/references`);
+    assert.equal(refs.problemId, target.ulid);
+    const { body: context } = await get(`/api/v1/problems/${record.id}/context?budget=800`);
+    assert.equal(context.problemId, target.ulid);
+  }
 });
 
 test("catalog bibliography searches find authors preserved only in citation text", async () => {
