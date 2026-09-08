@@ -1,0 +1,188 @@
+% Problem record op_291a943fdec5bd1d. This TeX file is derived from
+% database/problems_json/op_291a943fdec5bd1d.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Squashed entanglement of the qubit depolarizing channel}
+\label{sec:op_291a943fdec5bd1d}
+
+\paragraph{Problem.}
+What is the squashed entanglement $E_{\mathrm{sq}}(\Lambda_p)$ of the qubit
+depolarizing channel, defined for a mixing parameter $p\in[0,1]$ by
+\begin{equation}
+  \Lambda_p(\rho):=(1-p)\,\rho+p\,\mathrm{Tr}[\rho]\,\frac{I}{2}
+  =\bigl(1-\tfrac{3p}{4}\bigr)\rho
+  +\tfrac{p}{4}\bigl(X\rho X+Y\rho Y+Z\rho Z\bigr),
+  \label{eq:sd-depolarizing-channel}
+\end{equation}
+where $\rho$ ranges over qubit states, $I$ is the qubit identity, and
+$X,Y,Z$ are the Pauli matrices, so that the total Pauli error probability,
+read off from the second expression in Eq.~\eqref{eq:sd-depolarizing-channel},
+is $\tfrac{3p}{4}$?  Let $U:A'\to BE$ be an isometric extension of
+$\Lambda_p$, let $\varphi_{RA'}$ range over pure bipartite input states, and
+let $S:E\to E'$ range over completely positive trace-preserving maps of
+arbitrary finite output dimension.  For
+$\omega_{RBE'}:=(\mathrm{id}_R\otimes(S\circ U))(\varphi_{RA'})$ the squashed
+entanglement of the channel is
+\begin{equation}
+  E_{\mathrm{sq}}(\Lambda_p)
+  :=\max_{\varphi_{RA'}}\ \frac{1}{2}\inf_{S}I(R;B|E')_\omega,
+  \label{eq:sd-squashed-entanglement}
+\end{equation}
+where $I(R;B|E')_\omega$ is the conditional mutual information and all
+logarithms are base 2 \sourcecite{ref:sd-takeoka-guha-wilde}{TGW14}.  The
+quantity in Eq.~\eqref{eq:sd-squashed-entanglement} is additive over tensor
+products of channels and upper-bounds the two-way-assisted quantum and
+private capacities, $Q_2(\Lambda_p)\le E_{\mathrm{sq}}(\Lambda_p)$ and
+$P_2(\Lambda_p)\le E_{\mathrm{sq}}(\Lambda_p)$
+\sourcecite{ref:sd-takeoka-guha-wilde}{TGW14}; this is its operational role,
+since an exact value would be a single-letter upper bound on secret and
+quantum transmission over depolarizing noise.  Determine
+$E_{\mathrm{sq}}(\Lambda_p)$ as an explicit function of $p$ on $[0,1]$.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+The question is implicit in the defining paper of Takeoka, Guha, and Wilde,
+which upper-bounds the depolarizing channel within a restricted squashing
+family, describes that bound as not particularly tight, and leaves the exact
+value uncomputed \sourcecite{ref:sd-takeoka-guha-wilde}{TGW14}.  Goodenough,
+Elkouss, and Wehner later determine the only known exact value, that of the
+erasure channel, and record that finding exact channel squashed entanglement
+remains hard in general
+\sourcecite{ref:sd-goodenough-elkouss-wehner}{GEW16}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Takeoka, Guha, and Wilde define the quantity in
+  Eq.~\eqref{eq:sd-squashed-entanglement}, prove its additivity over tensor
+  products and the bounds $Q_2\le E_{\mathrm{sq}}$ and
+  $P_2\le E_{\mathrm{sq}}$, and evaluate for Pauli channels a restricted
+  family of squashing maps built from Bell-pair measurements.  For the
+  channel of Eq.~\eqref{eq:sd-depolarizing-channel} the optimizing parameter
+  in that family is indicated only numerically, the resulting bound is
+  described as not particularly tight, and $E_{\mathrm{sq}}(\Lambda_p)$
+  itself is left uncomputed \sourcecite{ref:sd-takeoka-guha-wilde}{TGW14}.
+
+  \item The state measure underlying Eq.~\eqref{eq:sd-squashed-entanglement} is the
+  squashed entanglement of Christandl and Winter, an additive entanglement
+  monotone that vanishes exactly on separable states and never exceeds the
+  entanglement of formation \sourcecite{ref:sd-christandl-winter}{CW04}.
+  Consequently the boundary values are known:
+  $E_{\mathrm{sq}}(\Lambda_0)=1$ for the noiseless channel, while the channel
+  of Eq.~\eqref{eq:sd-depolarizing-channel} is entanglement-breaking
+  precisely for $p\ge\tfrac{2}{3}$, where every output state is separable and
+  $E_{\mathrm{sq}}(\Lambda_p)=0$.  The open interval is $0<p<\tfrac{2}{3}$.
+
+  \item The only channel family with a known exact value is the erasure channel:
+  Goodenough, Elkouss, and Wehner compute $E_{\mathrm{sq}}$ and the
+  two-way-assisted capacities of the $d$-dimensional erasure channel in
+  closed form, and for the depolarizing channel they improve the upper bound
+  on $E_{\mathrm{sq}}(\Lambda_p)$ using convexity of $E_{\mathrm{sq}}$ in the
+  channel and its link to the entanglement-assisted classical capacity
+  \sourcecite{ref:sd-goodenough-elkouss-wehner}{GEW16}.
+
+  \item Flagged extensions bound the quantum capacity of the depolarizing channel
+  directly and surpass squashed-entanglement bounds in some regimes, but they
+  do not evaluate $E_{\mathrm{sq}}(\Lambda_p)$
+  \sourcecite{ref:sd-kianvash-fanizza-giovannetti}{KFG22}.
+
+  \item Riemannian optimization of channel extensions over the Stiefel manifold
+  yields the strongest numerical upper bounds on the quantum capacity of the
+  channel in Eq.~\eqref{eq:sd-depolarizing-channel} at large $p$; the bounds
+  do not meet the achievable rates, and the same work proves that
+  amortization does not enhance the channel coherent information of any
+  channel \sourcecite{ref:sd-zhu-mao-fang-wang}{ZMFW25}.
+
+  \item The most recent dedicated work refines the flagged-extension technique
+  into single-letter upper bounds on the quantum and private capacities of
+  the depolarizing channel, with numerical coherent-information evaluation,
+  and describes the channel as one whose capacity requires multi-letter
+  superadditivity; it likewise leaves $E_{\mathrm{sq}}(\Lambda_p)$ uncomputed
+  \sourcecite{ref:sd-nourozi}{Nour26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[TGW14]}]\label{ref:sd-takeoka-guha-wilde}
+  M. Takeoka, S. Guha, and M. M. Wilde, ``The squashed entanglement of a
+  quantum channel,'' \emph{IEEE Transactions on Information Theory}
+  \textbf{60}(8), 4987--4998 (2014).
+  \href{https://doi.org/10.1109/TIT.2014.2330313}{doi:10.1109/TIT.2014.2330313};
+  \href{https://arxiv.org/abs/1310.0129}{arXiv:1310.0129}.
+
+  \item[\textup{[GEW16]}]\label{ref:sd-goodenough-elkouss-wehner}
+  K. Goodenough, D. Elkouss, and S. Wehner, ``Assessing the performance of
+  quantum repeaters for all phase-insensitive Gaussian bosonic
+  channels,'' \emph{New Journal of Physics} \textbf{18}, 063005 (2016).
+  \href{https://arxiv.org/abs/1511.08710}{arXiv:1511.08710}.
+
+  \item[\textup{[KFG22]}]\label{ref:sd-kianvash-fanizza-giovannetti}
+  F. Kianvash, M. Fanizza, and V. Giovannetti, ``Bounding the quantum
+  capacity with flagged extensions,'' \emph{Quantum} \textbf{6}, 647
+  (2022).
+  \href{https://doi.org/10.22331/q-2022-02-09-647}{doi:10.22331/q-2022-02-09-647};
+  \href{https://arxiv.org/abs/2008.02461}{arXiv:2008.02461}.
+
+  \item[\textup{[ZMFW25]}]\label{ref:sd-zhu-mao-fang-wang}
+  C. Zhu, H. Mao, K. Fang, and X. Wang, ``Geometric optimization for
+  quantum communication,'' arXiv preprint (2025).
+  \href{https://arxiv.org/abs/2509.15106}{arXiv:2509.15106}.
+
+  \item[\textup{[Nour26]}]\label{ref:sd-nourozi}
+  V. Nourozi, ``Flagged Extensions and Numerical Simulations for Quantum
+  Channel Capacity: Bridging Theory and Computation,'' arXiv preprint
+  (2026).
+  \href{https://arxiv.org/abs/2506.03429}{arXiv:2506.03429}.
+
+  \item[\textup{[CW04]}]\label{ref:sd-christandl-winter}
+  M. Christandl and A. Winter, ``'Squashed entanglement': An additive
+  entanglement measure,'' \emph{Journal of Mathematical Physics}
+  \textbf{45}(3), 829--840 (2004).
+  \href{https://arxiv.org/abs/quant-ph/0308088}{arXiv:quant-ph/0308088}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The value of $E_{\mathrm{sq}}(\Lambda_p)$ is known only at the endpoints
+$p=0$ and $p\ge\tfrac{2}{3}$ and is open on $0<p<\tfrac{2}{3}$.  Contributory
+sub-questions: is the input maximum in
+Eq.~\eqref{eq:sd-squashed-entanglement} attained at the maximally entangled
+state for every squashing map, or only within the restricted family used for
+the known upper bound?  Are those squashing constructions optimal, or
+improvable, on any subinterval of $p$?  Does $E_{\mathrm{sq}}(\Lambda_p)$
+coincide with the symmetric coherent information
+$\max\{0,1-H(\mathbf p)\}$ of the Pauli vector
+$\mathbf p=\bigl(1-\tfrac{3p}{4},\tfrac{p}{4},\tfrac{p}{4},\tfrac{p}{4}\bigr)$,
+or strictly exceed it somewhere?  A closed form would give the sharpest
+computable single-letter upper bound on the two-way-assisted quantum and
+private capacities of the depolarizing channel and on the two-way secret-key
+rate of key distribution over depolarizing noise.  The sibling record
+\texttt{01M20868D5Z2B0W2KKC7QGRGRR} asks for the private capacity
+$P(\Lambda_p)$ of the same channel, a different quantity:
+$E_{\mathrm{sq}}(\Lambda_p)$ upper-bounds the assisted capacity
+$P_2(\Lambda_p)\ge P(\Lambda_p)$, and determining either value neither
+settles nor is settled by the other.  The record
+\texttt{01M1HME7809M71BG24CSMYKA8A} asks for the unassisted quantum capacity
+$\mathcal Q(\Lambda_p)$ of the same channel family, which obeys
+$\mathcal Q\le Q_2\le E_{\mathrm{sq}}$, and the record
+\texttt{01M1HME780NTMHKFB95TSXKKFW} asks for the distillable entanglement of
+Bell-diagonal states, which subsumes the two-way quantum capacity of this
+channel through teleportation covariance, another rate that
+$E_{\mathrm{sq}}$ upper-bounds.
+
+\subsection*{Field}
+
+Quantum Resource Theory; Quantum Communication
+
+\subsection*{Topic}
+
+Entanglement measures; Quantum capacity; Private capacity
+
+\subsection*{ID}
+
+\texttt{op\_291a943fdec5bd1d}
