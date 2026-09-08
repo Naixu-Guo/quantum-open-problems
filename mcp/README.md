@@ -1,21 +1,75 @@
-# MCP adapter
+# Use the MCP server
 
-`src/server.ts` is a stdio MCP server over the domain service's HTTP API.
-It holds no state and no research logic: every tool is one HTTP call, every
-returned fact carries a record id, and statements carry their digest.
+Connect an MCP-compatible assistant to search open problems, read statements
+and references, and assemble research context. The current setup runs a local
+copy of the catalog and requires Git, Node.js 22.13 or later, and a client that
+supports local **stdio** MCP servers. No API key is needed to read problems.
 
-```sh
-export PATH="$HOME/.local/node/current/bin:$PATH"   # if node is not on PATH
-QOP_SERVICE_URL=http://localhost:8787 QOP_API_KEY=qop_… node --experimental-strip-types mcp/src/server.ts
-```
+## Start the service
 
-Configure it in an agent host, for example:
+Run these commands in a terminal and leave the service running:
 
 ```sh
-claude mcp add quantum-open-problems -e QOP_SERVICE_URL=http://localhost:8787 -e QOP_API_KEY=qop_… -- node --experimental-strip-types /path/to/mcp/src/server.ts
+git clone https://github.com/Naixu-Guo/quantum-open-problems.git
+cd quantum-open-problems
+npm --prefix contract ci
+npm run service
 ```
 
-Without a key the read tools work and the write tools return 401.
+If you already have a checkout, run the last two commands from its root.
+Check that <http://localhost:8787/api/v1/status> returns the catalog status.
+
+## Connect your assistant
+
+Add a local MCP server with the following settings:
+
+| Setting | Value |
+| --- | --- |
+| Name | `quantum-open-problems` |
+| Transport | `stdio` |
+| Command | `node` |
+| Arguments, in order | `--experimental-strip-types`, `--no-warnings`, the absolute path to `mcp/src/server.ts` |
+| Environment | `QOP_SERVICE_URL=http://localhost:8787` |
+
+For clients using an `mcpServers` JSON configuration:
+
+```json
+{
+  "mcpServers": {
+    "quantum-open-problems": {
+      "command": "node",
+      "args": [
+        "--experimental-strip-types",
+        "--no-warnings",
+        "/absolute/path/quantum-open-problems/mcp/src/server.ts"
+      ],
+      "env": {
+        "QOP_SERVICE_URL": "http://localhost:8787"
+      }
+    }
+  }
+}
+```
+
+Replace the example path with your checkout's full path. Add the server to any
+existing `mcpServers` entries, save the configuration, and reload the client's
+MCP connection. The client starts the adapter; keep the service terminal open.
+
+Try asking: “Use the quantum-open-problems MCP to find unsolved problems about
+quantum channel capacity, then summarize one problem's known progress and
+references.” The assistant can search with `search_problems`, read a statement
+with `get_problem`, retrieve citations with `list_references`, and gather a
+research bundle with `build_context`.
+
+If the client cannot start `node`, use the full path to the Node executable as
+the command. A connection-refused error usually means the service is not running
+at `QOP_SERVICE_URL`; check the status URL above. That URL belongs to the HTTP
+service; configure the MCP adapter as a local command using stdio.
+
+To connect to a separately hosted service, set `QOP_SERVICE_URL` to its origin.
+Authenticated research contributions also require a `QOP_API_KEY` issued by that
+service's operator (see [service key management](../service/README.md#commands)).
+Without a key, read tools work and write tools return 401.
 
 ## Tools
 
@@ -39,6 +93,8 @@ problems and claims. For a verifier: `claim_queue_item`, examine, then
 The legacy static-catalog server was removed during the catalog integration.
 Use `mcp/src/server.ts`; its service reads the ledger projection exported from
 `database/problems_json/` (see [the catalog boundary](../docs/CATALOG_INTEGRATION.md)).
+The adapter forwards tools to the service's HTTP API; records carry stable ids
+and statements carry content digests.
 
 New catalog problems need no MCP-specific registration. Commit the JSON, TeX,
 and exported ledger together. A service using the same checkout notices the
