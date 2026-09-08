@@ -195,7 +195,7 @@ test("a stalled background fetch does not block HTTP reads", async (t) => {
 });
 
 test("background polling defaults to five seconds and can be disabled explicitly", () => {
-  assert.equal(syncIntervalMs(undefined), 5_000);
+  assert.equal(syncIntervalMs(undefined), 60_000);
   assert.equal(syncIntervalMs("0"), 0);
   assert.equal(syncIntervalMs("1000"), 1_000);
   for (const value of [-1, NaN, "invalid", 0.5, 2 ** 31]) assert.throws(() => syncIntervalMs(value), /QOP_SYNC_INTERVAL_MS/u);

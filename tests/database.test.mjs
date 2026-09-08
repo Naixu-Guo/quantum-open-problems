@@ -5,6 +5,7 @@ import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
+import { gunzipSync } from "node:zlib";
 import { canonicalJson, canonicalRecord, recordToTex, validateRecordShape } from "../site/lib/record.mjs";
 import { parseProblem } from "../site/lib/tex.mjs";
 import { loadTaxonomy } from "../site/lib/taxonomy.mjs";
@@ -214,6 +215,13 @@ test("built aliases and main adapter preserve every authored record and binary s
     assert.equal(Object.hasOwn(adapter.problem, "status"), false);
   }
   assert.equal(fs.readFileSync(path.join(output, "api/v1/problems.jsonl"), "utf8").trim().split("\n").length, records.length);
+  const jsonl = fs.readFileSync(path.join(output, "api/v1/problems.jsonl"));
+  const compressed = fs.readFileSync(path.join(output, "api/v1/problems.jsonl.gz"));
+  assert.deepEqual(gunzipSync(compressed), jsonl);
+  assert.ok(compressed.length < jsonl.length / 2);
+  assert.deepEqual(read(path.join(output, "api/v1/problems.json")), jsonl.toString().trim().split("\n").map(line => JSON.parse(line)));
+  const schema = read(path.join(output, "contract/v1/problem.schema.json"));
+  assert.equal(schema.$id, "https://qiqc-op.com/contract/v1/problem.schema.json");
   assert.equal(read(path.join(output, "feed.json")).items.length, records.length);
   for (const dir of fs.readdirSync(path.join(output, "tag"))) {
     const page = fs.readFileSync(path.join(output, "tag", dir, "index.html"), "utf8");

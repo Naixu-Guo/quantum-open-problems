@@ -348,7 +348,7 @@ export function renderProblemPage({ record, config, root, related, dates }) {
           </div>
           <div class="contribute-box">
             <h2>Your contribution is welcome!</h2>
-            <p>Found progress, a correction, or a resolution? <a href="${editUrl}" rel="noreferrer">Edit this record on GitHub</a> and open a pull request, or <a href="${issueUrl}" rel="noreferrer">report an update</a> with the primary sources. To propose a new problem without a GitHub account, use the <a href="${root}contribute/">proposal form</a>; the <a href="${root}about/#contribute">contribution guide</a> covers both routes.</p>
+            <p>Found progress, a correction, or a resolution? <a href="${editUrl}" rel="noreferrer">Edit this record on GitHub</a> and open a pull request, or <a href="${issueUrl}" rel="noreferrer">report an update</a> with the primary sources. The <a href="${root}contribute/">proposal page</a> explains the available submission route; see the <a href="${root}about/#contribute">contribution guide</a> for details.</p>
           </div>
           <div class="cite-box">
             <h2>Cite this page</h2>
@@ -608,6 +608,7 @@ export function renderTagPage({ config, root, kind, tag, tagSlug = slug(tag), hi
 }
 
 export function renderAbout({ config, root, stats, dates }) {
+  const submissionsOnline = Boolean(config.contribute?.submissionUrl && config.contribute?.captcha?.siteKey);
   const mcpServiceUrl = config.mcp.serviceUrl;
   const mcpUrl = config.mcp.url;
   const mcpConfig = JSON.stringify({
@@ -635,7 +636,9 @@ export function renderAbout({ config, root, stats, dates }) {
         <p>The zoo holds ${stats.total} permanent records covering ${(stats.distinctQuestions ?? stats).total} distinct questions: ${(stats.distinctQuestions ?? stats).unsolved} unsolved and ${(stats.distinctQuestions ?? stats).solved} solved. Equivalent formulations are linked and count once in these question totals. Solved problems stay in the zoo with their resolution so that citations survive.</p>
 
         <h2 id="contribute">How to contribute</h2>
-        <p>The quickest route is the <a href="${root}contribute/">proposal form</a>: describe the problem, its sources, and what is known, and leave your name and email. No account is needed. The maintainers check every proposal against the literature, rewrite it in the zoo's format, and publish it with credit to you; nothing appears on the site automatically. To add a record yourself through GitHub:</p>
+        <p>${submissionsOnline
+          ? `Use the <a href="${root}contribute/">proposal form</a> to send a problem, its sources, and what is known. No account is needed.`
+          : `Propose a problem through a <a href="${config.repositoryUrl}/issues/new?template=new-problem.yml">GitHub issue</a> (a GitHub account is required). The <a href="${root}contribute/">proposal worksheet</a> helps you prepare and copy the text; online sending is not enabled yet.`} The maintainers check proposals against the literature and publish reviewed records with credit to contributors. To add a record yourself through GitHub:</p>
         <ol>
           <li>Fork the <a href="${config.repositoryUrl}" rel="noreferrer">repository</a> and run <code>node scripts/new-problem-id.mjs --create</code> to create a problem template with permanent identifiers.</li>
           <li>Write the statement, status, source, progress, references, and comment as TeX fragments in the record's fields, following the contribution guide, and choose one or two fields and one to five topics from <code>database/tags.json</code>. Run <code>node scripts/migrate-metadata.mjs</code> after changing the classifications.</li>
@@ -740,18 +743,18 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
   const captchaSlot = online
     ? `<div class="${widget.className}" data-sitekey="${escape(siteKey)}" data-theme="auto"></div>
             <p class="form-hint">Verification by <a href="${widget.privacyUrl}" rel="noreferrer">${widget.name}</a>, which keeps automated submissions out of the inbox.</p>`
-    : `<div class="form-notice" id="proposal-offline">Online sending is not connected on this deployment yet. Fill in the form, use <strong>Copy as text</strong>, and paste the proposal into a <a href="${issueUrl}" rel="noreferrer">new-problem issue on GitHub</a> or an email to the maintainers.</div>`;
+    : `<div class="form-notice" id="proposal-offline">Online sending is not enabled yet. Fill in this worksheet, use <strong>Copy as text</strong>, and paste it into a <a href="${issueUrl}" rel="noreferrer">new-problem issue on GitHub</a>. Submitting the issue requires a GitHub account. The worksheet does not send your details anywhere.</div>`;
   const body = `
     <div class="contribute-layout">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><span>Contribute</span></nav>
       <div class="section-heading">
         <div><p class="section-index">Contribute</p><h1>Propose an open problem</h1></div>
-        <p>Anyone can propose a problem; no account is needed. Every proposal is checked, rewritten in the zoo's format, and published by the maintainers with credit to you.</p>
+        <p>${online ? "Send a proposal without an account." : "Prepare a proposal here, then submit it through GitHub with an account."} The maintainers review proposals and publish accepted records with credit to contributors.</p>
       </div>
       <div class="contribute-routes no-math">
         <div class="route-card">
-          <h2>Use this form</h2>
-          <p>Describe the problem, where it was posed, and what is known. The maintainers take it from there and may email you about the details. Nothing appears on the site until it has been reviewed.</p>
+          <h2>${online ? "Use this form" : "Prepare a proposal"}</h2>
+          <p>Describe the problem, where it was posed, and what is known. ${online ? "The maintainers may email you about the details." : "Copy the completed text into a GitHub issue and remove contact details you do not want to publish."} Nothing appears on the site until it has been reviewed.</p>
         </div>
         <div class="route-card">
           <h2>Or write the record yourself</h2>

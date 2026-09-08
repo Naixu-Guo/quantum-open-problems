@@ -206,7 +206,9 @@ contribution form's endpoint and CAPTCHA keys.
 
 ### Contribution form
 
-`/contribute/` lets people propose a problem without a GitHub account. The
+`/contribute/` supports proposals without a GitHub account once configured.
+The public deployment currently offers a worksheet and a GitHub issue route
+that requires an account; direct sending is disabled. The
 form is part of the static site; the proposals go to the
 [service's proposal inbox](../service/README.md#proposal-inbox), where they
 wait until a maintainer rewrites them as authored records and publishes them
@@ -217,7 +219,7 @@ To put the form online:
 1. Deploy the service (see the service guide) with `QOP_CAPTCHA_SECRET` set
    to the secret key of a [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/)
    widget registered for the site's hostname, `QOP_SUBMISSION_ORIGINS` set
-   to the site's origin (`https://naixu-guo.github.io`), `QOP_PUBLIC_URL`
+   to the site's origin (`https://qiqc-op.com`, plus `https://www.qiqc-op.com` if served), `QOP_PUBLIC_URL`
    set to the service's public URL, and `QOP_TRUST_PROXY=1` if a reverse
    proxy terminates TLS. hCaptcha works too with `QOP_CAPTCHA_PROVIDER=hcaptcha`.
 2. In `site/config.json`, set `contribute.submissionUrl` to the service's

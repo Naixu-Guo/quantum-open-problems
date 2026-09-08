@@ -49,7 +49,7 @@ const stripSlash = (url: string): string => url.replace(/\/+$/u, "");
 
 /** Zero disables background remote polling; local committed changes still refresh on reads. */
 export function syncIntervalMs(value: number | string | undefined): number {
-  if (value === undefined) return 5_000;
+  if (value === undefined) return 60_000;
   const interval = Number(value);
   if (!Number.isSafeInteger(interval) || interval < 0 || interval > 2_147_483_647) throw new Error("QOP_SYNC_INTERVAL_MS must be an integer from 0 to 2147483647");
   return interval;

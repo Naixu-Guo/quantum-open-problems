@@ -50,11 +50,11 @@ function buildValidators(schemaDir: string): { byType: Map<RecordType, ValidateF
   const byType = new Map<RecordType, ValidateFunction>();
   for (const type of RECORD_TYPES) {
     const file = TYPE_MODULES[type].schemaFile;
-    const validate = ajv.getSchema(`https://naixu-guo.github.io/quantum-open-problems/contract/v1/${file}`);
+    const validate = ajv.getSchema(`https://qiqc-op.com/contract/v1/${file}`);
     if (!validate) throw new Error(`schema for ${type} (${file}) did not load`);
     byType.set(type, validate);
   }
-  const tombstone = ajv.getSchema("https://naixu-guo.github.io/quantum-open-problems/contract/v1/tombstone.schema.json");
+  const tombstone = ajv.getSchema("https://qiqc-op.com/contract/v1/tombstone.schema.json");
   if (!tombstone) throw new Error("tombstone schema did not load");
   return { byType, tombstone };
 }
@@ -188,7 +188,7 @@ export function validatePayload(name: string, object: unknown, schemaDir: string
     for (const file of fs.readdirSync(dir).filter((f) => f.endsWith(".schema.json"))) ajv.addSchema(JSON.parse(fs.readFileSync(path.join(dir, file), "utf8")));
     byName = new Map();
     for (const file of fs.readdirSync(dir).filter((f) => f.endsWith(".schema.json"))) {
-      const validate = ajv.getSchema(`https://naixu-guo.github.io/quantum-open-problems/contract/v1/payloads/${file}`);
+      const validate = ajv.getSchema(`https://qiqc-op.com/contract/v1/payloads/${file}`);
       if (validate) byName.set(file.replace(".schema.json", ""), validate);
     }
     payloadValidators.set(schemaDir, byName);

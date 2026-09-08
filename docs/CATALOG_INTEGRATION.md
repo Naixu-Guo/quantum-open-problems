@@ -110,7 +110,7 @@ maintenance workflow.
 Each new record path receives a new service event sequence. After a catalog
 commit, a running service on the same checkout refreshes its in-memory ledger
 and index on the next API request. A separate service clone with
-`QOP_GIT_REMOTE` configured polls asynchronously on startup and every five
+`QOP_GIT_REMOTE` configured polls asynchronously on startup and every sixty
 seconds by default. It accepts the appended records and updated export manifest,
 validates the merged ledger, and rebuilds the index without restarting MCP.
 `QOP_SYNC_INTERVAL_MS=0` disables remote polling. Ordinary `sync` also accepts

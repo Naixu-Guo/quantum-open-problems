@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://naixu-guo.github.io/quantum-open-problems/contract/v1/payloads/batch.schema.json",
+  "$id": "https://qiqc-op.com/contract/v1/payloads/batch.schema.json",
   "title": "Batch submission",
   "description": "A batch of new records submitted by one actor. Each record is a contract record without id, createdBy, or createdAt; the service assigns them. A record may carry a `ref` name, and any string field of the form `$ref:<name>` (or `$ref:<name>#<clause>` for a clause) is replaced by that record's assigned id.",
   "type": "object",
