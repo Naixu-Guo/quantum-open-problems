@@ -19,10 +19,10 @@ collection with their resolutions, preserving the history and references.
 ## Contribute
 
 Suggestions for new problems, research updates, and corrections are welcome.
-Propose a problem through the
-[proposal form](https://qiqc-op.com/contribute/),
-which needs no account, see the [contribution guide](CONTRIBUTING.md), or
-[open an issue](https://github.com/Naixu-Guo/quantum-open-problems/issues/new/choose).
+Use the [proposal worksheet](https://qiqc-op.com/contribute/) to prepare and
+copy your text, then [open an issue](https://github.com/Naixu-Guo/quantum-open-problems/issues/new/choose)
+with a GitHub account. Direct online sending is not enabled yet.
+See the [contribution guide](CONTRIBUTING.md) for authoring a record by pull request.
 Please cite the original research sources when using a problem or result.
 
 ## Contributions

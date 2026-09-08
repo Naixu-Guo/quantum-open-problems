@@ -55,7 +55,7 @@ Environment:
 | `QOP_HOST` | Optional listening address; set `127.0.0.1` behind a local HTTPS proxy. Unset uses Node's default listening address |
 | `QOP_COMMIT=0` | Write files without committing |
 | `QOP_GIT_REMOTE`, `QOP_GIT_BRANCH` | The remote the clone pushes to after each commit and catches up with before each write (see "Ledger synchronization"); unset keeps commits local. The branch defaults to the clone's current one |
-| `QOP_SYNC_INTERVAL_MS` | Background remote polling interval after each fetch completes; default `5000`. Set `0` to disable remote polling. Local committed changes still refresh on the next API or authentication request |
+| `QOP_SYNC_INTERVAL_MS` | Background remote polling interval after each fetch completes; default `60000`. Set `0` to disable remote polling. Local committed changes still refresh on the next API or authentication request |
 | `QOP_PUBLIC_URL` | The origin browsers reach the service at, default `http://localhost:<port>`. Cookie writes, the OAuth redirect, and `return_to` are bound to it; `https://` makes cookies `Secure` |
 | `QOP_WEB_DIR` | Directory of the web app's static files, default `web/`; empty or `0` serves none |
 | `QOP_SESSION_DAYS` | Browser session lifetime, default 30 |
@@ -73,18 +73,19 @@ Environment:
 
 | Route | Returns |
 | --- | --- |
-| `GET /api/v1/status` | Policy version, `lastSequence`, record counts, published problems by status, candidates, last release, and `sync`: per repository, whether the clone is in step with its remote, how far ahead or behind, and the last push |
+| `GET /api/v1/status` | Policy version, `lastSequence`, `problems` counts permanent records; `distinctQuestions` counts published mathematical questions once across equivalence links; both include status totals, plus candidates and last release, and `sync`: per repository, whether the clone is in step with its remote, how far ahead or behind, and the last push |
 | `GET /api/v1/policy` | The current policy header |
 | `GET /api/v1/schemas/<name>` | A contract schema |
-| `GET /api/v1/problems?status=&area=&topic=&difficulty=&text=&limit=&includeCandidates=&sort=` | Indexed problems (all problems with `includeCandidates=true`, each row saying whether it is `indexed`) with `lastActivity` and `lastHumanReview`; `text` matches titles, keywords, and bodies; `limit` up to 1000; `sort=stale` is the maintenance backlog, never-reviewed first, then oldest human review first |
-| `GET /api/v1/problems/<id or alias>` | Problem with current statement and clause statuses, references with notes, comments, decision chain |
+| `GET /api/v1/problems?status=&area=&topic=&difficulty=&text=&limit=&offset=&includeCandidates=&sort=` | Indexed problems (all problems with `includeCandidates=true`, each row saying whether it is `indexed`) with `lastActivity` and `lastHumanReview`; `text` matches titles, keywords, and bodies; `limit` up to 1000; `area` and `topic` accept labels or slugs case-insensitively; unknown taxonomy names return 400. `total` counts all matching records, `count` only the current page, and `nextOffset` is null on the last page. `sort=stale` puts missing service human-review dates first, then oldest reviews, with title/id ties; it does not measure catalog edit age |
+| `GET /api/v1/problems/<id or alias>` | Problem with current statement and clause statuses, references with notes, comments, decision chain; the duplicate `authoredCatalog.record` is omitted unless `includeAuthoredRecord=true` |
 | `GET /api/v1/problems/<id>/frontier` | Clauses with status, accepted claims, best bounds, decomposition tree, routes tried, pending contributions, `lastActivity`, `lastHumanReview` |
 | `GET /api/v1/problems/<id>/tree` | The decomposition tree alone |
 | `GET /api/v1/problems/<id>/attempts` | Attempt reports with state and currency |
 | `GET /api/v1/problems/<id>/references?role=` | The problem's references with their sources |
 | `GET /api/v1/problems/<id>/context?clauses=&budget=` | The context bundle for an agent: statement, chosen clauses, references, and frontier cut to a token budget, with a `bundleId` that names exactly what was included; an unknown clause is a 400 |
 | `GET /api/v1/problems/<id>/indexed` | Whether the problem is in the main index |
-| `GET /api/v1/sources?text=&limit=` | Sources whose title, authors, venue, or identifiers contain every term |
+| `GET /api/v1/sources?text=&limit=&offset=` | Sources whose title, authors, venue, identifiers, or preserved citation text contain every term; includes retired sources, `total`, and `nextOffset` |
+| `GET /api/v1/problems.jsonl` | All published problem views as `application/x-ndjson`; supports HTTP gzip behind the deployment proxy |
 | `GET /api/v1/taxonomy` | The current taxonomy |
 | `GET /api/v1/actors` | Every current actor: id, name, kind, roles, operator, model family |
 | `GET /api/v1/comments?targetType=&targetId=` | Comments on a record, threaded |
@@ -154,7 +155,9 @@ varies on `Authorization` and `Cookie`.
 ## Proposal inbox
 
 The static site's [contribute page](../docs/DEVELOPMENT.md#contribution-form)
-lets anyone propose a problem without an account. The form posts to this
+supports account-free proposals when configured. On the public deployment it
+is currently a worksheet: direct sending is disabled and GitHub issues require
+an account. When enabled, the form posts to this
 service, which files the proposal in an inbox that only editors read. A
 proposal is not a ledger record and changes nothing on the site: a maintainer
 reads it, rewrites it as an authored record in `database/problems_json/`,
@@ -201,7 +204,7 @@ offline mode that loads no third-party script.
 ## Ledger synchronization
 
 The service's clone is the canonical ledger (DESIGN.md decision 12). With
-`QOP_GIT_REMOTE` set, the HTTP server fetches on startup and then every five
+`QOP_GIT_REMOTE` set, the HTTP server fetches on startup and then every sixty
 seconds by default. Fetching runs asynchronously; a slow remote does not
 block MCP or HTTP reads. Valid appended catalog records are merged and the
 in-memory ledger and SQLite index are refreshed together. Background polling

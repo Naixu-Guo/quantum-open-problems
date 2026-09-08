@@ -29,6 +29,36 @@ service trusts them. No API keys, GitHub OAuth application, or CAPTCHA secrets
 are provisioned by these templates. Public catalog reads work without a key;
 research writes require separately issued credentials.
 
+Remote catalog polling defaults to 60 seconds (`QOP_SYNC_INTERVAL_MS=60000`).
+Each interval starts after the previous fetch completes. Local commits remain
+visible on the next API read. Deployment changes must update an existing env
+file too; changing the default does not override a configured interval.
+
+## Optional submissions and editor access
+
+The public deployment currently offers anonymous catalog reads. Direct proposal
+sending and authenticated research submissions are not provisioned. The static
+proposal page is a worksheet; sending its text through GitHub requires an account.
+Do not advertise these optional write paths as available until setup is complete.
+
+To enable them, first provision a human editor on the service checkout using
+`bootstrap-editor <numeric-github-user-id> "Full Name"` after verifying the
+numeric identity through GitHub. Issue an editor key with `key issue <actorId>`
+and store the resulting secret securely; the commands and recovery rules are in
+the [service guide](../../service/README.md#running-locally-with-github-login).
+Configure an authenticated Git remote for service commits and verify a write
+can sync before opening research contributions. Public HTTP MCP stays read-only.
+
+For the proposal inbox, register a production CAPTCHA widget for `qiqc-op.com`
+and `www.qiqc-op.com`. In the private `/etc/qop/service.env`, set
+`QOP_SUBMISSION_ORIGINS=https://qiqc-op.com,https://www.qiqc-op.com`,
+`QOP_CAPTCHA_PROVIDER=turnstile`, and `QOP_CAPTCHA_SECRET` to its secret.
+Set `contribute.submissionUrl=https://api.qiqc-op.com/api/v1/submissions` and
+the matching public `contribute.captcha.siteKey` in `site/config.json`.
+Restart the API and verify an allowed-origin preflight, a CAPTCHA-backed
+submission, and editor-only inbox retrieval before publishing the enabled form.
+Never use the provider's test keys for the public deployment.
+
 ## Public MCP endpoint
 
 `https://api.qiqc-op.com/mcp` serves read-only Streamable HTTP MCP, using the
@@ -138,16 +168,30 @@ The optional local stdio adapter instead uses
 
 ## Backups and rollback
 
-Install `qop-backup.sh` as `/usr/local/libexec/qop-backup` and enable
-`qop-backup.timer`. It briefly stops the API at 03:15 UTC each day to capture
-a consistent ledger and SQLite snapshot, then restarts it even if archiving
-fails. Archives in `/var/backups/qop` are root-only and retained for 14 days.
-Copy them to separate storage for protection against loss of the server.
+Install `qop-backup.sh` as `/usr/local/libexec/qop-backup` and `qop-backup.py`
+as `/usr/local/libexec/qop-backup.py`, then enable `qop-backup.timer`.
+At 03:15 UTC it uses SQLite's online backup API (including committed WAL data)
+and a self-contained Git bundle. API and MCP processes keep running. It retries
+if the catalog HEAD changes during the snapshots and publishes no archive if
+it cannot capture a stable catalog. Check a failed timer run and retry it.
+
+Version-2 archives contain `manifest.json`, `catalog.bundle`, `data/`, optional
+`artifact-store/`, and `configuration/` (the private `/etc/qop` settings).
+The index database is disposable; it is rebuilt from the restored ledger.
+Archives in `/var/backups/qop` are root-only and retained for 14 days. Copy
+them to separate storage for protection against loss of the server.
 
 To roll back application code, point `/opt/qop/current` to a compatible
 previous release and restart `qop`; preserve `/var/lib/qop`. For a full restore,
-stop `qop`, retain the current state in a separate directory, restore
-`var/lib/qop` and `etc/qop` from a trusted backup, and deploy the commit named
-in `/etc/qop/release`. Restore matching code and data together after an
-incompatible schema migration. Never print the authentication database or
-secrets when diagnosing a restore.
+stop `qop` and `qop-mcp`, retain current state in a separate directory, and
+extract a trusted archive into a private staging directory. For format 2,
+clone `catalog.bundle` to `/var/lib/qop/catalog` using `catalogBranch` from
+the manifest, verify its HEAD equals `catalogHead`, and set its remote back
+to the intended GitHub repository. Restore `data/` to `/var/lib/qop/data`,
+`artifact-store/` under the catalog's `activity/` if present, and
+`configuration/` to `/etc/qop`. Restore ownership (`qop:qop` for `/var/lib/qop`,
+root for `/etc/qop`) and private permissions. Deploy the API and MCP commits
+named in `/etc/qop/release` and `/etc/qop/mcp-release`, then start both services.
+Older archives instead contain `var/lib/qop` and `etc/qop` directly. Restore
+matching code and data after an incompatible schema migration; never print
+authentication data or secrets while diagnosing a restore.

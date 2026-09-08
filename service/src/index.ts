@@ -84,6 +84,11 @@ export interface ProblemRow {
   last_human_review: string | null;
 }
 
+export interface ProblemFilter {
+  status?: string; area?: string; topic?: string; difficulty?: string; text?: string;
+  indexedOnly?: boolean; limit?: number; offset?: number; sort?: "title" | "stale";
+}
+
 export class Index {
   readonly db: DatabaseSync;
 
@@ -166,13 +171,17 @@ export class Index {
     return row ? Number(row.value) : 0;
   }
 
-  problemRows(filter: { status?: string; area?: string; topic?: string; difficulty?: string; text?: string; indexedOnly?: boolean; limit?: number; sort?: "title" | "stale" }): ProblemRow[] {
+  problemRows(filter: ProblemFilter): ProblemRow[] {
+    return this.problemPage(filter).rows;
+  }
+
+  problemPage(filter: ProblemFilter) {
     const clauses: string[] = [];
     const params: (string | number)[] = [];
     if (filter.indexedOnly !== false) clauses.push("indexed = 1");
     if (filter.status) { clauses.push("status = ?"); params.push(filter.status); }
-    if (filter.area) { clauses.push("area_ids LIKE ?"); params.push(`%"${filter.area}"%`); }
-    if (filter.topic) { clauses.push("topic_ids LIKE ?"); params.push(`%"${filter.topic}"%`); }
+    if (filter.area) { clauses.push("EXISTS (SELECT 1 FROM json_each(area_ids) WHERE value = ?)"); params.push(filter.area); }
+    if (filter.topic) { clauses.push("EXISTS (SELECT 1 FROM json_each(topic_ids) WHERE value = ?)"); params.push(filter.topic); }
     if (filter.difficulty) { clauses.push("difficulty = ?"); params.push(filter.difficulty); }
     if (filter.text) {
       const terms = filter.text.toLowerCase().split(/\s+/u).filter(Boolean).slice(0, 8);
@@ -180,9 +189,12 @@ export class Index {
     }
     const where = clauses.length ? `WHERE ${clauses.join(" AND ")}` : "";
     const limit = Math.min(Math.max(filter.limit ?? 50, 1), 1000);
-    // "stale" is the maintenance backlog: never looked at by a human first, then oldest human review first.
-    const order = filter.sort === "stale" ? "ORDER BY last_human_review IS NOT NULL, last_human_review, title" : "ORDER BY title";
-    return this.db.prepare(`SELECT * FROM problems ${where} ${order} LIMIT ${limit}`).all(...params) as unknown as ProblemRow[];
+    const offset = Math.max(filter.offset ?? 0, 0);
+    // Missing service review dates first; title and id make unknown-date ties deterministic.
+    const order = filter.sort === "stale" ? "ORDER BY last_human_review IS NOT NULL, last_human_review, title, id" : "ORDER BY title, id";
+    const total = (this.db.prepare(`SELECT COUNT(*) AS total FROM problems ${where}`).get(...params) as { total: number }).total;
+    const rows = this.db.prepare(`SELECT * FROM problems ${where} ${order} LIMIT ? OFFSET ?`).all(...params, limit, offset) as unknown as ProblemRow[];
+    return { rows, total, limit, offset, nextOffset: offset + rows.length < total ? offset + rows.length : null };
   }
 
   recordsAfter(after: number, limit: number, type?: string): { id: string; revision: number; type: string; path: string; sequence: number; created_at: string; created_by: string }[] {

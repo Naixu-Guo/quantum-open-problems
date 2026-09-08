@@ -245,6 +245,8 @@ write("tags/index.html", renderTagsIndex({ config, root: "../", taxonomy, fieldC
 write("about/index.html", renderAbout({ config, root: "../", stats, dates }));
 write("contribute/index.html", renderContribute({ config, root: "../", taxonomy, fieldCounts, topicCounts }));
 write("404.html", renderNotFound({ config, root: "/" + config.siteUrl.replace(/^https?:\/\/[^/]+\/?/, "") }));
+// Publish schemas at their canonical $id URLs, including relative payload references.
+fs.cpSync(path.join(repoRoot, "contract/schema"), path.join(outDir, "contract/v1"), { recursive: true });
 
 for (const record of records) {
   const root = "../../";
@@ -318,7 +320,7 @@ const apiIndex = {
   repositoryUrl: config.repositoryUrl,
   generated: today,
   updated: dates.updated,
-  counts: { distinctQuestions: stats.distinctQuestions, total: stats.total, unsolved: stats.unsolved, solved: stats.solved, fields: fieldCounts.size, topics: topicCounts.size, references: stats.references, equations: stats.equations },
+  counts: { unit: "records", distinctQuestions: stats.distinctQuestions, total: stats.total, unsolved: stats.unsolved, solved: stats.solved, fields: fieldCounts.size, topics: topicCounts.size, references: stats.references, equations: stats.equations },
   problems: records.map((record) => ({
     id: record.id,
     ulid: record.ulid,
@@ -412,11 +414,11 @@ write("llms.txt", `# ${config.fullName} (${config.shortName})
 
 > ${config.tagline}
 
-The zoo holds ${stats.total} problems (${stats.unsolved} unsolved, ${stats.solved} solved). Each record has a self-contained statement with TeX mathematics, a source attribution, scoped progress items, a comment on the remaining gap, full references with alpha-style labels, one or two fields (broad research areas), and one to five topics (specific objects and techniques).
+The zoo holds ${stats.total} permanent records (${stats.unsolved} unsolved, ${stats.solved} solved), covering ${stats.distinctQuestions.total} distinct mathematical questions (${stats.distinctQuestions.unsolved} unsolved, ${stats.distinctQuestions.solved} solved). Explicitly equivalent formulations count once in the question totals. Search results and downloads count records. Each record has a self-contained statement with TeX mathematics, a source attribution, scoped progress items, a comment on the remaining gap, full references with alpha-style labels, one or two fields (broad research areas), and one to five topics (specific objects and techniques).
 
 ## MCP access
 
-Connect a remote MCP client to ${config.mcp.url} using Streamable HTTP. Public catalog reads require no API key or local installation. Use search_problems, get_problem, list_references, and build_context to explore the current catalog. Setup guide: ${siteUrl}/about/#mcp.
+Connect a remote MCP client to ${config.mcp.url} using Streamable HTTP. Public catalog reads require no API key or local installation. Use get_taxonomy for area/topic labels and slugs; search_problems accepts either, case-insensitively. Search returns total matches and nextOffset; count is only the current page (50 by default). Continue with the same filters and offset=nextOffset until nextOffset is null. get_status separates permanent record counts from distinct-question counts. Use get_problem, list_references, search_sources, and build_context for details; build_context respects a token budget. Setup guide: ${siteUrl}/about/#mcp.
 
 ## Machine-readable downloads
 
@@ -425,11 +427,13 @@ Connect a remote MCP client to ${config.mcp.url} using Streamable HTTP. Public c
 - ${siteUrl}/api/identifiers.json: permanent op IDs, ULIDs, and aliases; every alias resolves through the problem API.
 - ${siteUrl}/api/main/problems/<ulid>.json: main-compatible Problem metadata with our binary status and complete authored record.
 - ${siteUrl}/api/tags.json: the taxonomy of fields and topics with counts.
+- ${siteUrl}/api/v1/problems.jsonl.gz: compressed full static catalog snapshot. The legacy .jsonl URL remains a download; use .json for application/json.
+- ${config.mcp.serviceUrl}/api/v1/problems.jsonl: current service problem views as application/x-ndjson, with HTTP gzip when accepted.
 - ${siteUrl}/problem/<id>/<id>.tex: the TeX form of one record.
 
 ## Contributing
 
-Records are JSON files in ${config.repositoryUrl}/tree/${config.branch}/${config.databasePath}, with a TeX form of each in ${config.texPath}. Follow database/_template.json and open a pull request; the build validates every record. People without a GitHub account can propose a problem at ${siteUrl}/contribute/; proposals are reviewed and rewritten by the maintainers before publication.
+Records are JSON files in ${config.repositoryUrl}/tree/${config.branch}/${config.databasePath}, with a TeX form of each in ${config.texPath}. Follow database/_template.json and open a pull request; the build validates every record. ${config.contribute?.submissionUrl && config.contribute?.captcha?.siteKey ? `Send proposals without an account at ${siteUrl}/contribute/.` : `Direct online sending is not enabled. Prepare and copy a proposal at ${siteUrl}/contribute/, then submit a GitHub issue (a GitHub account is required).`} Proposals are reviewed by the maintainers before publication.
 `);
 
 console.log(`Built ${records.length} problems, ${fieldCounts.size} fields, ${topicCounts.size} topics into ${path.relative(repoRoot, outDir) || "."}`);

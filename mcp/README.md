@@ -39,8 +39,27 @@ references.” The tools include `search_problems`, `get_problem`,
 Newly published records become available through the existing connection when
 the hosted API imports the catalog update. The HTTP endpoint uses the official
 MCP SDK and supports both the 2026 protocol and legacy Streamable HTTP clients.
-It exposes the Read tools and resources below. Research write tools remain
-available through the authenticated local adapter described next.
+It exposes the Read tools and resources below. Authenticated research writes
+are not enabled on the public deployment. The optional local adapter supports
+them on a deployment whose operator has provisioned editors, keys, and Git sync.
+
+`get_taxonomy` lists available labels and slugs. `search_problems` accepts either
+case-insensitively, for example `area: "Quantum Communication"` and
+`topic: "Private capacity"`. An unknown taxonomy name returns an error.
+Search returns `total` matching records, `count` rows on this page (50 by
+default), and `nextOffset`. Continue with the same filters and `offset` set
+to `nextOffset` until it is null; a larger limit is not a promise of completeness.
+
+`get_status.problems` counts permanent records, while `distinctQuestions`
+counts published mathematical questions once across equivalent formulations.
+`get_problem` omits the duplicate `authoredCatalog.record` unless
+`includeAuthoredRecord: true` is requested. Use `build_context` for a bounded
+token budget. `search_sources` also searches preserved bibliography text when
+structured authors are incomplete, and flags retired sources.
+
+`sort: "stale"` puts missing service human-review dates first, then oldest
+reviews, with title/id as ties. Null dates mean no recorded service review;
+this order does not measure catalog edit age.
 
 If connecting fails, check the [catalog status](https://api.qiqc-op.com/api/v1/status),
 confirm remote MCP support, and use the full URL ending in `/mcp`. A browser GET
@@ -136,7 +155,7 @@ provides Work and Write tools when authenticated.
 
 | Group | Tools |
 | --- | --- |
-| Read | `get_status`, `get_policy`, `get_schemas`, `search_problems`, `get_problem`, `get_frontier`, `get_tree`, `list_references`, `list_comments`, `list_attempts`, `build_context`, `list_events`, `get_contribution_status`, `get_record`, `claim_queue_item` |
+| Read | `get_status`, `get_taxonomy`, `search_sources`, `get_policy`, `get_schemas`, `search_problems`, `get_problem`, `get_frontier`, `get_tree`, `list_references`, `list_comments`, `list_attempts`, `build_context`, `list_events`, `get_contribution_status`, `get_record`, `claim_queue_item` |
 | Work | `start_trajectory`, `log_event`, `upload_artifact`, `end_trajectory` |
 | Write | `submit_batch`, `submit_review`, `post_comment`, `withdraw_contribution` |
 
@@ -161,7 +180,7 @@ New catalog problems need no MCP-specific registration. Commit the JSON, TeX,
 and exported ledger together. A service using the same checkout notices the
 commit on the next MCP read and refreshes its ledger and index. For a separate
 service clone, configure `QOP_GIT_REMOTE` and `QOP_GIT_BRANCH` on the service:
-it fetches in the background on startup and every five seconds by default
+it fetches in the background on startup and every sixty seconds by default
 (`QOP_SYNC_INTERVAL_MS`; `0` disables polling). After a valid update arrives,
 the existing MCP connection can search the problem and read its statement,
 frontier, references, and context. No MCP restart is needed. Service code or
