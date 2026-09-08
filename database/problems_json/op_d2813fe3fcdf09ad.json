@@ -1,0 +1,127 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_d2813fe3fcdf09ad",
+  "ulid": "01M20868D5Z2B0W2KKC7QGRGRR",
+  "aliases": [
+    "op_d2813fe3fcdf09ad",
+    "01M20868D5Z2B0W2KKC7QGRGRR",
+    "op-d2813fe3fcdf09ad"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-08T10:14:32.613Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-communication",
+      "quantum-cryptography"
+    ],
+    "topicIds": [
+      "private-capacity",
+      "additivity-and-regularization"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": [
+      "01M1HME7809M71BG24CSMYKA8A",
+      "01M1Q787QR8FTR00QF4PMHHWPE",
+      "01M20868F4GEPX6FBJZF8T0GRJ"
+    ]
+  },
+  "title": "Private capacity of the qubit depolarizing channel",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum Communication",
+    "Quantum Cryptography"
+  ],
+  "topics": [
+    "Private capacity",
+    "Additivity and regularization"
+  ],
+  "statement": "What is the private classical capacity $P(\\Lambda_p)$ of the qubit depolarizing\nchannel, defined for a mixing parameter $p\\in[0,1]$ by\n\\begin{equation}\n  \\Lambda_p(\\rho):=(1-p)\\,\\rho+p\\,\\mathrm{Tr}[\\rho]\\,\\frac{I}{2}\n  =\\bigl(1-\\tfrac{3p}{4}\\bigr)\\rho\n  +\\tfrac{p}{4}\\bigl(X\\rho X+Y\\rho Y+Z\\rho Z\\bigr),\n  \\label{eq:pd-depolarizing-channel}\n\\end{equation}\nwhere $\\rho$ ranges over qubit states, $I$ is the qubit identity, and\n$X,Y,Z$ are the Pauli matrices?  The second expression in\nEq.~\\eqref{eq:pd-depolarizing-channel} exhibits the Pauli error probabilities\n$\\bigl(p_I,p_X,p_Y,p_Z\\bigr)=\\bigl(1-\\tfrac{3p}{4},\\tfrac{p}{4},\\tfrac{p}{4},\n\\tfrac{p}{4}\\bigr)$, with total Pauli error probability $\\tfrac{3p}{4}$.\nFix a Stinespring isometry $V:A\\to BE$ of $\\Lambda_p$ and a finite ensemble\n$\\{q_x,\\rho_x\\}_x$ of qubit states, and set\n$\\omega^{XBE}:=\\sum_x q_x\\,|x\\rangle\\!\\langle x|^X\\otimes V\\rho_xV^\\dagger$.\nThe one-shot private information and the private classical capacity of the\nchannel are\n\\begin{equation}\n  P^{(1)}(\\Lambda_p):=\\max_{\\{q_x,\\rho_x\\}}\n  \\bigl[I(X;B)_\\omega-I(X;E)_\\omega\\bigr],\n  \\qquad\n  P(\\Lambda_p):=\\sup_{n\\ge1}\\frac{1}{n}\\,\n  P^{(1)}\\bigl(\\Lambda_p^{\\otimes n}\\bigr),\n  \\label{eq:pd-private-capacity}\n\\end{equation}\nwhere $I(\\cdot\\,;\\cdot)_\\omega$ is the quantum mutual information and all\nlogarithms are base 2 \\sourcecite{ref:pd-devetak}{Dev05},\n\\sourcecite{ref:pd-cai-winter-yeung}{CWY04}.  Determine the value of\n$P(\\Lambda_p)$ in Eq.~\\eqref{eq:pd-private-capacity} as an explicit function\nof $p$ on $[0,1]$.  For context, every channel satisfies $P\\ge\\mathcal Q$,\nwhere $\\mathcal Q$ denotes the quantum capacity, the supremum of achievable\ncoherent-information rates, because the coherent information of any input\nstate equals the private information of the ensemble formed from a\npurification of that state \\sourcecite{ref:pd-devetak}{Dev05}; whether\n$P(\\Lambda_p)$ and $\\mathcal Q(\\Lambda_p)$ differ anywhere on\n$0<p<\\tfrac{1}{3}$, i.e. whether shielding the message from the environment\nwith classical side information strictly helps on this channel, is part of\nwhat is open.",
+  "source": "The question is stated explicitly by Leditzky, Leung, and Smith, who note that\nit \\emph{has been an open problem for more than 20 years to determine the\ncapacities of some of these low-noise channels, such as the depolarizing\nchannel} \\sourcecite{ref:pd-leditzky-leung-smith}{LLS18}.  The regularized\nprivate information defining the capacity is due to Devetak and, in the\nwiretap formulation, to Cai, Winter, and Yeung\n\\sourcecite{ref:pd-devetak}{Dev05},\n\\sourcecite{ref:pd-cai-winter-yeung}{CWY04}.",
+  "progress": [
+    "The channel in Eq.~\\eqref{eq:pd-depolarizing-channel} is antidegradable\n  precisely for $p\\ge\\tfrac{1}{3}$, and an antidegradable channel has\n  vanishing private capacity because the environment can reconstruct\n  everything the receiver obtains, so $P(\\Lambda_p)=0$ throughout\n  $p\\ge\\tfrac{1}{3}$.  Kondra et al. prove for the quantum capacity an\n  all-code exponential strong converse that, in the convention of\n  Eq.~\\eqref{eq:pd-depolarizing-channel}, reads\n  $\\mathcal Q(\\Lambda_p)\\le\\max\\{1-3p,0\\}$ and vanishes at $p=\\tfrac{1}{3}$;\n  their result concerns $\\mathcal Q$ and leaves $P(\\Lambda_p)$ undetermined\n  for every $p<\\tfrac{1}{3}$ \\sourcecite{ref:pd-kondra-et-al}{KBK+26}.",
+    "The capacity is bounded below by the quantum capacity and hence by the\n  hashing rate: for the Pauli error vector of\n  Eq.~\\eqref{eq:pd-depolarizing-channel},\n  \\begin{equation}\n    P(\\Lambda_p)\\ \\ge\\ \\mathcal Q(\\Lambda_p)\\ \\ge\n    \\max\\Bigl\\{0,\\;1-H_2\\bigl(\\tfrac{3p}{4}\\bigr)\n    -\\tfrac{3p}{4}\\log_2 3\\Bigr\\},\n    \\qquad\n    H_2(q):=-q\\log_2 q-(1-q)\\log_2(1-q),\n    \\label{eq:pd-hashing-bound}\n  \\end{equation}\n  where $H_2$ is the binary entropy and the second inequality is the coherent\n  information at the maximally mixed input, itself a private-information rate\n  \\sourcecite{ref:pd-devetak}{Dev05}.  The bracket in\n  Eq.~\\eqref{eq:pd-hashing-bound} is positive below the vanishing point\n  $\\tfrac{3p}{4}\\approx0.18929$ and negative above it.",
+    "Positivity beyond Eq.~\\eqref{eq:pd-hashing-bound} is certified through the\n  quantum capacity: Krohn-Grimberghe exhibits a rank-two,\n  permutation-symmetric input across $45$ channel uses whose coherent\n  information is provably positive at per-Pauli error $16239/250000$, so\n  $\\mathcal Q(\\Lambda_p)>0$, and therefore $P(\\Lambda_p)>0$, whenever\n  $\\tfrac{p}{4}\\le\\tfrac{16239}{250000}$, that is $p\\le0.259824$\n  \\sourcecite{ref:pd-krohn-grimberghe}{KG26}.  Whether $P(\\Lambda_p)>0$\n  throughout $(0.259824,\\tfrac{1}{3})$ remains open.",
+    "For low noise both capacities are known to leading order: Leditzky, Leung,\n  and Smith show that for channels close to the identity, including\n  $\\Lambda_p$ at small $p$, the private and quantum capacities each equal the\n  single-letter coherent information $\\max_\\rho I_c(\\rho,\\Lambda_p)$ to\n  leading order in the distance to the identity channel, so shielding part of\n  the data with the auxiliary classical register gains nothing to that order;\n  the exact values are left open\n  \\sourcecite{ref:pd-leditzky-leung-smith}{LLS18}.",
+    "The regularization in Eq.~\\eqref{eq:pd-private-capacity} cannot be dropped\n  in general: the private capacity is not additive\n  \\sourcecite{ref:pd-li-winter-zou-guo}{LWZG09}, the private information is\n  superadditive for every number of channel uses\n  \\sourcecite{ref:pd-elkouss-strelchuk}{ES15}, and for depolarizing channels\n  of growing dimension the superadditivity of the quantum capacity provably\n  weakens \\sourcecite{ref:pd-etxezarreta-martinez}{EMC+23}.  No blocklength\n  $n(p)$ at which the regularization stabilizes is known for this channel.",
+    "Since the channel is degradable only at $p=0$\n  \\sourcecite{ref:pd-cubitt-ruskai-smith}{CRS08}, no single-letter\n  degradability formula applies, and the strongest upper bounds come from\n  flagged extensions.  Kianvash, Fanizza, and Giovannetti construct\n  degradable flag extensions that give the state-of-the-art upper bounds on\n  the quantum and private capacities of the depolarizing channel\n  \\sourcecite{ref:pd-kianvash-fanizza-giovannetti}{KFG22}; Poshtvan and\n  Karimipour upper-bound both capacities of the SO(2)-covariant Pauli family\n  containing the channel of Eq.~\\eqref{eq:pd-depolarizing-channel} across its\n  whole parameter space and record that the private information of this\n  family is superadditive \\sourcecite{ref:pd-poshtvan-karimipour}{PK22}; and\n  Nourozi refines the flagged-extension technique into single-letter upper\n  bounds on both capacities with numerical evaluation, describing the\n  depolarizing channel as one whose capacity genuinely requires multi-letter\n  optimization \\sourcecite{ref:pd-nourozi}{Nour26}.  No known upper bound\n  meets a lower bound at any fixed $p\\in(0,\\tfrac{1}{3})$.",
+    "An additive upper bound of a different kind comes from squashed\n  entanglement: $P(\\Lambda_p)\\le P_2(\\Lambda_p)\\le E_{\\mathrm{sq}}(\\Lambda_p)$,\n  where $P_2$ is the two-way-assisted private capacity and\n  $E_{\\mathrm{sq}}$ the squashed entanglement of the channel, which is\n  additive over tensor products\n  \\sourcecite{ref:pd-takeoka-guha-wilde}{TGW14}.  The exact value of\n  $E_{\\mathrm{sq}}(\\Lambda_p)$ is itself unknown; it is archived as a\n  separate problem (see Comment)."
+  ],
+  "references": [
+    {
+      "key": "Dev05",
+      "label": "ref:pd-devetak",
+      "tex": "I. Devetak, ``The Private Classical Capacity and Quantum Capacity of a\n  Quantum Channel,'' \\emph{IEEE Transactions on Information Theory}\n  \\textbf{51}, 44--55 (2005).\n  \\href{https://doi.org/10.1109/TIT.2004.839515}{doi:10.1109/TIT.2004.839515};\n  \\href{https://arxiv.org/abs/quant-ph/0304127}{arXiv:quant-ph/0304127}."
+    },
+    {
+      "key": "CWY04",
+      "label": "ref:pd-cai-winter-yeung",
+      "tex": "N. Cai, A. Winter, and R. W. Yeung, ``Quantum privacy and quantum wiretap\n  channels,'' \\emph{Problems of Information Transmission} \\textbf{40},\n  318--336 (2004).\n  \\href{https://doi.org/10.1007/s11122-005-0002-x}{doi:10.1007/s11122-005-0002-x}."
+    },
+    {
+      "key": "CRS08",
+      "label": "ref:pd-cubitt-ruskai-smith",
+      "tex": "T. S. Cubitt, M.-B. Ruskai, and G. Smith, ``The structure of degradable\n  quantum channels,'' \\emph{Journal of Mathematical Physics} \\textbf{49},\n  102104 (2008).\n  \\href{https://doi.org/10.1063/1.2953685}{doi:10.1063/1.2953685};\n  \\href{https://arxiv.org/abs/0802.1360}{arXiv:0802.1360}."
+    },
+    {
+      "key": "LLS18",
+      "label": "ref:pd-leditzky-leung-smith",
+      "tex": "F. Leditzky, D. Leung, and G. Smith, ``Quantum and private capacities of\n  low-noise channels,'' \\emph{Physical Review Letters} \\textbf{120},\n  160503 (2018).\n  \\href{https://doi.org/10.1103/PhysRevLett.120.160503}{doi:10.1103/PhysRevLett.120.160503};\n  \\href{https://arxiv.org/abs/1705.04335}{arXiv:1705.04335}."
+    },
+    {
+      "key": "KFG22",
+      "label": "ref:pd-kianvash-fanizza-giovannetti",
+      "tex": "F. Kianvash, M. Fanizza, and V. Giovannetti, ``Bounding the quantum\n  capacity with flagged extensions,'' \\emph{Quantum} \\textbf{6}, 647\n  (2022).\n  \\href{https://doi.org/10.22331/q-2022-02-09-647}{doi:10.22331/q-2022-02-09-647};\n  \\href{https://arxiv.org/abs/2008.02461}{arXiv:2008.02461}."
+    },
+    {
+      "key": "TGW14",
+      "label": "ref:pd-takeoka-guha-wilde",
+      "tex": "M. Takeoka, S. Guha, and M. M. Wilde, ``The squashed entanglement of a\n  quantum channel,'' \\emph{IEEE Transactions on Information Theory}\n  \\textbf{60}(8), 4987--4998 (2014).\n  \\href{https://doi.org/10.1109/TIT.2014.2330313}{doi:10.1109/TIT.2014.2330313};\n  \\href{https://arxiv.org/abs/1310.0129}{arXiv:1310.0129}."
+    },
+    {
+      "key": "PK22",
+      "label": "ref:pd-poshtvan-karimipour",
+      "tex": "A. Poshtvan and V. Karimipour, ``Capacities of the covariant Pauli\n  channel,'' \\emph{Physical Review A} \\textbf{106}, 062408 (2022).\n  \\href{https://doi.org/10.1103/PhysRevA.106.062408}{doi:10.1103/PhysRevA.106.062408};\n  \\href{https://arxiv.org/abs/2206.06106}{arXiv:2206.06106}."
+    },
+    {
+      "key": "LWZG09",
+      "label": "ref:pd-li-winter-zou-guo",
+      "tex": "K. Li, A. Winter, X. Zou, and G.-C. Guo, ``Private capacity of quantum\n  channels is not additive,'' \\emph{Physical Review Letters} \\textbf{103},\n  120501 (2009).\n  \\href{https://doi.org/10.1103/PhysRevLett.103.120501}{doi:10.1103/PhysRevLett.103.120501};\n  \\href{https://arxiv.org/abs/0903.4308}{arXiv:0903.4308}."
+    },
+    {
+      "key": "ES15",
+      "label": "ref:pd-elkouss-strelchuk",
+      "tex": "D. Elkouss and S. Strelchuk, ``Superadditivity of Private Information for\n  Any Number of Uses of the Channel,'' \\emph{Physical Review Letters}\n  \\textbf{115}, 040501 (2015).\n  \\href{https://doi.org/10.1103/PhysRevLett.115.040501}{doi:10.1103/PhysRevLett.115.040501};\n  \\href{https://arxiv.org/abs/1502.05326}{arXiv:1502.05326}."
+    },
+    {
+      "key": "EMC+23",
+      "label": "ref:pd-etxezarreta-martinez",
+      "tex": "J. Etxezarreta Martinez, A. de Marti i Olius, and P. M. Crespo,\n  ``Superadditivity effects of quantum capacity decrease with the\n  dimension for qudit depolarizing channels,'' \\emph{Physical Review A}\n  \\textbf{108}, 032602 (2023).\n  \\href{https://doi.org/10.1103/PhysRevA.108.032602}{doi:10.1103/PhysRevA.108.032602};\n  \\href{https://arxiv.org/abs/2301.10132}{arXiv:2301.10132}."
+    },
+    {
+      "key": "Nour26",
+      "label": "ref:pd-nourozi",
+      "tex": "V. Nourozi, ``Flagged Extensions and Numerical Simulations for Quantum\n  Channel Capacity: Bridging Theory and Computation,'' arXiv preprint\n  (2026).\n  \\href{https://arxiv.org/abs/2506.03429}{arXiv:2506.03429}."
+    },
+    {
+      "key": "KBK+26",
+      "label": "ref:pd-kondra-et-al",
+      "tex": "T. V. Kondra, R. Brinster, H. Kampermann, D. Bru{\\ss}, and N. Wyderka,\n  ``Sharp Quantum Capacity Thresholds: Exponential Strong Converses for\n  Degradable and Antidegradable Channels,'' arXiv preprint (2026).\n  \\href{https://arxiv.org/abs/2608.01308}{arXiv:2608.01308}."
+    },
+    {
+      "key": "KG26",
+      "label": "ref:pd-krohn-grimberghe",
+      "tex": "A. Krohn-Grimberghe, ``A Certified Lower Bound on the Quantum-Capacity\n  Threshold of the Depolarizing Channel,'' arXiv preprint (2026).\n  \\href{https://arxiv.org/abs/2608.15870}{arXiv:2608.15870}."
+    }
+  ],
+  "comment": "Beyond the zero region $p\\ge\\tfrac{1}{3}$, the certified positivity region\n$p\\le0.259824$, and the leading-order behavior as $p\\to0$, nothing exact is\nknown about $P(\\Lambda_p)$: no upper bound meets a lower bound at any fixed\n$p\\in(0,\\tfrac{1}{3})$; positivity on $(0.259824,\\tfrac{1}{3})$ is open; it\nis open whether the regularization in Eq.~\\eqref{eq:pd-private-capacity}\nstabilizes at some finite blocklength $n(p)$, the negative answer to the\nuniversal-truncation question for channel-independent integers (solved record\n\\texttt{01M1Q787QR8FTR00QF4PMHHWPE}) not excluding finite stabilization for\nthis particular channel; and it is open whether\n$P(\\Lambda_p)>\\mathcal Q(\\Lambda_p)$ somewhere.  The sibling record\n\\texttt{01M20868F4GEPX6FBJZF8T0GRJ} asks for the squashed entanglement\n$E_{\\mathrm{sq}}(\\Lambda_p)$ of the same channel: it upper-bounds the\nassisted capacity $P_2(\\Lambda_p)\\ge P(\\Lambda_p)$, but determining it would\nneither determine $P(\\Lambda_p)$ nor be determined by it.  The record\n\\texttt{01M1HME7809M71BG24CSMYKA8A} asks for the quantum capacity of the\nsame channel family; $P\\ge\\mathcal Q$ is the only known relation between the\ntwo values, equality being unproven for every $p>0$."
+}
