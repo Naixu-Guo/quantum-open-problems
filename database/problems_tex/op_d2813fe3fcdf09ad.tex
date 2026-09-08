@@ -37,13 +37,21 @@ logarithms are base 2 \sourcecite{ref:pd-devetak}{Dev05},
 $P(\Lambda_p)$ in Eq.~\eqref{eq:pd-private-capacity} as an explicit function
 of $p$ on $[0,1]$.  For context, every channel satisfies $P\ge\mathcal Q$,
 where $\mathcal Q$ denotes the quantum capacity, the supremum of achievable
-coherent-information rates, because the coherent information of any input
-state equals the private information of the ensemble formed from a
-purification of that state \sourcecite{ref:pd-devetak}{Dev05}; whether
-$P(\Lambda_p)$ and $\mathcal Q(\Lambda_p)$ differ anywhere on
-$0<p<\tfrac{1}{3}$, i.e. whether shielding the message from the environment
-with classical side information strictly helps on this channel, is part of
-what is open.
+coherent-information rates: for any input state
+$\rho=\sum_x q_x\,\psi_x$ decomposed into an ensemble of pure states, each
+$V\psi_xV^\dagger$ is pure on $BE$, so its $B$ and $E$ marginals have equal
+entropy, the conditional-entropy terms cancel in
+$I(X;B)_\omega-I(X;E)_\omega$, and the private information of the ensemble
+equals the coherent information $S(\Lambda_p(\rho))-S(\Lambda_p^{c}(\rho))$
+at $\rho$, where $S(\cdot)$ is the von Neumann entropy and
+$\Lambda_p^{c}(\sigma):=\mathrm{Tr}_B[V\sigma V^\dagger]$ is the
+complementary channel; the identity holds verbatim for every tensor power,
+so the private-information maximum dominates the coherent-information
+maximum for the channel and all its powers, giving $P\ge\mathcal Q$
+\sourcecite{ref:pd-devetak}{Dev05}.  Whether $P(\Lambda_p)$ and
+$\mathcal Q(\Lambda_p)$ differ anywhere on $0<p<\tfrac{1}{3}$, i.e. whether
+an ensemble with a nontrivial classical index register strictly beats every
+pure-state-ensemble rate on this channel, is part of what is open.
 
 \subsection*{Status}
 
@@ -122,8 +130,8 @@ wiretap formulation, to Cai, Winter, and Yeung
   \sourcecite{ref:pd-cubitt-ruskai-smith}{CRS08}, no single-letter
   degradability formula applies, and the strongest upper bounds come from
   flagged extensions.  Kianvash, Fanizza, and Giovannetti construct
-  degradable flag extensions that give the state-of-the-art upper bounds on
-  the quantum and private capacities of the depolarizing channel
+  degradable flag extensions that gave, at the time, the strongest upper
+  bounds on the quantum and private capacities of the depolarizing channel
   \sourcecite{ref:pd-kianvash-fanizza-giovannetti}{KFG22}; Poshtvan and
   Karimipour upper-bound both capacities of the SO(2)-covariant Pauli family
   containing the channel of Eq.~\eqref{eq:pd-depolarizing-channel} across its
@@ -246,15 +254,17 @@ stabilizes at some finite blocklength $n(p)$, the negative answer to the
 universal-truncation question for channel-independent integers (solved record
 \texttt{01M1Q787QR8FTR00QF4PMHHWPE}) not excluding finite stabilization for
 this particular channel; and it is open whether
-$P(\Lambda_p)>\mathcal Q(\Lambda_p)$ somewhere.  The sibling record
+$P(\Lambda_p)>\mathcal Q(\Lambda_p)$ somewhere on $0<p<\tfrac{1}{3}$.  The sibling record
 \texttt{01M20868F4GEPX6FBJZF8T0GRJ} asks for the squashed entanglement
 $E_{\mathrm{sq}}(\Lambda_p)$ of the same channel: it upper-bounds the
 assisted capacity $P_2(\Lambda_p)\ge P(\Lambda_p)$, but determining it would
 neither determine $P(\Lambda_p)$ nor be determined by it.  The record
 \texttt{01M1HME7809M71BG24CSMYKA8A} asks for the quantum capacity of the
-same channel family; $P\ge\mathcal Q$ is the only known exact
-relation between the two values, equality being unproven for every
-$p>0$.
+same channel family.  The inequality $P\ge\mathcal Q$ is the only relation
+between the two values known for all $p$; both capacities vanish on the
+antidegradable region $p\ge\tfrac{1}{3}$ and both equal $1$ at $p=0$, so
+equality is settled there and unproven only on the nontrivial interval
+$0<p<\tfrac{1}{3}$.
 
 \subsection*{Field}
 

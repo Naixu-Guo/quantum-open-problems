@@ -20,7 +20,8 @@ is $\tfrac{3p}{4}$?  Let $U:A'\to BE$ be an isometric extension of
 $\Lambda_p$, let $\varphi_{RA'}$ range over pure bipartite input states, and
 let $S:E\to E'$ range over completely positive trace-preserving maps of
 arbitrary finite output dimension.  For
-$\omega_{RBE'}:=(\mathrm{id}_R\otimes(S\circ U))(\varphi_{RA'})$ the squashed
+$\omega_{RBE'}:=(\mathrm{id}_{RB}\otimes S)\bigl[(\mathrm{id}_R\otimes
+U)\,\varphi_{RA'}\,(\mathrm{id}_R\otimes U^\dagger)\bigr]$ the squashed
 entanglement of the channel is
 \begin{equation}
   E_{\mathrm{sq}}(\Lambda_p)
@@ -48,9 +49,11 @@ The question is implicit in the defining paper of Takeoka, Guha, and Wilde,
 which upper-bounds the depolarizing channel within a restricted squashing
 family, describes that bound as not particularly tight, and leaves the exact
 value uncomputed \sourcecite{ref:sd-takeoka-guha-wilde}{TGW14}.  Goodenough,
-Elkouss, and Wehner later determine the only known exact value, that of the
-erasure channel, and record that finding exact channel squashed entanglement
-remains hard in general
+Elkouss, and Wehner later determine the exact value for the erasure channel,
+which their account calls the only class calculated exactly ``up until
+now'',
+and record that finding exact channel squashed entanglement remains hard in
+general
 \sourcecite{ref:sd-goodenough-elkouss-wehner}{GEW16}.
 
 \subsection*{Progress}
@@ -69,20 +72,39 @@ remains hard in general
   \item The state measure underlying Eq.~\eqref{eq:sd-squashed-entanglement} is the
   squashed entanglement of Christandl and Winter, an additive entanglement
   monotone that vanishes on separable states and never exceeds the
-  entanglement of formation \sourcecite{ref:sd-christandl-winter}{CW04}.
+  entanglement of formation \sourcecite{ref:sd-christandl-winter}{CW04}, and
+  it is faithful, that is, strictly positive on every entangled state, as
+  shown by Brand\~ao, Christandl, and Yard
+  \sourcecite{ref:sd-brandao-christandl-yard}{BCY11}.
   Consequently the boundary values are known:
   $E_{\mathrm{sq}}(\Lambda_0)=1$ for the noiseless channel, while the channel
   of Eq.~\eqref{eq:sd-depolarizing-channel} is entanglement-breaking
   precisely for $p\ge\tfrac{2}{3}$, where every output state is separable and
   $E_{\mathrm{sq}}(\Lambda_p)=0$.  The open interval is $0<p<\tfrac{2}{3}$.
 
-  \item The only channel family with a known exact value is the erasure channel:
-  Goodenough, Elkouss, and Wehner compute $E_{\mathrm{sq}}$ and the
+  \item Faithfulness gives a positive lower bound on the open interval: the channel
+  of Eq.~\eqref{eq:sd-depolarizing-channel} maps the maximally entangled
+  input to the Bell-diagonal state with Bell fidelity $1-\tfrac{3p}{4}$,
+  entangled precisely for $p<\tfrac{2}{3}$, and the maximum over pure inputs
+  in Eq.~\eqref{eq:sd-squashed-entanglement} makes $E_{\mathrm{sq}}(\Lambda_p)$
+  at least the squashed entanglement of that output, hence positive
+  throughout $0<p<\tfrac{2}{3}$
+  \sourcecite{ref:sd-brandao-christandl-yard}{BCY11}.  At $p=\tfrac{1}{2}$ the
+  clipped symmetric coherent information $\max\{0,1-H(\mathbf p)\}$ of the
+  Pauli vector
+  $\mathbf p=\bigl(1-\tfrac{3p}{4},\tfrac{p}{4},\tfrac{p}{4},\tfrac{p}{4}\bigr)$
+  equals $0$, so $E_{\mathrm{sq}}$ already strictly exceeds it there.
+
+  \item Goodenough, Elkouss, and Wehner compute $E_{\mathrm{sq}}$ and the
   two-way-assisted capacities of the $d$-dimensional erasure channel in
   closed form, and for the depolarizing channel they improve the upper bound
   on $E_{\mathrm{sq}}(\Lambda_p)$ using convexity of $E_{\mathrm{sq}}$ in the
   channel and its link to the entanglement-assisted classical capacity
-  \sourcecite{ref:sd-goodenough-elkouss-wehner}{GEW16}.
+  \sourcecite{ref:sd-goodenough-elkouss-wehner}{GEW16}.  Their aside that, ``up until now, this class of
+  channels is the only class whose squashed entanglement has been calculated
+  exactly'',
+  is a census of the 2016 literature rather than a presently verified
+  uniqueness claim.
 
   \item Flagged extensions bound the quantum capacity of the depolarizing channel
   directly and surpass squashed-entanglement bounds in some regimes, but they
@@ -146,6 +168,13 @@ remains hard in general
   \textbf{45}(3), 829--840 (2004).
   \href{https://doi.org/10.1063/1.1643788}{doi:10.1063/1.1643788};
   \href{https://arxiv.org/abs/quant-ph/0308088}{arXiv:quant-ph/0308088}.
+
+  \item[\textup{[BCY11]}]\label{ref:sd-brandao-christandl-yard}
+  F. G. S. L. Brand\~ao, M. Christandl, and J. Yard, ``Faithful Squashed
+  Entanglement,'' \emph{Communications in Mathematical Physics} \textbf{306},
+  805--830 (2011).
+  \href{https://doi.org/10.1007/s00220-011-1302-1}{doi:10.1007/s00220-011-1302-1};
+  \href{https://arxiv.org/abs/1010.1750}{arXiv:1010.1750}.
 \end{enumerate}
 
 \subsection*{Comment}
@@ -156,14 +185,18 @@ sub-questions: is the input maximum in
 Eq.~\eqref{eq:sd-squashed-entanglement} attained at the maximally entangled
 state for every squashing map, or only within the restricted family used for
 the known upper bound?  Are those squashing constructions optimal, or
-improvable, on any subinterval of $p$?  Does $E_{\mathrm{sq}}(\Lambda_p)$
-coincide with the symmetric coherent information
-$\max\{0,1-H(\mathbf p)\}$ of the Pauli vector
-$\mathbf p=\bigl(1-\tfrac{3p}{4},\tfrac{p}{4},\tfrac{p}{4},\tfrac{p}{4}\bigr)$,
-or strictly exceed it somewhere?  A closed form would give the sharpest
-computable single-letter upper bound on the two-way-assisted quantum and
-private capacities of the depolarizing channel and on the two-way secret-key
-rate of key distribution over depolarizing noise.  The sibling record
+improvable, on any subinterval of $p$?  The clipped symmetric coherent
+information $\max\{0,1-H(\mathbf p)\}$ of the Pauli vector
+$\mathbf p=\bigl(1-\tfrac{3p}{4},\tfrac{p}{4},\tfrac{p}{4},\tfrac{p}{4}\bigr)$
+is no candidate at all: wherever the clipping is active with
+$p<\tfrac{2}{3}$, at $p=\tfrac{1}{2}$ for instance, it equals $0$ while
+$E_{\mathrm{sq}}(\Lambda_p)>0$ by faithfulness (see Progress).  A closed form
+would give an additive single-letter upper bound on the two-way-assisted
+quantum and private capacities of the depolarizing channel and on the
+two-way secret-key rate of key distribution over depolarizing noise, though
+not automatically the sharpest computable upper bound among all methods:
+flagged-extension bounds surpass squashed-entanglement bounds in some
+regimes \sourcecite{ref:sd-kianvash-fanizza-giovannetti}{KFG22}.  The sibling record
 \texttt{01M20868D5Z2B0W2KKC7QGRGRR} asks for the private capacity
 $P(\Lambda_p)$ of the same channel, a different quantity:
 $E_{\mathrm{sq}}(\Lambda_p)$ upper-bounds the assisted capacity
