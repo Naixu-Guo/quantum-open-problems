@@ -212,6 +212,7 @@ function routes(service: Service): Route[] {
       const rules = service.submissionsConfig;
       if (rules.mode === "disabled") throw new HttpError(503, "online proposals are not enabled on this service; use the GitHub route described on the contribute page");
       if (auth.bump(`submissions:${call.address}`, HOUR) > rules.perAddressPerHour) throw new HttpError(429, `more than ${rules.perAddressPerHour} proposals from this address within an hour; try again later`);
+      service.submissions.capacity.takeAttempt();
       const parsed = parseSubmission(parseJson(call), rules.mode === "captcha");
       if (rules.mode === "captcha") {
         if (!rules.captcha) throw new HttpError(503, "the proposal verifier is not configured");
@@ -231,7 +232,7 @@ function routes(service: Service): Route[] {
       const counts = service.submissions.counts();
       const total = state ? counts[state as SubmissionState] : Object.values(counts).reduce((a, b) => a + b, 0);
       const proposals = service.submissions.list({ state: (state as SubmissionState | null) ?? undefined, limit, offset });
-      return ok({ counts, count: proposals.length, total, offset, limit, nextOffset: offset + proposals.length < total ? offset + proposals.length : null, submissions: proposals });
+      return ok({ counts, capacity: service.submissions.capacity.usage(), count: proposals.length, total, offset, limit, nextOffset: offset + proposals.length < total ? offset + proposals.length : null, submissions: proposals });
     } },
     { method: "GET", pattern: /^\/api\/v1\/submissions\/([^/]+)$/u, auth: true, inboxAccess: true, callerSpecific: true, handler: (call) => {
       if (!call.inboxSession) editor(call);

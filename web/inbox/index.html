@@ -28,6 +28,12 @@
       <button class="button primary" type="submit">Open inbox</button>
     </form>
     <section id="workspace" hidden aria-label="Submissions">
+      <section class="inbox-capacity" aria-labelledby="capacity-title">
+        <h2 id="capacity-title">Inbox capacity</h2>
+        <p id="capacity-status" role="status" aria-live="polite">Loading capacity…</p>
+        <p id="capacity-usage" class="hint"></p>
+        <p id="capacity-last-alert" class="hint" hidden></p>
+      </section>
       <div class="inbox-toolbar">
         <div><label for="state-filter">Show</label><select id="state-filter"></select></div>
         <button class="button" id="refresh">Refresh inbox</button>

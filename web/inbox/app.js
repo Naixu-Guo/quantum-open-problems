@@ -14,6 +14,20 @@ const el = (tag, text, className) => {
   return node;
 };
 function notice(message = "", error = false) { $("#notice").textContent = message; $("#notice").dataset.error = String(error); }
+function capacity(data) {
+  const status = $("#capacity-status");
+  if (!data) { status.textContent = "Capacity could not be loaded. Refresh the inbox to retry."; return; }
+  status.dataset.state = data.state;
+  status.textContent = data.state === "full" ? "New submissions are paused: an inbox limit has been reached. Existing proposals are preserved."
+    : data.state === "warning" ? "An inbox limit is at least 80% used. Review capacity before it fills up."
+    : "The inbox is accepting new submissions.";
+  const number = value => Number(value).toLocaleString();
+  const mib = value => (value / 1048576).toLocaleString(undefined, { maximumFractionDigits: 2 });
+  $("#capacity-usage").textContent = `${number(data.hour.used)} / ${number(data.hour.limit)} attempts this hour${data.hour.resetsAt ? ` (resets ${date(data.hour.resetsAt)})` : ""} · ${number(data.rows.used)} / ${number(data.rows.limit)} proposals stored · ${mib(data.storage.usedBytes)} / ${mib(data.storage.limitBytes)} MiB storage.`;
+  const previous = $("#capacity-last-alert");
+  previous.hidden = !data.lastAlert;
+  if (data.lastAlert) previous.textContent = `Last alert: ${data.lastAlert.level === "full" ? "limit reached" : "80% warning"}, ${date(data.lastAlert.at)}. Hourly limits reset automatically. For stored proposals or storage limits, ask the server maintainer to archive old entries or increase capacity. Marking an entry spam does not free storage.`;
+}
 function signedOut() {
   requestId++;
   $("#workspace").hidden = true; $("#logout").hidden = true; $("#login").hidden = false;
@@ -41,6 +55,7 @@ async function list() {
     if (version !== requestId) return;
     if (offset > 0 && offset >= data.total) { offset = 0; return await list(); }
     nextOffset = data.nextOffset;
+    capacity(data.capacity);
     $("#state-filter").replaceChildren(...[["", "All proposals"], ...Object.entries(labels)].map(([value, label]) => {
       const option = el("option", `${label} (${value ? data.counts[value] : Object.values(data.counts).reduce((a, b) => a + b, 0)})`);
       option.value = value; return option;
@@ -130,6 +145,12 @@ $("#next").addEventListener("click", () => { if (nextOffset !== null) { offset =
 window.addEventListener("beforeunload", event => { if (dirty) { event.preventDefault(); event.returnValue = ""; } });
 // A restored back/forward page must re-check the session before showing private content.
 window.addEventListener("pageshow", event => { if (event.persisted) location.reload(); });
+// Refresh just the aggregate capacity; never replace a maintainer's unsaved review.
+setInterval(async () => {
+  if (document.hidden || $("#workspace").hidden) return;
+  try { capacity(await api("/inbox/capacity")); }
+  catch { if (!$("#workspace").hidden) $("#capacity-status").textContent = "Capacity update failed. Refresh the inbox to retry."; }
+}, 60_000);
 try {
   const session = await api("/inbox/session");
   if (session.authenticated) await showInbox();

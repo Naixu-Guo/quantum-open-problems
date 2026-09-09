@@ -44,6 +44,13 @@ public MCP retains its existing host/origin and per-address checks.
 
 Public proposals land only in the separate project SQLite inbox. Inbox keys
 authorize proposal review, not ledger writes or any personal email account.
+Both basic and CAPTCHA modes also enforce 100 global attempts per hour,
+10,000 stored proposals, and a 256 MiB SQLite main-file cap by default. A single
+persistent budget row bounds rate-accounting storage; inserts check capacity
+under a SQLite write transaction. At 80% or full, the private inbox displays a
+durable alert. A scheduled GitHub workflow reads aggregate capacity through its
+own read-only key and notifies the owner without receiving proposal contents.
+See the deployment guide for the reserve, WAL behavior, and notification setup.
 GitHub OAuth is unconfigured and its login routes are not exposed by nginx.
 The public MCP is read-only and the catalog clone has no push credentials.
 
