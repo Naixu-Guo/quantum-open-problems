@@ -14,6 +14,17 @@ const counts = { fieldCounts: new Map([[taxonomy.fields[0], 3]]), topicCounts: n
 const online = { ...config, contribute: { submissionUrl: "https://inbox.example.org/api/v1/submissions", captcha: { provider: "turnstile", siteKey: "1x00000000000000000000AA" } } };
 const offline = { ...config, contribute: { submissionUrl: "", captcha: { provider: "turnstile", siteKey: "" } } };
 
+test("basic protection enables the form explicitly without a third-party widget", () => {
+  const basic = { ...online, contribute: { submissionUrl: online.contribute.submissionUrl, spamProtection: "basic" } };
+  const html = renderContribute({ config: basic, root: "../", taxonomy, ...counts });
+  assert.ok(!html.includes("proposal-offline"));
+  assert.ok(!html.includes("challenges.cloudflare.com"));
+  assert.ok(html.includes('id="proposal-submit">Send proposal'));
+  assert.ok(html.includes('data-captcha-provider="" data-captcha-response=""'));
+  const missingKey = renderContribute({ config: { ...online, contribute: { submissionUrl: online.contribute.submissionUrl } }, root: "../", taxonomy, ...counts });
+  assert.ok(missingKey.includes('id="proposal-submit" disabled'));
+});
+
 test("the form's limits are the inbox's limits", () => {
   for (const [key, limit] of Object.entries(PROPOSAL_LIMITS)) assert.deepEqual(limit, LIMITS[key], `limit for ${key}`);
 });
@@ -68,9 +79,15 @@ test("without a submission URL the page keeps the form usable offline and never 
   assert.ok(missing.includes('id="proposal-offline"'), "a config without the block renders the offline form");
 });
 
-test("the about page and the problem page point at the form", () => {
-  const about = renderAbout({ config, root: "../", stats: { total: 1, unsolved: 1, solved: 0, distinctQuestions: { total: 1, unsolved: 1, solved: 0 } }, dates: { today: "2026-09-08", updated: "2026-09-08" } });
-  assert.ok(about.includes('<a href="../contribute/">proposal form</a>'));
+test("the about page advertises account-free sending only when the form is configured", () => {
+  const options = { root: "../", stats: { total: 1, unsolved: 1, solved: 0, distinctQuestions: { total: 1, unsolved: 1, solved: 0 } }, dates: { today: "2026-09-08", updated: "2026-09-08" } };
+  const off = renderAbout({ ...options, config: offline });
+  assert.ok(off.includes('<a href="../contribute/">proposal worksheet</a>'));
+  assert.ok(off.includes("a GitHub account is required"));
+  assert.ok(!off.includes("No account is needed"));
+  const on = renderAbout({ ...options, config: online });
+  assert.ok(on.includes('<a href="../contribute/">proposal form</a>'));
+  assert.ok(on.includes("No account is needed"));
 });
 
 // The shipped script must load on a page without the form, and on the form page it must

@@ -21,6 +21,10 @@ each mirrored by a TeX file (`database/problems_tex/`).
    original `op_` ID, ULID, `op-` alias, and confirmed main slugs. Initialize
    missing identifiers and metadata with `node scripts/migrate-metadata.mjs`,
    using the pinned crosswalk and provenance in `database/metadata.json`.
+   To remove a duplicate from the active catalog, consolidate its useful
+   content and use the explicit merge archive procedure in
+   `docs/CATALOG_INTEGRATION.md`. Old links resolve to the canonical record;
+   historical ledger revisions remain unchanged.
 3. **Canonical fields and topics only.** Every record has one or two `fields`
    and one to five `topics`, spelled exactly as in `database/tags.json`, whose
    `fields` and `topics` lists are disjoint: a name is either a field or a
@@ -90,8 +94,10 @@ each mirrored by a TeX file (`database/problems_tex/`).
   rewrite proposals into records by hand. The form's limits in
   `site/lib/render.mjs` must equal `LIMITS` in `service/src/submissions.ts`
   (a test enforces it). The page stays in an offline mode, loading no
-  third-party script, until `contribute.submissionUrl` and
-  `contribute.captcha.siteKey` are set in `site/config.json`.
+  third-party script, until `contribute.submissionUrl` and either explicit `spamProtection: "basic"`
+  or `contribute.captcha.siteKey` are set in `site/config.json`. The matching
+  server mode must be configured before publishing the enabled form. The project
+  inbox at `/inbox/` uses a separate access key; it has no mail-account integration.
 - Lists of problems are ordered by exact last-edit time (git author timestamp,
   seconds precision), newest first. Equal edit times use creation time,
   newest first, then the stable ID for exact ties; alphabetical sorting is

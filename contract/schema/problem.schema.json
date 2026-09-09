@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://naixu-guo.github.io/quantum-open-problems/contract/v1/problem.schema.json",
+  "$id": "https://qiqc-op.com/contract/v1/problem.schema.json",
   "title": "Problem",
   "description": "A permanent question, primary or auxiliary. Revisable. Research status is Solved or Unsolved; an authoritative authored catalog snapshot takes precedence over decisions.",
   "allOf": [{ "$ref": "common.schema.json#/$defs/revisableBase" }],
@@ -17,10 +17,13 @@
       "type": "object",
       "additionalProperties": false,
       "required": ["status", "sourcePath"],
+      "dependentRequired": { "mergedIntoProblemId": ["mergeReason"], "mergeReason": ["mergedIntoProblemId"] },
       "properties": {
         "status": { "enum": ["Solved", "Unsolved"] },
         "sourcePath": { "$ref": "common.schema.json#/$defs/nonEmptyText" },
-        "record": { "type": "object", "additionalProperties": true }
+        "record": { "type": "object", "additionalProperties": true },
+        "mergedIntoProblemId": { "$ref": "common.schema.json#/$defs/ulid", "description": "Explicit catalog merge: exclude this historical identity from the current catalog and resolve its links to this canonical problem." },
+        "mergeReason": { "$ref": "common.schema.json#/$defs/nonEmptyText" }
       }
     },
     "origin": { "enum": ["source-stated", "derived", "editor-formulated", "agent-formulated"] },

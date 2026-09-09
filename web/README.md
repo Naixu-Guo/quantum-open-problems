@@ -41,3 +41,12 @@ cd web && npm test                                    # Markdown and digest test
 ```
 
 No build step: edit a file and reload.
+
+## Project proposal inbox
+
+The separate `/inbox/` surface lives in `web/inbox/` and is served even when the
+research web app is disabled. It uses a scoped access key and HttpOnly session,
+not GitHub login or a mail account. See the [deployment guide](../deploy/ubuntu/README.md#optional-submissions-and-editor-access)
+for provisioning and rotation. It offers filtering, paginated proposals, review
+notes/status, and a JSON export for the maintainer's own AI tools. It renders
+submission text as text, keeps contact information private, and calls no AI service.

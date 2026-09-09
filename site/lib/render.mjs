@@ -1,3 +1,4 @@
+import { submissionsOnline as acceptsSubmissions } from "./submission-settings.mjs";
 // HTML templates for every page of the zoo. Pure functions: records in,
 // strings out. No runtime dependencies.
 
@@ -25,6 +26,7 @@ export const displayDateTime = (iso) => {
 
 const MATHJAX = `<script>
       window.MathJax = {
+        loader: { load: ["ui/safe"] },
         tex: {
           inlineMath: [["\\\\(", "\\\\)"]],
           displayMath: [["\\\\[", "\\\\]"]],
@@ -33,7 +35,13 @@ const MATHJAX = `<script>
           tags: "none"
         },
         svg: { fontCache: "global", scale: 1 },
-        options: { ignoreHtmlClass: "no-math", processHtmlClass: "math-ready" },
+        options: {
+          ignoreHtmlClass: "no-math", processHtmlClass: "math-ready",
+          safeOptions: {
+            allow: { URLs: "safe", classes: "none", cssIDs: "none", styles: "none" },
+            safeProtocols: { http: true, https: true, file: false, javascript: false, data: false }
+          }
+        },
         startup: { typeset: true }
       };
     </script>
@@ -348,7 +356,7 @@ export function renderProblemPage({ record, config, root, related, dates }) {
           </div>
           <div class="contribute-box">
             <h2>Your contribution is welcome!</h2>
-            <p>Found progress, a correction, or a resolution? <a href="${editUrl}" rel="noreferrer">Edit this record on GitHub</a> and open a pull request, or <a href="${issueUrl}" rel="noreferrer">report an update</a> with the primary sources. To propose a new problem without a GitHub account, use the <a href="${root}contribute/">proposal form</a>; the <a href="${root}about/#contribute">contribution guide</a> covers both routes.</p>
+            <p>Found progress, a correction, or a resolution? <a href="${editUrl}" rel="noreferrer">Edit this record on GitHub</a> and open a pull request, or <a href="${issueUrl}" rel="noreferrer">report an update</a> with the primary sources. The <a href="${root}contribute/">proposal page</a> explains the available submission route; see the <a href="${root}about/#contribute">contribution guide</a> for details.</p>
           </div>
           <div class="cite-box">
             <h2>Cite this page</h2>
@@ -608,14 +616,13 @@ export function renderTagPage({ config, root, kind, tag, tagSlug = slug(tag), hi
 }
 
 export function renderAbout({ config, root, stats, dates }) {
-  const mcpSetup = `git clone ${config.repositoryUrl}.git`;
+  const submissionsOnline = acceptsSubmissions(config);
   const mcpServiceUrl = config.mcp.serviceUrl;
+  const mcpUrl = config.mcp.url;
   const mcpConfig = JSON.stringify({
     mcpServers: {
       "quantum-open-problems": {
-        command: "node",
-        args: ["--experimental-strip-types", "--no-warnings", "/absolute/path/quantum-open-problems/mcp/src/server.ts"],
-        env: { QOP_SERVICE_URL: mcpServiceUrl }
+        url: mcpUrl
       }
     }
   }, null, 2);
@@ -637,7 +644,9 @@ export function renderAbout({ config, root, stats, dates }) {
         <p>The zoo holds ${stats.total} permanent records covering ${(stats.distinctQuestions ?? stats).total} distinct questions: ${(stats.distinctQuestions ?? stats).unsolved} unsolved and ${(stats.distinctQuestions ?? stats).solved} solved. Equivalent formulations are linked and count once in these question totals. Solved problems stay in the zoo with their resolution so that citations survive.</p>
 
         <h2 id="contribute">How to contribute</h2>
-        <p>The quickest route is the <a href="${root}contribute/">proposal form</a>: describe the problem, its sources, and what is known, and leave your name and email. No account is needed. The maintainers check every proposal against the literature, rewrite it in the zoo's format, and publish it with credit to you; nothing appears on the site automatically. To add a record yourself through GitHub:</p>
+        <p>${submissionsOnline
+          ? `Use the <a href="${root}contribute/">proposal form</a> to send a problem, its sources, and what is known. No account is needed.`
+          : `Propose a problem through a <a href="${config.repositoryUrl}/issues/new?template=new-problem.yml">GitHub issue</a> (a GitHub account is required). The <a href="${root}contribute/">proposal worksheet</a> helps you prepare and copy the text; online sending is not enabled yet.`} The maintainers check proposals against the literature and publish reviewed records with credit to contributors. To add a record yourself through GitHub:</p>
         <ol>
           <li>Fork the <a href="${config.repositoryUrl}" rel="noreferrer">repository</a> and run <code>node scripts/new-problem-id.mjs --create</code> to create a problem template with permanent identifiers.</li>
           <li>Write the statement, status, source, progress, references, and comment as TeX fragments in the record's fields, following the contribution guide, and choose one or two fields and one to five topics from <code>database/tags.json</code>. Run <code>node scripts/migrate-metadata.mjs</code> after changing the classifications.</li>
@@ -651,21 +660,21 @@ export function renderAbout({ config, root, stats, dates }) {
 
         <h2 id="mcp"><span id="api">Use the MCP server</span></h2>
         <p>Connect your AI assistant through the Model Context Protocol (MCP) to search the zoo, read problem statements and references, and gather the known results and remaining questions for a research session.</p>
-        <p>The MCP adapter connects your assistant to our hosted catalog. You need Git, Node.js 22.13 or later, and an MCP client that supports local <code>stdio</code> servers. Reading problems requires no API key.</p>
+        <p>Use a client that supports remote MCP servers over Streamable HTTP. Connect with the address below; no download, local setup, or API key is needed to read the catalog.</p>
         <ol>
-          <li><strong>Download the adapter.</strong> Run this command once in a terminal. If you already have the repository, use your existing checkout:
-            <div class="copy-block no-math"><pre id="mcp-setup">${escape(mcpSetup)}</pre><button class="copy-button" type="button" data-copy="mcp-setup" aria-label="Copy adapter download command">Copy</button></div>
+          <li><strong>Add the server.</strong> In your client's MCP or connector settings, add a remote server named <code>quantum-open-problems</code>. Paste this server URL and choose <strong>Streamable HTTP</strong> if a transport is requested:
+            <div class="copy-block no-math"><pre id="mcp-url">${escape(mcpUrl)}</pre><button class="copy-button" type="button" data-copy="mcp-url" aria-label="Copy MCP server URL">Copy</button></div>
           </li>
-          <li><strong>Connect your assistant.</strong> Add a local <code>stdio</code> MCP server in your client. If the client uses an <code>mcpServers</code> configuration, copy the entry below:
+          <li><strong>Connect your assistant.</strong> Save or enable the connection. For clients that accept URL entries in an <code>mcpServers</code> configuration:
             <details>
               <summary>JSON configuration for clients using <code>mcpServers</code></summary>
-              <p>Replace the example path with the full path to your cloned repository. If your client already has an <code>mcpServers</code> section, add this server to it. Save the configuration and reload the client's MCP connection.</p>
+              <p>Add this entry to your existing configuration, then reload the client's MCP connection. Some clients use a settings form instead.</p>
               <div class="copy-block no-math"><pre id="mcp-config">${escape(mcpConfig)}</pre><button class="copy-button" type="button" data-copy="mcp-config" aria-label="Copy MCP client configuration">Copy</button></div>
             </details>
           </li>
           <li><strong>Ask a research question.</strong> For example: “Use the quantum-open-problems MCP to find unsolved problems about quantum channel capacity, then summarize one problem's known progress and references.” The assistant can use <code>search_problems</code>, <code>get_problem</code>, <code>list_references</code>, and <code>build_context</code>.</li>
         </ol>
-        <p>Your client starts the adapter and queries the hosted service. You can check the <a href="${escape(mcpServiceUrl)}/api/v1/status" rel="noreferrer">catalog service status</a> or read the <a href="${config.repositoryUrl}/blob/${config.branch}/mcp/README.md" rel="noreferrer">MCP setup and tool guide</a> for troubleshooting and authenticated research contributions. For direct downloads, the <a href="${root}api/index.json">JSON catalog</a>, <a href="${root}api/tags.json">taxonomy</a>, and <a href="${root}llms.txt">agent guide</a> are also available.</p>
+        <p>The connection reads the current hosted catalog, including newly published problems. If it fails, check the <a href="${escape(mcpServiceUrl)}/api/v1/status" rel="noreferrer">catalog service status</a> and confirm that your client supports remote MCP. The <a href="${config.repositoryUrl}/blob/${config.branch}/mcp/README.md" rel="noreferrer">MCP setup and tool guide</a> also covers local clients and authenticated research contributions. For direct downloads, the <a href="${root}api/index.json">JSON catalog</a>, <a href="${root}api/tags.json">taxonomy</a>, and <a href="${root}llms.txt">agent guide</a> are available.</p>
 
         <h2 id="contributions"><span id="credits">Contributions</span></h2>
         <p>This project is developed and maintained by Bikun Li, Qicheng Tang, Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo.</p>
@@ -711,7 +720,8 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
   const widget = CAPTCHA_WIDGETS[providerKey];
   if (!widget) throw new Error(`site/config.json: contribute.captcha.provider must be one of ${Object.keys(CAPTCHA_WIDGETS).join(", ")}`);
   const siteKey = String(settings.captcha?.siteKey ?? "").trim();
-  const online = Boolean(submissionUrl && siteKey);
+  const online = acceptsSubmissions(config);
+  const usesCaptcha = online && settings.spamProtection !== "basic";
   const issueUrl = `${config.repositoryUrl}/issues/new?template=new-problem.yml`;
   const L = PROPOSAL_LIMITS;
   const topics = taxonomy.topics.slice().sort((a, b) => a.localeCompare(b));
@@ -739,21 +749,21 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
           </div>`;
   const input = (id, name, attrs = "") => `<input id="${id}" name="${name}" type="text" ${attrs} aria-describedby="${id}-hint">`;
   const textarea = (id, name, rows, attrs = "") => `<textarea id="${id}" name="${name}" rows="${rows}" ${attrs} aria-describedby="${id}-hint"></textarea>`;
-  const captchaSlot = online
+  const captchaSlot = usesCaptcha
     ? `<div class="${widget.className}" data-sitekey="${escape(siteKey)}" data-theme="auto"></div>
             <p class="form-hint">Verification by <a href="${widget.privacyUrl}" rel="noreferrer">${widget.name}</a>, which keeps automated submissions out of the inbox.</p>`
-    : `<div class="form-notice" id="proposal-offline">Online sending is not connected on this deployment yet. Fill in the form, use <strong>Copy as text</strong>, and paste the proposal into a <a href="${issueUrl}" rel="noreferrer">new-problem issue on GitHub</a> or an email to the maintainers.</div>`;
+    : online ? "" : `<div class="form-notice" id="proposal-offline">Online sending is not enabled yet. Fill in this worksheet, use <strong>Copy as text</strong>, and paste it into a <a href="${issueUrl}" rel="noreferrer">new-problem issue on GitHub</a>. Submitting the issue requires a GitHub account. The worksheet does not send your details anywhere.</div>`;
   const body = `
     <div class="contribute-layout">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><span>Contribute</span></nav>
       <div class="section-heading">
         <div><p class="section-index">Contribute</p><h1>Propose an open problem</h1></div>
-        <p>Anyone can propose a problem; no account is needed. Every proposal is checked, rewritten in the zoo's format, and published by the maintainers with credit to you.</p>
+        <p>${online ? "Send a proposal without an account." : "Prepare a proposal here, then submit it through GitHub with an account."} The maintainers review proposals and publish accepted records with credit to contributors.</p>
       </div>
       <div class="contribute-routes no-math">
         <div class="route-card">
-          <h2>Use this form</h2>
-          <p>Describe the problem, where it was posed, and what is known. The maintainers take it from there and may email you about the details. Nothing appears on the site until it has been reviewed.</p>
+          <h2>${online ? "Use this form" : "Prepare a proposal"}</h2>
+          <p>Describe the problem, where it was posed, and what is known. ${online ? "The maintainers may email you about the details." : "Copy the completed text into a GitHub issue and remove contact details you do not want to publish."} Nothing appears on the site until it has been reviewed.</p>
         </div>
         <div class="route-card">
           <h2>Or write the record yourself</h2>
@@ -761,7 +771,7 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
         </div>
       </div>
 
-      <form class="proposal-form no-math" id="proposal-form" novalidate data-submit-url="${escape(submissionUrl)}" data-captcha-provider="${online ? providerKey : ""}" data-captcha-response="${online ? widget.responseField : ""}" data-limits='${escape(JSON.stringify(L))}'>
+      <form class="proposal-form no-math" id="proposal-form" novalidate data-submit-url="${escape(submissionUrl)}" data-captcha-provider="${usesCaptcha ? providerKey : ""}" data-captcha-response="${usesCaptcha ? widget.responseField : ""}" data-limits='${escape(JSON.stringify(L))}'>
         <fieldset>
           <legend>The problem</legend>
           ${field("proposal-title", "Title", input("proposal-title", "title", `required minlength="${L.title.min}" maxlength="${L.title.max}" autocomplete="off"`), "A short descriptive title, as it would head the problem page.")}
@@ -837,7 +847,7 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
     title: "Propose an open problem",
     description: `Propose an open problem for the ${config.shortName}: statement, fields and topics, sources, progress, and how to reach you. Proposals are reviewed and rewritten by the maintainers before publication.`,
     body, bodyClass: "page-contribute",
-    extraHead: online ? `<script src="${widget.script}" async defer></script>` : ""
+    extraHead: usesCaptcha ? `<script src="${widget.script}" async defer></script>` : ""
   });
 }
 

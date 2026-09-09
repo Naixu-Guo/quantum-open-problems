@@ -183,6 +183,7 @@ test("a proposal with a genuine CAPTCHA token is filed once, and a retry within 
 });
 
 test("a token the provider rejects, a filled honeypot, and an invalid body are refused before anything is filed", async () => {
+  resetBudget();
   const before = service.submissions.counts().new;
   verdict = { status: 200, body: { success: false, "error-codes": ["invalid-input-response"] } };
   const bad = await call("POST", "/api/v1/submissions", { body: proposal({ title: "A different proposal with a bad token" }), headers: { Origin: SITE } });
