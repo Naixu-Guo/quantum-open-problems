@@ -5,42 +5,39 @@
 \label{sec:op_4830398d0c2feb5f}
 
 \paragraph{Problem.}
-For a probability vector $\mathbf p=(p_I,p_X,p_Y,p_Z)$, the qubit Pauli
-channel is
+For any given probability vector $\mathbf p=(p_I,p_X,p_Y,p_Z)$, can quantum
+low-density parity-check (LDPC) stabilizer codes reliably achieve the hashing
+rate over the Pauli channel?
+
+The channel and target rate are
 \begin{equation}
   \Lambda_{\mathbf p}(\rho)
-  =p_I\rho+p_XX\rho X+p_YY\rho Y+p_ZZ\rho Z,
-  \qquad p_I+p_X+p_Y+p_Z=1,
+  :=\sum_{P\in\{I,X,Y,Z\}}p_P P\rho P,
   \label{eq:p6-pauli-channel}
 \end{equation}
-where every $p_i\ge0$, $I$ is the identity, and $X,Y,Z$ are the Pauli
-operators.  The qubit depolarizing channel is the specialization of
-Eq.~\eqref{eq:p6-pauli-channel} given by
 \begin{equation}
-  \mathcal D_p(\rho)
-  =(1-p)\rho+\frac p3\bigl(X\rho X+Y\rho Y+Z\rho Z\bigr),
-  \qquad 0\le p\le1.
-  \label{eq:p6-depolarizing-channel}
-\end{equation}
-Thus Eq.~\eqref{eq:p6-depolarizing-channel} has
-$\mathbf p=(1-p,p/3,p/3,p/3)$.  For the general channel in
-Eq.~\eqref{eq:p6-pauli-channel}, define the hashing rate by
-\begin{equation}
-  R_{\mathrm{hash}}(\mathbf p)
-  :=\max\{0,1-H(\mathbf p)\},
-  \qquad
-  H(\mathbf p):=-\sum_{i\in\{I,X,Y,Z\}}p_i\log_2p_i,
+  R_{\mathrm{hash}}(\mathbf p):=\max\{0,1-H(\mathbf p)\},
+  \qquad H(\mathbf p):=-\sum_{P\in\{I,X,Y,Z\}}p_P\log_2p_P,
   \qquad 0\log_2 0:=0.
   \label{eq:p6-hashing-bound}
 \end{equation}
-A family of stabilizer codes $[[n,k_n]]$ is quantum low-density parity-check
-(LDPC) if it has stabilizer generators of uniformly bounded weight and each
-qubit participates in a uniformly bounded number of generators.  Does there
-exist, for a given $\mathbf p$, such a family with decoding error tending to
-zero under $\Lambda_{\mathbf p}^{\otimes n}$ and asymptotic transmission rate
-$R:=\liminf_{n\to\infty}k_n/n$ satisfying
-$R\ge R_{\mathrm{hash}}(\mathbf p)$ from
-Eq.~\eqref{eq:p6-hashing-bound}?
+For Eq.~\eqref{eq:p6-pauli-channel}, seek a family of $[[n,k_n]]$ stabilizer
+codes with generator weight and qubit degree bounded independently of $n$,
+isometric encoding channels $\mathcal E_n$ into the code spaces, and CPTP
+decoders $\mathcal D_n$ back to the logical registers, such that
+\begin{equation}
+  \liminf_{n\to\infty}\frac{k_n}{n}\ge R_{\mathrm{hash}}(\mathbf p),
+  \qquad
+  F_e\!\left(2^{-k_n}I,
+    \mathcal D_n\circ\Lambda_{\mathbf p}^{\otimes n}\circ\mathcal E_n
+  \right)\longrightarrow1.
+  \label{eq:p6-reliable-rate}
+\end{equation}
+Here $F_e$ is entanglement fidelity for the maximally mixed logical input;
+Eq.~\eqref{eq:p6-reliable-rate} requires reliable transmission at the rate
+in Eq.~\eqref{eq:p6-hashing-bound}.  Transmission is unassisted, and the
+codes, decoders, and LDPC bounds may depend on $\mathbf p$.  A zero hashing
+rate permits $k_n=0$.
 
 \subsection*{Status}
 
@@ -128,9 +125,8 @@ Contributor: Bikun Li.
 
 Polar codes attain the hashing rate without LDPC constraints; the other
 results separately address threshold, finite-block performance, or distance.
-The open task is a quantum LDPC theorem for Eq.~\eqref{eq:p6-pauli-channel}
-with vanishing decoding error and rate at least
-Eq.~\eqref{eq:p6-hashing-bound}.
+The open task is to meet both the rate and reliability requirements in
+Eq.~\eqref{eq:p6-reliable-rate} with quantum LDPC codes for every $\mathbf p$.
 
 \subsection*{Field}
 

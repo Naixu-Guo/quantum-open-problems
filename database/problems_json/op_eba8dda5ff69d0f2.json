@@ -1,0 +1,88 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_eba8dda5ff69d0f2",
+  "ulid": "01M22N8KHHMWNKCXRMNY13WK37",
+  "aliases": [
+    "op_eba8dda5ff69d0f2",
+    "01M22N8KHHMWNKCXRMNY13WK37",
+    "op-eba8dda5ff69d0f2"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-09T08:41:29.905Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-communication"
+    ],
+    "topicIds": [
+      "additivity-and-regularization",
+      "matrix-and-entropy-inequalities",
+      "quantum-channel-structure"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": [
+      "01M207QTTXDG3NHDWTRA9R0203",
+      "01M202HP8CMK4SGZZE0FHGAXC1",
+      "01M1HME78010TTEQK6NFPRCGZT"
+    ]
+  },
+  "title": "Minimum output entropy additivity for qubit channels",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum Communication"
+  ],
+  "topics": [
+    "Additivity and regularization",
+    "Matrix and entropy inequalities",
+    "Quantum channel structure"
+  ],
+  "statement": "Is minimum output von Neumann entropy additive whenever one channel is a qubit channel? Let $\\Phi:\\mathcal L(\\mathbb C^2)\\to\\mathcal L(\\mathbb C^2)$ be any completely positive trace-preserving map, and let $\\Omega:\\mathcal L(A)\\to\\mathcal L(B)$ be any finite-dimensional quantum channel. For a channel $\\mathcal N$, define\n\\begin{equation}\n S_{\\min}(\\mathcal N):=\\min_{\\rho\\in\\mathcal D(A_{\\mathcal N})}S(\\mathcal N(\\rho)),\\qquad S(\\sigma):=-\\operatorname{Tr}\\sigma\\log_2\\sigma,\n \\label{eq:h11-quantities}\n\\end{equation}\nwhere $\\mathcal D(A_{\\mathcal N})$ is the set of density operators on the input space of $\\mathcal N$. Prove or disprove\n\\begin{equation}\n S_{\\min}(\\Phi\\otimes\\Omega)=S_{\\min}(\\Phi)+S_{\\min}(\\Omega)\\qquad\\text{for every such pair }(\\Phi,\\Omega).\n \\label{eq:h11-additivity}\n\\end{equation}\nIn Eq.~\\eqref{eq:h11-additivity}, both the input and output of $\\Phi$ have dimension two; no unitality assumption $\\Phi(I_2)=I_2$ is imposed. Since product inputs are admissible in the minimization of Eq.~\\eqref{eq:h11-quantities}, a counterexample must certify strict subadditivity for a specific finite-dimensional pair.",
+  "source": "Holevo explicitly records the unresolved nonunital-qubit case in Section~2.5, p.~13 of the arXiv version, in a discussion where the second channel is arbitrary \\sourcecite{ref:h11-holevo}{Hol15}. Hayashi reviews the qubit numerical evidence and the unital theorem in Section~9.9.1, pp.~552--553 \\sourcecite{ref:h11-book}{Hay17}. Ruskai notes the unresolved nonunital self-power possibility immediately after Problem~19, p.~16 \\sourcecite{ref:h11-ruskai}{Rus07}.",
+  "progress": [
+    "King's Theorem~1 proves the equality in Eq.~\\eqref{eq:h11-additivity} for every unital qubit channel with an arbitrary channel as partner. It also proves maximal output Schatten-$p$ norm multiplicativity for every $p\\geq1$ in this unital setting \\sourcecite{ref:h11-king}{Kin02}.",
+    "King and Koldan's Theorem~1 proves maximal output Schatten-$p$ norm multiplicativity for arbitrary qubit channels at $p=2$ and $p\\geq4$, with an arbitrary finite-dimensional completely positive partner. These orders do not establish the von Neumann-entropy equality in Eq.~\\eqref{eq:h11-additivity} \\sourcecite{ref:h11-kk}{KK06}.",
+    "Large-dimensional nonadditivity results do not settle the qubit restriction. Leung, Lovitz, and Wu's July~2026 preprint obtains random-channel counterexamples for R\\'enyi orders $p>3/4$ and $0\\leq p<1/4$. At $p=1$, its Section~5.1 numerically evaluates an ensemble-specific Bell-input threshold at output dimension $182$; this is neither a qubit counterexample nor a proof of a universal dimension threshold \\sourcecite{ref:h11-llw}{LLW26}."
+  ],
+  "references": [
+    {
+      "key": "Hay17",
+      "label": "ref:h11-book",
+      "tex": "M. Hayashi, \\emph{Quantum Information Theory: Mathematical Foundation}, 2nd ed., Graduate Texts in Physics, Springer (2017). \\href{https://doi.org/10.1007/978-3-662-49725-8}{doi:10.1007/978-3-662-49725-8}."
+    },
+    {
+      "key": "Hol15",
+      "label": "ref:h11-holevo",
+      "tex": "A. S. Holevo, ``Gaussian optimizers and the additivity problem in quantum information theory,'' \\emph{Russian Mathematical Surveys} \\textbf{70}(2), 331--367 (2015). \\href{https://doi.org/10.1070/RM2015v070n02ABEH004949}{doi:10.1070/RM2015v070n02ABEH004949}; \\href{https://arxiv.org/abs/1501.00652}{arXiv:1501.00652}."
+    },
+    {
+      "key": "Rus07",
+      "label": "ref:h11-ruskai",
+      "tex": "M. B. Ruskai, ``Open Problems in Quantum Information Theory,'' preprint (2007). \\href{https://arxiv.org/abs/0708.1902}{arXiv:0708.1902}."
+    },
+    {
+      "key": "Kin02",
+      "label": "ref:h11-king",
+      "tex": "C. King, ``Additivity for unital qubit channels,'' \\emph{Journal of Mathematical Physics} \\textbf{43}, 4641--4653 (2002). \\href{https://doi.org/10.1063/1.1500791}{doi:10.1063/1.1500791}; \\href{https://arxiv.org/abs/quant-ph/0103156}{arXiv:quant-ph/0103156}."
+    },
+    {
+      "key": "KK06",
+      "label": "ref:h11-kk",
+      "tex": "C. King and N. Koldan, ``New multiplicativity results for qubit maps,'' \\emph{Journal of Mathematical Physics} \\textbf{47}(4), 042106 (2006). \\href{https://doi.org/10.1063/1.2191787}{doi:10.1063/1.2191787}; \\href{https://arxiv.org/abs/quant-ph/0512185}{arXiv:quant-ph/0512185}."
+    },
+    {
+      "key": "LLW26",
+      "label": "ref:h11-llw",
+      "tex": "D. Leung, B. Lovitz, and P. Wu, ``Counterexamples to additivity of minimum output $p$-R\\'enyi entropy of quantum channels for all $p>3/4$ and $0\\leq p<1/4$,'' preprint (2026). \\href{https://arxiv.org/abs/2607.15210}{arXiv:2607.15210}."
+    }
+  ],
+  "comment": "Audited on 2026-09-09 against the full source statements and later nonadditivity literature. The nonunital qubit case remains unresolved. The smallest-output-dimension record permits arbitrary input dimensions and bounds both output dimensions, whereas this question fixes one channel to have qubit input and output and leaves its partner unrestricted. The closed-form-witness record permits arbitrary dimensions, so a solution there need not answer this question. Two related unresolved variants are Holevo-capacity additivity with an arbitrary partner and minimum-output-entropy additivity on self-powers of a qubit channel. A general partner counterexample need not yield a qubit self-power counterexample. The universal additivity equivalences in unrestricted dimensions do not justify identifying the Holevo and minimum-output-entropy questions with these dimension constraints."
+}

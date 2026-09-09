@@ -1,0 +1,71 @@
+% Problem record op_722706a9205dcff2. This TeX file is derived from
+% database/problems_json/op_722706a9205dcff2.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Loss of mixed unitarity after a positive time in a quantum dynamical semigroup}
+\label{sec:op_722706a9205dcff2}
+
+\paragraph{Problem.}
+Does there exist a norm-continuous semigroup $(\Phi_t)_{t\geq0}$ of
+unital completely positive trace-preserving maps on $\mathcal L(\mathbb C^d)$,
+for some finite integer $d\geq3$, such that $\Phi_s$ is mixed unitary and
+$\Phi_t$ is not mixed unitary for some $0<s<t$?
+Here $\Phi_0=\operatorname{id}$ and $\Phi_{u+v}=\Phi_u\circ\Phi_v$ for
+$u,v\geq0$. A map $\Psi$ is mixed unitary if it admits
+\begin{equation}
+  \Psi(X)=\sum_{j=1}^{N}p_j U_j XU_j^\dagger,
+  \qquad p_j\geq0,\qquad\sum_{j=1}^{N}p_j=1,
+  \label{eq:72270-mixed-unitary}
+\end{equation}
+for every $X\in\mathcal L(\mathbb C^d)$, where $N$ is finite and the
+$U_j$ in Eq.~\eqref{eq:72270-mixed-unitary} are unitary.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Bhat and Devendra explicitly ask whether the first positive mixed-unitary
+time can precede the eventual threshold; see the unnumbered remark after
+Theorem~5.4, p.~21 of version~2 \sourcecite{ref:72270-bhat}{BD26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Every such semigroup is mixed unitary at all sufficiently large times
+(Theorem~4.12). Unless it is mixed unitary at every time, Theorem~5.4 gives
+a first positive mixed-unitary time $t_0$ and the least eventual threshold
+$t_1\geq t_0$. The authors leave $t_0<t_1$ open
+\sourcecite{ref:72270-bhat}{BD26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[BD26]}]\label{ref:72270-bhat}
+  B. V. Rajarama Bhat and R. Devendra, ``On regions of mixed unitarity
+for semigroups of unital quantum channels,'' arXiv preprint (2025),
+version~2 revised 7 February 2026.
+\href{https://doi.org/10.48550/arXiv.2512.23598}{doi:10.48550/arXiv.2512.23598};
+\href{https://arxiv.org/abs/2512.23598v2}{arXiv:2512.23598v2}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The question is equivalent to $t_0<t_1$; eventual mixed unitarity alone
+does not settle it. Literature audit: 9 September 2026. The latest source
+version remains a preprint explicitly leaving this gap open. No later
+resolution was located in indexed literature; unindexed work cannot be excluded.
+
+\subsection*{Field}
+
+Quantum Communication
+
+\subsection*{Topic}
+
+Quantum channel structure
+
+\subsection*{ID}
+
+\texttt{op\_722706a9205dcff2}

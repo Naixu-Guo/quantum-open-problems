@@ -1,0 +1,58 @@
+% Problem record op_2e43f525333b67c0. This TeX file is derived from
+% database/problems_json/op_2e43f525333b67c0.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Second-level collapse of the exact PPT entanglement-cost hierarchy}
+\label{sec:op_2e43f525333b67c0}
+
+\paragraph{Problem.}
+Does the semidefinite hierarchy for exact PPT entanglement cost collapse at its second level for every finite-dimensional bipartite density operator $\rho_{AB}$? Let $\Gamma=\operatorname{id}_A\otimes T_B$ denote partial transpose. For an integer $p\geq0$, define
+\begin{equation}
+ E_{\chi,p}(\rho):=\log_2\min_{S_0,\ldots,S_p}\left\{\operatorname{Tr}S_p:\ -S_i\leq S_{i-1}^{\Gamma}\leq S_i\ (0\leq i\leq p),\ S_{-1}=\rho\right\},
+ \label{eq:h9-chi}
+\end{equation}
+where the variables in Eq.~\eqref{eq:h9-chi} are Hermitian operators on $A\otimes B$ and the inequalities are in the positive-semidefinite order. Prove or disprove
+\begin{equation}
+ E_{\chi,3}(\rho)=E_{\chi,2}(\rho)\qquad\text{for every }\rho_{AB}.
+ \label{eq:h9-collapse}
+\end{equation}
+A counterexample to Eq.~\eqref{eq:h9-collapse} must establish a strict gap.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Conjecture S33 in the Supplement subsection ``Open problem: hierarchy collapse'' of Lami, Mele, and Regula explicitly poses Eq.~\eqref{eq:h9-collapse}; their Definition S5 gives Eq.~\eqref{eq:h9-chi} \sourcecite{ref:h9-lami}{LMR25}. This is a precise conjecture within the supplied note's broader single-letter PPT-cost question.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item The hierarchy converges to the exact asymptotic PPT entanglement cost. Equality of consecutive levels forces all later levels to coincide, so Eq.~\eqref{eq:h9-collapse} would identify that cost with $E_{\chi,2}$; see the Supplement subsection ``Open problem: hierarchy collapse'' \sourcecite{ref:h9-lami}{LMR25}. Here exact cost means the asymptotic number of maximally entangled qubit pairs per target copy under completely PPT-preserving channels, with zero preparation error at each block length.
+
+  \item The peer-reviewed paper reports numerical evidence for Eq.~\eqref{eq:h9-collapse}, without a proof or counterexample. Its polynomial-time approximation theorem does not establish finite collapse \sourcecite{ref:h9-lami}{LMR25}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[LMR25]}]\label{ref:h9-lami}
+  L. Lami, F. A. Mele, and B. Regula, ``Computable Entanglement Cost under Positive Partial Transpose Operations,'' \emph{Physical Review Letters} \textbf{134}, 090202 (2025). \href{https://doi.org/10.1103/PhysRevLett.134.090202}{doi:10.1103/PhysRevLett.134.090202}; \href{https://arxiv.org/abs/2405.09613}{arXiv:2405.09613}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+Audited on 2026-09-09 against the full primary-source supplement and searches for subsequent hierarchy-collapse results; no verified resolution was found. The supplied note's claim of strict separation between the second and third levels is not supported by this source. Exact PPT distillation in catalog record \texttt{op\_75b91a20dd384110} concerns extracting entanglement and has a different operational target. The present statement asks a specific universal identity; a negative answer would not exclude another finite-level or single-letter formula.
+
+\subsection*{Field}
+
+Quantum Resource Theory
+
+\subsection*{Topic}
+
+Entanglement cost; PPT-preserving operations; Entanglement measures
+
+\subsection*{ID}
+
+\texttt{op\_2e43f525333b67c0}

@@ -1,0 +1,53 @@
+---
+id: "01M1HME7800GAYCEBF3MNS33JF"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 3
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-09T05:30:11.274Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "editor-formulated"
+posed: null
+areaIds: ["quantum-error-correction"]
+topicIds: ["quantum-ldpc-codes","quantum-coding-theory","decoding-algorithms"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Quantum LDPC codes at the Pauli hashing bound"
+aliases: ["op-4830398d0c2feb5f","op_4830398d0c2feb5f","01M1HME7800GAYCEBF3MNS33JF","v2-quantum-ldpc-codes-at-the-pauli-hashing-bound","open-problem-v2-problem-6"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_4830398d0c2feb5f.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_4830398d0c2feb5f","ulid":"01M1HME7800GAYCEBF3MNS33JF","aliases":["op_4830398d0c2feb5f","01M1HME7800GAYCEBF3MNS33JF","op-4830398d0c2feb5f","v2-quantum-ldpc-codes-at-the-pauli-hashing-bound","open-problem-v2-problem-6"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":4,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-04T22:04:59Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"editor-formulated","posed":null,"areaIds":["quantum-error-correction"],"topicIds":["quantum-ldpc-codes","quantum-coding-theory","decoding-algorithms"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Quantum LDPC codes at the Pauli hashing bound","status":"Unsolved","fields":["Quantum Error Correction"],"topics":["Quantum LDPC codes","Quantum coding theory","Decoding algorithms"],"statement":"For any given probability vector $\\mathbf p=(p_I,p_X,p_Y,p_Z)$, can quantum\nlow-density parity-check (LDPC) stabilizer codes reliably achieve the hashing\nrate over the Pauli channel?\n\nThe channel and target rate are\n\\begin{equation}\n  \\Lambda_{\\mathbf p}(\\rho)\n  :=\\sum_{P\\in\\{I,X,Y,Z\\}}p_P P\\rho P,\n  \\label{eq:p6-pauli-channel}\n\\end{equation}\n\\begin{equation}\n  R_{\\mathrm{hash}}(\\mathbf p):=\\max\\{0,1-H(\\mathbf p)\\},\n  \\qquad H(\\mathbf p):=-\\sum_{P\\in\\{I,X,Y,Z\\}}p_P\\log_2p_P,\n  \\qquad 0\\log_2 0:=0.\n  \\label{eq:p6-hashing-bound}\n\\end{equation}\nFor Eq.~\\eqref{eq:p6-pauli-channel}, seek a family of $[[n,k_n]]$ stabilizer\ncodes with generator weight and qubit degree bounded independently of $n$,\nisometric encoding channels $\\mathcal E_n$ into the code spaces, and CPTP\ndecoders $\\mathcal D_n$ back to the logical registers, such that\n\\begin{equation}\n  \\liminf_{n\\to\\infty}\\frac{k_n}{n}\\ge R_{\\mathrm{hash}}(\\mathbf p),\n  \\qquad\n  F_e\\!\\left(2^{-k_n}I,\n    \\mathcal D_n\\circ\\Lambda_{\\mathbf p}^{\\otimes n}\\circ\\mathcal E_n\n  \\right)\\longrightarrow1.\n  \\label{eq:p6-reliable-rate}\n\\end{equation}\nHere $F_e$ is entanglement fidelity for the maximally mixed logical input;\nEq.~\\eqref{eq:p6-reliable-rate} requires reliable transmission at the rate\nin Eq.~\\eqref{eq:p6-hashing-bound}.  Transmission is unassisted, and the\ncodes, decoders, and LDPC bounds may depend on $\\mathbf p$.  A zero hashing\nrate permits $k_n=0$.","source":"Contributor: Bikun Li.","progress":["The XZZX surface code is an explicit quantum LDPC family whose\n  numerically estimated code-capacity threshold closely matches the zero-rate\n  hashing threshold for every single-qubit Pauli channel; for depolarizing\n  noise its reported threshold is $18.7(1)\\%$.  It encodes only $O(1)$ qubits\n  into $n=O(d^2)$ qubits, however, so its asymptotic rate is zero\n  \\sourcecite{ref:p6-xzzx}{BAT+21}.","Kasai reported a nonbinary quantum LDPC code of rate $1/3$ with\n  $312{,}000$ physical and $104{,}000$ logical qubits, attaining frame-error\n  rate $10^{-4}$ at depolarizing error probability $p=9.45\\%$.  This is strong\n  finite-length numerical progress, but at that $p$ Eq.~\\eqref{eq:p6-hashing-bound}\n  gives $R_{\\mathrm{hash}}\\simeq0.399>1/3$, and no asymptotic\n  capacity-achieving theorem is proved\n  \\sourcecite{ref:p6-kasai-degeneracy}{Kas25}.","More recently, fixed-degree quantum LDPC ensembles were proved to have\n  nonvanishing rate and relative distance with high probability; selected\n  finite degree choices attain the CSS Gilbert--Varshamov distance bound.\n  These distance guarantees do not by themselves establish reliable Pauli\n  channel transmission at the rate in Eq.~\\eqref{eq:p6-hashing-bound}\n  \\sourcecite{ref:p6-kasai-gv}{Kas26}.","Quantum polar codes attain the hashing rate without establishing the\n  LDPC constraints.  The entanglement-assisted CSS construction of Renes,\n  Dupuis, and Renner has net rate $1-H(\\mathbf p)$ and efficient operations\n  for Pauli channels, but can consume preshared ebits\n  \\sourcecite{ref:p6-renes-2012}{RDR12}.  The later unassisted two-level CSS\n  construction has vanishing error and rate at least\n  $\\max\\{0,1-H(\\mathbf p)\\}$, with $O(n\\log n)$ encoding and decoding once\n  its frozen sets are specified; efficient construction of the outer frozen\n  set was left open \\sourcecite{ref:p6-renes-2015}{RSDR15}.  Neither work\n  proves bounded check weight or bounded qubit degree."],"references":[{"key":"BAT+21","label":"ref:p6-xzzx","tex":"J. P. Bonilla Ataides, D. K. Tuckett, S. D. Bartlett, S. T. Flammia, and\n  B. J. Brown, ``The XZZX Surface Code,'' \\emph{Nature Communications}\n  \\textbf{12}, 2172 (2021).\n  \\href{https://doi.org/10.1038/s41467-021-22274-1}{doi:10.1038/s41467-021-22274-1};\n  \\href{https://arxiv.org/abs/2009.07851}{arXiv:2009.07851}."},{"key":"Kas25","label":"ref:p6-kasai-degeneracy","tex":"K. Kasai, ``Quantum Error Correction Exploiting Degeneracy to Approach the\n  Hashing Bound'' (2025).\\newline\n  \\href{https://arxiv.org/abs/2506.15636}{arXiv:2506.15636}."},{"key":"Kas26","label":"ref:p6-kasai-gv","tex":"K. Kasai, ``Finite-Degree Quantum LDPC Codes Reaching the\n  Gilbert--Varshamov Bound'' (2026).\\newline\n  \\href{https://arxiv.org/abs/2603.24588}{arXiv:2603.24588}."},{"key":"RDR12","label":"ref:p6-renes-2012","tex":"J. M. Renes, F. Dupuis, and R. Renner,\n  ``Efficient Polar Coding of Quantum Information,''\n  \\emph{Physical Review Letters} \\textbf{109}, 050504 (2012).\n  \\href{https://doi.org/10.1103/PhysRevLett.109.050504}{doi:10.1103/PhysRevLett.109.050504};\n  \\href{https://arxiv.org/abs/1109.3195}{arXiv:1109.3195}."},{"key":"RSDR15","label":"ref:p6-renes-2015","tex":"J. M. Renes, D. Sutter, F. Dupuis, and R. Renner,\n  ``Efficient Quantum Polar Codes Requiring No Preshared Entanglement,''\n  \\emph{IEEE Transactions on Information Theory} \\textbf{61}, 6395--6414\n  (2015).\n  \\href{https://doi.org/10.1109/TIT.2015.2468084}{doi:10.1109/TIT.2015.2468084};\n  \\href{https://arxiv.org/abs/1307.1136}{arXiv:1307.1136}."}],"comment":"Polar codes attain the hashing rate without LDPC constraints; the other\nresults separately address threshold, finite-block performance, or distance.\nThe open task is to meet both the rate and reliability requirements in\nEq.~\\eqref{eq:p6-reliable-rate} with quantum LDPC codes for every $\\mathbf p$."}}
+---
+## Source
+
+Contributor: Bikun Li.
+
+## Progress
+
+The XZZX surface code is an explicit quantum LDPC family whose numerically estimated code-capacity threshold closely matches the zero-rate hashing threshold for every single-qubit Pauli channel; for depolarizing noise its reported threshold is $18.7(1)\%$. It encodes only $O(1)$ qubits into $n=O(d^2)$ qubits, however, so its asymptotic rate is zero [BAT+21](https://doi.org/10.1038/s41467-021-22274-1).
+
+Kasai reported a nonbinary quantum LDPC code of rate $1/3$ with $312{,}000$ physical and $104{,}000$ logical qubits, attaining frame-error rate $10^{-4}$ at depolarizing error probability $p=9.45\%$. This is strong finite-length numerical progress, but at that $p$ Eq. (2) gives $R_{\mathrm{hash}}\simeq0.399>1/3$, and no asymptotic capacity-achieving theorem is proved [Kas25](https://arxiv.org/abs/2506.15636).
+
+More recently, fixed-degree quantum LDPC ensembles were proved to have nonvanishing rate and relative distance with high probability; selected finite degree choices attain the CSS Gilbert–Varshamov distance bound. These distance guarantees do not by themselves establish reliable Pauli channel transmission at the rate in Eq. (2) [Kas26](https://arxiv.org/abs/2603.24588).
+
+Quantum polar codes attain the hashing rate without establishing the LDPC constraints. The entanglement-assisted CSS construction of Renes, Dupuis, and Renner has net rate $1-H(\mathbf p)$ and efficient operations for Pauli channels, but can consume preshared ebits [RDR12](https://doi.org/10.1103/PhysRevLett.109.050504). The later unassisted two-level CSS construction has vanishing error and rate at least $\max\{0,1-H(\mathbf p)\}$, with $O(n\log n)$ encoding and decoding once its frozen sets are specified; efficient construction of the outer frozen set was left open [RSDR15](https://doi.org/10.1109/TIT.2015.2468084). Neither work proves bounded check weight or bounded qubit degree.
+
+## Comment
+
+Polar codes attain the hashing rate without LDPC constraints; the other results separately address threshold, finite-block performance, or distance. The open task is to meet both the rate and reliability requirements in Eq. (3) with quantum LDPC codes for every $\mathbf p$.
+
+## References
+
+**BAT+21** J. P. Bonilla Ataides, D. K. Tuckett, S. D. Bartlett, S. T. Flammia, and B. J. Brown, “The XZZX Surface Code,” *Nature Communications* **12**, 2172 (2021). [doi:10.1038/s41467-021-22274-1](https://doi.org/10.1038/s41467-021-22274-1); [arXiv:2009.07851](https://arxiv.org/abs/2009.07851).
+
+**Kas25** K. Kasai, “Quantum Error Correction Exploiting Degeneracy to Approach the Hashing Bound” (2025).
+ [arXiv:2506.15636](https://arxiv.org/abs/2506.15636).
+
+**Kas26** K. Kasai, “Finite-Degree Quantum LDPC Codes Reaching the Gilbert–Varshamov Bound” (2026).
+ [arXiv:2603.24588](https://arxiv.org/abs/2603.24588).
+
+**RDR12** J. M. Renes, F. Dupuis, and R. Renner, “Efficient Polar Coding of Quantum Information,” *Physical Review Letters* **109**, 050504 (2012). [doi:10.1103/PhysRevLett.109.050504](https://doi.org/10.1103/PhysRevLett.109.050504); [arXiv:1109.3195](https://arxiv.org/abs/1109.3195).
+
+**RSDR15** J. M. Renes, D. Sutter, F. Dupuis, and R. Renner, “Efficient Quantum Polar Codes Requiring No Preshared Entanglement,” *IEEE Transactions on Information Theory* **61**, 6395–6414 (2015). [doi:10.1109/TIT.2015.2468084](https://doi.org/10.1109/TIT.2015.2468084); [arXiv:1307.1136](https://arxiv.org/abs/1307.1136).
