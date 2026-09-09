@@ -52,6 +52,9 @@ To enable basic protection, set these in the private `/etc/qop/service.env`:
 QOP_SUBMISSIONS_MODE=basic
 QOP_SUBMISSION_ORIGINS=https://qiqc-op.com,https://www.qiqc-op.com
 QOP_SUBMISSIONS_PER_HOUR=10
+QOP_SUBMISSIONS_GLOBAL_PER_HOUR=100
+QOP_SUBMISSIONS_MAX_ROWS=10000
+QOP_SUBMISSIONS_MAX_BYTES=268435456
 ```
 
 Generate a new random key on the operator's computer:
@@ -80,6 +83,45 @@ and request metadata and download to the maintainer's computer; no AI service is
 called. The review note and status can be saved in the inbox. Marking accepted
 does not publish a record. The usual catalog PR workflow still publishes it.
 The inbox SQLite file is included in the existing daily backup.
+
+The global hourly budget counts attempts across every address, including failed
+validation and CAPTCHA attempts. Its one-hour window starts with the first
+attempt and survives restarts. The inbox stops accepting new proposals at
+10,000 stored rows or its 256 MiB database ceiling, returning 429 for the hourly
+budget and 503 for storage/row capacity. Duplicate receipts remain idempotent
+within the existing daily window. No proposal is automatically deleted; marking
+spam, rejected, or accepted still consumes capacity.
+
+The inbox shows an 80% warning and full-capacity alert, refreshes capacity every
+minute while open, and retains the last alert after recovery. The database
+reserves up to 1 MiB for alert bookkeeping and review notes and refuses an insert
+that would use that reserve. SQLite also enforces a physical main-file ceiling;
+WAL checkpoints run every 256 pages and retain at most 1 MiB after checkpoint.
+An external reader holding a long SQLite transaction can delay WAL truncation.
+Archive entries under operator control after a backup, or raise the limits and
+restart the service. Lowering a limit preserves existing entries and prevents
+new growth; it does not shrink an existing database automatically.
+
+### GitHub capacity notifications
+
+Use a separate random 32-byte key for the aggregate-only endpoint
+`GET /inbox/capacity`. Set its SHA-256 hash in the server environment as
+`QOP_INBOX_MONITOR_KEY_HASH`; store the raw key only as the repository Actions
+secret `QOP_INBOX_MONITOR_KEY`. Never reuse the inbox management key. This key
+cannot read submissions, create a login session, or write ledger records.
+
+The `Monitor proposal inbox capacity` workflow runs approximately every 15 minutes
+and can be dispatched manually. Configure the secret after the new API is deployed,
+then run the workflow once. The workflow uses its temporary GitHub token with
+only `contents: read` and `issues: write`; the server receives no GitHub credentials.
+It creates an issue assigned to `Naixu-Guo`, adds one notification per new threshold
+alert, and closes the issue after recovery. Repeated checks reuse the same issue
+without repeated comments. Alerts include aggregate usage only, with no proposal
+text, author names, or email addresses. Delivery follows the recipient's GitHub
+notification settings. GitHub schedules can be delayed, and scheduled workflows
+in inactive public repositories can be disabled; check the workflow status during
+routine maintenance. Persistent alerts ensure a later run still sees a recovered
+incident.
 
 Authenticated research writes remain a separate optional setup: provision a
 verified human editor with `bootstrap-editor <numeric-github-user-id> "Full Name"`,

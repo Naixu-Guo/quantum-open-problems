@@ -34,6 +34,13 @@ export async function handleInbox(service: Service, request: http.IncomingMessag
     response.end(JSON.stringify(body));
   };
   if (request.method === "GET") {
+    if (url.pathname === "/inbox/capacity") {
+      const monitorHash = service.submissionsConfig.monitorKeyHash;
+      const bearer = request.headers.authorization?.match(/^Bearer (.+)$/u)?.[1];
+      const monitor = Boolean(monitorHash && bearer && timingSafeEqual(Buffer.from(hashKey(bearer), "hex"), Buffer.from(monitorHash, "hex")));
+      if (!monitor && !service.auth.validInboxSession(token, keyHash)) throw new HttpError(401, "an inbox session or read-only capacity monitor key is required");
+      json(service.submissions.capacity.usage()); return true;
+    }
     if (url.pathname === "/inbox") {
       response.writeHead(308, { ...headers, Location: "/inbox/" }); response.end(); return true;
     }
