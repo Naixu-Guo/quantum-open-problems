@@ -7,15 +7,20 @@ This directory is the only content source of the QIQCOP Zoo website.
   record uses `qiqcop-zoo/record/3` and holds the title, status, fields,
   topics, stable `op_` ID, ULID, aliases, main-compatible metadata, and the TeX of every section
   (statement, source, progress items, references, comment) as strings.
+  The optional `contributors` array records public credit choices for this
+  problem only. Include a person's name only with their permission for this
+  record; anonymous entries contain only `anonymous: true` and are not shown
+  on the page. Keep email addresses and private contact details out of public
+  records. See [Public contributor credit](../CONTRIBUTING.md#public-contributor-credit).
   `_template.json` shows the shape and `../CONTRIBUTING.md` explains the
   fields.
 - `problems_tex/<id>.tex`: the TeX form of each record, in the layout of
   `_template.tex`. It is what `problem/<id>/<id>.tex` serves on the site and
   what a TeX collection can `\input`. It is kept in step with the JSON record
   by `node scripts/sync-tex.mjs`, and the build fails when the two disagree.
-  The additional identifiers and metadata are excluded from the TeX content
-  comparison; they remain part of the full JSON hash. Edit the JSON record,
-  then regenerate this file.
+  The additional identifiers, metadata, and contributor credit choices are
+  excluded from the TeX content comparison; they remain part of the full JSON
+  hash. Edit the JSON record, then regenerate this file.
 - `tags.json`: the taxonomy, two disjoint lists of names. A record uses one
   or two `fields` (broad research areas) and one to five `topics` (specific
   objects, techniques, and settings), spelled exactly. TeX files written
@@ -49,8 +54,8 @@ Run `node scripts/migrate-metadata.mjs` to initialize missing identifiers
 and metadata and sync taxonomy IDs, or add `--check` to verify without writing.
 The script is idempotent and uses the pinned crosswalk; it does not overwrite
 scientific content or merge new changes from main. TeX imports preserve existing
-identifiers and metadata, and require `--replace` to replace an existing
-record's content.
+identifiers, metadata, and contributor credit choices, and require `--replace`
+to replace an existing record's content.
 
 Create new records with `node scripts/new-problem-id.mjs --create`, which
 writes a scaffold with fresh permanent identifiers. Fill in the authored

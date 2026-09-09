@@ -389,6 +389,7 @@ for (const record of records) {
     progress: record.progress,
     comment: record.comment,
     references: record.references,
+    ...(record.contributors === undefined ? {} : { contributors: record.contributors.filter((person) => person.anonymous === false) }),
     equations: record.equations,
     equivalentRecords: record.equivalentRecords,
     related: relatedFor(record).map((item) => ({ id: item.record.id, title: item.record.title.text, sharedFields: item.sharedFields, sharedTopics: item.sharedTopics })),
