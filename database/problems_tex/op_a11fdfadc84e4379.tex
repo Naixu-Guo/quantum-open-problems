@@ -1,0 +1,192 @@
+% Problem record op_a11fdfadc84e4379. This TeX file is derived from
+% database/problems_json/op_a11fdfadc84e4379.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Aaronson–Ambainis conjecture}
+\label{sec:op_a11fdfadc84e4379}
+
+\paragraph{Problem.}
+Must every bounded low-degree real polynomial on the Boolean cube with
+non-negligible variance have a variable of inverse-polynomial influence?
+
+Let $p:\mathbb R^N\to\mathbb R$ be a real multilinear polynomial of degree
+at most $d$ satisfying
+\begin{equation}
+  0\leq p(X)\leq 1
+  \qquad
+  \text{for every }X\in\{0,1\}^N .
+  \label{eq:a11f-bounded}
+\end{equation}
+For $i\in[N]$, let $X^{(i)}$ denote $X$ with its $i$-th bit flipped, and
+define the influence of the $i$-th variable by
+\begin{equation}
+  \operatorname{Inf}_i[p]
+  =
+  \mathbb E_{X\in\{0,1\}^N}
+  \left[
+    \left(
+      p(X)-p(X^{(i)})
+    \right)^2
+  \right].
+  \label{eq:a11f-influence}
+\end{equation}
+Define the variance of $p$ on the uniform Boolean cube by
+\begin{equation}
+  \operatorname{Var}[p]
+  =
+  \mathbb E_{X\in\{0,1\}^N}
+  \left[
+    \left(
+      p(X)-\mathbb E[p]
+    \right)^2
+  \right].
+  \label{eq:a11f-variance}
+\end{equation}
+Suppose that for some $\varepsilon>0$,
+\begin{equation}
+  \operatorname{Var}[p]\geq\varepsilon .
+  \label{eq:a11f-nontrivial}
+\end{equation}
+The Aaronson--Ambainis conjecture asks whether there is a universal constant
+$C>0$ such that every polynomial satisfying \eqref{eq:a11f-bounded} and
+\eqref{eq:a11f-nontrivial} has some coordinate $i\in[N]$ whose influence,
+as defined in \eqref{eq:a11f-influence}, satisfies
+\begin{equation}
+  \operatorname{Inf}_i[p]
+  \geq
+  \left(\frac{\varepsilon}{d}\right)^C .
+  \label{eq:a11f-conjecture}
+\end{equation}
+Equivalently, the conjecture asks whether the maximum influence can always be
+bounded below by a fixed polynomial in $1/d$ and the variance
+\eqref{eq:a11f-variance}, independently of the ambient dimension $N$.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Explicitly proposed by Scott Aaronson and Andris Ambainis in Aaronson and
+Ambainis (2014), Conjecture~1.7, under the name ``Bounded Polynomials Have
+Influential Variables''
+\sourcecite{ref:a11f-aa}{AA14}.  The related statement asserting
+polynomial-query classical simulation of a quantum query algorithm on most
+inputs appears separately as Conjecture~1.5 in the same paper and is
+explicitly described there as folklore; it should therefore not be
+attributed as an original Aaronson--Ambainis conjecture.  The formulation in
+the statement above is a self-contained restatement of Conjecture~1.7 rather
+than a verbatim quotation.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Beals, Buhrman, Cleve, Mosca, and de Wolf showed that the acceptance
+probability of a quantum algorithm making $T$ oracle queries is represented
+by a real multilinear polynomial of degree at most $2T$; bounded low-degree
+polynomials such as those in the statement therefore capture a fundamental
+aspect of quantum query algorithms
+\sourcecite{ref:a11f-bbc}{BBCMW01}.
+
+  \item Aaronson and Ambainis proposed the influence conjecture under the name
+``Bounded Polynomials Have Influential Variables'' and showed it would imply
+a strong classical-simulation principle: for every $T$-query quantum
+algorithm and every positive approximation and failure parameters, a
+deterministic classical algorithm using a polynomial number of queries can
+approximate the quantum algorithm's acceptance probability on all but a
+small fraction of Boolean inputs.  The conjecture would thereby formalize
+that superpolynomial quantum query speedups require substantial promise
+structure rather than occurring generically on the Boolean cube
+\sourcecite{ref:a11f-aa}{AA14}.
+
+  \item The influential-variable conjecture should be distinguished from the
+simulation statement: in the same paper the almost-everywhere
+classical-simulation statement appears separately as a folklore conjecture,
+while the influence conjecture is the route Aaronson and Ambainis introduced
+toward it
+\sourcecite{ref:a11f-aa}{AA14}.
+
+  \item Bansal, Sinha, and de Wolf proved the desired inverse-polynomial influence
+bound for completely bounded degree-$d$ block-multilinear forms with
+constant variance, giving almost-everywhere classical simulation for a
+corresponding class of quantum query algorithms including iterated
+Forrelation; this does not establish the conjecture for arbitrary bounded
+low-degree polynomials
+\sourcecite{ref:a11f-bsw}{BSW22}.
+
+  \item Bhattacharya proved a partial result via random restrictions: a bounded
+degree-$d$ polynomial becomes well approximated by a polynomial-size junta
+after an appropriate random restriction with high probability, and the
+Aaronson--Ambainis conclusion holds for a non-negligible fraction of such
+restrictions under an appropriate variance condition.  This establishes
+additional structure in bounded low-degree polynomials but does not prove
+the conjecture without restriction
+\sourcecite{ref:a11f-bhatt}{Bhat25}.
+
+  \item Blanc, Docter, Strassle, and Tan proved the associated almost-everywhere
+classical-simulation conjecture for bounded-round quantum query algorithms:
+a $t$-query, $d$-round quantum algorithm can be simulated on most inputs
+using $t^{O(d^2)}$ classical queries, giving polynomial overhead for
+constant $d$.  Their result does not prove the influence conjecture for
+arbitrary bounded polynomials and does not settle the unrestricted adaptive
+quantum-query simulation problem
+\sourcecite{ref:a11f-bdst}{BDST26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[AA14]}]\label{ref:a11f-aa}
+  Scott Aaronson and Andris Ambainis, ``The Need for Structure in Quantum
+Speedups,'' \emph{Theory of Computing} \textbf{10}, 133--166 (2014).
+\href{https://doi.org/10.4086/toc.2014.v010a006}{doi:10.4086/toc.2014.v010a006};
+\href{https://arxiv.org/abs/0911.0996}{arXiv:0911.0996}.
+
+  \item[\textup{[BBCMW01]}]\label{ref:a11f-bbc}
+  Robert Beals, Harry Buhrman, Richard Cleve, Michele Mosca, and Ronald de
+Wolf, ``Quantum Lower Bounds by Polynomials,'' \emph{Journal of the ACM}
+\textbf{48}, 778--797 (2001).
+\href{https://doi.org/10.1145/502090.502097}{doi:10.1145/502090.502097};
+\href{https://arxiv.org/abs/quant-ph/9802049}{arXiv:quant-ph/9802049}.
+
+  \item[\textup{[BSW22]}]\label{ref:a11f-bsw}
+  Nikhil Bansal, Makrand Sinha, and Ronald de Wolf, ``Influence in
+Completely Bounded Block-Multilinear Forms and Classical Simulation of
+Quantum Algorithms,'' in \emph{37th Computational Complexity Conference
+(CCC 2022)}, LIPIcs \textbf{234}, 28:1--28:21 (2022).
+\href{https://doi.org/10.4230/LIPIcs.CCC.2022.28}{doi:10.4230/LIPIcs.CCC.2022.28};
+\href{https://arxiv.org/abs/2203.00212}{arXiv:2203.00212}.
+
+  \item[\textup{[Bhat25]}]\label{ref:a11f-bhatt}
+  Sreejata Kishor Bhattacharya, ``Random Restrictions of Bounded Low Degree
+Polynomials Are Juntas,'' in \emph{16th Innovations in Theoretical Computer
+Science Conference (ITCS 2025)}, LIPIcs \textbf{325}, 17:1--17:21 (2025).
+\href{https://doi.org/10.4230/LIPIcs.ITCS.2025.17}{doi:10.4230/LIPIcs.ITCS.2025.17};
+\href{https://arxiv.org/abs/2402.13952}{arXiv:2402.13952}.
+
+  \item[\textup{[BDST26]}]\label{ref:a11f-bdst}
+  Guy Blanc, Jordan Docter, Carmen Strassle, and Li-Yang Tan, ``Quantum
+Speedups Require Structure or Depth,'' to appear in \emph{67th IEEE Symposium
+on Foundations of Computer Science (FOCS 2026)} (2026).
+\href{https://arxiv.org/abs/2608.19158}{arXiv:2608.19158}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The central unresolved question is whether the dimension-independent
+influence lower bound in the statement holds for every bounded low-degree
+polynomial, without additional multilinearity structure, random restriction,
+or bounded-adaptivity assumptions on the associated quantum query
+algorithms.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Computational complexity and computability
+
+\subsection*{ID}
+
+\texttt{op\_a11fdfadc84e4379}
