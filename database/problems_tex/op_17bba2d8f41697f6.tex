@@ -1,0 +1,177 @@
+% Problem record op_17bba2d8f41697f6. This TeX file is derived from
+% database/problems_json/op_17bba2d8f41697f6.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Quantum query complexity of Welded Tree path-finding}
+\label{sec:op_17bba2d8f41697f6}
+
+\paragraph{Problem.}
+Does finding an explicit ENTRANCE-to-EXIT path in the standard Welded Tree
+oracle problem require exponentially many quantum queries?
+
+For a positive integer $n$, construct a graph $G_n$ from two complete binary
+trees of depth $n$.  Designate the root of the left tree as ENTRANCE $s$ and
+the root of the right tree as EXIT $t$.  Join the $2^n$ leaves of the left
+tree and the $2^n$ leaves of the right tree into a uniformly random cycle
+that alternates between leaves of the two trees.  Assign the vertices
+distinct random binary labels of length $2n$.
+
+The algorithm is given the label of $s$ and coherent quantum-query access to
+an adjacency-list oracle.  On a valid vertex label, the oracle returns the
+labels of its neighboring vertices, with distinguished invalid outputs used
+when necessary; querying arbitrary binary strings therefore does not reveal
+global information about the graph unless the corresponding vertex labels
+have first been discovered.
+
+The path-finding task is to output an explicit sequence of vertex labels
+$v_0,v_1,\ldots,v_\ell$ satisfying
+\begin{equation}
+  v_0=s,
+  \qquad
+  v_\ell=t,
+  \qquad
+  \{v_{j-1},v_j\}\in E(G_n)
+  \quad
+  \text{for every }1\leq j\leq\ell .
+  \label{eq:17bb-weld-path}
+\end{equation}
+Let $Q_{\mathrm{WTPath}}(n)$ denote the minimum number of oracle queries
+used by a quantum algorithm that outputs a valid path satisfying
+\eqref{eq:17bb-weld-path} with bounded error on the standard random Welded
+Tree oracle distribution.  The open question is whether there exists a
+constant $c>0$ such that, for all sufficiently large $n$,
+\begin{equation}
+  Q_{\mathrm{WTPath}}(n)
+  \geq
+  2^{cn}.
+  \label{eq:17bb-weld-exponential}
+\end{equation}
+Equivalently, does the exponential quantum-query lower bound in
+\eqref{eq:17bb-weld-exponential} hold for unrestricted quantum algorithms?
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Explicitly posed by Scott Aaronson in Aaronson (2021), Problem 10, as the
+question of whether a quantum computer requires exponentially many queries
+to find a left-to-right path in the Welded Tree oracle problem
+\sourcecite{ref:17bb-aaronson}{Aar21}.  The distinction originates in the
+Welded Tree algorithm of Childs et al. (2003), whose quantum walk finds the
+EXIT but does not identify a particular ENTRANCE-to-EXIT path; Childs,
+Coudron, and Gilani (2023) describe efficient path-finding versus quantum
+hardness as a longstanding open problem and prove a restricted no-go result.
+The statement above is a self-contained formulation of Aaronson's question
+rather than a verbatim quotation.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Childs, Cleve, Deotto, Farhi, Gutmann, and Spielman introduced the Welded
+Tree oracle problem as an early example of an exponential quantum speedup
+based on quantum walks rather than the quantum Fourier transform: their
+continuous-time quantum walk reaches the EXIT using polynomially many oracle
+queries, whereas classical randomized algorithms require exponentially many
+queries in the relevant black-box model.  Crucially, the quantum algorithm
+finds the label of the EXIT without producing a particular path from the
+ENTRANCE to the EXIT
+\sourcecite{ref:17bb-childs}{CCGS03}.
+
+  \item The graph always contains short ENTRANCE-to-EXIT paths, so the difficulty
+is not an exponentially long required output; rather, the quantum walk
+propagates amplitude through the graph by interference without retaining
+enough classical information to reconstruct which sequence of vertices
+constitutes such a path
+\sourcecite{ref:17bb-childs}{CCGS03}.
+
+  \item Aaronson isolated the question explicitly as Problem 10 in his 2021 list
+of open problems in quantum query complexity, asking whether even a quantum
+computer requires exponentially many queries to find a left-to-right path in
+the Welded Tree graph; the lower-bound formulation, rather than merely the
+absence of a known polynomial-time algorithm, is the canonical form of the
+open problem
+\sourcecite{ref:17bb-aaronson}{Aar21}.
+
+  \item Childs, Coudron, and Gilani introduced a class of genuine rooted quantum
+algorithms: within each branch of their superposition they always store a
+set of vertex labels forming a connected subgraph that includes the
+ENTRANCE, and they only provide such meaningful vertex labels as oracle
+inputs.  They proved that these genuine rooted quantum algorithms cannot
+find an ENTRANCE-to-EXIT path with polynomially many queries
+\sourcecite{ref:17bb-ccg}{CCG23}.
+
+  \item The restricted result does not establish the exponential lower bound for
+unrestricted algorithms: the EXIT-finding quantum walk is itself not rooted
+in the relevant sense, since it can discard information about the route by
+which its amplitude reached a vertex.  A general path-finding algorithm
+might therefore exploit precisely this non-rooted, forgetful behavior, and
+hardness proofs require techniques that can handle such algorithms
+\sourcecite{ref:17bb-ccg}{CCG23}.
+
+  \item Efficient quantum path-finding has subsequently been demonstrated on
+graph families inspired by Welded Trees: Li and Zur constructed a regular
+welded-tree circuit graph for which multidimensional quantum walks and
+electrical-flow states yield an exponential quantum speedup for finding an
+explicit path.  This result concerns a modified graph family and does not
+give an efficient path-finding algorithm for the original randomly welded
+binary-tree oracle
+\sourcecite{ref:17bb-li-zur}{LZ25}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[CCGS03]}]\label{ref:17bb-childs}
+  Andrew M. Childs, Richard Cleve, Enrico Deotto, Edward Farhi, Sam
+Gutmann, and Daniel A. Spielman, ``Exponential Algorithmic Speedup by Quantum
+Walk,'' in \emph{Proceedings of the 35th Annual ACM Symposium on Theory of
+Computing (STOC 2003)}, 59--68 (2003).
+\href{https://doi.org/10.1145/780542.780552}{doi:10.1145/780542.780552};
+\href{https://arxiv.org/abs/quant-ph/0209131}{arXiv:quant-ph/0209131}.
+
+  \item[\textup{[Aar21]}]\label{ref:17bb-aaronson}
+  Scott Aaronson, ``Open Problems Related to Quantum Query Complexity,'' \emph{ACM
+Transactions on Quantum Computing} \textbf{2}, Article 14 (2021).
+\href{https://doi.org/10.1145/3488559}{doi:10.1145/3488559};
+\href{https://arxiv.org/abs/2109.06917}{arXiv:2109.06917}.
+
+  \item[\textup{[CCG23]}]\label{ref:17bb-ccg}
+  Andrew M. Childs, Matthew Coudron, and Amin Shiraz Gilani, ``Quantum
+Algorithms and the Power of Forgetting,'' in \emph{14th Innovations in
+Theoretical Computer Science Conference (ITCS 2023)}, LIPIcs \textbf{251},
+37:1--37:22 (2023).
+\href{https://doi.org/10.4230/LIPIcs.ITCS.2023.37}{doi:10.4230/LIPIcs.ITCS.2023.37};
+\href{https://arxiv.org/abs/2211.12447}{arXiv:2211.12447}.
+
+  \item[\textup{[LZ25]}]\label{ref:17bb-li-zur}
+  Jianqiang Li and Sebastian Zur, ``Multidimensional Electrical Networks
+and their Application to Exponential Speedups for Graph Problems,'' \emph{Quantum}
+\textbf{9}, 1733 (2025).
+\href{https://doi.org/10.22331/q-2025-05-06-1733}{doi:10.22331/q-2025-05-06-1733};
+\href{https://arxiv.org/abs/2311.07372}{arXiv:2311.07372}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+Two qualitatively different alternatives remain for the original Welded
+Tree oracle: either an unrestricted exponential quantum-query lower bound
+of the form \eqref{eq:17bb-weld-exponential}, extending beyond the
+genuine-rooted model, or a quantum algorithm that finds an explicit path
+using subexponentially many queries.
+A polynomial-query path-finding algorithm would show an even stronger
+failure of the exponential conjecture in
+\eqref{eq:17bb-weld-exponential}.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Computational complexity and computability
+
+\subsection*{ID}
+
+\texttt{op\_17bba2d8f41697f6}
