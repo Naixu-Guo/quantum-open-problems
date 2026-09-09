@@ -615,7 +615,7 @@ export function renderTagPage({ config, root, kind, tag, tagSlug = slug(tag), hi
   });
 }
 
-export function renderAbout({ config, root, stats, dates }) {
+export function renderAbout({ config, root, dates }) {
   const submissionsOnline = acceptsSubmissions(config);
   const mcpServiceUrl = config.mcp.serviceUrl;
   const mcpUrl = config.mcp.url;
@@ -640,8 +640,11 @@ export function renderAbout({ config, root, stats, dates }) {
       </div>
       <div class="prose">
         <h2 id="what">What the zoo is</h2>
-        <p>The ${escape(config.shortName)} collects research-level open problems in quantum information and quantum computation. Each record is written for readers with a PhD in the field: a self-contained statement with the definitions it needs, the paper that posed the problem, the results that delimit it, the precise remaining gap, and full references with author–year labels.</p>
-        <p>The zoo holds ${stats.total} permanent records covering ${(stats.distinctQuestions ?? stats).total} distinct questions: ${(stats.distinctQuestions ?? stats).unsolved} unsolved and ${(stats.distinctQuestions ?? stats).solved} solved. Equivalent formulations are linked and count once in these question totals. Solved problems stay in the zoo with their resolution so that citations survive.</p>
+        <p>The ${escape(config.shortName)} is a place to explore research problems in quantum information and quantum computation. Each problem page brings together a clear statement, the background needed to understand it, key references, and what is known so far.</p>
+        <p>Browse by field or topic, follow the sources, or share a problem you think belongs here. The collection grows through contributions from the community and review by the maintainers. Problem pages keep permanent links, so you can return to them as the research develops.</p>
+
+        <h2 id="what-will-be-collected">What will be collected</h2>
+        <p>We collect meaningful, significant unsolved problems in quantum information and quantum computation. Each problem should be formulated precisely in mathematical language, with clear assumptions and an unambiguous criterion for a solution. When a problem is solved, its page stays in the zoo and is updated with the resolution and supporting references.</p>
 
         <h2 id="contribute">How to contribute</h2>
         <p>${submissionsOnline
