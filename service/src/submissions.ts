@@ -69,6 +69,8 @@ export interface Contributor {
   name: string;
   email: string;
   affiliation: string;
+  /** Keep the contributor's identity private when publishing the proposal. */
+  anonymous: boolean;
 }
 
 /**
@@ -203,6 +205,8 @@ export function parseSubmission(raw: unknown, requireCaptcha = true): ParsedSubm
   else if (email.length > LIMITS.email.max || !EMAIL.test(email)) issues.push("the email address is not valid");
   const affiliation = clean(person["affiliation"]).replace(/\s+/gu, " ");
   if (affiliation.length > LIMITS.affiliation.max) issues.push(`the affiliation is longer than ${LIMITS.affiliation.max} characters`);
+  if (person["anonymous"] !== undefined && typeof person["anonymous"] !== "boolean") issues.push("the anonymity preference must be a boolean");
+  const anonymous = person["anonymous"] === true;
   if (raw["consent"] !== true) issues.push("consent to storing your contact details for the review is required");
 
   const captchaToken = clean(raw["captchaToken"]);
@@ -211,7 +215,7 @@ export function parseSubmission(raw: unknown, requireCaptcha = true): ParsedSubm
 
   if (issues.length > 0) throw new HttpError(422, issues.join("; "));
   return {
-    payload: { title, statement, fields, newFields, topics, newTopics, source, progress, references, comment, contributor: { name, email, affiliation } },
+    payload: { title, statement, fields, newFields, topics, newTopics, source, progress, references, comment, contributor: { name, email, affiliation, anonymous } },
     captchaToken,
   };
 }
@@ -233,7 +237,10 @@ export async function verifyCaptcha(captcha: CaptchaConfig, token: string, remot
 }
 
 export function contentHash(payload: SubmissionPayload): string {
-  return createHash("sha256").update(JSON.stringify([payload.title.toLowerCase(), payload.statement, payload.contributor.email.toLowerCase()])).digest("hex");
+  const content = [payload.title.toLowerCase(), payload.statement, payload.contributor.email.toLowerCase()];
+  // Preserve existing hashes while distinguishing a newly requested anonymity preference.
+  if (payload.contributor.anonymous) content.push("anonymous");
+  return createHash("sha256").update(JSON.stringify(content)).digest("hex");
 }
 
 export const hashAddress = (address: string): string => createHash("sha256").update(`address:${address}`).digest("hex");
@@ -244,6 +251,13 @@ interface StoredRow {
 }
 
 const ROW_COLUMNS = "id, received_at, state, state_at, state_by, state_note, title, contributor_name, contributor_email, payload, content_hash, address_hash, user_agent, captcha_provider";
+
+function storedPayload(row: StoredRow): SubmissionPayload {
+  const payload = JSON.parse(row.payload) as SubmissionPayload;
+  // Older proposals predate the checkbox and retain the default attribution preference.
+  payload.contributor.anonymous = payload.contributor.anonymous === true;
+  return payload;
+}
 
 export class SubmissionStore {
   readonly db: DatabaseSync;
@@ -257,7 +271,7 @@ export class SubmissionStore {
 
   /**
    * File a verified proposal. The same proposal sent twice within a day (same title, statement,
-   * and email, as when a browser retries) is filed once; the reply says so.
+   * email, and anonymity preference, as when a browser retries) is filed once; the reply says so.
    */
   accept(payload: SubmissionPayload, meta: { address: string; userAgent: string; captchaProvider: string }, now: number = Date.now()): { id: string; receivedAt: string; duplicate: boolean } {
     const hash = contentHash(payload);
@@ -304,7 +318,7 @@ export class SubmissionStore {
   }
 
   private summary(row: StoredRow): SubmissionRow {
-    const payload = JSON.parse(row.payload) as SubmissionPayload;
+    const payload = storedPayload(row);
     return {
       id: row.id, receivedAt: row.received_at, state: row.state as SubmissionState, stateAt: row.state_at, stateBy: row.state_by, stateNote: row.state_note,
       title: row.title, contributor: payload.contributor, fields: payload.fields, topics: payload.topics,
@@ -312,7 +326,7 @@ export class SubmissionStore {
   }
 
   private full(row: StoredRow): Submission {
-    return { ...this.summary(row), payload: JSON.parse(row.payload) as SubmissionPayload, contentHash: row.content_hash, addressHash: row.address_hash, userAgent: row.user_agent, captchaProvider: row.captcha_provider };
+    return { ...this.summary(row), payload: storedPayload(row), contentHash: row.content_hash, addressHash: row.address_hash, userAgent: row.user_agent, captchaProvider: row.captcha_provider };
   }
 }
 
@@ -324,6 +338,7 @@ export function submissionText(submission: Submission): string {
   return `# ${p.title}\n\n`
     + `Proposal ${submission.id}, received ${submission.receivedAt}, state ${submission.state}.\n`
     + `Contributor: ${p.contributor.name} <${p.contributor.email}>${p.contributor.affiliation ? ` (${p.contributor.affiliation})` : ""}\n`
+    + `Public attribution: ${p.contributor.anonymous ? "Anonymous requested; do not publish the contributor’s name, email, or affiliation." : "Contributor may be named; email remains private."}\n`
     + `Fields: ${marked(p.fields, p.newFields)}\n`
     + `Topics: ${marked(p.topics, p.newTopics)}\n\n`
     + section("Statement", p.statement)

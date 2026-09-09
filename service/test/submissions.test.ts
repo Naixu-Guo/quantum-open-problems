@@ -9,6 +9,7 @@ import os from "node:os";
 import path from "node:path";
 import http from "node:http";
 import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { createService } from "../src/service.ts";
 import { createServer } from "../src/api.ts";
@@ -153,6 +154,49 @@ test("parseSubmission normalizes text and reports every problem at once", () => 
   assert.throws(() => parseSubmission("nope"), /JSON object/u);
 });
 
+test("anonymity is optional, strictly boolean, and still requires a name and email", () => {
+  const contributor = proposal().contributor;
+  assert.equal(parseSubmission(proposal()).payload.contributor.anonymous, false);
+  for (const anonymous of [false, true]) {
+    assert.deepEqual(parseSubmission(proposal({ contributor: { ...contributor, anonymous } })).payload.contributor, { ...contributor, anonymous });
+  }
+  for (const anonymous of ["true", "false", 0, 1, null]) {
+    assert.throws(() => parseSubmission(proposal({ contributor: { ...contributor, anonymous } })), /anonymity preference must be a boolean/u);
+  }
+  for (const name of ["", "   "]) {
+    assert.throws(() => parseSubmission(proposal({ contributor: { ...contributor, name, anonymous: true } })), /your name is required/u);
+  }
+  assert.throws(() => parseSubmission(proposal({ contributor: { ...contributor, email: "", anonymous: true } })), /your email address is required/u);
+  assert.throws(() => parseSubmission(proposal({ contributor: { ...contributor, email: "invalid", anonymous: true } })), /email address is not valid/u);
+});
+
+test("legacy proposals keep their attribution and retry behavior; an anonymity change is retained", t => {
+  const store = new SubmissionStore(":memory:");
+  t.after(() => store.close());
+  const payload = parseSubmission(proposal()).payload;
+  const meta = { address: "127.0.0.1", userAgent: "test", captchaProvider: "turnstile" };
+  const first = store.accept(payload, meta);
+  const { anonymous: _anonymous, ...legacyContributor } = payload.contributor;
+  const legacyHash = createHash("sha256").update(JSON.stringify([payload.title.toLowerCase(), payload.statement, payload.contributor.email.toLowerCase()])).digest("hex");
+  store.db.prepare("UPDATE submissions SET payload = ?, content_hash = ? WHERE id = ?").run(JSON.stringify({ ...payload, contributor: legacyContributor }), legacyHash, first.id);
+  assert.equal(store.get(first.id)!.contributor.anonymous, false);
+  assert.equal(store.get(first.id)!.payload.contributor.anonymous, false);
+  assert.equal(store.list()[0]!.contributor.anonymous, false);
+  assert.deepEqual(store.accept(payload, meta), { ...first, duplicate: true }, "old receipts still deduplicate when the preference remains unchanged");
+
+  const anonymousPayload = { ...payload, contributor: { ...payload.contributor, anonymous: true } };
+  const changed = store.accept(anonymousPayload, meta);
+  assert.equal(changed.duplicate, false, "a changed anonymity preference must not disappear in an existing receipt");
+  assert.notEqual(changed.id, first.id);
+  assert.deepEqual(store.accept(anonymousPayload, meta), { ...changed, duplicate: true });
+  const stored = store.get(changed.id)!;
+  assert.equal(stored.contributor.anonymous, true);
+  assert.equal(stored.payload.contributor.anonymous, true);
+  assert.equal(store.list().find(row => row.id === changed.id)!.contributor.anonymous, true);
+  assert.match(submissionText(stored), /Public attribution: Anonymous requested; do not publish/u);
+  assert.match(submissionText(stored), /Ada Example <ada@example.org>/u, "maintainers retain the private contact information for review");
+});
+
 test("a proposal with a genuine CAPTCHA token is filed once, and a retry within a day returns the same receipt", async () => {
   asked = [];
   const first = await call("POST", "/api/v1/submissions", { body: proposal(), headers: { Origin: SITE, "User-Agent": "test-browser" } });
@@ -295,11 +339,12 @@ test("without a CAPTCHA secret the inbox is closed with a 503", async () => {
 test("the store survives on disk and lists newest first", () => {
   const file = path.join(tmp, "inbox", "submissions.sqlite");
   const store = new SubmissionStore(file);
-  const older = store.accept(parseSubmission(proposal({ title: "Older proposal in the on-disk store" })).payload, { address: "10.0.0.1", userAgent: "ua", captchaProvider: "turnstile" }, Date.parse("2026-09-01T00:00:00Z"));
+  const older = store.accept(parseSubmission(proposal({ title: "Older proposal in the on-disk store", contributor: { ...proposal().contributor, anonymous: true } })).payload, { address: "10.0.0.1", userAgent: "ua", captchaProvider: "turnstile" }, Date.parse("2026-09-01T00:00:00Z"));
   const newer = store.accept(parseSubmission(proposal({ title: "Newer proposal in the on-disk store" })).payload, { address: "10.0.0.1", userAgent: "ua", captchaProvider: "turnstile" }, Date.parse("2026-09-02T00:00:00Z"));
   store.close();
   const reopened = new SubmissionStore(file);
   assert.deepEqual(reopened.list().map((row) => row.id), [newer.id, older.id]);
+  assert.equal(reopened.get(older.id)!.payload.contributor.anonymous, true, "the anonymity preference survives reopening the inbox");
   assert.equal(reopened.setState("missing", "spam", "", null), null);
   reopened.close();
 });

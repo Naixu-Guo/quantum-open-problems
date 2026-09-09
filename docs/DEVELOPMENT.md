@@ -233,6 +233,14 @@ button downloads JSON with the proposal and review note, omitting contact email
 and request metadata; it does not contact an AI service. AI integration is left
 to the maintainer. Acceptance saves a review state; publication still uses a PR.
 
+Before publication, transfer the proposal's public credit choice to that
+problem's optional `contributors` array, following the
+[credit rules](../CONTRIBUTING.md#public-contributor-credit). Named entries
+require permission for that problem; anonymous entries contain only
+`anonymous: true` or are omitted. Name and email remain required in the
+private inbox even for anonymous proposals. A person's choice can differ
+between problems and must not be inferred from a global actor profile.
+
 The form's limits in `site/lib/render.mjs` mirror `LIMITS` in
 `service/src/submissions.ts`; `tests/contribute.test.mjs` fails when they drift.
 

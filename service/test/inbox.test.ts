@@ -12,7 +12,7 @@ const contractDir = path.resolve(import.meta.dirname, "../../contract");
 const key = "test-only-random-inbox-key-not-a-production-credential";
 const proposal = {
   title: "A synthetic inbox test proposal", statement: "A sufficiently long test statement. <script>alert('untrusted')</script>",
-  fields: ["Quantum Communication"], topics: ["Test topic"], contributor: { name: "Example", email: "contact@example.invalid" }, consent: true, extra: "",
+  fields: ["Quantum Communication"], topics: ["Test topic"], contributor: { name: "Example", email: "contact@example.invalid", anonymous: true }, consent: true, extra: "",
 };
 
 test("submission modes require explicit opt-in; a missing verifier never opens the inbox", () => {
@@ -65,7 +65,12 @@ test("project inbox accepts basic-protected proposals, scopes login, enforces CS
   const privateHeaders = { Cookie: cookie, Origin: origin };
   assert.equal((await call("/inbox/session", undefined, privateHeaders)).body.authenticated, true);
   assert.equal((await call("/api/v1/submissions", undefined, privateHeaders)).body.total, 1);
+  assert.equal((await call("/api/v1/submissions", undefined, privateHeaders)).body.submissions[0].contributor.anonymous, true);
   assert.equal((await call(`/api/v1/submissions/${id}`, undefined, privateHeaders)).body.contributor.email, proposal.contributor.email);
+  const detail = (await call(`/api/v1/submissions/${id}`, undefined, privateHeaders)).body;
+  assert.equal(detail.contributor.anonymous, true);
+  assert.equal(detail.payload.contributor.anonymous, true);
+  assert.match(detail.text, /Public attribution: Anonymous requested; do not publish/);
   assert.match((await call("/api/v1/submissions", undefined, privateHeaders)).headers.get("cache-control")!, /no-store/);
   assert.equal((await call("/api/v1/actors/me", undefined, privateHeaders)).status, 401, "inbox login is not a ledger actor");
   assert.equal((await call("/api/v1/batches", {}, privateHeaders)).status, 401, "inbox login cannot write catalog records");

@@ -433,7 +433,7 @@
       progress: value("progress"),
       references: value("references"),
       comment: value("comment"),
-      contributor: { name: value("name"), email: value("email"), affiliation: value("affiliation") },
+      contributor: { name: value("name"), email: value("email"), affiliation: value("affiliation"), anonymous: Boolean(control("anonymous")?.checked) },
       consent: Boolean(control("consent")?.checked),
       extra: value("extra"),
       captchaToken: captchaField ? value(captchaField) : ""
@@ -461,8 +461,8 @@
     const textNames = ["title", "statement", "source", "progress", "references", "comment", "name", "email", "affiliation"];
     const saveDraft = () => {
       try {
-        const draft = { values: Object.fromEntries(textNames.map((name) => [name, String(control(name)?.value ?? "")])), fields: fields.chosen(), newFields: fields.custom(), topics: topics.chosen(), newTopics: topics.custom() };
-        if (Object.values(draft.values).some(Boolean) || draft.fields.length || draft.topics.length) localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+        const draft = { values: Object.fromEntries(textNames.map((name) => [name, String(control(name)?.value ?? "")])), anonymous: Boolean(control("anonymous")?.checked), fields: fields.chosen(), newFields: fields.custom(), topics: topics.chosen(), newTopics: topics.custom() };
+        if (Object.values(draft.values).some(Boolean) || draft.anonymous || draft.fields.length || draft.topics.length) localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
         else localStorage.removeItem(DRAFT_KEY);
       } catch (error) { /* storage unavailable */ }
     };
@@ -472,6 +472,7 @@
       try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null"); } catch (error) { draft = null; }
       if (!draft || typeof draft !== "object") return false;
       textNames.forEach((name) => { const element = control(name); if (element && draft.values?.[name]) element.value = draft.values[name]; });
+      if (control("anonymous")) control("anonymous").checked = draft.anonymous === true;
       fields.set(draft.fields, draft.newFields);
       topics.set(draft.topics, draft.newTopics);
       return true;
@@ -482,6 +483,14 @@
     proposalForm.addEventListener("change", scheduleSave);
     proposalForm.addEventListener("click", (event) => { if (event.target.closest("[data-remove], [data-picker-add]")) scheduleSave(); });
     if (restoreDraft()) say("Restored the unsent draft kept in this browser.");
+
+    // This example is a visual placeholder, never part of the statement or its draft.
+    const statementPlaceholder = $("#statement-placeholder");
+    const hideStatementPlaceholder = () => { if (statementPlaceholder) statementPlaceholder.hidden = true; };
+    control("statement")?.addEventListener("focus", hideStatementPlaceholder);
+    control("statement")?.addEventListener("click", hideStatementPlaceholder);
+    control("statement")?.addEventListener("input", hideStatementPlaceholder);
+    if (value("statement")) hideStatementPlaceholder();
 
     // Mathematics preview of the statement. $…$ and $…$ become the delimiters MathJax is configured with.
     $("#statement-preview-button")?.addEventListener("click", () => {
@@ -499,7 +508,8 @@
       const section = (heading, body) => (body ? `## ${heading}\n\n${body}\n\n` : "");
       const marked = (all, own) => all.map((name) => (own.includes(name) ? `${name} (new)` : name)).join("; ") || "none";
       return `# ${p.title || "(untitled)"}\n\n`
-        + `Contributor: ${p.contributor.name}${p.contributor.email ? ` <${p.contributor.email}>` : ""}${p.contributor.affiliation ? ` (${p.contributor.affiliation})` : ""}\n`
+        + (p.contributor.anonymous ? "Contributor: Anonymous\n" : `Contributor: ${p.contributor.name}${p.contributor.email ? ` <${p.contributor.email}>` : ""}${p.contributor.affiliation ? ` (${p.contributor.affiliation})` : ""}\n`)
+        + `Public credit: ${p.contributor.anonymous ? "Remain anonymous" : "Use contributor name"}\n`
         + `Fields: ${marked(p.fields, p.newFields)}\nTopics: ${marked(p.topics, p.newTopics)}\n\n`
         + section("Statement", p.statement) + section("Source", p.source) + section("Progress", p.progress) + section("References", p.references) + section("Comment", p.comment);
     };
@@ -512,6 +522,7 @@
       fields.set([], []);
       topics.set([], []);
       if (preview) { preview.hidden = true; preview.textContent = ""; }
+      if (statementPlaceholder) statementPlaceholder.hidden = false;
       clearDraft();
       say("Form cleared.");
     });

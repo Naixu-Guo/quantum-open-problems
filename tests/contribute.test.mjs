@@ -45,7 +45,11 @@ test("the page offers every field and topic in a dropdown with an Other option a
   assert.ok(html.includes(`data-limits='${JSON.stringify(PROPOSAL_LIMITS).replaceAll('"', "&quot;")}'`));
   assert.ok(html.includes(`maxlength="${PROPOSAL_LIMITS.statement.max}"`));
   assert.ok(html.includes('name="extra"'), "the honeypot is present");
+  assert.match(html, /<input id="proposal-name" name="name"[^>]*\brequired\b/u, "name remains required");
   assert.ok(html.includes('type="email" required'), "email is required");
+  assert.match(html, /<input(?=[^>]*\bid="proposal-anonymous")(?=[^>]*\bname="anonymous")(?=[^>]*\btype="checkbox")[^>]*>/u, "contributors can request anonymous public credit");
+  assert.match(html, /<textarea id="proposal-statement"[^>]*><\/textarea>/u, "the example is not submitted as statement content");
+  assert.match(html, /id="statement-placeholder"/u, "the empty statement offers a separate example");
   assert.ok(html.includes('name="consent"'), "consent is asked");
   assert.ok(html.includes('<a href="../contribute/" aria-current="page">Contribute</a>'), "the nav marks the page");
   assert.ok(html.includes('<a href="../contribute/">Contribute</a>'), "the footer links the page");
@@ -90,19 +94,21 @@ test("the about page advertises account-free sending only when the form is confi
   assert.ok(on.includes("No account is needed"));
 });
 
-// The shipped script must load on a page without the form, and on the form page it must
-// build the proposal the inbox expects from the controls and refuse an incomplete one.
-test("the client script assembles a proposal from the form and checks it before sending", () => {
+// Run the shipped script with form controls, storage, clipboard, and timers that tests
+// can drive directly, without making network requests or depending on a browser.
+function createClientForm({ values = {}, draft, anonymous = false } = {}) {
   const listeners = {};
   const element = (properties = {}) => ({
     dataset: {}, hidden: false, value: "", checked: false, disabled: false, textContent: "", listeners: {}, classList: { toggle() {}, add() {}, remove() {} },
-    setAttribute() {}, focus() { this.focused = true; }, scrollIntoView() {}, addEventListener(event, listener) { this.listeners[event] = listener; },
+    setAttribute() {}, focus() { this.focused = true; this.listeners.focus?.(); }, scrollIntoView() {}, addEventListener(event, listener) { this.listeners[event] = listener; },
     ...properties
   });
   const controls = new Map();
   const text = (name, value) => controls.set(name, element({ name, value }));
   text("title", "A proposal title"); text("statement", "A statement long enough to pass the minimum length."); text("source", "Src"); text("progress", ""); text("references", "Ref"); text("comment", ""); text("name", "Ada"); text("email", "ada@example.org"); text("affiliation", ""); text("extra", ""); text("cf-turnstile-response", "tok");
   controls.set("consent", element({ name: "consent", checked: true }));
+  controls.set("anonymous", element({ name: "anonymous", checked: anonymous }));
+  for (const [name, value] of Object.entries(values)) controls.get(name).value = value;
   // A picker: the select with its options, the row for a name of the contributor's own, and the list of pills.
   const pickerBox = (plural, kind, max, names) => {
     const select = element({ options: [{ value: "" }, ...names.map((value) => ({ value })), { value: "__other__" }] });
@@ -120,11 +126,11 @@ test("the client script assembles a proposal from the form and checks it before 
     elements: { namedItem: (name) => controls.get(name) ?? null },
     querySelector: (selector) => (selector === '[data-picker="fields"]' ? fieldPicker.box : selector === '[data-picker="topics"]' ? topicPicker.box : null),
     querySelectorAll: () => [],
-    reset() {}
+    reset() { for (const control of controls.values()) { control.value = ""; control.checked = false; } }
   });
   const statusLine = element();
   const submitButton = element();
-  const ids = new Map([["#proposal-form", form], ["#proposal-status", statusLine], ["#proposal-submit", submitButton], ["#fields-count", element()], ["#topics-count", element()]]);
+  const ids = new Map([["#proposal-form", form], ["#proposal-status", statusLine], ["#proposal-submit", submitButton], ["#fields-count", element()], ["#topics-count", element()], ["#proposal-statement", controls.get("statement")], ["#statement-placeholder", element()], ["#proposal-anonymous", controls.get("anonymous")], ["#proposal-copy", element()], ["#proposal-clear", element()]]);
   const fetched = [];
   const document = element({
     body: { dataset: { root: "../" } }, documentElement: { dataset: { theme: "light" } },
@@ -133,16 +139,27 @@ test("the client script assembles a proposal from the form and checks it before 
     addEventListener(event, listener) { listeners[event] = listener; }
   });
   const storage = new Map();
+  if (draft) storage.set("qiqcop-proposal-draft", JSON.stringify(draft));
+  const copied = [];
+  const timers = new Map();
+  let nextTimer = 0;
   vm.runInNewContext(clientScript, {
     document, location: { search: "", pathname: "/contribute/", hash: "" }, URLSearchParams, JSON, Object, Array, String, Boolean, Number, Promise, RegExp, Map, Set, console,
     localStorage: { getItem: (key) => storage.get(key) ?? null, setItem: (key, value) => storage.set(key, value), removeItem: (key) => storage.delete(key) },
-    window: { setTimeout: () => 0, clearTimeout() {}, matchMedia: () => ({ matches: false }) }, navigator: {},
+    window: { setTimeout: (callback) => { timers.set(++nextTimer, callback); return nextTimer; }, clearTimeout: (id) => timers.delete(id), matchMedia: () => ({ matches: false }) },
+    navigator: { clipboard: { writeText: async (text) => copied.push(text) } },
     fetch: async (url, init) => { fetched.push({ url, body: JSON.parse(init.body) }); return { ok: true, status: 201, json: async () => ({ accepted: true, id: "01TEST" }) }; }
   });
+  const choose = (picker, value) => { picker.select.value = value; picker.select.listeners.change(); };
+  const flushTimers = () => { const pending = [...timers.values()]; timers.clear(); pending.forEach((callback) => callback()); };
+  return { controls, form, ids, storage, fetched, copied, fieldPicker, topicPicker, statusLine, choose, flushTimers };
+}
+
+test("the client script assembles a proposal from the form and checks it before sending", () => {
+  const { controls, form, ids, fetched, fieldPicker, topicPicker, statusLine, choose } = createClientForm();
   assert.equal(ids.get("#fields-count").textContent, "0 of 2 chosen");
   assert.equal(ids.get("#topics-count").textContent, "0 of 5 chosen");
   // Pick a field from the dropdown, then a topic, then a topic of the contributor's own through "Other".
-  const choose = (picker, value) => { picker.select.value = value; picker.select.listeners.change(); };
   choose(fieldPicker, "Quantum algorithm");
   assert.equal(ids.get("#fields-count").textContent, "1 of 2 chosen");
   assert.match(fieldPicker.list.innerHTML, /class="tag tag-field">Quantum algorithm<button type="button" class="tag-remove" data-remove="Quantum algorithm"/u, "a chosen field is a solid pill with a remove button");
@@ -164,7 +181,7 @@ test("the client script assembles a proposal from the form and checks it before 
     assert.equal(fetched[0].url, "https://inbox.example.org/api/v1/submissions");
     assert.deepEqual(fetched[0].body, {
       title: "A proposal title", statement: "A statement long enough to pass the minimum length.", fields: ["Quantum algorithm"], newFields: [], topics: ["Bell nonlocality", "Rényi entropies"], newTopics: ["Rényi entropies"],
-      source: "Src", progress: "", references: "Ref", comment: "", contributor: { name: "Ada", email: "ada@example.org", affiliation: "" }, consent: true, extra: "", captchaToken: "tok"
+      source: "Src", progress: "", references: "Ref", comment: "", contributor: { name: "Ada", email: "ada@example.org", affiliation: "", anonymous: false }, consent: true, extra: "", captchaToken: "tok"
     });
     assert.equal(form.hidden, true, "the form gives way to the receipt");
     form.hidden = false;
@@ -178,4 +195,82 @@ test("the client script assembles a proposal from the form and checks it before 
     assert.equal(statusLine.dataset.kind, "error");
     assert.equal(fieldPicker.select.focused, true, "the first problem gets focus");
   });
+});
+
+test("anonymous proposals still require a name and email and send them privately with the preference", async () => {
+  const { controls, form, fetched, fieldPicker, topicPicker, statusLine, choose } = createClientForm({ anonymous: true });
+  choose(fieldPicker, "Quantum algorithm");
+  choose(topicPicker, "Bell nonlocality");
+  controls.get("name").value = "";
+  controls.get("email").value = "";
+  await form.listeners.submit({ preventDefault() {} });
+  assert.equal(fetched.length, 0, "anonymous credit does not bypass contact requirements");
+  assert.match(statusLine.textContent, /Your name is required/u);
+  assert.match(statusLine.textContent, /valid email/u);
+  controls.get("name").value = "Ada";
+  await form.listeners.submit({ preventDefault() {} });
+  assert.equal(fetched.length, 0, "email is independently required");
+  controls.get("email").value = "ada@example.org";
+  await form.listeners.submit({ preventDefault() {} });
+  assert.equal(fetched.length, 1);
+  assert.deepEqual(fetched[0].body.contributor, { name: "Ada", email: "ada@example.org", affiliation: "", anonymous: true });
+});
+
+test("copied anonymous proposals omit contact details and record the public credit preference", async () => {
+  const { controls, ids, copied } = createClientForm({ values: { affiliation: "Example University" } });
+  await ids.get("#proposal-copy").listeners.click();
+  assert.match(copied[0], /^Contributor: Ada <ada@example\.org> \(Example University\)$/mu);
+  assert.match(copied[0], /^Public credit: Use contributor name$/mu);
+  controls.get("anonymous").checked = true;
+  await ids.get("#proposal-copy").listeners.click();
+  assert.match(copied[1], /^Contributor: Anonymous$/mu);
+  assert.match(copied[1], /^Public credit: Remain anonymous$/mu);
+  assert.doesNotMatch(copied[1], /Ada|ada@example\.org|Example University/u);
+  assert.match(copied[1], /A statement long enough to pass the minimum length\./u, "the proposal itself is retained");
+});
+
+test("drafts preserve the anonymous preference and older drafts default to named credit", () => {
+  const saved = createClientForm({ anonymous: true });
+  saved.form.listeners.change();
+  saved.flushTimers();
+  const draft = JSON.parse(saved.storage.get("qiqcop-proposal-draft"));
+  assert.equal(draft.anonymous, true);
+  const restored = createClientForm({ draft, values: { statement: "" } });
+  assert.equal(restored.controls.get("anonymous").checked, true);
+  assert.equal(restored.controls.get("statement").value, draft.values.statement);
+  assert.equal(restored.ids.get("#statement-placeholder").hidden, true, "a restored statement does not show the example");
+  restored.controls.get("anonymous").checked = false;
+  restored.form.listeners.change();
+  restored.flushTimers();
+  assert.equal(JSON.parse(restored.storage.get("qiqcop-proposal-draft")).anonymous, false, "changing the preference updates the draft");
+  const { anonymous: omitted, ...legacyDraft } = draft;
+  const legacy = createClientForm({ draft: legacyDraft });
+  assert.equal(legacy.controls.get("anonymous").checked, false);
+});
+
+test("the statement example disappears on focus, click, or input and clear restores the empty form", () => {
+  const { controls, ids, form, storage, flushTimers } = createClientForm({ values: { statement: "" }, anonymous: true });
+  const statement = controls.get("statement");
+  const placeholder = ids.get("#statement-placeholder");
+  assert.equal(placeholder.hidden, false);
+  assert.equal(statement.value, "", "the example is separate from editable content");
+  statement.focus();
+  assert.equal(placeholder.hidden, true, "entering the statement field dismisses the example");
+  statement.value = "A proposed mathematical question.";
+  statement.listeners.input();
+  form.listeners.input();
+  flushTimers();
+  assert.equal(placeholder.hidden, true);
+  assert.ok(storage.has("qiqcop-proposal-draft"));
+  ids.get("#proposal-clear").listeners.click();
+  assert.equal(statement.value, "");
+  assert.equal(placeholder.hidden, false, "Clear form restores the example");
+  assert.equal(controls.get("anonymous").checked, false, "Clear form also clears anonymous credit");
+  assert.equal(storage.has("qiqcop-proposal-draft"), false);
+  statement.listeners.click();
+  assert.equal(placeholder.hidden, true, "clicking an already focused field also dismisses the example");
+  ids.get("#proposal-clear").listeners.click();
+  statement.value = "Text entered without a preceding focus event.";
+  statement.listeners.input();
+  assert.equal(placeholder.hidden, true, "input also hides the example");
 });

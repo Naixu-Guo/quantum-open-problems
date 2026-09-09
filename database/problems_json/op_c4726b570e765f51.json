@@ -1,0 +1,76 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_c4726b570e765f51",
+  "ulid": "01M220TAAFBFS38AFQF94N28WR",
+  "aliases": [
+    "op_c4726b570e765f51",
+    "01M220TAAFBFS38AFQF94N28WR",
+    "op-c4726b570e765f51"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-09T02:44:10.191Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "editor-formulated",
+    "posed": null,
+    "areaIds": [
+      "quantum-cryptography",
+      "quantum-communication"
+    ],
+    "topicIds": [
+      "secret-key-distillation",
+      "local-operations-and-classical-communication"
+    ],
+    "keywords": [
+      "amplitude damping",
+      "two-way secret-key capacity",
+      "authenticated public communication"
+    ],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": [
+      "01M1HME780DDSDKPH6BERTWRWB"
+    ]
+  },
+  "title": "Two-way secret-key capacity of the qubit amplitude-damping channel",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum Cryptography",
+    "Quantum Communication"
+  ],
+  "topics": [
+    "Secret-key distillation",
+    "Local operations and classical communication"
+  ],
+  "statement": "What is the exact secret-key capacity $K(\\mathcal A_p)$ of the qubit amplitude-damping channel for every damping probability $p\\in[0,1]$? Define the channel by\n\\begin{equation}\n  \\begin{aligned}\n    \\mathcal A_p(\\rho)&=A_0\\rho A_0^\\dagger+A_1\\rho A_1^\\dagger,\\\\\n    A_0&=\\lvert0\\rangle\\!\\langle0\\rvert+\\sqrt{1-p}\\,\\lvert1\\rangle\\!\\langle1\\rvert,\n    \\qquad A_1=\\sqrt p\\,\\lvert0\\rangle\\!\\langle1\\rvert.\n  \\end{aligned}\n  \\label{eq:adkey-channel}\n\\end{equation}\nIn Eq.~\\eqref{eq:adkey-channel}, $\\rho$ is a qubit density operator and $p$ is the excited-state decay probability. Alice may send systems to Bob through arbitrarily many independent uses of this channel. They may interleave these uses with arbitrary adaptive local quantum operations and unlimited authenticated two-way public classical communication. No preshared entanglement or secret key is available, apart from a vanishing-rate authentication seed. Eve holds the channel environments and the entire public transcript. The capacity is the supremum of asymptotic rates $\\liminf_{n\\to\\infty}\\log_2 M_n/n$ attainable by protocols producing keys in an alphabet of size $M_n$, with disagreement probability tending to zero and trace-distance secrecy from a uniform key independent of Eve tending to zero. Determine this capacity in secret bits per channel use, with matching achievability and converse bounds.",
+  "source": "The question was supplied by the contributor. Its literature basis is the amplitude-damping capacity bounds of Pirandola, Laurenza, Ottaviani, and Banchi, arXiv v8, Eq.~(48) and Supplementary Note~5 \\sourcecite{ref:adkey-plob}{PLOB17}. Harney and Pirandola explicitly identify the exact amplitude-damping capacity as unknown in Sec.~IV~A~1, immediately after Eqs.~(25)--(26) \\sourcecite{ref:adkey-harney}{HP22}.",
+  "progress": [
+    "Reverse coherent information gives the achievable rate\n\\begin{equation}\n  K(\\mathcal A_p)\\ge L(p):=\\max_{0\\le u\\le1}\\bigl[h_2(u)-h_2(pu)\\bigr],\n  \\label{eq:adkey-lower}\n\\end{equation}\nwhere $h_2(x):=-x\\log_2x-(1-x)\\log_2(1-x)$, with $0\\log_2 0:=0$. Equation~\\eqref{eq:adkey-lower} follows by entanglement distribution and distillation with backward classical communication; see Eq.~(48) and Supplementary Eq.~(S212) \\sourcecite{ref:adkey-plob}{PLOB17}. In particular, $L(p)>0$ for every $p<1$.",
+    "A balanced amplitude-damping channel acting on the environment gives the squashed-entanglement upper bound\n\\begin{equation}\n  K(\\mathcal A_p)\\le U_{\\mathrm{sq}}(p):=\\max_{0\\le u\\le1}\\left[h_2\\!\\left(\\left(1-\\frac p2\\right)u\\right)-h_2\\!\\left(\\frac{pu}{2}\\right)\\right].\n  \\label{eq:adkey-squashed}\n\\end{equation}\nEquation~\\eqref{eq:adkey-squashed} retains the input-population maximization in Supplementary Eqs.~(S228)--(S231) \\sourcecite{ref:adkey-plob}{PLOB17}. It is an upper bound obtained from a particular squashing channel, rather than an exact capacity formula.",
+    "The max-relative entropy of entanglement supplies another converse:\n\\begin{equation}\n  K(\\mathcal A_p)\\le E_{\\max}(\\mathcal A_p)=\\log_2(2-p).\n  \\label{eq:adkey-max-relative}\n\\end{equation}\nEquation~\\eqref{eq:adkey-max-relative} is the zero-temperature specialization of Proposition~10 and Eqs.~(205)--(207) of Khatri, Sharma, and Wilde \\sourcecite{ref:adkey-khatri}{KSW20}. Together, Eqs.~\\eqref{eq:adkey-lower}--\\eqref{eq:adkey-max-relative} establish $K(\\mathcal A_0)=1$ and $K(\\mathcal A_1)=0$, while leaving a gap for intermediate damping."
+  ],
+  "references": [
+    {
+      "key": "PLOB17",
+      "label": "ref:adkey-plob",
+      "tex": "S. Pirandola, R. Laurenza, C. Ottaviani, and L. Banchi, ``Fundamental limits of repeaterless quantum communications,'' \\emph{Nature Communications} \\textbf{8}, 15043 (2017). \\href{https://doi.org/10.1038/ncomms15043}{doi:10.1038/ncomms15043}; \\href{https://arxiv.org/abs/1510.08863}{arXiv:1510.08863}."
+    },
+    {
+      "key": "KSW20",
+      "label": "ref:adkey-khatri",
+      "tex": "S. Khatri, K. Sharma, and M. M. Wilde, ``Information-theoretic aspects of the generalized amplitude-damping channel,'' \\emph{Physical Review A} \\textbf{102}, 012401 (2020). \\href{https://doi.org/10.1103/PhysRevA.102.012401}{doi:10.1103/PhysRevA.102.012401}; \\href{https://arxiv.org/abs/1903.07747}{arXiv:1903.07747}."
+    },
+    {
+      "key": "HP22",
+      "label": "ref:adkey-harney",
+      "tex": "C. Harney and S. Pirandola, ``End-to-end capacities of imperfect-repeater quantum networks,'' \\emph{Quantum Science and Technology} \\textbf{7}, 045009 (2022). \\href{https://doi.org/10.1088/2058-9565/ac7ba0}{doi:10.1088/2058-9565/ac7ba0}; \\href{https://arxiv.org/abs/2207.05481}{arXiv:2207.05481}."
+    }
+  ],
+  "comment": "The remaining problem is the exact value of $K(\\mathcal A_p)$ for $0<p<1$. The related record \\href{https://qiqc-op.com/problem/op_e490c9462b37a548/}{Two-way quantum capacity: amplitude-damping channel} asks for the two-way quantum capacity $Q_2(\\mathcal A_p)$; although $Q_2\\le K$, equality is not assumed, and bounds proved only for entanglement transmission do not automatically bound secret-key generation. The unassisted private capacity is also a different quantity. Literature audit: 8 September 2026. Primary passages in the cited papers were checked, and searches for later exact-capacity results through accessible arXiv and publisher pages found no resolution; this was not an exhaustive citation-index search.",
+  "contributors": []
+}
