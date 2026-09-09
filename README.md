@@ -28,7 +28,7 @@ Please cite the original research sources when using a problem or result.
 
 ## Contributions
 
-This project is developed and maintained by Bikun Li, Qicheng Tang,
+This project is developed and maintained by Bikun Li, Qicheng Tang, Changhao Li,
 Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo. See the
 [project contributions](https://qiqc-op.com/about/#contributions)
 for acknowledgments.
