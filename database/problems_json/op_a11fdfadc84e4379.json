@@ -1,0 +1,78 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_a11fdfadc84e4379",
+  "ulid": "01M21S9FW14RJDR83J8D64FKEM",
+  "aliases": [
+    "op_a11fdfadc84e4379",
+    "01M21S9FW14RJDR83J8D64FKEM",
+    "op-a11fdfadc84e4379"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-09T00:32:38.785Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-algorithm"
+    ],
+    "topicIds": [
+      "computational-complexity-and-computability"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
+  "title": "Aaronson–Ambainis conjecture",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum algorithm"
+  ],
+  "topics": [
+    "Computational complexity and computability"
+  ],
+  "statement": "Must every bounded low-degree real polynomial on the Boolean cube with\nnon-negligible variance have a variable of inverse-polynomial influence?\n\nLet $p:\\mathbb R^N\\to\\mathbb R$ be a real multilinear polynomial of degree\nat most $d$ satisfying\n\\begin{equation}\n  0\\leq p(X)\\leq 1\n  \\qquad\n  \\text{for every }X\\in\\{0,1\\}^N .\n  \\label{eq:a11f-bounded}\n\\end{equation}\nFor $i\\in[N]$, let $X^{(i)}$ denote $X$ with its $i$-th bit flipped, and\ndefine the influence of the $i$-th variable by\n\\begin{equation}\n  \\operatorname{Inf}_i[p]\n  =\n  \\mathbb E_{X\\in\\{0,1\\}^N}\n  \\left[\n    \\left(\n      p(X)-p(X^{(i)})\n    \\right)^2\n  \\right].\n  \\label{eq:a11f-influence}\n\\end{equation}\nDefine the variance of $p$ on the uniform Boolean cube by\n\\begin{equation}\n  \\operatorname{Var}[p]\n  =\n  \\mathbb E_{X\\in\\{0,1\\}^N}\n  \\left[\n    \\left(\n      p(X)-\\mathbb E[p]\n    \\right)^2\n  \\right].\n  \\label{eq:a11f-variance}\n\\end{equation}\nSuppose that for some $\\varepsilon>0$,\n\\begin{equation}\n  \\operatorname{Var}[p]\\geq\\varepsilon .\n  \\label{eq:a11f-nontrivial}\n\\end{equation}\nThe Aaronson--Ambainis conjecture asks whether there is a universal constant\n$C>0$ such that every polynomial satisfying \\eqref{eq:a11f-bounded} and\n\\eqref{eq:a11f-nontrivial} has some coordinate $i\\in[N]$ whose influence,\nas defined in \\eqref{eq:a11f-influence}, satisfies\n\\begin{equation}\n  \\operatorname{Inf}_i[p]\n  \\geq\n  \\left(\\frac{\\varepsilon}{d}\\right)^C .\n  \\label{eq:a11f-conjecture}\n\\end{equation}\nEquivalently, the conjecture asks whether the maximum influence can always be\nbounded below by a fixed polynomial in $1/d$ and the variance\n\\eqref{eq:a11f-variance}, independently of the ambient dimension $N$.",
+  "source": "Explicitly proposed by Scott Aaronson and Andris Ambainis in Aaronson and\nAmbainis (2014), Conjecture~1.7, under the name ``Bounded Polynomials Have\nInfluential Variables''\n\\sourcecite{ref:a11f-aa}{AA14}.  The related statement asserting\npolynomial-query classical simulation of a quantum query algorithm on most\ninputs appears separately as Conjecture~1.5 in the same paper and is\nexplicitly described there as folklore; it should therefore not be\nattributed as an original Aaronson--Ambainis conjecture.  The formulation in\nthe statement above is a self-contained restatement of Conjecture~1.7 rather\nthan a verbatim quotation.",
+  "progress": [
+    "Beals, Buhrman, Cleve, Mosca, and de Wolf showed that the acceptance\nprobability of a quantum algorithm making $T$ oracle queries is represented\nby a real multilinear polynomial of degree at most $2T$; bounded low-degree\npolynomials such as those in the statement therefore capture a fundamental\naspect of quantum query algorithms\n\\sourcecite{ref:a11f-bbc}{BBCMW01}.",
+    "Aaronson and Ambainis proposed the influence conjecture under the name\n``Bounded Polynomials Have Influential Variables'' and showed it would imply\na strong classical-simulation principle: for every $T$-query quantum\nalgorithm and every positive approximation and failure parameters, a\ndeterministic classical algorithm using a polynomial number of queries can\napproximate the quantum algorithm's acceptance probability on all but a\nsmall fraction of Boolean inputs.  The conjecture would thereby formalize\nthat superpolynomial quantum query speedups require substantial promise\nstructure rather than occurring generically on the Boolean cube\n\\sourcecite{ref:a11f-aa}{AA14}.",
+    "The influential-variable conjecture should be distinguished from the\nsimulation statement: in the same paper the almost-everywhere\nclassical-simulation statement appears separately as a folklore conjecture,\nwhile the influence conjecture is the route Aaronson and Ambainis introduced\ntoward it\n\\sourcecite{ref:a11f-aa}{AA14}.",
+    "Bansal, Sinha, and de Wolf proved the desired inverse-polynomial influence\nbound for completely bounded degree-$d$ block-multilinear forms with\nconstant variance, giving almost-everywhere classical simulation for a\ncorresponding class of quantum query algorithms including iterated\nForrelation; this does not establish the conjecture for arbitrary bounded\nlow-degree polynomials\n\\sourcecite{ref:a11f-bsw}{BSW22}.",
+    "Bhattacharya proved a partial result via random restrictions: a bounded\ndegree-$d$ polynomial becomes well approximated by a polynomial-size junta\nafter an appropriate random restriction with high probability, and the\nAaronson--Ambainis conclusion holds for a non-negligible fraction of such\nrestrictions under an appropriate variance condition.  This establishes\nadditional structure in bounded low-degree polynomials but does not prove\nthe conjecture without restriction\n\\sourcecite{ref:a11f-bhatt}{Bhat25}.",
+    "Blanc, Docter, Strassle, and Tan proved the associated almost-everywhere\nclassical-simulation conjecture for bounded-round quantum query algorithms:\na $t$-query, $d$-round quantum algorithm can be simulated on most inputs\nusing $t^{O(d^2)}$ classical queries, giving polynomial overhead for\nconstant $d$.  Their result does not prove the influence conjecture for\narbitrary bounded polynomials and does not settle the unrestricted adaptive\nquantum-query simulation problem\n\\sourcecite{ref:a11f-bdst}{BDST26}."
+  ],
+  "references": [
+    {
+      "key": "AA14",
+      "label": "ref:a11f-aa",
+      "tex": "Scott Aaronson and Andris Ambainis, ``The Need for Structure in Quantum\nSpeedups,'' \\emph{Theory of Computing} \\textbf{10}, 133--166 (2014).\n\\href{https://doi.org/10.4086/toc.2014.v010a006}{doi:10.4086/toc.2014.v010a006};\n\\href{https://arxiv.org/abs/0911.0996}{arXiv:0911.0996}."
+    },
+    {
+      "key": "BBCMW01",
+      "label": "ref:a11f-bbc",
+      "tex": "Robert Beals, Harry Buhrman, Richard Cleve, Michele Mosca, and Ronald de\nWolf, ``Quantum Lower Bounds by Polynomials,'' \\emph{Journal of the ACM}\n\\textbf{48}, 778--797 (2001).\n\\href{https://doi.org/10.1145/502090.502097}{doi:10.1145/502090.502097};\n\\href{https://arxiv.org/abs/quant-ph/9802049}{arXiv:quant-ph/9802049}."
+    },
+    {
+      "key": "BSW22",
+      "label": "ref:a11f-bsw",
+      "tex": "Nikhil Bansal, Makrand Sinha, and Ronald de Wolf, ``Influence in\nCompletely Bounded Block-Multilinear Forms and Classical Simulation of\nQuantum Algorithms,'' in \\emph{37th Computational Complexity Conference\n(CCC 2022)}, LIPIcs \\textbf{234}, 28:1--28:21 (2022).\n\\href{https://doi.org/10.4230/LIPIcs.CCC.2022.28}{doi:10.4230/LIPIcs.CCC.2022.28};\n\\href{https://arxiv.org/abs/2203.00212}{arXiv:2203.00212}."
+    },
+    {
+      "key": "Bhat25",
+      "label": "ref:a11f-bhatt",
+      "tex": "Sreejata Kishor Bhattacharya, ``Random Restrictions of Bounded Low Degree\nPolynomials Are Juntas,'' in \\emph{16th Innovations in Theoretical Computer\nScience Conference (ITCS 2025)}, LIPIcs \\textbf{325}, 17:1--17:21 (2025).\n\\href{https://doi.org/10.4230/LIPIcs.ITCS.2025.17}{doi:10.4230/LIPIcs.ITCS.2025.17};\n\\href{https://arxiv.org/abs/2402.13952}{arXiv:2402.13952}."
+    },
+    {
+      "key": "BDST26",
+      "label": "ref:a11f-bdst",
+      "tex": "Guy Blanc, Jordan Docter, Carmen Strassle, and Li-Yang Tan, ``Quantum\nSpeedups Require Structure or Depth,'' to appear in \\emph{67th IEEE Symposium\non Foundations of Computer Science (FOCS 2026)} (2026).\n\\href{https://arxiv.org/abs/2608.19158}{arXiv:2608.19158}."
+    }
+  ],
+  "comment": "The central unresolved question is whether the dimension-independent\ninfluence lower bound in the statement holds for every bounded low-degree\npolynomial, without additional multilinearity structure, random restriction,\nor bounded-adaptivity assumptions on the associated quantum query\nalgorithms."
+}
