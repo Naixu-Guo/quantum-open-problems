@@ -227,11 +227,26 @@ CAPTCHA is optional: use server mode `captcha` with the provider secret, site
 `spamProtection: "captcha"`, and the matching public widget site key. Missing
 configuration leaves sending disabled. Never use test widget keys in production.
 
+Anonymous public credit has a separate rollout gate:
+`contribute.allowAnonymous` defaults to `false`. Enable it only after deploying
+an API that preserves the preference and verifying private retrieval, as
+described in the [deployment guide](../deploy/ubuntu/README.md#optional-submissions-and-editor-access).
+While disabled, restored anonymous drafts remain local and cannot be sent
+with their preference silently removed.
+
 Maintainers review in `/inbox/`, or use `service/src/cli.ts proposals list` on the
 server. Editor API credentials continue to work. The browser's **Export for AI**
 button downloads JSON with the proposal and review note, omitting contact email
 and request metadata; it does not contact an AI service. AI integration is left
 to the maintainer. Acceptance saves a review state; publication still uses a PR.
+
+Before publication, transfer the proposal's public credit choice to that
+problem's optional `contributors` array, following the
+[credit rules](../CONTRIBUTING.md#public-contributor-credit). Named entries
+require permission for that problem; anonymous entries contain only
+`anonymous: true` or are omitted. Name and email remain required in the
+private inbox even for anonymous proposals. A person's choice can differ
+between problems and must not be inferred from a global actor profile.
 
 The form's limits in `site/lib/render.mjs` mirror `LIMITS` in
 `service/src/submissions.ts`; `tests/contribute.test.mjs` fails when they drift.
