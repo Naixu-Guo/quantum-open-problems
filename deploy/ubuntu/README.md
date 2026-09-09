@@ -75,6 +75,18 @@ For CAPTCHA protection, set server mode `captcha`, configure `QOP_CAPTCHA_SECRET
 and the provider, change site `spamProtection` to `captcha`, and configure the
 matching public widget site key. Unconfigured deployments stay closed.
 
+Pages and the API deploy independently. Keep `contribute.allowAnonymous=false`
+in `site/config.json` until the deployed API preserves `contributor.anonymous`.
+Deploy the supporting API first, then verify with a synthetic proposal that
+`anonymous: true` survives submission, authenticated inbox retrieval, and a
+service restart, while the contributor's name, email, and affiliation remain
+available privately. Only after these checks pass, set `allowAnonymous` to the
+JSON boolean `true` and publish Pages. Older APIs silently discard this field.
+With the flag off, the form offers named credit only and blocks restored drafts
+that request anonymous credit; their saved preference and private contact details
+are retained. Turn the flag off before rolling the API back to a version without
+anonymous-credit support.
+
 Inbox sessions expire after twelve hours. JSON exports for AI omit contact email
 and request metadata and download to the maintainer's computer; no AI service is
 called. The review note and status can be saved in the inbox. Marking accepted

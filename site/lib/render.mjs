@@ -1,4 +1,4 @@
-import { submissionsOnline as acceptsSubmissions } from "./submission-settings.mjs";
+import { submissionsOnline as acceptsSubmissions, anonymousSubmissionsAllowed } from "./submission-settings.mjs";
 // HTML templates for every page of the zoo. Pure functions: records in,
 // strings out. No runtime dependencies.
 
@@ -154,7 +154,7 @@ ${body}
         <a href="${root}api/index.json">JSON API</a>
         <a href="${config.repositoryUrl}" rel="noreferrer">Source repository</a>
       </nav>
-      ${current === "home" ? `<p class="footer-note footer-credit">Developed and maintained by Bikun Li, Qicheng Tang, Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo. <a href="${root}about/#contributions">Contributions</a>.</p>` : ""}
+      ${current === "home" ? `<p class="footer-note footer-credit">Developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo. <a href="${root}about/#contributions">Contributions</a>.</p>` : ""}
       <p class="footer-note">A dated research index. Verify a status against the cited sources before relying on it. <a href="#top">Back to top ↑</a></p>
     </footer>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -652,12 +652,12 @@ export function renderAbout({ config, root, dates }) {
         <p>Browse by field or topic, follow the sources, or share a problem you think belongs here. The collection grows through contributions from the community and review by the maintainers. Problem pages keep permanent links, so you can return to them as the research develops.</p>
 
         <h2 id="what-will-be-collected">What will be collected</h2>
-        <p>We collect meaningful, significant unsolved problems in quantum information and quantum computation. Each problem should be formulated precisely in mathematical language and be decidable, with clear assumptions and an unambiguous criterion for a solution. When a problem is solved, its page stays in the zoo and is updated with the resolution and supporting references.</p>
+        <p>We collect meaningful, significant unsolved problems in quantum information and quantum computation. Each problem should be formulated precisely in mathematical language, with clear assumptions and an unambiguous criterion for a solution. When a problem is solved, its page stays in the zoo and is updated with the resolution and supporting references.</p>
 
         <h2 id="contribute">How to contribute</h2>
         <p>${submissionsOnline
           ? `Use the <a href="${root}contribute/">proposal form</a> to send a problem, its sources, and what is known. No account is needed.`
-          : `Propose a problem through a <a href="${config.repositoryUrl}/issues/new?template=new-problem.yml">GitHub issue</a> (a GitHub account is required). The <a href="${root}contribute/">proposal worksheet</a> helps you prepare and copy the text; online sending is not enabled yet.`} The maintainers check proposals against the literature and publish reviewed records with credit to contributors, respecting requests to remain anonymous. To add a record yourself through GitHub:</p>
+          : `Propose a problem through a <a href="${config.repositoryUrl}/issues/new?template=new-problem.yml">GitHub issue</a> (a GitHub account is required). The <a href="${root}contribute/">proposal worksheet</a> helps you prepare and copy the text; online sending is not enabled yet.`} The maintainers check proposals against the literature and publish reviewed records with credit to contributors${anonymousSubmissionsAllowed(config) ? ", respecting requests to remain anonymous" : ""}. To add a record yourself through GitHub:</p>
         <ol>
           <li>Fork the <a href="${config.repositoryUrl}" rel="noreferrer">repository</a> and run <code>node scripts/new-problem-id.mjs --create</code> to create a problem template with permanent identifiers.</li>
           <li>Write the statement, status, source, progress, references, and comment as TeX fragments in the record's fields, following the contribution guide, and choose one or two fields and one to five topics from <code>database/tags.json</code>. Run <code>node scripts/migrate-metadata.mjs</code> after changing the classifications.</li>
@@ -688,7 +688,7 @@ export function renderAbout({ config, root, dates }) {
         <p>The connection reads the current hosted catalog, including newly published problems. If it fails, check the <a href="${escape(mcpServiceUrl)}/api/v1/status" rel="noreferrer">catalog service status</a> and confirm that your client supports remote MCP. The <a href="${config.repositoryUrl}/blob/${config.branch}/mcp/README.md" rel="noreferrer">MCP setup and tool guide</a> also covers local clients and authenticated research contributions. For direct downloads, the <a href="${root}api/index.json">JSON catalog</a>, <a href="${root}api/tags.json">taxonomy</a>, and <a href="${root}llms.txt">agent guide</a> are available.</p>
 
         <h2 id="contributions"><span id="credits">Contributions</span></h2>
-        <p>This project is developed and maintained by Bikun Li, Qicheng Tang, Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo.</p>
+        <p>This project is developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo.</p>
         <p>We thank <a href="https://gauge-forge.com/" rel="noreferrer">GaugeForge</a> for its financial support of this project.</p>
         <p>Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
       </div>
@@ -732,6 +732,7 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
   if (!widget) throw new Error(`site/config.json: contribute.captcha.provider must be one of ${Object.keys(CAPTCHA_WIDGETS).join(", ")}`);
   const siteKey = String(settings.captcha?.siteKey ?? "").trim();
   const online = acceptsSubmissions(config);
+  const allowAnonymous = anonymousSubmissionsAllowed(config);
   const usesCaptcha = online && settings.spamProtection !== "basic";
   const issueUrl = `${config.repositoryUrl}/issues/new?template=new-problem.yml`;
   const L = PROPOSAL_LIMITS;
@@ -769,7 +770,7 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
       <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><span>Contribute</span></nav>
       <div class="section-heading">
         <div><p class="section-index">Contribute</p><h1>Propose an open problem</h1></div>
-        <p>${online ? "Send a proposal without an account." : "Prepare a proposal here, then submit it through GitHub with an account."} The maintainers review proposals and publish accepted records with credit to contributors, unless they choose to remain anonymous.</p>
+        <p>${online ? "Send a proposal without an account." : "Prepare a proposal here, then submit it through GitHub with an account."} The maintainers review proposals and publish accepted records with credit to contributors${allowAnonymous ? ", unless they choose to remain anonymous" : ""}.</p>
       </div>
       <div class="contribute-routes no-math">
         <div class="route-card">
@@ -782,7 +783,7 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
         </div>
       </div>
 
-      <form class="proposal-form no-math" id="proposal-form" novalidate data-submit-url="${escape(submissionUrl)}" data-captcha-provider="${usesCaptcha ? providerKey : ""}" data-captcha-response="${usesCaptcha ? widget.responseField : ""}" data-limits='${escape(JSON.stringify(L))}'>
+      <form class="proposal-form no-math" id="proposal-form" novalidate data-submit-url="${escape(submissionUrl)}" data-captcha-provider="${usesCaptcha ? providerKey : ""}" data-captcha-response="${usesCaptcha ? widget.responseField : ""}" data-allow-anonymous="${allowAnonymous}" data-limits='${escape(JSON.stringify(L))}'>
         <fieldset>
           <legend>The problem</legend>
           ${field("proposal-title", "Title", input("proposal-title", "title", `required minlength="${L.title.min}" maxlength="${L.title.max}" autocomplete="off"`), "A short descriptive title, as it would head the problem page.")}
@@ -809,7 +810,7 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
 
         <fieldset>
           <legend>Sources and progress</legend>
-          ${field("proposal-source", "Source", textarea("proposal-source", "source", 3, `maxlength="${L.source.max}"`), "The paper or preprint that posed the problem, or the papers in which it is implicit. If it has no literature source, write “Contributor: your name” for named credit, or “unknown” to remain anonymous.")}
+          ${field("proposal-source", "Source", textarea("proposal-source", "source", 3, `maxlength="${L.source.max}"`), `The paper or preprint that posed the problem, or the papers in which it is implicit. If it has no literature source, write “Contributor: your name”${allowAnonymous ? " for named credit, or “unknown” to remain anonymous" : ""}.`)}
           ${field("proposal-progress", "Known progress", textarea("proposal-progress", "progress", 6, `maxlength="${L.progress.max}"`), "Results that delimit the problem, each with its source and a sentence on why it falls short of the full question.")}
           ${field("proposal-references", "References", textarea("proposal-references", "references", 6, `maxlength="${L.references.max}"`), "Full bibliographic entries with DOI and arXiv identifiers, one per line. BibTeX is welcome.")}
         </fieldset>
@@ -822,16 +823,16 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
         <fieldset>
           <legend>About you</legend>
           <div class="form-grid-2">
-            ${field("proposal-name", "Name", input("proposal-name", "name", `required maxlength="${L.name.max}" autocomplete="name"`), "Required for review, even if you choose to remain anonymous.")}
+            ${field("proposal-name", "Name", input("proposal-name", "name", `required maxlength="${L.name.max}" autocomplete="name"`), allowAnonymous ? "Required for review, even if you choose to remain anonymous." : "Required for review and contributor credit.")}
             ${field("proposal-email", "Email", `<input id="proposal-email" name="email" type="email" required maxlength="${L.email.max}" autocomplete="email" aria-describedby="proposal-email-hint">`, "For questions about the proposal only; never published.")}
           </div>
           ${field("proposal-affiliation", "Affiliation (optional)", input("proposal-affiliation", "affiliation", `maxlength="${L.affiliation.max}" autocomplete="organization"`))}
-          <div class="form-row">
+          ${allowAnonymous ? `<div class="form-row">
             <label class="consent"><input type="checkbox" name="anonymous" id="proposal-anonymous" aria-describedby="proposal-anonymous-hint"><span>I would like to remain anonymous for this problem.</span></label>
             <p class="form-hint" id="proposal-anonymous-hint">Your name and email are still required so the maintainers can review your proposal and contact you. If selected, your name and affiliation will not appear in this problem's contributor credit. You can make a different choice for each problem.</p>
-          </div>
+          </div>` : `<p class="form-hint">This form currently accepts proposals with named contributor credit. Anonymous credit is not available through this form yet.</p>`}
           <div class="form-row">
-            <label class="consent"><input type="checkbox" name="consent" id="proposal-consent" required><span>I agree that the maintainers store this proposal with my name and email address to review it and to contact me about it, and that the problem, once rewritten, may be published in the zoo under its <a href="${config.repositoryUrl}/blob/${config.branch}/LICENSE" rel="noreferrer">license</a>, respecting my choice about contributor credit.</span></label>
+            <label class="consent"><input type="checkbox" name="consent" id="proposal-consent" required><span>I agree that the maintainers store this proposal with my name and email address to review it and to contact me about it, and that the problem, once rewritten, may be published in the zoo under its <a href="${config.repositoryUrl}/blob/${config.branch}/LICENSE" rel="noreferrer">license</a>${allowAnonymous ? ", respecting my choice about contributor credit" : ", with my name and any affiliation I provide in the contributor credit"}.</span></label>
           </div>
           <div class="hp" aria-hidden="true">
             <label for="proposal-extra">Leave this field empty</label>

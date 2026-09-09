@@ -346,10 +346,16 @@
     const submitUrl = proposalForm.dataset.submitUrl || "";
     const captchaProvider = proposalForm.dataset.captchaProvider || "";
     const captchaField = proposalForm.dataset.captchaResponse || "";
+    const allowAnonymous = proposalForm.dataset.allowAnonymous === "true";
     let limits = {};
     try { limits = JSON.parse(proposalForm.dataset.limits || "{}"); } catch (error) { limits = {}; }
     const control = (name) => proposalForm.elements.namedItem(name);
     const value = (name) => String(control(name)?.value ?? "").trim();
+    // An older deployment may restore a draft made when anonymous credit was available.
+    // Keep that choice even when this form has no checkbox, so neither a save nor a send loses it.
+    let restoredAnonymous = false;
+    const anonymousRequested = () => Boolean(control("anonymous")?.checked) || (!allowAnonymous && restoredAnonymous);
+    const anonymousUnavailable = "Your draft requests anonymous credit, which is not available through this form yet. Keep your draft and return later, or use Clear form to start a new proposal with named credit.";
     const say = (message, kind = "") => {
       if (!statusLine) return;
       statusLine.textContent = message;
@@ -433,7 +439,7 @@
       progress: value("progress"),
       references: value("references"),
       comment: value("comment"),
-      contributor: { name: value("name"), email: value("email"), affiliation: value("affiliation"), anonymous: Boolean(control("anonymous")?.checked) },
+      contributor: { name: value("name"), email: value("email"), affiliation: value("affiliation"), ...(allowAnonymous ? { anonymous: anonymousRequested() } : {}) },
       consent: Boolean(control("consent")?.checked),
       extra: value("extra"),
       captchaToken: captchaField ? value(captchaField) : ""
@@ -442,6 +448,7 @@
     // The same checks the inbox makes, so a proposal is complete before it leaves the browser.
     const problems = (p) => {
       const list = [];
+      if (!allowAnonymous && anonymousRequested()) list.push({ message: anonymousUnavailable });
       const between = (text, limit, label, name) => {
         if (limit.min && text.length < limit.min) list.push({ message: text ? `${label} needs at least ${limit.min} characters.` : `${label} is required.`, control: control(name) });
         else if (limit.max && text.length > limit.max) list.push({ message: `${label} is longer than ${limit.max} characters.`, control: control(name) });
@@ -465,7 +472,7 @@
     const saveDraft = () => {
       window.clearTimeout(saveTimer);
       try {
-        const draft = { values: Object.fromEntries(textNames.map((name) => [name, String(control(name)?.value ?? "")])), anonymous: Boolean(control("anonymous")?.checked), fields: fields.chosen(), newFields: fields.custom(), topics: topics.chosen(), newTopics: topics.custom() };
+        const draft = { values: Object.fromEntries(textNames.map((name) => [name, String(control(name)?.value ?? "")])), anonymous: anonymousRequested(), fields: fields.chosen(), newFields: fields.custom(), topics: topics.chosen(), newTopics: topics.custom() };
         if (Object.values(draft.values).some(Boolean) || draft.anonymous || draft.fields.length || draft.topics.length) localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
         else localStorage.removeItem(DRAFT_KEY);
       } catch (error) { /* storage unavailable */ }
@@ -479,7 +486,8 @@
       try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null"); } catch (error) { draft = null; }
       if (!draft || typeof draft !== "object") return false;
       textNames.forEach((name) => { const element = control(name); if (element && draft.values?.[name]) element.value = draft.values[name]; });
-      if (control("anonymous")) control("anonymous").checked = draft.anonymous === true;
+      restoredAnonymous = draft.anonymous === true;
+      if (control("anonymous")) control("anonymous").checked = restoredAnonymous;
       fields.set(draft.fields, draft.newFields);
       topics.set(draft.topics, draft.newTopics);
       return true;
@@ -488,7 +496,10 @@
     proposalForm.addEventListener("input", scheduleSave);
     proposalForm.addEventListener("change", scheduleSave);
     proposalForm.addEventListener("click", (event) => { if (event.target.closest("[data-remove], [data-picker-add]")) scheduleSave(); });
-    if (restoreDraft()) say("Restored the unsent draft kept in this browser.");
+    if (restoreDraft()) {
+      if (!allowAnonymous && anonymousRequested()) say(anonymousUnavailable, "error");
+      else say("Restored the unsent draft kept in this browser.");
+    }
 
     // This example is a visual placeholder, never part of the statement or its draft.
     const statementPlaceholder = $("#statement-placeholder");
@@ -514,8 +525,8 @@
       const section = (heading, body) => (body ? `## ${heading}\n\n${body}\n\n` : "");
       const marked = (all, own) => all.map((name) => (own.includes(name) ? `${name} (new)` : name)).join("; ") || "none";
       return `# ${p.title || "(untitled)"}\n\n`
-        + (p.contributor.anonymous ? "Contributor: Anonymous\n" : `Contributor: ${p.contributor.name}${p.contributor.email ? ` <${p.contributor.email}>` : ""}${p.contributor.affiliation ? ` (${p.contributor.affiliation})` : ""}\n`)
-        + `Public credit: ${p.contributor.anonymous ? "Remain anonymous" : "Use contributor name"}\n`
+        + (anonymousRequested() ? "Contributor: Anonymous\n" : `Contributor: ${p.contributor.name}${p.contributor.email ? ` <${p.contributor.email}>` : ""}${p.contributor.affiliation ? ` (${p.contributor.affiliation})` : ""}\n`)
+        + `Public credit: ${anonymousRequested() ? "Remain anonymous" : "Use contributor name"}\n`
         + `Fields: ${marked(p.fields, p.newFields)}\nTopics: ${marked(p.topics, p.newTopics)}\n\n`
         + section("Statement", p.statement) + section("Source", p.source) + section("Progress", p.progress) + section("References", p.references) + section("Comment", p.comment);
     };
@@ -525,6 +536,7 @@
     });
     $("#proposal-clear")?.addEventListener("click", () => {
       proposalForm.reset();
+      restoredAnonymous = false;
       fields.set([], []);
       topics.set([], []);
       if (preview) { preview.hidden = true; preview.textContent = ""; }

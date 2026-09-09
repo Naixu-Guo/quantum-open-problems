@@ -9,10 +9,12 @@ validation workflow runs it on each pull request.
 To suggest a problem without editing the repository, use the
 [proposal form](https://qiqc-op.com/contribute/) to submit the statement,
 sources, and known progress without an account. Maintainers review
-proposals and publish accepted records with each contributor's chosen public
-credit. Names and emails are required for private review, including when a
-contributor chooses to remain anonymous on that problem. The rest of this
-guide is for people who write the record themselves.
+proposals and publish accepted records with credit to contributors. When the
+form offers anonymous credit, that choice applies to the proposed problem;
+names and emails remain required for private review. If an unsent anonymous
+draft is restored while that option is unavailable, the form keeps the draft
+and prevents sending it with named credit. The rest of this guide is for
+people who write the record themselves.
 
 For agent-assisted additions and revisions, follow the repository's
 [writing-open-problems skill](.claude/skills/writing-open-problems/SKILL.md).
