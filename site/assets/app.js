@@ -451,7 +451,9 @@
       if (p.fields.length < (limits.fields?.min ?? 1)) list.push({ message: "Choose at least one field.", control: fields.select });
       if (p.topics.length < (limits.topics?.min ?? 1)) list.push({ message: "Choose at least one topic or add your own.", control: topics.select });
       between(p.contributor.name, limits.name || { min: 1 }, "Your name", "name");
+      between(p.contributor.email, limits.email || {}, "Email", "email");
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.contributor.email)) list.push({ message: "Enter a valid email address.", control: control("email") });
+      between(p.contributor.affiliation, limits.affiliation || {}, "Affiliation", "affiliation");
       if (!p.consent) list.push({ message: "Tick the consent box.", control: control("consent") });
       return list;
     };
@@ -459,14 +461,19 @@
     // Drafts.
     const DRAFT_KEY = "qiqcop-proposal-draft";
     const textNames = ["title", "statement", "source", "progress", "references", "comment", "name", "email", "affiliation"];
+    let saveTimer = 0;
     const saveDraft = () => {
+      window.clearTimeout(saveTimer);
       try {
         const draft = { values: Object.fromEntries(textNames.map((name) => [name, String(control(name)?.value ?? "")])), anonymous: Boolean(control("anonymous")?.checked), fields: fields.chosen(), newFields: fields.custom(), topics: topics.chosen(), newTopics: topics.custom() };
         if (Object.values(draft.values).some(Boolean) || draft.anonymous || draft.fields.length || draft.topics.length) localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
         else localStorage.removeItem(DRAFT_KEY);
       } catch (error) { /* storage unavailable */ }
     };
-    const clearDraft = () => { try { localStorage.removeItem(DRAFT_KEY); } catch (error) { /* ignore */ } };
+    const clearDraft = () => {
+      window.clearTimeout(saveTimer);
+      try { localStorage.removeItem(DRAFT_KEY); } catch (error) { /* ignore */ }
+    };
     const restoreDraft = () => {
       let draft = null;
       try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null"); } catch (error) { draft = null; }
@@ -477,7 +484,6 @@
       topics.set(draft.topics, draft.newTopics);
       return true;
     };
-    let saveTimer = 0;
     const scheduleSave = () => { window.clearTimeout(saveTimer); saveTimer = window.setTimeout(saveDraft, 400); };
     proposalForm.addEventListener("input", scheduleSave);
     proposalForm.addEventListener("change", scheduleSave);
@@ -544,6 +550,7 @@
     };
     proposalForm.addEventListener("submit", async (event) => {
       event.preventDefault();
+      saveDraft();
       const p = proposal();
       const issues = problems(p);
       if (issues.length) {

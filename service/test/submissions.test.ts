@@ -170,7 +170,22 @@ test("anonymity is optional, strictly boolean, and still requires a name and ema
   assert.throws(() => parseSubmission(proposal({ contributor: { ...contributor, email: "invalid", anonymous: true } })), /email address is not valid/u);
 });
 
-test("legacy proposals keep their attribution and retry behavior; an anonymity change is retained", t => {
+test("contact normalization preserves Unicode and optional affiliations; malformed affiliations are refused", () => {
+  for (const anonymous of [false, true]) {
+    const contributor = { name: "  Zoë   李  ", email: "  zoe+research@example.org  ", affiliation: " Université de Montréal;\nInstitute for Quantum Studies ", anonymous };
+    assert.deepEqual(parseSubmission(proposal({ contributor })).payload.contributor, {
+      name: "Zoë 李", email: "zoe+research@example.org", affiliation: "Université de Montréal; Institute for Quantum Studies", anonymous,
+    });
+    for (const affiliation of [undefined, ""]) {
+      assert.equal(parseSubmission(proposal({ contributor: { ...contributor, affiliation } })).payload.contributor.affiliation, "");
+    }
+    for (const affiliation of [null, 42, ["Example University"], { name: "Example University" }]) {
+      assert.throws(() => parseSubmission(proposal({ contributor: { ...contributor, affiliation } })), /affiliation must be text/u);
+    }
+  }
+});
+
+test("legacy proposals keep exact retries and retain corrected contacts and anonymity preferences", t => {
   const store = new SubmissionStore(":memory:");
   t.after(() => store.close());
   const payload = parseSubmission(proposal()).payload;
@@ -183,6 +198,17 @@ test("legacy proposals keep their attribution and retry behavior; an anonymity c
   assert.equal(store.get(first.id)!.payload.contributor.anonymous, false);
   assert.equal(store.list()[0]!.contributor.anonymous, false);
   assert.deepEqual(store.accept(payload, meta), { ...first, duplicate: true }, "old receipts still deduplicate when the preference remains unchanged");
+
+  for (const correction of [{ name: "Ada Example-Smith" }, { affiliation: "Updated Institute" }, { email: "Ada@example.org" }]) {
+    const correctedPayload = { ...payload, contributor: { ...payload.contributor, ...correction } };
+    const receipt = store.accept(correctedPayload, meta);
+    assert.equal(receipt.duplicate, false, "corrected contact details must receive a new receipt");
+    assert.notEqual(receipt.id, first.id);
+    assert.deepEqual(store.get(receipt.id)!.contributor, correctedPayload.contributor);
+    assert.deepEqual(store.accept(correctedPayload, meta), { ...receipt, duplicate: true });
+  }
+  assert.deepEqual(store.get(first.id)!.contributor, payload.contributor, "corrections do not overwrite the original proposal");
+  assert.deepEqual(store.accept(payload, meta), { ...first, duplicate: true }, "an original retry still finds its receipt after corrections");
 
   const anonymousPayload = { ...payload, contributor: { ...payload.contributor, anonymous: true } };
   const changed = store.accept(anonymousPayload, meta);

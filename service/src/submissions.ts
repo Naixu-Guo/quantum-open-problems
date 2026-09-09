@@ -203,6 +203,7 @@ export function parseSubmission(raw: unknown, requireCaptcha = true): ParsedSubm
   const email = clean(person["email"]);
   if (!email) issues.push("your email address is required");
   else if (email.length > LIMITS.email.max || !EMAIL.test(email)) issues.push("the email address is not valid");
+  if (person["affiliation"] !== undefined && typeof person["affiliation"] !== "string") issues.push("the affiliation must be text");
   const affiliation = clean(person["affiliation"]).replace(/\s+/gu, " ");
   if (affiliation.length > LIMITS.affiliation.max) issues.push(`the affiliation is longer than ${LIMITS.affiliation.max} characters`);
   if (person["anonymous"] !== undefined && typeof person["anonymous"] !== "boolean") issues.push("the anonymity preference must be a boolean");
@@ -238,7 +239,7 @@ export async function verifyCaptcha(captcha: CaptchaConfig, token: string, remot
 
 export function contentHash(payload: SubmissionPayload): string {
   const content = [payload.title.toLowerCase(), payload.statement, payload.contributor.email.toLowerCase()];
-  // Preserve existing hashes while distinguishing a newly requested anonymity preference.
+  // Keep historical lookup hashes; accept also compares the complete contact details.
   if (payload.contributor.anonymous) content.push("anonymous");
   return createHash("sha256").update(JSON.stringify(content)).digest("hex");
 }
@@ -271,12 +272,19 @@ export class SubmissionStore {
 
   /**
    * File a verified proposal. The same proposal sent twice within a day (same title, statement,
-   * email, and anonymity preference, as when a browser retries) is filed once; the reply says so.
+   * and complete contributor details, as when a browser retries) is filed once. Corrections to
+   * contact details receive a new receipt, preserving both the correction and the original.
    */
   accept(payload: SubmissionPayload, meta: { address: string; userAgent: string; captchaProvider: string }, now: number = Date.now()): { id: string; receivedAt: string; duplicate: boolean } {
     const hash = contentHash(payload);
     const since = new Date(now - DUPLICATE_WINDOW_MS).toISOString();
-    const existing = this.db.prepare("SELECT id, received_at FROM submissions WHERE content_hash = ? AND received_at >= ? ORDER BY received_at DESC LIMIT 1").get(hash, since) as { id: string; received_at: string } | undefined;
+    const candidates = this.db.prepare(`SELECT ${ROW_COLUMNS} FROM submissions WHERE content_hash = ? AND received_at >= ? ORDER BY received_at DESC`).all(hash, since) as unknown as StoredRow[];
+    const existing = candidates.find((row) => {
+      const previous = storedPayload(row).contributor;
+      const current = payload.contributor;
+      return previous.name === current.name && previous.email === current.email
+        && previous.affiliation === current.affiliation && previous.anonymous === current.anonymous;
+    });
     if (existing) return { id: existing.id, receivedAt: existing.received_at, duplicate: true };
     const id = newId(now);
     const receivedAt = new Date(now).toISOString();

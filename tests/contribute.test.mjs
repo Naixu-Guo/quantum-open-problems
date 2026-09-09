@@ -47,6 +47,9 @@ test("the page offers every field and topic in a dropdown with an Other option a
   assert.ok(html.includes('name="extra"'), "the honeypot is present");
   assert.match(html, /<input id="proposal-name" name="name"[^>]*\brequired\b/u, "name remains required");
   assert.ok(html.includes('type="email" required'), "email is required");
+  const affiliationInput = html.match(/<input id="proposal-affiliation"[^>]*>/u)?.[0] ?? "";
+  assert.ok(affiliationInput.includes(`name="affiliation" type="text" maxlength="${LIMITS.affiliation.max}" autocomplete="organization"`), "affiliation has a named control and the server limit");
+  assert.doesNotMatch(affiliationInput, /\brequired\b/u, "affiliation remains optional");
   assert.match(html, /<input(?=[^>]*\bid="proposal-anonymous")(?=[^>]*\bname="anonymous")(?=[^>]*\btype="checkbox")[^>]*>/u, "contributors can request anonymous public credit");
   assert.match(html, /<textarea id="proposal-statement"[^>]*><\/textarea>/u, "the example is not submitted as statement content");
   assert.match(html, /id="statement-placeholder"/u, "the empty statement offers a separate example");
@@ -96,7 +99,7 @@ test("the about page advertises account-free sending only when the form is confi
 
 // Run the shipped script with form controls, storage, clipboard, and timers that tests
 // can drive directly, without making network requests or depending on a browser.
-function createClientForm({ values = {}, draft, anonymous = false } = {}) {
+function createClientForm({ values = {}, draft, anonymous = false, respond = () => ({ ok: true, status: 201, json: async () => ({ accepted: true, id: "01TEST" }) }) } = {}) {
   const listeners = {};
   const element = (properties = {}) => ({
     dataset: {}, hidden: false, value: "", checked: false, disabled: false, textContent: "", listeners: {}, classList: { toggle() {}, add() {}, remove() {} },
@@ -131,6 +134,8 @@ function createClientForm({ values = {}, draft, anonymous = false } = {}) {
   const statusLine = element();
   const submitButton = element();
   const ids = new Map([["#proposal-form", form], ["#proposal-status", statusLine], ["#proposal-submit", submitButton], ["#fields-count", element()], ["#topics-count", element()], ["#proposal-statement", controls.get("statement")], ["#statement-placeholder", element()], ["#proposal-anonymous", controls.get("anonymous")], ["#proposal-copy", element()], ["#proposal-clear", element()]]);
+  ids.set("#proposal-done", element({ hidden: true }));
+  ids.set("#proposal-receipt", element());
   const fetched = [];
   const document = element({
     body: { dataset: { root: "../" } }, documentElement: { dataset: { theme: "light" } },
@@ -148,7 +153,7 @@ function createClientForm({ values = {}, draft, anonymous = false } = {}) {
     localStorage: { getItem: (key) => storage.get(key) ?? null, setItem: (key, value) => storage.set(key, value), removeItem: (key) => storage.delete(key) },
     window: { setTimeout: (callback) => { timers.set(++nextTimer, callback); return nextTimer; }, clearTimeout: (id) => timers.delete(id), matchMedia: () => ({ matches: false }) },
     navigator: { clipboard: { writeText: async (text) => copied.push(text) } },
-    fetch: async (url, init) => { fetched.push({ url, body: JSON.parse(init.body) }); return { ok: true, status: 201, json: async () => ({ accepted: true, id: "01TEST" }) }; }
+    fetch: async (url, init) => { fetched.push({ url, method: init.method, headers: init.headers, body: JSON.parse(init.body) }); return respond(); }
   });
   const choose = (picker, value) => { picker.select.value = value; picker.select.listeners.change(); };
   const flushTimers = () => { const pending = [...timers.values()]; timers.clear(); pending.forEach((callback) => callback()); };
@@ -214,6 +219,94 @@ test("anonymous proposals still require a name and email and send them privately
   await form.listeners.submit({ preventDefault() {} });
   assert.equal(fetched.length, 1);
   assert.deepEqual(fetched[0].body.contributor, { name: "Ada", email: "ada@example.org", affiliation: "", anonymous: true });
+});
+
+test("drafts restore full Unicode contact details and send them for either public credit preference", async () => {
+  const values = { name: "  李明 Zoë García  ", email: "  zoe.garcia+research@example.org  ", affiliation: "  Université de Montréal; 北京大学  " };
+  for (const anonymous of [false, true]) {
+    const saved = createClientForm({ values, anonymous });
+    saved.choose(saved.fieldPicker, "Quantum algorithm");
+    saved.choose(saved.topicPicker, "Bell nonlocality");
+    saved.form.listeners.input();
+    saved.flushTimers();
+    const draft = JSON.parse(saved.storage.get("qiqcop-proposal-draft"));
+    const restored = createClientForm({ draft, values: { name: "", email: "", affiliation: "" } });
+    for (const [name, value] of Object.entries(values)) assert.equal(restored.controls.get(name).value, value, `${name} survives draft restoration`);
+    await restored.form.listeners.submit({ preventDefault() {} });
+    assert.equal(restored.fetched.length, 1);
+    assert.equal(restored.fetched[0].method, "POST");
+    assert.equal(restored.fetched[0].headers["Content-Type"], "application/json");
+    assert.deepEqual(restored.fetched[0].body.contributor, {
+      name: values.name.trim(), email: values.email.trim(), affiliation: values.affiliation.trim(), anonymous
+    });
+  }
+});
+
+test("contact validation checks required values and all server length limits before sending", async () => {
+  const cases = [
+    ["name", " \t ", /Your name is required/u],
+    ["name", "名".repeat(LIMITS.name.max + 1), /Your name is longer than 200 characters/u],
+    ["email", " \t ", /valid email/u],
+    ["email", "person@@example.org", /valid email/u],
+    ["email", `${"a".repeat(LIMITS.email.max)}@example.org`, /Email is longer than 254 characters/u],
+    ["affiliation", "校".repeat(LIMITS.affiliation.max + 1), /Affiliation is longer than 300 characters/u]
+  ];
+  for (const anonymous of [false, true]) {
+    for (const [name, value, message] of cases) {
+      const client = createClientForm({ values: { [name]: value }, anonymous });
+      client.choose(client.fieldPicker, "Quantum algorithm");
+      client.choose(client.topicPicker, "Bell nonlocality");
+      await client.form.listeners.submit({ preventDefault() {} });
+      assert.equal(client.fetched.length, 0, `invalid ${name} is not sent`);
+      assert.match(client.statusLine.textContent, message);
+      assert.equal(client.controls.get(name).focused, true);
+      assert.equal(client.form.hidden, false);
+    }
+  }
+  const client = createClientForm({ values: { name: "名".repeat(LIMITS.name.max), email: `${"a".repeat(LIMITS.email.max - "@example.org".length)}@example.org`, affiliation: "校".repeat(LIMITS.affiliation.max) } });
+  client.choose(client.fieldPicker, "Quantum algorithm");
+  client.choose(client.topicPicker, "Bell nonlocality");
+  await client.form.listeners.submit({ preventDefault() {} });
+  assert.equal(client.fetched.length, 1, "the exact contact length limits are accepted");
+});
+
+test("failed submissions keep the latest contact details immediately for retry", async () => {
+  for (const respond of [
+    () => ({ ok: false, status: 422, json: async () => ({ error: "please check your proposal" }) }),
+    () => { throw new Error("network unavailable"); }
+  ]) {
+    const client = createClientForm({ anonymous: true, respond });
+    client.choose(client.fieldPicker, "Quantum algorithm");
+    client.choose(client.topicPicker, "Bell nonlocality");
+    client.form.listeners.input();
+    client.flushTimers();
+    const values = { name: "李明 Zoë García", email: "zoe+review@example.org", affiliation: "Université de Montréal" };
+    for (const [name, value] of Object.entries(values)) client.controls.get(name).value = value;
+    client.form.listeners.input();
+    await client.form.listeners.submit({ preventDefault() {} });
+    const draft = JSON.parse(client.storage.get("qiqcop-proposal-draft"));
+    for (const [name, value] of Object.entries(values)) assert.equal(draft.values[name], value, `latest ${name} is kept before the debounce timer runs`);
+    assert.equal(draft.anonymous, true);
+    assert.equal(client.form.hidden, false);
+    assert.equal(client.ids.get("#proposal-done").hidden, true);
+    assert.equal(client.ids.get("#proposal-submit").disabled, false);
+    assert.equal(client.statusLine.dataset.kind, "error");
+  }
+});
+
+test("a successful submission displays its receipt and pending saves cannot restore the submitted draft", async () => {
+  const client = createClientForm({ values: { affiliation: "Université de Montréal" } });
+  client.choose(client.fieldPicker, "Quantum algorithm");
+  client.choose(client.topicPicker, "Bell nonlocality");
+  client.form.listeners.input();
+  await client.form.listeners.submit({ preventDefault() {} });
+  assert.equal(client.form.hidden, true);
+  assert.equal(client.ids.get("#proposal-done").hidden, false);
+  assert.equal(client.ids.get("#proposal-done").focused, true);
+  assert.equal(client.ids.get("#proposal-receipt").textContent, "01TEST");
+  assert.equal(client.storage.has("qiqcop-proposal-draft"), false);
+  client.flushTimers();
+  assert.equal(client.storage.has("qiqcop-proposal-draft"), false, "a pending input event cannot recreate the submitted draft");
 });
 
 test("copied anonymous proposals omit contact details and record the public credit preference", async () => {
