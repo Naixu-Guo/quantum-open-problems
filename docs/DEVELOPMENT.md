@@ -1,7 +1,7 @@
 # Development and maintenance
 
 This guide covers the structure, local setup, maintenance, and deployment of
-QIQCZoo. For an introduction to the project, see the [project README](../README.md).
+QIQCOP Zoo. For an introduction to the project, see the [project README](../README.md).
 Run all commands below from the repository root.
 
 ## Record model
