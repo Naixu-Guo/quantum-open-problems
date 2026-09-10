@@ -1,0 +1,63 @@
+% Problem record op_b0666933a3d77eba. This TeX file is derived from
+% database/problems_json/op_b0666933a3d77eba.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Simultaneously optimal queries to both quantum linear-system oracles}
+\label{sec:op_b0666933a3d77eba}
+
+\paragraph{Problem.}
+Can one quantum linear-system algorithm attain both query bounds in \eqref{eq:qlsboth-target} simultaneously?
+Let $A\in\mathbb{C}^{N\times N}$ be invertible, with exact block-encoding oracle $O_A$ for $A/\alpha_A$ and state-preparation oracle $O_b\lvert0\rangle=\lvert b\rangle$. Given bounds $\alpha_A\geq\lVert A\rVert$, $\alpha_{A^{-1}}\geq\lVert A^{-1}\rVert$, define \eqref{eq:qlsboth-parameters}:
+\begin{equation}
+ K=\alpha_A\alpha_{A^{-1}},\qquad
+ p=\frac{\lVert A^{-1}\lvert b\rangle\rVert^2}{\alpha_{A^{-1}}^2},\qquad
+ \lvert x\rangle=\frac{A^{-1}\lvert b\rangle}{\lVert A^{-1}\lvert b\rangle\rVert}.
+ \label{eq:qlsboth-parameters}
+\end{equation}
+Assume a constant-factor estimate of $p$ is supplied. For every $0<\epsilon<1/2$, require a state $\lvert\widetilde{x}\rangle$ with $\lVert\lvert\widetilde{x}\rangle-\lvert x\rangle\rVert\leq\epsilon$, with success probability at least $2/3$, using
+\begin{equation}
+ Q_b=O(p^{-1/2}),\qquad Q_A=O\bigl(K\log(1/\epsilon)\bigr).
+ \label{eq:qlsboth-target}
+\end{equation}
+Queries include inverse and controlled oracle calls; constants must be uniform over admissible inputs.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Low and Su, Section~7, Eq.~(241), with the supplied-norm-estimate convention of Theorem~2 \sourcecite{ref:qlsboth-low-su}{LS26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Theorem~2 achieves $Q_b=O(p^{-1/2})$ and $Q_A=O(KL\log(L/\epsilon))$, where $L=\max\{1,\log(p^{-1/2})\}$. Theorem~4 achieves $Q_A=O(K\log(1/\epsilon))$ with $Q_b=O(K\log(1/\epsilon))$ \sourcecite{ref:qlsboth-low-su}{LS26}.
+
+  \item Theorem~3 proves a worst-case $\Omega(p^{-1/2})$ state-preparation lower bound when the inverse-norm bound is tight \sourcecite{ref:qlsboth-low-su}{LS26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[LS26]}]\label{ref:qlsboth-low-su}
+  G. H. Low and Y. Su, ``Quantum linear system algorithm with optimal queries to initial state preparation,'' \emph{Quantum} \textbf{10}, 2041 (2026).
+\href{https://doi.org/10.22331/q-2026-03-23-2041}{doi:10.22331/q-2026-03-23-2041};
+\href{https://arxiv.org/abs/2410.18178}{arXiv:2410.18178}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The gap is simultaneous attainment, not either bound separately. $K$ bounds the spectral condition number. Estimating an initially unknown $p$ is a separate resource question.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Quantum linear algebra; Computational complexity and computability
+
+\subsection*{ID}
+
+\texttt{op\_b0666933a3d77eba}
