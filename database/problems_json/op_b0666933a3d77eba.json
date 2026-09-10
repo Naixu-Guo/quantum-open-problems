@@ -1,0 +1,61 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_b0666933a3d77eba",
+  "ulid": "01M22P0HX43A7EQD9XKQ1G7QQJ",
+  "aliases": [
+    "op_b0666933a3d77eba",
+    "01M22P0HX43A7EQD9XKQ1G7QQJ",
+    "op-b0666933a3d77eba"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-09T08:54:34.660Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": "2024",
+    "areaIds": [
+      "quantum-algorithm"
+    ],
+    "topicIds": [
+      "quantum-linear-algebra",
+      "computational-complexity-and-computability"
+    ],
+    "keywords": [
+      "quantum linear systems",
+      "block encoding",
+      "variable-time amplitude amplification",
+      "oracle tradeoffs"
+    ],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
+  "title": "Simultaneously optimal queries to both quantum linear-system oracles",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum algorithm"
+  ],
+  "topics": [
+    "Quantum linear algebra",
+    "Computational complexity and computability"
+  ],
+  "statement": "Can one quantum linear-system algorithm attain both query bounds in \\eqref{eq:qlsboth-target} simultaneously?\nLet $A\\in\\mathbb{C}^{N\\times N}$ be invertible, with exact block-encoding oracle $O_A$ for $A/\\alpha_A$ and state-preparation oracle $O_b\\lvert0\\rangle=\\lvert b\\rangle$. Given bounds $\\alpha_A\\geq\\lVert A\\rVert$, $\\alpha_{A^{-1}}\\geq\\lVert A^{-1}\\rVert$, define \\eqref{eq:qlsboth-parameters}:\n\\begin{equation}\n K=\\alpha_A\\alpha_{A^{-1}},\\qquad\n p=\\frac{\\lVert A^{-1}\\lvert b\\rangle\\rVert^2}{\\alpha_{A^{-1}}^2},\\qquad\n \\lvert x\\rangle=\\frac{A^{-1}\\lvert b\\rangle}{\\lVert A^{-1}\\lvert b\\rangle\\rVert}.\n \\label{eq:qlsboth-parameters}\n\\end{equation}\nAssume a constant-factor estimate of $p$ is supplied. For every $0<\\epsilon<1/2$, require a state $\\lvert\\widetilde{x}\\rangle$ with $\\lVert\\lvert\\widetilde{x}\\rangle-\\lvert x\\rangle\\rVert\\leq\\epsilon$, with success probability at least $2/3$, using\n\\begin{equation}\n Q_b=O(p^{-1/2}),\\qquad Q_A=O\\bigl(K\\log(1/\\epsilon)\\bigr).\n \\label{eq:qlsboth-target}\n\\end{equation}\nQueries include inverse and controlled oracle calls; constants must be uniform over admissible inputs.",
+  "source": "Low and Su, Section~7, Eq.~(241), with the supplied-norm-estimate convention of Theorem~2 \\sourcecite{ref:qlsboth-low-su}{LS26}.",
+  "progress": [
+    "Theorem~2 achieves $Q_b=O(p^{-1/2})$ and $Q_A=O(KL\\log(L/\\epsilon))$, where $L=\\max\\{1,\\log(p^{-1/2})\\}$. Theorem~4 achieves $Q_A=O(K\\log(1/\\epsilon))$ with $Q_b=O(K\\log(1/\\epsilon))$ \\sourcecite{ref:qlsboth-low-su}{LS26}.",
+    "Theorem~3 proves a worst-case $\\Omega(p^{-1/2})$ state-preparation lower bound when the inverse-norm bound is tight \\sourcecite{ref:qlsboth-low-su}{LS26}."
+  ],
+  "references": [
+    {
+      "key": "LS26",
+      "label": "ref:qlsboth-low-su",
+      "tex": "G. H. Low and Y. Su, ``Quantum linear system algorithm with optimal queries to initial state preparation,'' \\emph{Quantum} \\textbf{10}, 2041 (2026).\n\\href{https://doi.org/10.22331/q-2026-03-23-2041}{doi:10.22331/q-2026-03-23-2041};\n\\href{https://arxiv.org/abs/2410.18178}{arXiv:2410.18178}."
+    }
+  ],
+  "comment": "The gap is simultaneous attainment, not either bound separately. $K$ bounds the spectral condition number. Estimating an initially unknown $p$ is a separate resource question."
+}

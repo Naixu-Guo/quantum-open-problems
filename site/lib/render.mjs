@@ -155,7 +155,7 @@ ${body}
         <a href="${root}api/index.json">JSON API</a>
         <a href="${config.repositoryUrl}" rel="noreferrer">Source repository</a>
       </nav>
-      ${current === "home" ? `<p class="footer-note footer-credit">Developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Zhong-Xia Shang, Bin Cheng, and Naixu Guo. <a href="${root}about/#contributions">Contributions</a>.</p>` : ""}
+      ${current === "home" ? `<p class="footer-note footer-credit">Developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Zhong-Xia Shang, Bin Cheng, Shihao Ru, and Naixu Guo. <a href="${root}about/#contributions">Contributions</a>.</p>` : ""}
       <p class="footer-note">A dated research index. Verify a status against the cited sources before relying on it. <a href="#top">Back to top ↑</a></p>
     </footer>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -693,7 +693,7 @@ export function renderAbout({ config, root, dates }) {
         <p>Earlier catalog text requires permission confirmation before it is covered by CC BY 4.0. Cited papers and other third-party material retain their own terms. See the <a href="${root}licenses/scope.txt">licensing scope and permissions</a>, <a href="${root}licenses/CC-BY-4.0.txt">content license</a>, and <a href="${root}licenses/NOTICE.txt">retained copyright notices</a>. Cite the primary sources for mathematical results and preserve the supplied contributor credits when reusing licensed text.</p>
 
         <h2 id="contributions"><span id="credits">Contributions</span></h2>
-        <p>This project is developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Zhong-Xia Shang, Bin Cheng, and Naixu Guo.</p>
+        <p>This project is developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Zhong-Xia Shang, Bin Cheng, Shihao Ru, and Naixu Guo.</p>
         <p>We thank <a href="https://gauge-forge.com/" rel="noreferrer">GaugeForge</a> for its financial support of this project.</p>
         <p>Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
       </div>

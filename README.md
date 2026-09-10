@@ -1,8 +1,8 @@
-# QIQCZoo
+# QIQCOP Zoo
 
 **Quantum Information and Quantum Computation Open Problem Zoo**
 
-QIQCZoo is a curated collection of research-level open problems in quantum
+QIQCOP Zoo is a curated collection of research-level open problems in quantum
 information and quantum computation. It brings together precise questions,
 their origins, and progress toward their resolution, helping researchers
 explore the field and find questions to work on.
