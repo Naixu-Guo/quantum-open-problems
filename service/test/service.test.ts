@@ -32,7 +32,9 @@ const git = (cwd: string, args: string[]) => {
 };
 
 const getJson = async (route: string): Promise<{ status: number; body: any }> => {
-  const response = await fetch(`${base}${route}`);
+  // Synchronous fixture Git work can delay idle-socket timers on this shared event loop.
+  // These assertions need fresh requests, without reusing a connection due to expire.
+  const response = await fetch(`${base}${route}`, { headers: { Connection: "close" } });
   return { status: response.status, body: await response.json() };
 };
 

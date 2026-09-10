@@ -13,7 +13,8 @@
 // subsections, or with the older single Tag subsection, whose names are
 // sorted into fields and topics by database/tags.json. Existing content is
 // protected unless --replace is explicitly supplied. Identity and metadata
-// survive replacement. All inputs are validated before any file is written.
+// and contributor preferences survive replacement. All inputs are validated
+// before any file is written.
 
 import fs from "node:fs";
 import path from "node:path";
@@ -77,7 +78,8 @@ for (const file of inputs.flatMap(collect)) {
     const identity = previous ? {
       ulid: previous.ulid,
       aliases: previous.aliases,
-      metadata: { ...previous.metadata, areaIds: content.fields.map(metadataSlug), topicIds: content.topics.map(metadataSlug) }
+      metadata: { ...previous.metadata, areaIds: content.fields.map(metadataSlug), topicIds: content.topics.map(metadataSlug) },
+      ...(Object.hasOwn(previous, "contributors") ? { contributors: previous.contributors } : {})
     } : createRecordMetadata(content, { createdAt: new Date().toISOString(), createdBy: manifest.actorId });
     const record = validateRecordShape({ schema: RECORD_SCHEMA, ...content, ...identity }, path.basename(file));
     const pinned = manifest.mappings[record.id];

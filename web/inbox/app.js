@@ -50,7 +50,7 @@ async function list() {
     $("#list").replaceChildren(...data.submissions.map(row => {
       const button = el("button", undefined, "proposal-row");
       button.type = "button"; button.dataset.id = row.id; button.setAttribute("aria-current", String(row.id === selected));
-      button.append(el("strong", row.title), el("span", `${labels[row.state]} · ${row.contributor.name}`), el("span", date(row.receivedAt)));
+      button.append(el("strong", row.title), el("span", `${labels[row.state]} · ${row.contributor.name}${row.contributor.anonymous ? " · Anonymous requested" : ""}`), el("span", date(row.receivedAt)));
       button.addEventListener("click", () => { if (discardChanges()) open(row.id).catch(error => notice(error.message, true)); });
       return button;
     }));
@@ -69,6 +69,9 @@ async function open(id) {
   const metadata = el("p", undefined, "proposal-meta");
   const showMetadata = () => { metadata.textContent = `${data.contributor.name}${data.contributor.affiliation ? ` · ${data.contributor.affiliation}` : ""}\n${data.contributor.email}\nReceived ${date(data.receivedAt)} · ${labels[data.state]}`; };
   showMetadata(); detail.replaceChildren(title, metadata);
+  detail.append(el("p", data.contributor.anonymous
+    ? "Anonymous publication requested. Keep the contributor’s name, email, and affiliation private."
+    : "The contributor may be named publicly. Their email remains private.", "hint"));
   detail.append(el("p", `Fields: ${data.fields.join("; ")} · Topics: ${data.topics.join("; ")}`, "hint"));
   for (const [field, name] of [["statement", "Statement"], ["source", "Source"], ["progress", "Progress"], ["references", "References"], ["comment", "Contributor’s note"]]) {
     if (data.payload[field]) detail.append(el("h3", name), el("div", data.payload[field], "proposal-text"));
@@ -88,7 +91,7 @@ async function open(id) {
     // Only export on a user click. Contact email and request metadata stay in the project inbox.
     const { contributor, ...content } = data.payload;
     const packet = { schema: "qiqcop-zoo/proposal-review/1", id: data.id, receivedAt: data.receivedAt, state: state.value, reviewNote: note.value,
-      proposal: { ...content, contributor: { name: contributor.name, affiliation: contributor.affiliation } } };
+      proposal: { ...content, contributor: { name: contributor.name, affiliation: contributor.affiliation, anonymous: contributor.anonymous === true } } };
     const url = URL.createObjectURL(new Blob([JSON.stringify(packet, null, 2) + "\n"], { type: "application/json" }));
     const anchor = el("a"); anchor.href = url; anchor.download = `proposal-${data.id}.json`; anchor.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
     notice("Export downloaded. The contributor’s email is omitted; nothing was sent to an AI service.");

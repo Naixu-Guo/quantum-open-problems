@@ -465,6 +465,10 @@ mjx-container { max-width: 100%; }
 .edit-log ul { margin: 0 0 10px; padding: 0; list-style: none; }
 .edit-log li { display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; border-bottom: 1px dashed var(--line); }
 .edit-log li span:first-child { color: var(--ink-soft); }
+.contributors-list { display: flex; flex-wrap: wrap; gap: 12px 32px; margin: 0; padding: 0; list-style: none; }
+.contributors-list li { display: grid; gap: 2px; }
+.contributor-name { font-weight: 600; }
+.contributor-affiliation { color: var(--ink-soft); font-size: 0.9em; }
 .contribute-box { border-color: var(--solved-line) !important; }
 
 /* Dialogs */
@@ -512,6 +516,10 @@ fieldset > .form-row + .form-row, .form-grid-2 + .form-row { margin-top: 16px; }
   background: var(--card-raised); color: var(--ink); font-size: 15px; line-height: 1.5;
 }
 .proposal-form textarea { min-height: 110px; resize: vertical; font-family: var(--mono); font-size: 13.5px; }
+.statement-input { position: relative; }
+.statement-input textarea { display: block; }
+.statement-placeholder { position: absolute; top: 10px; left: 13px; color: #888; font-family: var(--serif); font-size: 16px; pointer-events: none; }
+.statement-placeholder[hidden], .statement-input:focus-within .statement-placeholder { display: none; }
 .proposal-form input:focus, .proposal-form textarea:focus { outline: none; border-color: var(--mint-deep); box-shadow: 0 0 0 3px color-mix(in srgb, var(--mint-deep) 20%, transparent); }
 .proposal-form input[type="checkbox"] { width: 16px; height: 16px; margin: 0; accent-color: var(--mint-deep); flex-shrink: 0; }
 .choice-count { color: var(--ink-faint); font-family: var(--mono); font-size: 11.5px; font-weight: 500; }

@@ -11,7 +11,7 @@ const config = JSON.parse(fs.readFileSync(new URL("../site/config.json", import.
 const taxonomy = loadTaxonomy(fileURLToPath(new URL("../database/tags.json", import.meta.url)));
 const clientScript = fs.readFileSync(new URL("../site/assets/app.js", import.meta.url), "utf8");
 const counts = { fieldCounts: new Map([[taxonomy.fields[0], 3]]), topicCounts: new Map([[taxonomy.topics[0], 2]]) };
-const online = { ...config, contribute: { submissionUrl: "https://inbox.example.org/api/v1/submissions", captcha: { provider: "turnstile", siteKey: "1x00000000000000000000AA" } } };
+const online = { ...config, contribute: { submissionUrl: "https://inbox.example.org/api/v1/submissions", allowAnonymous: true, captcha: { provider: "turnstile", siteKey: "1x00000000000000000000AA" } } };
 const offline = { ...config, contribute: { submissionUrl: "", captcha: { provider: "turnstile", siteKey: "" } } };
 
 test("basic protection enables the form explicitly without a third-party widget", () => {
@@ -27,6 +27,22 @@ test("basic protection enables the form explicitly without a third-party widget"
 
 test("the form's limits are the inbox's limits", () => {
   for (const [key, limit] of Object.entries(PROPOSAL_LIMITS)) assert.deepEqual(limit, LIMITS[key], `limit for ${key}`);
+});
+
+test("anonymous credit requires explicit deployment opt-in and stays off in the live config", () => {
+  assert.equal(config.contribute.allowAnonymous, false, "Pages must not assume the independently deployed API supports anonymity");
+  for (const allowAnonymous of [undefined, false, "false", "true", 1]) {
+    const html = renderContribute({ config: { ...online, contribute: { ...online.contribute, allowAnonymous } }, root: "../", taxonomy, ...counts });
+    assert.ok(html.includes('data-allow-anonymous="false"'));
+    assert.doesNotMatch(html, /id="proposal-anonymous"/u, "no active anonymity option is offered");
+    assert.doesNotMatch(html, /unless they choose to remain anonymous|respecting my choice about contributor credit|or “unknown” to remain anonymous/u, "copy and consent do not promise unsupported credit choices");
+    assert.match(html, /This form currently accepts proposals with named contributor credit/u);
+    assert.match(html, /with my name and any affiliation I provide in the contributor credit/u);
+  }
+  const enabled = renderContribute({ config: online, root: "../", taxonomy, ...counts });
+  assert.ok(enabled.includes('data-allow-anonymous="true"'));
+  assert.ok(enabled.includes('id="proposal-anonymous"'));
+  assert.match(enabled, /respecting my choice about contributor credit/u);
 });
 
 test("the page offers every field and topic in a dropdown with an Other option and carries the limits for the client", () => {
@@ -45,7 +61,14 @@ test("the page offers every field and topic in a dropdown with an Other option a
   assert.ok(html.includes(`data-limits='${JSON.stringify(PROPOSAL_LIMITS).replaceAll('"', "&quot;")}'`));
   assert.ok(html.includes(`maxlength="${PROPOSAL_LIMITS.statement.max}"`));
   assert.ok(html.includes('name="extra"'), "the honeypot is present");
+  assert.match(html, /<input id="proposal-name" name="name"[^>]*\brequired\b/u, "name remains required");
   assert.ok(html.includes('type="email" required'), "email is required");
+  const affiliationInput = html.match(/<input id="proposal-affiliation"[^>]*>/u)?.[0] ?? "";
+  assert.ok(affiliationInput.includes(`name="affiliation" type="text" maxlength="${LIMITS.affiliation.max}" autocomplete="organization"`), "affiliation has a named control and the server limit");
+  assert.doesNotMatch(affiliationInput, /\brequired\b/u, "affiliation remains optional");
+  assert.match(html, /<input(?=[^>]*\bid="proposal-anonymous")(?=[^>]*\bname="anonymous")(?=[^>]*\btype="checkbox")[^>]*>/u, "contributors can request anonymous public credit");
+  assert.match(html, /<textarea id="proposal-statement"[^>]*><\/textarea>/u, "the example is not submitted as statement content");
+  assert.match(html, /id="statement-placeholder"/u, "the empty statement offers a separate example");
   assert.ok(html.includes('name="consent"'), "consent is asked");
   assert.ok(html.includes('<a href="../contribute/" aria-current="page">Contribute</a>'), "the nav marks the page");
   assert.ok(html.includes('<a href="../contribute/">Contribute</a>'), "the footer links the page");
@@ -90,19 +113,21 @@ test("the about page advertises account-free sending only when the form is confi
   assert.ok(on.includes("No account is needed"));
 });
 
-// The shipped script must load on a page without the form, and on the form page it must
-// build the proposal the inbox expects from the controls and refuse an incomplete one.
-test("the client script assembles a proposal from the form and checks it before sending", () => {
+// Run the shipped script with form controls, storage, clipboard, and timers that tests
+// can drive directly, without making network requests or depending on a browser.
+function createClientForm({ values = {}, draft, anonymous = false, allowAnonymous = true, respond = () => ({ ok: true, status: 201, json: async () => ({ accepted: true, id: "01TEST" }) }) } = {}) {
   const listeners = {};
   const element = (properties = {}) => ({
     dataset: {}, hidden: false, value: "", checked: false, disabled: false, textContent: "", listeners: {}, classList: { toggle() {}, add() {}, remove() {} },
-    setAttribute() {}, focus() { this.focused = true; }, scrollIntoView() {}, addEventListener(event, listener) { this.listeners[event] = listener; },
+    setAttribute() {}, focus() { this.focused = true; this.listeners.focus?.(); }, scrollIntoView() {}, addEventListener(event, listener) { this.listeners[event] = listener; },
     ...properties
   });
   const controls = new Map();
   const text = (name, value) => controls.set(name, element({ name, value }));
   text("title", "A proposal title"); text("statement", "A statement long enough to pass the minimum length."); text("source", "Src"); text("progress", ""); text("references", "Ref"); text("comment", ""); text("name", "Ada"); text("email", "ada@example.org"); text("affiliation", ""); text("extra", ""); text("cf-turnstile-response", "tok");
   controls.set("consent", element({ name: "consent", checked: true }));
+  if (allowAnonymous) controls.set("anonymous", element({ name: "anonymous", checked: anonymous }));
+  for (const [name, value] of Object.entries(values)) controls.get(name).value = value;
   // A picker: the select with its options, the row for a name of the contributor's own, and the list of pills.
   const pickerBox = (plural, kind, max, names) => {
     const select = element({ options: [{ value: "" }, ...names.map((value) => ({ value })), { value: "__other__" }] });
@@ -116,15 +141,17 @@ test("the client script assembles a proposal from the form and checks it before 
   const fieldPicker = pickerBox("fields", "field", 2, ["Quantum algorithm", "Quantum metrology"]);
   const topicPicker = pickerBox("topics", "topic", 5, ["Bell nonlocality", "Quantum magic"]);
   const form = element({
-    dataset: { submitUrl: "https://inbox.example.org/api/v1/submissions", captchaProvider: "turnstile", captchaResponse: "cf-turnstile-response", limits: JSON.stringify(PROPOSAL_LIMITS) },
+    dataset: { submitUrl: "https://inbox.example.org/api/v1/submissions", captchaProvider: "turnstile", captchaResponse: "cf-turnstile-response", allowAnonymous: String(allowAnonymous), limits: JSON.stringify(PROPOSAL_LIMITS) },
     elements: { namedItem: (name) => controls.get(name) ?? null },
     querySelector: (selector) => (selector === '[data-picker="fields"]' ? fieldPicker.box : selector === '[data-picker="topics"]' ? topicPicker.box : null),
     querySelectorAll: () => [],
-    reset() {}
+    reset() { for (const control of controls.values()) { control.value = ""; control.checked = false; } }
   });
   const statusLine = element();
   const submitButton = element();
-  const ids = new Map([["#proposal-form", form], ["#proposal-status", statusLine], ["#proposal-submit", submitButton], ["#fields-count", element()], ["#topics-count", element()]]);
+  const ids = new Map([["#proposal-form", form], ["#proposal-status", statusLine], ["#proposal-submit", submitButton], ["#fields-count", element()], ["#topics-count", element()], ["#proposal-statement", controls.get("statement")], ["#statement-placeholder", element()], ["#proposal-anonymous", controls.get("anonymous")], ["#proposal-copy", element()], ["#proposal-clear", element()]]);
+  ids.set("#proposal-done", element({ hidden: true }));
+  ids.set("#proposal-receipt", element());
   const fetched = [];
   const document = element({
     body: { dataset: { root: "../" } }, documentElement: { dataset: { theme: "light" } },
@@ -133,16 +160,27 @@ test("the client script assembles a proposal from the form and checks it before 
     addEventListener(event, listener) { listeners[event] = listener; }
   });
   const storage = new Map();
+  if (draft) storage.set("qiqcop-proposal-draft", JSON.stringify(draft));
+  const copied = [];
+  const timers = new Map();
+  let nextTimer = 0;
   vm.runInNewContext(clientScript, {
     document, location: { search: "", pathname: "/contribute/", hash: "" }, URLSearchParams, JSON, Object, Array, String, Boolean, Number, Promise, RegExp, Map, Set, console,
     localStorage: { getItem: (key) => storage.get(key) ?? null, setItem: (key, value) => storage.set(key, value), removeItem: (key) => storage.delete(key) },
-    window: { setTimeout: () => 0, clearTimeout() {}, matchMedia: () => ({ matches: false }) }, navigator: {},
-    fetch: async (url, init) => { fetched.push({ url, body: JSON.parse(init.body) }); return { ok: true, status: 201, json: async () => ({ accepted: true, id: "01TEST" }) }; }
+    window: { setTimeout: (callback) => { timers.set(++nextTimer, callback); return nextTimer; }, clearTimeout: (id) => timers.delete(id), matchMedia: () => ({ matches: false }) },
+    navigator: { clipboard: { writeText: async (text) => copied.push(text) } },
+    fetch: async (url, init) => { const body = JSON.parse(init.body); fetched.push({ url, method: init.method, headers: init.headers, body }); return respond(body); }
   });
+  const choose = (picker, value) => { picker.select.value = value; picker.select.listeners.change(); };
+  const flushTimers = () => { const pending = [...timers.values()]; timers.clear(); pending.forEach((callback) => callback()); };
+  return { controls, form, ids, storage, fetched, copied, fieldPicker, topicPicker, statusLine, choose, flushTimers };
+}
+
+test("the client script assembles a proposal from the form and checks it before sending", () => {
+  const { controls, form, ids, fetched, fieldPicker, topicPicker, statusLine, choose } = createClientForm();
   assert.equal(ids.get("#fields-count").textContent, "0 of 2 chosen");
   assert.equal(ids.get("#topics-count").textContent, "0 of 5 chosen");
   // Pick a field from the dropdown, then a topic, then a topic of the contributor's own through "Other".
-  const choose = (picker, value) => { picker.select.value = value; picker.select.listeners.change(); };
   choose(fieldPicker, "Quantum algorithm");
   assert.equal(ids.get("#fields-count").textContent, "1 of 2 chosen");
   assert.match(fieldPicker.list.innerHTML, /class="tag tag-field">Quantum algorithm<button type="button" class="tag-remove" data-remove="Quantum algorithm"/u, "a chosen field is a solid pill with a remove button");
@@ -164,7 +202,7 @@ test("the client script assembles a proposal from the form and checks it before 
     assert.equal(fetched[0].url, "https://inbox.example.org/api/v1/submissions");
     assert.deepEqual(fetched[0].body, {
       title: "A proposal title", statement: "A statement long enough to pass the minimum length.", fields: ["Quantum algorithm"], newFields: [], topics: ["Bell nonlocality", "Rényi entropies"], newTopics: ["Rényi entropies"],
-      source: "Src", progress: "", references: "Ref", comment: "", contributor: { name: "Ada", email: "ada@example.org", affiliation: "" }, consent: true, extra: "", captchaToken: "tok"
+      source: "Src", progress: "", references: "Ref", comment: "", contributor: { name: "Ada", email: "ada@example.org", affiliation: "", anonymous: false }, consent: true, extra: "", captchaToken: "tok"
     });
     assert.equal(form.hidden, true, "the form gives way to the receipt");
     form.hidden = false;
@@ -178,4 +216,235 @@ test("the client script assembles a proposal from the form and checks it before 
     assert.equal(statusLine.dataset.kind, "error");
     assert.equal(fieldPicker.select.focused, true, "the first problem gets focus");
   });
+});
+
+test("anonymous proposals still require a name and email and send them privately with the preference", async () => {
+  const { controls, form, fetched, fieldPicker, topicPicker, statusLine, choose } = createClientForm({ anonymous: true });
+  choose(fieldPicker, "Quantum algorithm");
+  choose(topicPicker, "Bell nonlocality");
+  controls.get("name").value = "";
+  controls.get("email").value = "";
+  await form.listeners.submit({ preventDefault() {} });
+  assert.equal(fetched.length, 0, "anonymous credit does not bypass contact requirements");
+  assert.match(statusLine.textContent, /Your name is required/u);
+  assert.match(statusLine.textContent, /valid email/u);
+  controls.get("name").value = "Ada";
+  await form.listeners.submit({ preventDefault() {} });
+  assert.equal(fetched.length, 0, "email is independently required");
+  controls.get("email").value = "ada@example.org";
+  await form.listeners.submit({ preventDefault() {} });
+  assert.equal(fetched.length, 1);
+  assert.deepEqual(fetched[0].body.contributor, { name: "Ada", email: "ada@example.org", affiliation: "", anonymous: true });
+});
+
+test("a newer form cannot send restored anonymous drafts to the legacy API, while named submissions remain compatible", async () => {
+  const legacyInbox = [];
+  // API f14914b parses known contact fields into a new object, silently dropping anonymous.
+  // Model that exact projection with valid proposals and a normal acceptance receipt.
+  const legacyApi = (raw) => {
+    const { name, email, affiliation } = raw.contributor;
+    legacyInbox.push({ ...raw, contributor: { name, email, affiliation } });
+    return { ok: true, status: 201, json: async () => ({ accepted: true, id: "01LEGACY" }) };
+  };
+  const saved = createClientForm({ anonymous: true, values: { affiliation: "Example University" } });
+  saved.choose(saved.fieldPicker, "Quantum algorithm");
+  saved.choose(saved.topicPicker, "Bell nonlocality");
+  saved.form.listeners.input();
+  saved.flushTimers();
+  const draft = JSON.parse(saved.storage.get("qiqcop-proposal-draft"));
+
+  // Establish the mixed-version failure that the explicit gate protects against.
+  legacyApi({ contributor: { name: "Ada", email: "ada@example.org", affiliation: "Example University", anonymous: true } });
+  assert.equal(Object.hasOwn(legacyInbox.pop().contributor, "anonymous"), false);
+
+  const blocked = createClientForm({ allowAnonymous: false, draft, respond: legacyApi });
+  assert.equal(blocked.controls.has("anonymous"), false, "the disabled feature has no active checkbox");
+  assert.match(blocked.statusLine.textContent, /draft requests anonymous credit/u, "the restored preference is explained immediately");
+  await blocked.form.listeners.submit({ preventDefault() {} });
+  assert.equal(blocked.fetched.length, 0);
+  assert.equal(legacyInbox.length, 0, "the unsupported API never receives the private details");
+  assert.equal(blocked.form.hidden, false);
+  assert.match(blocked.statusLine.textContent, /Keep your draft and return later/u);
+
+  blocked.controls.get("affiliation").value = "Updated University";
+  blocked.form.listeners.input();
+  blocked.form.listeners.change();
+  blocked.flushTimers();
+  const updated = JSON.parse(blocked.storage.get("qiqcop-proposal-draft"));
+  assert.equal(updated.anonymous, true, "ordinary draft saves cannot downgrade the restored preference");
+  assert.equal(updated.values.affiliation, "Updated University");
+  await blocked.ids.get("#proposal-copy").listeners.click();
+  assert.match(blocked.copied[0], /^Contributor: Anonymous$/mu);
+  assert.match(blocked.copied[0], /^Public credit: Remain anonymous$/mu);
+  assert.doesNotMatch(blocked.copied[0], /Ada|ada@example\.org|Updated University/u);
+
+  const reloaded = createClientForm({ allowAnonymous: false, draft: updated, respond: legacyApi });
+  await reloaded.form.listeners.submit({ preventDefault() {} });
+  assert.equal(reloaded.fetched.length, 0, "saving and reloading cannot bypass the block");
+
+  const supported = createClientForm({ allowAnonymous: true, draft: updated });
+  await supported.form.listeners.submit({ preventDefault() {} });
+  assert.equal(supported.fetched[0].body.contributor.anonymous, true, "the draft can be submitted once support is enabled");
+
+  reloaded.form.listeners.input();
+  reloaded.ids.get("#proposal-clear").listeners.click();
+  reloaded.flushTimers();
+  assert.equal(reloaded.storage.has("qiqcop-proposal-draft"), false, "explicitly clearing also cancels pending saves");
+  for (const [name, value] of Object.entries(updated.values)) reloaded.controls.get(name).value = value;
+  reloaded.controls.get("consent").checked = true;
+  reloaded.controls.get("cf-turnstile-response").value = "tok";
+  reloaded.choose(reloaded.fieldPicker, "Quantum algorithm");
+  reloaded.choose(reloaded.topicPicker, "Bell nonlocality");
+  await reloaded.form.listeners.submit({ preventDefault() {} });
+  assert.equal(reloaded.fetched.length, 1, "starting a new named proposal is still supported");
+  assert.equal(Object.hasOwn(reloaded.fetched[0].body.contributor, "anonymous"), false, "the legacy-compatible payload omits the unsupported field");
+  assert.deepEqual(legacyInbox[0].contributor, { name: "Ada", email: "ada@example.org", affiliation: "Updated University" });
+  assert.equal(reloaded.ids.get("#proposal-receipt").textContent, "01LEGACY");
+});
+
+test("drafts restore full Unicode contact details and send them for either public credit preference", async () => {
+  const values = { name: "  李明 Zoë García  ", email: "  zoe.garcia+research@example.org  ", affiliation: "  Université de Montréal; 北京大学  " };
+  for (const anonymous of [false, true]) {
+    const saved = createClientForm({ values, anonymous });
+    saved.choose(saved.fieldPicker, "Quantum algorithm");
+    saved.choose(saved.topicPicker, "Bell nonlocality");
+    saved.form.listeners.input();
+    saved.flushTimers();
+    const draft = JSON.parse(saved.storage.get("qiqcop-proposal-draft"));
+    const restored = createClientForm({ draft, values: { name: "", email: "", affiliation: "" } });
+    for (const [name, value] of Object.entries(values)) assert.equal(restored.controls.get(name).value, value, `${name} survives draft restoration`);
+    await restored.form.listeners.submit({ preventDefault() {} });
+    assert.equal(restored.fetched.length, 1);
+    assert.equal(restored.fetched[0].method, "POST");
+    assert.equal(restored.fetched[0].headers["Content-Type"], "application/json");
+    assert.deepEqual(restored.fetched[0].body.contributor, {
+      name: values.name.trim(), email: values.email.trim(), affiliation: values.affiliation.trim(), anonymous
+    });
+  }
+});
+
+test("contact validation checks required values and all server length limits before sending", async () => {
+  const cases = [
+    ["name", " \t ", /Your name is required/u],
+    ["name", "名".repeat(LIMITS.name.max + 1), /Your name is longer than 200 characters/u],
+    ["email", " \t ", /valid email/u],
+    ["email", "person@@example.org", /valid email/u],
+    ["email", `${"a".repeat(LIMITS.email.max)}@example.org`, /Email is longer than 254 characters/u],
+    ["affiliation", "校".repeat(LIMITS.affiliation.max + 1), /Affiliation is longer than 300 characters/u]
+  ];
+  for (const anonymous of [false, true]) {
+    for (const [name, value, message] of cases) {
+      const client = createClientForm({ values: { [name]: value }, anonymous });
+      client.choose(client.fieldPicker, "Quantum algorithm");
+      client.choose(client.topicPicker, "Bell nonlocality");
+      await client.form.listeners.submit({ preventDefault() {} });
+      assert.equal(client.fetched.length, 0, `invalid ${name} is not sent`);
+      assert.match(client.statusLine.textContent, message);
+      assert.equal(client.controls.get(name).focused, true);
+      assert.equal(client.form.hidden, false);
+    }
+  }
+  const client = createClientForm({ values: { name: "名".repeat(LIMITS.name.max), email: `${"a".repeat(LIMITS.email.max - "@example.org".length)}@example.org`, affiliation: "校".repeat(LIMITS.affiliation.max) } });
+  client.choose(client.fieldPicker, "Quantum algorithm");
+  client.choose(client.topicPicker, "Bell nonlocality");
+  await client.form.listeners.submit({ preventDefault() {} });
+  assert.equal(client.fetched.length, 1, "the exact contact length limits are accepted");
+});
+
+test("failed submissions keep the latest contact details immediately for retry", async () => {
+  for (const respond of [
+    () => ({ ok: false, status: 422, json: async () => ({ error: "please check your proposal" }) }),
+    () => { throw new Error("network unavailable"); }
+  ]) {
+    const client = createClientForm({ anonymous: true, respond });
+    client.choose(client.fieldPicker, "Quantum algorithm");
+    client.choose(client.topicPicker, "Bell nonlocality");
+    client.form.listeners.input();
+    client.flushTimers();
+    const values = { name: "李明 Zoë García", email: "zoe+review@example.org", affiliation: "Université de Montréal" };
+    for (const [name, value] of Object.entries(values)) client.controls.get(name).value = value;
+    client.form.listeners.input();
+    await client.form.listeners.submit({ preventDefault() {} });
+    const draft = JSON.parse(client.storage.get("qiqcop-proposal-draft"));
+    for (const [name, value] of Object.entries(values)) assert.equal(draft.values[name], value, `latest ${name} is kept before the debounce timer runs`);
+    assert.equal(draft.anonymous, true);
+    assert.equal(client.form.hidden, false);
+    assert.equal(client.ids.get("#proposal-done").hidden, true);
+    assert.equal(client.ids.get("#proposal-submit").disabled, false);
+    assert.equal(client.statusLine.dataset.kind, "error");
+  }
+});
+
+test("a successful submission displays its receipt and pending saves cannot restore the submitted draft", async () => {
+  const client = createClientForm({ values: { affiliation: "Université de Montréal" } });
+  client.choose(client.fieldPicker, "Quantum algorithm");
+  client.choose(client.topicPicker, "Bell nonlocality");
+  client.form.listeners.input();
+  await client.form.listeners.submit({ preventDefault() {} });
+  assert.equal(client.form.hidden, true);
+  assert.equal(client.ids.get("#proposal-done").hidden, false);
+  assert.equal(client.ids.get("#proposal-done").focused, true);
+  assert.equal(client.ids.get("#proposal-receipt").textContent, "01TEST");
+  assert.equal(client.storage.has("qiqcop-proposal-draft"), false);
+  client.flushTimers();
+  assert.equal(client.storage.has("qiqcop-proposal-draft"), false, "a pending input event cannot recreate the submitted draft");
+});
+
+test("copied anonymous proposals omit contact details and record the public credit preference", async () => {
+  const { controls, ids, copied } = createClientForm({ values: { affiliation: "Example University" } });
+  await ids.get("#proposal-copy").listeners.click();
+  assert.match(copied[0], /^Contributor: Ada <ada@example\.org> \(Example University\)$/mu);
+  assert.match(copied[0], /^Public credit: Use contributor name$/mu);
+  controls.get("anonymous").checked = true;
+  await ids.get("#proposal-copy").listeners.click();
+  assert.match(copied[1], /^Contributor: Anonymous$/mu);
+  assert.match(copied[1], /^Public credit: Remain anonymous$/mu);
+  assert.doesNotMatch(copied[1], /Ada|ada@example\.org|Example University/u);
+  assert.match(copied[1], /A statement long enough to pass the minimum length\./u, "the proposal itself is retained");
+});
+
+test("drafts preserve the anonymous preference and older drafts default to named credit", () => {
+  const saved = createClientForm({ anonymous: true });
+  saved.form.listeners.change();
+  saved.flushTimers();
+  const draft = JSON.parse(saved.storage.get("qiqcop-proposal-draft"));
+  assert.equal(draft.anonymous, true);
+  const restored = createClientForm({ draft, values: { statement: "" } });
+  assert.equal(restored.controls.get("anonymous").checked, true);
+  assert.equal(restored.controls.get("statement").value, draft.values.statement);
+  assert.equal(restored.ids.get("#statement-placeholder").hidden, true, "a restored statement does not show the example");
+  restored.controls.get("anonymous").checked = false;
+  restored.form.listeners.change();
+  restored.flushTimers();
+  assert.equal(JSON.parse(restored.storage.get("qiqcop-proposal-draft")).anonymous, false, "changing the preference updates the draft");
+  const { anonymous: omitted, ...legacyDraft } = draft;
+  const legacy = createClientForm({ draft: legacyDraft });
+  assert.equal(legacy.controls.get("anonymous").checked, false);
+});
+
+test("the statement example disappears on focus, click, or input and clear restores the empty form", () => {
+  const { controls, ids, form, storage, flushTimers } = createClientForm({ values: { statement: "" }, anonymous: true });
+  const statement = controls.get("statement");
+  const placeholder = ids.get("#statement-placeholder");
+  assert.equal(placeholder.hidden, false);
+  assert.equal(statement.value, "", "the example is separate from editable content");
+  statement.focus();
+  assert.equal(placeholder.hidden, true, "entering the statement field dismisses the example");
+  statement.value = "A proposed mathematical question.";
+  statement.listeners.input();
+  form.listeners.input();
+  flushTimers();
+  assert.equal(placeholder.hidden, true);
+  assert.ok(storage.has("qiqcop-proposal-draft"));
+  ids.get("#proposal-clear").listeners.click();
+  assert.equal(statement.value, "");
+  assert.equal(placeholder.hidden, false, "Clear form restores the example");
+  assert.equal(controls.get("anonymous").checked, false, "Clear form also clears anonymous credit");
+  assert.equal(storage.has("qiqcop-proposal-draft"), false);
+  statement.listeners.click();
+  assert.equal(placeholder.hidden, true, "clicking an already focused field also dismisses the example");
+  ids.get("#proposal-clear").listeners.click();
+  statement.value = "Text entered without a preceding focus event.";
+  statement.listeners.input();
+  assert.equal(placeholder.hidden, true, "input also hides the example");
 });

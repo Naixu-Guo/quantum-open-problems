@@ -178,13 +178,19 @@ See the [deployment guide](../deploy/ubuntu/README.md#optional-submissions-and-e
 The exported AI packet omits contact email and request metadata. Saving a review
 never sends anything to an AI service or publishes a catalog record.
 
+Every proposal requires the contributor's name and email address; affiliation is
+optional. These details are stored together and remain available in the private
+inbox even when `contributor.anonymous` requests anonymous public credit. An exact
+retry within 24 hours returns the original receipt. Corrected contact details
+receive a new receipt so maintainers can review the correction and the original.
+
 Existing editor bearer tokens and sessions may also access the following private
 routes. Inbox-only sessions authorize only these routes, with same-origin POSTs;
 `stateBy` is null for the project operator, since no ledger actor is assumed.
 
 | Route | Effect |
 | --- | --- |
-| `POST /api/v1/submissions` | File a proposal: `title`, `statement`, `fields` (1–2) and `topics` (1–5) as the contributor classifies the problem, `newFields` and `newTopics` naming which of those the contributor made up rather than picked from the taxonomy, `source`, `progress`, `references`, `comment`, `contributor` {`name`, `email`, `affiliation`}, `consent: true`, `captchaToken` (captcha mode only), and the empty honeypot `extra`. Public. 201 with a receipt `id`, 200 with `duplicate: true` for a repeat, 422 listing every problem, 403 for a token the provider rejects, 429 over the hourly budget, 502 when the provider cannot be reached, 503 while the inbox is closed |
+| `POST /api/v1/submissions` | File a proposal: `title`, `statement`, `fields` (1–2) and `topics` (1–5) as the contributor classifies the problem, `newFields` and `newTopics` naming which of those the contributor made up rather than picked from the taxonomy, `source`, `progress`, `references`, `comment`, `contributor` {`name`, `email`, optional `affiliation`, optional boolean `anonymous`}, `consent: true`, `captchaToken` (captcha mode only), and the empty honeypot `extra`. Public. 201 with a receipt `id`, 200 with `duplicate: true` for a repeat, 422 listing every problem, 403 for a token the provider rejects, 429 over the hourly budget, 502 when the provider cannot be reached, 503 while the inbox is closed |
 | `OPTIONS /api/v1/submissions` | The CORS preflight, answered for the origins in `QOP_SUBMISSION_ORIGINS` and the service's own |
 | `GET /api/v1/submissions?state=&limit=&offset=` | The inbox, newest first, with counts by state, true `total`, and `nextOffset`. Inbox login or editor |
 | `GET /api/v1/submissions/<id>` | One proposal with its full payload and a text rendering. Inbox login or editor |
