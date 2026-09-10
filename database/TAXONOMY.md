@@ -62,6 +62,7 @@ The revision makes these distinctions:
   entropy inequalities, additivity and regularization, strong converses,
   and one-shot and finite-blocklength bounds identify the claim being asked.
   These tags should not be added merely because a formula uses an entropy.
+- **Dynamical approximation:** use “Hamiltonian simulation” for rigorous approximation of Hamiltonian evolution, including the rotating-wave limit. “Hamiltonian complexity” concerns computational complexity of Hamiltonian problems.
 - **Processes and operations:** quantum combs describe ordered multi-slot
   access; a general process matrix is not automatically a quantum comb.
   Use “Indefinite causal order” for the general causality question. Use

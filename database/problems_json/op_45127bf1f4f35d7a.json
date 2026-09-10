@@ -1,0 +1,53 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_45127bf1f4f35d7a",
+  "ulid": "01M26KH5XKRWK5QH0SYAG510BK",
+  "aliases": [
+    "op_45127bf1f4f35d7a",
+    "01M26KH5XKRWK5QH0SYAG510BK",
+    "op-45127bf1f4f35d7a"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-10T21:28:11.443Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-resource-theory"
+    ],
+    "topicIds": [
+      "quantum-separability"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
+  "title": "Bounded witnesses for every continuous-variable entangled state",
+  "status": "Solved",
+  "fields": [
+    "Quantum Resource Theory"
+  ],
+  "topics": [
+    "Quantum separability"
+  ],
+  "statement": "Does every entangled bosonic state admit a bounded entanglement witness?\n\nLet $m,n\\geq1$ be arbitrary integers, with $\\mathcal H_A:=L^2(\\mathbb R^m)$ and $\\mathcal H_B:=L^2(\\mathbb R^n)$. Let $\\rho$ be an entangled density operator on $\\mathcal H_A\\otimes\\mathcal H_B$. Separability means membership in the trace-norm closed convex hull of product density operators. States with positive partial transpose $\\rho^{T_B}$ in a fixed product Fock basis are included.\n\nThe desired operator $L$ is bounded and self-adjoint and satisfies\n\n\\begin{equation}\n\\operatorname{Tr}(\\rho L)>\\sup_{\\|a\\|=\\|b\\|=1}\\langle a\\otimes b|L|a\\otimes b\\rangle.\n\\label{eq:ser17-statement-1}\n\\end{equation}\n\nIn Eq.~\\eqref{eq:ser17-statement-1}, $a\\in\\mathcal H_A$ and $b\\in\\mathcal H_B$. No finite-energy or moment-existence assumption is imposed.",
+  "source": "Sperling and Vogel prove this criterion for arbitrary-dimensional Hilbert spaces in Theorem 2 and Eq. (7) \\sourcecite{ref:ser17-1}{SV09}.",
+  "progress": [
+    "The answer is affirmative: Sperling--Vogel, Theorem 2, proves Eq.~\\eqref{eq:ser17-statement-1} for every entangled density operator. Their Eq. (5) identifies the separable supremum with the pure-product supremum. The proof uses separation of a state from the trace-norm closed convex separable set by a bounded Hermitian functional. It also detects positive-partial-transpose entanglement \\sourcecite{ref:ser17-1}{SV09}."
+  ],
+  "references": [
+    {
+      "key": "SV09",
+      "label": "ref:ser17-1",
+      "tex": "J. Sperling and W. Vogel, \"Necessary and Sufficient Conditions for Bipartite Entanglement,\" \\emph{Physical Review A} \\textbf{79}, 022318 (2009). \\href{https://doi.org/10.1103/PhysRevA.79.022318}{doi:10.1103/PhysRevA.79.022318}; \\href{https://arxiv.org/abs/0805.1318}{arXiv:0805.1318}."
+    }
+  ],
+  "comment": "The resolving result is peer-reviewed. Existence of a bounded witness does not supply an efficient finite-moment algorithm. Arbitrary density operators need not have all polynomial moments."
+}

@@ -1,0 +1,67 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_68d6ff4ef7be1577",
+  "ulid": "01M26KH5RHYJFRZWBP18Q7QFXJ",
+  "aliases": [
+    "op_68d6ff4ef7be1577",
+    "01M26KH5RHYJFRZWBP18Q7QFXJ",
+    "op-68d6ff4ef7be1577"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-10T21:28:11.281Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "derived",
+    "posed": null,
+    "areaIds": [
+      "quantum-resource-theory"
+    ],
+    "topicIds": [
+      "gaussian-quantum-information",
+      "entanglement-distillation"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
+  "title": "Two-way distillable entanglement of mixed two-mode Gaussian states",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum Resource Theory"
+  ],
+  "topics": [
+    "Gaussian quantum information",
+    "Entanglement distillation"
+  ],
+  "statement": "What is the exact two-way distillable entanglement of a finite-energy mixed two-mode Gaussian state?\n\nLet $\\rho_{AB}$ be a finite-energy mixed two-mode Gaussian density operator. Let $\\Lambda_k$ range over protocols using local operations and unlimited two-way classical communication. The complete protocols are trace preserving, and non-Gaussian operations are allowed. Finite energy means finite total mean photon number. Alice and Bob hold one mode each. Define the Bell-pair density operator and trace norm by\n\n\\begin{equation}\n\\Phi_2:=\\tfrac12(|00\\rangle+|11\\rangle)(\\langle00|+\\langle11|),\n\\qquad\n\\lVert X\\rVert_1:=\\operatorname{Tr}\\sqrt{X^\\dagger X}.\n\\label{eq:ser13-statement-1}\n\\end{equation}\n\nUsing the Bell pair in Eq.~\\eqref{eq:ser13-statement-1}, call $r\\geq0$ achievable if an allowed sequence $(\\Lambda_k)_{k\\geq1}$ satisfies\n\n\\begin{equation}\n\\lim_{k\\to\\infty}\\left\\lVert\\Lambda_k(\\rho_{AB}^{\\otimes k})-\\Phi_2^{\\otimes\\lfloor rk\\rfloor}\\right\\rVert_1=0.\n\\label{eq:ser13-statement-2}\n\\end{equation}\n\nDetermine $D_{\\leftrightarrow}(\\rho_{AB}):=\\sup\\{r\\geq0:r\\text{ is achievable}\\}$, with achievability defined by Eq.~\\eqref{eq:ser13-statement-2}.",
+  "source": "This exact-rate question is formulated from the gap between quantitative distillation bounds \\sourcecite{ref:ser13-1}{DW05}, \\sourcecite{ref:ser13-2}{VW02}, together with the Gaussian distillability criterion \\sourcecite{ref:ser13-3}{GDCZ01}.",
+  "progress": [
+    "Giedke et al., Theorem 1, prove that a bipartite Gaussian state is distillable exactly when its partial transpose is not positive. In particular, every entangled two-mode Gaussian state is distillable. This settles positivity of the rate, not its exact value. \\sourcecite{ref:ser13-3}{GDCZ01}",
+    "Devetak--Winter, Theorem 10, proves the finite-dimensional hashing inequality. The hashing bound, applied in either communication direction and extended to finite-energy bosonic states by local truncation, gives\n\n\\begin{equation}\nD_{\\leftrightarrow}(\\rho_{AB})\\geq\\max\\{0,S(\\rho_A)-S(\\rho_{AB}),S(\\rho_B)-S(\\rho_{AB})\\},\n\\label{eq:ser13-progress-2-1}\n\\end{equation}\n\nIn Eq.~\\eqref{eq:ser13-progress-2-1}, $\\rho_A:=\\operatorname{Tr}_B\\rho_{AB}$, $\\rho_B:=\\operatorname{Tr}_A\\rho_{AB}$, and $S(\\omega):=-\\operatorname{Tr}(\\omega\\log_2\\omega)$. \\sourcecite{ref:ser13-1}{DW05}",
+    "Vidal--Werner, Proposition 7 and Section V.C, bounds the rate by logarithmic negativity:\n\n\\begin{equation}\nD_{\\leftrightarrow}(\\rho_{AB})\\leq\\log_2\\lVert\\rho_{AB}^{T_B}\\rVert_1\n=\\sum_{j=1}^2\\max\\{0,-\\log_2\\widetilde\\nu_j\\},\n\\label{eq:ser13-progress-3-1}\n\\end{equation}\n\nIn Eq.~\\eqref{eq:ser13-progress-3-1}, $T_B$ is partial transposition and $\\widetilde\\nu_j$ are the symplectic eigenvalues of the partially transposed covariance in vacuum-$I$ units. \\sourcecite{ref:ser13-2}{VW02}"
+  ],
+  "references": [
+    {
+      "key": "DW05",
+      "label": "ref:ser13-1",
+      "tex": "I. Devetak and A. Winter, \"Distillation of Secret Key and Entanglement from Quantum States,\" \\emph{Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences} \\textbf{461}, 207--235 (2005). \\href{https://doi.org/10.1098/rspa.2004.1372}{doi:10.1098/rspa.2004.1372}; \\href{https://arxiv.org/abs/quant-ph/0306078}{arXiv:quant-ph/0306078}."
+    },
+    {
+      "key": "VW02",
+      "label": "ref:ser13-2",
+      "tex": "G. Vidal and R. F. Werner, \"Computable Measure of Entanglement,\" \\emph{Physical Review A} \\textbf{65}, 032314 (2002). \\href{https://doi.org/10.1103/PhysRevA.65.032314}{doi:10.1103/PhysRevA.65.032314}; \\href{https://arxiv.org/abs/quant-ph/0102117}{arXiv:quant-ph/0102117}."
+    },
+    {
+      "key": "GDCZ01",
+      "label": "ref:ser13-3",
+      "tex": "G. Giedke, L.-M. Duan, J. I. Cirac, and P. Zoller, \"Distillability Criterion for All Bipartite Gaussian States,\" \\emph{Quantum Information and Computation} \\textbf{1}(3), 79--86 (2001). \\href{https://arxiv.org/abs/quant-ph/0104072}{arXiv:quant-ph/0104072}."
+    }
+  ],
+  "comment": "Separable states have rate zero. For general entangled mixed two-mode Gaussian states, the known lower and upper bounds need not coincide. Gaussian-operation no-go theorems do not settle the unrestricted LOCC rate."
+}

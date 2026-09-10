@@ -1,0 +1,57 @@
+% Problem record op_45127bf1f4f35d7a. This TeX file is derived from
+% database/problems_json/op_45127bf1f4f35d7a.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Bounded witnesses for every continuous-variable entangled state}
+\label{sec:op_45127bf1f4f35d7a}
+
+\paragraph{Problem.}
+Does every entangled bosonic state admit a bounded entanglement witness?
+
+Let $m,n\geq1$ be arbitrary integers, with $\mathcal H_A:=L^2(\mathbb R^m)$ and $\mathcal H_B:=L^2(\mathbb R^n)$. Let $\rho$ be an entangled density operator on $\mathcal H_A\otimes\mathcal H_B$. Separability means membership in the trace-norm closed convex hull of product density operators. States with positive partial transpose $\rho^{T_B}$ in a fixed product Fock basis are included.
+
+The desired operator $L$ is bounded and self-adjoint and satisfies
+
+\begin{equation}
+\operatorname{Tr}(\rho L)>\sup_{\|a\|=\|b\|=1}\langle a\otimes b|L|a\otimes b\rangle.
+\label{eq:ser17-statement-1}
+\end{equation}
+
+In Eq.~\eqref{eq:ser17-statement-1}, $a\in\mathcal H_A$ and $b\in\mathcal H_B$. No finite-energy or moment-existence assumption is imposed.
+
+\subsection*{Status}
+
+Solved
+
+\subsection*{Source}
+
+Sperling and Vogel prove this criterion for arbitrary-dimensional Hilbert spaces in Theorem 2 and Eq. (7) \sourcecite{ref:ser17-1}{SV09}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item The answer is affirmative: Sperling--Vogel, Theorem 2, proves Eq.~\eqref{eq:ser17-statement-1} for every entangled density operator. Their Eq. (5) identifies the separable supremum with the pure-product supremum. The proof uses separation of a state from the trace-norm closed convex separable set by a bounded Hermitian functional. It also detects positive-partial-transpose entanglement \sourcecite{ref:ser17-1}{SV09}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[SV09]}]\label{ref:ser17-1}
+  J. Sperling and W. Vogel, "Necessary and Sufficient Conditions for Bipartite Entanglement," \emph{Physical Review A} \textbf{79}, 022318 (2009). \href{https://doi.org/10.1103/PhysRevA.79.022318}{doi:10.1103/PhysRevA.79.022318}; \href{https://arxiv.org/abs/0805.1318}{arXiv:0805.1318}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The resolving result is peer-reviewed. Existence of a bounded witness does not supply an efficient finite-moment algorithm. Arbitrary density operators need not have all polynomial moments.
+
+\subsection*{Field}
+
+Quantum Resource Theory
+
+\subsection*{Topic}
+
+Quantum separability
+
+\subsection*{ID}
+
+\texttt{op\_45127bf1f4f35d7a}

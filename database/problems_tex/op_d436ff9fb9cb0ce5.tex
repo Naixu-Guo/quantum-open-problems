@@ -1,0 +1,98 @@
+% Problem record op_d436ff9fb9cb0ce5. This TeX file is derived from
+% database/problems_json/op_d436ff9fb9cb0ce5.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Fully polynomial sampling of boson sampling with constant photon transmission}
+\label{sec:op_d436ff9fb9cb0ce5}
+
+\paragraph{Problem.}
+For every fixed rational transmission $0<\eta<1$, is boson sampling with independent photon loss classically samplable in fully polynomial time?
+Let $m\geq n\geq1$ and draw $U\in U(m)$ from normalized Haar measure.
+Inject one perfectly indistinguishable photon into each of the first $n$ input modes.
+Each photon survives independently with probability $\eta$.
+The photon-counting distribution is
+\begin{equation}
+ p_{\eta,U}(s)=
+ \sum_{\substack{T\subseteq\{1,\ldots,n\}\\|T|=|s|}}
+ \eta^{|T|}(1-\eta)^{n-|T|}
+ \frac{|\operatorname{Per}(U_{s,T})|^2}{\prod_{j=1}^{m}s_j!},
+ \quad s\in\mathbb N_0^m,\quad |s|=\sum_js_j.
+ \label{eq:loss-sampling-law}
+\end{equation}
+In Eq.~\eqref{eq:loss-sampling-law}, $U_{s,T}$ selects columns in $T$ and repeats row $j$ exactly $s_j$ times.
+For a $k\times k$ matrix $A$, $\operatorname{Per}A=\sum_{\pi\in S_k}\prod_{j=1}^kA_{j,\pi(j)}$; the empty permanent equals one.
+A randomized classical algorithm receives $n,m,\varepsilon$ and a finite description of $U$, with $0<\varepsilon<1$.
+Use $\operatorname{poly}(n,m,\log(1/\varepsilon))$ bits to encode the matrix.
+Choose the precision so that its contribution to total variation is at most $\varepsilon/2$.
+For every $n,m,\varepsilon$, require an output law $q_U$ satisfying
+\begin{equation}
+ \mathbb E_{U\sim\mathrm{Haar}}\operatorname{TV}(q_U,p_{\eta,U})\leq\varepsilon,
+ \qquad
+ \operatorname{TV}(q,p)=\frac12\sum_{s\in\mathbb N_0^m}|q(s)-p(s)|.
+ \label{eq:loss-sampling-accuracy}
+\end{equation}
+Can Eq.~\eqref{eq:loss-sampling-accuracy} be achieved in time polynomial in $n,m,1/\varepsilon$ and the binary input length?
+The polynomial may depend on the fixed $\eta$, but its exponent cannot depend on $\varepsilon$.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+This fully polynomial, Haar-average formulation refines the constant-transmission gap after Corollary~3 of Oszmaniec and Brod \sourcecite{ref:loss-ob}{OB18}.
+It specifies the loss-only model and accuracy dependence; it is not a numbered conjecture of that paper.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Oszmaniec and Brod, Lemma~1 and Corollary~3, give an efficient sampler with
+\begin{equation}
+ \operatorname{TV}(q_U,p_{\eta,U})
+ \leq\Delta(\eta,n)
+ \leq\frac{\eta^2 n+\eta(1-\eta)}2
+ \label{eq:loss-separable-error}
+\end{equation}
+uniformly in $U$.
+Equation~\eqref{eq:loss-separable-error} vanishes for $\eta=o(n^{-1/2})$, while $\eta$ in the question is fixed \sourcecite{ref:loss-ob}{OB18}.
+
+  \item The interference-truncation approach discussed by Moylett et al., Sections~II.C--II.D, has a probability-evaluation cost with an exponent depending on the accuracy-dependent cutoff $k$.
+They also describe negative truncated weights and a Metropolised independence sampler whose training cost depends on the distribution.
+These statements do not establish the fully polynomial sampling guarantee posed here \sourcecite{ref:loss-mgrt}{MGRT20}.
+
+  \item Park and Oh's July 2026 revision proves, in Theorem~1 and Eq.~(26), efficient matrix-product-state approximation for transmissions
+$\eta=O((\log n/n)^{1/(2\alpha)})$ with fixed $1/2<\alpha<1$.
+Their proof controls all passive interferometers and output bipartitions.
+This is a regime of vanishing transmission and does not settle fixed $\eta$ \sourcecite{ref:loss-po}{PO26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[OB18]}]\label{ref:loss-ob}
+  M. Oszmaniec and D. J. Brod, "Classical Simulation of Photonic Linear Optics with Lost Particles," \emph{New Journal of Physics} \textbf{20}, 092002 (2018). \href{https://doi.org/10.1088/1367-2630/aadfa8}{doi:10.1088/1367-2630/aadfa8}; \href{https://arxiv.org/abs/1801.06166}{arXiv:1801.06166}.
+
+  \item[\textup{[MGRT20]}]\label{ref:loss-mgrt}
+  A. E. Moylett, R. Garc\'ia-Patr\'on, J. J. Renema, and P. S. Turner, "Classically Simulating Near-Term Partially-Distinguishable and Lossy Boson Sampling," \emph{Quantum Science and Technology} \textbf{5}, 015001 (2020). \href{https://doi.org/10.1088/2058-9565/ab5555}{doi:10.1088/2058-9565/ab5555}; \href{https://arxiv.org/abs/1907.00022}{arXiv:1907.00022}.
+
+  \item[\textup{[PO26]}]\label{ref:loss-po}
+  S. Park and C. Oh, "Matrix Product State Approach to Lossy Boson Sampling and Noisy IQP Sampling," arXiv preprint (2025; revised July 2026). \href{https://arxiv.org/abs/2510.24137v3}{arXiv:2510.24137v3}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The question concerns perfectly indistinguishable input photons, uniform independent loss, ideal photon counting, and arbitrary mode counts $m\geq n$.
+A polynomial-time algorithm at each fixed error, with an error-dependent polynomial degree, does not meet the requested runtime.
+Bounds for Gaussian input states, restricted-depth circuits, or only a constant number of lost photons have different hypotheses.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Boson sampling; Computational complexity and computability
+
+\subsection*{ID}
+
+\texttt{op\_d436ff9fb9cb0ce5}
