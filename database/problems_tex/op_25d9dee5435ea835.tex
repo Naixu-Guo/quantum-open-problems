@@ -1,0 +1,66 @@
+% Problem record op_25d9dee5435ea835. This TeX file is derived from
+% database/problems_json/op_25d9dee5435ea835.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Optimal precision dependence of low-energy Hamiltonian simulation}
+\label{sec:op_25d9dee5435ea835}
+
+\paragraph{Problem.}
+What is the tight precision dependence of worst-case query complexity for low-energy simulation in the regime \eqref{eq:leprecision-regime}?
+Let $A\in\mathbb{C}^{N\times N}$, $\lVert A\rVert\leq1$, $H=\lambda A^\dagger A$, and $P_\Delta=\mathbf{1}_{[0,\Delta]}(H)$, where $\lambda>0$ and $0<\Delta\leq\lambda$. Assume an exact block encoding $(\langle0^m\rvert\otimes I_N)V_A(\lvert0^m\rangle\otimes I_N)=A$, with controlled and inverse calls. Count these queries; input-state preparation is excluded.
+For known $t>0$ and $0<\epsilon<1/2$, a unitary simulator $W$ must satisfy \eqref{eq:leprecision-error} uniformly on the promised subspace:
+\begin{equation}
+ \sup_{\substack{\lVert\psi\rVert=1\\P_\Delta\lvert\psi\rangle=\lvert\psi\rangle}}
+ \left\lVert W(\lvert0^a\rangle\lvert\psi\rangle)
+ -\lvert0^a\rangle e^{-itH}\lvert\psi\rangle\right\rVert\leq\epsilon.
+ \label{eq:leprecision-error}
+\end{equation}
+Here $a$ counts workspace qubits. Consider asymptotic families with $\epsilon\to0$ satisfying
+\begin{equation}
+ \epsilon=o(t\Delta),\qquad
+ t\Delta=o\bigl(\log(1/\epsilon)\bigr),\qquad
+ \log(1/\epsilon)=o(t\lambda).
+ \label{eq:leprecision-regime}
+\end{equation}
+Determine whether the known $O(\sqrt{t\lambda\log(1/\epsilon)})$ upper bound has optimal precision dependence.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Zlokapa and Somma explicitly leave the intermediate-regime precision gap open in Sections~1 and~7 \sourcecite{ref:leprecision-zlokapa-somma}{ZS24}. The error convention and nontrivial-regime restriction are made explicit here.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Lemma~1.2 and Section~2.2 give $O(t\sqrt{\lambda\Gamma}+\sqrt{\lambda/\Gamma}\log(1/\epsilon))$ queries for $\Delta\leq\Gamma\leq\lambda$. Choosing $\Gamma=\log(1/\epsilon)/t$ gives the stated upper bound; polynomial tolerance $O(\epsilon^2)$ suffices for \eqref{eq:leprecision-error} \sourcecite{ref:leprecision-zlokapa-somma}{ZS24}.
+
+  \item Section~5.5 proves $\Omega(\sqrt{t\lambda})$ on explicit nontrivial intermediate-regime families, without matching the precision factor \sourcecite{ref:leprecision-zlokapa-somma}{ZS24}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[ZS24]}]\label{ref:leprecision-zlokapa-somma}
+  A. Zlokapa and R. D. Somma, ``Hamiltonian simulation for low-energy states with optimal time dependence,'' \emph{Quantum} \textbf{8}, 1449 (2024).
+\href{https://doi.org/10.22331/q-2024-08-27-1449}{doi:10.22331/q-2024-08-27-1449};
+\href{https://arxiv.org/abs/2404.03644}{arXiv:2404.03644}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+This formulation fixes vector-norm error and excludes the identity-accurate regime $t\Delta\leq\epsilon$. Factor access is essential. The cited lower bound is not asserted uniformly throughout \eqref{eq:leprecision-regime}.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Hamiltonian simulation; Computational complexity and computability
+
+\subsection*{ID}
+
+\texttt{op\_25d9dee5435ea835}
