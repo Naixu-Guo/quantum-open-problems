@@ -235,3 +235,11 @@ named in `/etc/qop/release` and `/etc/qop/mcp-release`, then start both services
 Older archives instead contain `var/lib/qop` and `etc/qop` directly. Restore
 matching code and data after an incompatible schema migration; never print
 authentication data or secrets while diagnosing a restore.
+
+## Content license consent
+
+When deploying the licensing policy, update the service before publishing the
+new proposal form. The service preserves explicit `contentLicense: "CC-BY-4.0"`
+consent in each receipt. Older clients still work, but an absent license value
+means permission needs confirmation; the inbox shows this distinction. Do not
+backfill consent on older proposals. See [LICENSING.md](../../LICENSING.md).

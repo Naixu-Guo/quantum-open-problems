@@ -70,6 +70,8 @@ test("the page offers every field and topic in a dropdown with an Other option a
   assert.match(html, /<textarea id="proposal-statement"[^>]*><\/textarea>/u, "the example is not submitted as statement content");
   assert.match(html, /id="statement-placeholder"/u, "the empty statement offers a separate example");
   assert.ok(html.includes('name="consent"'), "consent is asked");
+  assert.ok(html.includes('data-content-license="CC-BY-4.0"'));
+  assert.ok(html.includes('I license my original text under <a href="https://creativecommons.org/licenses/by/4.0/"'));
   assert.ok(html.includes('<a href="../contribute/" aria-current="page">Contribute</a>'), "the nav marks the page");
   assert.ok(html.includes('<a href="../contribute/">Contribute</a>'), "the footer links the page");
   assert.ok(!html.includes('about/#contribute">Contribute'), "the footer no longer sends contributors to the guide first");
@@ -115,7 +117,7 @@ test("the about page advertises account-free sending only when the form is confi
 
 // Run the shipped script with form controls, storage, clipboard, and timers that tests
 // can drive directly, without making network requests or depending on a browser.
-function createClientForm({ values = {}, draft, anonymous = false, allowAnonymous = true, respond = () => ({ ok: true, status: 201, json: async () => ({ accepted: true, id: "01TEST" }) }) } = {}) {
+function createClientForm({ values = {}, draft, anonymous = false, allowAnonymous = true, contentLicense = "CC-BY-4.0", respond = () => ({ ok: true, status: 201, json: async () => ({ accepted: true, id: "01TEST" }) }) } = {}) {
   const listeners = {};
   const element = (properties = {}) => ({
     dataset: {}, hidden: false, value: "", checked: false, disabled: false, textContent: "", listeners: {}, classList: { toggle() {}, add() {}, remove() {} },
@@ -141,7 +143,7 @@ function createClientForm({ values = {}, draft, anonymous = false, allowAnonymou
   const fieldPicker = pickerBox("fields", "field", 2, ["Quantum algorithm", "Quantum metrology"]);
   const topicPicker = pickerBox("topics", "topic", 5, ["Bell nonlocality", "Quantum magic"]);
   const form = element({
-    dataset: { submitUrl: "https://inbox.example.org/api/v1/submissions", captchaProvider: "turnstile", captchaResponse: "cf-turnstile-response", allowAnonymous: String(allowAnonymous), limits: JSON.stringify(PROPOSAL_LIMITS) },
+    dataset: { submitUrl: "https://inbox.example.org/api/v1/submissions", captchaProvider: "turnstile", captchaResponse: "cf-turnstile-response", allowAnonymous: String(allowAnonymous), limits: JSON.stringify(PROPOSAL_LIMITS), ...(contentLicense ? { contentLicense } : {}) },
     elements: { namedItem: (name) => controls.get(name) ?? null },
     querySelector: (selector) => (selector === '[data-picker="fields"]' ? fieldPicker.box : selector === '[data-picker="topics"]' ? topicPicker.box : null),
     querySelectorAll: () => [],
@@ -176,6 +178,22 @@ function createClientForm({ values = {}, draft, anonymous = false, allowAnonymou
   return { controls, form, ids, storage, fetched, copied, fieldPicker, topicPicker, statusLine, choose, flushTimers };
 }
 
+test("license consent is never inferred from cached forms or unchecked copy exports", async () => {
+  const legacy = createClientForm({ contentLicense: null });
+  legacy.choose(legacy.fieldPicker, "Quantum algorithm");
+  legacy.choose(legacy.topicPicker, "Bell nonlocality");
+  await legacy.form.listeners.submit({ preventDefault() {} });
+  assert.equal(Object.hasOwn(legacy.fetched[0].body, "contentLicense"), false, "new JS on old HTML does not invent consent");
+
+  const current = createClientForm();
+  current.controls.get("consent").checked = false;
+  await current.ids.get("#proposal-copy").listeners.click();
+  assert.doesNotMatch(current.copied[0], /Content license:/u);
+  current.controls.get("consent").checked = true;
+  await current.ids.get("#proposal-copy").listeners.click();
+  assert.match(current.copied[1], /Content license: CC BY 4.0/u);
+});
+
 test("the client script assembles a proposal from the form and checks it before sending", () => {
   const { controls, form, ids, fetched, fieldPicker, topicPicker, statusLine, choose } = createClientForm();
   assert.equal(ids.get("#fields-count").textContent, "0 of 2 chosen");
@@ -202,7 +220,7 @@ test("the client script assembles a proposal from the form and checks it before 
     assert.equal(fetched[0].url, "https://inbox.example.org/api/v1/submissions");
     assert.deepEqual(fetched[0].body, {
       title: "A proposal title", statement: "A statement long enough to pass the minimum length.", fields: ["Quantum algorithm"], newFields: [], topics: ["Bell nonlocality", "Rényi entropies"], newTopics: ["Rényi entropies"],
-      source: "Src", progress: "", references: "Ref", comment: "", contributor: { name: "Ada", email: "ada@example.org", affiliation: "", anonymous: false }, consent: true, extra: "", captchaToken: "tok"
+      source: "Src", progress: "", references: "Ref", comment: "", contributor: { name: "Ada", email: "ada@example.org", affiliation: "", anonymous: false }, consent: true, contentLicense: "CC-BY-4.0", extra: "", captchaToken: "tok"
     });
     assert.equal(form.hidden, true, "the form gives way to the receipt");
     form.hidden = false;

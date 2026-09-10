@@ -185,6 +185,28 @@ test("contact normalization preserves Unicode and optional affiliations; malform
   }
 });
 
+test("content license consent is explicit, survives storage, and does not relicense older receipts", t => {
+  const store = new SubmissionStore(":memory:");
+  t.after(() => store.close());
+  const meta = { address: "127.0.0.1", userAgent: "test", captchaProvider: "turnstile" };
+  const legacy = parseSubmission(proposal()).payload;
+  assert.equal(Object.hasOwn(legacy, "contentLicense"), false);
+  const original = store.accept(legacy, meta);
+  const licensed = parseSubmission(proposal({ contentLicense: "CC-BY-4.0" })).payload;
+  const confirmed = store.accept(licensed, meta);
+  assert.notEqual(confirmed.id, original.id, "new consent must not disappear as a duplicate of an older receipt");
+  assert.equal(store.get(confirmed.id)!.payload.contentLicense, "CC-BY-4.0");
+  assert.equal(Object.hasOwn(store.get(original.id)!.payload, "contentLicense"), false);
+  assert.deepEqual(store.accept(licensed, meta), { ...confirmed, duplicate: true });
+  assert.deepEqual(store.accept(legacy, meta), { ...original, duplicate: true });
+  assert.match(submissionText(store.get(confirmed.id)!), /Content license: CC BY 4.0/u);
+  assert.match(submissionText(store.get(original.id)!), /Content license: Not recorded/u);
+  for (const contentLicense of [null, true, "MIT", "CC-BY-SA-4.0"]) {
+    assert.throws(() => parseSubmission(proposal({ contentLicense })), /contentLicense must be CC-BY-4.0/u);
+  }
+  assert.throws(() => parseSubmission(proposal({ contentLicense: "CC-BY-4.0", consent: false })), /consent/u);
+});
+
 test("legacy proposals keep exact retries and retain corrected contacts and anonymity preferences", t => {
   const store = new SubmissionStore(":memory:");
   t.after(() => store.close());
