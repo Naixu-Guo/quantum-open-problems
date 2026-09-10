@@ -73,6 +73,9 @@ async function open(id) {
     ? "Anonymous publication requested. Keep the contributor’s name, email, and affiliation private."
     : "The contributor may be named publicly. Their email remains private.", "hint"));
   detail.append(el("p", `Fields: ${data.fields.join("; ")} · Topics: ${data.topics.join("; ")}`, "hint"));
+  detail.append(el("p", data.payload.contentLicense === "CC-BY-4.0"
+    ? "Content license: CC BY 4.0 for the contributor’s original text. Check third-party material separately."
+    : "Content license not recorded. Confirm permission before publishing the original text under CC BY 4.0.", "hint"));
   for (const [field, name] of [["statement", "Statement"], ["source", "Source"], ["progress", "Progress"], ["references", "References"], ["comment", "Contributor’s note"]]) {
     if (data.payload[field]) detail.append(el("h3", name), el("div", data.payload[field], "proposal-text"));
   }

@@ -22,6 +22,22 @@ It covers primary-source verification, semantic duplicate checks, the current
 JSON format, and synchronization of derived outputs. Use the supplied sources
 and ask only for information needed to make the question or attribution precise.
 
+## Contribution licensing
+
+By intentionally submitting new material for inclusion under this policy,
+you license your code contributions under [Apache-2.0](LICENSE) and your
+original catalog text under [CC BY 4.0](LICENSE-CONTENT). You retain your
+copyright. This applies only to material you have the right to license; it
+does not change the license of your other projects or of cited papers.
+Identify third-party quotations, figures, code, and their license terms.
+See [LICENSING.md](LICENSING.md) for scope and attribution.
+
+For submissions made before this policy was adopted, maintainers must obtain
+agreement before applying the new terms. Record the permission and the exact
+content it covers in LICENSING.md. In the project inbox, confirm that the
+proposal records CC BY 4.0 consent, or obtain permission separately. Contact
+email stays private; preserve the contributor's public credit preference.
+
 ## Record format
 
 Run `node scripts/new-problem-id.mjs --create` to create a record scaffold

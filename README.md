@@ -26,6 +26,15 @@ with a GitHub account.
 See the [contribution guide](CONTRIBUTING.md) for authoring a record by pull request.
 Please cite the original research sources when using a problem or result.
 
+## License
+
+Software: [Apache-2.0](LICENSE). New original catalog contributions:
+[CC BY 4.0](LICENSE-CONTENT). Contributors retain their copyright.
+Earlier catalog text requires permission confirmation before it is covered by
+the new content license; cited papers and other third-party material retain
+their own terms. See [licensing scope and attribution](LICENSING.md) and the
+retained copyright notices in [NOTICE](NOTICE).
+
 ## Contributions
 
 This project is developed and maintained by Bikun Li, Qicheng Tang, Changhao Li,

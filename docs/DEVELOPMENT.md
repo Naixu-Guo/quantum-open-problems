@@ -253,5 +253,7 @@ The form's limits in `site/lib/render.mjs` mirror `LIMITS` in
 
 ## License
 
-MIT for the site code. Problem records cite their primary sources; please cite
-those sources for any mathematical claim.
+The software uses [Apache-2.0](../LICENSE). New original catalog contributions
+use [CC BY 4.0](../LICENSE-CONTENT); earlier text needs permission confirmation.
+See [LICENSING.md](../LICENSING.md) for scope and retained notices. Cite the
+primary sources for mathematical claims.

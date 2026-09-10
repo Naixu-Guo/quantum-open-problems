@@ -441,6 +441,7 @@
       comment: value("comment"),
       contributor: { name: value("name"), email: value("email"), affiliation: value("affiliation"), ...(allowAnonymous ? { anonymous: anonymousRequested() } : {}) },
       consent: Boolean(control("consent")?.checked),
+      ...(proposalForm.dataset.contentLicense === "CC-BY-4.0" && control("consent")?.checked ? { contentLicense: "CC-BY-4.0" } : {}),
       extra: value("extra"),
       captchaToken: captchaField ? value(captchaField) : ""
     });
@@ -527,6 +528,7 @@
       return `# ${p.title || "(untitled)"}\n\n`
         + (anonymousRequested() ? "Contributor: Anonymous\n" : `Contributor: ${p.contributor.name}${p.contributor.email ? ` <${p.contributor.email}>` : ""}${p.contributor.affiliation ? ` (${p.contributor.affiliation})` : ""}\n`)
         + `Public credit: ${anonymousRequested() ? "Remain anonymous" : "Use contributor name"}\n`
+        + (p.contentLicense ? "Content license: CC BY 4.0 for my original text; third-party material excluded.\n" : "")
         + `Fields: ${marked(p.fields, p.newFields)}\nTopics: ${marked(p.topics, p.newTopics)}\n\n`
         + section("Statement", p.statement) + section("Source", p.source) + section("Progress", p.progress) + section("References", p.references) + section("Comment", p.comment);
     };
