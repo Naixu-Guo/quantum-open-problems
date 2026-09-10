@@ -43,7 +43,7 @@
     "An efficient solution of the non-Abelian hidden subgroup problem over the\nsymmetric-group wreath product would yield an efficient quantum algorithm for\nGraph Isomorphism, while the direct extension of Abelian Fourier sampling does\nnot suffice\n\\sourcecite{ref:7249-hrt}{HRT03}.",
     "Strong Fourier sampling on a single coset state reveals insufficient\ninformation for the hidden subgroup instances relevant to Graph Isomorphism;\na coset-state approach must therefore use genuinely multiregister entangled\nmeasurements\n\\sourcecite{ref:7249-mrs-sampling}{MRS08}.",
     "A broad class of Kuperberg-style quantum sieve algorithms for the\nsymmetric-group formulation cannot run in polynomial time: algorithms in that\nsieve family require at least $\\exp(\\Omega(\\sqrt{n}))$ time for the Graph\nIsomorphism instances \\sourcecite{ref:7249-mrs-sieve}{MRS10}.",
-    "Babai's algorithm gives a general classical upper bound of\n$\\exp((\\log n)^{O(1)})$ time for Graph Isomorphism, and since a quantum\ncomputer can run the same classical procedure it also yields a\nquasipolynomial-time quantum upper bound.  This does not settle the present\nquestion, which asks for a polynomial-time quantum algorithm; we cite the\ncorrected, published version of the result (the running-time analysis of the\noriginal arXiv:1512.03547 preprint, as reported at STOC 2016, was corrected in\n2017)\n\\sourcecite{ref:7249-babai}{BAB19}.",
+    "Babai's algorithm gives a general classical upper bound of $\\exp((\\log n)^{O(1)})$ time for Graph Isomorphism, and since a quantum computer can run the same classical procedure it also yields a quasipolynomial-time quantum upper bound.  This does not settle the present question, which asks for a polynomial-time quantum algorithm \\sourcecite{ref:7249-babai}{BAB16}.  An error in the running-time analysis of the original preprint, pointed out by Helfgott, was repaired by Babai in 2017; the correction is documented on Babai's announcement page \\sourcecite{ref:7249-babai-update}{BABUP}.",
     "Anastos, Kwan, and Moore proved a strong smoothed-case result for Graph\nIsomorphism.  For every $n$-vertex graph $G_0$, after a random perturbation\nobtained by adding and removing only $O(n)$ edges in expectation, the resulting\ngraph admits a polynomial-time canonical-labelling algorithm with high\nprobability.  They also showed that, for every edge probability $p=p(n)$, a\nrandom graph $G(n,p)$ admits polynomial-time canonical labelling with high\nprobability.  These results substantially enlarge the classes of instances\nknown to be efficiently solvable, but do not give a polynomial-time algorithm\nfor worst-case Graph Isomorphism and hence do not resolve the present question\n\\sourcecite{ref:7249-akm-smoothed}{AKM25}."
   ],
   "references": [
@@ -63,14 +63,19 @@
       "tex": "Cristopher Moore, Alexander Russell, and Piotr \\v{S}niady, ``On the\nImpossibility of a Quantum Sieve Algorithm for Graph Isomorphism,'' \\emph{SIAM\nJournal on Computing} \\textbf{39}, 2377--2396 (2010).\n\\href{https://doi.org/10.1137/080724101}{doi:10.1137/080724101};\n\\href{https://arxiv.org/abs/quant-ph/0612089}{arXiv:quant-ph/0612089}."
     },
     {
-      "key": "BAB19",
-      "label": "ref:7249-babai",
-      "tex": "L\\'{a}szl\\'{o} Babai, ``Canonical Form for Graphs in\nQuasipolynomial Time: Preliminary Report,'' in \\emph{Proceedings of the 51st\nAnnual ACM SIGACT Symposium on Theory of Computing (STOC 2019)}, 1237--1246\n(2019).\n\\href{https://doi.org/10.1145/3313276.3316356}{doi:10.1145/3313276.3316356};\n\\href{https://arxiv.org/abs/1905.12185}{arXiv:1905.12185}.\nThis is the corrected, published version of the author's quasipolynomial-time\nGraph Isomorphism result, addressing the correction of 2017 to the\nrunning-time analysis of the original arXiv:1512.03547 preprint (as reported\nat STOC 2016)."
-    },
-    {
       "key": "AKM25",
       "label": "ref:7249-akm-smoothed",
       "tex": "Michael Anastos, Matthew Kwan, and Benjamin Moore, ``Smoothed\nAnalysis for Graph Isomorphism,'' in \\emph{Proceedings of the 57th Annual ACM\nSymposium on Theory of Computing (STOC 2025)}, 2098--2106 (2025).\n\\href{https://doi.org/10.1145/3717823.3718173}{doi:10.1145/3717823.3718173};\n\\href{https://arxiv.org/abs/2410.06095}{arXiv:2410.06095}."
+    },
+    {
+      "key": "BAB16",
+      "label": "ref:7249-babai",
+      "tex": "L\\'{a}szl\\'{o} Babai, ``Graph Isomorphism in Quasipolynomial Time,'' in \\emph{Proceedings of the 48th Annual ACM SIGACT Symposium on Theory of Computing (STOC 2016)}, 684--697 (2016).\n\\href{https://doi.org/10.1145/2897518.2897542}{doi:10.1145/2897518.2897542};\n\\href{https://arxiv.org/abs/1512.03547}{arXiv:1512.03547}."
+    },
+    {
+      "key": "BABUP",
+      "label": "ref:7249-babai-update",
+      "tex": "L\\'{a}szl\\'{o} Babai, ``Graph Isomorphism Update,'' January 2017.\n\\href{https://people.cs.uchicago.edu/~laci/update.html}{update.html};\n\\href{https://people.cs.uchicago.edu/~laci/upcc-fix.pdf}{upcc-fix.pdf}."
     }
   ],
   "comment": "A successful coset-state approach must use genuinely multiregister entangled\nmeasurements, and polynomial-time quantum sieve algorithms are ruled out for\nthe relevant instances.  The open problem is not simply to implement the\nnon-Abelian Fourier transform efficiently, but to find a substantially\ndifferent way to extract and process the hidden symmetry, or a quantum\napproach to Graph Isomorphism outside this hidden-subgroup framework."

@@ -55,15 +55,7 @@ symmetric-group formulation cannot run in polynomial time: algorithms in that
 sieve family require at least $\exp(\Omega(\sqrt{n}))$ time for the Graph
 Isomorphism instances \sourcecite{ref:7249-mrs-sieve}{MRS10}.
 
-  \item Babai's algorithm gives a general classical upper bound of
-$\exp((\log n)^{O(1)})$ time for Graph Isomorphism, and since a quantum
-computer can run the same classical procedure it also yields a
-quasipolynomial-time quantum upper bound.  This does not settle the present
-question, which asks for a polynomial-time quantum algorithm; we cite the
-corrected, published version of the result (the running-time analysis of the
-original arXiv:1512.03547 preprint, as reported at STOC 2016, was corrected in
-2017)
-\sourcecite{ref:7249-babai}{BAB19}.
+  \item Babai's algorithm gives a general classical upper bound of $\exp((\log n)^{O(1)})$ time for Graph Isomorphism, and since a quantum computer can run the same classical procedure it also yields a quasipolynomial-time quantum upper bound.  This does not settle the present question, which asks for a polynomial-time quantum algorithm \sourcecite{ref:7249-babai}{BAB16}.  An error in the running-time analysis of the original preprint, pointed out by Helfgott, was repaired by Babai in 2017; the correction is documented on Babai's announcement page \sourcecite{ref:7249-babai-update}{BABUP}.
 
   \item Anastos, Kwan, and Moore proved a strong smoothed-case result for Graph
 Isomorphism.  For every $n$-vertex graph $G_0$, after a random perturbation
@@ -101,24 +93,22 @@ Journal on Computing} \textbf{39}, 2377--2396 (2010).
 \href{https://doi.org/10.1137/080724101}{doi:10.1137/080724101};
 \href{https://arxiv.org/abs/quant-ph/0612089}{arXiv:quant-ph/0612089}.
 
-  \item[\textup{[BAB19]}]\label{ref:7249-babai}
-  L\'{a}szl\'{o} Babai, ``Canonical Form for Graphs in
-Quasipolynomial Time: Preliminary Report,'' in \emph{Proceedings of the 51st
-Annual ACM SIGACT Symposium on Theory of Computing (STOC 2019)}, 1237--1246
-(2019).
-\href{https://doi.org/10.1145/3313276.3316356}{doi:10.1145/3313276.3316356};
-\href{https://arxiv.org/abs/1905.12185}{arXiv:1905.12185}.
-This is the corrected, published version of the author's quasipolynomial-time
-Graph Isomorphism result, addressing the correction of 2017 to the
-running-time analysis of the original arXiv:1512.03547 preprint (as reported
-at STOC 2016).
-
   \item[\textup{[AKM25]}]\label{ref:7249-akm-smoothed}
   Michael Anastos, Matthew Kwan, and Benjamin Moore, ``Smoothed
 Analysis for Graph Isomorphism,'' in \emph{Proceedings of the 57th Annual ACM
 Symposium on Theory of Computing (STOC 2025)}, 2098--2106 (2025).
 \href{https://doi.org/10.1145/3717823.3718173}{doi:10.1145/3717823.3718173};
 \href{https://arxiv.org/abs/2410.06095}{arXiv:2410.06095}.
+
+  \item[\textup{[BAB16]}]\label{ref:7249-babai}
+  L\'{a}szl\'{o} Babai, ``Graph Isomorphism in Quasipolynomial Time,'' in \emph{Proceedings of the 48th Annual ACM SIGACT Symposium on Theory of Computing (STOC 2016)}, 684--697 (2016).
+\href{https://doi.org/10.1145/2897518.2897542}{doi:10.1145/2897518.2897542};
+\href{https://arxiv.org/abs/1512.03547}{arXiv:1512.03547}.
+
+  \item[\textup{[BABUP]}]\label{ref:7249-babai-update}
+  L\'{a}szl\'{o} Babai, ``Graph Isomorphism Update,'' January 2017.
+\href{https://people.cs.uchicago.edu/~laci/update.html}{update.html};
+\href{https://people.cs.uchicago.edu/~laci/upcc-fix.pdf}{upcc-fix.pdf}.
 \end{enumerate}
 
 \subsection*{Comment}
