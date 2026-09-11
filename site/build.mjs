@@ -246,6 +246,9 @@ write("index.html", renderHome({ config, root: "", records, stats, fieldCounts, 
 write("problems/index.html", renderDirectory({ config, root: "../", records, fieldCounts, topicCounts }));
 write("tags/index.html", renderTagsIndex({ config, root: "../", taxonomy, fieldCounts, topicCounts }));
 write("about/index.html", renderAbout({ config, root: "../", stats, dates }));
+for (const [file, target] of [["LICENSE", "Apache-2.0.txt"], ["LICENSE-CONTENT", "CC-BY-4.0.txt"], ["NOTICE", "NOTICE.txt"], ["LICENSING.md", "scope.txt"]]) {
+  write(`licenses/${target}`, fs.readFileSync(path.join(repoRoot, file), "utf8"));
+}
 write("contribute/index.html", renderContribute({ config, root: "../", taxonomy, fieldCounts, topicCounts }));
 write("404.html", renderNotFound({ config, root: "/" + config.siteUrl.replace(/^https?:\/\/[^/]+\/?/, "") }));
 // Publish schemas at their canonical $id URLs, including relative payload references.
@@ -389,6 +392,7 @@ for (const record of records) {
     progress: record.progress,
     comment: record.comment,
     references: record.references,
+    ...(record.contributors === undefined ? {} : { contributors: record.contributors.filter((person) => person.anonymous === false) }),
     equations: record.equations,
     equivalentRecords: record.equivalentRecords,
     related: relatedFor(record).map((item) => ({ id: item.record.id, title: item.record.title.text, sharedFields: item.sharedFields, sharedTopics: item.sharedTopics })),
@@ -446,6 +450,8 @@ Connect a remote MCP client to ${config.mcp.url} using Streamable HTTP. Public c
 - ${siteUrl}/problem/<id>/<id>.tex: the TeX form of one record.
 
 ## Contributing
+
+Software uses Apache-2.0. New original catalog contributions use CC BY 4.0. Earlier catalog text requires permission confirmation; do not assume the whole catalog is CC BY 4.0. Cited papers and third-party material retain their own terms. Licensing scope and attribution: ${siteUrl}/about/#licensing and ${siteUrl}/licenses/scope.txt.
 
 Records are JSON files in ${config.repositoryUrl}/tree/${config.branch}/${config.databasePath}, with a TeX form of each in ${config.texPath}. Follow database/_template.json and open a pull request; the build validates every record. ${submissionsOnline(config) ? `Send proposals without an account at ${siteUrl}/contribute/.` : `Direct online sending is not enabled. Prepare and copy a proposal at ${siteUrl}/contribute/, then submit a GitHub issue (a GitHub account is required).`} Proposals are reviewed by the maintainers before publication.
 `);

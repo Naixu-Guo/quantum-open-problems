@@ -9,14 +9,34 @@ validation workflow runs it on each pull request.
 To suggest a problem without editing the repository, use the
 [proposal form](https://qiqc-op.com/contribute/) to submit the statement,
 sources, and known progress without an account. Maintainers review
-proposals and publish accepted records with contributor credit. The rest of
-this guide is for people who write the record themselves.
+proposals and publish accepted records with credit to contributors. When the
+form offers anonymous credit, that choice applies to the proposed problem;
+names and emails remain required for private review. If an unsent anonymous
+draft is restored while that option is unavailable, the form keeps the draft
+and prevents sending it with named credit. The rest of this guide is for
+people who write the record themselves.
 
 For agent-assisted additions and revisions, follow the repository's
 [writing-open-problems skill](.claude/skills/writing-open-problems/SKILL.md).
 It covers primary-source verification, semantic duplicate checks, the current
 JSON format, and synchronization of derived outputs. Use the supplied sources
 and ask only for information needed to make the question or attribution precise.
+
+## Contribution licensing
+
+By intentionally submitting new material for inclusion under this policy,
+you license your code contributions under [Apache-2.0](LICENSE) and your
+original catalog text under [CC BY 4.0](LICENSE-CONTENT). You retain your
+copyright. This applies only to material you have the right to license; it
+does not change the license of your other projects or of cited papers.
+Identify third-party quotations, figures, code, and their license terms.
+See [LICENSING.md](LICENSING.md) for scope and attribution.
+
+For submissions made before this policy was adopted, maintainers must obtain
+agreement before applying the new terms. Record the permission and the exact
+content it covers in LICENSING.md. In the project inbox, confirm that the
+proposal records CC BY 4.0 consent, or obtain permission separately. Contact
+email stays private; preserve the contributor's public credit preference.
 
 ## Record format
 
@@ -38,12 +58,13 @@ breaks are written as `\n`.
 | `ulid` | A permanent main-compatible identifier, assigned by the new-record command or the metadata migration. Never regenerate it for an existing problem. |
 | `aliases` | The original `op_` identifier, the ULID, the equivalent `op-` alias, and any confirmed legacy aliases. Keep them unique across records and preserve existing aliases. |
 | `metadata` | Main-compatible Problem attributes, including record type and version, revision, creator and creation time, role, parent relationships, origin, posed date, taxonomy IDs, keywords, difficulty, verification cost, and related problem IDs. Initialize missing values with the metadata migration script; consult the template for the exact structure. |
+| `contributors` | Optional array of public credit choices for this problem. A named entry has `name`, optional `affiliation`, and `anonymous: false`; an anonymous entry contains only `anonymous: true`. See [Public contributor credit](#public-contributor-credit). |
 | `title` | The descriptive title only, on one line; the site never shows a problem number. |
 | `status` | Exactly `Unsolved` or `Solved`. |
 | `fields` | One or two names from the `fields` list of `database/tags.json`, spelled exactly: the broad research areas the problem belongs to. |
 | `topics` | One to five names from the `topics` list of `database/tags.json`, spelled exactly: the specific objects, techniques, and settings it concerns. |
 | `statement` | The self-contained statement. |
-| `source` | The paper that posed the problem, or the papers in which it is implicit, cited with `\\sourcecite{ref:...}{KEY}`. Write `Contributor: Full Name.` when no literature source exists, or `unknown`. |
+| `source` | The paper that posed the problem, or the papers in which it is implicit, cited with `\\sourcecite{ref:...}{KEY}`. For an original contribution, write `Contributor: Full Name.` only with permission for named credit on this problem; otherwise use `unknown`. |
 | `progress` | An array of accurately scoped results, one TeX item each. |
 | `references` | An array of `{ "key": "KEY", "label": "ref:...", "tex": "..." }`, each `tex` giving the full entry with DOI and arXiv links. |
 | `comment` | The precise remaining gap and relations to other problems. |
@@ -59,21 +80,44 @@ with the new record.
 After any content edit, run `node scripts/sync-tex.mjs` to write its TeX form
 to `database/problems_tex/<id>.tex`, then `node site/build.mjs`. The build
 fails when the TeX file is missing or disagrees with the record, so commit the
-two files together. The additional identifiers and metadata live in JSON;
-they are excluded from the TeX content comparison but included in the JSON
-hash. When editing fields or topics, run the metadata migration before
+two files together. The additional identifiers, metadata, and contributor
+credit choices live in JSON; they are excluded from the TeX content comparison
+but included in the JSON hash. When editing fields or topics, run the metadata migration before
 syncing TeX to update the derived taxonomy IDs.
 
 A record can also be written in TeX following `database/_template.tex`, whose
 sections map onto the authored JSON content fields, and imported with
 `node scripts/import-problems.mjs <file>`; the import writes both files. A TeX
 import that replaces an existing record requires `--replace` and preserves
-that record's identifiers and metadata. Review the incoming content before
-replacing a record, since an old TeX copy can contain outdated science. A TeX
-file may carry `Field` and `Topic` subsections or, in the older layout, a
+that record's identifiers, metadata, and contributor credit choices. Review
+the incoming content before replacing a record, since an old TeX copy can
+contain outdated science. A TeX file may carry `Field` and `Topic` subsections
+or, in the older layout, a
 single `Tag` subsection whose names are sorted into fields and topics by
 `database/tags.json`; either way the build enforces one or two fields and one
 to five topics.
+
+## Public contributor credit
+
+Each problem page lists only people who agreed to be named for that problem.
+Record this choice in its optional `contributors` array: use
+`{ "name": "Contributor name", "anonymous": false }` for named credit,
+with an optional `affiliation` string. For anonymous participation, omit the
+person from the array or include only `{ "anonymous": true }`, with no
+identifying fields. Anonymous entries are not displayed in the Contributors
+section. Public records must not contain contributor email addresses.
+
+The choice applies to one problem record. The same person may be named on
+one problem and remain anonymous on another; do not infer consent from an
+actor profile, Git history, a paper's author list, or credit on another
+record. Leave credit absent when permission has not been established.
+
+When publishing an accepted proposal, maintainers transfer the contributor's
+public credit choice from the private inbox to the problem record. Keep the
+required contact name and email in the inbox, and honor anonymity in authored
+prose as well as the credit array. Confirm the same permission for a direct
+pull request. Credit people only; do not list an assistant, model, agent, or
+tool as a contributor.
 
 ## Metadata and main exports
 

@@ -5,9 +5,9 @@
 \label{sec:op_4830398d0c2feb5f}
 
 \paragraph{Problem.}
-For any given probability vector $\mathbf p=(p_I,p_X,p_Y,p_Z)$, can quantum
-low-density parity-check (LDPC) stabilizer codes reliably achieve the hashing
-rate over the Pauli channel?
+For which probability vectors $\mathbf p=(p_I,p_X,p_Y,p_Z)$ can quantum
+low-density parity-check (LDPC) stabilizer codes reliably attain the exact
+hashing rate over the Pauli channel?
 
 The channel and target rate are
 \begin{equation}
@@ -38,6 +38,8 @@ Eq.~\eqref{eq:p6-reliable-rate} requires reliable transmission at the rate
 in Eq.~\eqref{eq:p6-hashing-bound}.  Transmission is unassisted, and the
 codes, decoders, and LDPC bounds may depend on $\mathbf p$.  A zero hashing
 rate permits $k_n=0$.
+No CSS restriction is imposed. The question is parameter-dependent: a
+negative answer for one noise subfamily does not classify all Pauli channels.
 
 \subsection*{Status}
 
@@ -50,6 +52,71 @@ Contributor: Bikun Li.
 \subsection*{Progress}
 
 \begin{itemize}
+  \item Exact attainment is impossible for the dephasing subfamily
+$\mathbf p=(1-q,0,0,q)$ with $0<q<1/2$ at any fixed maximum generator
+weight $w$. The following entropy argument was given in the catalog review
+\sourcecite{ref:p6-review}{Guo26}. Let $G\subset\mathbb F_2^{2n}$ be the
+binary stabilizer space, $r_x:=\dim\pi_X(G)$ and
+$r_z:=\dim\ker(\pi_X|_G)$, where $\pi_X(x,z)=x$. Rank-nullity gives
+$r_x+r_z=n-k$ for every stabilizer code, including non-CSS codes. For the
+independent phase-error vector $E$, choose $r_x$ independent syndrome bits
+$S$ from the bounded-weight generators. With $h_2$ the binary entropy, put
+\begin{equation}
+  h_w:=h_2\!\left(\frac{1-(1-2q)^w}{2}\right)<1,
+  \qquad H(S)\le r_x h_w.
+  \label{eq:p6-syndrome-entropy}
+\end{equation}
+For a fixed syndrome, pure phase errors have $2^k$ logical classes $L$.
+Optimal recovery for stabilizer encodings and Pauli noise is syndrome
+measurement followed by maximum-likelihood logical-class correction
+\sourcecite{ref:p6-optimal-recovery}{FSW08}, Appendix, Theorem 3.
+Thus entanglement fidelity tending to one implies $H(L|S)=o(n)$ by Fano's
+inequality. For fixed $(S,L)$ the errors form a coset of the pure-Z
+stabilizer subgroup. Its $r_z$ pivot coordinates determine the remaining
+error, giving $H(E|S,L)\le r_z h_2(q)$. Consequently Eq.~\eqref{eq:p6-syndrome-entropy}
+yields
+\begin{equation}
+  nh_2(q)\le r_xh_w+r_zh_2(q)+o(n)\le(n-k)h_w+o(n),
+  \qquad R\le1-\frac{h_2(q)}{h_w}<1-h_2(q).
+  \label{eq:p6-dephasing-gap}
+\end{equation}
+Equation~\eqref{eq:p6-dephasing-gap} accounts for stabilizer degeneracy and
+uses no CSS assumption or bound on the weight of products of generators.
+For $q=0.1$ and $w=6$ it gives $R\le0.5062401$, below hashing
+$0.5310044$. This does not establish the same obstruction at every other
+Pauli parameter.
+
+  \item The weaker existence question with a prescribed gap $\delta>0$ and
+LDPC bounds allowed to depend on $(\mathbf p,\delta)$ has an affirmative
+answer by the following concatenation consequence of established coding
+theorems. Let $C=R_{\mathrm{hash}}(\mathbf p)>\delta$; otherwise the zero-rate
+code suffices. Quantum Tanner codes have outer rate $R_o$ arbitrarily close
+to one and relative distance $\alpha>0$, with fixed check weight and degree
+\sourcecite{ref:p6-tanner}{LZ22}, Theorems 17--18. Choose $R_o$ with
+$R_o(C-\delta/2)>C-\delta$. Stabilizer hashing achievability
+\sourcecite{ref:p6-hamada}{Ham02}, Theorem 1 and its proof, supplies a fixed
+inner $[[m,\ell]]$ code of rate at least $C-\delta/2$ with Pauli recovery and
+logical block-error probability $\epsilon<\alpha/4$. Take $\ell$ copies of
+an outer $[[N,K,d\ge\alpha N]]$ code. For each outer coordinate, encode its
+$\ell$ qubits, one from each copy, in one inner block. The residual inner
+noise is a logical Pauli channel, independently across the $N$ blocks.
+Every failed block affects at most one qubit of each outer copy. A Chernoff
+bound therefore makes the probability of $\alpha N/2$ or more failed
+blocks vanish; below this threshold all outer copies are recoverable.
+The resulting parameters obey
+\begin{equation}
+  n=mN,\qquad k=\ell K,\qquad
+  \frac{k}{n}\ge\frac\ell m R_o>C-\delta.
+  \label{eq:p6-concatenated-rate}
+\end{equation}
+Equation~\eqref{eq:p6-concatenated-rate} gives reliable transmission.
+Lifted outer checks have weight at most $m w_o$, while each physical qubit
+has degree at most $v_i+\ell v_o$, where $w_o,v_o$ and $v_i$ are the fixed
+outer weight, outer degree, and inner degree. Hence this is a quantum LDPC
+family for each fixed gap. This deduction does not bound the constants
+uniformly as $\delta\to0$ or provide a practically useful degree bound;
+it is not the exact-attainment claim in Eq.~\eqref{eq:p6-reliable-rate}.
+
   \item The XZZX surface code is an explicit quantum LDPC family whose
   numerically estimated code-capacity threshold closely matches the zero-rate
   hashing threshold for every single-qubit Pauli channel; for depolarizing
@@ -119,14 +186,47 @@ Contributor: Bikun Li.
   (2015).
   \href{https://doi.org/10.1109/TIT.2015.2468084}{doi:10.1109/TIT.2015.2468084};
   \href{https://arxiv.org/abs/1307.1136}{arXiv:1307.1136}.
+
+  \item[\textup{[Guo26]}]\label{ref:p6-review}
+  N. Guo, ``Scientific review: confirm channel, resource and QEC statements
+in 10 catalog records,'' issue 41, item E (2026). Unpublished argument.
+\href{https://github.com/Naixu-Guo/quantum-open-problems/issues/41}{GitHub issue 41}.
+
+  \item[\textup{[FSW08]}]\label{ref:p6-optimal-recovery}
+  A. S. Fletcher, P. W. Shor, and M. Z. Win,
+``Structured Near-Optimal Channel-Adapted Quantum Error Correction,''
+\emph{Physical Review A} \textbf{77}, 012320 (2008).
+\href{https://doi.org/10.1103/PhysRevA.77.012320}{doi:10.1103/PhysRevA.77.012320};
+\href{https://arxiv.org/abs/0708.3658}{arXiv:0708.3658}.
+
+  \item[\textup{[LZ22]}]\label{ref:p6-tanner}
+  A. Leverrier and G. Z\'emor, ``Quantum Tanner Codes,''
+\emph{2022 IEEE 63rd Annual Symposium on Foundations of Computer Science
+(FOCS)}, 872--883 (2022).
+\href{https://doi.org/10.1109/FOCS54457.2022.00117}{doi:10.1109/FOCS54457.2022.00117};
+\href{https://arxiv.org/abs/2202.13641}{arXiv:2202.13641}.
+
+  \item[\textup{[Ham02]}]\label{ref:p6-hamada}
+  M. Hamada, ``Exponential Lower Bound on the Highest Fidelity Achievable
+by Quantum Error-Correcting Codes,'' \emph{Physical Review A}
+\textbf{65}, 052305 (2002).
+\href{https://doi.org/10.1103/PhysRevA.65.052305}{doi:10.1103/PhysRevA.65.052305};
+\href{https://arxiv.org/abs/quant-ph/0109114}{arXiv:quant-ph/0109114}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-Polar codes attain the hashing rate without LDPC constraints; the other
-results separately address threshold, finite-block performance, or distance.
-The open task is to meet both the rate and reliability requirements in
-Eq.~\eqref{eq:p6-reliable-rate} with quantum LDPC codes for every $\mathbf p$.
+The dephasing obstruction in Eq.~\eqref{eq:p6-dephasing-gap} refutes a
+universal affirmative answer with exact attainment and fixed check weight.
+It does not classify exact attainment for all other Pauli parameters, so the
+parameter-dependent question remains Unsolved. Zero hashing rate permits
+the trivial zero-logical-qubit code. The negative argument is unpublished;
+its full reasoning is included above. Approaching hashing with LDPC bounds
+allowed to depend on a positive rate gap is a different quantifier order. The concatenation argument in
+Eq.~\eqref{eq:p6-concatenated-rate} already establishes that weaker
+existence statement, so it should not be relabeled as the remaining open
+problem. Quantitative bounds on the degrees as a function of the gap would
+require additional specifications.
 
 \subsection*{Field}
 
