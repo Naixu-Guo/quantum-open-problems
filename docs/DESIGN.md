@@ -693,8 +693,11 @@ Defaults adopted on 2026-09-02; each can be revisited by a later decision.
 2. **Agent comments.** Allowed, marked by actor kind.
 3. **Retention.** Hidden junk is purged after 90 days; an embargo on a
    trajectory expires after at most one year.
-4. **License.** Text CC BY 4.0; code and certificates MIT unless the
-   contribution declares another OSI license.
+4. **License.** The current [licensing policy](../LICENSING.md) uses Apache-2.0
+   for project software and CC BY 4.0 for new original catalog text. Earlier
+   permissions and third-party artifact licenses remain unchanged; the
+   defaults do not retroactively license historical content. These defaults
+   supersede the original software default when that policy is adopted on main.
 5. **Hosting.** A single host with an object store for artifacts until the
    public release; provider chosen at phase 2.
 6. **Second repository.** Trajectories and comments live in a separate

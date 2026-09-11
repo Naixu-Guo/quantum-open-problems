@@ -90,6 +90,8 @@ export interface SubmissionPayload {
   references: string;
   comment: string;
   contributor: Contributor;
+  /** Present only when the submitter explicitly agreed to this content license. */
+  contentLicense?: "CC-BY-4.0";
 }
 
 export interface ParsedSubmission {
@@ -209,6 +211,7 @@ export function parseSubmission(raw: unknown, requireCaptcha = true): ParsedSubm
   if (person["anonymous"] !== undefined && typeof person["anonymous"] !== "boolean") issues.push("the anonymity preference must be a boolean");
   const anonymous = person["anonymous"] === true;
   if (raw["consent"] !== true) issues.push("consent to storing your contact details for the review is required");
+  if (raw["contentLicense"] !== undefined && raw["contentLicense"] !== "CC-BY-4.0") issues.push("contentLicense must be CC-BY-4.0 when supplied");
 
   const captchaToken = clean(raw["captchaToken"]);
   if (!captchaToken && requireCaptcha) issues.push("complete the human verification");
@@ -216,7 +219,7 @@ export function parseSubmission(raw: unknown, requireCaptcha = true): ParsedSubm
 
   if (issues.length > 0) throw new HttpError(422, issues.join("; "));
   return {
-    payload: { title, statement, fields, newFields, topics, newTopics, source, progress, references, comment, contributor: { name, email, affiliation, anonymous } },
+    payload: { title, statement, fields, newFields, topics, newTopics, source, progress, references, comment, contributor: { name, email, affiliation, anonymous }, ...(raw["contentLicense"] === "CC-BY-4.0" ? { contentLicense: "CC-BY-4.0" as const } : {}) },
     captchaToken,
   };
 }
@@ -280,10 +283,12 @@ export class SubmissionStore {
     const since = new Date(now - DUPLICATE_WINDOW_MS).toISOString();
     const candidates = this.db.prepare(`SELECT ${ROW_COLUMNS} FROM submissions WHERE content_hash = ? AND received_at >= ? ORDER BY received_at DESC`).all(hash, since) as unknown as StoredRow[];
     const existing = candidates.find((row) => {
-      const previous = storedPayload(row).contributor;
+      const previousPayload = storedPayload(row);
+      const previous = previousPayload.contributor;
       const current = payload.contributor;
       return previous.name === current.name && previous.email === current.email
-        && previous.affiliation === current.affiliation && previous.anonymous === current.anonymous;
+        && previous.affiliation === current.affiliation && previous.anonymous === current.anonymous
+        && previousPayload.contentLicense === payload.contentLicense;
     });
     if (existing) return { id: existing.id, receivedAt: existing.received_at, duplicate: true };
     const id = newId(now);
@@ -347,6 +352,7 @@ export function submissionText(submission: Submission): string {
     + `Proposal ${submission.id}, received ${submission.receivedAt}, state ${submission.state}.\n`
     + `Contributor: ${p.contributor.name} <${p.contributor.email}>${p.contributor.affiliation ? ` (${p.contributor.affiliation})` : ""}\n`
     + `Public attribution: ${p.contributor.anonymous ? "Anonymous requested; do not publish the contributor’s name, email, or affiliation." : "Contributor may be named; email remains private."}\n`
+    + `Content license: ${p.contentLicense === "CC-BY-4.0" ? "CC BY 4.0 for the contributor's original text; third-party material excluded." : "Not recorded; confirm permission before publishing under CC BY 4.0."}\n`
     + `Fields: ${marked(p.fields, p.newFields)}\n`
     + `Topics: ${marked(p.topics, p.newTopics)}\n\n`
     + section("Statement", p.statement)

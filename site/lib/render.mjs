@@ -150,11 +150,12 @@ ${body}
         <a href="${root}problems/">All problems</a>
         <a href="${root}tags/">Fields and topics</a>
         <a href="${root}about/">About and how to cite</a>
+        <a href="${root}about/#licensing">Licensing</a>
         <a href="${root}contribute/">Contribute</a>
         <a href="${root}api/index.json">JSON API</a>
         <a href="${config.repositoryUrl}" rel="noreferrer">Source repository</a>
       </nav>
-      ${current === "home" ? `<p class="footer-note footer-credit">Developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Zhong-Xia Shang, Bin Cheng, and Naixu Guo. <a href="${root}about/#contributions">Contributions</a>.</p>` : ""}
+      ${current === "home" ? `<p class="footer-note footer-credit">Developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Zhong-Xia Shang, Bin Cheng, Shihao Ru, and Naixu Guo. <a href="${root}about/#contributions">Contributions</a>.</p>` : ""}
       <p class="footer-note">A dated research index. Verify a status against the cited sources before relying on it. <a href="#top">Back to top ↑</a></p>
     </footer>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -687,8 +688,12 @@ export function renderAbout({ config, root, dates }) {
         </ol>
         <p>The connection reads the current hosted catalog, including newly published problems. If it fails, check the <a href="${escape(mcpServiceUrl)}/api/v1/status" rel="noreferrer">catalog service status</a> and confirm that your client supports remote MCP. The <a href="${config.repositoryUrl}/blob/${config.branch}/mcp/README.md" rel="noreferrer">MCP setup and tool guide</a> also covers local clients and authenticated research contributions. For direct downloads, the <a href="${root}api/index.json">JSON catalog</a>, <a href="${root}api/tags.json">taxonomy</a>, and <a href="${root}llms.txt">agent guide</a> are available.</p>
 
+        <h2 id="licensing">Licensing and reuse</h2>
+        <p>The software uses <a href="${root}licenses/Apache-2.0.txt">Apache-2.0</a>. New original catalog contributions use <a href="https://creativecommons.org/licenses/by/4.0/" rel="noreferrer">CC BY 4.0</a>, allowing sharing, adaptation, and commercial use with attribution, license information, and an indication of changes. Contributors retain their copyright.</p>
+        <p>Earlier catalog text requires permission confirmation before it is covered by CC BY 4.0. Cited papers and other third-party material retain their own terms. See the <a href="${root}licenses/scope.txt">licensing scope and permissions</a>, <a href="${root}licenses/CC-BY-4.0.txt">content license</a>, and <a href="${root}licenses/NOTICE.txt">retained copyright notices</a>. Cite the primary sources for mathematical results and preserve the supplied contributor credits when reusing licensed text.</p>
+
         <h2 id="contributions"><span id="credits">Contributions</span></h2>
-        <p>This project is developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Zhong-Xia Shang, Bin Cheng, and Naixu Guo.</p>
+        <p>This project is developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Zhong-Xia Shang, Bin Cheng, Shihao Ru, and Naixu Guo.</p>
         <p>We thank <a href="https://gauge-forge.com/" rel="noreferrer">GaugeForge</a> for its financial support of this project.</p>
         <p>Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
       </div>
@@ -783,7 +788,7 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
         </div>
       </div>
 
-      <form class="proposal-form no-math" id="proposal-form" novalidate data-submit-url="${escape(submissionUrl)}" data-captcha-provider="${usesCaptcha ? providerKey : ""}" data-captcha-response="${usesCaptcha ? widget.responseField : ""}" data-allow-anonymous="${allowAnonymous}" data-limits='${escape(JSON.stringify(L))}'>
+      <form class="proposal-form no-math" id="proposal-form" novalidate data-content-license="CC-BY-4.0" data-submit-url="${escape(submissionUrl)}" data-captcha-provider="${usesCaptcha ? providerKey : ""}" data-captcha-response="${usesCaptcha ? widget.responseField : ""}" data-allow-anonymous="${allowAnonymous}" data-limits='${escape(JSON.stringify(L))}'>
         <fieldset>
           <legend>The problem</legend>
           ${field("proposal-title", "Title", input("proposal-title", "title", `required minlength="${L.title.min}" maxlength="${L.title.max}" autocomplete="off"`), "A short descriptive title, as it would head the problem page.")}
@@ -832,7 +837,7 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
             <p class="form-hint" id="proposal-anonymous-hint">Your name and email are still required so the maintainers can review your proposal and contact you. If selected, your name and affiliation will not appear in this problem's contributor credit. You can make a different choice for each problem.</p>
           </div>` : `<p class="form-hint">This form currently accepts proposals with named contributor credit. Anonymous credit is not available through this form yet.</p>`}
           <div class="form-row">
-            <label class="consent"><input type="checkbox" name="consent" id="proposal-consent" required><span>I agree that the maintainers store this proposal with my name and email address to review it and to contact me about it, and that the problem, once rewritten, may be published in the zoo under its <a href="${config.repositoryUrl}/blob/${config.branch}/LICENSE" rel="noreferrer">license</a>${allowAnonymous ? ", respecting my choice about contributor credit" : ", with my name and any affiliation I provide in the contributor credit"}.</span></label>
+            <label class="consent"><input type="checkbox" name="consent" id="proposal-consent" required><span>I license my original text under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noreferrer">CC BY 4.0</a> and confirm I have the right to do so. I have identified third-party material and its terms. I agree that the maintainers store this proposal and my contact details for review, and may edit and publish the proposal${allowAnonymous ? ", respecting my choice about contributor credit" : ", with my name and any affiliation I provide in the contributor credit"}. My email stays private. <a href="${root}about/#licensing">Licensing details</a>.</span></label>
           </div>
           <div class="hp" aria-hidden="true">
             <label for="proposal-extra">Leave this field empty</label>
