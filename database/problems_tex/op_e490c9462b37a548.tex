@@ -40,21 +40,31 @@ Ottaviani, and Banchi \sourcecite{ref:p5-pirandola}{PLOB17}.
 \subsection*{Progress}
 
 \begin{itemize}
-  \item Pirandola, Laurenza, Ottaviani, and Banchi bounded the two-way quantum
-  capacity using an achievable reverse-coherent-information rate from below
-  and the channel's squashed entanglement from above:
+  \item The reverse-coherent-information protocol and the balanced
+  amplitude-damping squashing channel give the bounds
   \begin{equation}
     \max_{0\le u\le1}\bigl[h_2(u)-h_2(pu)\bigr]
     \le \mathcal{Q}_2(\mathcal A_p)
-    \le h_2\!\left(\frac12-\frac p4\right)
-       -h_2\!\left(1-\frac p4\right),
+    \le \max_{0\le u\le1}\left[
+       h_2\!\left(\left(1-\frac p2\right)u\right)
+       -h_2\!\left(\frac{pu}{2}\right)\right],
     \label{eq:p5-two-way-bounds}
   \end{equation}
-  where $h_2(x):=-x\log_2x-(1-x)\log_2(1-x)$, with $0\log_2 0:=0$.  The lower rate in
-  Eq.~\eqref{eq:p5-two-way-bounds} is achievable with a final round of
-  backward classical communication, whereas the upper rate follows from a
-  balanced amplitude-damping squashing channel
-  \sourcecite{ref:p5-pirandola}{PLOB17}.
+  where $h_2(x):=-x\log_2x-(1-x)\log_2(1-x)$, with $0\log_2 0:=0$.
+  The lower rate in Eq.~\eqref{eq:p5-two-way-bounds} is achievable with
+  backward classical communication. The upper rate retains the
+  input-population maximization in Supplementary Note~5,
+  Eqs.~(S228)--(S231), of \sourcecite{ref:p5-pirandola}{PLOB17}.
+  Phase-flip symmetry and concavity reduce this maximization to diagonal
+  inputs; they do not require a maximally mixed input.
+
+  \item The substitution $u=1/2$ following Eq.~(S231) of
+  \sourcecite{ref:p5-pirandola}{PLOB17} does not maximize the displayed
+  objective in general. For $p=1/2$, its values at $u=1/2$ and $u=4/9$
+  are approximately $0.4108695597$ and $0.4150374993$, respectively.
+  Thus that substitution does not justify the smaller printed upper
+  bound. This observation concerns the squashing calculation, and does
+  not establish that the actual capacity exceeds the printed value.
 
   \item Fawzi, Shayeghi, and Ta developed a symmetry-reduced hierarchy of
   semidefinite programs giving strong-converse upper bounds on two-way- and
