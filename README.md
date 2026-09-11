@@ -1,8 +1,8 @@
-# QIQCZoo
+# QIQCOP Zoo
 
 **Quantum Information and Quantum Computation Open Problem Zoo**
 
-QIQCZoo is a curated collection of research-level open problems in quantum
+QIQCOP Zoo is a curated collection of research-level open problems in quantum
 information and quantum computation. It brings together precise questions,
 their origins, and progress toward their resolution, helping researchers
 explore the field and find questions to work on.
@@ -25,6 +25,15 @@ Proposals enter the project inbox for review before publication. You can also
 with a GitHub account.
 See the [contribution guide](CONTRIBUTING.md) for authoring a record by pull request.
 Please cite the original research sources when using a problem or result.
+
+## License
+
+Software: [Apache-2.0](LICENSE). New original catalog contributions:
+[CC BY 4.0](LICENSE-CONTENT). Contributors retain their copyright.
+Earlier catalog text requires permission confirmation before it is covered by
+the new content license; cited papers and other third-party material retain
+their own terms. See [licensing scope and attribution](LICENSING.md) and the
+retained copyright notices in [NOTICE](NOTICE).
 
 ## Contributions
 

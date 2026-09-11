@@ -65,21 +65,65 @@ admit its own degrading map:
   \label{eq:p59-individual-nondegradability}
 \end{equation}
 Equation~\eqref{eq:p59-individual-nondegradability}, together with
-$\mathcal M\neq\mathcal N$, excludes the known degenerate constructions.
+$\mathcal M\neq\mathcal N$, excludes the identity-channel and self-pair constructions described below.
+It does not exclude complementary pairs.
 
 \subsection*{Status}
 
-Unsolved
+Solved
 
 \subsection*{Source}
 
-Ruskai posed mutual degradability explicitly and singled out the case of two
-Choi-rank-$d$ channels that are not individually degradable
-\sourcecite{ref:p59-ruskai}{Rus07}.
+Ruskai posed mutual degradability in Problem 23, Eq.~(32), and singled out
+two Choi-rank-$d$ channels that are not individually degradable
+\sourcecite{ref:p59-ruskai}{Rus07}. The existence statement is answered by
+the explicit complementary qutrit pair recorded in item A of the catalog's
+scientific-review issue \sourcecite{ref:p59-review-41}{Rev26}.
 
 \subsection*{Progress}
 
 \begin{itemize}
+  \item An explicit solution has $d=3$, $a=3/4$, and $b=1/3$. Define the
+isometry
+\begin{equation}
+  \begin{aligned}
+    V|0\rangle&=|00\rangle,\\
+    V|1\rangle&=\sqrt{1-a}|10\rangle+\sqrt a|01\rangle,\\
+    V|2\rangle&=\sqrt{1-b}|20\rangle+\sqrt b|02\rangle.
+  \end{aligned}
+  \label{eq:p59-qutrit-isometry}
+\end{equation}
+Set $\mathcal M=\operatorname{Tr}_E V(\cdot)V^\dagger$ and
+$\mathcal N=\operatorname{Tr}_B V(\cdot)V^\dagger$ in
+Eq.~\eqref{eq:p59-qutrit-isometry}, identifying both output spaces with
+$\mathbb C^3$. Use the swapped isometry for $\mathcal N$. Then
+$\mathcal M^c=\mathcal N$ and $\mathcal N^c=\mathcal M$, so
+$\mathcal X=\mathcal Y=\operatorname{id}$ satisfies
+Eq.~\eqref{eq:p59-mutual-degradability}.
+The Kraus operators of $\mathcal M$ are
+$\operatorname{diag}(1,\sqrt{1-a},\sqrt{1-b})$,
+$\sqrt a|0\rangle\langle1|$, and $\sqrt b|0\rangle\langle2|$;
+those of $\mathcal N$ replace $(a,b)$ by $(1-a,1-b)$.
+Both triples are linearly independent, proving
+Eq.~\eqref{eq:p59-choi-rank}, and the outputs on
+$|1\rangle\langle1|$ differ.
+If degrading maps $\mathcal D\mathcal M=\mathcal N$ and
+$\mathcal D'\mathcal N=\mathcal M$ existed, their actions on the ground
+state and the relevant excited state would force
+\begin{equation}
+  \begin{aligned}
+    \mathcal D(|1\rangle\langle1|)
+      &=3|1\rangle\langle1|-2|0\rangle\langle0|,\\
+    \mathcal D'(|2\rangle\langle2|)
+      &=2|2\rangle\langle2|-|0\rangle\langle0|.
+  \end{aligned}
+  \label{eq:p59-nonpositive-degraders}
+\end{equation}
+Neither output in Eq.~\eqref{eq:p59-nonpositive-degraders} is positive,
+proving Eq.~\eqref{eq:p59-individual-nondegradability}. This is the
+unpublished construction from the scientific-review issue
+\sourcecite{ref:p59-review-41}{Rev26}.
+
   \item At unrestricted rank, Ruskai observed that the identity channel and an
   arbitrary channel form a mutually degradable pair.  Also, any degradable
   channel paired with itself satisfies
@@ -113,14 +157,22 @@ Choi-rank-$d$ channels that are not individually degradable
   \emph{Journal of Mathematical Physics} \textbf{49}, 102104 (2008).
   \href{https://doi.org/10.1063/1.2953685}{doi:10.1063/1.2953685};
   \href{https://arxiv.org/abs/0802.1360}{arXiv:0802.1360}.
+
+  \item[\textup{[Rev26]}]\label{ref:p59-review-41}
+  QIQCOP Zoo, “Scientific review: confirm channel, resource and QEC
+statements in 10 catalog records,” GitHub issue \#41, item A (2026).
+Unpublished construction.
+\href{https://github.com/Naixu-Guo/quantum-open-problems/issues/41}{Issue \#41}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-The remaining task is either to construct a distinct pair satisfying
-Eqs.~\eqref{eq:p59-choi-rank}--\eqref{eq:p59-individual-nondegradability} for
-some $d$, or to prove that mutual degradability at Choi rank $d$ forces
-equality of the channels or individual degradability.
+The displayed existence question is solved by
+Eqs.~\eqref{eq:p59-qutrit-isometry} and
+\eqref{eq:p59-nonpositive-degraders}. The resolving construction is an
+unpublished issue contribution, not a peer-reviewed result. Excluding
+complementary pairs would define a stronger question; no such exclusion
+appears in the archived statement or in Ruskai's Problem 23.
 
 \subsection*{Field}
 

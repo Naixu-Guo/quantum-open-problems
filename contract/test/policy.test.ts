@@ -4,6 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
+import { loadPolicy } from "../src/policy.ts";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const schemaDir = path.join(here, "..", "schema");
@@ -43,4 +44,11 @@ test("the policy header parses and names its version", () => {
   const policy = parseYaml(header) as Record<string, unknown>;
   assert.equal(policy["policyVersion"], "1");
   assert.ok(policy["thresholds"] && typeof policy["thresholds"] === "object");
+});
+
+test("the legacy audit policy does not infer license grants it never specified", () => {
+  const legacy = loadPolicy("0");
+  assert.deepEqual(legacy.licenses, { textDefault: "NOASSERTION", codeDefault: "NOASSERTION" });
+  assert.equal(legacy.policyVersion, "0");
+  assert.deepEqual(legacy.thresholds.anyStatus, { humanAuditReviews: 1 });
 });

@@ -1,4 +1,4 @@
-import { submissionsOnline as acceptsSubmissions } from "./submission-settings.mjs";
+import { submissionsOnline as acceptsSubmissions, anonymousSubmissionsAllowed } from "./submission-settings.mjs";
 // HTML templates for every page of the zoo. Pure functions: records in,
 // strings out. No runtime dependencies.
 
@@ -28,6 +28,7 @@ const MATHJAX = `<script>
       window.MathJax = {
         loader: { load: ["ui/safe"] },
         tex: {
+          macros: { ket: ["\\\\lvert #1\\\\rangle", 1] },
           inlineMath: [["\\\\(", "\\\\)"]],
           displayMath: [["\\\\[", "\\\\]"]],
           processEnvironments: true,
@@ -149,11 +150,12 @@ ${body}
         <a href="${root}problems/">All problems</a>
         <a href="${root}tags/">Fields and topics</a>
         <a href="${root}about/">About and how to cite</a>
+        <a href="${root}about/#licensing">Licensing</a>
         <a href="${root}contribute/">Contribute</a>
         <a href="${root}api/index.json">JSON API</a>
         <a href="${config.repositoryUrl}" rel="noreferrer">Source repository</a>
       </nav>
-      ${current === "home" ? `<p class="footer-note footer-credit">Developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Zhong-Xia Shang, Bin Cheng, and Naixu Guo. <a href="${root}about/#contributions">Contributions</a>.</p>` : ""}
+      ${current === "home" ? `<p class="footer-note footer-credit">Developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Zhong-Xia Shang, Bin Cheng, Shihao Ru, and Naixu Guo. <a href="${root}about/#contributions">Contributions</a>.</p>` : ""}
       <p class="footer-note">A dated research index. Verify a status against the cited sources before relying on it. <a href="#top">Back to top ↑</a></p>
     </footer>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -272,6 +274,13 @@ export function renderProblemPage({ record, config, root, related, dates }) {
   const permalink = problemUrl(config, record.id);
   const bib = bibtex(record, config, dates);
   const plain = textCitation(record, config, dates);
+  const contributors = (record.contributors ?? []).filter((person) => person?.anonymous === false && typeof person.name === "string" && person.name.trim());
+  const contributorSection = contributors.length ? `
+        <section class="problem-section no-math" id="contributors" aria-labelledby="contributors-title">
+          <h2 id="contributors-title">Contributors</h2>
+          <ul class="contributors-list">${contributors.map((person) => `<li><span class="contributor-name">${escape(person.name.trim())}</span>${person.affiliation?.trim() ? `<span class="contributor-affiliation">${escape(person.affiliation.trim())}</span>` : ""}</li>`).join("")}</ul>
+        </section>
+` : "";
   const references = record.references.map((entry) => `<div class="reference" id="${entry.anchor}">
         <dt><a href="#${entry.anchor}">[${escape(entry.key)}]</a></dt>
         <dd>${entry.html}${entry.links.length ? `<span class="reference-links">${entry.links.map((link) => `<a href="${escape(link.url)}" rel="noreferrer" class="ref-link ref-${link.kind}">${link.kind === "arxiv" ? "arXiv" : link.kind === "doi" ? "DOI" : "link"}</a>`).join("")}</span>` : ""}</dd>
@@ -338,7 +347,7 @@ export function renderProblemPage({ record, config, root, related, dates }) {
       ${references}
           </dl>
         </section>
-
+${contributorSection}
         <section class="problem-section" id="related">
           <h2>Related problems</h2>
           ${relatedList}
@@ -649,7 +658,7 @@ export function renderAbout({ config, root, dates }) {
         <h2 id="contribute">How to contribute</h2>
         <p>${submissionsOnline
           ? `Use the <a href="${root}contribute/">proposal form</a> to send a problem, its sources, and what is known. No account is needed.`
-          : `Propose a problem through a <a href="${config.repositoryUrl}/issues/new?template=new-problem.yml">GitHub issue</a> (a GitHub account is required). The <a href="${root}contribute/">proposal worksheet</a> helps you prepare and copy the text; online sending is not enabled yet.`} The maintainers check proposals against the literature and publish reviewed records with credit to contributors. To add a record yourself through GitHub:</p>
+          : `Propose a problem through a <a href="${config.repositoryUrl}/issues/new?template=new-problem.yml">GitHub issue</a> (a GitHub account is required). The <a href="${root}contribute/">proposal worksheet</a> helps you prepare and copy the text; online sending is not enabled yet.`} The maintainers check proposals against the literature and publish reviewed records with credit to contributors${anonymousSubmissionsAllowed(config) ? ", respecting requests to remain anonymous" : ""}. To add a record yourself through GitHub:</p>
         <ol>
           <li>Fork the <a href="${config.repositoryUrl}" rel="noreferrer">repository</a> and run <code>node scripts/new-problem-id.mjs --create</code> to create a problem template with permanent identifiers.</li>
           <li>Write the statement, status, source, progress, references, and comment as TeX fragments in the record's fields, following the contribution guide, and choose one or two fields and one to five topics from <code>database/tags.json</code>. Run <code>node scripts/migrate-metadata.mjs</code> after changing the classifications.</li>
@@ -679,8 +688,12 @@ export function renderAbout({ config, root, dates }) {
         </ol>
         <p>The connection reads the current hosted catalog, including newly published problems. If it fails, check the <a href="${escape(mcpServiceUrl)}/api/v1/status" rel="noreferrer">catalog service status</a> and confirm that your client supports remote MCP. The <a href="${config.repositoryUrl}/blob/${config.branch}/mcp/README.md" rel="noreferrer">MCP setup and tool guide</a> also covers local clients and authenticated research contributions. For direct downloads, the <a href="${root}api/index.json">JSON catalog</a>, <a href="${root}api/tags.json">taxonomy</a>, and <a href="${root}llms.txt">agent guide</a> are available.</p>
 
+        <h2 id="licensing">Licensing and reuse</h2>
+        <p>The software uses <a href="${root}licenses/Apache-2.0.txt">Apache-2.0</a>. New original catalog contributions use <a href="https://creativecommons.org/licenses/by/4.0/" rel="noreferrer">CC BY 4.0</a>, allowing sharing, adaptation, and commercial use with attribution, license information, and an indication of changes. Contributors retain their copyright.</p>
+        <p>Earlier catalog text requires permission confirmation before it is covered by CC BY 4.0. Cited papers and other third-party material retain their own terms. See the <a href="${root}licenses/scope.txt">licensing scope and permissions</a>, <a href="${root}licenses/CC-BY-4.0.txt">content license</a>, and <a href="${root}licenses/NOTICE.txt">retained copyright notices</a>. Cite the primary sources for mathematical results and preserve the supplied contributor credits when reusing licensed text.</p>
+
         <h2 id="contributions"><span id="credits">Contributions</span></h2>
-        <p>This project is developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Zhong-Xia Shang, Bin Cheng, and Naixu Guo.</p>
+        <p>This project is developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Zhong-Xia Shang, Bin Cheng, Shihao Ru, and Naixu Guo.</p>
         <p>We thank <a href="https://gauge-forge.com/" rel="noreferrer">GaugeForge</a> for its financial support of this project.</p>
         <p>Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
       </div>
@@ -724,6 +737,7 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
   if (!widget) throw new Error(`site/config.json: contribute.captcha.provider must be one of ${Object.keys(CAPTCHA_WIDGETS).join(", ")}`);
   const siteKey = String(settings.captcha?.siteKey ?? "").trim();
   const online = acceptsSubmissions(config);
+  const allowAnonymous = anonymousSubmissionsAllowed(config);
   const usesCaptcha = online && settings.spamProtection !== "basic";
   const issueUrl = `${config.repositoryUrl}/issues/new?template=new-problem.yml`;
   const L = PROPOSAL_LIMITS;
@@ -761,7 +775,7 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
       <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><span>Contribute</span></nav>
       <div class="section-heading">
         <div><p class="section-index">Contribute</p><h1>Propose an open problem</h1></div>
-        <p>${online ? "Send a proposal without an account." : "Prepare a proposal here, then submit it through GitHub with an account."} The maintainers review proposals and publish accepted records with credit to contributors.</p>
+        <p>${online ? "Send a proposal without an account." : "Prepare a proposal here, then submit it through GitHub with an account."} The maintainers review proposals and publish accepted records with credit to contributors${allowAnonymous ? ", unless they choose to remain anonymous" : ""}.</p>
       </div>
       <div class="contribute-routes no-math">
         <div class="route-card">
@@ -774,11 +788,11 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
         </div>
       </div>
 
-      <form class="proposal-form no-math" id="proposal-form" novalidate data-submit-url="${escape(submissionUrl)}" data-captcha-provider="${usesCaptcha ? providerKey : ""}" data-captcha-response="${usesCaptcha ? widget.responseField : ""}" data-limits='${escape(JSON.stringify(L))}'>
+      <form class="proposal-form no-math" id="proposal-form" novalidate data-content-license="CC-BY-4.0" data-submit-url="${escape(submissionUrl)}" data-captcha-provider="${usesCaptcha ? providerKey : ""}" data-captcha-response="${usesCaptcha ? widget.responseField : ""}" data-allow-anonymous="${allowAnonymous}" data-limits='${escape(JSON.stringify(L))}'>
         <fieldset>
           <legend>The problem</legend>
           ${field("proposal-title", "Title", input("proposal-title", "title", `required minlength="${L.title.min}" maxlength="${L.title.max}" autocomplete="off"`), "A short descriptive title, as it would head the problem page.")}
-          ${field("proposal-statement", "Statement", textarea("proposal-statement", "statement", 12, `required minlength="${L.statement.min}" maxlength="${L.statement.max}" spellcheck="false"`), `Self-contained, with the definitions, hypotheses, and quantifiers a reader needs, and a checkable resolution criterion. Write mathematics as in TeX: <code>$\\ldots$</code> inline, <code>\\[ \\ldots \\]</code> or an <code>equation</code> environment for display. Up to ${L.statement.max.toLocaleString("en")} characters.`)}
+          ${field("proposal-statement", "Statement", `<div class="statement-input">${textarea("proposal-statement", "statement", 12, `required minlength="${L.statement.min}" maxlength="${L.statement.max}" spellcheck="false"`)}<span class="statement-placeholder math-ready" id="statement-placeholder" aria-hidden="true">\\(\\ket{\\psi}\\)</span></div>`, `Self-contained, with the definitions, hypotheses, and quantifiers a reader needs, and a checkable resolution criterion. Write mathematics as in TeX: <code>$\\ldots$</code> inline, <code>\\[ \\ldots \\]</code> or an <code>equation</code> environment for display. Up to ${L.statement.max.toLocaleString("en")} characters.`)}
           <div class="form-row form-row-inline">
             <button class="button button-ghost button-small" type="button" id="statement-preview-button">Preview</button>
             <div class="statement-preview math-ready" id="statement-preview" hidden aria-live="polite"></div>
@@ -801,7 +815,7 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
 
         <fieldset>
           <legend>Sources and progress</legend>
-          ${field("proposal-source", "Source", textarea("proposal-source", "source", 3, `maxlength="${L.source.max}"`), "The paper or preprint that posed the problem, or the papers in which it is implicit. Write “Contributor: your name” if it has no literature source.")}
+          ${field("proposal-source", "Source", textarea("proposal-source", "source", 3, `maxlength="${L.source.max}"`), `The paper or preprint that posed the problem, or the papers in which it is implicit. If it has no literature source, write “Contributor: your name”${allowAnonymous ? " for named credit, or “unknown” to remain anonymous" : ""}.`)}
           ${field("proposal-progress", "Known progress", textarea("proposal-progress", "progress", 6, `maxlength="${L.progress.max}"`), "Results that delimit the problem, each with its source and a sentence on why it falls short of the full question.")}
           ${field("proposal-references", "References", textarea("proposal-references", "references", 6, `maxlength="${L.references.max}"`), "Full bibliographic entries with DOI and arXiv identifiers, one per line. BibTeX is welcome.")}
         </fieldset>
@@ -814,12 +828,16 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
         <fieldset>
           <legend>About you</legend>
           <div class="form-grid-2">
-            ${field("proposal-name", "Name", input("proposal-name", "name", `required maxlength="${L.name.max}" autocomplete="name"`), "As you would like to be credited.")}
+            ${field("proposal-name", "Name", input("proposal-name", "name", `required maxlength="${L.name.max}" autocomplete="name"`), allowAnonymous ? "Required for review, even if you choose to remain anonymous." : "Required for review and contributor credit.")}
             ${field("proposal-email", "Email", `<input id="proposal-email" name="email" type="email" required maxlength="${L.email.max}" autocomplete="email" aria-describedby="proposal-email-hint">`, "For questions about the proposal only; never published.")}
           </div>
           ${field("proposal-affiliation", "Affiliation (optional)", input("proposal-affiliation", "affiliation", `maxlength="${L.affiliation.max}" autocomplete="organization"`))}
+          ${allowAnonymous ? `<div class="form-row">
+            <label class="consent"><input type="checkbox" name="anonymous" id="proposal-anonymous" aria-describedby="proposal-anonymous-hint"><span>I would like to remain anonymous for this problem.</span></label>
+            <p class="form-hint" id="proposal-anonymous-hint">Your name and email are still required so the maintainers can review your proposal and contact you. If selected, your name and affiliation will not appear in this problem's contributor credit. You can make a different choice for each problem.</p>
+          </div>` : `<p class="form-hint">This form currently accepts proposals with named contributor credit. Anonymous credit is not available through this form yet.</p>`}
           <div class="form-row">
-            <label class="consent"><input type="checkbox" name="consent" id="proposal-consent" required><span>I agree that the maintainers store this proposal with my name and email address to review it and to contact me about it, and that the problem, once rewritten, may be published in the zoo under its <a href="${config.repositoryUrl}/blob/${config.branch}/LICENSE" rel="noreferrer">license</a> with credit to me.</span></label>
+            <label class="consent"><input type="checkbox" name="consent" id="proposal-consent" required><span>I license my original text under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noreferrer">CC BY 4.0</a> and confirm I have the right to do so. I have identified third-party material and its terms. I agree that the maintainers store this proposal and my contact details for review, and may edit and publish the proposal${allowAnonymous ? ", respecting my choice about contributor credit" : ", with my name and any affiliation I provide in the contributor credit"}. My email stays private. <a href="${root}about/#licensing">Licensing details</a>.</span></label>
           </div>
           <div class="hp" aria-hidden="true">
             <label for="proposal-extra">Leave this field empty</label>
