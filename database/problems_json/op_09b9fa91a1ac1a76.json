@@ -49,7 +49,8 @@
     "Kurdzia\\l ek, G\\'orecki, Albarelli, and Demkowicz-Dobrza\\'nski prove\n  that adaptive strategies and coherent superpositions of fixed causal\n  orders are asymptotically equivalent to parallel strategies for repeated\n  estimation of a finite-dimensional channel\n  \\sourcecite{ref:p61-kurdzialek}{KGAD23}.  Their recursion does not cover\n  the dynamically controlled QC-QC class in\n  Eq.~\\eqref{eq:p61-asymptotic-qcqc-ratio}.",
     "Mothe, Branciard, and Abbott exhibit noisy channel families for which\n  QC-QC strictly outperforms parallel, sequential, and causal-superposition\n  strategies at three uses \\sourcecite{ref:p61-mothe}{MBA24}.  This proves a\n  finite-resource separation but neither a nonunit asymptotic ratio nor a\n  different scaling exponent.",
     "Abbott, Mhalla, and Pocreau show that QC-QC gives no query advantage\n  for Boolean-function tasks formed by repeated access to one unitary\n  \\sourcecite{ref:p61-abbott}{AMP24}.  The restriction to unitary queries\n  leaves open the noisy metrological families relevant to\n  Eq.~\\eqref{eq:p61-asymptotic-qcqc-ratio}.",
-    "Salzger and Vilasini show that higher-order processes satisfying\n  their spacetime, Acting Once, and Local Order assumptions reduce\n  operationally to QC-QC processes\n  \\sourcecite{ref:p61-salzger}{SV26}.  This identifies QC-QC as the physical\n  target class under those assumptions but supplies no asymptotic Fisher\n  information bound."
+    "Salzger and Vilasini show that higher-order processes satisfying\n  their spacetime, Acting Once, and Local Order assumptions reduce\n  operationally to QC-QC processes\n  \\sourcecite{ref:p61-salzger}{SV26}.  This identifies QC-QC as the physical\n  target class under those assumptions but supplies no asymptotic Fisher\n  information bound.",
+    "Wei, Li, and Pang prove an asymptotically tight leading-order bound for finite-dimensional single-parameter channel estimation.  Their result gives the same leading QFI coefficient for general indefinite-causal-order processes and optimal parallel strategies, with the corresponding QC-QC asymptotic consequence \\sourcecite{ref:p61-wei}{WLP26}.  This settles the leading-order question in the model of this record at preprint status, while leaving finite-query and subleading advantages open."
   ],
   "references": [
     {
@@ -71,7 +72,12 @@
       "key": "SV26",
       "label": "ref:p61-salzger",
       "tex": "M. Salzger and V. Vilasini,\n  ``Higher-Order Quantum Processes Respecting Closed Labs in a Spacetime\n  Have Quantum-Controlled Causal Order,'' arXiv:2605.08351 (2026).\n  \\href{https://arxiv.org/abs/2605.08351}{arXiv:2605.08351}."
+    },
+    {
+      "key": "WLP26",
+      "label": "ref:p61-wei",
+      "tex": "W. Wei, Y. Li, and S. Pang,\n  ``Fundamental Limits of Quantum Metrology Beyond Fixed Causal Order,''\n  arXiv:2609.05355 (2026).\n  \\href{https://arxiv.org/abs/2609.05355}{arXiv:2609.05355}."
     }
   ],
-  "comment": "The known three-use separation does not determine the leading asymptotic\ncoefficient or scaling exponent.  The unresolved alternatives are precisely\nEq.~\\eqref{eq:p61-asymptotic-qcqc-ratio} for every smooth finite-dimensional\nfamily or one noisy counterexample with a persistent QC-QC advantage."
+  "comment": "Mothe, Branciard, and Abbott's three-use separation remains a finite-resource advantage.  Wei, Li, and Pang's arXiv preprint gives an asymptotically tight leading-coefficient result for finite-dimensional single-parameter channel estimation and states the corresponding QC-QC consequence \\sourcecite{ref:p61-wei}{WLP26}; this supports Eq.~\\eqref{eq:p61-asymptotic-qcqc-ratio} under the record's model, but the result is not yet peer reviewed and does not settle subleading terms."
 }
