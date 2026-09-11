@@ -1,0 +1,74 @@
+---
+id: "01M1HME78004TME758T7JBWF1D"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 2
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-11T01:50:50.590Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-resource-theory"]
+topicIds: ["entanglement-distillation","ppt-preserving-operations","bell-diagonal-states"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Achievability of the Rains bound under completely PPT-preserving channels"
+aliases: ["op-4cf3e7b8663b1d41","op_4cf3e7b8663b1d41","01M1HME78004TME758T7JBWF1D","v2-achievability-of-the-rains-bound-under-ppt-preserving-channels","open-problem-v2-problem-4"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_4cf3e7b8663b1d41.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_4cf3e7b8663b1d41","ulid":"01M1HME78004TME758T7JBWF1D","aliases":["op_4cf3e7b8663b1d41","01M1HME78004TME758T7JBWF1D","op-4cf3e7b8663b1d41","v2-achievability-of-the-rains-bound-under-ppt-preserving-channels","open-problem-v2-problem-4"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":2,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-04T22:04:59Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-resource-theory"],"topicIds":["entanglement-distillation","ppt-preserving-operations","bell-diagonal-states"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Achievability of the Rains bound under completely PPT-preserving channels","status":"Unsolved","fields":["Quantum Resource Theory"],"topics":["Entanglement distillation","PPT-preserving operations","Bell-diagonal states"],"statement":"Is the Rains bound asymptotically achievable by completely\npositive-partial-transpose-preserving (completely PPT-preserving) channels\nfor every full-rank two-qubit Bell-diagonal state, and what channel family\nachieves it? Consider\n\\begin{equation}\n  \\rho_{\\mathbf p}\n  =p_I\\lvert\\Phi^+\\rangle\\!\\langle\\Phi^+\\rvert\n  +p_X\\lvert\\Psi^+\\rangle\\!\\langle\\Psi^+\\rvert\n  +p_Y\\lvert\\Psi^-\\rangle\\!\\langle\\Psi^-\\rvert\n  +p_Z\\lvert\\Phi^-\\rangle\\!\\langle\\Phi^-\\rvert,\n  \\label{eq:p4-bell-diagonal-state}\n\\end{equation}\nwhere $p_i>0$ and $p_I+p_X+p_Y+p_Z=1$, and\n$\\lvert\\Phi^\\pm\\rangle:=(\\lvert00\\rangle\\pm\\lvert11\\rangle)/\\sqrt2$ and\n$\\lvert\\Psi^\\pm\\rangle:=(\\lvert01\\rangle\\pm\\lvert10\\rangle)/\\sqrt2$.\n\nA channel $\\Lambda_n:A^nB^n\\to A'_nB'_n$ is completely PPT-preserving if\n\\begin{equation}\n  \\Lambda_n\\text{ is CPTP},\\qquad\n  \\Gamma_{B'_n}\\circ\\Lambda_n\\circ\\Gamma_{B^n}\n     \\text{ is completely positive},\n  \\label{eq:p4-complete-ppt}\n\\end{equation}\nwhere $\\Gamma$ is partial transposition on the indicated subsystem.\nEquation~\\eqref{eq:p4-complete-ppt} requires PPT preservation also with\narbitrary local ancillas.\nWrite $D(\\rho\\|\\tau)=\\operatorname{Tr}\\rho(\\log_2\\rho-\\log_2\\tau)$\nwith the standard support convention, and define\n\\begin{equation}\n  R(\\rho):=\\inf_{\\tau\\geq0,\\,\\|\\tau^{\\Gamma_B}\\|_1\\leq1}\n                  D(\\rho\\|\\tau).\n  \\label{eq:p4-rains-definition}\n\\end{equation}\nFor the state in Eq.~\\eqref{eq:p4-bell-diagonal-state}, achievability of\nthe Rains bound in Eq.~\\eqref{eq:p4-rains-definition} means a sequence satisfying Eq.~\\eqref{eq:p4-complete-ppt} and\n\\begin{equation}\n  \\liminf_{n\\to\\infty}\\frac{\\log_2 M_n}{n}\n      \\geq R(\\rho_{\\mathbf p}),\\qquad\n  \\big\\|\\Lambda_n(\\rho_{\\mathbf p}^{\\otimes n})\n             -\\Phi_{M_n}\\big\\|_1\\longrightarrow0,\n  \\label{eq:p4-achievability}\n\\end{equation}\nwhere $M_n$ is a positive integer and\n$\\Phi_M:=M^{-1}\\sum_{i,j=1}^M|ii\\rangle\\langle jj|$.\nEquation~\\eqref{eq:p4-achievability} imposes no efficiency requirement on\nthe construction.","source":"Rains introduced the distillation framework and converse bound for\ncompletely PPT-preserving channels; this Bell-diagonal achievability question\nis an implicit specialization of that work\n\\sourcecite{ref:p4-rains-1999}{Rai99},\n\\sourcecite{ref:p4-rains-2001}{Rai01}.\nThe operation class is explicitly the one in Definition 6 of\nRegula, Fang, Wang, and Gu \\sourcecite{ref:p4-regula-et-al}{RFWG19}.\nThis corrects the earlier, weaker requirement of preserving PPT input\nstates without ancillary extensions.","progress":["For the completely PPT-preserving operation class, Rains' converse is\n\\begin{equation}\n  D_{\\mathrm{cPPT}}(\\rho_{\\mathbf p})\\leq R(\\rho_{\\mathbf p}),\n  \\label{eq:p4-rains-upper-bound}\n\\end{equation}\nwhere $D_{\\mathrm{cPPT}}$ is the supremum of asymptotically achievable\ndistillation rates. Equation~\\eqref{eq:p4-rains-upper-bound} gives the upper\nbound whose attainability is asked in Eq.~\\eqref{eq:p4-achievability}\n\\sourcecite{ref:p4-rains-1999}{Rai99},\n\\sourcecite{ref:p4-rains-2001}{Rai01}.","For this state family, the Rains bound is additive. Let\n$p=\\max_i p_i$ and $h_2(x)=-x\\log_2x-(1-x)\\log_2(1-x)$.\nIf $p\\leq1/2$, the state is PPT and the bound is zero. If $p>1/2$, let\n$\\Phi$ be its largest Bell component, and let $\\sigma$ have Bell\nprobabilities $q_{\\max}=1/2$ and $q_i=p_i/[2(1-p)]$ otherwise.\nThis normalized state is PPT. Its relative-entropy supporting functional is\n$A=\\rho_{\\mathbf p}\\sigma^{-1}=2(1-p)I+2(2p-1)\\Phi$.\nThe eigenvalues of $A^{\\Gamma_B}$ are $1$ and $3-4p$, hence\n$\\|A^{\\Gamma_B}\\|_\\infty=1$ and\n$\\operatorname{Tr}A\\tau\\leq1=\\operatorname{Tr}A\\sigma$ for every\nRains-feasible $\\tau$. This is the convex first-order optimality condition\nfor $\\sigma$. The same argument uses $A^{\\otimes n}$ for every tensor\npower, since partial transpose and the operator norm are multiplicative.\nConsequently,\n\\begin{equation}\n  R(\\rho_{\\mathbf p}^{\\otimes n})\n   =E_{R,\\mathrm{PPT}}(\\rho_{\\mathbf p}^{\\otimes n})\n   =\\begin{cases}0,&p\\leq1/2,\\\\ n[1-h_2(p)],&p>1/2,\n     \\end{cases}\n  \\label{eq:p4-bell-value}\n\\end{equation}\nwhere $E_{R,\\mathrm{PPT}}$ minimizes $D$ over normalized PPT states.\nEquation~\\eqref{eq:p4-bell-value} evaluates the converse but does not\nconstruct a completely PPT-preserving distillation protocol.","The weaker class of channels preserving PPT states without ancillary\nextensions is $\\mathrm{PPTP}_+$ in Definition 7 of Regula, Fang, Wang,\nand Gu. Their Corollary 10, Eq.~(33), gives its distillation rate as\n$E_{R,\\mathrm{PPT}}^\\infty$, so Eq.~\\eqref{eq:p4-bell-value} solves\nachievability for that weaker class\n\\sourcecite{ref:p4-regula-et-al}{RFWG19}.\nThe generalized quantum Stein lemma used in this result has a complete\nproof in Lami's Theorem 1 \\sourcecite{ref:p4-lami}{Lam25}.\nFor $p>1/2$ and $0<r<1-h_2(p)$, it supplies effects $0\\leq T_n\\leq I$\nwith $\\operatorname{Tr}T_n\\rho_{\\mathbf p}^{\\otimes n}\\to1$ and\n$\\sup_{\\omega\\in\\mathrm{PPT}}\\operatorname{Tr}T_n\\omega\\leq1/M_n$,\nwhere $M_n=\\lfloor2^{nr}\\rfloor\\geq2$ for sufficiently large $n$.\nAn optimization-defined channel family is\n\\begin{equation}\n  \\Lambda_n(X)=\\operatorname{Tr}(T_nX)\\Phi_{M_n}\n   +\\operatorname{Tr}[(I-T_n)X]\n        \\frac{I-\\Phi_{M_n}}{M_n^2-1}.\n  \\label{eq:p4-weak-protocol}\n\\end{equation}\nEach PPT input to Eq.~\\eqref{eq:p4-weak-protocol} yields an isotropic state\nwith maximally entangled weight at most $1/M_n$, so the map is\nPPT-state-preserving. Letting $r$ approach the value in\nEq.~\\eqref{eq:p4-bell-value} gives that asymptotic rate. This does not\nestablish the complete PPT condition in Eq.~\\eqref{eq:p4-complete-ppt}."],"references":[{"key":"Rai99","label":"ref:p4-rains-1999","tex":"E. M. Rains, ``An Improved Bound on Distillable Entanglement,''\n  \\emph{Physical Review A} \\textbf{60}, 179--184 (1999).\n  \\newline\n  \\href{https://doi.org/10.1103/PhysRevA.60.179}{doi:10.1103/PhysRevA.60.179};\n  \\href{https://arxiv.org/abs/quant-ph/9809082}{arXiv:quant-ph/9809082}."},{"key":"Rai01","label":"ref:p4-rains-2001","tex":"E. M. Rains, ``A Semidefinite Program for Distillable Entanglement,''\n  \\emph{IEEE Transactions on Information Theory} \\textbf{47}, 2921--2933\n  (2001). \\href{https://doi.org/10.1109/18.959270}{doi:10.1109/18.959270};\n  \\href{https://arxiv.org/abs/quant-ph/0008047}{arXiv:quant-ph/0008047}."},{"key":"RFWG19","label":"ref:p4-regula-et-al","tex":"B. Regula, K. Fang, X. Wang, and M. Gu, “One-shot entanglement\ndistillation beyond local operations and classical communication,”\n\\emph{New Journal of Physics} \\textbf{21}, 103017 (2019).\n\\href{https://doi.org/10.1088/1367-2630/ab4732}{doi:10.1088/1367-2630/ab4732};\n\\href{https://arxiv.org/abs/1906.01648}{arXiv:1906.01648}."},{"key":"Lam25","label":"ref:p4-lami","tex":"L. Lami, “A solution of the generalised quantum Stein's lemma,”\n\\emph{IEEE Transactions on Information Theory} \\textbf{71},\n4454--4484 (2025).\n\\href{https://doi.org/10.1109/TIT.2025.3543610}{doi:10.1109/TIT.2025.3543610};\n\\href{https://arxiv.org/abs/2408.06410}{arXiv:2408.06410}."}],"comment":"The open question uses completely PPT-preserving channels as in Rains'\nframework. Its former PPT-state-preserving wording described a strictly\nlarger class and is corrected explicitly here. The weaker-class result in\nEq.~\\eqref{eq:p4-weak-protocol} does not settle the intended stronger\noperation class. The zero-rate case $p\\leq1/2$ is immediate; the remaining\nquestion concerns entangled full-rank Bell-diagonal states."}}
+---
+## Source
+
+Rains introduced the distillation framework and converse bound for completely PPT-preserving channels; this Bell-diagonal achievability question is an implicit specialization of that work [Rai99](https://doi.org/10.1103/PhysRevA.60.179), [Rai01](https://doi.org/10.1109/18.959270). The operation class is explicitly the one in Definition 6 of Regula, Fang, Wang, and Gu [RFWG19](https://doi.org/10.1088/1367-2630/ab4732). This corrects the earlier, weaker requirement of preserving PPT input states without ancillary extensions.
+
+## Progress
+
+For the completely PPT-preserving operation class, Rains’ converse is
+
+$$
+D_{\mathrm{cPPT}}(\rho_{\mathbf p})\leq R(\rho_{\mathbf p}),
+\tag{5}
+$$
+
+where $D_{\mathrm{cPPT}}$ is the supremum of asymptotically achievable distillation rates. Equation (5) gives the upper bound whose attainability is asked in Eq. (4) [Rai99](https://doi.org/10.1103/PhysRevA.60.179), [Rai01](https://doi.org/10.1109/18.959270).
+
+For this state family, the Rains bound is additive. Let $p=\max_i p_i$ and $h_2(x)=-x\log_2x-(1-x)\log_2(1-x)$. If $p\leq1/2$, the state is PPT and the bound is zero. If $p>1/2$, let $\Phi$ be its largest Bell component, and let $\sigma$ have Bell probabilities $q_{\max}=1/2$ and $q_i=p_i/[2(1-p)]$ otherwise. This normalized state is PPT. Its relative-entropy supporting functional is $A=\rho_{\mathbf p}\sigma^{-1}=2(1-p)I+2(2p-1)\Phi$. The eigenvalues of $A^{\Gamma_B}$ are $1$ and $3-4p$, hence $\|A^{\Gamma_B}\|_\infty=1$ and $\operatorname{Tr}A\tau\leq1=\operatorname{Tr}A\sigma$ for every Rains-feasible $\tau$. This is the convex first-order optimality condition for $\sigma$. The same argument uses $A^{\otimes n}$ for every tensor power, since partial transpose and the operator norm are multiplicative. Consequently,
+
+$$
+R(\rho_{\mathbf p}^{\otimes n})
+ =E_{R,\mathrm{PPT}}(\rho_{\mathbf p}^{\otimes n})
+ =\begin{cases}0,&p\leq1/2,\\ n[1-h_2(p)],&p>1/2,
+ \end{cases}
+\tag{6}
+$$
+
+where $E_{R,\mathrm{PPT}}$ minimizes $D$ over normalized PPT states. Equation (6) evaluates the converse but does not construct a completely PPT-preserving distillation protocol.
+
+The weaker class of channels preserving PPT states without ancillary extensions is $\mathrm{PPTP}_+$ in Definition 7 of Regula, Fang, Wang, and Gu. Their Corollary 10, Eq. (33), gives its distillation rate as $E_{R,\mathrm{PPT}}^\infty$, so Eq. (6) solves achievability for that weaker class [RFWG19](https://doi.org/10.1088/1367-2630/ab4732). The generalized quantum Stein lemma used in this result has a complete proof in Lami’s Theorem 1 [Lam25](https://doi.org/10.1109/TIT.2025.3543610). For $p>1/2$ and $0<r<1-h_2(p)$, it supplies effects $0\leq T_n\leq I$ with $\operatorname{Tr}T_n\rho_{\mathbf p}^{\otimes n}\to1$ and $\sup_{\omega\in\mathrm{PPT}}\operatorname{Tr}T_n\omega\leq1/M_n$, where $M_n=\lfloor2^{nr}\rfloor\geq2$ for sufficiently large $n$. An optimization-defined channel family is
+
+$$
+\Lambda_n(X)=\operatorname{Tr}(T_nX)\Phi_{M_n}
+ +\operatorname{Tr}[(I-T_n)X]
+ \frac{I-\Phi_{M_n}}{M_n^2-1}.
+\tag{7}
+$$
+
+Each PPT input to Eq. (7) yields an isotropic state with maximally entangled weight at most $1/M_n$, so the map is PPT-state-preserving. Letting $r$ approach the value in Eq. (6) gives that asymptotic rate. This does not establish the complete PPT condition in Eq. (2).
+
+## Comment
+
+The open question uses completely PPT-preserving channels as in Rains’ framework. Its former PPT-state-preserving wording described a strictly larger class and is corrected explicitly here. The weaker-class result in Eq. (7) does not settle the intended stronger operation class. The zero-rate case $p\leq1/2$ is immediate; the remaining question concerns entangled full-rank Bell-diagonal states.
+
+## References
+
+**Rai99** E. M. Rains, “An Improved Bound on Distillable Entanglement,” *Physical Review A* **60**, 179–184 (1999).
+ [doi:10.1103/PhysRevA.60.179](https://doi.org/10.1103/PhysRevA.60.179); [arXiv:quant-ph/9809082](https://arxiv.org/abs/quant-ph/9809082).
+
+**Rai01** E. M. Rains, “A Semidefinite Program for Distillable Entanglement,” *IEEE Transactions on Information Theory* **47**, 2921–2933 (2001). [doi:10.1109/18.959270](https://doi.org/10.1109/18.959270); [arXiv:quant-ph/0008047](https://arxiv.org/abs/quant-ph/0008047).
+
+**RFWG19** B. Regula, K. Fang, X. Wang, and M. Gu, “One-shot entanglement distillation beyond local operations and classical communication,” *New Journal of Physics* **21**, 103017 (2019). [doi:10.1088/1367-2630/ab4732](https://doi.org/10.1088/1367-2630/ab4732); [arXiv:1906.01648](https://arxiv.org/abs/1906.01648).
+
+**Lam25** L. Lami, “A solution of the generalised quantum Stein’s lemma,” *IEEE Transactions on Information Theory* **71**, 4454–4484 (2025). [doi:10.1109/TIT.2025.3543610](https://doi.org/10.1109/TIT.2025.3543610); [arXiv:2408.06410](https://arxiv.org/abs/2408.06410).
