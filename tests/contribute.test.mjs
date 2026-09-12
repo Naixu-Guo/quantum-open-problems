@@ -51,7 +51,7 @@ test("the page offers every field and topic in a dropdown with an Other option a
   const topicSelect = html.match(/<select id="topic-select"[\s\S]*?<\/select>/u)?.[0] ?? "";
   for (const name of taxonomy.fields) assert.ok(fieldSelect.includes(`<option value="${name}">`), `field ${name}`);
   for (const name of taxonomy.topics) assert.ok(topicSelect.includes(`<option value="${name.replaceAll("&", "&amp;")}">`), `topic ${name}`);
-  assert.ok(fieldSelect.includes(`>${taxonomy.fields[0]} (3)</option>`), "counts accompany the names");
+  assert.ok(fieldSelect.includes(`>Quantum Algorithm (3)</option>`), "counts accompany the names");
   assert.ok(fieldSelect.endsWith(`<option value="__other__">Other: add a field of your own…</option>\n              </select>`), "Other comes last");
   assert.ok(topicSelect.includes(`<option value="__other__">Other: add a topic of your own…</option>`));
   assert.ok(!html.includes('type="checkbox" name="fields"') && !html.includes('type="checkbox" name="topics"'), "no checkbox grids remain");
@@ -201,7 +201,7 @@ test("the client script assembles a proposal from the form and checks it before 
   // Pick a field from the dropdown, then a topic, then a topic of the contributor's own through "Other".
   choose(fieldPicker, "Quantum algorithm");
   assert.equal(ids.get("#fields-count").textContent, "1 of 2 chosen");
-  assert.match(fieldPicker.list.innerHTML, /class="tag tag-field">Quantum algorithm<button type="button" class="tag-remove" data-remove="Quantum algorithm"/u, "a chosen field is a solid pill with a remove button");
+  assert.match(fieldPicker.list.innerHTML, /class="tag tag-field">Quantum Algorithm<button type="button" class="tag-remove" data-remove="Quantum algorithm"/u, "a chosen field is a solid pill with a remove button");
   assert.equal(fieldPicker.select.value, "", "the dropdown returns to its placeholder");
   choose(fieldPicker, "quantum algorithm");
   assert.equal(ids.get("#fields-count").textContent, "1 of 2 chosen", "a name is chosen once, whatever its case");
