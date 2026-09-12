@@ -1,0 +1,156 @@
+% Problem record op_64e58085fa92c1a8. This TeX file is derived from
+% database/problems_json/op_64e58085fa92c1a8.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Squashed entanglement of qubit Bell-diagonal states}
+\label{sec:op_64e58085fa92c1a8}
+
+\paragraph{Problem.}
+Is there a closed-form formula for the squashed entanglement
+$E_{\mathrm{sq}}$ of an arbitrary two-qubit Bell-diagonal state, or a
+certified approach to determining it numerically?  Let $A$ and $B$ be qubits, let $I,X,Y,Z$ be the identity and Pauli
+matrices, and set $\lvert\Phi^+\rangle:=(\lvert00\rangle+\lvert11\rangle)/\sqrt2$
+and $\lvert\Phi_P\rangle:=(I\otimes P)\lvert\Phi^+\rangle$ for
+$P\in\{I,X,Y,Z\}$.  The states under consideration are
+\begin{equation}
+  \rho_{\mathbf p}:=\sum_{P\in\{I,X,Y,Z\}}p_P
+  \lvert\Phi_P\rangle\!\langle\Phi_P\rvert,
+  \qquad p_P\geq0,\qquad \sum_Pp_P=1.
+  \label{eq:sqbd-state}
+\end{equation}
+With $S(\tau):=-\operatorname{Tr}(\tau\log_2\tau)$, define the squashed
+entanglement of the state in Eq.~\eqref{eq:sqbd-state} by
+\begin{equation}
+  \begin{aligned}
+    E_{\mathrm{sq}}(\rho_{\mathbf p})
+      &:=\frac12\inf_{\substack{\omega_{ABE}\geq0,\ \operatorname{Tr}\omega_{ABE}=1\\
+                    \operatorname{Tr}_E\omega_{ABE}=\rho_{\mathbf p}}}
+                    I(A:B\mid E)_\omega,\\
+    I(A:B\mid E)_\omega
+      &:=S(\omega_{AE})+S(\omega_{BE})-S(\omega_E)-S(\omega_{ABE}).
+  \end{aligned}
+  \label{eq:sqbd-definition}
+\end{equation}
+The infimum in Eq.~\eqref{eq:sqbd-definition} ranges over all finite-dimensional
+quantum systems $E$, with no fixed bound on their dimension.  Values are in
+ebits; this is the quantum squashed entanglement of
+\sourcecite{ref:sqbd-christandl-winter}{CW04}.
+
+A certified numerical approach should, for any specified probabilities
+$\mathbf p$ and tolerance $\varepsilon>0$, produce an estimate of
+$E_{\mathrm{sq}}(\rho_{\mathbf p})$ with a rigorously guaranteed absolute
+error at most $\varepsilon$.  Restricting $E$ to a classical register, or
+to a chosen finite dimension, suffices only if the restriction is proved
+optimal or its approximation error is controlled.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+This question specializes the computational obstruction documented by
+Fawzi and Fawzi, who study two-qubit Werner states in Sec.~3.2 and leave
+convergence and extension-dimension bounds open in Sec.~4
+\sourcecite{ref:sqbd-fawzi-fawzi}{FF22}.  The present catalog formulation
+asks for a closed-form formula or certified numerical evaluation for the
+full Bell-diagonal family; it is not quoted verbatim from that paper.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Write $p_\star:=\max_Pp_P$.  The separable region is exactly
+$p_\star\leq1/2$, as follows from the Bell-diagonal specialization of
+Wootters' concurrence formula, Eqs.~(8)--(10)
+\sourcecite{ref:sqbd-wootters}{Woo98}.  Squashed entanglement is zero there
+by Theorem~7 of \sourcecite{ref:sqbd-christandl-winter}{CW04}, and is
+strictly positive for $p_\star>1/2$ by faithfulness, Corollary~1 of
+\sourcecite{ref:sqbd-brandao-christandl-yard}{BCY11}.  At every pure Bell
+vertex, $p_\star=1$, it is exactly one ebit by the pure-state evaluation
+in Example~2 of \sourcecite{ref:sqbd-christandl-winter}{CW04}.
+
+  \item Define $H(\mathbf p):=-\sum_Pp_P\log_2p_P$,
+$h_2(x):=-x\log_2x-(1-x)\log_2(1-x)$, with $0\log_2 0:=0$, and
+$C_{\mathbf p}:=\max\{0,2p_\star-1\}$.  Explicit bounds for every Bell-diagonal state are
+\begin{equation}
+  \max\{0,1-H(\mathbf p)\}
+  \leq E_{\mathrm{sq}}(\rho_{\mathbf p})
+  \leq\min\!\left\{
+    1-\frac{H(\mathbf p)}2,
+    h_2\!\left(\frac{1+\sqrt{1-C_{\mathbf p}^2}}2\right)
+  \right\}.
+  \label{eq:sqbd-bounds}
+\end{equation}
+The lower bound in Eq.~\eqref{eq:sqbd-bounds} follows from Corollary~12 of
+\sourcecite{ref:sqbd-christandl-winter}{CW04}, since both qubit marginals
+are maximally mixed.  The first upper bound uses a trivial extension;
+the second combines $E_{\mathrm{sq}}\leq E_F$, Proposition~5 of
+\sourcecite{ref:sqbd-christandl-winter}{CW04}, with Wootters' exact
+entanglement-of-formation formula \sourcecite{ref:sqbd-wootters}{Woo98}.
+These are bounds on the desired measure, rather than a formula for it.
+
+  \item Fawzi and Fawzi construct semidefinite-programming lower bounds.
+Their Sec.~3.2 and Fig.~1 show close numerical agreement with heuristic
+finite-extension upper bounds for two-qubit Werner states, a
+one-parameter Bell-diagonal subfamily
+\sourcecite{ref:sqbd-fawzi-fawzi}{FF22}.  Their Proposition~2.4 controls
+the entropy-approximation error in an intermediate optimization; it does
+not bound the gap of the finite semidefinite relaxation.  Sec.~4 leaves
+convergence of that hierarchy open, so these results do not establish the
+requested certified numerical evaluation.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[CW04]}]\label{ref:sqbd-christandl-winter}
+  M. Christandl and A. Winter, ``'Squashed entanglement': An additive
+entanglement measure,'' \emph{Journal of Mathematical Physics}
+\textbf{45}(3), 829--840 (2004).
+\href{https://doi.org/10.1063/1.1643788}{doi:10.1063/1.1643788};
+\href{https://arxiv.org/abs/quant-ph/0308088}{arXiv:quant-ph/0308088}.
+
+  \item[\textup{[Woo98]}]\label{ref:sqbd-wootters}
+  W. K. Wootters, ``Entanglement of Formation of an Arbitrary State of Two
+Qubits,'' \emph{Physical Review Letters} \textbf{80}, 2245--2248 (1998).
+\href{https://doi.org/10.1103/PhysRevLett.80.2245}{doi:10.1103/PhysRevLett.80.2245};
+\href{https://arxiv.org/abs/quant-ph/9709029}{arXiv:quant-ph/9709029}.
+
+  \item[\textup{[BCY11]}]\label{ref:sqbd-brandao-christandl-yard}
+  F. G. S. L. Brand\~ao, M. Christandl, and J. Yard, ``Faithful Squashed
+Entanglement,'' \emph{Communications in Mathematical Physics}
+\textbf{306}, 805--830 (2011).
+\href{https://doi.org/10.1007/s00220-011-1302-1}{doi:10.1007/s00220-011-1302-1};
+\href{https://arxiv.org/abs/1010.1750v5}{arXiv:1010.1750v5}.
+
+  \item[\textup{[FF22]}]\label{ref:sqbd-fawzi-fawzi}
+  H. Fawzi and O. Fawzi, ``Semidefinite programming lower bounds on the
+squashed entanglement,'' arXiv preprint (2022).
+\href{https://arxiv.org/abs/2203.03394}{arXiv:2203.03394}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+Squashed entanglement is additive:
+$E_{\mathrm{sq}}(\rho_{\mathbf p}^{\otimes n})
+=nE_{\mathrm{sq}}(\rho_{\mathbf p})$ for every positive integer $n$,
+by Proposition~4 of \sourcecite{ref:sqbd-christandl-winter}{CW04}.
+Thus no regularization is needed; the unknown is the single-state value
+as a function of the Bell probabilities.
+
+The remaining task is a closed-form formula or certified numerical
+evaluation of $E_{\mathrm{sq}}(\rho_{\mathbf p})$ for arbitrary entangled
+mixed Bell-diagonal states.  The known zero region, pure-state values,
+and numerical bounds do not settle this question.
+
+\subsection*{Field}
+
+Quantum Resource Theory
+
+\subsection*{Topic}
+
+Entanglement measures; Bell-diagonal states
+
+\subsection*{ID}
+
+\texttt{op\_64e58085fa92c1a8}
