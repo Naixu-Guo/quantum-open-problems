@@ -1,0 +1,76 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_0c63e4d2400a95b1",
+  "ulid": "01M22DB0YP7E8RZH3CD4XBSAFR",
+  "aliases": [
+    "op_0c63e4d2400a95b1",
+    "01M22DB0YP7E8RZH3CD4XBSAFR",
+    "op-0c63e4d2400a95b1"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-09T06:23:00.566Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-metrology",
+      "quantum-resource-theory"
+    ],
+    "topicIds": [
+      "quantum-state-discrimination",
+      "local-operations-and-classical-communication"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
+  "title": "LOCC discrimination of three maximally entangled states",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum metrology",
+    "Quantum Resource Theory"
+  ],
+  "topics": [
+    "Quantum state discrimination",
+    "Local operations and classical communication"
+  ],
+  "statement": "Can every set of three orthogonal maximally entangled pure states on $\\mathbb C^d\\otimes\\mathbb C^d$, for every integer $d\\geq4$, be distinguished exactly from one copy using unrestricted two-way local operations and classical communication (LOCC)? Alice and Bob know the set $\\mathcal S:=\\{|\\psi_i\\rangle\\}_{i=1}^3$ and hold systems $A$ and $B$, respectively. The density operators $\\rho_i:=|\\psi_i\\rangle\\langle\\psi_i|$ satisfy Eq.~\\eqref{eq:mes-states}:\n\\begin{equation}\n\\langle\\psi_i|\\psi_j\\rangle=\\delta_{ij},\n\\qquad \\operatorname{Tr}_B\\rho_i=\\frac{I_A}{d},\n\\qquad i,j\\in\\{1,2,3\\}.\n\\label{eq:mes-states}\n\\end{equation}\nHere $I_A$ is the identity on Alice's system and $\\delta_{ij}$ is the Kronecker delta. The task is to implement a positive-operator-valued measurement $\\mathbb M:=\\{M_i\\}_{i=1}^3$ by LOCC, with no additional shared entanglement and no requirement to preserve the input state. Writing $I_{AB}$ for the joint identity, perfect discrimination means Eq.~\\eqref{eq:mes-discrimination}:\n\\begin{equation}\n\\begin{gathered}\nM_i\\geq0,\\qquad \\sum_{i=1}^3M_i=I_{AB},\\\\\n\\operatorname{Tr}(M_i\\rho_j)=\\delta_{ij}\n\\quad\\text{for all }i,j\\in\\{1,2,3\\}.\n\\end{gathered}\n\\label{eq:mes-discrimination}\n\\end{equation}\nThe measurement must be exactly implementable by LOCC, rather than merely approximable by a sequence of LOCC measurements.",
+  "source": "Nathanson explicitly leaves the general maximally entangled triple problem unresolved in Sections I, II, and VII of his 2013 paper \\sourcecite{ref:mes-two-way}{Nat13}. Xiong et al. reaffirm the same question for $d\\geq4$ in the Introduction, p.~1 of version 2 (12 April 2026) \\sourcecite{ref:mes-recent}{XLY+24}.",
+  "progress": [
+    "Nathanson's Proposition 1 solves the analogous problem affirmatively for two qutrits: every orthogonal maximally entangled triple admits an exact LOCC measurement satisfying\n  \\begin{equation}\n\\dim\\mathcal H_A=\\dim\\mathcal H_B=3,\n  \\qquad\n  \\operatorname{Tr}(M_i\\rho_j)=\\delta_{ij}.\n\\label{eq:mes-progress1-1}\n\\end{equation}\n  Equation~\\eqref{eq:mes-progress1-1} describes an attained perfect-discrimination result, not merely a success probability approaching one. \\sourcecite{ref:mes-qutrit}{Nat05}",
+    "Nathanson constructed triples (Theorem 1, with two-way protocols in Appendix A) that cannot be perfectly distinguished with one-way LOCC but can be distinguished using two-way LOCC, in every dimension belonging to\n  \\begin{equation}\nd\\in\\{4,6,8,\\ldots\\}\\cup\\{5,8,11,\\ldots\\}.\n\\label{eq:mes-progress2-1}\n\\end{equation}\n  The examples in the dimensions of Eq.~\\eqref{eq:mes-progress2-1} separate one-way from two-way communication; they are not counterexamples to the question above. \\sourcecite{ref:mes-two-way}{Nat13}",
+    "Theorem 4 and Corollary 1 of Nathanson show that every triple in the question is distinguishable by a measurement with positive partial transpose (PPT): setting\n  \\begin{equation}\nM_i:=\\rho_i+\\frac{I_{AB}-\\sum_{j=1}^3\\rho_j}{3}\n\\label{eq:mes-progress3-1}\n\\end{equation}\n  gives the required discrimination probabilities and\n  \\begin{equation}\nM_i^{T_B}\\geq\\frac{1-4/d}{3}I_{AB}\\geq0,\n\\label{eq:mes-progress3-2}\n\\end{equation}\n  The measurement in Eq.~\\eqref{eq:mes-progress3-1} obeys the bound in Eq.~\\eqref{eq:mes-progress3-2}, where $T_B$ denotes partial transposition on Bob's system; PPT positivity does not establish LOCC implementability. \\sourcecite{ref:mes-two-way}{Nat13}",
+    "For equal prior probabilities, Theorem 3 of Nathanson gives a one-way LOCC measurement that achieves average error\n  \\begin{equation}\np_{\\mathrm{err}}(\\mathbb M,\\mathcal S)\n  :=1-\\frac13\\sum_{i=1}^3\\operatorname{Tr}(M_i\\rho_i)\n  \\leq\\frac{2}{3d}.\n\\label{eq:mes-progress4-1}\n\\end{equation}\n  The bound in Eq.~\\eqref{eq:mes-progress4-1} does not guarantee zero error at any fixed dimension. \\sourcecite{ref:mes-two-way}{Nat13}",
+    "The theorem in Section 3 of Wang et al. shows that every triple of distinct generalized Bell states is LOCC-distinguishable for every $d\\geq4$, where this special basis is\n  \\begin{equation}\n|B_{a,b}\\rangle\n  :=\\frac1{\\sqrt d}\\sum_{r=0}^{d-1}\\omega_d^{ar}\n  |r\\rangle_A|(r+b)\\bmod d\\rangle_B,\n  \\qquad\n  \\omega_d:=e^{2\\pi i/d},\n  \\qquad\n  a,b\\in\\{0,\\ldots,d-1\\}.\n\\label{eq:mes-progress5-1}\n\\end{equation}\n  In Eq.~\\eqref{eq:mes-progress5-1}, $a,b$ label the basis states and $r$ is a computational-basis index; the theorem concerns triples from this basis, not arbitrary maximally entangled triples, and the latter problem is explicitly reaffirmed as unresolved in the April 12, 2026 revision of Xiong and coauthors' paper. \\sourcecite{ref:mes-bell}{WLFZ17}, \\sourcecite{ref:mes-recent}{XLY+24}"
+  ],
+  "references": [
+    {
+      "key": "Nat05",
+      "label": "ref:mes-qutrit",
+      "tex": "M. Nathanson, ``Distinguishing Bipartitite Orthogonal States Using LOCC: Best and Worst Cases,'' \\emph{Journal of Mathematical Physics} \\textbf{46}, 062103 (2005). \\href{https://doi.org/10.1063/1.1914731}{doi:10.1063/1.1914731}; \\href{https://arxiv.org/abs/quant-ph/0411110}{arXiv:quant-ph/0411110}."
+    },
+    {
+      "key": "Nat13",
+      "label": "ref:mes-two-way",
+      "tex": "M. Nathanson, ``Three Maximally Entangled States Can Require Two-Way Local Operations and Classical Communication for Local Discrimination,'' \\emph{Physical Review A} \\textbf{88}, 062316 (2013). \\href{https://doi.org/10.1103/PhysRevA.88.062316}{doi:10.1103/PhysRevA.88.062316}; \\href{https://arxiv.org/abs/1310.4220}{arXiv:1310.4220}."
+    },
+    {
+      "key": "WLFZ17",
+      "label": "ref:mes-bell",
+      "tex": "Y.-L. Wang, M.-S. Li, S.-M. Fei, and Z.-J. Zheng, ``The Local Distinguishability of Any Three Generalized Bell States,'' \\emph{Quantum Information Processing} \\textbf{16}, 126 (2017). \\href{https://doi.org/10.1007/s11128-017-1579-x}{doi:10.1007/s11128-017-1579-x}; \\href{https://arxiv.org/abs/1703.08773}{arXiv:1703.08773}."
+    },
+    {
+      "key": "XLY+24",
+      "label": "ref:mes-recent",
+      "tex": "Z.-X. Xiong, M.-S. Li, B. Yu, Z.-J. Zheng, and L. Li, ``Genuinely Nonlocal Sets with Smallest Cardinality,'' arXiv preprint (2024), version 2, revised 12 April 2026. \\href{https://doi.org/10.48550/arXiv.2403.10969}{doi:10.48550/arXiv.2403.10969}; \\href{https://arxiv.org/abs/2403.10969}{arXiv:2403.10969}."
+    }
+  ],
+  "comment": "The literature checked through September 9, 2026 does not establish whether every such $\\mathcal S$ is exactly LOCC-distinguishable or whether an indistinguishable triple exists for some $d\\geq4$. One-way impossibility, PPT distinguishability, and generalized-Bell constructions leave the unrestricted LOCC question unresolved; exact implementation must also be distinguished from approximation by a sequence of LOCC measurements. The status audit used public primary sources and later-work searches through 9 September 2026; it was not an exhaustive citation-index audit."
+}

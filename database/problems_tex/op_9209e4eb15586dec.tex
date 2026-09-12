@@ -5,41 +5,25 @@
 \label{sec:op_9209e4eb15586dec}
 
 \paragraph{Problem.}
-Let $\Phi_{\eta,\nu}$ be the single-mode bosonic thermal attenuator with
-transmissivity $0<\eta<1$ and environmental mean photon number
-$0<\nu<\infty$, defined by
+What is the unassisted quantum capacity of a single-mode thermal attenuator at every strictly positive finite environment temperature?
+Fix $0<\eta<1$ and $0<\nu<\infty$. The thermal attenuator is
 \begin{equation}
-  \Phi_{\eta,\nu}(\rho_A)
-  :=\operatorname{Tr}_{E'}\!\left[
-     U_\eta(\rho_A\otimes\tau_{\nu,E})U_\eta^\dagger
-  \right],
-  \qquad
-  \tau_{\nu,E}:=\sum_{k=0}^{\infty}
-     \frac{\nu^k}{(\nu+1)^{k+1}}
-     |k\rangle_E\!\langle k|_E,
-  \label{eq:p49-thermal-attenuator}
+ \Phi_{\eta,\nu}(\rho_A)=\operatorname{Tr}_{E'}[U_\eta(\rho_A\otimes\tau_{\nu,E})U_\eta^\dagger],\qquad
+ \tau_{\nu,E}=\sum_{k=0}^{\infty}\frac{\nu^k}{(\nu+1)^{k+1}}|k\rangle_E\langle k|.
+ \label{eq:p49-thermal-attenuator}
 \end{equation}
-where $U_\eta:AE\to BE'$ is a beam-splitter unitary and
-$\tau_{\nu,E}$ acts on the environment mode $E$.  For an environment mode of
-angular frequency $\omega_E$ at temperature $T$,
-$\nu=(e^{\hbar\omega_E/(k_{\rm B}T)}-1)^{-1}$.  Thus $0<T<\infty$ is
-equivalent to $0<\nu<\infty$ for fixed $\omega_E>0$; $\nu=0$ corresponds to
-$T=0$, while $\nu\to\infty$ as $T\to\infty$.  Its unassisted quantum capacity
-is the regularized coherent information
+Here $U_\eta:AE\to BE'$ is a beam splitter with retained output $a_B=\sqrt\eta\,a_A+\sqrt{1-\eta}\,a_E$. Each use has a fresh independent environment in the state in Eq.~\eqref{eq:p49-thermal-attenuator}. The parameter $\nu$ is its mean photon number.
+With $\hat n_j=a_j^\dagger a_j$, define the energy-unconstrained capacity by
 \begin{equation}
-  \mathcal Q(\Phi_{\eta,\nu})
-  :=\lim_{n\to\infty}\frac1n\sup_{\rho_{A^n}}
-       I_{\rm c}(\rho_{A^n},\Phi_{\eta,\nu}^{\otimes n}),
-  \qquad
-  I_{\rm c}(\rho,\mathcal N)
-  :=S(\mathcal N(\rho))-S(\mathcal N^{\rm c}(\rho)),
-  \label{eq:p49-quantum-capacity}
+ \begin{aligned}
+ \mathcal Q(\Phi_{\eta,\nu})&=\sup_{0<N<\infty}\lim_{n\to\infty}\frac1n
+ \sup_{\rho_{A^n}:\,\operatorname{Tr}\rho_{A^n}\sum_{j=1}^n\hat n_j\leq nN}
+ I_{\rm c}(\rho_{A^n},\Phi_{\eta,\nu}^{\otimes n}),\\
+ I_{\rm c}(\rho,\mathcal N)&=S(\mathcal N(\rho))-S(\mathcal N^{\rm c}(\rho)).
+ \end{aligned}
+ \label{eq:p49-quantum-capacity}
 \end{equation}
-where $S(\sigma):=-\operatorname{Tr}(\sigma\log_2\sigma)$ and
-$\mathcal N^{\rm c}$ is any complementary channel.  Determine
-Eq.~\eqref{eq:p49-quantum-capacity} for every
-$0<\eta<1$ and $0<\nu<\infty$, equivalently every strictly positive finite
-environment temperature.
+Use $S(\sigma)=-\operatorname{Tr}\sigma\log_2\sigma$. The complementary channel $\mathcal N^{\rm c}$ includes a purification of any mixed environment. Equation~\eqref{eq:p49-quantum-capacity} is the asymptotic qubit rate with vanishing transmission error, without classical assistance or preshared entanglement. Determine this rate throughout the stated parameter domain.
 
 \subsection*{Status}
 
@@ -51,7 +35,7 @@ Rosati, Mari, and Giovannetti explicitly study the unknown thermal-attenuator
 quantum capacity through nonmatching narrow bounds; the exact-capacity
 problem is retained after the later non-Gaussian separation
 \sourcecite{ref:p49-rosati-mari-giovannetti}{RMG18},
-\sourcecite{ref:p49-mele-et-al}{MCF+26}.
+\sourcecite{ref:p49-mele-et-al}{MCF+26}. The certified low-transmissivity witness is in Eqs.~(22)--(24) and Appendix~B of the 2026 preprint.
 
 \subsection*{Progress}
 
@@ -123,7 +107,7 @@ problem is retained after the later non-Gaussian separation
   setting.  This is a constant-gap coding theorem, not an exact capacity
   formula \sourcecite{ref:p49-noh-albert-jiang}{NAJ19}.
 
-  \item The latest rigorous lower bounds use non-Gaussian one-mode inputs:
+  \item The July 2026 preprint gives certified lower bounds from non-Gaussian one-mode inputs:
   \begin{equation}
     \begin{aligned}
       \sup_{\rho\in\mathsf G_1}I_{\rm c}(\rho,\Phi_{4/5,1})
@@ -146,7 +130,7 @@ problem is retained after the later non-Gaussian separation
   $8.4\times10^{-3}$ qubits per use at $(\eta,\nu)=(0.8,1)$, but that larger
   value is not certified.  The second certificate in
   Eq.~\eqref{eq:p49-nongaussian-separation} also propagates by data processing
-  to a two-dimensional parameter region.  These results disprove
+  to a two-dimensional parameter region.  Its Eqs.~(22)--(24) and Appendix~B certify the second value; the smaller transmissivity $0.7818$ is only numerical and uncertified. These results disprove
   single-mode Gaussian optimality but do not determine the capacity
   \sourcecite{ref:p49-mele-et-al}{MCF+26}.
 \end{itemize}
@@ -232,7 +216,7 @@ problem is retained after the later non-Gaussian separation
 For generic $\nu>0$ outside the zero-capacity regions, the lower and upper
 bounds do not coincide.  Non-Gaussian one-mode optimization and possible
 multimode superadditivity both remain relevant to
-Eq.~\eqref{eq:p49-quantum-capacity}.
+Eq.~\eqref{eq:p49-quantum-capacity}. The separate positivity-threshold record asks only where this capacity becomes nonzero. The thermal-attenuator secret-key capacity is a different operational task.
 
 \subsection*{Field}
 

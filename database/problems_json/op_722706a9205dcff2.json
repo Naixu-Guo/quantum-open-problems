@@ -1,0 +1,59 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_722706a9205dcff2",
+  "ulid": "01M22MSWB2Y2FYAA13A3SJEVZ6",
+  "aliases": [
+    "op_722706a9205dcff2",
+    "01M22MSWB2Y2FYAA13A3SJEVZ6",
+    "op-722706a9205dcff2"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-09T08:33:27.394Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": "2025-12-29",
+    "areaIds": [
+      "quantum-communication"
+    ],
+    "topicIds": [
+      "quantum-channel-structure"
+    ],
+    "keywords": [
+      "random-unitary decomposition",
+      "mixed unitarity",
+      "quantum dynamical semigroup",
+      "first mixed-unitary time",
+      "eventual mixed-unitary time"
+    ],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
+  "title": "Loss of mixed unitarity after a positive time in a quantum dynamical semigroup",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum Communication"
+  ],
+  "topics": [
+    "Quantum channel structure"
+  ],
+  "statement": "Does there exist a norm-continuous semigroup $(\\Phi_t)_{t\\geq0}$ of\nunital completely positive trace-preserving maps on $\\mathcal L(\\mathbb C^d)$,\nfor some finite integer $d\\geq3$, such that $\\Phi_s$ is mixed unitary and\n$\\Phi_t$ is not mixed unitary for some $0<s<t$?\nHere $\\Phi_0=\\operatorname{id}$ and $\\Phi_{u+v}=\\Phi_u\\circ\\Phi_v$ for\n$u,v\\geq0$. A map $\\Psi$ is mixed unitary if it admits\n\\begin{equation}\n  \\Psi(X)=\\sum_{j=1}^{N}p_j U_j XU_j^\\dagger,\n  \\qquad p_j\\geq0,\\qquad\\sum_{j=1}^{N}p_j=1,\n  \\label{eq:72270-mixed-unitary}\n\\end{equation}\nfor every $X\\in\\mathcal L(\\mathbb C^d)$, where $N$ is finite and the\n$U_j$ in Eq.~\\eqref{eq:72270-mixed-unitary} are unitary.",
+  "source": "Bhat and Devendra explicitly ask whether the first positive mixed-unitary\ntime can precede the eventual threshold; see the unnumbered remark after\nTheorem~5.4, p.~21 of version~2 \\sourcecite{ref:72270-bhat}{BD26}.",
+  "progress": [
+    "Every such semigroup is mixed unitary at all sufficiently large times\n(Theorem~4.12). Unless it is mixed unitary at every time, Theorem~5.4 gives\na first positive mixed-unitary time $t_0$ and the least eventual threshold\n$t_1\\geq t_0$. The authors leave $t_0<t_1$ open\n\\sourcecite{ref:72270-bhat}{BD26}."
+  ],
+  "references": [
+    {
+      "key": "BD26",
+      "label": "ref:72270-bhat",
+      "tex": "B. V. Rajarama Bhat and R. Devendra, ``On regions of mixed unitarity\nfor semigroups of unital quantum channels,'' arXiv preprint (2025),\nversion~2 revised 7 February 2026.\n\\href{https://doi.org/10.48550/arXiv.2512.23598}{doi:10.48550/arXiv.2512.23598};\n\\href{https://arxiv.org/abs/2512.23598v2}{arXiv:2512.23598v2}."
+    }
+  ],
+  "comment": "The question is equivalent to $t_0<t_1$; eventual mixed unitarity alone\ndoes not settle it. Literature audit: 9 September 2026. The latest source\nversion remains a preprint explicitly leaving this gap open. No later\nresolution was located in indexed literature; unindexed work cannot be excluded."
+}

@@ -1,0 +1,71 @@
+---
+id: "01M1HME78068MQY7E9KA81B7WX"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 2
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-10T21:50:00.391Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-resource-theory"]
+topicIds: ["gaussian-quantum-information","entanglement-measures"]
+keywords: ["Gaussian discord","Gaussian measurement optimality","Koashi-Winter duality"]
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: ["01M26KH5NF45HBHXTPG8ZBD75H"]
+title: "Gaussian entanglement of formation beyond bisymmetry"
+aliases: ["op-4a4434b5cc6e85e6","op_4a4434b5cc6e85e6","01M1HME78068MQY7E9KA81B7WX","v2-gaussian-entanglement-of-formation-beyond-bisymmetry","open-problem-v2-problem-26"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_4a4434b5cc6e85e6.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_4a4434b5cc6e85e6","ulid":"01M1HME78068MQY7E9KA81B7WX","aliases":["op_4a4434b5cc6e85e6","01M1HME78068MQY7E9KA81B7WX","op-4a4434b5cc6e85e6","v2-gaussian-entanglement-of-formation-beyond-bisymmetry","open-problem-v2-problem-26"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":3,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-04T22:04:59Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-resource-theory"],"topicIds":["gaussian-quantum-information","entanglement-measures"],"keywords":["Gaussian discord","Gaussian measurement optimality","Koashi-Winter duality"],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":["01M26KH5NF45HBHXTPG8ZBD75H"]},"title":"Gaussian entanglement of formation beyond bisymmetry","status":"Unsolved","fields":["Quantum Resource Theory"],"topics":["Gaussian quantum information","Entanglement measures"],"statement":"Does Gaussian entanglement of formation equal unrestricted entanglement of formation for every non-bisymmetric multimode Gaussian state? Let $\\rho_{AB}$ be Gaussian, with integers $n_A,n_B\\geq1$ and $n_A+n_B\\geq3$. Assume finite total mean photon number. For $S(\\tau):=-\\operatorname{Tr}(\\tau\\log_2\\tau)$, define\n\\begin{equation}\nE_F(\\rho_{AB}):=\\inf_{\\mu}\\int\nS(\\operatorname{Tr}_B|\\psi\\rangle\\langle\\psi|)\\,\\mu(d\\psi).\n\\label{eq:p26-entanglement-of-formation}\n\\end{equation}\nThe probability measures in Eq.~\\eqref{eq:p26-entanglement-of-formation} range over normalized pure vectors with barycentre $\\rho_{AB}$. Non-Gaussian vectors are allowed.\n\nThe Gaussian restriction is equivalently\n\\begin{equation}\nE_F^{\\mathrm G}(\\rho_{AB}):=\n\\inf_{\\substack{V_p\\preceq V\\\\V_p\\ \\mathrm{pure\\ Gaussian}}}E(V_p),\n\\label{eq:p26-gaussian-entanglement-of-formation}\n\\end{equation}\nwhere $V$ is the covariance of $\\rho_{AB}$ and $E(V_p)$ is the entropy of either reduced state of the pure Gaussian component. A covariance is bisymmetric when it is invariant under all mode permutations within Alice's block and, independently, within Bob's block. Is $E_F(\\rho_{AB})=E_F^{\\mathrm G}(\\rho_{AB})$ outside this family, with the quantities defined by Eqs.~\\eqref{eq:p26-entanglement-of-formation} and \\eqref{eq:p26-gaussian-entanglement-of-formation}?","source":"Adesso's preprint proves Gaussian optimality for all two-mode and bisymmetric multimode states and leaves the generic nonsymmetric multimode case open \\sourcecite{ref:p26-adesso}{Ade26}. The equivalent universal Gaussian-discord formulation below follows from purification duality, rather than being a second independent problem \\sourcecite{ref:p26-koashi}{KW04}, \\sourcecite{ref:p26-discord}{AD10}.","progress":["Wolf, Giedke, Kr\\\"uger, Werner, and Cirac introduced the Gaussian\n  convex-roof restriction and derived the covariance-matrix optimization in\n  Eq.~\\eqref{eq:p26-gaussian-entanglement-of-formation}.  Their analysis does\n  not establish equality with the unrestricted roof in\n  Eq.~\\eqref{eq:p26-entanglement-of-formation}\n  \\sourcecite{ref:p26-wolf}{WGKWC04}.","Adesso's arXiv preprint establishes $E_F=E_F^{\\mathrm G}$ for all two-mode Gaussian states, then extends it to bisymmetric multimode states by localization to a two-mode core. Theorem 1 and Eqs. (18)--(22) state these results; Supplement S2.4 includes continuous pure-state ensembles. Generic nonsymmetric multimode states remain open \\sourcecite{ref:p26-adesso}{Ade26}.","For the discord formulation, Adesso--Datta Eqs. (3)--(4) solve the Gaussian measurement optimization for two modes \\sourcecite{ref:p26-discord}{AD10}. Pirandola et al., Eqs. (12)--(14), prove unrestricted measurement optimality for states obtained by sending one half of a two-mode squeezed vacuum through a phase-insensitive Gaussian channel. Heterodyne detection on the other half attains the minimum. Their further Gaussian-unitary decompositions cover additional states, but do not settle the universal multimode problem \\sourcecite{ref:p26-optimal}{PSBCL14}."],"references":[{"key":"WGKWC04","label":"ref:p26-wolf","tex":"M. M. Wolf, G. Giedke, O. Kr\\\"uger, R. F. Werner, and J. I. Cirac,\n  ``Gaussian Entanglement of Formation,'' \\emph{Physical Review A}\n  \\textbf{69}, 052320 (2004).\n  \\href{https://doi.org/10.1103/PhysRevA.69.052320}{doi:10.1103/PhysRevA.69.052320};\n  \\href{https://arxiv.org/abs/quant-ph/0306177}{arXiv:quant-ph/0306177}."},{"key":"Ade26","label":"ref:p26-adesso","tex":"G. Adesso, ``Optimality of Gaussian Entanglement of Formation,''\n  arXiv:2608.01909v2 (2026).\n  \\href{https://doi.org/10.48550/arXiv.2608.01909}{doi:10.48550/arXiv.2608.01909};\n  \\href{https://arxiv.org/abs/2608.01909v2}{arXiv:2608.01909v2}."},{"key":"KW04","label":"ref:p26-koashi","tex":"M. Koashi and A. Winter, \"Monogamy of Quantum Entanglement and Other Correlations,\" \\emph{Physical Review A} \\textbf{69}, 022309 (2004). \\href{https://doi.org/10.1103/PhysRevA.69.022309}{doi:10.1103/PhysRevA.69.022309}; \\href{https://arxiv.org/abs/quant-ph/0310037}{arXiv:quant-ph/0310037}."},{"key":"AD10","label":"ref:p26-discord","tex":"G. Adesso and A. Datta, \"Quantum versus Classical Correlations in Gaussian States,\" \\emph{Physical Review Letters} \\textbf{105}, 030501 (2010). \\href{https://doi.org/10.1103/PhysRevLett.105.030501}{doi:10.1103/PhysRevLett.105.030501}; \\href{https://arxiv.org/abs/1003.4979}{arXiv:1003.4979}."},{"key":"PSBCL14","label":"ref:p26-optimal","tex":"S. Pirandola, G. Spedalieri, S. L. Braunstein, N. J. Cerf, and S. Lloyd, \"Optimality of Gaussian Discord,\" \\emph{Physical Review Letters} \\textbf{113}, 140405 (2014). \\href{https://doi.org/10.1103/PhysRevLett.113.140405}{doi:10.1103/PhysRevLett.113.140405}; \\href{https://arxiv.org/abs/1309.2215}{arXiv:1309.2215}."}],"comment":"The generic multimode equality remains open. The resolved two-mode case is recorded separately as \\texttt{01M26KH5NF45HBHXTPG8ZBD75H}; its resolution is currently an arXiv preprint.\n\nAn equivalent universal question asks whether Gaussian measurements attain one-sided discord for every finite-energy bipartite Gaussian state $\\omega_{AX}$. For a POVM $\\{M_x\\}$ on $X$, set $p_x=\\operatorname{Tr}[(I_A\\otimes M_x)\\omega_{AX}]$ and $\\omega_{A|x}=\\operatorname{Tr}_X[(I_A\\otimes M_x)\\omega_{AX}]/p_x$ for $p_x>0$. Define\n\\begin{equation}\nD_X(\\omega_{AX}):=S(\\omega_X)-S(\\omega_{AX})\n+\\inf_M\\int p_x S(\\omega_{A|x})\\,dx .\n\\label{eq:p26-discord}\n\\end{equation}\nAll POVMs are allowed in Eq.~\\eqref{eq:p26-discord}; integrals include discrete sums. Define $D_X^{\\mathrm G}$ by restricting to general-dyne measurements, including joint multimode seeds and homodyne limits.\n\nFor a finite-energy Gaussian purification $\\Psi_{ABX}$, the ensemble-measurement correspondence gives\n\\begin{equation}\nD_X^{\\mathrm G}(\\Psi_{AX})-D_X(\\Psi_{AX})\n=E_F^{\\mathrm G}(\\Psi_{AB})-E_F(\\Psi_{AB}).\n\\label{eq:p26-duality}\n\\end{equation}\nThe ordinary identity follows from Koashi--Winter Theorem 1, Eq. (2); Adesso--Datta discuss its Gaussian version after Eq. (7) \\sourcecite{ref:p26-koashi}{KW04}, \\sourcecite{ref:p26-discord}{AD10}. For the Gaussian restriction, every pure covariance $V_p\\preceq V$ in Eq.~\\eqref{eq:p26-gaussian-entanglement-of-formation} can be prepared by a rank-one Gaussian measurement on a Gaussian purification. Singular boundary cases use homodyne limits; mixed measurement seeds cannot improve the minimum over their pure refinements. The unrestricted correspondence permits probability-measure ensembles.\n\nEvery finite-energy Gaussian state has a finite-mode, finite-energy Gaussian purification. Thus Eq.~\\eqref{eq:p26-duality} identifies the two universal optimality questions. This equivalence, together with the resolved two-mode and bisymmetric cases, is why the discord formulation is consolidated here."}}
+---
+## Source
+
+Adesso’s preprint proves Gaussian optimality for all two-mode and bisymmetric multimode states and leaves the generic nonsymmetric multimode case open [Ade26](https://doi.org/10.48550/arXiv.2608.01909). The equivalent universal Gaussian-discord formulation below follows from purification duality, rather than being a second independent problem [KW04](https://doi.org/10.1103/PhysRevA.69.022309), [AD10](https://doi.org/10.1103/PhysRevLett.105.030501).
+
+## Progress
+
+Wolf, Giedke, Krüger, Werner, and Cirac introduced the Gaussian convex-roof restriction and derived the covariance-matrix optimization in Eq. (2). Their analysis does not establish equality with the unrestricted roof in Eq. (1) [WGKWC04](https://doi.org/10.1103/PhysRevA.69.052320).
+
+Adesso’s arXiv preprint establishes $E_F=E_F^{\mathrm G}$ for all two-mode Gaussian states, then extends it to bisymmetric multimode states by localization to a two-mode core. Theorem 1 and Eqs. (18)–(22) state these results; Supplement S2.4 includes continuous pure-state ensembles. Generic nonsymmetric multimode states remain open [Ade26](https://doi.org/10.48550/arXiv.2608.01909).
+
+For the discord formulation, Adesso–Datta Eqs. (3)–(4) solve the Gaussian measurement optimization for two modes [AD10](https://doi.org/10.1103/PhysRevLett.105.030501). Pirandola et al., Eqs. (12)–(14), prove unrestricted measurement optimality for states obtained by sending one half of a two-mode squeezed vacuum through a phase-insensitive Gaussian channel. Heterodyne detection on the other half attains the minimum. Their further Gaussian-unitary decompositions cover additional states, but do not settle the universal multimode problem [PSBCL14](https://doi.org/10.1103/PhysRevLett.113.140405).
+
+## Comment
+
+The generic multimode equality remains open. The resolved two-mode case is recorded separately as `01M26KH5NF45HBHXTPG8ZBD75H`; its resolution is currently an arXiv preprint.
+
+An equivalent universal question asks whether Gaussian measurements attain one-sided discord for every finite-energy bipartite Gaussian state $\omega_{AX}$. For a POVM $\{M_x\}$ on $X$, set $p_x=\operatorname{Tr}[(I_A\otimes M_x)\omega_{AX}]$ and $\omega_{A|x}=\operatorname{Tr}_X[(I_A\otimes M_x)\omega_{AX}]/p_x$ for $p_x>0$. Define
+
+$$
+D_X(\omega_{AX}):=S(\omega_X)-S(\omega_{AX})
++\inf_M\int p_x S(\omega_{A|x})\,dx .
+\tag{3}
+$$
+
+All POVMs are allowed in Eq. (3); integrals include discrete sums. Define $D_X^{\mathrm G}$ by restricting to general-dyne measurements, including joint multimode seeds and homodyne limits.
+
+For a finite-energy Gaussian purification $\Psi_{ABX}$, the ensemble-measurement correspondence gives
+
+$$
+D_X^{\mathrm G}(\Psi_{AX})-D_X(\Psi_{AX})
+=E_F^{\mathrm G}(\Psi_{AB})-E_F(\Psi_{AB}).
+\tag{4}
+$$
+
+The ordinary identity follows from Koashi–Winter Theorem 1, Eq. (2); Adesso–Datta discuss its Gaussian version after Eq. (7) [KW04](https://doi.org/10.1103/PhysRevA.69.022309), [AD10](https://doi.org/10.1103/PhysRevLett.105.030501). For the Gaussian restriction, every pure covariance $V_p\preceq V$ in Eq. (2) can be prepared by a rank-one Gaussian measurement on a Gaussian purification. Singular boundary cases use homodyne limits; mixed measurement seeds cannot improve the minimum over their pure refinements. The unrestricted correspondence permits probability-measure ensembles.
+
+Every finite-energy Gaussian state has a finite-mode, finite-energy Gaussian purification. Thus Eq. (4) identifies the two universal optimality questions. This equivalence, together with the resolved two-mode and bisymmetric cases, is why the discord formulation is consolidated here.
+
+## References
+
+**WGKWC04** M. M. Wolf, G. Giedke, O. Krüger, R. F. Werner, and J. I. Cirac, “Gaussian Entanglement of Formation,” *Physical Review A* **69**, 052320 (2004). [doi:10.1103/PhysRevA.69.052320](https://doi.org/10.1103/PhysRevA.69.052320); [arXiv:quant-ph/0306177](https://arxiv.org/abs/quant-ph/0306177).
+
+**Ade26** G. Adesso, “Optimality of Gaussian Entanglement of Formation,” arXiv:2608.01909v2 (2026). [doi:10.48550/arXiv.2608.01909](https://doi.org/10.48550/arXiv.2608.01909); [arXiv:2608.01909v2](https://arxiv.org/abs/2608.01909v2).
+
+**KW04** M. Koashi and A. Winter, "Monogamy of Quantum Entanglement and Other Correlations," *Physical Review A* **69**, 022309 (2004). [doi:10.1103/PhysRevA.69.022309](https://doi.org/10.1103/PhysRevA.69.022309); [arXiv:quant-ph/0310037](https://arxiv.org/abs/quant-ph/0310037).
+
+**AD10** G. Adesso and A. Datta, "Quantum versus Classical Correlations in Gaussian States," *Physical Review Letters* **105**, 030501 (2010). [doi:10.1103/PhysRevLett.105.030501](https://doi.org/10.1103/PhysRevLett.105.030501); [arXiv:1003.4979](https://arxiv.org/abs/1003.4979).
+
+**PSBCL14** S. Pirandola, G. Spedalieri, S. L. Braunstein, N. J. Cerf, and S. Lloyd, "Optimality of Gaussian Discord," *Physical Review Letters* **113**, 140405 (2014). [doi:10.1103/PhysRevLett.113.140405](https://doi.org/10.1103/PhysRevLett.113.140405); [arXiv:1309.2215](https://arxiv.org/abs/1309.2215).

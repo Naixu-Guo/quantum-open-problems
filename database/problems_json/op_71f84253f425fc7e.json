@@ -1,0 +1,54 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_71f84253f425fc7e",
+  "ulid": "01M26K8Q9WAW3Q9PKGYVXHHX0C",
+  "aliases": [
+    "op_71f84253f425fc7e",
+    "01M26K8Q9WAW3Q9PKGYVXHHX0C",
+    "op-71f84253f425fc7e"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-10T21:23:34.332Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "derived",
+    "posed": null,
+    "areaIds": [
+      "quantum-resource-theory"
+    ],
+    "topicIds": [
+      "gaussian-quantum-information"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
+  "title": "Strict stationary squeezing limit for one-mode thermal diffusion",
+  "status": "Solved",
+  "fields": [
+    "Quantum Resource Theory"
+  ],
+  "topics": [
+    "Gaussian quantum information"
+  ],
+  "statement": "Does every stable one-mode thermal Gaussian diffusion obey the sharp stationary squeezing bound $\\lambda_{\\min}(V_\\infty)>\\nu/2$?\nUse $R=(q,p)^{\\mathsf T}$, $[q,p]=i$, and covariance $V_{jk}=\\langle\\{R_j-\\langle R_j\\rangle,R_k-\\langle R_k\\rangle\\}\\rangle$.\nLet $G$ be any real symmetric $2\\times2$ matrix, $\\kappa>0$, and $\\nu=2\\bar n+1$ with $\\bar n\\geq0$.\nDefine the drift and diffusion in Eq.~\\eqref{eq:sr51-drift}.\n\\begin{equation}\nA=\\Omega G-\\frac\\kappa2I_2,\\qquad D=\\kappa\\nu I_2,\\qquad \\Omega=\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}.\n\\label{eq:sr51-drift}\n\\end{equation}\nAssume $A$ is Hurwitz stable: both eigenvalues have negative real part.\nThe stationary covariance $V_\\infty$ solves Eq.~\\eqref{eq:sr51-lyapunov}.\n\\begin{equation}\nAV_\\infty+V_\\infty A^{\\mathsf T}+D=0.\n\\label{eq:sr51-lyapunov}\n\\end{equation}\nSharpness means that the infimum of $\\lambda_{\\min}(V_\\infty)$ over stable choices of $G$ is $\\nu/2$.",
+  "source": "This is the single-mode isotropic-diffusion form of the stationary squeezing limit in Harwood and Serafini, Eq.~(15) \\sourcecite{ref:sr51-harwood}{HS20}. Their physical setting is passive interferometric coherent feedback with rotating-wave coupling to equal-temperature Markov baths.",
+  "progress": [
+    "Stability implies the unique solution $V_\\infty=\\int_0^\\infty e^{At}D e^{A^{\\mathsf T}t}\\,dt$ is positive definite. Multiplying Eq.~\\eqref{eq:sr51-lyapunov} by $V_\\infty^{-1}$ and taking the trace gives Eq.~\\eqref{eq:sr51-proof}, since $\\operatorname{tr}A=-\\kappa$.\n\\begin{equation}\n\\operatorname{tr}(V_\\infty^{-1})=\\frac2\\nu,\\qquad \\frac1{\\lambda_{\\min}(V_\\infty)}<\\operatorname{tr}(V_\\infty^{-1}).\n\\label{eq:sr51-proof}\n\\end{equation}\nEquation~\\eqref{eq:sr51-proof} proves the strict bound directly and agrees with the published result \\sourcecite{ref:sr51-harwood}{HS20}.",
+    "For $0\\leq s<\\kappa$, choose $G_s=\\begin{pmatrix}0&-s/2\\\\-s/2&0\\end{pmatrix}$. The stable drift and covariance in Eq.~\\eqref{eq:sr51-sharp} show sharpness.\n\\begin{equation}\n\\begin{aligned}\n A_s&=\\frac12\\operatorname{diag}(-\\kappa-s,-\\kappa+s),\\\\\n V_\\infty(s)&=\\nu\\operatorname{diag}\\!\\left(\\frac\\kappa{\\kappa+s},\\frac\\kappa{\\kappa-s}\\right),\\\\\n \\lim_{s\\uparrow\\kappa}\\lambda_{\\min}(V_\\infty(s))&=\\frac\\nu2.\n\\end{aligned}\n\\label{eq:sr51-sharp}\n\\end{equation}"
+  ],
+  "references": [
+    {
+      "key": "HS20",
+      "label": "ref:sr51-harwood",
+      "tex": "A. Harwood and A. Serafini, ``Ultimate Squeezing Through Coherent Quantum Feedback,'' \\emph{Physical Review Research} \\textbf{2}, 043103 (2020). \\href{https://doi.org/10.1103/PhysRevResearch.2.043103}{doi:10.1103/PhysRevResearch.2.043103}; \\href{https://arxiv.org/abs/1910.07235}{arXiv:1910.07235}."
+    }
+  ],
+  "comment": "The question is completely resolved, with a peer-reviewed source and a direct verification above. The limit is an infimum approached at instability, not a stable minimum. Isotropic noise and one mode are essential hypotheses; the statement does not cover arbitrary multimode feedback or anisotropic baths."
+}

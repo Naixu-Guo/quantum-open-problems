@@ -1,0 +1,78 @@
+% Problem record op_c509b64359fbdc2d. This TeX file is derived from
+% database/problems_json/op_c509b64359fbdc2d.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Permanent anticoncentration for complex Gaussian matrices}
+\label{sec:op_c509b64359fbdc2d}
+
+\paragraph{Problem.}
+Do complex Gaussian permanents satisfy a polynomial lower-tail bound at their root-mean-square scale?
+For each integer $n\geq1$, let $X\in\mathbb C^{n\times n}$ have independent entries with density $\pi^{-1}e^{-|z|^2}$.
+Write $S_n$ for the permutations of $\{1,\ldots,n\}$ and define
+\begin{equation}
+ \operatorname{Per}X=\sum_{\pi\in S_n}\prod_{j=1}^nX_{j,\pi(j)}.
+ \label{eq:pacc-permanent}
+\end{equation}
+Does there exist a polynomial $p$, positive on $[1,\infty)^2$, such that the permanent in Eq.~\eqref{eq:pacc-permanent} satisfies
+\begin{equation}
+ \Pr_X\!\left[|\operatorname{Per}X|<
+       \frac{\sqrt{n!}}{p(n,1/\delta)}\right]<\delta
+ \qquad(n\geq1,\ 0<\delta<1)?
+ \label{eq:pacc-conjecture}
+\end{equation}
+The same polynomial must work for every pair $(n,\delta)$ in Eq.~\eqref{eq:pacc-conjecture}.
+
+\subsection*{Status}
+
+Solved
+
+\subsection*{Source}
+
+Aaronson and Arkhipov state this as Conjecture~6 in Section~1.2.3 of their arXiv version \sourcecite{ref:pacc-aa}{AA13}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Koehler and Leung's Theorem~1.1 proves that a universal constant $C>0$ satisfies
+\begin{equation}
+ \sup_{z\in\mathbb C}\Pr\!\left[
+ |\operatorname{Per}X-z|\leq t\sqrt{n!}\right]\leq Cnt^2
+ \qquad(t>0).
+ \label{eq:pacc-small-ball}
+\end{equation}
+Equation~\eqref{eq:pacc-small-ball} implies Eq.~\eqref{eq:pacc-conjecture}: take $p(n,y)=Kny$ with $K^2>C$.
+The resolving result is a July 2026 preprint \sourcecite{ref:pacc-kl}{KL26}.
+
+  \item The earlier Theorem~54 of Aaronson and Arkhipov gives only
+$\Pr[|\operatorname{Per}X|^2\geq\theta n!]>(1-\theta)^2/(n+1)$ for $0<\theta<1$.
+That moment argument guarantees a fraction of large values; it does not alone control the small-value tail \sourcecite{ref:pacc-aa}{AA13}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[AA13]}]\label{ref:pacc-aa}
+  S. Aaronson and A. Arkhipov, "The Computational Complexity of Linear Optics," \emph{Theory of Computing} \textbf{9}(4), 143--252 (2013). \href{https://doi.org/10.4086/toc.2013.v009a004}{doi:10.4086/toc.2013.v009a004}; \href{https://arxiv.org/abs/1011.3245}{arXiv:1011.3245}.
+
+  \item[\textup{[KL26]}]\label{ref:pacc-kl}
+  F. Koehler and P. K. Leung, "Anticoncentration of the Permanent in Ginibre Ensembles," arXiv preprint (2026). \href{https://arxiv.org/abs/2607.20329v1}{arXiv:2607.20329v1}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The archived anticoncentration question is resolved by a preprint; no journal publication is asserted.
+It is distinct from the Permanent-of-Gaussians hardness conjecture.
+Combining this result with Aaronson--Arkhipov Theorem~7 makes their additive squared-permanent and multiplicative permanent estimation tasks polynomial-time equivalent \sourcecite{ref:pacc-aa}{AA13}.
+It does not prove either task hard.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Boson sampling; Computational complexity and computability
+
+\subsection*{ID}
+
+\texttt{op\_c509b64359fbdc2d}

@@ -1,0 +1,79 @@
+% Problem record op_f408a3c300b9b214. This TeX file is derived from
+% database/problems_json/op_f408a3c300b9b214.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Exact covariance criterion for bipartite Gaussian separability}
+\label{sec:op_f408a3c300b9b214}
+
+\paragraph{Problem.}
+What necessary and sufficient condition on a covariance matrix characterizes bipartite Gaussian separability?
+
+Let $m,n\geq1$ be integers. Let $\rho_V$ be a zero-mean Gaussian state with $m$ modes held by Alice and $n$ modes held by Bob. Its finite real covariance matrix and canonical commutators are
+
+\begin{equation}
+V_{jk}:=\operatorname{Tr}\rho_V\{R_j,R_k\},\qquad
+[R_j,R_k]=i(\Omega_{m+n})_{jk},\qquad
+\Omega_k:=\bigoplus_{j=1}^{k}\begin{pmatrix}0&1\\-1&0\end{pmatrix}.
+\label{eq:ser16-statement-1}
+\end{equation}
+
+Separability means that $\rho_V$ belongs to the trace-norm closed convex hull of product density operators. Determine separability from the covariance in Eq.~\eqref{eq:ser16-statement-1}.
+
+\subsection*{Status}
+
+Solved
+
+\subsection*{Source}
+
+Werner and Wolf state and prove the complete covariance criterion in Proposition 1 \sourcecite{ref:ser16-1}{WW01}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Werner--Wolf, Proposition 1, proves both directions of the criterion below. The exact criterion is the following finite semidefinite feasibility problem over real symmetric matrices $V_A$ of size $2m$ and $V_B$ of size $2n$:
+
+\begin{equation}
+\rho_V\text{ is separable}
+\quad\Longleftrightarrow\quad
+\exists V_A,V_B:\quad V_A+i\Omega_m\geq0,\quad
+V_B+i\Omega_n\geq0,\quad V\geq V_A\oplus V_B.
+\label{eq:ser16-progress-1-1}
+\end{equation}
+
+Equation~\eqref{eq:ser16-progress-1-1} solves the unrestricted Gaussian separability criterion. \sourcecite{ref:ser16-1}{WW01}
+
+  \item With $T_B:=I_{2m}\oplus\bigoplus_{j=1}^{n}\operatorname{diag}(1,-1)$, partial-transpose positivity is equivalent to
+
+\begin{equation}
+T_BVT_B+i\Omega_{m+n}\geq0.
+\label{eq:ser16-progress-2-1}
+\end{equation}
+
+Equation~\eqref{eq:ser16-progress-2-1} is also sufficient for separability if $m=1$ or $n=1$, or if the Gaussian state is invariant under all permutations of the modes on one party; it fails to be sufficient for general $m=n=2$. \sourcecite{ref:ser16-1}{WW01}, \sourcecite{ref:ser16-2}{LSA18} The permutation-symmetric extension is Theorem 9 of Lami et al. \sourcecite{ref:ser16-2}{LSA18}
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[WW01]}]\label{ref:ser16-1}
+  R. F. Werner and M. M. Wolf, "Bound Entangled Gaussian States," \emph{Physical Review Letters} \textbf{86}, 3658--3661 (2001). \href{https://doi.org/10.1103/PhysRevLett.86.3658}{doi:10.1103/PhysRevLett.86.3658}; \href{https://arxiv.org/abs/quant-ph/0009118}{arXiv:quant-ph/0009118}.
+
+  \item[\textup{[LSA18]}]\label{ref:ser16-2}
+  L. Lami, A. Serafini, and G. Adesso, "Gaussian Entanglement Revisited," \emph{New Journal of Physics} \textbf{20}, 023030 (2018). \href{https://doi.org/10.1088/1367-2630/aaa654}{doi:10.1088/1367-2630/aaa654}; \href{https://arxiv.org/abs/1612.05215}{arXiv:1612.05215}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The full criterion is solved by peer-reviewed results. Semidefinite feasibility is an exact mathematical characterization. A demand for a particular elementary expression would require a separately specified expression class.
+
+\subsection*{Field}
+
+Quantum Resource Theory
+
+\subsection*{Topic}
+
+Gaussian quantum information; Quantum separability
+
+\subsection*{ID}
+
+\texttt{op\_f408a3c300b9b214}

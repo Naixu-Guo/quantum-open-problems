@@ -1,0 +1,61 @@
+---
+id: "01M26JZET5QZ2FB0WSWESW77V6"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-10T21:50:00.391Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-communication"]
+topicIds: ["quantum-capacity","bosonic-channels"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: ["01M26JZEPTR8YAH8EKFW9D0Q24","01M26JZEN93BAESCCMMTRG84M0"]
+title: "Unassisted quantum capacity of a thermal amplifier"
+aliases: ["op-9966229e2ac69eee","op_9966229e2ac69eee","01M26JZET5QZ2FB0WSWESW77V6"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_9966229e2ac69eee.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_9966229e2ac69eee","ulid":"01M26JZET5QZ2FB0WSWESW77V6","aliases":["op_9966229e2ac69eee","01M26JZET5QZ2FB0WSWESW77V6","op-9966229e2ac69eee"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":1,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-10T21:18:30.725Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-communication"],"topicIds":["quantum-capacity","bosonic-channels"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":["01M26JZEPTR8YAH8EKFW9D0Q24","01M26JZEN93BAESCCMMTRG84M0"]},"title":"Unassisted quantum capacity of a thermal amplifier","status":"Unsolved","fields":["Quantum Communication"],"topics":["Quantum capacity","Bosonic channels"],"statement":"What is the unassisted quantum capacity of a thermal amplifier for every gain and thermal noise level?\nFix a power gain $\\kappa>1$ and $b\\geq0$. The single-mode thermal amplifier $\\mathcal A_{\\kappa,b}$ is the Gaussian channel realized by two-mode squeezing with output annihilation operator\n\\begin{equation}\n a_{\\mathrm{out}}=\\sqrt\\kappa\\,a+\\sqrt{\\kappa-1}\\,e^\\dagger.\n \\label{eq:sc-amplifier}\n\\end{equation}\nThe independent input and environment modes obey $[a,a^\\dagger]=[e,e^\\dagger]=1$. The environment is a fresh independent thermal mode at each use, with mean photon number $b$ and density operator\n\\begin{equation}\n \\tau_b=\\frac1{b+1}\\sum_{n=0}^{\\infty}\\left(\\frac b{b+1}\\right)^n|n\\rangle\\langle n|\\quad(b>0),\\qquad \\tau_0=|0\\rangle\\langle0|.\n \\label{eq:sc-thermal}\n\\end{equation}\nHere $|n\\rangle$ is the $n$-photon Fock state. The unused output mode is discarded.\nEquations~\\eqref{eq:sc-amplifier} and \\eqref{eq:sc-thermal} specify the channel on arbitrary input states.\nThe capacity $Q(\\mathcal A_{\\kappa,b})$ is the supremum of asymptotic qubits transmitted per channel use by block codes with vanishing error. Arbitrary encodings across uses and joint decoding are allowed. No classical assistance or preshared entanglement is available. There is no fixed input-energy bound: take the supremum of the capacities over all finite mean photon budgets.","source":"The exact noisy-amplifier quantum capacity is studied through nonmatching bounds by Fanizza, Kianvash, and Giovannetti, in their section ``Upper bounds for the thermal amplifier'' \\sourcecite{ref:sc-fkg}{FKG21}. Kianvash, Fanizza, and Giovannetti compare the known bounds in Sec.~III and Fig.~2 \\sourcecite{ref:sc-kfg}{KFG24}.","progress":["Let $g_2(x)=(x+1)\\log_2(x+1)-x\\log_2x$, with $g_2(0)=0$. Coherent information and the PLOB converse give\n\\begin{equation}\n \\max\\left\\{0,\\log_2\\frac\\kappa{\\kappa-1}-g_2(b)\\right\\}\n \\leq Q(\\mathcal A_{\\kappa,b})\n \\leq\\log_2\\frac{\\kappa^{b+1}}{\\kappa-1}-g_2(b),\\qquad 0\\leq b<\\frac1{\\kappa-1}.\n \\label{eq:sc-amp-bounds}\n\\end{equation}\nThe bounds in Eq.~\\eqref{eq:sc-amp-bounds} coincide at $b=0$, giving $Q(\\mathcal A_{\\kappa,0})=\\log_2[\\kappa/(\\kappa-1)]$. See Eqs.~(26)--(28) and Supplementary Note~4 \\sourcecite{ref:sc-plob}{PLOB17}.","A stronger zero-capacity regime is $t:=(\\kappa-1)b\\geq1/2$. For $0<t<1/2$, decomposition through an additive-noise channel yields\n\\begin{equation}\n Q(\\mathcal A_{\\kappa,b})\\leq\\min\\left\\{\n \\log_2\\frac{1-t}{t},\\,\n -\\log_2(et)+2g_2\\!\\left(\\frac{\\sqrt{1+t^2}-1}{2}\\right)\\right\\}.\n \\label{eq:sc-amp-improved}\n\\end{equation}\nThe second term in Eq.~\\eqref{eq:sc-amp-improved} uses a degradable extension. These bounds follow from Eqs.~(21)--(23) of the arXiv version of Fanizza et al. \\sourcecite{ref:sc-fkg}{FKG21}. The later comparison in Sec.~III and Fig.~2 of Kianvash et al. retains a gap and reports no additional improvement for amplifiers \\sourcecite{ref:sc-kfg}{KFG24}."],"references":[{"key":"PLOB17","label":"ref:sc-plob","tex":"S. Pirandola, R. Laurenza, C. Ottaviani, and L. Banchi, ``Fundamental Limits of Repeaterless Quantum Communications,'' \\emph{Nature Communications} \\textbf{8}, 15043 (2017). \\href{https://doi.org/10.1038/ncomms15043}{doi:10.1038/ncomms15043}; \\href{https://arxiv.org/abs/1510.08863}{arXiv:1510.08863}."},{"key":"FKG21","label":"ref:sc-fkg","tex":"M. Fanizza, F. Kianvash, and V. Giovannetti, ``Estimating Quantum and Private Capacities of Gaussian Channels via Degradable Extensions,'' \\emph{Physical Review Letters} \\textbf{127}, 210501 (2021). \\href{https://doi.org/10.1103/PhysRevLett.127.210501}{doi:10.1103/PhysRevLett.127.210501}; \\href{https://arxiv.org/abs/2103.09569}{arXiv:2103.09569}."},{"key":"KFG24","label":"ref:sc-kfg","tex":"F. Kianvash, M. Fanizza, and V. Giovannetti, ``Low-Ground/High-Ground Capacity Regions Analysis for Bosonic Gaussian Channels,'' \\emph{International Journal of Quantum Information} \\textbf{22}, 2440005 (2024). \\href{https://doi.org/10.1142/S0219749924400057}{doi:10.1142/S0219749924400057}; \\href{https://arxiv.org/abs/2306.16350}{arXiv:2306.16350}."}],"comment":"The general exact value remains unresolved where the achievable rate and converses differ. In particular, positivity of a two-way assisted capacity cannot establish positivity here. The source review's entanglement-breaking zero region has been sharpened to $(\\kappa-1)b\\geq1/2$."}}
+---
+## Source
+
+The exact noisy-amplifier quantum capacity is studied through nonmatching bounds by Fanizza, Kianvash, and Giovannetti, in their section “Upper bounds for the thermal amplifier” [FKG21](https://doi.org/10.1103/PhysRevLett.127.210501). Kianvash, Fanizza, and Giovannetti compare the known bounds in Sec. III and Fig. 2 [KFG24](https://doi.org/10.1142/S0219749924400057).
+
+## Progress
+
+Let $g_2(x)=(x+1)\log_2(x+1)-x\log_2x$, with $g_2(0)=0$. Coherent information and the PLOB converse give
+
+$$
+\max\left\{0,\log_2\frac\kappa{\kappa-1}-g_2(b)\right\}
+ \leq Q(\mathcal A_{\kappa,b})
+ \leq\log_2\frac{\kappa^{b+1}}{\kappa-1}-g_2(b),\qquad 0\leq b<\frac1{\kappa-1}.
+\tag{3}
+$$
+
+The bounds in Eq. (3) coincide at $b=0$, giving $Q(\mathcal A_{\kappa,0})=\log_2[\kappa/(\kappa-1)]$. See Eqs. (26)–(28) and Supplementary Note 4 [PLOB17](https://doi.org/10.1038/ncomms15043).
+
+A stronger zero-capacity regime is $t:=(\kappa-1)b\geq1/2$. For $0<t<1/2$, decomposition through an additive-noise channel yields
+
+$$
+Q(\mathcal A_{\kappa,b})\leq\min\left\{
+ \log_2\frac{1-t}{t},\,
+ -\log_2(et)+2g_2\!\left(\frac{\sqrt{1+t^2}-1}{2}\right)\right\}.
+\tag{4}
+$$
+
+The second term in Eq. (4) uses a degradable extension. These bounds follow from Eqs. (21)–(23) of the arXiv version of Fanizza et al. [FKG21](https://doi.org/10.1103/PhysRevLett.127.210501). The later comparison in Sec. III and Fig. 2 of Kianvash et al. retains a gap and reports no additional improvement for amplifiers [KFG24](https://doi.org/10.1142/S0219749924400057).
+
+## Comment
+
+The general exact value remains unresolved where the achievable rate and converses differ. In particular, positivity of a two-way assisted capacity cannot establish positivity here. The source review’s entanglement-breaking zero region has been sharpened to $(\kappa-1)b\geq1/2$.
+
+## References
+
+**PLOB17** S. Pirandola, R. Laurenza, C. Ottaviani, and L. Banchi, “Fundamental Limits of Repeaterless Quantum Communications,” *Nature Communications* **8**, 15043 (2017). [doi:10.1038/ncomms15043](https://doi.org/10.1038/ncomms15043); [arXiv:1510.08863](https://arxiv.org/abs/1510.08863).
+
+**FKG21** M. Fanizza, F. Kianvash, and V. Giovannetti, “Estimating Quantum and Private Capacities of Gaussian Channels via Degradable Extensions,” *Physical Review Letters* **127**, 210501 (2021). [doi:10.1103/PhysRevLett.127.210501](https://doi.org/10.1103/PhysRevLett.127.210501); [arXiv:2103.09569](https://arxiv.org/abs/2103.09569).
+
+**KFG24** F. Kianvash, M. Fanizza, and V. Giovannetti, “Low-Ground/High-Ground Capacity Regions Analysis for Bosonic Gaussian Channels,” *International Journal of Quantum Information* **22**, 2440005 (2024). [doi:10.1142/S0219749924400057](https://doi.org/10.1142/S0219749924400057); [arXiv:2306.16350](https://arxiv.org/abs/2306.16350).

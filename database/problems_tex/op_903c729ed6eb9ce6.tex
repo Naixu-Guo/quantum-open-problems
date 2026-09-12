@@ -1,0 +1,82 @@
+% Problem record op_903c729ed6eb9ce6. This TeX file is derived from
+% database/problems_json/op_903c729ed6eb9ce6.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Average-case additive hardness of squared complex Gaussian hafnians}
+\label{sec:op_903c729ed6eb9ce6}
+
+\paragraph{Problem.}
+Is additive estimation of squared complex Gaussian hafnians $\#\mathrm P$-hard under randomized polynomial-time oracle reductions?
+For $n\geq1$, let $X=X^T\in\mathbb C^{2n\times2n}$ have zero diagonal.
+Its entries above the diagonal are independent with density $\pi^{-1}e^{-|z|^2}$.
+Let $\mathcal M_{2n}$ be the perfect matchings of $\{1,\ldots,2n\}$ and define
+\begin{equation}
+ \operatorname{Haf}X=\sum_{M\in\mathcal M_{2n}}\prod_{\{i,j\}\in M}X_{ij},
+ \qquad h_n=(2n-1)!!=\frac{(2n)!}{2^n n!}.
+ \label{eq:ghe-hafnian}
+\end{equation}
+Given $0<\varepsilon,\delta<1$, an estimator must output $\widehat p\in\mathbb R$ with
+\begin{equation}
+ \Pr\!\left[\left|\widehat p-|\operatorname{Haf}X|^2\right|
+                   \leq\varepsilon h_n\right]\geq1-\delta.
+ \label{eq:ghe-estimation}
+\end{equation}
+Probability in Eq.~\eqref{eq:ghe-estimation} includes both $X$ and the estimator's randomness.
+The binary input is a truncated, rounded copy $\widetilde X$.
+Use $\operatorname{poly}(n,\log(1/\varepsilon),\log(1/\delta))$ bits per entry.
+Choose the precision so that the squared hafnians of $X$ and $\widetilde X$ differ by at most $\varepsilon h_n/2$, except with probability $\delta/2$.
+Reduction cost is polynomial in the binary input length, $1/\varepsilon$, and $1/\delta$.
+Here $\#\mathrm P$ is the class of functions counting accepting paths of nondeterministic polynomial-time machines.
+The target normalization $h_n$ is defined in Eq.~\eqref{eq:ghe-hafnian}.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+This explicit ensemble and additive normalization refine the hafnian-of-Gaussians discussion following Eq.~(11) of Hamilton et al. \sourcecite{ref:ghe-hamilton}{HKS+17}.
+The formulation distinguishes additive squared-hafnian estimation from multiplicative hafnian estimation; the paper does not state this precise normalized problem as a numbered conjecture.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Hamilton et al., Eq.~(7), use the identity
+\begin{equation}
+ \operatorname{Haf}\begin{pmatrix}0&G\\G^T&0\end{pmatrix}
+ =\operatorname{Per}G.
+ \label{eq:ghe-block}
+\end{equation}
+Here $G$ is any square matrix and $\operatorname{Per}G$ is its permanent.
+Equation~\eqref{eq:ghe-block} transfers worst-case permanent evaluation hardness to hafnians.
+The block matrices in this reduction are not typical independent symmetric Gaussian samples \sourcecite{ref:ghe-hamilton}{HKS+17}.
+
+  \item Independence and the matching expansion give $\mathbb E|\operatorname{Haf}X|^2=h_n$.
+Distinct matchings have vanishing cross terms.
+This elementary normalization calculation does not provide an average-case reduction at error $\varepsilon h_n$.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[HKS+17]}]\label{ref:ghe-hamilton}
+  C. S. Hamilton, R. Kruse, L. Sansoni, S. Barkhofen, C. Silberhorn, and I. Jex, "Gaussian Boson Sampling," \emph{Physical Review Letters} \textbf{119}, 170501 (2017). \href{https://doi.org/10.1103/PhysRevLett.119.170501}{doi:10.1103/PhysRevLett.119.170501}; \href{https://arxiv.org/abs/1612.01199}{arXiv:1612.01199}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The unresolved claim is average-case additive approximation hardness for independent complex entries above the diagonal.
+Worst-case hardness, exact average-case evaluation, and Gaussian-product ensembles $YY^T$ do not by themselves imply it.
+The hafnian lower-tail question is a separate auxiliary problem, not an equivalent hardness claim.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Boson sampling; Computational complexity and computability
+
+\subsection*{ID}
+
+\texttt{op\_903c729ed6eb9ce6}
