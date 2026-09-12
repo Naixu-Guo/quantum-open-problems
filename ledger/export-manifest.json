@@ -1,23 +1,23 @@
 {
   "schema": "qiqcop-zoo/ledger-export/2",
   "source": "database/problems_json",
-  "generatedAt": "2026-09-12T05:57:38.348Z",
+  "generatedAt": "2026-09-12T08:23:12.802Z",
   "migrationTimestamp": "2026-09-04T22:04:59Z",
   "counts": {
     "Actor": 2,
-    "Problem": 187,
-    "Reference": 504,
+    "Problem": 188,
+    "Reference": 505,
     "Statement": 129,
-    "Source": 420,
+    "Source": 421,
     "Taxonomy": 4
   },
   "projectionCounts": {
     "Actor": 2,
     "Taxonomy": 1,
-    "Source": 385,
+    "Source": 386,
     "Problem": 112,
     "Statement": 112,
-    "Reference": 489
+    "Reference": 490
   },
   "files": [
     "activity/README.md",
@@ -451,10 +451,12 @@
     "ledger/problems/op-7e7e4a25fef5c994/statements/v1.md",
     "ledger/problems/op-87c77263c8bab523/problem.r1.md",
     "ledger/problems/op-87c77263c8bab523/problem.r2.md",
+    "ledger/problems/op-87c77263c8bab523/problem.r3.md",
     "ledger/problems/op-87c77263c8bab523/references/01M1Q787QR30D8R81XHTK4MKWT.r1.md",
     "ledger/problems/op-87c77263c8bab523/references/01M1Q787QRAQ0DEAA71K8S90X5.r1.md",
     "ledger/problems/op-87c77263c8bab523/references/01M1Q787QRSXCB1M2FNQEM18JV.r1.md",
     "ledger/problems/op-87c77263c8bab523/references/01M1Q787QRV95B6TF4QG8RDMYD.r1.md",
+    "ledger/problems/op-87c77263c8bab523/references/01M29R893JN9SWH8GQYCZH48C9.r1.md",
     "ledger/problems/op-87c77263c8bab523/statements/v1.md",
     "ledger/problems/op-89fb664ba06ba5de/problem.r1.md",
     "ledger/problems/op-89fb664ba06ba5de/references/01M1Q787QR93CRVBCQ5D3GQS73.r1.md",
@@ -1264,6 +1266,7 @@
     "ledger/sources/01M272J3AWS6NZ6J8JJEZ903EX.r1.md",
     "ledger/sources/01M272J3AWWWXKPTMNR9HAYK2N.r1.md",
     "ledger/sources/01M27WWKW3CPX1KNSH63H6RX8C.r1.md",
+    "ledger/sources/01M29R893JEZ6NY0Y0PJ3QAMA4.r1.md",
     "ledger/taxonomy.r1.md",
     "ledger/taxonomy.r2.md",
     "ledger/taxonomy.r3.md",
@@ -2505,6 +2508,9 @@
     "ledger/problems/op-64e58085fa92c1a8/references/01M27WWKW310KEHVFWPQ9N6EA1.r1.md": "48bae89ca2e1cad2d6d6ccd60ed6052629edb236e491a7d9dfe09714620d5e9f",
     "ledger/problems/op-64e58085fa92c1a8/references/01M27WWKW36YR2VMY9Q8JAYD0X.r1.md": "b395e8c32df7b7a6a968bbbe24a738c09437720966e4b8d0e837b03e13fd87fb",
     "ledger/problems/op-64e58085fa92c1a8/references/01M27WWKW3TH2NBQBEXSWN3522.r1.md": "84e37f682b767a2d681472a7000e78090db61e5997903fe8bd902f52b085e0fe",
+    "ledger/sources/01M29R893JEZ6NY0Y0PJ3QAMA4.r1.md": "76e64467047a34022d9fe9e6315797eab92b5c4392115596d6a2cee65d01be78",
+    "ledger/problems/op-87c77263c8bab523/problem.r3.md": "e5eecffb13ea0e8b6a0ec558acf301c94ee768eb34c59060b8fbf4b1eab9dc97",
+    "ledger/problems/op-87c77263c8bab523/references/01M29R893JN9SWH8GQYCZH48C9.r1.md": "8141964478f7356d82c79d09ebe016c087f4985570b549ec5663eb73c46efd58",
     "ledger/sources/01M24R954XVRPZ8CB4WWVBXWBB.r1.md": "87dac9d7dc9f2d2cedd6558af0eea1b7bf8b51035947921b1c86e2adb9736b24",
     "ledger/sources/01M24R954XYJYCCHA3VFNEGCBJ.r1.md": "f632a495f749f00486af8e63e5696e5dc739f59037d2f433577b650ffa0f596a",
     "ledger/problems/op-7249a79e1534f6ab/problem.r2.md": "e918f65cc651fb661b6ef2fd6222a683800fec2f145c5a77aec0230e75123afc",
@@ -7385,8 +7391,8 @@
       }
     },
     "ledger/problems/op-87c77263c8bab523/problem.r1.md": {
-      "path": "ledger/problems/op-87c77263c8bab523/problem.r2.md",
-      "digest": "0123359f496b509339409c71b521d66c6a2e4986543f988c7346324583f858f5",
+      "path": "ledger/problems/op-87c77263c8bab523/problem.r3.md",
+      "digest": "cdebc875e3f345e408e5eb6c52360337f0b5d345167b268b6b003ef873a7d2f4",
       "fields": {
         "id": "13c6e9dd791f1efb8f13dc572a583c03464a354368fee2b2d5aab6295072783a",
         "type": "4fe9111f3ff04295b0e5f2fd9eb8e8493757dc39f18f14b4d5810da0a5a01903",
@@ -7407,8 +7413,8 @@
         "relatedProblemIds": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "title": "ead3e90beccbb4b5426930bd62d3e23301509b27696f3ecb3011118b0c27c4a3",
         "aliases": "aa0015ecc8ee0dfe458ba2fb9577853a7e237489ee980a5b01cb0af9d9b674e3",
-        "authoredCatalog": "0b3a3eb6fef1861521a4da632f00dbfb8c98ec573706a2ccd093c1e30d292c49",
-        "body": "86af5582f1bd6c1968e0640ad79c801530bfbe90e45a3d6080cfea9ff52d1e61"
+        "authoredCatalog": "ac66bdd0204ce1c07dd8dc9ac9e0da45d6e0b4280c01681090d338d63797172c",
+        "body": "c3a4a3d8d2e40c81cba5839935d12d7a6c5eedd15904b034e65fd6f1073f30a0"
       }
     },
     "ledger/problems/op-87c77263c8bab523/references/01M1Q787QR30D8R81XHTK4MKWT.r1.md": {
@@ -25039,6 +25045,47 @@
         "body": "9d3e6ca44f80db77354b92b71e468e71e4aeda80ff0714670dc817b0aebf45bc"
       }
     },
+    "ledger/sources/01M29R893JEZ6NY0Y0PJ3QAMA4.r1.md": {
+      "path": "ledger/sources/01M29R893JEZ6NY0Y0PJ3QAMA4.r1.md",
+      "digest": "f7ef71480a552f0fdf9bf6629b2e7d5de7b6905e99a481530a6e715ef0e18f6a",
+      "fields": {
+        "id": "e57908694b3ac4e223b86b41a1df54839605f81db6bb68e25ee1d8bf5e7940ac",
+        "schemaVersion": "a51162aeeb057ca4e3df627977231de20b581f0d0d418ca3a111bc0e408ac6cc",
+        "revision": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+        "createdBy": "a70f736e8985cd5c6614e0d82e59a2ad2136278e7561b5bf344ee428d887b7a1",
+        "createdAt": "0a0eb35351a3723d4d271359911337791ceee560484c7589d1a1617da400910b",
+        "type": "6165ee130f0082e83c5dbe4e93c65bccc46ae9edddd01edc9586c280109ad96f",
+        "title": "eaf9333090e565fa646613aa662fbdcc678aab96a1abbbbce93c82dca3ef9ce1",
+        "kind": "bc14f33623eee37cb4fa2a3c8423b9bc8723a4aaed04de7dbafd9391779c6061",
+        "completeness": "8ac24611cfe47c129e37108bc6adc6843c4fe8fb9c37c27fac8a1835ba660307",
+        "authors": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "venue": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126",
+        "date": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "doi": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "arxivId": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "url": "e1849e668d2045b10f77b13b28ae720a65866f38894df9c0598b8f77c0261635",
+        "version": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "body": "50f363061efbe33ab4619de14979b459f81deee31de12ee1c8fcfd4e89d9e9b0"
+      }
+    },
+    "ledger/problems/op-87c77263c8bab523/references/01M29R893JN9SWH8GQYCZH48C9.r1.md": {
+      "path": "ledger/problems/op-87c77263c8bab523/references/01M29R893JN9SWH8GQYCZH48C9.r1.md",
+      "digest": "ed19b80a1a0a9a70f14e7427ec8be0fe71174937c59b18363b1e89279851ee57",
+      "fields": {
+        "id": "b41fde1fd75ddb30faf6dda8d7ef73c3bac20b57393e7eaef9abaed61ccf5e01",
+        "schemaVersion": "a51162aeeb057ca4e3df627977231de20b581f0d0d418ca3a111bc0e408ac6cc",
+        "revision": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+        "createdBy": "a70f736e8985cd5c6614e0d82e59a2ad2136278e7561b5bf344ee428d887b7a1",
+        "createdAt": "0a0eb35351a3723d4d271359911337791ceee560484c7589d1a1617da400910b",
+        "type": "62bf2677b9ec30fcd1213616c78b6ede91fcf2778e6e1e06139f7a0ee9a2f22b",
+        "sourceId": "e57908694b3ac4e223b86b41a1df54839605f81db6bb68e25ee1d8bf5e7940ac",
+        "targetType": "addacb98157ad3b5e9173e8e75df27123d7d7a8d0d476c1f6a03196a4ade7e31",
+        "targetId": "13c6e9dd791f1efb8f13dc572a583c03464a354368fee2b2d5aab6295072783a",
+        "role": "f8d9a80af3b79c0e63f54cb2140df8adbe7bc15a3c62cbd4c401130409be9e4c",
+        "locator": "d15a30ebe5401c9922e6128a0d16e1f68d0fda979ca3d7f4e29c629b5484cbd7",
+        "body": "50f363061efbe33ab4619de14979b459f81deee31de12ee1c8fcfd4e89d9e9b0"
+      }
+    },
     "ledger/problems/op-7249a79e1534f6ab/references/01M24R954X4ST65MS0QP89CZB9.r1.md": {
       "path": "ledger/problems/op-7249a79e1534f6ab/references/01M24R954X4ST65MS0QP89CZB9.r1.md",
       "digest": "8cdd8947188350cbfb769c8f4904c652f288ff35abb7beb9e000db3792cdf6c6",
@@ -25626,6 +25673,8 @@
     "reference:op_64e58085fa92c1a8:ref:sqbd-wootters": "01M27WWKW310KEHVFWPQ9N6EA1",
     "reference:op_64e58085fa92c1a8:ref:sqbd-brandao-christandl-yard": "01M27WWKW36YR2VMY9Q8JAYD0X",
     "reference:op_64e58085fa92c1a8:ref:sqbd-fawzi-fawzi": "01M27WWKW3TH2NBQBEXSWN3522",
+    "source:url:https://github.com/naixu-guo/quantum-open-problems/blob/main/database/proofs/ordinary-petz.md": "01M29R893JEZ6NY0Y0PJ3QAMA4",
+    "reference:op_87c77263c8bab523:ref:p70-peter-counterexamples": "01M29R893JN9SWH8GQYCZH48C9",
     "reference:op_7249a79e1534f6ab:ref:7249-akm-smoothed": "01M24R954X4ST65MS0QP89CZB9",
     "reference:op_7249a79e1534f6ab:ref:7249-babai": "01M24R954XDY7N9A6BCA6Z1D7S",
     "reference:op_7249a79e1534f6ab:ref:7249-babai-update": "01M25EYM6KZ2TCQJVHTWNM9HPH",

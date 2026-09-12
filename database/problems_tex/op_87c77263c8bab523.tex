@@ -40,7 +40,7 @@ with the recovered systems ordered canonically as $ABC$.
 
 \subsection*{Status}
 
-Unsolved
+Solved
 
 \subsection*{Source}
 
@@ -54,6 +54,47 @@ inequality explicitly in Section~12.7
 \subsection*{Progress}
 
 \begin{itemize}
+  \item Peter supplied two explicit three-qubit counterexamples to
+Eq.~\eqref{eq:p70-ordinary-petz-cmi} through the project submission inbox
+on 10 September 2026. For the rank-three example, in computational
+$ABC$ order, set
+\begin{equation}
+  \begin{aligned}
+    v_1&=4\lvert111\rangle,\qquad
+    v_2=3(\lvert011\rangle-\lvert101\rangle),\\
+    v_3&=5\lvert001\rangle+\lvert010\rangle+\lvert100\rangle,\qquad
+    \rho_{ABC}=\frac1{61}\sum_{j=1}^3\lvert v_j\rangle\!\langle v_j\rvert.
+  \end{aligned}
+  \label{eq:p70-counterexample}
+\end{equation}
+The vectors in Eq.~\eqref{eq:p70-counterexample} are orthogonal with
+squared norms $16,18,27$, so they define a rank-three density operator.
+Its marginals satisfy
+\begin{equation}
+  \rho_{AC}=\rho_{BC}=\frac1{61}
+  \begin{pmatrix}1&0&0&0\\0&34&5&0\\0&5&1&0\\0&0&0&25\end{pmatrix},
+  \qquad \rho_C=\frac1{61}\operatorname{diag}(2,59).
+  \label{eq:p70-counterexample-marginals}
+\end{equation}
+Thus the inverse in Eq.~\eqref{eq:p70-petz-map} is an ordinary inverse.
+For $\sigma_{ABC}=(\operatorname{id}_B\otimes\mathcal P^{\rho}_{C\to AC})(\rho_{BC})$,
+independent exact symbolic reconstruction and rational interval arithmetic give
+\begin{equation}
+  \begin{aligned}
+    I(A;B\mid C)_\rho&=0.48665355975796833566\ldots,\\
+    -\log_2F(\rho_{ABC},\sigma_{ABC})&=0.49106481978485687802\ldots,\\
+    -0.004412&<I(A;B\mid C)_\rho+\log_2F(\rho_{ABC},\sigma_{ABC})<-0.0044<0.
+  \end{aligned}
+  \label{eq:p70-certified-gap}
+\end{equation}
+Equation~\eqref{eq:p70-certified-gap} disproves the universal inequality
+with exactly the map and squared-fidelity convention in the statement.
+A second, rank-two example has a separately certified gap between
+$-0.000881$ and $-0.000880$. Both constructions, their exact fidelity
+matrices, and an independently written verifier are recorded in the
+\href{https://github.com/Naixu-Guo/quantum-open-problems/blob/main/database/proofs/ordinary-petz.md}{counterexample note}
+\sourcecite{ref:p70-peter-counterexamples}{Pet26}.
+
   \item Sutter, Tomamichel, and Harrow proved a strengthened data-processing
   inequality using a pinched Petz map, equivalently a convex combination of
   rotated Petz maps.  Their result yields a conditional-mutual-information
@@ -112,15 +153,24 @@ inequality explicitly in Section~12.7
   Entropy,'' \emph{Annales Henri Poincar\'e} \textbf{19}, 2955--2978 (2018).
   \href{https://doi.org/10.1007/s00023-018-0716-0}{doi:10.1007/s00023-018-0716-0};
   \href{https://arxiv.org/abs/1509.07127}{arXiv:1509.07127}.
+
+  \item[\textup{[Pet26]}]\label{ref:p70-peter-counterexamples}
+  Peter, ``Two three-qubit counterexamples to the ordinary-Petz CMI bound,''
+project submissions (10 September 2026), consolidated and independently
+verified for QIQCOP Zoo (12 September 2026).
+\href{https://github.com/Naixu-Guo/quantum-open-problems/blob/main/database/proofs/ordinary-petz.md}{Counterexample note and exact verification certificate}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-The unresolved requirement is the specific map in
-Eq.~\eqref{eq:p70-petz-map}, without rotations, pinching, averaging, or an
-optimization over recovery channels.  The general data-processing
-counterexample recorded in \href{https://qiqc-op.com/problem/op_cbc0bf88b109b122/}{the ordinary-Petz data-processing problem} does not have the constrained
-partial-trace and compatible-marginal structure imposed here.
+The ordinary-map requirement in Eq.~\eqref{eq:p70-petz-map} is now
+settled negatively by the compatible-marginal counterexamples above.
+The results using rotations, pinching, averaging, or optimized recovery
+channels remain valid. The counterexamples were submitted by Peter and
+verified for this catalog with exact symbolic identities and rigorous
+rational intervals; no external peer review, proof-assistant kernel check,
+or historical-priority claim is asserted
+\sourcecite{ref:p70-peter-counterexamples}{Pet26}.
 
 \subsection*{Field}
 
