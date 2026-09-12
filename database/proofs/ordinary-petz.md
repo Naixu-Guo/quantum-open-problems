@@ -13,7 +13,7 @@ For a state $\rho_{ABC}$, set
 
 $$
 I(A;B\mid C)_\rho=S(\rho_{AC})+S(\rho_{BC})-S(\rho_C)-S(\rho_{ABC}),
-\qquad S(\tau)=-\operatorname{Tr}(\tau\log_2\tau).
+\qquad S(\tau)=-\mathrm{Tr}(\tau\log_2\tau).
 $$
 
 Define
@@ -21,11 +21,11 @@ Define
 $$
 \mathcal P_{C\to AC}(X)=\rho_{AC}^{1/2}
  (I_A\otimes\rho_C^{-1/2}X\rho_C^{-1/2})\rho_{AC}^{1/2},
-\qquad \sigma=(\operatorname{id}_B\otimes\mathcal P)(\rho_{BC}),
+\qquad \sigma=(\mathrm{id}_B\otimes\mathcal P)(\rho_{BC}),
 $$
 
 with the output permuted into $ABC$ order, and use **squared** fidelity
-$F(\rho,\sigma)=\|\sqrt\rho\sqrt\sigma\|_1^2$.
+$F(\rho,\sigma)=\lVert\sqrt\rho\sqrt\sigma\rVert_1^2$.
 Both examples below satisfy
 
 $$
@@ -51,19 +51,24 @@ rank-three density matrix with nonzero spectrum $(16,18,27)/61$. Partial traces 
 
 $$
 \rho_{AC}=\rho_{BC}=\frac1{61}
-\begin{pmatrix}1&0&0&0\\0&34&5&0\\0&5&1&0\\0&0&0&25\end{pmatrix},
-\qquad \rho_C=\frac1{61}\operatorname{diag}(2,59).
+\begin{pmatrix}
+1&0&0&0\cr
+0&34&5&0\cr
+0&5&1&0\cr
+0&0&0&25
+\end{pmatrix},
+\qquad \rho_C=\frac1{61}\mathrm{diag}(2,59).
 $$
 
 Both two-body marginals have spectrum
-$\{1/61,25/61,(35-\sqrt{1189})/122,(35+\sqrt{1189})/122\}$.
+$\lbrace 1/61,25/61,(35-\sqrt{1189})/122,(35+\sqrt{1189})/122\rbrace$.
 All marginal eigenvalues are strictly positive.
 
 Write $N=[v_1\ v_2\ v_3]$ and $K=N^\dagger\sigma N/61$.
 Exact evaluation of the Petz map yields
 
 $$
-K=\operatorname{diag}\left(
+K=\mathrm{diag}\left(
 \frac{10000}{219539},\quad
 \frac{1256625}{18002198}-\frac{1125\sqrt{4838}}{9001099},\quad
 \frac{1253419}{9001099}+\frac{950\sqrt{4838}}{9001099}
@@ -71,20 +76,20 @@ K=\operatorname{diag}\left(
 $$
 
 Since $\rho=NN^\dagger/61$, the nonzero eigenvalues of
-$\sqrt\rho\,\sigma\sqrt\rho$ equal those of $K$: apply the equality of the
+$\sqrt\rho\thinspace \sigma\sqrt\rho$ equal those of $K$: apply the equality of the
 nonzero spectra of $TT^\dagger$ and $T^\dagger T$, first to
 $T=\sqrt\sigma\sqrt\rho$ and then to $T=\sqrt\sigma N/\sqrt{61}$.
-Therefore $F=(\operatorname{Tr}\sqrt K)^2$.
+Therefore $F=(\mathrm{Tr}\thinspace \sqrt K)^2$.
 
 The independent certificate encloses the quantities as follows; the decimal
 endpoints are rounded outwards:
 
 | Quantity | Lower bound | Upper bound |
 | --- | --- | --- |
-| $I(A;B\mid C)$ | 0.486653559757968335 | 0.486653559757968336 |
-| $F$ | 0.711499762463045866 | 0.711499762463045867 |
-| $-\log_2 F$ | 0.491064819784856878 | 0.491064819784856879 |
-| $\Delta$ | -0.004411260026888543 | -0.004411260026888542 |
+| $I(A;B\mid C)$ | $0.486653559757968335$ | $0.486653559757968336$ |
+| $F$ | $0.711499762463045866$ | $0.711499762463045867$ |
+| $-\log_2 F$ | $0.491064819784856878$ | $0.491064819784856879$ |
+| $\Delta$ | $-0.004411260026888543$ | $-0.004411260026888542$ |
 
 In particular, $-0.004412<\Delta<-0.0044<0$.
 
@@ -102,18 +107,23 @@ Here $v\perp w$ with squared norms $102,2$. The marginal matrices are
 
 $$
 \rho_{AC}=\rho_{BC}=\frac1{104}
-\begin{pmatrix}101&0&0&10\\0&1&0&0\\0&0&1&0\\10&0&0&1\end{pmatrix},
-\qquad \rho_C=\frac1{104}\operatorname{diag}(102,2).
+\begin{pmatrix}
+101&0&0&10\cr
+0&1&0&0\cr
+0&0&1&0\cr
+10&0&0&1
+\end{pmatrix},
+\qquad \rho_C=\frac1{104}\mathrm{diag}(102,2).
 $$
 
-The nonzero spectra of $\rho$ and $\rho_C$ are both $\{51/52,1/52\}$;
+The nonzero spectra of $\rho$ and $\rho_C$ are both $\lbrace 51/52,1/52\rbrace$;
 the two-body marginal spectra are
-$\{(51-10\sqrt{26})/104,(51+10\sqrt{26})/104,1/104,1/104\}$.
+$\lbrace (51-10\sqrt{26})/104,(51+10\sqrt{26})/104,1/104,1/104\rbrace$.
 For $N=[v\ w]$, the exact fidelity matrix is
 
 $$
 \frac{N^\dagger\sigma N}{104}
-=\operatorname{diag}\left(
+=\mathrm{diag}\left(
 \frac{13460851+5150\sqrt{1326}}{14342016},\quad
 \frac{3251-50\sqrt{1326}}{14342016}\right).
 $$
@@ -122,10 +132,10 @@ Applying the same fidelity reduction gives:
 
 | Quantity | Lower bound | Upper bound |
 | --- | --- | --- |
-| $I(A;B\mid C)$ | 0.041249766078611949 | 0.041249766078611950 |
-| $F$ | 0.971219850913972976 | 0.971219850913972977 |
-| $-\log_2 F$ | 0.042130185523516769 | 0.042130185523516770 |
-| $\Delta$ | -0.000880419444904821 | -0.000880419444904820 |
+| $I(A;B\mid C)$ | $0.041249766078611949$ | $0.041249766078611950$ |
+| $F$ | $0.971219850913972976$ | $0.971219850913972977$ |
+| $-\log_2 F$ | $0.042130185523516769$ | $0.042130185523516770$ |
+| $\Delta$ | $-0.000880419444904821$ | $-0.000880419444904820$ |
 
 Thus $-0.000881<\Delta<-0.000880<0$. The first submission referenced a ZIP
 archive that was not present in the inbox; verification here reconstructs this
@@ -148,7 +158,7 @@ marginal spectra. The recovered state is positive because it is explicitly a
 congruence of $I_A\otimes\rho_{BC}$, and the script checks its trace is one.
 
 For each positive $2\times2$ block $M$, the square root is derived using
-$(M+\sqrt{\det M}\,I)/\sqrt{\operatorname{Tr}M+2\sqrt{\det M}}$.
+$(M+\sqrt{\det M}\thinspace I)/\sqrt{\mathrm{Tr}\thinspace M+2\sqrt{\det M}}$.
 Its square and positive leading principal minors are checked exactly.
 
 All final enclosures use `Fraction` arithmetic, with no floating-point sign
@@ -163,7 +173,7 @@ $$
 0\leq R\leq\frac{2z^{121}}{121(1-z^2)}.
 $$
 
-The remainder bound follows by replacing all omitted denominators by 121 and
+The remainder bound follows by replacing all omitted denominators by $121$ and
 summing a geometric series. Interval arithmetic propagates these bounds through
 the entropy, fidelity and gap. The final assertions certify the strict negative
 rational bounds for both examples. This is a reproducible computer-assisted
