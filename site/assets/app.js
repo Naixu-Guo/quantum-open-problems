@@ -163,7 +163,11 @@
     unsolved: { label: "Unsolved", title: "No complete solution is known." },
     solved: { label: "Solved", title: "A complete solution is known; see Progress and Comment." }
   };
-  const tagHtml = (name, kind) => `<li><a class="tag tag-${kind}" href="${root}tag/${slugify(name)}/" title="${kind === "field" ? "Field" : "Topic"}: ${escapeHtml(name)}">${escapeHtml(name)}</a></li>`;
+  // Match the title-case field labels rendered by the static templates.
+  const tagLabel = (name, kind) => kind === "field"
+    ? name.replace(/\b[a-z]/g, (letter) => letter.toUpperCase())
+    : name;
+  const tagHtml = (name, kind) => `<li><a class="tag tag-${kind}" href="${root}tag/${slugify(name)}/" title="${kind === "field" ? "Field" : "Topic"}: ${escapeHtml(tagLabel(name, kind))}">${escapeHtml(tagLabel(name, kind))}</a></li>`;
   const cardHtml = (problem) => {
     const meta = statusMeta[problem.statusSlug];
     return `<article class="problem-card status-${problem.statusSlug}" data-id="${problem.id}">
@@ -379,7 +383,7 @@
       let items = [];
       const render = () => {
         if (list) {
-          list.innerHTML = items.map((item) => `<li><span class="tag tag-${kind}${item.custom ? " tag-new" : ""}">${escapeHtml(item.name)}${item.custom ? ' <span class="tag-count">new</span>' : ""}<button type="button" class="tag-remove" data-remove="${escapeHtml(item.name)}" aria-label="Remove ${escapeHtml(item.name)}">×</button></span></li>`).join("");
+          list.innerHTML = items.map((item) => `<li><span class="tag tag-${kind}${item.custom ? " tag-new" : ""}">${escapeHtml(tagLabel(item.name, kind))}${item.custom ? ' <span class="tag-count">new</span>' : ""}<button type="button" class="tag-remove" data-remove="${escapeHtml(item.name)}" aria-label="Remove ${escapeHtml(tagLabel(item.name, kind))}">×</button></span></li>`).join("");
         }
         const full = items.length >= max;
         if (select) { select.value = ""; select.disabled = full; }
