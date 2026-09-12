@@ -1,0 +1,63 @@
+% Problem record op_8682c870bea8ab4e. This TeX file is derived from
+% database/problems_json/op_8682c870bea8ab4e.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Wigner entropy conjecture}
+\label{sec:op_8682c870bea8ab4e}
+
+\paragraph{Problem.}
+Does every finite-energy single-mode state with a nonnegative Wigner function have Wigner entropy at least $1+\ln\pi$?
+Let $\rho$ be a density operator with $\operatorname{Tr}(\rho a^\dagger a)<\infty$, where $a=(q+ip)/\sqrt2$ and $[q,p]=i$. Require $W_\rho(q,p)\geq0$. Use the normalization $\int_{\mathbb R^2}W_\rho(q,p)\,dq\,dp=1$ and vacuum convention $W_{|0\rangle}(q,p)=\pi^{-1}e^{-q^2-p^2}$. With natural logarithms and $0\ln0=0$, the proposed bound is
+\begin{equation}
+ h_W(\rho):=-\int_{\mathbb R^2}W_\rho(q,p)\ln W_\rho(q,p)\,dq\,dp
+ \geq1+\ln\pi.
+ \label{eq:wigner-entropy}
+\end{equation}
+Prove Eq.~\eqref{eq:wigner-entropy} for all such physical states, or exhibit a density operator violating it.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Van Herstraeten and Cerf state the conjecture in Eq.~(10) of ``Quantum Wigner Entropy'' \sourcecite{ref:wigner-original}{VHC21}. The finite-energy restriction makes the moments and entropies used here finite.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Pure Gaussian states attain $h_W=1+\ln\pi$. The bound also holds for passive harmonic-oscillator states, whose Fock-state probabilities decrease with photon number; see Sec.~IV, especially Eq.~(44) \sourcecite{ref:wigner-original}{VHC21}.
+
+  \item Theorem~1 of Van Herstraeten and Cerf proves the bound for outputs obtained by applying a balanced beam splitter to a separable two-mode state and discarding one output. Such outputs are Wigner nonnegative. The theorem is a Wigner--R\'enyi entropy bound for orders at least $1/2$, including the Shannon limit in Eq.~\eqref{eq:wigner-entropy} \sourcecite{ref:wigner-bs}{VHC25}.
+
+  \item Qian and Gagatsos prove the sufficient condition $\mu\leq2/e$, where $\mu=\operatorname{Tr}\rho^2=2\pi\int W_\rho^2$, in Sec.~III.4, Eq.~(26). Their Proposition~1 concerns relaxed phase-space constraints; its extremizers need not represent positive density operators and do not disprove the conjecture \sourcecite{ref:wigner-purity}{QG26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[VHC21]}]\label{ref:wigner-original}
+  Z. Van Herstraeten and N. J. Cerf, ``Quantum Wigner Entropy,'' \emph{Physical Review A} \textbf{104}, 042211 (2021). \href{https://doi.org/10.1103/PhysRevA.104.042211}{doi:10.1103/PhysRevA.104.042211}; \href{https://arxiv.org/abs/2105.12843}{arXiv:2105.12843}.
+
+  \item[\textup{[VHC25]}]\label{ref:wigner-bs}
+  Z. Van Herstraeten and N. J. Cerf, ``Wigner Entropy Conjecture and the Interference Formula in Quantum Phase Space,'' \emph{Physical Review A} \textbf{112}, 062207 (2025). \href{https://doi.org/10.1103/1ftk-dm7l}{doi:10.1103/1ftk-dm7l}; \href{https://arxiv.org/abs/2411.05562}{arXiv:2411.05562}.
+
+  \item[\textup{[QG26]}]\label{ref:wigner-purity}
+  Q. Qian and C. N. Gagatsos, ``Upper Bounds on the Purity of Wigner Non-negative Quantum States That Verify the Wigner Entropy Conjecture,'' \emph{Physical Review A} \textbf{114}, 022408 (2026). \href{https://doi.org/10.1103/6vcd-qyj9}{doi:10.1103/6vcd-qyj9}; \href{https://arxiv.org/abs/2601.16898}{arXiv:2601.16898}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The remaining gap includes mixed physical states with $2/e<\mu<1$ outside the proved subclasses. The pure-state endpoint is Gaussian by Hudson's theorem and already attains equality. Nonnegativity and normalization of an arbitrary phase-space function do not ensure that it is a Wigner function of a density operator.
+
+\subsection*{Field}
+
+Quantum Communication
+
+\subsection*{Topic}
+
+Matrix and entropy inequalities; Gaussian quantum information
+
+\subsection*{ID}
+
+\texttt{op\_8682c870bea8ab4e}

@@ -1,0 +1,63 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_4b453163f7f8c748",
+  "ulid": "01M26KH5T8PTXGWXV0GP1JW6WC",
+  "aliases": [
+    "op_4b453163f7f8c748",
+    "01M26KH5T8PTXGWXV0GP1JW6WC",
+    "op-4b453163f7f8c748"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-10T21:28:11.336Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "derived",
+    "posed": null,
+    "areaIds": [
+      "quantum-resource-theory"
+    ],
+    "topicIds": [
+      "gaussian-quantum-information",
+      "bound-entanglement",
+      "entanglement-cost"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
+  "title": "LOCC entanglement cost of PPT-entangled Gaussian states",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum Resource Theory"
+  ],
+  "topics": [
+    "Gaussian quantum information",
+    "Bound entanglement",
+    "Entanglement cost"
+  ],
+  "statement": "What is the exact LOCC entanglement cost of a finite-energy PPT-entangled Gaussian state?\n\nLet $\\rho_V$ be a zero-mean Gaussian state of $m$ modes held by Alice and $n$ modes held by Bob, with integers $m,n\\geq2$. Assume that $\\rho_V$ is entangled and its partial transpose $\\rho_V^{T_B}$ is positive. Its finite covariance matrix and canonical quadratures satisfy\n\n\\begin{equation}\n\\begin{gathered}\nV_{jk}:=\\operatorname{Tr}\\rho_V\\{R_j,R_k\\},\\qquad\n[R_j,R_k]=i(\\Omega_{m+n})_{jk},\\\\\n\\Omega_k:=\\bigoplus_{j=1}^k\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}.\n\\end{gathered}\n\\label{eq:ser15-statement-1}\n\\end{equation}\n\nEquation~\\eqref{eq:ser15-statement-1} uses vacuum covariance $I$. The allowed channels $\\Lambda_N$ use unrestricted local operations and classical communication (LOCC). Define the Bell-pair density operator by\n\n\\begin{equation}\n\\Phi_2:=|\\phi_2\\rangle\\langle\\phi_2|,\\qquad\n|\\phi_2\\rangle:=(|00\\rangle+|11\\rangle)/\\sqrt2.\n\\label{eq:ser15-statement-2}\n\\end{equation}\n\nUsing Eq.~\\eqref{eq:ser15-statement-2}, the entanglement cost $E_C(\\rho_V)$ is the infimum of rates $r\\geq0$ for which LOCC channels $\\Lambda_N$ satisfy\n\n\\begin{equation}\n\\lim_{N\\to\\infty}\\|\\Lambda_N(\\Phi_2^{\\otimes\\lceil rN\\rceil})-\\rho_V^{\\otimes N}\\|_1=0.\n\\label{eq:ser15-statement-3}\n\\end{equation}\n\nDetermine the cost specified by Eq.~\\eqref{eq:ser15-statement-3} as a function of $V$. Separability means the trace-norm closed convex hull of product states. Here $\\|X\\|_1:=\\operatorname{Tr}\\sqrt{X^\\dagger X}$.",
+  "source": "This exact-evaluation question combines the PPT-entangled Gaussian family of Werner--Wolf, Section IV, with the infinite-dimensional operational cost theorem \\sourcecite{ref:ser15-1}{WW01}, \\sourcecite{ref:ser15-2}{YKHL25}.",
+  "progress": [
+    "Positive partial transpose does not imply Gaussian separability once both parties have two modes, and the logarithmic negativity vanishes on every state in this question:\n\n\\begin{equation}\n\\rho_V^{T_B}\\geq0\\quad\\Longrightarrow\\quad\n\\log_2\\|\\rho_V^{T_B}\\|_1=0.\n\\label{eq:ser15-progress-1-1}\n\\end{equation}\n\nDespite Eq.~\\eqref{eq:ser15-progress-1-1}, explicit four-mode counterexamples to the converse separability implication exist. \\sourcecite{ref:ser15-1}{WW01}",
+    "Theorem 7 of Yamasaki et al. applies because the local entropies are finite. Finite-energy Gaussian states satisfy the infinite-dimensional entanglement-cost formula\n\n\\begin{equation}\n\\begin{gathered}\nE_C(\\rho_V)=\\lim_{N\\to\\infty}\\frac{E_F(\\rho_V^{\\otimes N})}{N},\\\\\nE_F(\\omega):=\\inf_{\\mu:\\,\\int|\\psi\\rangle\\langle\\psi|\\,d\\mu(\\psi)=\\omega}\n\\int S(\\operatorname{Tr}_B|\\psi\\rangle\\langle\\psi|)\\,d\\mu(\\psi),\n\\end{gathered}\n\\label{eq:ser15-progress-2-1}\n\\end{equation}\n\nIn Eq.~\\eqref{eq:ser15-progress-2-1}, $\\mu$ ranges over probability measures on normalized pure states and $S(\\tau):=-\\operatorname{Tr}(\\tau\\log_2\\tau)$; this variational formula permits non-Gaussian decompositions. \\sourcecite{ref:ser15-2}{YKHL25}"
+  ],
+  "references": [
+    {
+      "key": "WW01",
+      "label": "ref:ser15-1",
+      "tex": "R. F. Werner and M. M. Wolf, \"Bound Entangled Gaussian States,\" \\emph{Physical Review Letters} \\textbf{86}, 3658--3661 (2001). \\href{https://doi.org/10.1103/PhysRevLett.86.3658}{doi:10.1103/PhysRevLett.86.3658}; \\href{https://arxiv.org/abs/quant-ph/0009118}{arXiv:quant-ph/0009118}."
+    },
+    {
+      "key": "YKHL25",
+      "label": "ref:ser15-2",
+      "tex": "H. Yamasaki, K. Kuroiwa, P. Hayden, and L. Lami, \"Entanglement Cost for Infinite-Dimensional Physical Systems,\" \\emph{Communications in Mathematical Physics} \\textbf{406}, 277 (2025). \\href{https://doi.org/10.1007/s00220-025-05431-1}{doi:10.1007/s00220-025-05431-1}; \\href{https://arxiv.org/abs/2401.09554}{arXiv:2401.09554}."
+    }
+  ],
+  "comment": "The regularized convex-roof characterization is established. Its exact evaluation for arbitrary PPT-entangled Gaussian covariances remains open. Replacing the unrestricted roof by a Gaussian roof or changing LOCC to PPT-preserving operations changes the question."
+}

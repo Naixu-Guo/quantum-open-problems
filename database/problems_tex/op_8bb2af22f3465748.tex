@@ -1,0 +1,69 @@
+% Problem record op_8bb2af22f3465748. This TeX file is derived from
+% database/problems_json/op_8bb2af22f3465748.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Single-seed post-processing of Gaussian POVM densities}
+\label{sec:op_8bb2af22f3465748}
+
+\paragraph{Problem.}
+Is every POVM with Gaussian density a classical post-processing of one displaced Gaussian seed?
+Fix $n\geq1$ bosonic modes with $[a_j,a_k^\dagger]=\delta_{jk}$.
+Let $(X,\Sigma)$ be a measurable outcome space and $\mu$ a positive measure.
+Let $x\mapsto\tau_x$ be a measurable family of Gaussian density operators.
+Assume $E(B):=\int_B\tau_x\,\mu(dx)$ defines a POVM and $E(X)=I$, with integrals in the weak operator sense.
+Define the displacements by Eq.~\eqref{eq:sr3-displacement}.
+\begin{equation}
+D(\alpha):=\exp\!\left(\sum_{j=1}^n\alpha_j a_j^\dagger-\overline\alpha_j a_j\right),\qquad \alpha\in\mathbb C^n.
+\label{eq:sr3-displacement}
+\end{equation}
+The question asks for a Gaussian density operator $\tau$ and a Markov probability kernel $K$ satisfying Eq.~\eqref{eq:sr3-postprocessing}.
+For each $\alpha$, $B\mapsto K(B\mid\alpha)$ is a probability measure on $(X,\Sigma)$.
+For each $B$, $\alpha\mapsto K(B\mid\alpha)$ is measurable.
+\begin{equation}
+E(B)=\int_{\mathbb C^n}K(B\mid\alpha)D(\alpha)\tau D(\alpha)^\dagger\,\frac{d^{2n}\alpha}{\pi^n}\qquad(B\in\Sigma).
+\label{eq:sr3-postprocessing}
+\end{equation}
+
+\subsection*{Status}
+
+Solved
+
+\subsection*{Source}
+
+This is an editorial formulation distinguishing Gaussian POVM densities from a single covariant Gaussian observable. Holevo's Secs.~2--3 describe the latter class, including the displaced-seed form in Eq.~(9) and the type-1 construction \sourcecite{ref:sr3-holevo}{Hol21}. The universal post-processing claim is not attributed to Holevo.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item The answer is negative. For one mode, set $|\psi_0\rangle=|0\rangle$ and $|\psi_1\rangle=\exp[(a^2-a^{\dagger2})/2]|0\rangle$. Randomly choose either displaced-seed measurement and retain the choice in the outcome. The density in Eq.~\eqref{eq:sr3-counterexample} is Gaussian and integrates to $I$.
+\begin{equation}
+E(j,d^2\alpha)=\frac12D(\alpha)|\psi_j\rangle\langle\psi_j|D(\alpha)^\dagger\,\frac{d^2\alpha}{\pi},\qquad j\in\{0,1\}.
+\label{eq:sr3-counterexample}
+\end{equation}
+Normalization follows from the covariant seed construction \sourcecite{ref:sr3-holevo}{Hol21}.
+
+  \item Here is a direct proof that Eq.~\eqref{eq:sr3-postprocessing} cannot hold for Eq.~\eqref{eq:sr3-counterexample}. For this counterexample, the outcome spaces are standard Borel. Weighting a putative joint POVM by a faithful state gives a probability measure that admits conditional disintegration. A positive mixture can have a rank-one density only when almost all contributing operators have that same one-dimensional support. Thus a post-processing of a fixed seed could produce these rank-one densities only from displacements of one pure seed. Displacements preserve covariance. The vacuum and squeezed-vacuum densities have different covariance matrices, giving a contradiction. This counterexample and its proof are supplied here, rather than claimed as a theorem of the cited paper.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Hol21]}]\label{ref:sr3-holevo}
+  A. S. Holevo, ``The Structure of General Quantum Gaussian Observable,'' \emph{Proceedings of the Steklov Institute of Mathematics} \textbf{313}, 70--77 (2021). \href{https://doi.org/10.1134/S0081543821020085}{doi:10.1134/S0081543821020085}; \href{https://arxiv.org/abs/2007.02340}{arXiv:2007.02340}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The explicit counterexample completely resolves this formulation. It is an editorial argument, not a separately peer-reviewed result. A POVM with Gaussian fine-grained densities need not have Gaussian densities after coarse-graining. This distinction does not contradict the published classification of Gaussian observables by their operator characteristic functions.
+
+\subsection*{Field}
+
+Quantum metrology
+
+\subsection*{Topic}
+
+Gaussian quantum information
+
+\subsection*{ID}
+
+\texttt{op\_8bb2af22f3465748}

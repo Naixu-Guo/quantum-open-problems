@@ -1,0 +1,64 @@
+% Problem record op_ba39e7a80122b256. This TeX file is derived from
+% database/problems_json/op_ba39e7a80122b256.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Entropy photon-number inequality}
+\label{sec:op_ba39e7a80122b256}
+
+\paragraph{Problem.}
+Does the entropy photon-number inequality hold for every pair of independent finite-energy bosonic inputs?
+Let $n\geq1$ and $0\leq\eta\leq1$. The input is $\rho_A\otimes\rho_B$, where each factor is an $n$-mode state with finite total mean photon number. Correlations among the modes within either factor are allowed. Mix corresponding input modes on beam splitters and retain the outputs
+\begin{equation}
+ c_j=\sqrt\eta\,a_j+\sqrt{1-\eta}\,b_j,\qquad j=1,\ldots,n.
+ \label{eq:epni-output}
+\end{equation}
+Let $\rho_C$ be the joint state of the modes in Eq.~\eqref{eq:epni-output}. Use natural logarithms, $S(\rho)=-\operatorname{Tr}\rho\ln\rho$, and $g(x)=(x+1)\ln(x+1)-x\ln x$ for $x\geq0$, with $0\ln0=0$. The proposed inequality is
+\begin{equation}
+ g^{-1}\!\left(\frac{S(\rho_C)}n\right)
+ \geq\eta g^{-1}\!\left(\frac{S(\rho_A)}n\right)
+ +(1-\eta)g^{-1}\!\left(\frac{S(\rho_B)}n\right).
+ \label{eq:epni-conjecture}
+\end{equation}
+Prove Eq.~\eqref{eq:epni-conjecture} in this full domain or provide a physical input pair that violates it.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+The entropy photon-number conjecture is stated explicitly in De Palma, Mari, and Giovannetti, Sec.~II.3, Eq.~(34), with attribution there to the earlier Guha--Shapiro--Erkmen work \sourcecite{ref:epni-qepi}{DMG14}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item The quantum entropy power inequality proves $e^{S(\rho_C)/n}\geq\eta e^{S(\rho_A)/n}+(1-\eta)e^{S(\rho_B)/n}$. This is weaker than Eq.~\eqref{eq:epni-conjecture}. The same paper bounds the possible deficit in Eq.~\eqref{eq:epni-conjecture} by $1/2-1/e$; see Eqs.~(5) and (35) \sourcecite{ref:epni-qepi}{DMG14}.
+
+  \item For $n=1$ and a thermal second input with mean photon number $b\geq0$, Theorem~4, Eq.~(24), proves $S(\rho_C)\geq g(\eta g^{-1}(S(\rho_A))+(1-\eta)b)$. Thermal first inputs attain equality. This permits arbitrary first inputs but does not permit an arbitrary nonthermal second input \sourcecite{ref:epni-one-mode}{DTG17}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[DMG14]}]\label{ref:epni-qepi}
+  G. De Palma, A. Mari, and V. Giovannetti, ``A Generalization of the Entropy Power Inequality to Bosonic Quantum Systems,'' \emph{Nature Photonics} \textbf{8}, 958--964 (2014). \href{https://doi.org/10.1038/nphoton.2014.252}{doi:10.1038/nphoton.2014.252}; \href{https://arxiv.org/abs/1402.0404}{arXiv:1402.0404}.
+
+  \item[\textup{[DTG17]}]\label{ref:epni-one-mode}
+  G. De Palma, D. Trevisan, and V. Giovannetti, ``Gaussian States Minimize the Output Entropy of One-Mode Quantum Gaussian Channels,'' \emph{Physical Review Letters} \textbf{118}, 160503 (2017). \href{https://doi.org/10.1103/PhysRevLett.118.160503}{doi:10.1103/PhysRevLett.118.160503}; \href{https://arxiv.org/abs/1610.09970}{arXiv:1610.09970}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The independence of the two input systems is essential. The arbitrary-input inequality remains unresolved. The catalog's multimode constrained pure-loss output-entropy question is the vacuum-port special case; it does not cover two arbitrary input states.
+
+\subsection*{Field}
+
+Quantum Communication
+
+\subsection*{Topic}
+
+Bosonic channels; Matrix and entropy inequalities
+
+\subsection*{ID}
+
+\texttt{op\_ba39e7a80122b256}

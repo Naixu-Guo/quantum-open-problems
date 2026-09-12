@@ -5,21 +5,29 @@
 \label{sec:op_af68b033a88ef934}
 
 \paragraph{Problem.}
-Is the following estimation task $\#\mathrm{P}$-hard under randomized
-polynomial-time Turing reductions? Given $X\in\mathbb{C}^{n\times n}$ with
-independent entries $X_{ij}=(a_{ij}+ib_{ij})/\sqrt{2}$, where all
-$a_{ij},b_{ij}\sim\mathcal{N}(0,1)$ independently, and
-$\epsilon,\delta\in(0,1)$, output $z(X)\in\mathbb{C}$ satisfying
+Is the following Gaussian permanent estimation task $\#\mathrm P$-hard under randomized polynomial-time oracle reductions?
+For $n\geq1$, let $X\in\mathbb C^{n\times n}$ have independent entries with density $\pi^{-1}e^{-|z|^2}$.
+Given $0<\epsilon,\delta<1$, output $z(X)\in\mathbb C$ satisfying
 \begin{equation}
-  \operatorname{Per}(X):=\sum_{\sigma\in S_n}\prod_{j=1}^{n}X_{j,\sigma(j)},
-  \qquad
-  \Pr_X\!\left[|z(X)-\operatorname{Per}(X)|
-    \leq\epsilon|\operatorname{Per}(X)|\right]\geq1-\delta.
-  \label{eq:pgc-estimation}
+ \operatorname{Per}X=\sum_{\pi\in S_n}\prod_{j=1}^n X_{j,\pi(j)},
+ \qquad
+ \Pr[|z(X)-\operatorname{Per}X|\leq\epsilon|\operatorname{Per}X|]\geq1-\delta .
+ \label{eq:pgc-estimation}
 \end{equation}
 Here $S_n$ is the set of permutations of $\{1,\ldots,n\}$.
-The guarantee in Eq.~\eqref{eq:pgc-estimation} is required for arbitrary
-$\epsilon,\delta$, with running time measured in $n,1/\epsilon,1/\delta$.
+Probability in Eq.~\eqref{eq:pgc-estimation} includes the matrix and the estimator's randomness.
+Cost is measured in the binary input length, $1/\epsilon$, and $1/\delta$.
+Use a binary truncation precise enough to alter the target by at most $\epsilon|\operatorname{Per}X|/2$ except with probability $\delta/2$.
+Polynomially many bits in $n,\log(1/\epsilon),\log(1/\delta)$ per entry suffice.
+
+Equivalently, ask for the same hardness of additive squared-permanent estimation:
+\begin{equation}
+ \Pr[|\widehat p-|\operatorname{Per}X|^2|\leq\epsilon n!]\geq1-\delta .
+ \label{eq:pgc-additive}
+\end{equation}
+For Eq.~\eqref{eq:pgc-additive}, use a rounded, truncated matrix whose squared permanent differs from the original by at most $\epsilon n!/2$ except with probability $\delta/2$.
+The input precision and reduction cost obey the same polynomial bounds.
+Here $\#\mathrm P$ counts accepting paths of nondeterministic polynomial-time machines.
 
 \subsection*{Status}
 
@@ -27,11 +35,9 @@ Unsolved
 
 \subsection*{Source}
 
-Aaronson and Arkhipov's Permanent-of-Gaussians Conjecture:
-Conjecture 5 and the preceding definition of $\mathrm{GPE}_{\times}$
-in arXiv:1011.3245, Section 1.2.3 (2010 preprint; published 2013)
-\sourcecite{ref:pgc-aa}{AA13}.
-The original task approximates the complex permanent itself with relative error.
+Aaronson and Arkhipov state the multiplicative Permanent-of-Gaussians Conjecture as Conjecture~5 in arXiv Section~1.2.3.
+Their Theorem~3 uses the additive squared-permanent task, and Theorem~7 relates the two under permanent anticoncentration \sourcecite{ref:pgc-aa}{AA13}.
+The finite-precision convention makes the binary input model explicit.
 
 \subsection*{Progress}
 
@@ -57,6 +63,11 @@ $n!e^{-O(n^\gamma)}$ for $|\operatorname{Per}(R)|^2$, for every fixed
 $\gamma>0$, with constant success probability, assuming permanent
 anticoncentration (Theorem 1, Section 4; $\mathrm{BPP}^{\mathrm{NP}}$ reduction)
 \sourcecite{ref:pgc-bdfh}{BDFH25}.
+
+  \item Koehler and Leung's July 2026 preprint proves permanent anticoncentration for both real and complex Gaussian matrices (Theorem~1.1) \sourcecite{ref:pgc-kl}{KL26}.
+Together with Aaronson--Arkhipov Theorem~7, it establishes polynomial-time equivalence of Eqs.~\eqref{eq:pgc-estimation} and \eqref{eq:pgc-additive} \sourcecite{ref:pgc-aa}{AA13}.
+The binary-rounding convention follows from Gaussian tail bounds, polynomial continuity, and the lower-tail estimate.
+Anticoncentration does not itself prove counting hardness.
 \end{itemize}
 
 \subsection*{References}
@@ -95,18 +106,14 @@ arXiv preprint (July 2026).
 
 \subsection*{Comment}
 
-The complex-Gaussian conjecture remains open. Its squared-permanent
-counterpart has additive-error target $\epsilon n!$, equivalent under
-permanent anticoncentration (arXiv Theorem 7) \sourcecite{ref:pgc-aa}{AA13}.
-Koehler--Leung's July 2026 preprint proves this auxiliary conjecture
-(Theorem 1.1) \sourcecite{ref:pgc-kl}{KL26}.
+The complex-Gaussian hardness conjecture remains open.
+Its additive squared-permanent formulation is represented by Eq.~\eqref{eq:pgc-additive} in this same canonical record.
+The equivalence now uses the resolving anticoncentration preprint of Koehler and Leung, rather than an unproved hypothesis \sourcecite{ref:pgc-kl}{KL26}.
 
-The 2025 tolerance $n!e^{-O(n^\gamma)}$ is for real Gaussian matrices
-$R$, and still falls short of $n!/\operatorname{poly}(n)$ in that ensemble.
-It is not a hardness bound for the complex $X$ in the Problem.
-Appendix E leaves the complex square-method argument unproved
-\sourcecite{ref:pgc-bdfh}{BDFH25}; the anticoncentration result does not
-supply that separate missing argument.
+The 2025 tolerance $n!e^{-O(n^\gamma)}$ applies to real Gaussian matrices and falls short of $n!/\operatorname{poly}(n)$.
+The real anticoncentration assumption in that theorem is supplied by the 2026 preprint.
+Its result still uses $\mathrm{BPP}^{\mathrm{NP}}$ reductions and does not prove the complex-Gaussian conjecture.
+Bouland et al., Appendix~E, leave the required complex square-method argument unproved \sourcecite{ref:pgc-bdfh}{BDFH25}.
 
 \subsection*{Field}
 

@@ -1,0 +1,77 @@
+% Problem record op_71026fbfd41a90c6. This TeX file is derived from
+% database/problems_json/op_71026fbfd41a90c6.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Gaussian-input preservation under a Gaussian reference extension}
+\label{sec:op_71026fbfd41a90c6}
+
+\paragraph{Problem.}
+Does preservation of Gaussian inputs by a trace-decreasing operation imply preservation when a Gaussian reference is attached?
+Let $\Phi$ be a completely positive trace-nonincreasing linear map on trace-class operators of one bosonic mode.
+Assume $\Phi(\rho)/\operatorname{Tr}\Phi(\rho)$ is Gaussian for every Gaussian density operator $\rho$ with positive success probability.
+Let $\operatorname{id}_B$ be the identity channel of a second bosonic mode.
+Must the state in Eq.~\eqref{eq:sr53-extension} be Gaussian for every two-mode Gaussian state $\omega_{AB}$ with positive denominator?
+\begin{equation}
+\frac{(\Phi\otimes\operatorname{id}_B)(\omega_{AB})}{\operatorname{Tr}[(\Phi\otimes\operatorname{id}_B)(\omega_{AB})]}.
+\label{eq:sr53-extension}
+\end{equation}
+
+\subsection*{Status}
+
+Solved
+
+\subsection*{Source}
+
+This formulation tests whether one of the two preservation assumptions in Giedke and Cirac's definition of Gaussian completely positive maps is redundant. See Sec.~III.A, before Eq.~(8), where both system and reference-extended preservation are required \sourcecite{ref:sr53-giedke}{GC02}. The question and counterexample here are editorial, not attributed as claims of that paper.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item The answer is negative. Let $|j\rangle$ denote a photon-number state. The single Kraus operator in Eq.~\eqref{eq:sr53-kraus} defines an allowed map, and every successful system output is the vacuum.
+\begin{equation}
+\begin{aligned}
+ K&=|0\rangle\langle1|,\qquad K^\dagger K=|1\rangle\langle1|\leq I,\\
+ \Phi(X)&=KXK^\dagger=\langle1|X|1\rangle|0\rangle\langle0|.
+\end{aligned}
+\label{eq:sr53-kraus}
+\end{equation}
+
+  \item For $r>0$, the finite-energy two-mode squeezed vacuum and its output are given by Eq.~\eqref{eq:sr53-counterexample}.
+\begin{equation}
+\begin{aligned}
+ |\psi_r\rangle&=\frac1{\cosh r}\sum_{j=0}^\infty(\tanh r)^j|j,j\rangle,\\
+ (\Phi\otimes\operatorname{id}_B)(|\psi_r\rangle\langle\psi_r|)
+ &=\frac{\tanh^2 r}{\cosh^2 r}|0,1\rangle\langle0,1|.
+\end{aligned}
+\label{eq:sr53-counterexample}
+\end{equation}
+The success probability is strictly positive. Its normalized reference marginal is the non-Gaussian one-photon state. Equation~\eqref{eq:sr53-counterexample} therefore disproves the implication directly.
+
+  \item If trace preservation is imposed instead, Gaussian-input preservation does imply preservation with any finite Gaussian reference. Devendra, John, and Sumesh prove the equivalence with a Gaussian dilation in Theorem~3.1, including the reference-extension condition (v) \sourcecite{ref:sr53-devendra}{DJS25}. This additional result is cited as a preprint.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[GC02]}]\label{ref:sr53-giedke}
+  G. Giedke and J. I. Cirac, ``Characterization of Gaussian Operations and Distillation of Gaussian States,'' \emph{Physical Review A} \textbf{66}, 032316 (2002). \href{https://doi.org/10.1103/PhysRevA.66.032316}{doi:10.1103/PhysRevA.66.032316}; \href{https://arxiv.org/abs/quant-ph/0204085}{arXiv:quant-ph/0204085}.
+
+  \item[\textup{[DJS25]}]\label{ref:sr53-devendra}
+  R. Devendra, T. C. John, and K. Sumesh, ``What Is a Gaussian Channel, and When Is It Physically Implementable Using a Multiport Interferometer?,'' arXiv preprint (2025). \href{https://arxiv.org/abs/2505.02834}{arXiv:2505.02834}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The explicit one-Kraus-operator counterexample completely resolves the stated trace-nonincreasing question. It is a direct editorial calculation, not a separately peer-reviewed counterexample. The trace-preserving variant is different and has the positive characterization recorded in Progress.
+
+\subsection*{Field}
+
+Quantum Communication
+
+\subsection*{Topic}
+
+Gaussian quantum information; Quantum channel structure
+
+\subsection*{ID}
+
+\texttt{op\_71026fbfd41a90c6}

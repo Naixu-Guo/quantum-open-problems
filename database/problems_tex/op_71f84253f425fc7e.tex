@@ -1,0 +1,75 @@
+% Problem record op_71f84253f425fc7e. This TeX file is derived from
+% database/problems_json/op_71f84253f425fc7e.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Strict stationary squeezing limit for one-mode thermal diffusion}
+\label{sec:op_71f84253f425fc7e}
+
+\paragraph{Problem.}
+Does every stable one-mode thermal Gaussian diffusion obey the sharp stationary squeezing bound $\lambda_{\min}(V_\infty)>\nu/2$?
+Use $R=(q,p)^{\mathsf T}$, $[q,p]=i$, and covariance $V_{jk}=\langle\{R_j-\langle R_j\rangle,R_k-\langle R_k\rangle\}\rangle$.
+Let $G$ be any real symmetric $2\times2$ matrix, $\kappa>0$, and $\nu=2\bar n+1$ with $\bar n\geq0$.
+Define the drift and diffusion in Eq.~\eqref{eq:sr51-drift}.
+\begin{equation}
+A=\Omega G-\frac\kappa2I_2,\qquad D=\kappa\nu I_2,\qquad \Omega=\begin{pmatrix}0&1\\-1&0\end{pmatrix}.
+\label{eq:sr51-drift}
+\end{equation}
+Assume $A$ is Hurwitz stable: both eigenvalues have negative real part.
+The stationary covariance $V_\infty$ solves Eq.~\eqref{eq:sr51-lyapunov}.
+\begin{equation}
+AV_\infty+V_\infty A^{\mathsf T}+D=0.
+\label{eq:sr51-lyapunov}
+\end{equation}
+Sharpness means that the infimum of $\lambda_{\min}(V_\infty)$ over stable choices of $G$ is $\nu/2$.
+
+\subsection*{Status}
+
+Solved
+
+\subsection*{Source}
+
+This is the single-mode isotropic-diffusion form of the stationary squeezing limit in Harwood and Serafini, Eq.~(15) \sourcecite{ref:sr51-harwood}{HS20}. Their physical setting is passive interferometric coherent feedback with rotating-wave coupling to equal-temperature Markov baths.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Stability implies the unique solution $V_\infty=\int_0^\infty e^{At}D e^{A^{\mathsf T}t}\,dt$ is positive definite. Multiplying Eq.~\eqref{eq:sr51-lyapunov} by $V_\infty^{-1}$ and taking the trace gives Eq.~\eqref{eq:sr51-proof}, since $\operatorname{tr}A=-\kappa$.
+\begin{equation}
+\operatorname{tr}(V_\infty^{-1})=\frac2\nu,\qquad \frac1{\lambda_{\min}(V_\infty)}<\operatorname{tr}(V_\infty^{-1}).
+\label{eq:sr51-proof}
+\end{equation}
+Equation~\eqref{eq:sr51-proof} proves the strict bound directly and agrees with the published result \sourcecite{ref:sr51-harwood}{HS20}.
+
+  \item For $0\leq s<\kappa$, choose $G_s=\begin{pmatrix}0&-s/2\\-s/2&0\end{pmatrix}$. The stable drift and covariance in Eq.~\eqref{eq:sr51-sharp} show sharpness.
+\begin{equation}
+\begin{aligned}
+ A_s&=\frac12\operatorname{diag}(-\kappa-s,-\kappa+s),\\
+ V_\infty(s)&=\nu\operatorname{diag}\!\left(\frac\kappa{\kappa+s},\frac\kappa{\kappa-s}\right),\\
+ \lim_{s\uparrow\kappa}\lambda_{\min}(V_\infty(s))&=\frac\nu2.
+\end{aligned}
+\label{eq:sr51-sharp}
+\end{equation}
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[HS20]}]\label{ref:sr51-harwood}
+  A. Harwood and A. Serafini, ``Ultimate Squeezing Through Coherent Quantum Feedback,'' \emph{Physical Review Research} \textbf{2}, 043103 (2020). \href{https://doi.org/10.1103/PhysRevResearch.2.043103}{doi:10.1103/PhysRevResearch.2.043103}; \href{https://arxiv.org/abs/1910.07235}{arXiv:1910.07235}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The question is completely resolved, with a peer-reviewed source and a direct verification above. The limit is an infimum approached at instability, not a stable minimum. Isotropic noise and one mode are essential hypotheses; the statement does not cover arbitrary multimode feedback or anisotropic baths.
+
+\subsection*{Field}
+
+Quantum Resource Theory
+
+\subsection*{Topic}
+
+Gaussian quantum information
+
+\subsection*{ID}
+
+\texttt{op\_71f84253f425fc7e}

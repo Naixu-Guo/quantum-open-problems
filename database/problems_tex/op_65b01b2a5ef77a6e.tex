@@ -1,0 +1,89 @@
+% Problem record op_65b01b2a5ef77a6e. This TeX file is derived from
+% database/problems_json/op_65b01b2a5ef77a6e.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Compact-time validity of the rotating wave approximation}
+\label{sec:op_65b01b2a5ef77a6e}
+
+\paragraph{Problem.}
+Does the Jaynes--Cummings evolution approximate the Rabi evolution strongly and uniformly on each compact time interval in the high-frequency limit?
+Work on $\mathbb C^2\otimes L^2(\mathbb R)$.
+Let $a,a^\dagger$ be oscillator operators with $[a,a^\dagger]=1$ and $N=a^\dagger a$.
+Write $\sigma_x,\sigma_y,\sigma_z$ for the Pauli matrices and $\sigma_\pm=(\sigma_x\pm i\sigma_y)/2$.
+Fix $\lambda>0$ and $\Delta\in\mathbb R$.
+For $\omega>\max\{0,-\Delta\}$, define
+\begin{equation}
+ \begin{aligned}
+ H_\omega&=\frac{\omega+\Delta}{2}\sigma_z+\omega N+
+                \lambda\sigma_x(a+a^\dagger),\\
+ J_\omega&=\frac{\omega+\Delta}{2}\sigma_z+\omega N+
+                \lambda(\sigma_+a+\sigma_-a^\dagger).
+ \end{aligned}
+ \label{eq:rwa-hamiltonians}
+\end{equation}
+Tensor factors of the identity are implicit.
+Use the self-adjoint closures of Eq.~\eqref{eq:rwa-hamiltonians} from $\mathbb C^2\otimes\mathcal S(\mathbb R)$.
+Here $\mathcal S(\mathbb R)$ is the Schwartz space.
+Is it true that every normalized $\psi\in\mathbb C^2\otimes L^2(\mathbb R)$ and every finite $T>0$ satisfy
+\begin{equation}
+ \lim_{\omega\to\infty}\sup_{|t|\leq T}
+ \|(e^{-itH_\omega}-e^{-itJ_\omega})\psi\|=0?
+ \label{eq:rwa-convergence}
+\end{equation}
+The vector, time horizon, coupling, and detuning in Eq.~\eqref{eq:rwa-convergence} are fixed as $\omega$ grows.
+
+\subsection*{Status}
+
+Solved
+
+\subsection*{Source}
+
+This compact-time formulation follows from the rotating-wave question resolved by Burgarth, Facchi, Hillier, and Ligabò, Theorem~2.1 \sourcecite{ref:rwa-bfhl}{BFHL24}.
+It makes explicit the uniformity that follows from their time-dependent estimate.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Theorem~2.1, Eq.~(45), gives for every $\psi\in\mathbb C^2\otimes\mathcal S(\mathbb R)$
+\begin{equation}
+ \begin{aligned}
+ \|(e^{-itH_\omega}-e^{-itJ_\omega})\psi\|
+ \leq\frac{\lambda}{\omega}\bigl[
+ &(1+|t||\Delta|)\|(N+2)^{1/2}\psi\|\\
+ &+3|t|\lambda\|((N+2)(N+3))^{1/2}\psi\|\bigr].
+ \end{aligned}
+ \label{eq:rwa-bound}
+\end{equation}
+Equation~\eqref{eq:rwa-bound} tends to zero uniformly for $|t|\leq T$.
+The interaction-picture change used in the paper leaves the norm difference unchanged \sourcecite{ref:rwa-bfhl}{BFHL24}.
+
+  \item For an arbitrary normalized $\psi$, choose a Schwartz vector $\phi$ close to it.
+Unitarity bounds the contribution of $\psi-\phi$ by $2\|\psi-\phi\|$, independently of $\omega$ and $t$.
+Apply Eq.~\eqref{eq:rwa-bound} to $\phi$ and then let $\|\psi-\phi\|$ tend to zero.
+This proves Eq.~\eqref{eq:rwa-convergence} without an energy assumption on $\psi$.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[BFHL24]}]\label{ref:rwa-bfhl}
+  D. Burgarth, P. Facchi, R. Hillier, and M. Ligabò, "Taming the Rotating Wave Approximation," \emph{Quantum} \textbf{8}, 1262 (2024). \href{https://doi.org/10.22331/q-2024-02-21-1262}{doi:10.22331/q-2024-02-21-1262}; \href{https://arxiv.org/abs/2301.02269}{arXiv:2301.02269}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The resolving theorem is peer-reviewed.
+The compact time interval is essential to the stated consequence of Eq.~\eqref{eq:rwa-bound}.
+It does not assert an error tending to zero uniformly over all times or all normalized input vectors.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Hamiltonian simulation
+
+\subsection*{ID}
+
+\texttt{op\_65b01b2a5ef77a6e}
