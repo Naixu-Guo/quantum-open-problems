@@ -68,7 +68,7 @@ text. It supplies data for the caller's chosen workflow; ordering is not a diffi
 ranking. Existing summary search remains `qop-search/2`.
 
 `limit` caps the number of problems and `maxBytes` caps the complete compact UTF-8
-API JSON response (default 65,536; accepted range 16,384–1,048,576). Problems are
+API JSON response (default 32,768; accepted range 16,384–1,048,576). Problems are
 atomic: a page may contain fewer than `limit` to fit the byte budget, and its
 `nextCursor` continues after the last problem actually returned. Repeat the filters,
 sort and `view`; switching view requires a fresh query. `responseBytes` includes
@@ -83,6 +83,38 @@ truncated statement or an empty success page. Client history limits are separate
 for example, [Codex supports per-tool output token limits](https://learn.chatgpt.com/docs/extend/mcp).
 Choose a page budget compatible with the client, and lower it if the client reports
 truncated tool output.
+
+The default was reduced to 32 KiB after a real Codex direct-tool readback test lost
+middle-of-page markers at 64 KiB. This reduces the chance of host truncation; it
+does not establish a universal host limit. A large single problem can still require
+an explicit budget increase or an individual read. A visible `count`, problem title
+or final reference does not prove the middle of a displayed response survived.
+
+Codex direct tool presentation and Code Mode have separate output controls. For a
+direct connection named `qop`, a tested large-page configuration is:
+
+```toml
+[mcp_servers.qop.tools.search_problems]
+output_token_limit = 100000
+```
+
+This restored all diagnostic markers for the tested 200,000-byte research page;
+it is not a requirement for every client or a guarantee for arbitrary page sizes.
+In Code Mode, the full tool object is available to the program, while the cell's
+`max_output_tokens` controls what gets displayed to the model. Printing only
+`result.structuredContent` avoids repeating the same data from `content`. Raising
+the direct MCP limit does not raise the Code Mode cell limit. See the
+[official configuration reference](https://learn.chatgpt.com/docs/config-file/config-reference)
+and the [reproducible host-output audit](../reviews/mcp-information-access-2026-09-14.md).
+
+`research.comment` contains authored catalog commentary; `comments` contains service
+discussion threads. Empty discussion threads do not mean that authored commentary
+is missing. Cited sources can have partial bibliographic metadata: use the current
+reference body and authored bibliography for citation-specific chapters and
+locations, then verify them in the paper. The MCP provides maintained research
+notes and bibliography, without fetching paper full text or certifying that the
+latest literature has been exhaustively searched. DOI/publisher access can fail
+while an arXiv version is available; a large HTML document can require a PDF reader.
 
 Text search covers the current formal statement and clauses, titles, authored
 progress, taxonomy, keywords, and background. Complete IDs and aliases are resolved

@@ -9,7 +9,7 @@ import { parseArgs } from 'node:util';
 import { performance } from 'node:perf_hooks';
 import { Client, StreamableHTTPClientTransport } from '@modelcontextprotocol/client';
 
-const { values } = parseArgs({ options: { output: { type: 'string' }, area: { type: 'string', default: 'quantum-algorithm' }, 'max-bytes': { type: 'string', default: '65536' } } });
+const { values } = parseArgs({ options: { output: { type: 'string' }, area: { type: 'string', default: 'quantum-algorithm' }, 'max-bytes': { type: 'string', default: '32768' } } });
 if (!values.output) throw new Error('Pass --output /tmp/search-latency.json');
 const requestedMaxBytes = Number(values['max-bytes']);
 if (!Number.isInteger(requestedMaxBytes) || requestedMaxBytes < 16384 || requestedMaxBytes > 1048576) throw new Error('max-bytes must be an integer from 16384 to 1048576');

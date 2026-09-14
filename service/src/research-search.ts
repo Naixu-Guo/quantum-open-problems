@@ -2,7 +2,7 @@
 import type { Index, ProblemPage, ProblemRow } from "./index.ts";
 
 export const RESEARCH_SEARCH_VERSION = "qop-search-research/1";
-export const RESEARCH_SEARCH_DEFAULT_BYTES = 65_536;
+export const RESEARCH_SEARCH_DEFAULT_BYTES = 32_768;
 export const RESEARCH_SEARCH_MIN_BYTES = 16_384;
 export const RESEARCH_SEARCH_MAX_BYTES = 1_048_576;
 export const RESEARCH_SEARCH_BUDGET_SEMANTICS = {

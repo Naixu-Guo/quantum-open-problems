@@ -157,6 +157,12 @@ test("research-search HTTP preserves single-detail content, exact wire bytes, st
   assert.deepEqual(withoutCursor(explicit.body), withoutCursor(plain.body));
   assert.ok(!Object.hasOwn(plain.body, "maxBytes"));
 
+  const defaultBudget = await get("/api/v1/problems?view=research&includeCandidates=true");
+  assert.equal(defaultBudget.status, 200);
+  assert.equal(defaultBudget.body.maxBytes, 32_768, "an omitted maxBytes uses the conservative research-page default");
+  assert.equal(defaultBudget.body.responseBytes, defaultBudget.contentLength);
+  assert.ok(defaultBudget.contentLength <= 32_768);
+
   const complete = await get(`/api/v1/problems?view=research&includeCandidates=true&maxBytes=${RESEARCH_SEARCH_MAX_BYTES}`);
   assert.equal(complete.status, 200);
   assert.equal(complete.text, JSON.stringify(complete.body));
@@ -164,6 +170,7 @@ test("research-search HTTP preserves single-detail content, exact wire bytes, st
   assert.equal(complete.body.responseBytes, complete.contentLength);
   assert.equal(complete.body.count, complete.body.total);
   assert.equal(complete.body.nextCursor, null);
+  assert.deepEqual(defaultBudget.body.problems, complete.body.problems.slice(0, defaultBudget.body.count), "the default budget returns complete records without dropping fields");
   for (const problem of complete.body.problems) {
     const single = await get(`/api/v1/problems/${problem.id}?view=research`);
     assert.equal(single.status, 200);
@@ -184,6 +191,12 @@ test("research-search HTTP preserves single-detail content, exact wire bytes, st
   record.body += `\n${"界".repeat(40_000)}\n${String.raw`\forall X, A_X \neq A_x`}`;
   reindex(service);
   const selector = `view=research&includeCandidates=true&text=${firstId}&limit=1`;
+  const defaultRefused = await get(`/api/v1/problems?${selector}`);
+  assert.equal(defaultRefused.status, 413, "a problem exceeding the default budget must fail rather than truncate");
+  assert.equal(defaultRefused.body.maxBytes, 32_768);
+  assert.equal(defaultRefused.body.problemId, firstId);
+  assert.ok(defaultRefused.body.minimumRequiredBytes > 32_768);
+  assert.ok(!Object.hasOwn(defaultRefused.body, "problems"));
   const refused = await get(`/api/v1/problems?${selector}&maxBytes=${RESEARCH_SEARCH_MIN_BYTES}`);
   assert.equal(refused.status, 413);
   assert.equal(refused.body.code, "response_budget_too_small");

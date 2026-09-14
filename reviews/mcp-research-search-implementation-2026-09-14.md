@@ -2,18 +2,20 @@
 
 `search_problems(view="research")` lets a caller retrieve complete matching research records without first collecting IDs. Summary search remains the default, and the caller chooses filters, view, page size and tool composition. This adds a retrieval capability without prescribing a selection workflow or assigning difficulty scores.
 
+Later [model-visibility testing](mcp-information-access-2026-09-14.md) found host truncation at the original default and reduced the default page budget to 32 KiB. The 64 KiB measurements below are retained as historical observations at that explicit budget.
+
 ## Contract
 
 - Research results use `qop-search-research/1`; existing summary results and cursors retain `qop-search/2` behavior.
 - Each result equals `get_problem(view="research")`, with optional search-match evidence. Statements, clauses, research history, references, comments, decisions, provenance and additional service body remain intact.
-- `limit` bounds record count; `maxBytes` bounds the entire compact UTF-8 API JSON response, including its pagination and size metadata. The default is 65,536 bytes, with an accepted range of 16,384–1,048,576. HTTP headers, MCP framing and host token limits are outside that budget.
+- `limit` bounds record count; `maxBytes` bounds the entire compact UTF-8 API JSON response, including its pagination and size metadata. The default is now 32,768 bytes, with an accepted range of 16,384–1,048,576. HTTP headers, MCP framing and host token limits are outside that budget.
 - Pages contain a complete prefix of matching records. The continuation advances by the actual returned count, preserves expiry, and binds the query, sort, view and catalog version. Callers may change the count or byte limit between pages. Switching view starts a fresh query.
 - If the first complete record cannot fit, an explicit 413 response reports its ID and a sufficient minimum budget. Tests retry that exact budget. Records exceeding the maximum remain available through the individual reader.
 - The service captures the ledger once and uses the already selected rows for catalog dates. `/api/v1/status` and MCP preflight advertise/check `researchSearchVersion` alongside the existing context, idempotency and retrieval capabilities.
 
 ## Equal-content local measurement
 
-The [official-SDK measurement script](../mcp/eval/measure-search.mjs) starts an in-memory local service and reads all 25 unsolved quantum-algorithm records through both interfaces. It compares every complete returned object deeply, including catalog version, order and unique coverage. Three paired repetitions use the default research byte budget; the individual baseline runs up to eight detail reads concurrently.
+The [official-SDK measurement script](../mcp/eval/measure-search.mjs) starts an in-memory local service and reads all 25 unsolved quantum-algorithm records through both interfaces. It compares every complete returned object deeply, including catalog version, order and unique coverage. Three paired repetitions use an explicit 65,536-byte research budget (the default when measured); the individual baseline runs up to eight detail reads concurrently.
 
 | Path | MCP calls | Complete records | Median read time |
 | --- | ---: | ---: | ---: |
@@ -25,7 +27,7 @@ JSON-serialized SDK `CallToolResult` volume was approximately 1,019 KB versus 96
 Reproduce from the repository root:
 
 ```sh
-node mcp/eval/measure-search.mjs --output /tmp/research-search-measurement.json
+node mcp/eval/measure-search.mjs --max-bytes 65536 --output /tmp/research-search-measurement.json
 ```
 
 ## Model-driven selection

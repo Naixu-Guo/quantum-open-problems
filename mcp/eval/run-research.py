@@ -15,7 +15,7 @@ import threading
 import time
 
 
-def observe_codex(command, prompt, prefix, timeout=900):
+def observe_codex(command, prompt, prefix, timeout=900, allow_web=False):
     """Timestamp arrival of stdout events at this host, not API execution time."""
     started = time.monotonic()
     observed = queue.Queue()
@@ -88,7 +88,7 @@ def observe_codex(command, prompt, prefix, timeout=900):
                 events.append(event)
                 event_log.write(json.dumps(event, ensure_ascii=False) + '\n')
                 event_log.flush()
-                if kind in ('command_execution', 'web_search', 'file_change'):
+                if kind in ('command_execution', 'file_change') or (kind == 'web_search' and not allow_web):
                     contaminated.append(kind)
                 if kind == 'mcp_tool_call' and item.get('server') != 'qop':
                     contaminated.append('foreign_mcp')
@@ -149,6 +149,8 @@ parser.add_argument('--effort', default='ultra')
 parser.add_argument('--output', type=Path, required=True)
 parser.add_argument('--holdouts', action='store_true')
 parser.add_argument('--as-of', default=date.today().isoformat())
+parser.add_argument('--question', help='Run one custom read-only question instead of the original scenarios.')
+parser.add_argument('--allow-web', action='store_true', help='Allow live web tools for literature-handoff verification; shell and writes remain disabled.')
 parser.add_argument('--case', type=int, choices=(1, 2, 3),
                     help='Run only this original case; cases 2/3 require --history-from.')
 parser.add_argument('--history-from', type=Path,
@@ -156,6 +158,12 @@ parser.add_argument('--history-from', type=Path,
 args = parser.parse_args()
 cases = ['来给我抽个量子算法的题', '现在这里面哪个你觉得最容易解决', '最近有哪个题刚被解决']
 history = []
+if args.question is not None:
+    if not args.question.strip():
+        parser.error('--question must be nonempty')
+    if args.case is not None or args.holdouts or args.history_from is not None:
+        parser.error('--question cannot be combined with original-case selection or history')
+    cases = [args.question]
 if args.case is not None and args.holdouts:
     parser.error('--case selects an original case and cannot be combined with --holdouts')
 if args.case in (2, 3) and args.history_from is None:
@@ -189,6 +197,7 @@ try:
         raise RuntimeError('Evaluation server did not start; inspect server.stderr.log')
     metadata = json.loads(metadata_line)
     metadata.update(model=args.model, effort=args.effort, asOf=args.as_of,
+                    customQuestion=args.question, webMode='live' if args.allow_web else 'disabled',
                     selectedCase=args.case, historyFrom=str(args.history_from.resolve()) if args.history_from else None,
                     context='Each run is an ephemeral session; previous user/assistant text is supplied for original cases 2 and 3. Tool transcripts are not replayed.',
                     scoring='Human/independent evidence review required. Script success is not answer acceptance.')
@@ -200,18 +209,20 @@ try:
                 continue
             prefix = out / f'case-{number}'
             context = history if number in (2, 3) else []
-            prompt = ('你正在使用 QIQCOP Zoo 的只读 MCP。只依据该 MCP 获取事实，禁止使用 shell、文件读取、web 或其他外部工具。'
-                      f'自行选择工具和参数，用中文回答用户；没有证据时如实说明。当前日期为 {args.as_of}。\n'
+            tool_policy = ('请从该 MCP 获取题库事实；允许使用 web 查阅外部原始文献，区分目录记录与外部核查。禁止使用 shell、文件读取、写入或其他外部工具。'
+                           if args.allow_web else '只依据该 MCP 获取事实，禁止使用 shell、文件读取、web 或其他外部工具。')
+            prompt = ('你正在使用 QIQCOP Zoo 的只读 MCP。' + tool_policy
+                      + f'自行选择工具和参数，用中文回答用户；没有证据时如实说明。当前日期为 {args.as_of}。\n'
                       + '\n'.join(context) + '\n用户：' + question)
             prefix.with_suffix('.prompt.txt').write_text(prompt)
             command = [args.codex, 'exec', '--ignore-user-config', '--ephemeral', '--skip-git-repo-check',
                        '--sandbox', 'read-only', '--cd', empty, '--json', '-m', args.model,
                        '-c', f'model_reasoning_effort="{args.effort}"',
-                       '-c', 'web_search="disabled"', '-c', 'features.shell_tool=false', '-c', 'features.multi_agent=false',
+                       '-c', 'web_search="live"' if args.allow_web else 'web_search="disabled"', '-c', 'features.shell_tool=false', '-c', 'features.multi_agent=false',
                        '-c', f'mcp_servers.qop.url="{metadata["endpoint"]}"',
                        '-c', 'mcp_servers.qop.startup_timeout_sec=30',
                        '-o', str(prefix.with_suffix('.answer.md')), '-']
-            observed_run = observe_codex(command, prompt, prefix, timeout=900)
+            observed_run = observe_codex(command, prompt, prefix, timeout=900, allow_web=args.allow_web)
             answer_path = prefix.with_suffix('.answer.md')
             answer = answer_path.read_text() if answer_path.exists() else ''
             result = {'case': number, 'question': question, **observed_run,

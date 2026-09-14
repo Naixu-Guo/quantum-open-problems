@@ -60,7 +60,7 @@ interface ResearchSearchPage extends Omit<SearchPage, "problems"> {
 }
 
 const compactBytes = (value: unknown) => Buffer.byteLength(JSON.stringify(value), "utf8");
-function assertResearchPage(page: ResearchSearchPage, maxBytes = 65_536) {
+function assertResearchPage(page: ResearchSearchPage, maxBytes = 32_768) {
   assert.equal(page.schemaVersion, "qop-search-research/1");
   assert.equal(page.view, "research");
   assert.equal(page.count, page.problems.length);
@@ -280,6 +280,7 @@ test("maintained catalog research workflows through the official HTTP SDK", { ti
     return researchById.get(id)!;
   };
   await t.test("research search traverses every algorithm and every unsolved problem with complete individual-reader equivalence", async () => {
+    let oversizedDefaults = 0;
     for (const filters of [
       { area: "Quantum algorithm", status: "Unsolved", sort: "title" },
       { status: "Unsolved", sort: "title" },
@@ -291,10 +292,33 @@ test("maintained catalog research workflows through the official HTTP SDK", { ti
       let cursor: string | undefined;
       let pages = 0;
       do {
-        const page = await call<ResearchSearchPage>("search_problems", {
-          ...filters, view: "research", limit: 200, maxBytes: 1_048_576, ...(cursor ? { cursor } : {}),
-        });
-        assertResearchPage(page, 1_048_576);
+        const args = { ...filters, view: "research", limit: 200, ...(cursor ? { cursor } : {}) };
+        const result = await client.callTool({ name: "search_problems", arguments: args });
+        let maxBytes = 32_768;
+        let page: ResearchSearchPage;
+        if (result.isError) {
+          const error = result.structuredContent as Json;
+          assert.equal(error["httpStatus"], 413, JSON.stringify(error));
+          assert.equal(error["code"], "response_budget_too_small");
+          assert.equal(error["maxBytes"], 32_768);
+          assert.equal(error["problemId"], summary.problems[collected.length]?.id,
+            "An oversized page must identify the next candidate without consuming it");
+          const minimum = error["minimumRequiredBytes"];
+          assert.ok(typeof minimum === "number" && Number.isSafeInteger(minimum) && minimum > 32_768 && minimum <= 1_048_576);
+          maxBytes = minimum;
+          // Retry this exact request and cursor, never the next candidate or a
+          // permanently raised budget that would mask subsequent default errors.
+          page = await call<ResearchSearchPage>("search_problems", { ...args, maxBytes });
+          assert.equal(page.problems[0]?.id, error["problemId"]);
+          oversizedDefaults++;
+        } else {
+          assert.equal(result.isError, false);
+          const text = result.content.find(content => content.type === "text");
+          assert.ok(text && text.type === "text");
+          assert.deepEqual(result.structuredContent, JSON.parse(text.text));
+          page = result.structuredContent as ResearchSearchPage;
+        }
+        assertResearchPage(page, maxBytes);
         assert.equal(page.catalogVersion, summary.catalogVersion);
         assert.equal(page.total, summary.total);
         assert.equal(page.offset, collected.length);
@@ -315,6 +339,7 @@ test("maintained catalog research workflows through the official HTTP SDK", { ti
       assert.deepEqual(collected, ids(summary));
       assert.equal(new Set(collected).size, summary.total);
     }
+    assert.ok(oversizedDefaults > 0, "The maintained population exercises actionable default-budget errors during real traversal");
   });
 
   await t.test("byte-limited research pages retain complete mathematical histories and advance by returned records", async () => {
@@ -326,7 +351,7 @@ test("maintained catalog research workflows through the official HTTP SDK", { ti
     do {
       // Omission exercises the documented default byte budget on the first page.
       // Later requests may change limit/maxBytes without changing search scope.
-      const maxBytes = pageNumber === 0 ? 65_536 : 131_072;
+      const maxBytes = pageNumber === 0 ? 32_768 : 131_072;
       const page = await call<ResearchSearchPage>("search_problems", {
         ...filters, view: "research", ...(cursor ? { cursor, limit: 100, maxBytes } : {}),
       });
@@ -355,29 +380,31 @@ test("maintained catalog research workflows through the official HTTP SDK", { ti
 
   await t.test("an oversized first research record returns an actionable error and succeeds at its recommended budget", async () => {
     const largest = [...researchById.values()].sort((a, b) => compactBytes(b) - compactBytes(a))[0]!;
-    assert.ok(compactBytes(largest) > 16_384, "The maintained fixture includes a complete record larger than the minimum budget");
-    const args = { text: largest.id, view: "research", maxBytes: 16_384, limit: 1 };
-    const result = await client.callTool({ name: "search_problems", arguments: args });
-    assert.equal(result.isError, true);
-    const error = result.structuredContent as Json;
-    assert.equal(error["httpStatus"], 413);
-    assert.equal(error["code"], "response_budget_too_small");
-    assert.equal(error["problemId"], largest.id);
-    assert.equal(error["maxBytes"], 16_384);
-    assert.equal(error["retryable"], false, "The request needs a larger budget, not an unchanged retry");
-    const minimum = error["minimumRequiredBytes"];
-    assert.ok(typeof minimum === "number" && Number.isSafeInteger(minimum) && minimum > 16_384 && minimum <= 1_048_576);
-    const api = await fetch(`${origin}/api/v1/problems?${new URLSearchParams(Object.entries(args).map(([key, value]) => [key, String(value)]))}`);
-    assert.equal(api.status, 413);
-    const apiError = await api.json() as Json;
-    for (const field of ["code", "problemId", "maxBytes", "minimumRequiredBytes"]) assert.equal(apiError[field], error[field]);
-    const retried = await call<ResearchSearchPage>("search_problems", { ...args, maxBytes: minimum });
-    assertResearchPage(retried, minimum);
-    assert.equal(retried.count, 1);
-    assert.equal(retried.nextCursor, null);
-    const { match, ...problem } = retried.problems[0]!;
-    assert.ok(match && match.fields.includes("alias"));
-    assert.deepEqual(problem, largest);
+    assert.ok(compactBytes(largest) > 32_768, "The maintained fixture includes a complete record larger than the default budget");
+    for (const maxBytes of [undefined, 16_384]) {
+      const args = { text: largest.id, view: "research", limit: 1, ...(maxBytes === undefined ? {} : { maxBytes }) };
+      const result = await client.callTool({ name: "search_problems", arguments: args });
+      assert.equal(result.isError, true);
+      const error = result.structuredContent as Json;
+      assert.equal(error["httpStatus"], 413);
+      assert.equal(error["code"], "response_budget_too_small");
+      assert.equal(error["problemId"], largest.id);
+      assert.equal(error["maxBytes"], maxBytes ?? 32_768);
+      assert.equal(error["retryable"], false, "The request needs a larger budget, not an unchanged retry");
+      const minimum = error["minimumRequiredBytes"];
+      assert.ok(typeof minimum === "number" && Number.isSafeInteger(minimum) && minimum > (maxBytes ?? 32_768) && minimum <= 1_048_576);
+      const api = await fetch(`${origin}/api/v1/problems?${new URLSearchParams(Object.entries(args).map(([key, value]) => [key, String(value)]))}`);
+      assert.equal(api.status, 413);
+      const apiError = await api.json() as Json;
+      for (const field of ["code", "problemId", "maxBytes", "minimumRequiredBytes"]) assert.equal(apiError[field], error[field]);
+      const retried = await call<ResearchSearchPage>("search_problems", { ...args, maxBytes: minimum });
+      assertResearchPage(retried, minimum);
+      assert.equal(retried.count, 1);
+      assert.equal(retried.nextCursor, null);
+      const { match, ...problem } = retried.problems[0]!;
+      assert.ok(match && match.fields.includes("alias"));
+      assert.deepEqual(problem, largest);
+    }
   });
 
   await t.test("empty research searches are valid byte-accounted pages and summary/research cursors cannot cross views", async () => {
