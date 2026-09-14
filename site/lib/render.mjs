@@ -160,7 +160,7 @@ ${body}
         <a href="${root}api/index.json">JSON API</a>
         <a href="${config.repositoryUrl}" rel="noreferrer">Source repository</a>
       </nav>
-      ${current === "home" ? `<p class="footer-note footer-credit">Developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Zhong-Xia Shang, Bin Cheng, Shihao Ru, and Naixu Guo. <a href="${root}about/#contributions">Contributions</a>.</p>` : ""}
+      <p class="footer-note footer-credit">Supported by <a href="https://gauge-forge.com/" rel="noreferrer">GaugeForge</a>. We also welcome other sponsors. <a href="${root}about/#contributions">Contributors and acknowledgments</a>.</p>
       <p class="footer-note">A dated research index. Verify a status against the cited sources before relying on it. <a href="#top">Back to top ↑</a></p>
     </footer>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
