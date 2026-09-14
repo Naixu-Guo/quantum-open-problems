@@ -12,6 +12,11 @@ const escape = (value = "") => String(value)
   .replaceAll(">", "&gt;")
   .replaceAll('"', "&quot;");
 
+// Field labels use title case; stored taxonomy names remain stable keys.
+const tagLabel = (name, kind) => kind === "field"
+  ? name.replace(/\b[a-z]/g, (letter) => letter.toUpperCase())
+  : name;
+
 export const displayDate = (iso) => {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return iso;
   return new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })
@@ -76,7 +81,7 @@ export const statusTag = (status, extraClass = "") => {
 
 // A field or topic pill. Fields are primary (solid), topics secondary (outlined).
 export const tagLink = (tag, root, kind = "topic", count = null) =>
-  `<a class="tag tag-${kind}" href="${root}tag/${slug(tag)}/" title="${TAG_KINDS[kind].label}: ${escape(tag)}">${escape(tag)}${count === null ? "" : ` <span class="tag-count">${count}</span>`}</a>`;
+  `<a class="tag tag-${kind}" href="${root}tag/${slug(tag)}/" title="${TAG_KINDS[kind].label}: ${escape(tagLabel(tag, kind))}">${escape(tagLabel(tag, kind))}${count === null ? "" : ` <span class="tag-count">${count}</span>`}</a>`;
 
 // The list items of a record's fields followed by its topics.
 export const tagItems = (record, root) => [
@@ -289,7 +294,7 @@ export function renderProblemPage({ record, config, root, related, dates }) {
     ? `<ul class="related-list">${related.map((item) => `<li>
         <a href="${root}problem/${item.record.id}/">${item.record.title.html}</a>
         ${statusTag(item.record.status, "status-tag-small")}
-        <span class="related-tags">${item.shared.map((tag) => escape(tag)).join(" · ")}</span>
+        <span class="related-tags">${item.shared.map((tag) => escape(tagLabel(tag, item.record.fields.includes(tag) ? "field" : "topic"))).join(" · ")}</span>
       </li>`).join("")}</ul>`
     : `<p class="muted">No other problem shares a field or topic with this one yet.</p>`;
   const taxonomyRow = (kind, names) => `<div class="taxonomy-row">
@@ -522,7 +527,7 @@ export function renderDirectory({ config, root, records, fieldCounts, topicCount
               <legend>Field</legend>
               <div class="facet-list">
                 ${facet("field", "all", "All fields", records.length, true)}
-                ${fields.map(([tag, count]) => facet("field", slug(tag), escape(tag), count)).join("\n                ")}
+                ${fields.map(([tag, count]) => facet("field", slug(tag), escape(tagLabel(tag, "field")), count)).join("\n                ")}
               </div>
             </fieldset>
             <div class="filter-group select-filter">
@@ -582,7 +587,7 @@ export function renderTagsIndex({ config, root, taxonomy, fieldCounts, topicCoun
       <details class="unused-tags">
         <summary>Reserved names without problems yet (${unused})</summary>
         ${unusedFields.length ? `<p class="unused-label">Fields</p>
-        <ul class="tag-list">${unusedFields.map((tag) => `<li><span class="tag tag-field tag-muted">${escape(tag)}</span></li>`).join("")}</ul>` : ""}
+        <ul class="tag-list">${unusedFields.map((tag) => `<li><span class="tag tag-field tag-muted">${escape(tagLabel(tag, "field"))}</span></li>`).join("")}</ul>` : ""}
         ${unusedTopics.length ? `<p class="unused-label">Topics</p>
         <ul class="tag-list">${unusedTopics.map((tag) => `<li><span class="tag tag-topic tag-muted">${escape(tag)}</span></li>`).join("")}</ul>` : ""}
       </details>
@@ -597,15 +602,16 @@ export function renderTagsIndex({ config, root, taxonomy, fieldCounts, topicCoun
 
 export function renderTagPage({ config, root, kind, tag, tagSlug = slug(tag), historical = false, records, related }) {
   const meta = TAG_KINDS[kind];
+  const label = historical ? tag : tagLabel(tag, kind);
   const otherKind = kind === "field" ? "topic" : "field";
   const counts = { unsolved: 0, solved: 0 };
   for (const record of records) counts[record.statusSlug] += 1;
   const relatedEntries = byCountThenName(related);
   const body = `
     <section class="section-shell">
-      <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><a href="${root}tags/">Fields and topics</a><span aria-hidden="true">›</span><span>${escape(tag)}</span></nav>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><a href="${root}tags/">Fields and topics</a><span aria-hidden="true">›</span><span>${escape(label)}</span></nav>
       <div class="section-heading">
-        <div><p class="section-index">${historical ? "Historical classification" : meta.label}</p><h1>${escape(tag)}</h1></div>
+        <div><p class="section-index">${historical ? "Historical classification" : meta.label}</p><h1>${escape(label)}</h1></div>
         <p>${records.length} record${records.length === 1 ? "" : "s"}: ${counts.unsolved} unsolved, ${counts.solved} solved. <a class="text-link" href="${root}problems/?${historical ? "legacyTag" : kind}=${encodeURIComponent(tagSlug)}">Filter the catalog by this ${historical ? "historical classification" : kind} →</a></p>
       </div>
       ${relatedEntries.length ? `<div class="top-tags tag-page-related">
@@ -618,8 +624,8 @@ export function renderTagPage({ config, root, kind, tag, tagSlug = slug(tag), hi
     </section>`;
   return layout({
     config, root, path: `tag/${tagSlug}/`, current: "tags",
-    title: `${tag} · ${historical ? "Historical classification" : meta.label}`,
-    description: historical ? `${records.length} records from the historical classification “${tag}” of the ${config.shortName}.` : `${records.length} problem records in the ${kind} “${tag}” of the ${config.shortName}.`,
+    title: `${label} · ${historical ? "Historical classification" : meta.label}`,
+    description: historical ? `${records.length} records from the historical classification “${label}” of the ${config.shortName}.` : `${records.length} problem records in the ${kind} “${label}” of the ${config.shortName}.`,
     body, bodyClass: "page-tag"
   });
 }
@@ -747,7 +753,7 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
   const picker = (kind, plural, names, counts, max, placeholder) => `<div class="picker" data-picker="${plural}" data-kind="${kind}" data-max="${max}">
               <select id="${kind}-select" aria-describedby="${kind}-select-hint">
                 <option value="">${placeholder}</option>
-                ${names.map((name) => `<option value="${escape(name)}">${escape(name)}${counts.get(name) ? ` (${counts.get(name)})` : ""}</option>`).join("\n                ")}
+                ${names.map((name) => `<option value="${escape(name)}">${escape(tagLabel(name, kind))}${counts.get(name) ? ` (${counts.get(name)})` : ""}</option>`).join("\n                ")}
                 <option value="__other__">Other: add a ${kind} of your own…</option>
               </select>
               <div class="picker-custom" hidden>
