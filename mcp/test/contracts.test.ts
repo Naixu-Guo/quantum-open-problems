@@ -131,6 +131,45 @@ for (const modern of [false, true]) test(`official ${modern ? "2026" : "legacy"}
   }
 });
 
+for (const modern of [false, true]) test(`official ${modern ? "2026" : "legacy"} SDK research search rejects empty filters through the real API and preserves summary compatibility`, async t => {
+  const { endpoint, clients } = await fixture(t);
+  const options = modern ? { versionNegotiation: { mode: { pin: "2026-07-28" as const } } } : {};
+  const client = new Client({ name: "research-filter-contract", version: "1" }, options);
+  clients.push(client);
+  await client.connect(new StreamableHTTPClientTransport(endpoint));
+  const call = (args: Json) => client.callTool({ name: "search_problems", arguments: args });
+  const summary = body(await call({ limit: 200 }));
+  assert.ok(Number(summary["total"]) > 0, "the fixture must expose the unfiltered-result regression");
+  for (const view of [undefined, "summary"]) {
+    const compatible = body(await call({ ...(view ? { view } : {}), limit: 200, text: "", area: "", topic: "", difficulty: "" }));
+    assert.equal(compatible["schemaVersion"], "qop-search/2");
+    assert.equal(compatible["total"], summary["total"]);
+    assert.deepEqual(compatible["problems"], summary["problems"]);
+  }
+  for (const key of ["text", "area", "topic", "difficulty"]) {
+    for (const value of ["", " \t\n", "\u00a0"]) {
+      const result = await call({ view: "research", [key]: value });
+      assert.equal(result.isError, true, `${key}=${JSON.stringify(value)} must not return unfiltered problems`);
+      const error = result.structuredContent as Json;
+      assert.equal(error["httpStatus"], 400, "the real API must receive and reject the supplied filter");
+      assert.equal(error["code"], "INVALID_ARGUMENT");
+      assert.equal(error["retryable"], false);
+      assert.equal(error["error"], `${key} must be nonempty when supplied`);
+      assert.equal(Object.hasOwn(error, "problems"), false);
+    }
+  }
+  for (const key of ["cursor", "sort"]) {
+    for (const value of ["", " \t\n", "\u00a0"]) {
+      assert.equal((await call({ view: "research", [key]: value })).isError, true, `${key} must be rejected by SDK or API validation`);
+    }
+  }
+  const first = (summary["problems"] as Json[])[0]!;
+  const research = body(await call({ view: "research", text: first["id"] }));
+  assert.equal(research["schemaVersion"], "qop-search-research/1");
+  assert.equal(research["total"], 1);
+  assert.equal((research["problems"] as Json[])[0]!["id"], first["id"], "valid supplied filters remain effective");
+});
+
 async function inMemory(t: TestContext, adapter: ReturnType<typeof createAdapter>) {
   const server = createMcpServer(adapter);
   const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
@@ -140,6 +179,49 @@ async function inMemory(t: TestContext, adapter: ReturnType<typeof createAdapter
   await client.connect(clientTransport);
   return client;
 }
+
+test("search discovery accepts optional atomic research pages and validates research-only budgets and complete problem shapes", async t => {
+  const adapter = createAdapter("http://127.0.0.1:1", null, true);
+  const page = { total: 0, count: 0, limit: 50, offset: 0, nextOffset: null, nextCursor: null,
+    catalogVersion: "fixture", unit: "records", sort: "edited", problems: [] };
+  const research = { ...page, schemaVersion: "qop-search-research/1", view: "research", sortDescription: "Catalog editing history.",
+    maxBytes: 65536, responseBytes: 512,
+    budgetSemantics: { unit: "utf8-json-bytes", representation: "compact-json", scope: "entire-api-response", atomicUnit: "problem", excludes: ["http-headers", "mcp-envelope", "tokens"] } };
+  let response: Json = { ...page, schemaVersion: "qop-search/2" };
+  let calls = 0;
+  adapter.tools.find(tool => tool.name === "search_problems")!.call = async () => { calls++; return { status: 200, body: response }; };
+  const client = await inMemory(t, adapter);
+  const tools = (await client.listTools()).tools;
+  assert.ok(!tools.some(tool => tool.name === "get_problems"));
+  const search = tools.find(tool => tool.name === "search_problems")!;
+  const input = search.inputSchema.properties as Record<string, Record<string, unknown>>;
+  assert.deepEqual(input["view"]?.["enum"], ["summary", "research"]);
+  assert.equal(input["view"]?.["default"], "summary");
+  assert.equal(Object.hasOwn(input["maxBytes"]!, "default"), false, "a default byte budget must not be silently added to summary calls");
+  assert.ok(Array.isArray(search.outputSchema?.oneOf));
+  assert.deepEqual(body(await client.callTool({ name: "search_problems" })), response);
+  response = research;
+  assert.deepEqual(body(await client.callTool({ name: "search_problems", arguments: { view: "research" } })), research);
+  for (const maxBytes of [16384, 1048576]) {
+    body(await client.callTool({ name: "search_problems", arguments: { view: "research", maxBytes } }));
+  }
+  const beforeInvalid = calls;
+  for (const args of [
+    { view: "full" }, { maxBytes: 65536 }, { view: "summary", maxBytes: 65536 },
+    { view: "research", maxBytes: 16383 }, { view: "research", maxBytes: 1048577 },
+    { view: "research", maxBytes: 16384.5 }, { view: "research", maxBytes: "65536" },
+  ]) assert.equal((await client.callTool({ name: "search_problems", arguments: args })).isError, true, JSON.stringify(args));
+  assert.equal(calls, beforeInvalid, "invalid budget options must be rejected before service access");
+  const { budgetSemantics: _budget, ...withoutBudget } = research;
+  for (const malformed of [
+    withoutBudget,
+    { ...research, view: "summary" },
+    { ...research, total: 1, count: 1, problems: [{ id: "fixture", title: "Only a summary", status: "Unsolved", areaIds: [], topicIds: [], difficulty: "unrated" }] },
+  ]) {
+    response = malformed;
+    assert.equal((await client.callTool({ name: "search_problems", arguments: { view: "research" } })).isError, true);
+  }
+});
 
 test("authenticated schemas reject malformed writes before side effects and retain scientific payload fields", async t => {
   const adapter = createAdapter("http://127.0.0.1:1", "fixture-key");

@@ -53,6 +53,22 @@ interface ResearchProblem extends Problem {
     progress: ResearchEntry[]; comment: ResearchEntry[];
     references: (ResearchEntry & { key: string; label: string })[] };
 }
+interface ResearchSearchPage extends Omit<SearchPage, "problems"> {
+  schemaVersion: string; view: string; limit: number; offset: number;
+  nextOffset: number | null; maxBytes: number; responseBytes: number;
+  problems: (ResearchProblem & { match?: SearchPage["problems"][number]["match"] })[];
+}
+
+const compactBytes = (value: unknown) => Buffer.byteLength(JSON.stringify(value), "utf8");
+function assertResearchPage(page: ResearchSearchPage, maxBytes = 65_536) {
+  assert.equal(page.schemaVersion, "qop-search-research/1");
+  assert.equal(page.view, "research");
+  assert.equal(page.count, page.problems.length);
+  assert.equal(page.maxBytes, maxBytes);
+  assert.equal(page.responseBytes, compactBytes(page), "Byte accounting covers the entire compact API JSON, including itself");
+  assert.ok(page.responseBytes <= maxBytes, "The complete response must fit the requested byte budget");
+  assert.equal(page.nextOffset, page.nextCursor === null ? null : page.offset + page.count);
+}
 
 async function listen(server: http.Server): Promise<string> {
   await new Promise<void>((resolve, reject) => {
@@ -254,6 +270,146 @@ test("maintained catalog research workflows through the official HTTP SDK", { ti
     assert.equal(new Set(seen).size, complete.total);
     const wrongScope = await client.callTool({ name: "search_problems", arguments: { ...filters, status: "Solved", cursor } });
     assert.equal(wrongScope.isError, true);
+  });
+
+  // The same maintained snapshot is used by the batch and individual readers.
+  // Cache individual reads only to avoid repeating them across overlapping scopes.
+  const researchById = new Map<string, ResearchProblem>();
+  const individualResearch = async (id: string) => {
+    if (!researchById.has(id)) researchById.set(id, await call<ResearchProblem>("get_problem", { id, view: "research" }));
+    return researchById.get(id)!;
+  };
+  await t.test("research search traverses every algorithm and every unsolved problem with complete individual-reader equivalence", async () => {
+    for (const filters of [
+      { area: "Quantum algorithm", status: "Unsolved", sort: "title" },
+      { status: "Unsolved", sort: "title" },
+    ]) {
+      const summary = await call<SearchPage>("search_problems", { ...filters, limit: 200 });
+      const expectedRecords = records.filter(record => record.status === "Unsolved" && (!filters.area || record.fields.includes(filters.area)));
+      assert.deepEqual(new Set(ids(summary)), new Set(expectedRecords.map(record => record.ulid)));
+      const collected: string[] = [];
+      let cursor: string | undefined;
+      let pages = 0;
+      do {
+        const page = await call<ResearchSearchPage>("search_problems", {
+          ...filters, view: "research", limit: 200, maxBytes: 1_048_576, ...(cursor ? { cursor } : {}),
+        });
+        assertResearchPage(page, 1_048_576);
+        assert.equal(page.catalogVersion, summary.catalogVersion);
+        assert.equal(page.total, summary.total);
+        assert.equal(page.offset, collected.length);
+        assert.ok(page.count > 0);
+        for (const row of page.problems) {
+          const { match, ...problem } = row;
+          assert.equal(match, undefined, "Unqueried listings do not add relevance evidence");
+          assert.deepEqual(problem, await individualResearch(row.id), `All scientific content and provenance agree for ${row.id}`);
+          const authored = expectedRecords.find(record => record.ulid === row.id)!;
+          assert.equal(problem.statement.clauses.find(clause => clause.id === "main")?.text, authored.statement);
+          assert.deepEqual(problem.research.progress.map(entry => entry.text), authored.progress);
+          assert.deepEqual(problem.research.references.map(({ key, label, text }) => ({ key, label, tex: text })), authored.references);
+          collected.push(row.id);
+        }
+        cursor = page.nextCursor ?? undefined;
+        assert.ok(++pages <= summary.total, "Whole-record pagination terminates");
+      } while (cursor);
+      assert.deepEqual(collected, ids(summary));
+      assert.equal(new Set(collected).size, summary.total);
+    }
+  });
+
+  await t.test("byte-limited research pages retain complete mathematical histories and advance by returned records", async () => {
+    const filters = { text: "量子算法", status: "Unsolved", sort: "relevance", limit: 200 };
+    const summary = await call<SearchPage>("search_problems", filters);
+    const seen: string[] = [];
+    let cursor: string | undefined;
+    let pageNumber = 0;
+    do {
+      // Omission exercises the documented default byte budget on the first page.
+      // Later requests may change limit/maxBytes without changing search scope.
+      const maxBytes = pageNumber === 0 ? 65_536 : 131_072;
+      const page = await call<ResearchSearchPage>("search_problems", {
+        ...filters, view: "research", ...(cursor ? { cursor, limit: 100, maxBytes } : {}),
+      });
+      assertResearchPage(page, maxBytes);
+      assert.equal(page.total, summary.total);
+      assert.equal(page.catalogVersion, summary.catalogVersion);
+      assert.equal(page.offset, seen.length);
+      assert.ok(page.count > 0);
+      if (pageNumber === 0) {
+        assert.ok(page.nextCursor, "The byte budget must force another page for this maintained population");
+        assert.ok(page.count < Math.min(page.limit, page.total), "Bytes, rather than the row limit, shorten this page");
+      }
+      for (const row of page.problems) {
+        const { match, ...problem } = row;
+        assert.deepEqual(problem, await individualResearch(row.id), "Byte pagination must not truncate any statement or history paragraph");
+        assert.deepEqual(match, summary.problems.find(problem => problem.id === row.id)?.match);
+        assert.equal(match?.normalizedQuery, "quantum algorithm");
+        seen.push(row.id);
+      }
+      cursor = page.nextCursor ?? undefined;
+      assert.ok(++pageNumber <= summary.total);
+    } while (cursor);
+    assert.deepEqual(seen, ids(summary), "A cursor advances by actual returned count, without skipped candidates");
+    assert.equal(new Set(seen).size, summary.total);
+  });
+
+  await t.test("an oversized first research record returns an actionable error and succeeds at its recommended budget", async () => {
+    const largest = [...researchById.values()].sort((a, b) => compactBytes(b) - compactBytes(a))[0]!;
+    assert.ok(compactBytes(largest) > 16_384, "The maintained fixture includes a complete record larger than the minimum budget");
+    const args = { text: largest.id, view: "research", maxBytes: 16_384, limit: 1 };
+    const result = await client.callTool({ name: "search_problems", arguments: args });
+    assert.equal(result.isError, true);
+    const error = result.structuredContent as Json;
+    assert.equal(error["httpStatus"], 413);
+    assert.equal(error["code"], "response_budget_too_small");
+    assert.equal(error["problemId"], largest.id);
+    assert.equal(error["maxBytes"], 16_384);
+    assert.equal(error["retryable"], false, "The request needs a larger budget, not an unchanged retry");
+    const minimum = error["minimumRequiredBytes"];
+    assert.ok(typeof minimum === "number" && Number.isSafeInteger(minimum) && minimum > 16_384 && minimum <= 1_048_576);
+    const api = await fetch(`${origin}/api/v1/problems?${new URLSearchParams(Object.entries(args).map(([key, value]) => [key, String(value)]))}`);
+    assert.equal(api.status, 413);
+    const apiError = await api.json() as Json;
+    for (const field of ["code", "problemId", "maxBytes", "minimumRequiredBytes"]) assert.equal(apiError[field], error[field]);
+    const retried = await call<ResearchSearchPage>("search_problems", { ...args, maxBytes: minimum });
+    assertResearchPage(retried, minimum);
+    assert.equal(retried.count, 1);
+    assert.equal(retried.nextCursor, null);
+    const { match, ...problem } = retried.problems[0]!;
+    assert.ok(match && match.fields.includes("alias"));
+    assert.deepEqual(problem, largest);
+  });
+
+  await t.test("empty research searches are valid byte-accounted pages and summary/research cursors cannot cross views", async () => {
+    const empty = await call<ResearchSearchPage>("search_problems", { text: "noSuchScientificKeyword9zqx", view: "research" });
+    assertResearchPage(empty);
+    assert.equal(empty.total, 0);
+    assert.equal(empty.count, 0);
+    assert.equal(empty.offset, 0);
+    assert.equal(empty.nextOffset, null);
+    assert.equal(empty.nextCursor, null);
+    assert.deepEqual(empty.problems, []);
+    const emptyApi = await fetch(`${origin}/api/v1/problems?view=research&text=noSuchScientificKeyword9zqx`);
+    assert.equal(emptyApi.status, 200);
+    const rawEmpty = await emptyApi.text();
+    assert.deepEqual(JSON.parse(rawEmpty), empty, "The official SDK preserves the API's exact research page");
+    assert.equal(Buffer.byteLength(rawEmpty, "utf8"), empty.responseBytes, "Compact API wire bytes exclude the MCP text/structured wrapper");
+    const filters = { status: "Unsolved", sort: "title", limit: 1 };
+    const summary = await call<SearchPage>("search_problems", filters);
+    const research = await call<ResearchSearchPage>("search_problems", { ...filters, view: "research", maxBytes: 1_048_576 });
+    assert.ok(summary.nextCursor && research.nextCursor);
+    for (const args of [
+      { ...filters, view: "research", cursor: summary.nextCursor },
+      { ...filters, cursor: research.nextCursor },
+    ]) {
+      const result = await client.callTool({ name: "search_problems", arguments: args });
+      assert.equal(result.isError, true);
+      const error = result.structuredContent as Json;
+      assert.equal(error["httpStatus"], 400);
+      assert.equal(error["code"], "cursor_query_mismatch");
+    }
+    const continued = await call<SearchPage>("search_problems", { ...filters, cursor: summary.nextCursor });
+    assert.notEqual(continued.problems[0]?.id, summary.problems[0]?.id, "Default summary cursors remain usable in their original view");
   });
 
   await t.test("sampling uses every matching candidate, including the final row beyond a default page", async t => {

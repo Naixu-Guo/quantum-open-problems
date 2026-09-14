@@ -319,6 +319,7 @@ export function status(ledger: Ledger, index: Index, policyVersion: string) {
     policyVersion,
     contextSchemaVersion: CONTEXT_SCHEMA_VERSION,
     retrievalVersion: "qop-retrieval/1",
+    researchSearchVersion: "qop-search-research/1",
     idempotencyVersion: "qop-idempotency/2",
     lastSequence: index.lastSequence(),
     counts: index.counts(),

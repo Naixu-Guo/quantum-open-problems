@@ -108,27 +108,49 @@ async function until(check) {
   assert.fail("background catalog update did not arrive");
 }
 
-test("MCP cursor detects a real committed catalog revision between pages", async (t) => {
+test("MCP summary and research cursors detect a real committed catalog revision between pages", async (t) => {
   const { root, baseline, start, mcp } = await fixture(t);
   await addProblem(root);
   const { base } = await start({ commit: false });
   const client = mcp(base);
-  const first = await client.tool("search_problems", { limit: 1, sort: "title" });
-  assert.equal(first.error, false);
-  assert.ok(first.body.nextCursor);
+  const searches = [{ limit: 1, sort: "title" }, { limit: 1, sort: "title", view: "research", maxBytes: 1_048_576 }];
+  const firstPages = [];
+  for (const args of searches) {
+    const first = await client.tool("search_problems", args);
+    assert.equal(first.error, false);
+    assert.ok(first.body.nextCursor);
+    firstPages.push(first.body);
+  }
   const revised = structuredClone(baseline);
-  revised.comment += "\nA catalog annotation added during the pagination test.";
+  revised.comment += "\n分页回归测试：中文研究说明与公式 $\\varepsilon=o(t\\Delta)$ 必须完整保留。这是测试注释。";
   fs.writeFileSync(path.join(root, "database/problems_json", `${revised.id}.json`), JSON.stringify(revised));
   await exportLedger({ root });
   commit(root, "Update catalog annotation between pages");
-  const stale = await client.tool("search_problems", { limit: 1, sort: "title", cursor: first.body.nextCursor });
-  assert.equal(stale.error, true);
-  assert.equal(stale.body.httpStatus, 409);
-  assert.equal(stale.body.code, "catalog_changed");
-  const restarted = await client.tool("search_problems", { limit: 200, sort: "title" });
-  assert.equal(restarted.error, false);
-  assert.equal(restarted.body.count, 2);
-  assert.notEqual(restarted.body.catalogVersion, first.body.catalogVersion);
+  for (const [index, args] of searches.entries()) {
+    const first = firstPages[index];
+    const stale = await client.tool("search_problems", { ...args, cursor: first.nextCursor });
+    assert.equal(stale.error, true);
+    assert.equal(stale.body.httpStatus, 409);
+    assert.equal(stale.body.code, "catalog_changed");
+    const restarted = await client.tool("search_problems", { ...args, limit: 200 });
+    assert.equal(restarted.error, false);
+    assert.equal(restarted.body.count, 2);
+    assert.notEqual(restarted.body.catalogVersion, first.catalogVersion);
+    if (args.view === "research") {
+      assert.equal(restarted.body.schemaVersion, "qop-search-research/1");
+      assert.equal(restarted.body.responseBytes, Buffer.byteLength(JSON.stringify(restarted.body), "utf8"));
+      assert.ok(restarted.body.responseBytes > JSON.stringify(restarted.body).length, "UTF-8 bytes differ from character counts for Chinese history");
+      for (const problem of restarted.body.problems) {
+        const individual = await client.tool("get_problem", { id: problem.id, view: "research" });
+        assert.equal(individual.error, false);
+        assert.deepEqual(problem, individual.body, "A restarted search exposes precisely the current individual research view");
+      }
+      const found = restarted.body.problems.find(problem => problem.id === revised.ulid);
+      assert.deepEqual(found.research.comment.map(entry => entry.text), [revised.comment]);
+      assert.deepEqual(found.research.progress.map(entry => entry.text), revised.progress);
+      assert.equal(found.statement.clauses.find(clause => clause.id === "main").text, revised.statement);
+    }
+  }
 });
 
 test("MCP research keeps service background after a metadata-only catalog export pins the merged revision", async (t) => {
@@ -195,6 +217,12 @@ test("MCP research keeps service background after a metadata-only catalog export
   for (const field of ["source", "progress", "comment", "references"]) {
     assert.deepEqual(research.body.research[field].map(entry => entry.text), initial.body.research[field].map(entry => entry.text));
   }
+  const batch = await client.tool("search_problems", { view: "research", maxBytes: 1_048_576 });
+  assert.equal(batch.error, false);
+  assert.equal(batch.body.count, 1);
+  assert.deepEqual(batch.body.problems[0], research.body, "Batch research preserves the same independent service background after export");
+  assert.equal(batch.body.problems[0].bodyDisposition, "included");
+  assert.ok(batch.body.problems[0].body.includes(marker));
 });
 
 test("MCP sees a committed catalog addition on the next read, even with service commits disabled", async (t) => {

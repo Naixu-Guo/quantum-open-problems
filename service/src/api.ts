@@ -24,6 +24,7 @@ import { handleWeb, parseCookies, SESSION_COOKIE, LOGIN_COOKIE, type Caller } fr
 import { hasRole } from "../../contract/src/types/actor.ts";
 import { parseSubmission, verifyCaptcha, submissionText, SUBMISSION_STATES, type SubmissionState } from "./submissions.ts";
 import { handleInbox, INBOX_COOKIE } from "./inbox.ts";
+import { researchSearchPage, RESEARCH_SEARCH_DEFAULT_BYTES, RESEARCH_SEARCH_MIN_BYTES, RESEARCH_SEARCH_MAX_BYTES } from "./research-search.ts";
 
 interface Call {
   inboxSession: boolean;
@@ -40,6 +41,8 @@ interface Reply {
   status: number;
   body: unknown;
   contentType?: "application/x-ndjson";
+  /** Budgeted research responses measure the actual compact JSON HTTP body. */
+  compactJson?: boolean;
 }
 
 interface Route {
@@ -146,12 +149,12 @@ function routes(service: Service): Route[] {
     return { status: 201, body: { accepted: true, commit: result.commit, recordIds: records.map((r) => String(r.fields["id"])), decisions: result.decisions, automaticIssues: result.automaticIssues, ...extra } };
   };
 
-  const problemFilter = (query: URLSearchParams): ProblemFilter => {
+  const problemFilter = (query: URLSearchParams, current = ledger()): ProblemFilter => {
     if (query.has("cursor") && !query.get("cursor")?.trim()) throw new SearchError(400, "invalid_cursor", "A cursor must be nonempty; omit it to start a new search");
     const requestedStatus = query.get("status");
     if (requestedStatus && requestedStatus !== "Solved" && requestedStatus !== "Unsolved") throw new HttpError(400, "status must be Solved or Unsolved");
     const resolveTag = (kind: "areas" | "topics", label: string) => {
-      const id = taxonomyId(ledger(), kind, label);
+      const id = taxonomyId(current, kind, label);
       if (!id) throw new HttpError(400, `Unknown ${kind === "areas" ? "area" : "topic"} ${label}; use a label or slug from /api/v1/taxonomy`);
       return id;
     };
@@ -175,9 +178,9 @@ function routes(service: Service): Route[] {
     difficulty: row.difficulty, lastActivity: row.last_activity, lastHumanReview: row.last_human_review,
     catalogEditedAt: row.edited_at, catalogCreatedAt: row.created_at, ...(row.match ? { match: row.match } : {}),
   });
-  const problemDetails = (id: string, raw: boolean, view: "full" | "research") => {
-    const problem = notNull(problemView(ledger(), id, raw, view), "problem");
-    const row = service.index.problemRows({ text: id, indexedOnly: false, limit: 1 })[0];
+  const problemDetails = (id: string, raw: boolean, view: "full" | "research", current = ledger(), indexedRow?: ProblemRow) => {
+    const problem = notNull(problemView(current, id, raw, view), "problem");
+    const row = indexedRow ?? service.index.problemRows({ text: id, indexedOnly: false, limit: 1 })[0];
     return { ...problem, catalogDates: { editedAt: row?.edited_at ?? null, createdAt: row?.created_at ?? null,
       basis: row?.edited_at ? "tex-git-history" : "unavailable", meaning: "Catalog editing history, not research-result or resolution dates." } };
   };
@@ -197,14 +200,41 @@ function routes(service: Service): Route[] {
     { method: "GET", pattern: /^\/api\/v1\/actors$/u, auth: false, handler: () => ok({ actors: actorsView(ledger()) }) },
     { method: "GET", pattern: /^\/api\/v1\/sources$/u, auth: false, handler: ({ query }) => ok(searchSources(ledger(), query.get("text") ?? "", integer(query, "limit", 20), integer(query, "offset", 0))) },
     { method: "GET", pattern: /^\/api\/v1\/problems$/u, auth: false, handler: ({ query }) => {
-      const filter = problemFilter(query);
-      const { rows, ...page } = service.index.problemPage(filter);
+      for (const key of ["view", "maxBytes"]) if (query.getAll(key).length > 1) throw new HttpError(400, `${key} must be specified only once`);
+      const view = query.get("view") ?? "summary";
+      if (view !== "summary" && view !== "research") throw new HttpError(400, "view must be summary or research");
+      if (view === "summary" && query.has("maxBytes")) throw new HttpError(400, "maxBytes is only available with view=research");
+      let maxBytes = RESEARCH_SEARCH_DEFAULT_BYTES;
+      if (view === "research") {
+        const allowed = new Set(["view", "maxBytes", "area", "topic", "status", "difficulty", "text", "includeCandidates", "limit", "offset", "cursor", "sort"]);
+        for (const key of query.keys()) {
+          if (!allowed.has(key)) throw new HttpError(400, `Unknown research-search parameter ${key}`);
+          if (query.getAll(key).length > 1) throw new HttpError(400, `${key} must be specified only once`);
+          if (!query.get(key)?.trim()) throw new HttpError(400, `${key} must be nonempty when supplied`);
+        }
+        for (const key of ["maxBytes", "limit", "offset"]) {
+          if (query.has(key) && !/^\d+$/u.test(query.get(key)!)) throw new HttpError(400, `${key} must be a non-negative safe integer`);
+        }
+        if (query.has("includeCandidates") && !["true", "false"].includes(query.get("includeCandidates")!)) throw new HttpError(400, "includeCandidates must be true or false");
+        if (query.has("difficulty") && !["unrated", "accessible", "hard", "very-hard"].includes(query.get("difficulty")!)) throw new HttpError(400, "Unknown problem difficulty");
+        if (query.has("limit") && integer(query, "limit", 50) < 1) throw new HttpError(400, "limit must be at least 1");
+        maxBytes = integer(query, "maxBytes", RESEARCH_SEARCH_DEFAULT_BYTES);
+        if (maxBytes < RESEARCH_SEARCH_MIN_BYTES || maxBytes > RESEARCH_SEARCH_MAX_BYTES) throw new HttpError(400, `maxBytes must be between ${RESEARCH_SEARCH_MIN_BYTES} and ${RESEARCH_SEARCH_MAX_BYTES}`);
+      }
+      const current = ledger();
+      const filter = problemFilter(query, current);
+      if (view === "research") filter.view = "research";
+      const result = service.index.problemPage(filter);
       const sort = filter.sort ?? (filter.text?.trim() ? "relevance" : "edited");
+      const sortDescription = sort === "stale" ? "Missing service human-review dates first, then oldest review; not catalog edit age."
+        : sort === "edited" ? "Newest TeX git author edit time, then creation time; unknown dates last. Not a research-result date."
+        : sort === "relevance" ? "Scientific field-weighted relevance; exact identifiers resolve separately." : "Title, then stable id.";
+      if (view === "research") return researchSearchPage(service.index, result, { sort, sortDescription, maxBytes }, row => ({
+        ...problemDetails(row.id, false, "research", current, row), ...(row.match ? { match: row.match } : {}),
+      }));
+      const { rows, ...page } = result;
       return ok({ schemaVersion: "qop-search/2", ...page, unit: "records", count: rows.length, sort,
-        sortDescription: sort === "stale" ? "Missing service human-review dates first, then oldest review; not catalog edit age."
-          : sort === "edited" ? "Newest TeX git author edit time, then creation time; unknown dates last. Not a research-result date."
-          : sort === "relevance" ? "Scientific field-weighted relevance; exact identifiers resolve separately." : "Title, then stable id.",
-        problems: rows.map(problemSummary) });
+        sortDescription, problems: rows.map(problemSummary) });
     } },
     { method: "GET", pattern: /^\/api\/v1\/problems\/sample$/u, auth: false, noStore: true, handler: ({ query }) => {
       if (["cursor", "offset", "limit", "sort"].some(key => query.has(key))) throw new HttpError(400, "Sampling uses the entire matching set; cursor, offset, limit and sort are not accepted");
@@ -456,8 +486,8 @@ export function createServer(service: Service): http.Server {
       }
       return completed;
     };
-    const send = (code: number, payload: unknown, extra: Record<string, string> = {}, contentType?: "application/x-ndjson") => {
-      const body = contentType ? String(payload) : JSON.stringify(payload, null, 1);
+    const send = (code: number, payload: unknown, extra: Record<string, string> = {}, contentType?: "application/x-ndjson", compactJson = false) => {
+      const body = contentType ? String(payload) : compactJson ? JSON.stringify(payload) : JSON.stringify(payload, null, 1);
       const { Vary: extraVary, ...rest } = { ...cors, ...extra };
       const vary = ["Authorization", "Cookie", ...(extraVary ? [extraVary] : [])].join(", ");
       response.writeHead(code, { "Content-Type": `${contentType ?? "application/json"}; charset=utf-8`, "X-Content-Type-Options": "nosniff", "Content-Length": Buffer.byteLength(body), "Cache-Control": code === 200 && cacheable ? "public, max-age=15" : "no-store", Vary: vary, ...rest });
@@ -544,7 +574,7 @@ export function createServer(service: Service): http.Server {
         if (stored === "pending") {
           const active = inFlight.get(slot);
           const completed = active ? await active : { reply: uncertain(), replayable: false };
-          send(completed.reply.status, completed.reply.body, completed.replayable ? { "Idempotent-Replay": "true" } : {}, completed.reply.contentType);
+          send(completed.reply.status, completed.reply.body, completed.replayable ? { "Idempotent-Replay": "true" } : {}, completed.reply.contentType, completed.reply.compactJson);
           return;
         }
         if (stored !== "reserved") {
@@ -560,7 +590,7 @@ export function createServer(service: Service): http.Server {
       const reply = await route.handler({ inboxSession, params: match.slice(1).map((s) => decodeURIComponent(s)), query: url.searchParams, actorId, raw, headers: request.headers, address });
       const refusedBeforeWrite = reply.status === 503 && (reply.body as { accepted?: boolean })?.accepted === false;
       const completed = complete(reply, refusedBeforeWrite, reply.status >= 500 && !refusedBeforeWrite);
-      send(completed.reply.status, completed.reply.body, {}, completed.reply.contentType);
+      send(completed.reply.status, completed.reply.body, {}, completed.reply.contentType, completed.reply.compactJson);
     } catch (error) {
       if (response.headersSent) { response.end(); return; }
       const known = error instanceof HttpError || error instanceof PayloadError || error instanceof SearchError;

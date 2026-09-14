@@ -101,6 +101,13 @@ export interface ProblemFilter {
   status?: string; area?: string; topic?: string; difficulty?: string; text?: string;
   indexedOnly?: boolean; limit?: number; offset?: number; cursor?: string;
   sort?: "title" | "stale" | "relevance" | "edited";
+  /** Projection is cursor-scoped; summary keeps the original cursor contract. */
+  view?: "summary" | "research";
+}
+
+export interface ProblemPage {
+  rows: ProblemRow[]; total: number; limit: number; offset: number;
+  nextOffset: number | null; catalogVersion: string; nextCursor: string | null;
 }
 
 interface SearchRow extends ProblemRow { search_document: string; search_text: string }
@@ -109,6 +116,7 @@ const CURSOR_TTL = 60 * 60 * 1000;
 
 export class Index {
   readonly db: DatabaseSync;
+  private readonly pageContexts = new WeakMap<ProblemPage, { scope: string; expiresAt: number }>();
 
   constructor(dbPath: string) {
     if (dbPath !== ":memory:") fs.mkdirSync(path.dirname(dbPath), { recursive: true });
@@ -255,6 +263,7 @@ export class Index {
       topic: filter.topic ?? null, difficulty: filter.difficulty ?? null, indexedOnly: filter.indexedOnly !== false,
       sort: filter.sort ?? (normalizeSearch(filter.text ?? "") ? "relevance" : "edited"),
       exactAliasIds,
+      ...(filter.view === "research" ? { view: "research" } : {}),
     })).digest("hex");
   }
 
@@ -319,7 +328,7 @@ export class Index {
     return rows;
   }
 
-  problemPage(filter: ProblemFilter) {
+  problemPage(filter: ProblemFilter): ProblemPage {
     if (filter.cursor && (filter.offset ?? 0) !== 0) throw new SearchError(400, "invalid_cursor", "Use either cursor or offset, not both.");
     const cursor = filter.cursor ? this.decodeCursor(filter.cursor, filter) : null;
     const matches = this.matchingRows(filter);
@@ -329,8 +338,26 @@ export class Index {
     const total = matches.length;
     const nextOffset = offset + rows.length < total ? offset + rows.length : null;
     const catalogVersion = this.catalogVersion();
-    const nextCursor = nextOffset === null ? null : this.encodeCursor({ version: catalogVersion, scope: this.queryScope(filter), offset: nextOffset, expiresAt: cursor?.expiresAt ?? Date.now() + CURSOR_TTL });
-    return { rows, total, limit, offset, nextOffset, catalogVersion, nextCursor };
+    const context = { scope: this.queryScope(filter), expiresAt: cursor?.expiresAt ?? Date.now() + CURSOR_TTL };
+    const nextCursor = nextOffset === null ? null : this.encodeCursor({ version: catalogVersion, ...context, offset: nextOffset });
+    const page = { rows, total, limit, offset, nextOffset, catalogVersion, nextCursor };
+    this.pageContexts.set(page, context);
+    return page;
+  }
+
+  /** Re-sign a shorter, whole-record prefix without querying again or renewing the cursor TTL. */
+  prefixProblemPage(page: ProblemPage, count: number): ProblemPage {
+    const context = this.pageContexts.get(page);
+    if (!context || !Number.isSafeInteger(count) || count < 0 || count > page.rows.length) {
+      throw new SearchError(400, "invalid_search", "A page prefix must belong to this index and contain a valid number of rows.");
+    }
+    if (page.catalogVersion !== this.catalogVersion()) throw new SearchError(409, "catalog_changed", "Catalog changed while preparing the page; restart the search without a cursor.");
+    if (context.expiresAt <= Date.now()) throw new SearchError(410, "cursor_expired", "Search cursor expired; restart the search without a cursor.");
+    const nextOffset = page.offset + count < page.total ? page.offset + count : null;
+    const nextCursor = nextOffset === null ? null : this.encodeCursor({ version: page.catalogVersion, ...context, offset: nextOffset });
+    const prefix = { ...page, rows: page.rows.slice(0, count), nextOffset, nextCursor };
+    this.pageContexts.set(prefix, context);
+    return prefix;
   }
 
   /** A uniform draw from the entire filtered population, independent of page size. */

@@ -53,6 +53,37 @@ one hour; changes to the catalog return `catalog_changed` (409), requiring a fre
 query. This detects changes rather than retaining a historical snapshot. Empty,
 tampered, expired, and mismatched cursors are errors. Legacy offsets remain supported.
 
+Search defaults to `view: "summary"`. Request `view: "research"` to retrieve full
+research details for a filtered set without first collecting IDs and issuing
+individual detail calls:
+
+```json
+{"area":"quantum-algorithm","status":"Unsolved","view":"research"}
+```
+
+Research search returns `qop-search-research/1`. Every result has the same complete
+formal statement, research history, references, comments, decisions and retained
+service body as `get_problem(view: "research")`, plus match evidence when searching
+text. It supplies data for the caller's chosen workflow; ordering is not a difficulty
+ranking. Existing summary search remains `qop-search/2`.
+
+`limit` caps the number of problems and `maxBytes` caps the complete compact UTF-8
+API JSON response (default 65,536; accepted range 16,384–1,048,576). Problems are
+atomic: a page may contain fewer than `limit` to fit the byte budget, and its
+`nextCursor` continues after the last problem actually returned. Repeat the filters,
+sort and `view`; switching view requires a fresh query. `responseBytes` includes
+the API envelope, but excludes HTTP headers, MCP framing and any token accounting.
+`maxBytes` only applies to research search and can change between pages.
+Supplied research-search parameters must be nonempty; omit unused filters.
+
+If even the first problem cannot fit, HTTP 413 with `response_budget_too_small`
+reports `minimumRequiredBytes` and `problemId`; increase the budget within the
+allowed range or use the single-problem reader. The server never substitutes a
+truncated statement or an empty success page. Client history limits are separate;
+for example, [Codex supports per-tool output token limits](https://learn.chatgpt.com/docs/extend/mcp).
+Choose a page budget compatible with the client, and lower it if the client reports
+truncated tool output.
+
 Text search covers the current formal statement and clauses, titles, authored
 progress, taxonomy, keywords, and background. Complete IDs and aliases are resolved
 separately so accidental substrings in opaque IDs cannot match scientific queries.
@@ -130,8 +161,9 @@ research contributions. It requires Git and Node.js 22.13 or later. If you alrea
 have a checkout, run `npm --prefix mcp ci` from its root. Both stdio and HTTP use
 the official MCP SDK, with shared parameter validation and result schemas.
 MCP 1.3 requires an API advertising `contextSchemaVersion: "qop-context/2"` and
-`idempotencyVersion: "qop-idempotency/2"`, plus `retrievalVersion: "qop-retrieval/1"`
-at `/api/v1/status`. The `check:service` command verifies all three capabilities; point it at the same `QOP_SERVICE_URL` as the adapter. If it fails,
+`idempotencyVersion: "qop-idempotency/2"`, `retrievalVersion: "qop-retrieval/1"`, and
+`researchSearchVersion: "qop-search-research/1"` at `/api/v1/status`.
+The `check:service` command verifies all four capabilities; point it at the same `QOP_SERVICE_URL` as the adapter. If it fails,
 the operator must deploy and restart the matching API release before activating
 this MCP release. See [API-first deployment](../deploy/ubuntu/README.md#public-mcp-endpoint).
 Check the [hosted catalog status](https://api.qiqc-op.com/api/v1/status) to verify

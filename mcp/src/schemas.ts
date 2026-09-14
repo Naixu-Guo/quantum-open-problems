@@ -85,15 +85,25 @@ const problem = object({ id: string, title: string, status, statement: nullableR
   bodyDisposition: { enum: ["included", "omitted-duplicate-import"] },
   view: { enum: ["full", "research"] }, difficulty: string, provenance, research,
   statusSource: object({ kind: { enum: ["authored-catalog", "decision", "default"] }, recordId: string }) });
+const searchPage = { ...pagination, catalogVersion: string, nextCursor: nullableString,
+  unit: { const: "records" }, sort: { enum: ["title", "stale", "relevance", "edited"] } };
+const summarySearch = object({ ...searchPage, schemaVersion: { const: "qop-search/2" },
+  problems: { type: "array", items: object({ id: string, alias: nullableString, title: string, status, areaIds: strings, topicIds: strings,
+    difficulty: string, lastActivity: nullableString, lastHumanReview: nullableString, catalogEditedAt: nullableString, catalogCreatedAt: nullableString,
+    match: object({ score: { type: "number" }, fields: strings, snippet: string, normalizedQuery: string }) }, ["id", "title", "status", "areaIds", "topicIds", "difficulty"]) } });
+const researchSearch = object({ ...searchPage, schemaVersion: { const: "qop-search-research/1" }, view: { const: "research" },
+  sortDescription: string,
+  problems: { type: "array", items: object({ ...properties(problem), view: { const: "research" } }) },
+  maxBytes: { type: "integer", minimum: 16384, maximum: 1048576 }, responseBytes: { type: "integer", minimum: 1 },
+  budgetSemantics: object({ unit: { const: "utf8-json-bytes" }, representation: { const: "compact-json" },
+    scope: { const: "entire-api-response" }, atomicUnit: { const: "problem" },
+    excludes: { const: ["http-headers", "mcp-envelope", "tokens"] } }) });
 const OUTPUT_SCHEMAS: Record<string, Json> = {
   get_status: object({ policyVersion: string, lastSequence: integer, counts: record,
     problems: object({ unit: { const: "records" }, total: integer, published: integer, candidates: integer, merged: integer, retired: integer, byStatus }),
     distinctQuestions: object({ unit: { const: "distinct questions" }, scope: string, total: integer, byStatus }), lastRelease: nullableRecord }),
-  search_problems: object({ ...pagination, schemaVersion: { const: "qop-search/2" }, catalogVersion: string, nextCursor: nullableString,
-    unit: { const: "records" }, sort: { enum: ["title", "stale", "relevance", "edited"] },
-    problems: { type: "array", items: object({ id: string, alias: nullableString, title: string, status, areaIds: strings, topicIds: strings,
-      difficulty: string, lastActivity: nullableString, lastHumanReview: nullableString, catalogEditedAt: nullableString, catalogCreatedAt: nullableString,
-      match: object({ score: { type: "number" }, fields: strings, snippet: string, normalizedQuery: string }) }, ["id", "title", "status", "areaIds", "topicIds", "difficulty"]) } }),
+  search_problems: { ...object({ ...searchPage, schemaVersion: { enum: ["qop-search/2", "qop-search-research/1"] }, problems: records }),
+    oneOf: [summarySearch, researchSearch] },
   search_sources: object({ ...pagination, returned: integer, text: string, sources: { type: "array", items: source } }, ["total", "count", "limit", "offset", "nextOffset", "sources"]),
   get_problem: problem,
   sample_problem: object({ schemaVersion: { const: "qop-sample/1" }, total: integer, catalogVersion: string,

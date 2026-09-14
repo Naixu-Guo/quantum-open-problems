@@ -5,11 +5,11 @@ import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { Client } from "@modelcontextprotocol/client";
 import { InMemoryTransport } from "@modelcontextprotocol/server";
-import { AdapterError, createAdapter, REQUIRED_CONTEXT_SCHEMA_VERSION, REQUIRED_IDEMPOTENCY_VERSION, REQUIRED_RETRIEVAL_VERSION } from "../src/adapter.ts";
+import { AdapterError, createAdapter, REQUIRED_CONTEXT_SCHEMA_VERSION, REQUIRED_IDEMPOTENCY_VERSION, REQUIRED_RETRIEVAL_VERSION, REQUIRED_RESEARCH_SEARCH_VERSION } from "../src/adapter.ts";
 import { checkService } from "../src/check-service.ts";
 import { createMcpServer } from "../src/shared-server.ts";
 
-test("service preflight requires explicit context, idempotency and retrieval capabilities without probing or writing records", async t => {
+test("service preflight requires explicit context, idempotency, retrieval and research-search capabilities without probing or writing records", async t => {
   let body: Record<string, unknown> = {};
   let calls = 0;
   t.mock.method(globalThis, "fetch", async (input: unknown, init?: RequestInit) => {
@@ -32,9 +32,87 @@ test("service preflight requires explicit context, idempotency and retrieval cap
       ...(value === undefined ? {} : { retrievalVersion: value }) };
     await assert.rejects(checkService("http://localhost:8787"), error => error instanceof AdapterError && error.code === "INCOMPATIBLE_SERVICE" && error.details.retryable === false && /qop-retrieval\/1/u.test(error.message));
   }
-  body = { contextSchemaVersion: REQUIRED_CONTEXT_SCHEMA_VERSION, idempotencyVersion: REQUIRED_IDEMPOTENCY_VERSION, retrievalVersion: REQUIRED_RETRIEVAL_VERSION };
+  for (const value of [undefined, "qop-search-research/0", "qop-search-research/2"]) {
+    body = { contextSchemaVersion: REQUIRED_CONTEXT_SCHEMA_VERSION, idempotencyVersion: REQUIRED_IDEMPOTENCY_VERSION, retrievalVersion: REQUIRED_RETRIEVAL_VERSION,
+      ...(value === undefined ? {} : { researchSearchVersion: value }) };
+    await assert.rejects(checkService("http://localhost:8787"), error => error instanceof AdapterError && error.code === "INCOMPATIBLE_SERVICE" && error.details.retryable === false && /qop-search-research\/1/u.test(error.message));
+  }
+  body = { contextSchemaVersion: REQUIRED_CONTEXT_SCHEMA_VERSION, idempotencyVersion: REQUIRED_IDEMPOTENCY_VERSION, retrievalVersion: REQUIRED_RETRIEVAL_VERSION, researchSearchVersion: REQUIRED_RESEARCH_SEARCH_VERSION };
   assert.deepEqual(await checkService("http://localhost:8787"), { serviceUrl: "http://localhost:8787", ...body });
-  assert.equal(calls, 10);
+  assert.equal(calls, 13);
+});
+
+test("research search checks both the dedicated marker and view even for empty results, while summary stays compatible", async t => {
+  let response: Record<string, unknown> = {};
+  let status = 200;
+  const requests: URL[] = [];
+  t.mock.method(globalThis, "fetch", async (input: unknown) => {
+    requests.push(new URL(String(input)));
+    return Response.json(response, { status, headers: { "X-Request-Id": "research-api-request" } });
+  });
+  const adapter = createAdapter("http://localhost:8787", null, true);
+  const server = createMcpServer(adapter);
+  const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
+  const client = new Client({ name: "research-search-compatibility", version: "1" });
+  t.after(async () => { await client.close(); await server.close(); });
+  await server.connect(serverTransport);
+  await client.connect(clientTransport);
+  for (const old of [
+    { problems: [], total: 0 },
+    { schemaVersion: "qop-search/2", problems: [], total: 0 },
+    { schemaVersion: REQUIRED_RESEARCH_SEARCH_VERSION, problems: [], total: 0 },
+    { schemaVersion: REQUIRED_RESEARCH_SEARCH_VERSION, view: "summary", problems: [], total: 0 },
+    { schemaVersion: "qop-search-research/2", view: "research", problems: [], total: 0 },
+  ]) {
+    response = old;
+    const result = await client.callTool({ name: "search_problems", arguments: { view: "research", maxBytes: 65536 } });
+    assert.equal(result.isError, true);
+    const error = result.structuredContent as Record<string, unknown>;
+    assert.equal(error["code"], "INCOMPATIBLE_SERVICE");
+    assert.equal(error["retryable"], false);
+    assert.equal(error["requestId"], "research-api-request");
+    assert.match(String(error["error"]), /qop-search-research\/1.*check:service/u);
+  }
+  const search = adapter.tools.find(tool => tool.name === "search_problems")!;
+  response = { schemaVersion: "qop-search/2", problems: [], total: 0 };
+  assert.deepEqual((await search.call({})).body, response);
+  assert.equal(requests.at(-1)!.search, "", "default summary forwards no research-only budget or view");
+  response = { schemaVersion: REQUIRED_RESEARCH_SEARCH_VERSION, view: "research", problems: [], total: 0 };
+  assert.deepEqual((await search.call({ view: "research", maxBytes: 16384, cursor: "opaque", limit: 2 })).body, response);
+  assert.equal(requests.at(-1)!.searchParams.get("maxBytes"), "16384");
+  assert.equal(requests.at(-1)!.searchParams.get("cursor"), "opaque");
+  status = 413;
+  response = { error: "The first complete problem does not fit", code: "response_budget_too_small", minimumRequiredBytes: 20000, problemId: "fixture", maxBytes: 16384 };
+  const refused = await client.callTool({ name: "search_problems", arguments: { view: "research", maxBytes: 16384 } });
+  assert.equal(refused.isError, true);
+  const failure = refused.structuredContent as Record<string, unknown>;
+  for (const [key, value] of Object.entries(response)) assert.deepEqual(failure[key], value);
+  assert.equal(failure["httpStatus"], 413);
+  assert.equal(failure["retryable"], false);
+});
+
+test("research search forwards explicit empty filters for API validation without changing summary serialization", async t => {
+  const requests: URL[] = [];
+  t.mock.method(globalThis, "fetch", async (input: unknown) => {
+    const url = new URL(String(input));
+    requests.push(url);
+    return url.searchParams.get("view") === "research"
+      ? Response.json({ error: "Supplied filters must be nonempty" }, { status: 400 })
+      : Response.json({ schemaVersion: "qop-search/2", problems: [], total: 0 });
+  });
+  const search = createAdapter("http://localhost:8787", null, true).tools.find(tool => tool.name === "search_problems")!;
+  for (const key of ["text", "area", "topic", "difficulty", "cursor", "sort"]) {
+    for (const value of ["", " \t\n", "\u00a0"]) {
+      assert.equal((await search.call({ view: "research", [key]: value })).status, 400);
+      const query = requests.at(-1)!.searchParams;
+      assert.equal(query.has(key), true, `${key} must not disappear`);
+      assert.equal(query.get(key), value, `${key} must reach the API unchanged`);
+    }
+    for (const view of [undefined, "summary"]) {
+      assert.equal((await search.call({ ...(view ? { view } : {}), [key]: "" })).status, 200);
+      assert.equal(requests.at(-1)!.searchParams.has(key), false, "summary retains its existing omission of empty strings");
+    }
+  }
 });
 
 test("old problem, search and sampling replies produce explicit incompatibility errors before output validation", async t => {
@@ -132,6 +210,10 @@ test("preflight CLI exits nonzero for an old API and passes only for the require
   assert.equal(oldRetrieval.code, 1);
   assert.match(oldRetrieval.stderr, /INCOMPATIBLE_SERVICE.*qop-retrieval\/1/u);
   status = { ...status, retrievalVersion: REQUIRED_RETRIEVAL_VERSION };
+  const oldResearchSearch = await run();
+  assert.equal(oldResearchSearch.code, 1);
+  assert.match(oldResearchSearch.stderr, /INCOMPATIBLE_SERVICE.*qop-search-research\/1/u);
+  status = { ...status, researchSearchVersion: REQUIRED_RESEARCH_SEARCH_VERSION };
   const compatible = await run();
   assert.equal(compatible.code, 0, compatible.stderr);
   assert.match(compatible.stdout, /Compatible API:.*qop-context\/2/u);
