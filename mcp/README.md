@@ -368,3 +368,27 @@ sessions, not a replay of tool state. `--holdouts` adds three independent paraph
 The model receives catalog content through your configured Codex provider; use only
 a dataset authorized for that destination. Script completion is not a passing score:
 review answer accuracy, evidence, scope and tool choice independently.
+
+Each retained event now includes a host observation timestamp. Separate
+`case-N.timings.jsonl` files record arrival times for every JSON event without
+reasoning text. `runs.json` reports first/last tool events and per-call observed
+durations. These include CLI buffering, scheduling and transport; they are not
+isolated API execution times, and overlapping calls must not be summed as wall time.
+To repeat only the selection case with the original preceding answer:
+
+```sh
+python3 mcp/eval/run-research.py --codex /path/to/codex --model MODEL --effort ultra --case 2 --history-from /tmp/qop-research-eval --output /tmp/qop-selection-repeat
+```
+
+For local service/transport measurements without invoking a model:
+
+```sh
+node --experimental-strip-types --no-warnings mcp/eval/measure-reads.mjs --output /tmp/qop-read-latency.json
+```
+
+The probe starts an in-memory API/MCP, measures three sequential and pooled batches
+of complete algorithm-problem research reads, and reports startup time, elapsed time,
+JSON bytes, MCP response bytes and duplicated metadata. Optional
+`--model-events /tmp/qop-research-eval` also summarizes the original three traces'
+call overlap. It rejects an empty catalog or an algorithm listing exceeding its
+200-record discovery page. Local timings do not predict a remote client's model latency.
