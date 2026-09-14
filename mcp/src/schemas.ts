@@ -98,6 +98,30 @@ const researchSearch = object({ ...searchPage, schemaVersion: { const: "qop-sear
   budgetSemantics: object({ unit: { const: "utf8-json-bytes" }, representation: { const: "compact-json" },
     scope: { const: "entire-api-response" }, atomicUnit: { const: "problem" },
     excludes: { const: ["http-headers", "mcp-envelope", "tokens"] } }) });
+const problemReadContents = {
+  statement: object({ statement: nullableRecord, body: string }, ["statement"]),
+  history: object({ source: records, progress: records, researchContext: record }),
+  references: object({ bibliography: records, references: records, researchContext: record }),
+  comment: object({ comment: records, discussion: records, decisions: records, researchContext: record }),
+};
+const problemRead = { ...object({ schemaVersion: { const: "qop-problem-read/1" }, problemId: { type: "string", minLength: 1 },
+  documentVersion: { type: "string", minLength: 64, maxLength: 64, pattern: "^[0-9a-f]{64}$" },
+  section: { enum: Object.keys(problemReadContents) }, format: { enum: ["json", "json-continuation"] },
+  content: nullableRecord, text: nullableString, continued: boolean, complete: boolean,
+  nextCursor: { type: ["string", "null"], minLength: 1 }, maxBytes: { type: "integer", minimum: 2048, maximum: 65536 },
+  responseBytes: { type: "integer", minimum: 1, maximum: 65536 },
+  budgetSemantics: object({ unit: { const: "utf8-json-bytes" }, representation: { const: "compact-json" },
+    scope: { const: "entire-api-response" }, excludes: { const: ["http-headers", "mcp-envelope", "tokens"] } }) }),
+  oneOf: [
+    { properties: { format: { const: "json" }, text: { type: "null" }, continued: { const: false }, complete: { const: true }, nextCursor: { type: "null" } },
+      oneOf: Object.entries(problemReadContents).map(([section, content]) => ({ properties: { section: { const: section }, content } })) },
+    { properties: { format: { const: "json-continuation" }, content: { type: "null" }, text: { type: "string", minLength: 1 } },
+      oneOf: [
+        { properties: { complete: { const: false }, nextCursor: { type: "string", minLength: 1 } } },
+        { properties: { complete: { const: true }, nextCursor: { type: "null" } } },
+      ] },
+  ],
+};
 const OUTPUT_SCHEMAS: Record<string, Json> = {
   get_status: object({ policyVersion: string, lastSequence: integer, counts: record,
     problems: object({ unit: { const: "records" }, total: integer, published: integer, candidates: integer, merged: integer, retired: integer, byStatus }),
@@ -106,6 +130,7 @@ const OUTPUT_SCHEMAS: Record<string, Json> = {
     oneOf: [summarySearch, researchSearch] },
   search_sources: object({ ...pagination, returned: integer, text: string, sources: { type: "array", items: source } }, ["total", "count", "limit", "offset", "nextOffset", "sources"]),
   get_problem: problem,
+  read_problem: problemRead,
   sample_problem: object({ schemaVersion: { const: "qop-sample/1" }, total: integer, catalogVersion: string,
     sampling: { const: "uniform-over-all-matching-records" }, problem: { ...problem, type: ["object", "null"] } }),
   get_frontier: object({ problemId: string, title: string, status, statement: object({ id: string, version: integer, digest: string }), clauses: records, acceptedClaims: records, bestBounds: records, tree: records, routesTried: records, pendingContributions: records, lastActivity: nullableString, lastHumanReview: nullableString }),

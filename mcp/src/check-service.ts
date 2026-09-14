@@ -1,6 +1,6 @@
 /** Read-only deployment preflight; activate the MCP release only after this passes. */
 import { pathToFileURL } from "node:url";
-import { AdapterError, CONTEXT_UPGRADE_MESSAGE, IDEMPOTENCY_UPGRADE_MESSAGE, REQUIRED_CONTEXT_SCHEMA_VERSION, REQUIRED_IDEMPOTENCY_VERSION, REQUIRED_RETRIEVAL_VERSION, RETRIEVAL_UPGRADE_MESSAGE, REQUIRED_RESEARCH_SEARCH_VERSION, RESEARCH_SEARCH_UPGRADE_MESSAGE, createAdapter, type Json } from "./adapter.ts";
+import { AdapterError, CONTEXT_UPGRADE_MESSAGE, IDEMPOTENCY_UPGRADE_MESSAGE, REQUIRED_CONTEXT_SCHEMA_VERSION, REQUIRED_IDEMPOTENCY_VERSION, REQUIRED_RETRIEVAL_VERSION, RETRIEVAL_UPGRADE_MESSAGE, REQUIRED_RESEARCH_SEARCH_VERSION, RESEARCH_SEARCH_UPGRADE_MESSAGE, REQUIRED_PROBLEM_READ_VERSION, PROBLEM_READ_UPGRADE_MESSAGE, createAdapter, type Json } from "./adapter.ts";
 
 export async function checkService(serviceUrl: string) {
   const adapter = createAdapter(serviceUrl, null, true);
@@ -21,13 +21,16 @@ export async function checkService(serviceUrl: string) {
   if (status["researchSearchVersion"] !== REQUIRED_RESEARCH_SEARCH_VERSION) {
     throw new AdapterError("INCOMPATIBLE_SERVICE", RESEARCH_SEARCH_UPGRADE_MESSAGE, { httpStatus: result.status, retryable: false });
   }
-  return { researchSearchVersion: REQUIRED_RESEARCH_SEARCH_VERSION, retrievalVersion: REQUIRED_RETRIEVAL_VERSION, serviceUrl: new URL(serviceUrl).origin, contextSchemaVersion: REQUIRED_CONTEXT_SCHEMA_VERSION, idempotencyVersion: REQUIRED_IDEMPOTENCY_VERSION };
+  if (status["problemReadVersion"] !== REQUIRED_PROBLEM_READ_VERSION) {
+    throw new AdapterError("INCOMPATIBLE_SERVICE", PROBLEM_READ_UPGRADE_MESSAGE, { httpStatus: result.status, retryable: false });
+  }
+  return { problemReadVersion: REQUIRED_PROBLEM_READ_VERSION, researchSearchVersion: REQUIRED_RESEARCH_SEARCH_VERSION, retrievalVersion: REQUIRED_RETRIEVAL_VERSION, serviceUrl: new URL(serviceUrl).origin, contextSchemaVersion: REQUIRED_CONTEXT_SCHEMA_VERSION, idempotencyVersion: REQUIRED_IDEMPOTENCY_VERSION };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   try {
     const result = await checkService(process.env["QOP_SERVICE_URL"] ?? "http://127.0.0.1:8787");
-    process.stdout.write(`Compatible API: ${result.serviceUrl} (${result.contextSchemaVersion}, ${result.idempotencyVersion}, ${result.retrievalVersion}, ${result.researchSearchVersion})\n`);
+    process.stdout.write(`Compatible API: ${result.serviceUrl} (${result.contextSchemaVersion}, ${result.idempotencyVersion}, ${result.retrievalVersion}, ${result.researchSearchVersion}, ${result.problemReadVersion})\n`);
   } catch (error) {
     const code = error instanceof AdapterError ? error.code : "SERVICE_PREFLIGHT_FAILED";
     process.stderr.write(`${code}: ${error instanceof Error ? error.message : String(error)}\n`);

@@ -1,0 +1,266 @@
+{
+  "schemaVersion": "qop-section-read-evidence/1",
+  "environment": {
+    "id": "op_d2813fe3fcdf09ad",
+    "section": "references",
+    "maxBytes": 8192,
+    "pageCount": 4,
+    "model": "gpt-6-astra",
+    "effort": "ultra",
+    "presentation": "qop namespace forced into direct-only presentation; output cap has no explicit override",
+    "scope": "All pages of one frozen content category with three synthetic markers per page; not comprehension or universal host coverage.",
+    "markerOverhead": "Outside original API maxBytes. Decorated responseBytes is recomputed; unchanged original byte sizes and hashes are retained.",
+    "prepareOnly": false
+  },
+  "expected": {
+    "schemaVersion": "qop-read-visibility/1",
+    "id": "op_d2813fe3fcdf09ad",
+    "section": "references",
+    "maxBytes": 8192,
+    "documentVersion": "653b46f7932495c4971368255d64633f9236ae18a1a04ad1bdf9a56a314f2385",
+    "pages": [
+      {
+        "pageIndex": 0,
+        "diagnosticStart": "qop_read_c293f28a64e39d0768a46d963adf29e7",
+        "diagnosticMiddle": "qop_read_cca587655452db186c1589017b46c63b",
+        "diagnosticEnd": "qop_read_61d26f6669924480b40816a661a90009",
+        "originalBytes": 8192,
+        "decoratedBytes": 8652,
+        "originalSha256": "4986a182dbecb6d461f929b54bb3a5a7e1602bedf38ded604aac2a54a7387d76",
+        "decoratedSha256": "8da3c12b3224f8ccf0f75c6e995cc26275c5c1fd04338ee87688c582e76c2281"
+      },
+      {
+        "pageIndex": 1,
+        "diagnosticStart": "qop_read_c8f4231d3a5530c4f20a491b1a3ad9b6",
+        "diagnosticMiddle": "qop_read_fabb967e645b560af4782fbbd554f880",
+        "diagnosticEnd": "qop_read_6ae0e3e258feee168f2335b4047eb530",
+        "originalBytes": 8192,
+        "decoratedBytes": 8652,
+        "originalSha256": "9a0b4c50546acc942e3bdf7a092f7c34b01c1d560d9520dc5a3ab32d922fd998",
+        "decoratedSha256": "9824583d3cf0700d28ddc0162d17e39a0862686edecd8edfb3d6b40c60f285cb"
+      },
+      {
+        "pageIndex": 2,
+        "diagnosticStart": "qop_read_450a4e8323e88a58b6037344040363c3",
+        "diagnosticMiddle": "qop_read_b4ac43fff74f08c33e9b21e74b135cfd",
+        "diagnosticEnd": "qop_read_74745acff63adf83f8027b1b66f24da4",
+        "originalBytes": 8192,
+        "decoratedBytes": 8652,
+        "originalSha256": "b50eb602c0289948df96df03b680b74d92273cd1b23a37346aa1547d9905180a",
+        "decoratedSha256": "a9d2a9ee8362e6320d8d84237feff92839cf062f1bae76381fe3d99e395fb688"
+      },
+      {
+        "pageIndex": 3,
+        "diagnosticStart": "qop_read_3fbfa9704c8caf1cff8be70905472c0d",
+        "diagnosticMiddle": "qop_read_00842baa2a21dda25cffe2fcffacd3c4",
+        "diagnosticEnd": "qop_read_20c28424d05eef7c99ad29b96411fc1a",
+        "originalBytes": 3355,
+        "decoratedBytes": 3815,
+        "originalSha256": "f220b5f3be5631a6c4d37fbfadcecc58957fbf5ba98502bfc1591136214dfafd",
+        "decoratedSha256": "fd58a3ff18941ea23612303859872518f704dcc56e4fa6627f2a2df5a5803315"
+      }
+    ]
+  },
+  "answer": [
+    {
+      "pageIndex": 0,
+      "diagnosticStart": "qop_read_c293f28a64e39d0768a46d963adf29e7",
+      "diagnosticMiddle": "qop_read_cca587655452db186c1589017b46c63b",
+      "diagnosticEnd": "qop_read_61d26f6669924480b40816a661a90009"
+    },
+    {
+      "pageIndex": 1,
+      "diagnosticStart": "qop_read_c8f4231d3a5530c4f20a491b1a3ad9b6",
+      "diagnosticMiddle": "qop_read_fabb967e645b560af4782fbbd554f880",
+      "diagnosticEnd": "qop_read_6ae0e3e258feee168f2335b4047eb530"
+    },
+    {
+      "pageIndex": 2,
+      "diagnosticStart": "qop_read_450a4e8323e88a58b6037344040363c3",
+      "diagnosticMiddle": "qop_read_b4ac43fff74f08c33e9b21e74b135cfd",
+      "diagnosticEnd": "qop_read_74745acff63adf83f8027b1b66f24da4"
+    },
+    {
+      "pageIndex": 3,
+      "diagnosticStart": "qop_read_3fbfa9704c8caf1cff8be70905472c0d",
+      "diagnosticMiddle": "qop_read_00842baa2a21dda25cffe2fcffacd3c4",
+      "diagnosticEnd": "qop_read_20c28424d05eef7c99ad29b96411fc1a"
+    }
+  ],
+  "run": {
+    "exitCode": 0,
+    "failure": null,
+    "usage": [
+      {
+        "input_tokens": 102102,
+        "cached_input_tokens": 75776,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1080,
+        "reasoning_output_tokens": 0
+      }
+    ],
+    "toolCalls": 4,
+    "toolCallsStarted": 4,
+    "activeCallIds": [],
+    "contamination": [],
+    "hostDiagnostics": [],
+    "unverifiedItemTypes": [],
+    "timing": {
+      "basis": "Host-observed CLI stdout arrival and process lifetime, including buffering and transport; not pure API latency.",
+      "clock": "time.monotonic",
+      "firstToolStarted": 7.402056,
+      "lastToolCompleted": 38.345772,
+      "totalSeconds": 52.881275,
+      "tools": [
+        {
+          "itemId": "item_1",
+          "server": "qop",
+          "tool": "read_problem",
+          "startedAtSeconds": 7.402056,
+          "completedAtSeconds": 7.418122,
+          "observedSeconds": 0.016066
+        },
+        {
+          "itemId": "item_2",
+          "server": "qop",
+          "tool": "read_problem",
+          "startedAtSeconds": 16.838622,
+          "completedAtSeconds": 16.849509,
+          "observedSeconds": 0.010887
+        },
+        {
+          "itemId": "item_3",
+          "server": "qop",
+          "tool": "read_problem",
+          "startedAtSeconds": 26.663616,
+          "completedAtSeconds": 26.674018,
+          "observedSeconds": 0.010402
+        },
+        {
+          "itemId": "item_4",
+          "server": "qop",
+          "tool": "read_problem",
+          "startedAtSeconds": 38.336093,
+          "completedAtSeconds": 38.345772,
+          "observedSeconds": 0.009679
+        }
+      ]
+    },
+    "grading": {
+      "issues": [],
+      "matchedMarkers": 12,
+      "expectedMarkers": 12,
+      "pages": [
+        {
+          "pageIndex": 0,
+          "matched": {
+            "diagnosticStart": true,
+            "diagnosticMiddle": true,
+            "diagnosticEnd": true
+          },
+          "rawEventAvailable": {
+            "diagnosticStart": true,
+            "diagnosticMiddle": true,
+            "diagnosticEnd": true
+          }
+        },
+        {
+          "pageIndex": 1,
+          "matched": {
+            "diagnosticStart": true,
+            "diagnosticMiddle": true,
+            "diagnosticEnd": true
+          },
+          "rawEventAvailable": {
+            "diagnosticStart": true,
+            "diagnosticMiddle": true,
+            "diagnosticEnd": true
+          }
+        },
+        {
+          "pageIndex": 2,
+          "matched": {
+            "diagnosticStart": true,
+            "diagnosticMiddle": true,
+            "diagnosticEnd": true
+          },
+          "rawEventAvailable": {
+            "diagnosticStart": true,
+            "diagnosticMiddle": true,
+            "diagnosticEnd": true
+          }
+        },
+        {
+          "pageIndex": 3,
+          "matched": {
+            "diagnosticStart": true,
+            "diagnosticMiddle": true,
+            "diagnosticEnd": true
+          },
+          "rawEventAvailable": {
+            "diagnosticStart": true,
+            "diagnosticMiddle": true,
+            "diagnosticEnd": true
+          }
+        }
+      ],
+      "allMarkersMatched": true,
+      "interpretation": "Exact marker readback only; copying all markers does not prove every intervening text was read or understood."
+    },
+    "allPagesExactlyOnceInOrder": true,
+    "visibilityEvidenceEligible": true
+  },
+  "servedCalls": [
+    {
+      "phase": "sdk-preflight",
+      "pageIndex": 0,
+      "exact": true
+    },
+    {
+      "phase": "sdk-preflight",
+      "pageIndex": 1,
+      "exact": true
+    },
+    {
+      "phase": "sdk-preflight",
+      "pageIndex": 2,
+      "exact": true
+    },
+    {
+      "phase": "sdk-preflight",
+      "pageIndex": 3,
+      "exact": true
+    },
+    {
+      "phase": "model",
+      "pageIndex": 0,
+      "exact": true
+    },
+    {
+      "phase": "model",
+      "pageIndex": 1,
+      "exact": true
+    },
+    {
+      "phase": "model",
+      "pageIndex": 2,
+      "exact": true
+    },
+    {
+      "phase": "model",
+      "pageIndex": 3,
+      "exact": true
+    }
+  ],
+  "rawArtifactSha256": {
+    "environment.json": "41156ef8e9ecb659cc8585bfe88e06df9087e3c865a355464df3b9df643379bb",
+    "run.json": "d91f7bfcf6fd18bc950fc828af7514517f4b4969c1ea8c1d9e1184f22afedf72",
+    "answer.json": "719e5cb58894a0ea5cb39d8fc28f05d621ca2170de1906588af7cb81e659edb0",
+    "prompt.txt": "2cdc28918864abfd014096e01c8bc22663bb86b7bc5b0e6ad9242a2bb4fae6cd",
+    "events.jsonl": "2363ee21f243a4e99510eb1729c373cc89eaa0decaeb03c0b99104f2250394fa",
+    "fixture/expected.json": "d2909418a7cb245925cd036fb4673f71439eedec7cdcece42e6bfdf8f786c599",
+    "fixture/raw-pages.json": "ee386320837e9f5665760c9b527e6d468ec3ad7b19ef9f5d0cd9a033fbba84a0",
+    "fixture/served-calls.jsonl": "fd6aa9005af41e6ad5afd89dc034785a11ee43fa8e2aeabd350b0f0f797de7c8"
+  },
+  "limitations": "Frozen category pages, forced direct MCP presentation, synthetic envelope markers outside the original budget. Exact marker recall does not prove scientific comprehension. No paper full text is fetched. Original block-reader experiment is superseded and not used here."
+}

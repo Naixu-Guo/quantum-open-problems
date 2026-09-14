@@ -33,7 +33,7 @@ URL and the remote HTTP transport supported by that client.
 
 Try asking: “Use the quantum-open-problems MCP to find unsolved problems about
 quantum channel capacity, then summarize one problem's known progress and
-references.” The tools include `search_problems`, `sample_problem`, `get_problem`,
+references.” The tools include `search_problems`, `sample_problem`, `get_problem`, `read_problem`,
 `list_references`, and `build_context`.
 
 Newly published records become available through the existing connection when
@@ -73,12 +73,12 @@ atomic: a page may contain fewer than `limit` to fit the byte budget, and its
 `nextCursor` continues after the last problem actually returned. Repeat the filters,
 sort and `view`; switching view requires a fresh query. `responseBytes` includes
 the API envelope, but excludes HTTP headers, MCP framing and any token accounting.
-`maxBytes` only applies to research search and can change between pages.
+On `search_problems`, `maxBytes` only applies to research view and can change between pages.
 Supplied research-search parameters must be nonempty; omit unused filters.
 
 If even the first problem cannot fit, HTTP 413 with `response_budget_too_small`
 reports `minimumRequiredBytes` and `problemId`; increase the budget within the
-allowed range or use the single-problem reader. The server never substitutes a
+allowed range or use `read_problem` to read the needed content category. The server never substitutes a
 truncated statement or an empty success page. Client history limits are separate;
 for example, [Codex supports per-tool output token limits](https://learn.chatgpt.com/docs/extend/mcp).
 Choose a page budget compatible with the client, and lower it if the client reports
@@ -86,8 +86,8 @@ truncated tool output.
 
 The default was reduced to 32 KiB after a real Codex direct-tool readback test lost
 middle-of-page markers at 64 KiB. This reduces the chance of host truncation; it
-does not establish a universal host limit. A large single problem can still require
-an explicit budget increase or an individual read. A visible `count`, problem title
+does not establish a universal host limit. A large single problem can use
+`read_problem` without increasing the page budget. A visible `count`, problem title
 or final reference does not prove the middle of a displayed response survived.
 
 Codex direct tool presentation and Code Mode have separate output controls. For a
@@ -156,10 +156,56 @@ complete formal statement, clauses, conditions, bibliography and workflow record
 adds the raw source snapshot in full view. Native ledger problems without a catalog
 snapshot retain their body in either view and explicitly report research unavailable.
 
+### Read by content category
+
+`read_problem` reads one category of a problem. Whole-problem `get_problem` and
+batch research search remain available; the caller chooses which to use.
+
+| `section` | Content |
+| --- | --- |
+| `statement` (initial default) | Full problem definition, clauses and conditions, plus any retained service background |
+| `history` | Maintainer-authored origin and prior research progress |
+| `references` | Authored bibliography and structured service references |
+| `comment` | Maintainer commentary, service discussions and clearly separated decisions |
+
+```json
+{"id":"op_a64dc63d6ae49127","section":"history"}
+```
+
+A normal response returns the category as a structured `content` object, with
+`format: "json"`, `complete: true` and `nextCursor: null`. Original text, citation
+keys and provenance are preserved. Research categories include `researchContext`
+to distinguish unavailable catalog notes from a claim that no research exists.
+
+Only an oversized category requires continuation. In that case, `format` is
+`json-continuation`, `content` is null, and `text` contains successive portions of
+that category's serialized JSON. Follow `nextCursor` with the same problem ID
+until null. Read the entire sequence before interpreting an unfinished formula;
+if parsing as JSON, concatenate the text in response order and parse once.
+`continued` identifies a continuation page, and `complete` means the category has
+ended. There is no paragraph selector, block identifier or positional addressing.
+
+`maxBytes` defaults to 8,192 and accepts 2,048–65,536. It measures the entire
+compact UTF-8 API JSON response, including the cursor, and excludes HTTP headers,
+MCP framing and token accounting. It may change during continuation. Smaller
+responses reduce exposure to host truncation but cannot override a host's limits.
+
+`documentVersion` identifies the complete research view, including independently
+updated statements, sources, discussions and derived statuses. Supply it when
+reading another category to require the same snapshot. Cursors preserve the
+selected category when `section` is omitted; conflicting categories are rejected.
+Changed material returns HTTP 409 `document_changed`, requiring a fresh read.
+Cursors expire after one hour and API restarts invalidate them. They do not retain
+historical content. Unknown, empty, duplicate and invalid parameters are rejected.
+
+The reader covers maintained catalog material; it does not fetch cited papers'
+full text. See the [section-read acceptance report](../reviews/mcp-problem-read-2026-09-15.md).
+
 Selected-problem answers should explain known results, the remaining gap and key
 references. Empty service comments, accepted claims or routes do not imply absence
 of literature. `build_context` still offers whole sections under an approximate
-section-text budget; when its background is omitted, read the research view.
+section-text budget; when its background is omitted, read the research view or
+use `read_problem` for the needed category.
 Difficulty remains the maintained rating, often `unrated`; tool ordering is not a
 difficulty estimate. For recent resolutions, filter Solved and inspect dated progress
 and bibliography. Keep submission, publication, verification and editing dates distinct;
@@ -193,9 +239,10 @@ research contributions. It requires Git and Node.js 22.13 or later. If you alrea
 have a checkout, run `npm --prefix mcp ci` from its root. Both stdio and HTTP use
 the official MCP SDK, with shared parameter validation and result schemas.
 MCP 1.3 requires an API advertising `contextSchemaVersion: "qop-context/2"` and
-`idempotencyVersion: "qop-idempotency/2"`, `retrievalVersion: "qop-retrieval/1"`, and
-`researchSearchVersion: "qop-search-research/1"` at `/api/v1/status`.
-The `check:service` command verifies all four capabilities; point it at the same `QOP_SERVICE_URL` as the adapter. If it fails,
+`idempotencyVersion: "qop-idempotency/2"`, `retrievalVersion: "qop-retrieval/1"`,
+`researchSearchVersion: "qop-search-research/1"`, and
+`problemReadVersion: "qop-problem-read/1"` at `/api/v1/status`.
+The `check:service` command verifies all five capabilities; point it at the same `QOP_SERVICE_URL` as the adapter. If it fails,
 the operator must deploy and restart the matching API release before activating
 this MCP release. See [API-first deployment](../deploy/ubuntu/README.md#public-mcp-endpoint).
 Check the [hosted catalog status](https://api.qiqc-op.com/api/v1/status) to verify
@@ -277,7 +324,7 @@ provides Work and Write tools when authenticated.
 
 | Group | Tools |
 | --- | --- |
-| Read | `get_status`, `get_taxonomy`, `search_sources`, `get_policy`, `get_schemas`, `search_problems`, `sample_problem`, `get_problem`, `get_frontier`, `get_tree`, `list_references`, `list_comments`, `list_attempts`, `build_context`, `list_events`, `get_contribution_status`, `get_record`, `claim_queue_item` |
+| Read | `get_status`, `get_taxonomy`, `search_sources`, `get_policy`, `get_schemas`, `search_problems`, `sample_problem`, `get_problem`, `read_problem`, `get_frontier`, `get_tree`, `list_references`, `list_comments`, `list_attempts`, `build_context`, `list_events`, `get_contribution_status`, `get_record`, `claim_queue_item` |
 | Work | `start_trajectory`, `log_event`, `upload_artifact`, `end_trajectory` |
 | Write | `submit_batch`, `submit_review`, `post_comment`, `withdraw_contribution` |
 

@@ -62,7 +62,7 @@ def exactly_one_prompted_call(observed, external):
             and tools[0]['completedAtSeconds'] is not None)
 
 
-def observe(command, prompt, folder, timeout=900, allow_code_mode=False):
+def observe(command, prompt, folder, timeout=900, allow_code_mode=False, expected_tool='search_problems'):
     """Clock stdout arrival; keep tool results but never reasoning text or stderr."""
     started = time.monotonic()
     received = queue.Queue()
@@ -160,7 +160,7 @@ def observe(command, prompt, folder, timeout=900, allow_code_mode=False):
                         events.write(json.dumps({'type': event_type, 'item': {'id': item.get('id'), 'type': kind},
                                                  '_qopObservation': timestamp}) + '\n')
                         events.flush()
-                if kind == 'mcp_tool_call' and (item.get('server') != 'qop' or item.get('tool') != 'search_problems'):
+                if kind == 'mcp_tool_call' and (item.get('server') != 'qop' or item.get('tool') != expected_tool):
                     contamination.append('unexpected_mcp_tool')
                 if kind != 'mcp_tool_call' or event_type not in ('item.started', 'item.completed'):
                     continue

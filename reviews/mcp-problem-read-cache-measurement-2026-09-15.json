@@ -1,0 +1,47 @@
+{
+  "scope": "Final semantic category reader, in-process readCurrent path, fixed 2048-byte API JSON budget, includes first preparation; no HTTP or model time. Cache hits within one epoch; eviction and oversize fallback excluded.",
+  "samples": [
+    {
+      "run": 1,
+      "inputBodyBytes": 400000,
+      "pages": 312,
+      "detailFactoryCalls": 1,
+      "elapsedMs": 59.2305
+    },
+    {
+      "run": 1,
+      "inputBodyBytes": 800000,
+      "pages": 623,
+      "detailFactoryCalls": 1,
+      "elapsedMs": 104.90125
+    },
+    {
+      "run": 2,
+      "inputBodyBytes": 400000,
+      "pages": 312,
+      "detailFactoryCalls": 1,
+      "elapsedMs": 51.706875
+    },
+    {
+      "run": 2,
+      "inputBodyBytes": 800000,
+      "pages": 623,
+      "detailFactoryCalls": 1,
+      "elapsedMs": 102.89712500000002
+    },
+    {
+      "run": 3,
+      "inputBodyBytes": 400000,
+      "pages": 312,
+      "detailFactoryCalls": 1,
+      "elapsedMs": 50.26383400000003
+    },
+    {
+      "run": 3,
+      "inputBodyBytes": 800000,
+      "pages": 623,
+      "detailFactoryCalls": 1,
+      "elapsedMs": 101.61533400000002
+    }
+  ]
+}

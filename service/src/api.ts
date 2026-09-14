@@ -25,6 +25,7 @@ import { hasRole } from "../../contract/src/types/actor.ts";
 import { parseSubmission, verifyCaptcha, submissionText, SUBMISSION_STATES, type SubmissionState } from "./submissions.ts";
 import { handleInbox, INBOX_COOKIE } from "./inbox.ts";
 import { researchSearchPage, RESEARCH_SEARCH_DEFAULT_BYTES, RESEARCH_SEARCH_MIN_BYTES, RESEARCH_SEARCH_MAX_BYTES } from "./research-search.ts";
+import { ProblemReader, ProblemReadError } from "./problem-read.ts";
 
 interface Call {
   inboxSession: boolean;
@@ -92,9 +93,9 @@ function readSchema(file: string, name: string): unknown {
 
 function routes(service: Service): Route[] {
   const ledger = () => service.repo.current();
+  const problemReader = new ProblemReader();
   const auth = service.auth;
-  const resolveProblem = (idOrAlias: string): string => {
-    const l = ledger();
+  const resolveProblem = (idOrAlias: string, l = ledger()): string => {
     let problem = l.find("Problem", idOrAlias) ?? l.currentOf("Problem").find((p) => (p.fields["aliases"] as string[]).includes(idOrAlias));
     if (!problem) throw new HttpError(404, `unknown problem ${idOrAlias}`);
     const visited = new Set<string>();
@@ -249,6 +250,12 @@ function routes(service: Service): Route[] {
       if (view !== "full" && view !== "research") throw new HttpError(400, "view must be full or research");
       if (view === "research" && query.get("includeAuthoredRecord") === "true") throw new HttpError(400, "includeAuthoredRecord requires view=full");
       return ok(problemDetails(resolveProblem(params[0]!), query.get("includeAuthoredRecord") === "true", view));
+    } },
+    { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)\/read$/u, auth: false, noStore: true, handler: ({ params, query }) => {
+      const current = ledger();
+      const id = resolveProblem(params[0]!, current);
+      return problemReader.readCurrent(id, { ledger: current, catalogVersion: service.index.catalogVersion() },
+        () => problemDetails(id, false, "research", current), query);
     } },
     { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)\/frontier$/u, auth: false, handler: ({ params }) => ok(notNull(frontier(ledger(), resolveProblem(params[0]!)), "problem")) },
     { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)\/tree$/u, auth: false, handler: ({ params }) => ok({ problemId: resolveProblem(params[0]!), tree: tree(ledger(), resolveProblem(params[0]!)) }) },
@@ -593,10 +600,10 @@ export function createServer(service: Service): http.Server {
       send(completed.reply.status, completed.reply.body, {}, completed.reply.contentType, completed.reply.compactJson);
     } catch (error) {
       if (response.headersSent) { response.end(); return; }
-      const known = error instanceof HttpError || error instanceof PayloadError || error instanceof SearchError;
+      const known = error instanceof HttpError || error instanceof PayloadError || error instanceof SearchError || error instanceof ProblemReadError;
       const status = known ? error.status : 500;
       const transientRefusal = known && (status === 429 || status === 503);
-      const failure = { status, body: { error: error instanceof Error ? error.message : String(error), ...(error instanceof SearchError ? { code: error.code } : {}) } };
+      const failure = { status, body: { error: error instanceof Error ? error.message : String(error), ...(error instanceof SearchError || error instanceof ProblemReadError ? { code: error.code } : {}) } };
       const reply = complete(failure, transientRefusal, !known || status >= 500 && !transientRefusal).reply;
       send(reply.status, reply.body);
     }

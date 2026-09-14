@@ -118,8 +118,9 @@ In that release, install production dependencies with
 `npm --prefix mcp ci --omit=dev --ignore-scripts`.
 
 MCP 1.3 requires an API that advertises `contextSchemaVersion: "qop-context/2"`,
-`idempotencyVersion: "qop-idempotency/2"`, `retrievalVersion: "qop-retrieval/1"`, and
-`researchSearchVersion: "qop-search-research/1"`
+`idempotencyVersion: "qop-idempotency/2"`, `retrievalVersion: "qop-retrieval/1"`,
+`researchSearchVersion: "qop-search-research/1"`, and
+`problemReadVersion: "qop-problem-read/1"`
 at `/api/v1/status`. Deploy the matching
 API release and restart `qop` first. From the candidate MCP release directory,
 check the exact upstream origin configured in `/etc/qop/mcp.env`:

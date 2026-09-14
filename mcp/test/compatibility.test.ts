@@ -5,11 +5,11 @@ import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { Client } from "@modelcontextprotocol/client";
 import { InMemoryTransport } from "@modelcontextprotocol/server";
-import { AdapterError, createAdapter, REQUIRED_CONTEXT_SCHEMA_VERSION, REQUIRED_IDEMPOTENCY_VERSION, REQUIRED_RETRIEVAL_VERSION, REQUIRED_RESEARCH_SEARCH_VERSION } from "../src/adapter.ts";
+import { AdapterError, createAdapter, REQUIRED_CONTEXT_SCHEMA_VERSION, REQUIRED_IDEMPOTENCY_VERSION, REQUIRED_RETRIEVAL_VERSION, REQUIRED_RESEARCH_SEARCH_VERSION, REQUIRED_PROBLEM_READ_VERSION } from "../src/adapter.ts";
 import { checkService } from "../src/check-service.ts";
 import { createMcpServer } from "../src/shared-server.ts";
 
-test("service preflight requires explicit context, idempotency, retrieval and research-search capabilities without probing or writing records", async t => {
+test("service preflight requires explicit context, idempotency, retrieval, research-search and problem-read capabilities without probing or writing records", async t => {
   let body: Record<string, unknown> = {};
   let calls = 0;
   t.mock.method(globalThis, "fetch", async (input: unknown, init?: RequestInit) => {
@@ -37,9 +37,14 @@ test("service preflight requires explicit context, idempotency, retrieval and re
       ...(value === undefined ? {} : { researchSearchVersion: value }) };
     await assert.rejects(checkService("http://localhost:8787"), error => error instanceof AdapterError && error.code === "INCOMPATIBLE_SERVICE" && error.details.retryable === false && /qop-search-research\/1/u.test(error.message));
   }
-  body = { contextSchemaVersion: REQUIRED_CONTEXT_SCHEMA_VERSION, idempotencyVersion: REQUIRED_IDEMPOTENCY_VERSION, retrievalVersion: REQUIRED_RETRIEVAL_VERSION, researchSearchVersion: REQUIRED_RESEARCH_SEARCH_VERSION };
+  for (const value of [undefined, "qop-problem-read/0", "qop-problem-read/2"]) {
+    body = { contextSchemaVersion: REQUIRED_CONTEXT_SCHEMA_VERSION, idempotencyVersion: REQUIRED_IDEMPOTENCY_VERSION, retrievalVersion: REQUIRED_RETRIEVAL_VERSION, researchSearchVersion: REQUIRED_RESEARCH_SEARCH_VERSION,
+      ...(value === undefined ? {} : { problemReadVersion: value }) };
+    await assert.rejects(checkService("http://localhost:8787"), error => error instanceof AdapterError && error.code === "INCOMPATIBLE_SERVICE" && error.details.retryable === false && /qop-problem-read\/1.*check:service/u.test(error.message));
+  }
+  body = { contextSchemaVersion: REQUIRED_CONTEXT_SCHEMA_VERSION, idempotencyVersion: REQUIRED_IDEMPOTENCY_VERSION, retrievalVersion: REQUIRED_RETRIEVAL_VERSION, researchSearchVersion: REQUIRED_RESEARCH_SEARCH_VERSION, problemReadVersion: REQUIRED_PROBLEM_READ_VERSION };
   assert.deepEqual(await checkService("http://localhost:8787"), { serviceUrl: "http://localhost:8787", ...body });
-  assert.equal(calls, 13);
+  assert.equal(calls, 16);
 });
 
 test("research search checks both the dedicated marker and view even for empty results, while summary stays compatible", async t => {
@@ -214,9 +219,14 @@ test("preflight CLI exits nonzero for an old API and passes only for the require
   assert.equal(oldResearchSearch.code, 1);
   assert.match(oldResearchSearch.stderr, /INCOMPATIBLE_SERVICE.*qop-search-research\/1/u);
   status = { ...status, researchSearchVersion: REQUIRED_RESEARCH_SEARCH_VERSION };
+  const oldProblemRead = await run();
+  assert.equal(oldProblemRead.code, 1);
+  assert.match(oldProblemRead.stderr, /INCOMPATIBLE_SERVICE.*qop-problem-read\/1/u);
+  status = { ...status, problemReadVersion: REQUIRED_PROBLEM_READ_VERSION };
   const compatible = await run();
   assert.equal(compatible.code, 0, compatible.stderr);
   assert.match(compatible.stdout, /Compatible API:.*qop-context\/2/u);
+  assert.match(compatible.stdout, /qop-problem-read\/1/u);
 });
 
 test("keyed writes fail before POST on an old API and cache only a successful capability probe", async t => {
