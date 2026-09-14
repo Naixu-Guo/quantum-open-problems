@@ -1,10 +1,11 @@
-/** Public, stateless MCP transport over the existing catalog API. */
+/** Public MCP transport: modern requests are stateless; legacy cancellation uses bounded SDK sessions. */
 import http from "node:http";
 import { isIP } from "node:net";
-import { createMcpHandler, McpServer, ResourceTemplate } from "@modelcontextprotocol/server";
+import { randomUUID } from "node:crypto";
+import { createMcpHandler, isInitializeRequest, isLegacyRequest, legacyStatelessFallback, WebStandardStreamableHTTPServerTransport, type McpHandlerRequestOptions, type RequestId } from "@modelcontextprotocol/server";
 import { hostHeaderValidation, originValidation, toNodeHandler } from "@modelcontextprotocol/node";
-import { fromJSONSchema } from "zod";
-import { createAdapter, SERVER_INFO, type Json } from "./adapter.ts";
+import { createAdapter } from "./adapter.ts";
+import { createMcpServer } from "./shared-server.ts";
 
 export interface HttpMcpOptions {
   serviceUrl: string;
@@ -14,6 +15,8 @@ export interface HttpMcpOptions {
   trustProxy?: boolean;
   requestsPerMinute?: number;
   maxBodyBytes?: number;
+  maxLegacySessions?: number;
+  legacySessionIdleTimeoutMs?: number;
 }
 
 class RequestError extends Error {
@@ -54,44 +57,173 @@ function bodyOf(request: http.IncomingMessage, limit: number): Promise<unknown> 
 export function createHttpMcpServer(options: HttpMcpOptions): http.Server {
   // Public HTTP never receives an operator's API key or forwards caller credentials.
   const adapter = createAdapter(options.serviceUrl, null, true);
-  const schemas = new Map(adapter.tools.map(tool => [tool.name, fromJSONSchema(tool.inputSchema)]));
-  const handler = createMcpHandler(() => {
-    const server = new McpServer(SERVER_INFO, {
-      instructions: "Search the quantum open-problem catalog with search_problems. Read get_problem and list_references, and use build_context for a research bundle. This public endpoint offers read tools only; cite record IDs and source references.",
+  const factory = () => createMcpServer(adapter);
+  const handler = createMcpHandler(factory, { legacy: "reject", maxSubscriptions: 0 });
+  const sessionLimit = options.maxLegacySessions ?? 256;
+  const sessionIdleMs = options.legacySessionIdleTimeoutMs ?? 15 * 60_000;
+  if (!Number.isSafeInteger(sessionLimit) || sessionLimit < 1) throw new Error("maxLegacySessions must be a positive integer");
+  if (!Number.isSafeInteger(sessionIdleMs) || sessionIdleMs < 1) throw new Error("legacySessionIdleTimeoutMs must be a positive integer");
+  type PendingRequest = { id: RequestId; internalId: string; method: string; cancellation?: Promise<void> };
+  type Session = {
+    instance: ReturnType<typeof factory>;
+    transport: WebStandardStreamableHTTPServerTransport;
+    wireSend: WebStandardStreamableHTTPServerTransport["send"];
+    lastUsed: number;
+    internalPrefix: string;
+    pending: Map<RequestId, PendingRequest>;
+    internalRequests: Map<RequestId, PendingRequest>;
+  };
+  const sessions = new Map<string, Session>();
+  let closing = false;
+  const cancelRequest = (session: Session, pending: PendingRequest, reason: string): Promise<void> => {
+    if (session.pending.get(pending.id) !== pending || session.internalRequests.get(pending.internalId) !== pending) return Promise.resolve();
+    if (pending.cancellation) return pending.cancellation;
+    pending.cancellation = (async () => {
+      session.transport.onmessage?.({ jsonrpc: "2.0", method: "notifications/cancelled", params: { requestId: pending.id, reason } });
+      // Protocol dispatches notifications in a microtask. Abort the tool before settling its HTTP response.
+      await Promise.resolve();
+      if (session.internalRequests.get(pending.internalId) !== pending) return;
+      session.internalRequests.delete(pending.internalId);
+      try {
+        // SDK 2.0 suppresses canceled handler results but leaves JSON response promises pending.
+        // A terminal transport error releases those responses and SDK request mappings through its public API.
+        await session.wireSend({ jsonrpc: "2.0", id: pending.id, error: { code: -32800, message: reason } });
+      } catch (error) {
+        // A normal result can win the race and already release this request's transport state.
+        if (!(error instanceof Error) || !error.message.startsWith("No connection established for request ID:")) throw error;
+      }
+    })();
+    return pending.cancellation;
+  };
+  const closeSession = async (id: string) => {
+    const session = sessions.get(id);
+    if (!session) return;
+    sessions.delete(id);
+    await Promise.allSettled([...session.pending.values()].map(pending => cancelRequest(session, pending, "MCP session closed")));
+    await session.instance.close();
+  };
+  const expireSessions = () => {
+    const now = Date.now();
+    return Promise.allSettled([...sessions].filter(([, session]) => session.lastUsed + sessionIdleMs <= now).map(([id]) => closeSession(id)));
+  };
+  const expiry = setInterval(() => { void expireSessions(); }, Math.min(sessionIdleMs, 60_000)).unref();
+  const protocolError = (status: number, message: string, headers?: HeadersInit) => Response.json({ jsonrpc: "2.0", id: null, error: { code: -32000, message } }, { status, ...(headers ? { headers } : {}) });
+  const dispatchLegacy = async (session: Session, request: Request, requestOptions?: McpHandlerRequestOptions): Promise<Response> => {
+    const body = requestOptions?.parsedBody;
+    const messages = (Array.isArray(body) ? body : [body]).filter((message): message is Record<string, unknown> => !!message && typeof message === "object");
+    const requests = messages.filter(message => typeof message.method === "string" && (typeof message.id === "string" || typeof message.id === "number"));
+    const ids = requests.map(message => message.id as RequestId);
+    if (new Set(ids).size !== ids.length || ids.some(id => session.pending.has(id))) return protocolError(409, "Request ID is already active in this MCP session");
+    if (session.pending.size + ids.length > 128) return protocolError(429, "Too many active requests in this MCP session", { "Retry-After": "1" });
+    const pendingRequests = requests.map(message => ({ id: message.id as RequestId, internalId: `${session.internalPrefix}${randomUUID()}`, method: message.method as string }));
+    for (const pending of pendingRequests) session.pending.set(pending.id, pending);
+    const abort = () => { void Promise.allSettled(pendingRequests.map(pending => cancelRequest(session, pending, "HTTP client disconnected"))); };
+    request.signal.addEventListener("abort", abort, { once: true });
+    try {
+      const responsePromise = session.transport.handleRequest(request, requestOptions);
+      if (request.signal.aborted) abort();
+      return await responsePromise;
+    } finally {
+      request.signal.removeEventListener("abort", abort);
+      for (const pending of pendingRequests) {
+        if (session.pending.get(pending.id) === pending) session.pending.delete(pending.id);
+        session.internalRequests.delete(pending.internalId);
+      }
+    }
+  };
+  // A pre-initialization ping needs no retained state. All tool calls use an isolated session.
+  const ping = legacyStatelessFallback(factory);
+  const serveLegacy = async (request: Request, requestOptions?: McpHandlerRequestOptions): Promise<Response> => {
+    if (request.method === "GET") return protocolError(405, "Subscriptions are not supported", { Allow: "POST, DELETE, OPTIONS" });
+    await expireSessions();
+    if (closing) return protocolError(503, "MCP server is shutting down");
+    const id = request.headers.get("mcp-session-id");
+    if (id) {
+      const session = sessions.get(id);
+      if (!session) return protocolError(404, "MCP session expired or unknown; initialize a new session");
+      session.lastUsed = Date.now();
+      return dispatchLegacy(session, request, requestOptions);
+    }
+    const body = requestOptions?.parsedBody;
+    if (request.method === "POST" && body && typeof body === "object" && !Array.isArray(body) && (body as { method?: unknown }).method === "ping") return ping(request, requestOptions);
+    if (request.method !== "POST" || !isInitializeRequest(body)) return protocolError(400, "Initialize first and include the returned Mcp-Session-Id");
+    if (sessions.size >= sessionLimit) return protocolError(429, "Too many MCP sessions; close an unused session or retry later", { "Retry-After": String(Math.ceil(sessionIdleMs / 1000)) });
+    const sessionId = randomUUID();
+    const instance = factory();
+    const transport = new WebStandardStreamableHTTPServerTransport({
+      sessionIdGenerator: () => sessionId,
+      enableJsonResponse: true,
+      onsessionclosed: () => closeSession(sessionId),
     });
-    for (const tool of adapter.tools) {
-      server.registerTool(tool.name, {
-        description: tool.description,
-        inputSchema: schemas.get(tool.name)!,
-        annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
-      }, async (args) => {
-        try {
-          const result = await tool.call(args as Json);
-          return { content: [{ type: "text", text: typeof result.body === "string" ? result.body : JSON.stringify(result.body) }], isError: result.status >= 400 };
-        } catch (error) {
-          return { content: [{ type: "text", text: JSON.stringify({ error: error instanceof Error ? error.message : String(error) }) }], isError: true };
+    // Reserve capacity before asynchronous initialization. Request IDs never cross this instance boundary.
+    const session: Session = { instance, transport, wireSend: transport.send.bind(transport), lastUsed: Date.now(), internalPrefix: `${randomUUID()}:`, pending: new Map(), internalRequests: new Map() };
+    sessions.set(sessionId, session);
+    instance.server.onclose = () => { sessions.delete(sessionId); };
+    try {
+      await instance.connect(transport);
+      const receive = transport.onmessage;
+      // Keep wire IDs at the HTTP boundary. SDK 2.0 ignores cancellation IDs 0 and "",
+      // so dispatch each request under a fresh truthy ID using only public transport APIs.
+      const isInternalId = (id: RequestId | undefined) => typeof id === "string" && id.startsWith(session.internalPrefix);
+      transport.send = async (message, sendOptions) => {
+        const terminal = !("method" in message) && isInternalId(message.id);
+        const pending = terminal ? session.internalRequests.get(message.id!) : undefined;
+        const internalRelated = isInternalId(sendOptions?.relatedRequestId);
+        const related = internalRelated ? session.internalRequests.get(sendOptions!.relatedRequestId!) : undefined;
+        // Retired handlers must never deliver a late result to another wire operation.
+        if ((terminal && !pending) || (internalRelated && !related)) return;
+        if (pending) session.internalRequests.delete(pending.internalId);
+        await session.wireSend(pending ? { ...message, id: pending.id } : message,
+          related ? { ...sendOptions, relatedRequestId: related.id } : sendOptions);
+      };
+      transport.onmessage = (message, extra) => {
+        if ("method" in message && "id" in message) {
+          const pending = session.pending.get(message.id);
+          if (!pending) return;
+          session.internalRequests.set(pending.internalId, pending);
+          receive?.({ ...message, id: pending.internalId }, extra);
+          return;
         }
-      });
+        // Observe SDK-validated messages before awaiting the HTTP response: a batch can
+        // contain both the request and its cancellation, so that response is still pending.
+        if (!("id" in message) && "method" in message && message.method === "notifications/cancelled") {
+          const params = message.params;
+          const id = params?.["requestId"];
+          const pending = typeof id === "string" || typeof id === "number" ? session.pending.get(id) : undefined;
+          if ((typeof id === "string" || typeof id === "number") &&
+            (params?.["reason"] === undefined || typeof params["reason"] === "string") && pending && pending.method !== "initialize" &&
+            session.internalRequests.get(pending.internalId) === pending) {
+            receive?.({ ...message, params: { ...params, requestId: pending.internalId } }, extra);
+            queueMicrotask(() => { void cancelRequest(session, pending, "Request cancelled").catch(error => transport.onerror?.(error instanceof Error ? error : new Error(String(error)))); });
+          }
+          return;
+        }
+        // Client responses to server requests have their own ID space and pass through.
+        receive?.(message, extra);
+      };
+      const response = await dispatchLegacy(session, request, requestOptions);
+      const initialized = response.status === 200 && transport.sessionId &&
+        (await response.clone().json() as { result?: { protocolVersion?: string } }).result?.protocolVersion;
+      if (!initialized) await closeSession(sessionId);
+      return response;
+    } catch (error) {
+      await closeSession(sessionId);
+      throw error;
     }
-    const read = async (uri: URL) => {
-      const result = await adapter.readResource(uri.href);
-      if (result.status >= 400) throw new Error(`Resource unavailable (${result.status}): ${uri.href}`);
-      return { contents: [{ uri: uri.href, mimeType: "application/json", text: JSON.stringify(result.body) }] };
-    };
-    for (const resource of adapter.resources) server.registerResource(resource.name, resource.uri, resource, read);
-    for (const template of adapter.resourceTemplates) {
-      server.registerResource(template.name, new ResourceTemplate(template.uriTemplate, { list: undefined }), template, read);
-    }
-    return server;
-  }, { legacy: "stateless", maxSubscriptions: 0 });
-  const serve = toNodeHandler(handler);
+  };
+  const serve = toNodeHandler({ fetch: async (request, requestOptions) => await isLegacyRequest(request, requestOptions?.parsedBody)
+    ? serveLegacy(request, requestOptions) : handler.fetch(request, requestOptions) });
   const validateHost = hostHeaderValidation(options.allowedHosts ?? ["localhost", "127.0.0.1", "[::1]"]);
   const validateOrigin = originValidation(options.allowedOrigins ?? ["localhost", "127.0.0.1", "[::1]"]);
   const limit = options.maxBodyBytes ?? 64 * 1024;
   const requestLimit = options.requestsPerMinute ?? 240;
   const windows = new Map<string, { until: number; count: number }>();
+  const activeResponses = new Set<http.ServerResponse>();
 
   const server = http.createServer(async (request, response) => {
+    activeResponses.add(response);
+    response.once("close", () => { activeResponses.delete(response); });
+    response.once("finish", () => { activeResponses.delete(response); });
     response.setHeader("Cache-Control", "no-store");
     response.setHeader("X-Content-Type-Options", "nosniff");
     const reject = (status: number, message: string) => {
@@ -101,6 +233,7 @@ export function createHttpMcpServer(options: HttpMcpOptions): http.Server {
       response.once("finish", () => request.destroy());
     };
     try {
+      if (closing) { reject(503, "MCP server is shutting down"); return; }
       if (!validateHost(request, response) || !validateOrigin(request, response)) { request.resume(); return; }
       if (request.url?.split("?")[0] !== "/mcp") { reject(404, "Unknown endpoint"); return; }
       const mcpRequest = Object.assign(request, { method: request.method ?? "GET", url: request.url });
@@ -151,6 +284,16 @@ export function createHttpMcpServer(options: HttpMcpOptions): http.Server {
   });
   server.headersTimeout = 10_000;
   server.requestTimeout = 30_000;
-  server.on("close", () => { void handler.close(); });
+  let shutdown: Promise<unknown> | undefined;
+  const drain = () => {
+    closing = true;
+    for (const response of activeResponses) response.shouldKeepAlive = false;
+    clearInterval(expiry);
+    return shutdown ??= Promise.allSettled([handler.close(), ...[...sessions.keys()].map(closeSession)]);
+  };
+  // The close event occurs only after active responses end, so drain before waiting for that event.
+  const closeServer = server.close.bind(server);
+  server.close = callback => { void drain(); return closeServer(callback); };
+  server.on("close", () => { void drain(); });
   return server;
 }

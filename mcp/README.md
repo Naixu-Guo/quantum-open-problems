@@ -33,7 +33,7 @@ URL and the remote HTTP transport supported by that client.
 
 Try asking: “Use the quantum-open-problems MCP to find unsolved problems about
 quantum channel capacity, then summarize one problem's known progress and
-references.” The tools include `search_problems`, `get_problem`,
+references.” The tools include `search_problems`, `sample_problem`, `get_problem`,
 `list_references`, and `build_context`.
 
 Newly published records become available through the existing connection when
@@ -46,18 +46,62 @@ them on a deployment whose operator has provisioned editors, keys, and Git sync.
 `get_taxonomy` lists available labels and slugs. `search_problems` accepts either
 case-insensitively, for example `area: "Quantum Communication"` and
 `topic: "Private capacity"`. An unknown taxonomy name returns an error.
-Search returns `total` matching records, `count` rows on this page (50 by
-default), and `nextOffset`. Continue with the same filters and `offset` set
-to `nextOffset` until it is null; a larger limit is not a promise of completeness.
+Search returns `total` matching records, `count` rows on this page (50 by default),
+`catalogVersion`, `nextCursor`, and legacy `nextOffset`. Prefer repeating the same
+filters and sort with `cursor: nextCursor`, without an offset. Cursors expire after
+one hour; changes to the catalog return `catalog_changed` (409), requiring a fresh
+query. This detects changes rather than retaining a historical snapshot. Empty,
+tampered, expired, and mismatched cursors are errors. Legacy offsets remain supported.
+
+Text search covers the current formal statement and clauses, titles, authored
+progress, taxonomy, keywords, and background. Complete IDs and aliases are resolved
+separately so accidental substrings in opaque IDs cannot match scientific queries.
+Controlled equivalents include QMA(2)/QMA2/QMA 2, stabilizer/stabiliser, SVP/Shortest
+Vector Problem, and selected Chinese field terms. Queries allow up to 2048 characters
+and 32 normalized whitespace-delimited terms. Results report matched fields, a
+relative relevance score and an original-text excerpt; excerpts may be shortened,
+so read the full statement before drawing scientific conclusions.
+
+With text, the default order is relevance. Without text, it is newest catalog TeX
+git author edit time, then creation time, then the original permanent ID. The site
+and API share this ordering when the service clone includes the complete catalog
+history. Service-only or shallow clones expose unknown catalog dates, ordered last.
+Catalog edit dates are not dates of scientific results. `sort: title` remains explicit.
+
+For random selection use `sample_problem` with field/topic/status filters. It draws
+uniformly from every matching record, defaults to Unsolved, and returns the candidate
+count, catalog version and selected problem's research view. Empty populations return
+`problem: null`. It accepts no pagination and is not cached.
 
 `get_status.problems.total` counts active records, with merged and retired
 identities reported separately. `distinctQuestions`
 counts published mathematical questions once across equivalent formulations.
 Old problem IDs resolve to the canonical question after a catalog merge;
 `get_record` still exposes the archived ledger identity.
-`get_problem` omits the duplicate `authoredCatalog.record` unless
-`includeAuthoredRecord: true` is requested. Use `build_context` for a bounded
-token budget. `search_sources` also searches preserved bibliography text when
+`get_problem` returns `research` (`qop-research/1`): separate source, ordered
+progress, comment and references entries containing the complete authored TeX,
+citation keys, and a record revision/digest plus section/index locator. These
+locators are scoped to that revision; resource links still retrieve current records.
+`view: research` removes the catalog Markdown body only when its body and catalog
+snapshot match the desired field hashes in a validated export manifest. A reconciled
+export can retain service edits, so a pinned revision alone is not sufficient.
+Later service background revisions and unverified
+projections retain their complete body (`bodyDisposition: included`); read it too.
+The view preserves the
+complete formal statement, clauses, conditions, bibliography and workflow records.
+`view: full` is the backwards-compatible default, and `includeAuthoredRecord: true`
+adds the raw source snapshot in full view. Native ledger problems without a catalog
+snapshot retain their body in either view and explicitly report research unavailable.
+
+Selected-problem answers should explain known results, the remaining gap and key
+references. Empty service comments, accepted claims or routes do not imply absence
+of literature. `build_context` still offers whole sections under an approximate
+section-text budget; when its background is omitted, read the research view.
+Difficulty remains the maintained rating, often `unrated`; tool ordering is not a
+difficulty estimate. For recent resolutions, filter Solved and inspect dated progress
+and bibliography. Keep submission, publication, verification and editing dates distinct;
+do not turn settled subcases or edits into a new full-problem resolution.
+`search_sources` also searches preserved bibliography text when
 structured authors are incomplete, and flags retired sources.
 
 `sort: "stale"` puts missing service human-review dates first, then oldest
@@ -72,15 +116,24 @@ per minute per address.
 
 ## Optional local adapter
 
-Run this command once in a terminal:
+Run these commands once in a terminal:
 
 ```sh
 git clone https://github.com/Naixu-Guo/quantum-open-problems.git
+cd quantum-open-problems
+npm --prefix mcp ci
+QOP_SERVICE_URL=https://api.qiqc-op.com npm --prefix mcp run check:service
 ```
 
 This option is for clients that only support stdio, development, or authenticated
 research contributions. It requires Git and Node.js 22.13 or later. If you already
-have a checkout, use it. The stdio adapter itself needs no npm dependencies.
+have a checkout, run `npm --prefix mcp ci` from its root. Both stdio and HTTP use
+the official MCP SDK, with shared parameter validation and result schemas.
+MCP 1.3 requires an API advertising `contextSchemaVersion: "qop-context/2"` and
+`idempotencyVersion: "qop-idempotency/2"`, plus `retrievalVersion: "qop-retrieval/1"`
+at `/api/v1/status`. The `check:service` command verifies all three capabilities; point it at the same `QOP_SERVICE_URL` as the adapter. If it fails,
+the operator must deploy and restart the matching API release before activating
+this MCP release. See [API-first deployment](../deploy/ubuntu/README.md#public-mcp-endpoint).
 Check the [hosted catalog status](https://api.qiqc-op.com/api/v1/status) to verify
 that the service is reachable.
 
@@ -134,7 +187,9 @@ the command. If queries fail, check the status URL above and the configured
 To connect to another service, set `QOP_SERVICE_URL` to its origin.
 Authenticated research contributions also require a `QOP_API_KEY` issued by that
 service's operator (see [service key management](../service/README.md#commands)).
-Without a key, read tools work and write tools return 401.
+Without a key, the adapter exposes only read tools. Configuring a key also exposes
+Work and Write tools; the service checks the key and the caller's permissions
+when a tool runs. Public HTTP continues to expose only read tools.
 
 ## Run your own local service
 
@@ -158,7 +213,7 @@ provides Work and Write tools when authenticated.
 
 | Group | Tools |
 | --- | --- |
-| Read | `get_status`, `get_taxonomy`, `search_sources`, `get_policy`, `get_schemas`, `search_problems`, `get_problem`, `get_frontier`, `get_tree`, `list_references`, `list_comments`, `list_attempts`, `build_context`, `list_events`, `get_contribution_status`, `get_record`, `claim_queue_item` |
+| Read | `get_status`, `get_taxonomy`, `search_sources`, `get_policy`, `get_schemas`, `search_problems`, `sample_problem`, `get_problem`, `get_frontier`, `get_tree`, `list_references`, `list_comments`, `list_attempts`, `build_context`, `list_events`, `get_contribution_status`, `get_record`, `claim_queue_item` |
 | Work | `start_trajectory`, `log_event`, `upload_artifact`, `end_trajectory` |
 | Write | `submit_batch`, `submit_review`, `post_comment`, `withdraw_contribution` |
 
@@ -166,12 +221,109 @@ Resources: `qop://status`, `qop://policy`, and the templates
 `qop://problems/{id}`, `qop://problems/{id}/frontier`,
 `qop://problems/{id}/tree`, `qop://contributions/{id}`, `qop://records/{id}`.
 
+Successful tool calls return typed `structuredContent`, JSON text for clients
+that consume text, and resource links where further records can be read. Optional
+navigation links are capped at 20 per result; the complete result rows remain in
+the data. `_meta["qop/resourceLinksOmitted"]` reports additional links when capped.
+Resource URIs resolve the current record revision when read. A revision and digest
+returned with a context source describe the record used to build that bundle;
+the URI does not pin a historical revision.
+
 The intended loop for a research agent: `get_status`, `search_problems`,
 `build_context` (keep the bundle id), `start_trajectory` with that bundle
 id, `log_event` as you work, `upload_artifact` for anything you produce,
 `end_trajectory` with an attempt report that introduces any auxiliary
 problems and claims. For a verifier: `claim_queue_item`, examine, then
 `submit_review`.
+
+Despite its retained name, `claim_queue_item` only peeks at the review queue.
+It does not reserve an item, so concurrent reviewers can receive the same
+contribution.
+
+### Read context completeness and provenance
+
+An older API's context response returns a nonretryable `INCOMPATIBLE_SERVICE`
+error with upgrade instructions, rather than being presented as a complete v2
+bundle. Other read tools remain available if their own API contracts are supported.
+
+`build_context` returns `qop-context/2`. It prioritizes the authoritative problem
+status, complete formal statement, and selected clauses, including their
+resolution criteria. It keeps sections whole so an insufficient budget does not
+silently cut an equation or its conditions.
+
+Check both completeness flags:
+
+- `formalContextComplete` says whether the required formal material fits.
+  If false, increase `tokenBudget` to at least `minimumRequiredTokens`, or read
+  the linked problem and statement before reasoning from the result.
+- `incomplete` says whether any nonempty section was omitted. It may be true
+  even when the formal context is complete because background or supporting
+  material did not fit. `omittedSections` and each section's `omitted`, `required`,
+  and `resourceUris` identify what remains to read.
+
+`tokenBudget` and `approximateTokens` count section text using four characters
+per token. This approximation excludes JSON framing, metadata and provenance,
+MCP framing, and model-specific tokenization; it does not bound the entire tool
+response's token count.
+
+`status` is the authoritative `Unsolved` or `Solved` value; `statusSource`
+identifies its catalog record, accepted decision, or default. Clause statuses
+describe accepted ledger evidence separately. `statementId`, `statementVersion`,
+and `statementDigest` identify the formal version. Accepted claims retain their
+conditions and support, including claims continued through clause lineage from
+an older statement.
+
+`sourcesUsed` records source IDs, revisions, and content digests used to assemble
+the bundle, including supporting records whose text is not shown.
+`shownRecordIds` identifies records represented in retained sections; it does not
+mean their entire contents were reproduced. Keep the returned `bundleId` with
+your trajectory: its digest covers the delivered context payload and provenance.
+
+### Write safely after an uncertain response
+
+Every Work and Write tool accepts an optional `idempotencyKey`: 1–128 ASCII
+letters, digits, or the characters `._:-`. The adapter forwards it as the
+service's `Idempotency-Key` header. Before its first keyed write, the adapter
+checks the API's `qop-idempotency/2` capability and caches only a successful check.
+An old or incompatible API returns `INCOMPATIBLE_SERVICE` before any POST is sent.
+Unkeyed writes remain available subject to the service's ordinary contracts.
+
+If a response is lost and the error is retryable, retry the same tool
+with the same key **and identical payload**. Use a new key for a different
+operation. Reusing a key with changed content produces a conflict. The adapter
+does not automatically retry POST requests.
+
+The service saves a durable receipt before executing a keyed write. Concurrent
+identical requests await or replay the original result. If a crash or failed
+response save leaves the outcome unrecorded, the pending receipt blocks execution
+and returns HTTP 409 with `code: "IDEMPOTENCY_OUTCOME_UNKNOWN"`,
+`retryable: false`, and `outcomeUnknown: true`. Inspect the service state and ask
+the operator to reconcile the pending receipt; do not use a new key to repeat
+that write. Confirmed refusals before execution, such as temporary 429 or 503
+responses, may permit retry with the same key.
+
+Service and adapter errors return `isError: true` and a JSON error object in both
+text and `structuredContent`. The object includes a stable `code`, an `error` message,
+and `retryable`; `httpStatus`, `retryAfterMs`, and `requestId` are included when
+available. `outcomeUnknown: true` means a write may already have reached the
+service. If retry is permitted, use the original idempotency key and payload to
+recover its result; for a nonretryable error, inspect the state as described above.
+Without an idempotency key, inspect the service state before deciding whether
+to repeat an uncertain write. A retryable error does not trigger an automatic
+retry in the adapter.
+
+Both stdio and HTTP propagate request cancellation to the upstream API request.
+Cancellation stops waiting for a result; it does not roll back a write the API
+has already accepted. Recover an uncertain write using its original idempotency
+key and the rules above.
+
+Input-schema validation errors retain the SDK's standard `isError` text response
+and may not include `structuredContent`.
+
+`upload_artifact` requires exactly one of nonempty `text` or nonempty `base64`.
+Binary data must use canonical standard base64, including padding where required;
+URL-safe encoding, whitespace, missing required padding, and malformed encodings
+are rejected.
 
 The legacy static-catalog server was removed during the catalog integration.
 Use `mcp/src/server.ts`; its service reads the ledger projection exported from
@@ -194,3 +346,25 @@ npm ci            # from mcp/: install the official SDK and test client
 npm test          # tests stdio and remote HTTP against temporary services
 npm run typecheck
 ```
+
+## Research workflow verification
+
+`npm --prefix mcp test` includes official-SDK HTTP calls through the real API against
+an isolated copy of the maintained catalog. It checks search variants and identity,
+complete research history, cursor continuation, full-population sampling and date evidence.
+These scripted integration checks do not measure whether a model selects the right tools.
+
+For an opt-in model-driven run, use an authenticated Codex CLI:
+
+```sh
+python3 mcp/eval/run-research.py --codex /path/to/codex --model MODEL --effort ultra --output /tmp/qop-research-eval
+```
+
+The harness starts a loopback read-only MCP/API with memory stores, disables model
+shell/web/multi-agent tools, and asks the three original Chinese scenarios without
+prescribing calls. It records tool activity, answers, usage and elapsed time, excluding
+reasoning events. Cases 2 and 3 receive prior user/assistant text in fresh ephemeral
+sessions, not a replay of tool state. `--holdouts` adds three independent paraphrases.
+The model receives catalog content through your configured Codex provider; use only
+a dataset authorized for that destination. Script completion is not a passing score:
+review answer accuracy, evidence, scope and tool choice independently.

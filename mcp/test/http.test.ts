@@ -7,6 +7,7 @@ import http from "node:http";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { Client, StreamableHTTPClientTransport, type CallToolResult } from "@modelcontextprotocol/client";
+import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/server";
 import { createHttpMcpServer } from "../src/http.ts";
 import { createService } from "../../service/src/service.ts";
 import { createServer } from "../../service/src/api.ts";
@@ -86,7 +87,31 @@ for (const modern of [false, true]) test(`official ${modern ? "2026" : "legacy"}
   assert.ok(area);
   const byLabel = value(await client.callTool({ name: "search_problems", arguments: { area: area.label.toUpperCase(), limit: 1 } }));
   const bySlug = value(await client.callTool({ name: "search_problems", arguments: { area: area.id, limit: 1 } }));
-  assert.deepEqual(byLabel, bySlug);
+  let labelPage = byLabel;
+  let slugPage = bySlug;
+  let traversed = 0;
+  while (true) {
+    const { nextCursor: labelCursor, ...labelContent } = labelPage;
+    const { nextCursor: slugCursor, ...slugContent } = slugPage;
+    assert.deepEqual(labelContent, slugContent, "Labels and slugs return identical scientific content and stable paging fields");
+    traversed += labelPage.count;
+    assert.ok(traversed <= byLabel.total, "Cursor traversal must not repeat pages");
+    // Expiry instants can differ between requests; verify both signed cursors by use.
+    if (labelCursor === null) {
+      assert.equal(slugCursor, null);
+      assert.equal(traversed, byLabel.total);
+      break;
+    }
+    assert.equal(typeof labelCursor, "string");
+    assert.equal(typeof slugCursor, "string");
+    assert.ok(labelPage.count > 0);
+    const nextOffset = labelPage.offset + labelPage.count;
+    labelPage = value(await client.callTool({ name: "search_problems", arguments: { area: area.label.toUpperCase(), limit: 1, cursor: labelCursor } }));
+    slugPage = value(await client.callTool({ name: "search_problems", arguments: { area: area.id, limit: 1, cursor: slugCursor } }));
+    assert.equal(labelPage.offset, nextOffset);
+    assert.equal(slugPage.offset, nextOffset);
+    assert.equal(labelPage.catalogVersion, byLabel.catalogVersion);
+  }
   assert.ok(byLabel.total >= byLabel.count);
   assert.equal(byLabel.count, 1);
   const pastEnd = value(await client.callTool({ name: "search_problems", arguments: { area: area.id, offset: byLabel.total } }));
@@ -196,8 +221,295 @@ test("the hosted adapter never forwards client credentials or uses an operator k
   const client = new Client({ name: "credential-test", version: "1" });
   t.after(async () => { await client.close(); await close(remote); await close(upstream); });
   await client.connect(new StreamableHTTPClientTransport(url, { requestInit: { headers: { Authorization: "Bearer fixture-client-key", Cookie: "fixture=secret" } } }));
-  assert.equal(value(await client.callTool({ name: "get_status" })).ok, true);
+  assert.equal(value(await client.callTool({ name: "get_policy" })).ok, true);
   assert.ok(upstreamHeaders);
   assert.equal(upstreamHeaders.authorization, undefined);
   assert.equal(upstreamHeaders.cookie, undefined);
+});
+
+function within<T>(promise: Promise<T>, timeoutMs = 3000): Promise<T> {
+  let timeout: ReturnType<typeof setTimeout>;
+  return Promise.race([promise, new Promise<never>((_resolve, reject) => { timeout = setTimeout(() => reject(new Error("Timed out waiting for HTTP lifecycle event")), timeoutMs); })])
+    .finally(() => clearTimeout(timeout));
+}
+
+function observeCalls(server: http.Server) {
+  const calls = new Map<string, { response: http.ServerResponse; ended: Promise<void> }>();
+  server.on("request", (request, response) => {
+    const chunks: Buffer[] = [];
+    const ended = new Promise<void>(resolve => { response.once("finish", resolve); response.once("close", resolve); });
+    request.on("data", chunk => chunks.push(chunk));
+    request.on("end", () => {
+      try {
+        const message = JSON.parse(Buffer.concat(chunks).toString());
+        if (message.method === "tools/call") calls.set(message.params.arguments.name, { response, ended });
+      } catch { /* Non-JSON or bodyless requests are irrelevant to this observation. */ }
+    });
+  });
+  return calls;
+}
+
+for (const modern of [false, true]) test(`official ${modern ? "2026" : "legacy"} HTTP cancellation aborts upstream and isolates identical request IDs`, async t => {
+  const responses = new Map<string, http.ServerResponse>();
+  let markStarted!: () => void;
+  const started = new Promise<void>(resolve => { markStarted = resolve; });
+  let markAborted!: () => void;
+  const aborted = new Promise<void>(resolve => { markAborted = resolve; });
+  const upstream = http.createServer((request, response) => {
+    const name = request.url!.split("/").at(-1)!;
+    responses.set(name, response);
+    response.once("close", () => { if (name === "probe-first" && !response.writableEnded) markAborted(); });
+    if (responses.size === 2) markStarted();
+  });
+  const remote = createHttpMcpServer({ serviceUrl: await listen(upstream) });
+  const calls = observeCalls(remote);
+  const url = new URL(`${await listen(remote)}/mcp`);
+  const clients: Client[] = [];
+  const callIds: unknown[] = [];
+  t.after(async () => {
+    for (const response of responses.values()) response.destroy();
+    for (const client of clients) await client.close();
+    await close(remote); await close(upstream);
+  });
+  for (let index = 0; index < 2; index++) {
+    const client = new Client({ name: `cancellation-${index}`, version: "1" }, modern ? { versionNegotiation: { mode: { pin: "2026-07-28" } } } : {});
+    clients.push(client);
+    await client.connect(new StreamableHTTPClientTransport(url, { fetch: async (input, init) => {
+      if (typeof init?.body === "string") {
+        const message = JSON.parse(init.body);
+        if (message.method === "tools/call") callIds[index] = message.id;
+      }
+      return fetch(input, init);
+    } }));
+  }
+  const controller = new AbortController();
+  const first = clients[0]!.callTool({ name: "get_schemas", arguments: { name: "probe-first" } }, { signal: controller.signal });
+  const rejected = assert.rejects(first);
+  const second = clients[1]!.callTool({ name: "get_schemas", arguments: { name: "probe-second" } });
+  await within(started);
+  assert.equal(typeof callIds[0], "number");
+  assert.equal(callIds[0], callIds[1], "the probe must exercise colliding numeric request IDs in different client sessions");
+  controller.abort();
+  await rejected;
+  await within(aborted);
+  await within(calls.get("probe-first")!.ended);
+  assert.ok(calls.get("probe-first")!.response.writableEnded || calls.get("probe-first")!.response.destroyed, "the original canceled HTTP response must finish or close");
+  assert.equal(responses.get("probe-second")!.destroyed, false, "another client's request must remain active");
+  responses.get("probe-second")!.writeHead(200, { "Content-Type": "application/json" }).end('{"ok":"second"}');
+  assert.equal(value(await within(second)).ok, "second");
+  assert.ok((await clients[1]!.listTools()).tools.length > 0);
+});
+
+test("repeated legacy cancellations release HTTP responses and SDK request ownership without disturbing other requests", async t => {
+  const responses = new Map<string, http.ServerResponse>();
+  const starts = new Map<string, () => void>();
+  const upstream = http.createServer((request, response) => {
+    const name = request.url!.split("/").at(-1)!;
+    responses.set(name, response);
+    starts.get(name)?.();
+  });
+  const remote = createHttpMcpServer({ serviceUrl: await listen(upstream) });
+  const calls = observeCalls(remote);
+  const url = new URL(`${await listen(remote)}/mcp`);
+  const client = new Client({ name: "repeated-cancellation", version: "1" });
+  const transport = new StreamableHTTPClientTransport(url);
+  t.after(async () => { await client.close(); await close(remote); await close(upstream); });
+  let released = 0;
+  const send = WebStandardStreamableHTTPServerTransport.prototype.send;
+  t.mock.method(WebStandardStreamableHTTPServerTransport.prototype, "send", async function (this: WebStandardStreamableHTTPServerTransport, ...args: Parameters<typeof send>) {
+    await send.apply(this, args);
+    const message = args[0];
+    if ("error" in message && message.error.code === -32800) {
+      // A second terminal send must fail: the public API no longer owns this request ID.
+      // This observes SDK cleanup without reading or mutating its private maps.
+      await assert.rejects(send.call(this, message), /No connection established for request ID/u);
+      released++;
+    }
+  });
+  await client.connect(transport);
+  const start = (name: string, signal?: AbortSignal) => {
+    const started = new Promise<void>(resolve => starts.set(name, resolve));
+    const result = client.callTool({ name: "get_schemas", arguments: { name } }, signal ? { signal } : {});
+    return { started, result };
+  };
+  const survivor = start("survivor");
+  await within(survivor.started);
+  for (let index = 0; index < 5; index++) {
+    const name = `cancel-${String.fromCharCode(97 + index)}`;
+    const controller = new AbortController();
+    const current = start(name, controller.signal);
+    const rejected = assert.rejects(current.result);
+    await within(current.started);
+    controller.abort();
+    await rejected;
+    await within(calls.get(name)!.ended);
+    assert.ok(calls.get(name)!.response.writableEnded || calls.get(name)!.response.destroyed);
+    assert.equal(responses.get("survivor")!.destroyed, false);
+    assert.ok((await client.listTools()).tools.length);
+  }
+  assert.equal(released, 5, "each cancellation must release SDK request ownership");
+  responses.get("survivor")!.writeHead(200, { "Content-Type": "application/json" }).end('{"ok":true}');
+  assert.equal(value(await within(survivor.result)).ok, true);
+});
+
+test("legacy cancellation validates notifications, rejects active ID collisions, and drains mixed batches", async t => {
+  const responses = new Map<string, http.ServerResponse>();
+  const starts = new Map<string, () => void>();
+  const upstream = http.createServer((request, response) => {
+    const name = request.url!.split("/").at(-1)!;
+    responses.set(name, response); starts.get(name)?.();
+  });
+  const remote = createHttpMcpServer({ serviceUrl: await listen(upstream) });
+  const url = new URL(`${await listen(remote)}/mcp`);
+  t.after(async () => { await close(remote); await close(upstream); });
+  const initialize = await fetch(url, { method: "POST", headers: jsonHeaders, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-11-25", capabilities: {}, clientInfo: { name: "batch-cancellation", version: "1" } } }) });
+  const sessionId = initialize.headers.get("mcp-session-id")!;
+  await initialize.json();
+  const post = (body: unknown) => fetch(url, { method: "POST", headers: { ...jsonHeaders, "mcp-session-id": sessionId }, body: JSON.stringify(body) });
+  const tool = (id: number, name: string) => ({ jsonrpc: "2.0", id, method: "tools/call", params: { name: "get_schemas", arguments: { name } } });
+  const cancel = (params: unknown) => ({ jsonrpc: "2.0", method: "notifications/cancelled", params });
+  const started = new Promise<void>(resolve => starts.set("original", resolve));
+  const original = post(tool(5, "original"));
+  await within(started);
+  assert.equal((await post(tool(5, "duplicate"))).status, 409);
+  assert.equal((await post(cancel({ requestId: 5, reason: 7 }))).status, 202);
+  assert.equal((await post(cancel({ requestId: "5" }))).status, 202);
+  assert.equal(responses.get("original")!.destroyed, false, "invalid and differently typed IDs must not cancel the active numeric ID");
+  assert.equal((await post(cancel({ requestId: 5 }))).status, 202);
+  assert.equal((await (await within(original)).json()).error.code, -32800);
+  const reusedStarted = new Promise<void>(resolve => starts.set("reused", resolve));
+  const reused = post(tool(5, "reused"));
+  await within(reusedStarted);
+  responses.get("reused")!.writeHead(200, { "Content-Type": "application/json" }).end('{"ok":true}');
+  assert.equal((await (await within(reused)).json()).result.structuredContent.ok, true);
+  const batch = await within(post([tool(6, "batched"), cancel({ requestId: 6 })]));
+  assert.equal(batch.status, 200);
+  assert.equal((await batch.json()).error.code, -32800, "a cancellation in the same batch must settle its original response");
+  assert.equal((await post([tool(8, "collision-a"), tool(8, "collision-b")])).status, 409);
+  assert.equal((await post(Array.from({ length: 129 }, (_, id) => ({ jsonrpc: "2.0", id, method: "ping" })))).status, 429);
+  assert.equal((await post({ jsonrpc: "2.0", id: 8, method: "ping" })).status, 200);
+});
+
+for (const id of [0, ""] as const) for (const action of ["cancel", "disconnect"] as const) test(`legacy request ID ${JSON.stringify(id)} ${action} aborts upstream and preserves wire identity`, async t => {
+  const responses = new Map<string, http.ServerResponse>();
+  const starts = new Map<string, () => void>();
+  let aborted!: () => void;
+  const upstreamAborted = new Promise<void>(resolve => { aborted = resolve; });
+  const upstream = http.createServer((request, response) => {
+    const name = request.url!.split("/").at(-1)!;
+    responses.set(name, response);
+    if (name === "falsy") response.once("close", () => { if (!response.writableEnded) aborted(); });
+    starts.get(name)?.();
+  });
+  const remote = createHttpMcpServer({ serviceUrl: await listen(upstream) });
+  const calls = observeCalls(remote);
+  const url = new URL(`${await listen(remote)}/mcp`);
+  t.after(async () => { await close(remote); await close(upstream); });
+  const send = WebStandardStreamableHTTPServerTransport.prototype.send;
+  let released!: () => void;
+  const ownershipReleased = new Promise<void>(resolve => { released = resolve; });
+  t.mock.method(WebStandardStreamableHTTPServerTransport.prototype, "send", async function (this: WebStandardStreamableHTTPServerTransport, ...args: Parameters<typeof send>) {
+    await send.apply(this, args);
+    const message = args[0];
+    if ("error" in message && message.error.code === -32800 && message.id === id) {
+      await assert.rejects(send.call(this, message), /No connection established for request ID/u);
+      released();
+    }
+  });
+  const initialize = await fetch(url, { method: "POST", headers: jsonHeaders, body: JSON.stringify({ jsonrpc: "2.0", id: "init", method: "initialize", params: { protocolVersion: "2025-11-25", capabilities: {}, clientInfo: { name: "falsy-id", version: "1" } } }) });
+  const sessionId = initialize.headers.get("mcp-session-id")!;
+  assert.equal((await initialize.json()).id, "init");
+  const post = (body: unknown, signal?: AbortSignal) => fetch(url, { method: "POST", headers: { ...jsonHeaders, "mcp-session-id": sessionId }, body: JSON.stringify(body), ...(signal ? { signal } : {}) });
+  const tool = (requestId: number | string, name: string) => ({ jsonrpc: "2.0", id: requestId, method: "tools/call", params: { name: "get_schemas", arguments: { name } } });
+  const survivorStarted = new Promise<void>(resolve => starts.set("survivor", resolve));
+  const survivor = post(tool("survivor", "survivor"));
+  await within(survivorStarted);
+  const falsyStarted = new Promise<void>(resolve => starts.set("falsy", resolve));
+  const controller = new AbortController();
+  // The target ID is used exactly once, after a distinct initialize ID.
+  const original = post(tool(id, "falsy"), controller.signal).then(response => response.json(), error => ({ aborted: error.name === "AbortError" }));
+  await within(falsyStarted);
+  if (action === "cancel") assert.equal((await post({ jsonrpc: "2.0", method: "notifications/cancelled", params: { requestId: id } })).status, 202);
+  else controller.abort();
+  await within(upstreamAborted);
+  await within(calls.get("falsy")!.ended);
+  await within(ownershipReleased);
+  const result = await within(original);
+  if (action === "cancel") {
+    assert.equal(result.id, id, "the terminal HTTP response must retain the original wire ID");
+    assert.equal(result.error.code, -32800);
+  } else assert.equal(result.aborted, true);
+  assert.equal(responses.get("survivor")!.destroyed, false, "a neighboring request must remain active");
+  responses.get("survivor")!.writeHead(200, { "Content-Type": "application/json" }).end('{"ok":true}');
+  const survivorResult = await (await within(survivor)).json();
+  assert.equal(survivorResult.id, "survivor");
+  assert.equal(survivorResult.result.structuredContent.ok, true);
+});
+
+for (const action of ["DELETE", "expiry", "shutdown", "disconnect"] as const) test(`legacy ${action} drains active HTTP responses and aborts upstream`, async t => {
+  const name = action.toLowerCase();
+  let started!: () => void;
+  const upstreamStarted = new Promise<void>(resolve => { started = resolve; });
+  let aborted!: () => void;
+  const upstreamAborted = new Promise<void>(resolve => { aborted = resolve; });
+  const upstream = http.createServer((_request, response) => {
+    response.once("close", () => { if (!response.writableEnded) aborted(); });
+    started();
+  });
+  const remote = createHttpMcpServer({ serviceUrl: await listen(upstream), legacySessionIdleTimeoutMs: action === "expiry" ? 150 : 60_000 });
+  const calls = observeCalls(remote);
+  const url = new URL(`${await listen(remote)}/mcp`);
+  t.after(async () => { if (remote.listening) await close(remote); await close(upstream); });
+  const initialized = await fetch(url, { method: "POST", headers: jsonHeaders, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-11-25", capabilities: {}, clientInfo: { name: "drain", version: "1" } } }) });
+  const sessionId = initialized.headers.get("mcp-session-id")!;
+  await initialized.json();
+  const controller = new AbortController();
+  const original = fetch(url, { method: "POST", headers: { ...jsonHeaders, "mcp-session-id": sessionId }, signal: controller.signal,
+    body: JSON.stringify({ jsonrpc: "2.0", id: 2, method: "tools/call", params: { name: "get_schemas", arguments: { name } } }) });
+  const originalResult = original.then(response => response.json(), error => ({ aborted: error.name === "AbortError" }));
+  await within(upstreamStarted);
+  let closed: Promise<void> | undefined;
+  if (action === "DELETE") assert.equal((await fetch(url, { method: "DELETE", headers: { "mcp-session-id": sessionId } })).status, 200);
+  if (action === "shutdown") closed = new Promise<void>((resolve, reject) => remote.close(error => error ? reject(error) : resolve()));
+  if (action === "disconnect") controller.abort();
+  await within(calls.get(name)!.ended);
+  await within(upstreamAborted);
+  const result = await within(originalResult);
+  if (action === "disconnect") assert.equal(result.aborted, true);
+  else assert.equal(result.error?.code, -32800, "session termination must settle the original request");
+  if (closed) await within(closed);
+});
+
+test("legacy HTTP sessions are bounded, released by DELETE, and expire without affecting modern reads", async t => {
+  const upstream = http.createServer((_request, response) => response.writeHead(200, { "Content-Type": "application/json" }).end('{"ok":true}'));
+  const remote = createHttpMcpServer({ serviceUrl: await listen(upstream), maxLegacySessions: 1, legacySessionIdleTimeoutMs: 150 });
+  const url = new URL(`${await listen(remote)}/mcp`);
+  t.after(async () => { await close(remote); await close(upstream); });
+  const initialize = () => fetch(url, { method: "POST", headers: jsonHeaders, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-11-25", capabilities: {}, clientInfo: { name: "session-bound", version: "1" } } }) });
+  const malformed = await fetch(url, { method: "POST", headers: jsonHeaders, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-11-25", capabilities: "invalid" } }) });
+  assert.ok((await malformed.json()).error, "an invalid initialize must fail without consuming a session slot");
+  const first = await initialize();
+  assert.equal(first.status, 200);
+  const firstId = first.headers.get("mcp-session-id");
+  assert.ok(firstId);
+  await first.json();
+  const exhausted = await initialize();
+  assert.equal(exhausted.status, 429);
+  assert.ok(exhausted.headers.get("retry-after"));
+  await exhausted.json();
+  assert.equal((await fetch(url, { method: "DELETE", headers: { "mcp-session-id": firstId } })).status, 200);
+  assert.equal((await fetch(url, { method: "POST", headers: { ...jsonHeaders, "mcp-session-id": firstId }, body: ping })).status, 404);
+  const replacement = await initialize();
+  const replacementId = replacement.headers.get("mcp-session-id")!;
+  await replacement.json();
+  assert.notEqual(replacementId, firstId);
+  const modern = new Client({ name: "modern-at-capacity", version: "1" }, { versionNegotiation: { mode: { pin: "2026-07-28" } } });
+  t.after(() => modern.close());
+  await modern.connect(new StreamableHTTPClientTransport(url));
+  assert.equal(value(await modern.callTool({ name: "get_policy" })).ok, true);
+  await new Promise(resolve => setTimeout(resolve, 180));
+  assert.equal((await fetch(url, { method: "POST", headers: { ...jsonHeaders, "mcp-session-id": replacementId }, body: ping })).status, 404);
+  const afterExpiry = await initialize();
+  assert.equal(afterExpiry.status, 200);
+  await afterExpiry.json();
 });

@@ -85,6 +85,9 @@ export interface OpenTrajectory {
   startedAt: string;
 }
 
+export interface IdempotentReply { status: number; body: string }
+export type IdempotencyReservation = "reserved" | "pending" | "conflict" | IdempotentReply;
+
 export class AuthStore {
   readonly db: DatabaseSync;
 
@@ -134,15 +137,30 @@ export class AuthStore {
       .map((row) => ({ label: row.label, createdAt: row.created_at, revokedAt: row.revoked_at }));
   }
 
-  /** Stored reply for an idempotency key, or null; `conflict` when the same key came with a different body. */
-  replay(actorId: string, key: string, requestHash: string): { status: number; body: string } | "conflict" | null {
+  /** Persist the key before any side effect. Status 0 is a durable pending receipt. */
+  reserve(actorId: string, key: string, requestHash: string): IdempotencyReservation {
+    const inserted = this.db.prepare("INSERT INTO idempotency (actor_id, key, request_hash, status, body, created_at) VALUES (?, ?, ?, 0, '', ?) ON CONFLICT(actor_id, key) DO NOTHING")
+      .run(actorId, key, requestHash, new Date().toISOString());
+    if (inserted.changes === 1) return "reserved";
+    return this.replay(actorId, key, requestHash) ?? "pending";
+  }
+
+  /** A pending receipt survives failures and restarts; it must never execute again. */
+  replay(actorId: string, key: string, requestHash: string): IdempotentReply | "pending" | "conflict" | null {
     const row = this.db.prepare("SELECT request_hash, status, body FROM idempotency WHERE actor_id = ? AND key = ?").get(actorId, key) as { request_hash: string; status: number; body: string } | undefined;
     if (!row) return null;
-    return row.request_hash === requestHash ? { status: row.status, body: row.body } : "conflict";
+    return row.request_hash !== requestHash ? "conflict" : row.status === 0 ? "pending" : { status: row.status, body: row.body };
   }
 
   remember(actorId: string, key: string, requestHash: string, status: number, body: string): void {
-    this.db.prepare("INSERT OR REPLACE INTO idempotency (actor_id, key, request_hash, status, body, created_at) VALUES (?, ?, ?, ?, ?, ?)").run(actorId, key, requestHash, status, body, new Date().toISOString());
+    const result = this.db.prepare("UPDATE idempotency SET status = ?, body = ? WHERE actor_id = ? AND key = ? AND request_hash = ? AND status = 0")
+      .run(status, body, actorId, key, requestHash);
+    if (result.changes !== 1) throw new Error("The idempotency reservation could not be completed");
+  }
+
+  /** Release only a confirmed refusal before business writes, never an uncertain result. */
+  releaseReservation(actorId: string, key: string, requestHash: string): void {
+    this.db.prepare("DELETE FROM idempotency WHERE actor_id = ? AND key = ? AND request_hash = ? AND status = 0").run(actorId, key, requestHash);
   }
 
   /** Count `by` events in a fixed window; returns the new count. */
