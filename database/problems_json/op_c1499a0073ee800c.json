@@ -29,7 +29,9 @@
     "keywords": [],
     "difficulty": "unrated",
     "verificationCost": "unrated",
-    "relatedProblemIds": []
+    "relatedProblemIds": [
+      "01M26KH5NF45HBHXTPG8ZBD75H"
+    ]
   },
   "title": "Additivity of entanglement of formation for two-mode Gaussian states",
   "status": "Unsolved",
@@ -46,7 +48,10 @@
   "progress": [
     "Theorem 7 of Yamasaki et al. identifies entanglement cost with the regularized convex roof:\n\n\\begin{equation}\nE_C(\\rho_{AB})=\\lim_{k\\to\\infty}\\frac1kE_F(\\rho_{AB}^{\\otimes k}),\n\\label{eq:ser12-progress-1-1}\n\\end{equation}\n\nEquation~\\eqref{eq:ser12-progress-1-1} includes the continuous pure-state roof. Finite local entropy suffices; finite-energy states on finitely many modes satisfy this hypothesis. Here $E_C$ is the asymptotic Bell-pair consumption per target copy under LOCC with vanishing trace-norm error. \\sourcecite{ref:ser12-1}{YKHL25}",
     "Tensor products of single-copy ensembles give only\n\n\\begin{equation}\nE_C(\\rho_{AB})\\leq\\frac1kE_F(\\rho_{AB}^{\\otimes k})\\leq E_F(\\rho_{AB}),\n\\label{eq:ser12-progress-2-1}\n\\end{equation}\n\nThe reverse inequality needed to saturate Eq.~\\eqref{eq:ser12-progress-2-1} remains open, as stated in Adesso's Conclusion and Outlook. \\sourcecite{ref:ser12-2}{Ade26}",
-    "Wilde, Proposition 6 and Eqs. (141)--(143), proves Eq.~\\eqref{eq:ser12-progress-3-1} for $\\rho_{AB}=(\\operatorname{id}\\otimes\\mathcal N)(|\\Phi_{N_s}\\rangle\\langle\\Phi_{N_s}|)$. Here $|\\Phi_{N_s}\\rangle:=\\sum_{j\\geq0}\\sqrt{N_s^j/(N_s+1)^{j+1}}|j,j\\rangle$ is a two-mode squeezed vacuum with $N_s\\geq0$. The channel $\\mathcal N$ is either pure loss with transmissivity $0<\\eta<1$, or a quantum-limited amplifier with gain $G>1$.\n\n\\begin{equation}\n\\begin{gathered}\nE_F(\\rho_{AB}^{\\otimes k})=kE_F(\\rho_{AB}),\\\\\nE_C(\\rho_{AB})=E_F(\\rho_{AB})=E_F^{\\mathrm G}(\\rho_{AB}).\n\\end{gathered}\n\\label{eq:ser12-progress-3-1}\n\\end{equation}\n\nHere $E_F^{\\mathrm G}$ is the restriction to Gaussian pure-state decompositions. \\sourcecite{ref:ser12-3}{Wil18}"
+    "Wilde, Proposition 6 and Eqs. (141)--(143), proves Eq.~\\eqref{eq:ser12-progress-3-1} for $\\rho_{AB}=(\\operatorname{id}\\otimes\\mathcal N)(|\\Phi_{N_s}\\rangle\\langle\\Phi_{N_s}|)$. Here $|\\Phi_{N_s}\\rangle:=\\sum_{j\\geq0}\\sqrt{N_s^j/(N_s+1)^{j+1}}|j,j\\rangle$ is a two-mode squeezed vacuum with $N_s\\geq0$. The channel $\\mathcal N$ is either pure loss with transmissivity $0<\\eta<1$, or a quantum-limited amplifier with gain $G>1$.\n\n\\begin{equation}\n\\begin{gathered}\nE_F(\\rho_{AB}^{\\otimes k})=kE_F(\\rho_{AB}),\\\\\nE_C(\\rho_{AB})=E_F(\\rho_{AB})=E_F^{\\mathrm G}(\\rho_{AB}).\n\\end{gathered}\n\\label{eq:ser12-progress-3-1}\n\\end{equation}\n\nHere $E_F^{\\mathrm G}$ is the restriction to Gaussian pure-state decompositions. \\sourcecite{ref:ser12-3}{Wil18}",
+    "Wilde, Remark 2 and Eq. (157), extends the additivity of optimized conditional entropy to the full two-mode Gaussian family considered by Pirandola et al. By purification duality this gives entanglement-of-formation additivity for the corresponding complementary states, whose mode counts must be checked separately. Remark 3 explains why Proposition 6 does not directly extend to generic noisy channel-output states: a faithful two-mode state needs a purification with at least four modes \\sourcecite{ref:ser12-3}{Wil18}, \\sourcecite{ref:ser12-discord}{PSBCL14}.",
+    "Marian and Marian published a claim of additivity for arbitrary two-mode Gaussian states \\sourcecite{ref:ser12-marian}{MM08}. Adesso's Conclusion and Outlook explains the unresolved step: tensoring the proposed single-copy ensembles gives only $E_F(\\rho^{\\otimes k})\\leq kE_F(\\rho)$, not the required lower bound against collective non-Gaussian ensembles \\sourcecite{ref:ser12-2}{Ade26}.",
+    "Wolf et al., Section VII, Proposition 3, prove additivity of the Gaussian entanglement of formation for symmetric two-mode Gaussian states. This restricted-roof result does not exclude collective non-Gaussian decompositions in the unrestricted many-copy roof \\sourcecite{ref:ser12-wolf}{WGKWC04}."
   ],
   "references": [
     {
@@ -63,6 +68,21 @@
       "key": "Wil18",
       "label": "ref:ser12-3",
       "tex": "M. M. Wilde, \"Entanglement Cost and Quantum Channel Simulation,\" \\emph{Physical Review A} \\textbf{98}, 042338 (2018). \\href{https://doi.org/10.1103/PhysRevA.98.042338}{doi:10.1103/PhysRevA.98.042338}; \\href{https://arxiv.org/abs/1807.11939}{arXiv:1807.11939}."
+    },
+    {
+      "key": "PSBCL14",
+      "label": "ref:ser12-discord",
+      "tex": "S. Pirandola, G. Spedalieri, S. L. Braunstein, N. J. Cerf, and S. Lloyd, \"Optimality of Gaussian Discord,\" \\emph{Physical Review Letters} \\textbf{113}, 140405 (2014). \\href{https://doi.org/10.1103/PhysRevLett.113.140405}{doi:10.1103/PhysRevLett.113.140405}; \\href{https://arxiv.org/abs/1309.2215}{arXiv:1309.2215}."
+    },
+    {
+      "key": "MM08",
+      "label": "ref:ser12-marian",
+      "tex": "P. Marian and T. A. Marian, ``Entanglement of Formation for an Arbitrary Two-Mode Gaussian State,'' \\emph{Physical Review Letters} \\textbf{101}, 220403 (2008). \\href{https://doi.org/10.1103/PhysRevLett.101.220403}{doi:10.1103/PhysRevLett.101.220403}; \\href{https://arxiv.org/abs/0809.0321}{arXiv:0809.0321}."
+    },
+    {
+      "key": "WGKWC04",
+      "label": "ref:ser12-wolf",
+      "tex": "M. M. Wolf, G. Giedke, O. Kr\\\"uger, R. F. Werner, and J. I. Cirac, \"Gaussian Entanglement of Formation,\" \\emph{Physical Review A} \\textbf{69}, 052320 (2004). \\href{https://doi.org/10.1103/PhysRevA.69.052320}{doi:10.1103/PhysRevA.69.052320}; \\href{https://arxiv.org/abs/quant-ph/0306177}{arXiv:quant-ph/0306177}."
     }
   ],
   "comment": "The missing inequality must exclude collective non-Gaussian decompositions of many copies. A single-copy covariance optimization does not provide this exclusion. The cost is measured in asymptotic Bell pairs per copy with vanishing trace-norm error under unrestricted LOCC."

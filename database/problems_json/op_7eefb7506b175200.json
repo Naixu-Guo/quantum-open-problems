@@ -43,7 +43,8 @@
   "source": "This is the asymptotic random-coding lower bound in Section II, Eq.~(6), pp.~4–5 of Holevo's arXiv version 2; it follows from the finite-block conjecture in his Eq.~(5) \\sourcecite{ref:cqrc-holevo}{Hol00}.",
   "progress": [
     "Renes proves Eq.~\\eqref{eq:cqrc-conjecture} for arbitrary finite-alphabet classical–quantum channels with finite-dimensional output in Theorem 3.1, Eq.~(22). His construction combines privacy-amplification bounds with distribution shaping and allows arbitrary mixed output states. The proof appeared in July 2024 and was published in 2025 \\sourcecite{ref:cqrc-renes}{Ren25}.",
-    "Li and Yang independently prove the same lower bound in Theorem~2, Eq.~(13), with parameter $\\alpha=1/(1+s)\\in[1/2,1]$. Their Theorem~3 also identifies the exact reliability function in its stated high-rate regime below capacity by combining achievability with a sphere-packing converse. The present record does not assert an unrestricted sphere-packing converse at the capacity endpoint, where zero-error codes can create exceptions. This result was published in January~2025 \\sourcecite{ref:cqrc-liyang}{LY25}."
+    "Li and Yang independently prove the same lower bound in Theorem~2, Eq.~(13), with parameter $\\alpha=1/(1+s)\\in[1/2,1]$. Their Theorem~3 also identifies the exact reliability function in its stated high-rate regime below capacity by combining achievability with a sphere-packing converse. The present record does not assert an unrestricted sphere-packing converse at the capacity endpoint, where zero-error codes can create exceptions. This result was published in January~2025 \\sourcecite{ref:cqrc-liyang}{LY25}.",
+    "Cheng and Liu, Theorem 3.2 of arXiv version 4, establish the finite-block Burnashev--Holevo random-coding bound itself with a dimension-independent prefactor bounded by $1.102$, resolving the finite-block conjecture underlying the source formulation. Section 3.1 extends the bound to finite input alphabets with separable infinite-dimensional output Hilbert spaces. The work has an ISIT 2026 conference publication \\sourcecite{ref:cqrc-cheng-liu}{CL26}."
   ],
   "references": [
     {
@@ -60,6 +61,11 @@
       "key": "LY25",
       "label": "ref:cqrc-liyang",
       "tex": "K. Li and D. Yang, ``Reliability Function of Classical-Quantum Channels,'' \\emph{Physical Review Letters} \\textbf{134}, 010802 (2025). \\href{https://doi.org/10.1103/PhysRevLett.134.010802}{doi:10.1103/PhysRevLett.134.010802}; \\href{https://arxiv.org/abs/2407.12403}{arXiv:2407.12403}."
+    },
+    {
+      "key": "CL26",
+      "label": "ref:cqrc-cheng-liu",
+      "tex": "H.-C. Cheng and P.-C. Liu, ``Error Exponents for Quantum Packing Problems via an Operator Layer Cake Theorem,'' in \\emph{2026 IEEE International Symposium on Information Theory (ISIT)} (2026); extended arXiv version 4, 4 June 2026. \\href{https://doi.org/10.1109/ISIT62367.2026.11653968}{doi:10.1109/ISIT62367.2026.11653968}; \\href{https://arxiv.org/abs/2507.06232v4}{arXiv:2507.06232v4}."
     }
   ],
   "comment": "The archived statement is the random-coding achievability inequality, which is fully solved. Determining the exact reliability function for all rates below capacity is a broader question: the low-rate regime where the random-coding and sphere-packing bounds differ remains outside this solved statement. No exact duplicate was found in the authored catalog, ledger proposals, or private pool. The literature audit checked primary full sources and later work through 9 September 2026; it was not an exhaustive citation-index review. The originating formulation was checked directly in Holevo's Section II."

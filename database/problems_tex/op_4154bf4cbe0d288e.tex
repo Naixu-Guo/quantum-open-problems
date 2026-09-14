@@ -66,10 +66,10 @@ n\geq(1+\eta)c_0k^2
 \end{equation}
   Equation~\eqref{eq:gvu-progress-5} gives efficient random generation with high success probability, not a guaranteed deterministic construction. \sourcecite{ref:gvu-random}{AFF+26}
 
-  \item Chao and Xu's May 2026 revision (version 3, Theorems 1.3 and 1.4, and Appendix A) resolves the associated random-graph universality conjecture across its probability regimes; in particular, for sufficiently large $n$, with $s:=\min(p,1-p)$,
+  \item Chao and Xu's Theorem 1.3 (version 3, May 2026) proves the following random-graph guarantee: for sufficiently large $n$, with $s:=\min(p,1-p)$,
   \begin{equation}
 \begin{gathered}
-s\geq\frac{100\log_2 n}{\sqrt n},
+s\geq\frac{100\log n}{\sqrt n},
   \\
 
   k\leq\frac{s\sqrt n}{100}
@@ -81,7 +81,7 @@ s\geq\frac{100\log_2 n}{\sqrt n},
 \end{gathered}
 \label{eq:gvu-progress-6}
 \end{equation}
-  Beyond the regime in Eq.~\eqref{eq:gvu-progress-6}, their additional sparse and dense regime result completes the probabilistic conjecture, but does not supply the deterministic quadratic-size family asked for here. \sourcecite{ref:gvu-random-regimes}{CX26}
+  Beyond the regime in Eq.~\eqref{eq:gvu-progress-6}, Theorem 1.4 and its proof in Appendix A complete the sparse and dense regimes. The authors attribute this complementary argument to an internal OpenAI model, communicated by Mehtaab Sawhney. Neither probabilistic result supplies the deterministic quadratic-size family asked for here. The logarithm in the hypothesis follows the source, which does not specify its base. \sourcecite{ref:gvu-random-regimes}{CX26}
 \end{itemize}
 
 \subsection*{References}

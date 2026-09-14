@@ -50,7 +50,7 @@ Unsolved
 
 \subsection*{Source}
 
-Akibue, Miyazaki, and Osaka explicitly leave open whether a higher-Schmidt-rank resource with less than one ebit can implement this joint measurement, in Section 5.3, final paragraph, p.~28 of arXiv version 4 (28 August 2026) \sourcecite{ref:ejm-optimization}{AMO26}. Their numerical optimization uses separable-operation optimization as a relaxation of LOCC; this entry asks the exact deterministic LOCC version with classical output only. The EJM is defined by Gisin (Section 4, p.~5, Eq.~(10)) \sourcecite{ref:ejm-gisin}{Gis19}.
+Akibue, Miyazaki, and Osaka explicitly leave open whether a higher-Schmidt-rank resource with less than one ebit can implement this joint measurement, in Section 5.3, final paragraph, p.~35 of arXiv version 4 (28 August 2026) \sourcecite{ref:ejm-optimization}{AMO26}. Their numerical optimization uses separable-operation optimization as a relaxation of LOCC; this entry asks the exact deterministic LOCC version with classical output only. The EJM is defined by Gisin (Section 4, p.~5, Eq.~(10)) \sourcecite{ref:ejm-gisin}{Gis19}.
 
 \subsection*{Progress}
 
@@ -95,6 +95,8 @@ E_{\mathrm{LOCC}}^{\mathrm{exact}}(\mathcal M_{\mathrm{EJM}})\leq1.
 The separable-operation numerical bounds in Section 5.3 and Figure 5(c) of Akibue et al. support the stronger necessity of $\theta=\pi/4$ for deterministic implementation \sourcecite{ref:ejm-optimization}{AMO26}. Those numerical bounds do not address unrestricted resource rank. The computations are available in the authors' \href{https://github.com/akibue/DPS-based-on-MFLE}{reproducibility repository}.
 
   \item A stronger analytical conclusion for Schmidt rank two follows from Corollary 1, p.~21 of Akibue et al., itself a consequence of Theorem 3(2) \sourcecite{ref:ejm-optimization}{AMO26}. Coarse-graining an exact EJM implementation into outcome $j$ versus all other outcomes implements the optimal verification measurement $\{P_j,I_{AB}-P_j\}$. Since $|e_j\rangle$ has Schmidt rank two, the corollary forces every pure resource of Schmidt rank two that implements this verification, even by separable operations, to be maximally entangled. Applied to EJM, this proves that a rank-two resource must have one ebit; it does not constrain all higher-rank resources to have entropy at least one.
+
+  \item Pauwels, Pozas-Kerstjens, Del Santo, and Gisin show that the EJM can be localized with three ebits (Theorem 2). Their localization model forbids communication during the local measurement stage, with the outcome reconstructed afterward from local outputs. This differs from the adaptive LOCC model here: the one-ebit teleportation protocol communicates before Bob measures and therefore does not contradict that result. The three-ebit construction does not establish a three-ebit lower bound \sourcecite{ref:ejm-localization}{PPDG25}.
 \end{itemize}
 
 \subsection*{References}
@@ -109,11 +111,14 @@ The separable-operation numerical bounds in Section 5.3 and Figure 5(c) of Akibu
 
   \item[\textup{[AMO26]}]\label{ref:ejm-optimization}
   S. Akibue, J. Miyazaki, and H. Osaka, ``Optimizing Entanglement Manipulation via Algebraic-Geometric Decompositions and Semi-Definite Programming Hierarchies,'' \emph{Letters in Mathematical Physics} \textbf{116}, 110 (2026); arXiv version 4, 28 August 2026. \href{https://doi.org/10.1007/s11005-026-02138-9}{doi:10.1007/s11005-026-02138-9}; \href{https://arxiv.org/abs/2501.17394}{arXiv:2501.17394}.
+
+  \item[\textup{[PPDG25]}]\label{ref:ejm-localization}
+  J. Pauwels, A. Pozas-Kerstjens, F. Del Santo, and N. Gisin, ``Classification of Joint Quantum Measurements Based on Entanglement Cost of Localization,'' \emph{Physical Review X} \textbf{15}, 021013 (2025). \href{https://doi.org/10.1103/PhysRevX.15.021013}{doi:10.1103/PhysRevX.15.021013}; \href{https://arxiv.org/abs/2408.00831v2}{arXiv:2408.00831v2}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-The literature checked through 9 September 2026 leaves open whether $E_{\mathrm{LOCC}}^{\mathrm{exact}}(\mathcal M_{\mathrm{EJM}})=1$ or a finite-dimensional pure resource with strictly less than one ebit implements the measurement exactly. The rank-two case has the analytical resolution described in Progress, but the arbitrary-rank optimization remains unresolved; Section 5.3, p.~28 of Akibue et al. explicitly leaves higher-rank resources open \sourcecite{ref:ejm-optimization}{AMO26}. The cost is the entropy of the supplied pure resource, not an integer Bell-pair count, a net-consumption rate, or a cost under nonadaptive measurement localization. The status audit used public primary sources and later-work searches; it was not an exhaustive citation-index audit.
+The literature checked through 9 September 2026 leaves open whether $E_{\mathrm{LOCC}}^{\mathrm{exact}}(\mathcal M_{\mathrm{EJM}})=1$ or a finite-dimensional pure resource with strictly less than one ebit implements the measurement exactly. The rank-two case has the analytical resolution described in Progress, but the arbitrary-rank optimization remains unresolved; Section 5.3, p.~35 of Akibue et al. explicitly leaves higher-rank resources open \sourcecite{ref:ejm-optimization}{AMO26}. The cost is the entropy of the supplied pure resource, not an integer Bell-pair count, a net-consumption rate, or a cost under nonadaptive measurement localization. The status audit used public primary sources and later-work searches; it was not an exhaustive citation-index audit.
 
 \subsection*{Field}
 

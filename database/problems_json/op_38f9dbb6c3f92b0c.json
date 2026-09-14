@@ -34,7 +34,7 @@
     ]
   },
   "title": "Strong converse for the quantum capacity of a general channel",
-  "status": "Unsolved",
+  "status": "Solved",
   "fields": [
     "Quantum Communication"
   ],
@@ -48,7 +48,9 @@
     "The regularized coherent information determines the vanishing-error threshold $Q(\\mathcal N)$ but does not imply Eq.~\\eqref{eq:h13-converse}; see Hayashi's Theorem~9.10 and Section~9.9.3 \\sourcecite{ref:h13-book}{Hay17}.",
     "Tomamichel, Wilde, and Winter's Theorem~8 gives an exponential strong-converse upper bound using the regularized channel Rains information, even with classical pre- and post-processing. Their Section~VI proves equality with capacity for generalized dephasing channels. The general upper bound need not coincide with $Q(\\mathcal N)$ \\sourcecite{ref:h13-tww}{TWW17}.",
     "Kondra, Brinster, Kampermann, Bru{\\ss}, and Wyderka prove an all-code exponential strong converse for finite-dimensional antidegradable channels in Theorem~1 and degradable channels in Theorem~4 of their August~2026 preprint. This includes erasure channels over the full parameter range. Their Theorem~11 also covers a specified nondegradable multilevel amplitude-damping family. Their general-channel bound in Theorem~8 does not determine the capacity, as discussed in Section~VIII \\sourcecite{ref:h13-kondra}{KBK+26}.",
-    "Tomamichel proves an exponential strong converse for Pauli channels within the class of stabilizer codes, with arbitrary decoders; see Section~6 of the July~2026 preprint. The restriction concerns the encoded subspace and cannot simply be removed. Section~8.3 identifies the remaining extension to unrestricted encoders \\sourcecite{ref:h13-tomamichel}{Tom26}."
+    "Tomamichel proves an exponential strong converse for Pauli channels within the class of stabilizer codes, with arbitrary decoders; see Section~6 of the July~2026 preprint. The restriction concerns the encoded subspace and cannot simply be removed. Section~7, Problem~7.3, identifies the then-open extension to unrestricted encoders \\sourcecite{ref:h13-tomamichel}{Tom26}.",
+    "Beigi and Tomamichel, Theorem 1, prove an exponential strong converse for every finite-dimensional memoryless quantum channel: at every fixed rate gap $\\gamma>0$ above $Q(\\mathcal N)$ there is $\\alpha_\\gamma>0$ such that the entanglement-transmission fidelity obeys $F_n<2^{-\\alpha_\\gamma n}$ for all sufficiently large $n$. The model permits mixed encoded states and arbitrary joint decoders. This proves the archived implication in Eq.~\\eqref{eq:h13-converse}, in the stronger exponential form \\sourcecite{ref:h13-beigi-tomamichel}{BT26}.",
+    "Cheng and Tomamichel, Theorem 5, give a strictly positive entanglement-generation strong-converse exponent at every rate above $Q(\\mathcal N)$. Their Appendix D transfers exponential decay to entanglement transmission; the exact generation and transmission exponents need not coincide. Their proof uses an Arimoto approach and R\\'enyi continuity bounds, whereas Beigi--Tomamichel use a fully quantum blowing-up lemma \\sourcecite{ref:h13-cheng-tomamichel}{CT26}."
   ],
   "references": [
     {
@@ -70,7 +72,17 @@
       "key": "Tom26",
       "label": "ref:h13-tomamichel",
       "tex": "M. Tomamichel, ``A strong converse for stabilizer codes over Pauli channels via the blowing-up lemma,'' preprint (2026). \\href{https://arxiv.org/abs/2607.23450}{arXiv:2607.23450}."
+    },
+    {
+      "key": "BT26",
+      "label": "ref:h13-beigi-tomamichel",
+      "tex": "S. Beigi and M. Tomamichel, ``Strong Converse for Quantum Capacity via a Fully Quantum Blowing-Up Lemma,'' arXiv preprint, version 1, 10 September 2026. \\href{https://arxiv.org/abs/2609.11771v1}{arXiv:2609.11771v1}."
+    },
+    {
+      "key": "CT26",
+      "label": "ref:h13-cheng-tomamichel",
+      "tex": "H.-C. Cheng and M. Tomamichel, ``No information transmission through quantum channels above capacity,'' arXiv preprint, version 1, 8 September 2026. \\href{https://arxiv.org/abs/2609.08998v1}{arXiv:2609.08998v1}."
     }
   ],
-  "comment": "Audited on 2026-09-09, including the full July and August~2026 preprints. Their subclass theorems leave the general-channel implication in Eq.~\\eqref{eq:h13-converse} unresolved. This record asks for convergence to zero, without requiring an exponential rate. The solved degradable-channel record proves the stronger exponential statement for a subclass; the transpose-degradable record asks for an exponential converse in another restricted class. Rains-information achievability under an enlarged PPT assistance model is a separate operational question. In particular, the book's Rains-relative-entropy bound must not be identified with max-Rains information merely because it is named an SDP bound."
+  "comment": "Updated on 2026-09-14. The complete resolution rests on two September 2026 version-1 arXiv preprints, neither identified as peer-reviewed at this audit. Their methods differ, but both papers have Tomamichel as an author, so they are not independent confirmations by disjoint author teams. Both disclose assistance with their mathematical arguments. The Solved status follows the catalog policy of recording complete preprint resolutions with an explicit publication caveat; it does not certify an independent refereeing of either technical proof. This record asks for convergence to zero, without requiring an exponential rate. The solved degradable-channel record proves the stronger exponential statement for a subclass; the transpose-degradable record asks for an exponential converse in another restricted class. Rains-information achievability under an enlarged PPT assistance model is a separate operational question. In particular, the book's Rains-relative-entropy bound must not be identified with max-Rains information merely because it is named an SDP bound."
 }
