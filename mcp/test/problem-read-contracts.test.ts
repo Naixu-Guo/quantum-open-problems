@@ -7,8 +7,9 @@ import { createAdapter, REQUIRED_PROBLEM_READ_VERSION, type Json } from "../src/
 import { createMcpServer } from "../src/shared-server.ts";
 
 const version = "a".repeat(64);
+const authority = { status: "Unsolved", statusSource: { kind: "default", recordId: "fixture" } };
 const page = () => ({ schemaVersion: REQUIRED_PROBLEM_READ_VERSION, problemId: "fixture", documentVersion: version,
-  section: "statement", format: "json", content: { statement: { id: "s1", clauses: [{ text: "α > 0" }] }, body: "Additional context" },
+  section: "statement", format: "json", content: { ...authority, statement: { id: "s1", clauses: [{ text: "α > 0" }] }, body: "Additional context" },
   text: null, continued: false, complete: true, nextCursor: null, maxBytes: 8192, responseBytes: 700,
   budgetSemantics: { unit: "utf8-json-bytes", representation: "compact-json", scope: "entire-api-response",
     excludes: ["http-headers", "mcp-envelope", "tokens"] } });
@@ -134,11 +135,11 @@ test("read_problem output distinguishes native categories from ordered JSON cont
   const original = page();
   const context = { available: true, semantics: "Maintainer-authored summary", provenance: { revision: 4 } };
   for (const [section, content] of [
-    ["statement", { statement: null }],
+    ["statement", { ...authority, statement: null }],
     ["statement", original.content],
-    ["history", { source: [{ text: "Source α" }], progress: [{ text: "Prior result" }], researchContext: context }],
-    ["references", { bibliography: [{ text: "Author, work" }], references: [{ body: "Citation note" }], researchContext: context }],
-    ["comment", { comment: [], discussion: [{ body: "Service discussion" }], decisions: [], researchContext: { available: false } }],
+    ["history", { ...authority, source: [{ text: "Source α" }], progress: [{ text: "Prior result" }], researchContext: context }],
+    ["references", { ...authority, bibliography: [{ text: "Author, work" }], references: [{ body: "Citation note" }], researchContext: context }],
+    ["comment", { ...authority, comment: [], discussion: [{ body: "Service discussion" }], decisions: [], researchContext: { available: false } }],
   ] as const) {
     response = { ...original, section, content };
     const result = await client.callTool({ name: "read_problem", arguments: { id: "fixture", section } });
@@ -148,14 +149,14 @@ test("read_problem output distinguishes native categories from ordered JSON cont
   const first = { ...original, section: "history", format: "json-continuation", content: null,
     text: '{"source":[],"progress":[', continued: false, complete: false, nextCursor: "opaque-next-page" };
   const middle = { ...first, continued: true, text: '{"text":"α"}' };
-  const last = { ...first, text: '],"researchContext":{"available":false}}', continued: true, complete: true, nextCursor: null };
+  const last = { ...first, text: '],"researchContext":{"available":false},' + JSON.stringify(authority).slice(1), continued: true, complete: true, nextCursor: null };
   for (const chunk of [first, middle, last]) {
     response = chunk;
     const result = await client.callTool({ name: "read_problem", arguments: { id: "fixture", cursor: "opaque" } });
     assert.equal(result.isError, false, "continuation text need not parse independently");
     assert.deepEqual(result.structuredContent, response);
   }
-  assert.deepEqual(JSON.parse(first.text + middle.text + last.text), { source: [], progress: [{ text: "α" }], researchContext: { available: false } });
+  assert.deepEqual(JSON.parse(first.text + middle.text + last.text), { ...authority, source: [], progress: [{ text: "α" }], researchContext: { available: false } });
   const { continued: _continued, ...missingContinued } = original;
   for (const malformed of [
     missingContinued, { ...original, format: "text" }, { ...original, content: null }, { ...original, content: [] },
@@ -169,5 +170,39 @@ test("read_problem output distinguishes native categories from ordered JSON cont
   ]) {
     response = malformed;
     assert.equal((await client.callTool({ name: "read_problem", arguments: { id: "fixture" } })).isError, true, JSON.stringify(malformed));
+  }
+});
+
+test("each native category requires binary problem status and its source independently of clause evidence", async t => {
+  const adapter = createAdapter("http://localhost:8787", null, true);
+  let response: unknown;
+  adapter.tools.find(tool => tool.name === "read_problem")!.call = async () => ({ status: 200, body: response });
+  const client = await clientFor(t, adapter);
+  const categories: Record<string, Json> = {
+    statement: { statement: { id: "s1", clauses: [{ text: "Formal statement", status: "open" }] } },
+    history: { source: [], progress: [], researchContext: { available: false } },
+    references: { bibliography: [], references: [], researchContext: { available: false } },
+    comment: { comment: [], discussion: [], decisions: [], researchContext: { available: false } },
+  };
+  for (const [section, category] of Object.entries(categories)) {
+    const request = { name: "read_problem", arguments: { id: "fixture", section } };
+    for (const status of ["Unsolved", "Solved"]) {
+      const content = { ...category, status, statusSource: { kind: "authored-catalog", recordId: "fixture", sourcePath: "fixture.json" } };
+      response = { ...page(), section, content };
+      const result = await client.callTool(request);
+      assert.equal(result.isError, false, `${section}: ${status} must survive independently of clause state`);
+      assert.deepEqual((result.structuredContent as Json)["content"], content);
+    }
+    const valid = { ...category, ...authority };
+    const { status: _status, ...missingStatus } = valid;
+    const { statusSource: _source, ...missingSource } = valid;
+    for (const content of [
+      missingStatus, missingSource,
+      ...["Partially solved", "solved", "open", "", null, 0].map(status => ({ ...valid, status })),
+      ...[null, [], "authored-catalog"].map(statusSource => ({ ...valid, statusSource })),
+    ]) {
+      response = { ...page(), section, content };
+      assert.equal((await client.callTool(request)).isError, true, `${section} must reject missing or invalid authority`);
+    }
   }
 });

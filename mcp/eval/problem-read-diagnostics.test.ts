@@ -19,7 +19,7 @@ async function connect(t: TestContext, server: McpServer) {
 
 test("maximum-budget real reader page accepts diagnostic overhead only in the eval SDK schema", async t => {
   const productionBefore = structuredClone(outputSchemaForTool("read_problem"));
-  const original = { ...new ProblemReader().read("fixture", { id: "fixture", body: "x".repeat(100_000) },
+  const original = { ...new ProblemReader().read("fixture", { id: "fixture", status: "Unsolved", statusSource: { kind: "default", recordId: "fixture", reason: "Synthetic diagnostic fixture" }, body: "x".repeat(100_000) },
     new URLSearchParams({ section: "statement", maxBytes: "65536" })).body };
   assert.equal(original.responseBytes, 65_536, "the real reader fills a legal maximum-budget page");
   const { decorated } = decorateProblemReadPage(original, 0);

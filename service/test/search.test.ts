@@ -10,6 +10,7 @@ import { Ledger, loadRecords, type LoadedRecord } from "../../contract/src/ledge
 import { statementDigest } from "../../contract/src/digest.ts";
 import type { Clause } from "../../contract/src/types/statement.ts";
 import { Index, SearchError } from "../src/index.ts";
+import { searchMatch, type SearchDocument } from "../src/search.ts";
 
 const root = fileURLToPath(new URL("../../", import.meta.url));
 
@@ -329,4 +330,44 @@ test("sampling draws from all matches, including candidates beyond page one, and
     assert.deepEqual(index.sampleProblem({ text: "no-such-scientific-term" }), { row: null, total: 0, catalogVersion: all.catalogVersion });
     assert.throws(() => index.sampleProblem({ ...filter, offset: 1 }), SearchError);
   } finally { context.mock.restoreAll(); syncBuiltinESMExports(); index.close(); }
+});
+
+const document = (body: string): SearchDocument => ({ title: "", statement: "", progress: "", body, taxonomy: "", keywords: "", stableId: "", aliases: [] });
+
+test("one-character searches of long words do not repeatedly copy the remaining document", (context) => {
+  const size = 16_384;
+  const text = "a".repeat(size);
+  let slicedUnits = 0;
+  const slice = String.prototype.slice;
+  context.mock.method(String.prototype, "slice", function (this: string, start?: number, end?: number) {
+    const result = slice.call(this, start, end);
+    if (String(this).length === size) slicedUnits += result.length;
+    return result;
+  });
+  assert.equal(searchMatch(document(text), "a"), null, "a single letter is not a complete scientific word");
+  assert.ok(slicedUnits <= size * 4, `${slicedUnits} copied UTF-16 units exceeds the linear neighbor-reading bound`);
+  assert.ok(searchMatch(document(text + " a"), "a"), "a later complete word must remain discoverable");
+});
+
+test("scientific word boundaries inspect full astral letters and numbers on both sides of literal terms", () => {
+  for (const point of ["𐐨", "𝟘"]) {
+    for (const [text, term] of [[`${point}x`, point], [`x${point}`, point], [`${point}${point}`, point], [`x${point}+`, `${point}+`], [`+${point}x`, `+${point}`], [`${point}a`, "a"], [`a${point}`, "a"]]) {
+      assert.equal(searchMatch(document(text!), term!), null, `${JSON.stringify(term)} must not match inside ${JSON.stringify(text)}`);
+    }
+    assert.ok(searchMatch(document(`(${point})`), point));
+    assert.ok(searchMatch(document(`🧪${point}🧪`), point), "astral punctuation does not become a word character");
+  }
+});
+
+test("a rejected literal occurrence does not skip a valid overlapping scientific expression", () => {
+  for (const [text, term] of [["xa+a+a", "a+a"], ["x𐐨+𐐨+𐐨", "𐐨+𐐨"]]) {
+    const match = searchMatch(document(text!), term!);
+    assert.ok(match, `${term} has a valid later overlapping occurrence in ${text}`);
+    assert.deepEqual(match.fields, ["body"]);
+  }
+  for (const term of ["a%a", "a_a", String.raw`\alpha`, "a*a", "a.a", "a[a]"]) {
+    assert.ok(searchMatch(document(` ${term} `), term), `${term} remains literal`);
+  }
+  assert.equal(searchMatch(document(" axa "), "a.a"), null, "a period is not a regex wildcard");
+  assert.equal(searchMatch(document(" axa "), "a%a"), null, "percent is not a SQL wildcard");
 });

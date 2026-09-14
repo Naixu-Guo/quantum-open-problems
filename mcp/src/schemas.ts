@@ -98,11 +98,15 @@ const researchSearch = object({ ...searchPage, schemaVersion: { const: "qop-sear
   budgetSemantics: object({ unit: { const: "utf8-json-bytes" }, representation: { const: "compact-json" },
     scope: { const: "entire-api-response" }, atomicUnit: { const: "problem" },
     excludes: { const: ["http-headers", "mcp-envelope", "tokens"] } }) });
+const problemReadAuthority = {
+  status: { ...status, description: "Authoritative scientific problem status; statement clause status is service evidence state and may remain open for a Solved catalog problem." },
+  statusSource: { ...record, description: "Source of the authoritative problem status, copied from get_problem." },
+};
 const problemReadContents = {
-  statement: object({ statement: nullableRecord, body: string }, ["statement"]),
-  history: object({ source: records, progress: records, researchContext: record }),
-  references: object({ bibliography: records, references: records, researchContext: record }),
-  comment: object({ comment: records, discussion: records, decisions: records, researchContext: record }),
+  statement: object({ ...problemReadAuthority, statement: nullableRecord, body: string }, ["status", "statusSource", "statement"]),
+  history: object({ ...problemReadAuthority, source: records, progress: records, researchContext: record }),
+  references: object({ ...problemReadAuthority, bibliography: records, references: records, researchContext: record }),
+  comment: object({ ...problemReadAuthority, comment: records, discussion: records, decisions: records, researchContext: record }),
 };
 const problemRead = { ...object({ schemaVersion: { const: "qop-problem-read/1" }, problemId: { type: "string", minLength: 1 },
   documentVersion: { type: "string", minLength: 64, maxLength: 64, pattern: "^[0-9a-f]{64}$" },

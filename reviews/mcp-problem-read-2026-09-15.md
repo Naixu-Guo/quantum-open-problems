@@ -15,6 +15,10 @@ and any retained native/later service background. History includes the authored
 source and progress. References include authored bibliography and service
 references. Commentary, discussions and decisions remain explicitly separated.
 `researchContext` preserves availability and provenance for catalog research.
+Every category also carries the authoritative binary problem `status` and its
+`statusSource`, including in reconstructed continuation content. A service
+clause's evidence status can remain `open` for a `Solved` catalog problem; it
+does not override the problem status. Missing or invalid authority fails explicitly.
 
 Continuation is section-wide serialized JSON. The cursor carries its position;
 callers need only follow responses in order. Machine consumers concatenate the
@@ -31,27 +35,40 @@ entries remain readable but are not retained. Fit checks process bounded text.
 
 Official SDK → MCP HTTP → API HTTP acceptance checks **111 problems × four
 categories** against an independent projection of `get_problem(view: "research")`.
-All **444 category results** match exactly across **515 default 8 KiB pages**.
-At that budget, one statement, seven histories and 51 reference categories need
+All **444 category results** match exactly across **519 default 8 KiB pages**.
+At that budget, one statement, seven histories and 55 reference categories need
 continuation; all commentary categories fit. These counts include research context
 and the response envelope. The largest current reference category fits whole at
 32 KiB; this does not bound future/native problem sizes.
 
-The nine SDK tests also cover actual independent Source and Comment writes
-returning 409, inherited cursor categories, 2 KiB→32 KiB continuation, aliases,
+The ten SDK tests also cover actual independent Source and Comment writes
+returning 409, inherited cursor categories, 2 KiB→32 KiB continuation,
 Unicode/later/native background, old-protocol compatibility and LRU eviction.
-Service regressions include a single unbroken scientific string larger than
+Alias resolution is covered separately by service HTTP tests and the actual
+Chinese example calls. Service regressions include a single unbroken scientific string larger than
 1 MiB reconstructed across 212 fixed 8 KiB pages, strict parameters, cursor tampering/TTL, snapshot immutability and cache
 bounds. No long statement or citation is replaced with a summary.
+The status regression uses a real solved metrology problem whose service clause
+remains open, plus an unsolved purification problem. Every category preserves
+their exact status and source in whole JSON and at a 2 KiB budget; both statement
+reads require actual continuation. Separate service cases cover large status
+provenance, authority-only version changes and missing/invalid authority.
 
-The full root suite passes **96/96** and MCP **86/86**, plus **5/5** Python
+The full root suite passes **96/96** and MCP **88/88**, plus **5/5** Python
 observer/grader regressions and **1/1** official-SDK diagnostic schema regression.
-The service suite passes **129/129**. Service/MCP typechecks, the required site
-build and unchanged ledger check also pass. A final [ultra adversarial review](mcp-problem-read-ultra-review-2026-09-15.md)
-reports no blocking findings after 13 targeted tests; neither previous performance
-nor maximum-budget diagnostic issue reproduced.
+The service suite passes **134/134**. Service/MCP typechecks, the required site
+build and unchanged ledger check also pass. An earlier
+[category-only ultra review](mcp-problem-read-ultra-review-2026-09-15.md)
+ran 13 targeted tests without reproducing the previous continuation-performance
+or diagnostic-budget issues. The later full-PR review found missing category
+status and quadratic search boundary work; see the
+[full review and fix verification](mcp-pr-ready-ultra-review-2026-09-15.md).
 
-Three paired local measurements of the final cached path read 400,000 and
+The measurements below are historical evidence preserved in commit `1318543`,
+before per-category status fields were added. Their payload sizes and timings
+have not been rerun for the status fix; the current automated checks are above.
+
+Three paired local measurements of that cached path read 400,000 and
 800,000 body bytes at a fixed 2 KiB budget in median **51.71 ms** and **102.90 ms**,
 over 312 and 623 pages. Each traversal prepares once and includes first preparation.
 This is in-process retrieval, not HTTP/model latency; cache misses and oversized
@@ -76,6 +93,10 @@ and 13 service references.
 Exact recall is delivery evidence for this path, not proof of scientific
 understanding or support for every host. Earlier experimental block-reader
 measurements are not evidence for this final category interface.
+
+A later [three-example acceptance run](mcp-example-acceptance-2026-09-15.md)
+uses live local API responses and natural-language requests. It is separate from
+the frozen-page marker diagnostic above.
 
 ## Reproduction
 

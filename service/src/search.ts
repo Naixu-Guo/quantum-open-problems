@@ -40,16 +40,31 @@ const WEIGHTS = { title: 100, statement: 50, keywords: 40, taxonomy: 30, progres
 const FIELDS = Object.keys(WEIGHTS) as (keyof typeof WEIGHTS)[];
 const WORD = /[\p{L}\p{N}_]/u;
 
+/** Read only the neighboring code point, never a document-sized prefix or suffix. */
+function pointAt(text: string, index: number): string {
+  const point = text.codePointAt(index);
+  return point === undefined ? "" : String.fromCodePoint(point);
+}
+
+function pointBefore(text: string, index: number): string {
+  if (index === 0) return "";
+  const last = text.charCodeAt(index - 1);
+  const previous = text.charCodeAt(index - 2);
+  const pair = last >= 0xdc00 && last <= 0xdfff && previous >= 0xd800 && previous <= 0xdbff;
+  return text.slice(index - (pair ? 2 : 1), index);
+}
+
 /** SQL LIKE and regular-expression metacharacters remain literal, with word boundaries. */
 function position(text: string, term: string): number {
+  const startsWord = WORD.test(pointAt(term, 0));
+  const endsWord = WORD.test(pointBefore(term, term.length));
   let from = 0;
   while (from <= text.length) {
     const at = text.indexOf(term, from);
     if (at < 0) return -1;
-    const before = at === 0 ? "" : [...text.slice(0, at)].at(-1)!;
-    const after = [...text.slice(at + term.length)][0] ?? "";
-    if ((!WORD.test(term[0]!) || !WORD.test(before)) && (!WORD.test(term.at(-1)!) || !WORD.test(after))) return at;
-    from = at + Math.max(term.length, 1);
+    if ((!startsWord || !WORD.test(pointBefore(text, at))) && (!endsWord || !WORD.test(pointAt(text, at + term.length)))) return at;
+    // A rejected occurrence can overlap a later valid literal occurrence.
+    from = at + 1;
   }
   return -1;
 }

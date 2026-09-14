@@ -146,15 +146,16 @@ function checkPage(page: Page, budget: number) {
 
 /** Independent semantic projection: no production section builder or splitting code. */
 function project(document: Json, section: Section): Json {
+  const problemStatus = { status: document["status"], statusSource: document["statusSource"] };
   const research = document["research"] as Json;
   const researchContext = Object.fromEntries(Object.entries(research)
     .filter(([key]) => !["source", "progress", "comment", "references"].includes(key)));
   switch (section) {
-    case "statement": return { statement: document["statement"] ?? null,
+    case "statement": return { ...problemStatus, statement: document["statement"] ?? null,
       ...(Object.hasOwn(document, "body") ? { body: document["body"] } : {}) };
-    case "history": return { source: research["source"] ?? [], progress: research["progress"] ?? [], researchContext };
-    case "references": return { bibliography: research["references"] ?? [], references: document["references"] ?? [], researchContext };
-    case "comment": return { comment: research["comment"] ?? [], discussion: document["comments"] ?? [],
+    case "history": return { ...problemStatus, source: research["source"] ?? [], progress: research["progress"] ?? [], researchContext };
+    case "references": return { ...problemStatus, bibliography: research["references"] ?? [], references: document["references"] ?? [], researchContext };
+    case "comment": return { ...problemStatus, comment: research["comment"] ?? [], discussion: document["comments"] ?? [],
       decisions: document["decisions"] ?? [], researchContext };
   }
 }
@@ -237,6 +238,31 @@ test("official SDK reads complete semantic research categories", { timeout: 180_
         return [section, { p95: ordered[Math.ceil(ordered.length * 0.95) - 1]!.bytes, max: ordered.at(-1) }];
       })),
     ));
+  });
+
+  await t.test("every standalone category exposes the authoritative problem status, independently of service clause status", async () => {
+    const solvedId = "01M1HME780EGVAT19D7T4BGNB5";
+    const solved = documents.get(solvedId)!;
+    assert.equal(solved["status"], "Solved", "The maintained metrology problem is already solved");
+    const solvedStatement = solved["statement"] as Json;
+    assert.ok((solvedStatement["clauses"] as Json[]).some(clause => clause["status"] === "open"),
+      "Exercise the real authored-status versus service-evidence distinction");
+    const unsolved = documents.get("01M1Q787QRD6APNHX659G4CTEF")!;
+    assert.equal(unsolved["status"], "Unsolved", "The purification countercase remains unsolved");
+    for (const document of [solved, unsolved]) for (const section of sections) {
+      const id = String(document["id"]);
+      const native = await call<Page>(client, "read_problem", { id, section, maxBytes: 32768 });
+      checkPage(native, 32768);
+      assert.equal(native.format, "json");
+      assert.equal(native.content!["status"], document["status"]);
+      assert.deepEqual(native.content!["statusSource"], document["statusSource"]);
+      const small = await readCategory(client, id, { section, maxBytes: 2048 });
+      assert.deepEqual(small.content, project(document, section));
+      assert.equal(small.content["status"], document["status"]);
+      assert.deepEqual(small.content["statusSource"], document["statusSource"]);
+      assert.equal(small.documentVersion, native.documentVersion);
+      if (section === "statement") assert.ok(small.pages.length > 1, "Status survives an actual JSON continuation");
+    }
   });
 
   await t.test("default statement and complete references return native JSON when they fit", async () => {

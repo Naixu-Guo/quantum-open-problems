@@ -160,6 +160,9 @@ snapshot retain their body in either view and explicitly report research unavail
 
 `read_problem` reads one category of a problem. Whole-problem `get_problem` and
 batch research search remain available; the caller chooses which to use.
+These reads preserve the core scientific material. Contributor credits and
+website navigation, sharing and citation controls are outside the scope of
+ordinary research responses.
 
 | `section` | Content |
 | --- | --- |
@@ -173,7 +176,12 @@ batch research search remain available; the caller chooses which to use.
 ```
 
 A normal response returns the category as a structured `content` object, with
-`format: "json"`, `complete: true` and `nextCursor: null`. Original text, citation
+`format: "json"`, `complete: true` and `nextCursor: null`. Every category includes
+the authoritative problem `status` (`Unsolved` or `Solved`) and its `statusSource`.
+The status of a service clause is an independent evidence state: a clause may
+still be `open` for a catalog problem whose authoritative status is `Solved`.
+Use the problem status to decide whether the scientific question is resolved.
+Original text, citation
 keys and provenance are preserved. Research categories include `researchContext`
 to distinguish unavailable catalog notes from a claim that no research exists.
 
@@ -182,8 +190,9 @@ Only an oversized category requires continuation. In that case, `format` is
 that category's serialized JSON. Follow `nextCursor` with the same problem ID
 until null. Read the entire sequence before interpreting an unfinished formula;
 if parsing as JSON, concatenate the text in response order and parse once.
-`continued` identifies a continuation page, and `complete` means the category has
-ended. There is no paragraph selector, block identifier or positional addressing.
+`continued` is false on the first page (including a first oversized page) and
+true on subsequent pages. `complete` means the selected category has ended.
+There is no paragraph selector, block identifier or positional addressing.
 
 `maxBytes` defaults to 8,192 and accepts 2,048–65,536. It measures the entire
 compact UTF-8 API JSON response, including the cursor, and excludes HTTP headers,

@@ -79,13 +79,22 @@ function canonicalJson(value: unknown): string {
 
 /** Preserve original section values and their citation/provenance metadata without summarizing them. */
 function sectionContents(detail: ObjectJson): Record<ProblemReadSection, ObjectJson> {
+  const status = detail["status"];
+  const statusSource = detail["statusSource"];
+  if ((status !== "Unsolved" && status !== "Solved") || !isObject(statusSource)) {
+    throw new ProblemReadError(500, "invalid_research_document", "A research document must provide its binary problem status and statusSource");
+  }
+  // A clause's service-evidence status can remain open after the authored
+  // problem is solved. Keep the authoritative problem status in every section,
+  // inside the fragmentable content rather than the fixed response envelope.
+  const problemStatus = { status, statusSource };
   const research = isObject(detail["research"]) ? detail["research"] : { available: false };
   const researchContext = Object.fromEntries(Object.entries(research).filter(([key]) => !["source", "progress", "comment", "references"].includes(key)));
   return {
-    statement: { statement: detail["statement"] ?? null, ...(Object.hasOwn(detail, "body") ? { body: detail["body"]! } : {}) },
-    history: { source: research["source"] ?? [], progress: research["progress"] ?? [], researchContext },
-    references: { bibliography: research["references"] ?? [], references: detail["references"] ?? [], researchContext },
-    comment: { comment: research["comment"] ?? [], discussion: detail["comments"] ?? [], decisions: detail["decisions"] ?? [], researchContext },
+    statement: { ...problemStatus, statement: detail["statement"] ?? null, ...(Object.hasOwn(detail, "body") ? { body: detail["body"]! } : {}) },
+    history: { ...problemStatus, source: research["source"] ?? [], progress: research["progress"] ?? [], researchContext },
+    references: { ...problemStatus, bibliography: research["references"] ?? [], references: detail["references"] ?? [], researchContext },
+    comment: { ...problemStatus, comment: research["comment"] ?? [], discussion: detail["comments"] ?? [], decisions: detail["decisions"] ?? [], researchContext },
   };
 }
 

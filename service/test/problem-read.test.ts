@@ -13,6 +13,10 @@ import { reindex } from "../src/write.ts";
 
 const id = "01M1GRZA80XTEK4461CFZWMS65";
 const otherId = "01M1GRZA80M747GFDZQRS8V17M";
+// Synthetic reader fixtures must explicitly provide a problem-level status;
+// production never invents a status from missing data or a clause's state.
+const fixtureStatus = (problemId = id) => ({ status: "Unsolved",
+  statusSource: { kind: "default", recordId: problemId, reason: "Explicit synthetic fixture status" } });
 const repository = fileURLToPath(new URL("../../", import.meta.url));
 const contractDir = path.join(repository, "contract");
 const query = (values: Record<string, string | number>) => new URLSearchParams(Object.entries(values).map(([key, value]): [string, string] => [key, String(value)]));
@@ -46,10 +50,11 @@ function reconstruct(pages: ProblemReadPage[]) {
 
 function expected(detail: Record<string, any>, section: ProblemReadSection) {
   const { source, progress, comment, references, ...researchContext } = detail.research ?? { available: false };
-  if (section === "statement") return { statement: detail.statement ?? null, ...(Object.hasOwn(detail, "body") ? { body: detail.body } : {}) };
-  if (section === "history") return { source: source ?? [], progress: progress ?? [], researchContext };
-  if (section === "references") return { bibliography: references ?? [], references: detail.references ?? [], researchContext };
-  return { comment: comment ?? [], discussion: detail.comments ?? [], decisions: detail.decisions ?? [], researchContext };
+  const problemStatus = { status: detail.status, statusSource: detail.statusSource };
+  if (section === "statement") return { ...problemStatus, statement: detail.statement ?? null, ...(Object.hasOwn(detail, "body") ? { body: detail.body } : {}) };
+  if (section === "history") return { ...problemStatus, source: source ?? [], progress: progress ?? [], researchContext };
+  if (section === "references") return { ...problemStatus, bibliography: references ?? [], references: detail.references ?? [], researchContext };
+  return { ...problemStatus, comment: comment ?? [], discussion: detail.comments ?? [], decisions: detail.decisions ?? [], researchContext };
 }
 
 function assertEnvelope(page: ProblemReadPage) {
@@ -78,7 +83,7 @@ function collect(reader: ProblemReader, detail: Record<string, unknown>, section
 }
 function longDetail() {
   return {
-    id, title: "A title longer than the smallest response budget: " + "量子\"".repeat(1900),
+    id, ...fixtureStatus(), title: "A title longer than the smallest response budget: " + "量子\"".repeat(1900),
     unknownMetadata: JSON.parse('{"__proto__":{"preserved":true},"a/b~c":null,"array":[null,{},[],"unrecognized scientific metadata"]}'),
     statement: { id: "s1", body: "  Definitions\n\n" + "α→β🧪 ".repeat(1000),
       quantity: { symbol: String.raw`\min_{\rho\in\mathcal D}f(\rho)` },
@@ -97,7 +102,7 @@ function longDetail() {
 }
 
 test("semantic reads return complete natural objects with original citation/provenance metadata", () => {
-  const detail = { id, statement: { body: "Definition α", clauses: [{ text: String.raw`\forall x`, textFormat: "tex", extra: [null, { units: "q" }] }] },
+  const detail = { id, ...fixtureStatus(), statement: { body: "Definition α", clauses: [{ text: String.raw`\forall x`, textFormat: "tex", extra: [null, { units: "q" }] }] },
     body: "Native background", research: { available: true, schemaVersion: "qop-research/1", semantics: { authored: true },
       source: [{ text: "Original source", citations: ["a"], provenance: { file: "source.tex" } }],
       progress: [{ text: "A resolved subcase", date: null }], references: [{ key: "a", text: "Literature", doi: "10.1234/example" }], comment: [{ text: "Author caveat" }] },
@@ -109,6 +114,34 @@ test("semantic reads return complete natural objects with original citation/prov
     assert.equal(pages.length, 1);
     assert.equal(pages[0]!.format, "json");
     assert.deepEqual(reconstruct(pages), expected(detail, section));
+  }
+});
+
+test("every category preserves authoritative status and its full provenance independently of clause state", () => {
+  const reader = new ProblemReader();
+  const detail = { id, status: "Solved", statusSource: { kind: "authored-catalog", recordId: id,
+    provenance: { explanation: "原始状态依据🧪".repeat(1200), revision: 7, evidence: [null, { source: "catalog" }] } },
+    statement: { clauses: [{ id: "c1", text: "A formerly open question", status: "open" }] } };
+  for (const section of PROBLEM_READ_SECTIONS) {
+    const pages = collect(reader, detail, section, 2048);
+    assert.ok(pages.length > 1, "status provenance remains fragmentable inside category content");
+    const content = reconstruct(pages);
+    assert.deepEqual(content, expected(detail, section));
+    assert.equal(content.status, "Solved");
+    assert.deepEqual(content.statusSource, detail.statusSource);
+  }
+  const statement = reconstruct(collect(reader, detail, "statement", 65536));
+  assert.equal(statement.statement.clauses[0].status, "open", "service evidence states are not rewritten");
+});
+
+test("invalid or absent authoritative status is rejected instead of inferred or defaulted", () => {
+  const reader = new ProblemReader();
+  const valid = { id, ...fixtureStatus(), statement: { clauses: [{ status: "open" }] } };
+  for (const status of [undefined, null, "open", "Partially solved", "", 0]) {
+    assert.throws(() => reader.read(id, { ...valid, status }), errorIs(500, "invalid_research_document"));
+  }
+  for (const statusSource of [undefined, null, "catalog", [], 0]) {
+    assert.throws(() => reader.read(id, { ...valid, statusSource }), errorIs(500, "invalid_research_document"));
   }
 });
 
@@ -139,7 +172,7 @@ test("a continuous TeX/Unicode section larger than 1 MiB reconstructs at fixed 8
   assert.ok(!body.includes("\n"));
   const reader = new ProblemReader();
   let bodyLoads = 0;
-  const prepared = reader.prepare({ id, get body() { bodyLoads++; return body; } });
+  const prepared = reader.prepare({ id, ...fixtureStatus(), get body() { bodyLoads++; return body; } });
   assert.ok(Object.isFrozen(prepared));
   let candidateBytes = 0;
   let largestCandidate = 0;
@@ -164,7 +197,7 @@ test("a continuous TeX/Unicode section larger than 1 MiB reconstructs at fixed 8
     assert.ok(pages.length < 1000);
     params = query({ cursor: page.nextCursor, maxBytes: 8192 });
   }
-  assert.deepEqual(reconstruct(pages), { statement: null, body });
+  assert.deepEqual(reconstruct(pages), { ...fixtureStatus(), statement: null, body });
   assert.equal(bodyLoads, 1, "all pages reuse one preparation");
   assert.ok(candidateBytes <= pages.length * 8192 * 64);
   t.diagnostic(`${Buffer.byteLength(body)} original UTF-8 bytes in ${pages.length} fixed-8192-byte pages; ${(performance.now() - start).toFixed(1)} ms; largest fit candidate ${largestCandidate} bytes`);
@@ -175,7 +208,7 @@ test("current-document caching is lazy, bounded by LRU, and invalidates on eithe
   let epoch = { ledger: {}, catalogVersion: "catalog-1" };
   let loads = 0;
   let body = "x".repeat(10_000);
-  const detail = () => { loads++; return { id, body }; };
+  const detail = () => { loads++; return { id, ...fixtureStatus(), body }; };
   const first = reader.readCurrent(id, epoch, detail, query({ maxBytes: 2048 })).body;
   assert.ok(first.nextCursor);
   reader.readCurrent(id, epoch, detail, query({ cursor: first.nextCursor, maxBytes: 2048 }));
@@ -190,12 +223,12 @@ test("current-document caching is lazy, bounded by LRU, and invalidates on eithe
   reader.readCurrent(id, epoch, detail);
   assert.equal(loads, 3);
   let evictedLoads = 0;
-  const evicted = () => { evictedLoads++; return { id: "lru-0", body: "small" }; };
+  const evicted = () => { evictedLoads++; return { id: "lru-0", ...fixtureStatus("lru-0"), body: "small" }; };
   reader.readCurrent("lru-0", epoch, evicted);
-  for (let i = 1; i < PROBLEM_READ_CACHE_DOCUMENTS; i++) reader.readCurrent(`lru-${i}`, epoch, () => ({ id: `lru-${i}` }));
+  for (let i = 1; i < PROBLEM_READ_CACHE_DOCUMENTS; i++) reader.readCurrent(`lru-${i}`, epoch, () => ({ id: `lru-${i}`, ...fixtureStatus(`lru-${i}`) }));
   reader.readCurrent("lru-0", epoch, evicted);
   assert.equal(evictedLoads, 1, "a hit updates LRU order");
-  for (let i = PROBLEM_READ_CACHE_DOCUMENTS; i <= 2 * PROBLEM_READ_CACHE_DOCUMENTS; i++) reader.readCurrent(`lru-${i}`, epoch, () => ({ id: `lru-${i}` }));
+  for (let i = PROBLEM_READ_CACHE_DOCUMENTS; i <= 2 * PROBLEM_READ_CACHE_DOCUMENTS; i++) reader.readCurrent(`lru-${i}`, epoch, () => ({ id: `lru-${i}`, ...fixtureStatus(`lru-${i}`) }));
   reader.readCurrent("lru-0", epoch, evicted);
   assert.equal(evictedLoads, 2);
 });
@@ -205,14 +238,14 @@ test("cache byte limits apply and oversized sections remain readable without ret
   const epoch = { ledger: {}, catalogVersion: "catalog-1" };
   const body = "m".repeat(PROBLEM_READ_CACHE_BYTES / 2);
   let loads = 0;
-  const detail = () => { loads++; return { id, body }; };
+  const detail = () => { loads++; return { id, ...fixtureStatus(), body }; };
   reader.readCurrent(id, epoch, detail);
-  reader.readCurrent(otherId, epoch, () => ({ id: otherId, body }));
+  reader.readCurrent(otherId, epoch, () => ({ id: otherId, ...fixtureStatus(otherId), body }));
   reader.readCurrent(id, epoch, detail);
   assert.equal(loads, 2, "byte eviction happens before document-count eviction");
   const oversized = "z".repeat(PROBLEM_READ_CACHE_BYTES + 1);
   let oversizedLoads = 0;
-  const loadOversized = () => { oversizedLoads++; return { id, body: oversized }; };
+  const loadOversized = () => { oversizedLoads++; return { id, ...fixtureStatus(), body: oversized }; };
   const otherEpoch = { ledger: {}, catalogVersion: "catalog-2" };
   const first = reader.readCurrent(id, otherEpoch, loadOversized, query({ maxBytes: 2048 })).body;
   assert.ok(first.nextCursor);
@@ -242,6 +275,11 @@ test("cursors reject tampering, wrong section/problem, independent signers, expi
     assert.throws(() => reader.read(id, changed, query({ cursor })), errorIs(409, "document_changed"), key);
     assert.throws(() => reader.read(id, changed, query({ documentVersion: first.documentVersion })), errorIs(409, "document_changed"), key);
   }
+  for (const update of [{ status: "Solved" }, { statusSource: { ...detail.statusSource, reason: "Updated authoritative provenance" } }]) {
+    const changed = { ...detail, ...update };
+    assert.throws(() => reader.read(id, changed, query({ cursor })), errorIs(409, "document_changed"));
+    assert.throws(() => reader.read(id, changed, query({ documentVersion: first.documentVersion })), errorIs(409, "document_changed"));
+  }
   clock += 30 * 60 * 1000;
   const next = reader.read(id, detail, query({ cursor, maxBytes: 2048 })).body;
   assert.ok(next.nextCursor);
@@ -252,13 +290,13 @@ test("cursors reject tampering, wrong section/problem, independent signers, expi
 
 test("native/null/absent sections are explicit and large metadata plus unusual Unicode remain exact", () => {
   const reader = new ProblemReader();
-  const native = { id, statement: null, research: { available: false, source: [], progress: null, comment: [], references: [] },
+  const native = { id, ...fixtureStatus(), statement: null, research: { available: false, source: [], progress: null, comment: [], references: [] },
     body: "", references: [], comments: null, decisions: [] };
   for (const section of PROBLEM_READ_SECTIONS) {
     assert.deepEqual(reconstruct(collect(reader, native, section)), expected(native, section));
-    assert.deepEqual(reconstruct(collect(reader, { id }, section)), expected({ id }, section));
+    assert.deepEqual(reconstruct(collect(reader, { id, ...fixtureStatus() }, section)), expected({ id, ...fixtureStatus() }, section));
   }
-  assert.deepEqual(reader.read(id, { id, body: null }).body.content, { statement: null, body: null });
+  assert.deepEqual(reader.read(id, { id, ...fixtureStatus(), body: null }).body.content, { ...fixtureStatus(), statement: null, body: null });
   const unusual = { ...native, body: "before\ud800after\udfff".repeat(2000),
     statement: { title: "metadata\ud800".repeat(1500), future: JSON.parse('{"__proto__":{"preserved":true},"a/b~c":null}') },
     research: { ...native.research, futureMetadata: "研究🧪\ud800".repeat(1000) } };
@@ -267,7 +305,7 @@ test("native/null/absent sections are explicit and large metadata plus unusual U
 
 test("only semantic section queries are accepted; removed selectors and invalid parameters fail explicitly", () => {
   const reader = new ProblemReader();
-  const detail = { id, body: "\n  Original whitespace α\t\n".repeat(500) };
+  const detail = { id, ...fixtureStatus(), body: "\n  Original whitespace α\t\n".repeat(500) };
   for (const key of ["section", "documentVersion", "cursor", "maxBytes"]) {
     for (const value of ["", " \t\n", "\u00a0"]) assert.throws(() => reader.read(id, detail, query({ [key]: value })), errorIs(400, "invalid_query"));
     assert.throws(() => reader.read(id, detail, new URLSearchParams(`${key}=x&${key}=x`)), errorIs(400, "invalid_query"));
