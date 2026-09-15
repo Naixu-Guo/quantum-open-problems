@@ -87,7 +87,7 @@ The required marginals are
 
 $$
 \omega_{AC}=V\tau V^\dagger,\qquad
-\omega_C=\Delta(\tau)=\frac1{12004}\operatorname{diag}(9,11995),
+\omega_C=\Delta(\tau)=\frac1{12004}\mathrm{diag}(9,11995),
 $$
 
 and
@@ -115,7 +115,7 @@ They obey
 
 $$
 \sum_aK_a^\dagger K_a
-=\omega_C^{-1/2}(\operatorname{Tr}_A\omega_{AC})\omega_C^{-1/2}
+=\omega_C^{-1/2}(\mathrm{Tr}_A\omega_{AC})\omega_C^{-1/2}
 =I_C.
 $$
 
@@ -138,7 +138,7 @@ $$
 Direct substitution gives
 
 $$
-(\operatorname{id}_B\otimes\mathcal P_{C\to AC})(\omega_{BC})
+(\mathrm{id}_B\otimes\mathcal P_{C\to AC})(\omega_{BC})
 =p|0\rangle\!\langle0|_B\otimes(VR_\sigma V^\dagger)
 +q|1\rangle\!\langle1|_B\otimes(VR_\rho V^\dagger).
 $$
@@ -175,7 +175,7 @@ $$
 where $\widehat\omega$ is the recovered state and squared qubit fidelity is
 
 $$
-F(X,Y)=\operatorname{Tr}(XY)+2\sqrt{\det X\det Y}.
+F(X,Y)=\mathrm{Tr}(XY)+2\sqrt{\det X\det Y}.
 $$
 
 The script
@@ -248,6 +248,7 @@ From the repository root, run
 python3 -m pip install -r scripts/requirements-petz-flagged.txt
 python3 scripts/verify-petz-flagged-counterexample.py
 python3 scripts/audit-petz-flagged-counterexample.py
+python3 scripts/verify-petz-counterexamples.py
 ```
 
 The certificate is relative to the displayed analytic reduction, Python, and

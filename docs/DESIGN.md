@@ -457,6 +457,7 @@ and the contract package alone.
 | --- | --- |
 | `search_problems(area?, topic?, status?, difficulty?, text?)` | Indexed problems (primary and promoted auxiliary) with status, clause counts, reference and comment counts |
 | `get_problem(problemId)` | Problem, current statement with clauses and their status, references grouped by role with their notes, comments, decision chain |
+| `read_problem(id, section)` | Problem definition, research history, references or commentary; oversized categories use opaque cursor continuation |
 | `get_frontier(problemId)` | Open clauses, best bounds, accepted partial results, the decomposition tree with node statuses and obstacles, routes tried with stop reason, pending contributions |
 | `get_tree(problemId)` | The decomposition tree alone: auxiliary problems by parent clause, status, settling claims, blocking obstacles |
 | `list_references(problemId, role?)` | References with notes and the sources they point at |

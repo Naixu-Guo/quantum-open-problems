@@ -1,0 +1,320 @@
+{
+  "question": "现在这里面哪个你觉得最容易解决",
+  "comparisonLimits": "Same prompt, model, reasoning effort and history; one run per implementation. Tool choices and reading coverage differ, so total latency is not an equal-workload speed comparison.",
+  "before": {
+    "environment": {
+      "catalogVersion": "d76175295aaee4cd1437fe6d876f00acab20b2dc70414ad56d9b7aa3b2fb5c89",
+      "count": 111,
+      "baseCommit": "894253968be1c0192e2be26c71f022800c762c30",
+      "implementation": "working-tree",
+      "stores": "in-memory",
+      "protocol": "real MCP HTTP to real API HTTP",
+      "model": "gpt-6-astra",
+      "effort": "ultra",
+      "asOf": "2026-09-14",
+      "selectedCase": 2,
+      "context": "Each run is an ephemeral session; previous user/assistant text is supplied for original cases 2 and 3. Tool transcripts are not replayed.",
+      "scoring": "Human/independent evidence review required. Script success is not answer acceptance."
+    },
+    "run": {
+      "case": 2,
+      "question": "现在这里面哪个你觉得最容易解决",
+      "exitCode": 0,
+      "seconds": 87.77,
+      "contamination": [],
+      "toolCalls": 9,
+      "usage": [
+        {
+          "input_tokens": 239172,
+          "cached_input_tokens": 174336,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2139,
+          "reasoning_output_tokens": 759
+        }
+      ],
+      "timing": {
+        "basis": "Host-observed Codex stdout event arrival and process lifetime; includes CLI scheduling, buffering and transport overhead, not pure API latency.",
+        "clock": "time.monotonic",
+        "startedMonotonicSeconds": 91571.194101791,
+        "offsetUnit": "seconds since process observation started; missing start/completion events remain null",
+        "firstToolStarted": 13.550958,
+        "lastToolCompleted": 46.399307,
+        "totalSeconds": 87.766602,
+        "tools": [
+          {
+            "itemId": "item_1",
+            "kind": "mcp_tool_call",
+            "server": "qop",
+            "tool": "get_taxonomy",
+            "startedAtSeconds": 13.550958,
+            "completedAtSeconds": 13.58147,
+            "observedSeconds": 0.030512
+          },
+          {
+            "itemId": "item_2",
+            "kind": "mcp_tool_call",
+            "server": "qop",
+            "tool": "search_problems",
+            "startedAtSeconds": 17.276155,
+            "completedAtSeconds": 17.306699,
+            "observedSeconds": 0.030544
+          },
+          {
+            "itemId": "item_3",
+            "kind": "mcp_tool_call",
+            "server": "qop",
+            "tool": "get_problem",
+            "startedAtSeconds": 34.621769,
+            "completedAtSeconds": 34.67078,
+            "observedSeconds": 0.049011
+          },
+          {
+            "itemId": "item_4",
+            "kind": "mcp_tool_call",
+            "server": "qop",
+            "tool": "get_problem",
+            "startedAtSeconds": 34.621831,
+            "completedAtSeconds": 34.701015,
+            "observedSeconds": 0.079184
+          },
+          {
+            "itemId": "item_5",
+            "kind": "mcp_tool_call",
+            "server": "qop",
+            "tool": "get_problem",
+            "startedAtSeconds": 34.621833,
+            "completedAtSeconds": 34.72517,
+            "observedSeconds": 0.103337
+          },
+          {
+            "itemId": "item_6",
+            "kind": "mcp_tool_call",
+            "server": "qop",
+            "tool": "get_problem",
+            "startedAtSeconds": 34.622016,
+            "completedAtSeconds": 34.750004,
+            "observedSeconds": 0.127988
+          },
+          {
+            "itemId": "item_7",
+            "kind": "mcp_tool_call",
+            "server": "qop",
+            "tool": "get_problem",
+            "startedAtSeconds": 46.302267,
+            "completedAtSeconds": 46.372057,
+            "observedSeconds": 0.06979
+          },
+          {
+            "itemId": "item_8",
+            "kind": "mcp_tool_call",
+            "server": "qop",
+            "tool": "get_problem",
+            "startedAtSeconds": 46.30229,
+            "completedAtSeconds": 46.34603,
+            "observedSeconds": 0.04374
+          },
+          {
+            "itemId": "item_9",
+            "kind": "mcp_tool_call",
+            "server": "qop",
+            "tool": "get_problem",
+            "startedAtSeconds": 46.302392,
+            "completedAtSeconds": 46.399307,
+            "observedSeconds": 0.096915
+          }
+        ]
+      },
+      "answerPresent": true,
+      "accepted": null
+    },
+    "tools": [
+      {
+        "tool": "get_taxonomy",
+        "arguments": {}
+      },
+      {
+        "tool": "search_problems",
+        "arguments": {
+          "area": "quantum-algorithm",
+          "status": "Unsolved",
+          "limit": 50,
+          "sort": "title"
+        }
+      },
+      {
+        "tool": "get_problem",
+        "arguments": {
+          "id": "01M1Q787QRCCSDNVA159Y6S261",
+          "view": "research"
+        }
+      },
+      {
+        "tool": "get_problem",
+        "arguments": {
+          "id": "01M22P0HX43A7EQD9XKQ1G7QQJ",
+          "view": "research"
+        }
+      },
+      {
+        "tool": "get_problem",
+        "arguments": {
+          "id": "01M22P0HY0R1RBEABK7MZW488E",
+          "view": "research"
+        }
+      },
+      {
+        "tool": "get_problem",
+        "arguments": {
+          "id": "01M1HME780CC21XQAXBTWRJRCY",
+          "view": "research"
+        }
+      },
+      {
+        "tool": "get_problem",
+        "arguments": {
+          "id": "01M20E31B526DAX81WYGMDD01T",
+          "view": "research"
+        }
+      },
+      {
+        "tool": "get_problem",
+        "arguments": {
+          "id": "01M20EG8DVMFZX9TWEXN602APF",
+          "view": "research"
+        }
+      },
+      {
+        "tool": "get_problem",
+        "arguments": {
+          "id": "01M1Q787QRD6APNHX659G4CTEF",
+          "view": "research"
+        }
+      }
+    ],
+    "answer": "**让我选一个先攻，我会选「多次查询下虚拟信道共轭的最优开销」，先做它最小的未解决特例。** 这是我的选题判断；Zoo 的 25 道量子算法未解决题都没有难度评级，无法客观断言哪道最容易。\n\n具体目标是：\n> **确定 \\(g_2(1,2)\\) 的精确值：用两份任意未知量子比特态，实现虚拟转置的最小准概率开销是多少？**\n\n我选它的理由是：\n\n- **已有明确基准。** 单份情形已知 \\(g_1(1,2)=2\\)，两份情形已有\n  \\[\n  1\\le g_2(1,2)\\le \\frac53.\n  \\]\n- **剩余目标很具体。** 可以尝试证明 \\(5/3\\) 最优，或者构造更小开销的方案。\n- **有可接续的方法。** 记录中的单次查询最优性证明使用半定规划对偶。我会尝试从这个特例寻找对偶证书；但记录也明确说，原证明不能直接推广到有关联的多次查询策略。\n\n注意，**“多次查询可以严格降低开销”在态制备特例中已经知道了**；真正待解的是有限查询次数的精确最优值，以及一般信道的情况。解决 \\(g_2(1,2)\\) 会是部分进展，还不是解决整道题。[Zoo 记录及所引 Zhu 等、Brzić 等（2026）文献](qop://records/01M1Q787QRCCSDNVA159Y6S261)\n\n相比刚抽到的低能量模拟精度问题，我更愿意先投入这个特例：它给出了一个固定维数、固定查询次数的明确目标；前者还需要处理多个参数共同变化时的复杂度缺口。**这是我判断它更适合起步的原因，不是已有证据证明它容易。**"
+  },
+  "after": {
+    "environment": {
+      "catalogVersion": "d76175295aaee4cd1437fe6d876f00acab20b2dc70414ad56d9b7aa3b2fb5c89",
+      "count": 111,
+      "baseCommit": "894253968be1c0192e2be26c71f022800c762c30",
+      "implementation": "working-tree",
+      "stores": "in-memory",
+      "protocol": "real MCP HTTP to real API HTTP",
+      "model": "gpt-6-astra",
+      "effort": "ultra",
+      "asOf": "2026-09-14",
+      "selectedCase": 2,
+      "context": "Each run is an ephemeral session; previous user/assistant text is supplied for original cases 2 and 3. Tool transcripts are not replayed.",
+      "scoring": "Human/independent evidence review required. Script success is not answer acceptance."
+    },
+    "run": {
+      "case": 2,
+      "question": "现在这里面哪个你觉得最容易解决",
+      "exitCode": 0,
+      "seconds": 121.27,
+      "contamination": [],
+      "toolCalls": 4,
+      "usage": [
+        {
+          "input_tokens": 529178,
+          "cached_input_tokens": 453632,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2609,
+          "reasoning_output_tokens": 817
+        }
+      ],
+      "timing": {
+        "basis": "Host-observed Codex stdout event arrival and process lifetime; includes CLI scheduling, buffering and transport overhead, not pure API latency.",
+        "clock": "time.monotonic",
+        "startedMonotonicSeconds": 91924.262542375,
+        "offsetUnit": "seconds since process observation started; missing start/completion events remain null",
+        "firstToolStarted": 17.583391,
+        "lastToolCompleted": 55.82549,
+        "totalSeconds": 121.268643,
+        "tools": [
+          {
+            "itemId": "item_1",
+            "kind": "mcp_tool_call",
+            "server": "qop",
+            "tool": "get_taxonomy",
+            "startedAtSeconds": 17.583391,
+            "completedAtSeconds": 17.615336,
+            "observedSeconds": 0.031945
+          },
+          {
+            "itemId": "item_2",
+            "kind": "mcp_tool_call",
+            "server": "qop",
+            "tool": "search_problems",
+            "startedAtSeconds": 22.010051,
+            "completedAtSeconds": 22.068633,
+            "observedSeconds": 0.058582
+          },
+          {
+            "itemId": "item_3",
+            "kind": "mcp_tool_call",
+            "server": "qop",
+            "tool": "search_problems",
+            "startedAtSeconds": 30.436063,
+            "completedAtSeconds": 30.475361,
+            "observedSeconds": 0.039298
+          },
+          {
+            "itemId": "item_4",
+            "kind": "mcp_tool_call",
+            "server": "qop",
+            "tool": "search_problems",
+            "startedAtSeconds": 55.800188,
+            "completedAtSeconds": 55.82549,
+            "observedSeconds": 0.025302
+          }
+        ]
+      },
+      "answerPresent": true,
+      "accepted": null
+    },
+    "tools": [
+      {
+        "tool": "get_taxonomy",
+        "arguments": {}
+      },
+      {
+        "tool": "search_problems",
+        "arguments": {
+          "area": "quantum-algorithm",
+          "status": "Unsolved",
+          "view": "research",
+          "sort": "title",
+          "limit": 50,
+          "maxBytes": 200000
+        }
+      },
+      {
+        "tool": "search_problems",
+        "arguments": {
+          "area": "quantum-algorithm",
+          "status": "Unsolved",
+          "view": "research",
+          "sort": "title",
+          "limit": 50,
+          "maxBytes": 200000,
+          "cursor": "[previous page nextCursor]"
+        }
+      },
+      {
+        "tool": "search_problems",
+        "arguments": {
+          "area": "quantum-algorithm",
+          "status": "Unsolved",
+          "view": "research",
+          "sort": "title",
+          "limit": 50,
+          "maxBytes": 200000,
+          "cursor": "[previous page nextCursor]"
+        }
+      }
+    ],
+    "answer": "**让我押一个，我会选「[经典可模拟操作下的普适量子态纯化](qop://records/01M1Q787QRD6APNHX659G4CTEF)」，先攻“三副本量子比特”这个特例。** 这是我的主观判断；查到的 25 道题都没有难度评级。\n\n它问的是：拿到若干份同一个未知纯态的退极化噪声版本，只用题目规定的经典可模拟操作，能否提高输出态的平均保真度？\n\n我看好这个切入口，是因为 MCP 收录的进展比较具体：\n\n- **两副本已经有严格定理**：不能提高 Haar 平均保真度，即使允许后选择。\n- **三、四副本已有数值支持**：量子比特和三维系统的半定规划都得到“没有改善”，但尚不是一般性证明。\n- **下一步目标明确**：可以尝试把三副本的数值结果变成解析证明，例如寻找可严格验证的对偶证书。这是我建议的路线，不是目录已证明可行的办法。\n\n具体第一题就是：对量子比特，在**完全稳定子保持操作**下证明\n\\[\nF^{\\mathcal A_2}_{\\delta}(3,s)=1-\\frac{\\delta}{2},\n\\qquad 0<\\delta<1,\\quad 0<s\\le1,\n\\]\n其中 \\(\\delta\\) 是退极化噪声参数，\\(s\\) 是 Haar 平均成功概率。\n\n入口文献是 He 等人的 *No-Go Theorems for Universal Quantum State Purification via Classically Simulable Operations*，**PRL 136, 090204 (2026)**，目录附有 [arXiv:2504.10516](https://arxiv.org/abs/2504.10516)。\n\n**我推荐它作为最容易先拿下一个严格子结果的候选。** 三副本特例即使证明了，也不等于解决任意副本数的整题；现有 MCP 证据不足以判断哪道整题一定最容易彻底解决。"
+  }
+}

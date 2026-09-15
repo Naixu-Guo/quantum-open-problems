@@ -49,13 +49,44 @@ the new CC BY 4.0 grant unless the relevant rights holders confirm permission.
 Any existing permissions remain unchanged. Later edits license only the new
 text whose author has agreed; an edit alone does not license the whole record.
 
-No retrospective permissions have been recorded here yet. Maintainers should
-record confirmations below with the contributor's public name (or anonymous
+Maintainers should record confirmations below with the contributor's public name (or anonymous
 credit), the exact files/revisions covered, and a public confirmation link or
 a private permission reference that does not disclose contact details. Git
 commit authorship by itself is not evidence of permission from every rights
 holder. Until a record's coverage is confirmed, do not label its entire text
 or a bulk catalog download as CC BY 4.0.
+
+### PR #38: original 18 problem records
+
+On 14 September 2026, bikunli [explicitly confirmed](https://github.com/Naixu-Guo/quantum-open-problems/pull/38#issuecomment-5670932984)
+that their original text in the 18 new problem records at commit
+`b4b1d8cc9e48b3a2b9108f5a3e3cc80a99d26eeb` may be published under
+CC BY 4.0 and that they have the right to contribute it on those terms.
+The confirmation covers the following records at that revision, including
+their corresponding TeX mirrors and derived catalog representations:
+
+- `database/problems_json/op_0c63e4d2400a95b1.json`
+- `database/problems_json/op_0ca7986d256cf0df.json`
+- `database/problems_json/op_1726fa212d725bc8.json`
+- `database/problems_json/op_1ab8b10386bddd66.json`
+- `database/problems_json/op_21cb3e1c3ed33976.json`
+- `database/problems_json/op_2e43f525333b67c0.json`
+- `database/problems_json/op_38f9dbb6c3f92b0c.json`
+- `database/problems_json/op_396109643100aaca.json`
+- `database/problems_json/op_4154bf4cbe0d288e.json`
+- `database/problems_json/op_58610efec5dbe564.json`
+- `database/problems_json/op_6690dfacb75e8dc0.json`
+- `database/problems_json/op_66affd4b198fd445.json`
+- `database/problems_json/op_722706a9205dcff2.json`
+- `database/problems_json/op_7eefb7506b175200.json`
+- `database/problems_json/op_a370855db65d4d24.json`
+- `database/problems_json/op_a40ad449c54093d7.json`
+- `database/problems_json/op_d40d1f65b5aaaefd.json`
+- `database/problems_json/op_eba8dda5ff69d0f2.json`
+
+The grant covers only bikunli's original catalog text. Existing and third-party
+material retain their own terms; this does not extend to other contributors'
+text or to cited papers.
 
 ## Contributions
 

@@ -1,0 +1,51 @@
+{
+  "scenario": "searchMatch body='a'.repeat(N), query='a', no complete-word match",
+  "method": "Same process and input, two warmups each, three paired runs per size, alternating within-pair order; descriptive measurement, no timing assertions",
+  "cases": [
+    {
+      "utf16Units": 4096,
+      "beforeMs": [
+        50.126000000000005,
+        50.38812500000003,
+        49.649542
+      ],
+      "afterMs": [
+        0.1519580000000076,
+        0.10591699999997672,
+        0.11150000000003502
+      ],
+      "beforeMedianMs": 50.126,
+      "afterMedianMs": 0.112
+    },
+    {
+      "utf16Units": 8192,
+      "beforeMs": [
+        199.825917,
+        199.90008300000005,
+        200.80987500000003
+      ],
+      "afterMs": [
+        0.21658400000001166,
+        0.27720899999997073,
+        0.19737500000007913
+      ],
+      "beforeMedianMs": 199.9,
+      "afterMedianMs": 0.217
+    },
+    {
+      "utf16Units": 16384,
+      "beforeMs": [
+        807.6153749999999,
+        806.2072500000002,
+        813.8664589999998
+      ],
+      "afterMs": [
+        0.3385839999998552,
+        0.3131670000000213,
+        0.3556250000001455
+      ],
+      "beforeMedianMs": 807.615,
+      "afterMedianMs": 0.339
+    }
+  ]
+}
