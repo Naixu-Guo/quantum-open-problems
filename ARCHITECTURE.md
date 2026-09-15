@@ -121,7 +121,8 @@ formal material, omitting whole sections when necessary. Completeness flags and
 version, status source, source revisions and digests, and which records appear in
 retained sections. Its `bundleId` hashes the delivered payload and provenance.
 Resource links resolve current revisions when read; they do not pin the historical
-revisions recorded in a bundle. The budget excludes metadata and transport framing
+revisions recorded in a bundle. The budget excludes response metadata outside
+section text and transport framing
 and is not a model-specific token count.
 
 Research trajectories retain the starting bundle ID, work events, costs, and
@@ -130,9 +131,11 @@ response requires the same key and identical payload. The adapter does not
 automatically retry writes. Review-queue lookup is a peek, without reservation.
 The platform should not request private chain-of-thought.
 
-Version-bound pagination cursors, resources pinned to historical revisions, and
-resource-update subscriptions remain future work. Current search pagination uses
-offsets, and clients read resources again to obtain updates.
+Search supports version-bound, query-bound pagination cursors; legacy offsets
+remain available. `read_problem` selects a complete content category, using
+version-bound continuation only when the category exceeds the response budget.
+Resources pinned to historical revisions and resource-update subscriptions
+remain future work; current resource links resolve the latest revision.
 
 ## Migration stages
 

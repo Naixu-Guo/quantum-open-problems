@@ -342,28 +342,38 @@ test("official SDK reads complete semantic research categories", { timeout: 180_
     assert.deepEqual(resumed, expected, "Re-preparation preserves content, identity, cursor and original expiry");
   });
 
-  await t.test("a legal Source-only revision invalidates all pinned categories without changing the Problem revision", async () => {
+  await t.test("legal Source version, citation and title revisions invalidate pinned categories without changing the Problem revision", async () => {
     assert.ok(largestReferences);
     const id = largestReferences.id;
-    const first = await call<Page>(client, "read_problem", { id, section: "references", maxBytes: 2048 });
-    assert.ok(first.nextCursor);
     const problemRevision = service.repo.current().find("Problem", id)!.fields["revision"];
     const reference = (documents.get(id)!["references"] as Json[])[0]!;
     const sourceId = String(reference["sourceId"]);
-    const source = service.repo.current().find("Source", sourceId)!;
-    await revise(sourceId, id, { title: String(source.fields["title"]) + " (isolated revised source metadata)" });
-    assert.equal(service.repo.current().find("Problem", id)!.fields["revision"], problemRevision);
-    await refused(client, { id, cursor: first.nextCursor }, 409, "document_changed");
-    await refused(client, { id, documentVersion: first.documentVersion, section: "statement" }, 409, "document_changed");
-    const updated = await readCategory(client, id, { section: "references", maxBytes: 2048 });
-    assert.notEqual(updated.documentVersion, first.documentVersion);
-    assert.deepEqual(updated.content, project(await call<Json>(client, "get_problem", { id, view: "research" }), "references"));
+    for (const change of ["version", "citation", "title"] as const) {
+      const first = await call<Page>(client, "read_problem", { id, section: "references", maxBytes: 2048 });
+      assert.ok(first.nextCursor);
+      const source = service.repo.current().find("Source", sourceId)!;
+      await revise(sourceId, id, change === "version" ? { version: "2" }
+        : change === "title" ? { title: String(source.fields["title"]) + " (isolated revised source metadata)" } : {},
+      change === "citation" ? source.body + "\nRevised bibliographic locator: version-specific appendix." : undefined);
+      assert.equal(service.repo.current().find("Problem", id)!.fields["revision"], problemRevision);
+      await refused(client, { id, cursor: first.nextCursor }, 409, "document_changed");
+      await refused(client, { id, documentVersion: first.documentVersion, section: "statement" }, 409, "document_changed");
+      const updated = await readCategory(client, id, { section: "references", maxBytes: 2048 });
+      assert.notEqual(updated.documentVersion, first.documentVersion);
+      assert.deepEqual(updated.content, project(await call<Json>(client, "get_problem", { id, view: "research" }), "references"));
+      const raw = service.repo.current().find("Source", sourceId)!;
+      const shown = ((updated.content["references"] as Json[]).find(item => item["sourceId"] === sourceId)!["source"] as Json);
+      assert.equal(shown["version"], raw.fields["version"]);
+      assert.equal(shown["revision"], raw.fields["revision"]);
+      assert.equal(shown["citation"], raw.body);
+      assert.match(String(shown["digest"]), /^sha256:[a-f0-9]{64}$/u);
+    }
   });
 
   await t.test("later service body stays in the statement category and never leaks into other categories", async () => {
     const id = records[0]!.id;
     const original = service.repo.current().find("Problem", id)!;
-    const body = original.body + "\n\n" + unicodeParagraph;
+    const body = unicodeParagraph;
     await revise(id, id, {}, body);
     const expected = await call<Json>(client, "get_problem", { id, view: "research" });
     assert.equal(expected["bodyDisposition"], "included");
@@ -375,6 +385,15 @@ test("official SDK reads complete semantic research categories", { timeout: 180_
         assert.equal(read.content["body"], body);
         assert.ok(read.pages.length > 3);
       } else assert.equal(Object.hasOwn(read.content, "body"), false);
+    }
+    const context = await call<Json>(client, "build_context", { id, tokenBudget: 100_000 });
+    assert.equal(context["incomplete"], false);
+    const contextSections = context["sections"] as Json[];
+    assert.equal(contextSections.find(section => section["name"] === "background")!["text"], body);
+    for (const [name, field] of [["authoredSource", "source"], ["authoredProgress", "progress"],
+      ["authoredComment", "comment"], ["authoredReferences", "references"]] as const) {
+      const shown = JSON.parse(String(contextSections.find(section => section["name"] === name)!["text"])) as Json;
+      assert.deepEqual(shown["entries"], (expected["research"] as Json)[field]);
     }
   });
 });
@@ -405,4 +424,11 @@ test("native research preserves background and independent discussion in their s
   assert.notEqual(after.documentVersion, pending.documentVersion);
   assert.deepEqual(after.content, project(await call<Json>(client, "get_problem", { id: problem.id, view: "research" }), "comment"));
   assert.ok((after.content["discussion"] as Json[]).some(comment => comment["body"] === discussion));
+  const decisions = after.content["decisions"] as Json[];
+  assert.ok(decisions.length > 0);
+  for (const decision of decisions) {
+    const raw = service.repo.current().find("Decision", String(decision["id"]))!;
+    assert.ok(raw.body.length > 0);
+    assert.equal(decision["body"], raw.body, "Check the original ledger rationale independently of get_problem");
+  }
 });

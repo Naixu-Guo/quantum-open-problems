@@ -35,8 +35,8 @@ entries remain readable but are not retained. Fit checks process bounded text.
 
 Official SDK → MCP HTTP → API HTTP acceptance checks **111 problems × four
 categories** against an independent projection of `get_problem(view: "research")`.
-All **444 category results** match exactly across **519 default 8 KiB pages**.
-At that budget, one statement, seven histories and 55 reference categories need
+All **444 category results** match exactly across **552 default 8 KiB pages**.
+At that budget, one statement, seven histories and 74 reference categories need
 continuation; all commentary categories fit. These counts include research context
 and the response envelope. The largest current reference category fits whole at
 32 KiB; this does not bound future/native problem sizes.
@@ -53,16 +53,25 @@ remains open, plus an unsolved purification problem. Every category preserves
 their exact status and source in whole JSON and at a 2 KiB budget; both statement
 reads require actual continuation. Separate service cases cover large status
 provenance, authority-only version changes and missing/invalid authority.
+Additional checks compare Decision reasons directly with original ledger text,
+independently of `get_problem`. Real Source-only version, citation and title
+revisions each invalidate prior cursors and pinned document versions. Source
+citation, bibliographic version, ledger revision and whole-record digest now
+remain visible in references. Replacing service background also preserves all
+four maintained research sections in `build_context`.
 
-The full root suite passes **96/96** and MCP **88/88**, plus **5/5** Python
-observer/grader regressions and **1/1** official-SDK diagnostic schema regression.
-The service suite passes **134/134**. Service/MCP typechecks, the required site
+The full root suite passes **96/96**, MCP **93/93**, and service **137/137** after
+the detailed PR review fixes. The unchanged diagnostic harness previously passed
+**5/5** Python observer/grader regressions and **1/1** official-SDK schema regression.
+Service/MCP typechecks, the required site
 build and unchanged ledger check also pass. An earlier
 [category-only ultra review](mcp-problem-read-ultra-review-2026-09-15.md)
 ran 13 targeted tests without reproducing the previous continuation-performance
 or diagnostic-budget issues. The later full-PR review found missing category
 status and quadratic search boundary work; see the
 [full review and fix verification](mcp-pr-ready-ultra-review-2026-09-15.md).
+The subsequent [detailed PR review](mcp-pr-detailed-review-2026-09-15.md)
+records the raw-ledger projection and legacy-session findings and their fixes.
 
 The measurements below are historical evidence preserved in commit `1318543`,
 before per-category status fields were added. Their payload sizes and timings

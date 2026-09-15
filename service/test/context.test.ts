@@ -175,3 +175,33 @@ test("optional sections are kept whole or omitted and invalid budgets fail expli
     assert.throws(() => bundle(invalid), /safe integer of at least 200/u);
   }
 });
+
+test("maintained research sections keep raw scientific text and explicit omission flags under context budgets", () => {
+  const { problem, bundle } = fixture();
+  const source = "Authoritative origin and assumptions. ".repeat(100);
+  const progress = String.raw`For $d\geq 2$, $g_d\leq d+1$ is only an upper bound. ` .repeat(180);
+  problem.fields["authoredCatalog"] = { status: "Unsolved", sourcePath: "database/problems_json/fixture.json",
+    record: { source, progress: [progress], comment: "Only a finite-dimensional subcase is established.",
+      references: [{ key: "A26", label: "ref:a", tex: "A. Author, Full bibliographic locator (2026)." }] } };
+  problem.body = "Independent service background, with no duplicate authored history.";
+  const full = bundle();
+  assert.equal(full.incomplete, false);
+  const original = new Map(full.sections.map(section => [section.name, section.text]));
+  assert.equal(JSON.parse(original.get("authoredSource")!).entries[0].text, source);
+  assert.equal(JSON.parse(original.get("authoredProgress")!).entries[0].text, progress);
+  assert.equal(original.get("background"), problem.body);
+  const small = bundle(full.minimumRequiredTokens + 100);
+  assert.equal(small.formalContextComplete, true);
+  assert.equal(small.incomplete, true);
+  assert.ok(small.omittedSections.includes("authoredProgress"));
+  for (const section of small.sections) {
+    assert.equal(section.text, section.omitted ? "" : original.get(section.name));
+    assert.equal(section.truncated, section.omitted);
+    if (section.name.startsWith("authored")) {
+      assert.equal(section.required, false);
+      assert.deepEqual(section.resourceUris, [`qop://records/${problem.id}`]);
+    }
+  }
+  assert.ok(small.approximateTokens <= small.tokenBudget);
+  assert.notEqual(small.bundleId, full.bundleId);
+});

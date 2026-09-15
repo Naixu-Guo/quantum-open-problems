@@ -69,6 +69,7 @@ export function createHttpMcpServer(options: HttpMcpOptions): http.Server {
     transport: WebStandardStreamableHTTPServerTransport;
     wireSend: WebStandardStreamableHTTPServerTransport["send"];
     lastUsed: number;
+    initializing: boolean;
     internalPrefix: string;
     pending: Map<RequestId, PendingRequest>;
     internalRequests: Map<RequestId, PendingRequest>;
@@ -104,7 +105,7 @@ export function createHttpMcpServer(options: HttpMcpOptions): http.Server {
   };
   const expireSessions = () => {
     const now = Date.now();
-    return Promise.allSettled([...sessions].filter(([, session]) => session.lastUsed + sessionIdleMs <= now).map(([id]) => closeSession(id)));
+    return Promise.allSettled([...sessions].filter(([, session]) => !session.initializing && session.lastUsed + sessionIdleMs <= now).map(([id]) => closeSession(id)));
   };
   const expiry = setInterval(() => { void expireSessions(); }, Math.min(sessionIdleMs, 60_000)).unref();
   const protocolError = (status: number, message: string, headers?: HeadersInit) => Response.json({ jsonrpc: "2.0", id: null, error: { code: -32000, message } }, { status, ...(headers ? { headers } : {}) });
@@ -147,7 +148,15 @@ export function createHttpMcpServer(options: HttpMcpOptions): http.Server {
     const body = requestOptions?.parsedBody;
     if (request.method === "POST" && body && typeof body === "object" && !Array.isArray(body) && (body as { method?: unknown }).method === "ping") return ping(request, requestOptions);
     if (request.method !== "POST" || !isInitializeRequest(body)) return protocolError(400, "Initialize first and include the returned Mcp-Session-Id");
-    if (sessions.size >= sessionLimit) return protocolError(429, "Too many MCP sessions; close an unused session or retry later", { "Retry-After": String(Math.ceil(sessionIdleMs / 1000)) });
+    let retiring: Promise<void> | undefined;
+    if (sessions.size >= sessionLimit) {
+      const idle = [...sessions].filter(([, session]) => !session.initializing && session.pending.size === 0)
+        .sort(([, a], [, b]) => a.lastUsed - b.lastUsed)[0];
+      if (!idle) return protocolError(429, "Too many active MCP sessions; retry later", { "Retry-After": "1" });
+      // Retire and reserve synchronously: another initialize must not take the
+      // same slot while the old SDK instance is closing. Idle clients can reinitialize.
+      retiring = closeSession(idle[0]).catch(() => {});
+    }
     const sessionId = randomUUID();
     const instance = factory();
     const transport = new WebStandardStreamableHTTPServerTransport({
@@ -156,11 +165,17 @@ export function createHttpMcpServer(options: HttpMcpOptions): http.Server {
       onsessionclosed: () => closeSession(sessionId),
     });
     // Reserve capacity before asynchronous initialization. Request IDs never cross this instance boundary.
-    const session: Session = { instance, transport, wireSend: transport.send.bind(transport), lastUsed: Date.now(), internalPrefix: `${randomUUID()}:`, pending: new Map(), internalRequests: new Map() };
+    const session: Session = { instance, transport, wireSend: transport.send.bind(transport), lastUsed: Date.now(), initializing: true, internalPrefix: `${randomUUID()}:`, pending: new Map(), internalRequests: new Map() };
     sessions.set(sessionId, session);
     instance.server.onclose = () => { sessions.delete(sessionId); };
     try {
+      await retiring;
+      if (closing || sessions.get(sessionId) !== session) return protocolError(503, "MCP server is shutting down");
       await instance.connect(transport);
+      if (closing || sessions.get(sessionId) !== session) {
+        await instance.close();
+        return protocolError(503, "MCP server is shutting down");
+      }
       const receive = transport.onmessage;
       // Keep wire IDs at the HTTP boundary. SDK 2.0 ignores cancellation IDs 0 and "",
       // so dispatch each request under a fresh truthy ID using only public transport APIs.
@@ -205,6 +220,7 @@ export function createHttpMcpServer(options: HttpMcpOptions): http.Server {
       const initialized = response.status === 200 && transport.sessionId &&
         (await response.clone().json() as { result?: { protocolVersion?: string } }).result?.protocolVersion;
       if (!initialized) await closeSession(sessionId);
+      else { session.initializing = false; session.lastUsed = Date.now(); }
       return response;
     } catch (error) {
       await closeSession(sessionId);

@@ -19,6 +19,17 @@ const contractDir = path.join(repo, "contract");
 const git = (cwd: string, args: string[]) => execFileSync("git", args, { cwd, stdio: "pipe" });
 const jsonHeaders = { "Content-Type": "application/json", Accept: "application/json, text/event-stream" };
 const ping = JSON.stringify({ jsonrpc: "2.0", id: 1, method: "ping" });
+const initializeLegacy = (url: URL) => fetch(url, { method: "POST", headers: jsonHeaders, body: JSON.stringify({
+  jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-11-25", capabilities: {}, clientInfo: { name: "session-lifecycle", version: "1" } },
+}) });
+async function initializedSession(response: Response): Promise<string> {
+  assert.equal(response.status, 200);
+  assert.equal((await response.json()).result.protocolVersion, "2025-11-25");
+  const id = response.headers.get("mcp-session-id");
+  assert.ok(id);
+  return id;
+}
+const pingLegacy = (url: URL, id: string) => fetch(url, { method: "POST", headers: { ...jsonHeaders, "mcp-session-id": id }, body: ping });
 
 async function listen(server: http.Server): Promise<string> {
   await new Promise<void>(resolve => server.listen(0, "127.0.0.1", resolve));
@@ -480,7 +491,7 @@ for (const action of ["DELETE", "expiry", "shutdown", "disconnect"] as const) te
   if (closed) await within(closed);
 });
 
-test("legacy HTTP sessions are bounded, released by DELETE, and expire without affecting modern reads", async t => {
+test("legacy HTTP sessions are released by DELETE and expire without affecting modern reads", async t => {
   const upstream = http.createServer((_request, response) => response.writeHead(200, { "Content-Type": "application/json" }).end('{"ok":true}'));
   const remote = createHttpMcpServer({ serviceUrl: await listen(upstream), maxLegacySessions: 1, legacySessionIdleTimeoutMs: 150 });
   const url = new URL(`${await listen(remote)}/mcp`);
@@ -493,10 +504,6 @@ test("legacy HTTP sessions are bounded, released by DELETE, and expire without a
   const firstId = first.headers.get("mcp-session-id");
   assert.ok(firstId);
   await first.json();
-  const exhausted = await initialize();
-  assert.equal(exhausted.status, 429);
-  assert.ok(exhausted.headers.get("retry-after"));
-  await exhausted.json();
   assert.equal((await fetch(url, { method: "DELETE", headers: { "mcp-session-id": firstId } })).status, 200);
   assert.equal((await fetch(url, { method: "POST", headers: { ...jsonHeaders, "mcp-session-id": firstId }, body: ping })).status, 404);
   const replacement = await initialize();
@@ -512,4 +519,154 @@ test("legacy HTTP sessions are bounded, released by DELETE, and expire without a
   const afterExpiry = await initialize();
   assert.equal(afterExpiry.status, 200);
   await afterExpiry.json();
+});
+
+test("an official SDK close permits reconnect at capacity and the reclaimed session returns 404", { timeout: 10_000 }, async t => {
+  const remote = createHttpMcpServer({ serviceUrl: "http://127.0.0.1:1", maxLegacySessions: 1 });
+  const url = new URL(`${await listen(remote)}/mcp`);
+  const first = new Client({ name: "closed-session", version: "1" });
+  const second = new Client({ name: "replacement-session", version: "1" });
+  const transport = new StreamableHTTPClientTransport(url);
+  t.after(async () => { await first.close(); await second.close(); await close(remote); });
+  await first.connect(transport);
+  const firstId = transport.sessionId!;
+  assert.ok(firstId);
+  // SDK close does not send DELETE; its idle server session still occupies the slot.
+  await first.close();
+  await second.connect(new StreamableHTTPClientTransport(url));
+  assert.ok((await second.listTools()).tools.length);
+  const evicted = await pingLegacy(url, firstId);
+  assert.equal(evicted.status, 404);
+  await evicted.json();
+});
+
+test("capacity reclamation chooses the least recently used idle legacy session", { timeout: 10_000 }, async t => {
+  let now = Date.now();
+  t.mock.method(Date, "now", () => now);
+  const remote = createHttpMcpServer({ serviceUrl: "http://127.0.0.1:1", maxLegacySessions: 2 });
+  const url = new URL(`${await listen(remote)}/mcp`);
+  t.after(() => close(remote));
+  const first = await initializedSession(await initializeLegacy(url));
+  now += 10;
+  const second = await initializedSession(await initializeLegacy(url));
+  now += 10;
+  const touched = await pingLegacy(url, first);
+  assert.equal(touched.status, 200);
+  await touched.json();
+  now += 10;
+  const third = await initializedSession(await initializeLegacy(url));
+  for (const id of [first, third]) {
+    const live = await pingLegacy(url, id);
+    assert.equal(live.status, 200);
+    await live.json();
+  }
+  const evicted = await pingLegacy(url, second);
+  assert.equal(evicted.status, 404);
+  await evicted.json();
+});
+
+test("capacity pressure preserves active legacy requests and reclaims the session only after completion", { timeout: 10_000 }, async t => {
+  let started!: () => void;
+  const upstreamStarted = new Promise<void>(resolve => { started = resolve; });
+  let upstreamResponse!: http.ServerResponse;
+  const upstream = http.createServer((_request, response) => { upstreamResponse = response; started(); });
+  const remote = createHttpMcpServer({ serviceUrl: await listen(upstream), maxLegacySessions: 1 });
+  const url = new URL(`${await listen(remote)}/mcp`);
+  t.after(async () => { await close(remote); await close(upstream); });
+  const sessionId = await initializedSession(await initializeLegacy(url));
+  const pending = fetch(url, { method: "POST", headers: { ...jsonHeaders, "mcp-session-id": sessionId }, body: JSON.stringify({
+    jsonrpc: "2.0", id: 2, method: "tools/call", params: { name: "get_schemas", arguments: { name: "active" } },
+  }) }).then(response => response.json());
+  await within(upstreamStarted);
+  const rejected = await initializeLegacy(url);
+  assert.equal(rejected.status, 429);
+  assert.ok(rejected.headers.get("retry-after"));
+  await rejected.json();
+  assert.equal(upstreamResponse.destroyed, false, "capacity reclamation must not cancel the in-flight tool");
+  const live = await pingLegacy(url, sessionId);
+  assert.equal(live.status, 200);
+  await live.json();
+  upstreamResponse.writeHead(200, { "Content-Type": "application/json" }).end('{"ok":true}');
+  assert.equal((await within(pending)).result.structuredContent.ok, true);
+  const replacement = await initializedSession(await initializeLegacy(url));
+  assert.notEqual(replacement, sessionId);
+  const evicted = await pingLegacy(url, sessionId);
+  assert.equal(evicted.status, 404);
+  await evicted.json();
+});
+
+test("a reserved legacy session is protected during asynchronous initialization and starts its idle clock afterward", { timeout: 10_000 }, async t => {
+  let now = Date.now();
+  t.mock.method(Date, "now", () => now);
+  let release!: () => void;
+  const gate = new Promise<void>(resolve => { release = resolve; });
+  let started!: () => void;
+  const starting = new Promise<void>(resolve => { started = resolve; });
+  let starts = 0;
+  const start = WebStandardStreamableHTTPServerTransport.prototype.start;
+  t.mock.method(WebStandardStreamableHTTPServerTransport.prototype, "start", async function (this: WebStandardStreamableHTTPServerTransport) {
+    starts++;
+    started();
+    await gate;
+    await start.call(this);
+  });
+  const remote = createHttpMcpServer({ serviceUrl: "http://127.0.0.1:1", maxLegacySessions: 1, legacySessionIdleTimeoutMs: 100 });
+  const url = new URL(`${await listen(remote)}/mcp`);
+  t.after(async () => { release(); await close(remote); });
+  const initializing = initializeLegacy(url);
+  await within(starting);
+  now += 1000;
+  const rejected = await within(initializeLegacy(url));
+  assert.equal(rejected.status, 429, "an initializing session must not be reclaimed or expire before it can respond");
+  await rejected.json();
+  assert.equal(starts, 1);
+  release();
+  const sessionId = await initializedSession(await within(initializing));
+  const live = await pingLegacy(url, sessionId);
+  assert.equal(live.status, 200, "the successful handshake starts a fresh idle period");
+  await live.json();
+});
+
+test("simultaneous legacy replacements reserve capacity before awaiting old-session teardown", { timeout: 10_000 }, async t => {
+  const remote = createHttpMcpServer({ serviceUrl: "http://127.0.0.1:1", maxLegacySessions: 2 });
+  const url = new URL(`${await listen(remote)}/mcp`);
+  const oldIds = new Set([
+    await initializedSession(await initializeLegacy(url)),
+    await initializedSession(await initializeLegacy(url)),
+  ]);
+  let release!: () => void;
+  const gate = new Promise<void>(resolve => { release = resolve; });
+  let retired!: () => void;
+  const retiring = new Promise<void>(resolve => { retired = resolve; });
+  const retiringIds = new Set<string>();
+  const closeTransport = WebStandardStreamableHTTPServerTransport.prototype.close;
+  t.mock.method(WebStandardStreamableHTTPServerTransport.prototype, "close", async function (this: WebStandardStreamableHTTPServerTransport) {
+    if (this.sessionId && oldIds.has(this.sessionId)) {
+      retiringIds.add(this.sessionId);
+      if (retiringIds.size === 2) retired();
+      await gate;
+    }
+    await closeTransport.call(this);
+  });
+  t.after(async () => { release(); await close(remote); });
+  const replacements = [initializeLegacy(url), initializeLegacy(url)];
+  await within(retiring);
+  for (const response of await within(Promise.all([initializeLegacy(url), initializeLegacy(url), initializeLegacy(url)]))) {
+    assert.equal(response.status, 429, "both slots must already belong to protected replacement handshakes");
+    await response.json();
+  }
+  for (const id of oldIds) {
+    const evicted = await pingLegacy(url, id);
+    assert.equal(evicted.status, 404, "a retired ID must stop accepting work before teardown finishes");
+    await evicted.json();
+  }
+  release();
+  const newIds = await Promise.all((await within(Promise.all(replacements))).map(initializedSession));
+  assert.equal(new Set(newIds).size, 2);
+  assert.ok(newIds.every(id => !oldIds.has(id)));
+  for (const id of newIds) {
+    const live = await pingLegacy(url, id);
+    assert.equal(live.status, 200, "both admitted replacements must remain live after concurrent pressure");
+    await live.json();
+  }
 });

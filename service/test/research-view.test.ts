@@ -6,7 +6,10 @@ import { fileURLToPath } from "node:url";
 import { Ledger, loadRecords } from "../../contract/src/ledger.ts";
 import { validateLedger, validateRecordShape } from "../../contract/src/validate.ts";
 import { materialize } from "../src/payloads.ts";
-import { contextBundle, currentStatement, frontier, problemView, status } from "../src/read-models.ts";
+import { contextBundle, contributionView, currentStatement, frontier, problemView, sourceSummary, status } from "../src/read-models.ts";
+import { currentDecisions } from "../../contract/src/derive.ts";
+import { rules as problemRules } from "../../contract/src/types/problem.ts";
+import type { Problem } from "../../contract/src/types/problem.ts";
 import { Index } from "../src/index.ts";
 
 const root = fileURLToPath(new URL("../../", import.meta.url));
@@ -142,6 +145,66 @@ test("native ledger research view keeps the body, statement definitions, clause 
   assert.equal(problemView(ledger, "missing"), null);
 });
 
+test("decision projections preserve the original ledger rationale for problems, frontiers and contributions", () => {
+  const { ledger } = fixture();
+  const current = currentDecisions(ledger);
+  let checked = 0;
+  for (const problem of ledger.currentOf("Problem")) {
+    const detail = problemView(ledger, problem.id, false, "research")!;
+    const relevant = current.filter(decision => decision.targetType === "problem" && decision.targetId === problem.id);
+    assert.deepEqual(detail.decisions.map(decision => decision.id), relevant.map(decision => decision.id));
+    for (const decision of detail.decisions) {
+      const original = ledger.find("Decision", decision.id)!;
+      assert.ok(original.body.length > 0);
+      assert.equal(decision.body, original.body);
+      checked++;
+    }
+    const statusDecision = frontier(ledger, problem.id)?.statusDecision;
+    if (statusDecision) assert.equal(statusDecision.body, ledger.find("Decision", statusDecision.id)!.body);
+  }
+  for (const contribution of ledger.currentOf("Contribution")) {
+    for (const decision of contributionView(ledger, contribution.id)!.decisions) {
+      assert.equal(decision.body, ledger.find("Decision", decision.id)!.body);
+      checked++;
+    }
+  }
+  assert.ok(checked > 3, "Exercise real status, admission and contribution decisions");
+});
+
+test("source summaries preserve citation text and bibliographic version, and digest every current field", () => {
+  const { ledger } = fixture();
+  const source = ledger.currentOf("Source")[0]!;
+  source.fields["version"] = "2";
+  const initial = sourceSummary(ledger, source.id)!;
+  assert.equal(initial.version, "2");
+  assert.equal(initial.revision, source.fields["revision"]);
+  assert.equal(initial.citation, source.body);
+  assert.match(initial.digest, /^sha256:[a-f0-9]{64}$/u);
+  source.fields = Object.fromEntries(Object.entries(source.fields).reverse());
+  assert.equal(sourceSummary(ledger, source.id)!.digest, initial.digest, "Field ordering is not a content edit");
+  let digest = initial.digest;
+  for (const change of [() => { source.body += "\nA revised locator and qualification."; },
+    () => { source.fields["version"] = "3"; }, () => { source.fields["revision"] = Number(source.fields["revision"]) + 1; },
+    () => { source.fields["retired"] = true; }]) {
+    change();
+    const next = sourceSummary(ledger, source.id)!;
+    assert.notEqual(next.digest, digest);
+    digest = next.digest;
+  }
+  assert.equal(sourceSummary(ledger, source.id)!.retired, true);
+  const tombstone = { id: source.id, type: "Source", schemaVersion: source.fields["schemaVersion"],
+    revision: Number(source.fields["revision"]) + 1, redacted: true, redactionDecisionId: ledger.currentOf("Decision")[0]!.id, body: "" };
+  assert.deepEqual(validateRecordShape(tombstone), []);
+  const { body, ...fields } = tombstone;
+  const redacted = new Ledger([...ledger.records, { ...source, fields, body, redacted: true }]);
+  const safe = sourceSummary(redacted, source.id)!;
+  assert.equal(safe.redacted, true);
+  assert.equal(safe.citation, "");
+  assert.equal(safe.title, undefined);
+  assert.equal(safe.version, undefined);
+  assert.notEqual(safe.digest, digest);
+});
+
 test("retrieval capability is advertised without changing the context schema or budget semantics", () => {
   const { ledger, problem } = fixture();
   const index = new Index(":memory:");
@@ -177,10 +240,29 @@ test("research view retains post-import body revisions and omits only proven dup
   assert.deepEqual(compact.statement, full.statement);
   assert.ok(JSON.stringify(compact).includes(marker));
 
+  // Replacing only body is a legal service revision: the authored snapshot must
+  // remain available even when no generated Markdown background survives.
+  changed.body = marker;
+  assert.deepEqual(problemRules({ ...changed.fields, body: changed.body } as unknown as Problem, revised), []);
+  const retainedResearch = problemView(revised, original.id, false, "research")!.research;
+  const context = contextBundle(revised, original.id, undefined, 1_000_000)!;
+  assert.equal(context.incomplete, false);
+  assert.equal(context.sections.find(section => section.name === "background")!.text, marker);
+  for (const [section, field] of [["authoredSource", "source"], ["authoredProgress", "progress"],
+    ["authoredComment", "comment"], ["authoredReferences", "references"]] as const) {
+    const value = JSON.parse(context.sections.find(item => item.name === section)!.text);
+    assert.deepEqual(value.entries, retainedResearch[field]);
+    assert.match(value.semantics, /not accepted ledger claims or reviews/u);
+  }
+
   changed.body = original.body;
   const metadataOnly = problemView(revised, original.id, false, "research")!;
   assert.equal(Object.hasOwn(metadataOnly, "body"), false, "Unchanged body still matches the desired catalog projection");
   assert.equal(metadataOnly.bodyDisposition, "omitted-duplicate-import");
+  const deduplicated = contextBundle(revised, original.id, undefined, 1_000_000)!;
+  assert.equal(deduplicated.sections.find(section => section.name === "background")!.text, "");
+  assert.equal(deduplicated.sections.find(section => section.name === "background")!.omitted, false);
+  assert.ok(deduplicated.sections.find(section => section.name === "authoredProgress")!.text.length > 0);
 
   const unverified = new Ledger(ledger.records);
   assert.equal((problemView(unverified, original.id, false, "research") as Record<string, unknown>)["body"], original.body,

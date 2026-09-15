@@ -69,7 +69,9 @@ const nullableRecord = { ...record, type: ["object", "null"] };
 const object = (props: Json, requiredKeys = Object.keys(props)): Json => ({ type: "object", properties: props, required: requiredKeys, additionalProperties: true });
 const byStatus = object({ Unsolved: integer, Solved: integer });
 const pagination = { total: integer, count: integer, limit: integer, offset: integer, nextOffset: { type: ["integer", "null"], minimum: 0 } };
-const source = object({ id: string, title: nullableString, doi: nullableString, arxivId: nullableString }, ["id"]);
+const source = object({ id: string, title: nullableString, doi: nullableString, arxivId: nullableString,
+  version: nullableString, revision: integer, citation: string,
+  digest: { type: "string", pattern: "^sha256:[0-9a-f]{64}$" } }, ["id"]);
 const reference = object({ id: string, sourceId: string, role: string, body: string, source: { ...source, type: ["object", "null"] } });
 const references = { type: "array", items: reference };
 const provenance = object({ recordId: string, revision: integer, digest: string, sourcePath: nullableString,

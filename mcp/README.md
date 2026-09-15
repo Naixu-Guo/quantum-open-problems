@@ -39,6 +39,9 @@ references.” The tools include `search_problems`, `sample_problem`, `get_probl
 Newly published records become available through the existing connection when
 the hosted API imports the catalog update. The HTTP endpoint uses the official
 MCP SDK and supports both the 2026 protocol and legacy Streamable HTTP clients.
+Legacy sessions expire after 15 idle minutes. At the session limit, the oldest
+idle session can be reclaimed for a new connection; active requests and sessions
+still initializing are protected. Clients reinitialize after a session 404.
 It exposes the Read tools and resources below. Authenticated research writes
 are not enabled on the public deployment. The optional local adapter supports
 them on a deployment whose operator has provisioned editors, keys, and Git sync.
@@ -112,8 +115,11 @@ discussion threads. Empty discussion threads do not mean that authored commentar
 is missing. Cited sources can have partial bibliographic metadata: use the current
 reference body and authored bibliography for citation-specific chapters and
 locations, then verify them in the paper. The MCP provides maintained research
-notes and bibliography, without fetching paper full text or certifying that the
-latest literature has been exhaustively searched. DOI/publisher access can fail
+notes with source citation text, bibliographic version, ledger revision and digest.
+The digest includes the whole Source record, so independent source edits change
+the problem-reading version even when its title and URL are unchanged.
+The MCP does not fetch paper full text or certify exhaustive coverage of the
+latest literature. DOI/publisher access can fail
 while an arXiv version is available; a large HTML document can require a PDF reader.
 
 Text search covers the current formal statement and clauses, titles, authored
@@ -213,7 +219,7 @@ full text. See the [section-read acceptance report](../reviews/mcp-problem-read-
 Selected-problem answers should explain known results, the remaining gap and key
 references. Empty service comments, accepted claims or routes do not imply absence
 of literature. `build_context` still offers whole sections under an approximate
-section-text budget; when its background is omitted, read the research view or
+section-text budget; when relevant authored or background sections are omitted, read the research view or
 use `read_problem` for the needed category.
 Difficulty remains the maintained rating, often `unrated`; tool ordering is not a
 difficulty estimate. For recent resolutions, filter Solved and inspect dated progress
@@ -371,6 +377,13 @@ status, complete formal statement, and selected clauses, including their
 resolution criteria. It keeps sections whole so an insufficient budget does not
 silently cut an equation or its conditions.
 
+Maintained source, progress, commentary and bibliography have separate whole
+sections (`authoredSource`, `authoredProgress`, `authoredComment`, and
+`authoredReferences`). They remain available when a later service edit replaces
+the problem's background. Independent service background is preserved; only a
+proven duplicate catalog body is omitted without spending the budget twice.
+Decision projections retain the actual ledger justification text.
+
 Check both completeness flags:
 
 - `formalContextComplete` says whether the required formal material fits.
@@ -382,7 +395,8 @@ Check both completeness flags:
   and `resourceUris` identify what remains to read.
 
 `tokenBudget` and `approximateTokens` count section text using four characters
-per token. This approximation excludes JSON framing, metadata and provenance,
+per token. Section text includes any JSON or provenance encoded within it. This
+approximation excludes response framing and metadata outside section text,
 MCP framing, and model-specific tokenization; it does not bound the entire tool
 response's token count.
 

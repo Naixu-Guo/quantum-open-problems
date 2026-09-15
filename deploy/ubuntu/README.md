@@ -105,8 +105,10 @@ Public HTTP MCP stays read-only.
 official SDK with modern and legacy HTTP clients. Modern requests are stateless;
 legacy clients receive an opaque `Mcp-Session-Id` and echo it on subsequent calls
 so cancellation reaches the same SDK instance. At most 256 legacy sessions are
-retained by default; they expire after 15 idle minutes. Clients reinitialize after
-an expired-session 404. Resource subscriptions remain unsupported.
+retained by default; they expire after 15 idle minutes. At capacity, the least
+recently used session with no active requests can be reclaimed. Sessions still
+initializing are protected. Clients reinitialize after an expired or reclaimed
+session returns 404. Resource subscriptions remain unsupported.
 Each legacy session allows at most 128 active requests. Cancellation, session
 closure, expiry, client disconnection, and service shutdown end outstanding
 responses and release their request state.
