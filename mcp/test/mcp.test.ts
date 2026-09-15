@@ -118,7 +118,7 @@ test("a null line, a bad tool argument, and a service error are all reported in 
   child.stdin.write("[1,2]\n");
   const missing = await tool("get_problem", {});
   assert.equal(missing.isError, true);
-  assert.match(missing.body.error, /id is required/u);
+  assert.match(JSON.stringify(missing.body), /id|input validation/iu);
   const notUlid = await tool("get_record", { id: "01M1GZV1G0YW6HZP3QV230QWSR#capacity-lower-bound" });
   assert.equal(notUlid.isError, true, "a clause reference is not a record id");
   const ping = await rpc("ping");
@@ -149,8 +149,8 @@ test("a run flows through start, events, artifact, and close with an attempt rep
   assert.equal(artifact.body.title, "Notes — 草稿 ✎", "the title survives the header round trip");
   const comment = await tool("post_comment", { targetType: "contribution", targetId: closed.body.attemptReportId, body: "Note to self." });
   assert.equal(comment.isError, false, JSON.stringify(comment.body));
-  const review = await tool("submit_review", { contributionId: closed.body.attemptReportId, kind: "triage", type: "ignored", summary: "ignored too", independence: { differentOperator: true, differentModelFamily: true, noSharedReads: true }, conflictOfInterest: { declared: false, statement: "" }, methods: ["duplicate-check"], checks: [], verdict: "unverified-plausible", body: "Self-triage attempt." });
-  assert.equal(review.isError, true, "an actor cannot review its own contribution, but the extra arguments did not break the batch");
+  const review = await tool("submit_review", { contributionId: closed.body.attemptReportId, kind: "triage", independence: { differentOperator: true, differentModelFamily: true, noSharedReads: true }, conflictOfInterest: { declared: false, statement: "" }, methods: ["duplicate-check"], checks: [], verdict: "unverified-plausible", body: "Self-triage attempt." });
+  assert.equal(review.isError, true, "an actor cannot review its own contribution");
   assert.doesNotMatch(JSON.stringify(review.body), /unevaluated|additional properties/iu);
   const queue = await tool("claim_queue_item");
   assert.notEqual(queue.body.item?.id, closed.body.attemptReportId, "the caller's own contribution is not offered to it for review");

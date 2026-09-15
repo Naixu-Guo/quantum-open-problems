@@ -24,10 +24,15 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: contract/package-lock.json
+          cache-dependency-path: |
+            contract/package-lock.json
+            mcp/package-lock.json
       - name: Install contract dependencies
         run: npm ci --ignore-scripts
         working-directory: contract
+      - name: Install MCP dependencies
+        run: npm ci --ignore-scripts
+        working-directory: mcp
       - name: Check authoritative metadata and ledger projection
         run: |
           node scripts/migrate-metadata.mjs --check
