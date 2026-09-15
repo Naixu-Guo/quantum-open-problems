@@ -1,0 +1,125 @@
+% Problem record op_62c9d73ced040f87. This TeX file is derived from
+% database/problems_json/op_62c9d73ced040f87.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Linear-size logarithmic-depth encoders for good quantum LDPC codes}
+\label{sec:op_62c9d73ced040f87}
+
+\paragraph{Problem.}
+Does some family of asymptotically good qubit CSS LDPC codes admit unitary
+encoding circuits with linearly many gates and logarithmic depth?  Consider
+qubit CSS codes $[[n,k_n,d_n]]$ with $n\to\infty$, $k_n,d_n=\Omega(n)$, and
+check weights and qubit degrees bounded uniformly in $n$.  The question asks
+whether such a family has measurement-free unitary Clifford encoders $V_n$ on
+its $n$ physical qubits satisfying
+\begin{equation}
+  V_n\bigl(|\psi\rangle\otimes|0\rangle^{\otimes(n-k_n)}\bigr)
+  =\operatorname{Enc}_n|\psi\rangle
+  \qquad
+  \text{for every }|\psi\rangle\in(\mathbb C^2)^{\otimes k_n},
+  \label{eq:62c9-encoder}
+\end{equation}
+where $\operatorname{Enc}_n$ is an isometry onto the code space and $V_n$ is a
+circuit of $O(n)$ one- and two-qubit gates with depth $O(\log n)$.  The
+constants implicit in these bounds are independent of $n$, and gates may act
+on arbitrary pairs of qubits.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Wills, Lin, Zhang, and Hsieh note that it is not known whether there exist
+LDPC codes with low-depth or low-complexity encoders, even classically, and
+ask whether there must be a tradeoff between the parameters of a code, the
+depth or complexity of its encoder, and its maximum check weight
+\sourcecite{ref:62c9-wlzh}{WLZ+26}, Section~1.2, discussion of Open
+Problem~3.  The statement specializes that question to good qubit CSS codes
+with bounded check weights and qubit degrees, measurement-free unitary
+Clifford encoders, $O(n)$ gates, and $O(\log n)$ depth, in the noiseless
+encoding model of their Section~4.1.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Wills, Lin, Zhang, and Hsieh construct asymptotically good qubit CSS
+codes, randomized in Theorem~1 and explicit in Theorem~2, that are encoded and
+unencoded by parallel quantum circuits of logarithmic depth with a linear
+number of gates, and decoded by classical circuits with a linear number of
+gates \sourcecite{ref:62c9-wlzh}{WLZ+26}, Theorems~1 and~2, retained in the
+revision of 22 June 2026.  In their model the encoder acts on the message
+qubits and on check qubits prepared in $|+\rangle$ or $|0\rangle$ and may be
+taken to consist of CNOT gates (Section~4.1); preparing $|+\rangle$ as
+$H|0\rangle$ adds one layer of Hadamard gates and gives the form of
+Eq.~\eqref{eq:62c9-encoder}.  Hence these preprint theorems answer the
+question affirmatively without the LDPC requirement.  They do not assert
+bounded check weights
+or qubit degrees.
+
+  \item Dinur, Hsieh, Lin, and Vidick construct explicit good quantum LDPC codes
+with linear-time decoders \sourcecite{ref:62c9-dhlv}{DHLV23}.  Efficient
+syndrome decoding does not bound the size or depth of a unitary encoder
+satisfying Eq.~\eqref{eq:62c9-encoder}.
+
+  \item Logarithmic depth is necessary for linear distance, with or without the
+LDPC restriction, by a light-cone argument.  Let $P$ be a nontrivial Pauli
+operator on one logical input qubit, and let $V_n$ have depth $D$, each layer
+acting on every qubit at most once.  Each layer of one- and two-qubit gates at
+most doubles the support of a conjugated operator, so the Pauli operator
+$V_n(P\otimes I)V_n^\dagger$ is supported on at most $2^D$ qubits.  By
+Eq.~\eqref{eq:62c9-encoder} it maps $\operatorname{Enc}_n|\psi\rangle$ to
+$\operatorname{Enc}_nP|\psi\rangle$ for every $|\psi\rangle$, so it is a
+nontrivial logical operator and has weight at least $d_n$.  Therefore
+\begin{equation}
+  d_n\le 2^{D},
+  \label{eq:62c9-light-cone}
+\end{equation}
+and $d_n=\Omega(n)$ forces $D\ge\log_2 d_n=\Omega(\log n)$.  This elementary
+deduction shows that the depth bound in the statement cannot be lowered to a
+constant.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[WLZ+26]}]\label{ref:62c9-wlzh}
+  A. Wills, T.-C. Lin, R. Y. Zhang, and M.-H. Hsieh, ``Linear-Time Encodable
+and Decodable Quantum Error-Correcting Codes,'' arXiv:2603.04543 (2026).
+\href{https://doi.org/10.48550/arXiv.2603.04543}{doi:10.48550/arXiv.2603.04543};
+\href{https://arxiv.org/abs/2603.04543}{arXiv:2603.04543}.
+
+  \item[\textup{[DHLV23]}]\label{ref:62c9-dhlv}
+  I. Dinur, M.-H. Hsieh, T.-C. Lin, and T. Vidick, ``Good Quantum LDPC Codes
+with Linear Time Decoders,'' in \emph{Proceedings of the 55th Annual ACM
+Symposium on Theory of Computing (STOC 2023)}, 905--918 (2023).
+\href{https://doi.org/10.1145/3564246.3585101}{doi:10.1145/3564246.3585101};
+\href{https://arxiv.org/abs/2206.07750}{arXiv:2206.07750}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+Literature checked through 15 September 2026: no construction or
+impossibility theorem was found that meets the good-code, bounded-weight,
+linear-gate-count, and logarithmic-depth requirements simultaneously.  The
+encoding model is ideal: gates are noiseless, no measurements or classical
+feed-forward are allowed, and no geometric locality is imposed.  The circuit
+must encode arbitrary unknown logical states, so preparing one fixed code
+state, fast syndrome decoding, or fault-tolerant state preparation does not by
+itself answer the question.  By Eq.~\eqref{eq:62c9-light-cone} the depth
+requirement is optimal up to a constant factor for linear distance, and the
+version without the LDPC requirement is answered affirmatively in the preprint
+\sourcecite{ref:62c9-wlzh}{WLZ+26}; the open issue is whether uniformly
+bounded check weights and qubit degrees are compatible with such encoders.
+
+\subsection*{Field}
+
+Quantum Error Correction; Quantum algorithm
+
+\subsection*{Topic}
+
+Quantum LDPC codes; Quantum circuit complexity
+
+\subsection*{ID}
+
+\texttt{op\_62c9d73ced040f87}

@@ -1,0 +1,14 @@
+---
+id: "01M2JEENWE44D8PGHZ9E3SRD7D"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-15T11:50:20.286Z"
+type: "Reference"
+sourceId: "01M2JEENWE87JEQ6PEV1BVTKQH"
+targetType: "problem"
+targetId: "01M2JD6D1YCESPTHQZDT5TZB77"
+role: "states-problem"
+locator: "ROJ19"
+---
+A. Rigby, J. C. Olivier, and P. Jarvis, “Heuristic construction of codeword stabilized codes,” *Physical Review A* **100**, 062303 (2019). [doi:10.1103/PhysRevA.100.062303](https://doi.org/10.1103/PhysRevA.100.062303); [arXiv:1907.04537](https://arxiv.org/abs/1907.04537).

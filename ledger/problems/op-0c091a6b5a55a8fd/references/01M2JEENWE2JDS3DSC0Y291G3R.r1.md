@@ -1,0 +1,14 @@
+---
+id: "01M2JEENWE2JDS3DSC0Y291G3R"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-15T11:50:20.286Z"
+type: "Reference"
+sourceId: "01M2JEENWEW1RV8YHHPK0WAJTZ"
+targetType: "problem"
+targetId: "01M2JD0QAYZMS56Z6TAHM15ERA"
+role: "states-problem"
+locator: "CHN+24"
+---
+A. Cross, Z. He, A. Natarajan, M. Szegedy, and G. Zhu, “Quantum Locally Testable Code with Constant Soundness,” *Quantum* **8**, 1501 (2024). [doi:10.22331/q-2024-10-18-1501](https://doi.org/10.22331/q-2024-10-18-1501); [arXiv:2209.11405](https://arxiv.org/abs/2209.11405).

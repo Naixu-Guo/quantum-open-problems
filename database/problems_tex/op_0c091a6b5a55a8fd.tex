@@ -1,0 +1,193 @@
+% Problem record op_0c091a6b5a55a8fd. This TeX file is derived from
+% database/problems_json/op_0c091a6b5a55a8fd.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Asymptotically good quantum locally testable codes}
+\label{sec:op_0c091a6b5a55a8fd}
+
+\paragraph{Problem.}
+Does there exist an infinite family of qubit CSS codes with linear rate and
+linear distance whose check matrices have uniformly bounded row and column
+weights and constant soundness?  Consider a family of qubit CSS codes
+$[[n,k_n,d_n]]$ with $n\to\infty$.  Each code is specified by binary check
+matrices $H_X\in\mathbb{F}_2^{m_X\times n}$ and
+$H_Z\in\mathbb{F}_2^{m_Z\times n}$ with $m_X,m_Z>0$ and
+$H_XH_Z^{\mathsf T}=0$.  Write $|\cdot|$ for Hamming weight.
+
+Call the family \emph{good and locally testable} if there are constants
+$r,\delta,s>0$ and $w\in\mathbb{N}$, independent of $n$, such that every code
+in the family satisfies three conditions.  First, every row and every column
+of $H_X$ and $H_Z$ has weight at most $w$.  Second, the rate and distance are
+linear:
+\begin{equation}
+  k_n\ge rn,\qquad d_n\ge\delta n.
+  \label{eq:0c09-good}
+\end{equation}
+Third, both check matrices have constant soundness:
+\begin{equation}
+  \frac{|H_\sigma e|}{m_\sigma}
+  \ge
+  s\,\frac{\min_{c\in\ker H_\sigma}|e-c|}{n}
+  \qquad
+  \text{for every }\sigma\in\{X,Z\}\text{ and }e\in\mathbb{F}_2^n.
+  \label{eq:0c09-soundness}
+\end{equation}
+The question is whether some family satisfies the weight bound,
+Eq.~\eqref{eq:0c09-good}, and Eq.~\eqref{eq:0c09-soundness} simultaneously.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Wills, Lin, and Hsieh describe the existence of an optimal quantum locally
+testable code, with constant soundness, constant locality (maximum row or
+column weight of $H_X$ and $H_Z$), and linear dimension and distance, as
+currently unknown \sourcecite{ref:0c09-wlh}{WLH25}, arXiv v3, Section~1.1.
+Cross, He, Natarajan, Szegedy, and Zhu call the construction of quantum
+locally testable codes with good parameters an open problem
+\sourcecite{ref:0c09-chnsz}{CHN+24}, Section~1, and Dinur, Lin, and Vidick
+state that their almost-good construction falls short of good quantum locally
+testable codes \sourcecite{ref:0c09-dlv}{DLV24}, arXiv v3, Section~1.4.  The
+soundness condition in Eq.~\eqref{eq:0c09-soundness} is the CSS definition of
+\sourcecite{ref:0c09-dlv}{DLV24}, Definition~2.6.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Equation~\eqref{eq:0c09-soundness} measures the distance to the tested
+classical kernel $\ker H_\sigma$, not to the row space of the opposite check
+matrix; a nontrivial logical operator has zero syndrome, so a definition using
+the stabilizer row space would be violated by every code with $k_n\ge1$.  Up
+to a factor of two in $s$, this CSS condition is equivalent to the general
+soundness definition for quantum codes
+\sourcecite{ref:0c09-dlv}{DLV24}, arXiv v3, Section~2.3, Lemma~2.5 and
+Definition~2.6.
+
+  \item Dinur, Lin, and Vidick construct an explicit family of binary CSS codes
+with parity checks of weight $O(1)$ and
+\begin{equation}
+  k=\Omega(n),\qquad
+  d=\Omega\!\left(\frac{n}{(\log n)^3}\right),\qquad
+  s=\Omega\!\left(\frac{1}{(\log n)^3}\right)
+  \label{eq:0c09-almost-good}
+\end{equation}
+\sourcecite{ref:0c09-dlv}{DLV24}, arXiv v3, Theorem~1.1 and Corollary~3.9.
+The rate bound rests on the analysis of Section~4, which shifts the complex;
+the arXiv revision of 4 September 2025 introduced it to correct an error in
+the earlier rate argument, so it postdates the 2024 proceedings version.  The
+distance and soundness in
+Eq.~\eqref{eq:0c09-almost-good} miss Eq.~\eqref{eq:0c09-good} and
+Eq.~\eqref{eq:0c09-soundness} by polylogarithmic factors.  The authors note
+that their construction would give constant rate, relative distance, and
+soundness with constant-weight checks if the graphs underlying the required
+four-dimensional cubical complex were expanding up to a constant fraction of
+the vertices; they do not know how to construct such a complex, and their
+instantiation guarantees expansion only up to an inverse-polylogarithmic
+fraction (remark after Corollary~3.7, and Section~1.6).
+
+  \item The same paper states, with the proof omitted, that parity samplers raise
+the soundness in Eq.~\eqref{eq:0c09-almost-good} to $\Omega(1)$ at check
+weight $O((\log n)^3)$, and that distance amplification then yields CSS codes
+with $k,d=\Omega(n)$, soundness $\Omega(1)$, and check weight
+$O(\operatorname{poly}\log n)$ \sourcecite{ref:0c09-dlv}{DLV24}, arXiv v3,
+Section~1 and footnote~1.  These codes do not have uniformly bounded
+locality.
+
+  \item Wills, Lin, and Hsieh give transformations between quantum locally
+testable codes.  Soundness amplification keeps the number of qubits, the
+dimension, and the distance, raises soundness $\rho$ to a constant, and
+multiplies the maximum check weight and qubit degree by at most
+$\operatorname{poly}(1/\rho)$.  Under further assumptions on the input code,
+distance amplification produces linear distance with the same dimension and,
+up to a constant factor, the same number of qubits, while locality and
+soundness change by factors polynomial in the input locality and inverse
+relative distance \sourcecite{ref:0c09-wlh}{WLH25}, arXiv v3, Theorems~1.2
+and~1.3 (formally Lemmas~4.3 and~5.3).  Applied to inputs with vanishing
+soundness or relative distance, these costs make the locality grow.  In
+particular, soundness amplification of good quantum LDPC codes gives
+asymptotically good quantum codes with constant soundness that are testable
+but not locally testable (Section~1.2).
+
+  \item Constant soundness alone is attainable with other tradeoffs.  Cross, He,
+Natarajan, Szegedy, and Zhu obtain quantum LDPC codes with constant soundness,
+constant rate, and distance $2$ (Lemma~1.1 and Corollary~3.2); their check
+product gives constant soundness and rate with distance $\Theta(\log N)$ and
+locality $O(\log N)$ (Theorem~1.2 and Table~2); and their modified distance
+balancing gives constant soundness, $\Theta(\sqrt N)$ dimension and distance,
+and constant \emph{average} locality, with maximum locality $\Theta(\sqrt N)$
+(Theorem~1.3 and Table~2) \sourcecite{ref:0c09-chnsz}{CHN+24}.  Average
+locality does not meet the uniform row and column bounds required here.
+
+  \item Li, Li, and Liu construct almost-good quantum locally testable codes that
+support nontrivial transversal logical multi-controlled-$Z$ gates, with
+distance and soundness still polylogarithmically below optimal; their
+revision of 2 July 2026 refers to good quantum locally testable codes only as
+a prospective construction \sourcecite{ref:0c09-lll}{LLL26}, Theorem~1.1 and
+Section~6.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[DLV24]}]\label{ref:0c09-dlv}
+  I. Dinur, T.-C. Lin, and T. Vidick, ``Expansion of High-Dimensional
+Cubical Complexes: with Application to Quantum Locally Testable Codes,'' in
+\emph{2024 IEEE 65th Annual Symposium on Foundations of Computer Science
+(FOCS)}, 379--385 (2024).
+\href{https://doi.org/10.1109/FOCS61266.2024.00031}{doi:10.1109/FOCS61266.2024.00031};
+\href{https://arxiv.org/abs/2402.07476}{arXiv:2402.07476}.
+
+  \item[\textup{[CHN+24]}]\label{ref:0c09-chnsz}
+  A. Cross, Z. He, A. Natarajan, M. Szegedy, and G. Zhu, ``Quantum Locally
+Testable Code with Constant Soundness,'' \emph{Quantum} \textbf{8}, 1501
+(2024).
+\href{https://doi.org/10.22331/q-2024-10-18-1501}{doi:10.22331/q-2024-10-18-1501};
+\href{https://arxiv.org/abs/2209.11405}{arXiv:2209.11405}.
+
+  \item[\textup{[WLH25]}]\label{ref:0c09-wlh}
+  A. Wills, T.-C. Lin, and M.-H. Hsieh, ``Tradeoff Constructions for Quantum
+Locally Testable Codes,'' \emph{IEEE Transactions on Information Theory}
+\textbf{71}, 426--458 (2025).
+\href{https://doi.org/10.1109/TIT.2024.3503500}{doi:10.1109/TIT.2024.3503500};
+\href{https://arxiv.org/abs/2309.05541}{arXiv:2309.05541}.
+
+  \item[\textup{[LLL26]}]\label{ref:0c09-lll}
+  Y. Li, Z. Li, and Z.-W. Liu, ``Transversal Non-Clifford Gates on
+Almost-Good Quantum LDPC and Quantum Locally Testable Codes,''
+arXiv:2604.01874 (2026).
+\href{https://doi.org/10.48550/arXiv.2604.01874}{doi:10.48550/arXiv.2604.01874};
+\href{https://arxiv.org/abs/2604.01874}{arXiv:2604.01874}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+Literature checked through 15 September 2026: no construction or
+impossibility result was found for a family meeting the weight bound,
+Eq.~\eqref{eq:0c09-good}, and Eq.~\eqref{eq:0c09-soundness} at once.  The
+closest known results each give up part of the requirements: polylogarithmic
+losses in distance and soundness at constant check weight, constant soundness
+and linear parameters at polylogarithmic check weight, or constant soundness
+and rate at bounded locality with constant distance.  A complete answer is
+either such a family or a proof
+that uniformly bounded locality, linear rate, linear distance, and constant
+soundness are incompatible.
+
+The cubical complexes of \sourcecite{ref:0c09-dlv}{DLV24} also underlie the
+transversal-gate results of \sourcecite{ref:0c09-lll}{LLL26}; the analogous
+question for a non-Clifford gate on good codes is
+\href{https://qiqc-op.com/problem/op_15c6d5adf1796d86/}{good quantum LDPC codes
+with a non-Clifford transversal CCZ gate}.
+
+\subsection*{Field}
+
+Quantum Error Correction
+
+\subsection*{Topic}
+
+Quantum LDPC codes; Quantum coding theory
+
+\subsection*{ID}
+
+\texttt{op\_0c091a6b5a55a8fd}

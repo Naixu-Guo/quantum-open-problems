@@ -1,0 +1,14 @@
+---
+id: "01M2JEENWECRY6M49X34H61N70"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-15T11:50:20.286Z"
+type: "Reference"
+sourceId: "01M208MNR5C189SB7KE07VD113"
+targetType: "problem"
+targetId: "01M2JDG8GMD6A9Z88MC2195VA6"
+role: "related"
+locator: "RT24"
+---
+R. Rubboli and M. Tomamichel, “New Additivity Properties of the Relative Entropy of Entanglement and Its Generalizations,” *Communications in Mathematical Physics* **405**, 162 (2024). [doi:10.1007/s00220-024-05025-3](https://doi.org/10.1007/s00220-024-05025-3); [arXiv:2211.12804](https://arxiv.org/abs/2211.12804).

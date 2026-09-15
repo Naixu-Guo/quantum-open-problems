@@ -1,0 +1,14 @@
+---
+id: "01M2JEENWEJJT30F1065D7ZDDN"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-15T11:50:20.286Z"
+type: "Reference"
+sourceId: "01M2JEENWER38YAQHR6CHHWVC8"
+targetType: "problem"
+targetId: "01M2JDG8C75QPM012SF6713NZW"
+role: "related"
+locator: "SC26"
+---
+Z. Song and L. Chen, “A Partial-Trace Matrix Inequality and Werner-State Distillability,” arXiv preprint (2026). [arXiv:2607.23416](https://arxiv.org/abs/2607.23416).

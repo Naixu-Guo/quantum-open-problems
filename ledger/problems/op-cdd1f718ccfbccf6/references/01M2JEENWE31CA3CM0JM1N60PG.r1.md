@@ -1,0 +1,14 @@
+---
+id: "01M2JEENWE31CA3CM0JM1N60PG"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-15T11:50:20.286Z"
+type: "Reference"
+sourceId: "01M2JEENWEFPRVZ6ZCYPF3BKPF"
+targetType: "problem"
+targetId: "01M2JDA59FJ4PBBZ0VJ1QN5PN2"
+role: "states-problem"
+locator: "CdS24"
+---
+I. Chen and N. de Silva, “Characterising semi-Clifford gates using algebraic sets,” *Communications in Mathematical Physics* **405**, 201 (2024). [doi:10.1007/s00220-024-05050-2](https://doi.org/10.1007/s00220-024-05050-2); [arXiv:2309.15184](https://arxiv.org/abs/2309.15184).
