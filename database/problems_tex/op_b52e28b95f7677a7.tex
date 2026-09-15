@@ -1,0 +1,80 @@
+% Problem record op_b52e28b95f7677a7. This TeX file is derived from
+% database/problems_json/op_b52e28b95f7677a7.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Optimal output monitoring for parametric-oscillator squeezing}
+\label{sec:op_b52e28b95f7677a7}
+
+\paragraph{Problem.}
+Can any causal output measurement improve the mean conditional position squeezing achieved by ideal homodyne detection?
+Consider one mode with $[q,p]=i$, $a=(q+ip)/\sqrt2$, and $0\leq\chi<1/2$.
+The oscillator interacts with a vacuum Markov bath at unit damping rate.
+Its dynamics are Eq.~\eqref{eq:sr5-dynamics}.
+\begin{equation}
+H_\chi=-\frac\chi2(qp+pq),\qquad
+\dot\rho=-i[H_\chi,\rho]+\mathcal D[a]\rho,\qquad
+\mathcal D[a]\rho=a\rho a^\dagger-\frac12\{a^\dagger a,\rho\}.
+\label{eq:sr5-dynamics}
+\end{equation}
+The initial oscillator state is the unconditional stationary state.
+The measurement $\mathsf M$ may be adaptive or non-Gaussian and may access the output field up to the current time.
+It does not apply control operations to the oscillator.
+Let $\rho_c(t)$ be the oscillator state conditioned on the measurement record.
+The mean is over all records, without postselection.
+Define the optimum by Eq.~\eqref{eq:sr5-cost}.
+\begin{equation}
+s_{\mathrm{all}}(\chi)=\inf_{\mathsf M}\liminf_{t\to\infty}\mathbb E_{\mathsf M}\!\left[2\operatorname{Var}_{\rho_c(t)}q\right].
+\label{eq:sr5-cost}
+\end{equation}
+Does $s_{\mathrm{all}}(\chi)=1-2\chi$ hold throughout the stated range?
+
+\subsection*{Status}
+
+Solved
+
+\subsection*{Source}
+
+This is a formulation for a fixed-quadrature mean cost in the parametric oscillator of Genoni, Lami, and Serafini, Sec.~6.1 \sourcecite{ref:sr5-genoni}{GLS16}. The extension of its monitoring optimization to arbitrary non-Gaussian output measurements is editorial.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item At unit damping and zero temperature, Sec.~6.1, Eqs.~(77)--(78) of the arXiv PDF, give the stationary unconditional and ideal-homodyne covariances in Eq.~\eqref{eq:sr5-covariances} \sourcecite{ref:sr5-genoni}{GLS16}. Choose the homodyne phase whose output signal is $a+a^\dagger=\sqrt2q$. The covariance convention is $V_{jk}=\langle\{R_j-\langle R_j\rangle,R_k-\langle R_k\rangle\}\rangle$ for $R=(q,p)^{\mathsf T}$.
+\begin{equation}
+\begin{aligned}
+ V_{\mathrm{unc}}&=\operatorname{diag}\!\left(\frac1{1+2\chi},\frac1{1-2\chi}\right),\\
+ V_{\mathrm{hom}}&=\operatorname{diag}\!\left(1-2\chi,\frac1{1-2\chi}\right).
+\end{aligned}
+\label{eq:sr5-covariances}
+\end{equation}
+
+  \item A direct ensemble argument proves optimality even for non-Gaussian monitoring. Write $V_{q,c}=2\operatorname{Var}_{\rho_c}q$ and $V_{p,c}=2\operatorname{Var}_{\rho_c}p$. Robertson uncertainty gives $V_{q,c}V_{p,c}\geq1$. Jensen's inequality and the law of total variance then imply Eq.~\eqref{eq:sr5-lower} at every time.
+\begin{equation}
+\mathbb E[V_{q,c}]\geq\mathbb E[1/V_{p,c}]\geq\frac1{\mathbb E[V_{p,c}]}\geq\frac1{(V_{\mathrm{unc}})_{pp}}=1-2\chi.
+\label{eq:sr5-lower}
+\end{equation}
+The unconditional state stays stationary because measurements act only on the output. Combining Eq.~\eqref{eq:sr5-lower} with the homodyne value in Eq.~\eqref{eq:sr5-covariances} proves $s_{\mathrm{all}}(\chi)=1-2\chi$. This last argument is supplied here; it is not attributed to the paper.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[GLS16]}]\label{ref:sr5-genoni}
+  M. G. Genoni, L. Lami, and A. Serafini, ``Conditional and Unconditional Gaussian Quantum Dynamics,'' \emph{Contemporary Physics} \textbf{57}, 331--349 (2016). \href{https://doi.org/10.1080/00107514.2015.1125624}{doi:10.1080/00107514.2015.1125624}; \href{https://arxiv.org/abs/1607.02619}{arXiv:1607.02619}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The fixed-quadrature mean cost is completely resolved by the published homodyne solution and the direct lower-bound argument above. The latter is not a separately peer-reviewed theorem. Outcome-dependent quadrature choices, postselected costs, and feedback control on the oscillator define different optimization problems.
+
+\subsection*{Field}
+
+Quantum Resource Theory
+
+\subsection*{Topic}
+
+Gaussian quantum information
+
+\subsection*{ID}
+
+\texttt{op\_b52e28b95f7677a7}

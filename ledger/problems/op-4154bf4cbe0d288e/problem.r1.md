@@ -1,0 +1,106 @@
+---
+id: "01M22C4460W3FYGAFEKQT833BJ"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-09T06:02:34.082Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "derived"
+posed: null
+areaIds: ["quantum-resource-theory","quantum-algorithm"]
+topicIds: ["quantum-state-preparation","resource-conversion","computational-complexity-and-computability"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: ["01M22C448YAVGY33AV04GHTFGC"]
+title: "Deterministic quadratic-size vertex-minor-universal graphs"
+aliases: ["op-4154bf4cbe0d288e","op_4154bf4cbe0d288e","01M22C4460W3FYGAFEKQT833BJ"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_4154bf4cbe0d288e.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_4154bf4cbe0d288e","ulid":"01M22C4460W3FYGAFEKQT833BJ","aliases":["op_4154bf4cbe0d288e","01M22C4460W3FYGAFEKQT833BJ","op-4154bf4cbe0d288e"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":1,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-09T06:01:45.920Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"derived","posed":null,"areaIds":["quantum-resource-theory","quantum-algorithm"],"topicIds":["quantum-state-preparation","resource-conversion","computational-complexity-and-computability"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":["01M22C448YAVGY33AV04GHTFGC"]},"title":"Deterministic quadratic-size vertex-minor-universal graphs","status":"Unsolved","fields":["Quantum Resource Theory","Quantum algorithm"],"topics":["Quantum state preparation","Resource conversion","Computational complexity and computability"],"statement":"Does there exist an absolute constant $C>0$ and a deterministic algorithm that, for each integer $k\\geq2$ supplied in unary, runs in time $k^{O(1)}$ and outputs a $k$-vertex-minor-universal graph with at most $Ck^2$ vertices? The output is a finite simple labelled graph $G_k=(V_k,E_k)$. Write $H\\leq_{\\mathrm{vm}}G_k$ when $H$ is obtainable by local complementations and vertex deletions that preserve the labels of surviving vertices; local complementation toggles edges between distinct neighbors of a vertex. Universality requires every graph on every prescribed $k$-element subset of $V_k$ to be obtainable, as in Eq.~\\eqref{eq:gvu-universal}:\n\\begin{equation}\n\\begin{gathered}\nk\\leq|V_k|\\leq Ck^2,\\\\\n\\forall S\\subseteq V_k\\text{ with }|S|=k,\\quad\n\\forall E_H\\subseteq\\{\\{u,v\\}:u,v\\in S,\\ u\\neq v\\},\\\\\n(S,E_H)\\leq_{\\mathrm{vm}}G_k.\n\\end{gathered}\n\\label{eq:gvu-universal}\n\\end{equation}","source":"This is a precise algorithmic formulation of the first open question in Section 5, p.~36:15 of Cautrès et al., which asks for deterministic cubic or quadratic constructions of vertex-minor-universal graphs \\sourcecite{ref:gvu-universal}{CCM+24}. The unary input and polynomial-time requirement make explicit the efficient-construction target; the present question selects the quadratic-size case.","progress":["For an $n$-vertex $k$-vertex-minor-universal graph, counting local-Clifford classes (Proposition 5 and its proof) obtainable by Pauli measurements gives\n  \\begin{equation}\n3^{n-k}\\geq2^{(k^2-5k)/2-1},\n  \\qquad\n  n\\geq k+\\frac{k^2-5k-2}{2\\log_2 3}\n  =\\Omega(k^2).\n\\label{eq:gvu-progress-2}\n\\end{equation}\n  Equation~\\eqref{eq:gvu-progress-2} shows that quadratic order is necessary, irrespective of construction time. \\sourcecite{ref:gvu-small-pairable}{CMP23}","Theorem 8 of Cautrès et al. establishes that, for every real $\\alpha>2$ and all sufficiently large $k$, there exists a $k$-vertex-minor-universal graph satisfying\n  \\begin{equation}\n|V_k|\\leq\\alpha k^2.\n\\label{eq:gvu-progress-3}\n\\end{equation}\n  By Eq.~\\eqref{eq:gvu-progress-3}, the optimal asymptotic order is already known existentially. \\sourcecite{ref:gvu-universal}{CCM+24}","For a prime power $q$, let $B_q$ be the bipartite incidence graph between points and lines of the projective plane over the field with $q$ elements; the explicit construction in Theorem 19 satisfies\n  \\begin{equation}\n|V(B_q)|=2(q^2+q+1),\n  \\qquad\n  7k^2-16\\leq4q\n  \\quad\\Longrightarrow\\quad\n  B_q\\text{ is }k\\text{-vertex-minor universal}.\n\\label{eq:gvu-progress-4}\n\\end{equation}\n  In Eq.~\\eqref{eq:gvu-progress-4}, choosing $q=\\Theta(k^2)$ gives a deterministic polynomial-time construction with $O(k^4)$ vertices; the authors explicitly ask for cubic or quadratic deterministic constructions in their conclusion. \\sourcecite{ref:gvu-universal}{CCM+24}","Ascoli and coauthors improve (Theorem 1.1) the random-graph guarantee: writing $\\mathbb G(n,p)$ for the distribution in which each possible edge appears independently with probability $p$, and defining $c_0:=1/(2\\log_2(4/3))$, for every fixed $\\eta>0$ one has, asymptotically as $k\\to\\infty$,\n  \\begin{equation}\nn\\geq(1+\\eta)c_0k^2\n  \\quad\\Longrightarrow\\quad\n  \\Pr_{G\\sim\\mathbb G(n,1/2)}\n  [G\\text{ is }k\\text{-vertex-minor universal}]\n  \\geq1-2^{-(1+o(1))\\eta k^2/2}.\n\\label{eq:gvu-progress-5}\n\\end{equation}\n  Equation~\\eqref{eq:gvu-progress-5} gives efficient random generation with high success probability, not a guaranteed deterministic construction. \\sourcecite{ref:gvu-random}{AFF+26}","Chao and Xu's May 2026 revision (version 3, Theorems 1.3 and 1.4, and Appendix A) resolves the associated random-graph universality conjecture across its probability regimes; in particular, for sufficiently large $n$, with $s:=\\min(p,1-p)$,\n  \\begin{equation}\n\\begin{gathered}\ns\\geq\\frac{100\\log_2 n}{\\sqrt n},\n  \\\\\n\n  k\\leq\\frac{s\\sqrt n}{100}\n  \\\\\n\\Longrightarrow\\quad\n  \\Pr_{G\\sim\\mathbb G(n,p)}\n  [G\\text{ is }k\\text{-vertex-minor universal}]\n  \\geq1-2^{-s^2n/100}.\n\\end{gathered}\n\\label{eq:gvu-progress-6}\n\\end{equation}\n  Beyond the regime in Eq.~\\eqref{eq:gvu-progress-6}, their additional sparse and dense regime result completes the probabilistic conjecture, but does not supply the deterministic quadratic-size family asked for here. \\sourcecite{ref:gvu-random-regimes}{CX26}"],"references":[{"key":"CMP23","label":"ref:gvu-small-pairable","tex":"N. Claudet, M. Mhalla, and S. Perdrix, ``Small $k$-Pairable States,'' arXiv preprint (2023). \\href{https://doi.org/10.48550/arXiv.2309.09956}{doi:10.48550/arXiv.2309.09956}; \\href{https://arxiv.org/abs/2309.09956}{arXiv:2309.09956}."},{"key":"CCM+24","label":"ref:gvu-universal","tex":"M. Cautrès, N. Claudet, M. Mhalla, S. Perdrix, V. Savin, and S. Thomassé, ``Vertex-Minor Universal Graphs for Generating Entangled Quantum Subsystems,'' in \\emph{51st International Colloquium on Automata, Languages, and Programming (ICALP 2024)}, 36:1–36:18 (2024). \\href{https://doi.org/10.4230/LIPIcs.ICALP.2024.36}{doi:10.4230/LIPIcs.ICALP.2024.36}; \\href{https://arxiv.org/abs/2402.06260}{arXiv:2402.06260}."},{"key":"AFF+26","label":"ref:gvu-random","tex":"R. Ascoli, B. Frederickson, S. Frederickson, C. McFarland, and L. Post, ``Almost All Graphs Are Vertex-Minor Universal,'' arXiv preprint (2026), version 2; accepted for RANDOM 2026. \\href{https://doi.org/10.48550/arXiv.2602.09049}{doi:10.48550/arXiv.2602.09049}; \\href{https://arxiv.org/abs/2602.09049}{arXiv:2602.09049}."},{"key":"CX26","label":"ref:gvu-random-regimes","tex":"T.-W. Chao and Z. Xu, ``Vertex-Minor Universality of a Random Graph,'' arXiv preprint (2026), version 3, 5 May 2026. \\href{https://doi.org/10.48550/arXiv.2603.13600}{doi:10.48550/arXiv.2603.13600}; \\href{https://arxiv.org/abs/2603.13600}{arXiv:2603.13600}."}],"comment":"No deterministic polynomial-time construction with $O(k^2)$ vertices was found in the public literature checked through 9 September 2026; the unresolved gap is between quadratic probabilistic existence and quartic efficient deterministic constructions. Exhaustive finite search can eventually find a quadratic-size graph, but that observation does not meet the polynomial-time requirement, and the resolved random-graph conjecture must not be relabelled as this open construction problem. The status audit used public primary sources and later-work searches; it is not an exhaustive citation-index audit. The related Pauli-pairability question asks only for perfect matchings on prescribed terminals, rather than all graphs, and does not require an efficient deterministic construction."}}
+---
+## Source
+
+This is a precise algorithmic formulation of the first open question in Section 5, p. 36:15 of Cautrès et al., which asks for deterministic cubic or quadratic constructions of vertex-minor-universal graphs [CCM+24](https://doi.org/10.4230/LIPIcs.ICALP.2024.36). The unary input and polynomial-time requirement make explicit the efficient-construction target; the present question selects the quadratic-size case.
+
+## Progress
+
+For an $n$-vertex $k$-vertex-minor-universal graph, counting local-Clifford classes (Proposition 5 and its proof) obtainable by Pauli measurements gives
+
+$$
+3^{n-k}\geq2^{(k^2-5k)/2-1},
+ \qquad
+ n\geq k+\frac{k^2-5k-2}{2\log_2 3}
+ =\Omega(k^2).
+\tag{2}
+$$
+
+Equation (2) shows that quadratic order is necessary, irrespective of construction time. [CMP23](https://doi.org/10.48550/arXiv.2309.09956)
+
+Theorem 8 of Cautrès et al. establishes that, for every real $\alpha>2$ and all sufficiently large $k$, there exists a $k$-vertex-minor-universal graph satisfying
+
+$$
+|V_k|\leq\alpha k^2.
+\tag{3}
+$$
+
+By Eq. (3), the optimal asymptotic order is already known existentially. [CCM+24](https://doi.org/10.4230/LIPIcs.ICALP.2024.36)
+
+For a prime power $q$, let $B_q$ be the bipartite incidence graph between points and lines of the projective plane over the field with $q$ elements; the explicit construction in Theorem 19 satisfies
+
+$$
+|V(B_q)|=2(q^2+q+1),
+ \qquad
+ 7k^2-16\leq4q
+ \quad\Longrightarrow\quad
+ B_q\text{ is }k\text{-vertex-minor universal}.
+\tag{4}
+$$
+
+In Eq. (4), choosing $q=\Theta(k^2)$ gives a deterministic polynomial-time construction with $O(k^4)$ vertices; the authors explicitly ask for cubic or quadratic deterministic constructions in their conclusion. [CCM+24](https://doi.org/10.4230/LIPIcs.ICALP.2024.36)
+
+Ascoli and coauthors improve (Theorem 1.1) the random-graph guarantee: writing $\mathbb G(n,p)$ for the distribution in which each possible edge appears independently with probability $p$, and defining $c_0:=1/(2\log_2(4/3))$, for every fixed $\eta>0$ one has, asymptotically as $k\to\infty$,
+
+$$
+n\geq(1+\eta)c_0k^2
+ \quad\Longrightarrow\quad
+ \Pr_{G\sim\mathbb G(n,1/2)}
+ [G\text{ is }k\text{-vertex-minor universal}]
+ \geq1-2^{-(1+o(1))\eta k^2/2}.
+\tag{5}
+$$
+
+Equation (5) gives efficient random generation with high success probability, not a guaranteed deterministic construction. [AFF+26](https://doi.org/10.48550/arXiv.2602.09049)
+
+Chao and Xu’s May 2026 revision (version 3, Theorems 1.3 and 1.4, and Appendix A) resolves the associated random-graph universality conjecture across its probability regimes; in particular, for sufficiently large $n$, with $s:=\min(p,1-p)$,
+
+$$
+\begin{gathered}
+s\geq\frac{100\log_2 n}{\sqrt n},
+ \\
+ k\leq\frac{s\sqrt n}{100}
+ \\
+\Longrightarrow\quad
+ \Pr_{G\sim\mathbb G(n,p)}
+ [G\text{ is }k\text{-vertex-minor universal}]
+ \geq1-2^{-s^2n/100}.
+\end{gathered}
+\tag{6}
+$$
+
+Beyond the regime in Eq. (6), their additional sparse and dense regime result completes the probabilistic conjecture, but does not supply the deterministic quadratic-size family asked for here. [CX26](https://doi.org/10.48550/arXiv.2603.13600)
+
+## Comment
+
+No deterministic polynomial-time construction with $O(k^2)$ vertices was found in the public literature checked through 9 September 2026; the unresolved gap is between quadratic probabilistic existence and quartic efficient deterministic constructions. Exhaustive finite search can eventually find a quadratic-size graph, but that observation does not meet the polynomial-time requirement, and the resolved random-graph conjecture must not be relabelled as this open construction problem. The status audit used public primary sources and later-work searches; it is not an exhaustive citation-index audit. The related Pauli-pairability question asks only for perfect matchings on prescribed terminals, rather than all graphs, and does not require an efficient deterministic construction.
+
+## References
+
+**CMP23** N. Claudet, M. Mhalla, and S. Perdrix, “Small $k$-Pairable States,” arXiv preprint (2023). [doi:10.48550/arXiv.2309.09956](https://doi.org/10.48550/arXiv.2309.09956); [arXiv:2309.09956](https://arxiv.org/abs/2309.09956).
+
+**CCM+24** M. Cautrès, N. Claudet, M. Mhalla, S. Perdrix, V. Savin, and S. Thomassé, “Vertex-Minor Universal Graphs for Generating Entangled Quantum Subsystems,” in *51st International Colloquium on Automata, Languages, and Programming (ICALP 2024)*, 36:1–36:18 (2024). [doi:10.4230/LIPIcs.ICALP.2024.36](https://doi.org/10.4230/LIPIcs.ICALP.2024.36); [arXiv:2402.06260](https://arxiv.org/abs/2402.06260).
+
+**AFF+26** R. Ascoli, B. Frederickson, S. Frederickson, C. McFarland, and L. Post, “Almost All Graphs Are Vertex-Minor Universal,” arXiv preprint (2026), version 2; accepted for RANDOM 2026. [doi:10.48550/arXiv.2602.09049](https://doi.org/10.48550/arXiv.2602.09049); [arXiv:2602.09049](https://arxiv.org/abs/2602.09049).
+
+**CX26** T.-W. Chao and Z. Xu, “Vertex-Minor Universality of a Random Graph,” arXiv preprint (2026), version 3, 5 May 2026. [doi:10.48550/arXiv.2603.13600](https://doi.org/10.48550/arXiv.2603.13600); [arXiv:2603.13600](https://arxiv.org/abs/2603.13600).

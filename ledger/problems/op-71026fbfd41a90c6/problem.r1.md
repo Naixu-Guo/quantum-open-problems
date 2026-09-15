@@ -1,0 +1,62 @@
+---
+id: "01M26K8QB7C9R8CSKZQYP5WRT5"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-10T21:50:00.391Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "editor-formulated"
+posed: null
+areaIds: ["quantum-communication"]
+topicIds: ["gaussian-quantum-information","quantum-channel-structure"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Gaussian-input preservation under a Gaussian reference extension"
+aliases: ["op-71026fbfd41a90c6","op_71026fbfd41a90c6","01M26K8QB7C9R8CSKZQYP5WRT5"]
+authoredCatalog: {"status":"Solved","sourcePath":"database/problems_json/op_71026fbfd41a90c6.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_71026fbfd41a90c6","ulid":"01M26K8QB7C9R8CSKZQYP5WRT5","aliases":["op_71026fbfd41a90c6","01M26K8QB7C9R8CSKZQYP5WRT5","op-71026fbfd41a90c6"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":1,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-10T21:23:34.375Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"editor-formulated","posed":null,"areaIds":["quantum-communication"],"topicIds":["gaussian-quantum-information","quantum-channel-structure"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Gaussian-input preservation under a Gaussian reference extension","status":"Solved","fields":["Quantum Communication"],"topics":["Gaussian quantum information","Quantum channel structure"],"statement":"Does preservation of Gaussian inputs by a trace-decreasing operation imply preservation when a Gaussian reference is attached?\nLet $\\Phi$ be a completely positive trace-nonincreasing linear map on trace-class operators of one bosonic mode.\nAssume $\\Phi(\\rho)/\\operatorname{Tr}\\Phi(\\rho)$ is Gaussian for every Gaussian density operator $\\rho$ with positive success probability.\nLet $\\operatorname{id}_B$ be the identity channel of a second bosonic mode.\nMust the state in Eq.~\\eqref{eq:sr53-extension} be Gaussian for every two-mode Gaussian state $\\omega_{AB}$ with positive denominator?\n\\begin{equation}\n\\frac{(\\Phi\\otimes\\operatorname{id}_B)(\\omega_{AB})}{\\operatorname{Tr}[(\\Phi\\otimes\\operatorname{id}_B)(\\omega_{AB})]}.\n\\label{eq:sr53-extension}\n\\end{equation}","source":"This formulation tests whether one of the two preservation assumptions in Giedke and Cirac's definition of Gaussian completely positive maps is redundant. See Sec.~III.A, before Eq.~(8), where both system and reference-extended preservation are required \\sourcecite{ref:sr53-giedke}{GC02}. The question and counterexample here are editorial, not attributed as claims of that paper.","progress":["The answer is negative. Let $|j\\rangle$ denote a photon-number state. The single Kraus operator in Eq.~\\eqref{eq:sr53-kraus} defines an allowed map, and every successful system output is the vacuum.\n\\begin{equation}\n\\begin{aligned}\n K&=|0\\rangle\\langle1|,\\qquad K^\\dagger K=|1\\rangle\\langle1|\\leq I,\\\\\n \\Phi(X)&=KXK^\\dagger=\\langle1|X|1\\rangle|0\\rangle\\langle0|.\n\\end{aligned}\n\\label{eq:sr53-kraus}\n\\end{equation}","For $r>0$, the finite-energy two-mode squeezed vacuum and its output are given by Eq.~\\eqref{eq:sr53-counterexample}.\n\\begin{equation}\n\\begin{aligned}\n |\\psi_r\\rangle&=\\frac1{\\cosh r}\\sum_{j=0}^\\infty(\\tanh r)^j|j,j\\rangle,\\\\\n (\\Phi\\otimes\\operatorname{id}_B)(|\\psi_r\\rangle\\langle\\psi_r|)\n &=\\frac{\\tanh^2 r}{\\cosh^2 r}|0,1\\rangle\\langle0,1|.\n\\end{aligned}\n\\label{eq:sr53-counterexample}\n\\end{equation}\nThe success probability is strictly positive. Its normalized reference marginal is the non-Gaussian one-photon state. Equation~\\eqref{eq:sr53-counterexample} therefore disproves the implication directly.","If trace preservation is imposed instead, Gaussian-input preservation does imply preservation with any finite Gaussian reference. Devendra, John, and Sumesh prove the equivalence with a Gaussian dilation in Theorem~3.1, including the reference-extension condition (v) \\sourcecite{ref:sr53-devendra}{DJS25}. This additional result is cited as a preprint."],"references":[{"key":"GC02","label":"ref:sr53-giedke","tex":"G. Giedke and J. I. Cirac, ``Characterization of Gaussian Operations and Distillation of Gaussian States,'' \\emph{Physical Review A} \\textbf{66}, 032316 (2002). \\href{https://doi.org/10.1103/PhysRevA.66.032316}{doi:10.1103/PhysRevA.66.032316}; \\href{https://arxiv.org/abs/quant-ph/0204085}{arXiv:quant-ph/0204085}."},{"key":"DJS25","label":"ref:sr53-devendra","tex":"R. Devendra, T. C. John, and K. Sumesh, ``What Is a Gaussian Channel, and When Is It Physically Implementable Using a Multiport Interferometer?,'' arXiv preprint (2025). \\href{https://arxiv.org/abs/2505.02834}{arXiv:2505.02834}."}],"comment":"The explicit one-Kraus-operator counterexample completely resolves the stated trace-nonincreasing question. It is a direct editorial calculation, not a separately peer-reviewed counterexample. The trace-preserving variant is different and has the positive characterization recorded in Progress."}}
+---
+## Source
+
+This formulation tests whether one of the two preservation assumptions in Giedke and Cirac’s definition of Gaussian completely positive maps is redundant. See Sec. III.A, before Eq. (8), where both system and reference-extended preservation are required [GC02](https://doi.org/10.1103/PhysRevA.66.032316). The question and counterexample here are editorial, not attributed as claims of that paper.
+
+## Progress
+
+The answer is negative. Let $|j\rangle$ denote a photon-number state. The single Kraus operator in Eq. (2) defines an allowed map, and every successful system output is the vacuum.
+
+$$
+\begin{aligned}
+ K&=|0\rangle\langle1|,\qquad K^\dagger K=|1\rangle\langle1|\leq I,\\
+ \Phi(X)&=KXK^\dagger=\langle1|X|1\rangle|0\rangle\langle0|.
+\end{aligned}
+\tag{2}
+$$
+
+For $r>0$, the finite-energy two-mode squeezed vacuum and its output are given by Eq. (3).
+
+$$
+\begin{aligned}
+ |\psi_r\rangle&=\frac1{\cosh r}\sum_{j=0}^\infty(\tanh r)^j|j,j\rangle,\\
+ (\Phi\otimes\operatorname{id}_B)(|\psi_r\rangle\langle\psi_r|)
+ &=\frac{\tanh^2 r}{\cosh^2 r}|0,1\rangle\langle0,1|.
+\end{aligned}
+\tag{3}
+$$
+
+The success probability is strictly positive. Its normalized reference marginal is the non-Gaussian one-photon state. Equation (3) therefore disproves the implication directly.
+
+If trace preservation is imposed instead, Gaussian-input preservation does imply preservation with any finite Gaussian reference. Devendra, John, and Sumesh prove the equivalence with a Gaussian dilation in Theorem 3.1, including the reference-extension condition (v) [DJS25](https://arxiv.org/abs/2505.02834). This additional result is cited as a preprint.
+
+## Comment
+
+The explicit one-Kraus-operator counterexample completely resolves the stated trace-nonincreasing question. It is a direct editorial calculation, not a separately peer-reviewed counterexample. The trace-preserving variant is different and has the positive characterization recorded in Progress.
+
+## References
+
+**GC02** G. Giedke and J. I. Cirac, “Characterization of Gaussian Operations and Distillation of Gaussian States,” *Physical Review A* **66**, 032316 (2002). [doi:10.1103/PhysRevA.66.032316](https://doi.org/10.1103/PhysRevA.66.032316); [arXiv:quant-ph/0204085](https://arxiv.org/abs/quant-ph/0204085).
+
+**DJS25** R. Devendra, T. C. John, and K. Sumesh, “What Is a Gaussian Channel, and When Is It Physically Implementable Using a Multiport Interferometer?,” arXiv preprint (2025). [arXiv:2505.02834](https://arxiv.org/abs/2505.02834).

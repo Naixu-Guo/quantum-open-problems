@@ -1,0 +1,58 @@
+---
+id: "01M26KH5VV4PMPT9VB7KSSMS65"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-10T21:50:00.391Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-resource-theory"]
+topicIds: ["gaussian-quantum-information","quantum-separability"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Exact covariance criterion for bipartite Gaussian separability"
+aliases: ["op-f408a3c300b9b214","op_f408a3c300b9b214","01M26KH5VV4PMPT9VB7KSSMS65"]
+authoredCatalog: {"status":"Solved","sourcePath":"database/problems_json/op_f408a3c300b9b214.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_f408a3c300b9b214","ulid":"01M26KH5VV4PMPT9VB7KSSMS65","aliases":["op_f408a3c300b9b214","01M26KH5VV4PMPT9VB7KSSMS65","op-f408a3c300b9b214"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":1,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-10T21:28:11.387Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-resource-theory"],"topicIds":["gaussian-quantum-information","quantum-separability"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Exact covariance criterion for bipartite Gaussian separability","status":"Solved","fields":["Quantum Resource Theory"],"topics":["Gaussian quantum information","Quantum separability"],"statement":"What necessary and sufficient condition on a covariance matrix characterizes bipartite Gaussian separability?\n\nLet $m,n\\geq1$ be integers. Let $\\rho_V$ be a zero-mean Gaussian state with $m$ modes held by Alice and $n$ modes held by Bob. Its finite real covariance matrix and canonical commutators are\n\n\\begin{equation}\nV_{jk}:=\\operatorname{Tr}\\rho_V\\{R_j,R_k\\},\\qquad\n[R_j,R_k]=i(\\Omega_{m+n})_{jk},\\qquad\n\\Omega_k:=\\bigoplus_{j=1}^{k}\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}.\n\\label{eq:ser16-statement-1}\n\\end{equation}\n\nSeparability means that $\\rho_V$ belongs to the trace-norm closed convex hull of product density operators. Determine separability from the covariance in Eq.~\\eqref{eq:ser16-statement-1}.","source":"Werner and Wolf state and prove the complete covariance criterion in Proposition 1 \\sourcecite{ref:ser16-1}{WW01}.","progress":["Werner--Wolf, Proposition 1, proves both directions of the criterion below. The exact criterion is the following finite semidefinite feasibility problem over real symmetric matrices $V_A$ of size $2m$ and $V_B$ of size $2n$:\n\n\\begin{equation}\n\\rho_V\\text{ is separable}\n\\quad\\Longleftrightarrow\\quad\n\\exists V_A,V_B:\\quad V_A+i\\Omega_m\\geq0,\\quad\nV_B+i\\Omega_n\\geq0,\\quad V\\geq V_A\\oplus V_B.\n\\label{eq:ser16-progress-1-1}\n\\end{equation}\n\nEquation~\\eqref{eq:ser16-progress-1-1} solves the unrestricted Gaussian separability criterion. \\sourcecite{ref:ser16-1}{WW01}","With $T_B:=I_{2m}\\oplus\\bigoplus_{j=1}^{n}\\operatorname{diag}(1,-1)$, partial-transpose positivity is equivalent to\n\n\\begin{equation}\nT_BVT_B+i\\Omega_{m+n}\\geq0.\n\\label{eq:ser16-progress-2-1}\n\\end{equation}\n\nEquation~\\eqref{eq:ser16-progress-2-1} is also sufficient for separability if $m=1$ or $n=1$, or if the Gaussian state is invariant under all permutations of the modes on one party; it fails to be sufficient for general $m=n=2$. \\sourcecite{ref:ser16-1}{WW01}, \\sourcecite{ref:ser16-2}{LSA18} The permutation-symmetric extension is Theorem 9 of Lami et al. \\sourcecite{ref:ser16-2}{LSA18}"],"references":[{"key":"WW01","label":"ref:ser16-1","tex":"R. F. Werner and M. M. Wolf, \"Bound Entangled Gaussian States,\" \\emph{Physical Review Letters} \\textbf{86}, 3658--3661 (2001). \\href{https://doi.org/10.1103/PhysRevLett.86.3658}{doi:10.1103/PhysRevLett.86.3658}; \\href{https://arxiv.org/abs/quant-ph/0009118}{arXiv:quant-ph/0009118}."},{"key":"LSA18","label":"ref:ser16-2","tex":"L. Lami, A. Serafini, and G. Adesso, \"Gaussian Entanglement Revisited,\" \\emph{New Journal of Physics} \\textbf{20}, 023030 (2018). \\href{https://doi.org/10.1088/1367-2630/aaa654}{doi:10.1088/1367-2630/aaa654}; \\href{https://arxiv.org/abs/1612.05215}{arXiv:1612.05215}."}],"comment":"The full criterion is solved by peer-reviewed results. Semidefinite feasibility is an exact mathematical characterization. A demand for a particular elementary expression would require a separately specified expression class."}}
+---
+## Source
+
+Werner and Wolf state and prove the complete covariance criterion in Proposition 1 [WW01](https://doi.org/10.1103/PhysRevLett.86.3658).
+
+## Progress
+
+Werner–Wolf, Proposition 1, proves both directions of the criterion below. The exact criterion is the following finite semidefinite feasibility problem over real symmetric matrices $V_A$ of size $2m$ and $V_B$ of size $2n$:
+
+$$
+\rho_V\text{ is separable}
+\quad\Longleftrightarrow\quad
+\exists V_A,V_B:\quad V_A+i\Omega_m\geq0,\quad
+V_B+i\Omega_n\geq0,\quad V\geq V_A\oplus V_B.
+\tag{2}
+$$
+
+Equation (2) solves the unrestricted Gaussian separability criterion. [WW01](https://doi.org/10.1103/PhysRevLett.86.3658)
+
+With $T_B:=I_{2m}\oplus\bigoplus_{j=1}^{n}\operatorname{diag}(1,-1)$, partial-transpose positivity is equivalent to
+
+$$
+T_BVT_B+i\Omega_{m+n}\geq0.
+\tag{3}
+$$
+
+Equation (3) is also sufficient for separability if $m=1$ or $n=1$, or if the Gaussian state is invariant under all permutations of the modes on one party; it fails to be sufficient for general $m=n=2$. [WW01](https://doi.org/10.1103/PhysRevLett.86.3658), [LSA18](https://doi.org/10.1088/1367-2630/aaa654) The permutation-symmetric extension is Theorem 9 of Lami et al. [LSA18](https://doi.org/10.1088/1367-2630/aaa654)
+
+## Comment
+
+The full criterion is solved by peer-reviewed results. Semidefinite feasibility is an exact mathematical characterization. A demand for a particular elementary expression would require a separately specified expression class.
+
+## References
+
+**WW01** R. F. Werner and M. M. Wolf, "Bound Entangled Gaussian States," *Physical Review Letters* **86**, 3658–3661 (2001). [doi:10.1103/PhysRevLett.86.3658](https://doi.org/10.1103/PhysRevLett.86.3658); [arXiv:quant-ph/0009118](https://arxiv.org/abs/quant-ph/0009118).
+
+**LSA18** L. Lami, A. Serafini, and G. Adesso, "Gaussian Entanglement Revisited," *New Journal of Physics* **20**, 023030 (2018). [doi:10.1088/1367-2630/aaa654](https://doi.org/10.1088/1367-2630/aaa654); [arXiv:1612.05215](https://arxiv.org/abs/1612.05215).

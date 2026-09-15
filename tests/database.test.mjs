@@ -66,10 +66,12 @@ test("the authoring schema permits exactly two statuses and hashes metadata sepa
   assert.notEqual(canonicalJson(example), canonicalJson(changed));
 });
 
-test("TeX reimport is a byte-preserving no-op and content replacement retains both identities", (t) => {
+test("TeX reimport is a byte-preserving no-op and content replacement retains identities and contributors", (t) => {
   const root = fixture(t);
   const jsonPath = path.join(root, `database/problems_json/${example.id}.json`);
   const texPath = path.join(root, `database/problems_tex/${example.id}.tex`);
+  const contributors = [{ name: "Ada Example", affiliation: "Example University", anonymous: false }, { anonymous: true }];
+  fs.writeFileSync(jsonPath, JSON.stringify({ ...example, contributors }, null, 2) + "\n");
   const beforeJson = fs.readFileSync(jsonPath, "utf8");
   const beforeTex = fs.readFileSync(texPath, "utf8");
   succeed(script("import-problems.mjs", ["--root", root, texPath]));
@@ -91,6 +93,7 @@ test("TeX reimport is a byte-preserving no-op and content replacement retains bo
   assert.equal(after.status, example.status);
   assert.deepEqual(after.aliases, example.aliases);
   assert.deepEqual(after.metadata, example.metadata);
+  assert.deepEqual(after.contributors, contributors);
 });
 
 test("a rejected stale import prevents earlier valid inputs from being written", (t) => {
@@ -112,6 +115,8 @@ test("metadata migration preserves content, detects taxonomy drift, and is idemp
   const jsonPath = path.join(root, `database/problems_json/${example.id}.json`);
   succeed(script("migrate-metadata.mjs", ["--root", root, "--check"]));
   const legacy = structuredClone(example);
+  const contributors = [{ name: "Ada Example", anonymous: false }, { anonymous: true }];
+  legacy.contributors = contributors;
   legacy.schema = "qiqcop-zoo/record/2";
   delete legacy.ulid;
   delete legacy.aliases;
@@ -124,6 +129,7 @@ test("metadata migration preserves content, detects taxonomy drift, and is idemp
   const migrated = read(jsonPath);
   assert.deepEqual(canonicalRecord(migrated), canonicalRecord(example));
   assert.equal(migrated.ulid, example.ulid);
+  assert.deepEqual(migrated.contributors, contributors);
   const once = fs.readFileSync(jsonPath, "utf8");
   succeed(script("migrate-metadata.mjs", ["--root", root]));
   assert.equal(fs.readFileSync(jsonPath, "utf8"), once);
@@ -139,6 +145,7 @@ test("metadata migration preserves content, detects taxonomy drift, and is idemp
   const synchronized = read(jsonPath);
   assert.deepEqual(synchronized.metadata.areaIds, [metadataSlug(changedField)]);
   assert.equal(synchronized.ulid, example.ulid);
+  assert.deepEqual(synchronized.contributors, contributors);
   assert.deepEqual(canonicalRecord(synchronized), canonicalRecord(changed));
   synchronized.status = "Partially solved";
   fs.writeFileSync(jsonPath, JSON.stringify(synchronized, null, 2) + "\n");
@@ -151,6 +158,7 @@ test("new JSON scaffolds receive unique identifiers and can synchronize edited c
   succeed(result);
   const file = path.join(root, result.stdout.trim());
   const fresh = read(file);
+  assert.deepEqual(fresh.contributors, [], "new records scaffold an explicit empty contributor list");
   assert.notEqual(fresh.id, example.id);
   assert.notEqual(fresh.ulid, example.ulid);
   assert.ok(fresh.aliases.includes(fresh.id));

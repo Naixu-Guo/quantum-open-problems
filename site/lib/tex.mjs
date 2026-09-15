@@ -807,6 +807,7 @@ export function renderRecord(record, { taxonomy = null, fileName = "" } = {}) {
       },
       progress: progressItems.map((item) => ({ tex: item.tex, html: item.html, text: htmlToText(item.html) })),
       references: references.map((entry) => ({ key: entry.key, label: entry.label, anchor: entry.anchor, tex: entry.tex, html: entry.html, text: htmlToText(entry.html), links: entry.links })),
+      ...(record.contributors === undefined ? {} : { contributors: structuredClone(record.contributors) }),
       uncitedReferences: uncited.map((entry) => entry.key),
       comment: { tex: record.comment.trim(), html: commentHtml, text: htmlToText(commentHtml) },
       equations

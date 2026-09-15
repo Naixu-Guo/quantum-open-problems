@@ -246,6 +246,9 @@ write("index.html", renderHome({ config, root: "", records, stats, fieldCounts, 
 write("problems/index.html", renderDirectory({ config, root: "../", records, fieldCounts, topicCounts }));
 write("tags/index.html", renderTagsIndex({ config, root: "../", taxonomy, fieldCounts, topicCounts }));
 write("about/index.html", renderAbout({ config, root: "../", stats, dates }));
+for (const [file, target] of [["LICENSE", "Apache-2.0.txt"], ["LICENSE-CONTENT", "CC-BY-4.0.txt"], ["NOTICE", "NOTICE.txt"], ["LICENSING.md", "scope.txt"]]) {
+  write(`licenses/${target}`, fs.readFileSync(path.join(repoRoot, file), "utf8"));
+}
 write("contribute/index.html", renderContribute({ config, root: "../", taxonomy, fieldCounts, topicCounts }));
 write("404.html", renderNotFound({ config, root: "/" + config.siteUrl.replace(/^https?:\/\/[^/]+\/?/, "") }));
 // Publish schemas at their canonical $id URLs, including relative payload references.
@@ -389,6 +392,7 @@ for (const record of records) {
     progress: record.progress,
     comment: record.comment,
     references: record.references,
+    ...(record.contributors === undefined ? {} : { contributors: record.contributors.filter((person) => person.anonymous === false) }),
     equations: record.equations,
     equivalentRecords: record.equivalentRecords,
     related: relatedFor(record).map((item) => ({ id: item.record.id, title: item.record.title.text, sharedFields: item.sharedFields, sharedTopics: item.sharedTopics })),
@@ -432,7 +436,7 @@ The zoo holds ${stats.total} permanent records (${stats.unsolved} unsolved, ${st
 
 ## MCP access
 
-Connect a remote MCP client to ${config.mcp.url} using Streamable HTTP. Public catalog reads require no API key or local installation. Use get_taxonomy for area/topic labels and slugs; search_problems accepts either, case-insensitively. Search returns total matches and nextOffset; count is only the current page (50 by default). Continue with the same filters and offset=nextOffset until nextOffset is null. get_status separates permanent record counts from distinct-question counts. Use get_problem, list_references, search_sources, and build_context for details; build_context respects a token budget. Setup guide: ${siteUrl}/about/#mcp.
+Connect a remote MCP client to ${config.mcp.url} using Streamable HTTP. Public catalog reads require no API key or local installation. Use get_taxonomy for area/topic labels and slugs; search_problems accepts either, case-insensitively. Search returns total matches, catalogVersion and nextCursor; count is only the current page (50 by default). Search defaults to summary rows; request view=research for complete research details directly in each result, without first collecting IDs. Research pages obey whole-problem maxBytes (default 32768); responseBytes measures compact API JSON, excluding MCP framing and client token limits. If a single problem exceeds the budget, the error reports minimumRequiredBytes and problemId; read_problem can retrieve the needed content category with automatic continuation when necessary. Continue with the same filters, view and cursor=nextCursor; if the catalog changes or you switch views, restart the query. Legacy nextOffset remains available. Use sample_problem to draw uniformly from all matching unsolved records. get_problem with view=research provides complete source, progress, comment and references with revision provenance; catalog edit dates are not research-result dates. get_status separates permanent record counts from distinct-question counts. Use read_problem to read a content category: statement (definition and retained background), history (origin and prior research), references (bibliography and service references), or comment (commentary, discussions and decisions). The initial default is statement. Every category includes the authoritative problem status and statusSource; service clause evidence status may remain open for a Solved catalog problem. Normal results return complete structured content; only oversized categories return serialized JSON text with nextCursor. Follow the cursor in order to finish the selected category; concatenate text before parsing JSON. maxBytes defaults to 8192 (range 2048–65536). There is no paragraph or block selector. documentVersion identifies the complete research view including associated records; document_changed requires restarting. Reading one category does not cover the whole problem. Whole-problem get_problem and batch search remain available. Use list_references, search_sources, and build_context for further details. build_context uses an approximate section-text budget, excluding metadata and transport framing; check formalContextComplete, incomplete, and minimumRequiredTokens before reasoning from the bundle. Setup guide: ${siteUrl}/about/#mcp.
 
 ## Machine-readable downloads
 
@@ -446,6 +450,8 @@ Connect a remote MCP client to ${config.mcp.url} using Streamable HTTP. Public c
 - ${siteUrl}/problem/<id>/<id>.tex: the TeX form of one record.
 
 ## Contributing
+
+Software uses Apache-2.0. New original catalog contributions use CC BY 4.0. Earlier catalog text requires permission confirmation; do not assume the whole catalog is CC BY 4.0. Cited papers and third-party material retain their own terms. Licensing scope and attribution: ${siteUrl}/about/#licensing and ${siteUrl}/licenses/scope.txt.
 
 Records are JSON files in ${config.repositoryUrl}/tree/${config.branch}/${config.databasePath}, with a TeX form of each in ${config.texPath}. Follow database/_template.json and open a pull request; the build validates every record. ${submissionsOnline(config) ? `Send proposals without an account at ${siteUrl}/contribute/.` : `Direct online sending is not enabled. Prepare and copy a proposal at ${siteUrl}/contribute/, then submit a GitHub issue (a GitHub account is required).`} Proposals are reviewed by the maintainers before publication.
 `);

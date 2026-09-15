@@ -16,7 +16,8 @@
 //     "source": "TeX of the source attribution",
 //     "progress": ["TeX of one progress item", ...],
 //     "references": [{ "key": "AutYY", "label": "ref:...", "tex": "TeX entry" }, ...],
-//     "comment": "TeX of the comment"
+//     "comment": "TeX of the comment",
+//     "contributors": [{ "name": "Public name", "anonymous": false }, { "anonymous": true }] // optional, per problem
 //   }
 //
 // Version 2 split tags into fields/topics. Version 3 adds main-compatible
@@ -26,7 +27,7 @@ import { validateRecordMetadata, MetadataError } from "./metadata.mjs";
 
 export const RECORD_SCHEMA = "qiqcop-zoo/record/3";
 
-export const RECORD_KEYS = ["schema", "id", "ulid", "aliases", "metadata", "title", "status", "fields", "topics", "statement", "source", "progress", "references", "comment"];
+export const RECORD_KEYS = ["schema", "id", "ulid", "aliases", "metadata", "title", "status", "fields", "topics", "statement", "source", "progress", "references", "comment", "contributors"];
 
 export const ID_PATTERN = /^op_[A-Za-z0-9]{16}$/;
 
@@ -68,6 +69,19 @@ export function validateRecordShape(data, fileName = "record") {
     if (!isFilled(entry.tex)) fail(`reference ${index + 1} needs a "tex" entry`);
   });
   if (!isFilled(data.comment)) fail("\"comment\" must be a non-empty string");
+  if (Object.hasOwn(data, "contributors")) {
+    if (!Array.isArray(data.contributors)) fail('"contributors" must be an array');
+    data.contributors.forEach((entry, index) => {
+      const who = `contributor ${index + 1}`;
+      if (!entry || typeof entry !== "object" || Array.isArray(entry)) fail(`${who} must be an object`);
+      if (!Object.hasOwn(entry, "anonymous") || typeof entry.anonymous !== "boolean") fail(`${who} must explicitly set "anonymous" to true or false`);
+      const allowed = entry.anonymous ? ["anonymous"] : ["name", "affiliation", "anonymous"];
+      const extra = Object.keys(entry).filter((key) => !allowed.includes(key));
+      if (extra.length) fail(`${who} has disallowed field(s): ${extra.join(", ")}${entry.anonymous ? "; anonymous contributors must contain no identifying details" : ""}`);
+      if (!entry.anonymous && !isFilled(entry.name)) fail(`${who} needs a non-empty "name" for public attribution`);
+      if (Object.hasOwn(entry, "affiliation") && !isString(entry.affiliation)) fail(`${who}: "affiliation" must be a string`);
+    });
+  }
   try {
     validateRecordMetadata(data, fileName);
   } catch (error) {
@@ -76,6 +90,10 @@ export function validateRecordShape(data, fileName = "record") {
   }
   return orderRecord(data);
 }
+
+const orderContributors = (contributors) => contributors.map((entry) => entry.anonymous === true
+  ? { anonymous: true }
+  : { name: entry.name, ...(Object.hasOwn(entry, "affiliation") ? { affiliation: entry.affiliation } : {}), anonymous: entry.anonymous });
 
 // Put the fields in canonical order so every record file reads the same way.
 export function orderRecord(record) {
@@ -93,7 +111,8 @@ export function orderRecord(record) {
     source: record.source,
     progress: record.progress.slice(),
     references: record.references.map((entry) => ({ key: entry.key, label: entry.label, tex: entry.tex })),
-    comment: record.comment
+    comment: record.comment,
+    ...(Object.hasOwn(record, "contributors") ? { contributors: orderContributors(record.contributors) } : {})
   };
 }
 
@@ -106,7 +125,8 @@ export const canonicalTex = (value) => String(value)
   .trim();
 
 // The canonical authored content: what the TeX sync check compares. Metadata
-// deliberately stays in JSON so adding identities never rewrites the TeX.
+// and contributor preferences deliberately stay in JSON so adding identities
+// never rewrites the TeX.
 export function canonicalRecord(record) {
   return {
     id: record.id.trim(),
@@ -122,13 +142,14 @@ export function canonicalRecord(record) {
   };
 }
 
-// The public JSON digest also changes when identity or metadata changes.
+// The public JSON digest also changes when identity, metadata, or contributors change.
 export const canonicalJson = (record) => JSON.stringify({
   schema: RECORD_SCHEMA,
   ...canonicalRecord(record),
   ulid: record.ulid,
   aliases: record.aliases,
-  metadata: record.metadata
+  metadata: record.metadata,
+  ...(Object.hasOwn(record, "contributors") ? { contributors: orderContributors(record.contributors) } : {})
 });
 
 // Names of the fields whose canonical content differs between two records.

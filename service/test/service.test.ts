@@ -32,7 +32,9 @@ const git = (cwd: string, args: string[]) => {
 };
 
 const getJson = async (route: string): Promise<{ status: number; body: any }> => {
-  const response = await fetch(`${base}${route}`);
+  // Synchronous fixture Git work can delay idle-socket timers on this shared event loop.
+  // These assertions need fresh requests, without reusing a connection due to expire.
+  const response = await fetch(`${base}${route}`, { headers: { Connection: "close" } });
   return { status: response.status, body: await response.json() };
 };
 
@@ -74,6 +76,12 @@ test("GET /api/v1/status reports counts and the policy", async () => {
   assert.equal(body.problems.byStatus.Solved, 2);
   assert.ok(body.lastSequence > 0);
   assert.deepEqual(Object.keys(body.problems.byStatus).sort(), ["Solved", "Unsolved"]);
+  const policy = await getJson("/api/v1/policy");
+  assert.equal(policy.status, 200);
+  assert.equal(policy.body.licenses.textDefault, "CC-BY-4.0");
+  assert.equal(policy.body.licenses.codeDefault, "Apache-2.0");
+  assert.match(policy.body.licenses.scope, /new authorized contributions/u);
+  assert.equal(policy.body.licenses.scopeUrl, "https://qiqc-op.com/about/#licensing");
 });
 
 test("GET /api/v1/problems lists indexed problems only, with filters", async () => {

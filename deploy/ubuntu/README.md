@@ -78,6 +78,18 @@ For CAPTCHA protection, set server mode `captcha`, configure `QOP_CAPTCHA_SECRET
 and the provider, change site `spamProtection` to `captcha`, and configure the
 matching public widget site key. Unconfigured deployments stay closed.
 
+Pages and the API deploy independently. Keep `contribute.allowAnonymous=false`
+in `site/config.json` until the deployed API preserves `contributor.anonymous`.
+Deploy the supporting API first, then verify with a synthetic proposal that
+`anonymous: true` survives submission, authenticated inbox retrieval, and a
+service restart, while the contributor's name, email, and affiliation remain
+available privately. Only after these checks pass, set `allowAnonymous` to the
+JSON boolean `true` and publish Pages. Older APIs silently discard this field.
+With the flag off, the form offers named credit only and blocks restored drafts
+that request anonymous credit; their saved preference and private contact details
+are retained. Turn the flag off before rolling the API back to a version without
+anonymous-credit support.
+
 Inbox sessions expire after twelve hours. JSON exports for AI omit contact email
 and request metadata and download to the maintainer's computer; no AI service is
 called. The review note and status can be saved in the inbox. Marking accepted
@@ -132,13 +144,38 @@ Public HTTP MCP stays read-only.
 ## Public MCP endpoint
 
 `https://api.qiqc-op.com/mcp` serves read-only Streamable HTTP MCP, using the
-official SDK's stateless transport with both modern and legacy HTTP clients.
+official SDK with modern and legacy HTTP clients. Modern requests are stateless;
+legacy clients receive an opaque `Mcp-Session-Id` and echo it on subsequent calls
+so cancellation reaches the same SDK instance. At most 256 legacy sessions are
+retained by default; they expire after 15 idle minutes. At capacity, the least
+recently used session with no active requests can be reclaimed. Sessions still
+initializing are protected. Clients reinitialize after an expired or reclaimed
+session returns 404. Resource subscriptions remain unsupported.
+Each legacy session allows at most 128 active requests. Cancellation, session
+closure, expiry, client disconnection, and service shutdown end outstanding
+responses and release their request state.
 Users connect to this URL without downloading the repository or installing Node.
 
 The MCP process is independent of the API process: `/opt/qop/mcp-current`
 points to an immutable release, and `/etc/qop/mcp-release` records its commit.
 In that release, install production dependencies with
-`npm --prefix mcp ci --omit=dev --ignore-scripts`. Install `qop-mcp.service`,
+`npm --prefix mcp ci --omit=dev --ignore-scripts`.
+
+MCP 1.3 requires an API that advertises `contextSchemaVersion: "qop-context/2"`,
+`idempotencyVersion: "qop-idempotency/2"`, `retrievalVersion: "qop-retrieval/1"`,
+`researchSearchVersion: "qop-search-research/1"`, and
+`problemReadVersion: "qop-problem-read/1"`
+at `/api/v1/status`. Deploy the matching
+API release and restart `qop` first. From the candidate MCP release directory,
+check the exact upstream origin configured in `/etc/qop/mcp.env`:
+
+```sh
+QOP_SERVICE_URL=http://127.0.0.1:8787 npm --prefix mcp run check:service
+```
+
+The check performs one public status read and exits nonzero if the API is
+unreachable, returns an error, or lacks any required contract. Only after
+it passes, activate the MCP release. Install `qop-mcp.service`,
 copy `mcp.env.example` to `/etc/qop/mcp.env`, then enable it with
 `systemctl enable --now qop-mcp`. The process binds `127.0.0.1:8788` and forwards
 read calls to the existing API on port 8787. Install the `/mcp` location from
@@ -151,10 +188,27 @@ guards, a 64 KiB request limit, and a per-address limit of 240 requests per minu
 apply. Enable `QOP_MCP_TRUST_PROXY` only with the nginx configuration that replaces
 `X-Forwarded-For`. Allowed Origin values in the environment are hostnames.
 
-For upgrades, install a new release and its dependencies, update only
-`/opt/qop/mcp-current` and `/etc/qop/mcp-release`, then restart `qop-mcp`.
-Roll back that symlink to the previous release if needed. The API's release,
-catalog clone, and SQLite stores are independent of this process.
+For upgrades, install the new MCP release and its dependencies, deploy and restart
+the API first if any required contract is older, and run `check:service` from the
+candidate release before changing `/opt/qop/mcp-current`, `/etc/qop/mcp-release`,
+or restarting `qop-mcp`. If preflight fails, leave the running MCP release in
+place. Roll back the MCP symlink if needed, keeping its required API contracts
+compatible with the running service. The API's release, catalog clone, and SQLite
+stores remain separate from the MCP process.
+
+If an old API is reached after activation, `build_context` returns a nonretryable
+`INCOMPATIBLE_SERVICE` error with the upgrade steps. It does not invent v2 context
+fields or completeness guarantees. Other read tools are not blocked solely by
+the missing context capability.
+Local authenticated adapters also check `qop-idempotency/2` before a keyed write,
+rejecting an incompatible API before mutation. The service's durable pending
+receipt may return `IDEMPOTENCY_OUTCOME_UNKNOWN` after an uncertain operation;
+inspect and reconcile that state rather than retrying under a new key.
+
+Completed JSON-request receipts remain replayable across this upgrade. Artifact
+request hashes now include title, kind, and media type as well as bytes. A key
+created for an artifact on an older API can therefore return a conflict after
+upgrading; inspect its original artifact before attempting any further upload.
 
 Use `systemctl status qop-mcp` and `journalctl -u qop-mcp` to diagnose it.
 An ordinary browser GET to `/mcp` may return 405: test it with an MCP client
@@ -265,3 +319,11 @@ named in `/etc/qop/release` and `/etc/qop/mcp-release`, then start both services
 Older archives instead contain `var/lib/qop` and `etc/qop` directly. Restore
 matching code and data after an incompatible schema migration; never print
 authentication data or secrets while diagnosing a restore.
+
+## Content license consent
+
+When deploying the licensing policy, update the service before publishing the
+new proposal form. The service preserves explicit `contentLicense: "CC-BY-4.0"`
+consent in each receipt. Older clients still work, but an absent license value
+means permission needs confirmation; the inbox shows this distinction. Do not
+backfill consent on older proposals. See [LICENSING.md](../../LICENSING.md).

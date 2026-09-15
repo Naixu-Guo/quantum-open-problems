@@ -11,7 +11,7 @@ import { createServer } from "../src/api.ts";
 import { hashKey } from "../src/auth.ts";
 import { configFromEnv, submissionsDefaults } from "../src/config.ts";
 
-const proposal = (title = "Synthetic capacity test proposal") => ({ title, statement: "A synthetic statement long enough for testing only.", fields: ["Quantum Communication"], topics: ["Private capacity"], contributor: { name: "Test", email: "capacity@example.invalid" }, consent: true });
+const proposal = (title = "Synthetic capacity test proposal") => ({ title, statement: "A synthetic statement long enough for testing only.", fields: ["Quantum Communication"], topics: ["Private capacity"], contributor: { name: "Test", email: "capacity@example.invalid" }, consent: true, contentLicense: "CC-BY-4.0" });
 const payload = (title?: string) => parseSubmission(proposal(title), false).payload;
 const meta = { address: "192.0.2.1", userAgent: "test", captchaProvider: "basic" };
 const at = Date.now();
@@ -142,4 +142,27 @@ test("HTTP global budget covers distinct addresses and failed attempts; monitor 
   assert.ok(!JSON.stringify(capacity).includes("capacity@example.invalid"));
   for (const route of ["/api/v1/submissions", "/api/v1/actors/me"]) assert.equal((await fetch(base + route, { headers })).status, 401);
   assert.equal((await fetch(base + "/api/v1/batches", { method: "POST", headers, body: "{}" })).status, 401);
+});
+
+
+test("full inbox distinguishes retries from contact and license corrections", t => {
+  const store = new SubmissionStore(":memory:", { maxRows: 1 });
+  t.after(() => store.close());
+  const original = payload();
+  const first = store.accept(original, meta, at);
+  assert.deepEqual(store.accept(original, meta, at), { ...first, duplicate: true });
+  for (const contributor of [
+    { ...original.contributor, name: "Corrected name" },
+    { ...original.contributor, email: "corrected@example.invalid" },
+    { ...original.contributor, affiliation: "Corrected affiliation" },
+    { ...original.contributor, anonymous: !original.contributor.anonymous },
+  ]) {
+    assert.throws(() => store.accept({ ...original, contributor }, meta, at), refused(503));
+    assert.deepEqual(store.get(first.id)!.payload, original);
+  }
+  const { contentLicense: _license, ...legacy } = original;
+  store.db.prepare("UPDATE submissions SET payload = ? WHERE id = ?").run(JSON.stringify(legacy), first.id);
+  assert.throws(() => store.accept(original, meta, at), refused(503), "new consent cannot reuse a legacy receipt");
+  assert.equal(store.capacity.usage(at).rows.used, 1);
+  assert.equal(store.get(first.id)!.payload.contentLicense, undefined);
 });

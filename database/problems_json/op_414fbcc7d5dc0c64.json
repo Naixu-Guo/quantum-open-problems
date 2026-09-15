@@ -34,7 +34,7 @@
     "relatedProblemIds": []
   },
   "title": "Exponential strong converse for transpose-degradable channels",
-  "status": "Unsolved",
+  "status": "Solved",
   "fields": [
     "Quantum Communication"
   ],
@@ -48,7 +48,8 @@
   "progress": [
     "Transpose degradability proves the tensor-power identity\n  \\begin{equation}\n    Q^{(1)}(\\Phi^{\\otimes n})=nQ^{(1)}(\\Phi)\n    \\qquad(n\\geq1).\n    \\label{eq:p55-coherent-information-additivity}\n  \\end{equation}\n  Equation~\\eqref{eq:p55-coherent-information-additivity} establishes the\n  capacity formula in Eq.~\\eqref{eq:p55-single-letter-capacity}, but gives no\n  finite-block upper bound on $F_n$\n  \\sourcecite{ref:p55-singh-datta}{SD22}.",
     "For every ordinarily degradable channel $\\mathcal N$ and fixed\n  purified-distance error $\\varepsilon<1/\\sqrt2$, Morgan and Winter proved\n  \\begin{equation}\n    \\log_2 N_E(n,\\varepsilon\\mid\\mathcal N)\n      \\leq nQ^{(1)}(\\mathcal N)+O(\\sqrt{n\\log n}),\n    \\label{eq:p55-pretty-strong-converse}\n  \\end{equation}\n  where $N_E$ is the largest entanglement-generation code dimension.\n  Equation~\\eqref{eq:p55-pretty-strong-converse} is a pretty-strong converse\n  for ordinary degradability, and their proof does not extend to\n  transpose-degradable channels solely from coherent-information additivity\n  \\sourcecite{ref:p55-morgan-winter}{MW14}.",
-    "Kondra et al. proved in 2026 that every finite-dimensional ordinarily\n  degradable or antidegradable channel $\\mathcal N$ obeys, for every rate above\n  capacity,\n  \\begin{equation}\n    r_n\\geq R>Q(\\mathcal N)\n    \\quad\\Longrightarrow\\quad\n    F_n\\leq2^{-\\gamma_R n}\n    \\quad\\text{for all sufficiently large }n.\n    \\label{eq:p55-ordinary-exponential-converse}\n  \\end{equation}\n  Equation~\\eqref{eq:p55-ordinary-exponential-converse} settles the known\n  transpose-degradable examples that are also degradable, but its theorem does\n  not cover a hypothetical strict transpose-degradable channel\n  \\sourcecite{ref:p55-kondra-et-al}{KBK+26}."
+    "Kondra et al. proved in 2026 that every finite-dimensional ordinarily\n  degradable or antidegradable channel $\\mathcal N$ obeys, for every rate above\n  capacity,\n  \\begin{equation}\n    r_n\\geq R>Q(\\mathcal N)\n    \\quad\\Longrightarrow\\quad\n    F_n\\leq2^{-\\gamma_R n}\n    \\quad\\text{for all sufficiently large }n.\n    \\label{eq:p55-ordinary-exponential-converse}\n  \\end{equation}\n  Equation~\\eqref{eq:p55-ordinary-exponential-converse} settles the known\n  transpose-degradable examples that are also degradable, but its theorem does\n  not cover a hypothetical strict transpose-degradable channel\n  \\sourcecite{ref:p55-kondra-et-al}{KBK+26}.",
+    "Beigi and Tomamichel's Theorem~1 proves an exponential strong converse for every finite-dimensional memoryless quantum channel, including arbitrary encoders and joint decoders. Applying it to $\\Phi$ with the rate gap $R-Q(\\Phi)>0$ proves Eq.~\\eqref{eq:p55-exponential-strong-converse}; Eq.~\\eqref{eq:p55-single-letter-capacity} identifies the threshold with the single-letter capacity. This argument covers transpose-degradable channels whether or not they are ordinarily degradable \\sourcecite{ref:p55-beigi-tomamichel}{BT26}."
   ],
   "references": [
     {
@@ -65,7 +66,12 @@
       "key": "KBK+26",
       "label": "ref:p55-kondra-et-al",
       "tex": "T. V. Kondra, R. Brinster, H. Kampermann, D. Bru{\\ss}, and N. Wyderka,\n  \\lq\\lq Sharp Quantum Capacity Thresholds: Exponential Strong Converses for\n  Degradable and Antidegradable Channels,\\rq\\rq{} arXiv preprint (2026).\n  \\href{https://arxiv.org/abs/2608.01308}{arXiv:2608.01308}."
+    },
+    {
+      "key": "BT26",
+      "label": "ref:p55-beigi-tomamichel",
+      "tex": "S. Beigi and M. Tomamichel, ``Strong Converse for Quantum Capacity via a Fully Quantum Blowing-Up Lemma,'' arXiv preprint, version 1, 10 September 2026. \\href{https://arxiv.org/abs/2609.11771v1}{arXiv:2609.11771v1}."
     }
   ],
-  "comment": "If every transpose-degradable channel is ordinarily degradable, then\nEq.~\\eqref{eq:p55-ordinary-exponential-converse} resolves the problem.  If a\nstrict channel exists as asked in Problem~53, the exponential converse for\nthat case remains unproved."
+  "comment": "Updated on 2026-09-15. The complete resolution follows from Theorem~1 of the September~2026 version-1 preprint \\sourcecite{ref:p55-beigi-tomamichel}{BT26}, also recorded in the \\href{https://qiqc-op.com/problem/op_38f9dbb6c3f92b0c/}{general quantum-capacity strong-converse problem}. This preprint is not identified as peer-reviewed at this audit; the Solved status records its complete theorem with that publication caveat. The \\href{https://qiqc-op.com/problem/op_7e7e4a25fef5c994/}{existence of a strictly transpose-degradable channel} remains a separate question: the converse theorem neither constructs such a channel nor proves that none exists."
 }
