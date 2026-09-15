@@ -163,3 +163,23 @@ test("renderer-only catalog versions preserve explicit lineage and repair pinned
     assert.equal(fs.readFileSync(file, "utf8"), bytes);
   } finally { fs.rmSync(fixture, { recursive: true, force: true }); }
 });
+
+
+test("DOI source reuse preserves an earlier arXiv-only identity without creating a duplicate DOI", async t => {
+  const fixture = fs.mkdtempSync(path.join(os.tmpdir(), "qop-source-reconcile-"));
+  t.after(() => fs.rmSync(fixture, { recursive: true, force: true }));
+  for (const dir of ["database", "ledger", "activity", "contract"])
+    fs.cpSync(path.join(root, dir), path.join(fixture, dir), { recursive: true });
+  const legacy = "01M2098YNKZNV42Y9TWF6Z9CYN";
+  const canonical = "01M26MS3JMD7G30D3STH3BN0SD";
+  const before = new Map([legacy, canonical].map(id => {
+    const file = path.join(fixture, "ledger/sources", `${id}.r1.md`);
+    return [file, fs.readFileSync(file, "utf8")];
+  }));
+  const desired = buildLedger(fixture);
+  assert.ok(desired.files.has(`ledger/sources/${canonical}.r1.md`));
+  assert.ok(!desired.files.has(`ledger/sources/${legacy}.r1.md`));
+  await exportLedger(fixture);
+  for (const [file, content] of before) assert.equal(fs.readFileSync(file, "utf8"), content);
+  await exportLedger(fixture, { check: true });
+});

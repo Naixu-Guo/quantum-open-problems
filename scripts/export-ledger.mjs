@@ -161,10 +161,13 @@ export function buildLedger(root = ROOT) {
     })[0];
     const source = { ...base(`source:${identity}`), type: "Source", ...info,
       body: unique(group.entries.map(({ reference }) => htmlToMarkdown(texToHtml(reference.tex)))).join("\n\n") };
-    const existingSource = serviceSources.find(({ fields }) =>
-      (source.doi && String(fields.doi).toLowerCase() === source.doi.toLowerCase()) ||
-      (source.arxivId && fields.arxivId === source.arxivId && fields.version === source.version) ||
-      (source.url && fields.url === source.url));
+    // Prefer the canonical DOI match before a legacy arXiv-only identity.
+    // Otherwise enriching the latter can collide with an already published DOI.
+    const existingSource = (source.doi && serviceSources.find(({ fields }) =>
+      String(fields.doi).toLowerCase() === source.doi.toLowerCase())) ||
+      (source.arxivId && serviceSources.find(({ fields }) =>
+        fields.arxivId === source.arxivId && fields.version === source.version)) ||
+      (source.url && serviceSources.find(({ fields }) => fields.url === source.url));
     if (existingSource) {
       source.id = existingSource.id;
       if (Object.hasOwn(identities, `source:${identity}`)) identities[`source:${identity}`] = source.id;
