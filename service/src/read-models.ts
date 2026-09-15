@@ -10,14 +10,16 @@ import type { Contribution } from "../../contract/src/types/contribution.ts";
 import type { Decision } from "../../contract/src/types/decision.ts";
 import type { Index } from "./index.ts";
 import { bytesDigest } from "../../contract/src/digest.ts";
+import { hasDuplicateCatalogBody, problemProvenance, researchView, type ProblemDetailView } from "./research-view.ts";
 
 const view = (record: LoadedRecord) => ({ ...record.fields, body: record.body });
+const decisionBody = (ledger: Ledger, id: string) => ledger.find("Decision", id)?.body ?? "";
 
 export function currentStatement(ledger: Ledger, problemId: string): Statement | undefined {
   return ledger.currentOf("Statement").map((s) => s.fields as unknown as Statement).filter((s) => s.problemId === problemId).sort((a, b) => b.version - a.version)[0];
 }
 
-export function problemView(ledger: Ledger, problemId: string) {
+export function problemView(ledger: Ledger, problemId: string, includeAuthoredRecord = false, detailView: ProblemDetailView = "full") {
   const problem = ledger.find("Problem", problemId);
   if (!problem) return null;
   const decisions = currentDecisions(ledger);
@@ -25,27 +27,53 @@ export function problemView(ledger: Ledger, problemId: string) {
   const statement = currentStatement(ledger, problemId);
   const references = referencesOf(ledger, problemId);
   const comments = commentsOn(ledger, "problem", problemId);
-  return {
-    ...view(problem),
+  const fields: Record<string, unknown> = view(problem);
+  const catalog = fields["authoredCatalog"] as Record<string, unknown> | undefined;
+  const authoredRecord = catalog?.["record"] as Record<string, unknown> | undefined;
+  if (catalog && (!includeAuthoredRecord || detailView === "research")) {
+    const { record: _record, ...provenance } = catalog;
+    fields["authoredCatalog"] = provenance;
+  }
+  // Omit only a proven duplicate of a pinned import. Subsequent service body
+  // revisions and unverified/native backgrounds remain visible in either view.
+  const omitDuplicateBody = detailView === "research" && hasDuplicateCatalogBody(ledger, problem);
+  if (omitDuplicateBody) delete fields["body"];
+  const statusDecision = decisions.find((decision) => decision.kind === "status" && decision.targetType === "problem" && decision.targetId === problemId && decision.outcome === "accepted");
+  const statusSource = catalog
+    ? { kind: "authored-catalog" as const, recordId: problem.id, sourcePath: catalog["sourcePath"] }
+    : statusDecision
+      ? { kind: "decision" as const, recordId: statusDecision.id }
+      : { kind: "default" as const, recordId: problem.id, reason: "No accepted status decision; the problem defaults to Unsolved." };
+  const result = {
+    ...fields,
+    view: detailView,
+    bodyDisposition: omitDuplicateBody ? "omitted-duplicate-import" : "included",
+    difficulty: fields["difficulty"] ?? "unrated",
+    provenance: problemProvenance(problem),
+    research: researchView(problem),
     catalogState: catalogState(ledger, problemId, decisions),
     status: problemStatus(ledger, problemId, decisions),
+    statusSource,
     indexed: isIndexed(ledger, problemId, decisions),
     statement: statement ? {
       ...statement,
       body: ledger.find("Statement", statement.id)?.body ?? "",
-      clauses: statement.clauses.map((clause) => ({ ...clause, ref: `${statement.id}#${clause.id}`, status: clauseStatus(ledger, `${statement.id}#${clause.id}`, claims) })),
+      clauses: statement.clauses.map((clause) => ({ ...clause, textFormat: authoredRecord?.["statement"] === clause.text ? "tex" : "markdown", ref: `${statement.id}#${clause.id}`, status: clauseStatus(ledger, `${statement.id}#${clause.id}`, claims) })),
     } : null,
     references,
     comments,
-    decisions: decisions.filter((d) => d.targetType === "problem" && d.targetId === problemId).map((d) => ({ id: d.id, kind: d.kind, outcome: d.outcome, status: d.status, mergeIntoProblemId: d.mergeIntoProblemId, effectiveAt: d.effectiveAt, policyVersion: d.policyVersion, body: d.body })),
+    decisions: decisions.filter((d) => d.targetType === "problem" && d.targetId === problemId).map((d) => ({ id: d.id, kind: d.kind, outcome: d.outcome, status: d.status, mergeIntoProblemId: d.mergeIntoProblemId, effectiveAt: d.effectiveAt, policyVersion: d.policyVersion, body: decisionBody(ledger, d.id) })),
   };
+  return result;
 }
 
 export function sourceSummary(ledger: Ledger, sourceId: string) {
   const source = ledger.findAny("Source", sourceId);
   if (!source) return null;
   const f = source.fields;
-  return { id: sourceId, redacted: source.redacted, retired: f["retired"] === true, title: f["title"], kind: f["kind"], completeness: f["completeness"], authors: f["authors"], venue: f["venue"], date: f["date"], doi: f["doi"], arxivId: f["arxivId"], url: f["url"] };
+  return { id: sourceId, redacted: source.redacted, retired: f["retired"] === true, title: f["title"], kind: f["kind"], completeness: f["completeness"], authors: f["authors"], venue: f["venue"], date: f["date"], doi: f["doi"], arxivId: f["arxivId"], url: f["url"],
+    version: f["version"], revision: revisionOf(source), citation: source.body,
+    digest: bytesDigest(Buffer.from(contextJson({ fields: source.fields, body: source.body }), "utf8")) };
 }
 
 /** Auxiliary problems of a problem, recursively, with statuses. */
@@ -109,7 +137,7 @@ export function frontier(ledger: Ledger, problemId: string) {
     title: problem.fields["title"],
     status: problemStatus(ledger, problemId, decisions),
     ...(authoredCatalog ? { statusSource: { kind: "authored-catalog", sourcePath: authoredCatalog.sourcePath } } : {}),
-    statusDecision: statusDecision ? { id: statusDecision.id, effectiveAt: statusDecision.effectiveAt, policyVersion: statusDecision.policyVersion, body: statusDecision.body } : null,
+    statusDecision: statusDecision ? { id: statusDecision.id, effectiveAt: statusDecision.effectiveAt, policyVersion: statusDecision.policyVersion, body: decisionBody(ledger, statusDecision.id) } : null,
     statement: { id: statement.id, version: statement.version, digest: statement.digest },
     clauses: statement.clauses.map((clause) => {
       const ref = `${statement.id}#${clause.id}`;
@@ -140,7 +168,7 @@ export function contributionView(ledger: Ledger, contributionId: string) {
     verificationLevel: verificationLevel(ledger, contributionId, decisions),
     statementIsCurrent: statementIsCurrent(ledger, contributionId),
     reviews,
-    decisions: related.map((d: Decision) => ({ id: d.id, kind: d.kind, outcome: d.outcome, verificationLevel: d.verificationLevel, policyVersion: d.policyVersion, effectiveAt: d.effectiveAt, body: d.body })),
+    decisions: related.map((d: Decision) => ({ id: d.id, kind: d.kind, outcome: d.outcome, verificationLevel: d.verificationLevel, policyVersion: d.policyVersion, effectiveAt: d.effectiveAt, body: decisionBody(ledger, d.id) })),
     claims,
   };
 }
@@ -170,12 +198,25 @@ export function reviewQueue(ledger: Ledger, callerId: string | null) {
     .map((c) => ({ id: c.id, kind: c.fields["kind"], title: c.fields["title"], actorId: c.fields["actorId"], problemIds: c.fields["problemIds"], newProblemIds: c.fields["newProblemIds"], createdAt: c.fields["createdAt"], reviews: ledger.currentOf("Review").filter((r) => r.fields["contributionId"] === c.id).length }));
 }
 
+/** Stable JSON for context identities, including authored record content and revisions. */
+function contextJson(value: unknown): string {
+  return JSON.stringify(value, (_key, item: unknown) => {
+    if (!item || typeof item !== "object" || Array.isArray(item)) return item;
+    return Object.fromEntries(Object.entries(item).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0));
+  });
+}
+
+const contextResource = (id: string) => `qop://records/${id}`;
+const CONTEXT_SCHEMA_VERSION = "qop-context/2" as const;
+
 /**
- * A bounded bundle for one problem: what an agent needs to start, cut to a token budget in
- * priority order. The bundle id is the digest of the sorted (id, digest) pairs it was built
- * from, so a trajectory can name exactly what it read.
+ * Whole sections under an approximate character-based budget. The formal statement and
+ * selected clauses are atomic: a small budget yields an explicit incomplete result and
+ * current-record links, never a cut formula. The digest identifies the delivered payload;
+ * resource links still resolve current records, not the recorded historical revisions.
  */
 export function contextBundle(ledger: Ledger, problemId: string, clauseIds: string[] | undefined, tokenBudget: number) {
+  if (!Number.isSafeInteger(tokenBudget) || tokenBudget < 200) throw new ContextError("tokenBudget must be a safe integer of at least 200");
   const front = frontier(ledger, problemId);
   const problem = ledger.find("Problem", problemId);
   if (!front || !problem) return null;
@@ -185,36 +226,87 @@ export function contextBundle(ledger: Ledger, problemId: string, clauseIds: stri
     if (unknown.length > 0) throw new ContextError(`unknown clause(s) for the current statement: ${unknown.join(", ")}`);
   }
   const chosen = clauseIds && clauseIds.length ? front.clauses.filter((c) => clauseIds.includes(c.ref)) : front.clauses;
-  const included = new Map<string, string | null>([[problem.id, null], [statement.id, statement.digest]]);
-  const sections: { name: string; text: string; ids: string[] }[] = [];
-  sections.push({ name: "problem", text: `# ${String(problem.fields["title"])}\n\n${problem.body}`, ids: [problem.id] });
-  sections.push({ name: "statement", text: ledger.find("Statement", statement.id)?.body ?? "", ids: [statement.id] });
-  sections.push({ name: "clauses", text: chosen.map((c) => `- ${c.ref} [${c.status}] ${c.label}: ${c.resolutionCriteria}`).join("\n"), ids: [] });
-  const claims = front.acceptedClaims.filter((claim) => claim.clauseIds.some((ref) => chosen.some((c) => c.ref === ref)));
-  sections.push({ name: "acceptedClaims", text: claims.map((c) => `- ${c.id} (${c.relation}) ${c.title}`).join("\n"), ids: claims.map((c) => c.id) });
-  sections.push({ name: "tree", text: JSON.stringify(front.tree.map((node: any) => ({ id: node.id, title: node.title, status: node.status, parentClauseId: node.parentClauseId }))), ids: front.tree.map((node: any) => node.id as string) });
-  sections.push({ name: "routesTried", text: front.routesTried.map((r) => `- ${r.id} [${String(r.stopReason)}] ${String(r.title)}`).join("\n"), ids: front.routesTried.map((r) => r.id) });
-  const references = referencesOf(ledger, problemId);
-  sections.push({ name: "references", text: references.map((r: any) => `- (${r.role}) ${r.source?.title ?? r.sourceId}${r.locator ? `, ${r.locator}` : ""}${r.body ? `: ${r.body}` : ""}`).join("\n"), ids: references.map((r: any) => String(r.id)) });
-  const comments = commentsOn(ledger, "problem", problemId);
-  sections.push({ name: "comments", text: comments.map((c: any) => `- ${c.body}`).join("\n"), ids: comments.map((c: any) => String(c.id)) });
-
-  const budgetChars = Math.max(tokenBudget, 200) * 4;
-  let used = 0;
-  const kept: { name: string; text: string; truncated: boolean }[] = [];
-  for (const section of sections) {
-    const room = budgetChars - used;
-    if (room <= 0) { kept.push({ name: section.name, text: "", truncated: true }); continue; }
-    const text = section.text.length > room ? section.text.slice(0, room) : section.text;
-    used += text.length;
-    kept.push({ name: section.name, text, truncated: text.length < section.text.length });
-    if (!kept[kept.length - 1]!.truncated) for (const id of section.ids) if (!included.has(id)) included.set(id, null);
+  const authoredCatalog = problem.fields["authoredCatalog"] as { sourcePath: string; record?: { statement?: string } } | undefined;
+  const statusSource = authoredCatalog
+    ? { kind: "authored-catalog" as const, recordId: problem.id, sourcePath: authoredCatalog.sourcePath }
+    : front.statusDecision
+      ? { kind: "decision" as const, recordId: front.statusDecision.id }
+      : { kind: "default" as const, recordId: problem.id, reason: "No accepted status decision; the problem defaults to Unsolved." };
+  const selectedClaimIds = new Set(chosen.flatMap((clause) => clause.claimIds));
+  const claims = front.acceptedClaims.filter((claim) => selectedClaimIds.has(claim.id));
+  const sections: { name: string; text: string; ids: string[]; required: boolean }[] = [];
+  const add = (name: string, text: string, ids: string[], required = false) => sections.push({ name, text, ids: [...new Set(ids)].sort(), required });
+  add("problem", `# ${String(problem.fields["title"])}\n\nStatus: ${front.status}\nStatus source: ${statusSource.kind}\nClause statuses below describe accepted ledger evidence, independently of the authoritative problem status.`, [problem.id], true);
+  // The complete body retains definitions that may be shared across selected clauses.
+  add("statement", ledger.find("Statement", statement.id)?.body ?? "", [statement.id], true);
+  add("clauses", chosen.map((clause) => {
+    const authored = statement.clauses.find((item) => `${statement.id}#${item.id}` === clause.ref)!;
+    const format = authoredCatalog?.record?.statement === authored.text ? "tex" : "markdown";
+    const formalMetadata = JSON.stringify({ kind: authored.kind, quantity: authored.quantity });
+    return `## ${clause.label}\n${clause.ref} [ledger evidence: ${clause.status}]\nText format: ${format}\nFormal metadata (JSON): ${formalMetadata}\n\n${authored.text}\n\nResolution criteria: ${clause.resolutionCriteria}`;
+  }).join("\n\n"), [statement.id], true);
+  add("acceptedClaims", claims.length ? JSON.stringify(claims.map((claim) => ({ ...claim, body: ledger.find("Claim", claim.id)?.body ?? "", resourceUri: contextResource(claim.id) })), null, 2) : "", claims.flatMap((claim) => [claim.id, ...claim.support.flatMap((support) => support.sourceId ? [support.sourceId] : [])]));
+  // A legal service edit can replace the generated Markdown background while
+  // the authoritative catalog snapshot remains intact. Read the maintained
+  // material independently instead of assuming that body still contains it.
+  const research = researchView(problem);
+  if (research.available) for (const [name, entries] of [
+    ["authoredSource", research.source], ["authoredProgress", research.progress],
+    ["authoredComment", research.comment], ["authoredReferences", research.references],
+  ] as const) {
+    add(name, entries.length ? JSON.stringify({ kind: research.kind, semantics: research.semantics, entries }, null, 2) : "", [problem.id]);
   }
-  // The bundle id covers what was read: the records included, the clauses chosen, and which sections were cut.
-  const pairs = [...included.entries()].map(([id, digest]) => `${id}:${digest ?? ""}`).sort();
-  const shape = [...chosen.map((c) => `clause:${c.ref}`), ...kept.map((k) => `${k.name}:${k.truncated ? "cut" : "full"}`)];
-  const bundleId = bytesDigest(Buffer.from([...pairs, ...shape].join("\n"), "utf8"));
-  return { bundleId, problemId, statementId: statement.id, statementDigest: statement.digest, clauseIds: chosen.map((c) => c.ref), tokenBudget, approximateTokens: Math.ceil(used / 4), sections: kept, included: pairs };
+  add("background", hasDuplicateCatalogBody(ledger, problem) ? "" : problem.body, [problem.id]);
+  add("tree", JSON.stringify(front.tree.map((node: any) => ({ id: node.id, title: node.title, status: node.status, parentClauseId: node.parentClauseId }))), front.tree.map((node: any) => String(node.id)));
+  add("routesTried", front.routesTried.map((route) => `- ${route.id} [${String(route.stopReason)}] ${String(route.title)}`).join("\n"), front.routesTried.map((route) => route.id));
+  const references = referencesOf(ledger, problemId);
+  add("references", references.length ? JSON.stringify(references.map((reference: any) => ({ ...reference, resourceUri: contextResource(String(reference.id)) })), null, 2) : "", references.flatMap((reference: any) => [String(reference.id), String(reference.sourceId)]));
+  const comments = commentsOn(ledger, "problem", problemId);
+  add("comments", comments.map((comment: any) => `- ${comment.id}: ${comment.body}`).join("\n"), comments.map((comment: any) => String(comment.id)));
+
+  const sourceIds = new Set(sections.flatMap((section) => section.ids));
+  sourceIds.add(statusSource.recordId);
+  for (const claim of claims) for (const support of claim.support) if (support.artifactId) sourceIds.add(support.artifactId);
+  for (const clause of chosen) for (const ref of lineageOf(ledger, clause.ref)) sourceIds.add(ref.split("#")[0]!);
+  // Acceptance/withdrawal decisions and their contributions support the derived claim
+  // and route states even when their own text is not shown in the bundle.
+  for (const contribution of ledger.currentOf("Contribution")) {
+    if ((contribution.fields["claimIds"] as string[]).some((id) => selectedClaimIds.has(id))) sourceIds.add(contribution.id);
+  }
+  for (const decision of currentDecisions(ledger)) if (sourceIds.has(decision.targetId)) sourceIds.add(decision.id);
+  const sourcesUsed = [...sourceIds].sort().flatMap((id) => {
+    const record = ledger.current.get(id);
+    if (!record) return [];
+    return [{ id, type: record.type, revision: revisionOf(record), digest: bytesDigest(Buffer.from(contextJson({ fields: record.fields, body: record.body }), "utf8")), resourceUri: contextResource(id) }];
+  });
+
+  const budgetChars = tokenBudget * 4;
+  const minimumRequiredTokens = Math.ceil(sections.filter((section) => section.required).reduce((sum, section) => sum + section.text.length, 0) / 4);
+  const formalContextComplete = tokenBudget >= minimumRequiredTokens;
+  let used = 0;
+  const shown = new Set<string>();
+  const kept: { name: string; text: string; truncated: boolean; omitted: boolean; required: boolean; resourceUris: string[]; approximateTokens: number }[] = [];
+  for (const section of sections) {
+    const omit = Boolean(section.text) && ((!formalContextComplete && section.name !== "problem") || section.text.length > budgetChars - used);
+    const text = omit ? "" : section.text;
+    used += text.length;
+    kept.push({ name: section.name, text, truncated: omit, omitted: omit, required: section.required, resourceUris: section.ids.map(contextResource), approximateTokens: Math.ceil(text.length / 4) });
+    if (text) for (const id of section.ids) shown.add(id);
+  }
+  const omittedSections = kept.filter((section) => section.omitted).map((section) => section.name);
+  const payload = {
+    schemaVersion: CONTEXT_SCHEMA_VERSION,
+    problemId, status: front.status, statusSource,
+    statementId: statement.id, statementVersion: statement.version, statementDigest: statement.digest, clauseIds: chosen.map((clause) => clause.ref),
+    tokenBudget, approximateTokens: Math.ceil(used / 4),
+    budgetSemantics: { unit: "approximate-section-tokens" as const, charactersPerToken: 4 as const, excludes: ["response JSON framing outside section text", "response metadata and provenance outside section text", "MCP transport framing", "model-specific tokenization"] },
+    minimumRequiredTokens, formalContextComplete, incomplete: omittedSections.length > 0, omittedSections,
+    sections: kept,
+    included: sourcesUsed.filter((source) => shown.has(source.id)).map((source) => `${source.id}:${source.digest}`),
+    shownRecordIds: [...shown].sort(), sourcesUsed,
+    resources: sourcesUsed.map((source) => ({ uri: source.resourceUri, name: `${source.type} ${source.id}`, resolution: "current" as const, id: source.id, revision: source.revision, digest: source.digest })),
+  };
+  return { bundleId: bytesDigest(Buffer.from(contextJson(payload), "utf8")), ...payload };
 }
 
 export function recordView(ledger: Ledger, id: string) {
@@ -226,18 +318,29 @@ export function recordView(ledger: Ledger, id: string) {
 export function status(ledger: Ledger, index: Index, policyVersion: string) {
   const decisions = currentDecisions(ledger);
   const problems = ledger.currentOf("Problem");
-  const byStatus: Record<string, number> = {};
+  const states = problems.map((p) => catalogState(ledger, p.id, decisions));
+  const byStatus: Record<string, number> = { Unsolved: 0, Solved: 0 };
+  const questions = new Map<string, string>();
   for (const problem of problems) {
     if (catalogState(ledger, problem.id, decisions) !== "published") continue;
     const status = problemStatus(ledger, problem.id, decisions);
     byStatus[status] = (byStatus[status] ?? 0) + 1;
+    questions.set(String(problem.fields["equivalentToProblemId"] ?? problem.id), status);
   }
   const release = decisions.find((d) => d.kind === "release");
   return {
     policyVersion,
+    contextSchemaVersion: CONTEXT_SCHEMA_VERSION,
+    retrievalVersion: "qop-retrieval/1",
+    researchSearchVersion: "qop-search-research/1",
+    problemReadVersion: "qop-problem-read/1",
+    idempotencyVersion: "qop-idempotency/2",
     lastSequence: index.lastSequence(),
     counts: index.counts(),
-    problems: { total: problems.length, published: Object.values(byStatus).reduce((a, b) => a + b, 0), candidates: problems.filter((p) => catalogState(ledger, p.id, decisions) === "candidate").length, byStatus },
+    problems: { unit: "records", total: states.filter((state) => state === "published" || state === "candidate").length,
+      published: Object.values(byStatus).reduce((a, b) => a + b, 0), candidates: states.filter((state) => state === "candidate").length,
+      merged: states.filter((state) => state === "merged").length, retired: states.filter((state) => state === "retired").length, byStatus },
+    distinctQuestions: { unit: "distinct questions", scope: "published records", total: questions.size, byStatus: { Unsolved: [...questions.values()].filter(s => s === "Unsolved").length, Solved: [...questions.values()].filter(s => s === "Solved").length } },
     lastRelease: release ? { id: release.id, effectiveAt: release.effectiveAt, tag: release.targetId } : null,
   };
 }
@@ -264,6 +367,14 @@ export function taxonomyView(ledger: Ledger) {
   return { id: taxonomy.id, revision: revisionOf(taxonomy), areas: taxonomy.fields["areas"], topics: taxonomy.fields["topics"], independentTopics: taxonomy.fields["independentTopics"] === true };
 }
 
+/** Accept either a taxonomy id or its human label, independently of case and spacing. */
+export function taxonomyId(ledger: Ledger, kind: "areas" | "topics", value: string): string | null {
+  const fold = (text: string) => text.trim().replace(/\s+/gu, " ").toLowerCase();
+  const entries = taxonomyView(ledger)?.[kind] as { id: string; label: string }[] | undefined;
+  const found = entries?.find(entry => fold(entry.id) === fold(value) || fold(entry.label) === fold(value));
+  return found?.id ?? null;
+}
+
 /** Every current actor, so pages can name who wrote a record. Keys and identities stay in the auth store. */
 export function actorsView(ledger: Ledger) {
   return ledger.currentOf("Actor").map((a) => ({ id: a.id, name: a.fields["name"], kind: a.fields["kind"], roles: a.fields["roles"], operatorId: a.fields["operatorId"], modelFamily: a.fields["modelFamily"] }));
@@ -272,14 +383,17 @@ export function actorsView(ledger: Ledger) {
 /** A request for a context bundle that cannot be built as asked. */
 export class ContextError extends Error {}
 
-/** Sources matching every whitespace-separated term in title, authors, DOI, arXiv id, URL, or venue, for attaching a reference without creating a duplicate. */
-export function searchSources(ledger: Ledger, text: string, limit: number) {
+/** Include the preserved bibliography text when structured authors or venue are incomplete. */
+export function searchSources(ledger: Ledger, text: string, limit: number, offset = 0) {
   const terms = text.trim().toLowerCase().split(/\s+/u).filter(Boolean).slice(0, 8);
   const all = ledger.currentOf("Source", { includeRetired: true });
   const matches = terms.length === 0 ? all : all.filter((s) => {
     const f = s.fields;
-    const haystack = [f["title"], ...(f["authors"] as string[]), f["doi"], f["arxivId"], f["url"], f["venue"]].filter((v) => typeof v === "string").join(" ").toLowerCase();
+    const haystack = [f["title"], ...(f["authors"] as string[]), f["doi"], f["arxivId"], f["url"], f["venue"], s.body].filter((v) => typeof v === "string").join(" ").toLowerCase();
     return terms.every((term) => haystack.includes(term));
   });
-  return { text, count: matches.length, sources: matches.slice(0, limit).map((s) => sourceSummary(ledger, s.id)) };
+  matches.sort((a, b) => String(a.fields["title"]).localeCompare(String(b.fields["title"])) || a.id.localeCompare(b.id));
+  const pageSize = Math.min(Math.max(limit, 1), 200);
+  const sources = matches.slice(offset, offset + pageSize).map(s => ({ ...sourceSummary(ledger, s.id), citation: s.body }));
+  return { text, count: matches.length, total: matches.length, returned: sources.length, limit: pageSize, offset, nextOffset: offset + sources.length < matches.length ? offset + sources.length : null, sources };
 }

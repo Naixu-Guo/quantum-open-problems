@@ -136,7 +136,7 @@ export async function view({ main, params, setTitle, alive }) {
         ${problem.authoredCatalog ? html`<p class="small muted">Clause progress reflects accepted ledger claims; problem status comes from the maintained catalog.</p>` : ""}
         <ol class="clauses">${statement.clauses.map((c) => html`<li class="clause" id="clause-${c.id}">
           <div class="clause-head"><strong>${inlineMarkup(c.label)}</strong>${chip(c.status)}<span class="chip outline">${c.kind}</span><span class="faint mono">${c.id}</span></div>
-          <div class="clause-text">${problem.authoredCatalog?.record?.statement === c.text
+          <div class="clause-text">${c.textFormat === "tex" || problem.authoredCatalog?.record?.statement === c.text
             ? html`<a href="#statement">The complete statement above.</a>`
             : inlineMarkup(c.text)}</div>
           <div class="clause-criteria"><span class="faint">Resolved when:</span> ${inlineMarkup(c.resolutionCriteria)}</div>

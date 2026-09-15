@@ -29,10 +29,12 @@ function latest(decisions: Decision[], predicate: (decision: Decision) => boolea
 }
 
 export function catalogState(ledger: Ledger, problemId: string, decisions = currentDecisions(ledger)): CatalogState {
+  const authored = ledger.find("Problem", problemId)?.fields["authoredCatalog"] as AuthoredCatalog | undefined;
+  if (authored?.mergedIntoProblemId) return "merged";
   const about = (decision: Decision) => decision.targetType === "problem" && decision.targetId === problemId;
   if (latest(decisions, (d) => about(d) && d.kind === "merge")) return "merged";
   if (latest(decisions, (d) => about(d) && d.kind === "retire")) return "retired";
-  if (ledger.find("Problem", problemId)?.fields["authoredCatalog"]) return "published";
+  if (authored) return "published";
   if (latest(decisions, (d) => about(d) && d.kind === "admission")) return "published";
   return "candidate";
 }
@@ -47,6 +49,7 @@ export function problemStatus(ledger: Ledger, problemId: string, decisions = cur
 export function isIndexed(ledger: Ledger, problemId: string, decisions = currentDecisions(ledger)): boolean {
   const problem = ledger.find("Problem", problemId);
   if (!problem) return false;
+  if (["merged", "retired"].includes(catalogState(ledger, problemId, decisions))) return false;
   if (problem.fields["role"] === "primary") return catalogState(ledger, problemId, decisions) === "published";
   return latest(decisions, (d) => d.kind === "promotion" && d.targetType === "problem" && d.targetId === problemId) !== undefined;
 }

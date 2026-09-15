@@ -34,7 +34,7 @@
     "relatedProblemIds": []
   },
   "title": "Asymptotic metrology with quantum-controlled causal order",
-  "status": "Unsolved",
+  "status": "Solved",
   "fields": [
     "Quantum metrology",
     "Quantum Resource Theory"
@@ -43,13 +43,14 @@
     "Quantum estimation",
     "Indefinite causal order"
   ],
-  "statement": "Does quantum control of causal order yield a persistent asymptotic\nmetrological advantage over parallel access for some smooth\nfinite-dimensional channel family?  Let\n$\\Lambda_\\theta:\\mathcal L(A)\\to\\mathcal L(B)$ be a smooth one-parameter\nfamily, and let $\\mathcal F_{\\mathrm{PAR}}^{(N)}(\\theta)$ and\n$\\mathcal F_{\\mathrm{QCQC}}^{(N)}(\\theta)$ be the largest output-state\nquantum Fisher information attainable from $N$ black-box uses by,\nrespectively, a parallel strategy and a quantum circuit with quantum control\nof causal order (QC-QC).  In a QC-QC strategy, a coherent control can\ndynamically select which unused black-box call occurs next; this is more\ngeneral than coherently superposing fixed causal orders.  At every regular\nparameter value for which $\\mathcal F_{\\mathrm{PAR}}^{(N)}(\\theta)>0$ for\nall sufficiently large $N$, decide whether every channel family satisfies\n\\begin{equation}\n  \\limsup_{N\\to\\infty}\n  \\frac{\\mathcal F_{\\mathrm{QCQC}}^{(N)}(\\theta)}\n       {\\mathcal F_{\\mathrm{PAR}}^{(N)}(\\theta)}\n  =1.\n  \\label{eq:p61-asymptotic-qcqc-ratio}\n\\end{equation}\nEquivalently, either prove Eq.~\\eqref{eq:p61-asymptotic-qcqc-ratio} or\nconstruct a noisy finite-dimensional family and physical QC-QC strategies\nwith a persistent constant-factor advantage or a larger scaling exponent.",
+  "statement": "Does quantum control of causal order yield a persistent asymptotic\nmetrological advantage over parallel access for some regular,\nfinite-dimensional channel family? Let\n$\\Lambda_\\theta:\\mathcal L(A)\\to\\mathcal L(B)$ be a smooth one-parameter\nfamily on an open interval. A parameter value $\\theta$ is regular here if\nthe Choi rank is constant in a neighborhood of $\\theta$; the family then\nadmits a differentiable minimal Kraus representation locally.\nLet $\\mathcal F_{\\mathrm{PAR}}^{(N)}(\\theta)$ and\n$\\mathcal F_{\\mathrm{QCQC}}^{(N)}(\\theta)$ be the largest output-state\nsymmetric-logarithmic-derivative quantum Fisher information attainable from\n$N$ black-box uses by, respectively, a parallel strategy and a quantum\ncircuit with quantum control of causal order (QC-QC). Both classes allow\narbitrary finite noiseless ancillary systems. In a QC-QC strategy, a\ncoherent control can dynamically select which unused black-box call occurs\nnext; this is more general than coherently superposing fixed causal\norders. At every regular parameter value with\n$\\mathcal F_{\\mathrm{PAR}}^{(1)}(\\theta)>0$, decide whether every such family\nsatisfies\n\\begin{equation}\n  \\limsup_{N\\to\\infty}\n  \\frac{\\mathcal F_{\\mathrm{QCQC}}^{(N)}(\\theta)}\n       {\\mathcal F_{\\mathrm{PAR}}^{(N)}(\\theta)}\n  =1.\n  \\label{eq:p61-asymptotic-qcqc-ratio}\n\\end{equation}\nEquivalently, either prove Eq.~\\eqref{eq:p61-asymptotic-qcqc-ratio} or\nconstruct a noisy family in this regular domain and physical QC-QC\nstrategies with a persistent constant-factor advantage or a larger\nscaling exponent.",
   "source": "Mothe, Branciard, and Abbott explicitly ask whether the finite-use QC-QC\nadvantage that they establish can persist asymptotically\n\\sourcecite{ref:p61-mothe}{MBA24}.",
   "progress": [
     "Kurdzia\\l ek, G\\'orecki, Albarelli, and Demkowicz-Dobrza\\'nski prove\n  that adaptive strategies and coherent superpositions of fixed causal\n  orders are asymptotically equivalent to parallel strategies for repeated\n  estimation of a finite-dimensional channel\n  \\sourcecite{ref:p61-kurdzialek}{KGAD23}.  Their recursion does not cover\n  the dynamically controlled QC-QC class in\n  Eq.~\\eqref{eq:p61-asymptotic-qcqc-ratio}.",
     "Mothe, Branciard, and Abbott exhibit noisy channel families for which\n  QC-QC strictly outperforms parallel, sequential, and causal-superposition\n  strategies at three uses \\sourcecite{ref:p61-mothe}{MBA24}.  This proves a\n  finite-resource separation but neither a nonunit asymptotic ratio nor a\n  different scaling exponent.",
-    "Abbott, Mhalla, and Pocreau show that QC-QC gives no query advantage\n  for Boolean-function tasks formed by repeated access to one unitary\n  \\sourcecite{ref:p61-abbott}{AMP24}.  The restriction to unitary queries\n  leaves open the noisy metrological families relevant to\n  Eq.~\\eqref{eq:p61-asymptotic-qcqc-ratio}.",
-    "Salzger and Vilasini show that higher-order processes satisfying\n  their spacetime, Acting Once, and Local Order assumptions reduce\n  operationally to QC-QC processes\n  \\sourcecite{ref:p61-salzger}{SV26}.  This identifies QC-QC as the physical\n  target class under those assumptions but supplies no asymptotic Fisher\n  information bound."
+    "Abbott, Mhalla, and Pocreau show that QC-QC gives no query advantage\n  for Boolean-function tasks formed by repeated access to one unitary\n  \\sourcecite{ref:p61-abbott}{AMP24}.  The restriction to unitary queries\n  does not address the noisy metrological families relevant to\n  Eq.~\\eqref{eq:p61-asymptotic-qcqc-ratio}.",
+    "Salzger and Vilasini show that higher-order processes satisfying\n  their spacetime, Acting Once, and Local Order assumptions reduce\n  operationally to QC-QC processes\n  \\sourcecite{ref:p61-salzger}{SV26}.  This identifies QC-QC as the physical\n  target class under those assumptions but supplies no asymptotic Fisher\n  information bound.",
+    "Wei, Li, and Pang's preprint establishes an upper bound for general\n  indefinite-causal-order processes in Theorem~3 and Supplementary\n  Section~V \\sourcecite{ref:p61-wei}{WLP26}. For a differentiable minimal\n  Kraus representation, write $\\alpha=\\sum_i\\dot K_i^\\dagger\\dot K_i$ and\n  $\\beta=\\sum_i\\dot K_i^\\dagger K_i$. Combining that upper bound with the\n  parallel attainability results of Zhou and Jiang, Theorems~2 and~3\n  \\sourcecite{ref:p61-zhou}{ZJ21}, gives\n  \\begin{equation}\n    \\lim_{N\\to\\infty}\\frac{\\mathcal F_{\\mathrm{Gen}}^{(N)}(\\theta)}{N^s}\n    =\\lim_{N\\to\\infty}\\frac{\\mathcal F_{\\mathrm{PAR}}^{(N)}(\\theta)}{N^s}\n    =c>0,\n    \\label{eq:p61-leading-coefficient}\n  \\end{equation}\n  where $s=1$ and $c=4\\min_{\\beta=0}\\lVert\\alpha\\rVert$ if a Kraus gauge\n  with $\\beta=0$ exists; otherwise $s=2$ and\n  $c=4\\min\\lVert\\beta\\rVert^2$. All minima are over Kraus gauges at the\n  parameter value in question. In the linear regime, product inputs give\n  $c\\ge\\mathcal F_{\\mathrm{PAR}}^{(1)}(\\theta)>0$; in the quadratic regime,\n  positivity follows from the nonzero minimum defining that regime.\n  Since $\\mathrm{PAR}\\subseteq\\mathrm{QCQC}\\subseteq\\mathrm{Gen}$,\n  Eq.~\\eqref{eq:p61-leading-coefficient} proves\n  Eq.~\\eqref{eq:p61-asymptotic-qcqc-ratio} by squeezing the ratio."
   ],
   "references": [
     {
@@ -71,7 +72,17 @@
       "key": "SV26",
       "label": "ref:p61-salzger",
       "tex": "M. Salzger and V. Vilasini,\n  ``Higher-Order Quantum Processes Respecting Closed Labs in a Spacetime\n  Have Quantum-Controlled Causal Order,'' arXiv:2605.08351 (2026).\n  \\href{https://arxiv.org/abs/2605.08351}{arXiv:2605.08351}."
+    },
+    {
+      "key": "WLP26",
+      "label": "ref:p61-wei",
+      "tex": "W. Wei, Y. Li, and S. Pang,\n  ``Fundamental Limits of Quantum Metrology Beyond Fixed Causal Order,''\n  arXiv:2609.05355v1 (2026).\n  \\href{https://arxiv.org/abs/2609.05355v1}{arXiv:2609.05355v1}."
+    },
+    {
+      "key": "ZJ21",
+      "label": "ref:p61-zhou",
+      "tex": "S. Zhou and L. Jiang,\n  ``Asymptotic Theory of Quantum Channel Estimation,''\n  \\emph{PRX Quantum} \\textbf{2}, 010343 (2021).\n  \\href{https://doi.org/10.1103/PRXQuantum.2.010343}{doi:10.1103/PRXQuantum.2.010343};\n  \\href{https://arxiv.org/abs/2003.10559}{arXiv:2003.10559}."
     }
   ],
-  "comment": "The known three-use separation does not determine the leading asymptotic\ncoefficient or scaling exponent.  The unresolved alternatives are precisely\nEq.~\\eqref{eq:p61-asymptotic-qcqc-ratio} for every smooth finite-dimensional\nfamily or one noisy counterexample with a persistent QC-QC advantage."
+  "comment": "The asymptotic-ratio question in the explicitly regular,\nancilla-assisted domain above is resolved by Wei, Li, and Pang's\nTheorem~3, together with the parallel attainability theorem. The resolving\nWei--Li--Pang result is a preprint, arXiv:2609.05355v1, rather than a\npeer-reviewed publication. Rank-changing parameter values are outside the\nregular domain defined in the statement. Finite-use advantages and\nsubleading corrections can persist without changing the limiting ratio\nin Eq.~\\eqref{eq:p61-asymptotic-qcqc-ratio}."
 }

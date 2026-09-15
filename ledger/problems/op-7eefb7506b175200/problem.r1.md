@@ -1,0 +1,50 @@
+---
+id: "01M22N25PDE5R1X95GHQBCFTCB"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-09T08:42:44.429Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-communication"]
+topicIds: ["classical-capacity","quantum-coding-theory"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Holevo random-coding exponent for classical–quantum channels"
+aliases: ["op-7eefb7506b175200","op_7eefb7506b175200","01M22N25PDE5R1X95GHQBCFTCB"]
+authoredCatalog: {"status":"Solved","sourcePath":"database/problems_json/op_7eefb7506b175200.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_7eefb7506b175200","ulid":"01M22N25PDE5R1X95GHQBCFTCB","aliases":["op_7eefb7506b175200","01M22N25PDE5R1X95GHQBCFTCB","op-7eefb7506b175200"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":1,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-09T08:37:59.117Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-communication"],"topicIds":["classical-capacity","quantum-coding-theory"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Holevo random-coding exponent for classical–quantum channels","status":"Solved","fields":["Quantum Communication"],"topics":["Classical capacity","Quantum coding theory"],"statement":"Does every memoryless classical–quantum channel with a finite input alphabet and finite-dimensional output satisfy the random-coding lower bound in Eq.~\\eqref{eq:cqrc-conjecture}, including channels with mixed, noncommuting output states?\n\nLet $W:x\\mapsto W_x$ map a finite alphabet $\\mathcal X$, with $|\\mathcal X|\\geq2$, to density operators on a finite-dimensional Hilbert space $\\mathcal H_B$. All logarithms have base two. An $n$-use code consists of $M$ distinct words $x^n(m)\\in\\mathcal X^n$ and a decoding POVM $\\{\\Lambda_m\\}_{m=1}^M$ on $\\mathcal H_B^{\\otimes n}$. For equiprobable messages, its average error is Eq.~\\eqref{eq:cqrc-error}:\n\\begin{equation}\np_e(\\mathcal C_n,\\Lambda):=1-\\frac1M\\sum_{m=1}^M\\operatorname{Tr}\\!\\left[\\Lambda_m\\bigotimes_{i=1}^nW_{x_i(m)}\\right].\n\\label{eq:cqrc-error}\n\\end{equation}\nFor $0<R<\\log|\\mathcal X|$, optimize over codes of rate at least $R$ and define the reliability function using Eq.~\\eqref{eq:cqrc-reliability}:\n\\begin{equation}\np_e^*(n,R):=\\inf_{\\mathcal C_n,\\Lambda:\\,|\\mathcal C_n|\\geq2^{nR}}p_e(\\mathcal C_n,\\Lambda),\n\\qquad E(W,R):=\\limsup_{n\\to\\infty}-\\frac1n\\log p_e^*(n,R).\n\\label{eq:cqrc-reliability}\n\\end{equation}\nThe decoding measurement is unrestricted; the communication uses no shared entanglement or feedback. For a probability distribution $p$ on $\\mathcal X$, define the auxiliary function and random-coding exponent by Eqs.~\\eqref{eq:cqrc-auxiliary} and \\eqref{eq:cqrc-random}:\n\\begin{equation}\nE_0(s,p,W):=-\\log\\operatorname{Tr}\\!\\left[\\left(\\sum_{x\\in\\mathcal X}p(x)W_x^{1/(1+s)}\\right)^{1+s}\\right],\n\\qquad E_0(s,W):=\\max_pE_0(s,p,W),\\qquad s\\geq0.\n\\label{eq:cqrc-auxiliary}\n\\end{equation}\n\\begin{equation}\nE_r(W,R):=\\max_{0\\leq s\\leq1}\\{E_0(s,W)-sR\\}.\n\\label{eq:cqrc-random}\n\\end{equation}\nThe conjectured achievability assertion is\n\\begin{equation}\nE(W,R)\\geq E_r(W,R)\\qquad\\text{for every such }W\\text{ and }R.\n\\label{eq:cqrc-conjecture}\n\\end{equation}","source":"This is the asymptotic random-coding lower bound in Section II, Eq.~(6), pp.~4–5 of Holevo's arXiv version 2; it follows from the finite-block conjecture in his Eq.~(5) \\sourcecite{ref:cqrc-holevo}{Hol00}.","progress":["Renes proves Eq.~\\eqref{eq:cqrc-conjecture} for arbitrary finite-alphabet classical–quantum channels with finite-dimensional output in Theorem 3.1, Eq.~(22). His construction combines privacy-amplification bounds with distribution shaping and allows arbitrary mixed output states. The proof appeared in July 2024 and was published in 2025 \\sourcecite{ref:cqrc-renes}{Ren25}.","Li and Yang independently prove the same lower bound in Theorem 2, Eq.~(13), with parameter $\\alpha=1/(1+s)\\in[1/2,1]$. Their Theorem 3 combines it with the sphere-packing converse to obtain the exact reliability function in the high-rate region. Writing the converse as Eq.~\\eqref{eq:cqrc-sphere}, equality holds at every rate where $E_r(W,R)=E_{\\mathrm{sp}}(W,R)$:\n\\begin{equation}\nE(W,R)\\leq E_{\\mathrm{sp}}(W,R):=\\sup_{s\\geq0}\\{E_0(s,W)-sR\\}.\n\\label{eq:cqrc-sphere}\n\\end{equation}\nThis result was published in January 2025 \\sourcecite{ref:cqrc-liyang}{LY25}."],"references":[{"key":"Hol00","label":"ref:cqrc-holevo","tex":"A. S. Holevo, ``Reliability Function of General Classical-Quantum Channel,'' \\emph{IEEE Transactions on Information Theory} \\textbf{46}, 2256–2261 (2000). \\href{https://doi.org/10.1109/18.868501}{doi:10.1109/18.868501}; \\href{https://arxiv.org/abs/quant-ph/9907087}{arXiv:quant-ph/9907087}."},{"key":"Ren25","label":"ref:cqrc-renes","tex":"J. M. Renes, ``Tight Lower Bound on the Error Exponent of Classical-Quantum Channels,'' \\emph{IEEE Transactions on Information Theory} \\textbf{71}, 530–538 (2025). \\href{https://doi.org/10.1109/TIT.2024.3500578}{doi:10.1109/TIT.2024.3500578}; \\href{https://arxiv.org/abs/2407.11118}{arXiv:2407.11118}."},{"key":"LY25","label":"ref:cqrc-liyang","tex":"K. Li and D. Yang, ``Reliability Function of Classical-Quantum Channels,'' \\emph{Physical Review Letters} \\textbf{134}, 010802 (2025). \\href{https://doi.org/10.1103/PhysRevLett.134.010802}{doi:10.1103/PhysRevLett.134.010802}; \\href{https://arxiv.org/abs/2407.12403}{arXiv:2407.12403}."}],"comment":"The archived statement is the random-coding achievability inequality, which is fully solved. Determining the exact reliability function for all rates below capacity is a broader question: the low-rate regime where the random-coding and sphere-packing bounds differ remains outside this solved statement. No exact duplicate was found in the authored catalog, ledger proposals, or private pool. The literature audit checked primary full sources and later work through 9 September 2026; it was not an exhaustive citation-index review. The originating formulation was checked directly in Holevo's Section II."}}
+---
+## Source
+
+This is the asymptotic random-coding lower bound in Section II, Eq. (6), pp. 4–5 of Holevo’s arXiv version 2; it follows from the finite-block conjecture in his Eq. (5) [Hol00](https://doi.org/10.1109/18.868501).
+
+## Progress
+
+Renes proves Eq. (5) for arbitrary finite-alphabet classical–quantum channels with finite-dimensional output in Theorem 3.1, Eq. (22). His construction combines privacy-amplification bounds with distribution shaping and allows arbitrary mixed output states. The proof appeared in July 2024 and was published in 2025 [Ren25](https://doi.org/10.1109/TIT.2024.3500578).
+
+Li and Yang independently prove the same lower bound in Theorem 2, Eq. (13), with parameter $\alpha=1/(1+s)\in[1/2,1]$. Their Theorem 3 combines it with the sphere-packing converse to obtain the exact reliability function in the high-rate region. Writing the converse as Eq. (6), equality holds at every rate where $E_r(W,R)=E_{\mathrm{sp}}(W,R)$:
+
+$$
+E(W,R)\leq E_{\mathrm{sp}}(W,R):=\sup_{s\geq0}\{E_0(s,W)-sR\}.
+\tag{6}
+$$
+
+This result was published in January 2025 [LY25](https://doi.org/10.1103/PhysRevLett.134.010802).
+
+## Comment
+
+The archived statement is the random-coding achievability inequality, which is fully solved. Determining the exact reliability function for all rates below capacity is a broader question: the low-rate regime where the random-coding and sphere-packing bounds differ remains outside this solved statement. No exact duplicate was found in the authored catalog, ledger proposals, or private pool. The literature audit checked primary full sources and later work through 9 September 2026; it was not an exhaustive citation-index review. The originating formulation was checked directly in Holevo’s Section II.
+
+## References
+
+**Hol00** A. S. Holevo, “Reliability Function of General Classical-Quantum Channel,” *IEEE Transactions on Information Theory* **46**, 2256–2261 (2000). [doi:10.1109/18.868501](https://doi.org/10.1109/18.868501); [arXiv:quant-ph/9907087](https://arxiv.org/abs/quant-ph/9907087).
+
+**Ren25** J. M. Renes, “Tight Lower Bound on the Error Exponent of Classical-Quantum Channels,” *IEEE Transactions on Information Theory* **71**, 530–538 (2025). [doi:10.1109/TIT.2024.3500578](https://doi.org/10.1109/TIT.2024.3500578); [arXiv:2407.11118](https://arxiv.org/abs/2407.11118).
+
+**LY25** K. Li and D. Yang, “Reliability Function of Classical-Quantum Channels,” *Physical Review Letters* **134**, 010802 (2025). [doi:10.1103/PhysRevLett.134.010802](https://doi.org/10.1103/PhysRevLett.134.010802); [arXiv:2407.12403](https://arxiv.org/abs/2407.12403).

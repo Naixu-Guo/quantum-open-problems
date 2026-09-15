@@ -1,0 +1,3806 @@
+{
+  "schemaVersion": "qop-visibility-public-evidence/1",
+  "hostVersion": "0.154.0-alpha.6.2",
+  "sanitization": "Ephemeral endpoints, local paths and monotonic absolute timestamps removed. Raw results/events are retained locally, not embedded. Hashes refer to unmodified raw files. Automatic eligibility flags are unchanged.",
+  "runs": [
+    {
+      "runGroup": "direct",
+      "run": {
+        "case": "direct-defaultcap-65536",
+        "presentation": "direct-MCP-requested",
+        "maxBytes": 65536,
+        "outputTokenLimit": null,
+        "exitCode": 0,
+        "failure": null,
+        "usage": [
+          {
+            "input_tokens": 45377,
+            "cached_input_tokens": 13952,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 301,
+            "reasoning_output_tokens": 32
+          }
+        ],
+        "toolCalls": 1,
+        "contamination": [],
+        "unverifiedItemTypes": [],
+        "timing": {
+          "basis": "Host-observed CLI stdout arrival and process lifetime, including buffering and transport; not pure API latency.",
+          "clock": "time.monotonic",
+          "firstToolStarted": 7.755185,
+          "lastToolCompleted": 7.768516,
+          "totalSeconds": 17.723562,
+          "tools": [
+            {
+              "itemId": "item_1",
+              "server": "qop",
+              "tool": "search_problems",
+              "startedAtSeconds": 7.755185,
+              "completedAtSeconds": 7.768516,
+              "observedSeconds": 0.013331
+            }
+          ]
+        },
+        "grading": {
+          "strictJsonValid": true,
+          "issues": [],
+          "expectedProblems": 2,
+          "reportedProblems": 2,
+          "reportedPageCount": 2,
+          "matchedMarkers": 5,
+          "expectedMarkers": 6,
+          "matchRatio": 0.8333333333333334,
+          "allMarkersMatched": false,
+          "unknownIds": [],
+          "duplicateIds": [],
+          "byPosition": {
+            "diagnosticStart": {
+              "matched": 2,
+              "expected": 2,
+              "rawEventAvailable": 2,
+              "matchRatio": 1.0
+            },
+            "diagnosticMiddle": {
+              "matched": 1,
+              "expected": 2,
+              "rawEventAvailable": 2,
+              "matchRatio": 0.5
+            },
+            "diagnosticEnd": {
+              "matched": 2,
+              "expected": 2,
+              "rawEventAvailable": 2,
+              "matchRatio": 1.0
+            }
+          },
+          "problems": [
+            {
+              "id": "01M21S9FW14RJDR83J8D64FKEM",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            }
+          ],
+          "interpretation": "Exact random-marker readback only. Missing markers can reflect host truncation or model omission; full raw CLI results alone do not prove model visibility."
+        },
+        "visibilityEvidenceEligible": true,
+        "accessibilityEvidenceEligible": false,
+        "evidenceScope": "Direct-path random-marker readback; does not establish scientific comprehension.",
+        "exactlyOnePromptedCall": true,
+        "servedExternalCalls": 1,
+        "recoveryRecommended": true
+      },
+      "probe": {
+        "schemaVersion": "qop-visibility-probe/1",
+        "diagnostic": true,
+        "filters": {
+          "view": "research",
+          "area": "quantum-algorithm",
+          "status": "Unsolved",
+          "sort": "title",
+          "limit": 200,
+          "maxBytes": 65536
+        },
+        "catalogVersion": "d76175295aaee4cd1437fe6d876f00acab20b2dc70414ad56d9b7aa3b2fb5c89",
+        "total": 25,
+        "pageCount": 2,
+        "originalResponseBytes": 61373,
+        "decoratedResponseBytes": 62438,
+        "diagnosticAddedBytes": 1065,
+        "rawSdkResultBytes": 130916,
+        "baseCommit": "3bc74404504e977360014ef405019a8016aa8fe6",
+        "implementation": "working-tree",
+        "stores": "in-memory",
+        "transport": "Official SDK HTTP; frozen page fetched through real adapter and API HTTP",
+        "integrity": "Removing three diagnostic fields per problem exactly reproduces every original problem; original API response byte budget verified.",
+        "limitations": "Marker readback measures this synthetic task, not comprehension of scientific content. raw-result is an SDK result before host-specific truncation, not evidence of model visibility."
+      },
+      "expected": {
+        "schemaVersion": "qop-visibility-expected/1",
+        "diagnostic": true,
+        "filters": {
+          "view": "research",
+          "area": "quantum-algorithm",
+          "status": "Unsolved",
+          "sort": "title",
+          "limit": 200,
+          "maxBytes": 65536
+        },
+        "originalPageSha256": "4f11b5e61280dd913d7689a6d000784104875589d0d2bccc036fcaa88af4d910",
+        "decoratedPageSha256": "486308dc971d8bc999894026e647d830933c44ec25a0731c4879555204aff92e",
+        "originalResponseBytes": 61373,
+        "decoratedResponseBytes": 62438,
+        "markerCount": 6,
+        "problems": [
+          {
+            "id": "01M21S9FW14RJDR83J8D64FKEM",
+            "diagnosticStart": "qop_diag_e5bfd5669ee42c2aed18163964554e5d",
+            "diagnosticMiddle": "qop_diag_e21300cbb7aa3d71e8ab8908cef03f3c",
+            "diagnosticEnd": "qop_diag_2b782af7791ea898548de4eb69984097",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0008922198429693076,
+                "pageByteOffset": 1318
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1122,
+                "problemByteFraction": 0.05005353319057816,
+                "pageByteOffset": 2420
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 22373,
+                "problemByteFraction": 0.998081727337616,
+                "pageByteOffset": 23671
+              }
+            }
+          },
+          {
+            "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+            "diagnosticStart": "qop_diag_18c03c19cc3cfea691979a314f222530",
+            "diagnosticMiddle": "qop_diag_a94c7d7a96c04b3be0e97c2443742548",
+            "diagnosticEnd": "qop_diag_33b194d25c0e3c7816d730cf49f423bd",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0005194805194805195,
+                "pageByteOffset": 23735
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1232,
+                "problemByteFraction": 0.032,
+                "pageByteOffset": 24947
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 38457,
+                "problemByteFraction": 0.9988831168831169,
+                "pageByteOffset": 62172
+              }
+            }
+          }
+        ]
+      },
+      "answer": {
+        "problems": [
+          {
+            "id": "01M21S9FW14RJDR83J8D64FKEM",
+            "diagnosticStart": "qop_diag_e5bfd5669ee42c2aed18163964554e5d",
+            "diagnosticMiddle": "qop_diag_e21300cbb7aa3d71e8ab8908cef03f3c",
+            "diagnosticEnd": "qop_diag_2b782af7791ea898548de4eb69984097"
+          },
+          {
+            "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+            "diagnosticStart": "qop_diag_18c03c19cc3cfea691979a314f222530",
+            "diagnosticMiddle": null,
+            "diagnosticEnd": "qop_diag_33b194d25c0e3c7816d730cf49f423bd"
+          }
+        ],
+        "reportedPageCount": 2
+      },
+      "rawResultFileSha256": "7617dda55df5de63634176c01d2c78a5c0b068efd3decadf663524aa00da561b",
+      "servedCalls": [
+        {
+          "phase": "local-sdk-preflight",
+          "tool": "search_problems",
+          "arguments": {
+            "view": "research",
+            "area": "quantum-algorithm",
+            "status": "Unsolved",
+            "sort": "title",
+            "limit": 200,
+            "maxBytes": 65536
+          },
+          "exact": true,
+          "decoratedPageSha256": "486308dc971d8bc999894026e647d830933c44ec25a0731c4879555204aff92e"
+        },
+        {
+          "phase": "model-or-external-client",
+          "tool": "search_problems",
+          "arguments": {
+            "view": "research",
+            "area": "quantum-algorithm",
+            "status": "Unsolved",
+            "sort": "title",
+            "limit": 200,
+            "maxBytes": 65536
+          },
+          "exact": true,
+          "decoratedPageSha256": "486308dc971d8bc999894026e647d830933c44ec25a0731c4879555204aff92e"
+        }
+      ]
+    },
+    {
+      "runGroup": "direct",
+      "run": {
+        "case": "direct-defaultcap-200000",
+        "presentation": "direct-MCP-requested",
+        "maxBytes": 200000,
+        "outputTokenLimit": null,
+        "exitCode": 0,
+        "failure": null,
+        "usage": [
+          {
+            "input_tokens": 44729,
+            "cached_input_tokens": 18304,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 545,
+            "reasoning_output_tokens": 131
+          }
+        ],
+        "toolCalls": 1,
+        "contamination": [],
+        "unverifiedItemTypes": [],
+        "timing": {
+          "basis": "Host-observed CLI stdout arrival and process lifetime, including buffering and transport; not pure API latency.",
+          "clock": "time.monotonic",
+          "firstToolStarted": 7.845755,
+          "lastToolCompleted": 7.870535,
+          "totalSeconds": 25.461173,
+          "tools": [
+            {
+              "itemId": "item_1",
+              "server": "qop",
+              "tool": "search_problems",
+              "startedAtSeconds": 7.845755,
+              "completedAtSeconds": 7.870535,
+              "observedSeconds": 0.02478
+            }
+          ]
+        },
+        "grading": {
+          "strictJsonValid": true,
+          "issues": [],
+          "expectedProblems": 11,
+          "reportedProblems": 4,
+          "reportedPageCount": 11,
+          "matchedMarkers": 8,
+          "expectedMarkers": 33,
+          "matchRatio": 0.24242424242424243,
+          "allMarkersMatched": false,
+          "unknownIds": [],
+          "duplicateIds": [],
+          "byPosition": {
+            "diagnosticStart": {
+              "matched": 3,
+              "expected": 11,
+              "rawEventAvailable": 11,
+              "matchRatio": 0.2727272727272727
+            },
+            "diagnosticMiddle": {
+              "matched": 2,
+              "expected": 11,
+              "rawEventAvailable": 11,
+              "matchRatio": 0.18181818181818182
+            },
+            "diagnosticEnd": {
+              "matched": 3,
+              "expected": 11,
+              "rawEventAvailable": 11,
+              "matchRatio": 0.2727272727272727
+            }
+          },
+          "problems": [
+            {
+              "id": "01M21S9FW14RJDR83J8D64FKEM",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": false
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M20BHBAFHFJEYHE131WS8EJX",
+              "present": false,
+              "matched": {
+                "diagnosticStart": false,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": false
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M20CXWDYD1RXVWDKFMFM675K",
+              "present": false,
+              "matched": {
+                "diagnosticStart": false,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": false
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M20BHBBG223ZDPK3F526EHFH",
+              "present": false,
+              "matched": {
+                "diagnosticStart": false,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": false
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M1HME780CC21XQAXBTWRJRCY",
+              "present": false,
+              "matched": {
+                "diagnosticStart": false,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": false
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M1Q787QRH2ASM04Q5SDG2H88",
+              "present": false,
+              "matched": {
+                "diagnosticStart": false,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": false
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M1HME78078BW0JG3X252BVX5",
+              "present": false,
+              "matched": {
+                "diagnosticStart": false,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": false
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M20E31B526DAX81WYGMDD01T",
+              "present": false,
+              "matched": {
+                "diagnosticStart": false,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": false
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M1Q787QRCCSDNVA159Y6S261",
+              "present": true,
+              "matched": {
+                "diagnosticStart": false,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M22P0HY0R1RBEABK7MZW488E",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            }
+          ],
+          "interpretation": "Exact random-marker readback only. Missing markers can reflect host truncation or model omission; full raw CLI results alone do not prove model visibility."
+        },
+        "visibilityEvidenceEligible": true,
+        "accessibilityEvidenceEligible": false,
+        "evidenceScope": "Direct-path random-marker readback; does not establish scientific comprehension.",
+        "exactlyOnePromptedCall": true,
+        "servedExternalCalls": 1,
+        "recoveryRecommended": true
+      },
+      "probe": {
+        "schemaVersion": "qop-visibility-probe/1",
+        "diagnostic": true,
+        "filters": {
+          "view": "research",
+          "area": "quantum-algorithm",
+          "status": "Unsolved",
+          "sort": "title",
+          "limit": 200,
+          "maxBytes": 200000
+        },
+        "catalogVersion": "d76175295aaee4cd1437fe6d876f00acab20b2dc70414ad56d9b7aa3b2fb5c89",
+        "total": 25,
+        "pageCount": 11,
+        "originalResponseBytes": 190506,
+        "decoratedResponseBytes": 193237,
+        "diagnosticAddedBytes": 2731,
+        "rawSdkResultBytes": 406122,
+        "baseCommit": "3bc74404504e977360014ef405019a8016aa8fe6",
+        "implementation": "working-tree",
+        "stores": "in-memory",
+        "transport": "Official SDK HTTP; frozen page fetched through real adapter and API HTTP",
+        "integrity": "Removing three diagnostic fields per problem exactly reproduces every original problem; original API response byte budget verified.",
+        "limitations": "Marker readback measures this synthetic task, not comprehension of scientific content. raw-result is an SDK result before host-specific truncation, not evidence of model visibility."
+      },
+      "expected": {
+        "schemaVersion": "qop-visibility-expected/1",
+        "diagnostic": true,
+        "filters": {
+          "view": "research",
+          "area": "quantum-algorithm",
+          "status": "Unsolved",
+          "sort": "title",
+          "limit": 200,
+          "maxBytes": 200000
+        },
+        "originalPageSha256": "a4f5939523e1c32b4bb3e7bca33766a16346645cb17be0d1eec1737a533f2bbb",
+        "decoratedPageSha256": "f40134d0cfd9b07f2edd04ac22615ca36da550c0d97e7d3563bad6d895ba7744",
+        "originalResponseBytes": 190506,
+        "decoratedResponseBytes": 193237,
+        "markerCount": 33,
+        "problems": [
+          {
+            "id": "01M21S9FW14RJDR83J8D64FKEM",
+            "diagnosticStart": "qop_diag_e9eb05cdf1336d4fce68e100d95c0dd8",
+            "diagnosticMiddle": "qop_diag_eb0e41fe70dc3c28bdfe17eb61d0a679",
+            "diagnosticEnd": "qop_diag_dc278ee6e1e31b928b2685d6660a7f7b",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0008922198429693076,
+                "pageByteOffset": 1322
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1122,
+                "problemByteFraction": 0.05005353319057816,
+                "pageByteOffset": 2424
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 22373,
+                "problemByteFraction": 0.998081727337616,
+                "pageByteOffset": 23675
+              }
+            }
+          },
+          {
+            "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+            "diagnosticStart": "qop_diag_95e906081d3a2ccf37c9a3fd1919a955",
+            "diagnosticMiddle": "qop_diag_7627c8663fd119724cb6a62c37bf416a",
+            "diagnosticEnd": "qop_diag_0c32beb3d6a1d0505d8c918a6c7c0757",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0005194805194805195,
+                "pageByteOffset": 23739
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1232,
+                "problemByteFraction": 0.032,
+                "pageByteOffset": 24951
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 38457,
+                "problemByteFraction": 0.9988831168831169,
+                "pageByteOffset": 62176
+              }
+            }
+          },
+          {
+            "id": "01M20BHBAFHFJEYHE131WS8EJX",
+            "diagnosticStart": "qop_diag_fdab925c109cba33a946fd500bec132a",
+            "diagnosticMiddle": "qop_diag_3e02714f66993aeb0c390cc57cb055b5",
+            "diagnosticEnd": "qop_diag_b4f73f455a5944ff407c758268ecc685",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0021544759237315525,
+                "pageByteOffset": 62240
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1202,
+                "problemByteFraction": 0.12948400301626628,
+                "pageByteOffset": 63422
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 9240,
+                "problemByteFraction": 0.9953678767639772,
+                "pageByteOffset": 71460
+              }
+            }
+          },
+          {
+            "id": "01M20CXWDYD1RXVWDKFMFM675K",
+            "diagnosticStart": "qop_diag_bf43764ffa7b9a791db0ee4467cbc553",
+            "diagnosticMiddle": "qop_diag_71f865737a40f0e8b20032e8c462dcda",
+            "diagnosticEnd": "qop_diag_6ad19b15e5af7d6a65edcfe8e2532fcd",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.000959462700887503,
+                "pageByteOffset": 71524
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1212,
+                "problemByteFraction": 0.05814343967378268,
+                "pageByteOffset": 72716
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 20802,
+                "problemByteFraction": 0.9979371551930919,
+                "pageByteOffset": 92306
+              }
+            }
+          },
+          {
+            "id": "01M20BHBBG223ZDPK3F526EHFH",
+            "diagnosticStart": "qop_diag_b2c683df4129c76b0c981ef2e7900be0",
+            "diagnosticMiddle": "qop_diag_6115a2d43b4e6812e640685827075bf0",
+            "diagnosticEnd": "qop_diag_292e2708b96de2899d9353a7ee8435b6",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.00189411876124633,
+                "pageByteOffset": 92370
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1221,
+                "problemByteFraction": 0.11563595037408846,
+                "pageByteOffset": 93571
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 10516,
+                "problemByteFraction": 0.9959276446633204,
+                "pageByteOffset": 102866
+              }
+            }
+          },
+          {
+            "id": "01M1HME780CC21XQAXBTWRJRCY",
+            "diagnosticStart": "qop_diag_26e08837fa9d3f8f0d15f7aaa78d2092",
+            "diagnosticMiddle": "qop_diag_d7842e3b5fb968b7794f74cb69d8cb1e",
+            "diagnosticEnd": "qop_diag_c39a5600af4a40a31e3b9bc026dedfc2",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0010960105217010083,
+                "pageByteOffset": 102930
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1265,
+                "problemByteFraction": 0.06932266549758878,
+                "pageByteOffset": 104175
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 18205,
+                "problemByteFraction": 0.9976435773783429,
+                "pageByteOffset": 121115
+              }
+            }
+          },
+          {
+            "id": "01M1Q787QRH2ASM04Q5SDG2H88",
+            "diagnosticStart": "qop_diag_aba191681127350fae40e5a27e8f3795",
+            "diagnosticMiddle": "qop_diag_f92a9851d9a768b01989374ebb50d723",
+            "diagnosticEnd": "qop_diag_5e8ac07f2d093b5df4e2db046c061cbb",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0012866700977869274,
+                "pageByteOffset": 121179
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1177,
+                "problemByteFraction": 0.07572053525476068,
+                "pageByteOffset": 122336
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 15501,
+                "problemByteFraction": 0.9972336592897582,
+                "pageByteOffset": 136660
+              }
+            }
+          },
+          {
+            "id": "01M1HME78078BW0JG3X252BVX5",
+            "diagnosticStart": "qop_diag_89f24bf482dd8bacddb4a524832f48d1",
+            "diagnosticMiddle": "qop_diag_f04fce3a4a20823650c2b0b5fc50cbfb",
+            "diagnosticEnd": "qop_diag_d7c4d0e100e5eae660f17519b87b1e10",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0012366289494837074,
+                "pageByteOffset": 136724
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1260,
+                "problemByteFraction": 0.07790762381747357,
+                "pageByteOffset": 137964
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 16130,
+                "problemByteFraction": 0.99734124775861,
+                "pageByteOffset": 152834
+              }
+            }
+          },
+          {
+            "id": "01M20E31B526DAX81WYGMDD01T",
+            "diagnosticStart": "qop_diag_95f0e963e84ec189a82274db347b46e1",
+            "diagnosticMiddle": "qop_diag_0f2ea92f6be853232bb23cdcbfbc9fdf",
+            "diagnosticEnd": "qop_diag_5119cf7efe2e4dfc4982388c3950edcf",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0015157256536566881,
+                "pageByteOffset": 152898
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1171,
+                "problemByteFraction": 0.08874573702159909,
+                "pageByteOffset": 154049
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 13152,
+                "problemByteFraction": 0.9967411898446381,
+                "pageByteOffset": 166030
+              }
+            }
+          },
+          {
+            "id": "01M1Q787QRCCSDNVA159Y6S261",
+            "diagnosticStart": "qop_diag_ad38b61df4b91ef2a4c323d11af12d7c",
+            "diagnosticMiddle": "qop_diag_2f95efddea4f3382aaf1dc9269a4b427",
+            "diagnosticEnd": "qop_diag_f4bc487436f067c254a17483492436cf",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0011987532965715656,
+                "pageByteOffset": 166094
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1205,
+                "problemByteFraction": 0.07222488611843683,
+                "pageByteOffset": 167279
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 16641,
+                "problemByteFraction": 0.9974226804123711,
+                "pageByteOffset": 182715
+              }
+            }
+          },
+          {
+            "id": "01M22P0HY0R1RBEABK7MZW488E",
+            "diagnosticStart": "qop_diag_63b8c4fab5bfac8d45a8f27f68f1707c",
+            "diagnosticMiddle": "qop_diag_1e30a883c7f38aeff4d2086fd697e2bc",
+            "diagnosticEnd": "qop_diag_469b1453bbc1421c6646411ef133e9bf",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0019506485906563933,
+                "pageByteOffset": 182779
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1284,
+                "problemByteFraction": 0.12523163952014044,
+                "pageByteOffset": 184043
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 10210,
+                "problemByteFraction": 0.9958061055300887,
+                "pageByteOffset": 192969
+              }
+            }
+          }
+        ]
+      },
+      "answer": {
+        "problems": [
+          {
+            "id": "01M21S9FW14RJDR83J8D64FKEM",
+            "diagnosticStart": "qop_diag_e9eb05cdf1336d4fce68e100d95c0dd8",
+            "diagnosticMiddle": "qop_diag_eb0e41fe70dc3c28bdfe17eb61d0a679",
+            "diagnosticEnd": "qop_diag_dc278ee6e1e31b928b2685d6660a7f7b"
+          },
+          {
+            "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+            "diagnosticStart": "qop_diag_95e906081d3a2ccf37c9a3fd1919a955",
+            "diagnosticMiddle": null,
+            "diagnosticEnd": null
+          },
+          {
+            "id": "01M1Q787QRCCSDNVA159Y6S261",
+            "diagnosticStart": null,
+            "diagnosticMiddle": null,
+            "diagnosticEnd": "qop_diag_f4bc487436f067c254a17483492436cf"
+          },
+          {
+            "id": "01M22P0HY0R1RBEABK7MZW488E",
+            "diagnosticStart": "qop_diag_63b8c4fab5bfac8d45a8f27f68f1707c",
+            "diagnosticMiddle": "qop_diag_1e30a883c7f38aeff4d2086fd697e2bc",
+            "diagnosticEnd": "qop_diag_469b1453bbc1421c6646411ef133e9bf"
+          }
+        ],
+        "reportedPageCount": 11
+      },
+      "rawResultFileSha256": "ebdf84610d576e50bece2f1026eeafdc035086468bfcd56f0c72425de5499e39",
+      "servedCalls": [
+        {
+          "phase": "local-sdk-preflight",
+          "tool": "search_problems",
+          "arguments": {
+            "view": "research",
+            "area": "quantum-algorithm",
+            "status": "Unsolved",
+            "sort": "title",
+            "limit": 200,
+            "maxBytes": 200000
+          },
+          "exact": true,
+          "decoratedPageSha256": "f40134d0cfd9b07f2edd04ac22615ca36da550c0d97e7d3563bad6d895ba7744"
+        },
+        {
+          "phase": "model-or-external-client",
+          "tool": "search_problems",
+          "arguments": {
+            "view": "research",
+            "area": "quantum-algorithm",
+            "status": "Unsolved",
+            "sort": "title",
+            "limit": 200,
+            "maxBytes": 200000
+          },
+          "exact": true,
+          "decoratedPageSha256": "f40134d0cfd9b07f2edd04ac22615ca36da550c0d97e7d3563bad6d895ba7744"
+        }
+      ]
+    },
+    {
+      "runGroup": "direct",
+      "run": {
+        "case": "direct-lowcap-200000",
+        "presentation": "direct-MCP-requested",
+        "maxBytes": 200000,
+        "outputTokenLimit": 1024,
+        "exitCode": 0,
+        "failure": null,
+        "usage": [
+          {
+            "input_tokens": 30092,
+            "cached_input_tokens": 8704,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 497,
+            "reasoning_output_tokens": 287
+          }
+        ],
+        "toolCalls": 1,
+        "contamination": [],
+        "unverifiedItemTypes": [],
+        "timing": {
+          "basis": "Host-observed CLI stdout arrival and process lifetime, including buffering and transport; not pure API latency.",
+          "clock": "time.monotonic",
+          "firstToolStarted": 7.87924,
+          "lastToolCompleted": 7.903192,
+          "totalSeconds": 24.050306,
+          "tools": [
+            {
+              "itemId": "item_1",
+              "server": "qop",
+              "tool": "search_problems",
+              "startedAtSeconds": 7.87924,
+              "completedAtSeconds": 7.903192,
+              "observedSeconds": 0.023952
+            }
+          ]
+        },
+        "grading": {
+          "strictJsonValid": true,
+          "issues": [],
+          "expectedProblems": 11,
+          "reportedProblems": 2,
+          "reportedPageCount": 11,
+          "matchedMarkers": 2,
+          "expectedMarkers": 33,
+          "matchRatio": 0.06060606060606061,
+          "allMarkersMatched": false,
+          "unknownIds": [],
+          "duplicateIds": [],
+          "byPosition": {
+            "diagnosticStart": {
+              "matched": 1,
+              "expected": 11,
+              "rawEventAvailable": 11,
+              "matchRatio": 0.09090909090909091
+            },
+            "diagnosticMiddle": {
+              "matched": 0,
+              "expected": 11,
+              "rawEventAvailable": 11,
+              "matchRatio": 0.0
+            },
+            "diagnosticEnd": {
+              "matched": 1,
+              "expected": 11,
+              "rawEventAvailable": 11,
+              "matchRatio": 0.09090909090909091
+            }
+          },
+          "problems": [
+            {
+              "id": "01M21S9FW14RJDR83J8D64FKEM",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": false
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+              "present": false,
+              "matched": {
+                "diagnosticStart": false,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": false
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M20BHBAFHFJEYHE131WS8EJX",
+              "present": false,
+              "matched": {
+                "diagnosticStart": false,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": false
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M20CXWDYD1RXVWDKFMFM675K",
+              "present": false,
+              "matched": {
+                "diagnosticStart": false,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": false
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M20BHBBG223ZDPK3F526EHFH",
+              "present": false,
+              "matched": {
+                "diagnosticStart": false,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": false
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M1HME780CC21XQAXBTWRJRCY",
+              "present": false,
+              "matched": {
+                "diagnosticStart": false,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": false
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M1Q787QRH2ASM04Q5SDG2H88",
+              "present": false,
+              "matched": {
+                "diagnosticStart": false,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": false
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M1HME78078BW0JG3X252BVX5",
+              "present": false,
+              "matched": {
+                "diagnosticStart": false,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": false
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M20E31B526DAX81WYGMDD01T",
+              "present": false,
+              "matched": {
+                "diagnosticStart": false,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": false
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M1Q787QRCCSDNVA159Y6S261",
+              "present": false,
+              "matched": {
+                "diagnosticStart": false,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": false
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M22P0HY0R1RBEABK7MZW488E",
+              "present": true,
+              "matched": {
+                "diagnosticStart": false,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            }
+          ],
+          "interpretation": "Exact random-marker readback only. Missing markers can reflect host truncation or model omission; full raw CLI results alone do not prove model visibility."
+        },
+        "visibilityEvidenceEligible": true,
+        "accessibilityEvidenceEligible": false,
+        "evidenceScope": "Direct-path random-marker readback; does not establish scientific comprehension.",
+        "exactlyOnePromptedCall": true,
+        "servedExternalCalls": 1,
+        "recoveryRecommended": false
+      },
+      "probe": {
+        "schemaVersion": "qop-visibility-probe/1",
+        "diagnostic": true,
+        "filters": {
+          "view": "research",
+          "area": "quantum-algorithm",
+          "status": "Unsolved",
+          "sort": "title",
+          "limit": 200,
+          "maxBytes": 200000
+        },
+        "catalogVersion": "d76175295aaee4cd1437fe6d876f00acab20b2dc70414ad56d9b7aa3b2fb5c89",
+        "total": 25,
+        "pageCount": 11,
+        "originalResponseBytes": 190506,
+        "decoratedResponseBytes": 193237,
+        "diagnosticAddedBytes": 2731,
+        "rawSdkResultBytes": 406122,
+        "baseCommit": "3bc74404504e977360014ef405019a8016aa8fe6",
+        "implementation": "working-tree",
+        "stores": "in-memory",
+        "transport": "Official SDK HTTP; frozen page fetched through real adapter and API HTTP",
+        "integrity": "Removing three diagnostic fields per problem exactly reproduces every original problem; original API response byte budget verified.",
+        "limitations": "Marker readback measures this synthetic task, not comprehension of scientific content. raw-result is an SDK result before host-specific truncation, not evidence of model visibility."
+      },
+      "expected": {
+        "schemaVersion": "qop-visibility-expected/1",
+        "diagnostic": true,
+        "filters": {
+          "view": "research",
+          "area": "quantum-algorithm",
+          "status": "Unsolved",
+          "sort": "title",
+          "limit": 200,
+          "maxBytes": 200000
+        },
+        "originalPageSha256": "8ab1a7b7fbaa487c723a01dceb99ef9764472a975fadf1df424d815cfa7452c4",
+        "decoratedPageSha256": "3305d21c014c34630ee533eb44980806f05ee931469e92e57a313da354228320",
+        "originalResponseBytes": 190506,
+        "decoratedResponseBytes": 193237,
+        "markerCount": 33,
+        "problems": [
+          {
+            "id": "01M21S9FW14RJDR83J8D64FKEM",
+            "diagnosticStart": "qop_diag_0902d046d087b86b2834c04d34672915",
+            "diagnosticMiddle": "qop_diag_9ac045238224f26fdf4b58b41232f377",
+            "diagnosticEnd": "qop_diag_7805db3a2e648485e9e3fc6cc2711b02",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0008922198429693076,
+                "pageByteOffset": 1322
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1122,
+                "problemByteFraction": 0.05005353319057816,
+                "pageByteOffset": 2424
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 22373,
+                "problemByteFraction": 0.998081727337616,
+                "pageByteOffset": 23675
+              }
+            }
+          },
+          {
+            "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+            "diagnosticStart": "qop_diag_a68c30f66d6464cb773c8e72610d4c58",
+            "diagnosticMiddle": "qop_diag_9dff6946a05c76d7df336ab62b1f2be4",
+            "diagnosticEnd": "qop_diag_fc14c781dbcae303f2a4725828139a12",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0005194805194805195,
+                "pageByteOffset": 23739
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1232,
+                "problemByteFraction": 0.032,
+                "pageByteOffset": 24951
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 38457,
+                "problemByteFraction": 0.9988831168831169,
+                "pageByteOffset": 62176
+              }
+            }
+          },
+          {
+            "id": "01M20BHBAFHFJEYHE131WS8EJX",
+            "diagnosticStart": "qop_diag_51c885fdd41b96441c4ee2371c55885a",
+            "diagnosticMiddle": "qop_diag_cee2a8a69e2fcb4df7d6d934b9b86b73",
+            "diagnosticEnd": "qop_diag_7554c99619d680fa83644abdb381d756",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0021544759237315525,
+                "pageByteOffset": 62240
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1202,
+                "problemByteFraction": 0.12948400301626628,
+                "pageByteOffset": 63422
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 9240,
+                "problemByteFraction": 0.9953678767639772,
+                "pageByteOffset": 71460
+              }
+            }
+          },
+          {
+            "id": "01M20CXWDYD1RXVWDKFMFM675K",
+            "diagnosticStart": "qop_diag_b1dae18d08126d24976ade10280464c9",
+            "diagnosticMiddle": "qop_diag_6cf16ef429ede035790fe4d91a2a0c50",
+            "diagnosticEnd": "qop_diag_8dd9fa645b06359bd84e4e77e16d03bb",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.000959462700887503,
+                "pageByteOffset": 71524
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1212,
+                "problemByteFraction": 0.05814343967378268,
+                "pageByteOffset": 72716
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 20802,
+                "problemByteFraction": 0.9979371551930919,
+                "pageByteOffset": 92306
+              }
+            }
+          },
+          {
+            "id": "01M20BHBBG223ZDPK3F526EHFH",
+            "diagnosticStart": "qop_diag_f689376495ed403860a5e423cddd89a1",
+            "diagnosticMiddle": "qop_diag_26e6c70a67eb25b16510b64e75c00dcb",
+            "diagnosticEnd": "qop_diag_23746f9905db4137291247d72c6a4401",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.00189411876124633,
+                "pageByteOffset": 92370
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1221,
+                "problemByteFraction": 0.11563595037408846,
+                "pageByteOffset": 93571
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 10516,
+                "problemByteFraction": 0.9959276446633204,
+                "pageByteOffset": 102866
+              }
+            }
+          },
+          {
+            "id": "01M1HME780CC21XQAXBTWRJRCY",
+            "diagnosticStart": "qop_diag_cde77243eca9b8e67986615309058442",
+            "diagnosticMiddle": "qop_diag_53c43aec52d2f8c2bc90fe16413c70ec",
+            "diagnosticEnd": "qop_diag_400974b8e7d48b0b768154a7bfdaf5af",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0010960105217010083,
+                "pageByteOffset": 102930
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1265,
+                "problemByteFraction": 0.06932266549758878,
+                "pageByteOffset": 104175
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 18205,
+                "problemByteFraction": 0.9976435773783429,
+                "pageByteOffset": 121115
+              }
+            }
+          },
+          {
+            "id": "01M1Q787QRH2ASM04Q5SDG2H88",
+            "diagnosticStart": "qop_diag_923bcd8b871b04a3f592229645309831",
+            "diagnosticMiddle": "qop_diag_7cd223db8ab7e3e34c6bb3afdc3f0e5f",
+            "diagnosticEnd": "qop_diag_c5db364b575ccd091d347e59c22452a0",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0012866700977869274,
+                "pageByteOffset": 121179
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1177,
+                "problemByteFraction": 0.07572053525476068,
+                "pageByteOffset": 122336
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 15501,
+                "problemByteFraction": 0.9972336592897582,
+                "pageByteOffset": 136660
+              }
+            }
+          },
+          {
+            "id": "01M1HME78078BW0JG3X252BVX5",
+            "diagnosticStart": "qop_diag_cb75e45cca05d9ed88bdf792a552aef5",
+            "diagnosticMiddle": "qop_diag_d26418eb59c0b9e6d459cf2feae18c48",
+            "diagnosticEnd": "qop_diag_4b4afdf62fffb7bee8081dd4c3534209",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0012366289494837074,
+                "pageByteOffset": 136724
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1260,
+                "problemByteFraction": 0.07790762381747357,
+                "pageByteOffset": 137964
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 16130,
+                "problemByteFraction": 0.99734124775861,
+                "pageByteOffset": 152834
+              }
+            }
+          },
+          {
+            "id": "01M20E31B526DAX81WYGMDD01T",
+            "diagnosticStart": "qop_diag_d1101b1a7c03f308eabf9e216a823963",
+            "diagnosticMiddle": "qop_diag_d9162e18745fd021f75673a4fd46b948",
+            "diagnosticEnd": "qop_diag_bbbf5ac9b7467315ae94fee9b08a4a7f",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0015157256536566881,
+                "pageByteOffset": 152898
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1171,
+                "problemByteFraction": 0.08874573702159909,
+                "pageByteOffset": 154049
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 13152,
+                "problemByteFraction": 0.9967411898446381,
+                "pageByteOffset": 166030
+              }
+            }
+          },
+          {
+            "id": "01M1Q787QRCCSDNVA159Y6S261",
+            "diagnosticStart": "qop_diag_27219512d95bb032a9a9682e9edf6ebb",
+            "diagnosticMiddle": "qop_diag_0472bfa8bb7b4de595c5fabc63838c0c",
+            "diagnosticEnd": "qop_diag_2076ed98240139c81ec518a5e60711f2",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0011987532965715656,
+                "pageByteOffset": 166094
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1205,
+                "problemByteFraction": 0.07222488611843683,
+                "pageByteOffset": 167279
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 16641,
+                "problemByteFraction": 0.9974226804123711,
+                "pageByteOffset": 182715
+              }
+            }
+          },
+          {
+            "id": "01M22P0HY0R1RBEABK7MZW488E",
+            "diagnosticStart": "qop_diag_878c783c9472193197e3b0e54c4996cf",
+            "diagnosticMiddle": "qop_diag_1758fa32b68a8155c64a8e8a9b2407b6",
+            "diagnosticEnd": "qop_diag_87062cbe0eb3d9601e2a0adee129fec0",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0019506485906563933,
+                "pageByteOffset": 182779
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1284,
+                "problemByteFraction": 0.12523163952014044,
+                "pageByteOffset": 184043
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 10210,
+                "problemByteFraction": 0.9958061055300887,
+                "pageByteOffset": 192969
+              }
+            }
+          }
+        ]
+      },
+      "answer": {
+        "problems": [
+          {
+            "id": "01M21S9FW14RJDR83J8D64FKEM",
+            "diagnosticStart": "qop_diag_0902d046d087b86b2834c04d34672915",
+            "diagnosticMiddle": null,
+            "diagnosticEnd": null
+          },
+          {
+            "id": "01M22P0HY0R1RBEABK7MZW488E",
+            "diagnosticStart": null,
+            "diagnosticMiddle": null,
+            "diagnosticEnd": "qop_diag_87062cbe0eb3d9601e2a0adee129fec0"
+          }
+        ],
+        "reportedPageCount": 11
+      },
+      "rawResultFileSha256": "ca7014fe3a7cdfbd17684e01b90224d73b9f1b95f6ade0b4fd4abcff33a22452",
+      "servedCalls": [
+        {
+          "phase": "local-sdk-preflight",
+          "tool": "search_problems",
+          "arguments": {
+            "view": "research",
+            "area": "quantum-algorithm",
+            "status": "Unsolved",
+            "sort": "title",
+            "limit": 200,
+            "maxBytes": 200000
+          },
+          "exact": true,
+          "decoratedPageSha256": "3305d21c014c34630ee533eb44980806f05ee931469e92e57a313da354228320"
+        },
+        {
+          "phase": "model-or-external-client",
+          "tool": "search_problems",
+          "arguments": {
+            "view": "research",
+            "area": "quantum-algorithm",
+            "status": "Unsolved",
+            "sort": "title",
+            "limit": 200,
+            "maxBytes": 200000
+          },
+          "exact": true,
+          "decoratedPageSha256": "3305d21c014c34630ee533eb44980806f05ee931469e92e57a313da354228320"
+        }
+      ]
+    },
+    {
+      "runGroup": "recovery",
+      "run": {
+        "case": "direct-recovery-200000",
+        "presentation": "direct-MCP-requested",
+        "maxBytes": 200000,
+        "outputTokenLimit": 100000,
+        "exitCode": 0,
+        "failure": null,
+        "usage": [
+          {
+            "input_tokens": 95539,
+            "cached_input_tokens": 13952,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1251,
+            "reasoning_output_tokens": 52
+          }
+        ],
+        "toolCalls": 1,
+        "contamination": [],
+        "unverifiedItemTypes": [],
+        "timing": {
+          "basis": "Host-observed CLI stdout arrival and process lifetime, including buffering and transport; not pure API latency.",
+          "clock": "time.monotonic",
+          "firstToolStarted": 7.970533,
+          "lastToolCompleted": 7.991484,
+          "totalSeconds": 48.052854,
+          "tools": [
+            {
+              "itemId": "item_1",
+              "server": "qop",
+              "tool": "search_problems",
+              "startedAtSeconds": 7.970533,
+              "completedAtSeconds": 7.991484,
+              "observedSeconds": 0.020951
+            }
+          ]
+        },
+        "grading": {
+          "strictJsonValid": true,
+          "issues": [],
+          "expectedProblems": 11,
+          "reportedProblems": 11,
+          "reportedPageCount": 11,
+          "matchedMarkers": 33,
+          "expectedMarkers": 33,
+          "matchRatio": 1.0,
+          "allMarkersMatched": true,
+          "unknownIds": [],
+          "duplicateIds": [],
+          "byPosition": {
+            "diagnosticStart": {
+              "matched": 11,
+              "expected": 11,
+              "rawEventAvailable": 11,
+              "matchRatio": 1.0
+            },
+            "diagnosticMiddle": {
+              "matched": 11,
+              "expected": 11,
+              "rawEventAvailable": 11,
+              "matchRatio": 1.0
+            },
+            "diagnosticEnd": {
+              "matched": 11,
+              "expected": 11,
+              "rawEventAvailable": 11,
+              "matchRatio": 1.0
+            }
+          },
+          "problems": [
+            {
+              "id": "01M21S9FW14RJDR83J8D64FKEM",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M20BHBAFHFJEYHE131WS8EJX",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M20CXWDYD1RXVWDKFMFM675K",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M20BHBBG223ZDPK3F526EHFH",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M1HME780CC21XQAXBTWRJRCY",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M1Q787QRH2ASM04Q5SDG2H88",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M1HME78078BW0JG3X252BVX5",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M20E31B526DAX81WYGMDD01T",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M1Q787QRCCSDNVA159Y6S261",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M22P0HY0R1RBEABK7MZW488E",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            }
+          ],
+          "interpretation": "Exact random-marker readback only. Missing markers can reflect host truncation or model omission; full raw CLI results alone do not prove model visibility."
+        },
+        "visibilityEvidenceEligible": true,
+        "accessibilityEvidenceEligible": false,
+        "evidenceScope": "Direct-path random-marker readback; does not establish scientific comprehension.",
+        "exactlyOnePromptedCall": true,
+        "servedExternalCalls": 1,
+        "recoveryRecommended": false
+      },
+      "probe": {
+        "schemaVersion": "qop-visibility-probe/1",
+        "diagnostic": true,
+        "filters": {
+          "view": "research",
+          "area": "quantum-algorithm",
+          "status": "Unsolved",
+          "sort": "title",
+          "limit": 200,
+          "maxBytes": 200000
+        },
+        "catalogVersion": "d76175295aaee4cd1437fe6d876f00acab20b2dc70414ad56d9b7aa3b2fb5c89",
+        "total": 25,
+        "pageCount": 11,
+        "originalResponseBytes": 190506,
+        "decoratedResponseBytes": 193237,
+        "diagnosticAddedBytes": 2731,
+        "rawSdkResultBytes": 406122,
+        "baseCommit": "3bc74404504e977360014ef405019a8016aa8fe6",
+        "implementation": "working-tree",
+        "stores": "in-memory",
+        "transport": "Official SDK HTTP; frozen page fetched through real adapter and API HTTP",
+        "integrity": "Removing three diagnostic fields per problem exactly reproduces every original problem; original API response byte budget verified.",
+        "limitations": "Marker readback measures this synthetic task, not comprehension of scientific content. raw-result is an SDK result before host-specific truncation, not evidence of model visibility."
+      },
+      "expected": {
+        "schemaVersion": "qop-visibility-expected/1",
+        "diagnostic": true,
+        "filters": {
+          "view": "research",
+          "area": "quantum-algorithm",
+          "status": "Unsolved",
+          "sort": "title",
+          "limit": 200,
+          "maxBytes": 200000
+        },
+        "originalPageSha256": "be9590199368a676c2a37a47a01a0b75bbf7c1b97ffe7f2773b1d532bb95ebcc",
+        "decoratedPageSha256": "7bbc022b842bb007c3a07fff937a5d0adc51aae77818ab753b66c7d216551667",
+        "originalResponseBytes": 190506,
+        "decoratedResponseBytes": 193237,
+        "markerCount": 33,
+        "problems": [
+          {
+            "id": "01M21S9FW14RJDR83J8D64FKEM",
+            "diagnosticStart": "qop_diag_dec04da7bf066f16b915a74e57bbdb78",
+            "diagnosticMiddle": "qop_diag_bf9217d40fdca26abd2bf65fb47bf67e",
+            "diagnosticEnd": "qop_diag_c8fa543e3d63fef8e4ecf8f7eb6c25f6",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0008922198429693076,
+                "pageByteOffset": 1322
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1122,
+                "problemByteFraction": 0.05005353319057816,
+                "pageByteOffset": 2424
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 22373,
+                "problemByteFraction": 0.998081727337616,
+                "pageByteOffset": 23675
+              }
+            }
+          },
+          {
+            "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+            "diagnosticStart": "qop_diag_2373e005f387680f68973b8ebe8b0b23",
+            "diagnosticMiddle": "qop_diag_b606bfef0697a75a2f8ddd76edd2ec1c",
+            "diagnosticEnd": "qop_diag_5472abd8b04f1ac9088408a250e96b3d",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0005194805194805195,
+                "pageByteOffset": 23739
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1232,
+                "problemByteFraction": 0.032,
+                "pageByteOffset": 24951
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 38457,
+                "problemByteFraction": 0.9988831168831169,
+                "pageByteOffset": 62176
+              }
+            }
+          },
+          {
+            "id": "01M20BHBAFHFJEYHE131WS8EJX",
+            "diagnosticStart": "qop_diag_fb86baa7b86019dd71b24a1801004b10",
+            "diagnosticMiddle": "qop_diag_24cea6a6c242531309834a6a0b4b449e",
+            "diagnosticEnd": "qop_diag_1fdc47c63478cee32bbf4fbb2c16c4db",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0021544759237315525,
+                "pageByteOffset": 62240
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1202,
+                "problemByteFraction": 0.12948400301626628,
+                "pageByteOffset": 63422
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 9240,
+                "problemByteFraction": 0.9953678767639772,
+                "pageByteOffset": 71460
+              }
+            }
+          },
+          {
+            "id": "01M20CXWDYD1RXVWDKFMFM675K",
+            "diagnosticStart": "qop_diag_4c2b13827b1a75f64bebfd5c563e1cc3",
+            "diagnosticMiddle": "qop_diag_e113661cd405474461339786ee6c77f6",
+            "diagnosticEnd": "qop_diag_250370a247b3c14f5dc7dbff008d81b9",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.000959462700887503,
+                "pageByteOffset": 71524
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1212,
+                "problemByteFraction": 0.05814343967378268,
+                "pageByteOffset": 72716
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 20802,
+                "problemByteFraction": 0.9979371551930919,
+                "pageByteOffset": 92306
+              }
+            }
+          },
+          {
+            "id": "01M20BHBBG223ZDPK3F526EHFH",
+            "diagnosticStart": "qop_diag_4835535a56d72eeed54d7c056935a34f",
+            "diagnosticMiddle": "qop_diag_6628eb31c09224c35f8d58e258a20212",
+            "diagnosticEnd": "qop_diag_a98382d255f09a77dd66d03e8ad40376",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.00189411876124633,
+                "pageByteOffset": 92370
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1221,
+                "problemByteFraction": 0.11563595037408846,
+                "pageByteOffset": 93571
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 10516,
+                "problemByteFraction": 0.9959276446633204,
+                "pageByteOffset": 102866
+              }
+            }
+          },
+          {
+            "id": "01M1HME780CC21XQAXBTWRJRCY",
+            "diagnosticStart": "qop_diag_8e884afddb73d131602ead60db54de4a",
+            "diagnosticMiddle": "qop_diag_a4b9bbe45c628cc6f4d8fbe5c31503d8",
+            "diagnosticEnd": "qop_diag_7e6e837f37ad640f156fbed3a5e77569",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0010960105217010083,
+                "pageByteOffset": 102930
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1265,
+                "problemByteFraction": 0.06932266549758878,
+                "pageByteOffset": 104175
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 18205,
+                "problemByteFraction": 0.9976435773783429,
+                "pageByteOffset": 121115
+              }
+            }
+          },
+          {
+            "id": "01M1Q787QRH2ASM04Q5SDG2H88",
+            "diagnosticStart": "qop_diag_13c46f8f445fd4db76efe7d877f5bcb5",
+            "diagnosticMiddle": "qop_diag_2d855af20cd5bb07e515c63e54aa2866",
+            "diagnosticEnd": "qop_diag_647c7b226817d2065f47be558082adb6",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0012866700977869274,
+                "pageByteOffset": 121179
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1177,
+                "problemByteFraction": 0.07572053525476068,
+                "pageByteOffset": 122336
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 15501,
+                "problemByteFraction": 0.9972336592897582,
+                "pageByteOffset": 136660
+              }
+            }
+          },
+          {
+            "id": "01M1HME78078BW0JG3X252BVX5",
+            "diagnosticStart": "qop_diag_6ebfe52d9522ca87acb1960147961d06",
+            "diagnosticMiddle": "qop_diag_1e1254bd56b8cec52ad104fb3b9a75ff",
+            "diagnosticEnd": "qop_diag_0d1a99020a5dbaebf7dec414ac882fd5",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0012366289494837074,
+                "pageByteOffset": 136724
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1260,
+                "problemByteFraction": 0.07790762381747357,
+                "pageByteOffset": 137964
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 16130,
+                "problemByteFraction": 0.99734124775861,
+                "pageByteOffset": 152834
+              }
+            }
+          },
+          {
+            "id": "01M20E31B526DAX81WYGMDD01T",
+            "diagnosticStart": "qop_diag_07245d83a7196719b96bf129f7c03368",
+            "diagnosticMiddle": "qop_diag_47c20cbacf54d626747bed6c24869262",
+            "diagnosticEnd": "qop_diag_b23df09ecd0c42f26ff40e7cc712afe0",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0015157256536566881,
+                "pageByteOffset": 152898
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1171,
+                "problemByteFraction": 0.08874573702159909,
+                "pageByteOffset": 154049
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 13152,
+                "problemByteFraction": 0.9967411898446381,
+                "pageByteOffset": 166030
+              }
+            }
+          },
+          {
+            "id": "01M1Q787QRCCSDNVA159Y6S261",
+            "diagnosticStart": "qop_diag_b39bf45a8767f00c631b9416b2a7ce45",
+            "diagnosticMiddle": "qop_diag_1b4635ac71040760a04072cac3163dbc",
+            "diagnosticEnd": "qop_diag_002554b5fdb4cd5b41f3dfefb0cbeeda",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0011987532965715656,
+                "pageByteOffset": 166094
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1205,
+                "problemByteFraction": 0.07222488611843683,
+                "pageByteOffset": 167279
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 16641,
+                "problemByteFraction": 0.9974226804123711,
+                "pageByteOffset": 182715
+              }
+            }
+          },
+          {
+            "id": "01M22P0HY0R1RBEABK7MZW488E",
+            "diagnosticStart": "qop_diag_2d694a7c9c2ef64f485d525e44756d2c",
+            "diagnosticMiddle": "qop_diag_551e2279f3f30ef8ca71ed95fceb9322",
+            "diagnosticEnd": "qop_diag_d335e19e8c2e196ee1cc88f9e14ed4fe",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0019506485906563933,
+                "pageByteOffset": 182779
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1284,
+                "problemByteFraction": 0.12523163952014044,
+                "pageByteOffset": 184043
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 10210,
+                "problemByteFraction": 0.9958061055300887,
+                "pageByteOffset": 192969
+              }
+            }
+          }
+        ]
+      },
+      "answer": {
+        "problems": [
+          {
+            "id": "01M21S9FW14RJDR83J8D64FKEM",
+            "diagnosticStart": "qop_diag_dec04da7bf066f16b915a74e57bbdb78",
+            "diagnosticMiddle": "qop_diag_bf9217d40fdca26abd2bf65fb47bf67e",
+            "diagnosticEnd": "qop_diag_c8fa543e3d63fef8e4ecf8f7eb6c25f6"
+          },
+          {
+            "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+            "diagnosticStart": "qop_diag_2373e005f387680f68973b8ebe8b0b23",
+            "diagnosticMiddle": "qop_diag_b606bfef0697a75a2f8ddd76edd2ec1c",
+            "diagnosticEnd": "qop_diag_5472abd8b04f1ac9088408a250e96b3d"
+          },
+          {
+            "id": "01M20BHBAFHFJEYHE131WS8EJX",
+            "diagnosticStart": "qop_diag_fb86baa7b86019dd71b24a1801004b10",
+            "diagnosticMiddle": "qop_diag_24cea6a6c242531309834a6a0b4b449e",
+            "diagnosticEnd": "qop_diag_1fdc47c63478cee32bbf4fbb2c16c4db"
+          },
+          {
+            "id": "01M20CXWDYD1RXVWDKFMFM675K",
+            "diagnosticStart": "qop_diag_4c2b13827b1a75f64bebfd5c563e1cc3",
+            "diagnosticMiddle": "qop_diag_e113661cd405474461339786ee6c77f6",
+            "diagnosticEnd": "qop_diag_250370a247b3c14f5dc7dbff008d81b9"
+          },
+          {
+            "id": "01M20BHBBG223ZDPK3F526EHFH",
+            "diagnosticStart": "qop_diag_4835535a56d72eeed54d7c056935a34f",
+            "diagnosticMiddle": "qop_diag_6628eb31c09224c35f8d58e258a20212",
+            "diagnosticEnd": "qop_diag_a98382d255f09a77dd66d03e8ad40376"
+          },
+          {
+            "id": "01M1HME780CC21XQAXBTWRJRCY",
+            "diagnosticStart": "qop_diag_8e884afddb73d131602ead60db54de4a",
+            "diagnosticMiddle": "qop_diag_a4b9bbe45c628cc6f4d8fbe5c31503d8",
+            "diagnosticEnd": "qop_diag_7e6e837f37ad640f156fbed3a5e77569"
+          },
+          {
+            "id": "01M1Q787QRH2ASM04Q5SDG2H88",
+            "diagnosticStart": "qop_diag_13c46f8f445fd4db76efe7d877f5bcb5",
+            "diagnosticMiddle": "qop_diag_2d855af20cd5bb07e515c63e54aa2866",
+            "diagnosticEnd": "qop_diag_647c7b226817d2065f47be558082adb6"
+          },
+          {
+            "id": "01M1HME78078BW0JG3X252BVX5",
+            "diagnosticStart": "qop_diag_6ebfe52d9522ca87acb1960147961d06",
+            "diagnosticMiddle": "qop_diag_1e1254bd56b8cec52ad104fb3b9a75ff",
+            "diagnosticEnd": "qop_diag_0d1a99020a5dbaebf7dec414ac882fd5"
+          },
+          {
+            "id": "01M20E31B526DAX81WYGMDD01T",
+            "diagnosticStart": "qop_diag_07245d83a7196719b96bf129f7c03368",
+            "diagnosticMiddle": "qop_diag_47c20cbacf54d626747bed6c24869262",
+            "diagnosticEnd": "qop_diag_b23df09ecd0c42f26ff40e7cc712afe0"
+          },
+          {
+            "id": "01M1Q787QRCCSDNVA159Y6S261",
+            "diagnosticStart": "qop_diag_b39bf45a8767f00c631b9416b2a7ce45",
+            "diagnosticMiddle": "qop_diag_1b4635ac71040760a04072cac3163dbc",
+            "diagnosticEnd": "qop_diag_002554b5fdb4cd5b41f3dfefb0cbeeda"
+          },
+          {
+            "id": "01M22P0HY0R1RBEABK7MZW488E",
+            "diagnosticStart": "qop_diag_2d694a7c9c2ef64f485d525e44756d2c",
+            "diagnosticMiddle": "qop_diag_551e2279f3f30ef8ca71ed95fceb9322",
+            "diagnosticEnd": "qop_diag_d335e19e8c2e196ee1cc88f9e14ed4fe"
+          }
+        ],
+        "reportedPageCount": 11
+      },
+      "rawResultFileSha256": "31ded4cf31d60e0df9693a4cb9455310b0709388595ead347b08bfcbc061c0de",
+      "servedCalls": [
+        {
+          "phase": "local-sdk-preflight",
+          "tool": "search_problems",
+          "arguments": {
+            "view": "research",
+            "area": "quantum-algorithm",
+            "status": "Unsolved",
+            "sort": "title",
+            "limit": 200,
+            "maxBytes": 200000
+          },
+          "exact": true,
+          "decoratedPageSha256": "7bbc022b842bb007c3a07fff937a5d0adc51aae77818ab753b66c7d216551667"
+        },
+        {
+          "phase": "model-or-external-client",
+          "tool": "search_problems",
+          "arguments": {
+            "view": "research",
+            "area": "quantum-algorithm",
+            "status": "Unsolved",
+            "sort": "title",
+            "limit": 200,
+            "maxBytes": 200000
+          },
+          "exact": true,
+          "decoratedPageSha256": "7bbc022b842bb007c3a07fff937a5d0adc51aae77818ab753b66c7d216551667"
+        }
+      ]
+    },
+    {
+      "runGroup": "small-and-repeat",
+      "run": {
+        "case": "direct-defaultcap-32768",
+        "presentation": "direct-MCP-requested",
+        "maxBytes": 32768,
+        "outputTokenLimit": null,
+        "exitCode": 0,
+        "failure": null,
+        "usage": [
+          {
+            "input_tokens": 36362,
+            "cached_input_tokens": 13952,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 197,
+            "reasoning_output_tokens": 0
+          }
+        ],
+        "toolCalls": 1,
+        "contamination": [],
+        "unverifiedItemTypes": [],
+        "timing": {
+          "basis": "Host-observed CLI stdout arrival and process lifetime, including buffering and transport; not pure API latency.",
+          "clock": "time.monotonic",
+          "firstToolStarted": 7.72834,
+          "lastToolCompleted": 7.734341,
+          "totalSeconds": 15.093736,
+          "tools": [
+            {
+              "itemId": "item_1",
+              "server": "qop",
+              "tool": "search_problems",
+              "startedAtSeconds": 7.72834,
+              "completedAtSeconds": 7.734341,
+              "observedSeconds": 0.006001
+            }
+          ]
+        },
+        "grading": {
+          "strictJsonValid": true,
+          "issues": [],
+          "expectedProblems": 1,
+          "reportedProblems": 1,
+          "reportedPageCount": 1,
+          "matchedMarkers": 3,
+          "expectedMarkers": 3,
+          "matchRatio": 1.0,
+          "allMarkersMatched": true,
+          "unknownIds": [],
+          "duplicateIds": [],
+          "byPosition": {
+            "diagnosticStart": {
+              "matched": 1,
+              "expected": 1,
+              "rawEventAvailable": 1,
+              "matchRatio": 1.0
+            },
+            "diagnosticMiddle": {
+              "matched": 1,
+              "expected": 1,
+              "rawEventAvailable": 1,
+              "matchRatio": 1.0
+            },
+            "diagnosticEnd": {
+              "matched": 1,
+              "expected": 1,
+              "rawEventAvailable": 1,
+              "matchRatio": 1.0
+            }
+          },
+          "problems": [
+            {
+              "id": "01M21S9FW14RJDR83J8D64FKEM",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            }
+          ],
+          "interpretation": "Exact random-marker readback only. Missing markers can reflect host truncation or model omission; full raw CLI results alone do not prove model visibility."
+        },
+        "visibilityEvidenceEligible": true,
+        "accessibilityEvidenceEligible": false,
+        "evidenceScope": "Direct-path random-marker readback; does not establish scientific comprehension.",
+        "exactlyOnePromptedCall": true,
+        "servedExternalCalls": 1,
+        "recoveryRecommended": false
+      },
+      "probe": {
+        "schemaVersion": "qop-visibility-probe/1",
+        "diagnostic": true,
+        "filters": {
+          "view": "research",
+          "area": "quantum-algorithm",
+          "status": "Unsolved",
+          "sort": "title",
+          "limit": 200,
+          "maxBytes": 32768
+        },
+        "catalogVersion": "d76175295aaee4cd1437fe6d876f00acab20b2dc70414ad56d9b7aa3b2fb5c89",
+        "total": 25,
+        "pageCount": 1,
+        "originalResponseBytes": 23057,
+        "decoratedResponseBytes": 23936,
+        "diagnosticAddedBytes": 879,
+        "rawSdkResultBytes": 50152,
+        "baseCommit": "3bc74404504e977360014ef405019a8016aa8fe6",
+        "implementation": "working-tree",
+        "stores": "in-memory",
+        "transport": "Official SDK HTTP; frozen page fetched through real adapter and API HTTP",
+        "integrity": "Removing three diagnostic fields per problem exactly reproduces every original problem; original API response byte budget verified.",
+        "limitations": "Marker readback measures this synthetic task, not comprehension of scientific content. raw-result is an SDK result before host-specific truncation, not evidence of model visibility."
+      },
+      "expected": {
+        "schemaVersion": "qop-visibility-expected/1",
+        "diagnostic": true,
+        "filters": {
+          "view": "research",
+          "area": "quantum-algorithm",
+          "status": "Unsolved",
+          "sort": "title",
+          "limit": 200,
+          "maxBytes": 32768
+        },
+        "originalPageSha256": "71f00567c297e2740fe1eeccfa0556fa0fd8caa39cb815150abad46279335652",
+        "decoratedPageSha256": "52d9fa12f34f75f58f269bf0583599a1527fd0d179c5e3afd0df6f6436c6af45",
+        "originalResponseBytes": 23057,
+        "decoratedResponseBytes": 23936,
+        "markerCount": 3,
+        "problems": [
+          {
+            "id": "01M21S9FW14RJDR83J8D64FKEM",
+            "diagnosticStart": "qop_diag_bf23cf6e839edeea52f3fe6f6abdd7ce",
+            "diagnosticMiddle": "qop_diag_755033296b76a3ee77f2d2be4c4048b4",
+            "diagnosticEnd": "qop_diag_1d7a144199690a6503bfced6c12b8fd8",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0008922198429693076,
+                "pageByteOffset": 1317
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1122,
+                "problemByteFraction": 0.05005353319057816,
+                "pageByteOffset": 2419
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 22373,
+                "problemByteFraction": 0.998081727337616,
+                "pageByteOffset": 23670
+              }
+            }
+          }
+        ]
+      },
+      "answer": {
+        "problems": [
+          {
+            "id": "01M21S9FW14RJDR83J8D64FKEM",
+            "diagnosticStart": "qop_diag_bf23cf6e839edeea52f3fe6f6abdd7ce",
+            "diagnosticMiddle": "qop_diag_755033296b76a3ee77f2d2be4c4048b4",
+            "diagnosticEnd": "qop_diag_1d7a144199690a6503bfced6c12b8fd8"
+          }
+        ],
+        "reportedPageCount": 1
+      },
+      "rawResultFileSha256": "45b1971cb94c0142503f8f0222ff87b2e14412d2cebed44e33610d966285fa30",
+      "servedCalls": [
+        {
+          "phase": "local-sdk-preflight",
+          "tool": "search_problems",
+          "arguments": {
+            "view": "research",
+            "area": "quantum-algorithm",
+            "status": "Unsolved",
+            "sort": "title",
+            "limit": 200,
+            "maxBytes": 32768
+          },
+          "exact": true,
+          "decoratedPageSha256": "52d9fa12f34f75f58f269bf0583599a1527fd0d179c5e3afd0df6f6436c6af45"
+        },
+        {
+          "phase": "model-or-external-client",
+          "tool": "search_problems",
+          "arguments": {
+            "view": "research",
+            "area": "quantum-algorithm",
+            "status": "Unsolved",
+            "sort": "title",
+            "limit": 200,
+            "maxBytes": 32768
+          },
+          "exact": true,
+          "decoratedPageSha256": "52d9fa12f34f75f58f269bf0583599a1527fd0d179c5e3afd0df6f6436c6af45"
+        }
+      ]
+    },
+    {
+      "runGroup": "small-and-repeat",
+      "run": {
+        "case": "direct-defaultcap-65536",
+        "presentation": "direct-MCP-requested",
+        "maxBytes": 65536,
+        "outputTokenLimit": null,
+        "exitCode": 0,
+        "failure": null,
+        "usage": [
+          {
+            "input_tokens": 45378,
+            "cached_input_tokens": 13952,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 284,
+            "reasoning_output_tokens": 17
+          }
+        ],
+        "toolCalls": 1,
+        "contamination": [],
+        "unverifiedItemTypes": [],
+        "timing": {
+          "basis": "Host-observed CLI stdout arrival and process lifetime, including buffering and transport; not pure API latency.",
+          "clock": "time.monotonic",
+          "firstToolStarted": 9.235607,
+          "lastToolCompleted": 9.246567,
+          "totalSeconds": 20.548601,
+          "tools": [
+            {
+              "itemId": "item_1",
+              "server": "qop",
+              "tool": "search_problems",
+              "startedAtSeconds": 9.235607,
+              "completedAtSeconds": 9.246567,
+              "observedSeconds": 0.01096
+            }
+          ]
+        },
+        "grading": {
+          "strictJsonValid": true,
+          "issues": [],
+          "expectedProblems": 2,
+          "reportedProblems": 2,
+          "reportedPageCount": 2,
+          "matchedMarkers": 5,
+          "expectedMarkers": 6,
+          "matchRatio": 0.8333333333333334,
+          "allMarkersMatched": false,
+          "unknownIds": [],
+          "duplicateIds": [],
+          "byPosition": {
+            "diagnosticStart": {
+              "matched": 2,
+              "expected": 2,
+              "rawEventAvailable": 2,
+              "matchRatio": 1.0
+            },
+            "diagnosticMiddle": {
+              "matched": 1,
+              "expected": 2,
+              "rawEventAvailable": 2,
+              "matchRatio": 0.5
+            },
+            "diagnosticEnd": {
+              "matched": 2,
+              "expected": 2,
+              "rawEventAvailable": 2,
+              "matchRatio": 1.0
+            }
+          },
+          "problems": [
+            {
+              "id": "01M21S9FW14RJDR83J8D64FKEM",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": false,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            }
+          ],
+          "interpretation": "Exact random-marker readback only. Missing markers can reflect host truncation or model omission; full raw CLI results alone do not prove model visibility."
+        },
+        "visibilityEvidenceEligible": true,
+        "accessibilityEvidenceEligible": false,
+        "evidenceScope": "Direct-path random-marker readback; does not establish scientific comprehension.",
+        "exactlyOnePromptedCall": true,
+        "servedExternalCalls": 1,
+        "recoveryRecommended": true
+      },
+      "probe": {
+        "schemaVersion": "qop-visibility-probe/1",
+        "diagnostic": true,
+        "filters": {
+          "view": "research",
+          "area": "quantum-algorithm",
+          "status": "Unsolved",
+          "sort": "title",
+          "limit": 200,
+          "maxBytes": 65536
+        },
+        "catalogVersion": "d76175295aaee4cd1437fe6d876f00acab20b2dc70414ad56d9b7aa3b2fb5c89",
+        "total": 25,
+        "pageCount": 2,
+        "originalResponseBytes": 61373,
+        "decoratedResponseBytes": 62438,
+        "diagnosticAddedBytes": 1065,
+        "rawSdkResultBytes": 130916,
+        "baseCommit": "3bc74404504e977360014ef405019a8016aa8fe6",
+        "implementation": "working-tree",
+        "stores": "in-memory",
+        "transport": "Official SDK HTTP; frozen page fetched through real adapter and API HTTP",
+        "integrity": "Removing three diagnostic fields per problem exactly reproduces every original problem; original API response byte budget verified.",
+        "limitations": "Marker readback measures this synthetic task, not comprehension of scientific content. raw-result is an SDK result before host-specific truncation, not evidence of model visibility."
+      },
+      "expected": {
+        "schemaVersion": "qop-visibility-expected/1",
+        "diagnostic": true,
+        "filters": {
+          "view": "research",
+          "area": "quantum-algorithm",
+          "status": "Unsolved",
+          "sort": "title",
+          "limit": 200,
+          "maxBytes": 65536
+        },
+        "originalPageSha256": "20d5f07161d1317756277731037b47e4d7fe864a2003a25124a31087a348c338",
+        "decoratedPageSha256": "0550e3db5c78e5ed46fdb2bc6ae48dd6a3f7c63ddfedccd390738922c96116a3",
+        "originalResponseBytes": 61373,
+        "decoratedResponseBytes": 62438,
+        "markerCount": 6,
+        "problems": [
+          {
+            "id": "01M21S9FW14RJDR83J8D64FKEM",
+            "diagnosticStart": "qop_diag_a34ef34c54b40fd5e3b79dbf569451a3",
+            "diagnosticMiddle": "qop_diag_34100004f28561debd1971beef065648",
+            "diagnosticEnd": "qop_diag_2453f4757859e21060aff3a472b71448",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0008922198429693076,
+                "pageByteOffset": 1318
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1122,
+                "problemByteFraction": 0.05005353319057816,
+                "pageByteOffset": 2420
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 22373,
+                "problemByteFraction": 0.998081727337616,
+                "pageByteOffset": 23671
+              }
+            }
+          },
+          {
+            "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+            "diagnosticStart": "qop_diag_d311504db0c69b67cd3e07dac31f3ced",
+            "diagnosticMiddle": "qop_diag_510b7f062c1f5e28e7ac1e2893d56417",
+            "diagnosticEnd": "qop_diag_93952745dd6f900f1425c3758793a8d7",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0005194805194805195,
+                "pageByteOffset": 23735
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1232,
+                "problemByteFraction": 0.032,
+                "pageByteOffset": 24947
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 38457,
+                "problemByteFraction": 0.9988831168831169,
+                "pageByteOffset": 62172
+              }
+            }
+          }
+        ]
+      },
+      "answer": {
+        "problems": [
+          {
+            "id": "01M21S9FW14RJDR83J8D64FKEM",
+            "diagnosticStart": "qop_diag_a34ef34c54b40fd5e3b79dbf569451a3",
+            "diagnosticMiddle": "qop_diag_34100004f28561debd1971beef065648",
+            "diagnosticEnd": "qop_diag_2453f4757859e21060aff3a472b71448"
+          },
+          {
+            "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+            "diagnosticStart": "qop_diag_d311504db0c69b67cd3e07dac31f3ced",
+            "diagnosticMiddle": null,
+            "diagnosticEnd": "qop_diag_93952745dd6f900f1425c3758793a8d7"
+          }
+        ],
+        "reportedPageCount": 2
+      },
+      "rawResultFileSha256": "9d214e312950f5c08bb51b52de920248c483cbed21fc00c0a544a9c10770d5a1",
+      "servedCalls": [
+        {
+          "phase": "local-sdk-preflight",
+          "tool": "search_problems",
+          "arguments": {
+            "view": "research",
+            "area": "quantum-algorithm",
+            "status": "Unsolved",
+            "sort": "title",
+            "limit": 200,
+            "maxBytes": 65536
+          },
+          "exact": true,
+          "decoratedPageSha256": "0550e3db5c78e5ed46fdb2bc6ae48dd6a3f7c63ddfedccd390738922c96116a3"
+        },
+        {
+          "phase": "model-or-external-client",
+          "tool": "search_problems",
+          "arguments": {
+            "view": "research",
+            "area": "quantum-algorithm",
+            "status": "Unsolved",
+            "sort": "title",
+            "limit": 200,
+            "maxBytes": 65536
+          },
+          "exact": true,
+          "decoratedPageSha256": "0550e3db5c78e5ed46fdb2bc6ae48dd6a3f7c63ddfedccd390738922c96116a3"
+        }
+      ]
+    },
+    {
+      "runGroup": "accessibility",
+      "run": {
+        "case": "code-mode-accessibility-200000",
+        "presentation": "CodeMode-data-accessibility",
+        "maxBytes": 200000,
+        "outputTokenLimit": null,
+        "exitCode": 0,
+        "failure": null,
+        "usage": [
+          {
+            "input_tokens": 32559,
+            "cached_input_tokens": 23936,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 2347,
+            "reasoning_output_tokens": 705
+          }
+        ],
+        "toolCalls": 1,
+        "contamination": [
+          "unverified_item_type:error"
+        ],
+        "unverifiedItemTypes": [
+          "error"
+        ],
+        "timing": {
+          "basis": "Host-observed CLI stdout arrival and process lifetime, including buffering and transport; not pure API latency.",
+          "clock": "time.monotonic",
+          "firstToolStarted": 36.921254,
+          "lastToolCompleted": 36.933092,
+          "totalSeconds": 79.864521,
+          "tools": [
+            {
+              "itemId": "item_1",
+              "server": "qop",
+              "tool": "search_problems",
+              "startedAtSeconds": 36.921254,
+              "completedAtSeconds": 36.933092,
+              "observedSeconds": 0.011838
+            }
+          ]
+        },
+        "grading": {
+          "strictJsonValid": true,
+          "issues": [],
+          "expectedProblems": 11,
+          "reportedProblems": 11,
+          "reportedPageCount": 11,
+          "matchedMarkers": 33,
+          "expectedMarkers": 33,
+          "matchRatio": 1.0,
+          "allMarkersMatched": true,
+          "unknownIds": [],
+          "duplicateIds": [],
+          "byPosition": {
+            "diagnosticStart": {
+              "matched": 11,
+              "expected": 11,
+              "rawEventAvailable": 11,
+              "matchRatio": 1.0
+            },
+            "diagnosticMiddle": {
+              "matched": 11,
+              "expected": 11,
+              "rawEventAvailable": 11,
+              "matchRatio": 1.0
+            },
+            "diagnosticEnd": {
+              "matched": 11,
+              "expected": 11,
+              "rawEventAvailable": 11,
+              "matchRatio": 1.0
+            }
+          },
+          "problems": [
+            {
+              "id": "01M21S9FW14RJDR83J8D64FKEM",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M20BHBAFHFJEYHE131WS8EJX",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M20CXWDYD1RXVWDKFMFM675K",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M20BHBBG223ZDPK3F526EHFH",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M1HME780CC21XQAXBTWRJRCY",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M1Q787QRH2ASM04Q5SDG2H88",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M1HME78078BW0JG3X252BVX5",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M20E31B526DAX81WYGMDD01T",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M1Q787QRCCSDNVA159Y6S261",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M22P0HY0R1RBEABK7MZW488E",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            }
+          ],
+          "interpretation": "Exact random-marker readback only. Missing markers can reflect host truncation or model omission; full raw CLI results alone do not prove model visibility."
+        },
+        "visibilityEvidenceEligible": false,
+        "accessibilityEvidenceEligible": false,
+        "evidenceScope": "Random-marker data accessible to the model/program; does not establish full-page presentation or scientific comprehension.",
+        "exactlyOnePromptedCall": true,
+        "servedExternalCalls": 1,
+        "recoveryRecommended": false
+      },
+      "probe": {
+        "schemaVersion": "qop-visibility-probe/1",
+        "diagnostic": true,
+        "filters": {
+          "view": "research",
+          "area": "quantum-algorithm",
+          "status": "Unsolved",
+          "sort": "title",
+          "limit": 200,
+          "maxBytes": 200000
+        },
+        "catalogVersion": "d76175295aaee4cd1437fe6d876f00acab20b2dc70414ad56d9b7aa3b2fb5c89",
+        "total": 25,
+        "pageCount": 11,
+        "originalResponseBytes": 190506,
+        "decoratedResponseBytes": 193237,
+        "diagnosticAddedBytes": 2731,
+        "rawSdkResultBytes": 406122,
+        "baseCommit": "3bc74404504e977360014ef405019a8016aa8fe6",
+        "implementation": "working-tree",
+        "stores": "in-memory",
+        "transport": "Official SDK HTTP; frozen page fetched through real adapter and API HTTP",
+        "integrity": "Removing three diagnostic fields per problem exactly reproduces every original problem; original API response byte budget verified.",
+        "limitations": "Marker readback measures this synthetic task, not comprehension of scientific content. raw-result is an SDK result before host-specific truncation, not evidence of model visibility."
+      },
+      "expected": {
+        "schemaVersion": "qop-visibility-expected/1",
+        "diagnostic": true,
+        "filters": {
+          "view": "research",
+          "area": "quantum-algorithm",
+          "status": "Unsolved",
+          "sort": "title",
+          "limit": 200,
+          "maxBytes": 200000
+        },
+        "originalPageSha256": "e88f2f543ffe6620896adc2342b316ca6d4bc063b18f1ace6c21c11bcd23030b",
+        "decoratedPageSha256": "a376812ba03c87547b35f3c1c954aecc0bb5272d4814a85b57477f253d2c32c1",
+        "originalResponseBytes": 190506,
+        "decoratedResponseBytes": 193237,
+        "markerCount": 33,
+        "problems": [
+          {
+            "id": "01M21S9FW14RJDR83J8D64FKEM",
+            "diagnosticStart": "qop_diag_b0f0e5b6bb79b6677db922fd6468dec6",
+            "diagnosticMiddle": "qop_diag_8adeaa2c010f1b77f0284337f7c8b05e",
+            "diagnosticEnd": "qop_diag_2d7f6c93048e75654c32fce1ea3c6b64",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0008922198429693076,
+                "pageByteOffset": 1322
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1122,
+                "problemByteFraction": 0.05005353319057816,
+                "pageByteOffset": 2424
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 22373,
+                "problemByteFraction": 0.998081727337616,
+                "pageByteOffset": 23675
+              }
+            }
+          },
+          {
+            "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+            "diagnosticStart": "qop_diag_bd3a6d14fffc65988242e8ad67e29d1a",
+            "diagnosticMiddle": "qop_diag_68416384698a7b220b620eb9d29ae8d2",
+            "diagnosticEnd": "qop_diag_07c53c8756a7bad84bb41206d8803741",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0005194805194805195,
+                "pageByteOffset": 23739
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1232,
+                "problemByteFraction": 0.032,
+                "pageByteOffset": 24951
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 38457,
+                "problemByteFraction": 0.9988831168831169,
+                "pageByteOffset": 62176
+              }
+            }
+          },
+          {
+            "id": "01M20BHBAFHFJEYHE131WS8EJX",
+            "diagnosticStart": "qop_diag_3b970b283a7a5d23aeb0c17531ede08c",
+            "diagnosticMiddle": "qop_diag_d4ef825331fc4d68c071ae41308b7109",
+            "diagnosticEnd": "qop_diag_f7d88557f7387022f18ab1ad598081e5",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0021544759237315525,
+                "pageByteOffset": 62240
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1202,
+                "problemByteFraction": 0.12948400301626628,
+                "pageByteOffset": 63422
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 9240,
+                "problemByteFraction": 0.9953678767639772,
+                "pageByteOffset": 71460
+              }
+            }
+          },
+          {
+            "id": "01M20CXWDYD1RXVWDKFMFM675K",
+            "diagnosticStart": "qop_diag_f791948f138ff411de89579a3c4f633f",
+            "diagnosticMiddle": "qop_diag_c8c81fdd538a4cabf5a62fea2062fc67",
+            "diagnosticEnd": "qop_diag_eaca81c7122351457061a8f882308c63",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.000959462700887503,
+                "pageByteOffset": 71524
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1212,
+                "problemByteFraction": 0.05814343967378268,
+                "pageByteOffset": 72716
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 20802,
+                "problemByteFraction": 0.9979371551930919,
+                "pageByteOffset": 92306
+              }
+            }
+          },
+          {
+            "id": "01M20BHBBG223ZDPK3F526EHFH",
+            "diagnosticStart": "qop_diag_d0ccf9c7a1e27ecf24bf58275c6e03ea",
+            "diagnosticMiddle": "qop_diag_6c4ab11b32ee180391110d3cce09a789",
+            "diagnosticEnd": "qop_diag_476bb4480de480c6bd0f4e9021c69bfe",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.00189411876124633,
+                "pageByteOffset": 92370
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1221,
+                "problemByteFraction": 0.11563595037408846,
+                "pageByteOffset": 93571
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 10516,
+                "problemByteFraction": 0.9959276446633204,
+                "pageByteOffset": 102866
+              }
+            }
+          },
+          {
+            "id": "01M1HME780CC21XQAXBTWRJRCY",
+            "diagnosticStart": "qop_diag_82a22f9e9e0dc49c93a908bb30edf390",
+            "diagnosticMiddle": "qop_diag_a474d4355271667f918c2580f8fc74d1",
+            "diagnosticEnd": "qop_diag_901772af3e95db37dfeb6b9e51178a8d",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0010960105217010083,
+                "pageByteOffset": 102930
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1265,
+                "problemByteFraction": 0.06932266549758878,
+                "pageByteOffset": 104175
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 18205,
+                "problemByteFraction": 0.9976435773783429,
+                "pageByteOffset": 121115
+              }
+            }
+          },
+          {
+            "id": "01M1Q787QRH2ASM04Q5SDG2H88",
+            "diagnosticStart": "qop_diag_98519472212f40ea528707060086ce9f",
+            "diagnosticMiddle": "qop_diag_cb275b12bf1d2fae36b7492eafc139b5",
+            "diagnosticEnd": "qop_diag_735a08046e4fd7c55a0a407e57c46fa5",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0012866700977869274,
+                "pageByteOffset": 121179
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1177,
+                "problemByteFraction": 0.07572053525476068,
+                "pageByteOffset": 122336
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 15501,
+                "problemByteFraction": 0.9972336592897582,
+                "pageByteOffset": 136660
+              }
+            }
+          },
+          {
+            "id": "01M1HME78078BW0JG3X252BVX5",
+            "diagnosticStart": "qop_diag_a66af569f6573bf341dccf131e9f0055",
+            "diagnosticMiddle": "qop_diag_f06d95e08db86a19ab282b6ef79db4ee",
+            "diagnosticEnd": "qop_diag_a4012cbad95b8acfdf325a992448430c",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0012366289494837074,
+                "pageByteOffset": 136724
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1260,
+                "problemByteFraction": 0.07790762381747357,
+                "pageByteOffset": 137964
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 16130,
+                "problemByteFraction": 0.99734124775861,
+                "pageByteOffset": 152834
+              }
+            }
+          },
+          {
+            "id": "01M20E31B526DAX81WYGMDD01T",
+            "diagnosticStart": "qop_diag_c4ee451e2dc8df23ad33f4eae0557ddf",
+            "diagnosticMiddle": "qop_diag_983e9ff79a471b78dc4b0e7f0c73d344",
+            "diagnosticEnd": "qop_diag_910d8eaaa7ac87d3e23dafe572d62afa",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0015157256536566881,
+                "pageByteOffset": 152898
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1171,
+                "problemByteFraction": 0.08874573702159909,
+                "pageByteOffset": 154049
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 13152,
+                "problemByteFraction": 0.9967411898446381,
+                "pageByteOffset": 166030
+              }
+            }
+          },
+          {
+            "id": "01M1Q787QRCCSDNVA159Y6S261",
+            "diagnosticStart": "qop_diag_34b64abd85935721aa91ed87ba4f8c3b",
+            "diagnosticMiddle": "qop_diag_ffa5fc0f5a539512e0ab9dd47c07c530",
+            "diagnosticEnd": "qop_diag_d0c34f888efad56211ab23167a075815",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0011987532965715656,
+                "pageByteOffset": 166094
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1205,
+                "problemByteFraction": 0.07222488611843683,
+                "pageByteOffset": 167279
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 16641,
+                "problemByteFraction": 0.9974226804123711,
+                "pageByteOffset": 182715
+              }
+            }
+          },
+          {
+            "id": "01M22P0HY0R1RBEABK7MZW488E",
+            "diagnosticStart": "qop_diag_6682da31c89913395b9c4994bed9d4f0",
+            "diagnosticMiddle": "qop_diag_8a852a9c09458a759cc2a32e93afb082",
+            "diagnosticEnd": "qop_diag_b54aacecd7a30f5e046bc4ea1ad658df",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0019506485906563933,
+                "pageByteOffset": 182779
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1284,
+                "problemByteFraction": 0.12523163952014044,
+                "pageByteOffset": 184043
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 10210,
+                "problemByteFraction": 0.9958061055300887,
+                "pageByteOffset": 192969
+              }
+            }
+          }
+        ]
+      },
+      "answer": {
+        "problems": [
+          {
+            "id": "01M21S9FW14RJDR83J8D64FKEM",
+            "diagnosticStart": "qop_diag_b0f0e5b6bb79b6677db922fd6468dec6",
+            "diagnosticMiddle": "qop_diag_8adeaa2c010f1b77f0284337f7c8b05e",
+            "diagnosticEnd": "qop_diag_2d7f6c93048e75654c32fce1ea3c6b64"
+          },
+          {
+            "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+            "diagnosticStart": "qop_diag_bd3a6d14fffc65988242e8ad67e29d1a",
+            "diagnosticMiddle": "qop_diag_68416384698a7b220b620eb9d29ae8d2",
+            "diagnosticEnd": "qop_diag_07c53c8756a7bad84bb41206d8803741"
+          },
+          {
+            "id": "01M20BHBAFHFJEYHE131WS8EJX",
+            "diagnosticStart": "qop_diag_3b970b283a7a5d23aeb0c17531ede08c",
+            "diagnosticMiddle": "qop_diag_d4ef825331fc4d68c071ae41308b7109",
+            "diagnosticEnd": "qop_diag_f7d88557f7387022f18ab1ad598081e5"
+          },
+          {
+            "id": "01M20CXWDYD1RXVWDKFMFM675K",
+            "diagnosticStart": "qop_diag_f791948f138ff411de89579a3c4f633f",
+            "diagnosticMiddle": "qop_diag_c8c81fdd538a4cabf5a62fea2062fc67",
+            "diagnosticEnd": "qop_diag_eaca81c7122351457061a8f882308c63"
+          },
+          {
+            "id": "01M20BHBBG223ZDPK3F526EHFH",
+            "diagnosticStart": "qop_diag_d0ccf9c7a1e27ecf24bf58275c6e03ea",
+            "diagnosticMiddle": "qop_diag_6c4ab11b32ee180391110d3cce09a789",
+            "diagnosticEnd": "qop_diag_476bb4480de480c6bd0f4e9021c69bfe"
+          },
+          {
+            "id": "01M1HME780CC21XQAXBTWRJRCY",
+            "diagnosticStart": "qop_diag_82a22f9e9e0dc49c93a908bb30edf390",
+            "diagnosticMiddle": "qop_diag_a474d4355271667f918c2580f8fc74d1",
+            "diagnosticEnd": "qop_diag_901772af3e95db37dfeb6b9e51178a8d"
+          },
+          {
+            "id": "01M1Q787QRH2ASM04Q5SDG2H88",
+            "diagnosticStart": "qop_diag_98519472212f40ea528707060086ce9f",
+            "diagnosticMiddle": "qop_diag_cb275b12bf1d2fae36b7492eafc139b5",
+            "diagnosticEnd": "qop_diag_735a08046e4fd7c55a0a407e57c46fa5"
+          },
+          {
+            "id": "01M1HME78078BW0JG3X252BVX5",
+            "diagnosticStart": "qop_diag_a66af569f6573bf341dccf131e9f0055",
+            "diagnosticMiddle": "qop_diag_f06d95e08db86a19ab282b6ef79db4ee",
+            "diagnosticEnd": "qop_diag_a4012cbad95b8acfdf325a992448430c"
+          },
+          {
+            "id": "01M20E31B526DAX81WYGMDD01T",
+            "diagnosticStart": "qop_diag_c4ee451e2dc8df23ad33f4eae0557ddf",
+            "diagnosticMiddle": "qop_diag_983e9ff79a471b78dc4b0e7f0c73d344",
+            "diagnosticEnd": "qop_diag_910d8eaaa7ac87d3e23dafe572d62afa"
+          },
+          {
+            "id": "01M1Q787QRCCSDNVA159Y6S261",
+            "diagnosticStart": "qop_diag_34b64abd85935721aa91ed87ba4f8c3b",
+            "diagnosticMiddle": "qop_diag_ffa5fc0f5a539512e0ab9dd47c07c530",
+            "diagnosticEnd": "qop_diag_d0c34f888efad56211ab23167a075815"
+          },
+          {
+            "id": "01M22P0HY0R1RBEABK7MZW488E",
+            "diagnosticStart": "qop_diag_6682da31c89913395b9c4994bed9d4f0",
+            "diagnosticMiddle": "qop_diag_8a852a9c09458a759cc2a32e93afb082",
+            "diagnosticEnd": "qop_diag_b54aacecd7a30f5e046bc4ea1ad658df"
+          }
+        ],
+        "reportedPageCount": 11
+      },
+      "rawResultFileSha256": "be978f9615ed58f0fd72d562e516914a14602506d9d4b72493bee287b1dcc69e",
+      "servedCalls": [
+        {
+          "phase": "local-sdk-preflight",
+          "tool": "search_problems",
+          "arguments": {
+            "view": "research",
+            "area": "quantum-algorithm",
+            "status": "Unsolved",
+            "sort": "title",
+            "limit": 200,
+            "maxBytes": 200000
+          },
+          "exact": true,
+          "decoratedPageSha256": "a376812ba03c87547b35f3c1c954aecc0bb5272d4814a85b57477f253d2c32c1"
+        },
+        {
+          "phase": "model-or-external-client",
+          "tool": "search_problems",
+          "arguments": {
+            "view": "research",
+            "area": "quantum-algorithm",
+            "status": "Unsolved",
+            "sort": "title",
+            "limit": 200,
+            "maxBytes": 200000
+          },
+          "exact": true,
+          "decoratedPageSha256": "a376812ba03c87547b35f3c1c954aecc0bb5272d4814a85b57477f253d2c32c1"
+        }
+      ]
+    },
+    {
+      "runGroup": "accessibility-diagnostic",
+      "run": {
+        "case": "code-mode-accessibility-200000",
+        "presentation": "CodeMode-data-accessibility",
+        "maxBytes": 200000,
+        "outputTokenLimit": null,
+        "exitCode": 0,
+        "failure": null,
+        "usage": [
+          {
+            "input_tokens": 28427,
+            "cached_input_tokens": 13184,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1680,
+            "reasoning_output_tokens": 0
+          }
+        ],
+        "toolCalls": 1,
+        "contamination": [
+          "unverified_item_type:error"
+        ],
+        "hostDiagnostics": [
+          {
+            "eventType": "item.completed",
+            "itemType": "error",
+            "itemId": "item_0",
+            "secondsSinceStart": 0.190467,
+            "message": "Under-development features enabled: code_mode. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in [local path redacted]",
+            "beforeFirstToolStarted": true,
+            "classification": "requires-manual-review"
+          }
+        ],
+        "unverifiedItemTypes": [
+          "error"
+        ],
+        "timing": {
+          "basis": "Host-observed CLI stdout arrival and process lifetime, including buffering and transport; not pure API latency.",
+          "clock": "time.monotonic",
+          "firstToolStarted": 22.191837,
+          "lastToolCompleted": 22.204619,
+          "totalSeconds": 60.592862,
+          "tools": [
+            {
+              "itemId": "item_1",
+              "server": "qop",
+              "tool": "search_problems",
+              "startedAtSeconds": 22.191837,
+              "completedAtSeconds": 22.204619,
+              "observedSeconds": 0.012782
+            }
+          ]
+        },
+        "grading": {
+          "strictJsonValid": true,
+          "issues": [],
+          "expectedProblems": 11,
+          "reportedProblems": 11,
+          "reportedPageCount": 11,
+          "matchedMarkers": 33,
+          "expectedMarkers": 33,
+          "matchRatio": 1.0,
+          "allMarkersMatched": true,
+          "unknownIds": [],
+          "duplicateIds": [],
+          "byPosition": {
+            "diagnosticStart": {
+              "matched": 11,
+              "expected": 11,
+              "rawEventAvailable": 11,
+              "matchRatio": 1.0
+            },
+            "diagnosticMiddle": {
+              "matched": 11,
+              "expected": 11,
+              "rawEventAvailable": 11,
+              "matchRatio": 1.0
+            },
+            "diagnosticEnd": {
+              "matched": 11,
+              "expected": 11,
+              "rawEventAvailable": 11,
+              "matchRatio": 1.0
+            }
+          },
+          "problems": [
+            {
+              "id": "01M21S9FW14RJDR83J8D64FKEM",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M20BHBAFHFJEYHE131WS8EJX",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M20CXWDYD1RXVWDKFMFM675K",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M20BHBBG223ZDPK3F526EHFH",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M1HME780CC21XQAXBTWRJRCY",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M1Q787QRH2ASM04Q5SDG2H88",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M1HME78078BW0JG3X252BVX5",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M20E31B526DAX81WYGMDD01T",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M1Q787QRCCSDNVA159Y6S261",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            },
+            {
+              "id": "01M22P0HY0R1RBEABK7MZW488E",
+              "present": true,
+              "matched": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              },
+              "rawEventAvailable": {
+                "diagnosticStart": true,
+                "diagnosticMiddle": true,
+                "diagnosticEnd": true
+              }
+            }
+          ],
+          "interpretation": "Exact random-marker readback only. Missing markers can reflect host truncation or model omission; full raw CLI results alone do not prove model visibility."
+        },
+        "visibilityEvidenceEligible": false,
+        "accessibilityEvidenceEligible": false,
+        "evidenceScope": "Random-marker data accessible to the model/program; does not establish full-page presentation or scientific comprehension.",
+        "exactlyOnePromptedCall": true,
+        "servedExternalCalls": 1,
+        "recoveryRecommended": false
+      },
+      "probe": {
+        "schemaVersion": "qop-visibility-probe/1",
+        "diagnostic": true,
+        "filters": {
+          "view": "research",
+          "area": "quantum-algorithm",
+          "status": "Unsolved",
+          "sort": "title",
+          "limit": 200,
+          "maxBytes": 200000
+        },
+        "catalogVersion": "d76175295aaee4cd1437fe6d876f00acab20b2dc70414ad56d9b7aa3b2fb5c89",
+        "total": 25,
+        "pageCount": 11,
+        "originalResponseBytes": 190506,
+        "decoratedResponseBytes": 193237,
+        "diagnosticAddedBytes": 2731,
+        "rawSdkResultBytes": 406122,
+        "baseCommit": "3bc74404504e977360014ef405019a8016aa8fe6",
+        "implementation": "working-tree",
+        "stores": "in-memory",
+        "transport": "Official SDK HTTP; frozen page fetched through real adapter and API HTTP",
+        "integrity": "Removing three diagnostic fields per problem exactly reproduces every original problem; original API response byte budget verified.",
+        "limitations": "Marker readback measures this synthetic task, not comprehension of scientific content. raw-result is an SDK result before host-specific truncation, not evidence of model visibility."
+      },
+      "expected": {
+        "schemaVersion": "qop-visibility-expected/1",
+        "diagnostic": true,
+        "filters": {
+          "view": "research",
+          "area": "quantum-algorithm",
+          "status": "Unsolved",
+          "sort": "title",
+          "limit": 200,
+          "maxBytes": 200000
+        },
+        "originalPageSha256": "3e2cd4382b1382aac31814980c646fde9429dd7a46492494bcfa42b56e1b24cb",
+        "decoratedPageSha256": "f9e06f4c47aa08988d6854c5672ec551dd6a856efc77d7a8b789b8784a87095d",
+        "originalResponseBytes": 190506,
+        "decoratedResponseBytes": 193237,
+        "markerCount": 33,
+        "problems": [
+          {
+            "id": "01M21S9FW14RJDR83J8D64FKEM",
+            "diagnosticStart": "qop_diag_bca2aefddecc798451531d4bbc577f4f",
+            "diagnosticMiddle": "qop_diag_43165d9fe0cde986c14b1f3093b081dc",
+            "diagnosticEnd": "qop_diag_4bd7ff2eb4bf37715efbb10a3803a6bf",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0008922198429693076,
+                "pageByteOffset": 1322
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1122,
+                "problemByteFraction": 0.05005353319057816,
+                "pageByteOffset": 2424
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 22373,
+                "problemByteFraction": 0.998081727337616,
+                "pageByteOffset": 23675
+              }
+            }
+          },
+          {
+            "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+            "diagnosticStart": "qop_diag_7d21cdfd246622a073b6642461b53409",
+            "diagnosticMiddle": "qop_diag_f06dec8bdbf8d0e4774281c1c3e2516b",
+            "diagnosticEnd": "qop_diag_d7333d20c62b863b1f0605c56945ad60",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0005194805194805195,
+                "pageByteOffset": 23739
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1232,
+                "problemByteFraction": 0.032,
+                "pageByteOffset": 24951
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 38457,
+                "problemByteFraction": 0.9988831168831169,
+                "pageByteOffset": 62176
+              }
+            }
+          },
+          {
+            "id": "01M20BHBAFHFJEYHE131WS8EJX",
+            "diagnosticStart": "qop_diag_0e6e4d58e7796b6b4337ad7035eb9258",
+            "diagnosticMiddle": "qop_diag_3f0e03e2822766a25fd4c0fc5180dd21",
+            "diagnosticEnd": "qop_diag_cdb0014a497188521b7589eae6d72115",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0021544759237315525,
+                "pageByteOffset": 62240
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1202,
+                "problemByteFraction": 0.12948400301626628,
+                "pageByteOffset": 63422
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 9240,
+                "problemByteFraction": 0.9953678767639772,
+                "pageByteOffset": 71460
+              }
+            }
+          },
+          {
+            "id": "01M20CXWDYD1RXVWDKFMFM675K",
+            "diagnosticStart": "qop_diag_4d123107dcafb8e5b7b55d1f3eea0354",
+            "diagnosticMiddle": "qop_diag_2c7703c116b99851176b13795b71680f",
+            "diagnosticEnd": "qop_diag_7490670fba03d2dc40b9ce27701f08f8",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.000959462700887503,
+                "pageByteOffset": 71524
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1212,
+                "problemByteFraction": 0.05814343967378268,
+                "pageByteOffset": 72716
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 20802,
+                "problemByteFraction": 0.9979371551930919,
+                "pageByteOffset": 92306
+              }
+            }
+          },
+          {
+            "id": "01M20BHBBG223ZDPK3F526EHFH",
+            "diagnosticStart": "qop_diag_6ce74a683b1833d776ab993bd24b01e5",
+            "diagnosticMiddle": "qop_diag_4b31d229f6df1a1a4e24e899c8d273be",
+            "diagnosticEnd": "qop_diag_6fe97883b1123887b31c8f246c28db96",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.00189411876124633,
+                "pageByteOffset": 92370
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1221,
+                "problemByteFraction": 0.11563595037408846,
+                "pageByteOffset": 93571
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 10516,
+                "problemByteFraction": 0.9959276446633204,
+                "pageByteOffset": 102866
+              }
+            }
+          },
+          {
+            "id": "01M1HME780CC21XQAXBTWRJRCY",
+            "diagnosticStart": "qop_diag_5512ba1e664e2c460d6f8d94e09c0eb8",
+            "diagnosticMiddle": "qop_diag_374a6a144d713bb9f1e66543f536d3d2",
+            "diagnosticEnd": "qop_diag_d73aa3d656b06e6994212ac880bd581a",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0010960105217010083,
+                "pageByteOffset": 102930
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1265,
+                "problemByteFraction": 0.06932266549758878,
+                "pageByteOffset": 104175
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 18205,
+                "problemByteFraction": 0.9976435773783429,
+                "pageByteOffset": 121115
+              }
+            }
+          },
+          {
+            "id": "01M1Q787QRH2ASM04Q5SDG2H88",
+            "diagnosticStart": "qop_diag_a1be36d3bf3a24bc804206b384fec8df",
+            "diagnosticMiddle": "qop_diag_fb46989e5ac97c72db296fcc62b5c3de",
+            "diagnosticEnd": "qop_diag_491852b3269d15a58f1dea37a547689a",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0012866700977869274,
+                "pageByteOffset": 121179
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1177,
+                "problemByteFraction": 0.07572053525476068,
+                "pageByteOffset": 122336
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 15501,
+                "problemByteFraction": 0.9972336592897582,
+                "pageByteOffset": 136660
+              }
+            }
+          },
+          {
+            "id": "01M1HME78078BW0JG3X252BVX5",
+            "diagnosticStart": "qop_diag_043c24faa31419405a0e805afe1f4391",
+            "diagnosticMiddle": "qop_diag_4f6aeb8cd0ce90ac44dcb57c5abfa67f",
+            "diagnosticEnd": "qop_diag_f8b4866ba84ab58928ace1c097834523",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0012366289494837074,
+                "pageByteOffset": 136724
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1260,
+                "problemByteFraction": 0.07790762381747357,
+                "pageByteOffset": 137964
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 16130,
+                "problemByteFraction": 0.99734124775861,
+                "pageByteOffset": 152834
+              }
+            }
+          },
+          {
+            "id": "01M20E31B526DAX81WYGMDD01T",
+            "diagnosticStart": "qop_diag_fe15520f4720771167fe24cd419fa668",
+            "diagnosticMiddle": "qop_diag_2b571879e549bae1ac6d04646d5186d5",
+            "diagnosticEnd": "qop_diag_f157d736374b6961d8e222491a3ef2d2",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0015157256536566881,
+                "pageByteOffset": 152898
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1171,
+                "problemByteFraction": 0.08874573702159909,
+                "pageByteOffset": 154049
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 13152,
+                "problemByteFraction": 0.9967411898446381,
+                "pageByteOffset": 166030
+              }
+            }
+          },
+          {
+            "id": "01M1Q787QRCCSDNVA159Y6S261",
+            "diagnosticStart": "qop_diag_304408402637de4d62ad3a2dadb9f924",
+            "diagnosticMiddle": "qop_diag_9df8aaa60f052c0eab017e85b4e0a0e4",
+            "diagnosticEnd": "qop_diag_bf374f13091e9a9735386dbbcc83d2c1",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0011987532965715656,
+                "pageByteOffset": 166094
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1205,
+                "problemByteFraction": 0.07222488611843683,
+                "pageByteOffset": 167279
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 16641,
+                "problemByteFraction": 0.9974226804123711,
+                "pageByteOffset": 182715
+              }
+            }
+          },
+          {
+            "id": "01M22P0HY0R1RBEABK7MZW488E",
+            "diagnosticStart": "qop_diag_078c014a497e9bf3c00930e046ab3462",
+            "diagnosticMiddle": "qop_diag_1f503eaef37f6f8165d986415f4e09ad",
+            "diagnosticEnd": "qop_diag_6db63c100aa5be97cebc9a4cedc88ae4",
+            "positions": {
+              "diagnosticStart": {
+                "problemByteOffset": 20,
+                "problemByteFraction": 0.0019506485906563933,
+                "pageByteOffset": 182779
+              },
+              "diagnosticMiddle": {
+                "problemByteOffset": 1284,
+                "problemByteFraction": 0.12523163952014044,
+                "pageByteOffset": 184043
+              },
+              "diagnosticEnd": {
+                "problemByteOffset": 10210,
+                "problemByteFraction": 0.9958061055300887,
+                "pageByteOffset": 192969
+              }
+            }
+          }
+        ]
+      },
+      "answer": {
+        "problems": [
+          {
+            "id": "01M21S9FW14RJDR83J8D64FKEM",
+            "diagnosticStart": "qop_diag_bca2aefddecc798451531d4bbc577f4f",
+            "diagnosticMiddle": "qop_diag_43165d9fe0cde986c14b1f3093b081dc",
+            "diagnosticEnd": "qop_diag_4bd7ff2eb4bf37715efbb10a3803a6bf"
+          },
+          {
+            "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+            "diagnosticStart": "qop_diag_7d21cdfd246622a073b6642461b53409",
+            "diagnosticMiddle": "qop_diag_f06dec8bdbf8d0e4774281c1c3e2516b",
+            "diagnosticEnd": "qop_diag_d7333d20c62b863b1f0605c56945ad60"
+          },
+          {
+            "id": "01M20BHBAFHFJEYHE131WS8EJX",
+            "diagnosticStart": "qop_diag_0e6e4d58e7796b6b4337ad7035eb9258",
+            "diagnosticMiddle": "qop_diag_3f0e03e2822766a25fd4c0fc5180dd21",
+            "diagnosticEnd": "qop_diag_cdb0014a497188521b7589eae6d72115"
+          },
+          {
+            "id": "01M20CXWDYD1RXVWDKFMFM675K",
+            "diagnosticStart": "qop_diag_4d123107dcafb8e5b7b55d1f3eea0354",
+            "diagnosticMiddle": "qop_diag_2c7703c116b99851176b13795b71680f",
+            "diagnosticEnd": "qop_diag_7490670fba03d2dc40b9ce27701f08f8"
+          },
+          {
+            "id": "01M20BHBBG223ZDPK3F526EHFH",
+            "diagnosticStart": "qop_diag_6ce74a683b1833d776ab993bd24b01e5",
+            "diagnosticMiddle": "qop_diag_4b31d229f6df1a1a4e24e899c8d273be",
+            "diagnosticEnd": "qop_diag_6fe97883b1123887b31c8f246c28db96"
+          },
+          {
+            "id": "01M1HME780CC21XQAXBTWRJRCY",
+            "diagnosticStart": "qop_diag_5512ba1e664e2c460d6f8d94e09c0eb8",
+            "diagnosticMiddle": "qop_diag_374a6a144d713bb9f1e66543f536d3d2",
+            "diagnosticEnd": "qop_diag_d73aa3d656b06e6994212ac880bd581a"
+          },
+          {
+            "id": "01M1Q787QRH2ASM04Q5SDG2H88",
+            "diagnosticStart": "qop_diag_a1be36d3bf3a24bc804206b384fec8df",
+            "diagnosticMiddle": "qop_diag_fb46989e5ac97c72db296fcc62b5c3de",
+            "diagnosticEnd": "qop_diag_491852b3269d15a58f1dea37a547689a"
+          },
+          {
+            "id": "01M1HME78078BW0JG3X252BVX5",
+            "diagnosticStart": "qop_diag_043c24faa31419405a0e805afe1f4391",
+            "diagnosticMiddle": "qop_diag_4f6aeb8cd0ce90ac44dcb57c5abfa67f",
+            "diagnosticEnd": "qop_diag_f8b4866ba84ab58928ace1c097834523"
+          },
+          {
+            "id": "01M20E31B526DAX81WYGMDD01T",
+            "diagnosticStart": "qop_diag_fe15520f4720771167fe24cd419fa668",
+            "diagnosticMiddle": "qop_diag_2b571879e549bae1ac6d04646d5186d5",
+            "diagnosticEnd": "qop_diag_f157d736374b6961d8e222491a3ef2d2"
+          },
+          {
+            "id": "01M1Q787QRCCSDNVA159Y6S261",
+            "diagnosticStart": "qop_diag_304408402637de4d62ad3a2dadb9f924",
+            "diagnosticMiddle": "qop_diag_9df8aaa60f052c0eab017e85b4e0a0e4",
+            "diagnosticEnd": "qop_diag_bf374f13091e9a9735386dbbcc83d2c1"
+          },
+          {
+            "id": "01M22P0HY0R1RBEABK7MZW488E",
+            "diagnosticStart": "qop_diag_078c014a497e9bf3c00930e046ab3462",
+            "diagnosticMiddle": "qop_diag_1f503eaef37f6f8165d986415f4e09ad",
+            "diagnosticEnd": "qop_diag_6db63c100aa5be97cebc9a4cedc88ae4"
+          }
+        ],
+        "reportedPageCount": 11
+      },
+      "rawResultFileSha256": "56ced43dcd937257666a68ca5dad6081a448f1ba4b90152489a85f7422d0a1d2",
+      "servedCalls": [
+        {
+          "phase": "local-sdk-preflight",
+          "tool": "search_problems",
+          "arguments": {
+            "view": "research",
+            "area": "quantum-algorithm",
+            "status": "Unsolved",
+            "sort": "title",
+            "limit": 200,
+            "maxBytes": 200000
+          },
+          "exact": true,
+          "decoratedPageSha256": "f9e06f4c47aa08988d6854c5672ec551dd6a856efc77d7a8b789b8784a87095d"
+        },
+        {
+          "phase": "model-or-external-client",
+          "tool": "search_problems",
+          "arguments": {
+            "view": "research",
+            "area": "quantum-algorithm",
+            "status": "Unsolved",
+            "sort": "title",
+            "limit": 200,
+            "maxBytes": 200000
+          },
+          "exact": true,
+          "decoratedPageSha256": "f9e06f4c47aa08988d6854c5672ec551dd6a856efc77d7a8b789b8784a87095d"
+        }
+      ]
+    }
+  ]
+}

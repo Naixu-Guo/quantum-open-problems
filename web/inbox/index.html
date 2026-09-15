@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Proposal inbox · Quantum Open Problems</title>
+  <link rel="stylesheet" href="/inbox/base.css">
+  <link rel="stylesheet" href="/inbox/styles.css">
+  <script type="module" src="/inbox/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="inbox-header">
+    <a class="inbox-brand" href="https://qiqc-op.com/">Quantum Open Problems</a>
+    <div class="button-row"><a href="https://qiqc-op.com/contribute/">Proposal form</a><button id="logout" class="button" hidden>Sign out</button></div>
+  </header>
+  <main class="inbox-page" id="main">
+    <h1>Proposal inbox</h1>
+    <p class="intro">Review submissions to the zoo, keep notes, and export proposals for your own AI review.</p>
+    <p id="notice" role="status" aria-live="polite">Connecting to the project inbox…</p>
+    <form id="login" class="inbox-login" hidden>
+      <h2>Maintainer sign in</h2>
+      <p>Use your project inbox access key.</p>
+      <label for="access-key">Inbox access key</label>
+      <input id="access-key" name="key" type="password" autocomplete="current-password" required maxlength="256" aria-describedby="key-help">
+      <p class="hint" id="key-help">This key opens only the project’s proposal inbox.</p>
+      <button class="button primary" type="submit">Open inbox</button>
+    </form>
+    <section id="workspace" hidden aria-label="Submissions">
+      <div class="inbox-toolbar">
+        <div><label for="state-filter">Show</label><select id="state-filter"></select></div>
+        <button class="button" id="refresh">Refresh inbox</button>
+      </div>
+      <div class="inbox-columns">
+        <section class="inbox-list-panel" aria-label="Proposal list">
+          <p id="list-count" class="hint"></p>
+          <div id="list"></div>
+          <div class="pagination"><button class="button" id="previous">Previous</button><button class="button" id="next">Next</button></div>
+        </section>
+        <section id="detail" aria-label="Selected proposal"><p class="empty">Select a proposal to read it and record your review.</p></section>
+      </div>
+    </section>
+  </main>
+  <footer class="inbox-footer">Proposals remain private until a maintainer publishes a catalog record. Marking a proposal accepted does not publish it.</footer>
+</body>
+</html>

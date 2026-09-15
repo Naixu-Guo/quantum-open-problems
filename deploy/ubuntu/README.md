@@ -29,16 +29,111 @@ service trusts them. No API keys, GitHub OAuth application, or CAPTCHA secrets
 are provisioned by these templates. Public catalog reads work without a key;
 research writes require separately issued credentials.
 
+Both HTTPS API hosts apply nginx per-client limits of 10 requests/second with a
+burst of 40 and return 429 on excess. These directives belong in the nginx
+HTTP context, as in the supplied site configuration files.
+
+Remote catalog polling defaults to 60 seconds (`QOP_SYNC_INTERVAL_MS=60000`).
+Each interval starts after the previous fetch completes. Local commits remain
+visible on the next API read. Deployment changes must update an existing env
+file too; changing the default does not override a configured interval.
+
+## Optional submissions and editor access
+
+The project proposal inbox is separate from research contributions and all email
+accounts. Submitters need no login. Maintainers sign in at
+`https://api.qiqc-op.com/inbox/` using an inbox-only access key; this grants no
+ledger, MCP write, or personal mailbox access. The inbox files are served even
+with `QOP_WEB_DIR=0`.
+
+To enable basic protection, set these in the private `/etc/qop/service.env`:
+
+```ini
+QOP_SUBMISSIONS_MODE=basic
+QOP_SUBMISSION_ORIGINS=https://qiqc-op.com,https://www.qiqc-op.com
+QOP_SUBMISSIONS_PER_HOUR=10
+```
+
+Generate a new random key on the operator's computer:
+
+```sh
+node scripts/inbox-access-key.mjs /tmp/qop-inbox-access.txt
+```
+
+The access key is written only to the new file (mode 0600). The command prints
+`QOP_INBOX_KEY_HASH=...`; add that hash to the private server environment.
+Do not use a human-chosen password or commit the key file. Store the access key
+in your password manager. To rotate it, generate a new file, replace the hash,
+and restart the API; existing inbox sessions become invalid.
+
+Set `contribute.submissionUrl=https://api.qiqc-op.com/api/v1/submissions` and
+`contribute.spamProtection=basic` in `site/config.json`. Install the nginx inbox
+location from `nginx-domain.conf`, restart the API, and verify allowed-origin
+submission, anonymous-read denial, login, review, and logout before publishing
+the enabled form. Basic mode uses limits, a honeypot, and duplicate suppression.
+For CAPTCHA protection, set server mode `captcha`, configure `QOP_CAPTCHA_SECRET`
+and the provider, change site `spamProtection` to `captcha`, and configure the
+matching public widget site key. Unconfigured deployments stay closed.
+
+Pages and the API deploy independently. Keep `contribute.allowAnonymous=false`
+in `site/config.json` until the deployed API preserves `contributor.anonymous`.
+Deploy the supporting API first, then verify with a synthetic proposal that
+`anonymous: true` survives submission, authenticated inbox retrieval, and a
+service restart, while the contributor's name, email, and affiliation remain
+available privately. Only after these checks pass, set `allowAnonymous` to the
+JSON boolean `true` and publish Pages. Older APIs silently discard this field.
+With the flag off, the form offers named credit only and blocks restored drafts
+that request anonymous credit; their saved preference and private contact details
+are retained. Turn the flag off before rolling the API back to a version without
+anonymous-credit support.
+
+Inbox sessions expire after twelve hours. JSON exports for AI omit contact email
+and request metadata and download to the maintainer's computer; no AI service is
+called. The review note and status can be saved in the inbox. Marking accepted
+does not publish a record. The usual catalog PR workflow still publishes it.
+The inbox SQLite file is included in the existing daily backup.
+
+Authenticated research writes remain a separate optional setup: provision a
+verified human editor with `bootstrap-editor <numeric-github-user-id> "Full Name"`,
+issue an editor key, configure an authenticated Git remote, and verify sync.
+See the [service guide](../../service/README.md#running-locally-with-github-login).
+Public HTTP MCP stays read-only.
+
 ## Public MCP endpoint
 
 `https://api.qiqc-op.com/mcp` serves read-only Streamable HTTP MCP, using the
-official SDK's stateless transport with both modern and legacy HTTP clients.
+official SDK with modern and legacy HTTP clients. Modern requests are stateless;
+legacy clients receive an opaque `Mcp-Session-Id` and echo it on subsequent calls
+so cancellation reaches the same SDK instance. At most 256 legacy sessions are
+retained by default; they expire after 15 idle minutes. At capacity, the least
+recently used session with no active requests can be reclaimed. Sessions still
+initializing are protected. Clients reinitialize after an expired or reclaimed
+session returns 404. Resource subscriptions remain unsupported.
+Each legacy session allows at most 128 active requests. Cancellation, session
+closure, expiry, client disconnection, and service shutdown end outstanding
+responses and release their request state.
 Users connect to this URL without downloading the repository or installing Node.
 
 The MCP process is independent of the API process: `/opt/qop/mcp-current`
 points to an immutable release, and `/etc/qop/mcp-release` records its commit.
 In that release, install production dependencies with
-`npm --prefix mcp ci --omit=dev --ignore-scripts`. Install `qop-mcp.service`,
+`npm --prefix mcp ci --omit=dev --ignore-scripts`.
+
+MCP 1.3 requires an API that advertises `contextSchemaVersion: "qop-context/2"`,
+`idempotencyVersion: "qop-idempotency/2"`, `retrievalVersion: "qop-retrieval/1"`,
+`researchSearchVersion: "qop-search-research/1"`, and
+`problemReadVersion: "qop-problem-read/1"`
+at `/api/v1/status`. Deploy the matching
+API release and restart `qop` first. From the candidate MCP release directory,
+check the exact upstream origin configured in `/etc/qop/mcp.env`:
+
+```sh
+QOP_SERVICE_URL=http://127.0.0.1:8787 npm --prefix mcp run check:service
+```
+
+The check performs one public status read and exits nonzero if the API is
+unreachable, returns an error, or lacks any required contract. Only after
+it passes, activate the MCP release. Install `qop-mcp.service`,
 copy `mcp.env.example` to `/etc/qop/mcp.env`, then enable it with
 `systemctl enable --now qop-mcp`. The process binds `127.0.0.1:8788` and forwards
 read calls to the existing API on port 8787. Install the `/mcp` location from
@@ -51,10 +146,27 @@ guards, a 64 KiB request limit, and a per-address limit of 240 requests per minu
 apply. Enable `QOP_MCP_TRUST_PROXY` only with the nginx configuration that replaces
 `X-Forwarded-For`. Allowed Origin values in the environment are hostnames.
 
-For upgrades, install a new release and its dependencies, update only
-`/opt/qop/mcp-current` and `/etc/qop/mcp-release`, then restart `qop-mcp`.
-Roll back that symlink to the previous release if needed. The API's release,
-catalog clone, and SQLite stores are independent of this process.
+For upgrades, install the new MCP release and its dependencies, deploy and restart
+the API first if any required contract is older, and run `check:service` from the
+candidate release before changing `/opt/qop/mcp-current`, `/etc/qop/mcp-release`,
+or restarting `qop-mcp`. If preflight fails, leave the running MCP release in
+place. Roll back the MCP symlink if needed, keeping its required API contracts
+compatible with the running service. The API's release, catalog clone, and SQLite
+stores remain separate from the MCP process.
+
+If an old API is reached after activation, `build_context` returns a nonretryable
+`INCOMPATIBLE_SERVICE` error with the upgrade steps. It does not invent v2 context
+fields or completeness guarantees. Other read tools are not blocked solely by
+the missing context capability.
+Local authenticated adapters also check `qop-idempotency/2` before a keyed write,
+rejecting an incompatible API before mutation. The service's durable pending
+receipt may return `IDEMPOTENCY_OUTCOME_UNKNOWN` after an uncertain operation;
+inspect and reconcile that state rather than retrying under a new key.
+
+Completed JSON-request receipts remain replayable across this upgrade. Artifact
+request hashes now include title, kind, and media type as well as bytes. A key
+created for an artifact on an older API can therefore return a conflict after
+upgrading; inspect its original artifact before attempting any further upload.
 
 Use `systemctl status qop-mcp` and `journalctl -u qop-mcp` to diagnose it.
 An ordinary browser GET to `/mcp` may return 405: test it with an MCP client
@@ -138,16 +250,38 @@ The optional local stdio adapter instead uses
 
 ## Backups and rollback
 
-Install `qop-backup.sh` as `/usr/local/libexec/qop-backup` and enable
-`qop-backup.timer`. It briefly stops the API at 03:15 UTC each day to capture
-a consistent ledger and SQLite snapshot, then restarts it even if archiving
-fails. Archives in `/var/backups/qop` are root-only and retained for 14 days.
-Copy them to separate storage for protection against loss of the server.
+Install `qop-backup.sh` as `/usr/local/libexec/qop-backup` and `qop-backup.py`
+as `/usr/local/libexec/qop-backup.py`, then enable `qop-backup.timer`.
+At 03:15 UTC it uses SQLite's online backup API (including committed WAL data)
+and a self-contained Git bundle. API and MCP processes keep running. It retries
+if the catalog HEAD changes during the snapshots and publishes no archive if
+it cannot capture a stable catalog. Check a failed timer run and retry it.
+
+Version-2 archives contain `manifest.json`, `catalog.bundle`, `data/`, optional
+`artifact-store/`, and `configuration/` (the private `/etc/qop` settings).
+The index database is disposable; it is rebuilt from the restored ledger.
+Archives in `/var/backups/qop` are root-only and retained for 14 days. Copy
+them to separate storage for protection against loss of the server.
 
 To roll back application code, point `/opt/qop/current` to a compatible
 previous release and restart `qop`; preserve `/var/lib/qop`. For a full restore,
-stop `qop`, retain the current state in a separate directory, restore
-`var/lib/qop` and `etc/qop` from a trusted backup, and deploy the commit named
-in `/etc/qop/release`. Restore matching code and data together after an
-incompatible schema migration. Never print the authentication database or
-secrets when diagnosing a restore.
+stop `qop` and `qop-mcp`, retain current state in a separate directory, and
+extract a trusted archive into a private staging directory. For format 2,
+clone `catalog.bundle` to `/var/lib/qop/catalog` using `catalogBranch` from
+the manifest, verify its HEAD equals `catalogHead`, and set its remote back
+to the intended GitHub repository. Restore `data/` to `/var/lib/qop/data`,
+`artifact-store/` under the catalog's `activity/` if present, and
+`configuration/` to `/etc/qop`. Restore ownership (`qop:qop` for `/var/lib/qop`,
+root for `/etc/qop`) and private permissions. Deploy the API and MCP commits
+named in `/etc/qop/release` and `/etc/qop/mcp-release`, then start both services.
+Older archives instead contain `var/lib/qop` and `etc/qop` directly. Restore
+matching code and data after an incompatible schema migration; never print
+authentication data or secrets while diagnosing a restore.
+
+## Content license consent
+
+When deploying the licensing policy, update the service before publishing the
+new proposal form. The service preserves explicit `contentLicense: "CC-BY-4.0"`
+consent in each receipt. Older clients still work, but an absent license value
+means permission needs confirmation; the inbox shows this distinction. Do not
+backfill consent on older proposals. See [LICENSING.md](../../LICENSING.md).

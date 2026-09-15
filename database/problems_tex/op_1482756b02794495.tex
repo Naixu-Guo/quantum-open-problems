@@ -5,8 +5,8 @@
 \label{sec:op_1482756b02794495}
 
 \paragraph{Problem.}
-Does amortization collapse for the max-relative entropy and geometric
-R\'enyi divergence of arbitrary finite-dimensional quantum superchannels?
+Does amortization collapse for the geometric R\'enyi divergence of
+arbitrary finite-dimensional quantum superchannels?
 For compatible states, let
 \begin{equation}
   \begin{aligned}
@@ -57,8 +57,10 @@ Is
   =\mathbf D_{\rm sc}(\Theta_1\|\Theta_2)
   \label{eq:p68-superchannel-collapse}
 \end{equation}
-for both choices of $\mathbf D$ in Eq.~\eqref{eq:p68-state-divergences} and
-all superchannel pairs?
+for $\mathbf D=\widehat D_\alpha$ in Eq.~\eqref{eq:p68-state-divergences},
+$1<\alpha\leq2$, and all superchannel pairs? The definitions also include $D_{\max}$ to state its settled
+subcase below. The amortized suprema use pairs with finite subtracted
+divergence; other infinite values have the standard support convention.
 
 \subsection*{Status}
 
@@ -66,9 +68,12 @@ Unsolved
 
 \subsection*{Source}
 
-Hirche explicitly left Eq.~\eqref{eq:p68-superchannel-collapse} open while
-deriving strong-converse bounds for adaptive superchannel discrimination
-\sourcecite{ref:p68-hirche}{Hir23}.
+Hirche's Remark 5.4, after Eqs.~(75)--(77), leaves amortization collapse
+open in general superchannel discrimination settings
+\sourcecite{ref:p68-hirche}{Hir23}. For the nested definition in
+Eq.~\eqref{eq:p68-superchannel-amortization}, the max-relative-entropy
+case follows directly from CP order, as shown below; the remaining target
+here is the geometric R\'enyi case.
 
 \subsection*{Progress}
 
@@ -93,14 +98,34 @@ deriving strong-converse bounds for adaptive superchannel discrimination
   \end{equation}
   from a chain rule for the geometric R\'enyi divergence
   \sourcecite{ref:p68-fang-fawzi}{FF21}.
+Equation~\eqref{eq:p68-channel-geometric-collapse} concerns point-to-point
+channels; it does not settle the superchannel claim.
 
-  \item Hirche used the amortized quantities in
-  Eq.~\eqref{eq:p68-superchannel-amortization} to bound nested-adaptive
-  superchannel discrimination, and introduced fully amortized variants for
-  arbitrary interleavings of superchannel components.  The channel proofs of
-  Eqs.~\eqref{eq:p68-channel-max-collapse} and
-  \eqref{eq:p68-channel-geometric-collapse} have not been lifted to these
-  superchannel settings \sourcecite{ref:p68-hirche}{Hir23}.
+  \item For the nested superchannel definition, the max-relative-entropy
+subcase also collapses. Indeed, let
+$t=2^{D_{\max,\mathrm{ch}}(\mathcal N\|\mathcal M)}$ and
+$s=2^{D_{\max,\mathrm{sc}}(\Theta_1\|\Theta_2)}$ be finite.
+Channel max-relative entropy is characterized by CP order, and physical
+superchannels preserve that order. Thus
+\begin{equation}
+  \mathcal N\leq_{\mathrm{CP}}t\mathcal M
+  \quad\Longrightarrow\quad
+  \Theta_1(\mathcal N)\leq_{\mathrm{CP}}t\Theta_1(\mathcal M)
+    \leq_{\mathrm{CP}}ts\Theta_2(\mathcal M),
+  \label{eq:p68-nested-max-order}
+\end{equation}
+where $\mathcal A\leq_{\mathrm{CP}}\mathcal B$ means
+$\mathcal B-\mathcal A$ is completely positive.
+Taking logarithms in Eq.~\eqref{eq:p68-nested-max-order} and using
+Eq.~\eqref{eq:p68-channel-max-collapse} bounds each term of the amortized
+supremum by $\log_2s$. Choosing $\mathcal N=\mathcal M$ gives the reverse
+inequality, proving Eq.~\eqref{eq:p68-superchannel-collapse} for
+$\mathbf D=D_{\max}$. If the unamortized divergence is infinite, the same
+reverse inequality already proves equality in the extended sense.
+This is a direct consequence of the cited channel CP-order characterization
+\sourcecite{ref:p68-wilde-berta-hirche-kaur}{WBHK20}; it does not prove
+collapse of Hirche's larger fully amortized quantities
+\sourcecite{ref:p68-hirche}{Hir23}.
 \end{itemize}
 
 \subsection*{References}
@@ -132,10 +157,12 @@ deriving strong-converse bounds for adaptive superchannel discrimination
 
 \subsection*{Comment}
 
-Equation~\eqref{eq:p68-superchannel-collapse} concerns the nested-adaptive
-amortization in Eq.~\eqref{eq:p68-superchannel-amortization}.  Whether the
-larger fully amortized divergences controlling braided and fully general
-strategies collapse is a further, stronger question.
+The remaining displayed question is geometric R\'enyi amortization
+collapse for nested-adaptive superchannel discrimination. The
+max-relative-entropy subcase is settled by
+Eq.~\eqref{eq:p68-nested-max-order}. Whether the larger fully amortized
+divergences controlling braided and fully general strategies collapse is a
+further, stronger question.
 
 \subsection*{Field}
 

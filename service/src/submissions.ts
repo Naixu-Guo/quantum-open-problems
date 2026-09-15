@@ -5,10 +5,8 @@
  * or marks it rejected or spam. The inbox lives in its own SQLite file so the disposable index
  * and the auth store can be rebuilt or lost without losing a proposal.
  *
- * A proposal is accepted only with a CAPTCHA token that the provider's `siteverify` endpoint
- * confirms (Cloudflare Turnstile by default, hCaptcha as an alternative; both share the same
- * verification protocol), after the per-address budget, the honeypot field, and the field
- * limits below. Contact details are stored for the maintainers only and never served publicly.
+ * Public sending requires explicit basic or CAPTCHA mode. Both enforce the per-address
+ * budget, honeypot, and field limits; CAPTCHA mode also verifies a provider token. Contact details are stored for the maintainers only and never served publicly.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -36,8 +34,12 @@ export interface CaptchaConfig {
 export interface SubmissionsConfig {
   /** The inbox database: beside the auth store unless configured, `:memory:` when the auth store is. */
   dbPath: string;
-  /** The CAPTCHA the form must pass; null refuses every proposal with a 503, so the form is never open unverified. */
+  /** Explicit opt-in; missing configuration keeps public submissions closed. */
+  mode: "disabled" | "basic" | "captcha";
+  /** Required in captcha mode, optional in basic mode. */
   captcha: CaptchaConfig | null;
+  /** SHA-256 of a randomly generated inbox-only access key. Never a human-chosen password. */
+  inboxKeyHash: string | null;
   /** Origins of the pages that post proposals, for CORS: the static site, plus the service's own origin. */
   allowedOrigins: string[];
   /** Proposals one address may send per hour, counting attempts that fail verification. */
@@ -67,6 +69,8 @@ export interface Contributor {
   name: string;
   email: string;
   affiliation: string;
+  /** Keep the contributor's identity private when publishing the proposal. */
+  anonymous: boolean;
 }
 
 /**
@@ -86,6 +90,8 @@ export interface SubmissionPayload {
   references: string;
   comment: string;
   contributor: Contributor;
+  /** Present only when the submitter explicitly agreed to this content license. */
+  contentLicense?: "CC-BY-4.0";
 }
 
 export interface ParsedSubmission {
@@ -164,7 +170,7 @@ function names(value: unknown, what: string, max: number, issues: string[]): str
  * Check and normalize a proposal from the form. Every problem is reported at once, as a 422
  * whose message lists them, so the form can show the whole list.
  */
-export function parseSubmission(raw: unknown): ParsedSubmission {
+export function parseSubmission(raw: unknown, requireCaptcha = true): ParsedSubmission {
   if (!isRecord(raw)) throw new HttpError(422, "the proposal must be a JSON object");
   const issues: string[] = [];
   const text = (key: keyof typeof LIMITS & keyof SubmissionPayload, source: Record<string, unknown> = raw): string => {
@@ -199,17 +205,21 @@ export function parseSubmission(raw: unknown): ParsedSubmission {
   const email = clean(person["email"]);
   if (!email) issues.push("your email address is required");
   else if (email.length > LIMITS.email.max || !EMAIL.test(email)) issues.push("the email address is not valid");
+  if (person["affiliation"] !== undefined && typeof person["affiliation"] !== "string") issues.push("the affiliation must be text");
   const affiliation = clean(person["affiliation"]).replace(/\s+/gu, " ");
   if (affiliation.length > LIMITS.affiliation.max) issues.push(`the affiliation is longer than ${LIMITS.affiliation.max} characters`);
+  if (person["anonymous"] !== undefined && typeof person["anonymous"] !== "boolean") issues.push("the anonymity preference must be a boolean");
+  const anonymous = person["anonymous"] === true;
   if (raw["consent"] !== true) issues.push("consent to storing your contact details for the review is required");
+  if (raw["contentLicense"] !== undefined && raw["contentLicense"] !== "CC-BY-4.0") issues.push("contentLicense must be CC-BY-4.0 when supplied");
 
   const captchaToken = clean(raw["captchaToken"]);
-  if (!captchaToken) issues.push("complete the human verification");
+  if (!captchaToken && requireCaptcha) issues.push("complete the human verification");
   else if (captchaToken.length > LIMITS.captchaToken.max) issues.push("the verification token is malformed");
 
   if (issues.length > 0) throw new HttpError(422, issues.join("; "));
   return {
-    payload: { title, statement, fields, newFields, topics, newTopics, source, progress, references, comment, contributor: { name, email, affiliation } },
+    payload: { title, statement, fields, newFields, topics, newTopics, source, progress, references, comment, contributor: { name, email, affiliation, anonymous }, ...(raw["contentLicense"] === "CC-BY-4.0" ? { contentLicense: "CC-BY-4.0" as const } : {}) },
     captchaToken,
   };
 }
@@ -231,7 +241,10 @@ export async function verifyCaptcha(captcha: CaptchaConfig, token: string, remot
 }
 
 export function contentHash(payload: SubmissionPayload): string {
-  return createHash("sha256").update(JSON.stringify([payload.title.toLowerCase(), payload.statement, payload.contributor.email.toLowerCase()])).digest("hex");
+  const content = [payload.title.toLowerCase(), payload.statement, payload.contributor.email.toLowerCase()];
+  // Keep historical lookup hashes; accept also compares the complete contact details.
+  if (payload.contributor.anonymous) content.push("anonymous");
+  return createHash("sha256").update(JSON.stringify(content)).digest("hex");
 }
 
 export const hashAddress = (address: string): string => createHash("sha256").update(`address:${address}`).digest("hex");
@@ -242,6 +255,13 @@ interface StoredRow {
 }
 
 const ROW_COLUMNS = "id, received_at, state, state_at, state_by, state_note, title, contributor_name, contributor_email, payload, content_hash, address_hash, user_agent, captcha_provider";
+
+function storedPayload(row: StoredRow): SubmissionPayload {
+  const payload = JSON.parse(row.payload) as SubmissionPayload;
+  // Older proposals predate the checkbox and retain the default attribution preference.
+  payload.contributor.anonymous = payload.contributor.anonymous === true;
+  return payload;
+}
 
 export class SubmissionStore {
   readonly db: DatabaseSync;
@@ -255,12 +275,21 @@ export class SubmissionStore {
 
   /**
    * File a verified proposal. The same proposal sent twice within a day (same title, statement,
-   * and email, as when a browser retries) is filed once; the reply says so.
+   * and complete contributor details, as when a browser retries) is filed once. Corrections to
+   * contact details receive a new receipt, preserving both the correction and the original.
    */
   accept(payload: SubmissionPayload, meta: { address: string; userAgent: string; captchaProvider: string }, now: number = Date.now()): { id: string; receivedAt: string; duplicate: boolean } {
     const hash = contentHash(payload);
     const since = new Date(now - DUPLICATE_WINDOW_MS).toISOString();
-    const existing = this.db.prepare("SELECT id, received_at FROM submissions WHERE content_hash = ? AND received_at >= ? ORDER BY received_at DESC LIMIT 1").get(hash, since) as { id: string; received_at: string } | undefined;
+    const candidates = this.db.prepare(`SELECT ${ROW_COLUMNS} FROM submissions WHERE content_hash = ? AND received_at >= ? ORDER BY received_at DESC`).all(hash, since) as unknown as StoredRow[];
+    const existing = candidates.find((row) => {
+      const previousPayload = storedPayload(row);
+      const previous = previousPayload.contributor;
+      const current = payload.contributor;
+      return previous.name === current.name && previous.email === current.email
+        && previous.affiliation === current.affiliation && previous.anonymous === current.anonymous
+        && previousPayload.contentLicense === payload.contentLicense;
+    });
     if (existing) return { id: existing.id, receivedAt: existing.received_at, duplicate: true };
     const id = newId(now);
     const receivedAt = new Date(now).toISOString();
@@ -275,11 +304,12 @@ export class SubmissionStore {
     return row ? this.full(row) : null;
   }
 
-  list(options: { state?: SubmissionState | undefined; limit?: number | undefined } = {}): SubmissionRow[] {
+  list(options: { state?: SubmissionState | undefined; limit?: number | undefined; offset?: number | undefined } = {}): SubmissionRow[] {
     const limit = Math.min(Math.max(options.limit ?? 50, 1), 1000);
+    const offset = Math.max(options.offset ?? 0, 0);
     const rows = (options.state
-      ? this.db.prepare(`SELECT ${ROW_COLUMNS} FROM submissions WHERE state = ? ORDER BY received_at DESC LIMIT ?`).all(options.state, limit)
-      : this.db.prepare(`SELECT ${ROW_COLUMNS} FROM submissions ORDER BY received_at DESC LIMIT ?`).all(limit)) as unknown as StoredRow[];
+      ? this.db.prepare(`SELECT ${ROW_COLUMNS} FROM submissions WHERE state = ? ORDER BY received_at DESC, id DESC LIMIT ? OFFSET ?`).all(options.state, limit, offset)
+      : this.db.prepare(`SELECT ${ROW_COLUMNS} FROM submissions ORDER BY received_at DESC, id DESC LIMIT ? OFFSET ?`).all(limit, offset)) as unknown as StoredRow[];
     return rows.map((row) => this.summary(row));
   }
 
@@ -301,7 +331,7 @@ export class SubmissionStore {
   }
 
   private summary(row: StoredRow): SubmissionRow {
-    const payload = JSON.parse(row.payload) as SubmissionPayload;
+    const payload = storedPayload(row);
     return {
       id: row.id, receivedAt: row.received_at, state: row.state as SubmissionState, stateAt: row.state_at, stateBy: row.state_by, stateNote: row.state_note,
       title: row.title, contributor: payload.contributor, fields: payload.fields, topics: payload.topics,
@@ -309,7 +339,7 @@ export class SubmissionStore {
   }
 
   private full(row: StoredRow): Submission {
-    return { ...this.summary(row), payload: JSON.parse(row.payload) as SubmissionPayload, contentHash: row.content_hash, addressHash: row.address_hash, userAgent: row.user_agent, captchaProvider: row.captcha_provider };
+    return { ...this.summary(row), payload: storedPayload(row), contentHash: row.content_hash, addressHash: row.address_hash, userAgent: row.user_agent, captchaProvider: row.captcha_provider };
   }
 }
 
@@ -321,6 +351,8 @@ export function submissionText(submission: Submission): string {
   return `# ${p.title}\n\n`
     + `Proposal ${submission.id}, received ${submission.receivedAt}, state ${submission.state}.\n`
     + `Contributor: ${p.contributor.name} <${p.contributor.email}>${p.contributor.affiliation ? ` (${p.contributor.affiliation})` : ""}\n`
+    + `Public attribution: ${p.contributor.anonymous ? "Anonymous requested; do not publish the contributor’s name, email, or affiliation." : "Contributor may be named; email remains private."}\n`
+    + `Content license: ${p.contentLicense === "CC-BY-4.0" ? "CC BY 4.0 for the contributor's original text; third-party material excluded." : "Not recorded; confirm permission before publishing under CC BY 4.0."}\n`
     + `Fields: ${marked(p.fields, p.newFields)}\n`
     + `Topics: ${marked(p.topics, p.newTopics)}\n\n`
     + section("Statement", p.statement)

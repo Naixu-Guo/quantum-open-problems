@@ -55,13 +55,15 @@ Environment:
 | `QOP_HOST` | Optional listening address; set `127.0.0.1` behind a local HTTPS proxy. Unset uses Node's default listening address |
 | `QOP_COMMIT=0` | Write files without committing |
 | `QOP_GIT_REMOTE`, `QOP_GIT_BRANCH` | The remote the clone pushes to after each commit and catches up with before each write (see "Ledger synchronization"); unset keeps commits local. The branch defaults to the clone's current one |
-| `QOP_SYNC_INTERVAL_MS` | Background remote polling interval after each fetch completes; default `5000`. Set `0` to disable remote polling. Local committed changes still refresh on the next API or authentication request |
+| `QOP_SYNC_INTERVAL_MS` | Background remote polling interval after each fetch completes; default `60000`. Set `0` to disable remote polling. Local committed changes still refresh on the next API or authentication request |
 | `QOP_PUBLIC_URL` | The origin browsers reach the service at, default `http://localhost:<port>`. Cookie writes, the OAuth redirect, and `return_to` are bound to it; `https://` makes cookies `Secure` |
 | `QOP_WEB_DIR` | Directory of the web app's static files, default `web/`; empty or `0` serves none |
 | `QOP_SESSION_DAYS` | Browser session lifetime, default 30 |
 | `QOP_GITHUB_CLIENT_ID`, `QOP_GITHUB_CLIENT_SECRET` | The GitHub OAuth app; login is enabled only when both are set |
 | `QOP_GITHUB_URL`, `QOP_GITHUB_API_URL` | GitHub's OAuth and API bases, for tests and enterprise installs |
-| `QOP_CAPTCHA_SECRET` | The CAPTCHA secret key of the proposal inbox (see "Proposal inbox"); unset keeps the inbox closed |
+| `QOP_CAPTCHA_SECRET` | The CAPTCHA secret key; required only in `captcha` mode |
+| `QOP_SUBMISSIONS_MODE` | `disabled`, `basic`, or `captcha`; defaults to `captcha` when a secret is present, otherwise `disabled` |
+| `QOP_INBOX_KEY_HASH` | SHA-256 of a generated random inbox access key; enables project-only login at `/inbox/` |
 | `QOP_CAPTCHA_PROVIDER` | `turnstile` (default) or `hcaptcha` |
 | `QOP_CAPTCHA_VERIFY_URL` | The provider's `siteverify` endpoint, for tests that point it at a fake |
 | `QOP_SUBMISSION_ORIGINS` | Comma-separated origins of the pages that post proposals, for CORS; the static site's origin, for example `https://naixu-guo.github.io` |
@@ -73,18 +75,22 @@ Environment:
 
 | Route | Returns |
 | --- | --- |
-| `GET /api/v1/status` | Policy version, `lastSequence`, record counts, published problems by status, candidates, last release, and `sync`: per repository, whether the clone is in step with its remote, how far ahead or behind, and the last push |
+| `GET /api/v1/status` | Policy version, `lastSequence`, `problems.total` counts active records, with merged and retired identities reported separately; `distinctQuestions` counts published mathematical questions once across equivalence links; both include status totals, plus candidates and last release, and `sync`: per repository, whether the clone is in step with its remote, how far ahead or behind, and the last push |
 | `GET /api/v1/policy` | The current policy header |
 | `GET /api/v1/schemas/<name>` | A contract schema |
-| `GET /api/v1/problems?status=&area=&topic=&difficulty=&text=&limit=&includeCandidates=&sort=` | Indexed problems (all problems with `includeCandidates=true`, each row saying whether it is `indexed`) with `lastActivity` and `lastHumanReview`; `text` matches titles, keywords, and bodies; `limit` up to 1000; `sort=stale` is the maintenance backlog, never-reviewed first, then oldest human review first |
-| `GET /api/v1/problems/<id or alias>` | Problem with current statement and clause statuses, references with notes, comments, decision chain |
+| `GET /api/v1/problems?status=&area=&topic=&difficulty=&text=&limit=&offset=&cursor=&includeCandidates=&sort=` | Scientific text search with matched fields/snippets and relevance sorting; complete IDs/aliases match separately. No-query default uses catalog TeX git edit dates when available. Returns total/count/catalogVersion/nextCursor and legacy nextOffset; signed cursors detect catalog changes (409), expire after one hour (410), and bind filters/sort. Limits: 1000 rows, 2048 query characters, 32 normalized terms. Labels/slugs remain case-insensitive. `stale` is service review age, never a scientific resolution date |
+| `GET /api/v1/problems?view=research&maxBytes=32768&…` | The same filters return complete research-view problems in a `qop-search-research/1` envelope. Whole-problem pagination obeys both row and compact UTF-8 JSON byte limits; `responseBytes` measures the actual response body. `maxBytes` defaults to 32768 and accepts 16384–1048576; it excludes HTTP/MCP framing and token limits. The smaller default reduces exposure to host output truncation but cannot guarantee visibility in every host. A first problem that cannot fit returns 413 `response_budget_too_small` with `minimumRequiredBytes` and `problemId`. Cursors bind the view; change views with a fresh query. Default/explicit `summary` retains `qop-search/2` and rejects `maxBytes` |
+| `GET /api/v1/problems/:id/read` | `qop-problem-read/1`: read one content category: `statement` (initial default), `history`, `references`, or `comment`. Every category carries authoritative problem `status` and `statusSource`, separate from service clause evidence status. Normal responses return structured `content`; only oversized categories use serialized JSON `text` and opaque `nextCursor` continuation. No paragraph or block selectors. `maxBytes` defaults to 8192, range 2048–65536, and measures the entire compact API JSON. `documentVersion` and cursors bind the complete research view; independently updated Sources, Statements or discussions also produce 409 `document_changed`. See [category reading](../mcp/README.md#read-by-content-category) |
+| `GET /api/v1/problems/sample?status=&area=&topic=&difficulty=&text=&includeCandidates=` | Uniform sample from all matches, default Unsolved; total/catalogVersion and research-view problem (or null). No pagination or shared caching |
+| `GET /api/v1/problems/<id or alias>?view=full` | Full (default) or research view with complete formal statement, structured authored research history, citations and revision provenance. Research view omits body only when it matches the manifest's desired catalog projection. Later service edits and native or unverified backgrounds retain their complete body; check `bodyDisposition` and read body when included. `includeAuthoredRecord=true` requires full view. Catalog dates describe editing only |
 | `GET /api/v1/problems/<id>/frontier` | Clauses with status, accepted claims, best bounds, decomposition tree, routes tried, pending contributions, `lastActivity`, `lastHumanReview` |
 | `GET /api/v1/problems/<id>/tree` | The decomposition tree alone |
 | `GET /api/v1/problems/<id>/attempts` | Attempt reports with state and currency |
 | `GET /api/v1/problems/<id>/references?role=` | The problem's references with their sources |
 | `GET /api/v1/problems/<id>/context?clauses=&budget=` | The context bundle for an agent: statement, chosen clauses, references, and frontier cut to a token budget, with a `bundleId` that names exactly what was included; an unknown clause is a 400 |
 | `GET /api/v1/problems/<id>/indexed` | Whether the problem is in the main index |
-| `GET /api/v1/sources?text=&limit=` | Sources whose title, authors, venue, or identifiers contain every term |
+| `GET /api/v1/sources?text=&limit=&offset=` | Sources whose title, authors, venue, identifiers, or preserved citation text contain every term; includes retired sources, `total`, and `nextOffset` |
+| `GET /api/v1/problems.jsonl` | All published problem views as `application/x-ndjson`; supports HTTP gzip behind the deployment proxy |
 | `GET /api/v1/taxonomy` | The current taxonomy |
 | `GET /api/v1/actors` | Every current actor: id, name, kind, roles, operator, model family |
 | `GET /api/v1/comments?targetType=&targetId=` | Comments on a record, threaded |
@@ -154,35 +160,44 @@ varies on `Authorization` and `Cookie`.
 ## Proposal inbox
 
 The static site's [contribute page](../docs/DEVELOPMENT.md#contribution-form)
-lets anyone propose a problem without an account. The form posts to this
-service, which files the proposal in an inbox that only editors read. A
-proposal is not a ledger record and changes nothing on the site: a maintainer
-reads it, rewrites it as an authored record in `database/problems_json/`,
-and publishes it through the ordinary catalog workflow, then marks the
-proposal accepted, rejected, or spam. The inbox is its own SQLite file
-(`QOP_SUBMISSIONS_DB_PATH`) so the disposable index and the auth store can
-be rebuilt or lost without losing a proposal. Contact details are stored
-for the maintainers only and never served publicly.
+posts account-free proposals to a project-only inbox. Submissions remain outside
+the public catalog until a maintainer authors and publishes a record. Contact
+details are private. The inbox is its own SQLite file (`QOP_SUBMISSIONS_DB_PATH`)
+and does not connect to any email account.
 
-The inbox opens only when `QOP_CAPTCHA_SECRET` is set. Every proposal must
-carry a token from the CAPTCHA widget on the form, and the service confirms
-it with the provider's `siteverify` endpoint before filing anything;
-Cloudflare Turnstile is the default and hCaptcha is supported through the
-same protocol. Turnstile's test keys (site key `1x00000000000000000000AA`,
-secret `1x0000000000000000000000000000000AA`) always pass and suit local
-work. In front of the CAPTCHA stand a per-address hourly budget (which counts
-failed verifications), a honeypot field, the request body cap, and the field
-limits that `src/submissions.ts` and the form share. Identical proposals
-sent twice within a day (same title, statement, and email, as when a browser
-retries) are filed once and answered with the same receipt.
+Public sending requires explicit configuration: `QOP_SUBMISSIONS_MODE=basic`
+uses per-address hourly limits (including invalid attempts), a honeypot, field and
+body limits, and suppression of identical proposals retried within 24 hours.
+`captcha` mode additionally requires a verified Turnstile or hCaptcha token;
+`disabled` closes submissions with 503. A missing mode defaults to `captcha`
+when a secret is supplied and otherwise stays disabled.
+
+Maintainers can use the scoped login at `/inbox/` to filter submissions, save
+review notes/status, and export JSON for their own AI review. This is a separate
+12-hour HttpOnly session, not a ledger actor or email identity. Configure
+`QOP_INBOX_KEY_HASH` with the SHA-256 of a random key generated by
+`scripts/inbox-access-key.mjs`; key rotation invalidates existing sessions.
+See the [deployment guide](../deploy/ubuntu/README.md#optional-submissions-and-editor-access).
+The exported AI packet omits contact email and request metadata. Saving a review
+never sends anything to an AI service or publishes a catalog record.
+
+Every proposal requires the contributor's name and email address; affiliation is
+optional. These details are stored together and remain available in the private
+inbox even when `contributor.anonymous` requests anonymous public credit. An exact
+retry within 24 hours returns the original receipt. Corrected contact details
+receive a new receipt so maintainers can review the correction and the original.
+
+Existing editor bearer tokens and sessions may also access the following private
+routes. Inbox-only sessions authorize only these routes, with same-origin POSTs;
+`stateBy` is null for the project operator, since no ledger actor is assumed.
 
 | Route | Effect |
 | --- | --- |
-| `POST /api/v1/submissions` | File a proposal: `title`, `statement`, `fields` (1–2) and `topics` (1–5) as the contributor classifies the problem, `newFields` and `newTopics` naming which of those the contributor made up rather than picked from the taxonomy, `source`, `progress`, `references`, `comment`, `contributor` {`name`, `email`, `affiliation`}, `consent: true`, `captchaToken`, and the empty honeypot `extra`. Public. 201 with a receipt `id`, 200 with `duplicate: true` for a repeat, 422 listing every problem, 403 for a token the provider rejects, 429 over the hourly budget, 502 when the provider cannot be reached, 503 while the inbox is closed |
+| `POST /api/v1/submissions` | File a proposal: `title`, `statement`, `fields` (1–2) and `topics` (1–5) as the contributor classifies the problem, `newFields` and `newTopics` naming which of those the contributor made up rather than picked from the taxonomy, `source`, `progress`, `references`, `comment`, `contributor` {`name`, `email`, optional `affiliation`, optional boolean `anonymous`}, `consent: true`, `captchaToken` (captcha mode only), and the empty honeypot `extra`. Public. 201 with a receipt `id`, 200 with `duplicate: true` for a repeat, 422 listing every problem, 403 for a token the provider rejects, 429 over the hourly budget, 502 when the provider cannot be reached, 503 while the inbox is closed |
 | `OPTIONS /api/v1/submissions` | The CORS preflight, answered for the origins in `QOP_SUBMISSION_ORIGINS` and the service's own |
-| `GET /api/v1/submissions?state=&limit=` | The inbox, newest first, with counts by state. Editors only |
-| `GET /api/v1/submissions/<id>` | One proposal with its full payload and a text rendering. Editors only |
-| `POST /api/v1/submissions/<id>/state` | `{ "state": "new" \| "in-review" \| "accepted" \| "rejected" \| "spam", "note": "…" }`, recorded with the editor's actor id. Editors only |
+| `GET /api/v1/submissions?state=&limit=&offset=` | The inbox, newest first, with counts by state, true `total`, and `nextOffset`. Inbox login or editor |
+| `GET /api/v1/submissions/<id>` | One proposal with its full payload and a text rendering. Inbox login or editor |
+| `POST /api/v1/submissions/<id>/state` | `{ "state": "new" \| "in-review" \| "accepted" \| "rejected" \| "spam", "note": "…" }`, recorded with the editor's actor id, or null for the inbox operator. Inbox login or editor |
 
 The same inbox from the command line on the service host:
 
@@ -193,15 +208,14 @@ node --experimental-strip-types src/cli.ts proposals export <id> [file] # as JSO
 node --experimental-strip-types src/cli.ts proposals set <id> <state> [note]
 ```
 
-To connect a deployed service to the site, set `contribute.submissionUrl`
-(the service's `/api/v1/submissions` URL) and `contribute.captcha.siteKey`
-in `site/config.json`; until both are set the page offers the form in an
-offline mode that loads no third-party script.
+To connect the site, set `contribute.submissionUrl` and explicit
+`contribute.spamProtection: "basic"`, or configure a matching CAPTCHA widget
+and site key. Publish only after verifying the server accepts the matching mode.
 
 ## Ledger synchronization
 
 The service's clone is the canonical ledger (DESIGN.md decision 12). With
-`QOP_GIT_REMOTE` set, the HTTP server fetches on startup and then every five
+`QOP_GIT_REMOTE` set, the HTTP server fetches on startup and then every sixty
 seconds by default. Fetching runs asynchronously; a slow remote does not
 block MCP or HTTP reads. Valid appended catalog records are merged and the
 in-memory ledger and SQLite index are refreshed together. Background polling

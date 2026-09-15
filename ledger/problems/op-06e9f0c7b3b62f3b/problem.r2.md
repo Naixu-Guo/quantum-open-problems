@@ -1,0 +1,69 @@
+---
+id: "01M1Q787QRCCSDNVA159Y6S261"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 2
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-11T01:50:50.590Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-algorithm","quantum-resource-theory"]
+topicIds: ["channel-simulation","superchannels-and-quantum-combs","quantum-error-mitigation"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Multi-slot overhead of virtual channel conjugation"
+aliases: ["op-06e9f0c7b3b62f3b","op_06e9f0c7b3b62f3b","01M1Q787QRCCSDNVA159Y6S261"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_06e9f0c7b3b62f3b.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_06e9f0c7b3b62f3b","ulid":"01M1Q787QRCCSDNVA159Y6S261","aliases":["op_06e9f0c7b3b62f3b","01M1Q787QRCCSDNVA159Y6S261","op-06e9f0c7b3b62f3b"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":1,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-04T22:04:59Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-algorithm","quantum-resource-theory"],"topicIds":["channel-simulation","superchannels-and-quantum-combs","quantum-error-mitigation"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Multi-slot overhead of virtual channel conjugation","status":"Unsolved","fields":["Quantum algorithm","Quantum Resource Theory"],"topics":["Channel simulation","Superchannels and quantum combs","Quantum error mitigation"],"statement":"What is the optimal quasiprobability overhead of implementing the complex\nconjugate of an unknown quantum channel from $n$ queries?  Let\n$\\mathcal N:\\mathcal L(A)\\to\\mathcal L(B)$ be an unknown channel with\n$d_A:=\\dim A$ and $d_B:=\\dim B$, and fix orthonormal bases of $A$ and $B$.\nThe complex conjugate of $\\mathcal N$ is the channel\n\\begin{equation}\n  \\mathcal N^{*}(X):=\\overline{\\mathcal N(\\overline X)},\n  \\label{eq:06e9-conjugate}\n\\end{equation}\nwhere the bar is entrywise complex conjugation in the fixed bases, so the\nChoi operator of $\\mathcal N^{*}$ is the entrywise conjugate of that of\n$\\mathcal N$.  An $n$-slot quantum comb is a physically realizable circuit\nwith $n$ open slots, each receiving one use of the unknown channel, whose\noverall action is again a channel from $A$ to $B$; write\n$\\mathrm{Comb}_n$ for the set of such combs.  An $n$-slot virtual comb is\na real linear combination $\\widetilde{\\mathcal C}=\\sum_i c_i\\mathcal C_i$\nwith $\\mathcal C_i\\in\\mathrm{Comb}_n$, and its base norm\n\\begin{equation}\n  \\|\\widetilde{\\mathcal C}\\|_{\\mathrm{base}}\n  :=\\min\\Bigl\\{\\sum_i|c_i|:\n    \\widetilde{\\mathcal C}=\\sum_ic_i\\mathcal C_i,\\\n    c_i\\in\\mathbb R,\\ \\mathcal C_i\\in\\mathrm{Comb}_n\\Bigr\\}\n  \\label{eq:06e9-base-norm}\n\\end{equation}\nis the sampling overhead: estimating an expectation value of the output of\n$\\widetilde{\\mathcal C}$ to additive error $\\varepsilon$ by Monte Carlo\nsampling of the $\\mathcal C_i$ costs\n$O(\\|\\widetilde{\\mathcal C}\\|_{\\mathrm{base}}^{2}\\varepsilon^{-2})$ runs.\nDefine the optimal $n$-query overhead of universal conjugation by\n\\begin{equation}\n  g_n(d_A,d_B)\n  :=\\inf\\Bigl\\{\\|\\widetilde{\\mathcal C}\\|_{\\mathrm{base}}:\n    \\widetilde{\\mathcal C}\\text{ is an $n$-slot virtual comb with }\n    \\widetilde{\\mathcal C}(\\mathcal N^{\\otimes n})=\\mathcal N^{*}\n    \\text{ for every channel }\\mathcal N\\Bigr\\}.\n  \\label{eq:06e9-overhead}\n\\end{equation}\nSince the extra slots may be discarded, $g_n\\leq g_1$.  Determine\n$g_n(d_A,d_B)$ in Eq.~\\eqref{eq:06e9-overhead} for $n\\geq2$: is\n$g_n(d_A,d_B)<g_1(d_A,d_B)$ for some $n$, and what is\n$\\inf_{n}g_n(d_A,d_B)$?","source":"The question is implicit in Zhu, Tang, Zhen, Li, Bai, and Wang, who\ndetermine $g_1$ exactly and name multi-slot virtual protocols as future\nwork \\sourcecite{ref:06e9-zhu-et-al}{ZTZ+26}.","progress":["No completely positive supermap using any finite number of queries\n  implements $\\mathcal N^{*}$ of Eq.~\\eqref{eq:06e9-conjugate} for every\n  channel $\\mathcal N$, and the same obstruction rules out a universal\n  physical implementation of the adjoint $\\mathcal N^{\\dagger}$; the\n  transpose, by contrast, admits a probabilistic single-query\n  implementation.  Hence any universal conjugation must be virtual, with an\n  overhead of the form Eq.~\\eqref{eq:06e9-base-norm}\n  \\sourcecite{ref:06e9-zhu-et-al}{ZTZ+26}.","A one-slot virtual comb implements complex conjugation, and its\n  base norm is optimal among one-slot protocols:\n  \\begin{equation}\n    g_1(d_A,d_B)=d_Ad_B-d_A+1.\n    \\label{eq:06e9-one-slot}\n  \\end{equation}\n  The optimality proof in Eq.~\\eqref{eq:06e9-one-slot} uses semidefinite\n  duality for a single slot and does not extend to correlated multi-slot\n  strategies \\sourcecite{ref:06e9-zhu-et-al}{ZTZ+26}.","The state-preparation case $d_A=1$ admits a multi-slot improvement.\nFor $d=d_B\\geq2$ and $n\\geq d-1$, Theorem 3, Eqs.~(14)--(15), of\nBrzi\\'c, Grinko, Studzi\\'nski, and Quintino supplies CPTP maps\n$C_\\eta$ on $n$ copies such that\n$C_\\eta(\\rho^{\\otimes n})=\\eta\\rho^T+(1-\\eta)I/d$ for every density\noperator $\\rho$, for both $a=n/[n+d(d-1)]$ and $b=-1/(d-1)$\n\\sourcecite{ref:06e9-brzic-et-al}{BGSQ26}.\nConsequently, the virtual map\n\\begin{equation}\n  \\widetilde C=\\frac{1-b}{a-b}C_a+\\frac{a-1}{a-b}C_b\n  \\quad\\text{satisfies}\\quad\n  \\widetilde C(\\rho^{\\otimes n})=\\rho^T.\n  \\label{eq:06e9-state-virtual-map}\n\\end{equation}\nThese maps are valid combs for state-preparation slots. Summing the absolute\ncoefficients in Eq.~\\eqref{eq:06e9-state-virtual-map} gives\n\\begin{equation}\n  1\\leq g_n(1,d)\\leq1+\\frac{2(d-1)^2}{n+d-1},\n  \\qquad \\inf_{n\\geq1}g_n(1,d)=1.\n  \\label{eq:06e9-state-overhead}\n\\end{equation}\nThe lower bound in Eq.~\\eqref{eq:06e9-state-overhead} follows from trace\npreservation, which forces the coefficients of every exact decomposition\nto sum to one. Its upper bound is strictly below $g_1(1,d)=d$ when\n$n>d-1$; in particular $g_2(1,2)\\leq5/3<2$.\nThe theorem determines the physical white-noise visibility range; this\nargument supplies an upper bound on the virtual overhead, not a proof of\nits exact finite-$n$ optimum.","Composing virtual conjugation with the probabilistic transpose\n  gives black-box access to $\\mathcal N^{\\dagger}$ and, for a unital\n  channel, estimates expectation values of the Petz recovery map to error\n  $\\varepsilon$ with failure probability at most $\\delta$ from\n  $O(d_A^{3}d_B^{3}\\varepsilon^{-2}\\log(1/\\delta))$ samples of the channel,\n  so the value of $g_n$ directly controls the cost of such applications\n  \\sourcecite{ref:06e9-zhu-et-al}{ZTZ+26}."],"references":[{"key":"ZTZ+26","label":"ref:06e9-zhu-et-al","tex":"C. Zhu, Z. Tang, G. Zhen, Y. Li, G. Bai, and X. Wang, ``Simulation of\n  Adjoints and Petz Recovery Maps for Unknown Quantum Channels,'' arXiv\n  preprint (2026).\n  \\href{https://arxiv.org/abs/2602.05828}{arXiv:2602.05828}."},{"key":"BGSQ26","label":"ref:06e9-brzic-et-al","tex":"V. Brzi\\'c, D. Grinko, M. Studzi\\'nski, and M. T. Quintino,\n“Optimal pure state cloning and transposition are complementary channels,”\narXiv preprint, version 2 (2026).\n\\href{https://arxiv.org/abs/2603.23628v2}{arXiv:2603.23628v2}."}],"comment":"State preparation is included in the question. In that subcase,\nEq.~\\eqref{eq:06e9-state-overhead} proves a strict multi-slot advantage and\ndetermines the infimum over the number of queries. The exact finite-$n$\noptima for state preparation and the general-channel values with $d_A>1$\nremain unresolved by these results. One-slot optimality alone does not\nsettle correlated multi-slot protocols. The bound on the base norm measures\nvariance per run; each $n$-slot run itself consumes $n$ channel queries."}}
+---
+## Source
+
+The question is implicit in Zhu, Tang, Zhen, Li, Bai, and Wang, who determine $g_1$ exactly and name multi-slot virtual protocols as future work [ZTZ+26](https://arxiv.org/abs/2602.05828).
+
+## Progress
+
+No completely positive supermap using any finite number of queries implements $\mathcal N^{*}$ of Eq. (1) for every channel $\mathcal N$, and the same obstruction rules out a universal physical implementation of the adjoint $\mathcal N^{\dagger}$; the transpose, by contrast, admits a probabilistic single-query implementation. Hence any universal conjugation must be virtual, with an overhead of the form Eq. (2) [ZTZ+26](https://arxiv.org/abs/2602.05828).
+
+A one-slot virtual comb implements complex conjugation, and its base norm is optimal among one-slot protocols:
+
+$$
+g_1(d_A,d_B)=d_Ad_B-d_A+1.
+ \tag{4}
+$$
+
+The optimality proof in Eq. (4) uses semidefinite duality for a single slot and does not extend to correlated multi-slot strategies [ZTZ+26](https://arxiv.org/abs/2602.05828).
+
+The state-preparation case $d_A=1$ admits a multi-slot improvement. For $d=d_B\geq2$ and $n\geq d-1$, Theorem 3, Eqs. (14)–(15), of Brzić, Grinko, Studziński, and Quintino supplies CPTP maps $C_\eta$ on $n$ copies such that $C_\eta(\rho^{\otimes n})=\eta\rho^T+(1-\eta)I/d$ for every density operator $\rho$, for both $a=n/[n+d(d-1)]$ and $b=-1/(d-1)$ [BGSQ26](https://arxiv.org/abs/2603.23628v2). Consequently, the virtual map
+
+$$
+\widetilde C=\frac{1-b}{a-b}C_a+\frac{a-1}{a-b}C_b
+ \quad\text{satisfies}\quad
+ \widetilde C(\rho^{\otimes n})=\rho^T.
+\tag{5}
+$$
+
+These maps are valid combs for state-preparation slots. Summing the absolute coefficients in Eq. (5) gives
+
+$$
+1\leq g_n(1,d)\leq1+\frac{2(d-1)^2}{n+d-1},
+ \qquad \inf_{n\geq1}g_n(1,d)=1.
+\tag{6}
+$$
+
+The lower bound in Eq. (6) follows from trace preservation, which forces the coefficients of every exact decomposition to sum to one. Its upper bound is strictly below $g_1(1,d)=d$ when $n>d-1$; in particular $g_2(1,2)\leq5/3<2$. The theorem determines the physical white-noise visibility range; this argument supplies an upper bound on the virtual overhead, not a proof of its exact finite-$n$ optimum.
+
+Composing virtual conjugation with the probabilistic transpose gives black-box access to $\mathcal N^{\dagger}$ and, for a unital channel, estimates expectation values of the Petz recovery map to error $\varepsilon$ with failure probability at most $\delta$ from $O(d_A^{3}d_B^{3}\varepsilon^{-2}\log(1/\delta))$ samples of the channel, so the value of $g_n$ directly controls the cost of such applications [ZTZ+26](https://arxiv.org/abs/2602.05828).
+
+## Comment
+
+State preparation is included in the question. In that subcase, Eq. (6) proves a strict multi-slot advantage and determines the infimum over the number of queries. The exact finite-$n$ optima for state preparation and the general-channel values with $d_A>1$ remain unresolved by these results. One-slot optimality alone does not settle correlated multi-slot protocols. The bound on the base norm measures variance per run; each $n$-slot run itself consumes $n$ channel queries.
+
+## References
+
+**ZTZ+26** C. Zhu, Z. Tang, G. Zhen, Y. Li, G. Bai, and X. Wang, “Simulation of Adjoints and Petz Recovery Maps for Unknown Quantum Channels,” arXiv preprint (2026). [arXiv:2602.05828](https://arxiv.org/abs/2602.05828).
+
+**BGSQ26** V. Brzić, D. Grinko, M. Studziński, and M. T. Quintino, “Optimal pure state cloning and transposition are complementary channels,” arXiv preprint, version 2 (2026). [arXiv:2603.23628v2](https://arxiv.org/abs/2603.23628v2).

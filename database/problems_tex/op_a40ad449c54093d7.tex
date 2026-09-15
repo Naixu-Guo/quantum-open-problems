@@ -1,0 +1,89 @@
+% Problem record op_a40ad449c54093d7. This TeX file is derived from
+% database/problems_json/op_a40ad449c54093d7.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Optimal random-unitary decomposition of symmetric Werner--Holevo channels}
+\label{sec:op_a40ad449c54093d7}
+
+\paragraph{Problem.}
+For every odd integer $d\geq5$, do there exist $r=d(d+1)/2$ unitary
+operators $U_1,\ldots,U_r$ on $\mathbb C^d$ such that
+\begin{equation}
+  \Phi_d(X):=\frac{\operatorname{Tr}(X)I_d+X^{\mathsf T}}{d+1}
+  =\frac1r\sum_{j=1}^{r}U_j XU_j^\dagger
+  \qquad\text{for every }X\in\mathcal L(\mathbb C^d)?
+  \label{eq:a40ad-wh-decomposition}
+\end{equation}
+The transpose in Eq.~\eqref{eq:a40ad-wh-decomposition} is taken in a fixed
+orthonormal basis.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Girard et al. explicitly conjecture that the symmetric Werner--Holevo
+channel has mixed-unitary rank equal to its Choi rank; see Section~6,
+final paragraph after Theorem~23, p.~29 of the preprint
+\sourcecite{ref:a40ad-girard}{GLL+22}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Let $N(\Phi_d)$ denote the minimum number of unitary conjugations in a
+convex decomposition. Its Choi rank gives $N(\Phi_d)\geq r$; for odd $d$,
+Theorem~22 gives $N(\Phi_d)\leq d(d+3)/2$
+\sourcecite{ref:a40ad-girard}{GLL+22}.
+
+  \item The optimum $N(\Phi_d)=r$ holds for every even $d$ and for $d=3$
+(Theorems~21 and~23) \sourcecite{ref:a40ad-girard}{GLL+22}.
+Levick and Rahaman prove it for every prime $d\equiv7\pmod8$
+(Theorem~3.8 and Corollary~3.12) \sourcecite{ref:a40ad-levick}{LR21}.
+
+  \item Theorem~19 identifies $N(\Phi_d)=r$ with the existence of a
+Hilbert--Schmidt orthogonal basis of the complex symmetric matrices
+consisting of unitaries. Every optimal $r$-term decomposition necessarily
+has weights $1/r$, so the uniform formulation in
+Eq.~\eqref{eq:a40ad-wh-decomposition} is equivalent to the rank conjecture
+\sourcecite{ref:a40ad-girard}{GLL+22}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[GLL+22]}]\label{ref:a40ad-girard}
+  M. Girard, D. Leung, J. Levick, C.-K. Li, V. Paulsen, Y. T. Poon,
+and J. Watrous, ``On the Mixed-Unitary Rank of Quantum Channels,''
+\emph{Communications in Mathematical Physics} \textbf{394}, 919--951 (2022).
+\href{https://doi.org/10.1007/s00220-022-04412-y}{doi:10.1007/s00220-022-04412-y};
+\href{https://arxiv.org/abs/2003.14405}{arXiv:2003.14405}.
+
+  \item[\textup{[LR21]}]\label{ref:a40ad-levick}
+  J. Levick and M. Rahaman, ``An extension of Bravyi--Smolin's
+construction for UMEBs,'' \emph{Quantum Information Processing}
+\textbf{20}, 369 (2021).
+\href{https://doi.org/10.1007/s11128-021-03312-9}{doi:10.1007/s11128-021-03312-9};
+\href{https://arxiv.org/abs/2105.00975v2}{arXiv:2105.00975v2}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The unresolved target is the universal odd-dimensional optimum.
+Numerical decompositions do not supply an exact proof. Literature audit:
+9 September 2026. Searches under the channel, rank, and symmetric-unitary-basis
+formulations found no full resolution;
+indexed literature searches cannot exclude unindexed work. The cited partial
+results are peer-reviewed.
+
+\subsection*{Field}
+
+Quantum Communication
+
+\subsection*{Topic}
+
+Quantum channel structure
+
+\subsection*{ID}
+
+\texttt{op\_a40ad449c54093d7}

@@ -1,7 +1,7 @@
 # Development and maintenance
 
 This guide covers the structure, local setup, maintenance, and deployment of
-QIQCZoo. For an introduction to the project, see the [project README](../README.md).
+QIQCOP Zoo. For an introduction to the project, see the [project README](../README.md).
 Run all commands below from the repository root.
 
 ## Record model
@@ -87,6 +87,20 @@ Links inside the site are relative, so `dist/` works from any subpath, but the
 folder-style URLs need a web server; opening `dist/index.html` directly from
 the file system will not resolve links such as `problem/<id>/`.
 
+## Run tests
+
+Install both sets of locked dependencies before running the root test suite:
+
+```sh
+npm --prefix contract ci --ignore-scripts
+npm --prefix mcp ci --ignore-scripts
+npm test
+```
+
+The root tests include catalog-to-service and MCP integration checks. The stdio
+adapter uses the official MCP SDK, so these checks need the MCP dependencies as
+well as the contract dependencies. The static-site build itself needs neither.
+
 ## Add or update a problem
 
 1. Run `node scripts/new-problem-id.mjs --create` to create a record scaffold
@@ -117,7 +131,7 @@ identifiers and metadata and writes both the JSON record and the TeX file.
 | `/tags/`, `/tag/<slug>/` | Index of fields and topics; one listing per field and per topic. |
 | `/random/unsolved/`, `/random/solved/` | Redirect to a random problem. |
 | `/about/` | Scope, contribution guide, citation, machine-readable access, contributions. |
-| `/contribute/` | The proposal form for external contributors: problem, classification, sources, progress, contact details, CAPTCHA. Posts to the service's proposal inbox; see [Contribution form](#contribution-form). |
+| `/contribute/` | The proposal form for external contributors: problem, classification, sources, progress, contact details, optional CAPTCHA. Posts to the service's proposal inbox; see [Contribution form](#contribution-form). |
 | `/api/index.json`, `/api/problems/<id>.json`, `/api/tags.json` | Machine-readable records and the taxonomy with counts. |
 | `/api/problems/<alias>.json`, `/api/identifiers.json` | Record lookup by any registered alias, and the identifier crosswalk. |
 | `/api/main/problems/<ulid>.json`, `/api/main/actors.json` | Main-compatible Problem projections with the full authored records, and the migration actor. |
@@ -159,8 +173,9 @@ the projection without writing. The regular exporter appends revisions and state
 subsequent service activity and incremental events; `--replace-authoritative` explicitly replaces the entire
 ledger and activity roots and was used for the initial database replacement.
 
-Run `npm run service` to serve the HTTP API and review app, or `npm run mcp`
-to start the MCP adapter. See [service/README.md](../service/README.md) for
+Run `npm run service` to serve the HTTP API and review app. To start the MCP
+adapter, install `npm --prefix mcp ci --ignore-scripts` and run `npm run mcp`.
+See [service/README.md](../service/README.md) for
 configuration and [the catalog integration guide](CATALOG_INTEGRATION.md)
 for versioned reconciliation, first-editor setup, historical interfaces, and
 the `npm run handoff-catalog` authoring handoff.
@@ -206,36 +221,54 @@ contribution form's endpoint and CAPTCHA keys.
 
 ### Contribution form
 
-`/contribute/` lets people propose a problem without a GitHub account. The
-form is part of the static site; the proposals go to the
-[service's proposal inbox](../service/README.md#proposal-inbox), where they
-wait until a maintainer rewrites them as authored records and publishes them
-through the ordinary workflow. Nothing on the site changes automatically.
+`/contribute/` accepts proposals without a GitHub account. The static form posts
+to the [project inbox](../service/README.md#proposal-inbox); submissions wait for
+maintainer review and the normal catalog publication workflow. No email account
+is connected, and no record appears automatically.
 
-To put the form online:
+To connect a deployment:
 
-1. Deploy the service (see the service guide) with `QOP_CAPTCHA_SECRET` set
-   to the secret key of a [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/)
-   widget registered for the site's hostname, `QOP_SUBMISSION_ORIGINS` set
-   to the site's origin (`https://naixu-guo.github.io`), `QOP_PUBLIC_URL`
-   set to the service's public URL, and `QOP_TRUST_PROXY=1` if a reverse
-   proxy terminates TLS. hCaptcha works too with `QOP_CAPTCHA_PROVIDER=hcaptcha`.
-2. In `site/config.json`, set `contribute.submissionUrl` to the service's
-   `https://<host>/api/v1/submissions` and `contribute.captcha.siteKey` to
-   the widget's site key (`contribute.captcha.provider` names the provider).
-3. Rebuild and deploy the site. Until both values are set the page stays in
-   an offline mode: the form works, loads no third-party script, and offers
-   "Copy as text" and the GitHub issue route instead of sending.
+1. Set `QOP_SUBMISSIONS_MODE=basic`, `QOP_SUBMISSION_ORIGINS` to the site's
+   allowed origins, and `QOP_PUBLIC_URL` to the API's public URL. Set
+   `QOP_TRUST_PROXY=1` only behind the configured trusted reverse proxy.
+2. Set `contribute.submissionUrl` to `https://<host>/api/v1/submissions` and
+   `contribute.spamProtection` to `basic` in `site/config.json`. This mode uses
+   server limits, a honeypot, and duplicate suppression without external scripts.
+3. Configure the project inbox access key and nginx route as described in the
+   [deployment guide](../deploy/ubuntu/README.md#optional-submissions-and-editor-access).
+   Verify submission, private retrieval, review, and logout, then publish the site.
 
-The maintainers read the inbox with `node --experimental-strip-types
-service/src/cli.ts proposals list` on the service host, or through
-`GET /api/v1/submissions` with an editor's token or session. The form's
-limits in `site/lib/render.mjs` mirror `LIMITS` in
+CAPTCHA is optional: use server mode `captcha` with the provider secret, site
+`spamProtection: "captcha"`, and the matching public widget site key. Missing
+configuration leaves sending disabled. Never use test widget keys in production.
+
+Anonymous public credit has a separate rollout gate:
+`contribute.allowAnonymous` defaults to `false`. Enable it only after deploying
+an API that preserves the preference and verifying private retrieval, as
+described in the [deployment guide](../deploy/ubuntu/README.md#optional-submissions-and-editor-access).
+While disabled, restored anonymous drafts remain local and cannot be sent
+with their preference silently removed.
+
+Maintainers review in `/inbox/`, or use `service/src/cli.ts proposals list` on the
+server. Editor API credentials continue to work. The browser's **Export for AI**
+button downloads JSON with the proposal and review note, omitting contact email
+and request metadata; it does not contact an AI service. AI integration is left
+to the maintainer. Acceptance saves a review state; publication still uses a PR.
+
+Before publication, transfer the proposal's public credit choice to that
+problem's optional `contributors` array, following the
+[credit rules](../CONTRIBUTING.md#public-contributor-credit). Named entries
+require permission for that problem; anonymous entries contain only
+`anonymous: true` or are omitted. Name and email remain required in the
+private inbox even for anonymous proposals. A person's choice can differ
+between problems and must not be inferred from a global actor profile.
+
+The form's limits in `site/lib/render.mjs` mirror `LIMITS` in
 `service/src/submissions.ts`; `tests/contribute.test.mjs` fails when they drift.
-For local work, Turnstile's test keys always pass: site key
-`1x00000000000000000000AA`, secret `1x0000000000000000000000000000000AA`.
 
 ## License
 
-MIT for the site code. Problem records cite their primary sources; please cite
-those sources for any mathematical claim.
+The software uses [Apache-2.0](../LICENSE). New original catalog contributions
+use [CC BY 4.0](../LICENSE-CONTENT); earlier text needs permission confirmation.
+See [LICENSING.md](../LICENSING.md) for scope and retained notices. Cite the
+primary sources for mathematical claims.

@@ -16,11 +16,13 @@ one-shot rate is governed by the semidefinite program
 \begin{equation}
   W_0(P):=\min\bigl\{\|E^{\Gamma}\|_\infty:\ P\leq E\leq\mathbb 1\bigr\},
   \qquad
-  E^{(1)}_{0,\mathrm{PPT}}(\rho):=-\log_2W_0(P),
+  E^{(1)}_{0,\mathrm{PPT}}(\rho):=\log_2\left\lfloor W_0(P)^{-1}\right\rfloor,
   \label{eq:75b9-one-shot}
 \end{equation}
-which depends on $\rho$ only through its support.  The regularized exact
-PPT distillable entanglement is
+which depends on $\rho$ only through its support.  The floor enforces an
+integer output Schmidt rank.  The relaxed value $-\log_2W_0(P)$ exceeds the
+operational one-shot rate by less than one bit, so both give the same
+regularized exact PPT distillable entanglement:
 \begin{equation}
   E^{\infty}_{0,\mathrm{PPT}}(\rho)
   :=\lim_{n\to\infty}\frac1n E^{(1)}_{0,\mathrm{PPT}}(\rho^{\otimes n})
@@ -49,6 +51,9 @@ remains open \sourcecite{ref:75b9-zhu-wang}{ZW26}.
   Schmidt rank $M$ can be distilled exactly from $\rho$ if and only if
   $M\leq W_0(P)^{-1}$, which gives the one-shot rate in
   Eq.~\eqref{eq:75b9-one-shot} \sourcecite{ref:75b9-wang-duan-sdp}{WD16}.
+  The integer-output convention and support-projector characterization
+  are stated explicitly in Lemma~21, Eq.~(96), of
+  \sourcecite{ref:75b9-regula-et-al}{RFWG19}.
 
   \item Dropping the constraint $E\leq\mathbb 1$ in
   Eq.~\eqref{eq:75b9-one-shot} yields the min-Rains relative entropy
@@ -99,6 +104,13 @@ remains open \sourcecite{ref:75b9-zhu-wang}{ZW26}.
   Entanglement,'' \emph{Physical Review A} \textbf{95}, 062322 (2017).
   \href{https://doi.org/10.1103/PhysRevA.95.062322}{doi:10.1103/PhysRevA.95.062322};
   \href{https://arxiv.org/abs/1605.00348}{arXiv:1605.00348}.
+
+  \item[\textup{[RFWG19]}]\label{ref:75b9-regula-et-al}
+  B. Regula, K. Fang, X. Wang, and M. Gu, ``One-Shot Entanglement
+  Distillation Beyond Local Operations and Classical Communication,''
+  \emph{New Journal of Physics} \textbf{21}, 103017 (2019).
+  \href{https://doi.org/10.1088/1367-2630/ab4732}{doi:10.1088/1367-2630/ab4732};
+  \href{https://arxiv.org/abs/1906.01648v2}{arXiv:1906.01648v2}.
 
   \item[\textup{[ZW26]}]\label{ref:75b9-zhu-wang}
   C. Zhu and X. Wang, ``The Min-Rains Relative Entropy Is Not Tight for

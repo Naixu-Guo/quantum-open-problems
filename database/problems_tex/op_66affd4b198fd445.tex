@@ -1,0 +1,96 @@
+% Problem record op_66affd4b198fd445. This TeX file is derived from
+% database/problems_json/op_66affd4b198fd445.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Polynomial-time local-unitary equivalence of graph states}
+\label{sec:op_66affd4b198fd445}
+
+\paragraph{Problem.}
+Does a deterministic classical algorithm running in $n^{O(1)}$ time decide local-unitary equivalence of arbitrary graph states on $n$ labelled qubits? The input consists of two finite simple graphs $G$ and $H$ on the same labelled vertex set $[n]:=\{1,\ldots,n\}$, for any integer $n\geq1$. For $F\in\{G,H\}$, define its graph state by Eq.~\eqref{eq:glu-state}:
+\begin{equation}
+\begin{aligned}
+|F\rangle&:=\prod_{\{u,v\}\in E(F)}CZ_{uv}|+\rangle^{\otimes n},\\
+|+\rangle&:=\frac{|0\rangle+|1\rangle}{\sqrt2},
+\qquad CZ:=\operatorname{diag}(1,1,1,-1).
+\end{aligned}
+\label{eq:glu-state}
+\end{equation}
+With $U(2)$ denoting the group of single-qubit unitary matrices, the required decision predicate is Eq.~\eqref{eq:glu-equivalence}, with vertex labels fixed:
+\begin{equation}
+\begin{aligned}
+|G\rangle\sim_{\mathrm{LU}}|H\rangle
+\quad:\Longleftrightarrow\quad
+&\exists U_1,\ldots,U_n\in U(2),\ \exists\phi\in\mathbb R:\\
+&|H\rangle=e^{i\phi}\left(\bigotimes_{v=1}^{n}U_v\right)|G\rangle.
+\end{aligned}
+\label{eq:glu-equivalence}
+\end{equation}
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Claudet explicitly asks whether local-unitary equivalence of graph states can be decided in polynomial time in Chapter 8, Conclusion, p.~107 of his thesis (arXiv version 2) \sourcecite{ref:glu-thesis}{Cla25}. The input convention here keeps the vertex labels fixed, as in the quasi-polynomial algorithm of Claudet and Perdrix \sourcecite{ref:glu-quasipolynomial}{CP25}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Local-Clifford equivalence, denoted by $\sim_{\mathrm{LC}}$ and obtained by restricting each $U_v$ to a unitary that normalizes the single-qubit Pauli group, has a deterministic decision algorithm (Lemma 1 and the following discussion, p.~2) with running time
+  \begin{equation}
+T_{\mathrm{LC}}(n)=O(n^4).
+\label{eq:glu-progress-3}
+\end{equation}
+  The algorithm with running time in Eq.~\eqref{eq:glu-progress-3} also constructs an equivalence transformation when one exists; this solves the restricted Clifford problem, not the general unitary problem. \sourcecite{ref:glu-lc}{VDD04}
+
+  \item Claudet and Perdrix give an exact deterministic algorithm (Theorem 30, Section 3.5, p.~59:15) for the general problem with running time
+  \begin{equation}
+T_{\mathrm{LU}}(n)=n^{\log_2 n+O(1)}.
+\label{eq:glu-progress-4}
+\end{equation}
+  By Eq.~\eqref{eq:glu-progress-4}, the finite-input problem is decidable, but the established bound is quasi-polynomial rather than polynomial; Claudet's subsequent thesis explicitly identifies the polynomial-time question as unresolved. \sourcecite{ref:glu-quasipolynomial}{CP25}, \sourcecite{ref:glu-thesis}{Cla25}
+
+  \item The 2026 circle-graph result (Theorem 1) establishes
+  \begin{equation}
+G\text{ is a circle graph}
+  \quad\Longrightarrow\quad
+  \left(|G\rangle\sim_{\mathrm{LU}}|H\rangle
+  \Longleftrightarrow
+  |G\rangle\sim_{\mathrm{LC}}|H\rangle\right),
+\label{eq:glu-progress-5}
+\end{equation}
+  In Eq.~\eqref{eq:glu-progress-5}, a circle graph is the intersection graph of chords of a circle and $H$ is any graph on the same labelled vertices; consequently this subclass admits a polynomial-time decision algorithm. \sourcecite{ref:glu-circle}{HMNC26}
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[VDD04]}]\label{ref:glu-lc}
+  M. Van den Nest, J. Dehaene, and B. De Moor, ``Efficient Algorithm to Recognize the Local Clifford Equivalence of Graph States,'' \emph{Physical Review A} \textbf{70}, 034302 (2004). \href{https://doi.org/10.1103/PhysRevA.70.034302}{doi:10.1103/PhysRevA.70.034302}; \href{https://arxiv.org/abs/quant-ph/0405023}{arXiv:quant-ph/0405023}.
+
+  \item[\textup{[CP25]}]\label{ref:glu-quasipolynomial}
+  N. Claudet and S. Perdrix, ``Deciding Local Unitary Equivalence of Graph States in Quasi-Polynomial Time,'' in \emph{52nd International Colloquium on Automata, Languages, and Programming (ICALP 2025)}, 59:1–59:20 (2025). \href{https://doi.org/10.4230/LIPIcs.ICALP.2025.59}{doi:10.4230/LIPIcs.ICALP.2025.59}; \href{https://arxiv.org/abs/2502.06566}{arXiv:2502.06566}.
+
+  \item[\textup{[Cla25]}]\label{ref:glu-thesis}
+  N. Claudet, ``Local Equivalences of Graph States,'' PhD thesis, Université de Lorraine (2025); arXiv version 2, revised 21 July 2026. \href{https://doi.org/10.48550/arXiv.2511.22271}{doi:10.48550/arXiv.2511.22271}; \href{https://arxiv.org/abs/2511.22271}{arXiv:2511.22271}.
+
+  \item[\textup{[HMNC26]}]\label{ref:glu-circle}
+  F. Hahn, R. McCarty, H. Poulsen Nautrup, and N. Claudet, ``The Structure of Circle Graph States,'' arXiv preprint (2026), version 2, 28 April 2026. \href{https://doi.org/10.48550/arXiv.2603.08847}{doi:10.48550/arXiv.2603.08847}; \href{https://arxiv.org/abs/2603.08847}{arXiv:2603.08847}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+No polynomial-time algorithm for arbitrary graph states, or result ruling one out under a stated complexity assumption, was found in the public literature checked through 9 September 2026. The open issue is the complexity of an already decidable problem, not the existence of an exact decision procedure; the circle-graph theorem only resolves a special class. The status audit used public primary sources and later-work searches; it is not an exhaustive citation-index audit. The catalog's minimum LU--LC counterexample problem (\texttt{op\_c37650bfb81dbfc6}) asks for the smallest failure of Clifford equivalence, whereas this entry asks the complexity of deciding unrestricted unitary equivalence.
+
+\subsection*{Field}
+
+Quantum algorithm; Quantum Resource Theory
+
+\subsection*{Topic}
+
+Local unitary equivalence; Computational complexity and computability
+
+\subsection*{ID}
+
+\texttt{op\_66affd4b198fd445}

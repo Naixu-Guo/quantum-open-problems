@@ -1,0 +1,45 @@
+---
+id: "01M220TA5N18AWYMVTHV44QY39"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-09T02:47:08.241Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "editor-formulated"
+posed: null
+areaIds: ["quantum-error-correction"]
+topicIds: ["quantum-coding-theory"]
+keywords: ["asymptotic relative distance","Rains bound","nonadditive quantum codes"]
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Qubit code distance bound"
+aliases: ["op-edcb345719181830","op_edcb345719181830","01M220TA5N18AWYMVTHV44QY39"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_edcb345719181830.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_edcb345719181830","ulid":"01M220TA5N18AWYMVTHV44QY39","aliases":["op_edcb345719181830","01M220TA5N18AWYMVTHV44QY39","op-edcb345719181830"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":1,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-09T02:44:10.037Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"editor-formulated","posed":null,"areaIds":["quantum-error-correction"],"topicIds":["quantum-coding-theory"],"keywords":["asymptotic relative distance","Rains bound","nonadditive quantum codes"],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Qubit code distance bound","status":"Unsolved","fields":["Quantum Error Correction"],"topics":["Quantum coding theory"],"statement":"Does there exist a sequence of qubit quantum codes $Q_j\\subseteq(\\mathbb C^2)^{\\otimes n_j}$, with $n_j\\to\\infty$, $\\dim Q_j\\geq2$, and minimum distances $d_j$, satisfying\n\\begin{equation}\n  \\limsup_{j\\to\\infty}\\frac{d_j}{n_j}=\\frac{3-\\sqrt3}{4}?\n  \\label{eq:rains-distance-target}\n\\end{equation}\nHere $d_j$ is the least weight of a Pauli operator $E$ for which $P_jEP_j$ is not a scalar multiple of the projector $P_j$ onto $Q_j$; weight counts nonidentity tensor factors. Equation~\\eqref{eq:rains-distance-target} allows nonadditive and degenerate codes, and the coding rate $\\log_2(\\dim Q_j)/n_j$ may tend to zero.","source":"Contributor-supplied attainability question for Rains's asymptotic upper bound, Theorem~5.6 and Eq.~(5.45) of the arXiv version \\sourcecite{ref:rains-distance-bound}{Rai03}. The source proves the bound; the equality question is the supplied formulation.","progress":["Rains's shadow-enumerator bound applies to arbitrary binary quantum-code families, including nonadditive and degenerate codes. The paragraph after Theorem~5.6 distinguishes a stronger Aaltonen-type bound valid only in a range of rates bounded away from zero. Section~6 discusses lower-order improvements, which do not exclude equality in Eq.~\\eqref{eq:rains-distance-target} \\sourcecite{ref:rains-distance-bound}{Rai03}.","The quantum Gilbert--Varshamov tradeoff gives stabilizer families with positive rate for every $0<\\delta<\\delta_{\\mathrm{GV}}\\simeq0.1893$, defined by $H_2(\\delta_{\\mathrm{GV}})+\\delta_{\\mathrm{GV}}\\log_2 3=1$, where $H_2(x)=-x\\log_2x-(1-x)\\log_2(1-x)$. Anand, Gorokhovsky, Hritz, and Sun realize this tradeoff with random Clifford encoders of depth $O(\\log n)$ (Theorem~1.1); the distance guarantee remains below the target \\sourcecite{ref:rains-distance-gv}{AGHS26}.","Angl\\`es Munn\\'e and Huber give exact rational semidefinite infeasibility certificates improving upper bounds for code sizes at block lengths $6\\leq n\\leq19$ (Section~4, Table~4.1). These finite-length exclusions do not yield a smaller asymptotic constant. Their certificate files are public \\sourcecite{ref:rains-distance-sdp}{AMH26}."],"references":[{"key":"Rai03","label":"ref:rains-distance-bound","tex":"E. M. Rains, ``New asymptotic bounds for self-dual codes and lattices,'' \\emph{IEEE Transactions on Information Theory} \\textbf{49}(5), 1261--1274 (2003). \\href{https://doi.org/10.1109/TIT.2003.810623}{doi:10.1109/TIT.2003.810623}; \\href{https://arxiv.org/abs/math/0104145}{arXiv:math/0104145}."},{"key":"AGHS26","label":"ref:rains-distance-gv","tex":"E. Anand, E. Gorokhovsky, J. Hritz, and J. Sun, ``Good Stabilizer Codes from Shallow Clifford Circuits with Random Matchings,'' arXiv preprint (2026). \\href{https://arxiv.org/abs/2608.18536}{arXiv:2608.18536}."},{"key":"AMH26","label":"ref:rains-distance-sdp","tex":"G. Angl\\`es Munn\\'e and F. Huber, ``SDP bounds on quantum codes: rational certificates,'' arXiv preprint (2026). \\href{https://arxiv.org/abs/2603.19901}{arXiv:2603.19901}; \\href{https://github.com/ganglesmunne/SDP_bounds_on_quantum_codes_rational_certificates}{exact certificates}."}],"comment":"The question concerns exact distance without a positive-rate, purity, or stabilizer restriction. Literature audit: 8 September 2026; Rains's primary source and the cited 2026 construction and coding-bound preprints were checked, alongside searches for later improvements. No attaining construction or strictly smaller universal asymptotic constant was verified.","contributors":[]}}
+---
+## Source
+
+Contributor-supplied attainability question for Rains’s asymptotic upper bound, Theorem 5.6 and Eq. (5.45) of the arXiv version [Rai03](https://doi.org/10.1109/TIT.2003.810623). The source proves the bound; the equality question is the supplied formulation.
+
+## Progress
+
+Rains’s shadow-enumerator bound applies to arbitrary binary quantum-code families, including nonadditive and degenerate codes. The paragraph after Theorem 5.6 distinguishes a stronger Aaltonen-type bound valid only in a range of rates bounded away from zero. Section 6 discusses lower-order improvements, which do not exclude equality in Eq. (1) [Rai03](https://doi.org/10.1109/TIT.2003.810623).
+
+The quantum Gilbert–Varshamov tradeoff gives stabilizer families with positive rate for every $0<\delta<\delta_{\mathrm{GV}}\simeq0.1893$, defined by $H_2(\delta_{\mathrm{GV}})+\delta_{\mathrm{GV}}\log_2 3=1$, where $H_2(x)=-x\log_2x-(1-x)\log_2(1-x)$. Anand, Gorokhovsky, Hritz, and Sun realize this tradeoff with random Clifford encoders of depth $O(\log n)$ (Theorem 1.1); the distance guarantee remains below the target [AGHS26](https://arxiv.org/abs/2608.18536).
+
+Anglès Munné and Huber give exact rational semidefinite infeasibility certificates improving upper bounds for code sizes at block lengths $6\leq n\leq19$ (Section 4, Table 4.1). These finite-length exclusions do not yield a smaller asymptotic constant. Their certificate files are public [AMH26](https://arxiv.org/abs/2603.19901).
+
+## Comment
+
+The question concerns exact distance without a positive-rate, purity, or stabilizer restriction. Literature audit: 8 September 2026; Rains’s primary source and the cited 2026 construction and coding-bound preprints were checked, alongside searches for later improvements. No attaining construction or strictly smaller universal asymptotic constant was verified.
+
+## References
+
+**Rai03** E. M. Rains, “New asymptotic bounds for self-dual codes and lattices,” *IEEE Transactions on Information Theory* **49**(5), 1261–1274 (2003). [doi:10.1109/TIT.2003.810623](https://doi.org/10.1109/TIT.2003.810623); [arXiv:math/0104145](https://arxiv.org/abs/math/0104145).
+
+**AGHS26** E. Anand, E. Gorokhovsky, J. Hritz, and J. Sun, “Good Stabilizer Codes from Shallow Clifford Circuits with Random Matchings,” arXiv preprint (2026). [arXiv:2608.18536](https://arxiv.org/abs/2608.18536).
+
+**AMH26** G. Anglès Munné and F. Huber, “SDP bounds on quantum codes: rational certificates,” arXiv preprint (2026). [arXiv:2603.19901](https://arxiv.org/abs/2603.19901); [exact certificates](https://github.com/ganglesmunne/SDP_bounds_on_quantum_codes_rational_certificates).

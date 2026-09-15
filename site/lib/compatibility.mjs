@@ -1,5 +1,6 @@
 // Historical entry points, with explicit payload versions and archive notices.
 import { createHash } from "node:crypto";
+import { gzipSync } from "node:zlib";
 import { slug } from "./tex.mjs";
 const escape = (text) => String(text).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const json = (value) => `${JSON.stringify(value, null, 2)}\n`;
@@ -9,7 +10,7 @@ export function redirect(target, title) {
 export function legacyTagIndex(legacy) {
   return Object.fromEntries(Object.entries(legacy.tags).map(([name, entry]) => [slug(name), { name, ...entry }]));
 }
-export function buildCompatibility({ write, records, payloads, apiIndex, legacy, config }) {
+export function buildCompatibility({ write, records, payloads, apiIndex, legacy, config, merges = [] }) {
   const siteUrl = config.siteUrl.replace(/\/$/, "");
   const aliases = new Map(records.flatMap((r) => r.aliases.map((alias) => [alias, r])));
   for (const record of records) {
@@ -18,6 +19,14 @@ export function buildCompatibility({ write, records, payloads, apiIndex, legacy,
       write(`problems/${alias}/index.html`, redirect(`../../problem/${record.id}/`, record.title.text));
       write(`api/v1/problems/${alias}.json`, json(payloads.get(record.id)));
       write(`packets/${alias}.md`, packet);
+    }
+  }
+  for (const { record, target, reason } of merges) {
+    for (const alias of record.aliases) {
+      aliases.set(alias, target);
+      write(`problems/${alias}/index.html`, redirect(`${siteUrl}/problem/${target.id}/`, target.title));
+      write(`api/v1/problems/${alias}.json`, json({ ...payloads.get(target.id), mergedFrom: { id: record.id, ulid: record.ulid, reason } }));
+      write(`packets/${alias}.md`, `# ${target.title}\n\nThis duplicate record was merged into [the canonical question](${siteUrl}/problem/${target.id}/).\n\n[Read the current Markdown packet](${siteUrl}/packets/${target.id}.md).\n`);
     }
   }
   for (const [id, entry] of Object.entries(legacy.problems)) {
@@ -32,7 +41,10 @@ export function buildCompatibility({ write, records, payloads, apiIndex, legacy,
   const digest = createHash("sha256").update(JSON.stringify(snapshot)).digest("hex");
   write("api/v1/index.json", json({ schema: "qiqcop-zoo/index/3", ...apiIndex }));
   write("api/v1/release.json", json({ schema: "qiqcop-zoo/release/1", catalogDigest: `sha256:${digest}`, counts: apiIndex.counts, updated: apiIndex.updated, problemSchema: "qiqcop-zoo/problem/3", migration: `${siteUrl}/api/v1/README.md` }));
-  write("api/v1/problems.jsonl", snapshot.map((record) => JSON.stringify(record)).join("\n") + "\n");
+  const jsonl = snapshot.map((record) => JSON.stringify(record)).join("\n") + "\n";
+  write("api/v1/problems.jsonl", jsonl);
+  write("api/v1/problems.jsonl.gz", gzipSync(jsonl));
+  write("api/v1/problems.json", JSON.stringify(snapshot) + "\n");
   const feedItems = records.slice().sort((a, b) => b.dates.updatedAt.localeCompare(a.dates.updatedAt)).map((record) => ({
     id: `${siteUrl}/problem/${record.id}/#${record.sha256}`, url: `${siteUrl}/problem/${record.id}/`, title: record.title.text,
     content_text: `${record.status}. ${record.comment.text}`, date_modified: record.dates.updatedAt,

@@ -1,0 +1,46 @@
+/* Extend the service's neutral, content-first styles with an inbox list and reading pane. */
+[hidden] { display: none !important; }
+.inbox-header { border-bottom: 1px solid var(--line); padding: 18px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.inbox-brand { color: var(--ink); font-weight: 600; }
+.inbox-page { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 40px 28px 64px; }
+.intro { color: var(--ink-soft); margin-top: 12px; max-width: 70ch; }
+#notice { min-height: 1.6em; overflow-wrap: anywhere; }
+#notice[data-error="true"] { color: var(--danger); }
+.inbox-login { max-width: 420px; margin-top: 28px; }
+.inbox-login h2 { margin-bottom: 12px; }
+.inbox-login .button { margin-top: 16px; }
+.hint { color: var(--ink-soft); font-size: 0.875rem; margin-top: 8px; }
+.inbox-toolbar { display: flex; align-items: end; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--line); padding-bottom: 20px; }
+.inbox-toolbar select { min-width: 220px; }
+.inbox-columns { display: grid; grid-template-columns: minmax(240px, 1fr) minmax(0, 2fr); gap: 32px; }
+.inbox-list-panel { border-right: 1px solid var(--line); padding-right: 24px; }
+#list-count { padding: 14px 0 4px; font-variant-numeric: tabular-nums; }
+.proposal-row { display: block; text-align: left; width: 100%; border: 0; border-bottom: 1px solid var(--line); background: transparent; padding: 18px 10px; color: var(--ink); cursor: pointer; overflow-wrap: anywhere; }
+.proposal-row:hover { background: var(--bg-hover); }
+.proposal-row[aria-current="true"] { background: var(--accent-soft); }
+.proposal-row strong { display: block; font-size: 1rem; font-weight: 600; }
+.proposal-row span { display: block; color: var(--ink-soft); font-size: 0.85rem; margin-top: 6px; }
+.pagination { display: flex; justify-content: space-between; gap: 8px; margin-top: 20px; }
+#detail { padding-top: 24px; min-width: 0; overflow-wrap: anywhere; }
+#detail h2 { font-family: var(--serif); font-size: 1.6rem; font-weight: 600; }
+#detail h3 { margin: 28px 0 10px; }
+.proposal-text { white-space: pre-wrap; font-family: var(--serif); line-height: 1.75; max-width: 72ch; }
+.proposal-meta { color: var(--ink-soft); margin-top: 14px; white-space: pre-line; }
+.review-form { border-top: 1px solid var(--line); margin-top: 32px; padding-top: 24px; }
+.review-form label { margin-top: 16px; }
+.review-form .button-row { margin-top: 18px; }
+.review-form textarea { min-height: 120px; }
+.empty { color: var(--ink-soft); padding: 22px 0; max-width: 60ch; }
+.inbox-footer { border-top: 1px solid var(--line); padding: 20px 28px; color: var(--ink-soft); font-size: 0.875rem; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+::selection { background: var(--accent-soft); }
+input, textarea { caret-color: var(--accent); }
+@media (max-width: 720px) {
+  .inbox-header { flex-wrap: wrap; padding: 16px 20px; }
+  .inbox-page { padding: 28px 20px 48px; }
+  .inbox-columns { grid-template-columns: 1fr; gap: 12px; }
+  .inbox-list-panel { border-right: 0; padding-right: 0; }
+  #detail { border-top: 1px solid var(--line); margin-top: 16px; }
+  .inbox-toolbar { align-items: stretch; flex-direction: column; }
+  .button, button.button { min-height: 44px; height: auto; }
+}

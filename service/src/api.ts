@@ -10,10 +10,11 @@ import fs from "node:fs";
 import path from "node:path";
 import { createHash } from "node:crypto";
 import type { Service } from "./write.ts";
+import { SearchError, type ProblemFilter, type ProblemRow } from "./index.ts";
 import { submit, refresh } from "./write.ts";
 import { watchLedger } from "./refresh.ts";
-import { problemView, frontier, tree, attempts, contributionView, recordView, status, events, referencesOf, commentsOn, reviewQueue, contextBundle, taxonomyView, actorsView, searchSources, ContextError } from "./read-models.ts";
-import { currentDecisions, isIndexed, contributionState } from "../../contract/src/derive.ts";
+import { problemView, frontier, tree, attempts, contributionView, recordView, status, events, referencesOf, commentsOn, reviewQueue, contextBundle, taxonomyView, taxonomyId, actorsView, searchSources, ContextError } from "./read-models.ts";
+import { currentDecisions, isIndexed, contributionState, catalogState } from "../../contract/src/derive.ts";
 import { validatePayload } from "../../contract/src/validate.ts";
 import { materialize, acceptArtifact, closeRecords, PayloadError, type BatchRecord } from "./payloads.ts";
 import type { NewRecord } from "./ledger-repo.ts";
@@ -22,8 +23,12 @@ import { HttpError } from "./errors.ts";
 import { handleWeb, parseCookies, SESSION_COOKIE, LOGIN_COOKIE, type Caller } from "./web.ts";
 import { hasRole } from "../../contract/src/types/actor.ts";
 import { parseSubmission, verifyCaptcha, submissionText, SUBMISSION_STATES, type SubmissionState } from "./submissions.ts";
+import { handleInbox, INBOX_COOKIE } from "./inbox.ts";
+import { researchSearchPage, RESEARCH_SEARCH_DEFAULT_BYTES, RESEARCH_SEARCH_MIN_BYTES, RESEARCH_SEARCH_MAX_BYTES } from "./research-search.ts";
+import { ProblemReader, ProblemReadError } from "./problem-read.ts";
 
 interface Call {
+  inboxSession: boolean;
   params: string[];
   query: URLSearchParams;
   actorId: string | null;
@@ -36,14 +41,21 @@ interface Call {
 interface Reply {
   status: number;
   body: unknown;
+  contentType?: "application/x-ndjson";
+  /** Budgeted research responses measure the actual compact JSON HTTP body. */
+  compactJson?: boolean;
 }
 
 interface Route {
+  /** A scoped project-inbox session may access this route, without becoming a ledger actor. */
+  inboxAccess?: boolean;
   method: "GET" | "POST";
   pattern: RegExp;
   auth: boolean;
   /** The reply depends on who is asking, so it must never be cached by a shared cache. */
   callerSpecific?: boolean;
+  /** Non-deterministic reads, such as a random sample, must never be cached. */
+  noStore?: boolean;
   /** Pages on the configured foreign origins may call this route: the reply carries CORS headers and OPTIONS is answered. */
   cors?: boolean;
   handler: (call: Call) => Reply | Promise<Reply>;
@@ -58,7 +70,7 @@ function integer(query: URLSearchParams, name: string, fallback: number): number
   const raw = query.get(name);
   if (raw === null) return fallback;
   const value = Number(raw);
-  if (!Number.isInteger(value) || value < 0) throw new HttpError(400, `${name} must be a non-negative integer`);
+  if (!Number.isSafeInteger(value) || value < 0) throw new HttpError(400, `${name} must be a non-negative safe integer`);
   return value;
 }
 
@@ -81,13 +93,20 @@ function readSchema(file: string, name: string): unknown {
 
 function routes(service: Service): Route[] {
   const ledger = () => service.repo.current();
+  const problemReader = new ProblemReader();
   const auth = service.auth;
-  const resolveProblem = (idOrAlias: string): string => {
-    const l = ledger();
-    if (l.find("Problem", idOrAlias)) return idOrAlias;
-    const byAlias = l.currentOf("Problem").find((p) => (p.fields["aliases"] as string[]).includes(idOrAlias));
-    if (!byAlias) throw new HttpError(404, `unknown problem ${idOrAlias}`);
-    return byAlias.id;
+  const resolveProblem = (idOrAlias: string, l = ledger()): string => {
+    let problem = l.find("Problem", idOrAlias) ?? l.currentOf("Problem").find((p) => (p.fields["aliases"] as string[]).includes(idOrAlias));
+    if (!problem) throw new HttpError(404, `unknown problem ${idOrAlias}`);
+    const visited = new Set<string>();
+    while (problem) {
+      if (visited.has(problem.id)) throw new HttpError(500, "cyclic catalog merge");
+      visited.add(problem.id);
+      const catalog = problem.fields["authoredCatalog"] as { mergedIntoProblemId?: string } | undefined;
+      if (!catalog?.mergedIntoProblemId) return problem.id;
+      problem = l.find("Problem", catalog.mergedIntoProblemId);
+    }
+    throw new HttpError(500, "missing catalog merge target");
   };
   const notNull = <T>(value: T | null | undefined, what: string): T => {
     if (value === null || value === undefined) throw new HttpError(404, `unknown ${what}`);
@@ -131,30 +150,113 @@ function routes(service: Service): Route[] {
     return { status: 201, body: { accepted: true, commit: result.commit, recordIds: records.map((r) => String(r.fields["id"])), decisions: result.decisions, automaticIssues: result.automaticIssues, ...extra } };
   };
 
+  const problemFilter = (query: URLSearchParams, current = ledger()): ProblemFilter => {
+    if (query.has("cursor") && !query.get("cursor")?.trim()) throw new SearchError(400, "invalid_cursor", "A cursor must be nonempty; omit it to start a new search");
+    const requestedStatus = query.get("status");
+    if (requestedStatus && requestedStatus !== "Solved" && requestedStatus !== "Unsolved") throw new HttpError(400, "status must be Solved or Unsolved");
+    const resolveTag = (kind: "areas" | "topics", label: string) => {
+      const id = taxonomyId(current, kind, label);
+      if (!id) throw new HttpError(400, `Unknown ${kind === "areas" ? "area" : "topic"} ${label}; use a label or slug from /api/v1/taxonomy`);
+      return id;
+    };
+    const sort = query.get("sort");
+    if (sort && !["relevance", "edited", "title", "stale"].includes(sort)) throw new HttpError(400, "Unknown problem sort");
+    return {
+      ...(requestedStatus ? { status: requestedStatus } : {}),
+      ...(query.get("area") ? { area: resolveTag("areas", query.get("area")!) } : {}),
+      ...(query.get("topic") ? { topic: resolveTag("topics", query.get("topic")!) } : {}),
+      ...(query.get("difficulty") ? { difficulty: query.get("difficulty")! } : {}),
+      ...(query.get("text") ? { text: query.get("text")! } : {}),
+      ...(query.has("cursor") ? { cursor: query.get("cursor")! } : {}),
+      indexedOnly: query.get("includeCandidates") !== "true",
+      limit: integer(query, "limit", 50), offset: integer(query, "offset", 0),
+      ...(sort ? { sort: sort as NonNullable<ProblemFilter["sort"]> } : {}),
+    };
+  };
+  const problemSummary = (row: ProblemRow) => ({
+    id: row.id, alias: row.alias, title: row.title, role: row.role, catalogState: row.catalog_state,
+    status: row.status, indexed: row.indexed === 1, areaIds: JSON.parse(row.area_ids), topicIds: JSON.parse(row.topic_ids),
+    difficulty: row.difficulty, lastActivity: row.last_activity, lastHumanReview: row.last_human_review,
+    catalogEditedAt: row.edited_at, catalogCreatedAt: row.created_at, ...(row.match ? { match: row.match } : {}),
+  });
+  const problemDetails = (id: string, raw: boolean, view: "full" | "research", current = ledger(), indexedRow?: ProblemRow) => {
+    const problem = notNull(problemView(current, id, raw, view), "problem");
+    const row = indexedRow ?? service.index.problemRows({ text: id, indexedOnly: false, limit: 1 })[0];
+    return { ...problem, catalogDates: { editedAt: row?.edited_at ?? null, createdAt: row?.created_at ?? null,
+      basis: row?.edited_at ? "tex-git-history" : "unavailable", meaning: "Catalog editing history, not research-result or resolution dates." } };
+  };
+
   return [
+    { method: "GET", pattern: /^\/api\/v1\/problems\.jsonl$/u, auth: false, handler: () => {
+      const current = ledger();
+      const decisions = currentDecisions(current);
+      const rows = current.currentOf("Problem").filter(p => catalogState(current, p.id, decisions) === "published").sort((a, b) => a.id.localeCompare(b.id));
+      return { status: 200, contentType: "application/x-ndjson", body: rows.map(p => JSON.stringify(problemView(current, p.id))).join("\n") + "\n" };
+    } },
     { method: "GET", pattern: /^\/api\/v1\/status$/u, auth: false, handler: () => ok({ ...status(ledger(), service.index, service.policy.policyVersion), sync: service.repo.publicSyncState() }) },
     { method: "GET", pattern: /^\/api\/v1\/policy$/u, auth: false, handler: () => ok({ policyVersion: service.policy.policyVersion, thresholds: service.policy.thresholds, independence: service.policy.independence, mechanicalMethods: service.policy.mechanicalMethods, rateLimits: service.policy.rateLimits, bodyLimits: service.policy.bodyLimits, licenses: service.policy.licenses }) },
     { method: "GET", pattern: /^\/api\/v1\/schemas\/payloads\/([a-z-]+)$/u, auth: false, handler: ({ params }) => ok(readSchema(path.join(service.repo.schemaDir, "payloads", `${params[0]}.schema.json`), params[0]!)) },
     { method: "GET", pattern: /^\/api\/v1\/schemas\/([a-z-]+)$/u, auth: false, handler: ({ params }) => ok(readSchema(path.join(service.repo.schemaDir, `${params[0]}.schema.json`), params[0]!)) },
     { method: "GET", pattern: /^\/api\/v1\/taxonomy$/u, auth: false, handler: () => ok(notNull(taxonomyView(ledger()), "taxonomy")) },
     { method: "GET", pattern: /^\/api\/v1\/actors$/u, auth: false, handler: () => ok({ actors: actorsView(ledger()) }) },
-    { method: "GET", pattern: /^\/api\/v1\/sources$/u, auth: false, handler: ({ query }) => ok(searchSources(ledger(), query.get("text") ?? "", integer(query, "limit", 20))) },
+    { method: "GET", pattern: /^\/api\/v1\/sources$/u, auth: false, handler: ({ query }) => ok(searchSources(ledger(), query.get("text") ?? "", integer(query, "limit", 20), integer(query, "offset", 0))) },
     { method: "GET", pattern: /^\/api\/v1\/problems$/u, auth: false, handler: ({ query }) => {
-      const requestedStatus = query.get("status");
-      if (requestedStatus && requestedStatus !== "Solved" && requestedStatus !== "Unsolved") throw new HttpError(400, "status must be Solved or Unsolved");
-      const rows = service.index.problemRows({
-        ...(requestedStatus ? { status: requestedStatus } : {}),
-        ...(query.get("area") ? { area: query.get("area")! } : {}),
-        ...(query.get("topic") ? { topic: query.get("topic")! } : {}),
-        ...(query.get("difficulty") ? { difficulty: query.get("difficulty")! } : {}),
-        ...(query.get("text") ? { text: query.get("text")! } : {}),
-        indexedOnly: query.get("includeCandidates") !== "true",
-        limit: integer(query, "limit", 50),
-        sort: query.get("sort") === "stale" ? "stale" : "title",
-      });
-      return ok({ count: rows.length, problems: rows.map((row) => ({ id: row.id, alias: row.alias, title: row.title, role: row.role, catalogState: row.catalog_state, status: row.status, indexed: row.indexed === 1, areaIds: JSON.parse(row.area_ids), topicIds: JSON.parse(row.topic_ids), difficulty: row.difficulty, lastActivity: row.last_activity, lastHumanReview: row.last_human_review })) });
+      for (const key of ["view", "maxBytes"]) if (query.getAll(key).length > 1) throw new HttpError(400, `${key} must be specified only once`);
+      const view = query.get("view") ?? "summary";
+      if (view !== "summary" && view !== "research") throw new HttpError(400, "view must be summary or research");
+      if (view === "summary" && query.has("maxBytes")) throw new HttpError(400, "maxBytes is only available with view=research");
+      let maxBytes = RESEARCH_SEARCH_DEFAULT_BYTES;
+      if (view === "research") {
+        const allowed = new Set(["view", "maxBytes", "area", "topic", "status", "difficulty", "text", "includeCandidates", "limit", "offset", "cursor", "sort"]);
+        for (const key of query.keys()) {
+          if (!allowed.has(key)) throw new HttpError(400, `Unknown research-search parameter ${key}`);
+          if (query.getAll(key).length > 1) throw new HttpError(400, `${key} must be specified only once`);
+          if (!query.get(key)?.trim()) throw new HttpError(400, `${key} must be nonempty when supplied`);
+        }
+        for (const key of ["maxBytes", "limit", "offset"]) {
+          if (query.has(key) && !/^\d+$/u.test(query.get(key)!)) throw new HttpError(400, `${key} must be a non-negative safe integer`);
+        }
+        if (query.has("includeCandidates") && !["true", "false"].includes(query.get("includeCandidates")!)) throw new HttpError(400, "includeCandidates must be true or false");
+        if (query.has("difficulty") && !["unrated", "accessible", "hard", "very-hard"].includes(query.get("difficulty")!)) throw new HttpError(400, "Unknown problem difficulty");
+        if (query.has("limit") && integer(query, "limit", 50) < 1) throw new HttpError(400, "limit must be at least 1");
+        maxBytes = integer(query, "maxBytes", RESEARCH_SEARCH_DEFAULT_BYTES);
+        if (maxBytes < RESEARCH_SEARCH_MIN_BYTES || maxBytes > RESEARCH_SEARCH_MAX_BYTES) throw new HttpError(400, `maxBytes must be between ${RESEARCH_SEARCH_MIN_BYTES} and ${RESEARCH_SEARCH_MAX_BYTES}`);
+      }
+      const current = ledger();
+      const filter = problemFilter(query, current);
+      if (view === "research") filter.view = "research";
+      const result = service.index.problemPage(filter);
+      const sort = filter.sort ?? (filter.text?.trim() ? "relevance" : "edited");
+      const sortDescription = sort === "stale" ? "Missing service human-review dates first, then oldest review; not catalog edit age."
+        : sort === "edited" ? "Newest TeX git author edit time, then creation time; unknown dates last. Not a research-result date."
+        : sort === "relevance" ? "Scientific field-weighted relevance; exact identifiers resolve separately." : "Title, then stable id.";
+      if (view === "research") return researchSearchPage(service.index, result, { sort, sortDescription, maxBytes }, row => ({
+        ...problemDetails(row.id, false, "research", current, row), ...(row.match ? { match: row.match } : {}),
+      }));
+      const { rows, ...page } = result;
+      return ok({ schemaVersion: "qop-search/2", ...page, unit: "records", count: rows.length, sort,
+        sortDescription, problems: rows.map(problemSummary) });
     } },
-    { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)$/u, auth: false, handler: ({ params }) => ok(notNull(problemView(ledger(), resolveProblem(params[0]!)), "problem")) },
+    { method: "GET", pattern: /^\/api\/v1\/problems\/sample$/u, auth: false, noStore: true, handler: ({ query }) => {
+      if (["cursor", "offset", "limit", "sort"].some(key => query.has(key))) throw new HttpError(400, "Sampling uses the entire matching set; cursor, offset, limit and sort are not accepted");
+      const filter = problemFilter(query);
+      filter.status ??= "Unsolved";
+      const { row, total, catalogVersion } = service.index.sampleProblem(filter);
+      return ok({ schemaVersion: "qop-sample/1", total, catalogVersion, sampling: "uniform-over-all-matching-records",
+        problem: row ? problemDetails(row.id, false, "research") : null });
+    } },
+    { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)$/u, auth: false, handler: ({ params, query }) => {
+      const view = query.get("view") ?? "full";
+      if (view !== "full" && view !== "research") throw new HttpError(400, "view must be full or research");
+      if (view === "research" && query.get("includeAuthoredRecord") === "true") throw new HttpError(400, "includeAuthoredRecord requires view=full");
+      return ok(problemDetails(resolveProblem(params[0]!), query.get("includeAuthoredRecord") === "true", view));
+    } },
+    { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)\/read$/u, auth: false, noStore: true, handler: ({ params, query }) => {
+      const current = ledger();
+      const id = resolveProblem(params[0]!, current);
+      return problemReader.readCurrent(id, { ledger: current, catalogVersion: service.index.catalogVersion() },
+        () => problemDetails(id, false, "research", current), query);
+    } },
     { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)\/frontier$/u, auth: false, handler: ({ params }) => ok(notNull(frontier(ledger(), resolveProblem(params[0]!)), "problem")) },
     { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)\/tree$/u, auth: false, handler: ({ params }) => ok({ problemId: resolveProblem(params[0]!), tree: tree(ledger(), resolveProblem(params[0]!)) }) },
     { method: "GET", pattern: /^\/api\/v1\/problems\/([^/]+)\/attempts$/u, auth: false, handler: ({ params }) => ok({ problemId: resolveProblem(params[0]!), attempts: attempts(ledger(), resolveProblem(params[0]!)) }) },
@@ -181,33 +283,40 @@ function routes(service: Service): Route[] {
     { method: "GET", pattern: /^\/api\/v1\/events$/u, auth: false, handler: ({ query }) => ok(events(ledger(), service.index, integer(query, "after", 0), integer(query, "limit", 100), query.get("type") ?? undefined)) },
     { method: "GET", pattern: /^\/api\/v1\/actors\/me$/u, auth: true, callerSpecific: true, handler: (call) => ok({ ...notNull(recordView(ledger(), actor(call)), "actor"), keys: auth.keysFor(actor(call)) }) },
 
-    // The proposal inbox. Anyone may file a proposal from the static site's form, once the CAPTCHA
-    // provider confirms the token; only editors read the inbox, since it holds contact details.
+    // Public filing requires explicit basic or CAPTCHA mode. Reads require an editor
+    // or the scoped project inbox session, since proposals hold private contact details.
     { method: "POST", pattern: /^\/api\/v1\/submissions$/u, auth: false, cors: true, handler: async (call) => {
       const rules = service.submissionsConfig;
-      if (!rules.captcha) throw new HttpError(503, "online proposals are not enabled on this service; use the GitHub route described on the contribute page");
-      const parsed = parseSubmission(parseJson(call));
+      if (rules.mode === "disabled") throw new HttpError(503, "online proposals are not enabled on this service; use the GitHub route described on the contribute page");
       if (auth.bump(`submissions:${call.address}`, HOUR) > rules.perAddressPerHour) throw new HttpError(429, `more than ${rules.perAddressPerHour} proposals from this address within an hour; try again later`);
-      const verdict = await verifyCaptcha(rules.captcha, parsed.captchaToken, call.address);
-      if (!verdict.ok) throw new HttpError(403, "the human verification did not pass; complete it again and resubmit");
+      const parsed = parseSubmission(parseJson(call), rules.mode === "captcha");
+      if (rules.mode === "captcha") {
+        if (!rules.captcha) throw new HttpError(503, "the proposal verifier is not configured");
+        const verdict = await verifyCaptcha(rules.captcha, parsed.captchaToken, call.address);
+        if (!verdict.ok) throw new HttpError(403, "the human verification did not pass; complete it again and resubmit");
+      }
       const userAgent = Array.isArray(call.headers["user-agent"]) ? call.headers["user-agent"][0] ?? "" : call.headers["user-agent"] ?? "";
-      const receipt = service.submissions.accept(parsed.payload, { address: call.address, userAgent, captchaProvider: rules.captcha.provider });
+      const receipt = service.submissions.accept(parsed.payload, { address: call.address, userAgent, captchaProvider: rules.mode === "captcha" ? rules.captcha!.provider : "basic" });
       return { status: receipt.duplicate ? 200 : 201, body: { accepted: true, ...receipt } };
     } },
-    { method: "GET", pattern: /^\/api\/v1\/submissions$/u, auth: true, callerSpecific: true, handler: (call) => {
-      editor(call);
+    { method: "GET", pattern: /^\/api\/v1\/submissions$/u, auth: true, inboxAccess: true, callerSpecific: true, handler: (call) => {
+      if (!call.inboxSession) editor(call);
       const state = call.query.get("state");
       if (state !== null && !(SUBMISSION_STATES as readonly string[]).includes(state)) throw new HttpError(400, `state must be one of ${SUBMISSION_STATES.join(", ")}`);
-      const proposals = service.submissions.list({ state: (state as SubmissionState | null) ?? undefined, limit: integer(call.query, "limit", 50) });
-      return ok({ counts: service.submissions.counts(), count: proposals.length, submissions: proposals });
+      const offset = integer(call.query, "offset", 0);
+      const limit = Math.min(Math.max(integer(call.query, "limit", 50), 1), 1000);
+      const counts = service.submissions.counts();
+      const total = state ? counts[state as SubmissionState] : Object.values(counts).reduce((a, b) => a + b, 0);
+      const proposals = service.submissions.list({ state: (state as SubmissionState | null) ?? undefined, limit, offset });
+      return ok({ counts, count: proposals.length, total, offset, limit, nextOffset: offset + proposals.length < total ? offset + proposals.length : null, submissions: proposals });
     } },
-    { method: "GET", pattern: /^\/api\/v1\/submissions\/([^/]+)$/u, auth: true, callerSpecific: true, handler: (call) => {
-      editor(call);
+    { method: "GET", pattern: /^\/api\/v1\/submissions\/([^/]+)$/u, auth: true, inboxAccess: true, callerSpecific: true, handler: (call) => {
+      if (!call.inboxSession) editor(call);
       const found = submission(call.params[0]!);
       return ok({ ...found, text: submissionText(found) });
     } },
-    { method: "POST", pattern: /^\/api\/v1\/submissions\/([^/]+)\/state$/u, auth: true, handler: (call) => {
-      const actorId = editor(call);
+    { method: "POST", pattern: /^\/api\/v1\/submissions\/([^/]+)\/state$/u, auth: true, inboxAccess: true, handler: (call) => {
+      const actorId = call.inboxSession ? null : editor(call);
       const payload = parseJson(call);
       if (typeof payload !== "object" || payload === null || Array.isArray(payload)) throw new HttpError(422, "the body must be an object with state and an optional note");
       const { state, note } = payload as { state?: unknown; note?: unknown };
@@ -351,17 +460,44 @@ export function createServer(service: Service): http.Server {
   const table = routes(service);
   const bodyLimit = service.policy.bodyLimits["contributionBytes"] ?? 262144;
   const perMinute = service.policy.rateLimits["requestsPerAddressPerMinute"] ?? 600;
+  // Only same-process callers wait on a live operation. Durable pending receipts
+  // from another process or a restart fail closed, never repeat an unknown write.
+  type Completion = { reply: Reply; replayable: boolean };
+  const inFlight = new Map<string, Promise<Completion>>();
+  const uncertain = (): Reply => ({ status: 409, body: {
+    error: "The original write has a pending receipt and its result cannot be recovered automatically. Inspect the service state; do not repeat it with a new key.",
+    code: "IDEMPOTENCY_OUTCOME_UNKNOWN", retryable: false, outcomeUnknown: true,
+  } });
 
   const server = http.createServer(async (request, response) => {
     // Only anonymous reads of caller-independent routes are cacheable by shared caches.
     let cacheable = false;
     // Set once the request is known to target a cross-origin route, so every reply to it, errors included, carries them.
     let cors: Record<string, string> = {};
-    const send = (code: number, payload: unknown, extra: Record<string, string> = {}) => {
-      const body = JSON.stringify(payload, null, 1);
+    let reservation: { actorId: string; key: string; hash: string; slot: string; resolve: (value: Completion) => void } | undefined;
+    const complete = (reply: Reply, release = false, unknown = false): Completion => {
+      if (!reservation) return { reply, replayable: false };
+      const receipt = reservation;
+      reservation = undefined;
+      let completed: Completion = { reply, replayable: !release && !unknown };
+      try {
+        if (unknown) completed = { reply: uncertain(), replayable: false };
+        else if (release) service.auth.releaseReservation(receipt.actorId, receipt.key, receipt.hash);
+        else service.auth.remember(receipt.actorId, receipt.key, receipt.hash, reply.status, JSON.stringify(reply.body));
+      } catch {
+        // The pre-write reservation remains durable even if saving the response fails.
+        completed = { reply: uncertain(), replayable: false };
+      } finally {
+        receipt.resolve(completed);
+        inFlight.delete(receipt.slot);
+      }
+      return completed;
+    };
+    const send = (code: number, payload: unknown, extra: Record<string, string> = {}, contentType?: "application/x-ndjson", compactJson = false) => {
+      const body = contentType ? String(payload) : compactJson ? JSON.stringify(payload) : JSON.stringify(payload, null, 1);
       const { Vary: extraVary, ...rest } = { ...cors, ...extra };
       const vary = ["Authorization", "Cookie", ...(extraVary ? [extraVary] : [])].join(", ");
-      response.writeHead(code, { "Content-Type": "application/json; charset=utf-8", "Content-Length": Buffer.byteLength(body), "Cache-Control": code === 200 && cacheable ? "public, max-age=15" : "no-store", Vary: vary, ...rest });
+      response.writeHead(code, { "Content-Type": `${contentType ?? "application/json"}; charset=utf-8`, "X-Content-Type-Options": "nosniff", "Content-Length": Buffer.byteLength(body), "Cache-Control": code === 200 && cacheable ? "public, max-age=15" : "no-store", Vary: vary, ...rest });
       response.end(body);
     };
     try {
@@ -389,6 +525,8 @@ export function createServer(service: Service): http.Server {
       // Who is calling. On the API a bearer token names the actor and an invalid one is refused;
       // everywhere the web app's session cookie names the actor. The cookies are read raw.
       const cookies = parseCookies(request.headers.cookie);
+      const inboxSession = service.auth.validInboxSession(cookies[INBOX_COOKIE] ?? "", service.submissionsConfig.inboxKeyHash);
+      if (await handleInbox(service, request, response, url, { sameOrigin: sameOrigin(request, service.web.publicUrl), address, token: cookies[INBOX_COOKIE] ?? "", readBody })) return;
       const caller: Caller = { actorId: null, viaSession: false, sessionToken: cookies[SESSION_COOKIE] ?? null, loginNonce: cookies[LOGIN_COOKIE] ?? null, sameOrigin: sameOrigin(request, service.web.publicUrl) };
       const header = request.headers.authorization;
       if (isApi && header?.startsWith("Bearer ")) {
@@ -415,33 +553,59 @@ export function createServer(service: Service): http.Server {
         // A browser page on an origin that is not ours would never see the reply; do not act on its behalf either.
         if (typeof request.headers.origin === "string" && !cors["Access-Control-Allow-Origin"]) throw new HttpError(403, "this origin may not post here");
       }
-      cacheable = method === "GET" && !route.auth && !route.callerSpecific && caller.actorId === null;
-      if (route.auth && !caller.actorId) throw new HttpError(401, "a bearer token or a login session for an actor is required");
+      cacheable = method === "GET" && !route.auth && !route.callerSpecific && !route.noStore && caller.actorId === null;
+      if (route.auth && !caller.actorId && !(route.inboxAccess && inboxSession)) throw new HttpError(401, "a bearer token or an authorized login session is required");
+      if (method === "POST" && route.inboxAccess && inboxSession && !caller.sameOrigin) throw new HttpError(403, "cross-site request refused");
       // A cookie is sent by the browser on its own, so a write it authenticates must come from our own pages.
       if (method === "POST" && caller.viaSession && !caller.sameOrigin) throw new HttpError(403, "cross-site request refused");
       const actorId = caller.actorId;
 
       const raw = method === "POST" ? await readBody(request, bodyLimit) : Buffer.alloc(0);
       const idempotencyKey = method === "POST" ? request.headers["idempotency-key"] : undefined;
-      const requestHash = createHash("sha256").update(url.pathname).update(raw).digest("hex");
+      const requestDigest = createHash("sha256").update(url.pathname).update(raw);
+      // An artifact's meaning includes its metadata headers as well as its bytes.
+      // Reusing a key for the same bytes but a different title/kind is a conflict.
+      if (/^\/api\/v1\/trajectories\/[^/]+\/artifacts$/u.test(url.pathname)) {
+        requestDigest.update("\0").update(JSON.stringify([
+          request.headers["content-type"] ?? null,
+          request.headers["x-artifact-kind"] ?? null,
+          request.headers["x-artifact-title"] ?? null,
+        ]));
+      }
+      const requestHash = requestDigest.digest("hex");
       if (typeof idempotencyKey === "string" && actorId) {
         if (idempotencyKey.length > 128) throw new HttpError(400, "Idempotency-Key is longer than 128 characters");
-        const stored = service.auth.replay(actorId, idempotencyKey, requestHash);
+        const stored = service.auth.reserve(actorId, idempotencyKey, requestHash);
         if (stored === "conflict") throw new HttpError(422, "Idempotency-Key was already used with a different request");
-        if (stored) {
+        const slot = JSON.stringify([actorId, idempotencyKey]);
+        if (stored === "pending") {
+          const active = inFlight.get(slot);
+          const completed = active ? await active : { reply: uncertain(), replayable: false };
+          send(completed.reply.status, completed.reply.body, completed.replayable ? { "Idempotent-Replay": "true" } : {}, completed.reply.contentType, completed.reply.compactJson);
+          return;
+        }
+        if (stored !== "reserved") {
           send(stored.status, JSON.parse(stored.body), { "Idempotent-Replay": "true" });
           return;
         }
+        let resolve!: (value: Completion) => void;
+        inFlight.set(slot, new Promise<Completion>(done => { resolve = done; }));
+        reservation = { actorId, key: idempotencyKey, hash: requestHash, slot, resolve };
       }
 
       const match = url.pathname.match(route.pattern)!;
-      const reply = await route.handler({ params: match.slice(1).map((s) => decodeURIComponent(s)), query: url.searchParams, actorId, raw, headers: request.headers, address });
-      if (typeof idempotencyKey === "string" && actorId && reply.status !== 503) service.auth.remember(actorId, idempotencyKey, requestHash, reply.status, JSON.stringify(reply.body));
-      send(reply.status, reply.body);
+      const reply = await route.handler({ inboxSession, params: match.slice(1).map((s) => decodeURIComponent(s)), query: url.searchParams, actorId, raw, headers: request.headers, address });
+      const refusedBeforeWrite = reply.status === 503 && (reply.body as { accepted?: boolean })?.accepted === false;
+      const completed = complete(reply, refusedBeforeWrite, reply.status >= 500 && !refusedBeforeWrite);
+      send(completed.reply.status, completed.reply.body, {}, completed.reply.contentType, completed.reply.compactJson);
     } catch (error) {
       if (response.headersSent) { response.end(); return; }
-      if (error instanceof HttpError || error instanceof PayloadError) send(error.status, { error: error.message });
-      else send(500, { error: error instanceof Error ? error.message : String(error) });
+      const known = error instanceof HttpError || error instanceof PayloadError || error instanceof SearchError || error instanceof ProblemReadError;
+      const status = known ? error.status : 500;
+      const transientRefusal = known && (status === 429 || status === 503);
+      const failure = { status, body: { error: error instanceof Error ? error.message : String(error), ...(error instanceof SearchError || error instanceof ProblemReadError ? { code: error.code } : {}) } };
+      const reply = complete(failure, transientRefusal, !known || status >= 500 && !transientRefusal).reply;
+      send(reply.status, reply.body);
     }
   });
   watchLedger(server, service);

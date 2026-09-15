@@ -1,0 +1,240 @@
+{
+  "environment": {
+    "catalogVersion": "d76175295aaee4cd1437fe6d876f00acab20b2dc70414ad56d9b7aa3b2fb5c89",
+    "count": 111,
+    "baseCommit": "3bc74404504e977360014ef405019a8016aa8fe6",
+    "implementation": "working-tree",
+    "stores": "in-memory",
+    "protocol": "real MCP HTTP to real API HTTP",
+    "model": "gpt-6-astra",
+    "effort": "ultra",
+    "asOf": "2026-09-14",
+    "customQuestion": "请为 Universal purification with classically simulable operations 这道题准备研究资料。请从题库定位后，查阅原论文全文确认允许的操作、已证明结论和仍开放部分，给出可定位的章节或定理以及公开全文链接，并检查是否有较新的相关进展。请明确区分题库信息和外部核查，也明确说明没能读到的材料。不要尝试求解。",
+    "webMode": "live",
+    "selectedCase": null,
+    "historyFrom": null,
+    "context": "Each run is an ephemeral session; previous user/assistant text is supplied for original cases 2 and 3. Tool transcripts are not replayed.",
+    "scoring": "Human/independent evidence review required. Script success is not answer acceptance."
+  },
+  "runs": [
+    {
+      "case": 1,
+      "question": "请为 Universal purification with classically simulable operations 这道题准备研究资料。请从题库定位后，查阅原论文全文确认允许的操作、已证明结论和仍开放部分，给出可定位的章节或定理以及公开全文链接，并检查是否有较新的相关进展。请明确区分题库信息和外部核查，也明确说明没能读到的材料。不要尝试求解。",
+      "exitCode": 0,
+      "seconds": 347.52,
+      "contamination": [],
+      "toolCalls": 2,
+      "usage": [
+        {
+          "input_tokens": 2348215,
+          "cached_input_tokens": 2151936,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 6822,
+          "reasoning_output_tokens": 2673
+        }
+      ],
+      "timing": {
+        "basis": "Host-observed Codex stdout event arrival and process lifetime; includes CLI scheduling, buffering and transport overhead, not pure API latency.",
+        "clock": "time.monotonic",
+        "offsetUnit": "seconds since process observation started; missing start/completion events remain null",
+        "firstToolStarted": 16.691571,
+        "lastToolCompleted": 272.536787,
+        "totalSeconds": 347.516873,
+        "tools": [
+          {
+            "itemId": "item_1",
+            "kind": "mcp_tool_call",
+            "server": "qop",
+            "tool": "search_problems",
+            "startedAtSeconds": 16.691571,
+            "completedAtSeconds": 16.753991,
+            "observedSeconds": 0.06242
+          },
+          {
+            "itemId": "item_2",
+            "kind": "mcp_tool_call",
+            "server": "qop",
+            "tool": "get_problem",
+            "startedAtSeconds": 35.332824,
+            "completedAtSeconds": 35.382276,
+            "observedSeconds": 0.049452
+          },
+          {
+            "itemId": "exec-eb860df3-fc05-41bf-983b-3583bef67706",
+            "kind": "web_search",
+            "server": null,
+            "tool": null,
+            "startedAtSeconds": 35.333536,
+            "completedAtSeconds": 37.741359,
+            "observedSeconds": 2.407823
+          },
+          {
+            "itemId": "exec-676a9f61-aabc-4c16-bcf2-979ed1860cfd",
+            "kind": "web_search",
+            "server": null,
+            "tool": null,
+            "startedAtSeconds": 51.562413,
+            "completedAtSeconds": 53.908623,
+            "observedSeconds": 2.34621
+          },
+          {
+            "itemId": "exec-26ad8559-8711-450f-bfdf-eccffa6c6d3a",
+            "kind": "web_search",
+            "server": null,
+            "tool": null,
+            "startedAtSeconds": 62.109809,
+            "completedAtSeconds": 64.405057,
+            "observedSeconds": 2.295248
+          },
+          {
+            "itemId": "exec-8b4b3b85-af92-46c5-aec2-78d0f0ee7942",
+            "kind": "web_search",
+            "server": null,
+            "tool": null,
+            "startedAtSeconds": 72.788364,
+            "completedAtSeconds": 76.07016,
+            "observedSeconds": 3.281796
+          },
+          {
+            "itemId": "exec-2e82566b-918d-4e47-a852-4d9ad49c5298",
+            "kind": "web_search",
+            "server": null,
+            "tool": null,
+            "startedAtSeconds": 85.24462,
+            "completedAtSeconds": 88.657479,
+            "observedSeconds": 3.412859
+          },
+          {
+            "itemId": "exec-fcde0e17-1349-4b71-a45e-446e235b31cc",
+            "kind": "web_search",
+            "server": null,
+            "tool": null,
+            "startedAtSeconds": 85.244647,
+            "completedAtSeconds": 87.595099,
+            "observedSeconds": 2.350452
+          },
+          {
+            "itemId": "exec-436d0d59-2f60-4aba-9f4a-0186869a64e3",
+            "kind": "web_search",
+            "server": null,
+            "tool": null,
+            "startedAtSeconds": 85.244649,
+            "completedAtSeconds": 88.132251,
+            "observedSeconds": 2.887602
+          },
+          {
+            "itemId": "exec-e13700cf-75ee-4fe8-8d7b-68543a0ad043",
+            "kind": "web_search",
+            "server": null,
+            "tool": null,
+            "startedAtSeconds": 100.717224,
+            "completedAtSeconds": 102.959015,
+            "observedSeconds": 2.241791
+          },
+          {
+            "itemId": "exec-449858c4-23c5-40bd-8618-fdd542fd060c",
+            "kind": "web_search",
+            "server": null,
+            "tool": null,
+            "startedAtSeconds": 110.670669,
+            "completedAtSeconds": 113.382556,
+            "observedSeconds": 2.711887
+          },
+          {
+            "itemId": "exec-88f7bb31-9534-4628-b331-22041c87c7c3",
+            "kind": "web_search",
+            "server": null,
+            "tool": null,
+            "startedAtSeconds": 120.828074,
+            "completedAtSeconds": 123.163724,
+            "observedSeconds": 2.33565
+          },
+          {
+            "itemId": "exec-03b801d0-b13b-41cb-ac8b-d72733abcfc4",
+            "kind": "web_search",
+            "server": null,
+            "tool": null,
+            "startedAtSeconds": 136.096994,
+            "completedAtSeconds": 138.684514,
+            "observedSeconds": 2.58752
+          },
+          {
+            "itemId": "exec-8d6eef4e-3314-4894-a398-fcc6930aec57",
+            "kind": "web_search",
+            "server": null,
+            "tool": null,
+            "startedAtSeconds": 144.752018,
+            "completedAtSeconds": 148.070892,
+            "observedSeconds": 3.318874
+          },
+          {
+            "itemId": "exec-2c063559-4efc-4388-9f00-31ec8b4e931a",
+            "kind": "web_search",
+            "server": null,
+            "tool": null,
+            "startedAtSeconds": 169.39152,
+            "completedAtSeconds": 171.671375,
+            "observedSeconds": 2.279855
+          },
+          {
+            "itemId": "exec-348da029-0b83-40cb-9c0d-a69c7f7f2e72",
+            "kind": "web_search",
+            "server": null,
+            "tool": null,
+            "startedAtSeconds": 185.536598,
+            "completedAtSeconds": 189.384982,
+            "observedSeconds": 3.848384
+          },
+          {
+            "itemId": "exec-657f5dad-829f-4a8e-9e8c-fb96b0d0560b",
+            "kind": "web_search",
+            "server": null,
+            "tool": null,
+            "startedAtSeconds": 204.629244,
+            "completedAtSeconds": 206.886138,
+            "observedSeconds": 2.256894
+          },
+          {
+            "itemId": "exec-dc57a598-8f42-4f32-a30f-418d3199939f",
+            "kind": "web_search",
+            "server": null,
+            "tool": null,
+            "startedAtSeconds": 218.028077,
+            "completedAtSeconds": 220.321763,
+            "observedSeconds": 2.293686
+          },
+          {
+            "itemId": "exec-31ac131f-80a5-4aa4-b1c5-7039954af3ac",
+            "kind": "web_search",
+            "server": null,
+            "tool": null,
+            "startedAtSeconds": 227.640842,
+            "completedAtSeconds": 230.60011,
+            "observedSeconds": 2.959268
+          },
+          {
+            "itemId": "exec-c94a1dec-b2bc-4d97-b773-f57ce11d5abf",
+            "kind": "web_search",
+            "server": null,
+            "tool": null,
+            "startedAtSeconds": 244.601773,
+            "completedAtSeconds": 246.883438,
+            "observedSeconds": 2.281665
+          },
+          {
+            "itemId": "exec-170d52b4-94ed-4b1c-b1ba-5ac94a93c36d",
+            "kind": "web_search",
+            "server": null,
+            "tool": null,
+            "startedAtSeconds": 270.208563,
+            "completedAtSeconds": 272.536787,
+            "observedSeconds": 2.328224
+          }
+        ]
+      },
+      "answerPresent": true,
+      "accepted": null
+    }
+  ],
+  "limitations": "Saved web events lack response bodies and HTTP status; independent primary-source checks support correctness, not every claimed read. One internal collaborator startup attempt failed; no successful collaborator result was recorded. Stderr and internal thread IDs are omitted."
+}

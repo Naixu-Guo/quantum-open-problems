@@ -1,0 +1,101 @@
+% Problem record op_8f1853475db7ea27. This TeX file is derived from
+% database/problems_json/op_8f1853475db7ea27.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Gaussian-measurement equality with the Holevo bound}
+\label{sec:op_8f1853475db7ea27}
+
+\paragraph{Problem.}
+When does the optimal single-copy Gaussian-measurement cost equal the Holevo bound?
+Give necessary and sufficient conditions in terms of the local first moments, covariance, their first derivatives, and the weight matrix defined below.
+Let $\rho_\theta$ be a smooth faithful $n$-mode Gaussian model, with integers $n,p\geq1$ and $\theta\in\Theta\subset\mathbb R^p$ for an open set $\Theta$. Write $R=(q_1,p_1,\ldots,q_n,p_n)^{\mathsf T}$ for the canonical quadrature vector. Its mean vector and covariance are defined in Eq.~\eqref{eq:sr32-1}. The commutation convention is Eq.~\eqref{eq:sr32-2}.
+
+\begin{equation}
+\begin{aligned}
+ (d_\theta)_j&:=\operatorname{Tr}(\rho_\theta R_j),\\
+ (V_\theta)_{jk}&:=\frac12\operatorname{Tr}(\rho_\theta\{R_j-(d_\theta)_j,R_k-(d_\theta)_k\}).
+\end{aligned}
+\label{eq:sr32-1}
+\end{equation}
+
+\begin{equation}
+[R_j,R_k]=i\Omega_{jk},\qquad
+\Omega:=\bigoplus_{j=1}^{n}\begin{pmatrix}0&1\\-1&0\end{pmatrix}.
+\label{eq:sr32-2}
+\end{equation}
+
+Assume the symmetric logarithmic derivative quantum Fisher information matrix is nonsingular. Let $W$ be a real positive-definite $p\times p$ weight matrix.
+
+Define the optimal single-copy Gaussian-measurement cost by Eq.~\eqref{eq:sr32-3}.
+
+\begin{equation}
+C_G(\theta,W):=\inf_{M\ \mathrm{Gaussian}}\operatorname{tr}(WF_M(\theta)^{-1}),
+\label{eq:sr32-3}
+\end{equation}
+
+where $F_M$ is the classical Fisher information matrix of measurement $M$, and singular $F_M$ has infinite cost. Gaussian measurements mean Gaussian-ancilla preparations followed by Gaussian unitaries and homodyne detection with arbitrary classical processing.
+
+Define the Holevo bound $C_H(\theta,W)$ as the infimum of Eq.~\eqref{eq:sr32-4}.
+
+\begin{equation}
+\operatorname{tr}(W\operatorname{Re}Z)+\|\sqrt W\operatorname{Im}Z\sqrt W\|_1
+\label{eq:sr32-4}
+\end{equation}
+
+The infimum is over Hermitian observables $X_1,\ldots,X_p$ with finite second moments, subject to Eq.~\eqref{eq:sr32-5}.
+
+\begin{equation}
+\begin{aligned}
+ Z_{jk}&:=\operatorname{Tr}(\rho_\theta X_jX_k),\\
+ \operatorname{Tr}(\rho_\theta X_j)&=0,\qquad
+ \operatorname{Tr}((\partial_k\rho_\theta)X_j)=\delta_{jk}.
+\end{aligned}
+\label{eq:sr32-5}
+\end{equation}
+The measurement is optimized locally at the specified $\theta$; its setting is held fixed when taking derivatives for $F_M$.
+The symmetric logarithmic derivatives $L_j$ satisfy $2\partial_j\rho_\theta=\rho_\theta L_j+L_j\rho_\theta$.
+Their Fisher matrix has entries $\operatorname{Re}\operatorname{Tr}(\rho_\theta L_jL_k)$.
+The requested criterion must characterize $C_G(\theta,W)=C_H(\theta,W)$, rather than merely restate these two optimizations.
+Equality of the infima is the target. A limiting sequence of Gaussian measurements counts, even if no individual measurement attains the value.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+This attainability classification is derived from the Gaussian-measurement restriction identified as an open direction in the Discussion of Chang, Genoni, and Albarelli \sourcecite{ref:sr32-chang}{CGA26}. It is narrower than asking how to evaluate the Holevo bound itself.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item The Holevo minimization for a faithful Gaussian model can be restricted exactly to centered linear and symmetrized quadratic quadrature observables. Chang, Genoni, and Albarelli prove the required invariant-subspace property in Derivations and give a finite semidefinite program in Eqs.~(36) and (72) \sourcecite{ref:sr32-chang}{CGA26}. This computes $C_H$ from the local moments and derivatives. It does not show that a Gaussian measurement attains it.
+
+  \item For Gaussian shift models with parameter-independent covariance, Gaussian measurements attain the Holevo bound. Bradshaw, Lam, and Assad construct the measurement in Sec.~III.B and extend it to arbitrary finite mode and displacement-parameter counts in Appendix~C \sourcecite{ref:sr32-bradshaw}{BLA18}. A positive weight can be absorbed into an invertible linear reparameterization. The result does not cover general covariance parameters.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[CGA26]}]\label{ref:sr32-chang}
+  S. Chang, M. G. Genoni, and F. Albarelli, ``Efficiently Evaluating Holevo, RLD and SLD Cram\'er-Rao Bounds for Multiparameter Quantum Estimation with Gaussian States,'' \emph{Communications Physics} \textbf{9}, 126 (2026). \href{https://doi.org/10.1038/s42005-026-02550-6}{doi:10.1038/s42005-026-02550-6}; \href{https://arxiv.org/abs/2504.17873}{arXiv:2504.17873}.
+
+  \item[\textup{[BLA18]}]\label{ref:sr32-bradshaw}
+  M. Bradshaw, P. K. Lam, and S. M. Assad, ``Ultimate Precision of Joint Quadrature Parameter Estimation with a Gaussian Probe,'' \emph{Physical Review A} \textbf{97}, 012106 (2018). \href{https://doi.org/10.1103/PhysRevA.97.012106}{doi:10.1103/PhysRevA.97.012106}; \href{https://arxiv.org/abs/1710.04817}{arXiv:1710.04817}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The unresolved question is a general criterion for equality with the restricted single-copy measurement cost. A finite optimization of the Holevo bound already exists. Quadratic optimizing observables can require non-Gaussian detection, and collective asymptotic attainability is a different property.
+
+\subsection*{Field}
+
+Quantum metrology
+
+\subsection*{Topic}
+
+Quantum estimation; Gaussian quantum information
+
+\subsection*{ID}
+
+\texttt{op\_8f1853475db7ea27}

@@ -1,3 +1,4 @@
+import { submissionsOnline as acceptsSubmissions, anonymousSubmissionsAllowed } from "./submission-settings.mjs";
 // HTML templates for every page of the zoo. Pure functions: records in,
 // strings out. No runtime dependencies.
 
@@ -10,6 +11,11 @@ const escape = (value = "") => String(value)
   .replaceAll("<", "&lt;")
   .replaceAll(">", "&gt;")
   .replaceAll('"', "&quot;");
+
+// Field labels use title case; stored taxonomy names remain stable keys.
+const tagLabel = (name, kind) => kind === "field"
+  ? name.replace(/\b[a-z]/g, (letter) => letter.toUpperCase())
+  : name;
 
 export const displayDate = (iso) => {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return iso;
@@ -25,7 +31,9 @@ export const displayDateTime = (iso) => {
 
 const MATHJAX = `<script>
       window.MathJax = {
+        loader: { load: ["ui/safe"] },
         tex: {
+          macros: { ket: ["\\\\lvert #1\\\\rangle", 1] },
           inlineMath: [["\\\\(", "\\\\)"]],
           displayMath: [["\\\\[", "\\\\]"]],
           processEnvironments: true,
@@ -33,7 +41,13 @@ const MATHJAX = `<script>
           tags: "none"
         },
         svg: { fontCache: "global", scale: 1 },
-        options: { ignoreHtmlClass: "no-math", processHtmlClass: "math-ready" },
+        options: {
+          ignoreHtmlClass: "no-math", processHtmlClass: "math-ready",
+          safeOptions: {
+            allow: { URLs: "safe", classes: "none", cssIDs: "none", styles: "none" },
+            safeProtocols: { http: true, https: true, file: false, javascript: false, data: false }
+          }
+        },
         startup: { typeset: true }
       };
     </script>
@@ -67,7 +81,7 @@ export const statusTag = (status, extraClass = "") => {
 
 // A field or topic pill. Fields are primary (solid), topics secondary (outlined).
 export const tagLink = (tag, root, kind = "topic", count = null) =>
-  `<a class="tag tag-${kind}" href="${root}tag/${slug(tag)}/" title="${TAG_KINDS[kind].label}: ${escape(tag)}">${escape(tag)}${count === null ? "" : ` <span class="tag-count">${count}</span>`}</a>`;
+  `<a class="tag tag-${kind}" href="${root}tag/${slug(tag)}/" title="${TAG_KINDS[kind].label}: ${escape(tagLabel(tag, kind))}">${escape(tagLabel(tag, kind))}${count === null ? "" : ` <span class="tag-count">${count}</span>`}</a>`;
 
 // The list items of a record's fields followed by its topics.
 export const tagItems = (record, root) => [
@@ -141,11 +155,12 @@ ${body}
         <a href="${root}problems/">All problems</a>
         <a href="${root}tags/">Fields and topics</a>
         <a href="${root}about/">About and how to cite</a>
+        <a href="${root}about/#licensing">Licensing</a>
         <a href="${root}contribute/">Contribute</a>
         <a href="${root}api/index.json">JSON API</a>
         <a href="${config.repositoryUrl}" rel="noreferrer">Source repository</a>
       </nav>
-      ${current === "home" ? `<p class="footer-note footer-credit">Developed and maintained by Bikun Li, Qicheng Tang, Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo. <a href="${root}about/#contributions">Contributions</a>.</p>` : ""}
+      <p class="footer-note footer-credit">Supported by <a href="https://gauge-forge.com/" rel="noreferrer">GaugeForge</a>. We also welcome other sponsors. <a href="${root}about/#contributions">Contributors and acknowledgments</a>.</p>
       <p class="footer-note">A dated research index. Verify a status against the cited sources before relying on it. <a href="#top">Back to top ↑</a></p>
     </footer>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -264,6 +279,13 @@ export function renderProblemPage({ record, config, root, related, dates }) {
   const permalink = problemUrl(config, record.id);
   const bib = bibtex(record, config, dates);
   const plain = textCitation(record, config, dates);
+  const contributors = (record.contributors ?? []).filter((person) => person?.anonymous === false && typeof person.name === "string" && person.name.trim());
+  const contributorSection = contributors.length ? `
+        <section class="problem-section no-math" id="contributors" aria-labelledby="contributors-title">
+          <h2 id="contributors-title">Contributors</h2>
+          <ul class="contributors-list">${contributors.map((person) => `<li><span class="contributor-name">${escape(person.name.trim())}</span>${person.affiliation?.trim() ? `<span class="contributor-affiliation">${escape(person.affiliation.trim())}</span>` : ""}</li>`).join("")}</ul>
+        </section>
+` : "";
   const references = record.references.map((entry) => `<div class="reference" id="${entry.anchor}">
         <dt><a href="#${entry.anchor}">[${escape(entry.key)}]</a></dt>
         <dd>${entry.html}${entry.links.length ? `<span class="reference-links">${entry.links.map((link) => `<a href="${escape(link.url)}" rel="noreferrer" class="ref-link ref-${link.kind}">${link.kind === "arxiv" ? "arXiv" : link.kind === "doi" ? "DOI" : "link"}</a>`).join("")}</span>` : ""}</dd>
@@ -272,7 +294,7 @@ export function renderProblemPage({ record, config, root, related, dates }) {
     ? `<ul class="related-list">${related.map((item) => `<li>
         <a href="${root}problem/${item.record.id}/">${item.record.title.html}</a>
         ${statusTag(item.record.status, "status-tag-small")}
-        <span class="related-tags">${item.shared.map((tag) => escape(tag)).join(" · ")}</span>
+        <span class="related-tags">${item.shared.map((tag) => escape(tagLabel(tag, item.record.fields.includes(tag) ? "field" : "topic"))).join(" · ")}</span>
       </li>`).join("")}</ul>`
     : `<p class="muted">No other problem shares a field or topic with this one yet.</p>`;
   const taxonomyRow = (kind, names) => `<div class="taxonomy-row">
@@ -330,7 +352,7 @@ export function renderProblemPage({ record, config, root, related, dates }) {
       ${references}
           </dl>
         </section>
-
+${contributorSection}
         <section class="problem-section" id="related">
           <h2>Related problems</h2>
           ${relatedList}
@@ -348,7 +370,7 @@ export function renderProblemPage({ record, config, root, related, dates }) {
           </div>
           <div class="contribute-box">
             <h2>Your contribution is welcome!</h2>
-            <p>Found progress, a correction, or a resolution? <a href="${editUrl}" rel="noreferrer">Edit this record on GitHub</a> and open a pull request, or <a href="${issueUrl}" rel="noreferrer">report an update</a> with the primary sources. To propose a new problem without a GitHub account, use the <a href="${root}contribute/">proposal form</a>; the <a href="${root}about/#contribute">contribution guide</a> covers both routes.</p>
+            <p>Found progress, a correction, or a resolution? <a href="${editUrl}" rel="noreferrer">Edit this record on GitHub</a> and open a pull request, or <a href="${issueUrl}" rel="noreferrer">report an update</a> with the primary sources. The <a href="${root}contribute/">proposal page</a> explains the available submission route; see the <a href="${root}about/#contribute">contribution guide</a> for details.</p>
           </div>
           <div class="cite-box">
             <h2>Cite this page</h2>
@@ -505,7 +527,7 @@ export function renderDirectory({ config, root, records, fieldCounts, topicCount
               <legend>Field</legend>
               <div class="facet-list">
                 ${facet("field", "all", "All fields", records.length, true)}
-                ${fields.map(([tag, count]) => facet("field", slug(tag), escape(tag), count)).join("\n                ")}
+                ${fields.map(([tag, count]) => facet("field", slug(tag), escape(tagLabel(tag, "field")), count)).join("\n                ")}
               </div>
             </fieldset>
             <div class="filter-group select-filter">
@@ -565,7 +587,7 @@ export function renderTagsIndex({ config, root, taxonomy, fieldCounts, topicCoun
       <details class="unused-tags">
         <summary>Reserved names without problems yet (${unused})</summary>
         ${unusedFields.length ? `<p class="unused-label">Fields</p>
-        <ul class="tag-list">${unusedFields.map((tag) => `<li><span class="tag tag-field tag-muted">${escape(tag)}</span></li>`).join("")}</ul>` : ""}
+        <ul class="tag-list">${unusedFields.map((tag) => `<li><span class="tag tag-field tag-muted">${escape(tagLabel(tag, "field"))}</span></li>`).join("")}</ul>` : ""}
         ${unusedTopics.length ? `<p class="unused-label">Topics</p>
         <ul class="tag-list">${unusedTopics.map((tag) => `<li><span class="tag tag-topic tag-muted">${escape(tag)}</span></li>`).join("")}</ul>` : ""}
       </details>
@@ -580,15 +602,16 @@ export function renderTagsIndex({ config, root, taxonomy, fieldCounts, topicCoun
 
 export function renderTagPage({ config, root, kind, tag, tagSlug = slug(tag), historical = false, records, related }) {
   const meta = TAG_KINDS[kind];
+  const label = historical ? tag : tagLabel(tag, kind);
   const otherKind = kind === "field" ? "topic" : "field";
   const counts = { unsolved: 0, solved: 0 };
   for (const record of records) counts[record.statusSlug] += 1;
   const relatedEntries = byCountThenName(related);
   const body = `
     <section class="section-shell">
-      <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><a href="${root}tags/">Fields and topics</a><span aria-hidden="true">›</span><span>${escape(tag)}</span></nav>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><a href="${root}tags/">Fields and topics</a><span aria-hidden="true">›</span><span>${escape(label)}</span></nav>
       <div class="section-heading">
-        <div><p class="section-index">${historical ? "Historical classification" : meta.label}</p><h1>${escape(tag)}</h1></div>
+        <div><p class="section-index">${historical ? "Historical classification" : meta.label}</p><h1>${escape(label)}</h1></div>
         <p>${records.length} record${records.length === 1 ? "" : "s"}: ${counts.unsolved} unsolved, ${counts.solved} solved. <a class="text-link" href="${root}problems/?${historical ? "legacyTag" : kind}=${encodeURIComponent(tagSlug)}">Filter the catalog by this ${historical ? "historical classification" : kind} →</a></p>
       </div>
       ${relatedEntries.length ? `<div class="top-tags tag-page-related">
@@ -601,13 +624,14 @@ export function renderTagPage({ config, root, kind, tag, tagSlug = slug(tag), hi
     </section>`;
   return layout({
     config, root, path: `tag/${tagSlug}/`, current: "tags",
-    title: `${tag} · ${historical ? "Historical classification" : meta.label}`,
-    description: historical ? `${records.length} records from the historical classification “${tag}” of the ${config.shortName}.` : `${records.length} problem records in the ${kind} “${tag}” of the ${config.shortName}.`,
+    title: `${label} · ${historical ? "Historical classification" : meta.label}`,
+    description: historical ? `${records.length} records from the historical classification “${label}” of the ${config.shortName}.` : `${records.length} problem records in the ${kind} “${label}” of the ${config.shortName}.`,
     body, bodyClass: "page-tag"
   });
 }
 
-export function renderAbout({ config, root, stats, dates }) {
+export function renderAbout({ config, root, dates }) {
+  const submissionsOnline = acceptsSubmissions(config);
   const mcpServiceUrl = config.mcp.serviceUrl;
   const mcpUrl = config.mcp.url;
   const mcpConfig = JSON.stringify({
@@ -631,11 +655,16 @@ export function renderAbout({ config, root, stats, dates }) {
       </div>
       <div class="prose">
         <h2 id="what">What the zoo is</h2>
-        <p>The ${escape(config.shortName)} collects research-level open problems in quantum information and quantum computation. Each record is written for readers with a PhD in the field: a self-contained statement with the definitions it needs, the paper that posed the problem, the results that delimit it, the precise remaining gap, and full references with author–year labels.</p>
-        <p>The zoo holds ${stats.total} permanent records covering ${(stats.distinctQuestions ?? stats).total} distinct questions: ${(stats.distinctQuestions ?? stats).unsolved} unsolved and ${(stats.distinctQuestions ?? stats).solved} solved. Equivalent formulations are linked and count once in these question totals. Solved problems stay in the zoo with their resolution so that citations survive.</p>
+        <p>The ${escape(config.shortName)} is a place to explore research problems in quantum information and quantum computation. Each problem page brings together a clear statement, the background needed to understand it, key references, and what is known so far.</p>
+        <p>Browse by field or topic, follow the sources, or share a problem you think belongs here. The collection grows through contributions from the community and review by the maintainers. Problem pages keep permanent links, so you can return to them as the research develops.</p>
+
+        <h2 id="what-will-be-collected">What will be collected</h2>
+        <p>We collect meaningful, significant unsolved problems in quantum information and quantum computation. Each problem should be formulated precisely in mathematical language, with clear assumptions and an unambiguous criterion for a solution. When a problem is solved, its page stays in the zoo and is updated with the resolution and supporting references.</p>
 
         <h2 id="contribute">How to contribute</h2>
-        <p>The quickest route is the <a href="${root}contribute/">proposal form</a>: describe the problem, its sources, and what is known, and leave your name and email. No account is needed. The maintainers check every proposal against the literature, rewrite it in the zoo's format, and publish it with credit to you; nothing appears on the site automatically. To add a record yourself through GitHub:</p>
+        <p>${submissionsOnline
+          ? `Use the <a href="${root}contribute/">proposal form</a> to send a problem, its sources, and what is known. No account is needed.`
+          : `Propose a problem through a <a href="${config.repositoryUrl}/issues/new?template=new-problem.yml">GitHub issue</a> (a GitHub account is required). The <a href="${root}contribute/">proposal worksheet</a> helps you prepare and copy the text; online sending is not enabled yet.`} The maintainers check proposals against the literature and publish reviewed records with credit to contributors${anonymousSubmissionsAllowed(config) ? ", respecting requests to remain anonymous" : ""}. To add a record yourself through GitHub:</p>
         <ol>
           <li>Fork the <a href="${config.repositoryUrl}" rel="noreferrer">repository</a> and run <code>node scripts/new-problem-id.mjs --create</code> to create a problem template with permanent identifiers.</li>
           <li>Write the statement, status, source, progress, references, and comment as TeX fragments in the record's fields, following the contribution guide, and choose one or two fields and one to five topics from <code>database/tags.json</code>. Run <code>node scripts/migrate-metadata.mjs</code> after changing the classifications.</li>
@@ -661,12 +690,16 @@ export function renderAbout({ config, root, stats, dates }) {
               <div class="copy-block no-math"><pre id="mcp-config">${escape(mcpConfig)}</pre><button class="copy-button" type="button" data-copy="mcp-config" aria-label="Copy MCP client configuration">Copy</button></div>
             </details>
           </li>
-          <li><strong>Ask a research question.</strong> For example: “Use the quantum-open-problems MCP to find unsolved problems about quantum channel capacity, then summarize one problem's known progress and references.” The assistant can use <code>search_problems</code>, <code>get_problem</code>, <code>list_references</code>, and <code>build_context</code>.</li>
+          <li><strong>Ask a research question.</strong> For example: “Use the quantum-open-problems MCP to find unsolved problems about quantum channel capacity, then summarize one problem's known progress and references.” The assistant can use <code>search_problems</code>, <code>get_problem</code>, <code>read_problem</code>, <code>list_references</code>, and <code>build_context</code>.</li>
         </ol>
         <p>The connection reads the current hosted catalog, including newly published problems. If it fails, check the <a href="${escape(mcpServiceUrl)}/api/v1/status" rel="noreferrer">catalog service status</a> and confirm that your client supports remote MCP. The <a href="${config.repositoryUrl}/blob/${config.branch}/mcp/README.md" rel="noreferrer">MCP setup and tool guide</a> also covers local clients and authenticated research contributions. For direct downloads, the <a href="${root}api/index.json">JSON catalog</a>, <a href="${root}api/tags.json">taxonomy</a>, and <a href="${root}llms.txt">agent guide</a> are available.</p>
 
+        <h2 id="licensing">Licensing and reuse</h2>
+        <p>The software uses <a href="${root}licenses/Apache-2.0.txt">Apache-2.0</a>. New original catalog contributions use <a href="https://creativecommons.org/licenses/by/4.0/" rel="noreferrer">CC BY 4.0</a>, allowing sharing, adaptation, and commercial use with attribution, license information, and an indication of changes. Contributors retain their copyright.</p>
+        <p>Earlier catalog text requires permission confirmation before it is covered by CC BY 4.0. Cited papers and other third-party material retain their own terms. See the <a href="${root}licenses/scope.txt">licensing scope and permissions</a>, <a href="${root}licenses/CC-BY-4.0.txt">content license</a>, and <a href="${root}licenses/NOTICE.txt">retained copyright notices</a>. Cite the primary sources for mathematical results and preserve the supplied contributor credits when reusing licensed text.</p>
+
         <h2 id="contributions"><span id="credits">Contributions</span></h2>
-        <p>This project is developed and maintained by Bikun Li, Qicheng Tang, Chengkai Zhu, Minbo Gao, Bin Cheng, and Naixu Guo.</p>
+        <p>This project is developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Zhong-Xia Shang, Bin Cheng, Shihao Ru, and Naixu Guo.</p>
         <p>We thank <a href="https://gauge-forge.com/" rel="noreferrer">GaugeForge</a> for its financial support of this project.</p>
         <p>Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
       </div>
@@ -709,7 +742,9 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
   const widget = CAPTCHA_WIDGETS[providerKey];
   if (!widget) throw new Error(`site/config.json: contribute.captcha.provider must be one of ${Object.keys(CAPTCHA_WIDGETS).join(", ")}`);
   const siteKey = String(settings.captcha?.siteKey ?? "").trim();
-  const online = Boolean(submissionUrl && siteKey);
+  const online = acceptsSubmissions(config);
+  const allowAnonymous = anonymousSubmissionsAllowed(config);
+  const usesCaptcha = online && settings.spamProtection !== "basic";
   const issueUrl = `${config.repositoryUrl}/issues/new?template=new-problem.yml`;
   const L = PROPOSAL_LIMITS;
   const topics = taxonomy.topics.slice().sort((a, b) => a.localeCompare(b));
@@ -718,7 +753,7 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
   const picker = (kind, plural, names, counts, max, placeholder) => `<div class="picker" data-picker="${plural}" data-kind="${kind}" data-max="${max}">
               <select id="${kind}-select" aria-describedby="${kind}-select-hint">
                 <option value="">${placeholder}</option>
-                ${names.map((name) => `<option value="${escape(name)}">${escape(name)}${counts.get(name) ? ` (${counts.get(name)})` : ""}</option>`).join("\n                ")}
+                ${names.map((name) => `<option value="${escape(name)}">${escape(tagLabel(name, kind))}${counts.get(name) ? ` (${counts.get(name)})` : ""}</option>`).join("\n                ")}
                 <option value="__other__">Other: add a ${kind} of your own…</option>
               </select>
               <div class="picker-custom" hidden>
@@ -737,21 +772,21 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
           </div>`;
   const input = (id, name, attrs = "") => `<input id="${id}" name="${name}" type="text" ${attrs} aria-describedby="${id}-hint">`;
   const textarea = (id, name, rows, attrs = "") => `<textarea id="${id}" name="${name}" rows="${rows}" ${attrs} aria-describedby="${id}-hint"></textarea>`;
-  const captchaSlot = online
+  const captchaSlot = usesCaptcha
     ? `<div class="${widget.className}" data-sitekey="${escape(siteKey)}" data-theme="auto"></div>
             <p class="form-hint">Verification by <a href="${widget.privacyUrl}" rel="noreferrer">${widget.name}</a>, which keeps automated submissions out of the inbox.</p>`
-    : `<div class="form-notice" id="proposal-offline">Online sending is not connected on this deployment yet. Fill in the form, use <strong>Copy as text</strong>, and paste the proposal into a <a href="${issueUrl}" rel="noreferrer">new-problem issue on GitHub</a> or an email to the maintainers.</div>`;
+    : online ? "" : `<div class="form-notice" id="proposal-offline">Online sending is not enabled yet. Fill in this worksheet, use <strong>Copy as text</strong>, and paste it into a <a href="${issueUrl}" rel="noreferrer">new-problem issue on GitHub</a>. Submitting the issue requires a GitHub account. The worksheet does not send your details anywhere.</div>`;
   const body = `
     <div class="contribute-layout">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><span>Contribute</span></nav>
       <div class="section-heading">
         <div><p class="section-index">Contribute</p><h1>Propose an open problem</h1></div>
-        <p>Anyone can propose a problem; no account is needed. Every proposal is checked, rewritten in the zoo's format, and published by the maintainers with credit to you.</p>
+        <p>${online ? "Send a proposal without an account." : "Prepare a proposal here, then submit it through GitHub with an account."} The maintainers review proposals and publish accepted records with credit to contributors${allowAnonymous ? ", unless they choose to remain anonymous" : ""}.</p>
       </div>
       <div class="contribute-routes no-math">
         <div class="route-card">
-          <h2>Use this form</h2>
-          <p>Describe the problem, where it was posed, and what is known. The maintainers take it from there and may email you about the details. Nothing appears on the site until it has been reviewed.</p>
+          <h2>${online ? "Use this form" : "Prepare a proposal"}</h2>
+          <p>Describe the problem, where it was posed, and what is known. ${online ? "The maintainers may email you about the details." : "Copy the completed text into a GitHub issue and remove contact details you do not want to publish."} Nothing appears on the site until it has been reviewed.</p>
         </div>
         <div class="route-card">
           <h2>Or write the record yourself</h2>
@@ -759,11 +794,11 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
         </div>
       </div>
 
-      <form class="proposal-form no-math" id="proposal-form" novalidate data-submit-url="${escape(submissionUrl)}" data-captcha-provider="${online ? providerKey : ""}" data-captcha-response="${online ? widget.responseField : ""}" data-limits='${escape(JSON.stringify(L))}'>
+      <form class="proposal-form no-math" id="proposal-form" novalidate data-content-license="CC-BY-4.0" data-submit-url="${escape(submissionUrl)}" data-captcha-provider="${usesCaptcha ? providerKey : ""}" data-captcha-response="${usesCaptcha ? widget.responseField : ""}" data-allow-anonymous="${allowAnonymous}" data-limits='${escape(JSON.stringify(L))}'>
         <fieldset>
           <legend>The problem</legend>
           ${field("proposal-title", "Title", input("proposal-title", "title", `required minlength="${L.title.min}" maxlength="${L.title.max}" autocomplete="off"`), "A short descriptive title, as it would head the problem page.")}
-          ${field("proposal-statement", "Statement", textarea("proposal-statement", "statement", 12, `required minlength="${L.statement.min}" maxlength="${L.statement.max}" spellcheck="false"`), `Self-contained, with the definitions, hypotheses, and quantifiers a reader needs, and a checkable resolution criterion. Write mathematics as in TeX: <code>$\\ldots$</code> inline, <code>\\[ \\ldots \\]</code> or an <code>equation</code> environment for display. Up to ${L.statement.max.toLocaleString("en")} characters.`)}
+          ${field("proposal-statement", "Statement", `<div class="statement-input">${textarea("proposal-statement", "statement", 12, `required minlength="${L.statement.min}" maxlength="${L.statement.max}" spellcheck="false"`)}<span class="statement-placeholder math-ready" id="statement-placeholder" aria-hidden="true">\\(\\ket{\\psi}\\)</span></div>`, `Self-contained, with the definitions, hypotheses, and quantifiers a reader needs, and a checkable resolution criterion. Write mathematics as in TeX: <code>$\\ldots$</code> inline, <code>\\[ \\ldots \\]</code> or an <code>equation</code> environment for display. Up to ${L.statement.max.toLocaleString("en")} characters.`)}
           <div class="form-row form-row-inline">
             <button class="button button-ghost button-small" type="button" id="statement-preview-button">Preview</button>
             <div class="statement-preview math-ready" id="statement-preview" hidden aria-live="polite"></div>
@@ -786,7 +821,7 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
 
         <fieldset>
           <legend>Sources and progress</legend>
-          ${field("proposal-source", "Source", textarea("proposal-source", "source", 3, `maxlength="${L.source.max}"`), "The paper or preprint that posed the problem, or the papers in which it is implicit. Write “Contributor: your name” if it has no literature source.")}
+          ${field("proposal-source", "Source", textarea("proposal-source", "source", 3, `maxlength="${L.source.max}"`), `The paper or preprint that posed the problem, or the papers in which it is implicit. If it has no literature source, write “Contributor: your name”${allowAnonymous ? " for named credit, or “unknown” to remain anonymous" : ""}.`)}
           ${field("proposal-progress", "Known progress", textarea("proposal-progress", "progress", 6, `maxlength="${L.progress.max}"`), "Results that delimit the problem, each with its source and a sentence on why it falls short of the full question.")}
           ${field("proposal-references", "References", textarea("proposal-references", "references", 6, `maxlength="${L.references.max}"`), "Full bibliographic entries with DOI and arXiv identifiers, one per line. BibTeX is welcome.")}
         </fieldset>
@@ -799,12 +834,16 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
         <fieldset>
           <legend>About you</legend>
           <div class="form-grid-2">
-            ${field("proposal-name", "Name", input("proposal-name", "name", `required maxlength="${L.name.max}" autocomplete="name"`), "As you would like to be credited.")}
+            ${field("proposal-name", "Name", input("proposal-name", "name", `required maxlength="${L.name.max}" autocomplete="name"`), allowAnonymous ? "Required for review, even if you choose to remain anonymous." : "Required for review and contributor credit.")}
             ${field("proposal-email", "Email", `<input id="proposal-email" name="email" type="email" required maxlength="${L.email.max}" autocomplete="email" aria-describedby="proposal-email-hint">`, "For questions about the proposal only; never published.")}
           </div>
           ${field("proposal-affiliation", "Affiliation (optional)", input("proposal-affiliation", "affiliation", `maxlength="${L.affiliation.max}" autocomplete="organization"`))}
+          ${allowAnonymous ? `<div class="form-row">
+            <label class="consent"><input type="checkbox" name="anonymous" id="proposal-anonymous" aria-describedby="proposal-anonymous-hint"><span>I would like to remain anonymous for this problem.</span></label>
+            <p class="form-hint" id="proposal-anonymous-hint">Your name and email are still required so the maintainers can review your proposal and contact you. If selected, your name and affiliation will not appear in this problem's contributor credit. You can make a different choice for each problem.</p>
+          </div>` : `<p class="form-hint">This form currently accepts proposals with named contributor credit. Anonymous credit is not available through this form yet.</p>`}
           <div class="form-row">
-            <label class="consent"><input type="checkbox" name="consent" id="proposal-consent" required><span>I agree that the maintainers store this proposal with my name and email address to review it and to contact me about it, and that the problem, once rewritten, may be published in the zoo under its <a href="${config.repositoryUrl}/blob/${config.branch}/LICENSE" rel="noreferrer">license</a> with credit to me.</span></label>
+            <label class="consent"><input type="checkbox" name="consent" id="proposal-consent" required><span>I license my original text under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noreferrer">CC BY 4.0</a> and confirm I have the right to do so. I have identified third-party material and its terms. I agree that the maintainers store this proposal and my contact details for review, and may edit and publish the proposal${allowAnonymous ? ", respecting my choice about contributor credit" : ", with my name and any affiliation I provide in the contributor credit"}. My email stays private. <a href="${root}about/#licensing">Licensing details</a>.</span></label>
           </div>
           <div class="hp" aria-hidden="true">
             <label for="proposal-extra">Leave this field empty</label>
@@ -835,7 +874,7 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
     title: "Propose an open problem",
     description: `Propose an open problem for the ${config.shortName}: statement, fields and topics, sources, progress, and how to reach you. Proposals are reviewed and rewritten by the maintainers before publication.`,
     body, bodyClass: "page-contribute",
-    extraHead: online ? `<script src="${widget.script}" async defer></script>` : ""
+    extraHead: usesCaptcha ? `<script src="${widget.script}" async defer></script>` : ""
   });
 }
 

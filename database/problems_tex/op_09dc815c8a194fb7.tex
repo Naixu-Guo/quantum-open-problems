@@ -7,8 +7,7 @@
 \paragraph{Problem.}
 What is the exact LOCC distillable entanglement
 $E_D(\rho_{\mathrm{as}}^{(d)})$ of the $d\times d$ antisymmetric state, for
-each integer $d\ge3$ --- as a closed form, or asymptotically through the
-existence and value of $\lim_{d\to\infty}d\,E_D(\rho_{\mathrm{as}}^{(d)})$?
+each integer $d\ge3$?
 
 Let $F$ be the swap operator on $\mathbb C^d\otimes\mathbb C^d$, acting by
 $F\,|ij\rangle=|ji\rangle$ on the computational basis.  Define the
@@ -38,9 +37,7 @@ and replacing LOCC in Eq.~\eqref{eq:09dc-distillable-entanglement} by
 completely PPT-preserving operations defines the relaxation
 $E_{D,\mathrm{PPT}}(\rho_{\mathrm{as}}^{(d)})$, which is exactly known ---
 see Progress --- so the open quantity is the LOCC rate itself.  Determine
-$E_D(\rho_{\mathrm{as}}^{(d)})$ exactly for every $d\ge3$: as a closed form,
-or asymptotically through the existence and value of
-$\lim_{d\to\infty}d\,E_D(\rho_{\mathrm{as}}^{(d)})$.  A complete answer
+$E_D(\rho_{\mathrm{as}}^{(d)})$ exactly for every $d\ge3$.  A complete answer
 consists of an explicit LOCC achievability protocol together with a
 matching converse bound.
 
@@ -79,7 +76,7 @@ entanglement cost at $d=3$ settles the cost side of the same question
   and the parties keep the runs in which both obtain the same pair.  Conditioned on a common pair, the post-measurement state is the
   singlet $(\lvert ij\rangle-\lvert ji\rangle)/\sqrt{2}$ on that pair, so every kept
   run is one ebit, and the $\lfloor d/2\rfloor$ common-pair
-  outcomes, each of conditional probability $2/(d(d-1))$, occur with total
+  outcomes, each of unconditional probability $2/(d(d-1))$, occur with total
   probability
   \begin{equation}
     p_d:=\frac{2\lfloor d/2\rfloor}{d(d-1)}
@@ -307,10 +304,14 @@ exactly $\log_2\bigl(1+\tfrac2d\bigr)\sim 2/(d\ln2)$, so neither the
 existence nor the value of
 $\lim_{d\to\infty}d\,E_D(\rho_{\mathrm{as}}^{(d)})$ is established; in
 particular whether the LOCC rate attains the PPT constant $2/\ln2$ or
-falls below it by a definite factor is open.  A proof that LOCC attains
-the PPT rate of Eq.~\eqref{eq:09dc-bracket} on this family, or a positive
-separation between the two rates, would settle the asymptotic
-alternative; the PPT side itself is closed.  This record asks for the
+falls below it by a definite factor is open.  Determining the existence and value of this limit is a secondary
+asymptotic question, not a complete answer to the exact finite-dimensional
+problem.  A positive LOCC--PPT gap alone does not determine the limit: a
+gap of order $1/d^2$ leaves the leading constant unchanged.  Even a gap
+bounded below by $c/d$ for a fixed $c>0$ would only exclude the PPT leading
+constant, without establishing existence or the exact value of the LOCC
+limit.  A complete solution requires matching LOCC achievability and
+converse bounds for every finite $d\ge3$; the PPT side itself is closed.  This record asks for the
 value of a rate on one explicit family, unlike
 Problem~\ref{sec:op_b93eb7197c926d9e}, the LOCC distillable entanglement
 of Bell-diagonal qubit states, and

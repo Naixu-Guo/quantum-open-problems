@@ -12,8 +12,15 @@
     // Apply the saved theme before first paint so the page does not flash.
     try { const t = localStorage.getItem("qop-theme"); if (t) document.documentElement.dataset.theme = t; } catch {}
     window.MathJax = {
+      loader: { load: ["ui/safe"] },
       tex: { inlineMath: [["$", "$"], ["\\(", "\\)"]], displayMath: [["$$", "$$"], ["\\[", "\\]"]], processEscapes: true, tags: "ams" },
-      options: { skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"], ignoreHtmlClass: "no-math" },
+      options: {
+        skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"], ignoreHtmlClass: "no-math",
+        safeOptions: {
+          allow: { URLs: "safe", classes: "none", cssIDs: "none", styles: "none" },
+          safeProtocols: { http: true, https: true, file: false, javascript: false, data: false }
+        }
+      },
       startup: {
         typeset: false,
         // The typeset methods exist once defaultReady has run; the page waits for this event, not for an initial typeset.

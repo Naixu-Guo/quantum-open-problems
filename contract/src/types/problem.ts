@@ -13,6 +13,8 @@ export interface AuthoredCatalog {
   status: ProblemStatus;
   sourcePath: string;
   record?: Record<string, unknown>;
+  mergedIntoProblemId?: string;
+  mergeReason?: string;
 }
 
 export interface Problem extends RevisableBase {
@@ -42,6 +44,7 @@ export function references(problem: Problem): Ref[] {
     ...ref("parentClauseId", "Clause", problem.parentClauseId),
     ...refs("relatedProblemIds", "Problem", problem.relatedProblemIds),
     ...ref("equivalentToProblemId", "Problem", problem.equivalentToProblemId ?? null),
+    ...ref("authoredCatalog.mergedIntoProblemId", "Problem", problem.authoredCatalog?.mergedIntoProblemId ?? null),
   ];
 }
 
@@ -50,6 +53,14 @@ export function rules(problem: Problem, ledger: Ledger): string[] {
   const previous = (ledger.revisions.get(problem.id) ?? []).find((record) => record.type === "Problem" && record.fields["revision"] === problem.revision - 1);
   if (previous && !isDeepStrictEqual(previous.fields["authoredCatalog"], problem.authoredCatalog) && !ledger.catalogExports.has(`${problem.id}@${problem.revision}`)) {
     errors.push("authoredCatalog is an authoritative import snapshot and cannot be added, removed, or changed by a problem revision");
+  }
+  const mergedInto = problem.authoredCatalog?.mergedIntoProblemId;
+  if (mergedInto && !previous && !ledger.catalogExports.has(`${problem.id}@${problem.revision}`)) errors.push("a catalog merge must be introduced by a pinned catalog export");
+  if (mergedInto && ledger.find("Problem", problem.id)?.fields["revision"] === problem.revision) {
+    const target = ledger.find("Problem", mergedInto);
+    const targetCatalog = target?.fields["authoredCatalog"] as AuthoredCatalog | undefined;
+    if (mergedInto === problem.id || !targetCatalog || targetCatalog.mergedIntoProblemId || target?.fields["equivalentToProblemId"]) errors.push("catalog merge must point directly to an active canonical catalog problem");
+    if (targetCatalog && targetCatalog.status !== problem.authoredCatalog?.status) errors.push("merged catalog questions must have the same status");
   }
   const hasParent = problem.parentProblemId !== null;
   if (problem.role === "auxiliary" && !hasParent) errors.push("an auxiliary problem must name its parent problem");
@@ -62,7 +73,7 @@ export function rules(problem: Problem, ledger: Ledger): string[] {
     }
   }
   if (problem.relatedProblemIds.includes(problem.id)) errors.push("a problem cannot be related to itself");
-  if (problem.equivalentToProblemId) {
+  if (problem.equivalentToProblemId && ledger.find("Problem", problem.id)?.fields["revision"] === problem.revision) {
     const canonical = ledger.find("Problem", problem.equivalentToProblemId);
     if (problem.equivalentToProblemId === problem.id || canonical?.fields["equivalentToProblemId"]) errors.push("equivalence must point directly to another canonical problem");
     const authored = canonical?.fields["authoredCatalog"] as AuthoredCatalog | undefined;

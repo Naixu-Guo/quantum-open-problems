@@ -26,7 +26,7 @@ export interface Policy {
   rateLimits: Record<string, number>;
   bodyLimits: Record<string, number>;
   retention: Record<string, number>;
-  licenses: { textDefault: string; codeDefault: string };
+  licenses: { textDefault: string; codeDefault: string; scope?: string; scopeUrl?: string };
   maintenanceIntervalDays: number;
   body: string;
 }
@@ -45,7 +45,8 @@ export function loadPolicy(version: string, policyDir: string = DEFAULT_POLICY_D
     rateLimits: (header["rateLimits"] as Record<string, number>) ?? {},
     bodyLimits: (header["bodyLimits"] as Record<string, number>) ?? {},
     retention: (header["retention"] as Record<string, number>) ?? {},
-    licenses: (header["licenses"] as Policy["licenses"]) ?? { textDefault: "CC-BY-4.0", codeDefault: "MIT" },
+    // A historical policy that names no licenses cannot supply a license grant.
+    licenses: (header["licenses"] as Policy["licenses"]) ?? { textDefault: "NOASSERTION", codeDefault: "NOASSERTION" },
     maintenanceIntervalDays: Number(header["maintenanceIntervalDays"] ?? 30),
     body: parsed.body,
   };

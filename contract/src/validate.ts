@@ -50,11 +50,11 @@ function buildValidators(schemaDir: string): { byType: Map<RecordType, ValidateF
   const byType = new Map<RecordType, ValidateFunction>();
   for (const type of RECORD_TYPES) {
     const file = TYPE_MODULES[type].schemaFile;
-    const validate = ajv.getSchema(`https://naixu-guo.github.io/quantum-open-problems/contract/v1/${file}`);
+    const validate = ajv.getSchema(`https://qiqc-op.com/contract/v1/${file}`);
     if (!validate) throw new Error(`schema for ${type} (${file}) did not load`);
     byType.set(type, validate);
   }
-  const tombstone = ajv.getSchema("https://naixu-guo.github.io/quantum-open-problems/contract/v1/tombstone.schema.json");
+  const tombstone = ajv.getSchema("https://qiqc-op.com/contract/v1/tombstone.schema.json");
   if (!tombstone) throw new Error("tombstone schema did not load");
   return { byType, tombstone };
 }
@@ -188,7 +188,7 @@ export function validatePayload(name: string, object: unknown, schemaDir: string
     for (const file of fs.readdirSync(dir).filter((f) => f.endsWith(".schema.json"))) ajv.addSchema(JSON.parse(fs.readFileSync(path.join(dir, file), "utf8")));
     byName = new Map();
     for (const file of fs.readdirSync(dir).filter((f) => f.endsWith(".schema.json"))) {
-      const validate = ajv.getSchema(`https://naixu-guo.github.io/quantum-open-problems/contract/v1/payloads/${file}`);
+      const validate = ajv.getSchema(`https://qiqc-op.com/contract/v1/payloads/${file}`);
       if (validate) byName.set(file.replace(".schema.json", ""), validate);
     }
     payloadValidators.set(schemaDir, byName);
@@ -239,12 +239,32 @@ export function validateLedger(roots: string[], schemaDir: string = DEFAULT_SCHE
       const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
       if (manifest.schema === "qiqcop-zoo/ledger-export/1") continue;
       if (manifest.schema !== "qiqcop-zoo/ledger-export/2" || !manifest.fileHashes || typeof manifest.fileHashes !== "object" || Array.isArray(manifest.fileHashes)) throw new Error("invalid catalog export manifest");
+      const pinned = new Map<string, LoadedRecord>();
       for (const [file, digest] of Object.entries(manifest.fileHashes)) {
         if (!/^ledger\/(?!.*(?:\.\.|\\))[^\s]+\.md$/.test(file) || typeof digest !== "string" || !/^[a-f0-9]{64}$/.test(digest)) throw new Error(`invalid catalog export path or hash: ${file}`);
         const absolute = path.join(root, file.slice("ledger/".length));
         const record = ledger.records.find((item) => item.path === absolute);
         if (!record || createHash("sha256").update(fs.readFileSync(absolute)).digest("hex") !== digest) throw new Error(`catalog export history changed or missing: ${file}`);
         ledger.catalogExports.add(`${record.id}@${revisionOf(record)}`);
+        pinned.set(file, record);
+      }
+      // A pinned export can contain a service-edited body preserved by three-way
+      // reconciliation. Only the desired field hashes establish duplicate content.
+      // Older or incomplete manifests simply provide no omission proof.
+      if (manifest.projections && typeof manifest.projections === "object" && !Array.isArray(manifest.projections)) {
+        for (const projection of Object.values(manifest.projections) as unknown[]) {
+          if (!projection || typeof projection !== "object" || Array.isArray(projection)) continue;
+          const value = projection as Record<string, unknown>;
+          const record = typeof value["path"] === "string" ? pinned.get(value["path"]) : undefined;
+          const fields = value["fields"];
+          if (!record || record.type !== "Problem" || record.redacted || !fields || typeof fields !== "object" || Array.isArray(fields)) continue;
+          const desired = fields as Record<string, unknown>;
+          const bodyHash = desired["body"], authoredCatalogHash = desired["authoredCatalog"];
+          if (typeof bodyHash === "string" && /^[a-f0-9]{64}$/.test(bodyHash)
+            && typeof authoredCatalogHash === "string" && /^[a-f0-9]{64}$/.test(authoredCatalogHash)) {
+            ledger.catalogProblemProjections.set(record.id, { bodyHash, authoredCatalogHash });
+          }
+        }
       }
     } catch (error) { push("rule", manifestPath, String(error)); }
   }

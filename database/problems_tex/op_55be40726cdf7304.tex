@@ -1,0 +1,83 @@
+% Problem record op_55be40726cdf7304. This TeX file is derived from
+% database/problems_json/op_55be40726cdf7304.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Anticoncentration of independent complex Gaussian hafnians}
+\label{sec:op_55be40726cdf7304}
+
+\paragraph{Problem.}
+Do independent complex Gaussian hafnians satisfy a polynomial lower-tail bound at their root-mean-square scale?
+For each integer $n\geq1$, let $X=X^T\in\mathbb C^{2n\times2n}$ have zero diagonal.
+The entries above the diagonal are independent with density $\pi^{-1}e^{-|z|^2}$.
+Define
+\begin{equation}
+ \operatorname{Haf}X=\sum_{M\in\mathcal M_{2n}}\prod_{\{i,j\}\in M}X_{ij},
+ \qquad h_n=(2n-1)!!=\frac{(2n)!}{2^n n!},
+ \label{eq:hac-hafnian}
+\end{equation}
+where $\mathcal M_{2n}$ is the set of perfect matchings of $\{1,\ldots,2n\}$.
+Does there exist a polynomial $p$, positive on $[1,\infty)^2$, such that
+\begin{equation}
+ \Pr_X\!\left[|\operatorname{Haf}X|<
+       \frac{\sqrt{h_n}}{p(n,1/\delta)}\right]<\delta
+ \qquad(n\geq1,\ 0<\delta<1)?
+ \label{eq:hac-conjecture}
+\end{equation}
+The definitions in Eq.~\eqref{eq:hac-hafnian} fix the ensemble and normalization.
+One polynomial must satisfy Eq.~\eqref{eq:hac-conjecture} for every $n$ and $\delta$.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+This is a precise lower-tail formulation motivated by the hafnian anticoncentration discussion following Eq.~(11) of Hamilton et al. \sourcecite{ref:hac-hamilton}{HKS+17}.
+Its explicitly normalized independent-entry ensemble is an editorial refinement, rather than a verbatim numbered conjecture.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item The matching expansion gives $\mathbb E|\operatorname{Haf}X|^2=h_n$ because only equal matchings survive the expectation.
+It fixes the scale in Eq.~\eqref{eq:hac-conjecture}, but supplies no lower-tail estimate.
+
+  \item For a different ensemble, Zhao's September 2026 preprint proves a polynomial small-ball bound.
+If $S$ is real symmetric with independent standard real Gaussian entries above the diagonal, Theorem~2.3 gives
+\begin{equation}
+ \sup_{z\in\mathbb R}\Pr\!\left[
+ |\operatorname{Haf}S-z|\leq t\sqrt{h_n}\right]
+ \leq\min\!\left\{1,\frac{2}{\sqrt\pi}n^{3/8}t\right\}.
+ \label{eq:hac-real-result}
+\end{equation}
+Equation~\eqref{eq:hac-real-result} settles the real symmetric analogue.
+It does not state a theorem for the circular complex ensemble in Eq.~\eqref{eq:hac-hafnian} \sourcecite{ref:hac-zhao}{Zha26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[HKS+17]}]\label{ref:hac-hamilton}
+  C. S. Hamilton, R. Kruse, L. Sansoni, S. Barkhofen, C. Silberhorn, and I. Jex, "Gaussian Boson Sampling," \emph{Physical Review Letters} \textbf{119}, 170501 (2017). \href{https://doi.org/10.1103/PhysRevLett.119.170501}{doi:10.1103/PhysRevLett.119.170501}; \href{https://arxiv.org/abs/1612.01199}{arXiv:1612.01199}.
+
+  \item[\textup{[Zha26]}]\label{ref:hac-zhao}
+  H. Zhao, "Shifted Anticoncentration for Real Gram Hafnians and Symmetric Gaussian Hafnians," arXiv preprint (September 2026). \href{https://arxiv.org/abs/2609.06526v1}{arXiv:2609.06526v1}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The complex independent-entry lower tail remains the archived gap.
+Real symmetric matrices, finite-rank Gaussian products $YY^T$, and the permanent's special bipartite block ensemble have different laws.
+Their results cannot be transferred by substituting the matrix name.
+Average-case computational hardness is also a separate question.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Boson sampling; Computational complexity and computability
+
+\subsection*{ID}
+
+\texttt{op\_55be40726cdf7304}

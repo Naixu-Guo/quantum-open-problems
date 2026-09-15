@@ -99,21 +99,43 @@ Full or partial resolutions require independent domain review. Computational and
 
 ## Agent interface
 
-Agents should read one problem or one task instead of downloading the catalog. The current v1 API provides discovery, full records, Markdown briefs, and schemas.
+Agents can discover problems, read formal statements and references, and inspect
+accepted claims through the research service's HTTP API. The MCP adapter forwards
+to that API; its data comes from the maintained catalog's ledger projection and
+subsequent service activity. Search includes the current formal statement and
+clauses, without indexing superseded statement text.
 
-A read-only MCP server ships today: `mcp/server.mjs` is a zero-dependency stdio server that reads the published static catalog (or a local build) and exposes `search_problems`, `get_problem`, `get_research_brief`, `list_fields`, `get_catalog_status`, `list_evidence`, and `how_to_contribute`. The `/ai/` page documents setup for Claude Code and Codex. Writes still flow through the reviewed issue forms; the MCP tool returns the contribution contract rather than accepting submissions.
+`mcp/src/server.ts` provides local stdio and `mcp/src/http-server.ts` provides
+Streamable HTTP. Both use the official MCP SDK and share input validation, output
+schemas, structured results, and resource links. Public HTTP and anonymous stdio
+expose read tools such as `search_problems`, `get_problem`, `get_frontier`,
+`list_references`, and `build_context`. Configuring an operator-issued API key
+enables local Work and Write tools for trajectories, artifacts, contributions,
+comments, and reviews; the service enforces authentication and permissions.
+Setup and the full tool list are in the [MCP guide](mcp/README.md).
 
-After the content graph stabilizes, a hosted MCP service can add write-side tools:
+`build_context` accepts a problem, optional current clause references, and an
+approximate section-text budget. It prioritizes authoritative status and complete
+formal material, omitting whole sections when necessary. Completeness flags and
+`minimumRequiredTokens` make omissions explicit. The bundle records statement
+version, status source, source revisions and digests, and which records appear in
+retained sections. Its `bundleId` hashes the delivered payload and provenance.
+Resource links resolve current revisions when read; they do not pin the historical
+revisions recorded in a bundle. The budget excludes response metadata outside
+section text and transport framing
+and is not a model-specific token count.
 
-- `get_frontier`
-- `build_context`
-- `list_tasks`
-- `submit_trace`
-- `review_contribution`
+Research trajectories retain the starting bundle ID, work events, costs, and
+artifacts. Write tools accept optional idempotency keys; recovery from a lost
+response requires the same key and identical payload. The adapter does not
+automatically retry writes. Review-queue lookup is a peek, without reservation.
+The platform should not request private chain-of-thought.
 
-`build_context` should accept an intent, target clause, token budget, and catalog cutoff. It should return a citable bundle ID and only the records needed for that task. Research traces should store plans, tool environments, outcomes, costs, and artifacts. The platform should not request private chain-of-thought.
-
-Public reads need no account. Writes require authentication, idempotency keys, rate limits, and review. Human forms and agent tools must submit the same contribution schema.
+Search supports version-bound, query-bound pagination cursors; legacy offsets
+remain available. `read_problem` selects a complete content category, using
+version-bound continuation only when the category exceeds the response budget.
+Resources pinned to historical revisions and resource-update subscriptions
+remain future work; current resource links resolve the latest revision.
 
 ## Migration stages
 

@@ -59,14 +59,14 @@ $\varepsilon$ in the sense of Eq.~\eqref{eq:5586-average-error}.  The resource
 model is unassisted, memoryless use of $\mathcal N^{\otimes n}$, without
 entanglement assistance or feedback: the strong converse for the
 entanglement-assisted classical capacity already holds for every channel, so
-the unassisted codes of Eq.~\eqref{eq:5586-average-error} are the open case,
+the unassisted codes of Eq.~\eqref{eq:5586-average-error} are the case archived here,
 and the regularization in Eq.~\eqref{eq:5586-classical-capacity} means the
 question is not reducible to additivity of
 Eq.~\eqref{eq:5586-holevo-capacity}.
 
 \subsection*{Status}
 
-Unsolved
+Solved
 
 \subsection*{Source}
 
@@ -125,7 +125,7 @@ conclusion \sourcecite{ref:5586-wilde-winter-yang}{WWY14}.
   Eq.~\eqref{eq:5586-average-error} rather than a compound or arbitrarily
   varying one \sourcecite{ref:5586-boche-et-al}{BJK17}.
 
-  \item For general channels the strongest known statements are strong-converse
+  \item Earlier results for general channels established strong-converse
   bounds above the capacity in Eq.~\eqref{eq:5586-classical-capacity}: Wang,
   Xie, and Duan derived two semidefinite-programming bounds such that any
   code whose rate exceeds the bound has success probability vanishing
@@ -136,7 +136,7 @@ conclusion \sourcecite{ref:5586-wilde-winter-yang}{WWY14}.
   \sourcecite{ref:5586-wang-fang-tomamichel}{WFT19}.  Neither establishes
   Eq.~\eqref{eq:5586-strong-converse} at $C(\mathcal N)$ for every channel.
 
-  \item As of September 2026, recent work targets adjacent quantities rather than
+  \item Other recent work targets adjacent quantities rather than
   the unassisted transmission strong converse: Ye, Bergh, and Datta prove
   strong-converse bounds on the classical identification capacity of the
   qubit depolarizing channel, using the regularized Holevo capacity of
@@ -146,9 +146,19 @@ conclusion \sourcecite{ref:5586-wilde-winter-yang}{WWY14}.
   identification \sourcecite{ref:5586-singh}{Sin26}; and the Lean-QIT
   formalization machine-checks the entanglement-assisted strong converse but
   no unassisted counterpart
-  \sourcecite{ref:5586-lean-qit}{ZTZ+26}.  No universal proof or
-  counterexample for the unassisted memoryless model appears in this
-  literature.
+  \sourcecite{ref:5586-lean-qit}{ZTZ+26}.  These results concern different operational tasks.
+
+  \item Cheng and Tomamichel prove the universal strong converse for the classical
+  capacity of every finite-dimensional quantum channel in Theorem 5,
+  Eq.~(25), with the proof in Appendix E of arXiv:2609.08998v1
+  \sourcecite{ref:5586-cheng-tomamichel}{CT26}.  The result allows arbitrary
+  inputs entangled across memoryless channel uses and arbitrary decoding
+  POVMs, exactly as in Eq.~\eqref{eq:5586-average-error}.  Their Theorem 4
+  gives continuity of the regularized sandwiched R\'enyi capacity at order
+  one; combined with Theorem 5, it yields a strictly positive strong-converse
+  exponent at every fixed rate $R>C(\mathcal N)$.  Consequently the optimal
+  average success probability decays exponentially, establishing
+  Eq.~\eqref{eq:5586-strong-converse} in the full archived scope.
 \end{itemize}
 
 \subsection*{References}
@@ -237,29 +247,22 @@ conclusion \sourcecite{ref:5586-wilde-winter-yang}{WWY14}.
   and X. Wang, ``Lean-QIT: Towards a Formal Infrastructure for Quantum
   Information Theory,'' arXiv preprint (2026).
   \href{https://arxiv.org/abs/2607.09632}{arXiv:2607.09632}.
+
+  \item[\textup{[CT26]}]\label{ref:5586-cheng-tomamichel}
+  H.-C. Cheng and M. Tomamichel, ``No information transmission through quantum channels above capacity,'' arXiv preprint, version 1, 8 September 2026. \href{https://arxiv.org/abs/2609.08998v1}{arXiv:2609.08998v1}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-The open case is an arbitrary finite-dimensional channel outside the known
-classes: Eq.~\eqref{eq:5586-strong-converse} is proved for unital qubit,
-depolarizing, Werner--Holevo, entanglement-breaking, and Hadamard channels
-and for the erasure channel, while for general channels only bounds above
-$C(\mathcal N)$ are known, so neither a universal proof nor a counterexample
-exists.  A natural positive route is subadditivity of a sandwiched R\'enyi
-capacity as in \sourcecite{ref:5586-wilde-winter-yang}{WWY14}, or an
-extension of the information-spectrum characterization of
-\sourcecite{ref:5586-hayashi-nagaoka}{HN03} to fully quantum inputs; a proof
-for any further infinite family, such as all teleportation-covariant
-channels, would belong in Progress rather than settle the question.  This is
-the classical-capacity counterpart of the archived strong-converse questions
-for the quantum capacity of degradable and transpose-degradable channels,
-Problem~\ref{sec:op_cdad869fc8c3c0ea} and
-Problem~\ref{sec:op_414fbcc7d5dc0c64}, and of the strong converse for
-mixed-state quantum source coding, Problem~\ref{sec:op_c9b532d3a7389c77}:
-those ask the same threshold sharpness for different operational quantities,
-and neither degradability nor source-coding techniques transfer directly to
-the unassisted classical capacity of an unrestricted channel.
+Solved by the universal classical-capacity strong converse of Cheng and
+Tomamichel \sourcecite{ref:5586-cheng-tomamichel}{CT26}, Theorem 5 and
+Appendix E.  The resolving source is the September 2026 arXiv preprint,
+version 1; this status records that complete claimed theorem and does not
+claim peer-reviewed publication.  Its scope is the fixed, finite-dimensional,
+unassisted memoryless channel in the statement, including codewords
+entangled across uses.  It does not assert a strong converse for compound
+channels or infinite-dimensional channels under arbitrary energy constraints.
+The historical question is retained here as a solved archive.
 
 \subsection*{Field}
 

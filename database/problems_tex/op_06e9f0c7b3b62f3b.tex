@@ -79,6 +79,35 @@ work \sourcecite{ref:06e9-zhu-et-al}{ZTZ+26}.
   duality for a single slot and does not extend to correlated multi-slot
   strategies \sourcecite{ref:06e9-zhu-et-al}{ZTZ+26}.
 
+  \item The state-preparation case $d_A=1$ admits a multi-slot improvement.
+For $d=d_B\geq2$ and $n\geq d-1$, Theorem 3, Eqs.~(14)--(15), of
+Brzi\'c, Grinko, Studzi\'nski, and Quintino supplies CPTP maps
+$C_\eta$ on $n$ copies such that
+$C_\eta(\rho^{\otimes n})=\eta\rho^T+(1-\eta)I/d$ for every density
+operator $\rho$, for both $a=n/[n+d(d-1)]$ and $b=-1/(d-1)$
+\sourcecite{ref:06e9-brzic-et-al}{BGSQ26}.
+Consequently, the virtual map
+\begin{equation}
+  \widetilde C=\frac{1-b}{a-b}C_a+\frac{a-1}{a-b}C_b
+  \quad\text{satisfies}\quad
+  \widetilde C(\rho^{\otimes n})=\rho^T.
+  \label{eq:06e9-state-virtual-map}
+\end{equation}
+These maps are valid combs for state-preparation slots. Summing the absolute
+coefficients in Eq.~\eqref{eq:06e9-state-virtual-map} gives
+\begin{equation}
+  1\leq g_n(1,d)\leq1+\frac{2(d-1)^2}{n+d-1},
+  \qquad \inf_{n\geq1}g_n(1,d)=1.
+  \label{eq:06e9-state-overhead}
+\end{equation}
+The lower bound in Eq.~\eqref{eq:06e9-state-overhead} follows from trace
+preservation, which forces the coefficients of every exact decomposition
+to sum to one. Its upper bound is strictly below $g_1(1,d)=d$ when
+$n>d-1$; in particular $g_2(1,2)\leq5/3<2$.
+The theorem determines the physical white-noise visibility range; this
+argument supplies an upper bound on the virtual overhead, not a proof of
+its exact finite-$n$ optimum.
+
   \item Composing virtual conjugation with the probabilistic transpose
   gives black-box access to $\mathcal N^{\dagger}$ and, for a unital
   channel, estimates expectation values of the Petz recovery map to error
@@ -97,15 +126,23 @@ work \sourcecite{ref:06e9-zhu-et-al}{ZTZ+26}.
   Adjoints and Petz Recovery Maps for Unknown Quantum Channels,'' arXiv
   preprint (2026).
   \href{https://arxiv.org/abs/2602.05828}{arXiv:2602.05828}.
+
+  \item[\textup{[BGSQ26]}]\label{ref:06e9-brzic-et-al}
+  V. Brzi\'c, D. Grinko, M. Studzi\'nski, and M. T. Quintino,
+“Optimal pure state cloning and transposition are complementary channels,”
+arXiv preprint, version 2 (2026).
+\href{https://arxiv.org/abs/2603.23628v2}{arXiv:2603.23628v2}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-One-slot optimality does not imply multi-slot optimality: correlated
-virtual combs might amortize negativity across queries and lower the
-variance per sample, and no theorem determines $g_n$ in
-Eq.~\eqref{eq:06e9-overhead} for any $n\geq2$ or its behaviour as
-$n\to\infty$.
+State preparation is included in the question. In that subcase,
+Eq.~\eqref{eq:06e9-state-overhead} proves a strict multi-slot advantage and
+determines the infimum over the number of queries. The exact finite-$n$
+optima for state preparation and the general-channel values with $d_A>1$
+remain unresolved by these results. One-slot optimality alone does not
+settle correlated multi-slot protocols. The bound on the base norm measures
+variance per run; each $n$-slot run itself consumes $n$ channel queries.
 
 \subsection*{Field}
 

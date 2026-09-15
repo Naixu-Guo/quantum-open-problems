@@ -1,0 +1,545 @@
+{
+  "environment": {
+    "endpoint": "http://127.0.0.1:56488/mcp",
+    "api": "http://127.0.0.1:56487",
+    "catalogVersion": "d76175295aaee4cd1437fe6d876f00acab20b2dc70414ad56d9b7aa3b2fb5c89",
+    "count": 111,
+    "baseCommit": "e4d58d143c6d3999ae27cc35a9602f53da3be01d",
+    "implementation": "working-tree",
+    "stores": "in-memory",
+    "protocol": "real MCP HTTP to real API HTTP",
+    "model": "gpt-6-astra",
+    "effort": "ultra",
+    "context": "Each run is an ephemeral session; previous user/assistant text is supplied for original cases 2 and 3. Tool transcripts are not replayed.",
+    "scoring": "Human/independent evidence review required. Script success is not answer acceptance.",
+    "implementationStage": "before-service-body-preservation-fix"
+  },
+  "runs": [
+    {
+      "case": 1,
+      "question": "来给我抽个量子算法的题",
+      "exitCode": 0,
+      "seconds": 67.03,
+      "contamination": [],
+      "answerPresent": true,
+      "toolCalls": 2,
+      "usage": [
+        {
+          "input_tokens": 156568,
+          "cached_input_tokens": 125952,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1400,
+          "reasoning_output_tokens": 479
+        }
+      ],
+      "accepted": true,
+      "grading": "Independent inspection of final answer against maintained records; all consumed status/main clause/source/progress/comment fields also compared exactly.",
+      "calls": [
+        {
+          "server": "qop",
+          "tool": "get_taxonomy",
+          "arguments": {},
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "sample_problem",
+          "arguments": {
+            "area": "quantum-algorithm",
+            "status": "Unsolved"
+          },
+          "status": "completed",
+          "error": null
+        }
+      ],
+      "eventsSha256": "bde727cd9b583b466b2c6177487f7588b0a2b3e55fed951d3800eceb89e5d048",
+      "harnessWarnings": [
+        "One failed internal collaboration attempt on stderr; successful evidence gathering used QOP MCP only."
+      ]
+    },
+    {
+      "case": 2,
+      "question": "现在这里面哪个你觉得最容易解决",
+      "exitCode": 0,
+      "seconds": 99.0,
+      "contamination": [],
+      "answerPresent": true,
+      "toolCalls": 28,
+      "usage": [
+        {
+          "input_tokens": 348418,
+          "cached_input_tokens": 280704,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2454,
+          "reasoning_output_tokens": 498
+        }
+      ],
+      "accepted": true,
+      "grading": "Independent inspection of final answer against maintained records; all consumed status/main clause/source/progress/comment fields also compared exactly.",
+      "calls": [
+        {
+          "server": "qop",
+          "tool": "get_taxonomy",
+          "arguments": {},
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M22P0HY0R1RBEABK7MZW488E",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "search_problems",
+          "arguments": {
+            "area": "quantum-algorithm",
+            "status": "Unsolved",
+            "limit": 100,
+            "sort": "title"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M1Q787QRCCSDNVA159Y6S261",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M1HME780CC21XQAXBTWRJRCY",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M22P0HX43A7EQD9XKQ1G7QQJ",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M20E31B526DAX81WYGMDD01T",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M1Q787QR4C97BS9QTECX5TNG",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M20EG8DVMFZX9TWEXN602APF",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M1Q787QRD6APNHX659G4CTEF",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M21QD4KR3RBCKD1WEK2XSD4K",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M21S9FW14RJDR83J8D64FKEM",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M208CJ9MKVF4X0B83M9V7QZM",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M20BHBAFHFJEYHE131WS8EJX",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M20BHBBG223ZDPK3F526EHFH",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M20CXWDYD1RXVWDKFMFM675K",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M1HME78078BW0JG3X252BVX5",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M1Q787QRH2ASM04Q5SDG2H88",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M20F505SW8RJ6Z0WK8B31TEH",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M20DFNK3W29RR12PZ50N40AH",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M20QZS0HSJKXWFBD1YS9VVTS",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M20CKB78AVP4GX3MKGMJ1VAE",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M20H9K0GJGBPXAKZBJ2YEBSH",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M20J3M572VGZM83E2GJ0AG2D",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M208JBB0XT10DQ8KTKMYPTPH",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M1HME780S5JZKCQN8X0RR8TG",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M1HME780BM029QANMMXSYJXR",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_frontier",
+          "arguments": {
+            "id": "01M1Q787QRCCSDNVA159Y6S261"
+          },
+          "status": "completed",
+          "error": null
+        }
+      ],
+      "eventsSha256": "19f6838b7380e25f7a8247d9ef15eb8d099a369f276ce483a1b285e446c3f41b"
+    },
+    {
+      "case": 3,
+      "question": "最近有哪个题刚被解决",
+      "exitCode": 0,
+      "seconds": 76.25,
+      "contamination": [],
+      "answerPresent": true,
+      "toolCalls": 15,
+      "usage": [
+        {
+          "input_tokens": 305048,
+          "cached_input_tokens": 250752,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1671,
+          "reasoning_output_tokens": 368
+        }
+      ],
+      "accepted": true,
+      "grading": "Independent inspection of final answer against maintained records; all consumed status/main clause/source/progress/comment fields also compared exactly.",
+      "calls": [
+        {
+          "server": "qop",
+          "tool": "get_taxonomy",
+          "arguments": {},
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "search_problems",
+          "arguments": {
+            "area": "quantum-algorithm",
+            "status": "Solved",
+            "limit": 100,
+            "sort": "edited"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "search_problems",
+          "arguments": {
+            "status": "Solved",
+            "limit": 100,
+            "sort": "edited"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M1Q787QRY0AKF1CQTFSQME12",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M1Q787QRJ5ASJACQYA9R7N35",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M1HME780EGVAT19D7T4BGNB5",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M208FN774T1EFE5GK2DMR654",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M1HME780EK3RBP2STMGR8JS5",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M1Q787QRG3HGYA0Y8F8JBPTE",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M1Q787QR701HKYB3YDFJ15TK",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M1Q787QR8FTR00QF4PMHHWPE",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M1Q787QRJWENG45M2E70WZXW",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M1Q787QR08CREPZSZYDXBTGN",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M1Q787QRMK8JJ7BH5J7A8VXS",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        },
+        {
+          "server": "qop",
+          "tool": "get_problem",
+          "arguments": {
+            "id": "01M1HME780H9TAVH85TF8KJDS5",
+            "view": "research"
+          },
+          "status": "completed",
+          "error": null
+        }
+      ],
+      "eventsSha256": "0a581065aea109a14ff4812d1f79473bfee7c03b3c74ee6b6b0e185bce5f1c4f"
+    }
+  ],
+  "limits": [
+    "Three single-run observations, not a success-rate or latency benchmark.",
+    "Case 1 stderr recorded one failed internal collaboration attempt; only QOP MCP supplied evidence. Future harness runs explicitly disable multi-agent.",
+    "Cases 2 and 3 reconstruct prior user/assistant text in fresh sessions; tool state is not replayed.",
+    "Usage is CLI-reported aggregate token accounting including model/host overhead, not just MCP response tokens.",
+    "Full local traces remain in /private/tmp/qop-mcp-model-eval-20260914; reasoning events were excluded.",
+    "Scientific correctness checked against maintained catalog, not independent re-verification of all referenced literature.",
+    "The three model cases ran before the final service-body preservation fix and were not rerun afterward. They validate the original catalog workflows; subsequent service-body behavior is covered by separate regression tests and review."
+  ]
+}

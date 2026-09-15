@@ -14,6 +14,7 @@ import type { WebConfig } from "./config.ts";
 import type { SubmissionStore, SubmissionsConfig } from "./submissions.ts";
 import type { Contribution } from "../../contract/src/types/contribution.ts";
 import type { Ledger } from "../../contract/src/ledger.ts";
+import { catalogDates } from "./catalog-dates.ts";
 import { evaluate, unreviewedAcceptance, acceptanceDecision, consequences, pending, type AcceptanceContext } from "./acceptance.ts";
 
 export interface Service {
@@ -102,7 +103,7 @@ export function refresh(service: Service): void {
 
 export function reindex(service: Service): { records: number; lastSequence: number } {
   const ledger = service.repo.current();
-  const result = service.index.rebuild(ledger, service.repo.sequences());
+  const result = service.index.rebuild(ledger, service.repo.sequences(), catalogDates(service.repo.mainRoot, ledger));
   indexedLedgers.set(service, ledger);
   return result;
 }

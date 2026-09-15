@@ -1,0 +1,14 @@
+---
+id: "01M21QKF09RATYAHG74TYWVG5Q"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-09T00:03:08.666Z"
+type: "Reference"
+sourceId: "01M21QKF09J20J877MF4PPJH4K"
+targetType: "problem"
+targetId: "01M21QD4KR3RBCKD1WEK2XSD4K"
+role: "related"
+locator: "CCGS03"
+---
+Andrew M. Childs, Richard Cleve, Enrico Deotto, Edward Farhi, Sam Gutmann, and Daniel A. Spielman, “Exponential Algorithmic Speedup by Quantum Walk,” in *Proceedings of the 35th Annual ACM Symposium on Theory of Computing (STOC 2003)*, 59–68 (2003). [doi:10.1145/780542.780552](https://doi.org/10.1145/780542.780552); [arXiv:quant-ph/0209131](https://arxiv.org/abs/quant-ph/0209131).
