@@ -1,0 +1,52 @@
+---
+id: "01M26JZEPTR8YAH8EKFW9D0Q24"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-10T21:50:00.391Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-communication"]
+topicIds: ["quantum-capacity","bosonic-channels"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: ["01M26JZEN93BAESCCMMTRG84M0","01M26JZET5QZ2FB0WSWESW77V6"]
+title: "Two-way quantum capacity of a thermal amplifier"
+aliases: ["op-709c2048154de463","op_709c2048154de463","01M26JZEPTR8YAH8EKFW9D0Q24"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_709c2048154de463.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_709c2048154de463","ulid":"01M26JZEPTR8YAH8EKFW9D0Q24","aliases":["op_709c2048154de463","01M26JZEPTR8YAH8EKFW9D0Q24","op-709c2048154de463"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":1,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-10T21:18:30.618Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-communication"],"topicIds":["quantum-capacity","bosonic-channels"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":["01M26JZEN93BAESCCMMTRG84M0","01M26JZET5QZ2FB0WSWESW77V6"]},"title":"Two-way quantum capacity of a thermal amplifier","status":"Unsolved","fields":["Quantum Communication"],"topics":["Quantum capacity","Bosonic channels"],"statement":"What is the two-way quantum capacity of a thermal amplifier for every gain and thermal noise level?\nFix a power gain $\\kappa>1$ and $b\\geq0$. The single-mode thermal amplifier $\\mathcal A_{\\kappa,b}$ is the Gaussian channel realized by two-mode squeezing with output annihilation operator\n\\begin{equation}\n a_{\\mathrm{out}}=\\sqrt\\kappa\\,a+\\sqrt{\\kappa-1}\\,e^\\dagger.\n \\label{eq:sc-amplifier}\n\\end{equation}\nThe independent input and environment modes obey $[a,a^\\dagger]=[e,e^\\dagger]=1$. The environment is a fresh independent thermal mode at each use, with mean photon number $b$ and density operator\n\\begin{equation}\n \\tau_b=\\frac1{b+1}\\sum_{n=0}^{\\infty}\\left(\\frac b{b+1}\\right)^n|n\\rangle\\langle n|\\quad(b>0),\\qquad \\tau_0=|0\\rangle\\langle0|.\n \\label{eq:sc-thermal}\n\\end{equation}\nHere $|n\\rangle$ is the $n$-photon Fock state. The unused output mode is discarded.\nEquations~\\eqref{eq:sc-amplifier} and \\eqref{eq:sc-thermal} specify the channel on arbitrary input states.\nProtocols may use arbitrary adaptive local quantum operations and unlimited two-way public classical communication. The parties initially share no entanglement or secret key. There is no input-energy bound; the capacity is the supremum over finite mean input-energy budgets.\nThe two-way quantum capacity $Q_2$ is the supremum of asymptotic qubits transmitted per use with vanishing error. Equivalently, it is the maximal rate of maximally entangled pairs distributed with vanishing trace-distance error.","source":"Pirandola et al. give the thermal-amplifier capacity bounds in Eqs.~(26)--(28) \\sourcecite{ref:sc-plob}{PLOB17}. Mele, Lami, and Giovannetti retain the unresolved exact value in Supplemental Material, Sec.~V.2 \\sourcecite{ref:sc-mele}{MLG25}.","progress":["Let $g_2(x)=(x+1)\\log_2(x+1)-x\\log_2x$, with $g_2(0)=0$. Coherent information and the PLOB converse give\n\\begin{equation}\n \\max\\left\\{0,\\log_2\\frac\\kappa{\\kappa-1}-g_2(b)\\right\\}\n \\leq Q_2(\\mathcal A_{\\kappa,b})\n \\leq\\log_2\\frac{\\kappa^{b+1}}{\\kappa-1}-g_2(b),\\qquad 0\\leq b<\\frac1{\\kappa-1}.\n \\label{eq:sc-amp-bounds}\n\\end{equation}\nThe bounds in Eq.~\\eqref{eq:sc-amp-bounds} coincide at $b=0$, giving $Q_2(\\mathcal A_{\\kappa,0})=\\log_2[\\kappa/(\\kappa-1)]$. See Eqs.~(26)--(28) and Supplementary Note~4 \\sourcecite{ref:sc-plob}{PLOB17}.","Supplemental Theorem~S21 proves $Q_2(\\mathcal A_{\\kappa,b})>0$ exactly when $b<1/(\\kappa-1)$, including under every positive finite input-energy budget. The channel is entanglement breaking outside this region. Supplemental Theorem~S22 gives a recurrence-and-hashing lower bound that can exceed coherent information, so the displayed coherent-information rate is not the exact answer \\sourcecite{ref:sc-mele}{MLG25}."],"references":[{"key":"PLOB17","label":"ref:sc-plob","tex":"S. Pirandola, R. Laurenza, C. Ottaviani, and L. Banchi, ``Fundamental Limits of Repeaterless Quantum Communications,'' \\emph{Nature Communications} \\textbf{8}, 15043 (2017). \\href{https://doi.org/10.1038/ncomms15043}{doi:10.1038/ncomms15043}; \\href{https://arxiv.org/abs/1510.08863}{arXiv:1510.08863}."},{"key":"MLG25","label":"ref:sc-mele","tex":"F. A. Mele, L. Lami, and V. Giovannetti, ``Maximum Tolerable Excess Noise in Continuous-Variable Quantum Key Distribution and Improved Lower Bound on Two-Way Capacities,'' \\emph{Nature Photonics} \\textbf{19}, 329--334 (2025). \\href{https://doi.org/10.1038/s41566-024-01595-9}{doi:10.1038/s41566-024-01595-9}; \\href{https://arxiv.org/abs/2303.12867}{arXiv:2303.12867}."},{"key":"LLSBP18","label":"ref:sc-bk","tex":"R. Laurenza, C. Lupo, G. Spedalieri, S. L. Braunstein, and S. Pirandola, ``Channel Simulation in Quantum Metrology,'' \\emph{Quantum Measurements and Quantum Metrology} \\textbf{5}, 1--12 (2018). \\href{https://doi.org/10.1515/qmetro-2018-0001}{doi:10.1515/qmetro-2018-0001}; \\href{https://arxiv.org/abs/1712.06603}{arXiv:1712.06603}."}],"comment":"The noisy regime below the entanglement-breaking threshold remains unresolved. This asks for entanglement transmission with two-way classical assistance. Secret-key generation and unassisted quantum transmission are distinct tasks; their capacities need not coincide with $Q_2$ away from $b=0$. Reverse-direction Braunstein--Kimble teleportation over channel-generated two-mode squeezed states also identifies $Q_2(\\mathcal A_{\\kappa,b})=Q_2(\\mathcal L_{1/\\kappa,b})$. Here $\\mathcal L_{\\eta,b}$ is the thermal attenuator with transmissivity $\\eta$ and the same thermal occupancy $b$. This editorial deduction uses the covariance formula in Sec.~6, Eqs.~(52)--(54), and finite-block simulation followed by entanglement hashing \\sourcecite{ref:sc-bk}{LLSBP18}. It concerns the supremum over finite energy budgets, not equality at the same fixed budget."}}
+---
+## Source
+
+Pirandola et al. give the thermal-amplifier capacity bounds in Eqs. (26)–(28) [PLOB17](https://doi.org/10.1038/ncomms15043). Mele, Lami, and Giovannetti retain the unresolved exact value in Supplemental Material, Sec. V.2 [MLG25](https://doi.org/10.1038/s41566-024-01595-9).
+
+## Progress
+
+Let $g_2(x)=(x+1)\log_2(x+1)-x\log_2x$, with $g_2(0)=0$. Coherent information and the PLOB converse give
+
+$$
+\max\left\{0,\log_2\frac\kappa{\kappa-1}-g_2(b)\right\}
+ \leq Q_2(\mathcal A_{\kappa,b})
+ \leq\log_2\frac{\kappa^{b+1}}{\kappa-1}-g_2(b),\qquad 0\leq b<\frac1{\kappa-1}.
+\tag{3}
+$$
+
+The bounds in Eq. (3) coincide at $b=0$, giving $Q_2(\mathcal A_{\kappa,0})=\log_2[\kappa/(\kappa-1)]$. See Eqs. (26)–(28) and Supplementary Note 4 [PLOB17](https://doi.org/10.1038/ncomms15043).
+
+Supplemental Theorem S21 proves $Q_2(\mathcal A_{\kappa,b})>0$ exactly when $b<1/(\kappa-1)$, including under every positive finite input-energy budget. The channel is entanglement breaking outside this region. Supplemental Theorem S22 gives a recurrence-and-hashing lower bound that can exceed coherent information, so the displayed coherent-information rate is not the exact answer [MLG25](https://doi.org/10.1038/s41566-024-01595-9).
+
+## Comment
+
+The noisy regime below the entanglement-breaking threshold remains unresolved. This asks for entanglement transmission with two-way classical assistance. Secret-key generation and unassisted quantum transmission are distinct tasks; their capacities need not coincide with $Q_2$ away from $b=0$. Reverse-direction Braunstein–Kimble teleportation over channel-generated two-mode squeezed states also identifies $Q_2(\mathcal A_{\kappa,b})=Q_2(\mathcal L_{1/\kappa,b})$. Here $\mathcal L_{\eta,b}$ is the thermal attenuator with transmissivity $\eta$ and the same thermal occupancy $b$. This editorial deduction uses the covariance formula in Sec. 6, Eqs. (52)–(54), and finite-block simulation followed by entanglement hashing [LLSBP18](https://doi.org/10.1515/qmetro-2018-0001). It concerns the supremum over finite energy budgets, not equality at the same fixed budget.
+
+## References
+
+**PLOB17** S. Pirandola, R. Laurenza, C. Ottaviani, and L. Banchi, “Fundamental Limits of Repeaterless Quantum Communications,” *Nature Communications* **8**, 15043 (2017). [doi:10.1038/ncomms15043](https://doi.org/10.1038/ncomms15043); [arXiv:1510.08863](https://arxiv.org/abs/1510.08863).
+
+**MLG25** F. A. Mele, L. Lami, and V. Giovannetti, “Maximum Tolerable Excess Noise in Continuous-Variable Quantum Key Distribution and Improved Lower Bound on Two-Way Capacities,” *Nature Photonics* **19**, 329–334 (2025). [doi:10.1038/s41566-024-01595-9](https://doi.org/10.1038/s41566-024-01595-9); [arXiv:2303.12867](https://arxiv.org/abs/2303.12867).
+
+**LLSBP18** R. Laurenza, C. Lupo, G. Spedalieri, S. L. Braunstein, and S. Pirandola, “Channel Simulation in Quantum Metrology,” *Quantum Measurements and Quantum Metrology* **5**, 1–12 (2018). [doi:10.1515/qmetro-2018-0001](https://doi.org/10.1515/qmetro-2018-0001); [arXiv:1712.06603](https://arxiv.org/abs/1712.06603).
