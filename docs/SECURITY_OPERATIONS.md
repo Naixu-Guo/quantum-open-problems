@@ -2,18 +2,40 @@
 
 ## Publishing and review
 
-The `Protect main` repository ruleset requires a pull request, one approving
-review, code-owner approval, approval of the latest push by another person,
-resolved review threads, and these four GitHub Actions checks: `validate`,
-`contract`, `ledger-guard`, and `service`. Checks must pass against the latest
-main. New pushes dismiss stale approvals. Force pushes and deletion are blocked.
-There are no bypass actors, including administrators.
+Two active repository rulesets apply to `main`:
 
-`.github/CODEOWNERS` assigns infrastructure to the existing maintainers and
-scientific records to the scientific collaborators. The file itself requires
-maintainer review. Someone other than the PR author must approve; the service
-does not generate approvals or bypass this requirement. Keeping branch push
-permissions allows collaborators to propose changes without direct main access.
+- `Protect main` requires a pull request, resolved review threads, and the four
+  GitHub Actions checks `validate`, `contract`, `ledger-guard`, and `service`.
+  Checks must pass against the latest main. Force pushes and deletion are
+  blocked. This ruleset has no bypass actors, including administrators.
+- `Owner approval` requires one approving review and code-owner approval. New
+  pushes dismiss stale approvals, and the latest reviewable push requires
+  approval from someone other than its pusher. Only `Naixu-Guo` (GitHub user ID
+  `58557763`) can dismiss reviews manually or bypass this review ruleset. The
+  bypass is restricted to pull requests and retains GitHub's bypass audit trail.
+
+`.github/CODEOWNERS` names `@Naixu-Guo` as the sole owner of every path, including
+itself. Other collaborators can review and propose changes with their existing
+branch push permissions, but their approval cannot replace the owner's approval.
+GitHub uses the base branch's CODEOWNERS, so a proposed ownership change still
+requires the current owner's approval.
+
+The owner can merge their own PRs, or PRs they last pushed, without waiting for
+another reviewer. The separate `Protect main` ruleset still enforces CI, review
+thread resolution, and the PR requirement. It also prevents force pushes and
+branch deletion.
+
+When operating through the owner's account, merge only a PR the owner explicitly
+authorized. Check its current changes and required CI before merging. That
+approval also authorizes use of the owner's review bypass for that PR; no
+separate bypass confirmation is needed. GitHub records account actions and
+reviews; it does not interpret approvals given in an external conversation.
+
+The ruleset definitions are tracked in `.github/main-ruleset.json` and
+`.github/owner-approval-ruleset.json`. Repository files do not configure GitHub
+by themselves: apply both definitions through the repository rules settings or
+API, then read back the active rules to verify that only the review ruleset
+allows the owner bypass.
 
 Validation runs for every PR, including documentation-only changes, so required
 checks cannot be stranded by workflow path filters. The Actions policy allows
