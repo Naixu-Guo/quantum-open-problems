@@ -1,0 +1,63 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_c509b64359fbdc2d",
+  "ulid": "01M26KNCWR2T3G8NTDRJ6G3ECR",
+  "aliases": [
+    "op_c509b64359fbdc2d",
+    "01M26KNCWR2T3G8NTDRJ6G3ECR",
+    "op-c509b64359fbdc2d"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-10T21:30:29.656Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-algorithm"
+    ],
+    "topicIds": [
+      "boson-sampling",
+      "computational-complexity-and-computability"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": [
+      "01M20DFNK3W29RR12PZ50N40AH"
+    ]
+  },
+  "title": "Permanent anticoncentration for complex Gaussian matrices",
+  "status": "Solved",
+  "fields": [
+    "Quantum algorithm"
+  ],
+  "topics": [
+    "Boson sampling",
+    "Computational complexity and computability"
+  ],
+  "statement": "Do complex Gaussian permanents satisfy a polynomial lower-tail bound at their root-mean-square scale?\nFor each integer $n\\geq1$, let $X\\in\\mathbb C^{n\\times n}$ have independent entries with density $\\pi^{-1}e^{-|z|^2}$.\nWrite $S_n$ for the permutations of $\\{1,\\ldots,n\\}$ and define\n\\begin{equation}\n \\operatorname{Per}X=\\sum_{\\pi\\in S_n}\\prod_{j=1}^nX_{j,\\pi(j)}.\n \\label{eq:pacc-permanent}\n\\end{equation}\nDoes there exist a polynomial $p$, positive on $[1,\\infty)^2$, such that the permanent in Eq.~\\eqref{eq:pacc-permanent} satisfies\n\\begin{equation}\n \\Pr_X\\!\\left[|\\operatorname{Per}X|<\n       \\frac{\\sqrt{n!}}{p(n,1/\\delta)}\\right]<\\delta\n \\qquad(n\\geq1,\\ 0<\\delta<1)?\n \\label{eq:pacc-conjecture}\n\\end{equation}\nThe same polynomial must work for every pair $(n,\\delta)$ in Eq.~\\eqref{eq:pacc-conjecture}.",
+  "source": "Aaronson and Arkhipov state this as Conjecture~6 in Section~1.2.3 of their arXiv version \\sourcecite{ref:pacc-aa}{AA13}.",
+  "progress": [
+    "Koehler and Leung's Theorem~1.1 proves that a universal constant $C>0$ satisfies\n\\begin{equation}\n \\sup_{z\\in\\mathbb C}\\Pr\\!\\left[\n |\\operatorname{Per}X-z|\\leq t\\sqrt{n!}\\right]\\leq Cnt^2\n \\qquad(t>0).\n \\label{eq:pacc-small-ball}\n\\end{equation}\nEquation~\\eqref{eq:pacc-small-ball} implies Eq.~\\eqref{eq:pacc-conjecture}: take $p(n,y)=Kny$ with $K^2>C$.\nThe resolving result is a July 2026 preprint \\sourcecite{ref:pacc-kl}{KL26}.",
+    "The earlier Theorem~54 of Aaronson and Arkhipov gives only\n$\\Pr[|\\operatorname{Per}X|^2\\geq\\theta n!]>(1-\\theta)^2/(n+1)$ for $0<\\theta<1$.\nThat moment argument guarantees a fraction of large values; it does not alone control the small-value tail \\sourcecite{ref:pacc-aa}{AA13}."
+  ],
+  "references": [
+    {
+      "key": "AA13",
+      "label": "ref:pacc-aa",
+      "tex": "S. Aaronson and A. Arkhipov, \"The Computational Complexity of Linear Optics,\" \\emph{Theory of Computing} \\textbf{9}(4), 143--252 (2013). \\href{https://doi.org/10.4086/toc.2013.v009a004}{doi:10.4086/toc.2013.v009a004}; \\href{https://arxiv.org/abs/1011.3245}{arXiv:1011.3245}."
+    },
+    {
+      "key": "KL26",
+      "label": "ref:pacc-kl",
+      "tex": "F. Koehler and P. K. Leung, \"Anticoncentration of the Permanent in Ginibre Ensembles,\" arXiv preprint (2026). \\href{https://arxiv.org/abs/2607.20329v1}{arXiv:2607.20329v1}."
+    }
+  ],
+  "comment": "The archived anticoncentration question is resolved by a preprint; no journal publication is asserted.\nIt is distinct from the Permanent-of-Gaussians hardness conjecture.\nCombining this result with Aaronson--Arkhipov Theorem~7 makes their additive squared-permanent and multiplicative permanent estimation tasks polynomial-time equivalent \\sourcecite{ref:pacc-aa}{AA13}.\nIt does not prove either task hard."
+}
