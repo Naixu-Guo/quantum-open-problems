@@ -11,6 +11,7 @@ import { exportLedger } from "../scripts/export-ledger.mjs";
 import { createService } from "../service/src/service.ts";
 import { createServer } from "../service/src/api.ts";
 import { syncIntervalMs } from "../service/src/config.ts";
+import { bootstrapEditor } from "../service/src/bootstrap.ts";
 
 const repo = path.resolve(import.meta.dirname, "..");
 const git = (cwd, ...args) => execFileSync("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim();
@@ -65,13 +66,22 @@ async function fixture(t) {
       const message = JSON.parse(line), resolve = pending.get(message.id);
       if (resolve) { pending.delete(message.id); resolve(message); }
     });
-    function rpc(method, params = {}) {
+    function rawRpc(method, params = {}) {
       const id = next++;
       return new Promise((resolve, reject) => {
         const timer = setTimeout(() => reject(new Error(`MCP timed out: ${method}`)), 5_000);
         pending.set(id, (reply) => { clearTimeout(timer); resolve(reply); });
         child.stdin.write(`${JSON.stringify({ jsonrpc: "2.0", id, method, params })}\n`);
       });
+    }
+    const ready = rawRpc("initialize", { protocolVersion: "2025-11-25", capabilities: {}, clientInfo: { name: "catalog-test", version: "1" } }).then((reply) => {
+      assert.ok(reply.result, JSON.stringify(reply));
+      child.stdin.write(`${JSON.stringify({ jsonrpc: "2.0", method: "notifications/initialized" })}\n`);
+      return reply;
+    });
+    async function rpc(method, params = {}) {
+      const initialized = await ready;
+      return method === "initialize" ? initialized : rawRpc(method, params);
     }
     async function tool(name, args = {}) {
       const reply = await rpc("tools/call", { name, arguments: args });
@@ -97,6 +107,123 @@ async function until(check) {
   }
   assert.fail("background catalog update did not arrive");
 }
+
+test("MCP summary and research cursors detect a real committed catalog revision between pages", async (t) => {
+  const { root, baseline, start, mcp } = await fixture(t);
+  await addProblem(root);
+  const { base } = await start({ commit: false });
+  const client = mcp(base);
+  const searches = [{ limit: 1, sort: "title" }, { limit: 1, sort: "title", view: "research", maxBytes: 1_048_576 }];
+  const firstPages = [];
+  for (const args of searches) {
+    const first = await client.tool("search_problems", args);
+    assert.equal(first.error, false);
+    assert.ok(first.body.nextCursor);
+    firstPages.push(first.body);
+  }
+  const revised = structuredClone(baseline);
+  revised.comment += "\n分页回归测试：中文研究说明与公式 $\\varepsilon=o(t\\Delta)$ 必须完整保留。这是测试注释。";
+  fs.writeFileSync(path.join(root, "database/problems_json", `${revised.id}.json`), JSON.stringify(revised));
+  await exportLedger({ root });
+  commit(root, "Update catalog annotation between pages");
+  for (const [index, args] of searches.entries()) {
+    const first = firstPages[index];
+    const stale = await client.tool("search_problems", { ...args, cursor: first.nextCursor });
+    assert.equal(stale.error, true);
+    assert.equal(stale.body.httpStatus, 409);
+    assert.equal(stale.body.code, "catalog_changed");
+    const restarted = await client.tool("search_problems", { ...args, limit: 200 });
+    assert.equal(restarted.error, false);
+    assert.equal(restarted.body.count, 2);
+    assert.notEqual(restarted.body.catalogVersion, first.catalogVersion);
+    if (args.view === "research") {
+      assert.equal(restarted.body.schemaVersion, "qop-search-research/1");
+      assert.equal(restarted.body.responseBytes, Buffer.byteLength(JSON.stringify(restarted.body), "utf8"));
+      assert.ok(restarted.body.responseBytes > JSON.stringify(restarted.body).length, "UTF-8 bytes differ from character counts for Chinese history");
+      for (const problem of restarted.body.problems) {
+        const individual = await client.tool("get_problem", { id: problem.id, view: "research" });
+        assert.equal(individual.error, false);
+        assert.deepEqual(problem, individual.body, "A restarted search exposes precisely the current individual research view");
+      }
+      const found = restarted.body.problems.find(problem => problem.id === revised.ulid);
+      assert.deepEqual(found.research.comment.map(entry => entry.text), [revised.comment]);
+      assert.deepEqual(found.research.progress.map(entry => entry.text), revised.progress);
+      assert.equal(found.statement.clauses.find(clause => clause.id === "main").text, revised.statement);
+    }
+  }
+});
+
+test("MCP research keeps service background after a metadata-only catalog export pins the merged revision", async (t) => {
+  const { root, baseline, start, mcp } = await fixture(t);
+  const { service, base } = await start();
+  const client = mcp(base);
+  const initial = await client.tool("get_problem", { id: baseline.id, view: "research" });
+  assert.equal(initial.error, false);
+  assert.equal(initial.body.bodyDisposition, "omitted-duplicate-import");
+  assert.equal(Object.hasOwn(initial.body, "body"), false);
+
+  const editor = bootstrapEditor(service, "9173", "Catalog background fixture editor");
+  const token = service.auth.issueKey(editor, "catalog-body-regression");
+  const original = service.repo.current().find("Problem", baseline.ulid);
+  assert.ok(original);
+  const revision = Number(original.fields.revision) + 1;
+  const marker = "Service-only background: this proposed route requires an additional finite-dimensional assumption.";
+  const revisedBody = `${original.body}\n\n${marker}`;
+  const response = await fetch(`${base}/api/v1/batches`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ message: "Add independent service background", records: [
+      { ...original.fields, revision, body: revisedBody },
+      { ref: "revision", type: "Contribution", title: "Record independent service background", kind: "entity-revision",
+        body: "Fixture contribution changes only the service background, preserving the imported catalog snapshot.",
+        trajectoryId: null, problemIds: [baseline.ulid], statementId: null, statementDigest: null,
+        clauseIds: [], stopReason: "none", newProblemIds: [], newStatementId: null,
+        referenceIds: [], claimIds: [], artifactIds: [], declaredReadIds: [baseline.ulid],
+        revisions: [{ entityId: baseline.ulid, revision }], aiInvolvement: "none", license: "CC-BY-4.0" },
+    ] }),
+  });
+  const submitted = await response.json();
+  assert.equal(response.status, 201, JSON.stringify(submitted));
+  assert.equal(submitted.accepted, true);
+  const beforeExport = await client.tool("get_problem", { id: baseline.id, view: "research" });
+  assert.equal(beforeExport.error, false);
+  assert.equal(beforeExport.body.body, revisedBody);
+  assert.equal(beforeExport.body.bodyDisposition, "included");
+
+  // Reconciliation must preserve the service body when the catalog changes a
+  // different field. Its new manifest pin alone does not prove body duplication.
+  const authored = { ...baseline, title: `${baseline.title} (metadata-only fixture revision)` };
+  for (const field of ["statement", "source", "progress", "comment", "references"]) {
+    assert.deepEqual(authored[field], baseline[field]);
+  }
+  fs.writeFileSync(path.join(root, "database/problems_json", `${baseline.id}.json`), JSON.stringify(authored));
+  const exported = await exportLedger({ root });
+  assert.ok(exported.changed > 0);
+  commit(root, "Publish independent catalog title change");
+
+  const research = await client.tool("get_problem", { id: baseline.id, view: "research" });
+  const full = await client.tool("get_problem", { id: baseline.id, view: "full" });
+  assert.equal(research.error, false);
+  assert.equal(full.error, false);
+  const imported = service.repo.current().find("Problem", baseline.ulid);
+  assert.ok(Number(imported.fields.revision) > revision, "Export creates a later, actually validated revision");
+  assert.ok(service.repo.current().catalogExports.has(`${baseline.ulid}@${imported.fields.revision}`), "The real exporter and validator pin the merged revision");
+  assert.equal(full.body.title, authored.title);
+  assert.equal(full.body.body, revisedBody, "Catalog export preserves the independent service edit");
+  assert.equal(research.body.body, full.body.body, "Research readers must retain the same complete service background");
+  assert.equal(research.body.bodyDisposition, "included");
+  assert.ok(research.body.body.includes(marker));
+  assert.deepEqual(research.body.statement, full.body.statement);
+  for (const field of ["source", "progress", "comment", "references"]) {
+    assert.deepEqual(research.body.research[field].map(entry => entry.text), initial.body.research[field].map(entry => entry.text));
+  }
+  const batch = await client.tool("search_problems", { view: "research", maxBytes: 1_048_576 });
+  assert.equal(batch.error, false);
+  assert.equal(batch.body.count, 1);
+  assert.deepEqual(batch.body.problems[0], research.body, "Batch research preserves the same independent service background after export");
+  assert.equal(batch.body.problems[0].bodyDisposition, "included");
+  assert.ok(batch.body.problems[0].body.includes(marker));
+});
 
 test("MCP sees a committed catalog addition on the next read, even with service commits disabled", async (t) => {
   const { root, start, mcp } = await fixture(t);

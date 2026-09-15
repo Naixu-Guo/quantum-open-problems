@@ -1,0 +1,67 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_58610efec5dbe564",
+  "ulid": "01M22N8KF12VPYYFTZNP5YC0S4",
+  "aliases": [
+    "op_58610efec5dbe564",
+    "01M22N8KF12VPYYFTZNP5YC0S4",
+    "op-58610efec5dbe564"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-09T08:41:29.825Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-cryptography"
+    ],
+    "topicIds": [
+      "secret-key-distillation",
+      "quantum-relative-entropy"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
+  "title": "Exact privacy-amplification exponent under relative-entropy security",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum Cryptography"
+  ],
+  "topics": [
+    "Secret-key distillation",
+    "Quantum relative entropy"
+  ],
+  "statement": "What is the optimal exponential rate of decay of relative-entropy insecurity achievable by two-universal hashing against quantum side information at every positive extraction rate below the conditional entropy? Let $\\rho_{AE}=\\sum_{a\\in\\mathcal A}p_a\\lvert a\\rangle\\langle a\\rvert\\otimes\\rho_E^a$ be a fixed finite-dimensional classical--quantum state, with $\\rho_E=\\sum_a p_a\\rho_E^a$. All logarithms are base two. Write $S(\\sigma)=-\\operatorname{Tr}\\sigma\\log_2\\sigma$ and $H(A|E)_\\rho=S(\\rho_{AE})-S(\\rho_E)$.\n\nFor $n$ independent copies, choose a public random hash $F_n:\\mathcal A^n\\to\\{1,\\ldots,M_n\\}$, independently of the source. Two-universality means\n\\begin{equation}\n \\Pr\\{F_n(a^n)=F_n(b^n)\\}\\leq M_n^{-1}\\quad\\text{for every }a^n\\neq b^n.\n \\label{eq:h10-universal}\n\\end{equation}\nFor a realized function $f$, let $\\rho^f_{Z_nE^n}$ be the state obtained by applying $f$ to the classical register of $\\rho_{AE}^{\\otimes n}$, and put $\\tau_{M_n}=I_{Z_n}/M_n$. With $D(\\omega\\|\\sigma)=\\operatorname{Tr}\\omega(\\log_2\\omega-\\log_2\\sigma)$, define\n\\begin{equation}\n e_I(\\rho_{AE},R):=\\sup_{\\{(M_n,F_n)\\}}\\liminf_{n\\to\\infty}-\\frac1n\\log_2\\mathbb E_{F_n}D\\!\\left(\\rho^{F_n}_{Z_nE^n}\\middle\\|\\tau_{M_n}\\otimes\\rho_E^{\\otimes n}\\right),\n \\label{eq:h10-exponent}\n\\end{equation}\nwhere the supremum ranges over sequences satisfying Eq.~\\eqref{eq:h10-universal} and $n^{-1}\\log_2 M_n\\to R$, and $-\\log_2 0=+\\infty$. The hash family may depend on the fixed source state. Determine Eq.~\\eqref{eq:h10-exponent} for arbitrary $\\rho_{AE}$ and $0<R<H(A|E)_\\rho$, including the low-rate regime.",
+  "source": "Hayashi discusses the tightness question in Sections~8.14 and~8.21.4, pp.~434--435 and~461 \\sourcecite{ref:h10-book}{Hay17}. Li, Yao, and Hayashi formulate the exponent problem in Section~IV and identify the unresolved low-rate regime in Section~IV-B \\sourcecite{ref:h10-lyh}{LYH23}. Equation~\\eqref{eq:h10-exponent} preserves the supplied note's optimization over two-universal families.",
+  "progress": [
+    "Define the fixed-marginal sandwiched conditional entropy by\n\\begin{equation}\n \\widetilde H_{1+s}(A|E)_\\rho=-\\frac1s\\log_2\\operatorname{Tr}\\!\\left[\\left((I_A\\otimes\\rho_E^{-s/(2(1+s))})\\rho_{AE}(I_A\\otimes\\rho_E^{-s/(2(1+s))})\\right)^{1+s}\\right],\\quad s>0,\n \\label{eq:h10-renyi}\n\\end{equation}\nwith inverses on the support and the continuous value $H(A|E)_\\rho$ at $s=0$. Using Eq.~\\eqref{eq:h10-renyi}, the known bounds are\n\\begin{equation}\n e_H(R):=\\max_{0\\leq s\\leq1}s(\\widetilde H_{1+s}(A|E)_\\rho-R)\\ \\leq\\ e_I(\\rho_{AE},R)\\ \\leq\\ \\sup_{s\\geq0}s(\\widetilde H_{1+s}(A|E)_\\rho-R).\n \\label{eq:h10-bounds}\n\\end{equation}\nThe upper bound in Eq.~\\eqref{eq:h10-bounds} holds even for the best deterministic hashes. Theorem~3 and Eq.~(24) prove equality with $e_H(R)$ when $R\\geq R_{\\rm crit}:=\\left.\\frac{d}{ds}[s\\widetilde H_{1+s}(A|E)_\\rho]\\right|_{s=1}$ \\sourcecite{ref:h10-lyh}{LYH23}.",
+    "Section~IV-B shows that the two bounds in Eq.~\\eqref{eq:h10-bounds} need not be tight at low rates \\sourcecite{ref:h10-lyh}{LYH23}. Thus the original suggestion that $e_H$ is always exact has a negative answer; the remaining task is the exact exponent, rather than proving that suggestion.",
+    "Li, Qiu, and Zhang determine an exact exponent for sandwiched R\\'enyi orders $\\alpha\\geq2$ under independent uniform random binning; see Theorem~14 in Section~6.1 of their August~2026 v2 preprint. Their Section~7 explicitly leaves orders $\\alpha\\in(0,2)$ open. This theorem concerns a specified ensemble and a different security divergence, so it does not determine Eq.~\\eqref{eq:h10-exponent} \\sourcecite{ref:h10-lqz}{LQZ26}."
+  ],
+  "references": [
+    {
+      "key": "Hay17",
+      "label": "ref:h10-book",
+      "tex": "M. Hayashi, \\emph{Quantum Information Theory: Mathematical Foundation}, 2nd ed., Graduate Texts in Physics, Springer (2017). \\href{https://doi.org/10.1007/978-3-662-49725-8}{doi:10.1007/978-3-662-49725-8}."
+    },
+    {
+      "key": "LYH23",
+      "label": "ref:h10-lyh",
+      "tex": "K. Li, Y. Yao, and M. Hayashi, ``Tight Exponential Analysis for Smoothing the Max-Relative Entropy and for Quantum Privacy Amplification,'' \\emph{IEEE Transactions on Information Theory} \\textbf{69}(3), 1680--1694 (2023). \\href{https://doi.org/10.1109/TIT.2022.3217671}{doi:10.1109/TIT.2022.3217671}; \\href{https://arxiv.org/abs/2111.01075}{arXiv:2111.01075}."
+    },
+    {
+      "key": "LQZ26",
+      "label": "ref:h10-lqz",
+      "tex": "S.-B. Li, H. Qiu, and X. Zhang, ``Reliability Functions of Quantum Soft Covering and Privacy Amplification via a Mixed-Order R\\'enyi Divergence,'' preprint, v2 (2026). \\href{https://arxiv.org/abs/2607.27015}{arXiv:2607.27015}."
+    }
+  ],
+  "comment": "Audited on 2026-09-09 using the full source papers, including the August~2026 revision of \\sourcecite{ref:h10-lqz}{LQZ26}. The high-rate theorem does not solve the all-rate question. The reference state fixes the actual marginal $\\rho_E$; it is not optimized over an auxiliary state. The positive-rate restriction removes the degenerate choice $M_n=1$, which has zero insecurity. Even at positive rates the exponent can be infinite: uniformly random balanced partitions of a uniform independent classical source can extract an exactly uniform key. A complete answer must accommodate such sources. The original unrestricted tightness suggestion is already false, while a general exact low-rate formula remains unknown. The statement concerns the relative-entropy criterion and optimization over two-universal families; neither a trace-distance exponent nor the exponent of a single prescribed family is an equivalent question."
+}

@@ -690,7 +690,7 @@ export function renderAbout({ config, root, dates }) {
               <div class="copy-block no-math"><pre id="mcp-config">${escape(mcpConfig)}</pre><button class="copy-button" type="button" data-copy="mcp-config" aria-label="Copy MCP client configuration">Copy</button></div>
             </details>
           </li>
-          <li><strong>Ask a research question.</strong> For example: “Use the quantum-open-problems MCP to find unsolved problems about quantum channel capacity, then summarize one problem's known progress and references.” The assistant can use <code>search_problems</code>, <code>get_problem</code>, <code>list_references</code>, and <code>build_context</code>.</li>
+          <li><strong>Ask a research question.</strong> For example: “Use the quantum-open-problems MCP to find unsolved problems about quantum channel capacity, then summarize one problem's known progress and references.” The assistant can use <code>search_problems</code>, <code>get_problem</code>, <code>read_problem</code>, <code>list_references</code>, and <code>build_context</code>.</li>
         </ol>
         <p>The connection reads the current hosted catalog, including newly published problems. If it fails, check the <a href="${escape(mcpServiceUrl)}/api/v1/status" rel="noreferrer">catalog service status</a> and confirm that your client supports remote MCP. The <a href="${config.repositoryUrl}/blob/${config.branch}/mcp/README.md" rel="noreferrer">MCP setup and tool guide</a> also covers local clients and authenticated research contributions. For direct downloads, the <a href="${root}api/index.json">JSON catalog</a>, <a href="${root}api/tags.json">taxonomy</a>, and <a href="${root}llms.txt">agent guide</a> are available.</p>
 

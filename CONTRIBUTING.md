@@ -219,9 +219,16 @@ problem ID, the exact claim, and the primary sources.
 
 ## Required reviews and checks
 
-Changes to main require a PR, approval from a code owner, and all four CI checks
-against the latest main. New pushes dismiss earlier approvals. The infrastructure
-maintainers and scientific reviewers are listed in `.github/CODEOWNERS`; admins
-follow the same rules. Do not define TeX macros or aliases in records: write
-expressions with standard commands, using `\operatorname` for named operators.
-See [security operations](docs/SECURITY_OPERATIONS.md) for deployment boundaries.
+Changes to main require a PR, resolved review threads, and all four CI checks
+against the latest main. `@Naixu-Guo` is the sole code owner and the only account
+allowed to merge into main. Collaborators can submit PRs and review each other's
+work; final approval and merging belong to the repository owner. New pushes
+dismiss stale approvals.
+
+The owner can merge an explicitly authorized PR directly through an owner-only
+PR bypass, including PRs they authored or last pushed. CI checks and resolved
+review threads still apply. See [security operations](docs/SECURITY_OPERATIONS.md) for the merge policy
+and deployment boundaries.
+
+Do not define TeX macros or aliases in records: write expressions with standard
+commands, using `\operatorname` for named operators.

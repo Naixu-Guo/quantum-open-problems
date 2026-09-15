@@ -1,0 +1,531 @@
+{
+  "metadata": {
+    "endpoint": "http://127.0.0.1:62285/mcp",
+    "api": "http://127.0.0.1:62284",
+    "catalogVersion": "d76175295aaee4cd1437fe6d876f00acab20b2dc70414ad56d9b7aa3b2fb5c89",
+    "count": 111,
+    "baseCommit": "89e5cb8c65225fb5eca885bd9d99300c5fa4b16b",
+    "implementation": "working-tree",
+    "stores": "in-memory",
+    "protocol": "real MCP HTTP to real API HTTP"
+  },
+  "startupMs": 2329.25,
+  "node": "v22.16.0",
+  "gitHead": "89e5cb8c65225fb5eca885bd9d99300c5fa4b16b",
+  "sourceHashes": {
+    "service/src/read-models.ts": "67a17eab55482fa57f983179a2a110254a213496c5f1de35d11f367faef85fb5",
+    "service/src/research-view.ts": "463a10588132e5b98cfdaae22eb4f003a5b9f54c4630cac757ef8d16b9c9edf2",
+    "service/src/index.ts": "5b3552b2ce7f0dbe48917db191a87ccf0db33ad7d41965cdd887fa71de806fa0",
+    "mcp/src/result.ts": "c21121d6a1d61e7a5fee163db5e0fa60c1e8fbd75d411bf7d0d1a0e405f2eb6f"
+  },
+  "search": {
+    "elapsedMs": 14.05,
+    "bodyBytes": 14870,
+    "count": 25
+  },
+  "benchmarks": [
+    {
+      "kind": "api",
+      "concurrency": 1,
+      "requestsPerBatch": 25,
+      "repeats": 3,
+      "batches": [
+        {
+          "elapsedMs": 518.45,
+          "requestMedianMs": 20.6,
+          "requestMinMs": 19.07,
+          "requestMaxMs": 23.88,
+          "jsonValueBytes": 452231,
+          "httpBodyBytes": 508392
+        },
+        {
+          "elapsedMs": 512.94,
+          "requestMedianMs": 20.13,
+          "requestMinMs": 19.76,
+          "requestMaxMs": 23.74,
+          "jsonValueBytes": 452231,
+          "httpBodyBytes": 508392
+        },
+        {
+          "elapsedMs": 532.1,
+          "requestMedianMs": 20.55,
+          "requestMinMs": 19.86,
+          "requestMaxMs": 26.12,
+          "jsonValueBytes": 452231,
+          "httpBodyBytes": 508392
+        }
+      ],
+      "batchMedianMs": 518.45
+    },
+    {
+      "kind": "api",
+      "concurrency": 8,
+      "requestsPerBatch": 25,
+      "repeats": 3,
+      "batches": [
+        {
+          "elapsedMs": 513.88,
+          "requestMedianMs": 100.09,
+          "requestMinMs": 21.89,
+          "requestMaxMs": 512.76,
+          "jsonValueBytes": 452231,
+          "httpBodyBytes": 508392
+        },
+        {
+          "elapsedMs": 511.79,
+          "requestMedianMs": 123.35,
+          "requestMinMs": 20.44,
+          "requestMaxMs": 269.43,
+          "jsonValueBytes": 452231,
+          "httpBodyBytes": 508392
+        },
+        {
+          "elapsedMs": 499.86,
+          "requestMedianMs": 120.29,
+          "requestMinMs": 20.76,
+          "requestMaxMs": 261.77,
+          "jsonValueBytes": 452231,
+          "httpBodyBytes": 508392
+        }
+      ],
+      "batchMedianMs": 511.79
+    },
+    {
+      "kind": "api",
+      "concurrency": 25,
+      "requestsPerBatch": 25,
+      "repeats": 3,
+      "batches": [
+        {
+          "elapsedMs": 499.89,
+          "requestMedianMs": 261.97,
+          "requestMinMs": 20.79,
+          "requestMaxMs": 498.89,
+          "jsonValueBytes": 452231,
+          "httpBodyBytes": 508392
+        },
+        {
+          "elapsedMs": 496.43,
+          "requestMedianMs": 254.85,
+          "requestMinMs": 20.76,
+          "requestMaxMs": 495.68,
+          "jsonValueBytes": 452231,
+          "httpBodyBytes": 508392
+        },
+        {
+          "elapsedMs": 504.75,
+          "requestMedianMs": 261.56,
+          "requestMinMs": 22.34,
+          "requestMaxMs": 504.01,
+          "jsonValueBytes": 452231,
+          "httpBodyBytes": 508392
+        }
+      ],
+      "batchMedianMs": 499.89
+    },
+    {
+      "kind": "mcp",
+      "concurrency": 1,
+      "requestsPerBatch": 25,
+      "repeats": 3,
+      "batches": [
+        {
+          "elapsedMs": 582.97,
+          "requestMedianMs": 22.62,
+          "requestMinMs": 21.43,
+          "requestMaxMs": 33.06,
+          "jsonValueBytes": 452231,
+          "mcpResultBytes": 988977,
+          "httpResponseBodyBytes": 990442
+        },
+        {
+          "elapsedMs": 553.77,
+          "requestMedianMs": 22.12,
+          "requestMinMs": 21.32,
+          "requestMaxMs": 23.59,
+          "jsonValueBytes": 452231,
+          "mcpResultBytes": 988977,
+          "httpResponseBodyBytes": 990452
+        },
+        {
+          "elapsedMs": 574.65,
+          "requestMedianMs": 22.52,
+          "requestMinMs": 21.36,
+          "requestMaxMs": 30.27,
+          "jsonValueBytes": 452231,
+          "mcpResultBytes": 988977,
+          "httpResponseBodyBytes": 990452
+        }
+      ],
+      "batchMedianMs": 574.65
+    },
+    {
+      "kind": "mcp",
+      "concurrency": 8,
+      "requestsPerBatch": 25,
+      "repeats": 3,
+      "batches": [
+        {
+          "elapsedMs": 534.22,
+          "requestMedianMs": 167.6,
+          "requestMinMs": 22.8,
+          "requestMaxMs": 386.93,
+          "jsonValueBytes": 452231,
+          "mcpResultBytes": 988977,
+          "httpResponseBodyBytes": 990452
+        },
+        {
+          "elapsedMs": 518.84,
+          "requestMedianMs": 164.48,
+          "requestMinMs": 64.56,
+          "requestMaxMs": 288.05,
+          "jsonValueBytes": 452231,
+          "mcpResultBytes": 988977,
+          "httpResponseBodyBytes": 990477
+        },
+        {
+          "elapsedMs": 522.56,
+          "requestMedianMs": 165.58,
+          "requestMinMs": 104.88,
+          "requestMaxMs": 168.58,
+          "jsonValueBytes": 452231,
+          "mcpResultBytes": 988977,
+          "httpResponseBodyBytes": 990477
+        }
+      ],
+      "batchMedianMs": 522.56
+    },
+    {
+      "kind": "mcp",
+      "concurrency": 25,
+      "requestsPerBatch": 25,
+      "repeats": 3,
+      "batches": [
+        {
+          "elapsedMs": 529.57,
+          "requestMedianMs": 294.44,
+          "requestMinMs": 166.01,
+          "requestMaxMs": 529.54,
+          "jsonValueBytes": 452231,
+          "mcpResultBytes": 988977,
+          "httpResponseBodyBytes": 990477
+        },
+        {
+          "elapsedMs": 522.16,
+          "requestMedianMs": 276.91,
+          "requestMinMs": 250.21,
+          "requestMaxMs": 522.13,
+          "jsonValueBytes": 452231,
+          "mcpResultBytes": 988977,
+          "httpResponseBodyBytes": 990477
+        },
+        {
+          "elapsedMs": 512.55,
+          "requestMedianMs": 505.68,
+          "requestMinMs": 501.08,
+          "requestMaxMs": 512.5,
+          "jsonValueBytes": 452231,
+          "mcpResultBytes": 988977,
+          "httpResponseBodyBytes": 990477
+        }
+      ],
+      "batchMedianMs": 522.16
+    }
+  ],
+  "fieldBytes": [
+    {
+      "field": "research",
+      "totalBytes": 232514
+    },
+    {
+      "field": "references",
+      "totalBytes": 94989
+    },
+    {
+      "field": "statement",
+      "totalBytes": 84882
+    },
+    {
+      "field": "provenance",
+      "totalBytes": 7200
+    },
+    {
+      "field": "catalogDates",
+      "totalBytes": 4550
+    },
+    {
+      "field": "statusSource",
+      "totalBytes": 3250
+    },
+    {
+      "field": "aliases",
+      "totalBytes": 2163
+    },
+    {
+      "field": "authoredCatalog",
+      "totalBytes": 2100
+    },
+    {
+      "field": "topicIds",
+      "totalBytes": 1684
+    },
+    {
+      "field": "title",
+      "totalBytes": 1351
+    },
+    {
+      "field": "id",
+      "totalBytes": 700
+    },
+    {
+      "field": "createdBy",
+      "totalBytes": 700
+    },
+    {
+      "field": "areaIds",
+      "totalBytes": 651
+    },
+    {
+      "field": "bodyDisposition",
+      "totalBytes": 650
+    },
+    {
+      "field": "createdAt",
+      "totalBytes": 626
+    },
+    {
+      "field": "origin",
+      "totalBytes": 407
+    },
+    {
+      "field": "relatedProblemIds",
+      "totalBytes": 306
+    },
+    {
+      "field": "catalogState",
+      "totalBytes": 275
+    },
+    {
+      "field": "keywords",
+      "totalBytes": 250
+    },
+    {
+      "field": "view",
+      "totalBytes": 250
+    },
+    {
+      "field": "status",
+      "totalBytes": 250
+    },
+    {
+      "field": "type",
+      "totalBytes": 225
+    },
+    {
+      "field": "role",
+      "totalBytes": 225
+    },
+    {
+      "field": "difficulty",
+      "totalBytes": 225
+    },
+    {
+      "field": "verificationCost",
+      "totalBytes": 225
+    },
+    {
+      "field": "schemaVersion",
+      "totalBytes": 125
+    },
+    {
+      "field": "posed",
+      "totalBytes": 108
+    },
+    {
+      "field": "parentProblemId",
+      "totalBytes": 100
+    },
+    {
+      "field": "parentClauseId",
+      "totalBytes": 100
+    },
+    {
+      "field": "indexed",
+      "totalBytes": 100
+    },
+    {
+      "field": "comments",
+      "totalBytes": 50
+    },
+    {
+      "field": "decisions",
+      "totalBytes": 50
+    },
+    {
+      "field": "revision",
+      "totalBytes": 25
+    }
+  ],
+  "subsets": {
+    "topLevelProvenance": 7200,
+    "researchProvenance": 7200,
+    "perResearchEntryProvenance": 95885,
+    "entryCount": 255,
+    "statementBody": 32834,
+    "statementClauses": 43807,
+    "ledgerReferences": 94989,
+    "authoredBibliography": 79912,
+    "researchTextOnly": 97265
+  },
+  "originalModelLifecycle": [
+    {
+      "case": 1,
+      "peakOutstanding": 1,
+      "groups": [
+        {
+          "count": 1,
+          "tools": [
+            "get_taxonomy"
+          ]
+        },
+        {
+          "count": 1,
+          "tools": [
+            "sample_problem"
+          ]
+        }
+      ],
+      "topLevelKeys": [
+        "type",
+        "thread_id",
+        "item",
+        "usage"
+      ],
+      "itemKeys": [
+        "id",
+        "type",
+        "text",
+        "server",
+        "tool",
+        "arguments",
+        "result",
+        "error",
+        "status"
+      ],
+      "resultBytes": 34135,
+      "structuredValueBytes": 15742
+    },
+    {
+      "case": 2,
+      "peakOutstanding": 16,
+      "groups": [
+        {
+          "count": 2,
+          "tools": [
+            "get_taxonomy",
+            "get_problem"
+          ]
+        },
+        {
+          "count": 1,
+          "tools": [
+            "search_problems"
+          ]
+        },
+        {
+          "count": 8,
+          "tools": [
+            "get_problem"
+          ]
+        },
+        {
+          "count": 16,
+          "tools": [
+            "get_problem"
+          ]
+        },
+        {
+          "count": 1,
+          "tools": [
+            "get_frontier"
+          ]
+        }
+      ],
+      "topLevelKeys": [
+        "type",
+        "thread_id",
+        "item",
+        "usage"
+      ],
+      "itemKeys": [
+        "id",
+        "type",
+        "text",
+        "server",
+        "tool",
+        "arguments",
+        "result",
+        "error",
+        "status"
+      ],
+      "resultBytes": 1027424,
+      "structuredValueBytes": 469680
+    },
+    {
+      "case": 3,
+      "peakOutstanding": 12,
+      "groups": [
+        {
+          "count": 1,
+          "tools": [
+            "get_taxonomy"
+          ]
+        },
+        {
+          "count": 1,
+          "tools": [
+            "search_problems"
+          ]
+        },
+        {
+          "count": 1,
+          "tools": [
+            "search_problems"
+          ]
+        },
+        {
+          "count": 12,
+          "tools": [
+            "get_problem"
+          ]
+        }
+      ],
+      "topLevelKeys": [
+        "type",
+        "thread_id",
+        "item",
+        "usage"
+      ],
+      "itemKeys": [
+        "id",
+        "type",
+        "text",
+        "server",
+        "tool",
+        "arguments",
+        "result",
+        "error",
+        "status"
+      ],
+      "resultBytes": 514263,
+      "structuredValueBytes": 234182
+    }
+  ],
+  "notes": [
+    "Fresh local process, same machine, in-memory stores, 111-record catalog; startup is measured separately.",
+    "Sequential and pooled request batches repeat three times. Results are local client wall time, not isolated service CPU or remote-host latency.",
+    "MCP HTTP body bytes include protocol framing and two content representations; model token ingestion may differ by client.",
+    "Original model logs contain lifecycle ordering but no timing fields, so they do not support attributing portions of the 99-second run to specific calls."
+  ],
+  "serverStderr": ""
+}

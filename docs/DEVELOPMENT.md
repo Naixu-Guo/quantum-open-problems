@@ -87,6 +87,20 @@ Links inside the site are relative, so `dist/` works from any subpath, but the
 folder-style URLs need a web server; opening `dist/index.html` directly from
 the file system will not resolve links such as `problem/<id>/`.
 
+## Run tests
+
+Install both sets of locked dependencies before running the root test suite:
+
+```sh
+npm --prefix contract ci --ignore-scripts
+npm --prefix mcp ci --ignore-scripts
+npm test
+```
+
+The root tests include catalog-to-service and MCP integration checks. The stdio
+adapter uses the official MCP SDK, so these checks need the MCP dependencies as
+well as the contract dependencies. The static-site build itself needs neither.
+
 ## Add or update a problem
 
 1. Run `node scripts/new-problem-id.mjs --create` to create a record scaffold
@@ -159,8 +173,9 @@ the projection without writing. The regular exporter appends revisions and state
 subsequent service activity and incremental events; `--replace-authoritative` explicitly replaces the entire
 ledger and activity roots and was used for the initial database replacement.
 
-Run `npm run service` to serve the HTTP API and review app, or `npm run mcp`
-to start the MCP adapter. See [service/README.md](../service/README.md) for
+Run `npm run service` to serve the HTTP API and review app. To start the MCP
+adapter, install `npm --prefix mcp ci --ignore-scripts` and run `npm run mcp`.
+See [service/README.md](../service/README.md) for
 configuration and [the catalog integration guide](CATALOG_INTEGRATION.md)
 for versioned reconciliation, first-editor setup, historical interfaces, and
 the `npm run handoff-catalog` authoring handoff.
