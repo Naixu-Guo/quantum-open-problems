@@ -1,5 +1,5 @@
 {
-  "name": "Owner approval",
+  "name": "Owner approval and merge",
   "target": "branch",
   "enforcement": "active",
   "bypass_actors": [
@@ -32,17 +32,11 @@
           "merge",
           "squash",
           "rebase"
-        ],
-        "dismissal_restriction": {
-          "enabled": true,
-          "allowed_actors": [
-            {
-              "id": 58557763,
-              "type": "User"
-            }
-          ]
-        }
+        ]
       }
+    },
+    {
+      "type": "update"
     }
   ]
 }

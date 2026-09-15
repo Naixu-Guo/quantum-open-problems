@@ -220,14 +220,14 @@ problem ID, the exact claim, and the primary sources.
 ## Required reviews and checks
 
 Changes to main require a PR, resolved review threads, and all four CI checks
-against the latest main. Collaborators need approval from `@Naixu-Guo`, the sole
-code owner in `.github/CODEOWNERS`. New pushes dismiss stale approvals; only
-`@Naixu-Guo` can dismiss reviews manually. Other collaborators are welcome to
-review, but their approval does not replace the owner's.
+against the latest main. `@Naixu-Guo` is the sole code owner and the only account
+allowed to merge into main. Collaborators can submit PRs and review each other's
+work; final approval and merging belong to the repository owner. New pushes
+dismiss stale approvals.
 
-The owner can merge a PR directly through an owner-only review bypass, including
-PRs they authored or last pushed. CI checks and resolved review threads still
-apply. See [security operations](docs/SECURITY_OPERATIONS.md) for the merge policy
+The owner can merge an explicitly authorized PR directly through an owner-only
+PR bypass, including PRs they authored or last pushed. CI checks and resolved
+review threads still apply. See [security operations](docs/SECURITY_OPERATIONS.md) for the merge policy
 and deployment boundaries.
 
 Do not define TeX macros or aliases in records: write expressions with standard
