@@ -1,0 +1,65 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_62c9d73ced040f87",
+  "ulid": "01M2JD0QFNXTMGCBQ405DNSW8Z",
+  "aliases": [
+    "op_62c9d73ced040f87",
+    "01M2JD0QFNXTMGCBQ405DNSW8Z",
+    "op-62c9d73ced040f87"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-15T11:25:14.101Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-error-correction",
+      "quantum-algorithm"
+    ],
+    "topicIds": [
+      "quantum-ldpc-codes",
+      "quantum-circuit-complexity"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
+  "title": "Linear-size logarithmic-depth encoders for good quantum LDPC codes",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum Error Correction",
+    "Quantum algorithm"
+  ],
+  "topics": [
+    "Quantum LDPC codes",
+    "Quantum circuit complexity"
+  ],
+  "statement": "Does some family of asymptotically good qubit CSS LDPC codes admit unitary\nencoding circuits with linearly many gates and logarithmic depth?  Consider\nqubit CSS codes $[[n,k_n,d_n]]$ with $n\\to\\infty$, $k_n,d_n=\\Omega(n)$, and\ncheck weights and qubit degrees bounded uniformly in $n$.  The question asks\nwhether such a family has measurement-free unitary Clifford encoders $V_n$ on\nits $n$ physical qubits satisfying\n\\begin{equation}\n  V_n\\bigl(|\\psi\\rangle\\otimes|0\\rangle^{\\otimes(n-k_n)}\\bigr)\n  =\\operatorname{Enc}_n|\\psi\\rangle\n  \\qquad\n  \\text{for every }|\\psi\\rangle\\in(\\mathbb C^2)^{\\otimes k_n},\n  \\label{eq:62c9-encoder}\n\\end{equation}\nwhere $\\operatorname{Enc}_n$ is an isometry onto the code space and $V_n$ is a\ncircuit of $O(n)$ one- and two-qubit gates with depth $O(\\log n)$.  The\nconstants implicit in these bounds are independent of $n$, and gates may act\non arbitrary pairs of qubits.",
+  "source": "Wills, Lin, Zhang, and Hsieh note that it is not known whether there exist\nLDPC codes with low-depth or low-complexity encoders, even classically, and\nask whether there must be a tradeoff between the parameters of a code, the\ndepth or complexity of its encoder, and its maximum check weight\n\\sourcecite{ref:62c9-wlzh}{WLZ+26}, Section~1.2, discussion of Open\nProblem~3.  The statement specializes that question to good qubit CSS codes\nwith bounded check weights and qubit degrees, measurement-free unitary\nClifford encoders, $O(n)$ gates, and $O(\\log n)$ depth, in the noiseless\nencoding model of their Section~4.1.",
+  "progress": [
+    "Wills, Lin, Zhang, and Hsieh construct asymptotically good qubit CSS\ncodes, randomized in Theorem~1 and explicit in Theorem~2, that are encoded and\nunencoded by parallel quantum circuits of logarithmic depth with a linear\nnumber of gates, and decoded by classical circuits with a linear number of\ngates \\sourcecite{ref:62c9-wlzh}{WLZ+26}, Theorems~1 and~2, retained in the\nrevision of 22 June 2026.  In their model the encoder acts on the message\nqubits and on check qubits prepared in $|+\\rangle$ or $|0\\rangle$ and may be\ntaken to consist of CNOT gates (Section~4.1); preparing $|+\\rangle$ as\n$H|0\\rangle$ adds one layer of Hadamard gates and gives the form of\nEq.~\\eqref{eq:62c9-encoder}.  Hence these preprint theorems answer the\nquestion affirmatively without the LDPC requirement.  They do not assert\nbounded check weights\nor qubit degrees.",
+    "Dinur, Hsieh, Lin, and Vidick construct explicit good quantum LDPC codes\nwith linear-time decoders \\sourcecite{ref:62c9-dhlv}{DHLV23}.  Efficient\nsyndrome decoding does not bound the size or depth of a unitary encoder\nsatisfying Eq.~\\eqref{eq:62c9-encoder}.",
+    "Logarithmic depth is necessary for linear distance, with or without the\nLDPC restriction, by a light-cone argument.  Let $P$ be a nontrivial Pauli\noperator on one logical input qubit, and let $V_n$ have depth $D$, each layer\nacting on every qubit at most once.  Each layer of one- and two-qubit gates at\nmost doubles the support of a conjugated operator, so the Pauli operator\n$V_n(P\\otimes I)V_n^\\dagger$ is supported on at most $2^D$ qubits.  By\nEq.~\\eqref{eq:62c9-encoder} it maps $\\operatorname{Enc}_n|\\psi\\rangle$ to\n$\\operatorname{Enc}_nP|\\psi\\rangle$ for every $|\\psi\\rangle$, so it is a\nnontrivial logical operator and has weight at least $d_n$.  Therefore\n\\begin{equation}\n  d_n\\le 2^{D},\n  \\label{eq:62c9-light-cone}\n\\end{equation}\nand $d_n=\\Omega(n)$ forces $D\\ge\\log_2 d_n=\\Omega(\\log n)$.  This elementary\ndeduction shows that the depth bound in the statement cannot be lowered to a\nconstant."
+  ],
+  "references": [
+    {
+      "key": "WLZ+26",
+      "label": "ref:62c9-wlzh",
+      "tex": "A. Wills, T.-C. Lin, R. Y. Zhang, and M.-H. Hsieh, ``Linear-Time Encodable\nand Decodable Quantum Error-Correcting Codes,'' arXiv:2603.04543 (2026).\n\\href{https://doi.org/10.48550/arXiv.2603.04543}{doi:10.48550/arXiv.2603.04543};\n\\href{https://arxiv.org/abs/2603.04543}{arXiv:2603.04543}."
+    },
+    {
+      "key": "DHLV23",
+      "label": "ref:62c9-dhlv",
+      "tex": "I. Dinur, M.-H. Hsieh, T.-C. Lin, and T. Vidick, ``Good Quantum LDPC Codes\nwith Linear Time Decoders,'' in \\emph{Proceedings of the 55th Annual ACM\nSymposium on Theory of Computing (STOC 2023)}, 905--918 (2023).\n\\href{https://doi.org/10.1145/3564246.3585101}{doi:10.1145/3564246.3585101};\n\\href{https://arxiv.org/abs/2206.07750}{arXiv:2206.07750}."
+    }
+  ],
+  "comment": "Literature checked through 15 September 2026: no construction or\nimpossibility theorem was found that meets the good-code, bounded-weight,\nlinear-gate-count, and logarithmic-depth requirements simultaneously.  The\nencoding model is ideal: gates are noiseless, no measurements or classical\nfeed-forward are allowed, and no geometric locality is imposed.  The circuit\nmust encode arbitrary unknown logical states, so preparing one fixed code\nstate, fast syndrome decoding, or fault-tolerant state preparation does not by\nitself answer the question.  By Eq.~\\eqref{eq:62c9-light-cone} the depth\nrequirement is optimal up to a constant factor for linear distance, and the\nversion without the LDPC requirement is answered affirmatively in the preprint\n\\sourcecite{ref:62c9-wlzh}{WLZ+26}; the open issue is whether uniformly\nbounded check weights and qubit degrees are compatible with such encoders.",
+  "contributors": []
+}

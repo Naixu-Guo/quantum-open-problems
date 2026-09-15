@@ -1,0 +1,68 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_7388956ad5c7eb27",
+  "ulid": "01M2JD5FK9R2ZW46V6A18T2J1K",
+  "aliases": [
+    "op_7388956ad5c7eb27",
+    "01M2JD5FK9R2ZW46V6A18T2J1K",
+    "op-7388956ad5c7eb27"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-15T11:27:49.865Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "derived",
+    "posed": null,
+    "areaIds": [
+      "quantum-communication"
+    ],
+    "topicIds": [
+      "superactivation",
+      "quantum-capacity",
+      "bosonic-channels"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": [
+      "01M26JZET5QZ2FB0WSWESW77V6",
+      "01M1Q787QR71ZZJVC3XC65A5F3"
+    ]
+  },
+  "title": "Finite-energy superactivation of Gaussian amplifiers and additive-noise channels",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum Communication"
+  ],
+  "topics": [
+    "Superactivation",
+    "Quantum capacity",
+    "Bosonic channels"
+  ],
+  "statement": "Is there a single-mode phase-insensitive Gaussian amplifier or additive-noise channel of zero finite-energy quantum capacity that acquires positive finite-energy quantum capacity when used in parallel with a two-mode positive-partial-transpose Gaussian channel of zero finite-energy quantum capacity?\nConsider single-mode, phase-insensitive bosonic Gaussian channels $\\mathcal G_{\\tau,y}$ with finite real parameters $\\tau\\geq1$ and $y\\geq|1-\\tau|$. In the convention where the vacuum covariance matrix is $I_2$, their displacement vectors and covariance matrices transform as\n\\begin{equation}\n \\boldsymbol m\\longmapsto\\sqrt\\tau\\,\\boldsymbol m,\n \\qquad\n V\\longmapsto\\tau V+yI_2.\n \\label{eq:7388-single-mode}\n\\end{equation}\nHere $\\tau>1$ describes an amplifier, while $\\tau=1$ and $y>0$ describes an additive-noise channel. Restrict to the non-entanglement-breaking parameter range $y<1+\\tau$.\nLet $\\mathcal H$ be any Gaussian channel with two input modes and two output modes, acting on covariance matrices as $V\\mapsto X_HVX_H^T+Y_H$ for real $4\\times4$ matrices $X_H$ and $Y_H=Y_H^T$. Write\n\\begin{equation}\n \\Omega_2:=\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}^{\\oplus2}.\n \\label{eq:7388-symplectic-form}\n\\end{equation}\nRequire both complete positivity and the positive-partial-transpose (PPT) property:\n\\begin{equation}\n Y_H+i(\\Omega_2-X_H\\Omega_2X_H^T)\\geq0,\n \\qquad\n Y_H+i(\\Omega_2+X_H\\Omega_2X_H^T)\\geq0.\n \\label{eq:7388-cp-ppt}\n\\end{equation}\nFor a bosonic channel $\\mathcal N$, let $Q_E(\\mathcal N)$ be its unassisted quantum capacity when the total mean input photon number over $n$ uses is at most $nE$, and define\n\\begin{equation}\n Q_{\\mathrm{fin}}(\\mathcal N):=\\sup_{0<E<\\infty}Q_E(\\mathcal N),\n \\label{eq:7388-finite-energy-capacity}\n\\end{equation}\nallowing arbitrary, including non-Gaussian, codes. The question is whether some pair $(\\mathcal G_{\\tau,y},\\mathcal H)$ allowed by Eqs.~\\eqref{eq:7388-single-mode}--\\eqref{eq:7388-cp-ppt} and the stated parameter ranges satisfies\n\\begin{equation}\n Q_{\\mathrm{fin}}(\\mathcal G_{\\tau,y})=Q_{\\mathrm{fin}}(\\mathcal H)=0,\n \\qquad\n Q_{\\mathrm{fin}}(\\mathcal G_{\\tau,y}\\otimes\\mathcal H)>0,\n \\label{eq:7388-superactivation}\n\\end{equation}\nwith capacities as in Eq.~\\eqref{eq:7388-finite-energy-capacity}.",
+  "source": "Lim, Takagi, Adesso, and Lee studied activation of all single-mode phase-insensitive Gaussian channels by the two-mode PPT channel family of Smith, Smolin, and Yard. After finding no activation of amplifiers by their methods, they conjectured in Section~III that single-mode Gaussian amplifiers cannot be activated, and in Section~IV that additive-noise channels and amplifiers cannot exhibit activation or superactivation \\sourcecite{ref:7388-lim-et-al}{LTA+19}. The present formulation isolates the superactivation case of that conjecture for the class of all two-mode PPT Gaussian helpers, which is broader than the helper family tested there, and allows arbitrary finite-energy codes. It is set in the Gaussian superactivation framework of Smith, Smolin, and Yard \\sourcecite{ref:7388-smith-smolin-yard}{SSY11}.",
+  "progress": [
+    "Smith, Smolin, and Yard established Gaussian quantum-capacity superactivation for a different single-mode channel, the 50\\% pure-loss channel $\\mathcal L_{1/2}:V\\mapsto\\frac12V+\\frac12I_2$. They constructed a two-mode Gaussian channel $\\mathcal H_0$ for which both matrices in Eq.~\\eqref{eq:7388-cp-ppt} have eigenvalues $0,0,2\\sqrt2,2\\sqrt2$, and a three-mode Gaussian input with about $0.05$ bits of coherent information at about $60$ photons per channel use. Hence\n\\begin{equation}\n Q_{\\mathrm{fin}}(\\mathcal L_{1/2})=Q_{\\mathrm{fin}}(\\mathcal H_0)=0,\n \\qquad\n Q_{\\mathrm{fin}}(\\mathcal L_{1/2}\\otimes\\mathcal H_0)>0,\n \\label{eq:7388-loss-superactivation}\n\\end{equation}\nwhere the first factor is antidegradable and the second is PPT. The pure-loss channel has transmissivity $1/2$ and is not a member of the families in Eq.~\\eqref{eq:7388-single-mode} \\sourcecite{ref:7388-smith-smolin-yard}{SSY11}.",
+    "Lim, Takagi, Adesso, and Lee extended activation and superactivation to a broad range of thermal attenuators, including low transmissivities. They used the two-parameter PPT channel family of Smith, Smolin, and Yard and a three-parameter family of Gaussian inputs, and compared coherent information with upper bounds on the attenuator capacity. They found no amplifier activation by these methods, which underlies the conjectures in Sections~III and~IV. Their calculations do not optimize over all helper channels, all Gaussian input states, non-Gaussian inputs, or blocklengths, and they identify tighter capacity upper bounds for amplifiers and additive-noise channels as needed for a conclusive test \\sourcecite{ref:7388-lim-et-al}{LTA+19}.",
+    "In the covariance convention of Eq.~\\eqref{eq:7388-single-mode}, a phase-insensitive channel with $\\tau\\geq1$ is entanglement breaking exactly when\n\\begin{equation}\n y\\geq1+\\tau,\n \\label{eq:7388-entanglement-breaking}\n\\end{equation}\nas shown in Fig.~1 of the same paper. Its Theorem~9 in Appendix~B proves that for an entanglement-breaking channel $\\Phi$ and an arbitrary channel $\\Psi$, the coherent information of $\\Phi\\otimes\\Psi$ with finite mean input energy on each factor equals the corresponding coherent information of $\\Psi$. The paper concludes that bosonic entanglement-breaking channels, such as those in the region of Eq.~\\eqref{eq:7388-entanglement-breaking}, cannot be helped by another zero-capacity channel when inputs have finite energy. This is a genuine no-go result, unlike the unsuccessful restricted searches outside that region \\sourcecite{ref:7388-lim-et-al}{LTA+19}."
+  ],
+  "references": [
+    {
+      "key": "SSY11",
+      "label": "ref:7388-smith-smolin-yard",
+      "tex": "G. Smith, J. A. Smolin, and J. Yard, ``Quantum Communication with Gaussian Channels of Zero Quantum Capacity,'' \\emph{Nature Photonics} \\textbf{5}, 624--627 (2011). \\href{https://doi.org/10.1038/nphoton.2011.203}{doi:10.1038/nphoton.2011.203}; \\href{https://arxiv.org/abs/1102.4580}{arXiv:1102.4580}."
+    },
+    {
+      "key": "LTA+19",
+      "label": "ref:7388-lim-et-al",
+      "tex": "Y. Lim, R. Takagi, G. Adesso, and S. Lee, ``Activation and Superactivation of Single-Mode Gaussian Quantum Channels,'' \\emph{Physical Review A} \\textbf{99}, 032337 (2019). \\href{https://doi.org/10.1103/PhysRevA.99.032337}{doi:10.1103/PhysRevA.99.032337}; \\href{https://arxiv.org/abs/1901.03147}{arXiv:1901.03147}."
+    }
+  ],
+  "comment": "No resolution of the stated finite-energy question was located in the literature checked through 15 September 2026. Allowing every two-mode PPT Gaussian helper is a formulation motivated by the 2019 conjecture, not a claim that its numerical study covered that whole class. An affirmative example must certify both individual regularized finite-energy capacities as zero and a positive joint rate. A negative answer must cover all admissible helpers and unrestricted codes, rather than only Gaussian single-use coherent information.\nCertifying the hypothesis $Q_{\\mathrm{fin}}(\\mathcal G_{\\tau,y})=0$ is itself unresolved for some parameters. The capacities of the two families are the subjects of the records on the \\href{https://qiqc-op.com/problem/op_9966229e2ac69eee/}{unassisted quantum capacity of a thermal amplifier} and on the \\href{https://qiqc-op.com/problem/op_1e7f431ed9013d1e/}{quantum capacity of the Gaussian random-displacement channel}; the latter is the additive-noise case $\\tau=1$, whose positivity is undecided on part of the range $y<1$.",
+  "contributors": []
+}

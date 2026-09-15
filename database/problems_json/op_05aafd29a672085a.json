@@ -1,0 +1,91 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_05aafd29a672085a",
+  "ulid": "01M2JD5FNM9JHP9747MN2AD0JW",
+  "aliases": [
+    "op_05aafd29a672085a",
+    "01M2JD5FNM9JHP9747MN2AD0JW",
+    "op-05aafd29a672085a"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-15T11:27:49.940Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "derived",
+    "posed": null,
+    "areaIds": [
+      "quantum-resource-theory"
+    ],
+    "topicIds": [
+      "superactivation",
+      "entanglement-distillation",
+      "bound-entanglement"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": [
+      "01M1HME780V1V27MDXXVA3SCW5",
+      "01M2JDG8C75QPM012SF6713NZW"
+    ]
+  },
+  "title": "Strict bipartite superactivation of distillable entanglement",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum Resource Theory"
+  ],
+  "topics": [
+    "Superactivation",
+    "Entanglement distillation",
+    "Bound entanglement"
+  ],
+  "statement": "Do there exist two bipartite states, each with zero two-way distillable entanglement, whose tensor product has positive two-way distillable entanglement?\nLet $\\rho_{AB}$ and $\\sigma_{A'B'}$ be states on arbitrary finite-dimensional bipartite Hilbert spaces. For any bipartite state $\\omega$, let $D_{\\leftrightarrow}(\\omega)$ denote its asymptotic distillable entanglement, in maximally entangled qubit pairs per copy, under local quantum operations and unlimited two-way classical communication (LOCC). When the two states are combined, Alice controls $AA'$ and Bob controls $BB'$, and the distillable entanglement of the product is taken across the cut $AA':BB'$. No additional entangled state, catalyst, or extra separated party is available. The question is whether some pair satisfies\n\\begin{equation}\n D_{\\leftrightarrow}(\\rho_{AB})=D_{\\leftrightarrow}(\\sigma_{A'B'})=0,\n \\qquad\n D_{\\leftrightarrow}(\\rho_{AB}\\otimes\\sigma_{A'B'})>0.\n \\label{eq:05aa-superactivation}\n\\end{equation}",
+  "source": "Shor, Smolin, and Terhal proposed strict superactivation of bipartite distillable entanglement, in the sense of Eq.~\\eqref{eq:05aa-superactivation}, and showed that it would follow from a conjecture that certain NPT Werner states are undistillable \\sourcecite{ref:05aa-shor-smolin-terhal}{SST01}. After establishing multiparty superactivation, Shor, Smolin, and Thapliyal name finding bipartite states that show nonadditivity of distillable entanglement as a direction for further research \\sourcecite{ref:05aa-shor-smolin-thapliyal}{SST03}. The zero-plus-zero formulation across a fixed bipartition is derived from these sources.",
+  "progress": [
+    "Write $T_B$ for partial transposition on Bob's system; a state $\\omega$ is PPT when $\\omega^{T_B}\\geq0$ and NPT otherwise. Horodecki, Horodecki, and Horodecki proved that PPT states have $D_\\leftrightarrow=0$ \\sourcecite{ref:05aa-horodecki}{HHH98}. Since\n\\begin{equation}\n (\\rho_{AB}\\otimes\\sigma_{A'B'})^{T_{BB'}}=\\rho_{AB}^{T_B}\\otimes\\sigma_{A'B'}^{T_{B'}}\\geq0\n \\label{eq:05aa-ppt-closure}\n\\end{equation}\nwhenever both factors are PPT, any pair satisfying Eq.~\\eqref{eq:05aa-superactivation} contains an NPT state with zero $D_\\leftrightarrow$.",
+    "The distillability criterion of Horodecki, Horodecki, and Horodecki, in the Schmidt-rank-two form of Lemmas~1 and~2 of DiVincenzo et al., reads\n\\begin{equation}\n D_{\\leftrightarrow}(\\omega)>0\n \\quad\\Longleftrightarrow\\quad\n \\exists\\,n\\geq1,\\ \\exists\\,|v\\rangle:\\quad\n \\operatorname{SR}_{A^n:B^n}(|v\\rangle)\\leq2,\n \\quad\n \\langle v|(\\omega^{T_B})^{\\otimes n}|v\\rangle<0,\n \\label{eq:05aa-criterion}\n\\end{equation}\nwhere $|v\\rangle$ ranges over unit vectors on $n$ copies and $\\operatorname{SR}$ denotes Schmidt rank across the indicated bipartition. A state satisfying the condition for a given $n$ is called $n$-copy distillable. Failure of the condition for finitely many values of $n$ does not establish $D_\\leftrightarrow(\\omega)=0$ \\sourcecite{ref:05aa-horodecki}{HHH98}, \\sourcecite{ref:05aa-divincenzo-et-al}{DSS+00}.",
+    "Vollbrecht and Wolf constructed, for each local dimension $d$, PPT bound entangled states that make every entangled $d\\times d$ Werner state one-copy distillable when adjoined to it. Because every NPT state can be converted by LOCC into an entangled Werner state, every NPT state $\\omega$ has a finite-dimensional PPT activator $\\tau$ such that $\\omega\\otimes\\tau$ satisfies Eq.~\\eqref{eq:05aa-criterion} with $n=1$ \\sourcecite{ref:05aa-vollbrecht-wolf}{VW02}. An NPT state $\\omega$ with $D_\\leftrightarrow(\\omega)=0$ and such an activator therefore satisfy Eq.~\\eqref{eq:05aa-superactivation}. Together with Eq.~\\eqref{eq:05aa-ppt-closure}, this gives the equivalence\n\\begin{equation}\n \\exists\\,\\rho,\\sigma:\\ D_\\leftrightarrow(\\rho)=D_\\leftrightarrow(\\sigma)=0<D_\\leftrightarrow(\\rho\\otimes\\sigma)\n \\quad\\Longleftrightarrow\\quad\n \\exists\\,\\omega:\\ \\omega^{T_B}\\not\\geq0,\\ D_\\leftrightarrow(\\omega)=0.\n \\label{eq:05aa-equivalence}\n\\end{equation}\nThus the existence question is equivalent to the existence of NPT bound entanglement, not merely related to it \\sourcecite{ref:05aa-horodecki}{HHH98}, \\sourcecite{ref:05aa-vollbrecht-wolf}{VW02}.",
+    "A principal candidate family is formed by the Werner states\n\\begin{equation}\n \\omega_{d,\\beta}:=\\frac{I_{d^2}+\\beta F_d}{d^2+\\beta d},\n \\qquad\n F_d|i\\rangle|j\\rangle:=|j\\rangle|i\\rangle,\n \\qquad\n d\\geq3,\\quad -\\frac12\\leq\\beta<-\\frac1d.\n \\label{eq:05aa-werner}\n\\end{equation}\nOn the interval in Eq.~\\eqref{eq:05aa-werner} these states are NPT but not one-copy distillable, by Theorem~2 of DiVincenzo et al.\\ in a different parametrization. Their reduction of every NPT state to an NPT Werner state shows that NPT bound entanglement exists if and only if some state in Eq.~\\eqref{eq:05aa-werner} has $D_\\leftrightarrow=0$ \\sourcecite{ref:05aa-divincenzo-et-al}{DSS+00}. Theorem~1.1 of Fu, Gao, and Park's July 2026 preprint proves that $\\omega_{d,\\beta}$ is two-copy undistillable if and only if $-1/2\\leq\\beta\\leq1$, for every $d\\geq2$. Hence the whole interval in Eq.~\\eqref{eq:05aa-werner} is two-copy undistillable, but the criterion in Eq.~\\eqref{eq:05aa-criterion} remains undecided there for $n\\geq3$ \\sourcecite{ref:05aa-fu-gao-park}{FGP26}.",
+    "Shor, Smolin, and Terhal gave an explicit candidate pair. A $3\\times3$ PPT bound entangled state $\\rho_{\\mathrm{Pent}}$, built from an unextendible product basis, makes $\\omega_{3,\\beta}\\otimes\\rho_{\\mathrm{Pent}}$ one-copy distillable for\n\\begin{equation}\n -\\frac12\\leq\\beta<-\\frac{7-\\sqrt5}{10},\n \\label{eq:05aa-pent-activation}\n\\end{equation}\nwhich is their range $2\\leq\\lambda<(10\\sqrt5-20)/(17\\sqrt5-37)$ rewritten with $\\beta=-(\\lambda+1)/(3\\lambda)$. Consequently, zero $D_\\leftrightarrow$ for any single $\\omega_{3,\\beta}$ in the interval of Eq.~\\eqref{eq:05aa-pent-activation} would give an explicit pair satisfying Eq.~\\eqref{eq:05aa-superactivation} \\sourcecite{ref:05aa-shor-smolin-terhal}{SST01}.",
+    "Shor, Smolin, and Thapliyal established superactivation of bound entanglement among five separated parties: two four-party states, each undistillable because every party is separated from every other by a separable cut, combine into a state from which an EPR pair can be distilled. Their operational restrictions differ from a fixed bipartition with unrestricted operations inside each laboratory, so this does not produce a pair satisfying Eq.~\\eqref{eq:05aa-superactivation} \\sourcecite{ref:05aa-shor-smolin-thapliyal}{SST03}."
+  ],
+  "references": [
+    {
+      "key": "HHH98",
+      "label": "ref:05aa-horodecki",
+      "tex": "M. Horodecki, P. Horodecki, and R. Horodecki, ``Mixed-State Entanglement and Distillation: Is There a `Bound' Entanglement in Nature?,'' \\emph{Physical Review Letters} \\textbf{80}, 5239--5242 (1998). \\href{https://doi.org/10.1103/PhysRevLett.80.5239}{doi:10.1103/PhysRevLett.80.5239}; \\href{https://arxiv.org/abs/quant-ph/9801069}{arXiv:quant-ph/9801069}."
+    },
+    {
+      "key": "DSS+00",
+      "label": "ref:05aa-divincenzo-et-al",
+      "tex": "D. P. DiVincenzo, P. W. Shor, J. A. Smolin, B. M. Terhal, and A. V. Thapliyal, ``Evidence for Bound Entangled States with Negative Partial Transpose,'' \\emph{Physical Review A} \\textbf{61}, 062312 (2000). \\href{https://doi.org/10.1103/PhysRevA.61.062312}{doi:10.1103/PhysRevA.61.062312}; \\href{https://arxiv.org/abs/quant-ph/9910026}{arXiv:quant-ph/9910026}."
+    },
+    {
+      "key": "SST01",
+      "label": "ref:05aa-shor-smolin-terhal",
+      "tex": "P. W. Shor, J. A. Smolin, and B. M. Terhal, ``Nonadditivity of Bipartite Distillable Entanglement Follows from a Conjecture on Bound Entangled Werner States,'' \\emph{Physical Review Letters} \\textbf{86}, 2681--2684 (2001). \\href{https://doi.org/10.1103/PhysRevLett.86.2681}{doi:10.1103/PhysRevLett.86.2681}; \\href{https://arxiv.org/abs/quant-ph/0010054}{arXiv:quant-ph/0010054}."
+    },
+    {
+      "key": "VW02",
+      "label": "ref:05aa-vollbrecht-wolf",
+      "tex": "K. G. H. Vollbrecht and M. M. Wolf, ``Activating Distillation with an Infinitesimal Amount of Bound Entanglement,'' \\emph{Physical Review Letters} \\textbf{88}, 247901 (2002). \\href{https://doi.org/10.1103/PhysRevLett.88.247901}{doi:10.1103/PhysRevLett.88.247901}; \\href{https://arxiv.org/abs/quant-ph/0201103}{arXiv:quant-ph/0201103}."
+    },
+    {
+      "key": "SST03",
+      "label": "ref:05aa-shor-smolin-thapliyal",
+      "tex": "P. W. Shor, J. A. Smolin, and A. V. Thapliyal, ``Superactivation of Bound Entanglement,'' \\emph{Physical Review Letters} \\textbf{90}, 107901 (2003). \\href{https://doi.org/10.1103/PhysRevLett.90.107901}{doi:10.1103/PhysRevLett.90.107901}; \\href{https://arxiv.org/abs/quant-ph/0005117}{arXiv:quant-ph/0005117}."
+    },
+    {
+      "key": "FGP26",
+      "label": "ref:05aa-fu-gao-park",
+      "tex": "J. Fu, L. Gao, and S.-J. Park, ``A Solution to 2-Copy Distillability of Werner States,'' arXiv preprint, version 2 (2026). \\href{https://arxiv.org/abs/2607.21367}{arXiv:2607.21367}."
+    }
+  ],
+  "comment": "The all-copy NPT undistillability question remains unresolved in the literature checked through 15 September 2026, and therefore so does strict bipartite superactivation of $D_\\leftrightarrow$. By Eq.~\\eqref{eq:05aa-equivalence}, the question is equivalent to the unrestricted question of the record on \\href{https://qiqc-op.com/problem/op_74c4ffb5b042baf2/}{NPT bound entanglement and the rank-five frontier}, which additionally asks whether a counterexample can have rank five and records further finite-copy progress. An affirmative answer requires one fixed NPT state that fails Eq.~\\eqref{eq:05aa-criterion} for every $n$; a negative answer amounts to proving that every NPT state is distillable. The two-copy Werner result is finite-copy progress, not an all-copy zero-rate certificate. Multipartite superactivation and activation of an already distillable NPT state do not settle the question. The record on \\href{https://qiqc-op.com/problem/op_fc663252f5664f40/}{zero two-way quantum capacity of endpoint Holevo--Werner channels} asks whether the Werner state at the one-copy undistillability threshold is undistillable in every dimension $d\\geq3$; a proof for a single $d$ would already give a pair satisfying Eq.~\\eqref{eq:05aa-superactivation}.",
+  "contributors": []
+}
