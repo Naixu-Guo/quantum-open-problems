@@ -1,0 +1,75 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_428e6c37ba03149a",
+  "ulid": "01M2M9FAM8V4XN25WJB1Q8H13Y",
+  "aliases": [
+    "op_428e6c37ba03149a",
+    "01M2M9FAM8V4XN25WJB1Q8H13Y",
+    "op-428e6c37ba03149a"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-16T05:01:47.016Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-metrology"
+    ],
+    "topicIds": [
+      "quantum-estimation",
+      "one-shot-and-finite-blocklength-bounds"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
+  "title": "Optimal dimension-free copy complexity of shadow tomography",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum metrology"
+  ],
+  "topics": [
+    "Quantum estimation",
+    "One-shot and finite-blocklength bounds"
+  ],
+  "statement": "Can list-dependent shadow tomography always achieve dimension-free copy complexity $O(\\log M/\\varepsilon^2)$?\n\nLet $f_1,\\ldots,f_M:\\mathcal X\\to[0,1]$ be known functions and let $X_1,\\ldots,X_N$ be independent samples from an unknown distribution. Estimate every expectation with its empirical mean. Hoeffding's inequality and a union bound give\n\n\\begin{equation}\n\\Pr\\!\\left[\\max_j|\\widehat\\mu_j-\\mathbb E f_j(X)|>\\varepsilon\\right]\n\\le 2M e^{-2N\\varepsilon^2}.\n\\label{eq:428e-1}\n\\end{equation}\n\nThus $N\\ge\\ln(6M)/(2\\varepsilon^2)$ suffices for simultaneous success probability at least $2/3$, independently of the size of $\\mathcal X$. This is the classical benchmark; one observed sample can be evaluated against every known function.\n\nThe quantum task fixes $M\\ge2$, an arbitrary finite dimension $d$, and a known list of effects\n\n\\begin{equation}\n0\\le E_1,\\ldots,E_M\\le I_d.\n\\label{eq:428e-2}\n\\end{equation}\n\nAn unknown state $\\rho$ is supplied as independent copies. Question: Does a universal constant $C$ exist such that, for every list and every $0<\\varepsilon<1/4$, a measurement and estimator using\n\n\\begin{equation}\nN\\le\\left\\lceil C\\frac{\\log M}{\\varepsilon^2}\\right\\rceil\n\\label{eq:428e-3}\n\\end{equation}\n\ncan produce estimates satisfying\n\n\\begin{equation}\n\\inf_{\\rho}\\Pr_\\rho\\!\\left[\n\\max_{1\\le j\\le M}|\\widehat\\mu_j-\\operatorname{Tr}(\\rho E_j)|\\le\\varepsilon\n\\right]\\ge\\frac23?\n\\label{eq:428e-4}\n\\end{equation}\n\nThe list is known before measurement. Arbitrary collective measurements on all copies are allowed, and no computational-efficiency requirement is imposed. This is the list-dependent shadow-tomography task, not measurement-independent classical shadows or adaptively chosen online queries. \\sourcecite{ref:428e-aaronson18}{Aaronson18}, \\sourcecite{ref:428e-jeronimo26}{Jeronimo26}\n\nIf the effects commute, measuring their common eigenbasis reduces the task to the classical empirical-estimation argument above. Therefore the noncommuting case is the only obstacle in the displayed comparison.\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:428e-1}, \\eqref{eq:428e-2}, \\eqref{eq:428e-3}, \\eqref{eq:428e-4}.",
+  "source": "The question is explicitly posed or retained as open in the cited primary literature \\sourcecite{ref:428e-aaronson18}{Aaronson18}\\sourcecite{ref:428e-jeronimo26}{Jeronimo26}.  The statement is rewritten here to make its hypotheses and success criterion self-contained.",
+  "progress": [
+    "Aaronson's shadow-tomography work established a worst-case lower bound of order\n\n\\begin{equation}\n\\Omega\\!\\left(\\frac{\\min\\{d^2,\\log M\\}}{\\varepsilon^2}\\right).\n\\label{eq:428e-5}\n\\end{equation}\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:428e-5}.",
+    "For sufficiently large dimension, this matches the proposed target. It is not a lower bound of $\\log M/\\varepsilon^2$ for every fixed small $d$. \\sourcecite{ref:428e-aaronson18}{Aaronson18}",
+    "Chen, Li, and Liu proved the optimal logarithmic rate in a high-precision regime. Subsequent work by Pelecanos, Spilecki, and Wright expands the regime where that rate is achievable. These dimension-dependent precision conditions do not settle all $d$ and $\\varepsilon$ simultaneously. \\sourcecite{ref:428e-chen24}{Chen24}, \\sourcecite{ref:428e-pelecanos25}{Pelecanos25}",
+    "The critical update is Jeronimo, Huang, and Liu, arXiv:2608.06345v2, revised September 14, 2026. The revision reports\n\n\\begin{equation}\nN=O\\!\\left(\\frac{\\log M\\,\\log(M/\\delta)}{\\varepsilon^2}\\right).\n\\label{eq:428e-6}\n\\end{equation}\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:428e-6}.",
+    "At failure probability $\\delta=1/3$, this becomes $O(\\varepsilon^{-2}\\log^2 M)$. The earlier version's fourth-power logarithm is no longer the latest reported bound. The theorem also answers the older question of whether dimension-free polylogarithmic shadow tomography exists. \\sourcecite{ref:428e-jeronimo26}{Jeronimo26}"
+  ],
+  "references": [
+    {
+      "key": "Aaronson18",
+      "label": "ref:428e-aaronson18",
+      "tex": "S. Aaronson, \\emph{Shadow Tomography of Quantum States}, arXiv:1711.01053; STOC (2018). \\href{https://arxiv.org/abs/1711.01053}{Paper}."
+    },
+    {
+      "key": "Jeronimo26",
+      "label": "ref:428e-jeronimo26",
+      "tex": "F. Granha Jeronimo, Q. Huang, and L. Liu, \\emph{Dimension-Free Polylogarithmic Quantum Shadow Tomography from Sequential Pretty-Good Measurements}, arXiv:2608.06345v2, revised September 14, 2026. The HTML manuscript uses the shorter title \\emph{Dimension-Free Polylogarithmic Quantum Shadow Tomography}. See Definition 1.1, Theorem 1.2, and Section 1.2. \\href{https://arxiv.org/abs/2608.06345v2}{Versioned record}; \\href{https://arxiv.org/html/2608.06345v2}{versioned full text}."
+    },
+    {
+      "key": "Chen24",
+      "label": "ref:428e-chen24",
+      "tex": "S. Chen, J. Li, and A. Liu, \\emph{Optimal high-precision shadow estimation}, arXiv:2407.13874 (2024). \\href{https://arxiv.org/abs/2407.13874}{Paper}."
+    },
+    {
+      "key": "Pelecanos25",
+      "label": "ref:428e-pelecanos25",
+      "tex": "A. Pelecanos, J. Spilecki, and J. Wright, \\emph{The debiased Keyl's algorithm: a new unbiased estimator for full state tomography}, arXiv:2510.07788 (2025). The improvement to the high-precision regime is also discussed in Section 1.2 of \\sourcecite{ref:428e-jeronimo26}{Jeronimo26}. \\href{https://arxiv.org/abs/2510.07788}{Paper}."
+    }
+  ],
+  "comment": "At constant failure probability, the latest reported bounds leave the worst-case gap\n\n\\begin{equation}\n\\Omega(\\varepsilon^{-2}\\log M)\n\\quad\\text{versus}\\quad\nO(\\varepsilon^{-2}\\log^2 M).\n\\label{eq:428e-7}\n\\end{equation}\n\nThe result is currently available as a recent preprint. The open question is stated as an explicit optimization target, not attributed as a newly named conjecture to those authors.\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:428e-7}.",
+  "contributors": []
+}

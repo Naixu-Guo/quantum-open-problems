@@ -1,0 +1,120 @@
+% Problem record op_6d9a72b32070a900. This TeX file is derived from
+% database/problems_json/op_6d9a72b32070a900.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Hilbert--Schmidt inradius of the multiqubit stabilizer polytope}
+\label{sec:op_6d9a72b32070a900}
+
+\paragraph{Problem.}
+Is every $n$-qubit state of purity at most $1/(2^n-1/2)$ a convex mixture of stabilizer states?
+
+Let $\mathrm{Stab}_n$ be the pure $n$-qubit stabilizer states and
+
+\begin{equation}
+\mathrm{STAB}_n=\operatorname{conv}\{|s\rangle\langle s|:s\in\mathrm{Stab}_n\}.
+\label{eq:6d9a-1}
+\end{equation}
+
+Let $d=2^n$. Prove or disprove the universal implication
+
+\begin{equation}
+\operatorname{Tr}(\rho^2)\leq\frac{1}{d-1/2}
+\quad\Longrightarrow\quad
+\rho\in\mathrm{STAB}_n
+\qquad(n\geq1).
+\label{eq:6d9a-2}
+\end{equation}
+
+This is Conjecture 1 of the Triangle Criterion paper \sourcecite{ref:6d9a-liu26}{Liu26}. Since magic states exist with purity arbitrarily close to this value from above, a proof would give the sharp threshold.
+
+Equivalently, the Hilbert–Schmidt inradius of the stabilizer polytope would be
+
+\begin{equation}
+r_{\mathrm{HS}}(\mathrm{STAB}_n)
+=\frac{1}{\sqrt{d(2d-1)}}.
+\label{eq:6d9a-3}
+\end{equation}
+
+Indeed, for trace-one $\rho$,
+
+\begin{equation}
+\left\|\rho-\frac{I}{d}\right\|_2^2
+=\operatorname{Tr}(\rho^2)-\frac1d,
+\qquad
+\frac1{d-1/2}-\frac1d=\frac1{d(2d-1)}.
+\label{eq:6d9a-4}
+\end{equation}
+
+An alternative formulation uses the dual set
+
+\begin{equation}
+\mathcal L_n=\{A=A^\dagger:\operatorname{Tr}A=1,
+\ \langle s|A|s\rangle\geq0\ \forall s\in\mathrm{Stab}_n\}.
+\label{eq:6d9a-5}
+\end{equation}
+
+The equivalent conjecture is $\max_{A\in\mathcal L_n}\operatorname{Tr}(A^2)=2$ \sourcecite{ref:6d9a-zurel26}{Zurel26} (Conjecture 2 and Theorem 7). Importantly, $A$ need not be positive semidefinite.
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:6d9a-1}, \eqref{eq:6d9a-2}, \eqref{eq:6d9a-3}, \eqref{eq:6d9a-4}, \eqref{eq:6d9a-5}.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+The question is explicitly posed or retained as open in the cited primary literature \sourcecite{ref:6d9a-liu26}{Liu26}\sourcecite{ref:6d9a-zurel26}{Zurel26}.  The statement is rewritten here to make its hypotheses and success criterion self-contained.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Boundary construction. The Triangle Criterion supplies magic arbitrarily close to purity $1/(d-1/2)$, but this is one side of the sharp-threshold question, not a proof that every lower-purity state is stabilizer \sourcecite{ref:6d9a-liu26}{Liu26} (Theorem 5 and Conjecture 1).
+
+  \item February 25, 2026. Zurel and Davis obtain the same qubit inradius conditionally on their dual-purity conjecture and verify the relevant conjecture for one and two qubits. Their unconditional odd-prime-dimensional inradius result must not be mistaken for an unconditional multiqubit result \sourcecite{ref:6d9a-zurel26}{Zurel26}.
+
+  \item September 3, revised September 8, 2026. Liu and Liu prove the stronger universal guarantee
+
+\begin{equation}
+\operatorname{Tr}(\rho^2)\leq\frac1{d-a_*}
+\quad\Longrightarrow\quad\rho\in\mathrm{STAB}_n,
+\qquad a_*\simeq0.458327.
+\label{eq:6d9a-6}
+\end{equation}
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:6d9a-6}.
+
+  \item Thus the remaining dimension-independent gap is between $a_*\simeq0.458327$ and $1/2$. Their revised discussion explicitly leaves the exact inradius open \sourcecite{ref:6d9a-liuliu26}{LiuLiu26} (Theorem 1 and Discussion).
+
+  \item Status: open, with very recent primary-source confirmation. Reporting only the older $1/(d-1/d)$ sufficient bound would miss substantial 2026 progress.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Liu26]}]\label{ref:6d9a-liu26}
+  Z. Liu, T. Haug, Q. Ye, Z.-W. Liu, and I. Roth, \emph{Triangle Criterion: a mixed-state magic criterion with applications in distillation and detection}, \href{https://arxiv.org/html/2512.16777v2}{arXiv:2512.16777v2}, April 20, 2026. See Theorem 5, Conjecture 1, and the discussion of arbitrary-copy bound magic.
+
+  \item[\textup{[Zurel26]}]\label{ref:6d9a-zurel26}
+  M. Zurel and J. Davis, \emph{Basis-independent stabilizerness and maximally noisy magic states}, \href{https://arxiv.org/html/2602.22336v1}{arXiv:2602.22336v1}, February 25, 2026. See Conjecture 2, Theorem 7, and Corollary 3.
+
+  \item[\textup{[LiuLiu26]}]\label{ref:6d9a-liuliu26}
+  Z. Liu and Z.-W. Liu, \emph{On the geometry and typicality of quantum magic}, \href{https://arxiv.org/html/2609.03944v2}{arXiv:2609.03944v2}, September 8, 2026; first submitted September 3. See Theorem 1 and Discussion.
+\end{enumerate}
+
+\subsection*{Comment}
+
+This formulation asks where magic first becomes possible near the maximally mixed state, without selecting a decoder, a target state, or an asymptotic computational model.
+
+The dual formulation suggests a concrete mathematical attack: constrain the squared Hilbert–Schmidt norm of every trace-one operator nonnegative on stabilizer vectors. Searching for a feasible $A$ with $\operatorname{Tr}(A^2)>2$ would directly falsify the conjecture; numerical absence of such operators would not prove it. The negative eigenvalues allowed in $\mathcal L_n$ are the source of difficulty, not a defect in the formulation.
+
+\subsection*{Field}
+
+Quantum Resource Theory
+
+\subsection*{Topic}
+
+Quantum magic
+
+\subsection*{ID}
+
+\texttt{op\_6d9a72b32070a900}

@@ -1,0 +1,91 @@
+% Problem record op_e8307b66d76af92a. This TeX file is derived from
+% database/problems_json/op_e8307b66d76af92a.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{One-way state generation from private Hamiltonian phase states}
+\label{sec:op_e8307b66d76af92a}
+
+\paragraph{Problem.}
+Do private-architecture Hamiltonian phase states yield a one-way state generator for explicit polynomial parameters?
+
+A function $\varepsilon(n)$ is negligible if, for every constant $a>0$, eventually $\varepsilon(n)<n^{-a}$. “QPT” denotes a quantum polynomial-time algorithm.
+
+Question. Are there explicit polynomially bounded parameter functions $m(n)$ and growing $q(n)$ for which the private-architecture Hamiltonian-phase-state ensemble is a one-way state generator?
+
+For a uniformly sampled $A\in\mathbb F_2^{m\times n}$ and independently uniform $\theta_i\in\{2\pi j/q:0\leq j<q\}$, define
+
+\begin{equation}
+|\phi_{A,\theta}\rangle
+=\exp\!\left(i\sum_{i=1}^{m}\theta_i Z^{A_i}\right)|+\rangle^{\otimes n},
+\qquad Z^{A_i}:=\bigotimes_{j=1}^{n}Z^{A_{ij}}.
+\label{eq:e830-1}
+\end{equation}
+
+This is the Hamiltonian-phase-state architecture studied in \sourcecite{ref:e830-bostanci25}{Bostanci25} and subsequently in \sourcecite{ref:e830-cao26}{Cao26}. The concrete claim is that, for every polynomial $t$ and every QPT algorithm $\mathcal I$, with
+
+\begin{equation}
+(A',\theta')\leftarrow
+\mathcal I\!\left(1^n,|\phi_{A,\theta}\rangle^{\otimes t(n)}\right),
+\label{eq:e830-2}
+\end{equation}
+
+one has
+
+\begin{equation}
+\mathbb E\!
+\left[\left|\langle\phi_{A',\theta'}|\phi_{A,\theta}\rangle\right|^2\right]
+\leq\operatorname{negl}(n).
+\label{eq:e830-3}
+\end{equation}
+
+The output must be a valid description in the same public parameter space; invalid outputs fail verification. The architecture $A$ is hidden. This is a parameter-explicit existence formulation of search HPS, not a claim that every parameter choice is secure. \sourcecite{ref:e830-bostanci25}{Bostanci25}, Sections~4.1
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:e830-1}, \eqref{eq:e830-2}, \eqref{eq:e830-3}.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+This precise formulation is editor wording based on the unresolved direction and limitations documented in the cited primary literature \sourcecite{ref:e830-bostanci25}{Bostanci25}; it is not presented as a verbatim conjecture of those authors.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Status: an unresolved quantum cryptographic hardness assumption. The originating work gives restricted worst-to-average-case reductions and bounded-copy design evidence, but not a proof of general search hardness. It also explains that polynomially many copies suffice information-theoretically: the conjectured obstacle is computation, not an absence of information. \sourcecite{ref:e830-bostanci25}{Bostanci25}, Sections~5.1–5.3
+
+  \item Later work develops measurement-assisted shallow preparation of these states and analyzes statistical properties. These are advances in realizing the ensemble, not proofs that polynomial-time quantum inversion is impossible. \sourcecite{ref:e830-cao26}{Cao26}
+
+  \item The cited work leaves both general inversion and security unresolved. The original paper separately proposes decision HPS, concerning indistinguishability from Haar states; that different security task is not identified here with search HPS. \sourcecite{ref:e830-bostanci25}{Bostanci25}, Sections~4.2
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Bostanci25]}]\label{ref:e830-bostanci25}
+  John Bostanci, Jonas Haferkamp, Dominik Hangleiter, and Alexander Poremba, \emph{Efficient Quantum Pseudorandomness from Hamiltonian Phase States}. \href{https://arxiv.org/html/2410.08073}{arXiv:2410.08073}; \href{https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.TQC.2025.9}{TQC 2025, LIPIcs 350, article 9}. Pinpoints refer to the arXiv full text: §4.1, §4.2, and §§5.1–5.3.
+
+  \item[\textup{[Cao26]}]\label{ref:e830-cao26}
+  Chenfeng Cao and Jens Eisert, \emph{Measurement-Driven Quantum Advantages in Shallow Circuits}. \href{https://arxiv.org/html/2505.04705}{arXiv:2505.04705}; Physical Review Letters 136, 080601 (2026). See “Measurement-prepared Hamiltonian phase states” and the discussion.
+\end{enumerate}
+
+\subsection*{Comment}
+
+This is the closest match to a quantum-information version of a one-way function: a short classical description prepares a state, but copies allegedly do not permit efficient reverse engineering.
+
+The fidelity verifier matters. Recovering a different description of almost the same state is a successful attack; merely showing that the original labels are nonunique is not evidence of security. Conversely, tomography with an exponentially expensive reconstruction stage does not refute a polynomial-time hardness claim.
+
+Scope caution: the security parameter regime is part of the research problem. The statement does not endorse an arbitrary choice such as $m=n$, nor a version in which the architecture is public. The cited results establish partial evidence rather than security for an explicit general parameter regime.
+
+\subsection*{Field}
+
+Quantum Cryptography
+
+\subsection*{Topic}
+
+Computational complexity and computability; Quantum state preparation
+
+\subsection*{ID}
+
+\texttt{op\_e8307b66d76af92a}

@@ -1,0 +1,121 @@
+% Problem record op_25342dbb8d64e728. This TeX file is derived from
+% database/problems_json/op_25342dbb8d64e728.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{High-dimensional crossover of optimized port-based teleportation}
+\label{sec:op_25342dbb8d64e728}
+
+\paragraph{Problem.}
+Does optimized deterministic port-based teleportation have a limiting fidelity when the number of ports is proportional to the square of the input dimension, and what is that limit?
+
+Let $F_d^*(N)$ denote the maximum entanglement fidelity of deterministic port-based teleportation of one unknown $d$-dimensional state using $N$ ports. Both the input-independent resource and Alice's measurement are optimized; Bob only selects a port.
+
+Explicitly, entanglement fidelity means
+
+\begin{equation}
+F_e(\mathcal T):=\operatorname{Tr}\!\left[\Phi_d(\operatorname{id}\otimes\mathcal T)(\Phi_d)\right],
+\qquad
+\Phi_d:=\frac{1}{d}\sum_{a,b=1}^{d}|aa\rangle\langle bb|.
+\label{eq:2534-1}
+\end{equation}
+
+For a real number $c>0$, set
+
+\begin{equation}
+N_d:=\max\{1,\lfloor c d^2\rfloor\}.
+\label{eq:2534-2}
+\end{equation}
+
+What is the limiting fidelity
+
+\begin{equation}
+\varphi(c):=\lim_{d\to\infty}F_d^*(N_d)
+\label{eq:2534-3}
+\end{equation}
+
+for each $c>0$, including whether this limit exists?
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:2534-1}, \eqref{eq:2534-2}, \eqref{eq:2534-3}.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+The question is explicitly posed or retained as open in the cited primary literature \sourcecite{ref:2534-christandl21}{Christandl21}\sourcecite{ref:2534-yoshida26}{Yoshida26}.  The statement is rewritten here to make its hypotheses and success criterion self-contained.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Finite-resource optimization is already characterized by a teleportation-matrix eigenvalue. In particular,
+  \begin{equation}
+F_d^*(N)=\frac{N}{d^2}\qquad(1\leq N\leq d).
+\label{eq:2534-4}
+\end{equation}
+  This exact regime does not reach $N\sim c d^2$ for fixed positive $c$. \sourcecite{ref:2534-mozrzymas18}{Mozrzymas18}
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:2534-4}.
+
+  \item The optimized exact probabilistic protocol has success probability
+  \begin{equation}
+p_d^*(N)=\frac{N}{N+d^2-1}.
+\label{eq:2534-5}
+\end{equation}
+  Converting failure into an arbitrary port output gives a deterministic protocol with fidelity at least $p_d^*(N)$. Consequently,
+  \begin{equation}
+\liminf_{d\to\infty}F_d^*(N_d)\geq\frac{c}{1+c}.
+\label{eq:2534-6}
+\end{equation}
+  Section 8 explicitly identifies the fixed-ratio limit as an open direction. \sourcecite{ref:2534-christandl21}{Christandl21}
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:2534-5}, \eqref{eq:2534-6}.
+
+  \item An elementary no-signalling consequence of the protocol model gives
+  \begin{equation}
+F_d^*(N)\leq\min\left\{1,\frac{N}{d^2}\right\}.
+\label{eq:2534-7}
+\end{equation}
+  Indeed, for a fixed port $B_i$, its subnormalized reference–output state in branch $i$ is bounded above by the unconditional state $\mathbb I_R/d\otimes\rho_{B_i}$. Its overlap with $\Phi_d$ is therefore at most $1/d^2$; summing over $N$ selected-port branches proves the bound. Combining this derivation with the preceding lower bound yields the useful, not claimed sharp, bracket
+  \begin{equation}
+\frac{c}{1+c}
+  \leq\liminf_{d\to\infty}F_d^*(N_d)
+  \leq\limsup_{d\to\infty}F_d^*(N_d)
+  \leq\min\{1,c\}.
+\label{eq:2534-8}
+\end{equation}
+  This paragraph supplies a direct derivation rather than attributing the bracket to a new theorem of the cited paper. \sourcecite{ref:2534-christandl21}{Christandl21}
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:2534-7}, \eqref{eq:2534-8}.
+
+  \item The 2026 correspondence relates the problem to unitary estimation with $N_d-1$ queries, but its order estimate $1-F_d^*(N)=\Theta(d^4N^{-2})$ does not determine $\varphi(c)$. In particular, a fixed-$d$ expansion cannot be substituted into this joint limit without uniform error control. \sourcecite{ref:2534-yoshida26}{Yoshida26}
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Mozrzymas18]}]\label{ref:2534-mozrzymas18}
+  M. Mozrzymas, M. Studziński, S. Strelchuk, and M. Horodecki, "Optimal Port-based Teleportation," \emph{New Journal of Physics} 20, 053006 (2018). \href{https://doi.org/10.1088/1367-2630/aab8e7}{doi:10.1088/1367-2630/aab8e7}; \href{https://arxiv.org/abs/1707.08456}{arXiv:1707.08456}.
+
+  \item[\textup{[Christandl21]}]\label{ref:2534-christandl21}
+  M. Christandl, F. Leditzky, C. Majenz, G. Smith, F. Speelman, and M. Walter, "Asymptotic performance of port-based teleportation," \emph{Communications in Mathematical Physics} 381, 379–451 (2021). \href{https://doi.org/10.1007/s00220-020-03884-0}{doi:10.1007/s00220-020-03884-0}; \href{https://arxiv.org/abs/1809.10751}{arXiv:1809.10751}.
+
+  \item[\textup{[Yoshida26]}]\label{ref:2534-yoshida26}
+  S. Yoshida, Y. Koizumi, M. Studziński, M. T. Quintino, and M. Murao, "One-to-One Correspondence between Deterministic Port-Based Teleportation and Unitary Estimation," \emph{IEEE Transactions on Information Theory} 72, 2358–2377 (2026). \href{https://doi.org/10.1109/TIT.2026.3658543}{doi:10.1109/TIT.2026.3658543}; \href{https://arxiv.org/abs/2408.11902}{arXiv:2408.11902}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+A literature check through 15 September 2026 located no determination of this crossover function or general proof of the displayed limit. This is distinct from the fixed-dimensional asymptotic-coefficient problem: the input dimension grows together with the resource, so dimension-dependent remainders matter. The result would quantify high-dimensional port requirements rather than extrapolating a fixed-dimensional approximation.
+
+\subsection*{Field}
+
+Quantum Communication
+
+\subsection*{Topic}
+
+Channel simulation; One-shot and finite-blocklength bounds
+
+\subsection*{ID}
+
+\texttt{op\_25342dbb8d64e728}

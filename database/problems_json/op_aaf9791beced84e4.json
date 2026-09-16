@@ -1,0 +1,58 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_aaf9791beced84e4",
+  "ulid": "01M2M9FCB1FHWBC06BEF4123WQ",
+  "aliases": [
+    "op_aaf9791beced84e4",
+    "01M2M9FCB1FHWBC06BEF4123WQ",
+    "op-aaf9791beced84e4"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-16T05:01:48.769Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-algorithm"
+    ],
+    "topicIds": [
+      "random-circuit-sampling",
+      "quantum-circuit-complexity"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
+  "title": "Exact spectral gap of random Pauli rotations",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum algorithm"
+  ],
+  "topics": [
+    "Random circuit sampling",
+    "Quantum circuit complexity"
+  ],
+  "statement": "Is the exact Haar-mixing spectral gap of uniformly random Pauli rotations equal to $2^n(2^n-3)/(8(4^n-1))$ for every $n\\geq4$?\n\nLet $n\\geq4$ and let $\\mathcal P_n:=\\{I,X,Y,Z\\}^{\\otimes n}\\setminus\\{I^{\\otimes n}\\}$ be the nonidentity Hermitian Pauli strings. A random Pauli rotation chooses $P\\in\\mathcal P_n$ uniformly and $\\theta\\in[0,2\\pi)$ uniformly, then applies $e^{i\\theta P}$.\n\nOn $L^2(\\mathrm{SU}(2^n),\\mathrm{Haar})$, define the averaging operator and its spectral gap by\n\n\\begin{equation}\n(K_nf)(U):=\\mathbb E_{P,\\theta}f(e^{i\\theta P}U),\n\\qquad\n\\Delta_n:=1-\\|K_n|_{L^2_0}\\|_{2\\to2},\n\\label{eq:aaf9-1}\n\\end{equation}\n\nwhere $L^2_0$ is the subspace of functions with zero Haar mean. Each step is one Pauli rotation, not one nearest-neighbor two-qubit gate.\n\nIs the exact gap given, for every $n\\geq4$, by\n\n\\begin{equation}\n\\Delta_n=\\frac{2^n(2^n-3)}{8(4^n-1)}?\n\\label{eq:aaf9-2}\n\\end{equation}\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:aaf9-1}, \\eqref{eq:aaf9-2}.",
+  "source": "The question is explicitly posed or retained as open in the cited primary literature \\sourcecite{ref:aaf9-baer26}{Baer26}.  The statement is rewritten here to make its hypotheses and success criterion self-contained.",
+  "progress": [
+    "Baer and Haah prove the bounds\n  \\begin{equation}\n\\frac{4^n+16}{16(4^n-1)}\n  \\leq\\Delta_n\n  \\leq\\frac{2^n(2^n-3)}{8(4^n-1)}.\n\\label{eq:aaf9-3}\n\\end{equation}\n  The upper bound comes from the fourth-moment representation $U^{\\otimes4}\\otimes\\overline U^{\\otimes4}$; see Theorem 3.16 and Proposition 3.17. \\sourcecite{ref:aaf9-baer26}{Baer26}\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:aaf9-3}.",
+    "Proposition 3.17 settles $n\\leq3$. In particular, $\\Delta_3=5/63$, whereas the first unresolved instance has\n  \\begin{equation}\n\\frac1{15}\\leq\\Delta_4\\leq\\frac{26}{255}.\n\\label{eq:aaf9-4}\n\\end{equation}\n  Conjecture 3.48 asserts that the upper bound is always attained. \\sourcecite{ref:aaf9-baer26}{Baer26}\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:aaf9-4}.",
+    "The 23 July 2026 preprint proves a constant gap, but explicitly leaves this exact formula conjectural. No subsequent resolution of Conjecture 3.48 was located. \\sourcecite{ref:aaf9-baer26}{Baer26}"
+  ],
+  "references": [
+    {
+      "key": "Baer26",
+      "label": "ref:aaf9-baer26",
+      "tex": "T. Baer and J. Haah, \"Random unitary circuits with constant spectral gap,\" arXiv preprint (2026), version 1, 23 July 2026. \\href{https://arxiv.org/abs/2607.20919}{arXiv:2607.20919}."
+    }
+  ],
+  "comment": "The unresolved issue is whether any higher representation mixes more slowly than the identified fourth-moment mode. This would determine the exact spectral bottleneck across all moment orders, not merely establish convergence to Haar randomness.",
+  "contributors": []
+}

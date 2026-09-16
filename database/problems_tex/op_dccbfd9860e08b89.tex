@@ -1,0 +1,115 @@
+% Problem record op_dccbfd9860e08b89. This TeX file is derived from
+% database/problems_json/op_dccbfd9860e08b89.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Endpoint quantum KKL inequality for Boolean observables}
+\label{sec:op_dccbfd9860e08b89}
+
+\paragraph{Problem.}
+Does the Montanaro--Osborne $L^2$ quantum KKL inequality hold for every Boolean quantum observable?
+
+For a Boolean function $f:\{-1,1\}^n\to\{-1,1\}$ under the uniform measure, define
+
+\begin{equation}
+\operatorname{Inf}_i(f)=\Pr[f(x)\ne f(x^{\oplus i})].
+\label{eq:dccb-1}
+\end{equation}
+
+The Kahn–Kalai–Linial theorem implies, for a universal $c>0$,
+
+\begin{equation}
+\max_i\operatorname{Inf}_i(f)
+\ge c\,\operatorname{Var}(f)\frac{\log n}{n}.
+\label{eq:dccb-2}
+\end{equation}
+
+The quantum Boolean-function framework and its proposed KKL extension were introduced by Montanaro and Osborne. \sourcecite{ref:dccb-montanaro08}{Montanaro08}
+
+In that framework, let $n\ge2$ and let $A$ act on $(\mathbb C^2)^{\otimes n}$, with
+
+\begin{equation}
+A=A^\dagger,\qquad A^2=I.
+\label{eq:dccb-3}
+\end{equation}
+
+Write $\tau(A)=2^{-n}\operatorname{Tr}A$. Let $\mathcal E_i$ completely depolarize qubit $i$ while leaving all other tensor factors unchanged:
+
+\begin{equation}
+\mathcal E_i(A)=\frac{I_i}{2}\otimes\operatorname{Tr}_i A,
+\label{eq:dccb-4}
+\end{equation}
+
+where tensor factors are restored to their original order. Set
+
+\begin{equation}
+D_iA=A-\mathcal E_i(A),\qquad
+\operatorname{Inf}^{(2)}_i(A)=\tau\big[(D_iA)^\dagger D_iA\big].
+\label{eq:dccb-5}
+\end{equation}
+
+Conjecture: A universal $c>0$ satisfies
+
+\begin{equation}
+\max_i\operatorname{Inf}^{(2)}_i(A)
+\ge c\bigl(1-\tau(A)^2\bigr)\frac{\log n}{n}
+\label{eq:dccb-6}
+\end{equation}
+
+for every such $A$. The particularly clean balanced case imposes $\tau(A)=0$. Jiao et al., Conjecture 1.4, state the displayed variance-weighted form and attribute the underlying squared-influence conjecture to Montanaro and Osborne. It is not a generic statement about bounded observables. \sourcecite{ref:dccb-montanaro08}{Montanaro08}\sourcecite{ref:dccb-jiao24}{Jiao24}
+
+For a diagonal $A=\sum_x f(x)|x\rangle\langle x|$, one has $D_if=(f(x)-f(x^{\oplus i}))/2$. Squaring gives the bit-flip indicator, so this formulation reduces exactly to classical influence.
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:dccb-1}, \eqref{eq:dccb-2}, \eqref{eq:dccb-3}, \eqref{eq:dccb-4}, \eqref{eq:dccb-5}, \eqref{eq:dccb-6}.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+The question is explicitly posed or retained as open in the cited primary literature \sourcecite{ref:dccb-montanaro08}{Montanaro08}\sourcecite{ref:dccb-jiao24}{Jiao24}.  The statement is rewritten here to make its hypotheses and success criterion self-contained.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Rouzé, Wirth, and Zhang proved important quantum Talagrand, KKL-type, and Friedgut results using geometric or $L^p$ influences with $p<2$. Those results do not resolve the displayed endpoint. Jiao, Lin, Luo, and Zhou explicitly preserve this distinction and state that the Montanaro–Osborne conjecture remains open. \sourcecite{ref:dccb-rouz24}{Rouz24}, \sourcecite{ref:dccb-jiao24}{Jiao24}
+
+  \item The February 17, 2026 revision by Chang and Li develops further variance-decay and higher-order inequalities. Its relevant influence results remain sub-$L^2$; their constants do not give the required endpoint by simply taking $p\to2$. \sourcecite{ref:dccb-chang26}{Chang26}
+
+  \item An August 6, 2026 paper by Slote, Volberg, and Zhang provides another useful comparison. Its Hermitian-dilation family has small influences on the data qubits but an ancilla of influence one. Section 7 explicitly explains why this is not a counterexample to standard quantum KKL, which counts every qubit. \sourcecite{ref:dccb-slote26}{Slote26}
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Montanaro08]}]\label{ref:dccb-montanaro08}
+  A. Montanaro and T. J. Osborne, \emph{Quantum boolean functions}, arXiv:0810.2435 (2008); Chicago Journal of Theoretical Computer Science (2010). \href{https://arxiv.org/abs/0810.2435}{Paper}.
+
+  \item[\textup{[Jiao24]}]\label{ref:dccb-jiao24}
+  Y. Jiao, W. Lin, S. Luo, and D. Zhou, \emph{Quantum KKL-type inequalities revisited}, arXiv:2411.12399, November 2024, Introduction, including the explicit distinction between the CAR counterexample and the Montanaro–Osborne conjecture. \href{https://arxiv.org/html/2411.12399}{Full text}. See Conjecture 1.4 for the displayed variance-weighted formulation.
+
+  \item[\textup{[Rouz24]}]\label{ref:dccb-rouz24}
+  C. Rouzé, M. Wirth, and H. Zhang, \emph{Quantum Talagrand, KKL and Friedgut's theorems and the learnability of quantum Boolean functions}, arXiv:2209.07279; Communications in Mathematical Physics (2024). \href{https://arxiv.org/abs/2209.07279}{Paper}.
+
+  \item[\textup{[Chang26]}]\label{ref:dccb-chang26}
+  F. Chang and P. Li, \emph{Quantum Talagrand-type Inequalities via Variance Decay}, arXiv:2601.01900v2, February 17, 2026, Introduction and Section 4. \href{https://arxiv.org/html/2601.01900v2}{Full text}.
+
+  \item[\textup{[Slote26]}]\label{ref:dccb-slote26}
+  J. Slote, A. Volberg, and H. Zhang, \emph{Tightness of and counterexamples to several quantum estimates}, arXiv:2608.04411v2, August 6, 2026, Section 7, on the influential ancilla. \href{https://arxiv.org/html/2608.04411v2}{Full text}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+Retained as unresolved, with 2026 partial-progress and counterexample checks. A counterexample in a canonical anticommutation-relation algebra uses a different coordinate structure and must not be substituted for a counterexample on the tensor-product qubit cube. \sourcecite{ref:dccb-jiao24}{Jiao24}
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Computational complexity and computability; Matrix and entropy inequalities
+
+\subsection*{ID}
+
+\texttt{op\_dccbfd9860e08b89}

@@ -1,0 +1,83 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_3b3bfcda365a83a9",
+  "ulid": "01M2M9FBG3PKXNFV5BMDWQYVTR",
+  "aliases": [
+    "op_3b3bfcda365a83a9",
+    "01M2M9FBG3PKXNFV5BMDWQYVTR",
+    "op-3b3bfcda365a83a9"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-16T05:01:47.907Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-algorithm"
+    ],
+    "topicIds": [
+      "quantum-circuit-complexity"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
+  "title": "Linear-size exact quantum Fourier transform",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum algorithm"
+  ],
+  "topics": [
+    "Quantum circuit complexity"
+  ],
+  "statement": "Can the exact quantum Fourier transform on $n$ qubits be implemented by a uniform circuit of $O(n)$ one- and two-qubit gates?\n\nOn $n$ qubits, define\n\n\\begin{equation}\nF_{2^n}|x\\rangle\n=2^{-n/2}\\sum_{y=0}^{2^n-1}e^{2\\pi ixy/2^n}|y\\rangle.\n\\label{eq:3b3b-1}\n\\end{equation}\n\nLet $C_{\\mathrm{exact}}(n)$ be the minimum number of one- and two-qubit gates in a uniform circuit implementing this unitary exactly on arbitrary input states. Clean ancillas may be used but must be restored; their preparation and all gates acting on them count. Gates may be arbitrary one- or two-qubit unitaries with efficiently specified parameters.\n\nQuestion: Is\n\n\\begin{equation}\nC_{\\mathrm{exact}}(n)=O(n)?\n\\label{eq:3b3b-2}\n\\end{equation}\n\nAn alternative decisive result would be a superlinear lower bound in this model. This is not a claim about exact synthesis over Clifford+$T$, a finite gate set that cannot exactly express all rotations occurring in the QFT family. Nor is the task merely to sample a QFT measurement distribution.\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:3b3b-1}, \\eqref{eq:3b3b-2}.",
+  "source": "Aaronson explicitly asks the linear-size exact-QFT question in the cited author-written discussion \\sourcecite{ref:3b3b-aaronson25}{Aaronson25}. Cleve and Watrous and Kahanamoku--Meyer and Yao supply the formal circuit results \\sourcecite{ref:3b3b-cleve00}{Cleve00}\\sourcecite{ref:3b3b-kmy24}{KMY24}.",
+  "progress": [
+    "Cleve and Watrous obtained an exact QFT of size $O(n\\log^2 n\\log\\log n)$ in 2000, together with efficient approximate parallel constructions. Their exact construction uses recursive Fourier transforms and fast multiplication. Thus a subquadratic exact QFT has long been known. \\sourcecite{ref:3b3b-cleve00}{Cleve00}",
+    "Kahanamoku--Meyer and Yao subsequently constructed zero-ancilla exact QFT circuits of size $O\\!\\left(n^{\\log_k(2k-1)}\\right)$ for every fixed integer $k\\geq2$. Since $\\log_k(2k-1)$ approaches $1$ as $k$ grows, this gives size $O(n^{1+\\varepsilon})$ for every fixed $\\varepsilon>0$. It does not give a single uniform $O(n)$ construction. \\sourcecite{ref:3b3b-kmy24}{KMY24}",
+    "Aaronson explicitly raised the $O(n)$ exact-size question in January 2025. The near-linear construction above substantially improves the historical upper bounds, but the linear target remains unresolved. \\sourcecite{ref:3b3b-aaronson25}{Aaronson25}",
+    "Shah withdrew \\emph{A Faster Quantum Fourier Transform} in February 2025 because of lack of novelty. The withdrawal does not bear on whether linear exact size is possible. \\sourcecite{ref:3b3b-shah25}{Shah25}",
+    "Fault-tolerant and architectural results use different metrics. Nam, Su, and Maslov obtained an approximate QFT with $O(n\\log n)$ $T$ gates, while Lopes studies QFT execution using phase-gradient resources, surface codes, and resource routing. Neither establishes linear exact coherent circuit size in the model above. \\sourcecite{ref:3b3b-nam20}{Nam20}\\sourcecite{ref:3b3b-lopes26}{Lopes26}"
+  ],
+  "references": [
+    {
+      "key": "Cleve00",
+      "label": "ref:3b3b-cleve00",
+      "tex": "Richard Cleve and John Watrous. \\emph{Fast parallel circuits for the quantum Fourier transform}. FOCS 2000; \\href{https://arxiv.org/abs/quant-ph/0006004}{arXiv:quant-ph/0006004}. See Theorem 2 and the exact-construction recurrence."
+    },
+    {
+      "key": "KMY24",
+      "label": "ref:3b3b-kmy24",
+      "tex": "Gregory D. Kahanamoku--Meyer and Norman Y. Yao, \\emph{Fast quantum integer multiplication with zero ancillas}, arXiv:2403.18006v4 (14 November 2024). \\href{https://arxiv.org/abs/2403.18006}{arXiv:2403.18006}. See the exact QFT construction and its $O(n^{1+\\varepsilon})$ consequence."
+    },
+    {
+      "key": "Aaronson25",
+      "label": "ref:3b3b-aaronson25",
+      "tex": "Scott Aaronson. \\href{https://scottaaronson.blog/?p=8593}{Author-written QFT discussion dated January 23, 2025}, with subsequent corrections and comments by Richard Cleve. Used for the explicit open question and corrected historical attribution, not as a replacement for \\sourcecite{ref:3b3b-cleve00}{Cleve00}."
+    },
+    {
+      "key": "Shah25",
+      "label": "ref:3b3b-shah25",
+      "tex": "Ronit Shah. \\emph{A Faster Quantum Fourier Transform}. \\href{https://arxiv.org/abs/2501.12414}{arXiv:2501.12414}; withdrawn February 10, 2025 for lack of novelty."
+    },
+    {
+      "key": "Nam20",
+      "label": "ref:3b3b-nam20",
+      "tex": "Yunseong Nam, Yuan Su, and Dmitri Maslov. \\emph{Approximate Quantum Fourier Transform with $O(n\\log(n))$ T gates}. \\href{https://www.nature.com/articles/s41534-020-0257-5}{npj Quantum Information 6, 26 (2020)}."
+    },
+    {
+      "key": "Lopes26",
+      "label": "ref:3b3b-lopes26",
+      "tex": "Pedro L. S. Lopes. \\emph{Towards Deploying Optimistic Quantum Fourier Transforms: An Architecture-Algorithm Co-Design Study}. \\href{https://arxiv.org/abs/2605.15297}{arXiv:2605.15297}, May 14, 2026, preprint."
+    }
+  ],
+  "comment": "This is a literature-explicit circuit-complexity question. The known exact upper bound is $O(n^{1+\\varepsilon})$ for every fixed $\\varepsilon>0$, whereas no superlinear lower bound is known in the stated arbitrary-gate model. Exact coherent QFT computation is stronger than what bounded-error factoring needs. A resolution must therefore either improve the family of $O(n^{1+\\varepsilon})$ upper bounds to $O(n)$ or prove that some superlinear growth is unavoidable.",
+  "contributors": []
+}

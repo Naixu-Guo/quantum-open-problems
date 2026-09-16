@@ -1,0 +1,105 @@
+% Problem record op_d3e38bc5b5b35af3. This TeX file is derived from
+% database/problems_json/op_d3e38bc5b5b35af3.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Optimal precision dependence of diamond-norm channel tomography}
+\label{sec:op_d3e38bc5b5b35af3}
+
+\paragraph{Problem.}
+Does tomography of an arbitrary $d$-dimensional quantum channel in diamond norm require and suffice with $\Theta(d^4/\varepsilon^2)$ channel uses?
+
+Let $\Lambda:\mathcal L(\mathbb C^d)\to\mathcal L(\mathbb C^d)$ be an arbitrary unknown completely positive, trace-preserving channel, with $d\geq2$ and no Kraus-rank promise. For sufficiently small $\varepsilon>0$, let $Q_\diamond(d,\varepsilon)$ be the minimum worst-case number of channel uses needed to output a classical description of a channel $\widehat\Lambda$ such that
+
+\begin{equation}
+\Pr\!\left[\|\widehat\Lambda-\Lambda\|_\diamond\leq\varepsilon\right]\geq\frac23,
+\qquad
+\|\widehat\Lambda-\Lambda\|_\diamond
+:=\sup_{\omega}
+\left\|\bigl[(\widehat\Lambda-\Lambda)\otimes\operatorname{id}_d\bigr](\omega)\right\|_1,
+\label{eq:d3e3-1}
+\end{equation}
+
+where the supremum is over density operators on $\mathbb C^d\otimes\mathbb C^d$, and $\operatorname{id}_d$ is the identity channel. Adaptive inputs, ancillas, quantum memory, and collective measurements are allowed. Only ordinary channel uses are supplied, not a purification of the channel's environment; computational efficiency is not required.
+
+Is $Q_\diamond(d,\varepsilon)=\Theta(d^4/\varepsilon^2)$ with constants uniform in both $d$ and $\varepsilon$?
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:d3e3-1}.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+This precise formulation is editor wording based on the unresolved direction and limitations documented in the cited primary literature \sourcecite{ref:d3e3-mele25}{Mele25}\sourcecite{ref:d3e3-chen25}{Chen25}; it is not presented as a verbatim conjecture of those authors.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item General channels with input dimension $d_{\mathrm{in}}$, output dimension $d_{\mathrm{out}}$, and Kraus rank at most $r$ admit tomography using
+  \begin{equation}
+O(d_{\mathrm{in}}d_{\mathrm{out}}r/\varepsilon^2)
+\label{eq:d3e3-2}
+\end{equation}
+  queries. Substituting $d_{\mathrm{in}}=d_{\mathrm{out}}=d$ and $r=d^2$ proves $Q_\diamond(d,\varepsilon)=O(d^4/\varepsilon^2)$. Mele and Bittel and, independently, Chen, Yu, and Zhang obtain this upper bound. \sourcecite{ref:d3e3-mele25}{Mele25}\sourcecite{ref:d3e3-chen25}{Chen25}
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:d3e3-2}.
+
+  \item The dimension dependence at fixed accuracy is settled:
+  \begin{equation}
+Q_\diamond(d,\varepsilon)=\Theta(d^4)
+  \qquad\text{for fixed sufficiently small }\varepsilon>0.
+\label{eq:d3e3-3}
+\end{equation}
+  Theorem IV.25 uses the convention $\tfrac12\|\widehat\Lambda-\Lambda\|_\diamond\leq\varepsilon$; substituting source accuracy $\varepsilon/2$ to match the full-norm convention above changes only constants. More quantitatively, specializing Theorem IV.25 of Mele and Bittel's third version gives
+  \begin{equation}
+Q_\diamond(d,\varepsilon)
+  =\Omega\!\left(
+  \frac{d^4}{\varepsilon^{b_d}}
+  +\frac{d\log d}{\varepsilon^2}
+  \right),
+  \qquad
+  b_d:=\frac{d^2}{2(d^2+1)}.
+\label{eq:d3e3-4}
+\end{equation}
+  Constant-confidence amplification transfers their sufficiently-small-failure-probability statement to the success convention used here. This does not establish the product $d^4/\varepsilon^2$. \sourcecite{ref:d3e3-mele25}{Mele25}
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:d3e3-3}, \eqref{eq:d3e3-4}.
+
+  \item A separate immediate reduction strengthens the accuracy-dependent obstruction. The preparation channels $\Lambda_\sigma(X):=\operatorname{Tr}(X)\sigma$, with arbitrary $d$-dimensional states $\sigma$, are a subfamily. Their diamond distance is $\|\sigma-\tau\|_1$, so the optimal mixed-state tomography lower bound implies
+  \begin{equation}
+Q_\diamond(d,\varepsilon)=\Omega(d^2/\varepsilon^2).
+\label{eq:d3e3-5}
+\end{equation}
+  This is a reduction from the state-tomography bound reviewed in Section I.1, not a claim that the paper states this as its strongest general-channel theorem. \sourcecite{ref:d3e3-mele25}{Mele25}
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:d3e3-5}.
+
+  \item Section I.5 of Mele and Bittel explicitly leaves the optimal joint dimension--accuracy dependence open; the known lower bounds do not match the general $O(d^4/\varepsilon^2)$ upper bound. \sourcecite{ref:d3e3-mele25}{Mele25}\sourcecite{ref:d3e3-chen25}{Chen25}
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Mele25]}]\label{ref:d3e3-mele25}
+  A. A. Mele and L. Bittel, "Optimal learning of quantum channels in diamond distance," arXiv preprint (2025), version 3, 15 June 2026. \href{https://arxiv.org/abs/2512.10214}{arXiv:2512.10214}.
+
+  \item[\textup{[Chen25]}]\label{ref:d3e3-chen25}
+  K. Chen, N. Yu, and Z. Zhang, "Quantum channel tomography and estimation by local test," arXiv preprint (2025), version 2, 2 February 2026. \href{https://arxiv.org/abs/2512.13614}{arXiv:2512.13614}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The proposed equality is a concrete unrestricted-rank specialization of the published joint-scaling open problem, not a theorem asserted by the papers' titles. Optimal scaling separately in dimension at constant accuracy and in accuracy at fixed dimension does not prove their multiplicative combination. That uniform two-parameter question remains unresolved.
+
+\subsection*{Field}
+
+Quantum metrology
+
+\subsection*{Topic}
+
+Quantum estimation; One-shot and finite-blocklength bounds
+
+\subsection*{ID}
+
+\texttt{op\_d3e38bc5b5b35af3}

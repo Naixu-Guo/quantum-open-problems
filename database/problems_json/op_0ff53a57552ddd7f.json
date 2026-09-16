@@ -1,0 +1,68 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_0ff53a57552ddd7f",
+  "ulid": "01M2M9FBMJ72NN6ZVW727YNWRX",
+  "aliases": [
+    "op_0ff53a57552ddd7f",
+    "01M2M9FBMJ72NN6ZVW727YNWRX",
+    "op-0ff53a57552ddd7f"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-16T05:01:48.050Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-algorithm"
+    ],
+    "topicIds": [
+      "computational-complexity-and-computability"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
+  "title": "Unrestricted quantum time--space tradeoff for collision finding",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum algorithm"
+  ],
+  "topics": [
+    "Computational complexity and computability"
+  ],
+  "statement": "Does every unrestricted quantum collision-finding algorithm satisfy the time--space lower bound $T^2S=\\Omega(N\\log N)$?\n\nLet $f:[N]\\to[N]$ be uniformly random, with standard coherent value-oracle access. An algorithm must output distinct $x,x'$ such that $f(x)=f(x')$, with probability at least $2/3$ over the random function and the algorithm. Let $T$ be its number of oracle queries and $S$ its maximum retained workspace, measured in qubits, with classical storage counted as computational-basis memory.\n\nConjecture: Every such algorithm, without any symmetry restriction, satisfies\n\n\\begin{equation}\nT^2S=\\Omega(N\\log N).\n\\label{eq:0ff5-1}\n\\end{equation}\n\nTogether with the collision query lower bound $T=\\Omega(N^{1/3})$, this predicts the optimal interpolation\n\n\\begin{equation}\nT=\\Theta\\!\\left(\\sqrt{\\frac{N\\log N}{S}}\\right),\n\\qquad \\log N\\lesssim S\\lesssim N^{1/3}\\log N.\n\\label{eq:0ff5-2}\n\\end{equation}\n\nThe oracle itself is external; the algorithm's query registers, stored inputs and values, and quantum-addressable classical tables count toward $S$. There is no free external table containing the algorithm's accumulated information. Intermediate measurement records retained for future use also count.\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:0ff5-1}, \\eqref{eq:0ff5-2}.",
+  "source": "The question is explicitly posed or retained as open in the cited primary literature \\sourcecite{ref:0ff5-magniez26}{Magniez26}.  The statement is rewritten here to make its hypotheses and success criterion self-contained.",
+  "progress": [
+    "BHT upper bound. Storing a table of $r$ input–output pairs and applying quantum search gives\n\n\\begin{equation}\nT=O\\!\\left(r+\\sqrt{N/r}\\right),\\qquad S=O(r\\log N).\n\\label{eq:0ff5-3}\n\\end{equation}\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:0ff5-3}.",
+    "For $1\\le r\\le N^{1/3}$, this matches the conjectured tradeoff. The original BHT work introduced the search-based collision method and its time–space interpolation. \\sourcecite{ref:0ff5-brassard98}{Brassard98}, \\sourcecite{ref:0ff5-magniez26}{Magniez26}",
+    "2023. Hamoudi and Magniez established a lower bound $T^3S=\\Omega(K^3N)$ for finding $K$ collision pairs. This does not give the stronger single-collision tradeoff stated here. \\sourcecite{ref:0ff5-hamoudi23}{Hamoudi23}",
+    "September 9, 2026. Magniez and Zur prove the desired bounds for label-symmetric algorithms, whose strategy respects permutations of the function's output labels. Section 1.4 explicitly leaves removal of this assumption open. Standard symmetrization can require $\\Theta(N\\log N)$ additional storage and therefore does not preserve the space parameter. \\sourcecite{ref:0ff5-magniez26}{Magniez26}",
+    "Retained as open in the unrestricted model. The newest paper resolves an important restricted case, not the full statement."
+  ],
+  "references": [
+    {
+      "key": "Brassard98",
+      "label": "ref:0ff5-brassard98",
+      "tex": "Gilles Brassard, Peter Høyer, and Alain Tapp. \\emph{Quantum Algorithm for the Collision Problem}. LATIN 1998; \\href{https://arxiv.org/abs/quant-ph/9705002}{arXiv:quant-ph/9705002} (1997)."
+    },
+    {
+      "key": "Magniez26",
+      "label": "ref:0ff5-magniez26",
+      "tex": "Frédéric Magniez and Sebastian Zur. \\emph{Tight Time-Space Lower Bounds for Collision Finding and Element Distinctness under Label Symmetry}. \\href{https://arxiv.org/html/2609.10808v1}{arXiv:2609.10808}, September 9, 2026, preprint. See Section 1.4 and Theorem 4.18."
+    },
+    {
+      "key": "Hamoudi23",
+      "label": "ref:0ff5-hamoudi23",
+      "tex": "Yassine Hamoudi and Frédéric Magniez. \\emph{Quantum Time-Space Tradeoff for Finding Multiple Collision Pairs}. ACM Transactions on Computation Theory 15(1–2) (2023); \\href{https://arxiv.org/abs/2002.08944v5}{arXiv:2002.08944v5}."
+    }
+  ],
+  "comment": "This problem is an explicit open extension of a September 9, 2026 preprint.\n\nThis asks whether a quantum algorithm can obtain the full collision speedup while retaining asymptotically less usable information than the known table-based methods. The target concerns memory as well as queries, rather than a new query lower bound in the unlimited-space model.\n\nThe symmetry issue is substantive: symmetry of a problem does not guarantee a cost-free symmetric implementation of every algorithm. A useful lower-bound invariant would have to control retained information without assuming that the algorithm ignores the numerical identities of output labels. A counterexample would instead need to exploit those identities in a way that improves the query–memory product, not merely the internal implementation constant.",
+  "contributors": []
+}

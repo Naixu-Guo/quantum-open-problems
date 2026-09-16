@@ -1,0 +1,89 @@
+% Problem record op_eff503a05675844e. This TeX file is derived from
+% database/problems_json/op_eff503a05675844e.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Exact constant-bond PEPS mixtures for two-dimensional Gibbs states}
+\label{sec:op_eff503a05675844e}
+
+\paragraph{Problem.}
+Is every fixed-temperature Gibbs state of a bounded finite-range qubit Hamiltonian on the square lattice an exact convex combination of PEPS with a system-size-independent bond dimension?
+
+For a finite-dimensional Hamiltonian $H$, write
+
+\begin{equation}
+\rho_\beta(H)=\frac{e^{-\beta H}}{Z_H(\beta)},\qquad
+Z_H(z)=\operatorname{Tr}(e^{-zH}),\qquad \beta>0.
+\label{eq:eff5-1}
+\end{equation}
+
+The temperature is $T=1/\beta$, in units with Boltzmann’s constant equal to one.
+
+“Fixed finite temperature” allows constants to depend badly on $\beta$ but not on the number of sites.
+
+Let $\Lambda$ range over finite rectangular subsets of the square lattice with qubits at vertices, and write $H=\sum_X h_X$ with $\operatorname{diam}(X)\leq R$ and $\max_{v\in\Lambda}\sum_{X\ni v}\|h_X\|\leq J$. Denote by $\mathcal P_\chi(\Lambda)$ the normalized pure projected entangled pair states on this lattice with virtual bond dimension at most $\chi$.
+
+For every fixed $0<\beta<\infty$, is there a finite $\chi(\beta,R,J)$, independent of lattice size and the particular Hamiltonian, such that
+
+\begin{equation}
+\rho_\beta(H)\in\operatorname{conv}
+\{|\psi\rangle\langle\psi|:\psi\in\mathcal P_{\chi(\beta,R,J)}(\Lambda)\}?
+\label{eq:eff5-2}
+\end{equation}
+
+This is exact membership, not membership in an approximation or closure. The ensemble may have arbitrarily many, but finitely many, components. No polynomial bound on the ensemble size, efficient sampling of its weights, or efficient contraction of its tensors is included.
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:eff5-1}, \eqref{eq:eff5-2}.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+This precise formulation is editor wording based on the unresolved direction and limitations documented in the cited primary literature \sourcecite{ref:eff5-bakshi26}{Bakshi26}; it is not presented as a verbatim conjecture of those authors.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Provenance: an explicit direction, with a stronger formulation here. Section 4 of \sourcecite{ref:eff5-bakshi26}{Bakshi26} proposes exact constant-bond PEPS mixtures in temperature ranges extending beyond separability and discusses the challenge at lower temperatures. The all-finite-temperature universal statement above is a precise, stronger research formulation of that direction. It should not be attributed to the authors as an established conjecture.
+
+  \item A more conservative research objective is to establish a nontrivial uniform temperature range beyond the known separable regime, before attempting the universal statement.
+
+  \item Established regimes and latest counterchecks. At sufficiently high temperature, separability already gives bond dimension one. The bounded-degree result \sourcecite{ref:eff5-bakshi24}{Bakshi24} and the July 2026 weighted long-range extension \sourcecite{ref:eff5-putterman26}{Putterman26} therefore exclude “existence of some high-temperature constant-bond representation” as an open problem.
+
+  \item In one dimension, exact constant-bond mixtures are now established \sourcecite{ref:eff5-bakshi26}{Bakshi26}. Older higher-dimensional approximation results, including \sourcecite{ref:eff5-molnr15}{Molnr15}, allow bond dimension to depend on system size and approximation accuracy. They do not settle the exact uniform statement above.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Bakshi26]}]\label{ref:eff5-bakshi26}
+  Ainesh Bakshi, Soonwon Choi, and Saúl Pilatowsky-Cameo, \emph{Entanglement in quantum spin chains is strictly finite at any temperature}. \href{https://arxiv.org/abs/2602.13386}{arXiv:2602.13386}, February 13, 2026. Locate: Theorem 2.1 and Section 4, especially “Tightness of the bond dimension” and “Higher dimensions.”
+
+  \item[\textup{[Bakshi24]}]\label{ref:eff5-bakshi24}
+  Ainesh Bakshi, Allen Liu, Ankur Moitra, and Ewin Tang, \emph{High-Temperature Gibbs States are Unentangled and Efficiently Preparable}. \href{https://arxiv.org/abs/2403.16850}{arXiv:2403.16850}, first submitted March 25, 2024; checked version v2, February 24, 2025. Use: the already solved high-temperature separable regime.
+
+  \item[\textup{[Putterman26]}]\label{ref:eff5-putterman26}
+  Harald Putterman, Alexander Zlokapa, and Jordan Cotler, \emph{When quantum thermal states look classical}. \href{https://arxiv.org/abs/2607.28536}{arXiv:2607.28536}, July 30, 2026. Locate: local-strength definition; Theorem 4; Section 2.6, equation (47); pinned-partition-function counterexamples; separability results.
+
+  \item[\textup{[Molnr15]}]\label{ref:eff5-molnr15}
+  András Molnár, Norbert Schuch, Frank Verstraete, and J. Ignacio Cirac, \emph{Approximating Gibbs states of local Hamiltonians efficiently with PEPS}. \href{https://arxiv.org/abs/1406.2973}{arXiv:1406.2973}; \href{https://doi.org/10.1103/PhysRevB.91.045138}{Physical Review B 91, 045138 (2015)}. Use: higher-dimensional approximate representations with size/accuracy-dependent bond dimension.
+\end{enumerate}
+
+\subsection*{Comment}
+
+This remains an open research direction with qualified provenance: the literature directly supports the direction, while the universal all-temperature quantifier is a deliberate formulation used here. Neither a general theorem nor a counterexample is known for the displayed formulation.
+
+A rigorous negative answer could take the form of a fixed-$\beta$ sequence of normalized two-dimensional local Hamiltonians for which the required exact PEPS-mixture bond dimension diverges with system size.
+
+\subsection*{Field}
+
+Quantum Resource Theory
+
+\subsection*{Topic}
+
+Quantum thermodynamics; Quantum state preparation
+
+\subsection*{ID}
+
+\texttt{op\_eff503a05675844e}
