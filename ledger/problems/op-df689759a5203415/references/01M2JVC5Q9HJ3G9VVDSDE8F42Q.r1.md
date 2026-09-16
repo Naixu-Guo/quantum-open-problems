@@ -1,0 +1,14 @@
+---
+id: "01M2JVC5Q9HJ3G9VVDSDE8F42Q"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-15T15:36:09.884Z"
+type: "Reference"
+sourceId: "01M2JVC5Q923RAKV43701YY7K5"
+targetType: "problem"
+targetId: "01M2JMFAPYEDSSTG9R7CWHJGQ4"
+role: "states-problem"
+locator: "ADLY25"
+---
+J. Acharya, A. Dharmavarapu, Y. Liu, and N. Yu, “Pauli measurements are not optimal for single-copy tomography,” in *Proceedings of the 57th Annual ACM Symposium on Theory of Computing (STOC 2025)*, 718–729 (2025). [doi:10.1145/3717823.3718248](https://doi.org/10.1145/3717823.3718248); [arXiv:2502.18170](https://arxiv.org/abs/2502.18170).
