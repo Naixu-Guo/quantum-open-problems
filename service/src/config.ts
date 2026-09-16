@@ -2,6 +2,7 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { CAPTCHA_PROVIDERS, type CaptchaProvider, type SubmissionsConfig } from "./submissions.ts";
+import { inboxLimits } from "./submission-capacity.ts";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(here, "..", "..");
@@ -74,12 +75,17 @@ export function submissionsDefaults(config: Config): SubmissionsConfig {
   if (mode === "captcha" && !captcha) throw new Error("captcha submission mode requires QOP_CAPTCHA_SECRET");
   const inboxKeyHash = given.inboxKeyHash || null;
   if (inboxKeyHash && !/^[a-f0-9]{64}$/u.test(inboxKeyHash)) throw new Error("QOP_INBOX_KEY_HASH must be the SHA-256 hash of a random access key");
+  const monitorKeyHash = given.monitorKeyHash || null;
+  if (monitorKeyHash && !/^[a-f0-9]{64}$/u.test(monitorKeyHash)) throw new Error("QOP_INBOX_MONITOR_KEY_HASH must be the SHA-256 hash of a random access key");
+  if (monitorKeyHash && monitorKeyHash === inboxKeyHash) throw new Error("the capacity monitor key must differ from the inbox management key");
   if (captcha && !(captcha.provider in CAPTCHA_PROVIDERS)) throw new Error(`unknown CAPTCHA provider ${String(captcha.provider)}; use one of ${Object.keys(CAPTCHA_PROVIDERS).join(", ")}`);
   const besideAuth = config.authDbPath === ":memory:" ? ":memory:" : path.join(path.dirname(path.resolve(config.authDbPath)), "submissions.sqlite");
   return {
+    ...inboxLimits(given),
     dbPath: given.dbPath ?? besideAuth,
     mode,
     inboxKeyHash,
+    monitorKeyHash,
     captcha: captcha ? { provider: captcha.provider, secret: captcha.secret, verifyUrl: captcha.verifyUrl || CAPTCHA_PROVIDERS[captcha.provider].verifyUrl } : null,
     allowedOrigins: (given.allowedOrigins ?? []).map(stripSlash).filter(Boolean),
     perAddressPerHour: positiveInteger(given.perAddressPerHour, 10),
@@ -115,6 +121,10 @@ export function configFromEnv(env: NodeJS.ProcessEnv = process.env): Config {
     submissions: {
       ...(env["QOP_SUBMISSIONS_MODE"] ? { mode: env["QOP_SUBMISSIONS_MODE"] as SubmissionsConfig["mode"] } : {}),
       inboxKeyHash: env["QOP_INBOX_KEY_HASH"] || null,
+      monitorKeyHash: env["QOP_INBOX_MONITOR_KEY_HASH"] || null,
+      ...(env["QOP_SUBMISSIONS_GLOBAL_PER_HOUR"] === undefined ? {} : { globalPerHour: Number(env["QOP_SUBMISSIONS_GLOBAL_PER_HOUR"]) }),
+      ...(env["QOP_SUBMISSIONS_MAX_ROWS"] === undefined ? {} : { maxRows: Number(env["QOP_SUBMISSIONS_MAX_ROWS"]) }),
+      ...(env["QOP_SUBMISSIONS_MAX_BYTES"] === undefined ? {} : { maxBytes: Number(env["QOP_SUBMISSIONS_MAX_BYTES"]) }),
       ...(env["QOP_SUBMISSIONS_DB_PATH"] ? { dbPath: path.resolve(env["QOP_SUBMISSIONS_DB_PATH"]) } : {}),
       captcha: captchaSecret ? { provider: captchaProvider as CaptchaProvider, secret: captchaSecret, verifyUrl: env["QOP_CAPTCHA_VERIFY_URL"] ?? CAPTCHA_PROVIDERS[captchaProvider as CaptchaProvider].verifyUrl } : null,
       allowedOrigins: (env["QOP_SUBMISSION_ORIGINS"] ?? "").split(",").map((origin) => origin.trim()).filter(Boolean),
