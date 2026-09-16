@@ -14,6 +14,7 @@ import { createHash } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
 import { HttpError } from "./errors.ts";
 import { newId, nowIso } from "./ids.ts";
+import { SubmissionCapacity, type InboxLimits } from "./submission-capacity.ts";
 
 export const SUBMISSION_STATES = ["new", "in-review", "accepted", "rejected", "spam"] as const;
 export type SubmissionState = (typeof SUBMISSION_STATES)[number];
@@ -31,7 +32,7 @@ export interface CaptchaConfig {
   verifyUrl: string;
 }
 
-export interface SubmissionsConfig {
+export interface SubmissionsConfig extends InboxLimits {
   /** The inbox database: beside the auth store unless configured, `:memory:` when the auth store is. */
   dbPath: string;
   /** Explicit opt-in; missing configuration keeps public submissions closed. */
@@ -40,6 +41,8 @@ export interface SubmissionsConfig {
   captcha: CaptchaConfig | null;
   /** SHA-256 of a randomly generated inbox-only access key. Never a human-chosen password. */
   inboxKeyHash: string | null;
+  /** A separate read-only key for aggregate capacity monitoring; cannot read proposals. */
+  monitorKeyHash: string | null;
   /** Origins of the pages that post proposals, for CORS: the static site, plus the service's own origin. */
   allowedOrigins: string[];
   /** Proposals one address may send per hour, counting attempts that fail verification. */
@@ -265,12 +268,18 @@ function storedPayload(row: StoredRow): SubmissionPayload {
 
 export class SubmissionStore {
   readonly db: DatabaseSync;
+  readonly capacity: SubmissionCapacity;
 
-  constructor(dbPath: string) {
+  constructor(dbPath: string, limits: Partial<InboxLimits> = {}) {
     if (dbPath !== ":memory:") fs.mkdirSync(path.dirname(dbPath), { recursive: true });
     this.db = new DatabaseSync(dbPath);
+    this.db.exec("PRAGMA busy_timeout = 5000");
     this.db.exec("PRAGMA journal_mode = WAL");
     this.db.exec(SCHEMA);
+    this.capacity = new SubmissionCapacity(this.db, limits);
+    this.db.exec("BEGIN IMMEDIATE");
+    try { this.capacity.observe(); this.db.exec("COMMIT"); }
+    catch (error) { try { this.db.exec("ROLLBACK"); } catch { /* already rolled back */ } this.db.close(); throw error; }
   }
 
   /**
@@ -279,24 +288,43 @@ export class SubmissionStore {
    * contact details receive a new receipt, preserving both the correction and the original.
    */
   accept(payload: SubmissionPayload, meta: { address: string; userAgent: string; captchaProvider: string }, now: number = Date.now()): { id: string; receivedAt: string; duplicate: boolean } {
-    const hash = contentHash(payload);
-    const since = new Date(now - DUPLICATE_WINDOW_MS).toISOString();
-    const candidates = this.db.prepare(`SELECT ${ROW_COLUMNS} FROM submissions WHERE content_hash = ? AND received_at >= ? ORDER BY received_at DESC`).all(hash, since) as unknown as StoredRow[];
-    const existing = candidates.find((row) => {
-      const previousPayload = storedPayload(row);
-      const previous = previousPayload.contributor;
-      const current = payload.contributor;
-      return previous.name === current.name && previous.email === current.email
-        && previous.affiliation === current.affiliation && previous.anonymous === current.anonymous
-        && previousPayload.contentLicense === payload.contentLicense;
-    });
-    if (existing) return { id: existing.id, receivedAt: existing.received_at, duplicate: true };
-    const id = newId(now);
-    const receivedAt = new Date(now).toISOString();
-    this.db.prepare(`INSERT INTO submissions (${ROW_COLUMNS}) VALUES (?, ?, 'new', ?, NULL, '', ?, ?, ?, ?, ?, ?, ?, ?)`).run(
-      id, receivedAt, receivedAt, payload.title, payload.contributor.name, payload.contributor.email, JSON.stringify(payload), hash, hashAddress(meta.address), meta.userAgent.slice(0, 512), meta.captchaProvider,
-    );
-    return { id, receivedAt, duplicate: false };
+    this.db.exec("BEGIN IMMEDIATE");
+    try {
+      const hash = contentHash(payload);
+      const since = new Date(now - DUPLICATE_WINDOW_MS).toISOString();
+      const candidates = this.db.prepare(`SELECT ${ROW_COLUMNS} FROM submissions WHERE content_hash = ? AND received_at >= ? ORDER BY received_at DESC`).all(hash, since) as unknown as StoredRow[];
+      const existing = candidates.find((row) => {
+        const previousPayload = storedPayload(row);
+        const previous = previousPayload.contributor;
+        const current = payload.contributor;
+        return previous.name === current.name && previous.email === current.email
+          && previous.affiliation === current.affiliation && previous.anonymous === current.anonymous
+          && previousPayload.contentLicense === payload.contentLicense;
+      });
+      if (existing) { this.db.exec("COMMIT"); return { id: existing.id, receivedAt: existing.received_at, duplicate: true }; }
+      const id = newId(now);
+      const receivedAt = new Date(now).toISOString();
+      this.db.prepare(`INSERT INTO submissions (${ROW_COLUMNS}) VALUES (?, ?, 'new', ?, NULL, '', ?, ?, ?, ?, ?, ?, ?, ?)`).run(
+        id, receivedAt, receivedAt, payload.title, payload.contributor.name, payload.contributor.email, JSON.stringify(payload), hash, hashAddress(meta.address), meta.userAgent.slice(0, 512), meta.captchaProvider,
+      );
+      this.capacity.checkInsert(now);
+      this.capacity.observe(now);
+      this.db.exec("COMMIT");
+      return { id, receivedAt, duplicate: false };
+    } catch (error) {
+      // SQLITE_FULL can roll a transaction back itself.
+      try { this.db.exec("ROLLBACK"); } catch { /* SQLite already rolled back after SQLITE_FULL. */ }
+      const full = error instanceof Error && "errcode" in error && error.errcode === 13;
+      if (full || (error instanceof HttpError && error.status === 503)) {
+        this.db.exec("BEGIN IMMEDIATE");
+        try {
+          this.capacity.observe(now, full || (error instanceof Error && /storage/.test(error.message)) ? "storage" : "rows");
+          this.db.exec("COMMIT");
+        } catch (alertError) { try { this.db.exec("ROLLBACK"); } catch { /* already rolled back */ } throw alertError; }
+        if (full) throw new HttpError(503, "the proposal inbox storage is full; existing proposals are preserved. Please use the GitHub contribution route");
+      }
+      throw error;
+    }
   }
 
   get(id: string): Submission | null {
