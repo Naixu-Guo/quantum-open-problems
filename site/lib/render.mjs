@@ -657,7 +657,11 @@ export function renderAbout({ config, root, dates }) {
         <h2 id="what">What the zoo is</h2>
         <p>The ${escape(config.shortName)} is a place to explore research problems in quantum information and quantum computation. Each problem page brings together a clear statement, the background needed to understand it, key references, and what is known so far.</p>
         <p>Browse by field or topic, follow the sources, or share a problem you think belongs here. The collection grows through contributions from the community and review by the maintainers. Problem pages keep permanent links, so you can return to them as the research develops.</p>
-        <p>We gratefully acknowledge the researchers behind <a href="https://oqp.iqoqi.oeaw.ac.at/" rel="noreferrer">Open Quantum Problems</a> and <a href="https://prove2.me/" rel="noreferrer">Prove2Me</a> for their contributions to the community and their dedication to sharing mathematical knowledge.</p>
+        <p><strong>We would also like to highlight the following projects in the research community:</strong></p>
+        <ul>
+          <li><strong><a href="https://oqp.iqoqi.oeaw.ac.at/" rel="noreferrer">Open Quantum Problems</a></strong></li>
+          <li><strong><a href="https://prove2.me/" rel="noreferrer">Prove2Me</a></strong></li>
+        </ul>
 
         <h2 id="what-will-be-collected">What will be collected</h2>
         <p>We collect meaningful, significant unsolved problems in quantum information and quantum computation. Each problem should be formulated precisely in mathematical language, with clear assumptions and an unambiguous criterion for a solution. When a problem is solved, its page stays in the zoo and is updated with the resolution and supporting references.</p>
