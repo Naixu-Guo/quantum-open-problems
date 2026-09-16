@@ -1,0 +1,98 @@
+% Problem record op_91c81ca77b99eebf. This TeX file is derived from
+% database/problems_json/op_91c81ca77b99eebf.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Optimal single-copy tomography of fermionic Gaussian states}
+\label{sec:op_91c81ca77b99eebf}
+
+\paragraph{Problem.}
+Can arbitrary mixed fermionic Gaussian states be learned to trace distance $\varepsilon$ from $\Theta(m^2/\varepsilon^2)$ copies without measurements across copies?
+
+For $m$ fermionic modes with Majorana operators satisfying $c_ac_b+c_bc_a=2\delta_{ab}I$, let $\mathcal G_m$ consist of the states
+
+\begin{equation}
+\rho=\frac{e^{-K}}{\operatorname{Tr}(e^{-K})},
+\qquad
+K=\frac{i}{4}\sum_{a,b=1}^{2m}A_{ab}c_ac_b,
+\qquad
+A^T=-A\in\mathbb R^{2m\times2m},
+\label{eq:91c8-1}
+\end{equation}
+
+including their limiting pure states. Let $N_1(m,\varepsilon)$ be the minimum worst-case number of copies needed to output $\widehat\rho\in\mathcal G_m$ with
+
+\begin{equation}
+\Pr\!\left[\frac12\|\rho-\widehat\rho\|_1\leq\varepsilon\right]\geq\frac23.
+\label{eq:91c8-2}
+\end{equation}
+
+Each adaptive measurement may act on all modes of one copy and an ancilla, but no quantum memory may connect different copies. Is $N_1(m,\varepsilon)=\Theta(m^2/\varepsilon^2)$ for the family in Eq.~\eqref{eq:91c8-1} under the success criterion in Eq.~\eqref{eq:91c8-2}?
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+This precise formulation is editor wording based on the unresolved direction and limitations documented in the cited primary literature \sourcecite{ref:91c8-bittel25}{Bittel25}\sourcecite{ref:91c8-chen26}{Chen26}; it is not presented as a verbatim conjecture of those authors.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Bittel, Mele, Eisert, and Leone give an efficient single-copy covariance-learning protocol with
+  \begin{equation}
+N_1(m,\varepsilon)
+  =O\!\left(\frac{m^4\log m}{\varepsilon^2}\right)
+\label{eq:91c8-3}
+\end{equation}
+  at constant success probability. Their mixed-state guarantee, rather than their stronger pure-state guarantee, is the applicable upper bound here. See Theorems 5 and 21 of the arXiv version. \sourcecite{ref:91c8-bittel25}{Bittel25}
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:91c8-3}.
+
+  \item The July 2026 result of Chen and coauthors settles the unrestricted problem. If arbitrary collective measurements are allowed, its optimal copy count is
+  \begin{equation}
+N_{\mathrm{coll}}(m,\varepsilon,\delta)
+  =\Theta\!\left(\frac{m^2+\log(1/\delta)}{\varepsilon^2}\right),
+\label{eq:91c8-4}
+\end{equation}
+  where $\delta$ is the failure probability. The lower bound already holds for pure Gaussian states, and therefore implies $N_1(m,\varepsilon)=\Omega(m^2/\varepsilon^2)$. The upper construction uses operations across copies. \sourcecite{ref:91c8-chen26}{Chen26}
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:91c8-4}.
+
+  \item Chen et al. explicitly leave the necessity of entangled measurements open in Section 6. Together, the established bounds for the stated model leave
+  \begin{equation}
+\Omega(m^2/\varepsilon^2)
+  \leq N_1(m,\varepsilon)
+  \leq O(m^4\log m/\varepsilon^2).
+\label{eq:91c8-5}
+\end{equation}
+  The unrestricted Gaussian-state tomography problem should not itself be retained as open. \sourcecite{ref:91c8-bittel25}{Bittel25}\sourcecite{ref:91c8-chen26}{Chen26}
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:91c8-5}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Bittel25]}]\label{ref:91c8-bittel25}
+  L. Bittel, A. A. Mele, J. Eisert, and L. Leone, "Optimal trace-distance bounds for free-fermionic states: Testing and improved tomography," \emph{PRX Quantum} 6, 030341 (2025). \href{https://doi.org/10.1103/pzx6-nkfb}{doi:10.1103/pzx6-nkfb}; \href{https://arxiv.org/abs/2409.17953}{arXiv:2409.17953}.
+
+  \item[\textup{[Chen26]}]\label{ref:91c8-chen26}
+  S. Chen, M. Fanizza, F. Girardi, L. Lami, F. A. Mele, M. Walter, and F. Witteveen, "Optimal tomography of bosonic and fermionic Gaussian states," arXiv preprint (2026), version 1, 13 July 2026. \href{https://arxiv.org/abs/2607.11847}{arXiv:2607.11847}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The unresolved issue is whether prohibiting measurements across copies increases the optimal sample complexity for mixed fermionic Gaussian states. Restricting each measurement to Gaussian operations would be a different, stronger restriction, and is not assumed here. The collective algorithm establishes achievability only after removing the single-copy constraint.
+
+\subsection*{Field}
+
+Quantum metrology
+
+\subsection*{Topic}
+
+Quantum estimation; Gaussian quantum information; One-shot and finite-blocklength bounds
+
+\subsection*{ID}
+
+\texttt{op\_91c81ca77b99eebf}

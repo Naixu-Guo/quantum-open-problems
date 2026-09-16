@@ -1,0 +1,89 @@
+% Problem record op_6d9a72b32070a900. This TeX file is derived from
+% database/problems_json/op_6d9a72b32070a900.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Hilbert--Schmidt inradius of the multiqubit stabilizer polytope}
+\label{sec:op_6d9a72b32070a900}
+
+\paragraph{Problem.}
+Is every $n$-qubit state of purity at most $1/(2^n-1/2)$ a convex mixture of stabilizer states?
+
+Let $d=2^n$ and
+
+\begin{equation}
+\mathrm{STAB}_n=\operatorname{conv}\{|s\rangle\langle s|:|s\rangle\text{ is an }n\text{-qubit stabilizer state}\}.
+\label{eq:6d9a-1}
+\end{equation}
+
+Is the following implication valid for every $n\geq1$?
+
+\begin{equation}
+\operatorname{Tr}(\rho^2)\leq\frac1{d-1/2}
+\quad\Longrightarrow\quad
+\rho\in\mathrm{STAB}_n.
+\label{eq:6d9a-2}
+\end{equation}
+
+Equivalently, does the Hilbert--Schmidt ball about $I/d$ contained in Eq.~\eqref{eq:6d9a-1} have radius $1/\sqrt{d(2d-1)}$? This is the threshold asserted by Eq.~\eqref{eq:6d9a-2}.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Liu and coauthors pose the purity threshold as Conjecture 1 \sourcecite{ref:6d9a-liu26}{Liu26}. Zurel and Davis give equivalent dual and inradius formulations in Conjecture 2 and Theorem 7 \sourcecite{ref:6d9a-zurel26}{Zurel26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Boundary construction. The Triangle Criterion supplies magic arbitrarily close to purity $1/(d-1/2)$, but this is one side of the sharp-threshold question, not a proof that every lower-purity state is stabilizer \sourcecite{ref:6d9a-liu26}{Liu26} (Theorem 5 and Conjecture 1).
+
+  \item February 25, 2026. Zurel and Davis obtain the same qubit inradius conditionally on their dual-purity conjecture and verify the relevant conjecture for one and two qubits. Their unconditional odd-prime-dimensional inradius result must not be mistaken for an unconditional multiqubit result \sourcecite{ref:6d9a-zurel26}{Zurel26}.
+
+  \item September 3, revised September 8, 2026. Liu and Liu prove the stronger universal guarantee
+
+\begin{equation}
+\operatorname{Tr}(\rho^2)\leq\frac1{d-a_*}
+\quad\Longrightarrow\quad\rho\in\mathrm{STAB}_n,
+\qquad a_*\simeq0.458327.
+\label{eq:6d9a-6}
+\end{equation}
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:6d9a-6}.
+
+  \item Thus the remaining dimension-independent gap is between $a_*\simeq0.458327$ and $1/2$. Their revised discussion explicitly leaves the exact inradius open \sourcecite{ref:6d9a-liuliu26}{LiuLiu26} (Theorem 1 and Discussion).
+
+  \item Status: open, with very recent primary-source confirmation. Reporting only the older $1/(d-1/d)$ sufficient bound would miss substantial 2026 progress.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Liu26]}]\label{ref:6d9a-liu26}
+  Z. Liu, T. Haug, Q. Ye, Z.-W. Liu, and I. Roth, \emph{Triangle Criterion: a mixed-state magic criterion with applications in distillation and detection}, \href{https://arxiv.org/html/2512.16777v2}{arXiv:2512.16777v2}, April 20, 2026. See Theorem 5, Conjecture 1, and the discussion of arbitrary-copy bound magic.
+
+  \item[\textup{[Zurel26]}]\label{ref:6d9a-zurel26}
+  M. Zurel and J. Davis, \emph{Basis-independent stabilizerness and maximally noisy magic states}, \href{https://arxiv.org/html/2602.22336v1}{arXiv:2602.22336v1}, February 25, 2026. See Conjecture 2, Theorem 7, and Corollary 3.
+
+  \item[\textup{[LiuLiu26]}]\label{ref:6d9a-liuliu26}
+  Z. Liu and Z.-W. Liu, \emph{On the geometry and typicality of quantum magic}, \href{https://arxiv.org/html/2609.03944v2}{arXiv:2609.03944v2}, September 8, 2026; first submitted September 3. See Theorem 1 and Discussion.
+\end{enumerate}
+
+\subsection*{Comment}
+
+This formulation asks where magic first becomes possible near the maximally mixed state, without selecting a decoder, a target state, or an asymptotic computational model.
+
+The dual formulation suggests a concrete mathematical attack: constrain the squared Hilbert–Schmidt norm of every trace-one operator nonnegative on stabilizer vectors. Searching for a feasible $A$ with $\operatorname{Tr}(A^2)>2$ would directly falsify the conjecture; numerical absence of such operators would not prove it. The negative eigenvalues allowed in $\mathcal L_n$ are the source of difficulty, not a defect in the formulation.
+
+\subsection*{Field}
+
+Quantum Resource Theory
+
+\subsection*{Topic}
+
+Quantum magic
+
+\subsection*{ID}
+
+\texttt{op\_6d9a72b32070a900}

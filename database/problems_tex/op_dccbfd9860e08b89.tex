@@ -1,0 +1,85 @@
+% Problem record op_dccbfd9860e08b89. This TeX file is derived from
+% database/problems_json/op_dccbfd9860e08b89.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Endpoint quantum KKL inequality for Boolean observables}
+\label{sec:op_dccbfd9860e08b89}
+
+\paragraph{Problem.}
+Does the Montanaro--Osborne $L^2$ quantum KKL inequality hold for every Boolean quantum observable?
+
+Let $A=A^\dagger$ act on $n\geq2$ qubits and satisfy $A^2=I$. Write $\tau(A)=2^{-n}\operatorname{Tr}A$, let $\mathcal E_i$ completely depolarize qubit $i$, and define
+
+\begin{equation}
+\mathcal E_i(A)=\frac{I_i}{2}\otimes\operatorname{Tr}_iA,
+\qquad
+D_iA=A-\mathcal E_i(A),
+\qquad
+\operatorname{Inf}^{(2)}_i(A)=\tau[(D_iA)^\dagger D_iA].
+\label{eq:dccb-1}
+\end{equation}
+
+Does a universal constant $c>0$ exist such that every such $A$ satisfies
+
+\begin{equation}
+\max_i\operatorname{Inf}^{(2)}_i(A)
+\geq c\bigl(1-\tau(A)^2\bigr)\frac{\log n}{n}?
+\label{eq:dccb-2}
+\end{equation}
+
+Equation~\eqref{eq:dccb-2} uses the squared influences defined in Eq.~\eqref{eq:dccb-1}; the balanced case has $\tau(A)=0$.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+The question is explicitly posed or retained as open in the cited primary literature \sourcecite{ref:dccb-montanaro08}{Montanaro08}\sourcecite{ref:dccb-jiao24}{Jiao24}.  The statement is rewritten here to make its hypotheses and success criterion self-contained.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item For diagonal observables $A=\sum_x f(x)|x\rangle\langle x|$, the influence in Eq.~\eqref{eq:dccb-1} reduces to the classical bit-flip influence, and Eq.~\eqref{eq:dccb-2} becomes the classical KKL bound. The tensor-product quantum extension was proposed by Montanaro and Osborne \sourcecite{ref:dccb-montanaro08}{Montanaro08}.
+
+  \item Rouzé, Wirth, and Zhang proved important quantum Talagrand, KKL-type, and Friedgut results using geometric or $L^p$ influences with $p<2$. Those results do not resolve the displayed endpoint. Jiao, Lin, Luo, and Zhou explicitly preserve this distinction and state that the Montanaro–Osborne conjecture remains open. \sourcecite{ref:dccb-rouz24}{Rouz24}, \sourcecite{ref:dccb-jiao24}{Jiao24}
+
+  \item The February 17, 2026 revision by Chang and Li develops further variance-decay and higher-order inequalities. Its relevant influence results remain sub-$L^2$; their constants do not give the required endpoint by simply taking $p\to2$. \sourcecite{ref:dccb-chang26}{Chang26}
+
+  \item An August 6, 2026 paper by Slote, Volberg, and Zhang provides another useful comparison. Its Hermitian-dilation family has small influences on the data qubits but an ancilla of influence one. Section 7 explicitly explains why this is not a counterexample to standard quantum KKL, which counts every qubit. \sourcecite{ref:dccb-slote26}{Slote26}
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Montanaro08]}]\label{ref:dccb-montanaro08}
+  A. Montanaro and T. J. Osborne, \emph{Quantum boolean functions}, arXiv:0810.2435 (2008); Chicago Journal of Theoretical Computer Science (2010). \href{https://arxiv.org/abs/0810.2435}{Paper}.
+
+  \item[\textup{[Jiao24]}]\label{ref:dccb-jiao24}
+  Y. Jiao, W. Lin, S. Luo, and D. Zhou, \emph{Quantum KKL-type inequalities revisited}, arXiv:2411.12399, November 2024, Introduction, including the explicit distinction between the CAR counterexample and the Montanaro–Osborne conjecture. \href{https://arxiv.org/html/2411.12399}{Full text}. See Conjecture 1.4 for the displayed variance-weighted formulation.
+
+  \item[\textup{[Rouz24]}]\label{ref:dccb-rouz24}
+  C. Rouzé, M. Wirth, and H. Zhang, \emph{Quantum Talagrand, KKL and Friedgut's theorems and the learnability of quantum Boolean functions}, arXiv:2209.07279; Communications in Mathematical Physics (2024). \href{https://arxiv.org/abs/2209.07279}{Paper}.
+
+  \item[\textup{[Chang26]}]\label{ref:dccb-chang26}
+  F. Chang and P. Li, \emph{Quantum Talagrand-type Inequalities via Variance Decay}, arXiv:2601.01900v2, February 17, 2026, Introduction and Section 4. \href{https://arxiv.org/html/2601.01900v2}{Full text}.
+
+  \item[\textup{[Slote26]}]\label{ref:dccb-slote26}
+  J. Slote, A. Volberg, and H. Zhang, \emph{Tightness of and counterexamples to several quantum estimates}, arXiv:2608.04411v2, August 6, 2026, Section 7, on the influential ancilla. \href{https://arxiv.org/html/2608.04411v2}{Full text}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+Retained as unresolved, with 2026 partial-progress and counterexample checks. A counterexample in a canonical anticommutation-relation algebra uses a different coordinate structure and must not be substituted for a counterexample on the tensor-product qubit cube. \sourcecite{ref:dccb-jiao24}{Jiao24}
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Computational complexity and computability; Matrix and entropy inequalities
+
+\subsection*{ID}
+
+\texttt{op\_dccbfd9860e08b89}

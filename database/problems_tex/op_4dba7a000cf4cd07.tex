@@ -1,0 +1,92 @@
+% Problem record op_4dba7a000cf4cd07. This TeX file is derived from
+% database/problems_json/op_4dba7a000cf4cd07.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Multiplicative sparse-access lower bound for quantum linear systems}
+\label{sec:op_4dba7a000cf4cd07}
+
+\paragraph{Problem.}
+Does sparse-oracle quantum linear-system solving require $\Omega(\kappa\sqrt{s}\log(1/\varepsilon))$ queries in the worst case?
+
+Let $A$ be an invertible $D\times D$ matrix with at most $s$ nonzero entries per row and column, $\|A\|\leq1$, and smallest singular value at least $1/\kappa$. Given standard sparse-location and entry-value oracles for $A$ and an efficiently prepared state $|b\rangle$, the task is to prepare a state within Euclidean distance $\varepsilon$ of
+
+\begin{equation}
+|x\rangle=\frac{A^{-1}|b\rangle}{\|A^{-1}|b\rangle\|}.
+\label{eq:4dba-1}
+\end{equation}
+
+For $s\geq3$, $\kappa\geq2$, $0<\varepsilon<1/10$, sufficiently large $D$, and success probability at least $2/3$, is the worst-case query complexity necessarily
+
+\begin{equation}
+Q_{\mathrm{sparse}}(\kappa,s,\varepsilon)
+=\Omega\!\left(\kappa\sqrt{s}\log\frac1\varepsilon\right)?
+\label{eq:4dba-2}
+\end{equation}
+
+Equation~\eqref{eq:4dba-2} asks for a joint lower bound for the state-preparation task in Eq.~\eqref{eq:4dba-1}.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+The question is explicitly posed or retained as open in the cited primary literature \sourcecite{ref:4dba-mori26}{Mori26}.  The statement is rewritten here to make its hypotheses and success criterion self-contained.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item 2026 lower-bound advance. Mori, Kikuchi, Benedetti, and Rosenkranz rigorously prove $\Omega(\kappa\sqrt{s})$ at constant error and give a proof of the $\Omega(\kappa\log(1/\epsilon))$ dependence. Their latest revision explicitly leaves the multiplicative three-parameter bound unresolved. \sourcecite{ref:4dba-mori26}{Mori26}
+
+  \item The two inequalities alone yield only
+
+\begin{equation}
+\Omega\!\left(\kappa\max\left\{\sqrt{s},\log(1/\epsilon)\right\}\right),
+\label{eq:4dba-3}
+\end{equation}
+
+not their product. This distinction is a logical issue, not a hidden logarithmic convention.
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:4dba-3}.
+
+  \item March 23, 2026. Low and Su optimize calls to the initial-state preparation procedure in a linear-system algorithm. Optimality for that oracle is not the missing joint lower bound for sparse matrix access. \sourcecite{ref:4dba-low26}{Low26}
+
+  \item July 8, 2026. Dalzell, Li, and Su present a solver exploiting instance-dependent structure beyond a single worst-case condition number. Faster performance on favorable instances does not contradict the worst-case conjecture above. \sourcecite{ref:4dba-dalzell26}{Dalzell26}
+
+  \item Why the natural composition argument is insufficient. Section 5 of \sourcecite{ref:4dba-mori26}{Mori26} explains that introducing precision through their unbounded-error Boolean reduction loses the desired sparsity contribution. Its closing discussion explicitly reserves the joint bound for future work.
+
+  \item Retained as open, with unusually direct and recent primary-source support.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Mori26]}]\label{ref:4dba-mori26}
+  Hitomi Mori, Yuta Kikuchi, Marcello Benedetti, and Matthias Rosenkranz. \emph{Sparsity-dependent Complexity Lower Bound of Quantum Linear System Solvers}. Quantum Science and Technology 11, 035063 (2026); \href{https://arxiv.org/html/2601.16697v2}{arXiv:2601.16697v2}, August 24, 2026. See the abstract, oracle definition, and Section 5.
+
+  \item[\textup{[Low26]}]\label{ref:4dba-low26}
+  Guang Hao Low and Yuan Su. \emph{Quantum linear system algorithm with optimal queries to initial state preparation}. \href{https://quantum-journal.org/papers/q-2026-03-23-2041/}{Quantum 10, 2041, March 23, 2026}; arXiv:2410.18178.
+
+  \item[\textup{[Dalzell26]}]\label{ref:4dba-dalzell26}
+  Alexander M. Dalzell, Jianqiang Li, and Yuan Su. \emph{Faster quantum linear system solver beyond the condition number}. \href{https://arxiv.org/abs/2607.07691}{arXiv:2607.07691}, July 8, 2026, preprint.
+\end{enumerate}
+
+\subsection*{Comment}
+
+This problem is an explicit folklore conjecture, restated as open in the August 24, 2026 revision of \sourcecite{ref:4dba-mori26}{Mori26}.
+
+The conjecture asks whether three sources of difficulty can coexist multiplicatively in a single hard family. It cannot be settled by pointing to separate instances that are hard for separate reasons.
+
+A potentially useful research objective is a state-conversion or adversary construction preserving both sparse-search hardness and high-precision hardness under the same normalization. Oracle implementation must be charged explicitly: a lower bound in a block-encoding model does not automatically become the same lower bound in sparse access. Likewise, an algorithm advertised as “optimal in $\kappa$ and $\epsilon$” need not settle the joint $s$ dependence.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Quantum linear algebra; Computational complexity and computability
+
+\subsection*{ID}
+
+\texttt{op\_4dba7a000cf4cd07}
