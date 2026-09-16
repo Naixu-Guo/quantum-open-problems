@@ -1,0 +1,49 @@
+---
+id: "01M2M9FAB7KQ0FCTGXPQD2DRSJ"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 2
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-16T06:50:03.694Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-communication"]
+topicIds: ["matrix-and-entropy-inequalities"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Quantum validity of the Zhang--Yeung inequality"
+aliases: ["op-42d3766b44e3a89b","op_42d3766b44e3a89b","01M2M9FAB7KQ0FCTGXPQD2DRSJ"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_42d3766b44e3a89b.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_42d3766b44e3a89b","ulid":"01M2M9FAB7KQ0FCTGXPQD2DRSJ","aliases":["op_42d3766b44e3a89b","01M2M9FAB7KQ0FCTGXPQD2DRSJ","op-42d3766b44e3a89b"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":2,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-16T05:01:46.727Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-communication"],"topicIds":["matrix-and-entropy-inequalities"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Quantum validity of the Zhang--Yeung inequality","status":"Unsolved","fields":["Quantum Communication"],"topics":["Matrix and entropy inequalities"],"statement":"Does the four-party Zhang--Yeung inequality hold for the von Neumann entropies of every finite-dimensional quantum state?\n\nFor a state $\\rho_{ABCD}$, define\n\n\\begin{equation}\n\\begin{aligned}\nS(R)&=-\\operatorname{Tr}(\\rho_R\\log_2\\rho_R),\\\\\nI(A:B)&=S(A)+S(B)-S(AB),\\\\\nI(A:B\\mid C)&=S(AC)+S(BC)-S(C)-S(ABC).\n\\end{aligned}\n\\label{eq:42d3-1}\n\\end{equation}\n\nUsing the quantities in Eq.~\\eqref{eq:42d3-1}, the proposed inequality is\n\n\\begin{equation}\n2I(C:D)\\leq I(A:B)+I(A:CD)+3I(C:D\\mid A)+I(C:D\\mid B)\n\\label{eq:42d3-2}\n\\end{equation}\n\nDoes Eq.~\\eqref{eq:42d3-2} hold for every $\\rho_{ABCD}$, without independence, separability, stabilizer, or holographic assumptions?","source":"Bao, Cao, Walter, and Wang discuss this exact unrestricted four-party candidate in Section 4.2 \\sourcecite{ref:42d3-bao15}{Bao15}. The statement is rewritten here to make its hypotheses and success criterion self-contained.","progress":["For classical random variables, inequality~\\eqref{eq:42d3-2} is the Zhang--Yeung non-Shannon inequality. It was proved by Zhang and Yeung and later treated systematically by Dougherty, Freiling, and Zeger \\sourcecite{ref:42d3-zhang98}{Zhang98}\\sourcecite{ref:42d3-dfz11}{DFZ11}.","The 2025 Quantum Entropy Prover paper still identifies the search for additional unconstrained quantum entropy inequalities as open. Its Section V.A proves a related five-party inequality. Classically, an auxiliary-copy construction turns that precursor into a four-party non-Shannon inequality; the five-party quantum proof does not establish the required four-party quantum extension. \\sourcecite{ref:42d3-huang25}{Huang25}","A second important distinction is between failure to derive an inequality from strong subadditivity and an actual violating density operator. A linear-programming witness outside the basic entropy cone need not be realizable by a quantum state. Likewise, the known constrained quantum inequalities, which assume specified conditional mutual informations vanish, do not settle this unconstrained question. \\sourcecite{ref:42d3-huang25}{Huang25}"],"references":[{"key":"Zhang98","label":"ref:42d3-zhang98","tex":"Z. Zhang and R. W. Yeung, \\emph{On Characterization of Entropy Function via Information Inequalities}, IEEE Transactions on Information Theory 44(4), 1440--1452 (1998). \\href{https://doi.org/10.1109/18.681320}{doi:10.1109/18.681320}."},{"key":"DFZ11","label":"ref:42d3-dfz11","tex":"R. Dougherty, C. Freiling, and K. Zeger, \\emph{Non-Shannon Information Inequalities in Four Random Variables}, arXiv:1104.3602 (2011). \\href{https://arxiv.org/abs/1104.3602}{arXiv:1104.3602}."},{"key":"Bao15","label":"ref:42d3-bao15","tex":"N. Bao, C. Cao, M. Walter, and Z. Wang, \\emph{Holographic entropy inequalities and gapped phases of matter}, arXiv:1507.05650v2 (2015), Section 4.2. This is the source for the unrestricted quantum candidate and the Ingleton distinction. \\href{https://arxiv.org/html/1507.05650v2}{Full text}."},{"key":"Huang25","label":"ref:42d3-huang25","tex":"S.-L. Huang, T. Rippchen, and M. Berta, \\emph{Quantum Entropy Prover}, arXiv:2501.16025v1, January 27, 2025, Sections V.A and V.C. \\href{https://arxiv.org/html/2501.16025v1}{Full text}."}],"comment":"Retained as unresolved. Bao, Cao, Walter, and Wang provide an explicit source for the candidate, while the later entropy-cone work documents the broader gap in unconstrained quantum entropy inequalities.\n\nUseful research target: Either prove the displayed inequality for unrestricted density operators or exhibit a finite-dimensional state with a rigorously certified negative difference between its right- and left-hand sides. Numerical minimization alone would be a search tool, not a proof of validity.","contributors":[]}}
+---
+## Source
+
+Bao, Cao, Walter, and Wang discuss this exact unrestricted four-party candidate in Section 4.2 [Bao15](https://arxiv.org/abs/1507.05650v2). The statement is rewritten here to make its hypotheses and success criterion self-contained.
+
+## Progress
+
+For classical random variables, inequality (2) is the Zhang–Yeung non-Shannon inequality. It was proved by Zhang and Yeung and later treated systematically by Dougherty, Freiling, and Zeger [Zhang98](https://doi.org/10.1109/18.681320)[DFZ11](https://arxiv.org/abs/1104.3602).
+
+The 2025 Quantum Entropy Prover paper still identifies the search for additional unconstrained quantum entropy inequalities as open. Its Section V.A proves a related five-party inequality. Classically, an auxiliary-copy construction turns that precursor into a four-party non-Shannon inequality; the five-party quantum proof does not establish the required four-party quantum extension. [Huang25](https://arxiv.org/abs/2501.16025v1)
+
+A second important distinction is between failure to derive an inequality from strong subadditivity and an actual violating density operator. A linear-programming witness outside the basic entropy cone need not be realizable by a quantum state. Likewise, the known constrained quantum inequalities, which assume specified conditional mutual informations vanish, do not settle this unconstrained question. [Huang25](https://arxiv.org/abs/2501.16025v1)
+
+## Comment
+
+Retained as unresolved. Bao, Cao, Walter, and Wang provide an explicit source for the candidate, while the later entropy-cone work documents the broader gap in unconstrained quantum entropy inequalities.
+
+Useful research target: Either prove the displayed inequality for unrestricted density operators or exhibit a finite-dimensional state with a rigorously certified negative difference between its right- and left-hand sides. Numerical minimization alone would be a search tool, not a proof of validity.
+
+## References
+
+**Zhang98** Z. Zhang and R. W. Yeung, *On Characterization of Entropy Function via Information Inequalities*, IEEE Transactions on Information Theory 44(4), 1440–1452 (1998). [doi:10.1109/18.681320](https://doi.org/10.1109/18.681320).
+
+**DFZ11** R. Dougherty, C. Freiling, and K. Zeger, *Non-Shannon Information Inequalities in Four Random Variables*, arXiv:1104.3602 (2011). [arXiv:1104.3602](https://arxiv.org/abs/1104.3602).
+
+**Bao15** N. Bao, C. Cao, M. Walter, and Z. Wang, *Holographic entropy inequalities and gapped phases of matter*, arXiv:1507.05650v2 (2015), Section 4.2. This is the source for the unrestricted quantum candidate and the Ingleton distinction. [Full text](https://arxiv.org/html/1507.05650v2).
+
+**Huang25** S.-L. Huang, T. Rippchen, and M. Berta, *Quantum Entropy Prover*, arXiv:2501.16025v1, January 27, 2025, Sections V.A and V.C. [Full text](https://arxiv.org/html/2501.16025v1).

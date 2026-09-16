@@ -1,0 +1,91 @@
+---
+id: "01M2M9FB28MYHRXE8ZS6ZE45TV"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 2
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-16T06:50:03.694Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "editor-formulated"
+posed: null
+areaIds: ["quantum-resource-theory"]
+topicIds: ["quantum-magic","resource-conversion","additivity-and-regularization"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Optimal asymptotic distillation yield of dephased T states"
+aliases: ["op-ae968c5086f34fea","op_ae968c5086f34fea","01M2M9FB28MYHRXE8ZS6ZE45TV"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_ae968c5086f34fea.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_ae968c5086f34fea","ulid":"01M2M9FB28MYHRXE8ZS6ZE45TV","aliases":["op_ae968c5086f34fea","01M2M9FB28MYHRXE8ZS6ZE45TV","op-ae968c5086f34fea"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":2,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-16T05:01:47.464Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"editor-formulated","posed":null,"areaIds":["quantum-resource-theory"],"topicIds":["quantum-magic","resource-conversion","additivity-and-regularization"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Optimal asymptotic distillation yield of dephased T states","status":"Unsolved","fields":["Quantum Resource Theory"],"topics":["Quantum magic","Resource conversion","Additivity and regularization"],"statement":"What is the optimal catalyst-free asymptotic $T$-state yield of a dephased single-qubit $T$ state?\n\nLet\n\n\\begin{equation}\n|T\\rangle=\\frac{|0\\rangle+e^{i\\pi/4}|1\\rangle}{\\sqrt2},\n\\qquad\n\\tau=|T\\rangle\\langle T|,\n\\qquad\n\\rho_p=(1-p)\\tau+pZ\\tau Z.\n\\label{eq:ae96-1}\n\\end{equation}\n\nFor $0\\leq p\\leq1$, define the catalyst-free stabilizer-operation yield\n\n\\begin{equation}\nD_T(\\rho_p)=\\sup\\left\\{R:\n\\exists\\ \\Lambda_n,\\\n\\frac12\\left\\|\\Lambda_n(\\rho_p^{\\otimes n})\n-\\tau^{\\otimes\\lfloor Rn\\rfloor}\\right\\|_1\\longrightarrow0\\right\\},\n\\label{eq:ae96-2}\n\\end{equation}\n\nwhere $\\Lambda_n$ uses stabilizer ancillas, Clifford unitaries, Pauli measurements, classical feedforward, and discarding, but no magic catalyst. Determine the quantity in Eq.~\\eqref{eq:ae96-2}, with matching achievable and converse bounds, already for a fixed noise level such as $p=0.01$ in Eq.~\\eqref{eq:ae96-1}.","source":"This precise formulation is editor wording based on the unresolved direction and limitations documented in the cited primary literature \\sourcecite{ref:ae96-wills25}{Wills25}\\sourcecite{ref:ae96-rubboli24}{Rubboli24}; it is not presented as a verbatim conjecture of those authors.","progress":["Constant-overhead existence is solved. Wills, Hsieh, and Yamasaki constructed protocols with positive asymptotic yield for sufficiently good inputs; the paper appeared online in \\emph{Nature Physics} on September 16, 2025. The open issue here is the largest yield for a specified input, not whether overhead exponent zero is possible \\sourcecite{ref:ae96-wills25}{Wills25}. A fixed preliminary purification stage extends such constructions to inputs within an established distillation basin.","A computable converse is available. Let\n\n\\begin{equation}\nq=\\cos^2(\\pi/8)=\\frac{1+1/\\sqrt2}{2}.\n\\label{eq:ae96-4}\n\\end{equation}\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:ae96-4}.","The stabilizer boundary on this axis occurs at $p_*=1-q$. Additivity and conversion bounds for relative entropy of magic give, for $0\\leq p<p_*$,\n\n\\begin{equation}\nD_T(\\rho_p)\\leq\n\\frac{(1-p)\\log_2\\frac{1-p}{q}\n+p\\log_2\\frac{p}{1-q}}\n{-\\log_2q}.\n\\label{eq:ae96-5}\n\\end{equation}\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:ae96-5}.","This specializes the results of Rubboli, Takagi, and Tomamichel to the commuting optimizer $q\\tau+(1-q)Z\\tau Z$ \\sourcecite{ref:ae96-rubboli24}{Rubboli24} (Sections 4, 6 and 8). Direct substitution yields\n\n\\begin{equation}\nD_T(\\rho_{0.01})\\leq0.757659\\ldots.\n\\label{eq:ae96-6}\n\\end{equation}\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:ae96-6}.","This number is a converse bound, not an achieved yield or a conjectured equality.","May 28, 2026. Ehara and Takagi construct protocols with output counts arbitrarily close to linear in a sublinear sense, including $n^{1-\\eta}$ for every fixed $\\eta>0$. Their result concerns the relation between rate scaling and overhead exponents; it does not identify the optimal constant multiplying $n$ \\sourcecite{ref:ae96-ehara26}{Ehara26}.","Catalysis is a different task. Fang and Liu’s work, updated September 2, 2026, can reduce one-shot input count to one using a catalyst and reduced success probability. It neither supplies the missing catalyst-free optimal yield nor justifies ignoring failed attempts in rate accounting \\sourcecite{ref:ae96-fang26}{Fang26} (Theorem 7).","August 10, 2026. New binary-extension-field code constructions target practical multi-qubit magic-state protocols; they do not establish a matching optimum for the quantity above \\sourcecite{ref:ae96-gong26}{Gong26}.","Status: open quantitative optimization, despite the solved scaling-exponent problem."],"references":[{"key":"Zurel26","label":"ref:ae96-zurel26","tex":"M. Zurel, S. Jana, and N. de Silva, \\emph{High-threshold magic state distillation with quantum quadratic residue codes}, \\href{https://arxiv.org/html/2603.18560v1}{arXiv:2603.18560v1}, March 19, 2026. Introduction explicitly states the open conjectures; Sections 4.2–4.3 give the new constructions."},{"key":"Fang26","label":"ref:ae96-fang26","tex":"K. Fang and Z.-W. Liu, \\emph{One-shot distillation with constant overhead using catalysts}, Nature Communications 17, 6010 (2026); \\href{https://arxiv.org/html/2410.14547v3}{arXiv:2410.14547v3}, September 2, 2026. See Definitions 1–2 and Theorem 7."},{"key":"Wills25","label":"ref:ae96-wills25","tex":"A. Wills, M.-H. Hsieh, and H. Yamasaki, \\emph{Constant-Overhead Magic State Distillation}, Nature Physics 21, 1842–1846 (2025); \\href{https://arxiv.org/html/2408.07764v2}{arXiv:2408.07764}. The extended arXiv version explicitly asks for optimal overhead and asymptotically optimal protocols in Open Question 4."},{"key":"Rubboli24","label":"ref:ae96-rubboli24","tex":"R. Rubboli, R. Takagi, and M. Tomamichel, \\emph{Mixed-state additivity properties of magic monotones based on quantum relative entropies for single-qubit states and beyond}, Quantum 8, 1492 (2024); \\href{https://arxiv.org/html/2307.08258v3}{arXiv:2307.08258v3}."},{"key":"Ehara26","label":"ref:ae96-ehara26","tex":"K. Ehara and R. Takagi, \\emph{Asymptotic magic state distillation with almost linear rate}, \\href{https://arxiv.org/html/2605.30108v1}{arXiv:2605.30108v1}, May 28, 2026. See Equation (1), Theorem 1, and the success-probability analysis."},{"key":"Gong26","label":"ref:ae96-gong26","tex":"A. Gong, C. A. Pattison, P. Rall, and A. Wills, \\emph{Magic State Distillation via Codes over Binary Extension Fields}, \\href{https://arxiv.org/abs/2608.09727}{arXiv:2608.09727}, August 10, 2026."}],"comment":"This problem addresses an operationally meaningful constant that overhead exponents conceal. Two protocols can both have constant overhead yet consume very different numbers of noisy states for a given output volume.\n\nA manageable starting point is to tighten either side for one fixed rational $p$, with every auxiliary magic state and failed attempt included in the accounting. An apparent formula derived under all stabilizer-preserving maps, nonzero-probability postselection, or borrowed magic should not be substituted for the catalyst-free, vanishing-global-error definition.\n\nThe operation class is stabilizer operations rather than all stabilizer-preserving channels; this distinction matters for conversion bounds \\sourcecite{ref:ae96-zurel26}{Zurel26}.","contributors":[]}}
+---
+## Source
+
+This precise formulation is editor wording based on the unresolved direction and limitations documented in the cited primary literature [Wills25](https://arxiv.org/abs/2408.07764)[Rubboli24](https://arxiv.org/abs/2307.08258v3); it is not presented as a verbatim conjecture of those authors.
+
+## Progress
+
+Constant-overhead existence is solved. Wills, Hsieh, and Yamasaki constructed protocols with positive asymptotic yield for sufficiently good inputs; the paper appeared online in *Nature Physics* on September 16, 2025. The open issue here is the largest yield for a specified input, not whether overhead exponent zero is possible [Wills25](https://arxiv.org/abs/2408.07764). A fixed preliminary purification stage extends such constructions to inputs within an established distillation basin.
+
+A computable converse is available. Let
+
+$$
+q=\cos^2(\pi/8)=\frac{1+1/\sqrt2}{2}.
+\tag{3}
+$$
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs. (3).
+
+The stabilizer boundary on this axis occurs at $p_*=1-q$. Additivity and conversion bounds for relative entropy of magic give, for $0\leq p<p_*$,
+
+$$
+D_T(\rho_p)\leq
+\frac{(1-p)\log_2\frac{1-p}{q}
++p\log_2\frac{p}{1-q}}
+{-\log_2q}.
+\tag{4}
+$$
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs. (4).
+
+This specializes the results of Rubboli, Takagi, and Tomamichel to the commuting optimizer $q\tau+(1-q)Z\tau Z$ [Rubboli24](https://arxiv.org/abs/2307.08258v3) (Sections 4, 6 and 8). Direct substitution yields
+
+$$
+D_T(\rho_{0.01})\leq0.757659\ldots.
+\tag{5}
+$$
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs. (5).
+
+This number is a converse bound, not an achieved yield or a conjectured equality.
+
+May 28, 2026. Ehara and Takagi construct protocols with output counts arbitrarily close to linear in a sublinear sense, including $n^{1-\eta}$ for every fixed $\eta>0$. Their result concerns the relation between rate scaling and overhead exponents; it does not identify the optimal constant multiplying $n$ [Ehara26](https://arxiv.org/abs/2605.30108v1).
+
+Catalysis is a different task. Fang and Liu’s work, updated September 2, 2026, can reduce one-shot input count to one using a catalyst and reduced success probability. It neither supplies the missing catalyst-free optimal yield nor justifies ignoring failed attempts in rate accounting [Fang26](https://arxiv.org/abs/2410.14547v3) (Theorem 7).
+
+August 10, 2026. New binary-extension-field code constructions target practical multi-qubit magic-state protocols; they do not establish a matching optimum for the quantity above [Gong26](https://arxiv.org/abs/2608.09727).
+
+Status: open quantitative optimization, despite the solved scaling-exponent problem.
+
+## Comment
+
+This problem addresses an operationally meaningful constant that overhead exponents conceal. Two protocols can both have constant overhead yet consume very different numbers of noisy states for a given output volume.
+
+A manageable starting point is to tighten either side for one fixed rational $p$, with every auxiliary magic state and failed attempt included in the accounting. An apparent formula derived under all stabilizer-preserving maps, nonzero-probability postselection, or borrowed magic should not be substituted for the catalyst-free, vanishing-global-error definition.
+
+The operation class is stabilizer operations rather than all stabilizer-preserving channels; this distinction matters for conversion bounds [Zurel26](https://arxiv.org/abs/2603.18560v1).
+
+## References
+
+**Zurel26** M. Zurel, S. Jana, and N. de Silva, *High-threshold magic state distillation with quantum quadratic residue codes*, [arXiv:2603.18560v1](https://arxiv.org/html/2603.18560v1), March 19, 2026. Introduction explicitly states the open conjectures; Sections 4.2–4.3 give the new constructions.
+
+**Fang26** K. Fang and Z.-W. Liu, *One-shot distillation with constant overhead using catalysts*, Nature Communications 17, 6010 (2026); [arXiv:2410.14547v3](https://arxiv.org/html/2410.14547v3), September 2, 2026. See Definitions 1–2 and Theorem 7.
+
+**Wills25** A. Wills, M.-H. Hsieh, and H. Yamasaki, *Constant-Overhead Magic State Distillation*, Nature Physics 21, 1842–1846 (2025); [arXiv:2408.07764](https://arxiv.org/html/2408.07764v2). The extended arXiv version explicitly asks for optimal overhead and asymptotically optimal protocols in Open Question 4.
+
+**Rubboli24** R. Rubboli, R. Takagi, and M. Tomamichel, *Mixed-state additivity properties of magic monotones based on quantum relative entropies for single-qubit states and beyond*, Quantum 8, 1492 (2024); [arXiv:2307.08258v3](https://arxiv.org/html/2307.08258v3).
+
+**Ehara26** K. Ehara and R. Takagi, *Asymptotic magic state distillation with almost linear rate*, [arXiv:2605.30108v1](https://arxiv.org/html/2605.30108v1), May 28, 2026. See Equation (1), Theorem 1, and the success-probability analysis.
+
+**Gong26** A. Gong, C. A. Pattison, P. Rall, and A. Wills, *Magic State Distillation via Codes over Binary Extension Fields*, [arXiv:2608.09727](https://arxiv.org/abs/2608.09727), August 10, 2026.

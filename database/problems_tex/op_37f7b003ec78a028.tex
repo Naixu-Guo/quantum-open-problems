@@ -21,7 +21,27 @@ is
   \label{eq:srtk-rank-def}
 \end{equation}
 where an $n$-qubit stabilizer state is the common $+1$ eigenstate of $n$
-independent commuting Hermitian Pauli operators.  Which of the two alternatives holds for
+independent commuting Hermitian Pauli operators.  For a fixed approximation error $0<\delta<1$, also define
+\begin{equation}
+  \chi_\delta(\psi):=\min\left\{\chi(\phi):
+  \left\lVert |\phi\rangle-|\psi\rangle\right\rVert_2\leq\delta\right\},
+  \label{eq:srtk-approx-def}
+\end{equation}
+where the approximating vector need not be normalized. A second unresolved
+part of the problem is whether constant-error approximate rank is
+exponential: for example, do constants $c>0$ and $n_0$ exist such that
+\begin{equation}
+  \chi_{0.01}\bigl(|T\rangle^{\otimes n}\bigr)\geq 2^{cn}
+  \qquad\text{for every }n\geq n_0?
+  \label{eq:srtk-approx-exp}
+\end{equation}
+Even an unconditional super-polynomial lower bound would be a major advance.
+This approximate-rank target is recorded with the exact-rank question because
+the two concern the same state family and decomposition measure; neither one
+currently has a super-polynomial lower bound
+\sourcecite{ref:srtk-mt24}{MT24}\sourcecite{ref:srtk-ks25}{KS26}.
+
+Which of the two alternatives holds for
 $\chi\bigl(|T\rangle^{\otimes n}\bigr)$: does there exist a constant $k$
 with $\chi\bigl(|T\rangle^{\otimes n}\bigr) \le n^{k}$ for all sufficiently large $n$, or is
 $\chi\bigl(|T\rangle^{\otimes n}\bigr)$ not bounded by any polynomial in
@@ -39,16 +59,12 @@ of the rank under tensor product and Fekete's lemma, is strictly positive,
 since Eq.~\eqref{eq:srtk-bounds} only pins $\gamma$ to the interval
 $[0, 0.3963]$.  The small-copy frontier of the quantity in
 Eq.~\eqref{eq:srtk-rank-def} on copies of the state in
-Eq.~\eqref{eq:srtk-t-state} is also open: the exact values $\chi\bigl(|T\rangle^{\otimes 2}\bigr) = 2$
-and $\chi\bigl(|T\rangle^{\otimes 3}\bigr) = 3$ are proved, while at four
-through seven copies only upper bounds are known,
-$\chi\bigl(|T\rangle^{\otimes 4}\bigr) \le 4$,
+Eq.~\eqref{eq:srtk-t-state} is also open: the exact values are known at two, three, and four copies, while at five
+through seven copies only the following upper bounds are known,
 $\chi\bigl(|T\rangle^{\otimes 5}\bigr) \le 6$,
 $\chi\bigl(|T\rangle^{\otimes 6}\bigr) \le 6$, and
-$\chi\bigl(|T\rangle^{\otimes 7}\bigr) \le 12$, the four-copy bound having
-since been certified as the exact value $\chi\bigl(|T\rangle^{\otimes
-4}\bigr) = 4$ by an exhaustive computer search; determine the exact values
-at $t = 5$, $6$, and $7$.
+$\chi\bigl(|T\rangle^{\otimes 7}\bigr) \le 12$; determine the exact values
+at $n = 5$, $6$, and $7$.
 
 \subsection*{Status}
 
@@ -70,7 +86,7 @@ stating that polynomial scaling of the exact or approximate stabilizer
 rank would entail complexity-theoretic heresies such as
 $\mathsf{BQP} = \mathsf{BPP}$ or $\mathsf{P} = \mathsf{NP}$, and that no
 techniques are known for proving unconditional super-polynomial lower
-bounds \sourcecite{ref:srtk-bbc19}{BBC+19}.
+bounds \sourcecite{ref:srtk-bbc19}{BBC+19}.  The constant-error approximate-rank formulation and its current quadratic-up-to-logarithms lower bound are documented by Mehraban and Tahmasbi and retained as open after the later Barnes--Wall analysis \sourcecite{ref:srtk-mt24}{MT24}\sourcecite{ref:srtk-ks25}{KS26}.
 
 \subsection*{Progress}
 
@@ -85,11 +101,10 @@ bounds \sourcecite{ref:srtk-bbc19}{BBC+19}.
   stabilizer decompositions \sourcecite{ref:srtk-bg16}{BG16}.
 
   \item Bravyi, Browne, Calpin, Campbell, Gosset, and Howard developed the theory
-  of exact and approximate stabilizer rank; the proved exact values are
-  $\chi\bigl(|T\rangle^{\otimes 2}\bigr) = 2$ and
-  $\chi\bigl(|T\rangle^{\otimes 3}\bigr) = 3$, and past three copies only
-  upper bounds are known, namely $\chi\bigl(|T\rangle^{\otimes 4}\bigr)
-  \le 4$, $\chi\bigl(|T\rangle^{\otimes 5}\bigr) \le 6$, and
+  of exact and approximate stabilizer rank; the exact values are known at two, three, and four copies, while at five
+  through seven copies only upper bounds are known, namely
+  $\chi\bigl(|T\rangle^{\otimes 5}\bigr) \le 6$,
+  $\chi\bigl(|T\rangle^{\otimes 6}\bigr) \le 6$, and
   $\chi\bigl(|T\rangle^{\otimes 7}\bigr) \le 12$ as tabulated by Qassim,
   Pashayan, and Gosset, and no finite set of copy counts can settle the
   asymptotic growth in either direction
@@ -141,7 +156,7 @@ bounds \sourcecite{ref:srtk-bbc19}{BBC+19}.
   $|H\rangle$, together with an elementary proof of the Lovitz-Steffan
   density of maximal-stabilizer-rank product states; neither side of
   Eq.~\eqref{eq:srtk-bounds} for $|T\rangle^{\otimes n}$ moves
-  \sourcecite{ref:srtk-ks25}{KS25}.
+  \sourcecite{ref:srtk-ks25}{KS26}.
 
   \item Labib and Russo gave explicit stabilizer decompositions for the three
   previously unbounded qutrit magic-state orbits, with per-copy exponents
@@ -214,10 +229,8 @@ bounds \sourcecite{ref:srtk-bbc19}{BBC+19}.
   \href{https://doi.org/10.1145/3618260.3649733}{doi:10.1145/3618260.3649733};
   \href{https://arxiv.org/abs/2305.10277}{arXiv:2305.10277}.
 
-  \item[\textup{[KS25]}]\label{ref:srtk-ks25}
-  A. R. Kalra and P. Sinha, ``Stabilizer Ranks, Barnes Wall Lattices and
-  Magic Monotones,''
-  \href{https://arxiv.org/abs/2503.04101}{arXiv:2503.04101} (2025).
+  \item[\textup{[KS26]}]\label{ref:srtk-ks25}
+  A. R. Kalra and P. Sinha, \emph{Stabilizer Ranks, Barnes--Wall Lattices and Magic Monotones}, \emph{Quantum} \textbf{10}, 2179 (2026). \href{https://doi.org/10.22331/q-2026-07-29-2179}{doi:10.22331/q-2026-07-29-2179}; \href{https://arxiv.org/abs/2503.04101}{arXiv:2503.04101}.
 
   \item[\textup{[LR26]}]\label{ref:srtk-lr26}
   F. Labib and V. Russo, ``Stabilizer rank bounds for magic-state
@@ -226,6 +239,8 @@ bounds \sourcecite{ref:srtk-bbc19}{BBC+19}.
 \end{enumerate}
 
 \subsection*{Comment}
+
+Both the exact and fixed-error approximate asymptotic questions remain unresolved. The strongest unconditional lower bound for constant approximation error is quadratic up to polylogarithmic factors, far below exponential. The exact-rank problem likewise has neither a polynomial upper bound nor a super-polynomial lower bound. These questions concern the length of stabilizer decompositions; by themselves they do not establish lower bounds against every classical simulation method.
 
 What remains unresolved is the alternative itself: neither an $n^{O(1)}$
 upper bound nor a super-polynomial lower bound on

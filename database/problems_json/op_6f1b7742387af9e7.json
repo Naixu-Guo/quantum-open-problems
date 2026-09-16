@@ -1,0 +1,84 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_6f1b7742387af9e7",
+  "ulid": "01M2M9FAXBSQS2W1SPQPBYXRSQ",
+  "aliases": [
+    "op_6f1b7742387af9e7",
+    "01M2M9FAXBSQS2W1SPQPBYXRSQ",
+    "op-6f1b7742387af9e7"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 2,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-16T05:01:47.307Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "editor-formulated",
+    "posed": null,
+    "areaIds": [
+      "quantum-resource-theory"
+    ],
+    "topicIds": [
+      "quantum-magic",
+      "resource-conversion"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": [
+      "01M1Q787QRD6APNHX659G4CTEF",
+      "01M2M9FBZT1N3HH3MV5SRK29N1"
+    ]
+  },
+  "title": "Distillation of every Wigner-negative depolarized Strange state",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum Resource Theory"
+  ],
+  "topics": [
+    "Quantum magic",
+    "Resource conversion"
+  ],
+  "statement": "Can every Wigner-negative state in the depolarized qutrit Strange-state family be distilled arbitrarily accurately by catalyst-free stabilizer operations?\n\nDefine\n\n\\begin{equation}\n|S\\rangle=\\frac{|1\\rangle-|2\\rangle}{\\sqrt2},\n\\qquad\n\\rho_\\varepsilon=(1-\\varepsilon)|S\\rangle\\langle S|+\\varepsilon\\frac{I_3}{3}.\n\\label{eq:6f1b-1}\n\\end{equation}\n\nFor every $0\\leq\\varepsilon<3/4$ and $\\delta>0$, can finitely many copies of the state in Eq.~\\eqref{eq:6f1b-1} be converted, with positive success probability, to a state within trace distance $\\delta$ of $|S\\rangle\\langle S|$ using stabilizer ancillas, Clifford unitaries, Pauli measurements, classical feedforward, and discarding, but no magic catalyst?",
+  "source": "This precise formulation is editor wording based on the unresolved direction and limitations documented in the cited primary literature \\sourcecite{ref:6f1b-zurel26}{Zurel26}\\sourcecite{ref:6f1b-veitch12}{Veitch12}; it is not presented as a verbatim conjecture of those authors.",
+  "progress": [
+    "For the family in Eq.~\\eqref{eq:6f1b-1}, the Gross discrete Wigner function has one entry $(4\\varepsilon-3)/9$ and all remaining entries $(3-\\varepsilon)/18$. Thus the state is Wigner-negative exactly for $\\varepsilon<3/4$ \\sourcecite{ref:6f1b-veitch12}{Veitch12}\\sourcecite{ref:6f1b-prakash20}{Prakash20}.",
+    "Necessity is known. Wigner-positive states remain Wigner-positive under stabilizer protocols, including conditioning on allowed measurement outcomes. Odd-dimensional nonstabilizer states with nonnegative Wigner functions therefore give genuine bound magic. Their existence does not answer the question about the Wigner-negative region \\sourcecite{ref:6f1b-veitch12}{Veitch12}.",
+    "2020 construction. The 11-qutrit ternary Golay protocol distills the Strange state with cubic noise suppression. In the depolarizing convention used above, its threshold is approximately $\\epsilon=0.387$, well below $0.75$ \\sourcecite{ref:6f1b-prakash20}{Prakash20} (Sections 3 and 5).",
+    "February 3, 2026 revision; 2026 journal publication. Prakash and Singhal searched a large class of qutrit stabilizer codes up to length 23. They found over 600 length-23 CSS examples with cubic suppression, but none surpassed the Golay threshold. This was a substantial search, not an exhaustive theorem over every possible protocol \\sourcecite{ref:6f1b-prakash26}{Prakash26}.",
+    "March 2026 update. The quadratic-residue-code analysis continues to identify the Golay code as the best known Strange-state threshold and leaves the Wigner-negativity conjecture open \\sourcecite{ref:6f1b-zurel26}{Zurel26}.",
+    "Status: open, including this simple radial test case. The presently unclosed interval should not be labeled a proven Wigner-negative bound-magic region."
+  ],
+  "references": [
+    {
+      "key": "Zurel26",
+      "label": "ref:6f1b-zurel26",
+      "tex": "M. Zurel, S. Jana, and N. de Silva, \\emph{High-threshold magic state distillation with quantum quadratic residue codes}, \\href{https://arxiv.org/html/2603.18560v1}{arXiv:2603.18560v1}, March 19, 2026. Introduction explicitly states the open conjectures; Sections 4.2–4.3 give the new constructions."
+    },
+    {
+      "key": "Fang26",
+      "label": "ref:6f1b-fang26",
+      "tex": "K. Fang and Z.-W. Liu, \\emph{One-shot distillation with constant overhead using catalysts}, Nature Communications 17, 6010 (2026); \\href{https://arxiv.org/html/2410.14547v3}{arXiv:2410.14547v3}, September 2, 2026. See Definitions 1–2 and Theorem 7."
+    },
+    {
+      "key": "Veitch12",
+      "label": "ref:6f1b-veitch12",
+      "tex": "V. Veitch, C. Ferrie, D. Gross, and J. Emerson, \\emph{Negative Quasi-Probability as a Resource for Quantum Computation}, New Journal of Physics 14, 113011 (2012); \\href{https://arxiv.org/abs/1201.1256}{arXiv:1201.1256}. Establishes the Wigner-positive obstruction and bound magic."
+    },
+    {
+      "key": "Prakash20",
+      "label": "ref:6f1b-prakash20",
+      "tex": "S. Prakash, \\emph{Magic state distillation with the ternary Golay code}, \\href{https://doi.org/10.1098/rspa.2020.0187}{Proceedings of the Royal Society A 476, 20200187 (2020)}; arXiv:2003.02717. See the depolarizing-noise convention and Strange-state threshold."
+    },
+    {
+      "key": "Prakash26",
+      "label": "ref:6f1b-prakash26",
+      "tex": "S. Prakash and R. Singhal, \\emph{A Search for High-Threshold Qutrit Magic State Distillation Routines}, \\href{https://arxiv.org/html/2408.00436v2}{arXiv:2408.00436v2}, February 3, 2026; published as \\emph{Search for high-threshold qutrit magic-state distillation routines}, Physical Review A 113, 042404 (2026). See the Introduction, code-search results, and conclusion."
+    }
+  ],
+  "comment": "The allowed operation class is stabilizer operations, not all stabilizer-preserving channels, and no magic catalyst is free; these distinctions affect conversion theorems \\sourcecite{ref:6f1b-zurel26}{Zurel26}\\sourcecite{ref:6f1b-fang26}{Fang26}.\n\nCompared with the general mixed-state conjecture, this family offers a single real parameter, an exact geometric boundary, and a well-defined existing benchmark. It is a natural place to investigate whether coding constraints force a universal threshold gap or merely reflect limitations of existing constructions.\n\nThe appropriate negative result would rule out all adaptive stabilizer protocols, not just CSS projections or a bounded code-length search. A positive result along this ray would still leave other Wigner-negative qutrit directions to analyze.",
+  "contributors": []
+}

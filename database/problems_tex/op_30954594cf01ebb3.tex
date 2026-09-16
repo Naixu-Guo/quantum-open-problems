@@ -1,0 +1,102 @@
+% Problem record op_30954594cf01ebb3. This TeX file is derived from
+% database/problems_json/op_30954594cf01ebb3.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Sparse Hamiltonian learning without short-time control}
+\label{sec:op_30954594cf01ebb3}
+
+\paragraph{Problem.}
+Can every polynomially sparse Hamiltonian be learned with Heisenberg-limited total evolution time when every oracle call has a fixed minimum duration?
+
+Let
+
+\begin{equation}
+H=\sum_{P\neq I^{\otimes n}}a_PP,
+\qquad
+|\{P:a_P\neq0\}|\leq m\leq n^c,
+\qquad
+\|H\|_{\mathrm{op}}\leq1,
+\label{eq:3095-1}
+\end{equation}
+
+where $c>0$ is fixed, the sum ranges over nonidentity $n$-qubit Pauli strings, and the nonzero coefficients and their supports are unknown. An oracle supplies only forward evolution $e^{-iHt}$ for chosen times $t\geq T$, where $T>0$ is fixed independently of $n,m,$ and $\varepsilon$. Known controls and ancillas may be used between calls.
+
+Can a learner output $\widehat a_P$ with $\max_P|\widehat a_P-a_P|\leq\varepsilon$ and success probability at least $2/3$, using total evolution time $\widetilde O(\operatorname{poly}(n,m)/\varepsilon)$ and polynomial query, circuit, and classical-processing costs for every Hamiltonian in Eq.~\eqref{eq:3095-1}?
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Shin, Lee, and Oh explicitly pose the polynomial-sparsity, fixed-minimum-duration question in the discussion following their Theorem 2 \sourcecite{ref:3095-shin26}{Shin26}. The statement is rewritten here to make its hypotheses and success criterion self-contained.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Without the fixed minimum-duration restriction, general sparse Hamiltonian learning can already achieve Heisenberg precision scaling. The ancilla-assisted protocol of Hu and coauthors has
+  \begin{equation}
+t_{\mathrm{tot}}
+  =O\!\left(\frac{m^2\log(m/\delta)\log^2(1/\varepsilon)}{\varepsilon}\right),
+\label{eq:3095-2}
+\end{equation}
+  where $\delta$ is the failure probability. Its access assumptions allow short-time control, so the absence of a known Pauli support alone is no longer the open issue. \sourcecite{ref:3095-hu25}{Hu25}
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:3095-2}.
+
+  \item Shin, Lee, and Oh solve the minimum-duration problem for logarithmic sparsity. Their Theorem 1 gives
+  \begin{equation}
+t_{\mathrm{tot}}
+  =\widetilde O\!\left(
+  \min\left\{\frac{4^mT^3}{\varepsilon},
+  \frac{4^mT}{\varepsilon^2}\right\}\right).
+\label{eq:3095-3}
+\end{equation}
+  For $m=O(\log n)$, this is efficient at any fixed $T$. \sourcecite{ref:3095-shin26}{Shin26}
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:3095-3}.
+
+  \item Their Theorem 2 gives the tradeoff
+  \begin{equation}
+t_{\mathrm{tot}}
+  =\widetilde O\!\left(
+  \min\left\{\frac{m^{K+2}T}{\varepsilon},
+  \frac{m^KT}{\varepsilon^2}\right\}\right),
+  \qquad T=\Theta(m^{-1/K}),\quad K\in\mathbb N.
+\label{eq:3095-4}
+\end{equation}
+  A fixed $K$ permits polynomial sparsity dependence but a shrinking minimum time. Taking $K=\Theta(\log m)$ makes $T=\Theta(1)$, at the cost of $m^{O(\log m)}$ dependence. \sourcecite{ref:3095-shin26}{Shin26}
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:3095-4}.
+
+  \item The paragraph following Theorem 2 explicitly asks for polynomial cost at polynomial sparsity and arbitrary constant $T$. The later June 2026 work on long-time learning instead establishes recovery up to overall scale for broad ensembles satisfying an approximate-conservation identifiability condition; it does not establish the worst-case, absolute-coefficient, Heisenberg guarantee requested here. \sourcecite{ref:3095-shin26}{Shin26}\sourcecite{ref:3095-pradenne26}{Pradenne26}
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Hu25]}]\label{ref:3095-hu25}
+  H.-Y. Hu, M. Ma, W. Gong, Q. Ye, Y. Tong, S. T. Flammia, and S. F. Yelin, "Ansatz-free Hamiltonian learning with Heisenberg-limited scaling," \emph{PRX Quantum} 6, 040315 (2025). \href{https://doi.org/10.1103/j7b8-pb77}{doi:10.1103/j7b8-pb77}; \href{https://arxiv.org/abs/2502.11900}{arXiv:2502.11900}.
+
+  \item[\textup{[Shin26]}]\label{ref:3095-shin26}
+  M. Shin, J. Lee, and C. Oh, "Heisenberg-limited Hamiltonian learning without short-time control," arXiv preprint (2026), version 1, 30 April 2026. \href{https://arxiv.org/abs/2604.27838}{arXiv:2604.27838}.
+
+  \item[\textup{[Pradenne26]}]\label{ref:3095-pradenne26}
+  C. Cedillo Vayson de Pradenne, J. Cotler, and H.-Y. Huang, "Learning Hamiltonians at Long Times," arXiv preprint (2026), version 1, 4 June 2026. \href{https://arxiv.org/abs/2606.05690}{arXiv:2606.05690}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The open resource tradeoff concerns polynomial sparsity together with a nonshrinking minimum query duration, not merely whether long-time dynamics contain information. Real-valued programmable durations are allowed, so this is not a question about aliasing from a single fixed sampling interval or finite timing resolution. The available constant-duration generalization is quasipolynomial rather than polynomial in sparsity.
+
+\subsection*{Field}
+
+Quantum metrology; Quantum algorithm
+
+\subsection*{Topic}
+
+Quantum estimation; Computational complexity and computability
+
+\subsection*{ID}
+
+\texttt{op\_30954594cf01ebb3}
