@@ -95,6 +95,39 @@ matrices, and an independently written verifier are recorded in the
 \href{https://github.com/Naixu-Guo/quantum-open-problems/blob/main/database/proofs/ordinary-petz.md}{counterexample note}
 \sourcecite{ref:p70-peter-counterexamples}{Pet26}.
 
+  \item A structurally distinct classical-flag construction gives a third
+three-qubit counterexample. Let $V|0\rangle=|00\rangle_{AC}$ and
+$V|1\rangle=|11\rangle_{AC}$, and define
+\begin{equation}
+  \sigma=\begin{pmatrix}1/2000&-1/75\\-1/75&1999/2000\end{pmatrix},
+  \qquad
+  \rho=\begin{pmatrix}3/4&\sqrt3/4\\\sqrt3/4&1/4\end{pmatrix},
+  \qquad p=\frac{3000}{3001},\quad q=\frac1{3001}.
+  \label{eq:p70-flagged-data}
+\end{equation}
+Using the data in Eq.~\eqref{eq:p70-flagged-data}, in canonical
+$ABC$ order, set
+\begin{equation}
+  \omega_{ABC}=p|0\rangle\!\langle0|_B\otimes V\sigma V^\dagger
+  +q|1\rangle\!\langle1|_B\otimes V\rho V^\dagger.
+  \label{eq:p70-flagged-state}
+\end{equation}
+Exact reduction of Eq.~\eqref{eq:p70-flagged-state}, followed by directed
+Arb ball arithmetic, certifies
+\begin{equation}
+  I(A;B\mid C)_\omega<\frac{435}{10^6}
+  <\frac{466}{10^6}
+  <-\log_2 F\!\left(\omega_{ABC},
+    (\operatorname{id}_B\otimes\mathcal P^\omega_{C\to AC})(\omega_{BC})
+  \right).
+  \label{eq:p70-flagged-gap}
+\end{equation}
+Thus Eq.~\eqref{eq:p70-flagged-gap} independently disproves the same
+ordinary-map inequality. The analytic reduction, interval verifier, and a
+full-$8\times8$-matrix audit are recorded in the
+\href{https://github.com/Naixu-Guo/quantum-open-problems/blob/main/database/proofs/ordinary-petz-flagged.md}{flagged-state counterexample note}
+\sourcecite{ref:p70-flagged-counterexample}{QOP26}.
+
   \item Sutter, Tomamichel, and Harrow proved a strengthened data-processing
   inequality using a pinched Petz map, equivalently a convex combination of
   rotated Petz maps.  Their result yields a conditional-mutual-information
@@ -159,18 +192,25 @@ matrices, and an independently written verifier are recorded in the
 project submissions (10 September 2026), consolidated and independently
 verified for QIQCOP Zoo (12 September 2026).
 \href{https://github.com/Naixu-Guo/quantum-open-problems/blob/main/database/proofs/ordinary-petz.md}{Counterexample note and exact verification certificate}.
+
+  \item[\textup{[QOP26]}]\label{ref:p70-flagged-counterexample}
+  \emph{A flagged-state three-qubit counterexample to the
+ordinary-Petz CMI bound}, independent QIQCOP Zoo contribution (10 September
+2026), verified 13 September 2026.
+\href{https://github.com/Naixu-Guo/quantum-open-problems/blob/main/database/proofs/ordinary-petz-flagged.md}{Proof and verification package}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-The ordinary-map requirement in Eq.~\eqref{eq:p70-petz-map} is now
-settled negatively by the compatible-marginal counterexamples above.
-The results using rotations, pinching, averaging, or optimized recovery
-channels remain valid. The counterexamples were submitted by Peter and
-verified for this catalog with exact symbolic identities and rigorous
-rational intervals; no external peer review, proof-assistant kernel check,
-or historical-priority claim is asserted
-\sourcecite{ref:p70-peter-counterexamples}{Pet26}.
+The ordinary-map requirement in
+Eq.~\eqref{eq:p70-petz-map} is settled negatively by the compatible-marginal
+counterexamples above. The results using rotations, pinching, averaging, or
+optimized recovery channels remain valid. Peter's two submitted examples and
+the independent flagged-state construction are verified with rigorous
+interval methods; neither result has external peer review or a
+proof-assistant kernel check, and no historical-priority claim is asserted
+\sourcecite{ref:p70-peter-counterexamples}{Pet26},
+\sourcecite{ref:p70-flagged-counterexample}{QOP26}.
 
 \subsection*{Field}
 

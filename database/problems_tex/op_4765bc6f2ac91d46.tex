@@ -1,0 +1,156 @@
+% Problem record op_4765bc6f2ac91d46. This TeX file is derived from
+% database/problems_json/op_4765bc6f2ac91d46.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Existence of a ((7,3,3)) qubit code}
+\label{sec:op_4765bc6f2ac91d46}
+
+\paragraph{Problem.}
+Does a qubit quantum error-correcting code with parameters $((7,3,3))_2$
+exist, that is, a three-dimensional subspace of seven qubits with minimum
+distance at least three?  Let $\mathcal{P}_7:=\{I,X,Y,Z\}^{\otimes7}$, where
+$I$ is the single-qubit identity and $X,Y,Z$ are the Pauli matrices, and for
+$E\in\mathcal{P}_7$ let $\operatorname{wt}(E)$ be the number of non-identity
+tensor factors.  A $((7,3,3))_2$ code is the range of an operator $P$ on
+$(\mathbb{C}^{2})^{\otimes7}$ with
+\begin{equation}
+  P=P^{\dagger}=P^{2},
+  \qquad
+  \operatorname{Tr}P=3,
+  \label{eq:c733-projector}
+\end{equation}
+satisfying the Knill--Laflamme conditions
+\begin{equation}
+  PEP=\frac{\operatorname{Tr}(PE)}{3}\,P
+  \qquad\text{for every }E\in\mathcal{P}_7\text{ with }
+  1\leq\operatorname{wt}(E)\leq2.
+  \label{eq:c733-knill-laflamme}
+\end{equation}
+Equation~\eqref{eq:c733-knill-laflamme} says that the code detects every
+Pauli error of weight at most two and hence, by linearity, exactly corrects
+an arbitrary error on any single qubit.  No stabilizer structure,
+entanglement assistance, or other side resource is assumed; the codewords
+may be arbitrary vectors of $(\mathbb{C}^{2})^{\otimes7}$.  Writing
+$K_{\max}(7,3)$ for the largest dimension of a seven-qubit code of minimum
+distance at least three, the question is whether
+\begin{equation}
+  K_{\max}(7,3)\geq3.
+  \label{eq:c733-dimension}
+\end{equation}
+Such a code would encode one logical qutrit.  A complete answer is either
+an explicit rank-three projector satisfying Eqs.~\eqref{eq:c733-projector}
+and \eqref{eq:c733-knill-laflamme}, or a proof that none exists.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Cao, Zhang, Wu, Grassl, and Zeng state explicitly that the existence of a
+$((7,3,3))_2$ code is an open question, Section~5.1 of
+\sourcecite{ref:c733-cao}{CZWGZ22}.  Chuang, Cross, Smith, Smolin, and
+Zeng had earlier noted that the linear programming bound does not exclude
+these parameters \sourcecite{ref:c733-chuang}{CCSSZ09}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item The Steane code $[[7,1,3]]_2$ is a two-dimensional seven-qubit code of
+distance three \sourcecite{ref:c733-steane}{Ste96}, so
+\begin{equation}
+  K_{\max}(7,3)\geq2.
+  \label{eq:c733-steane}
+\end{equation}
+A $((7,3,3))_2$ code would strictly improve this dimension.
+
+  \item Chuang, Cross, Smith, Smolin, and Zeng prove that every $((n,3,d))_2$
+codeword-stabilized code, a subspace spanned by Pauli translates of a
+single stabilizer state, is a subcode of some $((n,4,d))_2$ stabilizer
+code, Theorem~7 of \sourcecite{ref:c733-chuang}{CCSSZ09}.  Because the
+additive $((7,2,3))_2$ code is optimal among stabilizer codes, they
+conclude that no $((7,3,3))_2$ codeword-stabilized code exists even though
+the linear programming bound allows these parameters, Corollaries~2
+and~3 there.  This excludes only a structured class of codes.
+
+  \item Cao, Zhang, Wu, Grassl, and Zeng search for a $((7,3,3))_2$ code with
+their variational algorithm VarQEC, using an overparameterized encoding
+circuit with $L$ layers and $N_{\mathrm{start}}$ optimization starting
+points, where
+\begin{equation}
+  L=31,
+  \qquad
+  N_{\mathrm{start}}=20\,000,
+  \label{eq:c733-search}
+\end{equation}
+and find no such code; they take this as strong numerical evidence of
+nonexistence, Section~5.1 of \sourcecite{ref:c733-cao}{CZWGZ22}.  A
+failed variational search does not certify that every rank-three projector
+violates Eq.~\eqref{eq:c733-knill-laflamme}.
+
+  \item Angl\`es Munn\'e and Huber derive semidefinite-programming bounds on the
+largest dimension of an $n$-qubit code of given distance with exact
+rational infeasibility certificates.  Their Table~1 nevertheless retains
+the gap
+\begin{equation}
+  2\leq K_{\max}(7,3)\leq3,
+  \label{eq:c733-gap}
+\end{equation}
+so the rigorous upper bound still permits dimension three
+\sourcecite{ref:c733-angles-huber}{AMH26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Ste96]}]\label{ref:c733-steane}
+  A. M. Steane, ``Multiple-particle interference and quantum error
+correction,'' \emph{Proceedings of the Royal Society of London. Series A:
+Mathematical, Physical and Engineering Sciences} \textbf{452}, 2551--2577
+(1996).
+\href{https://doi.org/10.1098/rspa.1996.0136}{doi:10.1098/rspa.1996.0136};
+\href{https://arxiv.org/abs/quant-ph/9601029}{arXiv:quant-ph/9601029}.
+
+  \item[\textup{[CCSSZ09]}]\label{ref:c733-chuang}
+  I. L. Chuang, A. W. Cross, G. Smith, J. A. Smolin, and B. Zeng, ``Codeword
+stabilized quantum codes: Algorithm and structure,'' \emph{Journal of
+Mathematical Physics} \textbf{50}, 042109 (2009).
+\href{https://doi.org/10.1063/1.3086833}{doi:10.1063/1.3086833};
+\href{https://arxiv.org/abs/0803.3232}{arXiv:0803.3232}.
+
+  \item[\textup{[CZWGZ22]}]\label{ref:c733-cao}
+  C. Cao, C. Zhang, Z. Wu, M. Grassl, and B. Zeng, ``Quantum variational
+learning for quantum error-correcting codes,'' \emph{Quantum} \textbf{6},
+828 (2022).
+\href{https://doi.org/10.22331/q-2022-10-06-828}{doi:10.22331/q-2022-10-06-828};
+\href{https://arxiv.org/abs/2204.03560}{arXiv:2204.03560}.
+
+  \item[\textup{[AMH26]}]\label{ref:c733-angles-huber}
+  G. Angl\`es Munn\'e and F. Huber, ``SDP bounds on quantum codes: rational certificates,'' arXiv preprint (2026). \href{https://arxiv.org/abs/2603.19901}{arXiv:2603.19901}; \href{https://github.com/ganglesmunne/SDP_bounds_on_quantum_codes_rational_certificates}{exact certificates}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The unresolved alternative is exactly $K_{\max}(7,3)=2$ versus
+$K_{\max}(7,3)=3$.  The codeword-stabilized obstruction excludes only a
+structured class, and the numerical search provides evidence rather than a
+certificate of nonexistence; a rigorous exclusion would need, for example,
+an infeasibility certificate for Eqs.~\eqref{eq:c733-projector} and
+\eqref{eq:c733-knill-laflamme} over all rank-three projectors.  Either an
+explicit construction or such a certificate would close this finite-length
+coding bound.  The catalog's record on the asymptotic Rains distance bound
+concerns how the distance of qubit codes scales with the block length; the
+present question is a single finite-length instance and is not implied by
+the asymptotic one.
+
+\subsection*{Field}
+
+Quantum Error Correction
+
+\subsection*{Topic}
+
+Quantum coding theory
+
+\subsection*{ID}
+
+\texttt{op\_4765bc6f2ac91d46}

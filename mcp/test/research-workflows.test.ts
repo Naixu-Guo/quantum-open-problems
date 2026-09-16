@@ -481,7 +481,8 @@ test("maintained catalog research workflows through the official HTTP SDK", { ti
     assert.ok(recent.statement.clauses.some(clause => clause.id === "main" && clause.text.includes("squared")));
     const authored = recent.authoredCatalog!.record!;
     assert.match(authored.progress[0]!, /inbox\s+on 10 September 2026/u);
-    assert.match(authored.comment, /no external peer review/u);
+    assert.match(authored.comment, /neither result has external peer review or a\s+proof-assistant kernel check/u);
+    assert.match(authored.comment, /no historical-priority claim is asserted/u);
     const citation = authored.references.find(reference => reference.label === "ref:p70-peter-counterexamples");
     assert.ok(citation);
     assert.match(citation.tex, /submissions \(10 September 2026\)/u);
