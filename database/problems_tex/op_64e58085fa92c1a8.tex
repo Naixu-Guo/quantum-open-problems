@@ -97,6 +97,21 @@ the entropy-approximation error in an intermediate optimization; it does
 not bound the gap of the finite semidefinite relaxation.  Sec.~4 leaves
 convergence of that hierarchy open, so these results do not establish the
 requested certified numerical evaluation.
+
+  \item Ahmed and Smith rule out finite-dimensional attainment on a rank-two
+Bell-diagonal subfamily (Theorem 2 of a 2026 preprint)
+\sourcecite{ref:sqbd-ahmed-smith}{AS26}.  Set
+$p_I=(1+c)/2$, $p_Z=(1-c)/2$, and $p_X=p_Y=0$, where $0<c<1$, and
+write $\rho_c=\rho_{\mathbf p}$.  Let $E_D(\rho_c)$ be the minimum in
+Eq.~\eqref{eq:sqbd-definition} with $\dim E\leq D$.  For every positive
+integer $D$,
+\begin{equation}
+  E_{3D+2}(\rho_c)<E_D(\rho_c).
+  \label{eq:sqbd-no-finite-attainment}
+\end{equation}
+Equation~\eqref{eq:sqbd-no-finite-attainment} implies that no finite
+extension dimension attains the infimum, even on this subfamily.  It does
+not determine the value or provide a certified approximation error.
 \end{itemize}
 
 \subsection*{References}
@@ -127,6 +142,11 @@ Entanglement,'' \emph{Communications in Mathematical Physics}
   H. Fawzi and O. Fawzi, ``Semidefinite programming lower bounds on the
 squashed entanglement,'' arXiv preprint (2022).
 \href{https://arxiv.org/abs/2203.03394}{arXiv:2203.03394}.
+
+  \item[\textup{[AS26]}]\label{ref:sqbd-ahmed-smith}
+  R. G. Ahmed and G. Smith, ``No cardinality bound for squashed
+entanglement,'' arXiv preprint (2026).
+\href{https://arxiv.org/abs/2609.14031v1}{arXiv:2609.14031v1}.
 \end{enumerate}
 
 \subsection*{Comment}
@@ -142,6 +162,12 @@ The remaining task is a closed-form formula or certified numerical
 evaluation of $E_{\mathrm{sq}}(\rho_{\mathbf p})$ for arbitrary entangled
 mixed Bell-diagonal states.  The known zero region, pure-state values,
 and numerical bounds do not settle this question.
+
+Finite-dimensional nonattainment does not exclude certified approximation:
+$E_{\mathrm{sq}}=\inf_D E_D$ still guarantees a finite-dimensional
+$\varepsilon$-approximation for every $\varepsilon>0$.  The new obstruction
+provides neither a computable dimension bound nor a convergence rate
+\sourcecite{ref:sqbd-ahmed-smith}{AS26}.
 
 \subsection*{Field}
 
