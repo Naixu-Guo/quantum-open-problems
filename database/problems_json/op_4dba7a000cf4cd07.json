@@ -10,7 +10,7 @@
   "metadata": {
     "type": "Problem",
     "schemaVersion": "1.0",
-    "revision": 1,
+    "revision": 2,
     "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
     "createdAt": "2026-09-16T05:01:47.979Z",
     "role": "primary",
@@ -41,7 +41,7 @@
     "Quantum linear algebra",
     "Computational complexity and computability"
   ],
-  "statement": "Does sparse-oracle quantum linear-system solving require $\\Omega(\\kappa\\sqrt{s}\\log(1/\\varepsilon))$ queries in the worst case?\n\nLet $A$ be an invertible $D\\times D$ matrix with at most $s$ nonzero entries per row and column, normalized so that $\\|A\\|\\le1$ and with singular values at least $1/\\kappa$. Access to $A$ is through standard sparse-matrix location and entry-value oracles. An easily prepared normalized state $|b\\rangle$ is given.\n\nThe task is to prepare a state within Euclidean distance $\\epsilon$ of\n\n\\begin{equation}\n|x\\rangle=\\frac{A^{-1}|b\\rangle}{\\|A^{-1}|b\\rangle\\|}.\n\\label{eq:4dba-1}\n\\end{equation}\n\nIs the worst-case number of sparse-oracle calls necessarily\n\n\\begin{equation}\nQ_{\\mathrm{sparse}}(\\kappa,s,\\epsilon)\n=\\Omega\\!\\left(\\kappa\\sqrt{s}\\log\\frac1\\epsilon\\right)?\n\\label{eq:4dba-2}\n\\end{equation}\n\nThe intended statement is joint in the three parameters, for nontrivial feasible regimes such as $s\\ge3$, $\\kappa\\ge2$, and $0<\\epsilon<1/10$, allowing sufficiently large $D$ and adequate entry precision. It does not assert an arbitrarily growing precision lower bound while holding a completely learnable finite oracle table fixed.\n\nUnless otherwise specified, success probability is at least $2/3$, algorithms are uniform, and asymptotic statements concern growing input size.\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:4dba-1}, \\eqref{eq:4dba-2}.",
+  "statement": "Does sparse-oracle quantum linear-system solving require $\\Omega(\\kappa\\sqrt{s}\\log(1/\\varepsilon))$ queries in the worst case?\n\nLet $A$ be an invertible $D\\times D$ matrix with at most $s$ nonzero entries per row and column, $\\|A\\|\\leq1$, and smallest singular value at least $1/\\kappa$. Given standard sparse-location and entry-value oracles for $A$ and an efficiently prepared state $|b\\rangle$, the task is to prepare a state within Euclidean distance $\\varepsilon$ of\n\n\\begin{equation}\n|x\\rangle=\\frac{A^{-1}|b\\rangle}{\\|A^{-1}|b\\rangle\\|}.\n\\label{eq:4dba-1}\n\\end{equation}\n\nFor $s\\geq3$, $\\kappa\\geq2$, $0<\\varepsilon<1/10$, sufficiently large $D$, and success probability at least $2/3$, is the worst-case query complexity necessarily\n\n\\begin{equation}\nQ_{\\mathrm{sparse}}(\\kappa,s,\\varepsilon)\n=\\Omega\\!\\left(\\kappa\\sqrt{s}\\log\\frac1\\varepsilon\\right)?\n\\label{eq:4dba-2}\n\\end{equation}\n\nEquation~\\eqref{eq:4dba-2} asks for a joint lower bound for the state-preparation task in Eq.~\\eqref{eq:4dba-1}.",
   "source": "The question is explicitly posed or retained as open in the cited primary literature \\sourcecite{ref:4dba-mori26}{Mori26}.  The statement is rewritten here to make its hypotheses and success criterion self-contained.",
   "progress": [
     "2026 lower-bound advance. Mori, Kikuchi, Benedetti, and Rosenkranz rigorously prove $\\Omega(\\kappa\\sqrt{s})$ at constant error and give a proof of the $\\Omega(\\kappa\\log(1/\\epsilon))$ dependence. Their latest revision explicitly leaves the multiplicative three-parameter bound unresolved. \\sourcecite{ref:4dba-mori26}{Mori26}",

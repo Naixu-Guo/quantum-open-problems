@@ -5,28 +5,23 @@
 \label{sec:op_3b3bfcda365a83a9}
 
 \paragraph{Problem.}
-Can the exact quantum Fourier transform on $n$ qubits be implemented by a uniform circuit of $O(n)$ one- and two-qubit gates?
+Can the exact quantum Fourier transform on $n$ qubits be implemented with $O(n)$ one- and two-qubit gates?
 
-On $n$ qubits, define
+Define
 
 \begin{equation}
-F_{2^n}|x\rangle
-=2^{-n/2}\sum_{y=0}^{2^n-1}e^{2\pi ixy/2^n}|y\rangle.
+F_{2^n}|x\rangle=2^{-n/2}\sum_{y=0}^{2^n-1}e^{2\pi ixy/2^n}|y\rangle.
 \label{eq:3b3b-1}
 \end{equation}
 
-Let $C_{\mathrm{exact}}(n)$ be the minimum number of one- and two-qubit gates in a uniform circuit implementing this unitary exactly on arbitrary input states. Clean ancillas may be used but must be restored; their preparation and all gates acting on them count. Gates may be arbitrary one- or two-qubit unitaries with efficiently specified parameters.
-
-Question: Is
+Let $C_{\mathrm{exact}}(n)$ be the minimum size of a uniform circuit that implements the unitary in Eq.~\eqref{eq:3b3b-1} exactly on arbitrary inputs. Gates may be arbitrary efficiently specified one- or two-qubit unitaries; clean ancillas may be used but must be restored, and all gates on them count. Is
 
 \begin{equation}
 C_{\mathrm{exact}}(n)=O(n)?
 \label{eq:3b3b-2}
 \end{equation}
 
-An alternative decisive result would be a superlinear lower bound in this model. This is not a claim about exact synthesis over Clifford+$T$, a finite gate set that cannot exactly express all rotations occurring in the QFT family. Nor is the task merely to sample a QFT measurement distribution.
-
-The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:3b3b-1}, \eqref{eq:3b3b-2}.
+The target in Eq.~\eqref{eq:3b3b-2} concerns exact coherent implementation, not approximate QFT or sampling only.
 
 \subsection*{Status}
 

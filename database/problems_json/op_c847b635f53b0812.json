@@ -10,7 +10,7 @@
   "metadata": {
     "type": "Problem",
     "schemaVersion": "1.0",
-    "revision": 1,
+    "revision": 2,
     "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
     "createdAt": "2026-09-16T05:01:48.338Z",
     "role": "primary",
@@ -43,7 +43,7 @@
     "Quantum state preparation",
     "Quantum circuit complexity"
   ],
-  "statement": "What is the exact minimum CNOT count, and the count--depth tradeoff, for ancilla-free Clifford preparation of the logical zero state of the $[[23,1,7]]_2$ quantum Golay code?\n\nLet $C_{23}\\subseteq\\mathbb F_2^{23}$ be the classical binary $[23,12,7]$ Golay code, let $C_{23}^{\\perp}$ denote its Euclidean dual, and fix the logical zero state of the associated quantum $[[23,1,7]]_2$ CSS code to be\n\n\\begin{equation}\n|0_G\\rangle=2^{-11/2}\\sum_{c\\in C_{23}^{\\perp}}|c\\rangle.\n\\label{eq:c847-1}\n\\end{equation}\n\nConsider unitary Clifford circuits on exactly $23$ qubits, initialized in $|0\\rangle^{\\otimes23}$, with arbitrary pairwise connectivity, free single-qubit Clifford gates, and CNOT gates of unit cost. No additional ancillary qubits, measurements, or postselection are allowed. For such a circuit $U$, let $N_{\\mathrm{CX}}(U)$ count its CNOT gates and let $d_2(U)$ count its two-qubit layers, where gates in the same layer act on disjoint pairs. Define\n\n\\begin{equation}\ng_G(D)=\\min\\left\\{N_{\\mathrm{CX}}(U):\nU|0\\rangle^{\\otimes23}=e^{i\\theta}|0_G\\rangle,\n\\quad d_2(U)\\le D\n\\right\\},\n\\label{eq:c847-2}\n\\end{equation}\n\nwhere $\\theta\\in\\mathbb R$ is an irrelevant global phase, the minimum of an empty set is $+\\infty$, and $D=\\infty$ removes the depth constraint. What are the exact minimum $g_G(\\infty)$ and its depth-constrained tradeoff $g_G(D)$, particularly at $D=7$ and $D=8$?\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:c847-1}, \\eqref{eq:c847-2}.",
+  "statement": "What is the exact CNOT-count and depth frontier for ancilla-free Clifford preparation of the logical zero state of the $[[23,1,7]]_2$ quantum Golay code?\n\nLet $C_{23}$ be the classical binary $[23,12,7]$ Golay code and\n\n\\begin{equation}\n|0_G\\rangle=2^{-11/2}\\sum_{c\\in C_{23}^{\\perp}}|c\\rangle.\n\\label{eq:c847-1}\n\\end{equation}\n\nConsider Clifford circuits on exactly $23$ qubits initialized in $|0\\rangle^{\\otimes23}$, with arbitrary connectivity, free single-qubit Clifford gates, and unit-cost CNOT gates, but no ancillas, measurements, or postselection. If $N_{\\mathrm{CX}}(U)$ is the CNOT count and $d_2(U)$ the number of disjoint two-qubit layers, define\n\n\\begin{equation}\ng_G(D)=\\min\\left\\{N_{\\mathrm{CX}}(U):\nU|0\\rangle^{\\otimes23}=e^{i\\theta}|0_G\\rangle,\\ d_2(U)\\leq D\\right\\}.\n\\label{eq:c847-2}\n\\end{equation}\n\nDetermine $g_G(\\infty)$ and the tradeoff $g_G(D)$ in Eq.~\\eqref{eq:c847-2}, particularly for $D=7$ and $D=8$, for the state in Eq.~\\eqref{eq:c847-1}.",
   "source": "The question is explicitly posed or retained as open in the cited primary literature \\sourcecite{ref:c847-paetznick12}{Paetznick12}.  The statement is rewritten here to make its hypotheses and success criterion self-contained.",
   "progress": [
     "This is a precise circuit-model formulation of an explicitly published Golay preparation question, not a conjecture that a particular currently known circuit is optimal.",

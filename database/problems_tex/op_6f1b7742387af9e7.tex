@@ -7,33 +7,16 @@
 \paragraph{Problem.}
 Can every Wigner-negative state in the depolarized qutrit Strange-state family be distilled arbitrarily accurately by catalyst-free stabilizer operations?
 
-A stabilizer operation is constructed from stabilizer ancillas, Clifford unitaries, Pauli measurements, classical randomness and feedforward, and discarding systems. Heralding is permitted where stated. It does not mean an arbitrary stabilizer-preserving channel, and no magic catalyst is free. These distinctions affect conversion theorems \sourcecite{ref:6f1b-zurel26}{Zurel26}, \sourcecite{ref:6f1b-fang26}{Fang26}.
-
-Define the qutrit Strange state and its depolarized family by
+Define
 
 \begin{equation}
-|S\rangle=\frac{|1\rangle-|2\rangle}{\sqrt2},\qquad
-\rho_\epsilon=(1-\epsilon)|S\rangle\langle S|+\epsilon\frac{I_3}{3}.
+|S\rangle=\frac{|1\rangle-|2\rangle}{\sqrt2},
+\qquad
+\rho_\varepsilon=(1-\varepsilon)|S\rangle\langle S|+\varepsilon\frac{I_3}{3}.
 \label{eq:6f1b-1}
 \end{equation}
 
-For every $0\leq\epsilon<3/4$, can copies of $\rho_\epsilon$ be distilled arbitrarily accurately to $|S\rangle$ using qutrit stabilizer operations?
-
-More precisely, for every target error $\delta>0$, some finite number of copies must be converted with positive success probability to a state within trace distance $\delta$ of $|S\rangle\langle S|$, without a magic catalyst.
-
-The endpoint $3/4$ is exact, not a guessed noise threshold. In the standard Gross discrete Wigner representation, with the phase-space origin chosen at the negative entry,
-
-\begin{equation}
-W_{\rho_\epsilon}(0)=\frac{4\epsilon-3}{9},\qquad
-W_{\rho_\epsilon}(u)=\frac{3-\epsilon}{18}\quad(u\neq0).
-\label{eq:6f1b-2}
-\end{equation}
-
-These expressions follow by mixing the Strange-state Wigner distribution with the uniform distribution. Hence the state is Wigner-negative exactly when $\epsilon<3/4$ \sourcecite{ref:6f1b-veitch12}{Veitch12}, \sourcecite{ref:6f1b-prakash20}{Prakash20}.
-
-This one-parameter problem tests, but is not equivalent to the full resolution of, the broader conjecture that Wigner negativity suffices for odd-prime-dimensional magic-state universality \sourcecite{ref:6f1b-zurel26}{Zurel26}, \sourcecite{ref:6f1b-prakash26}{Prakash26}.
-
-The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:6f1b-1}, \eqref{eq:6f1b-2}.
+For every $0\leq\varepsilon<3/4$ and $\delta>0$, can finitely many copies of the state in Eq.~\eqref{eq:6f1b-1} be converted, with positive success probability, to a state within trace distance $\delta$ of $|S\rangle\langle S|$ using stabilizer ancillas, Clifford unitaries, Pauli measurements, classical feedforward, and discarding, but no magic catalyst?
 
 \subsection*{Status}
 
@@ -46,6 +29,8 @@ This precise formulation is editor wording based on the unresolved direction and
 \subsection*{Progress}
 
 \begin{itemize}
+  \item For the family in Eq.~\eqref{eq:6f1b-1}, the Gross discrete Wigner function has one entry $(4\varepsilon-3)/9$ and all remaining entries $(3-\varepsilon)/18$. Thus the state is Wigner-negative exactly for $\varepsilon<3/4$ \sourcecite{ref:6f1b-veitch12}{Veitch12}\sourcecite{ref:6f1b-prakash20}{Prakash20}.
+
   \item Necessity is known. Wigner-positive states remain Wigner-positive under stabilizer protocols, including conditioning on allowed measurement outcomes. Odd-dimensional nonstabilizer states with nonnegative Wigner functions therefore give genuine bound magic. Their existence does not answer the question about the Wigner-negative region \sourcecite{ref:6f1b-veitch12}{Veitch12}.
 
   \item 2020 construction. The 11-qutrit ternary Golay protocol distills the Strange state with cubic noise suppression. In the depolarizing convention used above, its threshold is approximately $\epsilon=0.387$, well below $0.75$ \sourcecite{ref:6f1b-prakash20}{Prakash20} (Sections 3 and 5).
@@ -78,6 +63,8 @@ This precise formulation is editor wording based on the unresolved direction and
 \end{enumerate}
 
 \subsection*{Comment}
+
+The allowed operation class is stabilizer operations, not all stabilizer-preserving channels, and no magic catalyst is free; these distinctions affect conversion theorems \sourcecite{ref:6f1b-zurel26}{Zurel26}\sourcecite{ref:6f1b-fang26}{Fang26}.
 
 Compared with the general mixed-state conjecture, this family offers a single real parameter, an exact geometric boundary, and a well-defined existing benchmark. It is a natural place to investigate whether coding constraints force a universal threshold gap or merely reflect limitations of existing constructions.
 

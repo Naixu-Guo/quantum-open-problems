@@ -10,7 +10,7 @@
   "metadata": {
     "type": "Problem",
     "schemaVersion": "1.0",
-    "revision": 1,
+    "revision": 2,
     "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
     "createdAt": "2026-09-16T05:01:47.832Z",
     "role": "primary",
@@ -41,7 +41,7 @@
     "Computational complexity and computability",
     "Quantum circuit complexity"
   ],
-  "statement": "Can every balanced RSA semiprime be factored in polynomial time using $o(n)$ simultaneously live logical qubits?\n\nLet $N=pq$ be an $n$-bit integer whose distinct odd prime factors each have bit length $n/2+O(1)$. Does there exist a uniform hybrid algorithm satisfying\n\n\\begin{equation}\nq(n)=o(n),\\qquad T_{\\mathrm{total}}(n)=n^{O(1)},\n\\label{eq:3300-1}\n\\end{equation}\n\nand factoring every input with success probability at least $2/3$?\n\nHere $q(n)$ counts all simultaneously live logical qubits, including coherent control registers, data, work qubits, quantum memory, and supplied resource states. Polynomial classical storage is permitted and the input $N$ may be classical. Intermediate measurements and resets are allowed. Runtime includes repetitions and classical processing.\n\nA particularly concrete stronger milestone is $q(n)=O(n^{1-\\delta})$ for some fixed $\\delta>0$. The basic question only asks for $o(n)$.\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:3300-1}.",
+  "statement": "Can every balanced RSA semiprime be factored in polynomial time using sublinear logical quantum space?\n\nLet $N=pq$ be an $n$-bit integer whose distinct odd prime factors have bit length $n/2+O(1)$. Does a uniform hybrid algorithm exist that factors every such $N$ with probability at least $2/3$ while satisfying\n\n\\begin{equation}\nq(n)=o(n),\n\\qquad\nT_{\\mathrm{total}}(n)=n^{O(1)}?\n\\label{eq:3300-1}\n\\end{equation}\n\nHere $q(n)$ in Eq.~\\eqref{eq:3300-1} counts all simultaneously live logical qubits, including control, data, workspace, quantum memory, and resource states. Polynomial classical storage, intermediate measurements, and resets are allowed, and total runtime includes repetitions and classical processing.",
   "source": "This precise formulation is editor wording based on the unresolved direction and limitations documented in the cited primary literature \\sourcecite{ref:3300-chevignard25}{Chevignard25}\\sourcecite{ref:3300-ragavan26}{Ragavan26}\\sourcecite{ref:3300-kahanamokumeyer25}{KahanamokuMeyer25}; it is not presented as a verbatim conjecture of those authors.",
   "progress": [
     "CRYPTO 2025, full version revised December 31, 2025. Chevignard, Fouque, and Schrottenloher factor $n$-bit RSA moduli with $n/2+o(n)$ logical qubits. Their modular-exponentiation technique uses sublinear work space, but the full algorithm still has linear total quantum width. These are different claims. \\sourcecite{ref:3300-chevignard25}{Chevignard25}",

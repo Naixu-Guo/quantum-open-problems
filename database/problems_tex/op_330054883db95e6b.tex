@@ -5,22 +5,18 @@
 \label{sec:op_330054883db95e6b}
 
 \paragraph{Problem.}
-Can every balanced RSA semiprime be factored in polynomial time using $o(n)$ simultaneously live logical qubits?
+Can every balanced RSA semiprime be factored in polynomial time using sublinear logical quantum space?
 
-Let $N=pq$ be an $n$-bit integer whose distinct odd prime factors each have bit length $n/2+O(1)$. Does there exist a uniform hybrid algorithm satisfying
+Let $N=pq$ be an $n$-bit integer whose distinct odd prime factors have bit length $n/2+O(1)$. Does a uniform hybrid algorithm exist that factors every such $N$ with probability at least $2/3$ while satisfying
 
 \begin{equation}
-q(n)=o(n),\qquad T_{\mathrm{total}}(n)=n^{O(1)},
+q(n)=o(n),
+\qquad
+T_{\mathrm{total}}(n)=n^{O(1)}?
 \label{eq:3300-1}
 \end{equation}
 
-and factoring every input with success probability at least $2/3$?
-
-Here $q(n)$ counts all simultaneously live logical qubits, including coherent control registers, data, work qubits, quantum memory, and supplied resource states. Polynomial classical storage is permitted and the input $N$ may be classical. Intermediate measurements and resets are allowed. Runtime includes repetitions and classical processing.
-
-A particularly concrete stronger milestone is $q(n)=O(n^{1-\delta})$ for some fixed $\delta>0$. The basic question only asks for $o(n)$.
-
-The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:3300-1}.
+Here $q(n)$ in Eq.~\eqref{eq:3300-1} counts all simultaneously live logical qubits, including control, data, workspace, quantum memory, and resource states. Polynomial classical storage, intermediate measurements, and resets are allowed, and total runtime includes repetitions and classical processing.
 
 \subsection*{Status}
 

@@ -5,32 +5,27 @@
 \label{sec:op_91c81ca77b99eebf}
 
 \paragraph{Problem.}
-Can arbitrary mixed fermionic Gaussian states be learned to trace distance $\varepsilon$ from $\Theta(m^2/\varepsilon^2)$ copies using no measurements across copies?
+Can arbitrary mixed fermionic Gaussian states be learned to trace distance $\varepsilon$ from $\Theta(m^2/\varepsilon^2)$ copies without measurements across copies?
 
-Consider $m\geq2$ fermionic modes with Majorana operators $c_1,\ldots,c_{2m}$ satisfying $c_ac_b+c_bc_a=2\delta_{ab}I$, where $\delta_{ab}$ is the Kronecker delta. Let $\mathcal G_m$ be the fermionic Gaussian states, namely the states
+For $m$ fermionic modes with Majorana operators satisfying $c_ac_b+c_bc_a=2\delta_{ab}I$, let $\mathcal G_m$ consist of the states
 
 \begin{equation}
 \rho=\frac{e^{-K}}{\operatorname{Tr}(e^{-K})},
 \qquad
-K:=\frac{i}{4}\sum_{a,b=1}^{2m}A_{ab}c_ac_b,
-\qquad A\in\mathbb R^{2m\times2m},\quad A^T=-A,
+K=\frac{i}{4}\sum_{a,b=1}^{2m}A_{ab}c_ac_b,
+\qquad
+A^T=-A\in\mathbb R^{2m\times2m},
 \label{eq:91c8-1}
 \end{equation}
 
-together with their limiting states, including pure Gaussian states. For $0<\varepsilon<1/10$, let $N_1(m,\varepsilon)$ be the minimum worst-case copy count for outputting a classical description of $\widehat\rho\in\mathcal G_m$ such that
+including their limiting pure states. Let $N_1(m,\varepsilon)$ be the minimum worst-case number of copies needed to output $\widehat\rho\in\mathcal G_m$ with
 
 \begin{equation}
-\Pr\!\left[D_{\mathrm{tr}}(\rho,\widehat\rho)\leq\varepsilon\right]\geq\frac23,
-\qquad
-D_{\mathrm{tr}}(\rho,\sigma):=\frac12\|\rho-\sigma\|_1.
+\Pr\!\left[\frac12\|\rho-\widehat\rho\|_1\leq\varepsilon\right]\geq\frac23.
 \label{eq:91c8-2}
 \end{equation}
 
-Each measurement may act on all modes of one copy and an ancilla. Measurements may adapt to previous classical outcomes, but quantum memory cannot connect different copies. The measurements need not be fermionic Gaussian, and computational efficiency is not imposed.
-
-Is $N_1(m,\varepsilon)=\Theta(m^2/\varepsilon^2)$ for this general mixed-state family?
-
-The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:91c8-1}, \eqref{eq:91c8-2}.
+Each adaptive measurement may act on all modes of one copy and an ancilla, but no quantum memory may connect different copies. Is $N_1(m,\varepsilon)=\Theta(m^2/\varepsilon^2)$ for the family in Eq.~\eqref{eq:91c8-1} under the success criterion in Eq.~\eqref{eq:91c8-2}?
 
 \subsection*{Status}
 

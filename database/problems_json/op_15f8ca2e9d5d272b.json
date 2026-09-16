@@ -10,7 +10,7 @@
   "metadata": {
     "type": "Problem",
     "schemaVersion": "1.0",
-    "revision": 1,
+    "revision": 2,
     "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
     "createdAt": "2026-09-16T05:01:47.758Z",
     "role": "primary",
@@ -41,7 +41,7 @@
     "Computational complexity and computability",
     "Quantum circuit complexity"
   ],
-  "statement": "Can every balanced RSA semiprime be factored with a polynomial improvement over quadratic total quantum gate complexity?\n\nLet $N=pq$ be an $n$-bit integer, where $p\\ne q$ are odd primes of bit length $n/2+O(1)$. Does there exist a constant $\\delta>0$ and a uniform hybrid quantum–classical algorithm that factors every such $N$ with probability at least $2/3$, using\n\n\\begin{equation}\nG_{\\mathrm{total}}(n)=O(n^{2-\\delta})\n\\label{eq:15f8-1}\n\\end{equation}\n\nelementary quantum operations and $n^{O(1)}$ classical computation?\n\nHere total includes every quantum execution, state preparation, restart, measurement, reset, and required gate synthesis. Use a fixed finite universal gate set. Modular exponentiation is compiled into elementary gates rather than supplied as a unit-cost oracle. Classical input-dependent preprocessing is allowed, but factoring advice is not.\n\nThe target is a polynomial improvement in the exponent, not merely removing logarithmic factors from a nearly quadratic construction.\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:15f8-1}.",
+  "statement": "Can every balanced RSA semiprime be factored with polynomially subquadratic total quantum gate complexity?\n\nLet $N=pq$ be an $n$-bit integer whose distinct odd prime factors have bit length $n/2+O(1)$. Does there exist a constant $\\delta>0$ and a uniform hybrid quantum--classical algorithm that factors every such $N$ with probability at least $2/3$ using\n\n\\begin{equation}\nG_{\\mathrm{total}}(n)=O(n^{2-\\delta})\n\\label{eq:15f8-1}\n\\end{equation}\n\nquantum gates and $n^{O(1)}$ classical computation? The cost in Eq.~\\eqref{eq:15f8-1} includes every quantum execution, restart, state preparation, measurement, reset, and gate-synthesis cost over a fixed finite universal gate set; modular exponentiation is not a unit-cost oracle.",
   "source": "This precise formulation is editor wording based on the unresolved direction and limitations documented in the cited primary literature \\sourcecite{ref:15f8-regev25}{Regev25}\\sourcecite{ref:15f8-pilatte26}{Pilatte26}\\sourcecite{ref:15f8-kahanamokumeyer25}{KahanamokuMeyer25}; it is not presented as a verbatim conjecture of those authors.",
   "progress": [
     "Baseline. Shor established polynomial-time quantum factoring. With fast arithmetic, the relevant benchmark for total quantum work is nearly quadratic in $n$. This is an upper-bound benchmark, not a proven lower bound. \\sourcecite{ref:15f8-shor97}{Shor97}, \\sourcecite{ref:15f8-regev25}{Regev25}",

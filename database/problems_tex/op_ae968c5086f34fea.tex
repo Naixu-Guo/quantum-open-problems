@@ -7,41 +7,28 @@
 \paragraph{Problem.}
 What is the optimal catalyst-free asymptotic $T$-state yield of a dephased single-qubit $T$ state?
 
-A stabilizer operation is constructed from stabilizer ancillas, Clifford unitaries, Pauli measurements, classical randomness and feedforward, and discarding systems. Heralding is permitted where stated. It does not mean an arbitrary stabilizer-preserving channel, and no magic catalyst is free. These distinctions affect conversion theorems \sourcecite{ref:ae96-zurel26}{Zurel26}, \sourcecite{ref:ae96-fang26}{Fang26}.
-
-Throughout, the modern phase-gate magic state is
+Let
 
 \begin{equation}
 |T\rangle=\frac{|0\rangle+e^{i\pi/4}|1\rangle}{\sqrt2},
-\qquad \tau=|T\rangle\langle T|.
+\qquad
+\tau=|T\rangle\langle T|,
+\qquad
+\rho_p=(1-p)\tau+pZ\tau Z.
 \label{eq:ae96-1}
 \end{equation}
 
-Consider the one-parameter noise model
+For $0\leq p\leq1$, define the catalyst-free stabilizer-operation yield
 
 \begin{equation}
-\rho_p=(1-p)\tau+pZ\tau Z,\qquad 0\leq p\leq1.
+D_T(\rho_p)=\sup\left\{R:
+\exists\ \Lambda_n,\
+\frac12\left\|\Lambda_n(\rho_p^{\otimes n})
+-\tau^{\otimes\lfloor Rn\rfloor}\right\|_1\longrightarrow0\right\},
 \label{eq:ae96-2}
 \end{equation}
 
-Define its catalyst-free asymptotic $T$-yield by
-
-\begin{equation}
-D_T(\rho_p)=\sup\left\{R:\ \exists\text{ stabilizer CPTP maps }\Lambda_n,
-\quad
-\frac12\left\|\Lambda_n(\rho_p^{\otimes n})-
-\tau^{\otimes\lfloor Rn\rfloor}\right\|_1\longrightarrow0
-\right\}.
-\label{eq:ae96-3}
-\end{equation}
-
-Here the error concerns the joint output, not only individual marginals. A heralded implementation can be included by requiring its failure probability to vanish and specifying an output on failure.
-
-Determine $D_T(\rho_p)$, with matching achievable and converse bounds, already for a fixed noise level such as $p=0.01$.
-
-This is a precise specialization of the published open optimization question about asymptotically optimal distillation protocols \sourcecite{ref:ae96-wills25}{Wills25} (Open Question 4). It is not a separately named conjecture, and no particular candidate formula is asserted to be correct.
-
-The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:ae96-1}, \eqref{eq:ae96-2}, \eqref{eq:ae96-3}.
+where $\Lambda_n$ uses stabilizer ancillas, Clifford unitaries, Pauli measurements, classical feedforward, and discarding, but no magic catalyst. Determine the quantity in Eq.~\eqref{eq:ae96-2}, with matching achievable and converse bounds, already for a fixed noise level such as $p=0.01$ in Eq.~\eqref{eq:ae96-1}.
 
 \subsection*{Status}
 
@@ -125,6 +112,8 @@ The displayed definitions, constraints, and target bounds are recorded in Eqs.~\
 This problem addresses an operationally meaningful constant that overhead exponents conceal. Two protocols can both have constant overhead yet consume very different numbers of noisy states for a given output volume.
 
 A manageable starting point is to tighten either side for one fixed rational $p$, with every auxiliary magic state and failed attempt included in the accounting. An apparent formula derived under all stabilizer-preserving maps, nonzero-probability postselection, or borrowed magic should not be substituted for the catalyst-free, vanishing-global-error definition.
+
+The operation class is stabilizer operations rather than all stabilizer-preserving channels; this distinction matters for conversion bounds \sourcecite{ref:ae96-zurel26}{Zurel26}.
 
 \subsection*{Field}
 

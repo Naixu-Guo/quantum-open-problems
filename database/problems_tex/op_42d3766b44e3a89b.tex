@@ -7,35 +7,25 @@
 \paragraph{Problem.}
 Does the four-party Zhang--Yeung inequality hold for the von Neumann entropies of every finite-dimensional quantum state?
 
-For arbitrary jointly distributed finite-valued random variables $A,B,C,D$, the Zhang–Yeung inequality is
+For a state $\rho_{ABCD}$, define
 
 \begin{equation}
-2I(C:D)\le I(A:B)+I(A:CD)+3I(C:D\mid A)+I(C:D\mid B).
+\begin{aligned}
+S(R)&=-\operatorname{Tr}(\rho_R\log_2\rho_R),\\
+I(A:B)&=S(A)+S(B)-S(AB),\\
+I(A:B\mid C)&=S(AC)+S(BC)-S(C)-S(ABC).
+\end{aligned}
 \label{eq:42d3-1}
 \end{equation}
 
-Zhang and Yeung proved it in 1998. It is not a consequence of the basic Shannon inequalities. Dougherty, Freiling, and Zeger provide a subsequent proof and a systematic treatment of four-variable non-Shannon inequalities. \sourcecite{ref:42d3-zhang98}{Zhang98}\sourcecite{ref:42d3-dfz11}{DFZ11}
-
-The question is whether the same inequality constrains quantum entropies. Let $\rho_{ABCD}$ be an arbitrary density operator on four finite-dimensional systems. Define
+Using the quantities in Eq.~\eqref{eq:42d3-1}, the proposed inequality is
 
 \begin{equation}
-S(R)=-\operatorname{Tr}\rho_R\log_2\rho_R,
+2I(C:D)\leq I(A:B)+I(A:CD)+3I(C:D\mid A)+I(C:D\mid B)
 \label{eq:42d3-2}
 \end{equation}
-\begin{equation}
-I(A:B)=S(A)+S(B)-S(AB),
-\label{eq:42d3-3}
-\end{equation}
-\begin{equation}
-I(A:B\mid C)=S(AC)+S(BC)-S(C)-S(ABC).
-\label{eq:42d3-4}
-\end{equation}
 
-Question: Does the displayed inequality, with these quantum mutual informations, hold for every $\rho_{ABCD}$?
-
-There are no independence, separability, stabilizer, or holographic assumptions. Bao, Cao, Walter, and Wang explicitly discuss this inequality as a candidate constraint on general quantum entropies in Section 4.2. \sourcecite{ref:42d3-bao15}{Bao15}
-
-The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:42d3-1}, \eqref{eq:42d3-2}, \eqref{eq:42d3-3}, \eqref{eq:42d3-4}.
+Does Eq.~\eqref{eq:42d3-2} hold for every $\rho_{ABCD}$, without independence, separability, stabilizer, or holographic assumptions?
 
 \subsection*{Status}
 
@@ -48,6 +38,8 @@ Bao, Cao, Walter, and Wang discuss this exact unrestricted four-party candidate 
 \subsection*{Progress}
 
 \begin{itemize}
+  \item For classical random variables, inequality~\eqref{eq:42d3-2} is the Zhang--Yeung non-Shannon inequality. It was proved by Zhang and Yeung and later treated systematically by Dougherty, Freiling, and Zeger \sourcecite{ref:42d3-zhang98}{Zhang98}\sourcecite{ref:42d3-dfz11}{DFZ11}.
+
   \item The 2025 Quantum Entropy Prover paper still identifies the search for additional unconstrained quantum entropy inequalities as open. Its Section V.A proves a related five-party inequality. Classically, an auxiliary-copy construction turns that precursor into a four-party non-Shannon inequality; the five-party quantum proof does not establish the required four-party quantum extension. \sourcecite{ref:42d3-huang25}{Huang25}
 
   \item A second important distinction is between failure to derive an inequality from strong subadditivity and an actual violating density operator. A linear-programming witness outside the basic entropy cone need not be realizable by a quantum state. Likewise, the known constrained quantum inequalities, which assume specified conditional mutual informations vanish, do not settle this unconstrained question. \sourcecite{ref:42d3-huang25}{Huang25}

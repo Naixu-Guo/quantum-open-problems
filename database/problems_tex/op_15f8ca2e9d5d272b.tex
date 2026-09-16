@@ -5,22 +5,16 @@
 \label{sec:op_15f8ca2e9d5d272b}
 
 \paragraph{Problem.}
-Can every balanced RSA semiprime be factored with a polynomial improvement over quadratic total quantum gate complexity?
+Can every balanced RSA semiprime be factored with polynomially subquadratic total quantum gate complexity?
 
-Let $N=pq$ be an $n$-bit integer, where $p\ne q$ are odd primes of bit length $n/2+O(1)$. Does there exist a constant $\delta>0$ and a uniform hybrid quantum–classical algorithm that factors every such $N$ with probability at least $2/3$, using
+Let $N=pq$ be an $n$-bit integer whose distinct odd prime factors have bit length $n/2+O(1)$. Does there exist a constant $\delta>0$ and a uniform hybrid quantum--classical algorithm that factors every such $N$ with probability at least $2/3$ using
 
 \begin{equation}
 G_{\mathrm{total}}(n)=O(n^{2-\delta})
 \label{eq:15f8-1}
 \end{equation}
 
-elementary quantum operations and $n^{O(1)}$ classical computation?
-
-Here total includes every quantum execution, state preparation, restart, measurement, reset, and required gate synthesis. Use a fixed finite universal gate set. Modular exponentiation is compiled into elementary gates rather than supplied as a unit-cost oracle. Classical input-dependent preprocessing is allowed, but factoring advice is not.
-
-The target is a polynomial improvement in the exponent, not merely removing logarithmic factors from a nearly quadratic construction.
-
-The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:15f8-1}.
+quantum gates and $n^{O(1)}$ classical computation? The cost in Eq.~\eqref{eq:15f8-1} includes every quantum execution, restart, state preparation, measurement, reset, and gate-synthesis cost over a fixed finite universal gate set; modular exponentiation is not a unit-cost oracle.
 
 \subsection*{Status}
 

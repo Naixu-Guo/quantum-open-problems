@@ -7,27 +7,23 @@
 \paragraph{Problem.}
 Is the exact Haar-mixing spectral gap of uniformly random Pauli rotations equal to $2^n(2^n-3)/(8(4^n-1))$ for every $n\geq4$?
 
-Let $n\geq4$ and let $\mathcal P_n:=\{I,X,Y,Z\}^{\otimes n}\setminus\{I^{\otimes n}\}$ be the nonidentity Hermitian Pauli strings. A random Pauli rotation chooses $P\in\mathcal P_n$ uniformly and $\theta\in[0,2\pi)$ uniformly, then applies $e^{i\theta P}$.
-
-On $L^2(\mathrm{SU}(2^n),\mathrm{Haar})$, define the averaging operator and its spectral gap by
+Let $\mathcal P_n=\{I,X,Y,Z\}^{\otimes n}\setminus\{I^{\otimes n}\}$. One step chooses $P\in\mathcal P_n$ and $\theta\in[0,2\pi)$ uniformly and applies $e^{i\theta P}$. On $L^2(\mathrm{SU}(2^n),\mathrm{Haar})$, define
 
 \begin{equation}
-(K_nf)(U):=\mathbb E_{P,\theta}f(e^{i\theta P}U),
+(K_nf)(U)=\mathbb E_{P,\theta}f(e^{i\theta P}U),
 \qquad
-\Delta_n:=1-\|K_n|_{L^2_0}\|_{2\to2},
+\Delta_n=1-\|K_n|_{L^2_0}\|_{2\to2},
 \label{eq:aaf9-1}
 \end{equation}
 
-where $L^2_0$ is the subspace of functions with zero Haar mean. Each step is one Pauli rotation, not one nearest-neighbor two-qubit gate.
-
-Is the exact gap given, for every $n\geq4$, by
+where $L^2_0$ is the zero-Haar-mean subspace. The conjectured value of the gap in Eq.~\eqref{eq:aaf9-1} is
 
 \begin{equation}
-\Delta_n=\frac{2^n(2^n-3)}{8(4^n-1)}?
+\Delta_n=\frac{2^n(2^n-3)}{8(4^n-1)}
 \label{eq:aaf9-2}
 \end{equation}
 
-The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:aaf9-1}, \eqref{eq:aaf9-2}.
+Does Eq.~\eqref{eq:aaf9-2} hold for every $n\geq4$?
 
 \subsection*{Status}
 

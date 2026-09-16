@@ -5,28 +5,18 @@
 \label{sec:op_0ff53a57552ddd7f}
 
 \paragraph{Problem.}
-Does every unrestricted quantum collision-finding algorithm satisfy the time--space lower bound $T^2S=\Omega(N\log N)$?
+Does every unrestricted quantum collision-finding algorithm satisfy $T^2S=\Omega(N\log N)$?
 
-Let $f:[N]\to[N]$ be uniformly random, with standard coherent value-oracle access. An algorithm must output distinct $x,x'$ such that $f(x)=f(x')$, with probability at least $2/3$ over the random function and the algorithm. Let $T$ be its number of oracle queries and $S$ its maximum retained workspace, measured in qubits, with classical storage counted as computational-basis memory.
+Let $f:[N]\to[N]$ be uniformly random and available through a coherent value oracle. An algorithm must output distinct $x,x'$ with $f(x)=f(x')$ with probability at least $2/3$. Let $T$ be its number of oracle queries and $S$ its maximum retained workspace in qubits, including quantum memory and classical data retained for later use.
 
-Conjecture: Every such algorithm, without any symmetry restriction, satisfies
+Is the tradeoff
 
 \begin{equation}
-T^2S=\Omega(N\log N).
+T^2S=\Omega(N\log N)
 \label{eq:0ff5-1}
 \end{equation}
 
-Together with the collision query lower bound $T=\Omega(N^{1/3})$, this predicts the optimal interpolation
-
-\begin{equation}
-T=\Theta\!\left(\sqrt{\frac{N\log N}{S}}\right),
-\qquad \log N\lesssim S\lesssim N^{1/3}\log N.
-\label{eq:0ff5-2}
-\end{equation}
-
-The oracle itself is external; the algorithm's query registers, stored inputs and values, and quantum-addressable classical tables count toward $S$. There is no free external table containing the algorithm's accumulated information. Intermediate measurement records retained for future use also count.
-
-The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:0ff5-1}, \eqref{eq:0ff5-2}.
+valid without any symmetry restriction? In Eq.~\eqref{eq:0ff5-1}, the external oracle storage is excluded from $S$, but query registers and accumulated tables are included.
 
 \subsection*{Status}
 

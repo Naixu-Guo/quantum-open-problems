@@ -5,53 +5,19 @@
 \label{sec:op_92fc12b81d55a704}
 
 \paragraph{Problem.}
-Do normalized one-dimensional Chen--Kastoryano--Gily'en Gibbs samplers have a positive modified log-Sobolev constant uniformly in system size at every fixed finite temperature?
+Do normalized one-dimensional Chen--Kastoryano--Gily\'en Gibbs samplers have a positive modified log-Sobolev constant uniformly in system size at every fixed finite temperature?
 
-For a finite-dimensional Hamiltonian $H$, write
+Fix $\beta>0$, a finite on-site dimension, and a class of one-dimensional finite-range Hamiltonians with bounded local strength. Let $\rho_\beta(H)=e^{-\beta H}/\operatorname{Tr}(e^{-\beta H})$, and let $\mathcal L_{H,\beta}$ be the Chen--Kastoryano--Gily\'en generator using all single-site Pauli jumps, Gaussian-filter width $\beta^{-1}$, and the unrescaled sum of local terms.
+
+Does a constant $\alpha_\beta>0$ exist, independent of chain length and of $H$ in this class, such that for every state $\sigma$ and every $t\geq0$
 
 \begin{equation}
-\rho_\beta(H)=\frac{e^{-\beta H}}{Z_H(\beta)},\qquad
-Z_H(z)=\operatorname{Tr}(e^{-zH}),\qquad \beta>0.
+D\!\left(e^{t\mathcal L_{H,\beta,*}}(\sigma)\middle\|\rho_\beta(H)\right)
+\leq e^{-2\alpha_\beta t}D\!\left(\sigma\middle\|\rho_\beta(H)\right)?
 \label{eq:92fc-1}
 \end{equation}
 
-The temperature is $T=1/\beta$, in units with Boltzmann’s constant equal to one. Relative entropy uses natural logarithms.
-
-“Fixed finite temperature” allows constants to depend badly on $\beta$ but not on the number of sites.
-
-Fix finite $\beta$, on-site dimension $d$, and a one-dimensional finite-range interaction class with bounded local strength. Let $\mathcal L_{H,\beta}=\sum_a\mathcal L_a$ be the Chen--Kastoryano--Gilyén generator specified in Eqs.~(2.15)--(2.22) of \sourcecite{ref:92fc-bergamaschi25}{Bergamaschi25}, using all single-site Pauli jumps, Gaussian filter $\gamma_G$ from their Eq.~(2.20), and width $\sigma=\beta^{-1}$. This fixes the time normalization; the rates may not be rescaled by a factor that grows with system size.
-
-Does there exist $\alpha_\beta>0$, independent of chain length $n$ and of the Hamiltonian in this normalized class, such that
-
-\begin{equation}
-D\!\left(e^{t\mathcal L_{H,\beta,*}}(\sigma)
-\middle\|\rho_\beta(H)\right)
-\leq e^{-2\alpha_\beta t}
-D\!\left(\sigma\middle\|\rho_\beta(H)\right)
-\label{eq:92fc-2}
-\end{equation}
-
-for every state $\sigma$ and $t\geq0$?
-
-Equivalently, in this convention, ask whether
-
-\begin{equation}
-\inf_{n,H}\alpha_{\mathrm{MLSI}}(\mathcal L_{H,\beta})>0.
-\label{eq:92fc-3}
-\end{equation}
-
-The entropy-production form is
-
-\begin{equation}
--\operatorname{Tr}\!\left[
-\mathcal L_{H,\beta,*}(\sigma)
-\bigl(\log\sigma-\log\rho_\beta(H)\bigr)
-\right]
-\geq2\alpha_\beta D(\sigma\|\rho_\beta(H)).
-\label{eq:92fc-4}
-\end{equation}
-
-The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:92fc-1}, \eqref{eq:92fc-2}, \eqref{eq:92fc-3}, \eqref{eq:92fc-4}.
+Relative entropy in Eq.~\eqref{eq:92fc-1} uses natural logarithms; constants may depend on $\beta$ but not on system size.
 
 \subsection*{Status}
 

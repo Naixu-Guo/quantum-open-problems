@@ -7,27 +7,23 @@
 \paragraph{Problem.}
 Can weak final-layer depolarizing noise make constant-depth two-dimensional Haar-random circuits classically samplable to inverse-polynomial total-variation error?
 
-Let $n=L^2$ qubits occupy an even-sided square grid. From $|0^n\rangle$, apply a depth-$d$ circuit of independent Haar-random nearest-neighbor two-qubit gates. Use the standard repeating four-layer horizontal/vertical brickwork schedule, with $d$ fixed independently of $n$.
-
-Immediately before computational-basis measurement, apply to every qubit the depolarizing channel
+Let $n=L^2$ qubits occupy an even-sided square grid. Apply a fixed-depth nearest-neighbor brickwork circuit $U$ of independent Haar-random two-qubit gates to $|0^n\rangle$, followed on every qubit by
 
 \begin{equation}
-\mathcal D_\gamma(X):=(1-\gamma)X+\gamma\operatorname{Tr}(X)I/2.
+\mathcal D_\gamma(X)=(1-\gamma)X+\gamma\operatorname{Tr}(X)I/2.
 \label{eq:3a7c-1}
 \end{equation}
 
-Denote the resulting distribution by $P_{U,\gamma}$. Fix any $a>0$, put $\varepsilon=n^{-a}$, and take $\gamma=K\log(n/\varepsilon)/n$ for sufficiently large $n$. A classical sampler receives the gate description $U$ and produces a distribution $Q_U$.
-
-Is there a constant $d_0$ such that, for every fixed $d>d_0$, some constant $K>0$ permits polynomial-time classical sampling with
+Let $P_{U,\gamma}$ be the computational-basis output distribution. For fixed $a>0$, set $\varepsilon=n^{-a}$ and $\gamma=K\log(n/\varepsilon)/n$. Is there a constant $d_0$ such that, for every fixed depth $d>d_0$, some constant $K>0$ permits a polynomial-time classical sampler with output distribution $Q_U$ satisfying
 
 \begin{equation}
 \mathbb E_U\|Q_U-P_{U,\gamma}\|_{\mathrm{TV}}\leq\varepsilon,
 \qquad
-\|P-Q\|_{\mathrm{TV}}:=\frac12\sum_x|P(x)-Q(x)|?
+\|P-Q\|_{\mathrm{TV}}=\frac12\sum_x|P(x)-Q(x)|?
 \label{eq:3a7c-2}
 \end{equation}
 
-The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:3a7c-1}, \eqref{eq:3a7c-2}.
+Equation~\eqref{eq:3a7c-2} is the target for the noise channel in Eq.~\eqref{eq:3a7c-1}.
 
 \subsection*{Status}
 

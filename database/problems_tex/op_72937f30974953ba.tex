@@ -7,35 +7,30 @@
 \paragraph{Problem.}
 Do computational-basis outputs of one-dimensional Haar-random circuits with fixed amplitude damping have conditional mutual information that decays exponentially with separation, uniformly in circuit depth?
 
-Consider an $n$-qubit, depth-$d$ nearest-neighbor Haar-random brickwork circuit on a line, starting from $|0^n\rangle$. After each layer, apply independently to every qubit the amplitude-damping channel of fixed strength $\gamma\in(0,1)$, with Kraus operators
+Consider an $n$-qubit nearest-neighbor Haar-random brickwork circuit on a line, starting from $|0^n\rangle$. After each layer, apply amplitude damping of fixed strength $\gamma\in(0,1)$ independently to every qubit, with
 
 \begin{equation}
-K_0:=|0\rangle\langle0|+\sqrt{1-\gamma}|1\rangle\langle1|,
+K_0=|0\rangle\langle0|+\sqrt{1-\gamma}|1\rangle\langle1|,
 \qquad
-K_1:=\sqrt\gamma|0\rangle\langle1|.
+K_1=\sqrt\gamma|0\rangle\langle1|.
 \label{eq:7293-1}
 \end{equation}
 
-Let $P_U$ be the computational-basis output distribution for the collection $U$ of random gates. For disjoint subsets $A,B,C\subseteq\{1,\ldots,n\}$, define the classical conditional mutual information
+Let $P_U$ be the computational-basis output distribution. For disjoint $A,B,C$, define
 
 \begin{equation}
-I_{P_U}(A:C|B):=H_{P_U}(AB)+H_{P_U}(BC)-H_{P_U}(B)-H_{P_U}(ABC),
+I_{P_U}(A:C\mid B)=H_{P_U}(AB)+H_{P_U}(BC)-H_{P_U}(B)-H_{P_U}(ABC),
 \label{eq:7293-2}
 \end{equation}
 
-where $H_{P_U}$ is Shannon entropy in bits. Let $r(A,C)$ be the minimum chain distance between nonempty $A$ and $C$.
-
-For every fixed $\gamma\in(0,1)$, are there constants $a,b,c>0$, independent of $n,d,A,B,C$, such that
+and let $r(A,C)$ be the chain distance between nonempty $A$ and $C$. For every fixed $\gamma$, do constants $a,b,c>0$ exist, independent of system size, depth, and the subsets, such that
 
 \begin{equation}
-\mathbb E_U I_{P_U}(A:C|B)
-\leq a n^b e^{-c r(A,C)}
+\mathbb E_U I_{P_U}(A:C\mid B)\leq an^b e^{-c r(A,C)}?
 \label{eq:7293-3}
 \end{equation}
 
-for every depth and every such choice of disjoint subsets?
-
-The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:7293-1}, \eqref{eq:7293-2}, \eqref{eq:7293-3}.
+Equation~\eqref{eq:7293-3} concerns the distribution produced using Eq.~\eqref{eq:7293-1} and the classical conditional mutual information in Eq.~\eqref{eq:7293-2}.
 
 \subsection*{Status}
 

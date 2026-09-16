@@ -5,28 +5,24 @@
 \label{sec:op_c847b635f53b0812}
 
 \paragraph{Problem.}
-What is the exact minimum CNOT count, and the count--depth tradeoff, for ancilla-free Clifford preparation of the logical zero state of the $[[23,1,7]]_2$ quantum Golay code?
+What is the exact CNOT-count and depth frontier for ancilla-free Clifford preparation of the logical zero state of the $[[23,1,7]]_2$ quantum Golay code?
 
-Let $C_{23}\subseteq\mathbb F_2^{23}$ be the classical binary $[23,12,7]$ Golay code, let $C_{23}^{\perp}$ denote its Euclidean dual, and fix the logical zero state of the associated quantum $[[23,1,7]]_2$ CSS code to be
+Let $C_{23}$ be the classical binary $[23,12,7]$ Golay code and
 
 \begin{equation}
 |0_G\rangle=2^{-11/2}\sum_{c\in C_{23}^{\perp}}|c\rangle.
 \label{eq:c847-1}
 \end{equation}
 
-Consider unitary Clifford circuits on exactly $23$ qubits, initialized in $|0\rangle^{\otimes23}$, with arbitrary pairwise connectivity, free single-qubit Clifford gates, and CNOT gates of unit cost. No additional ancillary qubits, measurements, or postselection are allowed. For such a circuit $U$, let $N_{\mathrm{CX}}(U)$ count its CNOT gates and let $d_2(U)$ count its two-qubit layers, where gates in the same layer act on disjoint pairs. Define
+Consider Clifford circuits on exactly $23$ qubits initialized in $|0\rangle^{\otimes23}$, with arbitrary connectivity, free single-qubit Clifford gates, and unit-cost CNOT gates, but no ancillas, measurements, or postselection. If $N_{\mathrm{CX}}(U)$ is the CNOT count and $d_2(U)$ the number of disjoint two-qubit layers, define
 
 \begin{equation}
 g_G(D)=\min\left\{N_{\mathrm{CX}}(U):
-U|0\rangle^{\otimes23}=e^{i\theta}|0_G\rangle,
-\quad d_2(U)\le D
-\right\},
+U|0\rangle^{\otimes23}=e^{i\theta}|0_G\rangle,\ d_2(U)\leq D\right\}.
 \label{eq:c847-2}
 \end{equation}
 
-where $\theta\in\mathbb R$ is an irrelevant global phase, the minimum of an empty set is $+\infty$, and $D=\infty$ removes the depth constraint. What are the exact minimum $g_G(\infty)$ and its depth-constrained tradeoff $g_G(D)$, particularly at $D=7$ and $D=8$?
-
-The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:c847-1}, \eqref{eq:c847-2}.
+Determine $g_G(\infty)$ and the tradeoff $g_G(D)$ in Eq.~\eqref{eq:c847-2}, particularly for $D=7$ and $D=8$, for the state in Eq.~\eqref{eq:c847-1}.
 
 \subsection*{Status}
 

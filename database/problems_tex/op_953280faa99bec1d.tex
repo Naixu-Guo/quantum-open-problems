@@ -12,27 +12,20 @@ Let
 \begin{equation}
 |S\rangle=\frac{|1\rangle-|2\rangle}{\sqrt2},
 \qquad
-\rho_S(\epsilon)=(1-\epsilon)|S\rangle\langle S|+\epsilon\frac{I_3}{3},
-\qquad 0\le\epsilon\le1,
+\rho_S(\varepsilon)=(1-\varepsilon)|S\rangle\langle S|+\varepsilon\frac{I_3}{3},\qquad 0\leq\varepsilon\leq1.
 \label{eq:9532-1}
 \end{equation}
 
-where $I_3$ is the identity on one qutrit. Here $\epsilon$ is the depolarizing mixing parameter, not the state infidelity; indeed $1-\langle S|\rho_S(\epsilon)|S\rangle=2\epsilon/3$.
-
-Consider an $n$-to-$1$ protocol $\mathcal P$ based on a qutrit stabilizer code: it projects $n$ independent copies of $\rho_S(\epsilon)$ onto an accepted syndrome sector, applies a Clifford decoder and any Clifford correction, and twirls the surviving qutrit back to the family $\rho_S$. Conditioned on acceptance, let $F_{\mathcal P}(\epsilon)$ be the output mixing parameter. Define its iterative distillation threshold by
+For a finite $n$-to-$1$ qutrit stabilizer-code protocol $\mathcal P$, let $F_{\mathcal P}(\varepsilon)$ be the output mixing parameter after accepted syndrome projection, Clifford decoding and correction, and twirling back to the family in Eq.~\eqref{eq:9532-1}. Define
 
 \begin{equation}
-\epsilon_*(\mathcal P)=
-\sup\left\{a\in[0,1]:
-\lim_{r\to\infty}F_{\mathcal P}^{\circ r}(\epsilon)=0
-\text{ for every }0<\epsilon<a
-\right\},
+\varepsilon_*(\mathcal P)=\sup\left\{a\in[0,1]:
+\lim_{r\to\infty}F_{\mathcal P}^{\circ r}(\varepsilon)=0
+\text{ for every }0<\varepsilon<a\right\},
 \label{eq:9532-2}
 \end{equation}
 
-requiring a nonzero acceptance probability at every finite iteration. Let $\mathcal P_G$ be the protocol based on the ternary quantum $[[11,1,5]]_3$ Golay code and set $\epsilon_G:=\epsilon_*(\mathcal P_G)\approx0.38715$. Does there exist a finite $n$ and a qutrit stabilizer-code protocol $\mathcal P$ with $\epsilon_*(\mathcal P)>\epsilon_G$?
-
-The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:9532-1}, \eqref{eq:9532-2}.
+requiring nonzero acceptance probability at every finite iteration. If $\varepsilon_G\approx0.38715$ is the threshold of the $[[11,1,5]]_3$ ternary Golay protocol, does some finite protocol satisfy $\varepsilon_*(\mathcal P)>\varepsilon_G$ as defined in Eq.~\eqref{eq:9532-2}?
 
 \subsection*{Status}
 

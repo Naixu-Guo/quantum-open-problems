@@ -5,33 +5,20 @@
 \label{sec:op_eff503a05675844e}
 
 \paragraph{Problem.}
-Is every fixed-temperature Gibbs state of a bounded finite-range qubit Hamiltonian on the square lattice an exact convex combination of PEPS with a system-size-independent bond dimension?
+Is every fixed-temperature Gibbs state of a bounded finite-range qubit Hamiltonian on the square lattice an exact convex combination of PEPS with system-size-independent bond dimension?
 
-For a finite-dimensional Hamiltonian $H$, write
+Let $\Lambda$ be a finite rectangular square lattice and $H=\sum_Xh_X$ satisfy $\operatorname{diam}(X)\leq R$ and $\max_{v\in\Lambda}\sum_{X\ni v}\|h_X\|\leq J$. Let $\mathcal P_\chi(\Lambda)$ be the normalized pure PEPS on $\Lambda$ with bond dimension at most $\chi$.
+
+For every fixed $0<\beta<\infty$, does a finite $\chi(\beta,R,J)$ exist, independent of $|\Lambda|$ and $H$, such that
 
 \begin{equation}
-\rho_\beta(H)=\frac{e^{-\beta H}}{Z_H(\beta)},\qquad
-Z_H(z)=\operatorname{Tr}(e^{-zH}),\qquad \beta>0.
+\frac{e^{-\beta H}}{\operatorname{Tr}(e^{-\beta H})}
+\in\operatorname{conv}\{|\psi\rangle\langle\psi|:
+\psi\in\mathcal P_{\chi(\beta,R,J)}(\Lambda)\}?
 \label{eq:eff5-1}
 \end{equation}
 
-The temperature is $T=1/\beta$, in units with Boltzmann’s constant equal to one.
-
-“Fixed finite temperature” allows constants to depend badly on $\beta$ but not on the number of sites.
-
-Let $\Lambda$ range over finite rectangular subsets of the square lattice with qubits at vertices, and write $H=\sum_X h_X$ with $\operatorname{diam}(X)\leq R$ and $\max_{v\in\Lambda}\sum_{X\ni v}\|h_X\|\leq J$. Denote by $\mathcal P_\chi(\Lambda)$ the normalized pure projected entangled pair states on this lattice with virtual bond dimension at most $\chi$.
-
-For every fixed $0<\beta<\infty$, is there a finite $\chi(\beta,R,J)$, independent of lattice size and the particular Hamiltonian, such that
-
-\begin{equation}
-\rho_\beta(H)\in\operatorname{conv}
-\{|\psi\rangle\langle\psi|:\psi\in\mathcal P_{\chi(\beta,R,J)}(\Lambda)\}?
-\label{eq:eff5-2}
-\end{equation}
-
-This is exact membership, not membership in an approximation or closure. The ensemble may have arbitrarily many, but finitely many, components. No polynomial bound on the ensemble size, efficient sampling of its weights, or efficient contraction of its tensors is included.
-
-The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:eff5-1}, \eqref{eq:eff5-2}.
+Equation~\eqref{eq:eff5-1} asks for exact finite convex membership, with no efficiency requirement.
 
 \subsection*{Status}
 

@@ -10,7 +10,7 @@
   "metadata": {
     "type": "Problem",
     "schemaVersion": "1.0",
-    "revision": 1,
+    "revision": 2,
     "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
     "createdAt": "2026-09-16T05:01:47.907Z",
     "role": "primary",
@@ -37,7 +37,7 @@
   "topics": [
     "Quantum circuit complexity"
   ],
-  "statement": "Can the exact quantum Fourier transform on $n$ qubits be implemented by a uniform circuit of $O(n)$ one- and two-qubit gates?\n\nOn $n$ qubits, define\n\n\\begin{equation}\nF_{2^n}|x\\rangle\n=2^{-n/2}\\sum_{y=0}^{2^n-1}e^{2\\pi ixy/2^n}|y\\rangle.\n\\label{eq:3b3b-1}\n\\end{equation}\n\nLet $C_{\\mathrm{exact}}(n)$ be the minimum number of one- and two-qubit gates in a uniform circuit implementing this unitary exactly on arbitrary input states. Clean ancillas may be used but must be restored; their preparation and all gates acting on them count. Gates may be arbitrary one- or two-qubit unitaries with efficiently specified parameters.\n\nQuestion: Is\n\n\\begin{equation}\nC_{\\mathrm{exact}}(n)=O(n)?\n\\label{eq:3b3b-2}\n\\end{equation}\n\nAn alternative decisive result would be a superlinear lower bound in this model. This is not a claim about exact synthesis over Clifford+$T$, a finite gate set that cannot exactly express all rotations occurring in the QFT family. Nor is the task merely to sample a QFT measurement distribution.\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:3b3b-1}, \\eqref{eq:3b3b-2}.",
+  "statement": "Can the exact quantum Fourier transform on $n$ qubits be implemented with $O(n)$ one- and two-qubit gates?\n\nDefine\n\n\\begin{equation}\nF_{2^n}|x\\rangle=2^{-n/2}\\sum_{y=0}^{2^n-1}e^{2\\pi ixy/2^n}|y\\rangle.\n\\label{eq:3b3b-1}\n\\end{equation}\n\nLet $C_{\\mathrm{exact}}(n)$ be the minimum size of a uniform circuit that implements the unitary in Eq.~\\eqref{eq:3b3b-1} exactly on arbitrary inputs. Gates may be arbitrary efficiently specified one- or two-qubit unitaries; clean ancillas may be used but must be restored, and all gates on them count. Is\n\n\\begin{equation}\nC_{\\mathrm{exact}}(n)=O(n)?\n\\label{eq:3b3b-2}\n\\end{equation}\n\nThe target in Eq.~\\eqref{eq:3b3b-2} concerns exact coherent implementation, not approximate QFT or sampling only.",
   "source": "Aaronson explicitly asks the linear-size exact-QFT question in the cited author-written discussion \\sourcecite{ref:3b3b-aaronson25}{Aaronson25}. Cleve and Watrous and Kahanamoku--Meyer and Yao supply the formal circuit results \\sourcecite{ref:3b3b-cleve00}{Cleve00}\\sourcecite{ref:3b3b-kmy24}{KMY24}.",
   "progress": [
     "Cleve and Watrous obtained an exact QFT of size $O(n\\log^2 n\\log\\log n)$ in 2000, together with efficient approximate parallel constructions. Their exact construction uses recursive Fourier transforms and fast multiplication. Thus a subquadratic exact QFT has long been known. \\sourcecite{ref:3b3b-cleve00}{Cleve00}",

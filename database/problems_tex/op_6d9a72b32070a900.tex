@@ -7,54 +7,23 @@
 \paragraph{Problem.}
 Is every $n$-qubit state of purity at most $1/(2^n-1/2)$ a convex mixture of stabilizer states?
 
-Let $\mathrm{Stab}_n$ be the pure $n$-qubit stabilizer states and
+Let $d=2^n$ and
 
 \begin{equation}
-\mathrm{STAB}_n=\operatorname{conv}\{|s\rangle\langle s|:s\in\mathrm{Stab}_n\}.
+\mathrm{STAB}_n=\operatorname{conv}\{|s\rangle\langle s|:|s\rangle\text{ is an }n\text{-qubit stabilizer state}\}.
 \label{eq:6d9a-1}
 \end{equation}
 
-Let $d=2^n$. Prove or disprove the universal implication
+Is the following implication valid for every $n\geq1$?
 
 \begin{equation}
-\operatorname{Tr}(\rho^2)\leq\frac{1}{d-1/2}
+\operatorname{Tr}(\rho^2)\leq\frac1{d-1/2}
 \quad\Longrightarrow\quad
-\rho\in\mathrm{STAB}_n
-\qquad(n\geq1).
+\rho\in\mathrm{STAB}_n.
 \label{eq:6d9a-2}
 \end{equation}
 
-This is Conjecture 1 of the Triangle Criterion paper \sourcecite{ref:6d9a-liu26}{Liu26}. Since magic states exist with purity arbitrarily close to this value from above, a proof would give the sharp threshold.
-
-Equivalently, the Hilbert–Schmidt inradius of the stabilizer polytope would be
-
-\begin{equation}
-r_{\mathrm{HS}}(\mathrm{STAB}_n)
-=\frac{1}{\sqrt{d(2d-1)}}.
-\label{eq:6d9a-3}
-\end{equation}
-
-Indeed, for trace-one $\rho$,
-
-\begin{equation}
-\left\|\rho-\frac{I}{d}\right\|_2^2
-=\operatorname{Tr}(\rho^2)-\frac1d,
-\qquad
-\frac1{d-1/2}-\frac1d=\frac1{d(2d-1)}.
-\label{eq:6d9a-4}
-\end{equation}
-
-An alternative formulation uses the dual set
-
-\begin{equation}
-\mathcal L_n=\{A=A^\dagger:\operatorname{Tr}A=1,
-\ \langle s|A|s\rangle\geq0\ \forall s\in\mathrm{Stab}_n\}.
-\label{eq:6d9a-5}
-\end{equation}
-
-The equivalent conjecture is $\max_{A\in\mathcal L_n}\operatorname{Tr}(A^2)=2$ \sourcecite{ref:6d9a-zurel26}{Zurel26} (Conjecture 2 and Theorem 7). Importantly, $A$ need not be positive semidefinite.
-
-The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:6d9a-1}, \eqref{eq:6d9a-2}, \eqref{eq:6d9a-3}, \eqref{eq:6d9a-4}, \eqref{eq:6d9a-5}.
+Equivalently, does the Hilbert--Schmidt ball about $I/d$ contained in Eq.~\eqref{eq:6d9a-1} have radius $1/\sqrt{d(2d-1)}$? This is the threshold asserted by Eq.~\eqref{eq:6d9a-2}.
 
 \subsection*{Status}
 
@@ -62,7 +31,7 @@ Unsolved
 
 \subsection*{Source}
 
-The question is explicitly posed or retained as open in the cited primary literature \sourcecite{ref:6d9a-liu26}{Liu26}\sourcecite{ref:6d9a-zurel26}{Zurel26}.  The statement is rewritten here to make its hypotheses and success criterion self-contained.
+Liu and coauthors pose the purity threshold as Conjecture 1 \sourcecite{ref:6d9a-liu26}{Liu26}. Zurel and Davis give equivalent dual and inradius formulations in Conjecture 2 and Theorem 7 \sourcecite{ref:6d9a-zurel26}{Zurel26}.
 
 \subsection*{Progress}
 

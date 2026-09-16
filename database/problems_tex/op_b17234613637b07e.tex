@@ -7,54 +7,25 @@
 \paragraph{Problem.}
 What is the minimax copy complexity of identity testing two unknown $k$-local Gibbs states using only measurements on individual copies?
 
-For a finite-dimensional Hamiltonian $H$, write
+For fixed $k\geq2$, let
 
 \begin{equation}
-\rho_\beta(H)=\frac{e^{-\beta H}}{Z_H(\beta)},\qquad
-Z_H(z)=\operatorname{Tr}(e^{-zH}),\qquad \beta>0.
+\mathcal H_{n,k}=\left\{\sum_{P:\,1\leq|P|\leq k}h_PP:|h_P|\leq1\right\},
+\qquad
+\mathcal G_{n,k,\beta}=\left\{\frac{e^{-\beta H}}{\operatorname{Tr}(e^{-\beta H})}:H\in\mathcal H_{n,k}\right\},
 \label{eq:b172-1}
 \end{equation}
 
-The temperature is $T=1/\beta$, in units with Boltzmann’s constant equal to one. Accuracy parameters satisfy $0<\varepsilon<1$ and, where used, $0<\delta<1$. Trace-norm error means $\|\rho-\sigma\|_1$, without a factor of $1/2$.
-
-“Fixed finite temperature” allows constants to depend badly on $\beta$ but not on the number of sites. In contrast, “polynomial in all parameters” treats $\beta$ as an input parameter. A $k$-local Hamiltonian has interactions supported on at most $k$ sites.
-
-Learning from supplied copies does not include the cost of preparing those copies. Unless explicitly stated otherwise, it does not grant real-time evolution under the unknown Hamiltonian, its inverse, or an oracle preparing a coherent purification.
-
-For fixed $k$, define
-
-\begin{equation}
-\mathcal H_{n,k}=
-\left\{H=\sum_{P:\,1\leq|P|\leq k}h_PP:\ |h_P|\leq1,\ P\text{ an }n\text{-qubit Pauli string}\right\},
-\qquad
-\mathcal G_{n,k,\beta}=
-\{\rho_\beta(H):H\in\mathcal H_{n,k}\}.
-\label{eq:b172-2}
-\end{equation}
-
-No bounded-degree or geometric promise is imposed here. Both unknown states $\rho,\sigma$ are promised to belong to this class, and independent copies of each are available. Consider the promise test
+where $P$ ranges over nonidentity $n$-qubit Pauli strings and $|P|$ is Pauli weight. No bounded-degree or geometric promise is imposed. Independent copies of unknown $\rho,\sigma\in\mathcal G_{n,k,\beta}$ are supplied under the promise
 
 \begin{equation}
 \rho=\sigma
-\qquad\text{versus}\qquad
+\qquad\text{or}\qquad
 \|\rho-\sigma\|_1\geq\varepsilon.
-\label{eq:b172-3}
+\label{eq:b172-2}
 \end{equation}
 
-Let $N^*_{\mathrm{sc}}(n,k,\beta,\varepsilon)$ be the least worst-case total number of copies required for success probability at least $2/3$, allowing adaptive measurements on individual copies but no coherent measurement across copies.
-
-Determine the asymptotic minimax complexity, through upper and lower bounds matching up to logarithmic factors. In particular, determine the necessary dependence on $n$, $\beta$, and $\varepsilon$ for fixed $k\geq2$.
-
-One can separately define $N^*_{\mathrm{coll}}$ allowing joint measurements across copies. The inequality
-
-\begin{equation}
-N^*_{\mathrm{coll}}\leq N^*_{\mathrm{sc}}
-\label{eq:b172-4}
-\end{equation}
-
-is immediate, but equality is not assumed in the formulation.
-
-The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:b172-1}, \eqref{eq:b172-2}, \eqref{eq:b172-3}, \eqref{eq:b172-4}.
+Let $N^*_{\mathrm{sc}}(n,k,\beta,\varepsilon)$ be the least worst-case total copy count for success probability at least $2/3$, allowing adaptive measurements on individual copies but no joint measurement across copies. Determine $N^*_{\mathrm{sc}}$ up to logarithmic factors, including its dependence on $n$, $\beta$, and $\varepsilon$, for the class in Eq.~\eqref{eq:b172-1} and the test in Eq.~\eqref{eq:b172-2}.
 
 \subsection*{Status}
 

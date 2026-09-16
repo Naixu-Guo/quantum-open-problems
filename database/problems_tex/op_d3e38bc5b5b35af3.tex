@@ -7,22 +7,16 @@
 \paragraph{Problem.}
 Does tomography of an arbitrary $d$-dimensional quantum channel in diamond norm require and suffice with $\Theta(d^4/\varepsilon^2)$ channel uses?
 
-Let $\Lambda:\mathcal L(\mathbb C^d)\to\mathcal L(\mathbb C^d)$ be an arbitrary unknown completely positive, trace-preserving channel, with $d\geq2$ and no Kraus-rank promise. For sufficiently small $\varepsilon>0$, let $Q_\diamond(d,\varepsilon)$ be the minimum worst-case number of channel uses needed to output a classical description of a channel $\widehat\Lambda$ such that
+Let $\Lambda:\mathcal L(\mathbb C^d)\to\mathcal L(\mathbb C^d)$ be an unknown completely positive, trace-preserving channel with no Kraus-rank promise. Let $Q_\diamond(d,\varepsilon)$ be the minimum worst-case number of ordinary channel uses needed to output $\widehat\Lambda$ such that
 
 \begin{equation}
-\Pr\!\left[\|\widehat\Lambda-\Lambda\|_\diamond\leq\varepsilon\right]\geq\frac23,
+\Pr[\|\widehat\Lambda-\Lambda\|_\diamond\leq\varepsilon]\geq\frac23,
 \qquad
-\|\widehat\Lambda-\Lambda\|_\diamond
-:=\sup_{\omega}
-\left\|\bigl[(\widehat\Lambda-\Lambda)\otimes\operatorname{id}_d\bigr](\omega)\right\|_1,
+\|\Phi\|_\diamond=\sup_\omega\| (\Phi\otimes\operatorname{id}_d)(\omega)\|_1.
 \label{eq:d3e3-1}
 \end{equation}
 
-where the supremum is over density operators on $\mathbb C^d\otimes\mathbb C^d$, and $\operatorname{id}_d$ is the identity channel. Adaptive inputs, ancillas, quantum memory, and collective measurements are allowed. Only ordinary channel uses are supplied, not a purification of the channel's environment; computational efficiency is not required.
-
-Is $Q_\diamond(d,\varepsilon)=\Theta(d^4/\varepsilon^2)$ with constants uniform in both $d$ and $\varepsilon$?
-
-The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:d3e3-1}.
+The supremum in Eq.~\eqref{eq:d3e3-1} is over states on $\mathbb C^d\otimes\mathbb C^d$. Adaptive inputs, ancillas, quantum memory, and collective measurements are allowed, but no purification of the channel environment is supplied. Is $Q_\diamond(d,\varepsilon)=\Theta(d^4/\varepsilon^2)$ uniformly in $d$ and sufficiently small $\varepsilon$?
 
 \subsection*{Status}
 

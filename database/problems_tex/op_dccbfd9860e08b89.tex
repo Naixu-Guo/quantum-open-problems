@@ -7,58 +7,26 @@
 \paragraph{Problem.}
 Does the Montanaro--Osborne $L^2$ quantum KKL inequality hold for every Boolean quantum observable?
 
-For a Boolean function $f:\{-1,1\}^n\to\{-1,1\}$ under the uniform measure, define
+Let $A=A^\dagger$ act on $n\geq2$ qubits and satisfy $A^2=I$. Write $\tau(A)=2^{-n}\operatorname{Tr}A$, let $\mathcal E_i$ completely depolarize qubit $i$, and define
 
 \begin{equation}
-\operatorname{Inf}_i(f)=\Pr[f(x)\ne f(x^{\oplus i})].
+\mathcal E_i(A)=\frac{I_i}{2}\otimes\operatorname{Tr}_iA,
+\qquad
+D_iA=A-\mathcal E_i(A),
+\qquad
+\operatorname{Inf}^{(2)}_i(A)=\tau[(D_iA)^\dagger D_iA].
 \label{eq:dccb-1}
 \end{equation}
 
-The Kahn–Kalai–Linial theorem implies, for a universal $c>0$,
-
-\begin{equation}
-\max_i\operatorname{Inf}_i(f)
-\ge c\,\operatorname{Var}(f)\frac{\log n}{n}.
-\label{eq:dccb-2}
-\end{equation}
-
-The quantum Boolean-function framework and its proposed KKL extension were introduced by Montanaro and Osborne. \sourcecite{ref:dccb-montanaro08}{Montanaro08}
-
-In that framework, let $n\ge2$ and let $A$ act on $(\mathbb C^2)^{\otimes n}$, with
-
-\begin{equation}
-A=A^\dagger,\qquad A^2=I.
-\label{eq:dccb-3}
-\end{equation}
-
-Write $\tau(A)=2^{-n}\operatorname{Tr}A$. Let $\mathcal E_i$ completely depolarize qubit $i$ while leaving all other tensor factors unchanged:
-
-\begin{equation}
-\mathcal E_i(A)=\frac{I_i}{2}\otimes\operatorname{Tr}_i A,
-\label{eq:dccb-4}
-\end{equation}
-
-where tensor factors are restored to their original order. Set
-
-\begin{equation}
-D_iA=A-\mathcal E_i(A),\qquad
-\operatorname{Inf}^{(2)}_i(A)=\tau\big[(D_iA)^\dagger D_iA\big].
-\label{eq:dccb-5}
-\end{equation}
-
-Conjecture: A universal $c>0$ satisfies
+Does a universal constant $c>0$ exist such that every such $A$ satisfies
 
 \begin{equation}
 \max_i\operatorname{Inf}^{(2)}_i(A)
-\ge c\bigl(1-\tau(A)^2\bigr)\frac{\log n}{n}
-\label{eq:dccb-6}
+\geq c\bigl(1-\tau(A)^2\bigr)\frac{\log n}{n}?
+\label{eq:dccb-2}
 \end{equation}
 
-for every such $A$. The particularly clean balanced case imposes $\tau(A)=0$. Jiao et al., Conjecture 1.4, state the displayed variance-weighted form and attribute the underlying squared-influence conjecture to Montanaro and Osborne. It is not a generic statement about bounded observables. \sourcecite{ref:dccb-montanaro08}{Montanaro08}\sourcecite{ref:dccb-jiao24}{Jiao24}
-
-For a diagonal $A=\sum_x f(x)|x\rangle\langle x|$, one has $D_if=(f(x)-f(x^{\oplus i}))/2$. Squaring gives the bit-flip indicator, so this formulation reduces exactly to classical influence.
-
-The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:dccb-1}, \eqref{eq:dccb-2}, \eqref{eq:dccb-3}, \eqref{eq:dccb-4}, \eqref{eq:dccb-5}, \eqref{eq:dccb-6}.
+Equation~\eqref{eq:dccb-2} uses the squared influences defined in Eq.~\eqref{eq:dccb-1}; the balanced case has $\tau(A)=0$.
 
 \subsection*{Status}
 
@@ -71,6 +39,8 @@ The question is explicitly posed or retained as open in the cited primary litera
 \subsection*{Progress}
 
 \begin{itemize}
+  \item For diagonal observables $A=\sum_x f(x)|x\rangle\langle x|$, the influence in Eq.~\eqref{eq:dccb-1} reduces to the classical bit-flip influence, and Eq.~\eqref{eq:dccb-2} becomes the classical KKL bound. The tensor-product quantum extension was proposed by Montanaro and Osborne \sourcecite{ref:dccb-montanaro08}{Montanaro08}.
+
   \item Rouzé, Wirth, and Zhang proved important quantum Talagrand, KKL-type, and Friedgut results using geometric or $L^p$ influences with $p<2$. Those results do not resolve the displayed endpoint. Jiao, Lin, Luo, and Zhou explicitly preserve this distinction and state that the Montanaro–Osborne conjecture remains open. \sourcecite{ref:dccb-rouz24}{Rouz24}, \sourcecite{ref:dccb-jiao24}{Jiao24}
 
   \item The February 17, 2026 revision by Chang and Li develops further variance-decay and higher-order inequalities. Its relevant influence results remain sub-$L^2$; their constants do not give the required endpoint by simply taking $p\to2$. \sourcecite{ref:dccb-chang26}{Chang26}

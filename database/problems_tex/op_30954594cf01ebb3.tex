@@ -7,24 +7,20 @@
 \paragraph{Problem.}
 Can every polynomially sparse Hamiltonian be learned with Heisenberg-limited total evolution time when every oracle call has a fixed minimum duration?
 
-Let $H$ be an unknown traceless $n$-qubit Hamiltonian with at most $m\leq n^c$ nonzero Pauli coefficients, where $c>0$ is fixed:
+Let
 
 \begin{equation}
-H=\sum_{P\in\{I,X,Y,Z\}^{\otimes n}\setminus\{I^{\otimes n}\}}a_P P,
+H=\sum_{P\neq I^{\otimes n}}a_PP,
 \qquad
-\bigl|\{P:a_P\ne0\}\bigr|\leq m,
+|\{P:a_P\neq0\}|\leq m\leq n^c,
 \qquad
-\|H\|_{\mathrm{op}}\leq1.
+\|H\|_{\mathrm{op}}\leq1,
 \label{eq:3095-1}
 \end{equation}
 
-The supports are unknown. An oracle implements $U_H(t):=e^{-iHt}$ at any chosen real time $t\geq T$, where $T>0$ is an arbitrary fixed constant independent of $n$, $m$, and the accuracy $\varepsilon\in(0,1/10)$. Only forward evolution is supplied; known controls and ancillas may be used between calls, but cannot interrupt a call before time $T$.
+where $c>0$ is fixed, the sum ranges over nonidentity $n$-qubit Pauli strings, and the nonzero coefficients and their supports are unknown. An oracle supplies only forward evolution $e^{-iHt}$ for chosen times $t\geq T$, where $T>0$ is fixed independently of $n,m,$ and $\varepsilon$. Known controls and ancillas may be used between calls.
 
-The learner must output a sparse coefficient estimate with $\max_P|\widehat a_P-a_P|\leq\varepsilon$ and success probability at least $2/3$. Write $t_{\mathrm{tot}}:=\sum_jt_j$ for total oracle evolution time; $\widetilde O$ suppresses logarithmic factors.
-
-Can every such Hamiltonian be learned with $t_{\mathrm{tot}}=\widetilde O(\operatorname{poly}(n,m)/\varepsilon)$ and polynomial query, circuit, and classical-processing costs for every fixed $T>0$?
-
-The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:3095-1}.
+Can a learner output $\widehat a_P$ with $\max_P|\widehat a_P-a_P|\leq\varepsilon$ and success probability at least $2/3$, using total evolution time $\widetilde O(\operatorname{poly}(n,m)/\varepsilon)$ and polynomial query, circuit, and classical-processing costs for every Hamiltonian in Eq.~\eqref{eq:3095-1}?
 
 \subsection*{Status}
 
