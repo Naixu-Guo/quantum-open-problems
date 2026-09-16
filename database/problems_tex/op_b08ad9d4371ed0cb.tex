@@ -1,7 +1,7 @@
 % Problem record op_b08ad9d4371ed0cb. This TeX file is derived from
 % database/problems_json/op_b08ad9d4371ed0cb.json by scripts/sync-tex.mjs; edit the JSON record
 % and rerun the script rather than editing this file.
-\section{Existence of an eight-ququart perfect tensor}
+\section{Eight-ququart AME state and the ((7,4,4)) ququart MDS code}
 \label{sec:op_b08ad9d4371ed0cb}
 
 \paragraph{Problem.}
@@ -20,7 +20,20 @@ $4|4$ partition is proportional to a unitary
 \sourcecite{ref:p40-pastawski}{PYHP15}.  Under the pure-code correspondence,
 it is also equivalent to a pure quantum MDS code with parameters
 $\bigl[\!\bigl[8,0,5\bigr]\!\bigr]_{4}$
-\sourcecite{ref:p40-shi}{SZZL26}.
+\sourcecite{ref:p40-shi}{SZZL26}.  Equivalently, the question asks whether
+there is a quantum maximum-distance-separable code with parameters
+$((7,4,4))_{4}$: a four-dimensional subspace
+$\mathcal{Q}\subseteq(\mathbb{C}^{4})^{\otimes 7}$ whose orthogonal projector
+$P$ satisfies
+\begin{equation}
+  PEP=c(E)\,P
+  \quad\text{for every operator }E\text{ acting nontrivially on at most three ququarts},
+  \qquad
+  \dim\mathcal{Q}=4=4^{\,7-2(4-1)},
+  \label{eq:p40-mds-code}
+\end{equation}
+where $c(E)\in\mathbb{C}$ and the last equality is saturation of the quantum
+Singleton bound \sourcecite{ref:p40-huber-grassl}{HG20}.
 
 \subsection*{Status}
 
@@ -28,32 +41,79 @@ Unsolved
 
 \subsection*{Source}
 
-Shi, Zhang, Zhao, and Li complete the seven-party AME classification and
-explicitly identify $\operatorname{AME}(8,4)$ as the first remaining
-homogeneous existence case \sourcecite{ref:p40-shi}{SZZL26}.
+Shi, Zhang, Zhao, and Li complete the seven-party AME classification and,
+in their Conclusion and Discussion, explicitly identify
+$\operatorname{AME}(8,4)$ as the first remaining homogeneous existence case
+\sourcecite{ref:p40-shi}{SZZL26}.
 
 \subsection*{Progress}
 
 \begin{itemize}
   \item Bernal proved that a minimally supported $\operatorname{AME}(N,4)$
-  state exists only for $N\leq 6$.  Thus any solution of
+  state exists only for $N\leq 6$ (Theorem 6).  Thus any solution of
   \eqref{eq:p40-ame-condition} must have strictly more than $4^{4}$ nonzero
   coefficients in every local product basis
   \sourcecite{ref:p40-bernal}{Ber19}.
 
+  \item Huber and Grassl proved that every quantum MDS code is pure
+  (Theorem 5) and that a pure $((n,1,n/2+1))_{D}$ code, that is, an
+  $\operatorname{AME}(n,D)$ state, exists exactly when an
+  $((n-1,D,n/2))_{D}$ code exists (Observation 1 and Proposition 7).  For
+  $n=8$ and $D=4$ this makes \eqref{eq:p40-ame-condition} and
+  \eqref{eq:p40-mds-code} equivalent.  Given an orthonormal basis
+  $\{|a_L\rangle\}_{a=0}^{3}$ of a code satisfying \eqref{eq:p40-mds-code},
+  the state $|\psi\rangle=\tfrac12\sum_{a=0}^{3}|a\rangle_R|a_L\rangle$, with
+  $R$ a reference ququart, satisfies \eqref{eq:p40-ame-condition};
+  conversely, a Schmidt decomposition of such a state across one ququart
+  versus the other seven yields the code.  Their
+  shadow-inequality bounds hold for general, not necessarily stabilizer,
+  quantum MDS codes but do not exclude
+  $\bigl[\!\bigl[8,0,5\bigr]\!\bigr]_{4}$: in their table for local
+  dimension $4$, the family with $n+k=8$ has upper bound
+  $\bigl[\!\bigl[8,0,5\bigr]\!\bigr]_{4}$, while the highest distance
+  then attained by a known code in that family is that of
+  $\bigl[\!\bigl[6,2,3\bigr]\!\bigr]_{4}$ (Corollary 11 and Table 3)
+  \sourcecite{ref:p40-huber-grassl}{HG20}.
+
+  \item Ball, Moreno, and Simoens proved, with a computer-assisted
+  classification, that no $\bigl[\!\bigl[7,1,4\bigr]\!\bigr]_{4}$
+  stabilizer code exists, and deduced by projection that no
+  $\bigl[\!\bigl[8,0,5\bigr]\!\bigr]_{4}$ stabilizer code exists
+  (Section 5.2 and Lemma 49 of arXiv version 2).  Their stabilizers are
+  abelian groups of Pauli operators labelled by $\mathbb{F}_{4}$; they
+  correspond to additive codes in $\mathbb{F}_{4}^{2n}$ that are
+  self-orthogonal under the trace-symplectic form and need not be
+  $\mathbb{F}_{4}$-linear (Theorem 17), equivalently to binary stabilizer
+  codes on $2n$ qubits grouped in pairs (Theorem 21).  Hence no state
+  locally unitarily equivalent to an $\mathbb{F}_{4}$ stabilizer state
+  satisfies \eqref{eq:p40-ame-condition}, and every code satisfying
+  \eqref{eq:p40-mds-code} lies outside the $\mathbb{F}_{4}$ stabilizer
+  formalism.  At the start of Section 5 they
+  also remark that stabilizer codes with these parameters over the Pauli
+  group labelled by $\mathbb{Z}/4\mathbb{Z}$ would yield binary
+  $\bigl[\!\bigl[7,1,4\bigr]\!\bigr]_{2}$ and
+  $\bigl[\!\bigl[8,0,5\bigr]\!\bigr]_{2}$ codes, which do not exist.
+  These arguments do not address non-stabilizer states
+  \sourcecite{ref:p40-ball}{BMS25}.
+
   \item W\'ojcik, Makuta, Bruzda, and Augusiak proved that no canonical
   $\mathbb{Z}_{d}$ graph state can be $\operatorname{AME}(N,d)$ when $4$
-  divides $N$ and $d$ is even.  This excludes canonical $\mathbb{Z}_{4}$
-  graph-state constructions for \eqref{eq:p40-ame-condition}, but their
-  theorem does not exclude stabilizer constructions over $\mathbb{F}_{4}$ or
-  general non-stabilizer states
+  divides $N$ and $d$ is even (Theorem 1).  This excludes canonical
+  $\mathbb{Z}_{4}$ graph-state constructions for
+  \eqref{eq:p40-ame-condition}.  Their argument uses the ring
+  $\mathbb{Z}_{d}$ and does not apply to stabilizer states over
+  $\mathbb{F}_{4}$: the authors point out that an $\mathbb{F}_{4}$
+  stabilizer $\operatorname{AME}(4,4)$ state exists, although their theorem
+  excludes a canonical $\mathbb{Z}_{4}$ graph state with those parameters
   \sourcecite{ref:p40-wojcik}{WMB+26}.
 
   \item Shi, Zhang, Zhao, and Li proved that
-  $\operatorname{AME}(7,d)$ exists exactly for $d\geq 3$, completing the
-  homogeneous existence classification through seven parties.  They identify
-  $\operatorname{AME}(8,4)$ as the first remaining open case
-  \sourcecite{ref:p40-shi}{SZZL26}.
+  $\operatorname{AME}(7,d)$ exists exactly for $d\geq 3$ (Theorem 1),
+  settling the previously open cases $\operatorname{AME}(7,6)$ and
+  $\operatorname{AME}(7,10)$ and, with earlier results, completing the
+  homogeneous existence classification through seven parties.  They
+  identify $\operatorname{AME}(8,4)$ as the first remaining open case
+  (Conclusion and Discussion) \sourcecite{ref:p40-shi}{SZZL26}.
 \end{itemize}
 
 \subsection*{References}
@@ -75,6 +135,21 @@ homogeneous existence case \sourcecite{ref:p40-shi}{SZZL26}.
   \href{https://doi.org/10.18576/qpl/080101}{doi:10.18576/qpl/080101};
   \href{https://arxiv.org/abs/1807.00218}{arXiv:1807.00218}.
 
+  \item[\textup{[HG20]}]\label{ref:p40-huber-grassl}
+  F. Huber and M. Grassl,
+  ``Quantum Codes of Maximal Distance and Highly Entangled Subspaces,''
+  \emph{Quantum} \textbf{4}, 284 (2020).
+  \href{https://doi.org/10.22331/q-2020-06-18-284}{doi:10.22331/q-2020-06-18-284};
+  \href{https://arxiv.org/abs/1907.07733}{arXiv:1907.07733}.
+
+  \item[\textup{[BMS25]}]\label{ref:p40-ball}
+  S. Ball, E. Moreno, and R. Simoens,
+  ``Stabilizer Codes Over Fields of Even Order,'' \emph{IEEE Transactions on
+  Information Theory} \textbf{71}(5), 3707--3718 (2025); arXiv title
+  ``Stabiliser codes over fields of even order.''
+  \href{https://doi.org/10.1109/TIT.2024.3454480}{doi:10.1109/TIT.2024.3454480};
+  \href{https://arxiv.org/abs/2401.06618}{arXiv:2401.06618}.
+
   \item[\textup{[WMB+26]}]\label{ref:p40-wojcik}
   J. W\'ojcik, O. Makuta, W. Bruzda, and R. Augusiak,
   ``On Non-Existence of Stabilizer Absolutely Maximally Entangled States in
@@ -93,10 +168,18 @@ homogeneous existence case \sourcecite{ref:p40-shi}{SZZL26}.
 \subsection*{Comment}
 
 The unresolved question concerns arbitrary complex states satisfying
-\eqref{eq:p40-ame-condition}.  Existing no-go results cover minimal-support
-states and canonical $\mathbb{Z}_{4}$ graph states, but do not rule out
-non-minimal-support $\mathbb{F}_{4}$ stabilizer states or non-stabilizer
-constructions.
+\eqref{eq:p40-ame-condition}, equivalently arbitrary, possibly non-additive,
+codes satisfying \eqref{eq:p40-mds-code}.  Existing no-go results exclude minimal-support
+states, all stabilizer states over $\mathbb{F}_{4}$ (including those given by
+additive codes that are not $\mathbb{F}_{4}$-linear), and canonical
+$\mathbb{Z}_{4}$ graph states; Ball, Moreno, and Simoens also remark that
+stabilizer codes over $\mathbb{Z}/4\mathbb{Z}$ with these parameters do not
+exist.  A construction must therefore have more than $4^{4}$ nonzero
+coefficients in every local product basis and lie, up to local unitaries,
+outside both stabilizer formalisms, whereas a nonexistence proof must treat
+general quantum codes, for which the shadow-inequality bounds of Huber and
+Grassl do not suffice.  A literature check through 15 September 2026 found
+no such construction or proof.
 
 \subsection*{Field}
 
