@@ -63,6 +63,10 @@ Environment:
 | `QOP_GITHUB_URL`, `QOP_GITHUB_API_URL` | GitHub's OAuth and API bases, for tests and enterprise installs |
 | `QOP_CAPTCHA_SECRET` | The CAPTCHA secret key; required only in `captcha` mode |
 | `QOP_SUBMISSIONS_MODE` | `disabled`, `basic`, or `captcha`; defaults to `captcha` when a secret is present, otherwise `disabled` |
+| `QOP_SUBMISSIONS_GLOBAL_PER_HOUR` | Global attempted proposals per one-hour window, across all addresses; default 100, persisted across restarts |
+| `QOP_SUBMISSIONS_MAX_ROWS` | Maximum stored proposals in all states; default 10,000 |
+| `QOP_SUBMISSIONS_MAX_BYTES` | Inbox SQLite main-file ceiling, including indexes; default 268435456 (256 MiB), with up to 1 MiB reserved for review notes and alerts |
+| `QOP_INBOX_MONITOR_KEY_HASH` | SHA-256 hash of a separate random read-only capacity key; unset disables token-based capacity monitoring |
 | `QOP_INBOX_KEY_HASH` | SHA-256 of a generated random inbox access key; enables project-only login at `/inbox/` |
 | `QOP_CAPTCHA_PROVIDER` | `turnstile` (default) or `hcaptcha` |
 | `QOP_CAPTCHA_VERIFY_URL` | The provider's `siteverify` endpoint, for tests that point it at a fake |

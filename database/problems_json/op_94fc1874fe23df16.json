@@ -10,7 +10,7 @@
   "metadata": {
     "type": "Problem",
     "schemaVersion": "1.0",
-    "revision": 1,
+    "revision": 2,
     "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
     "createdAt": "2026-09-08T11:37:21.086Z",
     "role": "primary",
@@ -41,14 +41,15 @@
     "Quantum supremacy",
     "Random circuit sampling"
   ],
-  "statement": "Does there exist a fixed family of $n$-qubit circuit layouts with\n$m=\\operatorname{poly}(n)$ one- and two-qubit gates for which the following\ntask is $\\#\\mathrm{P}$-hard? Choose every gate independently from Haar\nmeasure, obtaining $C$. Given $C$ and $\\epsilon,\\delta\\in(0,1)$, estimate\nthe all-zero output probability with\n\\begin{equation}\n  p_0(C)=|\\langle0^n|C|0^n\\rangle|^2,\\qquad\n  \\Pr_C[|\\widetilde p(C)-p_0(C)|\\leq\\epsilon 2^{-n}]\\geq1-\\delta.\n  \\label{eq:rcs-average-approximation}\n\\end{equation}\nThe guarantee in Eq.~\\eqref{eq:rcs-average-approximation} must hold for\narbitrary $\\epsilon,\\delta$, with running time measured in\n$n,1/\\epsilon,1/\\delta$.",
+  "statement": "Does there exist a fixed family of $n$-qubit circuit layouts with\n$m=\\operatorname{poly}(n)$ one- and two-qubit gates for which the following\ntask is $\\#\\mathrm{P}$-hard? Choose every gate independently from Haar\nmeasure, obtaining $C$. Gate entries use the standard sufficiently accurate finite-precision encoding of the source formulation. Given $C$ and $\\epsilon,\\delta\\in(0,1)$, estimate\nthe all-zero output probability with\n\\begin{equation}\n  p_0(C)=|\\langle0^n|C|0^n\\rangle|^2,\\qquad\n  \\Pr_{C,\\mathcal A}[|\\widetilde p(C)-p_0(C)|\\leq\\epsilon 2^{-n}]\\geq1-\\delta.\n  \\label{eq:rcs-average-approximation}\n\\end{equation}\nThe probability includes the estimator's internal randomness. The guarantee in Eq.~\\eqref{eq:rcs-average-approximation} must hold for\narbitrary $\\epsilon,\\delta$, with running time measured in\n$n,1/\\epsilon,1/\\delta$.",
   "source": "Conjecture 6 of Bouland, Fefferman, Nirkhe, and Vazirani (2018), in its\nformal version in Appendix A.4, using Definition 20 of an average-case\napproximate solution \\sourcecite{ref:rcs-bfnv}{BFNV19}.\nThis is an additive-error probability-estimation conjecture; the parameters\n$\\epsilon,\\delta$ retain the original meaning.",
   "progress": [
     "2018: Taylor truncation gives exact $\\#\\mathrm{P}$-hardness on an $8/9$\nfraction of perturbed, generally nonunitary instances (Theorem 1);\nit does not establish the desired approximation guarantee for Haar gates\n\\sourcecite{ref:rcs-bfnv}{BFNV19}.",
     "2019--2023: Movassagh's Cayley path preserves unitarity and enables rational\ninterpolation, proving exact $\\#\\mathrm{P}$-hardness on a\n$3/4+1/\\operatorname{poly}(n)$ fraction of Haar-random circuits\n(arXiv Theorem 1) \\sourcecite{ref:rcs-movassagh}{Mov23}.",
     "2021: Bouland et al. and, independently, Kondo--Mori--Movassagh obtain\nadditive-error tolerance $2^{-O(m\\log m)}$ with constant failure probability,\nusing $\\mathrm{BPP}^{\\mathrm{NP}}$ reductions\n\\sourcecite{ref:rcs-bfll}{BFLL22}\\sourcecite{ref:rcs-kmm}{KMM22}.",
     "2022: Krovi improves the tolerance to $2^{-O(m)}$ for a constant fraction\nof Haar-random circuits, via $\\mathrm{BPP}$ reductions; the hardness class\nis $\\mathrm{coC}_{=}\\mathrm{P}$, rather than $\\#\\mathrm{P}$\n\\sourcecite{ref:rcs-krovi}{Kro22}.",
-    "2025: Bouland et al.'s dilution method gives $\\#\\mathrm{P}$-hardness at\nerror $2^{-n-O(n^\\gamma)}$ for suitable depth-$\\Omega(\\log n)$ RCS ensembles,\nfor every fixed $\\gamma>0$ (Corollary 2, $\\mathrm{BPP}^{\\mathrm{NP}}$ reduction)\n\\sourcecite{ref:rcs-bdfh}{BDFH25}."
+    "2025: Bouland et al.'s dilution method gives $\\#\\mathrm{P}$-hardness at\nerror $2^{-n-O(n^\\gamma)}$ for suitable depth-$\\Omega(\\log n)$ RCS ensembles,\nfor every fixed $\\gamma>0$ (Corollary 2, $\\mathrm{BPP}^{\\mathrm{NP}}$ reduction)\n\\sourcecite{ref:rcs-bdfh}{BDFH25}.",
+    "Go, Oh, and Jeong retain as Conjecture 1 the hardness of inverse-polynomial normalized additive-error estimation for ideal random-circuit probabilities, namely additive error $\\varepsilon 2^{-n}$. Their noisy-sampling theorem transfers that assumption to local depolarizing noise but does not prove the underlying average-case hardness statement; their formulation also excludes generic sublogarithmic-depth parallel architectures. \\sourcecite{ref:rcs-goj}{GOJ26}"
   ],
   "references": [
     {
@@ -80,6 +81,11 @@
       "key": "BDFH25",
       "label": "ref:rcs-bdfh",
       "tex": "A. Bouland, I. Datta, B. Fefferman, and F. Hernandez,\n\"Exponential improvements to the average-case hardness of BosonSampling,\"\nin \\emph{FOCS 2025}, 912--933 (2025).\n\\href{https://doi.org/10.1109/FOCS63196.2025.00047}{doi:10.1109/FOCS63196.2025.00047};\n\\href{https://arxiv.org/abs/2411.04566v2}{arXiv:2411.04566v2}."
+    },
+    {
+      "key": "GOJ26",
+      "label": "ref:rcs-goj",
+      "tex": "B. Go, C. Oh, and H. Jeong, \\emph{Hardness and Complexity Transition of Noisy Random Circuit Sampling}, arXiv:2607.20804v1 (23 July 2026). \\href{https://arxiv.org/abs/2607.20804}{arXiv:2607.20804}."
     }
   ],
   "comment": "The original approximation conjecture remains open. The 2025 result still\nhas an $O(n^\\gamma)$ loss in the exponent, rather than the $O(\\log n)$\nloss corresponding to error $2^{-n}/\\operatorname{poly}(n)$\n\\sourcecite{ref:rcs-bdfh}{BDFH25}. Exact hardness and smaller additive-error\nhardness do not settle this gap."
