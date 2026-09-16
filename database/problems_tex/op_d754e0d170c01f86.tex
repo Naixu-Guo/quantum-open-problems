@@ -53,7 +53,7 @@ limit?
 
 \subsection*{Status}
 
-Unsolved
+Solved
 
 \subsection*{Source}
 
@@ -92,6 +92,36 @@ technical conjecture needed in quantum-network discrimination
   strong-converse problem unresolved and does not prove the stabilized,
   diamond-smoothed identity in Eq.~\eqref{eq:p65-channel-aep}
   \sourcecite{ref:p65-fang-gour-wang}{FGW25}.
+
+  \item Gour gives a counterexample in Theorems 11 and 15 of a 2026 preprint
+  \sourcecite{ref:p65-gour-aep}{Gou26}.  For
+  $0<t<(\sqrt5-2)^2$ and $0<\theta<2\arcsin(1/8)$, set
+  \begin{equation}
+    \begin{aligned}
+      \mathcal N&=\operatorname{id}_3,\qquad
+      \mathcal M=t\operatorname{id}_3+(1-t)\mathcal U,\\
+      \mathcal U(X)&=UXU^\dagger,\qquad
+      U=\operatorname{diag}(1,e^{i\theta},e^{-i\theta}).
+    \end{aligned}
+    \label{eq:p65-qutrit-counterexample}
+  \end{equation}
+  The channels in Eq.~\eqref{eq:p65-qutrit-counterexample} have finite
+  $D_{\max}$.  For every fixed $0<\varepsilon<\sin^2\theta$,
+  \begin{equation}
+    \begin{aligned}
+      \lim_{n\to\infty}\frac1nD_{\max}^{\varepsilon}
+        (\mathcal N^{\otimes n}\|\mathcal M^{\otimes n})
+        &=\log_2(1/t),\\
+      D_{\rm ch}^{\infty}(\mathcal N\|\mathcal M)
+        &\leq\tfrac12\log_2(1/t)+\log_2\frac4{1-t}
+        <\log_2(1/t).
+    \end{aligned}
+    \label{eq:p65-aep-separation}
+  \end{equation}
+  Monotonicity and the unsmoothed upper bound make the supremum in
+  Eq.~\eqref{eq:p65-channel-aep} equal to $\log_2(1/t)$.
+  Equation~\eqref{eq:p65-aep-separation} therefore refutes the proposed
+  identity, including its vanishing-error version (Section VII, Eqs.~(232)--(234)).
 \end{itemize}
 
 \subsection*{References}
@@ -123,14 +153,22 @@ technical conjecture needed in quantum-network discrimination
   180509 (2025).
   \href{https://doi.org/10.1007/s11432-024-4488-0}{doi:10.1007/s11432-024-4488-0};
   \href{https://arxiv.org/abs/2110.14842}{arXiv:2110.14842}.
+
+  \item[\textup{[Gou26]}]\label{ref:p65-gour-aep}
+  G. Gour, ``Failure of the Asymptotic Equipartition Property for Quantum
+  Channels,'' arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2609.15004v1}{arXiv:2609.15004v1}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-The essential constraint is uniform channel smoothing in diamond norm.  An
-AEP obtained by smoothing each output state separately, or by optimizing only
-over unentangled inputs, does not imply Eq.~\eqref{eq:p65-channel-aep}.  A
-positive solution would also resolve the conditional equality posed in
+The universal identity in Eq.~\eqref{eq:p65-channel-aep} is false by
+Gour's preprint \sourcecite{ref:p65-gour-aep}{Gou26}.  The limit exists for
+this counterexample family; the separate question of its existence for
+arbitrary channel pairs is not settled by this result.  The counterexample
+also does not decide
+\href{https://qiqc-op.com/problem/op_08387c140f552732/}{the fixed-error parallel channel Stein problem}
+or the conditional equality in
 \href{https://qiqc-op.com/problem/op_a4600b38b94042a8/}{the parallel versus nested-adaptive superchannel-discrimination problem}.
 
 \subsection*{Field}
