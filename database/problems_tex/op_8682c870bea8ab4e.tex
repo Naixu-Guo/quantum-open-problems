@@ -16,7 +16,7 @@ Prove Eq.~\eqref{eq:wigner-entropy} for all such physical states, or exhibit a d
 
 \subsection*{Status}
 
-Unsolved
+Solved
 
 \subsection*{Source}
 
@@ -34,6 +34,8 @@ Van Herstraeten and Cerf state the conjecture in Eq.~(10) of ``Quantum Wigner En
   \item Theorem~1 of Van Herstraeten and Cerf proves the bound for outputs obtained by applying a balanced beam splitter to a separable two-mode state and discarding one output. Such outputs are Wigner nonnegative. The theorem is a Wigner--R\'enyi entropy bound for orders at least $1/2$, including the Shannon limit in Eq.~\eqref{eq:wigner-entropy} \sourcecite{ref:wigner-bs}{VHC25}.
 
   \item Qian and Gagatsos prove the sufficient condition $\mu\leq2/e$, where $\mu=\operatorname{Tr}\rho^2=2\pi\int W_\rho^2$, in Sec.~III.4, Eq.~(26). Their Proposition~1 concerns relaxed phase-space constraints; its extremizers need not represent positive density operators and do not disprove the conjecture \sourcecite{ref:wigner-purity}{QG26}.
+
+  \item He disproves the conjecture with a rank-two state supported on $\operatorname{span}\{|0\rangle,|3\rangle\}$ (Theorem~1, Sec.~5.1). The choice $t=1/1000$ and $\lambda=9/10$ in Eq.~(35) gives $\rho=(1000000|0\rangle\langle0|+|3\rangle\langle3|+900|0\rangle\langle3|+900|3\rangle\langle0|)/1000001$, whose nonzero block has positive determinant $190000/1000001^2$ and whose mean photon number is $3/1000001$. In the convention of Eq.~\eqref{eq:wigner-entropy}, Eqs.~(54)--(55) establish $W_\rho\geq(98199/1000001)W_{|0\rangle}>0$ everywhere and $h_W(\rho)<1+\ln\pi-4.79\times10^{-7}$. The global positivity estimate follows from square completion in Eqs.~(45)--(46), and the strict entropy deficit follows from the analytic polynomial-moment bound in Eqs.~(47)--(53) \sourcecite{ref:wigner-counterexample}{He26}.
 \end{itemize}
 
 \subsection*{References}
@@ -54,11 +56,14 @@ Van Herstraeten and Cerf state the conjecture in Eq.~(10) of ``Quantum Wigner En
 
   \item[\textup{[QG24]}]\label{ref:wigner-qubits}
   Q. Qian and C. N. Gagatsos, ``Wigner Non-negative States That Verify the Wigner Entropy Conjecture,'' \emph{Physical Review A} \textbf{110}, 012228 (2024). \href{https://doi.org/10.1103/PhysRevA.110.012228}{doi:10.1103/PhysRevA.110.012228}; \href{https://arxiv.org/abs/2406.09248}{arXiv:2406.09248}.
+
+  \item[\textup{[He26]}]\label{ref:wigner-counterexample}
+  Z. He, ``Physical Counterexamples to the Wigner Shannon Entropy Conjecture,'' preprint (2026). \href{https://arxiv.org/abs/2609.13312v1}{arXiv:2609.13312v1}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-The remaining gap includes mixed physical states with $2/e<\mu<1$ outside the proved subclasses. The pure-state endpoint is Gaussian by Hudson's theorem and already attains equality. Nonnegativity and normalization of an arbitrary phase-space function do not ensure that it is a Wigner function of a density operator.
+The conjecture is false: Theorem~1 of the September 2026 preprint \sourcecite{ref:wigner-counterexample}{He26} supplies a finite-energy density operator with an everywhere positive Wigner function and entropy strictly below the vacuum value, in exactly the normalization used here. Thus the counterexample alternative in the archived statement is settled. The resolving source cited here is a preprint. The previously established bounds for Gaussian, passive, and other restricted classes remain valid; the counterexample is a coherent mixture of the vacuum and three-photon levels and lies outside those proved subclasses.
 
 \subsection*{Field}
 
