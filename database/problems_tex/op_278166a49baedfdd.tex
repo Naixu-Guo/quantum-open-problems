@@ -1,0 +1,92 @@
+% Problem record op_278166a49baedfdd. This TeX file is derived from
+% database/problems_json/op_278166a49baedfdd.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Quantum Mrs. Gerber lower bound for information combining}
+\label{sec:op_278166a49baedfdd}
+
+\paragraph{Problem.}
+Does the quantum Mrs. Gerber lower bound hold for two independent uniform bits with arbitrary quantum side information?
+
+Let
+
+\begin{equation}
+\rho_{X_iB_i}=\frac12\sum_{x=0}^1|x\rangle\langle x|\otimes\rho_x^{(i)},
+\qquad
+\rho_{X_1B_1X_2B_2}=\rho_{X_1B_1}\otimes\rho_{X_2B_2},
+\label{eq:2781-1}
+\end{equation}
+
+where $X_1,X_2$ are uniform bits. Put $Z=X_1\oplus X_2$ and $s_i=H(X_i\mid B_i)$, using base-two von Neumann entropy. Define
+
+\begin{equation}
+h_2(p)=-p\log_2p-(1-p)\log_2(1-p),\quad 0\log_2 0=0,
+\qquad
+F(s,t)=h_2\!\left(h_2^{-1}(s)*h_2^{-1}(t)\right),
+\label{eq:2781-2}
+\end{equation}
+
+where $p*q=p(1-q)+(1-p)q$ and $h_2^{-1}$ takes values in $[0,1/2]$. Is
+
+\begin{equation}
+H(Z\mid B_1B_2)\ge
+\begin{cases}
+F(s_1,s_2), & s_1+s_2\leq1,\\
+s_1+s_2-1+F(1-s_1,1-s_2), & s_1+s_2\geq1
+\end{cases}
+\label{eq:2781-3}
+\end{equation}
+
+for every state in Eq.~\eqref{eq:2781-1}? Equation~\eqref{eq:2781-2} fixes the function used in the bound~\eqref{eq:2781-3}.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Hirche and Reeb pose this as Conjecture VII.1 \sourcecite{ref:2781-hirche18}{Hirche18}; later work retains the sharp quantum information-combining problem \sourcecite{ref:2781-hirche23}{Hirche23}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item For classical side information, the sharp lower information-combining bound is $H(X_1\oplus X_2\mid Y_1Y_2)\geq F(s_1,s_2)$. The reflected second branch in the quantum conjecture accommodates pure-state output channels \sourcecite{ref:2781-hirche20}{Hirche20}\sourcecite{ref:2781-hirche18}{Hirche18}.
+
+  \item Hirche, Guan, and Tomamichel revisited the problem in 2023, deriving Rényi chain rules and symmetry relations. They proved exact formulas for a particular order-two Rényi conditional entropy and its dual, but retained general sharp-bound conjectures extending the von Neumann cases. Their Section V.B, Conjectures V.5–V.6, is the relevant distinction; the order-two theorem is not an order-one solution. The proposed extremizers are embedded binary symmetric channels or pure-state channels for the lower bound and erasure channels for the upper bound. \sourcecite{ref:2781-hirche23}{Hirche23}
+
+  \item A further August 27, 2025 paper by Hirche studies classical channel extremality and, in its conclusions, explicitly points back to the unresolved quantum information-combining problems of Hirche and Reeb. This is a more recent status check, not a new proof of either displayed quantum bound. \sourcecite{ref:2781-hirche25}{Hirche25}
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Hirche20]}]\label{ref:2781-hirche20}
+  C. Hirche, \emph{Rényi Bounds on Information Combining}, arXiv:2004.14408 (2020), Section II, reviewing the classical Shannon-entropy bounds. \href{https://arxiv.org/html/2004.14408v1}{Full text}.
+
+  \item[\textup{[Hirche18]}]\label{ref:2781-hirche18}
+  C. Hirche and D. Reeb, \emph{Bounds on Information Combining With Quantum Side Information}, arXiv:1706.09752v2; IEEE Transactions on Information Theory 64(7), 4739–4757 (2018), Conjectures VII.1–VII.2 and Section VII.A. Entropies here are converted consistently from nats to bits. \href{https://arxiv.org/html/1706.09752v2}{Full text}.
+
+  \item[\textup{[Hirche23]}]\label{ref:2781-hirche23}
+  C. Hirche, X. Guan, and M. Tomamichel, \emph{Chain Rules for Rényi Information Combining}, arXiv:2305.02589 (2023), Propositions V.3–V.4, Conjectures V.5–V.6, and conclusions. \href{https://arxiv.org/html/2305.02589}{Full text}.
+
+  \item[\textup{[Hirche25]}]\label{ref:2781-hirche25}
+  C. Hirche, \emph{Rényi partial orders for BISO channels}, arXiv:2508.19951v1, August 27, 2025, Section 4, which identifies the quantum information-combining problems as a remaining direction. \href{https://arxiv.org/html/2508.19951}{Full text}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+This lower-bound conjecture remains unresolved. Hirche and Reeb stated the sharp lower and upper conjectures in 2018; Hirche, Guan, and Tomamichel restated them in 2023, and Hirche identified them as unresolved in 2025. Commuting outputs, selected entropy orders, and numerical evidence do not settle arbitrary noncommuting outputs with von Neumann entropy.
+
+In the source, this statement and its companion conjecture appear together under “Sharp entropy bounds for combining two binary quantum channels.” They share the same minimal setup but concern opposite extremal bounds and can be settled independently.
+
+\subsection*{Field}
+
+Quantum Communication
+
+\subsection*{Topic}
+
+Matrix and entropy inequalities
+
+\subsection*{ID}
+
+\texttt{op\_278166a49baedfdd}

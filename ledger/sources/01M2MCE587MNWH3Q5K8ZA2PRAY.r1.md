@@ -1,0 +1,19 @@
+---
+id: "01M2MCE587MNWH3Q5K8ZA2PRAY"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-16T05:53:34.975Z"
+type: "Source"
+title: "Richard Cleve and John Watrous. Fast parallel circuits for the quantum Fourier transform. FOCS 2000; See Theorem 2 and the exact-construction recurrence."
+kind: "preprint"
+completeness: "partial"
+authors: []
+venue: ""
+date: null
+doi: null
+arxivId: "quant-ph/0006004"
+url: "https://arxiv.org/abs/quant-ph/0006004"
+version: null
+---
+Richard Cleve and John Watrous. *Fast parallel circuits for the quantum Fourier transform*. FOCS 2000; [arXiv:quant-ph/0006004](https://arxiv.org/abs/quant-ph/0006004). See Theorem 2 and the exact-construction recurrence.

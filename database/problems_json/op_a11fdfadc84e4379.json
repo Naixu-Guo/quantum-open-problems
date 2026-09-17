@@ -10,7 +10,7 @@
   "metadata": {
     "type": "Problem",
     "schemaVersion": "1.0",
-    "revision": 1,
+    "revision": 2,
     "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
     "createdAt": "2026-09-09T00:32:38.785Z",
     "role": "primary",
@@ -45,7 +45,8 @@
     "The influential-variable conjecture should be distinguished from the\nsimulation statement: in the same paper the almost-everywhere\nclassical-simulation statement appears separately as a folklore conjecture,\nwhile the influence conjecture is the route Aaronson and Ambainis introduced\ntoward it\n\\sourcecite{ref:a11f-aa}{AA14}.",
     "Bansal, Sinha, and de Wolf proved the desired inverse-polynomial influence\nbound for completely bounded degree-$d$ block-multilinear forms with\nconstant variance, giving almost-everywhere classical simulation for a\ncorresponding class of quantum query algorithms including iterated\nForrelation; this does not establish the conjecture for arbitrary bounded\nlow-degree polynomials\n\\sourcecite{ref:a11f-bsw}{BSW22}.",
     "Bhattacharya proved a partial result via random restrictions: a bounded\ndegree-$d$ polynomial becomes well approximated by a polynomial-size junta\nafter an appropriate random restriction with high probability, and the\nAaronson--Ambainis conclusion holds for a non-negligible fraction of such\nrestrictions under an appropriate variance condition.  This establishes\nadditional structure in bounded low-degree polynomials but does not prove\nthe conjecture without restriction\n\\sourcecite{ref:a11f-bhatt}{Bhat25}.",
-    "Blanc, Docter, Strassle, and Tan proved the associated almost-everywhere\nclassical-simulation conjecture for bounded-round quantum query algorithms:\na $t$-query, $d$-round quantum algorithm can be simulated on most inputs\nusing $t^{O(d^2)}$ classical queries, giving polynomial overhead for\nconstant $d$.  Their result does not prove the influence conjecture for\narbitrary bounded polynomials and does not settle the unrestricted adaptive\nquantum-query simulation problem\n\\sourcecite{ref:a11f-bdst}{BDST26}."
+    "Blanc, Docter, Strassle, and Tan proved the associated almost-everywhere\nclassical-simulation conjecture for bounded-round quantum query algorithms:\na $t$-query, $d$-round quantum algorithm can be simulated on most inputs\nusing $t^{O(d^2)}$ classical queries, giving polynomial overhead for\nconstant $d$.  Their result does not prove the influence conjecture for\narbitrary bounded polynomials and does not settle the unrestricted adaptive\nquantum-query simulation problem\n\\sourcecite{ref:a11f-bdst}{BDST26}.",
+    "Escudero Guti\\'errez, Saucedo, and Palazuelos proved new optimal inequalities for completely bounded polynomials and corresponding limitations of quantum query algorithms. Their September 2026 preprint explicitly retains the general Aaronson--Ambainis conjecture as Conjecture 1.2; the additional completely bounded structure does not cover every bounded low-degree polynomial. \\sourcecite{ref:a11f-esp}{ESP26}"
   ],
   "references": [
     {
@@ -72,6 +73,11 @@
       "key": "BDST26",
       "label": "ref:a11f-bdst",
       "tex": "Guy Blanc, Jordan Docter, Carmen Strassle, and Li-Yang Tan, ``Quantum\nSpeedups Require Structure or Depth,'' to appear in \\emph{67th IEEE Symposium\non Foundations of Computer Science (FOCS 2026)} (2026).\n\\href{https://arxiv.org/abs/2608.19158}{arXiv:2608.19158}."
+    },
+    {
+      "key": "ESP26",
+      "label": "ref:a11f-esp",
+      "tex": "Francisco Escudero Guti\\'errez, Miquel Saucedo, and Carlos Palazuelos, \\emph{Optimal inequalities for completely bounded polynomials and the limitations of quantum query algorithms}, arXiv:2609.05201v1 (4 September 2026). \\href{https://arxiv.org/abs/2609.05201}{arXiv:2609.05201}."
     }
   ],
   "comment": "The central unresolved question is whether the dimension-independent\ninfluence lower bound in the statement holds for every bounded low-degree\npolynomial, without additional multilinearity structure, random restriction,\nor bounded-adaptivity assumptions on the associated quantum query\nalgorithms."

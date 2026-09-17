@@ -657,6 +657,11 @@ export function renderAbout({ config, root, dates }) {
         <h2 id="what">What the zoo is</h2>
         <p>The ${escape(config.shortName)} is a place to explore research problems in quantum information and quantum computation. Each problem page brings together a clear statement, the background needed to understand it, key references, and what is known so far.</p>
         <p>Browse by field or topic, follow the sources, or share a problem you think belongs here. The collection grows through contributions from the community and review by the maintainers. Problem pages keep permanent links, so you can return to them as the research develops.</p>
+        <p><strong>We would also like to highlight the following projects in the research community:</strong></p>
+        <ul>
+          <li><strong><a href="https://oqp.iqoqi.oeaw.ac.at/" rel="noreferrer">Open Quantum Problems</a></strong></li>
+          <li><strong><a href="https://prove2.me/" rel="noreferrer">Prove2Me</a></strong></li>
+        </ul>
 
         <h2 id="what-will-be-collected">What will be collected</h2>
         <p>We collect meaningful, significant unsolved problems in quantum information and quantum computation. Each problem should be formulated precisely in mathematical language, with clear assumptions and an unambiguous criterion for a solution. When a problem is solved, its page stays in the zoo and is updated with the resolution and supporting references.</p>
@@ -696,7 +701,7 @@ export function renderAbout({ config, root, dates }) {
 
         <h2 id="licensing">Licensing and reuse</h2>
         <p>The software uses <a href="${root}licenses/Apache-2.0.txt">Apache-2.0</a>. New original catalog contributions use <a href="https://creativecommons.org/licenses/by/4.0/" rel="noreferrer">CC BY 4.0</a>, allowing sharing, adaptation, and commercial use with attribution, license information, and an indication of changes. Contributors retain their copyright.</p>
-        <p>Earlier catalog text requires permission confirmation before it is covered by CC BY 4.0. Cited papers and other third-party material retain their own terms. See the <a href="${root}licenses/scope.txt">licensing scope and permissions</a>, <a href="${root}licenses/CC-BY-4.0.txt">content license</a>, and <a href="${root}licenses/NOTICE.txt">retained copyright notices</a>. Cite the primary sources for mathematical results and preserve the supplied contributor credits when reusing licensed text.</p>
+        <p>Cited papers and other third-party material retain their own terms. See the <a href="${root}licenses/scope.txt">licensing scope and permissions</a>, <a href="${root}licenses/CC-BY-4.0.txt">content license</a>, and <a href="${root}licenses/NOTICE.txt">retained copyright notices</a>. Cite the primary sources for mathematical results and preserve the supplied contributor credits when reusing licensed text.</p>
 
         <h2 id="contributions"><span id="credits">Contributions</span></h2>
         <p>This project is developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Zhong-Xia Shang, Bin Cheng, Shihao Ru, and Naixu Guo.</p>

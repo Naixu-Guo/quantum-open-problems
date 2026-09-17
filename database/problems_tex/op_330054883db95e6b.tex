@@ -1,0 +1,78 @@
+% Problem record op_330054883db95e6b. This TeX file is derived from
+% database/problems_json/op_330054883db95e6b.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Sublinear logical quantum space for RSA factoring}
+\label{sec:op_330054883db95e6b}
+
+\paragraph{Problem.}
+Can every balanced RSA semiprime be factored in polynomial time using sublinear logical quantum space?
+
+Let $N=pq$ be an $n$-bit integer whose distinct odd prime factors have bit length $n/2+O(1)$. Does a uniform hybrid algorithm exist that factors every such $N$ with probability at least $2/3$ while satisfying
+
+\begin{equation}
+q(n)=o(n),
+\qquad
+T_{\mathrm{total}}(n)=n^{O(1)}?
+\label{eq:3300-1}
+\end{equation}
+
+Here $q(n)$ in Eq.~\eqref{eq:3300-1} counts all simultaneously live logical qubits, including control, data, workspace, quantum memory, and resource states. Polynomial classical storage, intermediate measurements, and resets are allowed, and total runtime includes repetitions and classical processing.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+This precise formulation is editor wording based on the unresolved direction and limitations documented in the cited primary literature \sourcecite{ref:3300-chevignard25}{Chevignard25}\sourcecite{ref:3300-ragavan26}{Ragavan26}\sourcecite{ref:3300-kahanamokumeyer25}{KahanamokuMeyer25}; it is not presented as a verbatim conjecture of those authors.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item CRYPTO 2025, full version revised December 31, 2025. Chevignard, Fouque, and Schrottenloher factor $n$-bit RSA moduli with $n/2+o(n)$ logical qubits. Their modular-exponentiation technique uses sublinear work space, but the full algorithm still has linear total quantum width. These are different claims. \sourcecite{ref:3300-chevignard25}{Chevignard25}
+
+  \item February 4, 2026. Ragavan and Vaikuntanathan give a space-efficient Regev implementation with $O(n\log n)$ qubits and $O(n^{3/2}\log n)$ gates per circuit. This improves the space–work balance of that approach but remains superlinear in the qubit parameter relevant here. \sourcecite{ref:3300-ragavan26}{Ragavan26}
+
+  \item July 2, 2026 revision. For $P^2Q$ with $\log Q=\Theta(n^a)$ and $2/3<a<1$, the Jacobi construction has $\widetilde O(\log Q)=o(n)$ quantum space and depth. This is genuine progress for a classically difficult factoring family, but not for balanced RSA semiprimes. \sourcecite{ref:3300-kahanamokumeyer25}{KahanamokuMeyer25}
+
+  \item Earlier “sublinear-resource” claims require care. A primary critique by Khattar and Yosri found failures in the proposed Schnorr/QAOA factoring approach even when idealizing its optimizer. Such heuristic proposals do not supply the uniform polynomial-time guarantee in this question. \sourcecite{ref:3300-khattar23}{Khattar23}
+
+  \item Retained as open for RSA. A broader claim that no classically difficult factoring family admits proven sublinear quantum space would already be false.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Chevignard25]}]\label{ref:3300-chevignard25}
+  Clémence Chevignard, Pierre-Alain Fouque, and André Schrottenloher. \emph{Reducing the Number of Qubits in Quantum Factoring}. CRYPTO 2025; \href{https://eprint.iacr.org/2024/222}{ePrint 2024/222}, full version last revised December 31, 2025.
+
+  \item[\textup{[Ragavan26]}]\label{ref:3300-ragavan26}
+  Seyoon Ragavan and Vinod Vaikuntanathan. \emph{Space-Efficient and Noise-Robust Quantum Factoring}. \href{https://link.springer.com/article/10.1007/s00145-026-09572-x}{Journal of Cryptology 39, article 14 (2026)}, published February 4, 2026.
+
+  \item[\textup{[KahanamokuMeyer25]}]\label{ref:3300-kahanamokumeyer25}
+  Gregory D. Kahanamoku-Meyer, Seyoon Ragavan, Vinod Vaikuntanathan, and Katherine Van Kirk. \emph{The Jacobi Factoring Circuit: Quantum Factoring with Near-Linear Gates and Sublinear Space and Depth}. STOC 2025; \href{https://arxiv.org/abs/2412.12558v4}{arXiv:2412.12558v4}, July 2, 2026. Especially the input-family restriction and the sublinear-space result.
+
+  \item[\textup{[Khattar23]}]\label{ref:3300-khattar23}
+  Tanuj Khattar and Noureldin Yosri. \emph{A comment on “Factoring integers with sublinear resources on a superconducting quantum processor”}. \href{https://arxiv.org/abs/2307.09651v2}{arXiv:2307.09651v2} (2023), preprint.
+\end{enumerate}
+
+\subsection*{Comment}
+
+This problem is a precise resource target formulated here from the quantum-space frontier.
+
+The important distinction is between reducing workspace around an existing coherent register and reducing total coherent information storage. Replacing a large work register by recomputation does not resolve the problem when another register remains of size $\Theta(n)$.
+
+There is no inference here that $\Omega(n)$ logical qubits are necessary for all polynomial-time hybrid factoring algorithms. Establishing such a universal lower bound would be a different, substantially stronger undertaking. The permitted classical memory also means that an information-counting argument based only on the $n$-bit input length is insufficient: the input need not reside in quantum memory.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Computational complexity and computability; Quantum circuit complexity
+
+\subsection*{ID}
+
+\texttt{op\_330054883db95e6b}
