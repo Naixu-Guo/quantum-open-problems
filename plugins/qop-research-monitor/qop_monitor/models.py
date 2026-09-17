@@ -78,7 +78,9 @@ def updated_record(record: dict, review: Review, update: Update) -> dict:
     if (review.result == "resolved") != (update.status == "Solved"):
         raise ValueError("Partial progress stays Unsolved; Solved requires a resolved review")
     exact = f"{review.paper_id}v{review.paper_version}"
-    if not any(exact in r.tex for r in update.references):
+    exact_refs = [r for r in update.references if re.search(
+        r"https://arxiv\.org/(?:abs|pdf)/" + re.escape(exact) + r"(?![0-9])", r.tex)]
+    if not exact_refs:
         raise ValueError("Reference must include the reviewed paper version")
     result = json.loads(json.dumps(record))
     refs = {r["key"]: r for r in result["references"]}
@@ -93,7 +95,7 @@ def updated_record(record: dict, review: Review, update: Update) -> dict:
             result["references"].append(item)
         refs[ref.key] = item
         labels[ref.label] = ref.key
-    if not any(f"\\sourcecite{{{r.label}}}{{{r.key}}}" in update.progress for r in update.references):
+    if not any(f"\\sourcecite{{{r.label}}}{{{r.key}}}" in update.progress for r in exact_refs):
         raise ValueError("Progress must cite its reference using sourcecite")
     if update.progress not in result["progress"]:
         result["progress"].append(update.progress)

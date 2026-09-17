@@ -87,6 +87,18 @@ def test_reference_collision_rejected(record):
         updated_record(record, review, addition(review))
 
 
+def test_reference_must_cite_exact_reviewed_version(record):
+    review = evidence(record)
+    update = addition(review)
+    update.references[0].tex = "Example, https://arxiv.org/abs/2609.12345v20"
+    with pytest.raises(ValueError, match="reviewed paper version"):
+        updated_record(record, review, update)
+    update = addition(review)
+    update.progress = "This purported result has a reference but does not cite its actual evidence."
+    with pytest.raises(ValueError, match="sourcecite"):
+        updated_record(record, review, update)
+
+
 def test_persistence_and_jobs(tmp_path, record):
     store = Store(tmp_path)
     catalog = FakeCatalog(record)
