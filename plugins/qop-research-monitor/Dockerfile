@@ -4,12 +4,13 @@ FROM python:3.11-slim-bookworm
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
-    && apt-get update && apt-get install -y --no-install-recommends git ca-certificates \
+    && apt-get update && apt-get install -y --no-install-recommends git ca-certificates libstdc++6 \
     && rm -rf /var/lib/apt/lists/* \
     && useradd --uid 10001 --create-home monitor
 WORKDIR /app
 COPY requirements.lock ./
 RUN pip install --no-cache-dir --require-hashes -r requirements.lock
+RUN node --version && npm --version && python -c "import fastmcp, pypdf; from key_value.aio.stores.disk import DiskStore"
 COPY --chown=monitor:monitor qop_monitor ./qop_monitor
 COPY --chown=monitor:monitor skills ./skills
 RUN mkdir -p /var/lib/qop-monitor && chown monitor:monitor /var/lib/qop-monitor
