@@ -51,6 +51,8 @@ Lovitz and Wu explicitly identify the search for a simple closed-form or practic
   \item Leung, Lovitz, and Wu's July 2026 preprint gives random-channel counterexamples for $p>3/4$ and $0\le p<1/4$. Section~5.1 reports a numerically optimized von Neumann Bell-input threshold of output dimension $182$ for their ensemble, improving the earlier ensemble's threshold of $183$; this is not a universal minimum dimension \sourcecite{ref:cf-llw26}{LLW26}.
 
   \item Two August 2026 preprints give deterministic asymptotic constructions. Lovitz and Wu derandomize through permutations but report an impractically large quantitative size bound \sourcecite{ref:cf-lovwu26}{LovWu26}. Zhen, Zhu, Chen, and Wang give a deterministic algorithm polynomial in the target size, for fixed channel parameters and sufficiently large sizes \sourcecite{ref:cf-zzcw26}{ZZCW26}, Theorem~2.1. Neither work supplies a practically computed instance.
+
+  \item Two September 2026 preprints strengthen existential nonadditivity without supplying the requested instance. Wang's Theorem~1.1 gives unbounded two-use Holevo gaps with explicit dimension bounds, but the construction remains probabilistic and the paper leaves efficient selection and verification of the unitaries open \sourcecite{ref:cf-wang26}{Wan26}. Zhen, Zhu, Chen, and Wang's Theorem~2.1 gives one channel with an almost-one-bit minimum-output-entropy gap simultaneously at every R\'enyi order, including $p=1$; their Corollary~2.3 explicitly supplies neither closed-form matrices nor an algorithm for the non-random representation sequence \sourcecite{ref:cf-allorders26}{ZZCW26b}.
 \end{itemize}
 
 \subsection*{References}
@@ -99,6 +101,12 @@ Lovitz and Wu explicitly identify the search for a simple closed-form or practic
   \item[\textup{[ZZCW26]}]\label{ref:cf-zzcw26}
   G. Zhen, C. Zhu, R. Chen, and X. Wang, ``Deterministic minimum-output-entropy nonadditivity via Haagerup's inequality and near-free permutation representations,'' preprint (August 2026).
 \href{https://arxiv.org/abs/2608.31081}{arXiv:2608.31081}.
+
+  \item[\textup{[Wan26]}]\label{ref:cf-wang26}
+  J. Wang, ``Unbounded Holevo Additivity Gaps in Finite Dimensions,'' arXiv preprint, version~1, 16 September 2026. \href{https://arxiv.org/abs/2609.18222v1}{arXiv:2609.18222v1}.
+
+  \item[\textup{[ZZCW26b]}]\label{ref:cf-allorders26}
+  G. Zhen, C. Zhu, R. Chen, and X. Wang, ``Almost One Bit Violation of Minimum-Output R\'enyi Entropy Additivity Simultaneously at All Orders,'' arXiv preprint, version~1, 16 September 2026. \href{https://arxiv.org/abs/2609.18747v1}{arXiv:2609.18747v1}.
 \end{enumerate}
 
 \subsection*{Comment}
