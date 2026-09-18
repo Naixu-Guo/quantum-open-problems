@@ -1,0 +1,70 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_78da2d4fc0735323",
+  "ulid": "01M2JD5FX8BZEVY4SV12JCTBNH",
+  "aliases": [
+    "op_78da2d4fc0735323",
+    "01M2JD5FX8BZEVY4SV12JCTBNH",
+    "op-78da2d4fc0735323"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-15T11:27:50.184Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-error-correction"
+    ],
+    "topicIds": [
+      "quantum-ldpc-codes",
+      "quantum-coding-theory"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
+  "title": "Distance of constant-rate quantum XYZ product codes",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum Error Correction"
+  ],
+  "topics": [
+    "Quantum LDPC codes",
+    "Quantum coding theory"
+  ],
+  "statement": "Do there exist quantum XYZ product codes, built from classical parity-check matrices with uniformly bounded row and column weights, that have constant rate and minimum distance of order $N^{2/3}$ on $N$ physical qubits?\n\nFor $\\ell\\in\\{1,2,3\\}$, let $H_\\ell\\in\\mathbb F_2^{m_\\ell\\times n_\\ell}$ have rows indexed by a set $R_\\ell$ with $|R_\\ell|=m_\\ell$ and columns indexed by a disjoint set $B_\\ell$ with $|B_\\ell|=n_\\ell$. For a triple $x\\in\\prod_{\\ell=1}^{3}(R_\\ell\\sqcup B_\\ell)$, let $r(x)$ be the number of coordinates with $x_\\ell\\in R_\\ell$. The XYZ product code $\\mathcal Q(H_1,H_2,H_3)$ has one physical qubit for each triple $y$ with $r(y)$ even and one stabilizer generator $g_x$ for each triple $x$ with $r(x)$ odd. Call $x$ and $y$ adjacent in direction $\\ell$ if $x_{\\ell'}=y_{\\ell'}$ for all $\\ell'\\neq\\ell$ and the entry of $H_\\ell$ in row $\\{x_\\ell,y_\\ell\\}\\cap R_\\ell$ and column $\\{x_\\ell,y_\\ell\\}\\cap B_\\ell$ equals $1$; by parity, exactly one of $x_\\ell,y_\\ell$ lies in $R_\\ell$. The generators are\n\\begin{equation}\n  g_x:=\\prod_{\\ell=1}^{3}\\ \\prod_{y\\ \\text{adjacent to}\\ x\\ \\text{in direction}\\ \\ell}\\sigma_\\ell^{(y)},\n  \\qquad(\\sigma_1,\\sigma_2,\\sigma_3)=(X,Y,Z),\n  \\label{eq:78da-generators}\n\\end{equation}\nwhere $\\sigma_\\ell^{(y)}$ acts on qubit $y$, and the number of qubits is\n\\begin{equation}\n  N=n_1n_2n_3+n_1m_2m_3+m_1n_2m_3+m_1m_2n_3.\n  \\label{eq:78da-qubits}\n\\end{equation}\nThe generators in Eq.~\\eqref{eq:78da-generators} commute. Let $G\\subseteq\\mathbb F_2^{2N}$ be the span of their binary symplectic representations and $G^{\\perp}$ its symplectic complement. The code has $K=N-\\dim G$ logical qubits and, when $K\\geq1$, distance $D=\\min\\{\\operatorname{wt}(v):v\\in G^{\\perp}\\setminus G\\}$, where $\\operatorname{wt}$ counts the qubits acted on nontrivially. These are the parameters of the stabilizer code obtained from any consistent choice of generator signs. The question asks for triples $(H_1^{(t)},H_2^{(t)},H_3^{(t)})$, $t\\in\\mathbb N$, all of whose row and column weights are at most a fixed $w$, and constants $c,c',C'>0$ such that\n\\begin{equation}\n  N_t\\to\\infty,\\qquad K_t\\geq c\\,N_t,\\qquad c'N_t^{2/3}\\leq D_t\\leq C'N_t^{2/3}.\n  \\label{eq:78da-target}\n\\end{equation}",
+  "source": "Leverrier, Apers, and Vuillot conjecture that the XYZ product family includes codes with constant rate and minimum distance $\\Theta(N^{2/3})$ (Section~1); the construction and Eq.~\\eqref{eq:78da-qubits} are in Section~3. The first open question in their Section~1.5 asks whether specific instances achieve distance $\\Theta(N^{2/3})$. It notes that constant rate is easily obtained from full-rank rectangular parity-check matrices whose aspect ratio is bounded away from $0$ and $1$, whereas the distance in that regime is even less clear \\sourcecite{ref:78da-lav}{LAV22}. Equation~\\eqref{eq:78da-target} formalizes the constant-rate conjecture with bounded input weights, so that the codes form a quantum LDPC family.",
+  "progress": [
+    "Leverrier, Apers, and Vuillot prove that the generators commute (Lemma~3), show that a consistent choice of signs yields a well-defined code whose parameters do not depend on that choice (Section~3.2), and compute $K$ through a tensor Sylvester equation when $H_1,H_2,H_3$ are invertible (Theorem~2). Their distance analysis treats codes with one logical qubit. For a class of invertible square triples giving $K=1$, they prove $D\\geq2\\min\\{n_1,n_2,n_3\\}$ (Lemma~17). For symmetric triples in this class with row weight at most $w$, they show that $D$ agrees, up to factors depending on $w$, with the optimum of a combinatorial problem over binary 3-tensors (Theorem~22). They state that even a lower bound $\\omega(N^{1/3})$ appears challenging (Section~1.4) \\sourcecite{ref:78da-lav}{LAV22}.",
+    "Section~5.4 of the same paper identifies obstructions to standard lower-bound arguments. For their one-qubit class, the distance is unchanged by permuting the rows and columns of each $H_\\ell$ (Lemma~23), so random permutations cannot improve it. For XYZ products of three classical expander codes of length $\\Theta(n)$, they describe errors of weight $n^{2-\\delta}$, for any $\\delta>0$, whose syndromes have weight $O(n)$. Expansion arguments therefore do not appear to control errors of weight $\\omega(N^{1/3})$ \\sourcecite{ref:78da-lav}{LAV22}.",
+    "Simple cyclic instances do not confirm the conjecture. Let $H_\\ell=I+\\Omega_{n_\\ell}+\\Omega_{n_\\ell}^{\\mathsf T}$, where $\\Omega_n$ is the cyclic shift, with $n_1,n_2,n_3$ odd, not divisible by $3$, and $\\gcd(n_1,n_2,n_3)=1$; the code then encodes one qubit. Section~7 argues that most such choices give distance at most of order $N^{1/3}$ and conjectures distance $o(N^{2/3})$ for every choice. The authors suggest that circulant matrices of column weight five may be needed (Sections~1.4 and~7) \\sourcecite{ref:78da-lav}{LAV22}. These examples have $K=1$ and do not address constant rate.",
+    "Liang, Yi, Yang, Chen, Wang, and Wang define four-dimensional XYZ product codes from four classical codes or two CSS codes. They compute the dimension of these codes, describe their logical operators, and prove an upper bound on their distance (Section~III of arXiv version~4). They also simulate the three-dimensional Chamon code and two four-dimensional instances under depolarizing and biased Pauli noise (Section~IV). These results give no lower bound toward Eq.~\\eqref{eq:78da-target} \\sourcecite{ref:78da-liang}{LYY+25}.",
+    "Baldelli, Orsucci, L\\'azaro, and Battaglioni introduce quantum XYZ stabilizer codes, whose parity-check matrix is formed directly from three pairwise orthogonal binary matrices for pure $X$-, $Y$-, and $Z$-type generators, without the three-fold product structure; their distance bounds concern that family \\sourcecite{ref:78da-bolb}{BOLB26}. Their introduction attributes almost-linear distance with constant rate for specific XYZ product instances to the two papers above. Neither paper proves such a lower bound \\sourcecite{ref:78da-lav}{LAV22}, \\sourcecite{ref:78da-liang}{LYY+25}."
+  ],
+  "references": [
+    {
+      "key": "LAV22",
+      "label": "ref:78da-lav",
+      "tex": "A. Leverrier, S. Apers, and C. Vuillot, ``Quantum XYZ Product Codes,'' \\emph{Quantum} \\textbf{6}, 766 (2022). \\href{https://doi.org/10.22331/q-2022-07-14-766}{doi:10.22331/q-2022-07-14-766}; \\href{https://arxiv.org/abs/2011.09746}{arXiv:2011.09746}."
+    },
+    {
+      "key": "LYY+25",
+      "label": "ref:78da-liang",
+      "tex": "Z. Liang, Z. Yi, F. Yang, J. Chen, Z. Wang, and X. Wang, ``High-dimensional quantum XYZ product codes for biased noise,'' \\emph{Physical Review A} \\textbf{112}, 052439 (2025). \\href{https://doi.org/10.1103/rrfk-1b51}{doi:10.1103/rrfk-1b51}; \\href{https://arxiv.org/abs/2408.03123v4}{arXiv:2408.03123v4}."
+    },
+    {
+      "key": "BOLB26",
+      "label": "ref:78da-bolb",
+      "tex": "A. Baldelli, D. Orsucci, F. L\\'azaro, and M. Battaglioni, ``Quantum XYZ Stabilizer Codes,'' arXiv preprint (2026). \\href{https://doi.org/10.48550/arXiv.2607.14988}{doi:10.48550/arXiv.2607.14988}; \\href{https://arxiv.org/abs/2607.14988v1}{arXiv:2607.14988v1}."
+    }
+  ],
+  "comment": "The remaining step is a family satisfying Eq.~\\eqref{eq:78da-target}. Its essential difficulty is a lower bound of order $N^{2/3}$ on the weight of every nontrivial logical operator of constant-rate XYZ product codes. A membrane-like logical operator of weight $O(N^{2/3})$ bounds $D$ only from above, since multiplication by stabilizers may shorten it. The published distance analysis treats codes with one logical qubit, and no lower bound of order $N^{2/3}$ was found even in that setting. The question concerns this specific product construction: quantum LDPC codes with constant rate and linear distance are known from other constructions. Literature checked through 15 September 2026.",
+  "contributors": []
+}
