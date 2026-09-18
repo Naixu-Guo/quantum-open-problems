@@ -487,9 +487,23 @@ mjx-container { max-width: 100%; }
 .share-links a, .share-links button { padding: 9px 14px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--card-raised); color: var(--ink); font-size: 13.5px; font-weight: 700; text-decoration: none; }
 .share-links a:hover, .share-links button:hover { border-color: var(--mint-deep); color: var(--mint-deep); }
 
-/* About */
+/* About: a sticky table of contents to the right of the text. It comes first in
+   the markup, so it is placed by column and stays above the text on small screens. */
+.about-layout { display: grid; grid-template-columns: minmax(0, 760px) 232px; gap: 56px; justify-content: space-between; align-items: start; }
+.about-layout .prose { grid-column: 1; grid-row: 1; }
+.about-toc { grid-column: 2; grid-row: 1; position: sticky; top: 84px; max-height: calc(100vh - 100px); overflow-y: auto; scrollbar-width: thin; padding: 2px 0; }
+.about-toc-title { margin: 0 0 10px; color: var(--ink-faint); font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+.about-toc ol { margin: 0; padding: 0; list-style: none; border-left: 1px solid var(--line); }
+.about-toc a { display: block; margin-left: -1px; padding: 6px 0 6px 14px; border-left: 2px solid transparent; color: var(--ink-soft); font-size: 14px; line-height: 1.4; text-decoration: none; }
+.about-toc a:hover { color: var(--mint-deep); }
+.about-toc a[aria-current="true"] { border-left-color: var(--mint-deep); color: var(--ink); font-weight: 700; }
+.about-toc ol ol { border-left: 0; }
+.about-toc ol ol a { padding: 4px 0 4px 28px; font-size: 13px; }
+.about-layout .prose > h2:first-child { margin-top: 0; }
 .prose { max-width: 760px; font-size: 16px; }
 .prose h2 { margin: 34px 0 12px; font-size: 1.4rem; }
+.prose h3 { margin: 26px 0 10px; font-size: 1.12rem; }
+.prose-body { padding-left: 24px; }
 .prose ul, .prose ol { padding-left: 22px; }
 .prose li { margin-bottom: 6px; }
 
@@ -598,6 +612,14 @@ fieldset > .form-row + .form-row, .form-grid-2 + .form-row { margin-top: 16px; }
   .facet-list button.is-active { border-color: var(--accent-solid); }
   .clear-button { justify-self: start; }
   .panels { grid-template-columns: minmax(0, 1fr); }
+  .about-layout { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .about-layout .prose, .about-toc { grid-column: auto; grid-row: auto; }
+  .about-toc { position: static; max-height: none; overflow: visible; padding: 14px 18px 16px; border-radius: var(--radius-md); border: 1px solid var(--line); background: var(--card); }
+  .about-toc ol { columns: 2; column-gap: 24px; border-left: 0; }
+  .about-toc ol ol { columns: 1; }
+  .about-toc li { break-inside: avoid; }
+  .about-toc a { margin-left: 0; padding: 5px 0; border-left: 0; }
+  .about-toc ol ol a { padding: 3px 0 3px 14px; }
   .recent-list li { grid-template-columns: 1fr auto; }
   .recent-list time { grid-column: 1 / -1; }
 }
@@ -629,6 +651,8 @@ fieldset > .form-row + .form-row, .form-grid-2 + .form-row { margin-top: 16px; }
   .references { grid-template-columns: 1fr; gap: 4px; }
   .references dd { margin-bottom: 12px; }
   .plain-list { columns: 1; }
+  .about-toc ol { columns: 1; }
+  .prose-body { padding-left: 12px; }
   .copy-block { padding-right: 16px; }
   .copy-button { position: static; margin-top: 10px; }
   .proposal-form fieldset { padding: 16px 14px 18px; }
@@ -636,7 +660,8 @@ fieldset > .form-row + .form-row, .form-grid-2 + .form-row { margin-top: 16px; }
 }
 
 @media print {
-  .site-header, .site-footer, .problem-actions, .toast, .shuffle, .skip-link { display: none !important; }
+  .site-header, .site-footer, .problem-actions, .toast, .shuffle, .skip-link, .about-toc { display: none !important; }
+  .about-layout { display: block; }
   body { background: white; color: black; }
   .problem-layout { display: block; width: auto; padding: 0; }
   .statement, .panel { box-shadow: none; }

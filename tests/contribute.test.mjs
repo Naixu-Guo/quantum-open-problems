@@ -115,6 +115,31 @@ test("the about page advertises account-free sending only when the form is confi
   assert.ok(on.includes("No account is needed"));
 });
 
+test("the about page's table of contents lists every section once, in order", () => {
+  const html = renderAbout({ config: offline, root: "../", dates: { today: "2026-09-08", updated: "2026-09-08" } });
+  const toc = html.slice(html.indexOf('<nav class="about-toc"'), html.indexOf("</nav>", html.indexOf('<nav class="about-toc"')));
+  const linked = [...toc.matchAll(/<a href="#([^"]+)">([^<]+)<\/a>/gu)].map(([, id, title]) => `${id}: ${title}`);
+  const headings = [...html.matchAll(/<h[23] id="([^"]+)">(.*?)<\/h[23]>/gu)].map(([, id, heading]) => `${id}: ${heading.replace(/<[^>]+>/gu, "")}`);
+  assert.ok(headings.length >= 5, "the page has its sections");
+  assert.deepEqual(linked, headings);
+  assert.ok(linked.includes("contribute: How to contribute") && linked.includes("mcp: Use the MCP server"), "permanent anchors are kept");
+  const nested = toc.slice(toc.indexOf('href="#contribute"'), toc.indexOf('href="#cite"'));
+  assert.deepEqual([...nested.matchAll(/<ol>|href="#([^"]+)"/gu)].map(([match, id]) => id ?? match), ["contribute", "<ol>", "propose", "github", "report-progress"], "the ways to contribute are nested under their section");
+});
+
+test("the about page asks for solutions and substantial progress to be reported through a preprint or paper", () => {
+  const html = renderAbout({ config: offline, root: "../", dates: { today: "2026-09-08", updated: "2026-09-08" } });
+  const section = html.slice(html.indexOf('<h3 id="report-progress">'), html.indexOf('<h2 id="cite">'));
+  assert.match(section, /preprint/u);
+  assert.match(section, /href="https:\/\/arxiv\.org\/"/u);
+  assert.match(section, /issues\/new\?template=research-update\.yml/u);
+  assert.doesNotMatch(section, /Partially solved/iu, "only the two statuses are named");
+  assert.match(section, /does not mean that the maintainers have verified it/u, "a listed result is not endorsed");
+  assert.match(section, /If they contributed to a result, please say so/u, "AI use is welcome and disclosed");
+  assert.equal(html.split("is marked Solved").length - 1, 1, "the rule for the Solved status is stated once");
+  assert.ok(html.indexOf("is marked Solved") < html.indexOf('<h2 id="contribute">'), "and it belongs to what is collected");
+});
+
 // Run the shipped script with form controls, storage, clipboard, and timers that tests
 // can drive directly, without making network requests or depending on a browser.
 function createClientForm({ values = {}, draft, anonymous = false, allowAnonymous = true, contentLicense = "CC-BY-4.0", respond = () => ({ ok: true, status: 201, json: async () => ({ accepted: true, id: "01TEST" }) }) } = {}) {

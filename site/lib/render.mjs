@@ -647,66 +647,120 @@ export function renderAbout({ config, root, dates }) {
   year = {${dates.updated.slice(0, 4)}},
   note = {Accessed ${dates.today}}
 }`;
+  // Each section's text sits in a .prose-body, which indents it under its heading;
+  // a subsection's body is nested, so it is indented once more.
+  const prose = `
+        <h2 id="what">What the zoo is</h2>
+        <div class="prose-body">
+          <p>The ${escape(config.shortName)} is a place to explore research problems in quantum information and quantum computation. Each problem page brings together a clear statement, the background needed to understand it, key references, and what is known so far.</p>
+          <p>Browse by field or topic, follow the sources, or share a problem you think belongs here. The collection grows through contributions from the community and review by the maintainers. Problem pages keep permanent links, so you can return to them as the research develops.</p>
+          <p>A problem page may be out of date or contain errors in its statement, status, progress, or references. Please treat each page as a guide to the literature and check the primary sources and recent work before relying on it or investing effort in a problem. If you find something to correct, <a href="#github">tell us</a>.</p>
+          <p><strong>We would also like to highlight the following projects in the research community:</strong></p>
+          <ul>
+            <li><strong><a href="https://oqp.iqoqi.oeaw.ac.at/" rel="noreferrer">Open Quantum Problems</a></strong></li>
+            <li><strong><a href="https://prove2.me/" rel="noreferrer">Prove2Me</a></strong></li>
+          </ul>
+        </div>
+
+        <h2 id="what-will-be-collected">What will be collected</h2>
+        <div class="prose-body">
+          <p>We collect meaningful, significant unsolved problems in quantum information and quantum computation. Each problem should be formulated precisely in mathematical language, with clear assumptions and an unambiguous criterion for a solution.</p>
+          <p>A problem is marked Solved when a complete proof or counterexample has been made public in a preprint or a published paper, and its page states whether that result has been peer reviewed. Partial results are recorded as progress and the problem remains Unsolved. The status records what the cited sources establish. The maintainers do not verify proofs. A solved problem stays in the zoo with its resolution and supporting references.</p>
+        </div>
+
+        <h2 id="contribute">How to contribute</h2>
+        <div class="prose-body">
+          <p>There are three ways to take part. You can propose a problem, contribute through GitHub, or report substantial progress. The maintainers review every contribution, decide what is recorded, and may decline a proposal or an update.</p>
+
+          <h3 id="propose">Propose a problem</h3>
+          <div class="prose-body">
+            <p>${submissionsOnline
+              ? `Use the <a href="${root}contribute/">proposal form</a> to send a problem, its sources, and what is known. No account is needed.`
+              : `Propose a problem through a <a href="${config.repositoryUrl}/issues/new?template=new-problem.yml">GitHub issue</a> (a GitHub account is required). The <a href="${root}contribute/">proposal worksheet</a> helps you prepare and copy the text while online sending is not yet enabled.`} State the problem as precisely as you can and name the papers in which it appears.</p>
+            <p>The maintainers check each proposal against the literature and publish accepted proposals as records with credit to contributors${anonymousSubmissionsAllowed(config) ? ", respecting requests to remain anonymous" : ""}.</p>
+          </div>
+
+          <h3 id="github">Contribute through GitHub</h3>
+          <div class="prose-body">
+            <p>If you are comfortable with Git and TeX, you can add a record yourself in four steps.</p>
+            <ol>
+              <li>Fork the <a href="${config.repositoryUrl}" rel="noreferrer">repository</a> and run <code>node scripts/new-problem-id.mjs --create</code> to create a problem template with permanent identifiers.</li>
+              <li>Write the statement, status, source, progress, references, and comment as TeX fragments in the record's fields, following the <a href="${config.repositoryUrl}/blob/${config.branch}/CONTRIBUTING.md" rel="noreferrer">contribution guide</a>, and choose one or two fields and one to five topics from <code>database/tags.json</code>. Run <code>node scripts/migrate-metadata.mjs</code> after changing the classifications.</li>
+              <li>Run <code>node scripts/sync-tex.mjs</code> to write the record's TeX form, then <code>node site/build.mjs</code>. The build rejects records with missing fields, unknown or miscounted fields and topics, unresolved citations, or unlabeled equations.</li>
+              <li>Open a pull request.</li>
+            </ol>
+            <p>To correct an existing record or add a reference to it, use the Edit button on the problem's page, which opens the record on GitHub, or open a <a href="${config.repositoryUrl}/issues/new?template=research-update.yml" rel="noreferrer">GitHub issue</a> that describes the change and cites the primary sources.</p>
+          </div>
+
+          <h3 id="report-progress">Report substantial progress</h3>
+          <div class="prose-body">
+            <p>If you have solved a problem listed here or made substantial progress on one, we encourage you to release the work as a preprint, for example on <a href="https://arxiv.org/" rel="noreferrer">arXiv</a> or <a href="https://zenodo.org/" rel="noreferrer">Zenodo</a>, or as a published paper, rather than announcing it only in a GitHub issue or comment. A GitHub thread does not appear in arXiv listings or scholarly search engines, can be edited or deleted at any time, and has no persistent identifier such as a DOI or arXiv number. A preprint or paper provides a dated, citable record and opens the work to peer review.</p>
+            <p>Please report only results that you understand and have checked yourself, and take the time to do so before announcing them. The problems are shared research questions and not a competition. AI tools are welcome, including through the <a href="#mcp">MCP server</a> described below. If they contributed to a result, please say so.</p>
+            <p>Once the work is available, send us its arXiv identifier or DOI through the Edit button on the problem's page or a <a href="${config.repositoryUrl}/issues/new?template=research-update.yml" rel="noreferrer">GitHub issue</a>. Please link to the work and do not paste a proof into the issue. The maintainers check that the result is relevant and correctly cited and then update the record. Listing a preprint or paper on a problem page does not mean that the maintainers have verified it.</p>
+          </div>
+        </div>
+
+        <h2 id="cite">How to cite</h2>
+        <div class="prose-body">
+          <p>Cite the primary sources for any mathematical claim. To cite a problem page for its statement, status, or stable identifier, use the Cite button on that page. To cite the zoo as a whole:</p>
+          <div class="copy-block no-math"><pre id="zoo-bibtex">${escape(zooBib)}</pre><button class="copy-button" type="button" data-copy="zoo-bibtex">Copy</button></div>
+        </div>
+
+        <h2 id="mcp"><span id="api">Use the MCP server</span></h2>
+        <div class="prose-body">
+          <p>Connect your AI assistant through the Model Context Protocol (MCP) to search the zoo, read problem statements and references, and gather the known results and remaining questions for a research session.</p>
+          <p>Use a client that supports remote MCP servers over Streamable HTTP. Connect with the address below; no download, local setup, or API key is needed to read the catalog.</p>
+          <ol>
+            <li><strong>Add the server.</strong> In your client's MCP or connector settings, add a remote server named <code>quantum-open-problems</code>. Paste this server URL and choose <strong>Streamable HTTP</strong> if a transport is requested:
+              <div class="copy-block no-math"><pre id="mcp-url">${escape(mcpUrl)}</pre><button class="copy-button" type="button" data-copy="mcp-url" aria-label="Copy MCP server URL">Copy</button></div>
+            </li>
+            <li><strong>Connect your assistant.</strong> Save or enable the connection. For clients that accept URL entries in an <code>mcpServers</code> configuration:
+              <details>
+                <summary>JSON configuration for clients using <code>mcpServers</code></summary>
+                <p>Add this entry to your existing configuration, then reload the client's MCP connection. Some clients use a settings form instead.</p>
+                <div class="copy-block no-math"><pre id="mcp-config">${escape(mcpConfig)}</pre><button class="copy-button" type="button" data-copy="mcp-config" aria-label="Copy MCP client configuration">Copy</button></div>
+              </details>
+            </li>
+            <li><strong>Ask a research question.</strong> For example: “Use the quantum-open-problems MCP to find unsolved problems about quantum channel capacity, then summarize one problem's known progress and references.” The assistant can use <code>search_problems</code>, <code>get_problem</code>, <code>read_problem</code>, <code>list_references</code>, and <code>build_context</code>.</li>
+          </ol>
+          <p>The connection reads the current hosted catalog, including newly published problems. If it fails, check the <a href="${escape(mcpServiceUrl)}/api/v1/status" rel="noreferrer">catalog service status</a> and confirm that your client supports remote MCP. The <a href="${config.repositoryUrl}/blob/${config.branch}/mcp/README.md" rel="noreferrer">MCP setup and tool guide</a> also covers local clients and, for collaborators with an API key, authenticated research contributions. For direct downloads, the <a href="${root}api/index.json">JSON catalog</a>, <a href="${root}api/tags.json">taxonomy</a>, and <a href="${root}llms.txt">agent guide</a> are available.</p>
+        </div>
+
+        <h2 id="licensing">Licensing and reuse</h2>
+        <div class="prose-body">
+          <p>The software uses <a href="${root}licenses/Apache-2.0.txt">Apache-2.0</a>. New original catalog contributions use <a href="https://creativecommons.org/licenses/by/4.0/" rel="noreferrer">CC BY 4.0</a>, allowing sharing, adaptation, and commercial use with attribution, license information, and an indication of changes. Contributors retain their copyright.</p>
+          <p>Cited papers and other third-party material retain their own terms. See the <a href="${root}licenses/scope.txt">licensing scope and permissions</a>, <a href="${root}licenses/CC-BY-4.0.txt">content license</a>, and <a href="${root}licenses/NOTICE.txt">retained copyright notices</a>. Cite the primary sources for mathematical results and preserve the supplied contributor credits when reusing licensed text.</p>
+        </div>
+
+        <h2 id="contributions"><span id="credits">Contributions</span></h2>
+        <div class="prose-body">
+          <p>This project is developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Zhong-Xia Shang, Bin Cheng, Shihao Ru, and Naixu Guo.</p>
+          <p>We thank <a href="https://gauge-forge.com/" rel="noreferrer">GaugeForge</a> for its financial support of this project.</p>
+          <p>Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
+        </div>`;
+  // The table of contents is read from the section headings, so the two cannot disagree.
+  const sections = [];
+  for (const [, level, id, heading] of prose.matchAll(/<h([23]) id="([^"]+)">(.*?)<\/h\1>/g)) {
+    const entry = { id, title: heading.replace(/<[^>]+>/g, ""), subsections: [] };
+    if (level === "2" || !sections.length) sections.push(entry);
+    else sections.at(-1).subsections.push(entry);
+  }
+  const tocEntry = (entry) => `<li><a href="#${entry.id}">${entry.title}</a>${entry.subsections.length ? `<ol>${entry.subsections.map(tocEntry).join("")}</ol>` : ""}</li>`;
   const body = `
     <section class="section-shell about">
       <div class="section-heading">
         <div><p class="section-index">About</p><h1>${escape(config.fullName)}</h1></div>
         <p>${escape(config.tagline)}</p>
       </div>
-      <div class="prose">
-        <h2 id="what">What the zoo is</h2>
-        <p>The ${escape(config.shortName)} is a place to explore research problems in quantum information and quantum computation. Each problem page brings together a clear statement, the background needed to understand it, key references, and what is known so far.</p>
-        <p>Browse by field or topic, follow the sources, or share a problem you think belongs here. The collection grows through contributions from the community and review by the maintainers. Problem pages keep permanent links, so you can return to them as the research develops.</p>
-        <p><strong>We would also like to highlight the following projects in the research community:</strong></p>
-        <ul>
-          <li><strong><a href="https://oqp.iqoqi.oeaw.ac.at/" rel="noreferrer">Open Quantum Problems</a></strong></li>
-          <li><strong><a href="https://prove2.me/" rel="noreferrer">Prove2Me</a></strong></li>
-        </ul>
-
-        <h2 id="what-will-be-collected">What will be collected</h2>
-        <p>We collect meaningful, significant unsolved problems in quantum information and quantum computation. Each problem should be formulated precisely in mathematical language, with clear assumptions and an unambiguous criterion for a solution. When a problem is solved, its page stays in the zoo and is updated with the resolution and supporting references.</p>
-
-        <h2 id="contribute">How to contribute</h2>
-        <p>${submissionsOnline
-          ? `Use the <a href="${root}contribute/">proposal form</a> to send a problem, its sources, and what is known. No account is needed.`
-          : `Propose a problem through a <a href="${config.repositoryUrl}/issues/new?template=new-problem.yml">GitHub issue</a> (a GitHub account is required). The <a href="${root}contribute/">proposal worksheet</a> helps you prepare and copy the text; online sending is not enabled yet.`} The maintainers check proposals against the literature and publish reviewed records with credit to contributors${anonymousSubmissionsAllowed(config) ? ", respecting requests to remain anonymous" : ""}. To add a record yourself through GitHub:</p>
-        <ol>
-          <li>Fork the <a href="${config.repositoryUrl}" rel="noreferrer">repository</a> and run <code>node scripts/new-problem-id.mjs --create</code> to create a problem template with permanent identifiers.</li>
-          <li>Write the statement, status, source, progress, references, and comment as TeX fragments in the record's fields, following the contribution guide, and choose one or two fields and one to five topics from <code>database/tags.json</code>. Run <code>node scripts/migrate-metadata.mjs</code> after changing the classifications.</li>
-          <li>Run <code>node scripts/sync-tex.mjs</code> to write the record's TeX form, then <code>node site/build.mjs</code>. The build rejects records with missing fields, unknown or miscounted fields and topics, unresolved citations, or unlabeled equations.</li>
-          <li>Open a pull request. To report progress on an existing problem, use the Edit button on its page or open an issue with the primary sources.</li>
-        </ol>
-
-        <h2 id="cite">How to cite</h2>
-        <p>Cite the primary sources for any mathematical claim. To cite a problem page for its statement, status, or stable identifier, use the Cite button on that page. To cite the zoo as a whole:</p>
-        <div class="copy-block no-math"><pre id="zoo-bibtex">${escape(zooBib)}</pre><button class="copy-button" type="button" data-copy="zoo-bibtex">Copy</button></div>
-
-        <h2 id="mcp"><span id="api">Use the MCP server</span></h2>
-        <p>Connect your AI assistant through the Model Context Protocol (MCP) to search the zoo, read problem statements and references, and gather the known results and remaining questions for a research session.</p>
-        <p>Use a client that supports remote MCP servers over Streamable HTTP. Connect with the address below; no download, local setup, or API key is needed to read the catalog.</p>
-        <ol>
-          <li><strong>Add the server.</strong> In your client's MCP or connector settings, add a remote server named <code>quantum-open-problems</code>. Paste this server URL and choose <strong>Streamable HTTP</strong> if a transport is requested:
-            <div class="copy-block no-math"><pre id="mcp-url">${escape(mcpUrl)}</pre><button class="copy-button" type="button" data-copy="mcp-url" aria-label="Copy MCP server URL">Copy</button></div>
-          </li>
-          <li><strong>Connect your assistant.</strong> Save or enable the connection. For clients that accept URL entries in an <code>mcpServers</code> configuration:
-            <details>
-              <summary>JSON configuration for clients using <code>mcpServers</code></summary>
-              <p>Add this entry to your existing configuration, then reload the client's MCP connection. Some clients use a settings form instead.</p>
-              <div class="copy-block no-math"><pre id="mcp-config">${escape(mcpConfig)}</pre><button class="copy-button" type="button" data-copy="mcp-config" aria-label="Copy MCP client configuration">Copy</button></div>
-            </details>
-          </li>
-          <li><strong>Ask a research question.</strong> For example: “Use the quantum-open-problems MCP to find unsolved problems about quantum channel capacity, then summarize one problem's known progress and references.” The assistant can use <code>search_problems</code>, <code>get_problem</code>, <code>read_problem</code>, <code>list_references</code>, and <code>build_context</code>.</li>
-        </ol>
-        <p>The connection reads the current hosted catalog, including newly published problems. If it fails, check the <a href="${escape(mcpServiceUrl)}/api/v1/status" rel="noreferrer">catalog service status</a> and confirm that your client supports remote MCP. The <a href="${config.repositoryUrl}/blob/${config.branch}/mcp/README.md" rel="noreferrer">MCP setup and tool guide</a> also covers local clients and authenticated research contributions. For direct downloads, the <a href="${root}api/index.json">JSON catalog</a>, <a href="${root}api/tags.json">taxonomy</a>, and <a href="${root}llms.txt">agent guide</a> are available.</p>
-
-        <h2 id="licensing">Licensing and reuse</h2>
-        <p>The software uses <a href="${root}licenses/Apache-2.0.txt">Apache-2.0</a>. New original catalog contributions use <a href="https://creativecommons.org/licenses/by/4.0/" rel="noreferrer">CC BY 4.0</a>, allowing sharing, adaptation, and commercial use with attribution, license information, and an indication of changes. Contributors retain their copyright.</p>
-        <p>Cited papers and other third-party material retain their own terms. See the <a href="${root}licenses/scope.txt">licensing scope and permissions</a>, <a href="${root}licenses/CC-BY-4.0.txt">content license</a>, and <a href="${root}licenses/NOTICE.txt">retained copyright notices</a>. Cite the primary sources for mathematical results and preserve the supplied contributor credits when reusing licensed text.</p>
-
-        <h2 id="contributions"><span id="credits">Contributions</span></h2>
-        <p>This project is developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Zhong-Xia Shang, Bin Cheng, Shihao Ru, and Naixu Guo.</p>
-        <p>We thank <a href="https://gauge-forge.com/" rel="noreferrer">GaugeForge</a> for its financial support of this project.</p>
-        <p>Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
+      <div class="about-layout">
+        <nav class="about-toc" id="about-toc" aria-labelledby="about-toc-title">
+          <p class="about-toc-title" id="about-toc-title">On this page</p>
+          <ol>
+            ${sections.map(tocEntry).join("\n            ")}
+          </ol>
+        </nav>
+        <div class="prose">${prose}
+        </div>
       </div>
     </section>`;
   return layout({
