@@ -34,7 +34,7 @@ no map satisfying Eq.~\eqref{eq:p53-degradable} exists.
 
 \subsection*{Status}
 
-Unsolved
+Solved
 
 \subsection*{Source}
 
@@ -85,6 +85,10 @@ terminology \sourcecite{ref:p53-bradler}{Bra15}.
   Equation~\eqref{eq:p53-cloning-family} eliminates the cloning channels that
   motivated conjugate degradability, but does not prove a general containment
   theorem \sourcecite{ref:p53-brzic-et-al}{BGS+26}.
+
+  \item Zhu and Wang's Theorem~1 and Appendix~A construct a transpose-antidegradable channel $\mathcal N$ whose product with an antidegradable erasure channel has positive private capacity. Thus $\mathcal N$ is not antidegradable, and its complement is a strict example for Eq.~\eqref{eq:p53-transpose-degradable} \sourcecite{ref:p53-zhu-wang-private}{ZW26}.
+
+  \item An independent construction gives $\mathcal F(\rho)=\frac16\sum_{P\in\mathscr S}P\rho P^\dagger$, with $\mathscr S=\{X\otimes X,Y\otimes I,I\otimes Z,X\otimes Z,I\otimes Y,Y\otimes Z\}$. Section~2, Eqs.~(3)--(8), proves transpose antidegradability; Section~4, Eq.~(50), excludes ordinary antidegradability through private-capacity activation. Hence $\Phi=\mathcal F^c$ satisfies the requested separation, with input, output, and environment dimensions $(4,6,4)$ \sourcecite{ref:p53-pauli-private}{GHE26}.
 \end{itemize}
 
 \subsection*{References}
@@ -118,15 +122,17 @@ terminology \sourcecite{ref:p53-bradler}{Bra15}.
   \lq\lq Optimal Pure State Cloning and Transposition Are Complementary
   Channels,\rq\rq{} arXiv preprint (2026).
   \href{https://arxiv.org/abs/2603.23628}{arXiv:2603.23628}.
+
+  \item[\textup{[ZW26]}]\label{ref:p53-zhu-wang-private}
+  C. Zhu and X. Wang, ``Private Communication via Zero-Private-Capacity Quantum Channels,'' arXiv preprint, version 1, 9 September 2026. \href{https://arxiv.org/abs/2609.10520v1}{arXiv:2609.10520v1}.
+
+  \item[\textup{[GHE26]}]\label{ref:p53-pauli-private}
+  Uthirakalyani G, P. Halder, and D. Elkouss, ``Private Communication from Pauli Channels with No Privacy,'' arXiv preprint, version 1, 17 September 2026. \href{https://arxiv.org/abs/2609.20133v1}{arXiv:2609.20133v1}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-No strict example and no equality theorem are known.  Complementation turns
-Eq.~\eqref{eq:p53-transpose-degradable} into transpose antidegradability and
-Eq.~\eqref{eq:p53-degradable} into ordinary antidegradability.  Consequently,
-the source document's transpose-antidegradable separation question is exactly
-the same existence problem, not a distinct problem.
+The answer is affirmative. Complementing either cited transpose-antidegradable but non-antidegradable channel gives a channel satisfying Eq.~\eqref{eq:p53-transpose-degradable} but not Eq.~\eqref{eq:p53-degradable}. These complete resolutions are September 2026 preprints, not identified as peer-reviewed at the 18 September 2026 audit. Determining all componentwise-minimal dimensions remains a separate open question.
 
 \subsection*{Field}
 
