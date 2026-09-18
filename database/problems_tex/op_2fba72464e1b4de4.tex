@@ -1,0 +1,213 @@
+% Problem record op_2fba72464e1b4de4. This TeX file is derived from
+% database/problems_json/op_2fba72464e1b4de4.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Minimal block length of permutation-invariant qubit codes}
+\label{sec:op_2fba72464e1b4de4}
+
+\paragraph{Problem.}
+Is the least number of physical qubits on which a two-dimensional
+permutation-invariant code corrects arbitrary errors on $t$ qubits equal to
+$3t^2+3t+1$ for every integer $t\geq1$?  For $n\geq1$ let
+$\operatorname{Sym}^n(\mathbb C^2)\subseteq(\mathbb C^2)^{\otimes n}$ denote the
+symmetric subspace, consisting of the vectors fixed by every permutation of the
+$n$ tensor factors; a code contained in it is fully permutation-invariant, with
+every code vector, not merely the code projector, invariant under relabelling
+the qubits.  A subspace $\mathcal C$ with orthogonal projector $P$ has distance
+$d(\mathcal C)\geq d$ when $PEP$ is a scalar multiple of $P$ for every Pauli
+operator $E$ acting nontrivially on fewer than $d$ qubits, and it corrects
+arbitrary errors on $t$ qubits exactly when $d(\mathcal C)\geq 2t+1$.  Define
+\begin{equation}
+  n_{\min}^{\mathrm{PI}}(t):=\min\bigl\{n\in\mathbb N:\
+    \exists\,\mathcal C\subseteq\operatorname{Sym}^n(\mathbb C^2),\
+    \dim\mathcal C=2,\ d(\mathcal C)\geq 2t+1\bigr\}.
+  \label{eq:2fba-nmin}
+\end{equation}
+The minimum in Eq.~\eqref{eq:2fba-nmin} ranges over all complex
+two-dimensional subspaces of the symmetric subspace and over both even and odd
+$n$; no coefficient ansatz, reality condition, or transversal-gate requirement
+is imposed.  The question is whether
+\begin{equation}
+  n_{\min}^{\mathrm{PI}}(t)=3t^2+3t+1
+  \qquad\text{for every integer } t\geq1 .
+  \label{eq:2fba-conjecture}
+\end{equation}
+A complete answer proves Eq.~\eqref{eq:2fba-conjecture} or exhibits an integer
+$t\geq1$ for which it fails.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Bond, Min\'a\v{r}, Ozols, Safavi-Naini, and Visnevskyi state
+Eq.~\eqref{eq:2fba-conjecture} explicitly as Conjecture~3.1, on the basis of the
+numerical searches of their Section~3.1 and Figs.~1 and~2
+\sourcecite{ref:2fba-bond-et-al}{BMO+26}.  The quantity in
+Eq.~\eqref{eq:2fba-nmin} extends the single-error question studied by Pollatsek
+and Ruskai \sourcecite{ref:2fba-pollatsek-ruskai}{PR04}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Pollatsek and Ruskai constructed two seven-qubit permutation-invariant
+  codes that correct every single-qubit error (Section~6.2, Eq.~(62)), so
+  $n_{\min}^{\mathrm{PI}}(1)\leq7$.  Their necessary and sufficient conditions
+  (Theorem~1) and their exclusion of a five-qubit code (Section~6.1) concern real
+  coefficients, odd lengths, and a restricted code form, not every
+  two-dimensional subspace of the symmetric subspace
+  \sourcecite{ref:2fba-pollatsek-ruskai}{PR04}.
+
+  \item Ouyang's gnu codes with $g=n=2t+1$ and scaling $u\geq1$ correct arbitrary
+  errors on $t$ qubits (Theorem~4).  At $u=1$ their length is $(2t+1)^2$, so
+  $n_{\min}^{\mathrm{PI}}(t)\leq(2t+1)^2$ for every $t$, and permutation
+  invariance is compatible with correcting any fixed number of errors
+  \sourcecite{ref:2fba-ouyang}{Ouy14}.
+
+  \item Aydin, Alekseyev, and Barg define codes $Q_{g,m,\delta,\epsilon}$ of length
+  $2gm+\delta+1$ and prove in Theorem~5.3 that they correct arbitrary errors on
+  $t$ qubits whenever $m\geq t$, $\delta\geq 2t$, and either $g\geq 2t$ with
+  $\epsilon=-1$ or $g\geq 2t+1$ with $\epsilon=+1$.  The choice
+  $Q_{2t,t,2t,-}$ gives the explicit bound
+  \begin{equation}
+    n_{\min}^{\mathrm{PI}}(t)\leq 4t^2+2t+1 ,
+    \label{eq:2fba-aab-bound}
+  \end{equation}
+  which matches Eq.~\eqref{eq:2fba-conjecture} only at $t=1$
+  \sourcecite{ref:2fba-aab}{AAB24}.
+
+  \item Section~7 of the same paper extends the Pollatsek--Ruskai conditions to
+  every $t$ for real, odd-length codes of a fixed parity-separated form
+  (Proposition~7.1).  For $t=2$ and $n=19$ these conditions are nine quadratic
+  equations, and the authors report a real solution computed with the
+  polynomial-system solver msolve, whose output is an interval for each
+  variable containing an exact solution, cross-checked in Mathematica.  This
+  establishes a nineteen-qubit permutation-invariant code of distance five, so
+  $n_{\min}^{\mathrm{PI}}(2)\leq19$.  The accompanying remark that no shorter
+  $t=2$ code exists refers to that ansatz and is stated without proof
+  \sourcecite{ref:2fba-aab}{AAB24}.
+
+  \item Bond and collaborators minimize a Knill--Laflamme cost function, accepting a
+  solution when the cost is below $10^{-18}$ and the gradient below $10^{-20}$,
+  with up to $1000$ random starts per length.  With unrestricted complex
+  coefficients the first solutions appear at $n=7,19,37$ for $t=1,2,3$; within
+  the Pollatsek--Ruskai family they appear at $n=7,19,37,61,91$ for
+  $t=1,\dots,5$ (Section~3.1, Figs.~1 and~2).  They also note the quantum
+  Singleton bound $n\geq 4t+1$.  Local numerical searches neither certify codes
+  nor exclude shorter ones, so this is evidence for
+  Eq.~\eqref{eq:2fba-conjecture} rather than a proof
+  \sourcecite{ref:2fba-bond-et-al}{BMO+26}.
+
+  \item In a different regime, Aydin, Albert, and Barg construct
+  permutation-invariant codes whose local dimension $q$ equals the block length
+  $N$, with code dimension $K=o(2^N)$ and distance $d=o(N/\log N)$
+  (Proposition~VII.7 and Theorem~VII.8).  The growing local dimension is
+  essential, so these codes do not bound the qubit quantity in
+  Eq.~\eqref{eq:2fba-nmin} \sourcecite{ref:2fba-aab-convex}{AAB26}.
+
+  \item Kubischta and Teixeira identify subspaces of $\operatorname{Sym}^n(\mathbb C^2)$
+  with intrinsic codes in the spin-$n/2$ representation of $\mathrm{SU}(2)$,
+  with intrinsic depth equal to qubit distance (Theorem~B1, Lemma~B1, and
+  Proposition~B2 of version~2).  Their resulting linear program has a unique
+  feasible enumerator for $n=7$, $K=2$, and distance three
+  (Propositions~B5--B6), and Appendix~B-D states that the same program is
+  infeasible at every shorter length, so no permutation-invariant $((n,2,3))$
+  code exists for $n<7$; the routine infeasibility checks are described in
+  Appendix~B-B but not written out.  With the seven-qubit codes this gives
+  $n_{\min}^{\mathrm{PI}}(1)=7$ without any reality or ansatz restriction.  The
+  result appears in the 26 August 2026 revision of a preprint
+  \sourcecite{ref:2fba-kubischta-teixeira}{KT26}.
+
+  \item Teixeira identifies the intrinsic MacWilliams matrix of permutation-invariant
+  qudit codes with a Racah polynomial system (Theorem~1 and Corollary~1).  For
+  qubits, Eq.~(87) reads
+  \begin{equation}
+    M_{ba}=\frac{2b+1}{n+1}\,
+    {}_4F_3\!\left(\begin{matrix}-b,\ b+1,\ -a,\ a+1\\ 1,\ -n,\ n+2\end{matrix};1\right),
+    \qquad 0\leq a,b\leq n,
+    \label{eq:2fba-macwilliams}
+  \end{equation}
+  where the generalized hypergeometric series terminates and $a,b$ label the
+  spin sectors of the operator space.  Equation~\eqref{eq:2fba-macwilliams} makes
+  the linear-programming bounds of the preceding item explicit for every $n$,
+  but the preprint does not evaluate them for $t\geq2$
+  \sourcecite{ref:2fba-teixeira}{Tei26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[PR04]}]\label{ref:2fba-pollatsek-ruskai}
+  H. Pollatsek and M. B. Ruskai, ``Permutationally invariant codes for quantum
+  error correction,'' \emph{Linear Algebra and its Applications} \textbf{392},
+  255--288 (2004).
+  \href{https://doi.org/10.1016/j.laa.2004.06.014}{doi:10.1016/j.laa.2004.06.014};
+  \href{https://arxiv.org/abs/quant-ph/0304153}{arXiv:quant-ph/0304153}.
+
+  \item[\textup{[Ouy14]}]\label{ref:2fba-ouyang}
+  Y. Ouyang, ``Permutation-invariant quantum codes,'' \emph{Physical Review A}
+  \textbf{90}, 062317 (2014).
+  \href{https://doi.org/10.1103/PhysRevA.90.062317}{doi:10.1103/PhysRevA.90.062317};
+  \href{https://arxiv.org/abs/1302.3247}{arXiv:1302.3247}.
+
+  \item[\textup{[AAB24]}]\label{ref:2fba-aab}
+  A. Aydin, M. A. Alekseyev, and A. Barg, ``A family of permutationally
+  invariant quantum codes,'' \emph{Quantum} \textbf{8}, 1321 (2024).
+  \href{https://doi.org/10.22331/q-2024-04-30-1321}{doi:10.22331/q-2024-04-30-1321};
+  \href{https://arxiv.org/abs/2310.05358}{arXiv:2310.05358}.
+
+  \item[\textup{[BMO+26]}]\label{ref:2fba-bond-et-al}
+  L. J. Bond, J. Min\'a\v{r}, M. Ozols, A. Safavi-Naini, and V. Visnevskyi,
+  ``Permutation-invariant codes: a numerical study and qudit constructions,''
+  arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2603.10981}{arXiv:2603.10981}.
+
+  \item[\textup{[AAB26]}]\label{ref:2fba-aab-convex}
+  A. Aydin, V. V. Albert, and A. Barg, ``Quantum error correction beyond
+  $\mathrm{SU}(2)$: spin, bosonic, and permutation-invariant codes from convex
+  geometry,'' \emph{PRX Quantum} \textbf{7}, 010341 (2026).
+  \href{https://doi.org/10.1103/kx3b-4nrp}{doi:10.1103/kx3b-4nrp};
+  \href{https://arxiv.org/abs/2509.20545}{arXiv:2509.20545}.
+
+  \item[\textup{[KT26]}]\label{ref:2fba-kubischta-teixeira}
+  E. Kubischta and I. Teixeira, ``MacWilliams identities for intrinsic quantum
+  codes,'' arXiv preprint, version 2 (2026).
+  \href{https://arxiv.org/abs/2604.16023}{arXiv:2604.16023}.
+
+  \item[\textup{[Tei26]}]\label{ref:2fba-teixeira}
+  I. Teixeira, ``Orthogonal polynomials and the MacWilliams transform for
+  permutation-invariant qudit codes,'' arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2605.15372}{arXiv:2605.15372}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The case $t=1$ is settled: the seven-qubit codes of Pollatsek and Ruskai attain
+Eq.~\eqref{eq:2fba-conjecture}, and the unrestricted exclusion of shorter codes
+comes from the linear program of Kubischta and Teixeira, which is a preprint.
+For $t=2$ the nineteen-qubit code of Aydin, Alekseyev, and Barg settles
+existence at the conjectured length, so the remaining question is whether a
+permutation-invariant distance-five code exists on at most eighteen qubits.  For
+$t\geq3$ neither an exact code of length $3t^2+3t+1$ nor an unrestricted lower
+bound of that order was located; the explicit constructions give only
+Eq.~\eqref{eq:2fba-aab-bound}, and the numerical searches are not proofs.  A
+proof of Eq.~\eqref{eq:2fba-conjecture} needs both a matching unrestricted lower
+bound and existence at the conjectured length for every $t$, while a single $t$
+with a different value refutes it.  The record
+\href{https://qiqc-op.com/problem/op_a72722e455d85d55/}{Minimal permutation-invariant qubit code for two errors}
+isolates the case $t=2$; resolving it would not decide
+Eq.~\eqref{eq:2fba-conjecture} for other $t$.  Literature checked through
+15 September 2026.
+
+\subsection*{Field}
+
+Quantum Error Correction
+
+\subsection*{Topic}
+
+Quantum coding theory
+
+\subsection*{ID}
+
+\texttt{op\_2fba72464e1b4de4}

@@ -1,0 +1,159 @@
+% Problem record op_3be0df761e83d438. This TeX file is derived from
+% database/problems_json/op_3be0df761e83d438.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Superactivation of distillable secret key}
+\label{sec:op_3be0df761e83d438}
+
+\paragraph{Problem.}
+Can two bipartite quantum states with zero distillable secret key yield
+positive distillable secret key when used jointly?  Let $\rho_{AB}$ and
+$\sigma_{A'B'}$ be arbitrary finite-dimensional bipartite quantum states.  For
+a state $\omega$, let $K_D(\omega)$ denote its asymptotic distillable secret
+key, in secret bits per copy.  Alice and Bob may apply arbitrary local quantum
+operations to $\omega^{\otimes n}$ and use unlimited authenticated two-way
+public communication; Eve holds a purification of $\omega^{\otimes n}$ and
+receives the entire public transcript.  A rate is achievable when the joint
+state of Alice's key, Bob's key, and Eve's systems converges in trace distance
+to that of identical, uniformly distributed keys independent of Eve, and
+$K_D(\omega)$ is the supremum of achievable rates.  No initial secret key of
+positive rate, entanglement assistance, or catalyst is supplied.  The question
+is whether there is a pair satisfying
+\begin{equation}
+  K_D(\rho_{AB})=K_D(\sigma_{A'B'})=0,
+  \qquad
+  K_D(\rho_{AB}\otimes\sigma_{A'B'})>0,
+  \label{eq:3be0-superactivation}
+\end{equation}
+where the joint rate in Eq.~\eqref{eq:3be0-superactivation} is taken across
+the bipartition $AA':BB'$.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Horodecki, Sikorski, Das, and Wilde explicitly state in Sec.~1 that it
+remains open whether entangled but key-undistillable states exist, and in
+Sec.~13 describe their results as assuming faithfulness of distillable key
+\sourcecite{ref:3be0-hsdw}{HSDW26}.  The question in
+Eq.~\eqref{eq:3be0-superactivation} is derived from that documented gap as a
+question about tensor-product closure of the zero-key set; it is not stated
+verbatim in the cited papers.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Zero distillable entanglement does not certify zero key.
+  Horodecki, Horodecki, Horodecki, and Oppenheim construct bound-entangled
+  states $\omega$ with positive partial transpose for which
+  \begin{equation}
+    D_{\leftrightarrow}(\omega)=0<K_D(\omega),
+    \label{eq:3be0-bound-key}
+  \end{equation}
+  where $D_{\leftrightarrow}$ is the two-way LOCC distillable entanglement
+  \sourcecite{ref:3be0-hhho}{HHHO05}.  By Eq.~\eqref{eq:3be0-bound-key},
+  neither bound entanglement nor positivity of the partial transpose alone
+  makes a factor in Eq.~\eqref{eq:3be0-superactivation} key-undistillable.
+
+  \item Let Alice measure her share of a purification of $\omega_{AB}$, producing
+  a classical--quantum--quantum state $\eta_{XBE}$ with classical outcome $X$.
+  The one-way protocol of Devetak and Winter achieves
+  \begin{equation}
+    K_D(\omega)\geq\max\{0,\,I(X:B)_\eta-I(X:E)_\eta\},
+    \label{eq:3be0-devetak-winter}
+  \end{equation}
+  where $I$ is the quantum mutual information
+  \sourcecite{ref:3be0-dw}{DW05}.  A nonpositive right-hand side in
+  Eq.~\eqref{eq:3be0-devetak-winter} for a particular measurement gives no
+  upper bound on $K_D(\omega)$, which optimizes over arbitrary block
+  protocols with two-way public interaction.
+
+  \item Separable states are useless for key distillation, as recalled in
+  Sec.~1 of \sourcecite{ref:3be0-hsdw}{HSDW26}.  A separable state can be
+  prepared by local operations and public communication, and a purifying
+  adversary can reproduce the announced preparation record, so appending it
+  does not change the key rate:
+  \begin{equation}
+    K_D(\omega\otimes\tau)=K_D(\omega)
+    \qquad\text{for every }\tau\in\mathrm{SEP},
+    \label{eq:3be0-separable-free}
+  \end{equation}
+  where $\mathrm{SEP}$ denotes the separable states on the relevant
+  bipartition.  Both factors of any pair satisfying
+  Eq.~\eqref{eq:3be0-superactivation} must therefore be entangled and
+  individually key-undistillable.  Eq.~\eqref{eq:3be0-separable-free} is a
+  direct resource-theoretic consequence, not an activation theorem.
+
+  \item Horodecki, Sikorski, Das, and Wilde develop the resource theory of
+  private key under the assumption that distillable key is faithful, and
+  state in Sec.~1 that the following implication remains unresolved
+  \sourcecite{ref:3be0-hsdw}{HSDW26}:
+  \begin{equation}
+    \omega\notin\mathrm{SEP}\quad\Longrightarrow\quad K_D(\omega)>0.
+    \label{eq:3be0-faithfulness}
+  \end{equation}
+  If
+  Eq.~\eqref{eq:3be0-faithfulness} holds, the zero-key set equals
+  $\mathrm{SEP}$, which is closed under tensor products, so no pair satisfies
+  Eq.~\eqref{eq:3be0-superactivation}.  Conversely, a pair satisfying
+  Eq.~\eqref{eq:3be0-superactivation} would disprove
+  Eq.~\eqref{eq:3be0-faithfulness}.  Existence of a single entangled zero-key
+  state would not by itself provide an activating pair.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[HHHO05]}]\label{ref:3be0-hhho}
+  K. Horodecki, M. Horodecki, P. Horodecki, and J. Oppenheim,
+  ``Secure Key from Bound Entanglement,''
+  \emph{Physical Review Letters} \textbf{94}, 160502 (2005).
+  \href{https://doi.org/10.1103/PhysRevLett.94.160502}{doi:10.1103/PhysRevLett.94.160502};
+  \href{https://arxiv.org/abs/quant-ph/0309110}{arXiv:quant-ph/0309110}.
+
+  \item[\textup{[DW05]}]\label{ref:3be0-dw}
+  I. Devetak and A. Winter, ``Distillation of Secret Key and Entanglement
+  from Quantum States,'' \emph{Proceedings of the Royal Society A}
+  \textbf{461}, 207--235 (2005).
+  \href{https://doi.org/10.1098/rspa.2004.1372}{doi:10.1098/rspa.2004.1372};
+  \href{https://arxiv.org/abs/quant-ph/0306078}{arXiv:quant-ph/0306078}.
+
+  \item[\textup{[HSDW26]}]\label{ref:3be0-hsdw}
+  K. Horodecki, L. Sikorski, S. Das, and M. M. Wilde,
+  ``Cost of Quantum Secret Key,'' \emph{Quantum} \textbf{10}, 2098 (2026).
+  \href{https://doi.org/10.22331/q-2026-05-06-2098}{doi:10.22331/q-2026-05-06-2098};
+  \href{https://arxiv.org/abs/2402.17007}{arXiv:2402.17007}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The unresolved alternatives are an explicit pair satisfying
+Eq.~\eqref{eq:3be0-superactivation} or a proof that the set of states with
+$K_D=0$ is closed under tensor products.  Even the necessary existence of an
+entangled state with $K_D=0$ remains open.  Activating a particular
+key-distribution protocol, or increasing the key rate of a state that already
+has positive key, does not answer the question.
+
+The record \href{https://qiqc-op.com/problem/op_b952ec2dd8246a10/}{Secret key
+from every entangled state} asks whether Eq.~\eqref{eq:3be0-faithfulness}
+holds.  An affirmative answer there would rule out the pair sought here, and
+such a pair would give a negative answer there.  The two questions are not
+claimed to be equivalent: an entangled zero-key state need not activate with
+any other zero-key state.  The record
+\href{https://qiqc-op.com/problem/op_59e9ede6e282a917/}{Superactivation of
+two-way secret-key capacity} asks the corresponding question for quantum
+channels.  Literature checked through 15 September 2026.
+
+\subsection*{Field}
+
+Quantum Cryptography; Quantum Resource Theory
+
+\subsection*{Topic}
+
+Superactivation; Secret-key distillation
+
+\subsection*{ID}
+
+\texttt{op\_3be0df761e83d438}

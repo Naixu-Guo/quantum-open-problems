@@ -1,0 +1,182 @@
+% Problem record op_a72722e455d85d55. This TeX file is derived from
+% database/problems_json/op_a72722e455d85d55.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Minimal permutation-invariant qubit code for two errors}
+\label{sec:op_a72722e455d85d55}
+
+\paragraph{Problem.}
+Is nineteen the least number of physical qubits on which a two-dimensional code
+contained in the fully symmetric subspace corrects every error on at most two
+qubits?  Let $\operatorname{Sym}^n(\mathbb C^2)\subseteq(\mathbb C^2)^{\otimes n}$
+be the subspace of vectors fixed by every permutation of the $n$ qubits, and let
+$d(\mathcal Q)$ be the distance of a subspace $\mathcal Q$, so that
+$\mathcal Q$ corrects arbitrary errors on two qubits exactly when
+$d(\mathcal Q)\geq5$.  Define
+\begin{equation}
+  n_{\min}^{\mathrm{PI}}(2):=\min\bigl\{n\in\mathbb N:\
+    \exists\,\mathcal Q\subseteq\operatorname{Sym}^n(\mathbb C^2),\
+    \dim\mathcal Q=2,\ d(\mathcal Q)\geq5\bigr\}.
+  \label{eq:a727-nmin}
+\end{equation}
+Equivalently, write an orthonormal logical basis in the Dicke states,
+\begin{equation}
+  \lvert a_L\rangle=\sum_{w=0}^{n}c_{a,w}\lvert D_w^n\rangle,
+  \qquad
+  \lvert D_w^n\rangle=\binom nw^{-1/2}
+    \sum_{x\in\{0,1\}^n:\ \lvert x\rvert=w}\lvert x\rangle,
+  \qquad a\in\{0,1\},
+  \label{eq:a727-dicke}
+\end{equation}
+where $\lvert x\rvert$ is the Hamming weight of the bit string $x$ and the
+coefficients $c_{a,w}$ are arbitrary complex numbers, and require
+\begin{equation}
+  \langle a_L\rvert E\lvert b_L\rangle=c_E\,\delta_{ab}
+  \qquad\text{for every Pauli operator } E \text{ with } \operatorname{wt}(E)<5,
+  \label{eq:a727-kl}
+\end{equation}
+with $c_E\in\mathbb C$ independent of $a,b\in\{0,1\}$ and $\operatorname{wt}(E)$
+the number of qubits on which $E$ acts nontrivially.  Permutation invariance is
+pointwise invariance of every code vector, not merely invariance of the code
+projector under relabelling qubits.  The question is whether the minimum in
+Eq.~\eqref{eq:a727-nmin} equals $19$; equality means that
+Eq.~\eqref{eq:a727-kl} is solvable for $n=19$ and for no $n\leq18$, over all
+complex coefficients and both parities of $n$.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+This is the case $t=2$ of Conjecture~3.1 of Bond, Min\'a\v{r}, Ozols,
+Safavi-Naini, and Visnevskyi, which asserts that the least length of a
+permutation-invariant qubit code correcting $t$ arbitrary errors is
+$3t^2+3t+1$; the value $19$ for $t=2$ is reported explicitly in Section~3.1 and
+Figs.~1 and~2 \sourcecite{ref:a727-bond-et-al}{BMO+26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Bond and collaborators minimize a Knill--Laflamme cost function over
+  unrestricted complex Dicke coefficients and over the Pollatsek--Ruskai family,
+  accepting a solution when the cost is below $10^{-18}$ and the gradient below
+  $10^{-20}$, with up to $1000$ random starts per length.  In both searches the
+  first $t=2$ solutions appear at $n=19$ (Section~3.1, Fig.~1).  Numerical
+  minimization to a tolerance is not an exact certificate, and unsuccessful
+  local searches at shorter lengths do not exclude codes there
+  \sourcecite{ref:a727-bond-et-al}{BMO+26}.
+
+  \item A nineteen-qubit code is established by Aydin, Alekseyev, and Barg.  For odd
+  $n$ and real $q_0,q_2,\dots,q_{n-1}$ they consider the unnormalized codewords
+  \begin{equation}
+    \lvert c_0\rangle=\sum_{l=0}^{(n-1)/2}q_{2l}\binom{n}{2l}^{1/2}\lvert D_{2l}^n\rangle,
+    \qquad
+    \lvert c_1\rangle=\sum_{l=0}^{(n-1)/2}q_{n-2l-1}\binom{n}{2l+1}^{1/2}\lvert D_{2l+1}^n\rangle,
+    \label{eq:a727-pr-form}
+  \end{equation}
+  and Proposition~7.1 reduces Eq.~\eqref{eq:a727-kl} for this form to
+  quadratic equations in the $q_{2l}$.  For $n=19$ these are nine equations,
+  and Section~7 reports a real solution with $q_0=1$, $q_2\approx0.0477572$,
+  $q_4\approx-0.0267249$, $q_6\approx-0.00506367$, $q_8\approx0.00332914$,
+  $q_{10}\approx0.00527235$, $q_{12}\approx-0.000947223$,
+  $q_{14}\approx0.0152707$, $q_{16}\approx0.00888631$, and
+  $q_{18}\approx0.32678$.  The solution was computed with the polynomial-system
+  solver msolve, whose output encloses each variable in an interval containing
+  an exact solution, and was cross-checked in Mathematica.  Hence
+  $n_{\min}^{\mathrm{PI}}(2)\leq19$.  The same section's remark that no shorter
+  $t=2$ code exists concerns the form in Eq.~\eqref{eq:a727-pr-form} and is
+  stated without proof \sourcecite{ref:a727-aab}{AAB24}.
+
+  \item The same paper gives an explicit closed-form benchmark: the code
+  $Q_{4,2,4,-}$ of Theorem~5.3 and Example~5, with orthonormal codewords
+  \begin{equation}
+    \begin{aligned}
+      \lvert c_0\rangle&=\sqrt{\tfrac{5}{68}}\,\lvert D_0^{21}\rangle
+        +\sqrt{\tfrac{7}{12}}\,\lvert D_8^{21}\rangle
+        +\sqrt{\tfrac{35}{102}}\,\lvert D_{17}^{21}\rangle,\\
+      \lvert c_1\rangle&=\sqrt{\tfrac{35}{102}}\,\lvert D_4^{21}\rangle
+        -\sqrt{\tfrac{7}{12}}\,\lvert D_{13}^{21}\rangle
+        -\sqrt{\tfrac{5}{68}}\,\lvert D_{21}^{21}\rangle,
+    \end{aligned}
+    \label{eq:a727-21-qubit}
+  \end{equation}
+  corrects arbitrary errors on two qubits.  Theorem~5.3 gives length
+  $4t^2+2t+1$ for general $t$, which is $21$ at $t=2$
+  \sourcecite{ref:a727-aab}{AAB24}.
+
+  \item Kubischta and Teixeira show that linear-programming bounds from intrinsic
+  $\mathrm{SU}(2)$ MacWilliams identities apply to every permutation-invariant
+  qubit code, with intrinsic depth equal to qubit distance (Proposition~B2 of
+  version~2), and state in Appendix~B-D that no permutation-invariant
+  $((n,2,3))$ code exists for $n<7$ \sourcecite{ref:a727-kubischta-teixeira}{KT26}.
+  Teixeira gives the transform matrix for every $n$ in closed form as a
+  terminating ${}_4F_3$ hypergeometric series (Corollary~1 and Eq.~(87))
+  \sourcecite{ref:a727-teixeira}{Tei26}.  Neither preprint states a
+  distance-five bound, so these tools do not yet decide the lengths
+  $n\leq18$.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[BMO+26]}]\label{ref:a727-bond-et-al}
+  L. J. Bond, J. Min\'a\v{r}, M. Ozols, A. Safavi-Naini, and V. Visnevskyi,
+  ``Permutation-invariant codes: a numerical study and qudit constructions,''
+  arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2603.10981}{arXiv:2603.10981}.
+
+  \item[\textup{[AAB24]}]\label{ref:a727-aab}
+  A. Aydin, M. A. Alekseyev, and A. Barg, ``A family of permutationally
+  invariant quantum codes,'' \emph{Quantum} \textbf{8}, 1321 (2024).
+  \href{https://doi.org/10.22331/q-2024-04-30-1321}{doi:10.22331/q-2024-04-30-1321};
+  \href{https://arxiv.org/abs/2310.05358}{arXiv:2310.05358}.
+
+  \item[\textup{[KT26]}]\label{ref:a727-kubischta-teixeira}
+  E. Kubischta and I. Teixeira, ``MacWilliams identities for intrinsic quantum
+  codes,'' arXiv preprint, version 2 (2026).
+  \href{https://arxiv.org/abs/2604.16023}{arXiv:2604.16023}.
+
+  \item[\textup{[Tei26]}]\label{ref:a727-teixeira}
+  I. Teixeira, ``Orthogonal polynomials and the MacWilliams transform for
+  permutation-invariant qudit codes,'' arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2605.15372}{arXiv:2605.15372}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+Existence at $n=19$ is settled by the computer-assisted construction of Aydin,
+Alekseyev, and Barg in a peer-reviewed article, so equality in
+Eq.~\eqref{eq:a727-nmin} is equivalent to the nonexistence of a
+two-dimensional permutation-invariant qubit code of distance five on every
+$n\leq18$.  That exclusion must cover complex coefficients, even lengths, and
+codes outside the form of Eq.~\eqref{eq:a727-pr-form}; a no-go theorem under any
+of these extra restrictions is insufficient, and no unrestricted exclusion was
+located.  The problem lies outside stabilizer theory, by the following
+elementary deduction, which is not taken from the cited sources.  For $n\geq3$,
+no code of dimension at least two contained in
+$\operatorname{Sym}^n(\mathbb C^2)$ with distance at least two is
+local-unitarily equivalent to a stabilizer code.  The two-qubit marginals of
+such a normalized projector would be proportional to projectors of rank $1$,
+$2$, or $4$.  Symmetric support excludes rank $4$, and rank $1$ forces a
+one-dimensional code.  In the rank-two case symmetric support forces the
+marginal $(I+A\otimes A)/4$ for one traceless Hermitian unitary $A$ common to
+all pairs, which confines the code to the span of
+$\lvert a_+\rangle^{\otimes n}$ and $\lvert a_-\rangle^{\otimes n}$, where
+$A\lvert a_\pm\rangle=\pm\lvert a_\pm\rangle$, a space of distance one.  This
+record is the case $t=2$ of
+\href{https://qiqc-op.com/problem/op_2fba72464e1b4de4/}{Minimal block length of permutation-invariant qubit codes},
+whose all-$t$ identity remains open even if this case is settled.  Literature
+checked through 15 September 2026.
+
+\subsection*{Field}
+
+Quantum Error Correction
+
+\subsection*{Topic}
+
+Quantum coding theory
+
+\subsection*{ID}
+
+\texttt{op\_a72722e455d85d55}

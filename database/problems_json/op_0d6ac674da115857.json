@@ -1,0 +1,69 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_0d6ac674da115857",
+  "ulid": "01M2JD6D1YCESPTHQZDT5TZB77",
+  "aliases": [
+    "op_0d6ac674da115857",
+    "01M2JD6D1YCESPTHQZDT5TZB77",
+    "op-0d6ac674da115857"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-15T11:28:20.030Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "derived",
+    "posed": null,
+    "areaIds": [
+      "quantum-error-correction"
+    ],
+    "topicIds": [
+      "quantum-coding-theory"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": [
+      "01M2JD6D42ZF21JR0CXSY184XW"
+    ]
+  },
+  "title": "Optimal dimension of nine-qubit distance-three codes",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum Error Correction"
+  ],
+  "topics": [
+    "Quantum coding theory"
+  ],
+  "statement": "Is the known non-additive $((9,12,3))_2$ code of largest possible dimension,\nor does a nine-qubit code of dimension thirteen and distance three exist?  Let\n$\\mathcal P_9:=\\{I,X,Y,Z\\}^{\\otimes9}$ be the Pauli basis, where the weight\n$\\operatorname{wt}(E)$ counts nonidentity tensor factors, and define\n\\begin{equation}\n  K_{\\max}^{(2)}(9,3):=\\max\\Bigl\\{\\operatorname{Tr}P:\\\n  P=P^\\dagger=P^2\\ \\text{on}\\ (\\mathbb C^2)^{\\otimes9},\\\n  PEP=c_EP\\ \\text{for every}\\ E\\in\\mathcal P_9\\ \\text{with}\\\n  \\operatorname{wt}(E)<3\\Bigr\\},\n  \\label{eq:0d6a-kmax}\n\\end{equation}\nwhere each $c_E$ is a scalar depending only on $E$.  The error condition is\nimposed for the full tensor-product Pauli basis, without an additivity,\ncodeword-stabilized, or purity assumption.  Since a $((9,12,3))_2$ code is known\nand no code of dimension fourteen or more exists,\n$K_{\\max}^{(2)}(9,3)\\in\\{12,13\\}$.  The question is whether some projector with\n$\\operatorname{Tr}P=13$ satisfies the constraints in\nEq.~\\eqref{eq:0d6a-kmax}, which would give a $((9,13,3))_2$ code correcting an\narbitrary single-qubit error.",
+  "source": "Derived from the gap between the lower and upper bounds for nine qubits and\ndistance three recorded in Table~III of \\sourcecite{ref:0d6a-roj}{ROJ19} and\nTable~1 of \\sourcecite{ref:0d6a-amh}{AMH26}, whose lower bound is the\nnon-additive code of \\sourcecite{ref:0d6a-yclo}{YCLO08}.  These sources record\nthe gap but do not pose the existence of a $((9,13,3))_2$ code as a named\nquestion or conjecture.",
+  "progress": [
+    "Yu, Chen, Lai, and Oh constructed a twelve-dimensional nine-qubit code,\n  spanned by twelve $Z$-type translates of the nine-vertex cycle graph state,\n  that corrects an arbitrary single-qubit error.  The best nine-qubit\n  distance-three stabilizer code, $[[9,3,3]]$, has dimension eight, so\n  non-additivity already increases the dimension at these parameters; the\n  question is whether this advantage is the largest possible\n  \\sourcecite{ref:0d6a-yclo}{YCLO08}.",
+    "The linear-programming bound gives dimension at most $13$ (Table~III of\n  \\sourcecite{ref:0d6a-roj}{ROJ19}).  The table of Angl\\`es Munn\\'e and Huber,\n  whose upper bounds all carry exact rational semidefinite-programming\n  certificates, still lists $12$--$13$ for block length $9$ and distance $3$\n  (Table~1, called Table~4.1 in the text of Section~4.2).  Ruling out dimension\n  thirteen would therefore determine $K_{\\max}^{(2)}(9,3)$ completely\n  \\sourcecite{ref:0d6a-amh}{AMH26}.",
+    "Rigby, Olivier, and Jarvis report an exhaustive search over nine-vertex\n  graphs up to local complementation and isomorphism: eight classes yield\n  twelve-dimensional distance-three codeword-stabilized (CWS) codes, and none\n  yields a thirteen-dimensional one (Section~III-B).  A $((9,13,3))_2$ code\n  would therefore lie outside the CWS framework, and since local unitaries\n  preserve the code parameters, it could not be local-unitary equivalent to a\n  CWS code either \\sourcecite{ref:0d6a-roj}{ROJ19}.",
+    "The neighboring eight-qubit case is settled.  Angl\\`es Munn\\'e and Huber give\n  an exact rational certificate that no $((8,9,3))_2$ code exists, CWS or not, so\n  the largest dimension for eight qubits and distance three is $8$\n  (Section~4.2 and Table~1).  This does not by itself settle the nine-qubit\n  question: transferring it would require a puncturing or shortening argument\n  that preserves the required dimension and distance\n  \\sourcecite{ref:0d6a-amh}{AMH26}."
+  ],
+  "references": [
+    {
+      "key": "YCLO08",
+      "label": "ref:0d6a-yclo",
+      "tex": "S. Yu, Q. Chen, C. H. Lai, and C. H. Oh, ``Nonadditive Quantum Error-Correcting Code,'' \\emph{Physical Review Letters} \\textbf{101}, 090501 (2008). \\href{https://doi.org/10.1103/PhysRevLett.101.090501}{doi:10.1103/PhysRevLett.101.090501}; \\href{https://arxiv.org/abs/0704.2122}{arXiv:0704.2122}."
+    },
+    {
+      "key": "AMH26",
+      "label": "ref:0d6a-amh",
+      "tex": "G. Angl\\`es Munn\\'e and F. Huber, ``SDP bounds on quantum codes: rational certificates,'' arXiv:2603.19901 (2026). \\href{https://doi.org/10.48550/arXiv.2603.19901}{doi:10.48550/arXiv.2603.19901}; \\href{https://arxiv.org/abs/2603.19901}{arXiv:2603.19901}."
+    },
+    {
+      "key": "ROJ19",
+      "label": "ref:0d6a-roj",
+      "tex": "A. Rigby, J. C. Olivier, and P. Jarvis, ``Heuristic construction of codeword stabilized codes,'' \\emph{Physical Review A} \\textbf{100}, 062303 (2019). \\href{https://doi.org/10.1103/PhysRevA.100.062303}{doi:10.1103/PhysRevA.100.062303}; \\href{https://arxiv.org/abs/1907.04537}{arXiv:1907.04537}."
+    }
+  ],
+  "comment": "Literature checked through 15 September 2026: no construction and no general\nexclusion of a $((9,13,3))_2$ code was located, so the alternative\n$K_{\\max}^{(2)}(9,3)\\in\\{12,13\\}$ remains open.  This is an optimality problem for\nan existing non-additive code, not a named conjecture.  Both outcomes are\ninformative: a thirteen-dimensional code would improve a longstanding\nfinite-length benchmark and necessarily lie outside the CWS framework, while a\nnonexistence proof would certify that the code of\n\\sourcecite{ref:0d6a-yclo}{YCLO08} has optimal dimension.  The exhaustive CWS\nsearch implies neither outcome, since it is conclusive only within the class it\nenumerates.  Likewise, a feasible weight-enumerator vector or a feasible\nfinite-level semidefinite relaxation is only a necessary condition, not a code.\nThe analogous question for seven qubits and distance two is\n\\href{https://qiqc-op.com/problem/op_5ea7cb9abb281829/}{the optimal dimension of\nseven-qubit distance-two codes}.",
+  "contributors": []
+}

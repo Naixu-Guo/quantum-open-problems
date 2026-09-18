@@ -1,0 +1,238 @@
+% Problem record op_fc663252f5664f40. This TeX file is derived from
+% database/problems_json/op_fc663252f5664f40.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Zero two-way quantum capacity of endpoint Holevo--Werner channels}
+\label{sec:op_fc663252f5664f40}
+
+\paragraph{Problem.}
+Is the two-way assisted quantum capacity of the Holevo--Werner channel
+$\mathcal W_d$ zero for every integer $d\geq3$?  For $d\geq3$, define
+$\mathcal W_d:\mathcal L(\mathbb C^d)\to\mathcal L(\mathbb C^d)$ by
+\begin{equation}
+  \mathcal W_d(X):=\frac{\operatorname{Tr}(X)I_d-\frac12X^{\mathsf T}}{d-\frac12},
+  \label{eq:fc66-channel}
+\end{equation}
+where $\mathsf T$ denotes the transpose in the computational basis.  Let $S_d$
+be the swap operator on $\mathbb C^d\otimes\mathbb C^d$, and let
+$\phi_d:=\lvert\phi_d\rangle\!\langle\phi_d\rvert$ with
+$\lvert\phi_d\rangle:=d^{-1/2}\sum_{j=0}^{d-1}\lvert jj\rangle$.  The channel in
+Eq.~\eqref{eq:fc66-channel} has the normalized Choi state
+\begin{equation}
+  \rho_d:=(\operatorname{id}\otimes\mathcal W_d)(\phi_d)
+  =\frac{I_{d^2}-\frac12S_d}{d^2-\frac d2}.
+  \label{eq:fc66-choi-state}
+\end{equation}
+Let $Q_{\leftrightarrow}(\mathcal W_d)$ be the supremum of the rates, in
+qubits per channel use, that can be transmitted with vanishing error by
+protocols that interleave uses of $\mathcal W_d$ with adaptive local
+operations and unlimited two-way classical communication, starting without
+shared entanglement.  The question is whether
+\begin{equation}
+  Q_{\leftrightarrow}(\mathcal W_d)=0
+  \qquad\text{for every integer }d\geq3 .
+  \label{eq:fc66-question}
+\end{equation}
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+The Choi states in Eq.~\eqref{eq:fc66-choi-state} belong to the Werner family
+in which DiVincenzo, Shor, Smolin, Terhal, and Thapliyal conjecture the
+existence of undistillable states with non-positive partial transpose
+(Section~II) \sourcecite{ref:fc66-divincenzo-et-al}{DSS+00}.  Bharti,
+Gajjala, and Haug state undistillability of this endpoint for all copy
+numbers as the remaining unrestricted many-copy conjecture (Eq.~(4))
+\sourcecite{ref:fc66-bharti-et-al}{BGH26}.  The channel formulation uses the
+teleportation covariance of Holevo--Werner channels
+\sourcecite{ref:fc66-cope-goodenough-pirandola}{CGP18}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item In the Werner-state convention
+  $\rho_{d,\alpha}:=(I_{d^2}+\alpha S_d)/(d^2+\alpha d)$ with
+  $-1\leq\alpha\leq1$, Eq.~\eqref{eq:fc66-choi-state} is
+  $\rho_d=\rho_{d,-1/2}$.  Partial transposition on the second factor gives
+  \begin{equation}
+    \rho_d^{T_B}=\frac{I_{d^2}-\frac d2\,\phi_d}{d^2-\frac d2},
+    \label{eq:fc66-partial-transpose}
+  \end{equation}
+  whose eigenvalue on $\lvert\phi_d\rangle$ is negative for every $d\geq3$, so
+  zero capacity cannot follow from a PPT Choi state.  Up to a positive factor,
+  Eq.~\eqref{eq:fc66-partial-transpose} is the operator
+  $\lambda I-(\lambda+1)\lvert\Phi_0\rangle\!\langle\Phi_0\rvert$ with
+  $\lambda=2/(d-2)$ of DiVincenzo, Shor, Smolin, Terhal, and Thapliyal, the
+  transition point between one-copy distillable Werner states and Werner
+  states with nonnegative expectation on all Schmidt-rank-two vectors
+  (Section~III~A); following Horodecki et al., they conjecture that some NPT
+  Werner states are undistillable
+  \sourcecite{ref:fc66-divincenzo-et-al}{DSS+00}.  The partial transpose and
+  this identification were checked directly for this entry.
+
+  \item Cope, Goodenough, and Pirandola define Holevo--Werner channels as the
+  channels whose Choi states are Werner states and show that they are
+  teleportation covariant; in the present parameterization, their Eq.~(8)
+  reads
+  \begin{equation}
+    \mathcal W_d(UXU^\dagger)=\overline U\,\mathcal W_d(X)\,U^{\mathsf T}
+    \qquad(U\in\mathrm U(d)).
+    \label{eq:fc66-covariance}
+  \end{equation}
+  The channel in Eq.~\eqref{eq:fc66-channel} is their Eq.~(6) with expectation
+  parameter $\operatorname{Tr}(\rho_dS_d)=(2-d)/(2d-1)$, and their
+  $\alpha$-representation uses the opposite sign of $\alpha$
+  \sourcecite{ref:fc66-cope-goodenough-pirandola}{CGP18}.  By
+  Eq.~\eqref{eq:fc66-covariance}, the channel is Choi-stretchable: each use
+  can be simulated by an LOCC operation acting on one copy of $\rho_d$
+  (Proposition~2) \sourcecite{ref:fc66-plob}{PLOB17}.
+
+  \item Teleportation stretching reduces an adaptive protocol with $n$ uses of
+  $\mathcal W_d$ to an LOCC operation on $\rho_d^{\otimes n}$, while sending
+  halves of $\phi_d$ through the channel gives the reverse inequality; hence
+  \begin{equation}
+    Q_{\leftrightarrow}(\mathcal W_d)=D_{\leftrightarrow}(\rho_d),
+    \label{eq:fc66-capacity-distillation}
+  \end{equation}
+  where $D_{\leftrightarrow}$ is the two-way LOCC distillable entanglement.
+  Cope, Goodenough, and Pirandola state this identity for finite-dimensional
+  teleportation-covariant channels through a reduction to entanglement
+  distillation (Appendix~A)
+  \sourcecite{ref:fc66-cope-goodenough-pirandola}{CGP18}; see also
+  Supplementary Note~10 of \sourcecite{ref:fc66-plob}{PLOB17}.  By the
+  finite-copy distillability criterion (Lemmas~1 and~2)
+  \sourcecite{ref:fc66-divincenzo-et-al}{DSS+00},
+  Eq.~\eqref{eq:fc66-question} is equivalent to requiring, for every
+  $d\geq3$,
+  \begin{equation}
+    \langle\psi\rvert\bigl(I_{d^2}-\tfrac d2\,\phi_d\bigr)^{\otimes k}
+    \lvert\psi\rangle\geq0
+    \quad\text{for all }k\geq1\text{ and all }\lvert\psi\rangle\text{ with }
+    \operatorname{SR}_{R^k:B^k}(\lvert\psi\rangle)\leq2,
+    \label{eq:fc66-criterion}
+  \end{equation}
+  where $\operatorname{SR}_{R^k:B^k}$ is the Schmidt rank between the $k$
+  reference systems and the $k$ output systems.
+
+  \item Four preprints posted in July 2026 prove the two-copy threshold: for
+  every $d\geq2$ and $-1\leq\alpha\leq1$, the state $\rho_{d,\alpha}$ is
+  two-copy undistillable if and only if $\alpha\geq-1/2$ (Theorem~1.1 of
+  \sourcecite{ref:fc66-fu-gao-park}{FGP26}, Theorem~5 of
+  \sourcecite{ref:fc66-song-chen}{SC26}, Corollary~C of
+  \sourcecite{ref:fc66-fraser-et-al}{FHPV26}, and Corollary~1.2 of
+  \sourcecite{ref:fc66-bharti-et-al}{BGH26}).  This establishes
+  Eq.~\eqref{eq:fc66-criterion} for $k\leq2$ in every dimension, but not for
+  $k\geq3$.
+
+  \item Bharti, Gajjala, and Haug give equivalent forms of the all-copy endpoint
+  condition, including 2-positivity of $\Phi_d^{\otimes k}$ for every $k$,
+  where $\Phi_d(X):=\operatorname{Tr}(X)I_d-\frac12X$.  They explain why the
+  two-copy proof does not induct: a partial trace can increase rank, and
+  tensor products need not preserve 2-positivity.  They prove the endpoint
+  inequality for tensor-factorized witnesses whose rank-two factor is
+  supported on at most two copies, and they construct constants $\gamma_k>0$,
+  with $\gamma_3=1/6$, such that $\rho_{d,\alpha}$ is $k$-copy undistillable
+  for $\alpha\geq-\gamma_k$ in every dimension.  For $k\geq3$, neither result
+  reaches $\alpha=-1/2$ \sourcecite{ref:fc66-bharti-et-al}{BGH26}.
+
+  \item For three copies, write a test vector as
+  $\lvert\psi\rangle=\operatorname{vec}C$, so that its Schmidt rank is
+  $\operatorname{rank}C$.  Wu and Zou prove the three-copy endpoint inequality
+  for every positive semidefinite and every normal $C$ of rank at most two
+  (Theorem~1.3 and Corollary~6.1), and for nonnormal $C$ under local support
+  conditions (Theorems~7.2 and~7.3).  General nonnormal rank-two witnesses
+  remain open, so three-copy undistillability of $\rho_d$ is not established
+  \sourcecite{ref:fc66-wu-zou}{WZ26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[DSS+00]}]\label{ref:fc66-divincenzo-et-al}
+  D. P. DiVincenzo, P. W. Shor, J. A. Smolin, B. M. Terhal, and
+  A. V. Thapliyal,
+  ``Evidence for Bound Entangled States with Negative Partial Transpose,''
+  \emph{Physical Review A} \textbf{61}, 062312 (2000).
+  \href{https://doi.org/10.1103/PhysRevA.61.062312}{doi:10.1103/PhysRevA.61.062312};
+  \href{https://arxiv.org/abs/quant-ph/9910026}{arXiv:quant-ph/9910026}.
+
+  \item[\textup{[BGH26]}]\label{ref:fc66-bharti-et-al}
+  K. Bharti, R. Gajjala, and T. Haug,
+  ``Two-Copy Nondistillability of Werner States: Sharp Partial-Trace
+  Inequalities and Finite-Copy Extensions,'' arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2607.24479}{arXiv:2607.24479}.
+
+  \item[\textup{[CGP18]}]\label{ref:fc66-cope-goodenough-pirandola}
+  T. P. W. Cope, K. Goodenough, and S. Pirandola,
+  ``Converse Bounds for Quantum and Private Communication over
+  Holevo--Werner Channels,''
+  \emph{Journal of Physics A: Mathematical and Theoretical} \textbf{51},
+  494001 (2018).
+  \href{https://doi.org/10.1088/1751-8121/aae964}{doi:10.1088/1751-8121/aae964};
+  \href{https://arxiv.org/abs/1804.07775}{arXiv:1804.07775}.
+
+  \item[\textup{[PLOB17]}]\label{ref:fc66-plob}
+  S. Pirandola, R. Laurenza, C. Ottaviani, and L. Banchi,
+  ``Fundamental Limits of Repeaterless Quantum Communications,''
+  \emph{Nature Communications} \textbf{8}, 15043 (2017).
+  \href{https://doi.org/10.1038/ncomms15043}{doi:10.1038/ncomms15043};
+  \href{https://arxiv.org/abs/1510.08863}{arXiv:1510.08863}.
+
+  \item[\textup{[FGP26]}]\label{ref:fc66-fu-gao-park}
+  J. Fu, L. Gao, and S.-J. Park,
+  ``A Solution to 2-Copy Distillability of Werner States,''
+  arXiv preprint (2026), version~2.
+  \href{https://arxiv.org/abs/2607.21367}{arXiv:2607.21367}.
+
+  \item[\textup{[SC26]}]\label{ref:fc66-song-chen}
+  Z. Song and L. Chen,
+  ``A Partial-Trace Matrix Inequality and Werner-State Distillability,''
+  arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2607.23416}{arXiv:2607.23416}.
+
+  \item[\textup{[FHPV26]}]\label{ref:fc66-fraser-et-al}
+  T. C. Fraser, F. Huber, B. Pozsgay, and I. Vona,
+  ``On the Two-Copy Distillability of Werner States and a New Partial Trace
+  Inequality,'' arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2607.24309}{arXiv:2607.24309}.
+
+  \item[\textup{[WZ26]}]\label{ref:fc66-wu-zou}
+  T. Wu and Q. Zou,
+  ``Sharp Pl\"ucker Geometry for Three-Copy Werner Distillation,''
+  arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2608.02647}{arXiv:2608.02647}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+Literature checked through 15 September 2026.  No proof or disproof of
+Eq.~\eqref{eq:fc66-criterion} for any $k\geq3$ and $d\geq3$ was located; the
+remaining gap is undistillability of $\rho_{d,-1/2}$ at three or more copies.
+The two-copy results and the three-copy sector results are preprints.  A proof
+of Eq.~\eqref{eq:fc66-question} for one fixed $d\geq3$ would already exhibit
+NPT bound entanglement, answering the existence question of the
+\href{https://qiqc-op.com/problem/op_74c4ffb5b042baf2/}{NPT bound entanglement problem}
+affirmatively; the present record asks for more, namely undistillability of
+this specific endpoint state in every dimension.  Restricting Schmidt-rank-two
+test vectors to $\mathbb C^{d'}\otimes\mathbb C^{d'}$ in each copy shows that
+$k$-copy distillability of $\rho_{d',-1/2}$ implies that of $\rho_{d,-1/2}$
+for every $d\geq d'$; hence Eq.~\eqref{eq:fc66-question} holds for every
+$d\geq3$ as soon as it holds for infinitely many $d$.  Mixing with separable
+Werner states likewise transfers undistillability from $\alpha=-1/2$ to every
+$-1/2\leq\alpha<-1/d$.  These two reductions are deductions made for this
+entry.
+
+\subsection*{Field}
+
+Quantum Communication; Quantum Resource Theory
+
+\subsection*{Topic}
+
+Quantum capacity; Bound entanglement; Entanglement distillation
+
+\subsection*{ID}
+
+\texttt{op\_fc663252f5664f40}
