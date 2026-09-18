@@ -1,0 +1,43 @@
+---
+id: "01M22MTNSG0TQ51EAG3EFY48JP"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 2
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-18T10:22:52.082Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-resource-theory"]
+topicIds: ["entanglement-cost","ppt-preserving-operations","entanglement-measures"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: ["01M1Q787QRPDH1Y9ADAGSB1AGN"]
+title: "Second-level collapse of the exact PPT entanglement-cost hierarchy"
+aliases: ["op-2e43f525333b67c0","op_2e43f525333b67c0","01M22MTNSG0TQ51EAG3EFY48JP"]
+authoredCatalog: {"status":"Solved","sourcePath":"database/problems_json/op_2e43f525333b67c0.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_2e43f525333b67c0","ulid":"01M22MTNSG0TQ51EAG3EFY48JP","aliases":["op_2e43f525333b67c0","01M22MTNSG0TQ51EAG3EFY48JP","op-2e43f525333b67c0"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":1,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-09T08:33:53.456Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-resource-theory"],"topicIds":["entanglement-cost","ppt-preserving-operations","entanglement-measures"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":["01M1Q787QRPDH1Y9ADAGSB1AGN"]},"title":"Second-level collapse of the exact PPT entanglement-cost hierarchy","status":"Solved","fields":["Quantum Resource Theory"],"topics":["Entanglement cost","PPT-preserving operations","Entanglement measures"],"statement":"Does the semidefinite hierarchy for exact PPT entanglement cost collapse at its second level for every finite-dimensional bipartite density operator $\\rho_{AB}$? Let $\\Gamma=\\operatorname{id}_A\\otimes T_B$ denote partial transpose. For an integer $p\\geq0$, define\n\\begin{equation}\n E_{\\chi,p}(\\rho):=\\log_2\\min_{S_0,\\ldots,S_p}\\left\\{\\operatorname{Tr}S_p:\\ -S_i\\leq S_{i-1}^{\\Gamma}\\leq S_i\\ (0\\leq i\\leq p),\\ S_{-1}=\\rho\\right\\},\n \\label{eq:h9-chi}\n\\end{equation}\nwhere the variables in Eq.~\\eqref{eq:h9-chi} are Hermitian operators on $A\\otimes B$ and the inequalities are in the positive-semidefinite order. Prove or disprove\n\\begin{equation}\n E_{\\chi,3}(\\rho)=E_{\\chi,2}(\\rho)\\qquad\\text{for every }\\rho_{AB}.\n \\label{eq:h9-collapse}\n\\end{equation}\nA counterexample to Eq.~\\eqref{eq:h9-collapse} must establish a strict gap.","source":"Conjecture S33 in the Supplement subsection ``Open problem: hierarchy collapse'' of Lami, Mele, and Regula explicitly poses Eq.~\\eqref{eq:h9-collapse}; their Definition S5 gives Eq.~\\eqref{eq:h9-chi} \\sourcecite{ref:h9-lami}{LMR25}. This is a precise conjecture within the supplied note's broader single-letter PPT-cost question.","progress":["The hierarchy converges to the exact asymptotic PPT entanglement cost. Equality of consecutive levels forces all later levels to coincide, so Eq.~\\eqref{eq:h9-collapse} would identify that cost with $E_{\\chi,2}$; see the Supplement subsection ``Open problem: hierarchy collapse'' \\sourcecite{ref:h9-lami}{LMR25}. Here exact cost means the asymptotic number of maximally entangled qubit pairs per target copy under completely PPT-preserving channels, with zero preparation error at each block length.","The 2025 peer-reviewed paper reports numerical evidence for Eq.~\\eqref{eq:h9-collapse}, without proving finite collapse \\sourcecite{ref:h9-lami}{LMR25}. This conjecture was subsequently disproved by the preprint below.","Brinster et al. disprove Eq.~\\eqref{eq:h9-collapse}. Their Appendix C, Theorem 8 constructs states $\\rho_m$ on $\\mathbb C^{2^m}\\otimes\\mathbb C^{2^m}$ with $E_{\\chi,m-2}(\\rho_m)<E_{\\chi,m-1}(\\rho_m)$ for $m\\geq3$. The hierarchy in their Eq.~(11) agrees with Eq.~\\eqref{eq:h9-chi}. Taking $m=4$ yields a $16\\times16$ counterexample: Eqs.~(154)--(156) give $\\chi_3(\\rho_4)=16/6$ and $\\chi_2(\\rho_4)\\leq15/6$. These are analytic bounds, not numerical evidence \\sourcecite{ref:h9-brinster}{BKK+26}."],"references":[{"key":"LMR25","label":"ref:h9-lami","tex":"L. Lami, F. A. Mele, and B. Regula, ``Computable Entanglement Cost under Positive Partial Transpose Operations,'' \\emph{Physical Review Letters} \\textbf{134}, 090202 (2025). \\href{https://doi.org/10.1103/PhysRevLett.134.090202}{doi:10.1103/PhysRevLett.134.090202}; \\href{https://arxiv.org/abs/2405.09613}{arXiv:2405.09613}."},{"key":"BKK+26","label":"ref:h9-brinster","tex":"R. Brinster, T. V. Kondra, H. Kampermann, D. Bruß, and N. Wyderka, ``Multinegativity and single-letter formulas for asymptotic entanglement,'' arXiv preprint, version 1 (2026).\n  \\href{https://arxiv.org/abs/2609.20698v1}{arXiv:2609.20698v1}."}],"comment":"The answer is negative, based on an arXiv preprint submitted 17 September 2026. The construction also rules out a universal finite collapse level for this hierarchy; it does not settle the distinct exact PPT-distillation problem."}}
+---
+## Source
+
+Conjecture S33 in the Supplement subsection “Open problem: hierarchy collapse” of Lami, Mele, and Regula explicitly poses Eq. (2); their Definition S5 gives Eq. (1) [LMR25](https://doi.org/10.1103/PhysRevLett.134.090202). This is a precise conjecture within the supplied note’s broader single-letter PPT-cost question.
+
+## Progress
+
+The hierarchy converges to the exact asymptotic PPT entanglement cost. Equality of consecutive levels forces all later levels to coincide, so Eq. (2) would identify that cost with $E_{\chi,2}$; see the Supplement subsection “Open problem: hierarchy collapse” [LMR25](https://doi.org/10.1103/PhysRevLett.134.090202). Here exact cost means the asymptotic number of maximally entangled qubit pairs per target copy under completely PPT-preserving channels, with zero preparation error at each block length.
+
+The 2025 peer-reviewed paper reports numerical evidence for Eq. (2), without proving finite collapse [LMR25](https://doi.org/10.1103/PhysRevLett.134.090202). This conjecture was subsequently disproved by the preprint below.
+
+Brinster et al. disprove Eq. (2). Their Appendix C, Theorem 8 constructs states $\rho_m$ on $\mathbb C^{2^m}\otimes\mathbb C^{2^m}$ with $E_{\chi,m-2}(\rho_m)<E_{\chi,m-1}(\rho_m)$ for $m\geq3$. The hierarchy in their Eq. (11) agrees with Eq. (1). Taking $m=4$ yields a $16\times16$ counterexample: Eqs. (154)–(156) give $\chi_3(\rho_4)=16/6$ and $\chi_2(\rho_4)\leq15/6$. These are analytic bounds, not numerical evidence [BKK+26](https://arxiv.org/abs/2609.20698v1).
+
+## Comment
+
+The answer is negative, based on an arXiv preprint submitted 17 September 2026. The construction also rules out a universal finite collapse level for this hierarchy; it does not settle the distinct exact PPT-distillation problem.
+
+## References
+
+**LMR25** L. Lami, F. A. Mele, and B. Regula, “Computable Entanglement Cost under Positive Partial Transpose Operations,” *Physical Review Letters* **134**, 090202 (2025). [doi:10.1103/PhysRevLett.134.090202](https://doi.org/10.1103/PhysRevLett.134.090202); [arXiv:2405.09613](https://arxiv.org/abs/2405.09613).
+
+**BKK+26** R. Brinster, T. V. Kondra, H. Kampermann, D. Bruß, and N. Wyderka, “Multinegativity and single-letter formulas for asymptotic entanglement,” arXiv preprint, version 1 (2026). [arXiv:2609.20698v1](https://arxiv.org/abs/2609.20698v1).
