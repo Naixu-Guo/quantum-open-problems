@@ -36,6 +36,7 @@ Unsolved
 
 This explicit ensemble and additive normalization refine the hafnian-of-Gaussians discussion following Eq.~(11) of Hamilton et al. \sourcecite{ref:ghe-hamilton}{HKS+17}.
 The formulation distinguishes additive squared-hafnian estimation from multiplicative hafnian estimation; the paper does not state this precise normalized problem as a numbered conjecture.
+Problem~1 and Conjecture~2 of \sourcecite{ref:ghe-shou}{SGGM26} subsequently state the corresponding independent-complex-Gaussian squared-hafnian estimation problem and hardness conjecture. Their diagonal entries have variance two, which does not affect an ordinary hafnian; this record fixes those unused entries to zero.
 
 \subsection*{Progress}
 
@@ -53,6 +54,8 @@ The block matrices in this reduction are not typical independent symmetric Gauss
   \item Independence and the matching expansion give $\mathbb E|\operatorname{Haf}X|^2=h_n$.
 Distinct matchings have vanishing cross terms.
 This elementary normalization calculation does not provide an average-case reduction at error $\varepsilon h_n$.
+
+  \item Shou, Gorshkov, Galitski, and Miller formulate additive squared-hafnian estimation for an independent complex symmetric Gaussian matrix as Problem~1 and retain its $\#\mathrm P$-hardness as Conjecture~2. Their Theorems~1.1 and~1.2 establish distributional hiding when the detected photon number $N$ satisfies $N=o(\sqrt K)$, with $K$ squeezed inputs. Under their finite-precision Assumption~1, Theorem~1.4 derives an additive-estimation procedure in $\mathsf{FBPP}^{\mathsf{NP}^{\mathcal C}}$ from an approximate Gaussian-boson-sampling oracle $\mathcal C$, with the theorem's squeezing and mode-scaling conditions. These results supply a sampling-to-estimation reduction, rather than proving the average-case $\#\mathrm P$-hardness asked here \sourcecite{ref:ghe-shou}{SGGM26}.
 \end{itemize}
 
 \subsection*{References}
@@ -61,6 +64,9 @@ This elementary normalization calculation does not provide an average-case reduc
   \footnotesize
   \item[\textup{[HKS+17]}]\label{ref:ghe-hamilton}
   C. S. Hamilton, R. Kruse, L. Sansoni, S. Barkhofen, C. Silberhorn, and I. Jex, "Gaussian Boson Sampling," \emph{Physical Review Letters} \textbf{119}, 170501 (2017). \href{https://doi.org/10.1103/PhysRevLett.119.170501}{doi:10.1103/PhysRevLett.119.170501}; \href{https://arxiv.org/abs/1612.01199}{arXiv:1612.01199}.
+
+  \item[\textup{[SGGM26]}]\label{ref:ghe-shou}
+  Laura Shou, Alexey V. Gorshkov, Victor Galitski, and Sarah H. Miller, ``Proof of the hiding conjecture for Gaussian boson sampling with an arbitrary number of squeezed input modes,'' arXiv preprint, version~1 (19 August 2026). \href{https://arxiv.org/abs/2608.19314v1}{arXiv:2608.19314v1}.
 \end{enumerate}
 
 \subsection*{Comment}
