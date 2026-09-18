@@ -1,14 +1,14 @@
 {
   "schema": "qiqcop-zoo/ledger-export/2",
   "source": "database/problems_json",
-  "generatedAt": "2026-09-18T05:16:50.297Z",
+  "generatedAt": "2026-09-18T10:27:13.640Z",
   "migrationTimestamp": "2026-09-04T22:04:59Z",
   "counts": {
     "Actor": 2,
-    "Problem": 362,
-    "Reference": 876,
+    "Problem": 363,
+    "Reference": 877,
     "Statement": 266,
-    "Source": 731,
+    "Source": 733,
     "Taxonomy": 5
   },
   "projectionCounts": {
@@ -965,8 +965,10 @@
     "ledger/problems/op-95fccb9df34a08b1/references/01M20F7BNAWBXXFQV660TCHQ14.r1.md",
     "ledger/problems/op-95fccb9df34a08b1/statements/v1.md",
     "ledger/problems/op-96cf7aa1c1be9be2/problem.r1.md",
+    "ledger/problems/op-96cf7aa1c1be9be2/problem.r2.md",
     "ledger/problems/op-96cf7aa1c1be9be2/references/01M1Q787QR97GV5SQBVT5Q8PY4.r1.md",
     "ledger/problems/op-96cf7aa1c1be9be2/references/01M1Q787QRFB05HY511PD6JXCC.r1.md",
+    "ledger/problems/op-96cf7aa1c1be9be2/references/01M1Q787QRFB05HY511PD6JXCC.r2.md",
     "ledger/problems/op-96cf7aa1c1be9be2/references/01M1Q787QRG8R6C7F5GG76HBFW.r1.md",
     "ledger/problems/op-96cf7aa1c1be9be2/statements/v1.md",
     "ledger/problems/op-9966229e2ac69eee/problem.r1.md",
@@ -1745,6 +1747,7 @@
     "ledger/sources/01M1Q787QRS30QF43QTZF42XB5.r1.md",
     "ledger/sources/01M1Q787QRS3X0WPR03ACJA91A.r1.md",
     "ledger/sources/01M1Q787QRSMNWPZAVN3AQVZ88.r1.md",
+    "ledger/sources/01M1Q787QRSMNWPZAVN3AQVZ88.r2.md",
     "ledger/sources/01M1Q787QRSN8SA2MSJK9JV37W.r1.md",
     "ledger/sources/01M1Q787QRSN8SA2MSJK9JV37W.r2.md",
     "ledger/sources/01M1Q787QRSW8QTVMT6W5R63CV.r1.md",
@@ -2259,6 +2262,7 @@
     "ledger/sources/01M2MCE587Z14SWCXRE1HT48Q3.r1.md",
     "ledger/sources/01M2MCE587ZCY3CQZ8FWR5YMPZ.r1.md",
     "ledger/sources/01M2MCE587ZRP8F9WA4H07ASS1.r1.md",
+    "ledger/sources/01M2T0WN1RXDA8H8FAKPW7YYKH.r1.md",
     "ledger/taxonomy.r1.md",
     "ledger/taxonomy.r2.md",
     "ledger/taxonomy.r3.md",
@@ -4507,7 +4511,11 @@
     "ledger/problems/op-fc663252f5664f40/problem.r1.md": "aeafa06a05ab654dea0604b29d5bc9360c63776b16c59a3f4edfc8a713502ddb",
     "ledger/sources/01M2K66VQ713C36S5DX76BNMBB.r2.md": "c2f484898d0436809c457e01d84b5280c5d52cc7add02dc6af85c2bfafe2c681",
     "ledger/sources/01M2K66VQ7XB0HE43CGF5HDEC2.r2.md": "25423fff79947696120361f1eb5ee5a245be1281a3a937929e565b9d009e0ee7",
-    "ledger/sources/01M2K66VQ7ABV8WZ9YK6JPF73V.r2.md": "d8fb554eaec56206c0bb170abca559754719b2cc37a029f3841c3bcf90f42640"
+    "ledger/sources/01M2K66VQ7ABV8WZ9YK6JPF73V.r2.md": "d8fb554eaec56206c0bb170abca559754719b2cc37a029f3841c3bcf90f42640",
+    "ledger/sources/01M2T0WN1RXDA8H8FAKPW7YYKH.r1.md": "645b92a67f5f5f19a6c96bc6736bce677fee3db1bcd566f7af4da8a934580f67",
+    "ledger/problems/op-96cf7aa1c1be9be2/problem.r2.md": "cdf28ca2247538e6d8c8e430cfb867e0ab8f0d442320995549a8a1ab82f80baf",
+    "ledger/problems/op-96cf7aa1c1be9be2/references/01M1Q787QRFB05HY511PD6JXCC.r2.md": "6f3339715a35be28e3891b4ba9623178b12900e0a07727bde1e095b06bbcbc28",
+    "ledger/sources/01M1Q787QRSMNWPZAVN3AQVZ88.r2.md": "f55a516a88d1c0c0b9758a75b40a8eac80ceb3e466d0b53f2f0ff2cd46481885"
   },
   "projections": {
     "ledger/actors/01M1Q787QRVXGPCXG6KEQTF7N1.r1.md": {
@@ -15268,8 +15276,8 @@
       }
     },
     "ledger/problems/op-96cf7aa1c1be9be2/problem.r1.md": {
-      "path": "ledger/problems/op-96cf7aa1c1be9be2/problem.r1.md",
-      "digest": "bb9bf8285afcaacdcb16e7ef3f3f1bb01c4821f7659e9331b7a42bfa801f6825",
+      "path": "ledger/problems/op-96cf7aa1c1be9be2/problem.r2.md",
+      "digest": "88b7a1558270ad50e11ece65fd042ad97da58267aeae89bac044fcc26edc0d0e",
       "fields": {
         "id": "3182d526cbbba1be8534996dd3bfe8a0e9471390eeca9a3abd600ff53f87eaa2",
         "type": "4fe9111f3ff04295b0e5f2fd9eb8e8493757dc39f18f14b4d5810da0a5a01903",
@@ -15290,8 +15298,8 @@
         "relatedProblemIds": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "title": "ea501374eabbe2a6a4c3b32167bb95440be0568addb9c48c7274a0e538bb5d6c",
         "aliases": "74cae5fc837c2647dbdc8d14342fbf6eac9c5a8c88489ed1e4f1722d4efe69b1",
-        "authoredCatalog": "c308213bba18adc03d77066b2b0586375a9adf094f7750966c0dd9f7a217e24e",
-        "body": "5f0c14cac57f2ea03ed614801768e01f0ca49233d6862bc3fdb652051c35b93d"
+        "authoredCatalog": "a30dc565dcc17d32647ef7d303b1398a8903d3928f56160fc26f43e9a77ac00d",
+        "body": "3f6c6cda904bcb492c192ed0f487b1ce9c016784e646c9e19b8daa29c68184a8"
       }
     },
     "ledger/problems/op-96cf7aa1c1be9be2/references/01M1Q787QR97GV5SQBVT5Q8PY4.r1.md": {
@@ -15313,8 +15321,8 @@
       }
     },
     "ledger/problems/op-96cf7aa1c1be9be2/references/01M1Q787QRFB05HY511PD6JXCC.r1.md": {
-      "path": "ledger/problems/op-96cf7aa1c1be9be2/references/01M1Q787QRFB05HY511PD6JXCC.r1.md",
-      "digest": "68f6a599f5e48fe11a090907e69513181a8b33559ccc97699ccee99b1d18c81e",
+      "path": "ledger/problems/op-96cf7aa1c1be9be2/references/01M1Q787QRFB05HY511PD6JXCC.r2.md",
+      "digest": "9dca367b5863537936d35891b85394284d6efb54ba9ddbef008384ec610b5894",
       "fields": {
         "id": "04104d05b7d3436f78fc04f910333516528f2176372117d4a564f1f0a4084d9a",
         "schemaVersion": "a51162aeeb057ca4e3df627977231de20b581f0d0d418ca3a111bc0e408ac6cc",
@@ -15322,12 +15330,12 @@
         "createdBy": "a70f736e8985cd5c6614e0d82e59a2ad2136278e7561b5bf344ee428d887b7a1",
         "createdAt": "0a0eb35351a3723d4d271359911337791ceee560484c7589d1a1617da400910b",
         "type": "62bf2677b9ec30fcd1213616c78b6ede91fcf2778e6e1e06139f7a0ee9a2f22b",
-        "sourceId": "aefb30e6bca1539b029fb5d0163e854686d596a32860010457db69cbe903662a",
+        "sourceId": "f18cdeb0c144e0d8dc8ef822bdcf55f6faf7247938ad4c14bad5d8bfb133cdf0",
         "targetType": "addacb98157ad3b5e9173e8e75df27123d7d7a8d0d476c1f6a03196a4ade7e31",
         "targetId": "3182d526cbbba1be8534996dd3bfe8a0e9471390eeca9a3abd600ff53f87eaa2",
         "role": "64459abac5e107992b2be79012f2de339b6a00b114143d92004d65d510749529",
         "locator": "263ba62fa7288c4fea24098b28ab1697f7c16d0fa3d49ee1a7a937e5ec9ecaa4",
-        "body": "ec5ca270495f3554f4060b565475b4617d2f0d7a7fca0cbc8b44f0edd94a1940"
+        "body": "4684a003227abf395a56fcba1ebdf0d78a1cb2034e3ecd5c9d41a2a001942a75"
       }
     },
     "ledger/problems/op-96cf7aa1c1be9be2/references/01M1Q787QRG8R6C7F5GG76HBFW.r1.md": {
@@ -26818,29 +26826,6 @@
         "url": "aa81d281c9211b27f5c95db0021564872c77792c21956bb8424f2963084d1712",
         "version": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
         "body": "9c4ffa4b3ca2d3716a8d4cbaaf8fb27e80c3004ac60c29df77fa725361405fae"
-      }
-    },
-    "ledger/sources/01M1Q787QRSMNWPZAVN3AQVZ88.r1.md": {
-      "path": "ledger/sources/01M1Q787QRSMNWPZAVN3AQVZ88.r1.md",
-      "digest": "9a9273a2e182baa053b78e7493a80d99d2489fee9bbce0e224fc3ef8d2e212ef",
-      "fields": {
-        "id": "aefb30e6bca1539b029fb5d0163e854686d596a32860010457db69cbe903662a",
-        "schemaVersion": "a51162aeeb057ca4e3df627977231de20b581f0d0d418ca3a111bc0e408ac6cc",
-        "revision": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
-        "createdBy": "a70f736e8985cd5c6614e0d82e59a2ad2136278e7561b5bf344ee428d887b7a1",
-        "createdAt": "0a0eb35351a3723d4d271359911337791ceee560484c7589d1a1617da400910b",
-        "type": "6165ee130f0082e83c5dbe4e93c65bccc46ae9edddd01edc9586c280109ad96f",
-        "title": "29c1dd762d74bed48cf4f1ce0e169a5a4df268eb7cd63fe10e530683b615dc9e",
-        "kind": "6063a1499bc5a6aa28e0a5289578ff7b0ca191322764e50c5bcad0cba5431805",
-        "completeness": "8ac24611cfe47c129e37108bc6adc6843c4fe8fb9c37c27fac8a1835ba660307",
-        "authors": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
-        "venue": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126",
-        "date": "9c8f5cf989f40d28005452b7f0969317f9bd16c606c40788b9167f30fee57c1b",
-        "doi": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
-        "arxivId": "cbb5111c80ebdfaaa77830b582b5731a8aff2e43a16a47651cfdeca44946f6e0",
-        "url": "f53958bee72f6c9020048cd711cb0e23e778bca89cdc41a6ce40529fc8389ff5",
-        "version": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
-        "body": "ec5ca270495f3554f4060b565475b4617d2f0d7a7fca0cbc8b44f0edd94a1940"
       }
     },
     "ledger/sources/01M1Q787QRSN8SA2MSJK9JV37W.r1.md": {
@@ -44418,6 +44403,29 @@
         "authoredCatalog": "3dd210cdc16d4cfcb9416123ab6cbb392c8b4fead04ff06b2dcb2139a27100ae",
         "body": "12db2aaa08245ff1c1a8007a57b0ee49b3540f482b9f6b0c7881448df5332a12"
       }
+    },
+    "ledger/sources/01M2T0WN1RXDA8H8FAKPW7YYKH.r1.md": {
+      "path": "ledger/sources/01M2T0WN1RXDA8H8FAKPW7YYKH.r1.md",
+      "digest": "07692d93c9cf675297c5fa6bbcf20b60bc4f2c21e6106c90d9235d8d06c0f1fe",
+      "fields": {
+        "id": "f18cdeb0c144e0d8dc8ef822bdcf55f6faf7247938ad4c14bad5d8bfb133cdf0",
+        "schemaVersion": "a51162aeeb057ca4e3df627977231de20b581f0d0d418ca3a111bc0e408ac6cc",
+        "revision": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+        "createdBy": "a70f736e8985cd5c6614e0d82e59a2ad2136278e7561b5bf344ee428d887b7a1",
+        "createdAt": "0a0eb35351a3723d4d271359911337791ceee560484c7589d1a1617da400910b",
+        "type": "6165ee130f0082e83c5dbe4e93c65bccc46ae9edddd01edc9586c280109ad96f",
+        "title": "df32cd8fd6a133e905a0fd38239a18db5fbf818c3523ad983c5473d32fdce7d0",
+        "kind": "6063a1499bc5a6aa28e0a5289578ff7b0ca191322764e50c5bcad0cba5431805",
+        "completeness": "8ac24611cfe47c129e37108bc6adc6843c4fe8fb9c37c27fac8a1835ba660307",
+        "authors": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "venue": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126",
+        "date": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "doi": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "arxivId": "cbb5111c80ebdfaaa77830b582b5731a8aff2e43a16a47651cfdeca44946f6e0",
+        "url": "7c4efa4ebe3ae10224c59bdf87263a41cf2e3ce8b6b8003386053678efb79eaf",
+        "version": "a4aab3f1f08004e907d2357fafe74cab56359bcb32e23f52e7eb1d3a9c0a2ad3",
+        "body": "4684a003227abf395a56fcba1ebdf0d78a1cb2034e3ecd5c9d41a2a001942a75"
+      }
     }
   },
   "retiredProjections": {
@@ -44639,6 +44647,29 @@
         "url": "b25be0dab0471a15eda1eaa3bda52271712cc566d29379ace4e4d57d08df9b77",
         "version": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
         "body": "ba3ab12e711b8d602ff5684639f597bf4952d004a66eee0c6f1b87f40fffaa26"
+      }
+    },
+    "ledger/sources/01M1Q787QRSMNWPZAVN3AQVZ88.r1.md": {
+      "path": "ledger/sources/01M1Q787QRSMNWPZAVN3AQVZ88.r2.md",
+      "digest": "9a9273a2e182baa053b78e7493a80d99d2489fee9bbce0e224fc3ef8d2e212ef",
+      "fields": {
+        "id": "aefb30e6bca1539b029fb5d0163e854686d596a32860010457db69cbe903662a",
+        "schemaVersion": "a51162aeeb057ca4e3df627977231de20b581f0d0d418ca3a111bc0e408ac6cc",
+        "revision": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+        "createdBy": "a70f736e8985cd5c6614e0d82e59a2ad2136278e7561b5bf344ee428d887b7a1",
+        "createdAt": "0a0eb35351a3723d4d271359911337791ceee560484c7589d1a1617da400910b",
+        "type": "6165ee130f0082e83c5dbe4e93c65bccc46ae9edddd01edc9586c280109ad96f",
+        "title": "29c1dd762d74bed48cf4f1ce0e169a5a4df268eb7cd63fe10e530683b615dc9e",
+        "kind": "6063a1499bc5a6aa28e0a5289578ff7b0ca191322764e50c5bcad0cba5431805",
+        "completeness": "8ac24611cfe47c129e37108bc6adc6843c4fe8fb9c37c27fac8a1835ba660307",
+        "authors": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "venue": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126",
+        "date": "9c8f5cf989f40d28005452b7f0969317f9bd16c606c40788b9167f30fee57c1b",
+        "doi": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "arxivId": "cbb5111c80ebdfaaa77830b582b5731a8aff2e43a16a47651cfdeca44946f6e0",
+        "url": "f53958bee72f6c9020048cd711cb0e23e778bca89cdc41a6ce40529fc8389ff5",
+        "version": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "body": "ec5ca270495f3554f4060b565475b4617d2f0d7a7fca0cbc8b44f0edd94a1940"
       }
     }
   },
@@ -45714,6 +45745,7 @@
     "reference:op_fc663252f5664f40:ref:fc66-wu-zou": "01M2K66VQ7W5TRYVVK87ZW59CQ",
     "statement:01M2JDA5BKS7XZM0PE21ECGZWB:v1": "01M2K66VQ772V6GMYXAD0W42EB",
     "reference:op_fe2c638b34652717:ref:fe2c-cgk17": "01M2K66VQ7HQQ1VAM9XMTTN5A4",
-    "reference:op_fe2c638b34652717:ref:fe2c-xw26": "01M2K66VQ76ZWNAQMP6R0KC05V"
+    "reference:op_fe2c638b34652717:ref:fe2c-xw26": "01M2K66VQ76ZWNAQMP6R0KC05V",
+    "source:arxiv:2608.05775v3": "01M2T0WN1RXDA8H8FAKPW7YYKH"
   }
 }
