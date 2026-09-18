@@ -46,7 +46,8 @@
   "progress": [
     "Support minimality in Eq.~\\eqref{eq:p54-complementary-pair} gives the\n  Choi-rank identities\n  \\begin{equation}\n    d_E=\\operatorname{rank}J(\\Phi_V),\n    \\qquad\n    d_B=\\operatorname{rank}J(\\Phi_V^c).\n    \\label{eq:p54-choi-ranks}\n  \\end{equation}\n  Equation~\\eqref{eq:p54-choi-ranks} removes artificial output or environment\n  dimensions introduced by nonminimal dilations\n  \\sourcecite{ref:p54-singh-datta}{SD22}.",
     "The first line of Eq.~\\eqref{eq:p54-strict-factorizations} makes\n  $J(\\Phi_V^c)$ PPT, whereas separability of this Choi operator would make\n  $\\Phi_V$ degradable.  The low-rank PPT separability theorem therefore gives\n  the necessary inequality\n  \\begin{equation}\n    d_B=\\operatorname{rank}J(\\Phi_V^c)\n      >\\max\\{d_A,d_E\\}.\n    \\label{eq:p54-rank-obstruction}\n  \\end{equation}\n  Equation~\\eqref{eq:p54-rank-obstruction} is only an obstruction: a\n  PPT-entangled Choi operator need not satisfy the channel factorization in\n  Eq.~\\eqref{eq:p54-strict-factorizations}\n  \\sourcecite{ref:p54-bradler}{Bra15},\n  \\sourcecite{ref:p54-horodecki-low-rank}{HLVC00}.",
-    "PPT is equivalent to separability on $2\\otimes2$ and $2\\otimes3$.\n  Combining this fact with Eq.~\\eqref{eq:p54-rank-obstruction}, the\n  componentwise-minimal triples not excluded by the known tests are\n  \\begin{equation}\n    (d_A,d_B,d_E)\\in\n      \\{(2,5,4),\\ (3,4,3),\\ (4,5,2)\\}.\n    \\label{eq:p54-candidate-triples}\n  \\end{equation}\n  No triple in Eq.~\\eqref{eq:p54-candidate-triples} is known to be realizable\n  \\sourcecite{ref:p54-horodecki-ppt}{HHH96},\n  \\sourcecite{ref:p54-horodecki-low-rank}{HLVC00}."
+    "PPT is equivalent to separability on $2\\otimes2$ and $2\\otimes3$.\n  Combining this fact with Eq.~\\eqref{eq:p54-rank-obstruction}, the\n  componentwise-minimal triples not excluded by the known tests are\n  \\begin{equation}\n    (d_A,d_B,d_E)\\in\n      \\{(2,5,4),\\ (3,4,3),\\ (4,5,2)\\}.\n    \\label{eq:p54-candidate-triples}\n  \\end{equation}\n  No triple in Eq.~\\eqref{eq:p54-candidate-triples} is known to be realizable\n  \\sourcecite{ref:p54-horodecki-ppt}{HHH96},\n  \\sourcecite{ref:p54-horodecki-low-rank}{HLVC00}.",
+    "The complement of the six-Kraus Pauli channel in Section~2, Eqs.~(3)--(8), of Uthirakalyani G, Halder, and Elkouss gives a feasible triple $(d_A,d_B,d_E)=(4,6,4)$. Nondegradability follows from the positive private information in their Eq.~(50). Orthogonality of the six Pauli Kraus operators and unitality give full output supports for the complementary pair, so this triple meets the support-minimal convention of Eq.~\\eqref{eq:p54-complementary-pair}. The paper leaves smaller dimensions open in Section~5 \\sourcecite{ref:p54-pauli-private}{GHE26}."
   ],
   "references": [
     {
@@ -68,7 +69,12 @@
       "key": "HHH96",
       "label": "ref:p54-horodecki-ppt",
       "tex": "M. Horodecki, P. Horodecki, and R. Horodecki,\n  \\lq\\lq Separability of Mixed States: Necessary and Sufficient\n  Conditions,\\rq\\rq{} \\emph{Physics Letters A} \\textbf{223}, 1--8 (1996).\n  \\href{https://doi.org/10.1016/S0375-9601(96)00706-2}{doi:10.1016/S0375-9601(96)00706-2};\n  \\href{https://arxiv.org/abs/quant-ph/9605038}{arXiv:quant-ph/9605038}."
+    },
+    {
+      "key": "GHE26",
+      "label": "ref:p54-pauli-private",
+      "tex": "Uthirakalyani G, P. Halder, and D. Elkouss, ``Private Communication from Pauli Channels with No Privacy,'' arXiv preprint, version 1, 17 September 2026. \\href{https://arxiv.org/abs/2609.20133v1}{arXiv:2609.20133v1}."
     }
   ],
-  "comment": "The feasible set may be empty because existence of any strict\ntranspose-degradable channel is unresolved in the\n\\href{https://qiqc-op.com/problem/op_7e7e4a25fef5c994/}{transpose-degradability existence problem}.  Under channel\ncomplementation, the triples for the equivalent strict\ntranspose-antidegradable formulation are obtained by interchanging $d_B$ and\n$d_E$."
+  "comment": "The feasible set is nonempty: the \\href{https://qiqc-op.com/problem/op_7e7e4a25fef5c994/}{transpose-degradability existence problem} now has explicit examples. The feasible triple $(4,6,4)$ is not proved componentwise minimal; the candidate triples in Eq.~\\eqref{eq:p54-candidate-triples} remain unresolved. Under complementation, the corresponding transpose-antidegradable triple is $(4,4,6)$. The new construction is a September 2026 preprint, not identified as peer-reviewed at the 18 September 2026 audit."
 }

@@ -1,23 +1,23 @@
 {
   "schema": "qiqcop-zoo/ledger-export/2",
   "source": "database/problems_json",
-  "generatedAt": "2026-09-18T05:16:50.297Z",
+  "generatedAt": "2026-09-18T10:26:35.657Z",
   "migrationTimestamp": "2026-09-04T22:04:59Z",
   "counts": {
     "Actor": 2,
-    "Problem": 362,
-    "Reference": 876,
+    "Problem": 363,
+    "Reference": 877,
     "Statement": 266,
-    "Source": 731,
+    "Source": 732,
     "Taxonomy": 5
   },
   "projectionCounts": {
     "Actor": 2,
     "Taxonomy": 1,
-    "Source": 656,
+    "Source": 657,
     "Problem": 213,
     "Statement": 213,
-    "Reference": 855
+    "Reference": 856
   },
   "files": [
     "activity/README.md",
@@ -1155,10 +1155,12 @@
     "ledger/problems/op-b1b41f737f9b4aeb/statements/v1.md",
     "ledger/problems/op-b315f0d0b6ddbdee/problem.r1.md",
     "ledger/problems/op-b315f0d0b6ddbdee/problem.r2.md",
+    "ledger/problems/op-b315f0d0b6ddbdee/problem.r3.md",
     "ledger/problems/op-b315f0d0b6ddbdee/references/01M1Q787QR3J6AAQTGNPWG745K.r1.md",
     "ledger/problems/op-b315f0d0b6ddbdee/references/01M1Q787QR6TKQ5PZW2HM7CG44.r1.md",
     "ledger/problems/op-b315f0d0b6ddbdee/references/01M1Q787QRKDCDEFW3QBPP4BJ6.r1.md",
     "ledger/problems/op-b315f0d0b6ddbdee/references/01M1Q787QRVFW5V33HH9W2R1RG.r1.md",
+    "ledger/problems/op-b315f0d0b6ddbdee/references/01M2T0VFWA79HT6J7V2JP4XBZH.r1.md",
     "ledger/problems/op-b315f0d0b6ddbdee/statements/v1.md",
     "ledger/problems/op-b52e28b95f7677a7/problem.r1.md",
     "ledger/problems/op-b52e28b95f7677a7/references/01M26MS3JM4E1JA0QNA0240W3D.r1.md",
@@ -2259,6 +2261,7 @@
     "ledger/sources/01M2MCE587Z14SWCXRE1HT48Q3.r1.md",
     "ledger/sources/01M2MCE587ZCY3CQZ8FWR5YMPZ.r1.md",
     "ledger/sources/01M2MCE587ZRP8F9WA4H07ASS1.r1.md",
+    "ledger/sources/01M2T0VFWA3DP9V12919QPKFHN.r1.md",
     "ledger/taxonomy.r1.md",
     "ledger/taxonomy.r2.md",
     "ledger/taxonomy.r3.md",
@@ -4507,7 +4510,10 @@
     "ledger/problems/op-fc663252f5664f40/problem.r1.md": "aeafa06a05ab654dea0604b29d5bc9360c63776b16c59a3f4edfc8a713502ddb",
     "ledger/sources/01M2K66VQ713C36S5DX76BNMBB.r2.md": "c2f484898d0436809c457e01d84b5280c5d52cc7add02dc6af85c2bfafe2c681",
     "ledger/sources/01M2K66VQ7XB0HE43CGF5HDEC2.r2.md": "25423fff79947696120361f1eb5ee5a245be1281a3a937929e565b9d009e0ee7",
-    "ledger/sources/01M2K66VQ7ABV8WZ9YK6JPF73V.r2.md": "d8fb554eaec56206c0bb170abca559754719b2cc37a029f3841c3bcf90f42640"
+    "ledger/sources/01M2K66VQ7ABV8WZ9YK6JPF73V.r2.md": "d8fb554eaec56206c0bb170abca559754719b2cc37a029f3841c3bcf90f42640",
+    "ledger/sources/01M2T0VFWA3DP9V12919QPKFHN.r1.md": "6ddb3e5a227c3eb16606da5625f8d48669820315308a8bd8de5d2a514a1434a6",
+    "ledger/problems/op-b315f0d0b6ddbdee/problem.r3.md": "7390ecd2f8cd07e28e2709c8f5dd9e08a18a1ac4c279eed8119228f42ce80cf7",
+    "ledger/problems/op-b315f0d0b6ddbdee/references/01M2T0VFWA79HT6J7V2JP4XBZH.r1.md": "db17e5c5e78a67e215120bcbe2ca9b0aee15d67b470b813d1004c6cb5fb6b80d"
   },
   "projections": {
     "ledger/actors/01M1Q787QRVXGPCXG6KEQTF7N1.r1.md": {
@@ -17686,8 +17692,8 @@
       }
     },
     "ledger/problems/op-b315f0d0b6ddbdee/problem.r1.md": {
-      "path": "ledger/problems/op-b315f0d0b6ddbdee/problem.r2.md",
-      "digest": "0a3a59f877a30a16f5c410045129810a94c02b0c1e9ceebb279eb7dfea61bbde",
+      "path": "ledger/problems/op-b315f0d0b6ddbdee/problem.r3.md",
+      "digest": "b86dcb4846f9a40caf7d826c4e695d10d713c785a9c6f0e5b9f9bc33f642e804",
       "fields": {
         "id": "d41a414bd42d4cee7b7c73610c85381a378340578136f19457059a0c7c4dfe37",
         "type": "4fe9111f3ff04295b0e5f2fd9eb8e8493757dc39f18f14b4d5810da0a5a01903",
@@ -17708,8 +17714,8 @@
         "relatedProblemIds": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "title": "27c8fae8bc82072e097e12883c5c2f3918d90b9f418637577dd92d8e12492784",
         "aliases": "4378ab1d87fc24e28e4657cf8ed06f2bda2e5515c28043da06965b27ae83e55a",
-        "authoredCatalog": "e153b575f526e809bc60052ad8328374bb793606e8fea865a4cd748542146306",
-        "body": "60c1a88be1c2d650ff0119f128780549b3242bdc7ccf71610f46316db948e20a"
+        "authoredCatalog": "200d9a62e473dce8807c3ae18cc046a785246d1fe9f103840c8036e9ed8d0f98",
+        "body": "43c8c48d087f52ed0c2565a55c2c31cad68fa4599b28e474271efd8a13ffe95e"
       }
     },
     "ledger/problems/op-b315f0d0b6ddbdee/references/01M1Q787QR3J6AAQTGNPWG745K.r1.md": {
@@ -44418,6 +44424,47 @@
         "authoredCatalog": "3dd210cdc16d4cfcb9416123ab6cbb392c8b4fead04ff06b2dcb2139a27100ae",
         "body": "12db2aaa08245ff1c1a8007a57b0ee49b3540f482b9f6b0c7881448df5332a12"
       }
+    },
+    "ledger/sources/01M2T0VFWA3DP9V12919QPKFHN.r1.md": {
+      "path": "ledger/sources/01M2T0VFWA3DP9V12919QPKFHN.r1.md",
+      "digest": "a788f0a633bf575f1342aea187f26ad4744a1694cd95032ccc346068077877ca",
+      "fields": {
+        "id": "e492bb0dfc2b6acda25ca369935ea19b82f8bbd5d359b9c77b128ebe1117113a",
+        "schemaVersion": "a51162aeeb057ca4e3df627977231de20b581f0d0d418ca3a111bc0e408ac6cc",
+        "revision": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+        "createdBy": "a70f736e8985cd5c6614e0d82e59a2ad2136278e7561b5bf344ee428d887b7a1",
+        "createdAt": "0a0eb35351a3723d4d271359911337791ceee560484c7589d1a1617da400910b",
+        "type": "6165ee130f0082e83c5dbe4e93c65bccc46ae9edddd01edc9586c280109ad96f",
+        "title": "ffac272c7ea9adb6c65f5b46910e27bcce2414a57fac51ba3bf821a5f8afc9e2",
+        "kind": "6063a1499bc5a6aa28e0a5289578ff7b0ca191322764e50c5bcad0cba5431805",
+        "completeness": "8ac24611cfe47c129e37108bc6adc6843c4fe8fb9c37c27fac8a1835ba660307",
+        "authors": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "venue": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126",
+        "date": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "doi": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "arxivId": "70b875a92a7d20d27f8dc50120725ba453971b1c273dde2f6101b661fb695ee8",
+        "url": "43f3a9fafb7d3fa252c42f20f5c1c885f768eb4ed80a1253bd99e0108269e387",
+        "version": "391552c099c101b131feaf24c5795a6a15bc8ec82015424e0d2b4274a369a0bf",
+        "body": "2605983451437cdc2568de92f63df1ac168c15129d987521a40580fe928bd4ea"
+      }
+    },
+    "ledger/problems/op-b315f0d0b6ddbdee/references/01M2T0VFWA79HT6J7V2JP4XBZH.r1.md": {
+      "path": "ledger/problems/op-b315f0d0b6ddbdee/references/01M2T0VFWA79HT6J7V2JP4XBZH.r1.md",
+      "digest": "8c41492eafaf3b6f8d7f684edabeb108f3fa44f5f9ff8df648848c296b4b8347",
+      "fields": {
+        "id": "2647d62296ab03f3121a332611ad4f3353066497cb143f1a02e94693b1bc0452",
+        "schemaVersion": "a51162aeeb057ca4e3df627977231de20b581f0d0d418ca3a111bc0e408ac6cc",
+        "revision": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+        "createdBy": "a70f736e8985cd5c6614e0d82e59a2ad2136278e7561b5bf344ee428d887b7a1",
+        "createdAt": "0a0eb35351a3723d4d271359911337791ceee560484c7589d1a1617da400910b",
+        "type": "62bf2677b9ec30fcd1213616c78b6ede91fcf2778e6e1e06139f7a0ee9a2f22b",
+        "sourceId": "e492bb0dfc2b6acda25ca369935ea19b82f8bbd5d359b9c77b128ebe1117113a",
+        "targetType": "addacb98157ad3b5e9173e8e75df27123d7d7a8d0d476c1f6a03196a4ade7e31",
+        "targetId": "d41a414bd42d4cee7b7c73610c85381a378340578136f19457059a0c7c4dfe37",
+        "role": "f8d9a80af3b79c0e63f54cb2140df8adbe7bc15a3c62cbd4c401130409be9e4c",
+        "locator": "fc94d9e2bd912eb6a831cef0fdd277ae3bd9330f86b033d3808ee6edfe9314ab",
+        "body": "2605983451437cdc2568de92f63df1ac168c15129d987521a40580fe928bd4ea"
+      }
     }
   },
   "retiredProjections": {
@@ -45714,6 +45761,8 @@
     "reference:op_fc663252f5664f40:ref:fc66-wu-zou": "01M2K66VQ7W5TRYVVK87ZW59CQ",
     "statement:01M2JDA5BKS7XZM0PE21ECGZWB:v1": "01M2K66VQ772V6GMYXAD0W42EB",
     "reference:op_fe2c638b34652717:ref:fe2c-cgk17": "01M2K66VQ7HQQ1VAM9XMTTN5A4",
-    "reference:op_fe2c638b34652717:ref:fe2c-xw26": "01M2K66VQ76ZWNAQMP6R0KC05V"
+    "reference:op_fe2c638b34652717:ref:fe2c-xw26": "01M2K66VQ76ZWNAQMP6R0KC05V",
+    "source:arxiv:2609.20133v1": "01M2T0VFWA3DP9V12919QPKFHN",
+    "reference:op_b315f0d0b6ddbdee:ref:p54-pauli-private": "01M2T0VFWA79HT6J7V2JP4XBZH"
   }
 }
