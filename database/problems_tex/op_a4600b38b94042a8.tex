@@ -80,13 +80,7 @@ asymptotic discrimination framework for quantum superchannels
   with $D_{\rm sc}^{A}$ the amortized superchannel relative entropy
   \sourcecite{ref:p66-hirche}{Hir23}.
 
-  \item The channel chain rule underlying
-  Eq.~\eqref{eq:p66-known-hierarchy} implies
-  $D_{\rm sc}^{A}=D_{\rm sc}^{\infty}$, and hence
-  Eq.~\eqref{eq:p66-nested-parallel-equality}, conditional on the
-  diamond-smoothed channel AEP in Problem~\ref{sec:problem-65}.  No
-  unconditional proof or counterexample is known
-  \sourcecite{ref:p66-hirche}{Hir23}.
+  \item Hirche proves $D_{\rm sc}^{A}=D_{\rm sc}^{\infty}$, and hence Eq.~\eqref{eq:p66-nested-parallel-equality}, conditional on a diamond-smoothed channel AEP (Section~5.4 and Appendix~A, Eqs.~(152)--(155)) \sourcecite{ref:p66-hirche}{Hir23}. The smoothing is over CPTP maps. Gour subsequently gives qutrit channels for which that CPTP-smoothed asymptotic rate is strictly larger than the regularized channel relative entropy, so the general premise of this conditional route fails (September 2026 preprint, Theorems~11 and~15, Sections~IV.3 and~VI) \sourcecite{ref:p66-gour26}{Gou26}. This refutes the AEP premise, not Eq.~\eqref{eq:p66-nested-parallel-equality}; an unconditional proof or a superchannel counterexample is still needed.
 
   \item For classical superchannels, all relevant relative-entropy
   amortizations collapse and product strategies already achieve the optimum;
@@ -103,13 +97,16 @@ asymptotic discrimination framework for quantum superchannels
   \emph{Quantum} \textbf{7}, 1064 (2023).
   \href{https://doi.org/10.22331/q-2023-07-25-1064}{doi:10.22331/q-2023-07-25-1064};
   \href{https://arxiv.org/abs/2103.02404}{arXiv:2103.02404}.
+
+  \item[\textup{[Gou26]}]\label{ref:p66-gour26}
+  G. Gour, ``Failure of the Asymptotic Equipartition Property for Quantum Channels,'' arXiv preprint, version 1 (2026). \href{https://arxiv.org/abs/2609.15004v1}{arXiv:2609.15004v1}.
 \end{enumerate}
 
 \subsection*{Comment}
 
 This problem compares two causal strategy classes.  It is distinct from
 \href{https://qiqc-op.com/problem/op_02bb8f8228649ac3/}{the problem on fully general superchannel-discrimination strategies}, which allows arbitrary interleavings of the
-physical components of different superchannel uses.
+physical components of different superchannel uses. The failure of CPTP smoothing must not be identified with a failure of the channel Stein lemma: the subchannel-smoothed AEP and fixed-error parallel channel Stein limit remain conjectural in general (Section~V of \sourcecite{ref:p66-gour26}{Gou26}). A replacement for the conditional argument must justify its own smoothing and trace-preservation requirements.
 
 \subsection*{Field}
 
