@@ -52,7 +52,8 @@
   "progress": [
     "The weak channel Stein lemma proves\n  \\begin{equation}\n    \\lim_{\\delta\\downarrow0}\\lim_{n\\to\\infty}\\frac1n\n    D_{H,{\\rm ch}}^\\delta\n    (\\mathcal N^{\\otimes n}\\|\\mathcal M^{\\otimes n})\n    =D_{\\rm ch}^{\\infty}(\\mathcal N\\|\\mathcal M).\n    \\label{eq:p46-weak-stein}\n  \\end{equation}\n  Equation~\\eqref{eq:p46-weak-stein} yields the required lower bound at\n  every fixed error, but not the converse inequality\n  \\sourcecite{ref:p46-fang-gour-wang}{FGW25}.",
     "Sandwiched-R\\'enyi converses bound the fixed-error limsup by\n  \\begin{equation}\n    \\limsup_{n\\to\\infty}\\frac1nD_{H,{\\rm ch}}^\\varepsilon\n    (\\mathcal N^{\\otimes n}\\|\\mathcal M^{\\otimes n})\n    \\leq\\inf_{\\alpha>1}\n    \\widetilde D_{\\alpha,{\\rm ch}}^\\infty(\\mathcal N\\|\\mathcal M).\n    \\label{eq:p46-renyi-converse}\n  \\end{equation}\n  Closing Eq.~\\eqref{eq:p46-renyi-converse} requires the still-unproved\n  continuity identity\n  \\begin{equation}\n    \\inf_{\\alpha>1}\\widetilde D_{\\alpha,{\\rm ch}}^\\infty\n       (\\mathcal N\\|\\mathcal M)\n    \\stackrel{?}{=}D_{\\rm ch}^\\infty(\\mathcal N\\|\\mathcal M).\n    \\label{eq:p46-renyi-continuity}\n  \\end{equation}\n  Equation~\\eqref{eq:p46-renyi-continuity} is the general strong-converse\n  threshold problem \\sourcecite{ref:p46-fang-gour-wang}{FGW25}.",
-    "The equality in Eq.~\\eqref{eq:p46-fixed-error-stein} is known when\n  $\\mathcal M$ is a replacer channel\n  \\sourcecite{ref:p46-cooney-mosonyi-wilde}{CMW16}.  It is also known for\n  suitable pairs of idempotent channels that share a full-rank invariant\n  state; this structured result explicitly leaves the general channel case\n  open \\sourcecite{ref:p46-singh-bergh}{SB26}."
+    "The equality in Eq.~\\eqref{eq:p46-fixed-error-stein} is known when\n  $\\mathcal M$ is a replacer channel\n  \\sourcecite{ref:p46-cooney-mosonyi-wilde}{CMW16}.  It is also known for\n  suitable pairs of idempotent channels that share a full-rank invariant\n  state; this structured result explicitly leaves the general channel case\n  open \\sourcecite{ref:p46-singh-bergh}{SB26}.",
+    "For finite $D_{\\max}(\\mathcal N\\|\\mathcal M)$, Gour's Theorem 14,\n  statements (1), (3), and (4), equates Eq.~\\eqref{eq:p46-fixed-error-stein}\n  with a subchannel-smoothed max-relative-entropy AEP at rate\n  $D_{\\rm ch}^{\\infty}(\\mathcal N\\|\\mathcal M)$ for every fixed\n  $\\delta\\in(0,1)$, and with\n  $E_{2^{nr}}(\\mathcal N^{\\otimes n}\\|\\mathcal M^{\\otimes n})\\to0$ for\n  every $r>D_{\\rm ch}^{\\infty}(\\mathcal N\\|\\mathcal M)$\n  \\sourcecite{ref:p46-gour-aep}{Gou26}.  Here subchannels are completely\n  positive trace-nonincreasing maps; smoothing is uniform over\n  reference-assisted inputs in generalized trace distance\n  $\\tfrac12(\\|X\\|_1+|\\operatorname{Tr}X|)$, with $X$ the output difference.\n  The channel hockey-stick divergence $E_\\gamma$ maximizes\n  $\\operatorname{Tr}(\\rho-\\gamma\\sigma)_+$ over common reference-assisted\n  inputs.  These equivalent assertions remain open in general."
   ],
   "references": [
     {
@@ -69,7 +70,12 @@
       "key": "SB26",
       "label": "ref:p46-singh-bergh",
       "tex": "S. Singh and B. Bergh, ``Discriminating Idempotent Quantum Channels,''\n  arXiv preprint (2026).\n  \\href{https://arxiv.org/abs/2603.28582}{arXiv:2603.28582}."
+    },
+    {
+      "key": "Gou26",
+      "label": "ref:p46-gour-aep",
+      "tex": "G. Gour, ``Failure of the Asymptotic Equipartition Property for Quantum\n  Channels,'' arXiv preprint (2026).\n  \\href{https://arxiv.org/abs/2609.15004v1}{arXiv:2609.15004v1}."
     }
   ],
-  "comment": "The question concerns parallel tests with an arbitrary entangled input across\nthe channel uses.  The weak-error result and the known structured channel\nfamilies do not establish Eq.~\\eqref{eq:p46-fixed-error-stein} for an arbitrary\nfinite-dimensional pair $\\mathcal N,\\mathcal M$."
+  "comment": "The question concerns parallel tests with an arbitrary entangled input across\nthe channel uses.  The weak-error result and the known structured channel\nfamilies do not establish Eq.~\\eqref{eq:p46-fixed-error-stein} for an arbitrary\nfinite-dimensional pair $\\mathcal N,\\mathcal M$.\nThe failure of CPTP-smoothed AEP does not refute this\nStein limit: trace-preserving completion is an additional constraint\n\\sourcecite{ref:p46-gour-aep}{Gou26}."
 }
