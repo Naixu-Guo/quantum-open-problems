@@ -92,6 +92,8 @@ private bits per product use, where $\mathcal E_{2,1/2}$ is the qubit case of th
  \label{eq:c457-quantum-activation-zero-private}
 \end{equation}
 so $\mathcal N_0$ belongs to both $\mathsf{Act}_Q$ and $\mathsf{Act}_P$. Since $T\circ\mathcal N_0=\mathcal D\circ\mathcal N_0^c$ is completely positive, $\mathcal N_0$ is itself a PPT channel; hence Eq.~\eqref{eq:c457-quantum-activation-zero-private} shows that positive private capacity is not necessary for a PPT channel to belong to $\mathsf{Act}_Q$, which bears on the question of Smith and Yard about Horodecki channels quoted in Source. This corollary is deduced here from the two cited results and is conditional on the September preprint. It does not assert that $\mathcal N_0\otimes\mathcal E_{2,1/2}$ itself has positive quantum capacity \sourcecite{ref:c457-smith-yard}{SY08}, \sourcecite{ref:c457-zhu-wang-private}{ZW26b}.
+
+  \item Uthirakalyani G, Halder, and Elkouss give an independent two-qubit Pauli example $\mathcal F\in\mathsf{Act}_P$ with an antidegradable Pauli helper $\mathcal G$: their Eq.~(50) gives $P(\mathcal F\otimes\mathcal G)>0.0033897$, while both factors have zero private capacity. Their Section~5, Eqs.~(51)--(53), also puts $\mathcal F$ in $\mathsf{Act}_Q$ using the antidegradable helper $\mathcal G\otimes\mathcal E_{6,1/2}$. This enlarges the explicit examples without characterizing either activation set \sourcecite{ref:c457-pauli-private}{GHE26}.
 \end{itemize}
 
 \subsection*{References}
@@ -112,11 +114,14 @@ so $\mathcal N_0$ belongs to both $\mathsf{Act}_Q$ and $\mathsf{Act}_P$. Since $
 
   \item[\textup{[ZW26b]}]\label{ref:c457-zhu-wang-private}
   C. Zhu and X. Wang, ``Private Communication via Zero-Private-Capacity Quantum Channels,'' arXiv preprint, version 1 (2026). \href{https://arxiv.org/abs/2609.10520}{arXiv:2609.10520}.
+
+  \item[\textup{[GHE26]}]\label{ref:c457-pauli-private}
+  Uthirakalyani G, P. Halder, and D. Elkouss, ``Private Communication from Pauli Channels with No Privacy,'' arXiv preprint, version 1, 17 September 2026. \href{https://arxiv.org/abs/2609.20133v1}{arXiv:2609.20133v1}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-The literature checked through 15 September 2026 gives members of both activation sets and structural obstructions, but no necessary and sufficient characterization of either set. Known members of $\mathsf{Act}_Q$ include every channel with $Q=0<P$; conditionally on the September 2026 preprint, the PPT channel $\mathcal N_0$ of zero private capacity belongs to both sets. Known non-members of both sets include all antidegradable channels and all channels dominated by their complements in the complete less-noisy order, such as $\Lambda$. The cited results supply no criterion deciding membership for a general channel of zero private capacity that is not dominated by its complement in that order. The nonexistence of activation between two antidegradable channels is settled and is not an open subproblem.
+The literature checked through 18 September 2026 gives explicit members of both activation sets, including the independent Pauli construction, and structural obstructions, but no necessary and sufficient characterization of either set. Known members of $\mathsf{Act}_Q$ include every channel with $Q=0<P$; conditionally on the September 2026 preprint, the PPT channel $\mathcal N_0$ of zero private capacity belongs to both sets. Known non-members of both sets include all antidegradable channels and all channels dominated by their complements in the complete less-noisy order, such as $\Lambda$. The cited results supply no criterion deciding membership for a general channel of zero private capacity that is not dominated by its complement in that order. The nonexistence of activation between two antidegradable channels is settled and is not an open subproblem.
 By Corollary~4.1 of Hirche and Leditzky, private-capacity superactivation implies that degradable channels form a proper subset of the regularized less-noisy channels \sourcecite{ref:c457-hirche-leditzky}{HL23}. That separation, the question of \href{https://qiqc-op.com/problem/op_fd75613c5bab4164/}{strict inclusion of degradable channels in the less-noisy class}, was already settled through the complement of $\Lambda$; conditionally on the September 2026 preprint, the channel $\mathcal N_0^c$ gives a further example.
 The two-way-assisted secret-key analogue is the record on
 \href{https://qiqc-op.com/problem/op_59e9ede6e282a917/}{superactivation of two-way secret-key capacity}.
