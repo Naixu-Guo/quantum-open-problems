@@ -103,6 +103,21 @@ for general channel pairs \sourcecite{ref:p46-fang-gour-wang}{FGW25}.
   suitable pairs of idempotent channels that share a full-rank invariant
   state; this structured result explicitly leaves the general channel case
   open \sourcecite{ref:p46-singh-bergh}{SB26}.
+
+  \item For finite $D_{\max}(\mathcal N\|\mathcal M)$, Gour's Theorem 14,
+  statements (1), (3), and (4), equates Eq.~\eqref{eq:p46-fixed-error-stein}
+  with a subchannel-smoothed max-relative-entropy AEP at rate
+  $D_{\rm ch}^{\infty}(\mathcal N\|\mathcal M)$ for every fixed
+  $\delta\in(0,1)$, and with
+  $E_{2^{nr}}(\mathcal N^{\otimes n}\|\mathcal M^{\otimes n})\to0$ for
+  every $r>D_{\rm ch}^{\infty}(\mathcal N\|\mathcal M)$
+  \sourcecite{ref:p46-gour-aep}{Gou26}.  Here subchannels are completely
+  positive trace-nonincreasing maps; smoothing is uniform over
+  reference-assisted inputs in generalized trace distance
+  $\tfrac12(\|X\|_1+|\operatorname{Tr}X|)$, with $X$ the output difference.
+  The channel hockey-stick divergence $E_\gamma$ maximizes
+  $\operatorname{Tr}(\rho-\gamma\sigma)_+$ over common reference-assisted
+  inputs.  These equivalent assertions remain open in general.
 \end{itemize}
 
 \subsection*{References}
@@ -130,6 +145,11 @@ for general channel pairs \sourcecite{ref:p46-fang-gour-wang}{FGW25}.
   S. Singh and B. Bergh, ``Discriminating Idempotent Quantum Channels,''
   arXiv preprint (2026).
   \href{https://arxiv.org/abs/2603.28582}{arXiv:2603.28582}.
+
+  \item[\textup{[Gou26]}]\label{ref:p46-gour-aep}
+  G. Gour, ``Failure of the Asymptotic Equipartition Property for Quantum
+  Channels,'' arXiv preprint (2026).
+  \href{https://arxiv.org/abs/2609.15004v1}{arXiv:2609.15004v1}.
 \end{enumerate}
 
 \subsection*{Comment}
@@ -138,6 +158,9 @@ The question concerns parallel tests with an arbitrary entangled input across
 the channel uses.  The weak-error result and the known structured channel
 families do not establish Eq.~\eqref{eq:p46-fixed-error-stein} for an arbitrary
 finite-dimensional pair $\mathcal N,\mathcal M$.
+The failure of CPTP-smoothed AEP does not refute this
+Stein limit: trace-preserving completion is an additional constraint
+\sourcecite{ref:p46-gour-aep}{Gou26}.
 
 \subsection*{Field}
 

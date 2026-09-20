@@ -158,13 +158,24 @@ test("maintained catalog research workflows through the official HTTP SDK", { ti
   });
 
   await t.test("the fixture reads the complete maintained catalog without inventing difficulty ratings", async () => {
-    const page = await call<SearchPage>("search_problems", { limit: 200 });
-    assert.equal(page.total, records.length);
-    assert.equal(page.count, records.length);
-    assert.equal(page.nextCursor, null);
-    assert.equal(new Set(ids(page)).size, records.length);
-    assert.ok(page.catalogVersion.length > 0);
-    for (const problem of page.problems) assert.equal(problem.difficulty, records.find(record => record.ulid === problem.id)!.metadata.difficulty);
+    let page = await call<SearchPage>("search_problems", { limit: 200 });
+    const version = page.catalogVersion;
+    const seen: string[] = [];
+    assert.ok(version.length > 0);
+    while (true) {
+      assert.equal(page.total, records.length);
+      assert.equal(page.count, page.problems.length);
+      assert.equal(page.catalogVersion, version);
+      for (const problem of page.problems) {
+        assert.ok(!seen.includes(problem.id), "Each catalog record occurs once across pages");
+        seen.push(problem.id);
+        assert.equal(problem.difficulty, records.find(record => record.ulid === problem.id)!.metadata.difficulty);
+      }
+      if (page.nextCursor === null) break;
+      assert.ok(page.count > 0, "A continuing page must make progress");
+      page = await call<SearchPage>("search_problems", { limit: 200, cursor: page.nextCursor });
+    }
+    assert.deepEqual(new Set(seen), new Set(records.map(record => record.ulid)));
   });
 
   await t.test("scientific search excludes opaque-ID substrings while complete identities still resolve", async () => {
