@@ -5,8 +5,9 @@
 \label{sec:op_c9c62042b15fcb06}
 
 \paragraph{Problem.}
-For each integer $d\geq2$, determine the maximum number $\mu(d)$ of pairwise
-mutually unbiased orthonormal bases of $\mathbb C^d$.  Two orthonormal bases
+Determine the exact maximum number $\mu(d)$ of pairwise mutually unbiased
+orthonormal bases of $\mathbb C^d$ for at least one integer $d\geq2$ that is
+not a prime power, for example $d=6,10,12,\ldots$.  Two orthonormal bases
 $\mathcal B_r=\{|e_i^{(r)}\rangle\}_{i=1}^{d}$ and
 $\mathcal B_s=\{|e_j^{(s)}\rangle\}_{j=1}^{d}$ are mutually unbiased when
 \begin{equation}
@@ -21,8 +22,8 @@ is
   $\mathbb C^d$ that are pairwise mutually unbiased}\right\}.
   \label{eq:p44-maximum-mubs}
 \end{equation}
-Determine Eq.~\eqref{eq:p44-maximum-mubs} in the non-prime-power regime, in
-particular for $d\in\{6,10,12,14,15\}$.
+It suffices to determine Eq.~\eqref{eq:p44-maximum-mubs} exactly for any one
+such dimension.
 
 \subsection*{Status}
 
@@ -34,7 +35,8 @@ Kr\"uger and Werner explicitly pose determination of the maximum number of
 mutually unbiased bases in arbitrary dimension; McNulty and Weigert retain
 the composite-dimensional cases as open
 \sourcecite{ref:p44-krueger-werner}{KW05},
-\sourcecite{ref:p44-mcnulty-weigert}{MW26}.
+\sourcecite{ref:p44-mcnulty-weigert}{MW26}.  This item narrows the general question to
+determining an exact value in any one non-prime-power dimension.
 
 \subsection*{Progress}
 
@@ -124,7 +126,8 @@ the composite-dimensional cases as open
 
 \subsection*{Comment}
 
-Determining the exact value in Eq.~\eqref{eq:p44-maximum-mubs} subsumes the
+For the choice $d=6$, determining the exact value in
+Eq.~\eqref{eq:p44-maximum-mubs} subsumes the
 dimension-six milestone of constructing four bases or excluding seven: these
 give only $\mu(6)\geq4$ or $\mu(6)\leq5$, respectively.  The milestone is
 therefore recorded here rather than maintained separately
