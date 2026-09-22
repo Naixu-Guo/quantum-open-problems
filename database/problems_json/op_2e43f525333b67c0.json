@@ -34,7 +34,7 @@
     ]
   },
   "title": "Second-level collapse of the exact PPT entanglement-cost hierarchy",
-  "status": "Unsolved",
+  "status": "Solved",
   "fields": [
     "Quantum Resource Theory"
   ],
@@ -47,14 +47,20 @@
   "source": "Conjecture S33 in the Supplement subsection ``Open problem: hierarchy collapse'' of Lami, Mele, and Regula explicitly poses Eq.~\\eqref{eq:h9-collapse}; their Definition S5 gives Eq.~\\eqref{eq:h9-chi} \\sourcecite{ref:h9-lami}{LMR25}. This is a precise conjecture within the supplied note's broader single-letter PPT-cost question.",
   "progress": [
     "The hierarchy converges to the exact asymptotic PPT entanglement cost. Equality of consecutive levels forces all later levels to coincide, so Eq.~\\eqref{eq:h9-collapse} would identify that cost with $E_{\\chi,2}$; see the Supplement subsection ``Open problem: hierarchy collapse'' \\sourcecite{ref:h9-lami}{LMR25}. Here exact cost means the asymptotic number of maximally entangled qubit pairs per target copy under completely PPT-preserving channels, with zero preparation error at each block length.",
-    "The peer-reviewed paper reports numerical evidence for Eq.~\\eqref{eq:h9-collapse}, without a proof or counterexample. Its polynomial-time approximation theorem does not establish finite collapse \\sourcecite{ref:h9-lami}{LMR25}."
+    "The 2025 peer-reviewed paper reports numerical evidence for Eq.~\\eqref{eq:h9-collapse}, without proving finite collapse \\sourcecite{ref:h9-lami}{LMR25}. This conjecture was subsequently disproved by the preprint below.",
+    "Brinster et al. disprove Eq.~\\eqref{eq:h9-collapse}. Their Appendix C, Theorem 8 constructs states $\\rho_m$ on $\\mathbb C^{2^m}\\otimes\\mathbb C^{2^m}$ with $E_{\\chi,m-2}(\\rho_m)<E_{\\chi,m-1}(\\rho_m)$ for $m\\geq3$. The hierarchy in their Eq.~(11) agrees with Eq.~\\eqref{eq:h9-chi}. Taking $m=4$ yields a $16\\times16$ counterexample: Eqs.~(154)--(156) give $\\chi_3(\\rho_4)=16/6$ and $\\chi_2(\\rho_4)\\leq15/6$. These are analytic bounds, not numerical evidence \\sourcecite{ref:h9-brinster}{BKK+26}."
   ],
   "references": [
     {
       "key": "LMR25",
       "label": "ref:h9-lami",
       "tex": "L. Lami, F. A. Mele, and B. Regula, ``Computable Entanglement Cost under Positive Partial Transpose Operations,'' \\emph{Physical Review Letters} \\textbf{134}, 090202 (2025). \\href{https://doi.org/10.1103/PhysRevLett.134.090202}{doi:10.1103/PhysRevLett.134.090202}; \\href{https://arxiv.org/abs/2405.09613}{arXiv:2405.09613}."
+    },
+    {
+      "key": "BKK+26",
+      "label": "ref:h9-brinster",
+      "tex": "R. Brinster, T. V. Kondra, H. Kampermann, D. Bruß, and N. Wyderka, ``Multinegativity and single-letter formulas for asymptotic entanglement,'' arXiv preprint, version 1 (2026).\n  \\href{https://arxiv.org/abs/2609.20698v1}{arXiv:2609.20698v1}."
     }
   ],
-  "comment": "Audited on 2026-09-09 against the full primary-source supplement and searches for subsequent hierarchy-collapse results; no verified resolution was found. The supplied note's claim of strict separation between the second and third levels is not supported by this source. Exact PPT distillation in catalog record \\texttt{op\\_75b91a20dd384110} concerns extracting entanglement and has a different operational target. The present statement asks a specific universal identity; a negative answer would not exclude another finite-level or single-letter formula."
+  "comment": "The answer is negative, based on an arXiv preprint submitted 17 September 2026. The construction also rules out a universal finite collapse level for this hierarchy; it does not settle the distinct exact PPT-distillation problem."
 }
