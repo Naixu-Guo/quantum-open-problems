@@ -48,7 +48,8 @@
   "progress": [
     "Every Boolean function admits an $f$-routing protocol with worst-case\n  shared-resource cost at most\n  \\begin{equation}\n    2^{O(\\sqrt{n\\log n})}.\n    \\label{eq:p38-general-upper-bound}\n  \\end{equation}\n  The construction underlying Eq.~\\eqref{eq:p38-general-upper-bound} also\n  relates routing quantitatively to conditional disclosure of secrets\n  \\sourcecite{ref:p38-allerstorfer}{ABM+24}.",
     "Rank methods give nontrivial lower bounds for explicit functions when\n  one routing case is required to be perfectly correct, but do not establish\n  a polynomial lower bound on Eq.~\\eqref{eq:p38-dimension-cost} in the\n  two-sided bounded-error model \\sourcecite{ref:p38-asadi}{ACM24}.",
-    "For the explicit inner-product function, the best robust result is\n  \\begin{equation}\n    f_n(x,y)=\\bigoplus_{i=1}^n x_i y_i,\n    \\qquad\n    d\\log_2(2d)=\\Omega(n),\n    \\qquad\n    E_{\\mathrm{dim}}\\geq\n      \\log_2n-\\log_2\\log_2n-O(1),\n    \\label{eq:p38-inner-product-lower-bound}\n  \\end{equation}\n  where $d=\\min\\{\\operatorname{rank}\\rho_L,\n  \\operatorname{rank}\\rho_R\\}$ and the worst-case error is at most $0.09$\n  \\sourcecite{ref:p38-bogner}{Bog26}.\n  Equation~\\eqref{eq:p38-inner-product-lower-bound} is logarithmic rather than\n  polynomial in the cost measure of Eq.~\\eqref{eq:p38-dimension-cost}."
+    "For the explicit inner-product function, the best robust result is\n  \\begin{equation}\n    f_n(x,y)=\\bigoplus_{i=1}^n x_i y_i,\n    \\qquad\n    d\\log_2(2d)=\\Omega(n),\n    \\qquad\n    E_{\\mathrm{dim}}\\geq\n      \\log_2n-\\log_2\\log_2n-O(1),\n    \\label{eq:p38-inner-product-lower-bound}\n  \\end{equation}\n  where $d=\\min\\{\\operatorname{rank}\\rho_L,\n  \\operatorname{rank}\\rho_R\\}$ and the worst-case error is at most $0.09$\n  \\sourcecite{ref:p38-bogner}{Bog26}.\n  Equation~\\eqref{eq:p38-inner-product-lower-bound} is logarithmic rather than\n  polynomial in the cost measure of Eq.~\\eqref{eq:p38-dimension-cost}.",
+    "Version~3 strengthens the resource statement to the entanglement of formation of the original arbitrary mixed state: Theorem~1 gives $E_F(\\rho_{LR})\\geq[\\log_2n-\\log_2\\log_2n-C]/13750$ for inner product and worst-case error at most $0.09$, for an absolute constant $C$ and sufficiently large $n$. The dimension bound in Eq.~\\eqref{eq:p38-inner-product-lower-bound} remains in Appendix~C. Since $E_F\\leq E_{\\mathrm{dim}}$, this adds an entanglement interpretation but does not reach the polynomial target \\sourcecite{ref:p38-bogner}{Bog26}."
   ],
   "references": [
     {
@@ -64,8 +65,8 @@
     {
       "key": "Bog26",
       "label": "ref:p38-bogner",
-      "tex": "K. Bogner, ``Robust Logarithmic Lower Bound on Shared-Resource Cost for\n  $f$-Routing,'' arXiv:2608.05775v2 (2026).\\newline\n  \\href{https://arxiv.org/abs/2608.05775}{arXiv:2608.05775}."
+      "tex": "K. Bogner, ``Robust Logarithmic Entanglement Lower Bound for $f$-Routing,'' arXiv preprint, version~3, 1 September 2026. \\href{https://arxiv.org/abs/2608.05775v3}{arXiv:2608.05775v3}."
     }
   ],
-  "comment": "Bogner explicitly leaves a polynomial lower bound on\nEq.~\\eqref{eq:p38-dimension-cost} open and notes that even a superlogarithmic\nbound for an explicit total family is unknown.  The quantity\n$E_{\\mathrm{dim}}$ is a rank-based shared-resource cost for arbitrary mixed\nstates, not an entanglement monotone."
+  "comment": "Bogner explicitly leaves a polynomial lower bound on\nEq.~\\eqref{eq:p38-dimension-cost} open and notes that even a superlogarithmic\nbound for an explicit total family is unknown.  The quantity\n$E_{\\mathrm{dim}}$ is a rank-based shared-resource cost for arbitrary mixed\nstates, not an entanglement monotone. Version~3 is an unrefereed preprint; its stronger entanglement-of-formation bound also remains logarithmic."
 }
