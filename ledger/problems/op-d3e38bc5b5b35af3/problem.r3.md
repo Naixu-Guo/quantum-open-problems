@@ -1,0 +1,53 @@
+---
+id: "01M2M9FC8R2FX3MFDQX7HZ7ZPW"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 3
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-18T10:26:06.178Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "editor-formulated"
+posed: null
+areaIds: ["quantum-metrology"]
+topicIds: ["quantum-estimation","one-shot-and-finite-blocklength-bounds"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Optimal precision dependence of diamond-norm channel tomography"
+aliases: ["op-d3e38bc5b5b35af3","op_d3e38bc5b5b35af3","01M2M9FC8R2FX3MFDQX7HZ7ZPW"]
+authoredCatalog: {"status":"Solved","sourcePath":"database/problems_json/op_d3e38bc5b5b35af3.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_d3e38bc5b5b35af3","ulid":"01M2M9FC8R2FX3MFDQX7HZ7ZPW","aliases":["op_d3e38bc5b5b35af3","01M2M9FC8R2FX3MFDQX7HZ7ZPW","op-d3e38bc5b5b35af3"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":2,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-16T05:01:48.696Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"editor-formulated","posed":null,"areaIds":["quantum-metrology"],"topicIds":["quantum-estimation","one-shot-and-finite-blocklength-bounds"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Optimal precision dependence of diamond-norm channel tomography","status":"Solved","fields":["Quantum metrology"],"topics":["Quantum estimation","One-shot and finite-blocklength bounds"],"statement":"Does tomography of an arbitrary $d$-dimensional quantum channel in diamond norm require and suffice with $\\Theta(d^4/\\varepsilon^2)$ channel uses?\n\nFor $d\\geq2$, let $\\Lambda:\\mathcal L(\\mathbb C^d)\\to\\mathcal L(\\mathbb C^d)$ be an unknown completely positive, trace-preserving channel with no Kraus-rank promise. Let $Q_\\diamond(d,\\varepsilon)$ be the minimum worst-case number of ordinary channel uses needed to output $\\widehat\\Lambda$ such that\n\n\\begin{equation}\n\\Pr[\\|\\widehat\\Lambda-\\Lambda\\|_\\diamond\\leq\\varepsilon]\\geq\\frac23,\n\\qquad\n\\|\\Phi\\|_\\diamond=\\sup_\\omega\\| (\\Phi\\otimes\\operatorname{id}_d)(\\omega)\\|_1.\n\\label{eq:d3e3-1}\n\\end{equation}\n\nThe supremum in Eq.~\\eqref{eq:d3e3-1} is over states on $\\mathbb C^d\\otimes\\mathbb C^d$. Adaptive inputs, ancillas, quantum memory, and collective measurements are allowed, but no purification of the channel environment is supplied. Is $Q_\\diamond(d,\\varepsilon)=\\Theta(d^4/\\varepsilon^2)$ uniformly in $d$ and sufficiently small $\\varepsilon$?","source":"This is an editor-formulated unrestricted-rank specialization of the joint dimension--accuracy question discussed by Mele and Bittel \\sourcecite{ref:d3e3-mele25}{Mele25}. Subsequent lower bounds settle this specialization; the original question is retained here as a solved problem.","progress":["General channels of input dimension $d_1$, output dimension $d_2$, and Kraus rank at most $r$ admit diamond-norm tomography with $O(rd_1d_2/\\varepsilon^2)$ ordinary channel queries \\sourcecite{ref:d3e3-mele25}{Mele25}, \\sourcecite{ref:d3e3-chen25}{Chen25}. Setting $d_1=d_2=d$ and $r=d^2$ gives the required upper bound.","Chen, Zhang, and Yu prove the matching lower bound $\\Omega(rd_1d_2/\\varepsilon^2)$ when $rd_2\\geq2d_1$ (Theorem~1.1 and Corollary~1.2 of the January 2026 preprint) \\sourcecite{ref:d3e3-czy26}{CZY26}. The proof uses sequential channel testers, so it permits adaptive coherent queries and quantum memory; it is not restricted to tomography of independently prepared Choi states.","The subsequent joint preprint of Chen, Girardi, Oufkir, Yu, and Zhang subsumes that result. Corollary~1.3 gives $\\Theta(rd^2/\\varepsilon^{\\min\\{r,2\\}})$ for equal input and output dimensions; Theorems~3.4 and~6.2 supply the upper and lower bounds, with the query model defined in Section~2.3. Substituting $r=d^2$ yields \\begin{equation}Q_\\diamond(d,\\varepsilon)=\\Theta(d^4/\\varepsilon^2).\\label{eq:d3e3-optimal}\\end{equation} The rate is uniform in the dimension and sufficiently small error \\sourcecite{ref:d3e3-cgoyz26}{CGOYZ26}. These are preprint results."],"references":[{"key":"Mele25","label":"ref:d3e3-mele25","tex":"A. A. Mele and L. Bittel, \"Optimal learning of quantum channels in diamond distance,\" arXiv preprint (2025), version 3, 15 June 2026. \\href{https://arxiv.org/abs/2512.10214}{arXiv:2512.10214}."},{"key":"Chen25","label":"ref:d3e3-chen25","tex":"K. Chen, N. Yu, and Z. Zhang, \"Quantum channel tomography and estimation by local test,\" arXiv preprint (2025), version 2, 2 February 2026. \\href{https://arxiv.org/abs/2512.13614}{arXiv:2512.13614}."},{"key":"CZY26","label":"ref:d3e3-czy26","tex":"K. Chen, Z. Zhang, and N. Yu, ``Optimal lower bound for quantum channel tomography in away-from-boundary regime,'' arXiv preprint, version 1 (2026). \\href{https://arxiv.org/abs/2601.10683v1}{arXiv:2601.10683v1}."},{"key":"CGOYZ26","label":"ref:d3e3-cgoyz26","tex":"K. Chen, F. Girardi, A. Oufkir, N. Yu, and Z. Zhang, ``Quantum channel tomography: optimal bounds and a Heisenberg-to-classical phase transition,'' arXiv preprint, version 2, 9 July 2026. \\href{https://arxiv.org/abs/2604.17369v2}{arXiv:2604.17369v2}."}],"comment":"The product dependence is established, not merely the two one-parameter scalings separately. The lower bound covers the ordinary black-box model in the statement, including adaptive queries, and the upper bound needs no access to a purification of the channel environment. The dimension is taken to be $d\\geq2$; at $d=1$ there is a unique channel and zero queries suffice. The explicit large-dimension cutoff in Theorem~6.2 does not change the asymptotic claim: for the finitely many smaller nontrivial dimensions, preparation channels reduce the task to state tomography and give a uniform lower bound after decreasing its constant. The cited resolution predates this weekly audit and corrects an omission from the previous progress summary.","contributors":[]}}
+---
+## Source
+
+This is an editor-formulated unrestricted-rank specialization of the joint dimension–accuracy question discussed by Mele and Bittel [Mele25](https://arxiv.org/abs/2512.10214). Subsequent lower bounds settle this specialization; the original question is retained here as a solved problem.
+
+## Progress
+
+General channels of input dimension $d_1$, output dimension $d_2$, and Kraus rank at most $r$ admit diamond-norm tomography with $O(rd_1d_2/\varepsilon^2)$ ordinary channel queries [Mele25](https://arxiv.org/abs/2512.10214), [Chen25](https://arxiv.org/abs/2512.13614). Setting $d_1=d_2=d$ and $r=d^2$ gives the required upper bound.
+
+Chen, Zhang, and Yu prove the matching lower bound $\Omega(rd_1d_2/\varepsilon^2)$ when $rd_2\geq2d_1$ (Theorem 1.1 and Corollary 1.2 of the January 2026 preprint) [CZY26](https://arxiv.org/abs/2601.10683v1). The proof uses sequential channel testers, so it permits adaptive coherent queries and quantum memory; it is not restricted to tomography of independently prepared Choi states.
+
+The subsequent joint preprint of Chen, Girardi, Oufkir, Yu, and Zhang subsumes that result. Corollary 1.3 gives $\Theta(rd^2/\varepsilon^{\min\{r,2\}})$ for equal input and output dimensions; Theorems 3.4 and 6.2 supply the upper and lower bounds, with the query model defined in Section 2.3. Substituting $r=d^2$ yields
+
+$$
+Q_\diamond(d,\varepsilon)=\Theta(d^4/\varepsilon^2).\tag{2}
+$$
+
+The rate is uniform in the dimension and sufficiently small error [CGOYZ26](https://arxiv.org/abs/2604.17369v2). These are preprint results.
+
+## Comment
+
+The product dependence is established, not merely the two one-parameter scalings separately. The lower bound covers the ordinary black-box model in the statement, including adaptive queries, and the upper bound needs no access to a purification of the channel environment. The dimension is taken to be $d\geq2$; at $d=1$ there is a unique channel and zero queries suffice. The explicit large-dimension cutoff in Theorem 6.2 does not change the asymptotic claim: for the finitely many smaller nontrivial dimensions, preparation channels reduce the task to state tomography and give a uniform lower bound after decreasing its constant. The cited resolution predates this weekly audit and corrects an omission from the previous progress summary.
+
+## References
+
+**Mele25** A. A. Mele and L. Bittel, "Optimal learning of quantum channels in diamond distance," arXiv preprint (2025), version 3, 15 June 2026. [arXiv:2512.10214](https://arxiv.org/abs/2512.10214).
+
+**Chen25** K. Chen, N. Yu, and Z. Zhang, "Quantum channel tomography and estimation by local test," arXiv preprint (2025), version 2, 2 February 2026. [arXiv:2512.13614](https://arxiv.org/abs/2512.13614).
+
+**CZY26** K. Chen, Z. Zhang, and N. Yu, “Optimal lower bound for quantum channel tomography in away-from-boundary regime,” arXiv preprint, version 1 (2026). [arXiv:2601.10683v1](https://arxiv.org/abs/2601.10683v1).
+
+**CGOYZ26** K. Chen, F. Girardi, A. Oufkir, N. Yu, and Z. Zhang, “Quantum channel tomography: optimal bounds and a Heisenberg-to-classical phase transition,” arXiv preprint, version 2, 9 July 2026. [arXiv:2604.17369v2](https://arxiv.org/abs/2604.17369v2).
