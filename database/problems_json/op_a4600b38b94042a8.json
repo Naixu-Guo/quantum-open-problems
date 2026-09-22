@@ -46,7 +46,7 @@
   "progress": [
     "The fully parallel Stein exponent in\n  Eq.~\\eqref{eq:p66-stein-exponents} is known exactly:\n  \\begin{equation}\n    \\zeta_{\\mathrm{par}}(\\Theta_1\\|\\Theta_2)\n    =D_{\\rm sc}^{\\infty}(\\Theta_1\\|\\Theta_2),\n    \\label{eq:p66-parallel-exponent}\n  \\end{equation}\n  In Eq.~\\eqref{eq:p66-parallel-exponent}, $D_{\\rm sc}^{\\infty}$ is the\n  regularized superchannel relative\n  entropy optimized over joint inserted channels and input states\n  \\sourcecite{ref:p66-hirche}{Hir23}.",
     "Every parallel strategy can be embedded into a nested one.  Hirche's\n  amortized-superchannel meta-converse therefore gives\n  \\begin{equation}\n    D_{\\rm sc}^{\\infty}(\\Theta_1\\|\\Theta_2)\n    \\leq\\zeta_{\\mathrm{nest}}(\\Theta_1\\|\\Theta_2)\n    \\leq D_{\\rm sc}^{A}(\\Theta_1\\|\\Theta_2),\n    \\label{eq:p66-known-hierarchy}\n  \\end{equation}\n  with $D_{\\rm sc}^{A}$ the amortized superchannel relative entropy\n  \\sourcecite{ref:p66-hirche}{Hir23}.",
-    "The channel chain rule underlying\n  Eq.~\\eqref{eq:p66-known-hierarchy} implies\n  $D_{\\rm sc}^{A}=D_{\\rm sc}^{\\infty}$, and hence\n  Eq.~\\eqref{eq:p66-nested-parallel-equality}, conditional on the\n  diamond-smoothed channel AEP in Problem~\\ref{sec:problem-65}.  No\n  unconditional proof or counterexample is known\n  \\sourcecite{ref:p66-hirche}{Hir23}.",
+    "Hirche proves $D_{\\rm sc}^{A}=D_{\\rm sc}^{\\infty}$, and hence Eq.~\\eqref{eq:p66-nested-parallel-equality}, conditional on a diamond-smoothed channel AEP (Section~5.4 and Appendix~A, Eqs.~(152)--(155)) \\sourcecite{ref:p66-hirche}{Hir23}. The smoothing is over CPTP maps. Gour subsequently gives qutrit channels for which that CPTP-smoothed asymptotic rate is strictly larger than the regularized channel relative entropy, so the general premise of this conditional route fails (September 2026 preprint, Theorems~11 and~15, Sections~IV.3 and~VI) \\sourcecite{ref:p66-gour26}{Gou26}. This refutes the AEP premise, not Eq.~\\eqref{eq:p66-nested-parallel-equality}; an unconditional proof or a superchannel counterexample is still needed.",
     "For classical superchannels, all relevant relative-entropy\n  amortizations collapse and product strategies already achieve the optimum;\n  thus Eq.~\\eqref{eq:p66-nested-parallel-equality} holds in that special case\n  \\sourcecite{ref:p66-hirche}{Hir23}."
   ],
   "references": [
@@ -54,7 +54,12 @@
       "key": "Hir23",
       "label": "ref:p66-hirche",
       "tex": "C. Hirche, ``Quantum Network Discrimination,''\n  \\emph{Quantum} \\textbf{7}, 1064 (2023).\n  \\href{https://doi.org/10.22331/q-2023-07-25-1064}{doi:10.22331/q-2023-07-25-1064};\n  \\href{https://arxiv.org/abs/2103.02404}{arXiv:2103.02404}."
+    },
+    {
+      "key": "Gou26",
+      "label": "ref:p66-gour26",
+      "tex": "G. Gour, ``Failure of the Asymptotic Equipartition Property for Quantum Channels,'' arXiv preprint, version 1 (2026). \\href{https://arxiv.org/abs/2609.15004v1}{arXiv:2609.15004v1}."
     }
   ],
-  "comment": "This problem compares two causal strategy classes.  It is distinct from\n\\href{https://qiqc-op.com/problem/op_02bb8f8228649ac3/}{the problem on fully general superchannel-discrimination strategies}, which allows arbitrary interleavings of the\nphysical components of different superchannel uses."
+  "comment": "This problem compares two causal strategy classes.  It is distinct from\n\\href{https://qiqc-op.com/problem/op_02bb8f8228649ac3/}{the problem on fully general superchannel-discrimination strategies}, which allows arbitrary interleavings of the\nphysical components of different superchannel uses. The failure of CPTP smoothing must not be identified with a failure of the channel Stein lemma: the subchannel-smoothed AEP and fixed-error parallel channel Stein limit remain conjectural in general (Section~V of \\sourcecite{ref:p66-gour26}{Gou26}). A replacement for the conditional argument must justify its own smoothing and trace-preservation requirements."
 }
