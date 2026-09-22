@@ -77,7 +77,9 @@ each mirrored by a TeX file (`database/problems_tex/`).
 - Status colours: unsolved is red, solved is cyan; the logo O is light cyan
   and the P light red. Keep the status bar, tags, accents, and favicon in step.
 - Content first: no hero banners or marketing strips. Problem pages are a
-  single centered column; the only sidebar is the catalog's filter column.
+  single centered column; the only sidebars are the catalog's filter column
+  and the About page's table of contents, which is read from the page's
+  section headings and becomes a card above the text below 960 px.
 - Fields are solid pills and topics outlined pills everywhere; the problem
   page labels the two rows Field and Topic. Fields come before topics.
 - Search lives in the large box of the home overview panel and in the

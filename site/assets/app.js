@@ -1,5 +1,6 @@
 // QIQCOP Zoo client script: theme toggle, dialogs, copy buttons, search
-// suggestions, random problem panels, directory filtering. No dependencies.
+// suggestions, random problem panels, directory filtering, the About page's
+// table of contents. No dependencies.
 (() => {
   const root = document.body.dataset.root || "";
   const $ = (selector, scope = document) => scope.querySelector(selector);
@@ -335,6 +336,46 @@
     $$("[data-clear-filters]").forEach((button) => button.addEventListener("click", clear));
     apply();
     if (location.hash === "#search" && searchInput) searchInput.focus();
+  }
+
+  // ------------------------------------------------------------------ table of contents (about)
+  // The links are plain anchors and work without this script, which only marks
+  // the section being read and keeps its link in view inside the column.
+  const aboutToc = $("#about-toc");
+  if (aboutToc) {
+    const entries = $$("a[href^='#']", aboutToc)
+      .map((link) => ({ link, heading: document.getElementById(link.getAttribute("href").slice(1)) }))
+      .filter((entry) => entry.heading);
+    let current = null;
+    let queued = false;
+    const mark = () => {
+      queued = false;
+      if (!entries.length) return;
+      const atEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      const active = atEnd
+        ? entries[entries.length - 1]
+        : entries.filter((entry) => entry.heading.getBoundingClientRect().top <= 120).pop() || entries[0];
+      if (active === current) return;
+      current = active;
+      entries.forEach((entry) => {
+        if (entry === active) entry.link.setAttribute("aria-current", "true");
+        else entry.link.removeAttribute("aria-current");
+      });
+      if (aboutToc.scrollHeight > aboutToc.clientHeight) {
+        const top = active.link.offsetTop;
+        if (top < aboutToc.scrollTop || top + active.link.offsetHeight > aboutToc.scrollTop + aboutToc.clientHeight) {
+          aboutToc.scrollTop = top - aboutToc.clientHeight / 2;
+        }
+      }
+    };
+    const queue = () => {
+      if (queued) return;
+      queued = true;
+      window.requestAnimationFrame(mark);
+    };
+    window.addEventListener("scroll", queue, { passive: true });
+    window.addEventListener("resize", queue);
+    mark();
   }
 
   // ------------------------------------------------------------------ proposal form (contribute)
