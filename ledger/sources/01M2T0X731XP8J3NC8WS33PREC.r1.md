@@ -1,0 +1,19 @@
+---
+id: "01M2T0X731XP8J3NC8WS33PREC"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-18T10:27:32.120Z"
+type: "Source"
+title: "Almost One Bit Violation of Minimum-Output Rényi Entropy Additivity Simultaneously at All Orders"
+kind: "preprint"
+completeness: "partial"
+authors: []
+venue: ""
+date: null
+doi: null
+arxivId: "2609.18747"
+url: "https://arxiv.org/abs/2609.18747v1"
+version: "1"
+---
+G. Zhen, C. Zhu, R. Chen, and X. Wang, “Almost One Bit Violation of Minimum-Output Rényi Entropy Additivity Simultaneously at All Orders,” arXiv preprint, version 1, 16 September 2026. [arXiv:2609.18747v1](https://arxiv.org/abs/2609.18747v1).
