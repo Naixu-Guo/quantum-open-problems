@@ -62,7 +62,7 @@ may depend on $\eta,N_S,\varepsilon,$ and $c$, but not on $n$.
 
 \subsection*{Status}
 
-Unsolved
+Solved
 
 \subsection*{Source}
 
@@ -78,6 +78,35 @@ their paper
 \subsection*{Progress}
 
 \begin{itemize}
+  \item Yue Tu and Yifan Jing showed that Eq.~\eqref{eq:p76-second-order-converse}
+fails for every $0<\eta<1$, $N_S>0$, $c>0$, and $0<\varepsilon<\tfrac12$.
+Each codeword carries exactly $L=\lceil nN_S\rceil$ photons in a condensate
+$\lvert u;L\rangle=(\sum_{j=1}^n u_j\hat a_j^\dagger)^L\lvert0\rangle/\sqrt{L!}$
+along a unit direction $u\in\mathbb C^n$, so the occupation constraint in
+Eq.~\eqref{eq:p76-code-constraints} holds with $\delta_n=0$.  Pure loss maps
+$\lvert u;L\rangle$ to a binomial mixture of the pure condensates
+$\lvert u;k\rangle$, and $\langle u;k\vert w;k\rangle=\langle u\vert w\rangle^k$.
+Random directions, photon counting, and a square-root measurement in each
+photon-number sector give
+\begin{equation}
+  \log_2 M^*_{\rm occ}(n,\eta,N_S,\varepsilon,c)
+  \geq ng(\eta N_S)+\sqrt{n V_{\rm occ}}\,\Phi^{-1}(\varepsilon)-O(\log n),
+  \qquad
+  V_{\rm occ}=\frac{1-\eta}{1+\eta N_S}\,v(\eta N_S).
+  \label{eq:p76-fixed-photon-achievability}
+\end{equation}
+Since $V_{\rm occ}<v(\eta N_S)$ and $\Phi^{-1}(\varepsilon)<0$ for
+$\varepsilon<\tfrac12$, Eq.~\eqref{eq:p76-fixed-photon-achievability} exceeds
+the right side of Eq.~\eqref{eq:p76-second-order-converse} by a positive
+multiple of $\sqrt n$.  A photon-counting projector bound gives the matching
+converse, so under this constraint the dispersion is $V_{\rm occ}$ rather
+than $v(\eta N_S)$.  The disproof is formally verified in Lean~4 with
+Mathlib; its only modeling input is the standard Fock-basis Kraus form of the
+pure-loss channel.  The matching converse and the $O(\log n)$ remainder are
+proved on paper only, in the
+\href{https://github.com/Naixu-Guo/quantum-open-problems/blob/main/database/proofs/pure-loss-second-order.md}{proof note}
+\sourcecite{ref:p76-tu-jing}{TJ26}.
+
   \item Wilde, Renes, and Guha proved the corresponding second-order
   achievability expression
   \begin{equation}
@@ -133,17 +162,26 @@ their paper
   Transmission} \textbf{50}, 117--132 (2014).
   \href{https://doi.org/10.1134/S003294601402001X}{doi:10.1134/S003294601402001X};
   \href{https://arxiv.org/abs/1308.6732}{arXiv:1308.6732}.
+
+  \item[\textup{[TJ26]}]\label{ref:p76-tu-jing}
+  Y. Tu and Y. Jing, ``Fixed-photon condensate codes and the pure-loss
+second-order converse,'' note for QIQCOP Zoo (23 September 2026), with a
+Lean~4 formalization.
+\href{https://github.com/Naixu-Guo/quantum-open-problems/blob/main/database/proofs/pure-loss-second-order.md}{Proof note};
+\href{https://github.com/Ivann1242/pure-loss-second-order-lean}{Lean verification}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-The unresolved task is the candidate sharp Gaussian $\sqrt n$ converse term
-under the stated fixed-exponent occupation constraint, not the first-order
-capacity or strong converse.  No matching achievability theorem is known for
-this exact constraint.  The exclusion of $\eta=1$ is essential: at the
-identity-channel endpoint, the dimension of the cutoff Fock subspace itself
-violates Eq.~\eqref{eq:p76-second-order-converse} for
-$\varepsilon<\tfrac12$.
+Equation~\eqref{eq:p76-second-order-converse} is settled negatively for every
+$0<\varepsilon<\tfrac12$ by the fixed-photon codes above.  For
+$\varepsilon>\tfrac12$ the stated bound is valid but not sharp, and at
+$\varepsilon=\tfrac12$ the second-order terms vanish; both statements rely on
+the paper converse.  The mean-photon-number ensemble of
+\sourcecite{ref:p76-wilde-renes-guha}{WRG16} is therefore not second-order
+optimal under the occupation constraint.  No external peer review or
+historical-priority claim is asserted
+\sourcecite{ref:p76-tu-jing}{TJ26}.
 
 \subsection*{Field}
 
