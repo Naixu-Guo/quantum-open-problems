@@ -1,0 +1,25 @@
+name: qop-research-monitor
+services:
+  monitor:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "127.0.0.1:8790:8790"
+    volumes:
+      - monitor-data:/var/lib/qop-monitor
+    init: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    pids_limit: 256
+    mem_limit: 2g
+    cpus: 2
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+volumes:
+  monitor-data:
