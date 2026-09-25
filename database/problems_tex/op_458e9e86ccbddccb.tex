@@ -24,7 +24,7 @@ The second line of Eq.~\eqref{eq:458e-conditions} is the condition $d\geq3$. Deg
 
 \subsection*{Status}
 
-Unsolved
+Solved
 
 \subsection*{Source}
 
@@ -33,6 +33,14 @@ Derived from Table~II of Wei, Han, He, Li, and Liu (Section~VII of arXiv version
 \subsection*{Progress}
 
 \begin{itemize}
+  \item Yifan Jing and Yue Tu showed that no generators satisfying Eq.~\eqref{eq:458e-conditions} exist: no $[[11,3,d]]$ stabilizer code with $d\geq3$ has generators of weight at most four, so $W_{\mathrm{opt}}(11,3,3)=5$.  Single-qubit syndromes turn the last condition in Eq.~\eqref{eq:458e-conditions} into constraints on syndrome coincidences.  A weight-one stabilizer element reduces the length by one, which gives an induction on $n$; a basis of the span of the weight-two stabilizer elements can be moved to the front and placed on fixed qubits; and local Clifford operations and qubit permutations give a normal form.  The remaining cases for $4\leq n\leq11$ are unsatisfiable Boolean formulas, each refuted with a DRAT certificate checked by drat-trim.  The whole argument, including every reduction and every satisfiability case, is also formalized in Lean~4 with Mathlib; the satisfiability cases use \texttt{bv\_decide}, so this part trusts the Lean compiler in addition to the kernel.  They also give a $[[12,3,3]]$ code with generators of weight four,
+\begin{equation}
+  \langle \mathtt{IIIIIIZZIIZZ},\ \mathtt{IIIIIIIIZZXX},\ \mathtt{ZZIIIIIIXXII},\ \mathtt{IIIIZZXXIIII},\ \mathtt{IIIZIXIYIIIX},\\
+  \mathtt{ZIZIXXIIIIII},\ \mathtt{IZXXIZIIIIII},\ \mathtt{IXIYIIIIIYIZ},\ \mathtt{XIIIYIZIZIII}\rangle,
+  \label{eq:458e-code-12}
+\end{equation}
+so the least length admitting weight-four generators is exactly $12$ and $W_{\mathrm{opt}}(12,3,3)=4$.  With further constructions and one more certified nonexistence result they determine the other open distance-three entries of Table~II of \sourcecite{ref:458e-wei}{WHH+26}: $W_{\mathrm{opt}}(10,4,3)=6$, $W_{\mathrm{opt}}(11,4,3)=5$, $W_{\mathrm{opt}}(11,5,3)=7$, $W_{\mathrm{opt}}(12,4,3)=5$, $W_{\mathrm{opt}}(12,5,3)=6$ and $W_{\mathrm{opt}}(12,6,3)=8$.  All constructions are verified in Lean by kernel computation \sourcecite{ref:458e-jing-tu}{JT26}.
+
   \item Wei et al.\ bracket the optimal generator weight $W_{\mathrm{opt}}(11,3,3)$ between four and five (Table~II). Weight five is realized by their $[[9,3,3]]$ code with generators of weight five, extended by two qubits carrying single-qubit stabilizers; Appendix~J lists this $[[11,3,3]]$ code as not known to be optimal. Weight four is the general lower bound for $d\geq3$. Their analytic bound $W_{\mathrm{opt}}(n,k,d)\geq\max\{4,\lceil(11n+k+1)/(4(n-k))\rceil\}$ for $d\geq3$ gives only $\lceil125/32\rceil=4$ here (Theorem~4). Their weight-constrained linear program (Section~V, with Algorithm~1 in Appendix~L) supplies only necessary conditions for existence, and it also leaves four. The same table records that no $[[11,3,4]]$ or $[[11,3,5]]$ stabilizer code exists \sourcecite{ref:458e-wei}{WHH+26}; larger distances violate the quantum Singleton bound $n-k\geq2(d-1)$, so $d\geq3$ is equivalent to $d=3$.
 
   \item The CSS case is excluded. Every CSS $[[n,k,d]]$ code with $k\geq1$ and $d\geq3$ satisfies
@@ -53,11 +61,14 @@ where $W(\mathcal S)$ is the least maximum weight over generating sets of the st
   \footnotesize
   \item[\textup{[WHH+26]}]\label{ref:458e-wei}
   F. Wei, Z. Han, A. Y. He, Z. Li, and Z.-W. Liu, ``Theory of low-weight quantum codes,'' arXiv preprint, version 2 (2026). \href{https://doi.org/10.48550/arXiv.2601.19848}{doi:10.48550/arXiv.2601.19848}; \href{https://arxiv.org/abs/2601.19848v2}{arXiv:2601.19848v2}.
+
+  \item[\textup{[JT26]}]\label{ref:458e-jing-tu}
+  Y. Jing and Y. Tu, ``No weight-four checks for $[[11,3,3]]$: certified optimal check weights,'' note for QIQCOP Zoo (25 September 2026), with DRAT certificates and a Lean~4 formalization. \href{https://github.com/Naixu-Guo/quantum-open-problems/blob/main/database/proofs/weight-four-11-3-3.md}{Proof note}; \href{https://github.com/Ivann1242/optimal-check-weight-11-3-3}{certificates and Lean verification}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-Weight five is achieved, so the question is exactly whether generators satisfying Eq.~\eqref{eq:458e-conditions} exist; either an explicit generating set or a proof that none exists would settle it. Equation~\eqref{eq:458e-conditions} involves only finitely many candidate vectors, so the question is decidable by exhaustive search. Neither the linear-programming bounds nor the constructions of Wei et al.\ decide it. A negative answer would leave the corresponding questions for $12\leq n\leq14$ open. This finite question arises from the same theory of weight-constrained codes as the \href{https://qiqc-op.com/problem/op_ad474bf3083462b6/}{square-root distance conjecture for weight-four stabilizer codes}. Literature checked through 15 September 2026.
+Equation~\eqref{eq:458e-conditions} has no solution, so the question is settled negatively and $W_{\mathrm{opt}}(11,3,3)=5$.  The proof is computer-assisted: the nonexistence rests on satisfiability certificates, checked both by drat-trim and inside Lean~4, together with reductions that are formalized in Lean.  The $[[12,3,3]]$ code in Eq.~\eqref{eq:458e-code-12} answers the follow-up question for $12\leq n\leq14$.  No external peer review or historical-priority claim is asserted \sourcecite{ref:458e-jing-tu}{JT26}.  This finite question arises from the same theory of weight-constrained codes as the \href{https://qiqc-op.com/problem/op_ad474bf3083462b6/}{square-root distance conjecture for weight-four stabilizer codes}.
 
 \subsection*{Field}
 
