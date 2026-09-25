@@ -23,7 +23,7 @@ import { buildCompatibility, legacyTagIndex, redirect } from "./lib/compatibilit
 import { loadMergedProblems } from "./lib/merged-problems.mjs";
 import {
   renderHome, renderProblemPage, renderDirectory, renderTagsIndex, renderTagPage, byRecentEdit,
-  renderAbout, renderContribute, renderRandomPage, renderNotFound
+  renderAbout, renderContribute, renderProgressContribute, renderRandomPage, renderNotFound
 } from "./lib/render.mjs";
 
 const siteDir = path.dirname(fileURLToPath(import.meta.url));
@@ -37,6 +37,7 @@ const legacy = JSON.parse(fs.readFileSync(path.join(repoRoot, "database", "legac
 // Short content hashes so browsers refetch changed assets (favicons are cached aggressively).
 const assetVersion = (name) => createHash("sha256").update(fs.readFileSync(path.join(siteDir, "assets", name))).digest("hex").slice(0, 8);
 config.assetVersions = { favicon: assetVersion("favicon.svg"), styles: assetVersion("styles.css"), app: assetVersion("app.js") };
+config.assetVersions.progress = createHash("sha256").update(fs.readFileSync(path.join(siteDir, "assets/progress-form.mjs"))).update(fs.readFileSync(path.join(repoRoot, "shared/progress-sources.mjs"))).digest("hex").slice(0, 8);
 
 const args = process.argv.slice(2);
 const outIndex = args.indexOf("--out");
@@ -250,6 +251,7 @@ for (const [file, target] of [["LICENSE", "Apache-2.0.txt"], ["LICENSE-CONTENT",
   write(`licenses/${target}`, fs.readFileSync(path.join(repoRoot, file), "utf8"));
 }
 write("contribute/index.html", renderContribute({ config, root: "../", taxonomy, fieldCounts, topicCounts }));
+write("contribute/progress/index.html", renderProgressContribute({ config, root: "../../", records }));
 write("404.html", renderNotFound({ config, root: "/" + config.siteUrl.replace(/^https?:\/\/[^/]+\/?/, "") }));
 // Publish schemas at their canonical $id URLs, including relative payload references.
 fs.cpSync(path.join(repoRoot, "contract/schema"), path.join(outDir, "contract/v1"), { recursive: true });
@@ -287,8 +289,10 @@ for (const [pool, label] of [["unsolved", "unsolved"], ["solved", "solved"]]) {
 
 // Assets
 for (const asset of fs.readdirSync(path.join(siteDir, "assets"))) {
-  write(`assets/${asset}`, fs.readFileSync(path.join(siteDir, "assets", asset)));
+  const content = fs.readFileSync(path.join(siteDir, "assets", asset));
+  write(`assets/${asset}`, asset === "progress-form.mjs" ? content.toString().replace('"../../shared/progress-sources.mjs"', '"./progress-sources.mjs"') : content);
 }
+write("assets/progress-sources.mjs", fs.readFileSync(path.join(repoRoot, "shared/progress-sources.mjs")));
 write(".nojekyll", "");
 write("data/random.js", randomPayload);
 
@@ -422,7 +426,7 @@ buildCompatibility({ write, records, payloads, apiIndex, legacy, config, merges 
 
 // Sitemap, robots, llms.txt
 const urls = [
-  "", "problems/", "tags/", "about/", "contribute/",
+  "", "problems/", "tags/", "about/", "contribute/", "contribute/progress/",
   ...records.map((record) => `problem/${record.id}/`),
   ...[...fieldCounts.keys(), ...topicCounts.keys()].map((tag) => `tag/${slug(tag)}/`)
 ];
@@ -454,6 +458,8 @@ Connect a remote MCP client to ${config.mcp.url} using Streamable HTTP. Public c
 Software uses Apache-2.0. New original catalog contributions use CC BY 4.0. Earlier catalog text requires permission confirmation; do not assume the whole catalog is CC BY 4.0. Cited papers and third-party material retain their own terms. Licensing scope and attribution: ${siteUrl}/about/#licensing and ${siteUrl}/licenses/scope.txt.
 
 Records are JSON files in ${config.repositoryUrl}/tree/${config.branch}/${config.databasePath}, with a TeX form of each in ${config.texPath}. Follow database/_template.json and open a pull request; the build validates every record. ${submissionsOnline(config) ? `Send proposals without an account at ${siteUrl}/contribute/.` : `Direct online sending is not enabled. Prepare and copy a proposal at ${siteUrl}/contribute/, then submit a GitHub issue (a GitHub account is required).`} Proposals are reviewed by the maintainers before publication.
+
+Every new research-progress submission requires an archival manuscript or paper link reporting that result: arXiv, a Zenodo manuscript, another supported preprint repository, a journal article, or a paper DOI. Prepare reports at ${siteUrl}/contribute/progress/; the page explains the available sending route. Source-only GitHub posts, personal pages, shared files, and attachments do not satisfy this requirement. Existing GitHub progress reports are preserved as direct links in each affected problem's Progress panel without retroactive archival-paper requirements. Maintainers document reports and do not referee manuscripts or certify correctness. Solved/Unsolved remains the maintainer team's designation; a report or DOI does not change it automatically. Policy: ${config.repositoryUrl}/blob/${config.branch}/docs/RESEARCH_PROGRESS_POLICY.md.
 `);
 
 console.log(`Built ${records.length} problems, ${fieldCounts.size} fields, ${topicCounts.size} topics into ${path.relative(repoRoot, outDir) || "."}`);

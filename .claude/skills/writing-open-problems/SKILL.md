@@ -15,6 +15,13 @@ Read `CLAUDE.md`, `CONTRIBUTING.md`, `database/_template.json`, and
 classification registry; never rely on a remembered list or record count.
 `docs/CATALOG_INTEGRATION.md` governs the research-service boundary.
 
+For reported progress, `docs/RESEARCH_PROGRESS_POLICY.md` governs source
+requirements and historical documentation. Recording a report does not entail
+proof refereeing or correctness certification. Preserve direct links to
+existing GitHub reports without requiring a later manuscript. New research
+requires an archival manuscript or paper link. Only the maintainer team sets
+Solved/Unsolved; a source check or historical import cannot set it automatically.
+
 ## Establish the question and its evidence
 
 Use the user's supplied paper, statement, and context first. Ask only for

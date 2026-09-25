@@ -45,7 +45,8 @@
   "source": "This explicit ensemble and additive normalization refine the hafnian-of-Gaussians discussion following Eq.~(11) of Hamilton et al. \\sourcecite{ref:ghe-hamilton}{HKS+17}.\nThe formulation distinguishes additive squared-hafnian estimation from multiplicative hafnian estimation; the paper does not state this precise normalized problem as a numbered conjecture.",
   "progress": [
     "Hamilton et al., Eq.~(7), use the identity\n\\begin{equation}\n \\operatorname{Haf}\\begin{pmatrix}0&G\\\\G^T&0\\end{pmatrix}\n =\\operatorname{Per}G.\n \\label{eq:ghe-block}\n\\end{equation}\nHere $G$ is any square matrix and $\\operatorname{Per}G$ is its permanent.\nEquation~\\eqref{eq:ghe-block} transfers worst-case permanent evaluation hardness to hafnians.\nThe block matrices in this reduction are not typical independent symmetric Gaussian samples \\sourcecite{ref:ghe-hamilton}{HKS+17}.",
-    "Independence and the matching expansion give $\\mathbb E|\\operatorname{Haf}X|^2=h_n$.\nDistinct matchings have vanishing cross terms.\nThis elementary normalization calculation does not provide an average-case reduction at error $\\varepsilon h_n$."
+    "Independence and the matching expansion give $\\mathbb E|\\operatorname{Haf}X|^2=h_n$.\nDistinct matchings have vanishing cross terms.\nThis elementary normalization calculation does not provide an average-case reduction at error $\\varepsilon h_n$.",
+    "Historical GitHub report (2026-09-18): Naixu-Guo reported complex-Gaussian hafnian hiding and conditional sampling-to-estimation results, without claiming a hardness proof. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/79}{Pull request \\#79}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/79#issuecomment-5770754018}{Naixu-Guo, 2026-09-22}."
   ],
   "references": [
     {

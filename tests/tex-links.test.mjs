@@ -72,7 +72,7 @@ test("every authored section and stripped identifier links go through the URL ga
 test("an unsafe catalog URL fails the build before publishing HTML or Markdown packets", (t) => {
   const temporary = fs.mkdtempSync(path.join(os.tmpdir(), "qop-link-build-"));
   t.after(() => fs.rmSync(temporary, { recursive: true, force: true }));
-  for (const dir of ["site", "database"]) fs.cpSync(path.join(root, dir), path.join(temporary, dir), { recursive: true });
+  for (const dir of ["site", "shared", "database"]) fs.cpSync(path.join(root, dir), path.join(temporary, dir), { recursive: true });
   const unsafe = { ...record, comment: "\\url{javascript:alert(1)}" };
   fs.writeFileSync(path.join(temporary, "database/problems_json", `${record.id}.json`), JSON.stringify(unsafe));
   fs.writeFileSync(path.join(temporary, "database/problems_tex", `${record.id}.tex`), recordToTex(unsafe));

@@ -12,6 +12,12 @@ each mirrored by a TeX file (`database/problems_tex/`).
    the filters, or the documentation. Settled subcases do not change the
    status; describe them in Progress and Comment. The build fails on any other
    value on purpose.
+   The maintainer team retains final authority over the designation. Recording
+   a report, validating its source, or importing historical GitHub links must
+   not change it automatically. Follow `docs/RESEARCH_PROGRESS_POLICY.md`:
+   document attributed reports without proof refereeing, require archival
+   manuscript links for new research, and preserve visible direct links to
+   existing GitHub reports even when no later manuscript exists.
 2. **Stable IDs.** The `op_` identifier of a record is permanent: never edit,
    regenerate, or reuse one. New IDs come from `node scripts/new-problem-id.mjs`.
    Use `--create` to write a new record scaffold with fresh identifiers;

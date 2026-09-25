@@ -1,0 +1,32 @@
+name: Report a correction
+description: Request a wording, source, or status correction without submitting new research.
+title: "[Correction] "
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Cite the existing record and describe the correction. You do not need a new resolving paper.
+        A new scientific result must instead use Report research progress with its archival manuscript link.
+        The maintainer team determines Solved/Unsolved; this request does not change it automatically.
+  - type: input
+    id: record_id
+    attributes:
+      label: Problem ID or affected page
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Correction or request
+      description: Describe the issue and cite the existing source or record.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Scope and consent
+      options:
+        - label: This is a correction or status concern, not a new research claim without an archival source.
+          required: true
+        - label: "I have the right to contribute my original text under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) and have identified third-party material and its terms."
+          required: true

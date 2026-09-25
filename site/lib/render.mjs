@@ -1,10 +1,11 @@
-import { submissionsOnline as acceptsSubmissions, anonymousSubmissionsAllowed } from "./submission-settings.mjs";
+import { submissionsOnline as acceptsSubmissions, anonymousSubmissionsAllowed, progressSubmissionsOnline } from "./submission-settings.mjs";
 // HTML templates for every page of the zoo. Pure functions: records in,
 // strings out. No runtime dependencies.
 
 import { STATUSES, slug } from "./tex.mjs";
 import { distinctQuestionCounts } from "./metadata.mjs";
 import { TAG_KINDS } from "./taxonomy.mjs";
+import { SOURCE_GUIDANCE, SUPPORTED_SOURCE_NAMES } from "../../shared/progress-sources.mjs";
 
 const escape = (value = "") => String(value)
   .replaceAll("&", "&amp;")
@@ -73,8 +74,8 @@ export const logo = (extraClass = "") => `<span class="logo ${extraClass}" aria-
 export const statusTag = (status, extraClass = "") => {
   const meta = STATUSES[status];
   const titles = {
-    unsolved: "No complete solution is known.",
-    solved: "A complete solution is known; see Progress and Comment."
+    unsolved: "Unsolved is the maintainer team's catalog designation; reports do not change it automatically.",
+    solved: "Solved is the maintainer team's catalog designation; see Progress and Comment."
   };
   return `<span class="status-tag status-${meta.slug} ${extraClass}" title="${titles[meta.slug]}">${meta.label}</span>`;
 };
@@ -275,7 +276,7 @@ export function problemRow(record, root) {
 export function renderProblemPage({ record, config, root, related, dates }) {
   const editUrl = `${config.repositoryUrl}/edit/${config.branch}/${config.databasePath}/${record.id}.json`;
   const historyUrl = `${config.repositoryUrl}/commits/${config.branch}/${config.databasePath}/${record.id}.json`;
-  const issueUrl = `${config.repositoryUrl}/issues/new?template=research-update.yml&title=${encodeURIComponent(`[Update] ${record.title.text} (${record.id})`)}`;
+  const issueUrl = `${config.repositoryUrl}/issues/new?template=correction.yml&title=${encodeURIComponent(`[Correction] ${record.title.text} (${record.id})`)}`;
   const permalink = problemUrl(config, record.id);
   const bib = bibtex(record, config, dates);
   const plain = textCitation(record, config, dates);
@@ -336,6 +337,7 @@ export function renderProblemPage({ record, config, root, related, dates }) {
 
         <section class="problem-section" id="progress">
           <h2>Progress</h2>
+          <p class="progress-notice no-math">These entries document reported progress. The maintainers do not review proofs or certify correctness. The maintainer team retains the final right to interpret and determine Solved/Unsolved status; reports do not change it automatically. <a href="${root}about/#report-progress">Progress policy</a>.</p>
           <ul class="progress-list">
             ${record.progress.map((item) => `<li>${item.html}</li>`).join("\n            ")}
           </ul>
@@ -370,7 +372,7 @@ ${contributorSection}
           </div>
           <div class="contribute-box">
             <h2>Your contribution is welcome!</h2>
-            <p>Found progress, a correction, or a resolution? <a href="${editUrl}" rel="noreferrer">Edit this record on GitHub</a> and open a pull request, or <a href="${issueUrl}" rel="noreferrer">report an update</a> with the primary sources. The <a href="${root}contribute/">proposal page</a> explains the available submission route; see the <a href="${root}about/#contribute">contribution guide</a> for details.</p>
+            <p><a href="${root}contribute/progress/?problem=${encodeURIComponent(record.id)}">Submit a progress report</a> with an archival manuscript or paper link, or <a href="${root}contribute/progress/?problem=${encodeURIComponent(record.id)}&amp;kind=historical">link an earlier GitHub report</a>. For a correction, <a href="${issueUrl}" rel="noreferrer">describe the correction on GitHub</a> or <a href="${editUrl}" rel="noreferrer">edit this record</a> and open a pull request. See the <a href="${root}about/#contribute">contribution guide</a>.</p>
           </div>
           <div class="cite-box">
             <h2>Cite this page</h2>
@@ -665,12 +667,12 @@ export function renderAbout({ config, root, dates }) {
         <h2 id="what-will-be-collected">What will be collected</h2>
         <div class="prose-body">
           <p>We collect meaningful, significant unsolved problems in quantum information and quantum computation. Each problem should be formulated precisely in mathematical language, with clear assumptions and an unambiguous criterion for a solution.</p>
-          <p>A problem is marked Solved when a complete proof or counterexample has been made public in a preprint or a published paper, and its page states whether that result has been peer reviewed. Partial results are recorded as progress and the problem remains Unsolved. The status records what the cited sources establish. The maintainers do not verify proofs. A solved problem stays in the zoo with its resolution and supporting references.</p>
+          <p>Solved and Unsolved are the maintainer team's catalog designations. The team reserves the final right to interpret and determine each problem's status, and may revise it while retaining the reports and their history. A preprint, DOI, publication, or reported resolution does not automatically mark a problem Solved. The maintainers document reported progress; they do not peer-review manuscripts, verify proofs, or certify correctness.</p>
         </div>
 
         <h2 id="contribute">How to contribute</h2>
         <div class="prose-body">
-          <p>There are three ways to take part. You can propose a problem, contribute through GitHub, or report substantial progress. The maintainers review every contribution, decide what is recorded, and may decline a proposal or an update.</p>
+          <p>You can propose a problem, submit a progress report, or report a correction. The maintainers check the information needed to document contributions, including sources and attribution, before publication. This does not include reviewing the correctness of proofs.</p>
 
           <h3 id="propose">Propose a problem</h3>
           <div class="prose-body">
@@ -689,14 +691,15 @@ export function renderAbout({ config, root, dates }) {
               <li>Run <code>node scripts/sync-tex.mjs</code> to write the record's TeX form, then <code>node site/build.mjs</code>. The build rejects records with missing fields, unknown or miscounted fields and topics, unresolved citations, or unlabeled equations.</li>
               <li>Open a pull request.</li>
             </ol>
-            <p>To correct an existing record or add a reference to it, use the Edit button on the problem's page, which opens the record on GitHub, or open a <a href="${config.repositoryUrl}/issues/new?template=research-update.yml" rel="noreferrer">GitHub issue</a> that describes the change and cites the primary sources.</p>
+            <p>To correct an existing record or add a reference to it, use the Edit button on the problem's page or open a <a href="${config.repositoryUrl}/issues/new?template=correction.yml" rel="noreferrer">correction issue</a>. Ordinary typo, citation, and status-reconsideration requests can cite the existing record. A correction introducing new research must include an archival source for that result.</p>
           </div>
 
-          <h3 id="report-progress">Report substantial progress</h3>
+          <h3 id="report-progress">Submit a progress report</h3>
           <div class="prose-body">
-            <p>If you have solved a problem listed here or made substantial progress on one, we encourage you to release the work as a preprint, for example on <a href="https://arxiv.org/" rel="noreferrer">arXiv</a> or <a href="https://zenodo.org/" rel="noreferrer">Zenodo</a>, or as a published paper, rather than announcing it only in a GitHub issue or comment. A GitHub thread does not appear in arXiv listings or scholarly search engines, can be edited or deleted at any time, and has no persistent identifier such as a DOI or arXiv number. A preprint or paper provides a dated, citable record and opens the work to peer review.</p>
-            <p>Please report only results that you understand and have checked yourself, and take the time to do so before announcing them. The problems are shared research questions and not a competition. AI tools are welcome, including through the <a href="#mcp">MCP server</a> described below. If they contributed to a result, please say so.</p>
-            <p>Once the work is available, send us its arXiv identifier or DOI through the Edit button on the problem's page or a <a href="${config.repositoryUrl}/issues/new?template=research-update.yml" rel="noreferrer">GitHub issue</a>. Please link to the work and do not paste a proof into the issue. The maintainers check that the result is relevant and correctly cited and then update the record. Listing a preprint or paper on a problem page does not mean that the maintainers have verified it.</p>
+            <p>Every new progress submission requires an archival link to the manuscript or paper reporting the result: <a href="https://arxiv.org/" rel="noreferrer">arXiv</a>, a <a href="https://zenodo.org/" rel="noreferrer">Zenodo</a> manuscript, another supported preprint repository, a stable journal or publisher paper record, or a paper DOI. Use <a href="${root}contribute/progress/">Submit a progress report</a> for resolutions, partial results, computational findings, and new research in corrections or follow-ups. Personal pages, GitHub posts, shared files, and attachments alone are insufficient. A source must identify the actual research document, not an unrelated paper or a DOI for software or data alone.</p>
+            <p>Preprints need not have passed peer review. Inclusion records what the source reports and does not certify correctness. No expert endorsement or proof-review report is required. Publication and peer-review information, where recorded, describe the source rather than grade its correctness.</p>
+            <p>Existing GitHub progress reports, including issues raised by external contributors, are linked directly in the Progress panel of every affected problem page, even without an archival manuscript. <a href="${root}contribute/progress/?kind=historical">Point out an earlier GitHub report</a> if a link is missing. This historical exception applies to pre-policy content; a new claim added to an old issue still requires an archival source. All reports stay in one Progress panel, independently of the team's current status designation.</p>
+            <p>The <a href="${config.repositoryUrl}/blob/${config.branch}/docs/RESEARCH_PROGRESS_POLICY.md" rel="noreferrer">research progress policy</a> explains supported sources, historical documentation, attribution, and status authority. AI tools are welcome, including through the <a href="#mcp">MCP server</a>; their use does not replace the source requirement.</p>
           </div>
         </div>
 
@@ -844,12 +847,20 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
       </div>
       <div class="contribute-routes no-math">
         <div class="route-card">
+          <h2><a href="${root}contribute/progress/">Submit a progress report</a></h2>
+          <p>For an existing problem, provide a required archival manuscript or paper link and a short summary. You can also <a href="${root}contribute/progress/?kind=historical">link an earlier GitHub report</a>.</p>
+        </div>
+        <div class="route-card">
+          <h2><a href="${config.repositoryUrl}/issues/new?template=correction.yml" rel="noreferrer">Report a correction</a></h2>
+          <p>Point out a typo, citation problem, or status concern using the existing record. New research claims require an archival source.</p>
+        </div>
+        <div class="route-card">
           <h2>${online ? "Use this form" : "Prepare a proposal"}</h2>
-          <p>Describe the problem, where it was posed, and what is known. ${online ? "The maintainers may email you about the details." : "Copy the completed text into a GitHub issue and remove contact details you do not want to publish."} Nothing appears on the site until it has been reviewed.</p>
+          <p>Describe the problem, where it was posed, and what is known. ${online ? "The maintainers may email you about the details." : "Copy the completed text into a GitHub issue; the copied text omits your email."} Nothing appears on the site until the maintainers have checked the information for publication.</p>
         </div>
         <div class="route-card">
           <h2>Or write the record yourself</h2>
-          <p>Comfortable with Git and TeX? Follow the <a href="${root}about/#contribute">contribution guide</a> and open a pull request, or <a href="${issueUrl}" rel="noreferrer">open a GitHub issue</a>. Updates to an existing problem go through the Edit button on its page.</p>
+          <p>Comfortable with Git and TeX? Follow the <a href="${root}about/#contribute">contribution guide</a> and open a pull request, or <a href="${issueUrl}" rel="noreferrer">open a new-problem issue</a>. New progress entries must include archival sources; recording a report does not set a problem's status.</p>
         </div>
       </div>
 
@@ -881,7 +892,8 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
         <fieldset>
           <legend>Sources and progress</legend>
           ${field("proposal-source", "Source", textarea("proposal-source", "source", 3, `maxlength="${L.source.max}"`), `The paper or preprint that posed the problem, or the papers in which it is implicit. If it has no literature source, write “Contributor: your name”${allowAnonymous ? " for named credit, or “unknown” to remain anonymous" : ""}.`)}
-          ${field("proposal-progress", "Known progress", textarea("proposal-progress", "progress", 6, `maxlength="${L.progress.max}"`), "Results that delimit the problem, each with its source and a sentence on why it falls short of the full question.")}
+          ${field("proposal-progress", "Known progress (optional)", textarea("proposal-progress", "progress", 6, `maxlength="${L.progress.max}"`), "Describe reported results and their scope. If you include research progress, add the archival manuscript or paper links below. An ordinary new-problem proposal need not include a resolving paper; leave this section empty if there is no research update to report.")}
+          ${field("proposal-archivalLinks", "Archival manuscript or paper links (required when reporting progress)", textarea("proposal-archivalLinks", "archivalLinks", 3, `maxlength="20000"`), `One link per line, up to 10: arXiv, a Zenodo manuscript, a supported preprint, a journal paper, or a paper DOI. Personal pages, GitHub posts, and shared files alone do not qualify. <a href="${root}contribute/progress/#sources">Supported sources</a>.`)}
           ${field("proposal-references", "References", textarea("proposal-references", "references", 6, `maxlength="${L.references.max}"`), "Full bibliographic entries with DOI and arXiv identifiers, one per line. BibTeX is welcome.")}
         </fieldset>
 
@@ -935,6 +947,94 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
     body, bodyClass: "page-contribute",
     extraHead: usesCaptcha ? `<script src="${widget.script}" async defer></script>` : ""
   });
+}
+
+export function renderProgressContribute({ config, root, records }) {
+  const settings = config.contribute ?? {};
+  const online = progressSubmissionsOnline(config);
+  const allowAnonymous = anonymousSubmissionsAllowed(config);
+  const providerKey = settings.captcha?.provider ?? "turnstile";
+  const widget = CAPTCHA_WIDGETS[providerKey];
+  if (!widget) throw new Error("site/config.json: unsupported contribute.captcha.provider");
+  const usesCaptcha = online && settings.spamProtection !== "basic";
+  const policyUrl = `${config.repositoryUrl}/blob/${config.branch}/docs/RESEARCH_PROGRESS_POLICY.md`;
+  const input = (name, label, hint = "", attrs = "", tag = "input") => `<div class="form-row">
+            <label for="progress-${name}">${label}</label>
+            ${tag === "textarea" ? `<textarea id="progress-${name}" name="${name}" rows="${name === "summary" ? 6 : 3}" ${attrs} aria-describedby="progress-${name}-hint progress-${name}-error"></textarea>` : `<input id="progress-${name}" name="${name}" type="${name === "email" ? "email" : "text"}" ${attrs} aria-describedby="progress-${name}-hint progress-${name}-error">`}
+            <p class="form-hint" id="progress-${name}-hint">${hint}</p>
+            <p class="form-error" id="progress-${name}-error" hidden></p>
+          </div>`;
+  const body = `
+    <div class="contribute-layout">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><a href="${root}contribute/">Contribute</a><span aria-hidden="true">›</span><span>Progress</span></nav>
+      <div class="section-heading"><div><p class="section-index">Contribute</p><h1>Submit a progress report</h1></div></div>
+      <div class="prose-body progress-intro">
+        <p>An archival manuscript or published-paper link is required for every new progress report. Add the source and a short description of what it reports. Listing a report does not certify correctness or automatically change the problem's status; the maintainer team retains the final right to interpret and determine Solved/Unsolved.</p>
+        <p>The maintainers document sources, context, and attribution. They do not review proofs. Preprints need not have passed peer review. Earlier GitHub reports remain linked in the existing Progress panel. <a href="${policyUrl}" rel="noreferrer">Read the research progress policy</a>.</p>
+      </div>
+      ${online ? "" : `<div class="form-notice" id="progress-offline">Direct progress sending is not enabled on this deployment. Complete this worksheet, then use <strong>Copy report for GitHub</strong> and <strong>Open GitHub submission</strong>. A GitHub account is required. These actions check the required source and omit your email; the issue and your GitHub identity will be public. No report is sent until you submit it on GitHub.</div>`}
+      <noscript><p>JavaScript is required for this worksheet's source checks. You can use the <a href="${config.repositoryUrl}/issues/new?template=research-update.yml" rel="noreferrer">GitHub research-update form</a>, which also requires an archival manuscript or paper link. For an earlier report, use the <a href="${config.repositoryUrl}/issues/new?template=historical-progress.yml" rel="noreferrer">historical-listing form</a>.</p></noscript>
+      <p class="form-hint" id="progress-loading">Loading the source checks. If the worksheet does not become available, reload or use the <a href="${config.repositoryUrl}/issues/new?template=research-update.yml" rel="noreferrer">GitHub research-update form</a> with the required archival link.</p>
+      <form class="proposal-form progress-form no-math" id="progress-form" novalidate data-submit-url="${online ? escape(settings.progressSubmissionUrl) : ""}" data-repository-url="${escape(config.repositoryUrl)}" data-allow-anonymous="${allowAnonymous}" data-content-license="CC-BY-4.0" data-captcha-provider="${usesCaptcha ? providerKey : ""}" data-captcha-response="${usesCaptcha ? widget.responseField : ""}">
+        <fieldset><legend>Problem</legend>
+          <div class="form-row"><label for="progress-problemId">Problem (required)</label>
+            <select id="progress-problemId" name="problemId" required aria-describedby="progress-problemId-error"><option value="">Choose a problem</option>${records.map(record => `<option value="${escape(record.id)}">${escape(record.id)} — ${escape(record.title.text)}</option>`).join("")}</select>
+            <p class="form-error" id="progress-problemId-error" hidden></p>
+          </div>
+          <div class="form-row"><label for="progress-kind">What would you like to document?</label>
+            <select id="progress-kind" name="kind"><option value="research">New research progress</option><option value="historical">Link an earlier GitHub report</option></select>
+          </div>
+          <div class="form-row" id="progress-updateType-row"><label for="progress-updateType">Type of report</label>
+            <select id="progress-updateType" name="updateType"><option value="partial">Reported partial progress</option><option value="resolution">Reported resolution</option><option value="computation">Computational finding</option><option value="correction">Research correction</option><option value="follow-up">Follow-up publication</option></select>
+            <p class="form-hint">This describes the report and does not set the problem's status. For an ordinary typo or citation correction, <a href="${config.repositoryUrl}/issues/new?template=correction.yml" rel="noreferrer">report a correction</a>.</p>
+          </div>
+        </fieldset>
+        <fieldset id="sources"><legend>Source</legend>
+          <div id="progress-research-fields">
+            ${input("archivalLinks", "Archival manuscript or paper link (required)", `${escape(SOURCE_GUIDANCE)} One link per line, up to 10. arXiv identifiers and DOIs are also accepted.`, 'required maxlength="20000"', "textarea")}
+            <p class="form-hint">The source must contain the research described in your summary. A DOI for software or data alone, an unrelated paper, or a repository home page does not qualify.</p>
+            ${input("citation", "Citation (optional)", "Title, manuscript authors, date, and version where available. Distinguish the authors from yourself if you are reporting someone else's work.", 'maxlength="2000"', "textarea")}
+            ${input("resultLocator", "Result locator (optional)", "The theorem, section, or page containing the reported result.", 'maxlength="500"')}
+            ${input("relatedReportUrl", "Earlier related GitHub report (optional)", "A direct link to an issue or comment in this project's repository; it supplements the archival source.", 'maxlength="2048"')}
+          </div>
+          <div id="progress-historical-fields" hidden>
+            ${input("historicalUrl", "Original GitHub issue, comment, or PR link (required)", "Identify the existing report in this project's repository. An archival paper is not required for historical documentation.", 'maxlength="2048"')}
+            <p class="form-hint">This route identifies pre-policy content. Maintainers check its original date and context before listing it; selecting this option does not make a new claim historical. A new claim added to an old issue requires an archival source.</p>
+          </div>
+          <details class="source-guidance"><summary>Supported sources and source-support requests</summary>
+            <p>${escape(SUPPORTED_SOURCE_NAMES.join(", "))}.</p>
+            <p>Use the specific manuscript or paper record, not a home page. For a legitimate archive or publisher not yet supported, <a href="${config.repositoryUrl}/issues/new?template=source-support.yml" rel="noreferrer">request source support</a> with the paper link and citation. A support request does not submit the research report.</p>
+          </details>
+        </fieldset>
+        <fieldset><legend>Report summary</legend>
+          ${input("summary", "Brief summary (required)", "Up to 1,500 characters. Describe what the source reports and how it concerns this problem, or explain the relevance of the earlier GitHub report. Do not paste a proof.", 'required maxlength="1500"', "textarea")}
+        </fieldset>
+        <fieldset><legend>Contact and consent</legend>
+          <div class="form-grid-2">
+            ${input("name", "Your name (required)", "For attribution and any questions about the report.", 'required maxlength="200" autocomplete="name"')}
+            ${input("email", online ? "Email (required; private)" : "Email (optional; not copied to GitHub)", online ? "Used privately for questions about the report; never published." : "Kept only in this browser draft. GitHub handoff excludes this field.", `${online ? "required " : ""}maxlength="254" autocomplete="email"`)}
+          </div>
+          ${input("affiliation", "Affiliation (optional)", "Published with your name when you choose named credit.", 'maxlength="300" autocomplete="organization"')}
+          ${allowAnonymous ? `<label class="consent"><input type="checkbox" name="anonymous" id="progress-anonymous"><span>Keep my name and affiliation out of public website credit. GitHub submissions and their account identity remain public.</span></label>` : `<p class="form-hint">This deployment supports named website credit. Anonymous credit is not enabled.</p>`}
+          <label class="consent"><input type="checkbox" name="consent" id="progress-consent" required aria-describedby="progress-consent-error"><span>I license my original submitted text under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noreferrer">CC BY 4.0</a> and confirm I have the right to do so. Third-party and earlier GitHub material retain their own terms. I agree that the maintainers may store my report and contact details and edit and publish the report, respecting my supported attribution choice. My email stays private. <a href="${root}about/#licensing">Licensing details</a>.</span></label>
+          <p class="form-error" id="progress-consent-error" hidden></p>
+          <div class="hp" aria-hidden="true"><label for="progress-extra">Leave this field empty</label><input id="progress-extra" name="extra" type="text" tabindex="-1" autocomplete="off"></div>
+        </fieldset>
+        ${usesCaptcha ? `<div class="captcha-slot"><div class="${widget.className}" data-sitekey="${escape(settings.captcha.siteKey)}" data-theme="auto"></div><p class="form-hint">Human verification keeps automated submissions out of the inbox.</p></div>` : ""}
+        <p class="form-hint">An unsent draft, including contact details, is saved in this browser. Use Clear form to remove it, especially on a shared computer.</p>
+        <div class="form-actions">
+          ${online ? `<button class="button button-primary" type="submit" id="progress-submit" disabled>Submit progress report</button>` : `<button class="button button-primary" type="submit" id="progress-submit" disabled>Copy report for GitHub</button><button class="button button-ghost" type="button" id="progress-open">Open GitHub submission</button>`}
+          ${online ? `<button class="button button-ghost" type="button" id="progress-copy">Copy report for GitHub</button>` : ""}
+          <button class="button button-ghost" type="button" id="progress-clear">Clear form</button>
+        </div>
+        <p class="form-status" id="progress-status" role="status" aria-live="polite" tabindex="-1"></p>
+        <div id="progress-copy-fallback" hidden><label for="progress-copy-text">Select and copy the public report</label><textarea id="progress-copy-text" readonly rows="10"></textarea></div>
+      </form>
+      <div class="proposal-done no-math" id="progress-done" hidden tabindex="-1"><h2>Your report has been received for documentation</h2><p>Receipt <code id="progress-receipt"></code>. Submission does not publish the report or change the problem's status. The maintainers may ask for citation, attribution, or historical-context details.</p><p><a href="${root}contribute/progress/">Prepare another report</a> · <a href="${root}problems/">Browse the catalog</a></p></div>
+    </div>`;
+  return layout({ config, root, path: "contribute/progress/", current: "contribute", title: "Submit a progress report", description: "Document research progress with an archival manuscript or paper link, or identify an earlier GitHub report.", body, bodyClass: "page-contribute", withMath: false,
+    extraHead: usesCaptcha ? `<script src="${widget.script}" async defer></script>` : "",
+    extraScripts: `<script type="module" src="${root}assets/progress-form.mjs?v=${config.assetVersions?.progress ?? ""}"></script>` });
 }
 
 export function renderRandomPage({ config, root, pool, ids, label }) {

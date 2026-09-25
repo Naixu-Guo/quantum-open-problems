@@ -530,6 +530,21 @@ fieldset > .form-row + .form-row, .form-grid-2 + .form-row { margin-top: 16px; }
   background: var(--card-raised); color: var(--ink); font-size: 15px; line-height: 1.5;
 }
 .proposal-form textarea { min-height: 110px; resize: vertical; font-family: var(--mono); font-size: 13.5px; }
+.progress-form textarea, .progress-form input[type="text"], .progress-form input[type="email"], .progress-form select { font-family: var(--sans); font-size: 1rem; line-height: 1.6; }
+.progress-form select { width: 100%; max-width: 100%; padding: 10px 12px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); color: var(--ink); background: var(--card-raised); }
+.progress-form select:focus { outline: 2px solid var(--mint-deep); outline-offset: 2px; }
+.progress-form label { font-size: 1rem; }
+.progress-form .form-row + .form-hint, .progress-form .source-guidance { margin-top: 12px; }
+.progress-form #progress-research-fields > .form-row:not(:first-child) { margin-top: 16px; }
+.progress-form [hidden] { display: none; }
+.progress-form [aria-invalid="true"] { border-color: var(--ink); outline: 2px solid var(--ink); outline-offset: 2px; }
+.progress-form .form-error { margin: 0; color: var(--ink); font-size: 0.9rem; font-weight: 600; }
+.progress-form .button-primary { transition: transform 120ms ease; }
+.progress-form .button-primary:hover { background: var(--accent-solid); border-color: var(--accent-solid); color: var(--on-accent-solid); }
+.progress-intro { margin-bottom: 20px; }
+.progress-notice { color: var(--ink-soft); font-family: var(--sans); font-size: 0.9rem; line-height: 1.6; }
+.progress-list a { overflow-wrap: anywhere; }
+#progress-offline { margin-bottom: 20px; }
 .statement-input { position: relative; }
 .statement-input textarea { display: block; }
 .statement-placeholder { position: absolute; top: 10px; left: 13px; color: #888; font-family: var(--serif); font-size: 16px; pointer-events: none; }

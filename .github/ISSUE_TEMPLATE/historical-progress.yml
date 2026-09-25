@@ -1,0 +1,46 @@
+name: Link an earlier GitHub report
+description: Identify an existing report for a problem's Progress panel; no later manuscript is required.
+title: "[Historical progress] "
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Existing reports, including external contributors' issues and closed issues, are linked in
+        each affected problem page's Progress panel. This request helps identify a missing link.
+        Maintainers document the original content and date; a new claim added to an old thread still
+        needs an archival manuscript link through Report research progress. No proof review is implied.
+  - type: input
+    id: record_id
+    attributes:
+      label: Affected problem IDs
+      description: List every catalog problem this report concerns.
+    validations:
+      required: true
+  - type: input
+    id: original_report
+    attributes:
+      label: Original GitHub report URL
+      description: Direct issue, pull-request, or comment link in this repository.
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Relevance and original date
+      description: Briefly identify the existing report, original content/date, and any withdrawal or follow-up context. A later manuscript is optional.
+    validations:
+      required: true
+  - type: input
+    id: contributor
+    attributes:
+      label: Public reporting credit (optional)
+      description: Your reporting credit, if different from the original report's author. Do not include private contact details.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Scope and consent
+      options:
+        - label: This request identifies existing reported progress rather than introducing a new research claim.
+          required: true
+        - label: "I have the right to contribute my original summary under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); the original linked material retains its own terms."
+          required: true

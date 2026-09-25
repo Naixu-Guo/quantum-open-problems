@@ -1,13 +1,21 @@
-name: Report progress or a correction
-description: Submit a result, correction, or status change for an existing problem.
-title: "[Update] "
+name: Report research progress
+description: Document a new report with a required archival manuscript or paper link.
+title: "[Progress] "
 body:
+  - type: markdown
+    attributes:
+      value: >-
+        Use the [progress form](https://qiqc-op.com/contribute/progress/) to prepare this report.
+        A new research report requires an archival manuscript or published-paper link.
+        The site documents reports without reviewing proofs or automatically changing status.
+        For an ordinary correction or an earlier GitHub report, use the separate issue template.
+        Read the [progress policy](https://github.com/Naixu-Guo/quantum-open-problems/blob/main/docs/RESEARCH_PROGRESS_POLICY.md).
+        Do not include private contact details here.
   - type: input
     id: record_id
     attributes:
       label: Problem ID
-      description: The stable ID shown under the title of the problem page.
-      placeholder: op_43d4aca67bd52554
+      description: The stable ID shown on the affected problem page.
     validations:
       required: true
 
@@ -16,46 +24,63 @@ body:
     attributes:
       label: Type of update
       options:
-        - Complete proof or counterexample
-        - Partial result
-        - Numerical or computational evidence
-        - Status or source correction
-        - Wording or reference fix
+        - Reported resolution
+        - Partial progress
+        - Computational finding
+        - Research correction
+        - Follow-up publication
     validations:
       required: true
 
   - type: textarea
-    id: claim
+    id: archival_links
     attributes:
-      label: Exact claim
-      description: State the theorem, counterexample, or correction with its hypotheses and quantifiers, and how it matches the archived statement.
+      label: Archival manuscript or paper links (required)
+      description: >-
+        At least one arXiv, Zenodo manuscript, supported preprint, journal article,
+        or paper DOI link reporting this result. A GitHub post, personal page,
+        attachment, or data/software DOI alone is insufficient. One link per line.
     validations:
       required: true
 
   - type: textarea
-    id: sources
+    id: citation
     attributes:
-      label: Primary sources
-      description: Links with theorem, page, or equation locators. Mark preprints and conditional steps as such.
+      label: Citation
+      description: Title, authors, date, and manuscript version where available.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Report summary
+      description: What the source reports and how it relates to this problem; keep within 1,500 characters.
     validations:
       required: true
 
-  - type: textarea
-    id: remaining_gap
+  - type: input
+    id: result_locator
     attributes:
-      label: Remaining gap
-      description: What stays unresolved if this update is accepted.
+      label: Result locator (optional)
+      description: Theorem, section, or page number; no proof assessment is requested.
+  - type: input
+    id: related_report
+    attributes:
+      label: Earlier related report (optional)
+      description: Original GitHub issue or comment, if this manuscript follows an earlier report.
+  - type: input
+    id: contributor
+    attributes:
+      label: Public reporting credit
+      description: How to attribute this report; distinguish the reporter from the manuscript authors. Do not include an email address.
     validations:
       required: true
 
   - type: checkboxes
     id: checks
     attributes:
-      label: Submission checks
+      label: Documentation and consent
       options:
-        - label: I opened and checked the cited sources.
-          required: true
-        - label: I compared the claim with the archived statement and its quantifiers.
+        - label: The linked manuscript or paper reports the progress summarized here; listing it does not certify correctness or automatically change the problem's status.
           required: true
         - label: "I have the right to license my original text under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) and have identified any third-party material and its terms. See the [licensing policy](https://github.com/Naixu-Guo/quantum-open-problems/blob/main/LICENSING.md)."
           required: true
