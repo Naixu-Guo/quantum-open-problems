@@ -8,7 +8,9 @@ body:
         Use the [progress form](https://qiqc-op.com/contribute/progress/) to prepare this report.
         A new research report requires an archival manuscript or published-paper link.
         The site documents reports without reviewing proofs or automatically changing status.
-        For an ordinary correction or an earlier GitHub report, use the separate issue template.
+        Report research results such as papers, counterexamples, partial results, or computational findings.
+        Internal review arguments, scope/citation fixes, and editorial or engineering work are not Progress entries.
+        For an ordinary correction or an earlier research-progress report, use the separate issue template.
         Read the [progress policy](https://github.com/Naixu-Guo/quantum-open-problems/blob/main/docs/RESEARCH_PROGRESS_POLICY.md).
         Do not include private contact details here.
   - type: input
@@ -23,6 +25,7 @@ body:
     id: kind
     attributes:
       label: Type of update
+      description: Select the type of this report. If the website prefilled your summary, confirm that this selection matches the reported update type stated there.
       options:
         - Reported resolution
         - Partial progress

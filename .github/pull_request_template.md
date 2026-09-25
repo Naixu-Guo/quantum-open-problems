@@ -3,7 +3,10 @@ primary sources and state the remaining open question.
 
 For new reported progress, supply an eligible archival manuscript or paper
 link in each entry or its cited reference. For historical GitHub reports,
-preserve the original visible issue/comment link and dated provenance.
+preserve a compact visible issue/comment link and keep detailed provenance in
+the original thread and inventory. Include actual research reports, regardless
+of the reporter's role; internal review arguments, scope/citation fixes, editorial
+changes, and engineering or integration work do not belong in Progress.
 Follow the [progress policy](https://github.com/Naixu-Guo/quantum-open-problems/blob/main/docs/RESEARCH_PROGRESS_POLICY.md).
 Ordinary corrections and software changes do not require a new resolving paper.
 

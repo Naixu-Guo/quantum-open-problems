@@ -6,6 +6,14 @@ assessments, or certify reported resolutions. A progress entry documents what
 its source reports. Preprint hosting, publication, peer review, and a DOI do not
 automatically determine a problem's status.
 
+The **Progress** panel is for reports of research progress received through
+the portal or GitHub: manuscripts or papers, counterexamples, partial results,
+and computational findings. Classify the content, not the reporter's role;
+a maintainer can report research progress too. Internal maintainer arguments,
+review discussion, scope or citation fixes, editorial changes, and engineering
+or integration work belong in their repository threads, not as Progress entries.
+A correction qualifies here only when it reports a research result.
+
 The maintainer team reserves the final right to interpret and determine each
 problem's **Solved** or **Unsolved** designation. Submission, source checks,
 historical imports, and publication metadata never change that designation
@@ -75,20 +83,22 @@ included with them must also identify the corresponding archival sources.
 
 ## Existing GitHub reports remain visible
 
-Existing reports in this repository, specifically issues raised by external
-contributors, belong in the **Progress** panel of every affected problem page.
-Each report has a visible, clickable link to its original issue and, where
-appropriate, the substantive comment. Include its original date, public
-reporter attribution, and a short neutral description where available.
-These links do not require a later manuscript, contributor resubmission, or
-proof assessment.
+Existing GitHub reports of actual research progress, including those raised
+by external contributors, belong in the **Progress** panel of each affected
+problem page. Use a compact, visible hyperlink to the original report, such as
+**GitHub #123**. Link a substantive report comment directly when appropriate.
+Keep dates, authorship, detailed summaries, and discussion available in the
+original thread and provenance inventory; do not repeat them as long panel entries.
+These links do not require a later manuscript, resubmission, or proof assessment.
 
-Both open and closed issues are included. A withdrawn report is described as
-withdrawn, with a link to that context; removed material is not reconstructed.
-If an issue concerns several catalog problems, each affected page links it.
-Combining duplicate descriptions preserves every distinct original report
-link. A later manuscript supplements the GitHub link rather than replacing it.
-Reports remain visible when the team changes a problem's status.
+Include eligible reports from both open and closed issues. Add a brief qualifier
+when needed to avoid misleading readers, such as identifying a withdrawn report;
+keep its details in the linked thread and do not reconstruct removed material.
+Link a report from each problem it actually concerns and preserve distinct
+research-report links when combining duplicates. A later manuscript supplements
+the original report link. Internal review, editorial corrections, and repository
+implementation work are not research reports merely because they concern a
+problem. Reports remain visible independently of the problem's status.
 
 The dated [historical inventory](audits/github-progress-2026-09-25.md) records
 the source versions and their problem mappings. Its
@@ -109,10 +119,11 @@ require provenance checks, not a retrospective manuscript requirement.
 
 ## Presentation and repository updates
 
-Use one chronological Progress panel. Labels such as **Preprint**,
-**Published paper**, and **Historical GitHub report** identify sources and do
-not rank their correctness. Do not introduce verification badges, proof-review
-queues, or accepted and unaccepted sections. Keep links visible and accessible
+Use one Progress panel for research reports, with compact source hyperlinks.
+Keep detailed GitHub discussion, dates, and reporter information in the linked
+thread and provenance inventory. A short source label identifies where a report
+appeared and does not rank its correctness. Do not introduce verification badges,
+proof-review queues, or accepted and unaccepted sections. Keep links visible and accessible
 on both Solved and Unsolved pages. Summary fields use the site's readable
 sans-serif font, and source requirements and validation errors are explicit.
 

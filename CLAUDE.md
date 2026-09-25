@@ -17,7 +17,13 @@ each mirrored by a TeX file (`database/problems_tex/`).
    not change it automatically. Follow `docs/RESEARCH_PROGRESS_POLICY.md`:
    document attributed reports without proof refereeing, require archival
    manuscript links for new research, and preserve visible direct links to
-   existing GitHub reports even when no later manuscript exists.
+   existing GitHub research-progress reports even when no later manuscript exists.
+   Use compact report links; keep detailed discussion, dates, and reporter metadata
+   in GitHub and the provenance inventory. Exclude internal maintainer arguments,
+   review discussion, scope/citation fixes, editorial work, and engineering or
+   integration changes from Progress. Classify the report's content, not the
+   reporter: an actual paper, counterexample, partial result, or computation
+   reported by a maintainer can still qualify.
 2. **Stable IDs.** The `op_` identifier of a record is permanent: never edit,
    regenerate, or reuse one. New IDs come from `node scripts/new-problem-id.mjs`.
    Use `--create` to write a new record scaffold with fresh identifiers;

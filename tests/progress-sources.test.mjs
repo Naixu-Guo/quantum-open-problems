@@ -25,3 +25,13 @@ test("historical links identify the original project report or comment without c
   for (const value of ["https://github.com/Naixu-Guo/quantum-open-problems/issues", "https://github.com/elsewhere/repo/issues/12", "https://github.com/Naixu-Guo/quantum-open-problems/issues/12?claim=new", "https://github.com/Naixu-Guo/quantum-open-problems/issues/12#unknown", "https://example.com/Naixu-Guo/quantum-open-problems/issues/12"])
     assert.throws(() => normalizeHistoricalLink(value));
 });
+
+test("missing and malformed historical URLs request the original GitHub report, never a manuscript", () => {
+  for (const value of [undefined, "", "   ", "issues/12", "https://github.com/Naixu-Guo/quantum-open-problems/issues/12\nother", "javascript:alert(1)", "https://user:secret@github.com/Naixu-Guo/quantum-open-problems/issues/12", "https://github.com:9000/Naixu-Guo/quantum-open-problems/issues/12"]) {
+    assert.throws(() => normalizeHistoricalLink(value), error => {
+      assert.match(error.message, /original GitHub issue, pull request, or report comment/u);
+      assert.doesNotMatch(error.message, /archival|manuscript|paper|DOI/u);
+      return true;
+    });
+  }
+});

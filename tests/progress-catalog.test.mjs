@@ -2,7 +2,8 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
 import { archivalLinksIn, checkRecordProgress, historicalEntriesFrom, checkHistoricalCoverage } from "../scripts/check-progress-sources.mjs";
-import { texToHtml } from "../site/lib/tex.mjs";
+import { texToHtml, renderRecord } from "../site/lib/tex.mjs";
+import { renderProblemPage } from "../site/lib/render.mjs";
 
 const record = (progress, references = []) => ({ id: "op_0123456789abcdef", status: "Unsolved", progress, references });
 test("catalog progress checks the reported item's own source rather than unrelated bibliography", () => {
@@ -58,4 +59,30 @@ test("every inventoried historical report remains in Progress with rendered dire
     for (const url of entry.requiredSourceUrls) assert.ok(html.includes(`href="${url}"`), `${entry.problemId}: ${url}`);
   }
   assert.ok(checkHistoricalCoverage(entries.slice(0, 1), () => record([])).length);
+});
+
+test("problem panels retain research-report links and exclude internal catalog review", () => {
+  const audit = JSON.parse(fs.readFileSync(new URL("../docs/audits/github-progress-2026-09-25.json", import.meta.url), "utf8"));
+  const config = JSON.parse(fs.readFileSync(new URL("../site/config.json", import.meta.url), "utf8"));
+  const entries = historicalEntriesFrom(audit);
+  const excluded = audit.records.flatMap((report) => report.excludedProgressEntries ?? []);
+  const read = (id) => JSON.parse(fs.readFileSync(new URL(`../database/problems_json/${id}.json`, import.meta.url), "utf8"));
+  assert.deepEqual(checkHistoricalCoverage(entries, read, excluded), []);
+  const accidentallyRestored = { ...read(excluded[0].problemId), progress: [excluded[0].text] };
+  assert.match(checkHistoricalCoverage([], () => accidentallyRestored, [excluded[0]])[0], /internal GitHub review/);
+  const dates = { today: "2026-09-25", created: "2026-09-01", updated: "2026-09-25", revisions: 1 };
+  const ids = new Set([...entries, ...excluded].map((entry) => entry.problemId));
+  for (const id of ids) {
+    const rendered = renderRecord(read(id));
+    const page = renderProblemPage({ record: { ...rendered, dates }, config, root: "../../", related: [], dates });
+    const panel = page.match(/<section[^>]*id="progress">([\s\S]*?)<\/section>/u)?.[1];
+    assert.ok(panel, id);
+    assert.doesNotMatch(panel, /Historical GitHub report \(/u);
+    for (const entry of entries.filter((entry) => entry.problemId === id)) {
+      for (const url of entry.requiredSourceUrls) assert.ok(panel.includes(`href="${url}"`), `${id}: ${url}`);
+      if (entry.text.includes("this link records the withdrawal only.")) assert.match(panel, /\(withdrawn\)/u);
+    }
+    for (const item of rendered.progress.filter((item) => !item.tex.startsWith("Historical GitHub report ("))) assert.ok(panel.includes(item.html), `${id}: ordinary literature content`);
+  }
+  for (const number of [41, 42, 43, 50]) assert.deepEqual(audit.records.find((report) => report.number === number).progressEntries, []);
 });

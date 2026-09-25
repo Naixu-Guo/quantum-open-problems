@@ -97,7 +97,9 @@ export function normalizeArchivalLink(value) {
 
 /** Historical requests identify existing project reports; this does not prove their age. */
 export function normalizeHistoricalLink(value) {
-  const url = parsedUrl(input(value));
+  let url;
+  try { url = parsedUrl(input(value)); }
+  catch { throw new Error("Provide the complete URL of the original GitHub issue, pull request, or report comment in Naixu-Guo/quantum-open-problems."); }
   const match = /^\/Naixu-Guo\/quantum-open-problems\/(issues|pull)\/([1-9]\d*)\/?$/iu.exec(url.pathname);
   if (url.hostname.toLowerCase() !== "github.com" || !match || url.search || (url.hash && !/^#(?:issuecomment-\d+|discussion_r\d+|pullrequestreview-\d+)$/u.test(url.hash))) {
     throw new Error("Link to the original issue, pull request, or report comment in Naixu-Guo/quantum-open-problems.");

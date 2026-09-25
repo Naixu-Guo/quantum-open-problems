@@ -4,18 +4,20 @@
   "snapshotAt": "2026-09-25T06:15:25Z",
   "cutoffAt": "2026-09-25T06:15:25Z",
   "policy": "Historical documentation of the current public content version; no proof assessment or catalog-status decision. New claims or later edits are not grandfathered by an old thread creation date.",
-  "scope": "All current public issues and pull-request conversations were inventoried, including open and closed threads. Mapped progress includes original reports, literature updates, research corrections, and withdrawals. Pure catalog introductions and repository maintenance are separately classified.",
+  "scope": "Actual research reports, manuscript-based updates, and author withdrawals are mapped to Progress. Internal maintainer arguments, catalog reviews/corrections, integration, and engineering work are inventoried for traceability but excluded from Progress. Classification follows the purpose of the content, not the reporter's repository role.",
   "sourceContent": "SHA-256 values cover each exact current body returned by GitHub. Titles, dates, URLs, reporter handles, mappings, and original documentary summaries are retained; full proofs and removed drafts are not republished.",
   "counts": {
     "issues": 27,
     "pullRequests": 84,
     "issueComments": 73,
     "reviewComments": 7,
-    "documentedThreads": 62,
-    "documentedIssues": 23,
-    "affectedProblems": 71,
-    "progressEntries": 104,
-    "unmappedThreads": 4
+    "documentedThreads": 44,
+    "documentedIssues": 20,
+    "affectedProblems": 42,
+    "progressEntries": 47,
+    "unmappedThreads": 4,
+    "excludedInternalEntries": 57,
+    "excludedInternalThreads": 18
   },
   "records": [
     {
@@ -42,7 +44,9 @@
           "bodySha256": "fe2da70751c22b20d5ae2c0aff65374f27371727e19ef9edd4e97e2a48018c27",
           "substantive": false,
           "mappedProblemIds": [],
-          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry"
+          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": []
@@ -156,7 +160,9 @@
           "bodySha256": "66881a02f5fa13bd86f9960f29c4d8550e9cbb236439c409e57e33e20af30497",
           "substantive": false,
           "mappedProblemIds": [],
-          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry"
+          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": []
@@ -239,25 +245,26 @@
       "updatedAt": "2026-09-06T11:08:45Z",
       "state": "closed",
       "bodySha256": "e705ebb1ac17a95cc7665ccd703557279a4e614c8256b1aebce00c686b704da2",
-      "mappedProblemIds": [
-        "op_fd75613c5bab4164"
-      ],
-      "disposition": "documented",
-      "classification": "historical-progress",
+      "mappedProblemIds": [],
+      "disposition": "excluded-from-progress",
+      "classification": "internal-catalog-work",
       "summary": "reported the less-noisy channel literature update and consolidated its preprint qualification",
       "comments": [],
-      "progressEntries": [
+      "progressEntries": [],
+      "retiredProblemIds": [
+        "op_12fc55f67580588e"
+      ],
+      "excludedProgressEntries": [
         {
           "problemId": "op_fd75613c5bab4164",
           "text": "Historical GitHub report (2026-09-06): Naixu-Guo reported the less-noisy channel literature update and consolidated its preprint qualification. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/12}{Pull request \\#12}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/12"
-          ]
+          ],
+          "reason": "Catalog integration and consolidation of an existing literature entry."
         }
       ],
-      "retiredProblemIds": [
-        "op_12fc55f67580588e"
-      ]
+      "scopeDecision": "Only actual research reports belong in Progress. Internal catalog review, integration, and engineering discussion stays on GitHub."
     },
     {
       "kind": "pull_request",
@@ -354,12 +361,9 @@
       "updatedAt": "2026-09-08T16:05:20Z",
       "state": "closed",
       "bodySha256": "30129fa5b9b7a2c05a0ea31c3901ea0bfd38dd769e3c7cd80973d2689576689f",
-      "mappedProblemIds": [
-        "op_37f7b003ec78a028",
-        "op_61cc0e261b3889c6"
-      ],
-      "disposition": "documented",
-      "classification": "historical-progress",
+      "mappedProblemIds": [],
+      "disposition": "excluded-from-progress",
+      "classification": "internal-catalog-work",
       "summary": "discussed corrections to the stabilizer-rank frontier and the distinction between restricted and unrestricted two-prover complexity classes",
       "comments": [
         {
@@ -374,7 +378,9 @@
             "op_37f7b003ec78a028",
             "op_61cc0e261b3889c6"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -385,17 +391,21 @@
           "bodySha256": "aa9e4247c867806e940a592be1b1fb9496f31e2fb7201c0a6c786f9fa0b18b39",
           "substantive": false,
           "mappedProblemIds": [],
-          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry"
+          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
-      "progressEntries": [
+      "progressEntries": [],
+      "excludedProgressEntries": [
         {
           "problemId": "op_37f7b003ec78a028",
           "text": "Historical GitHub report (2026-09-08): Chengkai-Zhu discussed the asymptotic stabilizer-rank question and corrections distinguishing exact small-copy ranks from upper bounds. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/18}{Pull request \\#18}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/18#issuecomment-5585670052}{Naixu-Guo, 2026-09-08}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/18",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/18#issuecomment-5585670052"
-          ]
+          ],
+          "reason": "Initial problem proposal and internal corrections to the catalog description."
         },
         {
           "problemId": "op_61cc0e261b3889c6",
@@ -403,9 +413,11 @@
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/18",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/18#issuecomment-5585670052"
-          ]
+          ],
+          "reason": "Initial problem proposal and internal corrections to the catalog description."
         }
-      ]
+      ],
+      "scopeDecision": "Only actual research reports belong in Progress. Internal catalog review, integration, and engineering discussion stays on GitHub."
     },
     {
       "kind": "pull_request",
@@ -417,12 +429,9 @@
       "updatedAt": "2026-09-08T17:09:24Z",
       "state": "closed",
       "bodySha256": "476a0057c6986265252247468e0fba49d944335d3e7984e87d619621ad3ed1b4",
-      "mappedProblemIds": [
-        "op_291a943fdec5bd1d",
-        "op_d2813fe3fcdf09ad"
-      ],
-      "disposition": "documented",
-      "classification": "historical-progress",
+      "mappedProblemIds": [],
+      "disposition": "excluded-from-progress",
+      "classification": "internal-catalog-work",
       "summary": "discussed the channel-capacity parameter ranges and the strict positivity of channel squashed entanglement",
       "comments": [
         {
@@ -437,7 +446,9 @@
             "op_291a943fdec5bd1d",
             "op_d2813fe3fcdf09ad"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -448,7 +459,9 @@
           "bodySha256": "ea52688d737fa3b0465465496edb303a6f2a4f305078e2916dd1341c061f365d",
           "substantive": false,
           "mappedProblemIds": [],
-          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry"
+          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -461,10 +474,13 @@
           "mappedProblemIds": [
             "op_291a943fdec5bd1d"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
-      "progressEntries": [
+      "progressEntries": [],
+      "excludedProgressEntries": [
         {
           "problemId": "op_291a943fdec5bd1d",
           "text": "Historical GitHub report (2026-09-08): Chengkai-Zhu reported a faithfulness-based positivity argument and clarified channel squashing-map conventions. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/19}{Pull request \\#19}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/19#issuecomment-5585706497}{Naixu-Guo, 2026-09-08 (issue-comment)}; \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/19#issuecomment-5588058549}{Naixu-Guo, 2026-09-08 (issue-comment)}.",
@@ -472,7 +488,8 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/19",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/19#issuecomment-5585706497",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/19#issuecomment-5588058549"
-          ]
+          ],
+          "reason": "Initial problem proposal and internal discussion of definitions and existing bounds."
         },
         {
           "problemId": "op_d2813fe3fcdf09ad",
@@ -480,9 +497,11 @@
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/19",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/19#issuecomment-5585706497"
-          ]
+          ],
+          "reason": "Initial problem proposal and internal discussion of definitions and existing bounds."
         }
-      ]
+      ],
+      "scopeDecision": "Only actual research reports belong in Progress. Internal catalog review, integration, and engineering discussion stays on GitHub."
     },
     {
       "kind": "pull_request",
@@ -494,13 +513,9 @@
       "updatedAt": "2026-09-08T16:05:20Z",
       "state": "closed",
       "bodySha256": "2839f2d311a472881dc726ef919687fbe0614272fae7f04df649756a9bc567a4",
-      "mappedProblemIds": [
-        "op_a381e2ccd80cec9c",
-        "op_ac5fa4581b04f4c2",
-        "op_e724615844c52297"
-      ],
-      "disposition": "documented",
-      "classification": "historical-progress",
+      "mappedProblemIds": [],
+      "disposition": "excluded-from-progress",
+      "classification": "internal-catalog-work",
       "summary": "discussed additivity evidence, the distinction between separable and PPT reference sets, and the scope of deterministic channel constructions",
       "comments": [
         {
@@ -516,7 +531,9 @@
             "op_ac5fa4581b04f4c2",
             "op_e724615844c52297"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -531,10 +548,13 @@
             "op_ac5fa4581b04f4c2",
             "op_e724615844c52297"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
-      "progressEntries": [
+      "progressEntries": [],
+      "excludedProgressEntries": [
         {
           "problemId": "op_a381e2ccd80cec9c",
           "text": "Historical GitHub report (2026-09-08): Chengkai-Zhu distinguished separable-reference relative entropy from its PPT-reference counterpart in the additivity literature. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/20}{Pull request \\#20}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/20#issuecomment-5585707428}{Naixu-Guo, 2026-09-08}; \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/20#issuecomment-5587820346}{Chengkai-Zhu, 2026-09-08}.",
@@ -542,7 +562,8 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/20",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/20#issuecomment-5585707428",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/20#issuecomment-5587820346"
-          ]
+          ],
+          "reason": "Initial problem proposal and internal clarification of existing formulations and references."
         },
         {
           "problemId": "op_ac5fa4581b04f4c2",
@@ -551,7 +572,8 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/20",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/20#issuecomment-5585707428",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/20#issuecomment-5587820346"
-          ]
+          ],
+          "reason": "Initial problem proposal and internal clarification of existing formulations and references."
         },
         {
           "problemId": "op_e724615844c52297",
@@ -560,9 +582,11 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/20",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/20#issuecomment-5585707428",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/20#issuecomment-5587820346"
-          ]
+          ],
+          "reason": "Initial problem proposal and internal clarification of existing formulations and references."
         }
-      ]
+      ],
+      "scopeDecision": "Only actual research reports belong in Progress. Internal catalog review, integration, and engineering discussion stays on GitHub."
     },
     {
       "kind": "pull_request",
@@ -588,7 +612,9 @@
           "bodySha256": "38b235fe47cfc382331e2253c5e08f74ede0d922738d6ee35fd1a6951a5c41ea",
           "substantive": true,
           "mappedProblemIds": [],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -599,7 +625,9 @@
           "bodySha256": "7921c118f7431f6de6071b3da59bf8d52cf5e40754a2bd63969cb45e0136a386",
           "substantive": true,
           "mappedProblemIds": [],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -610,7 +638,9 @@
           "bodySha256": "e9bd38d568849c6835e513d6581ba8dbd3a1910e7fc74e5c49c1e11e64dd11ab",
           "substantive": true,
           "mappedProblemIds": [],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -621,7 +651,9 @@
           "bodySha256": "5255e20db9f6eae6d6e67ee13be4f2d1bd0139b15488703b230f7ec3f266120a",
           "substantive": true,
           "mappedProblemIds": [],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -632,7 +664,9 @@
           "bodySha256": "e7bb45843937820cafd3a85ff3e1ef2df1d577a429f77093198e3a8cbc6ad1c2",
           "substantive": true,
           "mappedProblemIds": [],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -643,7 +677,9 @@
           "bodySha256": "ecf0566eeae4f1c9b70245203f15665547b0e38ac1bd3f71ee51b1fbad18d916",
           "substantive": false,
           "mappedProblemIds": [],
-          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry"
+          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [],
@@ -663,11 +699,9 @@
       "updatedAt": "2026-09-08T14:41:57Z",
       "state": "closed",
       "bodySha256": "b007842f711420ed348b9da76ed75ba4b0c2aac67df76dc1a97ac95d0f86174f",
-      "mappedProblemIds": [
-        "op_af68b033a88ef934"
-      ],
-      "disposition": "documented",
-      "classification": "historical-progress",
+      "mappedProblemIds": [],
+      "disposition": "excluded-from-progress",
+      "classification": "internal-catalog-work",
       "summary": "distinguished the reported real-Gaussian permanent hardness result from the catalog's complex-Gaussian conjecture",
       "comments": [
         {
@@ -681,7 +715,9 @@
           "mappedProblemIds": [
             "op_af68b033a88ef934"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -694,10 +730,13 @@
           "mappedProblemIds": [
             "op_af68b033a88ef934"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
-      "progressEntries": [
+      "progressEntries": [],
+      "excludedProgressEntries": [
         {
           "problemId": "op_af68b033a88ef934",
           "text": "Historical GitHub report (2026-09-08): AlaricCheng distinguished the reported real-Gaussian permanent hardness result from the catalog's complex-Gaussian conjecture. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/22}{Pull request \\#22}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/22#issuecomment-5585794003}{Naixu-Guo, 2026-09-08}; \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/22#issuecomment-5586302547}{AlaricCheng, 2026-09-08}.",
@@ -705,9 +744,11 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/22",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/22#issuecomment-5585794003",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/22#issuecomment-5586302547"
-          ]
+          ],
+          "reason": "Internal comparison of the catalog formulation with an existing hardness result."
         }
-      ]
+      ],
+      "scopeDecision": "Only actual research reports belong in Progress. Internal catalog review, integration, and engineering discussion stays on GitHub."
     },
     {
       "kind": "pull_request",
@@ -720,10 +761,7 @@
       "state": "closed",
       "bodySha256": "a341fa41e04742f3bf83baf62bcdab7ac3200b9399b22875851a4921056c10bd",
       "mappedProblemIds": [
-        "op_69520395226dc45a",
-        "op_95fccb9df34a08b1",
-        "op_3596f8c955c66d94",
-        "op_36ac6718d2c37628"
+        "op_69520395226dc45a"
       ],
       "disposition": "documented",
       "classification": "historical-progress",
@@ -741,7 +779,9 @@
             "op_95fccb9df34a08b1",
             "op_3596f8c955c66d94"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -755,7 +795,9 @@
             "op_95fccb9df34a08b1",
             "op_3596f8c955c66d94"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -768,7 +810,9 @@
           "mappedProblemIds": [
             "op_36ac6718d2c37628"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -781,7 +825,9 @@
           "mappedProblemIds": [
             "op_36ac6718d2c37628"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [
@@ -791,7 +837,9 @@
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/23"
           ]
-        },
+        }
+      ],
+      "excludedProgressEntries": [
         {
           "problemId": "op_95fccb9df34a08b1",
           "text": "Historical GitHub report (2026-09-08): MinboGaoTHU clarified the Fourier-mass and correlation thresholds in the cited parity lower-bound literature. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/23}{Pull request \\#23}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/23#issuecomment-5586977935}{Naixu-Guo, 2026-09-08}; \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/23#issuecomment-5587658723}{MinboGaoTHU, 2026-09-08}.",
@@ -799,7 +847,8 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/23",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/23#issuecomment-5586977935",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/23#issuecomment-5587658723"
-          ]
+          ],
+          "reason": "Catalog correction or internal scope/source discussion in a mixed contribution; not a separate research-progress report."
         },
         {
           "problemId": "op_3596f8c955c66d94",
@@ -808,7 +857,8 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/23",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/23#issuecomment-5586977935",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/23#issuecomment-5587658723"
-          ]
+          ],
+          "reason": "Catalog correction or internal scope/source discussion in a mixed contribution; not a separate research-progress report."
         },
         {
           "problemId": "op_36ac6718d2c37628",
@@ -817,9 +867,11 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/23",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/23#issuecomment-5588064181",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/23#issuecomment-5588456659"
-          ]
+          ],
+          "reason": "Catalog correction or internal scope/source discussion in a mixed contribution; not a separate research-progress report."
         }
-      ]
+      ],
+      "scopeDecision": "Only actual research reports belong in Progress. Internal catalog review, integration, and engineering discussion stays on GitHub."
     },
     {
       "kind": "pull_request",
@@ -848,30 +900,31 @@
       "updatedAt": "2026-09-08T16:12:38Z",
       "state": "closed",
       "bodySha256": "a0f7a03802d574df5d5bdf54602b7b9854c8df78d9d43ab7d1ab35e7446a0bc0",
-      "mappedProblemIds": [
-        "op_69520395226dc45a",
-        "op_36ac6718d2c37628"
-      ],
-      "disposition": "documented",
-      "classification": "historical-progress",
+      "mappedProblemIds": [],
+      "disposition": "excluded-from-progress",
+      "classification": "internal-catalog-work",
       "summary": "carried forward the PPT-squared progress and clarified the approximation guarantee for the shortest-vector algorithm baseline",
       "comments": [],
-      "progressEntries": [
+      "progressEntries": [],
+      "excludedProgressEntries": [
         {
           "problemId": "op_69520395226dc45a",
           "text": "Historical GitHub report (2026-09-08): Naixu-Guo carried forward the PPT-squared literature update from pull request 23. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/25}{Pull request \\#25}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/25"
-          ]
+          ],
+          "reason": "Integration of another contribution and correction of approximation notation."
         },
         {
           "problemId": "op_36ac6718d2c37628",
           "text": "Historical GitHub report (2026-09-08): Naixu-Guo clarified the polylogarithmic factors in a shortest-vector algorithm's approximation guarantee. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/25}{Pull request \\#25}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/25"
-          ]
+          ],
+          "reason": "Integration of another contribution and correction of approximation notation."
         }
-      ]
+      ],
+      "scopeDecision": "Only actual research reports belong in Progress. Internal catalog review, integration, and engineering discussion stays on GitHub."
     },
     {
       "kind": "pull_request",
@@ -883,25 +936,26 @@
       "updatedAt": "2026-09-08T18:15:37Z",
       "state": "closed",
       "bodySha256": "dffc3a38095bddbd1dd31504d99619617f72e0cd681d87fbae29b0c6d51662cd",
-      "mappedProblemIds": [
-        "op_fd75613c5bab4164"
-      ],
-      "disposition": "documented",
-      "classification": "historical-progress",
+      "mappedProblemIds": [],
+      "disposition": "excluded-from-progress",
+      "classification": "internal-catalog-work",
       "summary": "consolidated the less-noisy literature reports from a duplicate record into this canonical problem",
       "comments": [],
-      "progressEntries": [
+      "progressEntries": [],
+      "retiredProblemIds": [
+        "op_12fc55f67580588e"
+      ],
+      "excludedProgressEntries": [
         {
           "problemId": "op_fd75613c5bab4164",
           "text": "Historical GitHub report (2026-09-08): Chengkai-Zhu consolidated the less-noisy literature reports from a duplicate record into this canonical problem. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/26}{Pull request \\#26}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/26"
-          ]
+          ],
+          "reason": "Duplicate-record consolidation."
         }
       ],
-      "retiredProblemIds": [
-        "op_12fc55f67580588e"
-      ]
+      "scopeDecision": "Only actual research reports belong in Progress. Internal catalog review, integration, and engineering discussion stays on GitHub."
     },
     {
       "kind": "pull_request",
@@ -998,11 +1052,9 @@
       "updatedAt": "2026-09-09T03:36:57Z",
       "state": "closed",
       "bodySha256": "40854d2ff72edd787b91292f83ad4352c2e5f836c84f2bca3a1c5fe9ef18108c",
-      "mappedProblemIds": [
-        "op_17bba2d8f41697f6"
-      ],
-      "disposition": "documented",
-      "classification": "historical-progress",
+      "mappedProblemIds": [],
+      "disposition": "excluded-from-progress",
+      "classification": "internal-catalog-work",
       "summary": "clarified the unrestricted welded-tree oracle model, including queries on previously unseen valid labels",
       "comments": [
         {
@@ -1016,7 +1068,9 @@
           "mappedProblemIds": [
             "op_17bba2d8f41697f6"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -1029,10 +1083,13 @@
           "mappedProblemIds": [
             "op_17bba2d8f41697f6"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
-      "progressEntries": [
+      "progressEntries": [],
+      "excludedProgressEntries": [
         {
           "problemId": "op_17bba2d8f41697f6",
           "text": "Historical GitHub report (2026-09-09): MinboGaoTHU clarified the unrestricted welded-tree oracle model, including queries on previously unseen valid labels. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/32}{Pull request \\#32}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/32#discussion_r3964120880}{Naixu-Guo, 2026-09-09}; \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/32#issuecomment-5595367226}{MinboGaoTHU, 2026-09-09}.",
@@ -1040,9 +1097,11 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/32",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/32#discussion_r3964120880",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/32#issuecomment-5595367226"
-          ]
+          ],
+          "reason": "Clarification of the catalog oracle model."
         }
-      ]
+      ],
+      "scopeDecision": "Only actual research reports belong in Progress. Internal catalog review, integration, and engineering discussion stays on GitHub."
     },
     {
       "kind": "pull_request",
@@ -1085,7 +1144,9 @@
           "bodySha256": "30901c902eba18723306dc9b12aa4be94a7aa23033caf83fa741c3860da4cca4",
           "substantive": false,
           "mappedProblemIds": [],
-          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry"
+          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -1096,7 +1157,9 @@
           "bodySha256": "9597e7b4f2259a694a9dfa011246a54be5e284e73a2b8d41a9d7cb3e481429a4",
           "substantive": false,
           "mappedProblemIds": [],
-          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry"
+          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": []
@@ -1165,11 +1228,7 @@
       "mappedProblemIds": [
         "op_414fbcc7d5dc0c64",
         "op_cdad869fc8c3c0ea",
-        "op_38f9dbb6c3f92b0c",
-        "op_4a4434b5cc6e85e6",
-        "op_9209e4eb15586dec",
-        "op_af68b033a88ef934",
-        "op_4830398d0c2feb5f"
+        "op_38f9dbb6c3f92b0c"
       ],
       "disposition": "documented",
       "classification": "historical-progress",
@@ -1186,7 +1245,9 @@
           "mappedProblemIds": [
             "op_4830398d0c2feb5f"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -1199,7 +1260,9 @@
           "mappedProblemIds": [
             "op_4830398d0c2feb5f"
           ],
-          "summary": "corrected the earlier positive-gap LDPC scope suggestion and pointed to the concatenation argument"
+          "summary": "corrected the earlier positive-gap LDPC scope suggestion and pointed to the concatenation argument",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -1210,7 +1273,9 @@
           "bodySha256": "312213f0e70dc1d287de2883f7b220ee4a5c21ccef73b7ea50ab409de7772628",
           "substantive": false,
           "mappedProblemIds": [],
-          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry"
+          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -1221,7 +1286,9 @@
           "bodySha256": "fd71f686b5e24520030dfe513249c0f541d68aae037a00ed1bcfdbaf90dcf63a",
           "substantive": false,
           "mappedProblemIds": [],
-          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry"
+          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -1232,7 +1299,9 @@
           "bodySha256": "8be4a5e89e7546adb60c4d3d6f6458cbb8303a73b81c354427c7c9e4c6d8e876",
           "substantive": false,
           "mappedProblemIds": [],
-          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry"
+          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [
@@ -1256,27 +1325,32 @@
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/38"
           ]
-        },
+        }
+      ],
+      "excludedProgressEntries": [
         {
           "problemId": "op_4a4434b5cc6e85e6",
           "text": "Historical GitHub report (2026-09-09): bikunli reported the Gaussian entanglement-of-formation and discord literature context. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/38}{Pull request \\#38}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/38"
-          ]
+          ],
+          "reason": "Catalog correction or internal scope/source discussion in a mixed contribution; not a separate research-progress report."
         },
         {
           "problemId": "op_9209e4eb15586dec",
           "text": "Historical GitHub report (2026-09-09): bikunli reported the thermal-attenuator capacity literature context and source reconciliation. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/38}{Pull request \\#38}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/38"
-          ]
+          ],
+          "reason": "Catalog correction or internal scope/source discussion in a mixed contribution; not a separate research-progress report."
         },
         {
           "problemId": "op_af68b033a88ef934",
           "text": "Historical GitHub report (2026-09-09): bikunli reported the distinction between permanent approximation-hardness formulations and related anticoncentration results. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/38}{Pull request \\#38}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/38"
-          ]
+          ],
+          "reason": "Catalog correction or internal scope/source discussion in a mixed contribution; not a separate research-progress report."
         },
         {
           "problemId": "op_4830398d0c2feb5f",
@@ -1285,9 +1359,11 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/38",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/38#discussion_r3970292777",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/38#issuecomment-5628968103"
-          ]
+          ],
+          "reason": "Catalog correction or internal scope/source discussion in a mixed contribution; not a separate research-progress report."
         }
-      ]
+      ],
+      "scopeDecision": "Only actual research reports belong in Progress. Internal catalog review, integration, and engineering discussion stays on GitHub."
     },
     {
       "kind": "pull_request",
@@ -1313,7 +1389,9 @@
           "bodySha256": "01f909e182d7d0153b492a1acd02c9dc51eb34601486ffc43b7c778525865467",
           "substantive": false,
           "mappedProblemIds": [],
-          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry"
+          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": []
@@ -1346,7 +1424,9 @@
           "mappedProblemIds": [
             "op_09b9fa91a1ac1a76"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -1359,7 +1439,9 @@
           "mappedProblemIds": [
             "op_09b9fa91a1ac1a76"
           ],
-          "summary": "described the metrology scope reconciliation in pull request 50"
+          "summary": "described the metrology scope reconciliation in pull request 50",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -1372,18 +1454,17 @@
           "mappedProblemIds": [
             "op_09b9fa91a1ac1a76"
           ],
-          "summary": "recorded that the metrology draft was superseded by pull request 50"
+          "summary": "recorded that the metrology draft was superseded by pull request 50",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [
         {
           "problemId": "op_09b9fa91a1ac1a76",
-          "text": "Historical GitHub report (2026-09-09): harleyru reported the Wei--Li--Pang preprint on leading-order metrological performance; the thread records later scope reconciliation and its supersession by pull request 50. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/40}{Pull request \\#40}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/40#discussion_r3970293723}{Naixu-Guo, 2026-09-09}; \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/40#issuecomment-5628982451}{Naixu-Guo, 2026-09-11}; \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/40#issuecomment-5659332570}{Naixu-Guo, 2026-09-14}.",
+          "text": "Historical GitHub report (2026-09-09): harleyru reported the Wei--Li--Pang preprint on leading-order metrological performance; the thread records later scope reconciliation and its supersession by pull request 50. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/40}{Pull request \\#40}.",
           "requiredSourceUrls": [
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/40",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/40#discussion_r3970293723",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/40#issuecomment-5628982451",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/40#issuecomment-5659332570"
+            "https://github.com/Naixu-Guo/quantum-open-problems/pull/40"
           ]
         }
       ]
@@ -1398,20 +1479,9 @@
       "updatedAt": "2026-09-11T03:25:11Z",
       "state": "closed",
       "bodySha256": "54ead9759249955ebdb3b279655784e30be01fbbfa7a73aa5eb616838a2af747",
-      "mappedProblemIds": [
-        "op_7920f48995bc8511",
-        "op_4cf3e7b8663b1d41",
-        "op_1482756b02794495",
-        "op_06e9f0c7b3b62f3b",
-        "op_4830398d0c2feb5f",
-        "op_09b9fa91a1ac1a76",
-        "op_e490c9462b37a548",
-        "op_cdad869fc8c3c0ea",
-        "op_75b91a20dd384110",
-        "op_e4a8ae208470f288"
-      ],
-      "disposition": "documented",
-      "classification": "historical-progress",
+      "mappedProblemIds": [],
+      "disposition": "excluded-from-progress",
+      "classification": "internal-catalog-work",
       "summary": "reported constructions, literature updates, and scope corrections in ten catalog records, with item-by-item follow-up in the discussion",
       "comments": [
         {
@@ -1434,7 +1504,9 @@
             "op_75b91a20dd384110",
             "op_e4a8ae208470f288"
           ],
-          "summary": "provided an item-by-item response to the ten constructions and scope corrections"
+          "summary": "provided an item-by-item response to the ten constructions and scope corrections",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -1456,10 +1528,13 @@
             "op_75b91a20dd384110",
             "op_e4a8ae208470f288"
           ],
-          "summary": "recorded the follow-up catalog changes and retracted the earlier suggestion that the positive-gap LDPC formulation remain open"
+          "summary": "recorded the follow-up catalog changes and retracted the earlier suggestion that the positive-gap LDPC formulation remain open",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
-      "progressEntries": [
+      "progressEntries": [],
+      "excludedProgressEntries": [
         {
           "problemId": "op_7920f48995bc8511",
           "text": "Historical GitHub report (2026-09-09): Naixu-Guo reported a complementary-qutrit construction for the mutually degradable-pair question (item A). \\href{https://github.com/Naixu-Guo/quantum-open-problems/issues/41}{Issue \\#41}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628256055}{bikunli, 2026-09-11}; \\href{https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628982142}{Naixu-Guo, 2026-09-11}.",
@@ -1467,7 +1542,8 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41",
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628256055",
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628982142"
-          ]
+          ],
+          "reason": "Internal maintainer scientific/catalog review, including statement, scope, and status discussion."
         },
         {
           "problemId": "op_4cf3e7b8663b1d41",
@@ -1476,7 +1552,8 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41",
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628256055",
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628982142"
-          ]
+          ],
+          "reason": "Internal maintainer scientific/catalog review, including statement, scope, and status discussion."
         },
         {
           "problemId": "op_1482756b02794495",
@@ -1485,7 +1562,8 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41",
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628256055",
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628982142"
-          ]
+          ],
+          "reason": "Internal maintainer scientific/catalog review, including statement, scope, and status discussion."
         },
         {
           "problemId": "op_06e9f0c7b3b62f3b",
@@ -1494,7 +1572,8 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41",
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628256055",
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628982142"
-          ]
+          ],
+          "reason": "Internal maintainer scientific/catalog review, including statement, scope, and status discussion."
         },
         {
           "problemId": "op_4830398d0c2feb5f",
@@ -1503,7 +1582,8 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41",
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628256055",
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628982142"
-          ]
+          ],
+          "reason": "Internal maintainer scientific/catalog review, including statement, scope, and status discussion."
         },
         {
           "problemId": "op_09b9fa91a1ac1a76",
@@ -1512,7 +1592,8 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41",
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628256055",
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628982142"
-          ]
+          ],
+          "reason": "Internal maintainer scientific/catalog review, including statement, scope, and status discussion."
         },
         {
           "problemId": "op_e490c9462b37a548",
@@ -1521,7 +1602,8 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41",
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628256055",
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628982142"
-          ]
+          ],
+          "reason": "Internal maintainer scientific/catalog review, including statement, scope, and status discussion."
         },
         {
           "problemId": "op_cdad869fc8c3c0ea",
@@ -1530,7 +1612,8 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41",
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628256055",
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628982142"
-          ]
+          ],
+          "reason": "Internal maintainer scientific/catalog review, including statement, scope, and status discussion."
         },
         {
           "problemId": "op_75b91a20dd384110",
@@ -1539,7 +1622,8 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41",
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628256055",
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628982142"
-          ]
+          ],
+          "reason": "Internal maintainer scientific/catalog review, including statement, scope, and status discussion."
         },
         {
           "problemId": "op_e4a8ae208470f288",
@@ -1548,9 +1632,11 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41",
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628256055",
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/41#issuecomment-5628982142"
-          ]
+          ],
+          "reason": "Internal maintainer scientific/catalog review, including statement, scope, and status discussion."
         }
-      ]
+      ],
+      "scopeDecision": "Only actual research reports belong in Progress. Internal catalog review, integration, and engineering discussion stays on GitHub."
     },
     {
       "kind": "issue",
@@ -1562,30 +1648,31 @@
       "updatedAt": "2026-09-09T17:24:57Z",
       "state": "open",
       "bodySha256": "0b07ac59a2df0eb11c8381552b45bc78649cdf8c9dd0f67f712349315aad67fd",
-      "mappedProblemIds": [
-        "op_37f7b003ec78a028",
-        "op_291a943fdec5bd1d"
-      ],
-      "disposition": "documented",
-      "classification": "historical-progress",
+      "mappedProblemIds": [],
+      "disposition": "excluded-from-progress",
+      "classification": "internal-catalog-work",
       "summary": "reported corrections to the small-copy stabilizer-rank frontier and to comparisons between assisted and unassisted capacities",
       "comments": [],
-      "progressEntries": [
+      "progressEntries": [],
+      "excludedProgressEntries": [
         {
           "problemId": "op_37f7b003ec78a028",
           "text": "Historical GitHub report (2026-09-09): Naixu-Guo reported an inconsistency between historical small-copy rank bounds and the later four-copy result already cited in the record. \\href{https://github.com/Naixu-Guo/quantum-open-problems/issues/42}{Issue \\#42}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/42"
-          ]
+          ],
+          "reason": "Internal request to correct existing catalog descriptions."
         },
         {
           "problemId": "op_291a943fdec5bd1d",
           "text": "Historical GitHub report (2026-09-09): Naixu-Guo reported that flagged-extension bounds for unassisted capacity do not directly bound the two-way-assisted capacities. \\href{https://github.com/Naixu-Guo/quantum-open-problems/issues/42}{Issue \\#42}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/42"
-          ]
+          ],
+          "reason": "Internal request to correct existing catalog descriptions."
         }
-      ]
+      ],
+      "scopeDecision": "Only actual research reports belong in Progress. Internal catalog review, integration, and engineering discussion stays on GitHub."
     },
     {
       "kind": "issue",
@@ -1597,22 +1684,23 @@
       "updatedAt": "2026-09-12T18:49:58Z",
       "state": "closed",
       "bodySha256": "3e210c700577000678dd01b03f04aad2714b16a78776dea2bd9c7991fe172aca",
-      "mappedProblemIds": [
-        "op_7249a79e1534f6ab"
-      ],
-      "disposition": "documented",
-      "classification": "historical-progress",
+      "mappedProblemIds": [],
+      "disposition": "excluded-from-progress",
+      "classification": "internal-catalog-work",
       "summary": "reported the missing classical quasipolynomial-time baseline for Graph Isomorphism",
       "comments": [],
-      "progressEntries": [
+      "progressEntries": [],
+      "excludedProgressEntries": [
         {
           "problemId": "op_7249a79e1534f6ab",
           "text": "Historical GitHub report (2026-09-09): Naixu-Guo reported the missing classical quasipolynomial-time baseline for Graph Isomorphism. \\href{https://github.com/Naixu-Guo/quantum-open-problems/issues/43}{Issue \\#43}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/issues/43"
-          ]
+          ],
+          "reason": "Internal request to fill an existing literature baseline."
         }
-      ]
+      ],
+      "scopeDecision": "Only actual research reports belong in Progress. Internal catalog review, integration, and engineering discussion stays on GitHub."
     },
     {
       "kind": "pull_request",
@@ -1676,7 +1764,9 @@
           "mappedProblemIds": [
             "op_7249a79e1534f6ab"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "review-comment",
@@ -1689,7 +1779,9 @@
           "mappedProblemIds": [
             "op_7249a79e1534f6ab"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -1702,7 +1794,9 @@
           "mappedProblemIds": [
             "op_7249a79e1534f6ab"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -1715,7 +1809,9 @@
           "mappedProblemIds": [
             "op_7249a79e1534f6ab"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -1728,7 +1824,9 @@
           "mappedProblemIds": [
             "op_7249a79e1534f6ab"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -1739,7 +1837,9 @@
           "bodySha256": "54f7b1da1c36f1101680e52dc248aa992ae7a5b43f361c654a2751b65abe1930",
           "substantive": false,
           "mappedProblemIds": [],
-          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry"
+          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "review-comment",
@@ -1752,21 +1852,17 @@
           "mappedProblemIds": [
             "op_7249a79e1534f6ab"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [
         {
           "problemId": "op_7249a79e1534f6ab",
-          "text": "Historical GitHub report (2026-09-10): MinboGaoTHU reported classical quasipolynomial and smoothed-analysis baselines for Graph Isomorphism; the discussion also records citation corrections. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/46}{Pull request \\#46}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/46#discussion_r3978078970}{Naixu-Guo, 2026-09-10 (review-comment)}; \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/46#discussion_r3978078981}{Naixu-Guo, 2026-09-10 (review-comment)}; \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/46#issuecomment-5617425006}{Naixu-Guo, 2026-09-10 (issue-comment)}; \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/46#issuecomment-5617511080}{MinboGaoTHU, 2026-09-10 (issue-comment)}; \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/46#issuecomment-5618450979}{MinboGaoTHU, 2026-09-10 (issue-comment)}; \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/46#discussion_r3995596257}{bikunli, 2026-09-12}.",
+          "text": "Historical GitHub report (2026-09-10): MinboGaoTHU reported classical quasipolynomial and smoothed-analysis baselines for Graph Isomorphism; the discussion also records citation corrections. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/46}{Pull request \\#46}.",
           "requiredSourceUrls": [
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/46",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/46#discussion_r3978078970",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/46#discussion_r3978078981",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/46#issuecomment-5617425006",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/46#issuecomment-5617511080",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/46#issuecomment-5618450979",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/46#discussion_r3995596257"
+            "https://github.com/Naixu-Guo/quantum-open-problems/pull/46"
           ]
         }
       ]
@@ -1798,38 +1894,39 @@
       "updatedAt": "2026-09-10T22:18:19Z",
       "state": "closed",
       "bodySha256": "51895029a3d4c4edfc780463adc2640ddf4177fa7342024d4a62c84092cd6f18",
-      "mappedProblemIds": [
-        "op_4a4434b5cc6e85e6",
-        "op_9209e4eb15586dec",
-        "op_af68b033a88ef934"
-      ],
-      "disposition": "documented",
-      "classification": "historical-progress",
+      "mappedProblemIds": [],
+      "disposition": "excluded-from-progress",
+      "classification": "internal-catalog-work",
       "summary": "reported the Gaussian entanglement, thermal-channel, and permanent-hardness literature updates in the reviewed import",
       "comments": [],
-      "progressEntries": [
+      "progressEntries": [],
+      "excludedProgressEntries": [
         {
           "problemId": "op_4a4434b5cc6e85e6",
           "text": "Historical GitHub report (2026-09-10): bikunli reported the Gaussian entanglement-of-formation and discord literature context. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/48}{Pull request \\#48}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/48"
-          ]
+          ],
+          "reason": "Catalog import, source reconciliation, and scope clarification."
         },
         {
           "problemId": "op_9209e4eb15586dec",
           "text": "Historical GitHub report (2026-09-10): bikunli reported the thermal-attenuator capacity literature context and source reconciliation. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/48}{Pull request \\#48}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/48"
-          ]
+          ],
+          "reason": "Catalog import, source reconciliation, and scope clarification."
         },
         {
           "problemId": "op_af68b033a88ef934",
           "text": "Historical GitHub report (2026-09-10): bikunli reported the distinction between permanent approximation-hardness formulations and related anticoncentration results. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/48}{Pull request \\#48}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/48"
-          ]
+          ],
+          "reason": "Catalog import, source reconciliation, and scope clarification."
         }
-      ]
+      ],
+      "scopeDecision": "Only actual research reports belong in Progress. Internal catalog review, integration, and engineering discussion stays on GitHub."
     },
     {
       "kind": "pull_request",
@@ -1841,38 +1938,39 @@
       "updatedAt": "2026-09-12T17:36:44Z",
       "state": "closed",
       "bodySha256": "86cf818d81cf3ffc06f3a22dfc2d0d12be27c254a54edc8ee2e8d98da4e3513c",
-      "mappedProblemIds": [
-        "op_4a4434b5cc6e85e6",
-        "op_9209e4eb15586dec",
-        "op_af68b033a88ef934"
-      ],
-      "disposition": "documented",
-      "classification": "historical-progress",
+      "mappedProblemIds": [],
+      "disposition": "excluded-from-progress",
+      "classification": "internal-catalog-work",
       "summary": "continued the Gaussian entanglement, thermal-channel, and permanent-hardness literature updates from pull request 48",
       "comments": [],
-      "progressEntries": [
+      "progressEntries": [],
+      "excludedProgressEntries": [
         {
           "problemId": "op_4a4434b5cc6e85e6",
           "text": "Historical GitHub report (2026-09-10): bikunli reported the Gaussian entanglement-of-formation and discord literature context. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/49}{Pull request \\#49}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/49"
-          ]
+          ],
+          "reason": "Catalog import, source reconciliation, and scope clarification."
         },
         {
           "problemId": "op_9209e4eb15586dec",
           "text": "Historical GitHub report (2026-09-10): bikunli reported the thermal-attenuator capacity literature context and source reconciliation. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/49}{Pull request \\#49}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/49"
-          ]
+          ],
+          "reason": "Catalog import, source reconciliation, and scope clarification."
         },
         {
           "problemId": "op_af68b033a88ef934",
           "text": "Historical GitHub report (2026-09-10): bikunli reported the distinction between permanent approximation-hardness formulations and related anticoncentration results. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/49}{Pull request \\#49}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/49"
-          ]
+          ],
+          "reason": "Catalog import, source reconciliation, and scope clarification."
         }
-      ]
+      ],
+      "scopeDecision": "Only actual research reports belong in Progress. Internal catalog review, integration, and engineering discussion stays on GitHub."
     },
     {
       "kind": "pull_request",
@@ -1884,94 +1982,95 @@
       "updatedAt": "2026-09-12T04:49:42Z",
       "state": "closed",
       "bodySha256": "6de7f2540fc3fc59c1634935921c2746b176f8700a06da27afe2f2d6e7dbc5de",
-      "mappedProblemIds": [
-        "op_7920f48995bc8511",
-        "op_4cf3e7b8663b1d41",
-        "op_1482756b02794495",
-        "op_06e9f0c7b3b62f3b",
-        "op_4830398d0c2feb5f",
-        "op_09b9fa91a1ac1a76",
-        "op_e490c9462b37a548",
-        "op_cdad869fc8c3c0ea",
-        "op_75b91a20dd384110",
-        "op_e4a8ae208470f288"
-      ],
-      "disposition": "documented",
-      "classification": "historical-progress",
+      "mappedProblemIds": [],
+      "disposition": "excluded-from-progress",
+      "classification": "internal-catalog-work",
       "summary": "documented the constructions and scope corrections discussed in issue 41, including follow-up qualifications",
       "comments": [],
-      "progressEntries": [
+      "progressEntries": [],
+      "excludedProgressEntries": [
         {
           "problemId": "op_7920f48995bc8511",
           "text": "Historical GitHub report (2026-09-11): bikunli reported a complementary-qutrit construction for the mutually degradable-pair question (item A), with the follow-up qualifications described in pull request 50. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/50}{Pull request \\#50}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/50"
-          ]
+          ],
+          "reason": "Implementation of internal maintainer review corrections from issue 41."
         },
         {
           "problemId": "op_4cf3e7b8663b1d41",
           "text": "Historical GitHub report (2026-09-11): bikunli reported an operation-class distinction and an achievability argument for PPT-state-preserving operations (item B), with the follow-up qualifications described in pull request 50. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/50}{Pull request \\#50}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/50"
-          ]
+          ],
+          "reason": "Implementation of internal maintainer review corrections from issue 41."
         },
         {
           "problemId": "op_1482756b02794495",
           "text": "Historical GitHub report (2026-09-11): bikunli reported a CP-order argument for the nested max-relative-entropy amortization subcase (item C), with the follow-up qualifications described in pull request 50. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/50}{Pull request \\#50}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/50"
-          ]
+          ],
+          "reason": "Implementation of internal maintainer review corrections from issue 41."
         },
         {
           "problemId": "op_06e9f0c7b3b62f3b",
           "text": "Historical GitHub report (2026-09-11): bikunli reported a multi-copy conjugation construction for the state-preparation subcase (item D), with the follow-up qualifications described in pull request 50. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/50}{Pull request \\#50}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/50"
-          ]
+          ],
+          "reason": "Implementation of internal maintainer review corrections from issue 41."
         },
         {
           "problemId": "op_4830398d0c2feb5f",
           "text": "Historical GitHub report (2026-09-11): bikunli reported a fixed-generator-weight dephasing obstruction and discussed the distinct positive-gap hashing formulation (item E), with the follow-up qualifications described in pull request 50. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/50}{Pull request \\#50}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/50"
-          ]
+          ],
+          "reason": "Implementation of internal maintainer review corrections from issue 41."
         },
         {
           "problemId": "op_09b9fa91a1ac1a76",
           "text": "Historical GitHub report (2026-09-11): bikunli reported the metrology preprint's leading-coefficient claim and discussed its regularity and assistance assumptions (item F), with the follow-up qualifications described in pull request 50. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/50}{Pull request \\#50}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/50"
-          ]
+          ],
+          "reason": "Implementation of internal maintainer review corrections from issue 41."
         },
         {
           "problemId": "op_e490c9462b37a548",
           "text": "Historical GitHub report (2026-09-11): bikunli reported the need to retain input optimization in the amplitude-damping squashing bound (item G), with the follow-up qualifications described in pull request 50. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/50}{Pull request \\#50}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/50"
-          ]
+          ],
+          "reason": "Implementation of internal maintainer review corrections from issue 41."
         },
         {
           "problemId": "op_cdad869fc8c3c0ea",
           "text": "Historical GitHub report (2026-09-11): bikunli reported a correction to the claimed inclusion between ordinary and transpose-degradable channels (item H), with the follow-up qualifications described in pull request 50. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/50}{Pull request \\#50}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/50"
-          ]
+          ],
+          "reason": "Implementation of internal maintainer review corrections from issue 41."
         },
         {
           "problemId": "op_75b91a20dd384110",
           "text": "Historical GitHub report (2026-09-11): bikunli reported the distinction between the relaxed exact-PPT quantity and an integer-output one-shot rate (item I), with the follow-up qualifications described in pull request 50. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/50}{Pull request \\#50}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/50"
-          ]
+          ],
+          "reason": "Implementation of internal maintainer review corrections from issue 41."
         },
         {
           "problemId": "op_e4a8ae208470f288",
           "text": "Historical GitHub report (2026-09-11): bikunli reported that a polynomial mixing bound does not by itself exclude the stated diverging-memory-lifetime criterion (item J), with the follow-up qualifications described in pull request 50. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/50}{Pull request \\#50}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/50"
-          ]
+          ],
+          "reason": "Implementation of internal maintainer review corrections from issue 41."
         }
-      ]
+      ],
+      "scopeDecision": "Only actual research reports belong in Progress. Internal catalog review, integration, and engineering discussion stays on GitHub."
     },
     {
       "kind": "pull_request",
@@ -2037,7 +2136,9 @@
           "mappedProblemIds": [
             "op_87c77263c8bab523"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -2050,17 +2151,17 @@
           "mappedProblemIds": [
             "op_87c77263c8bab523"
           ],
-          "summary": "reported a separate reconstruction of the Petz counterexamples; the assessment remains attributed to that comment"
+          "summary": "reported a separate reconstruction of the Petz counterexamples; the assessment remains attributed to that comment",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [
         {
           "problemId": "op_87c77263c8bab523",
-          "text": "Historical GitHub report (2026-09-12): Naixu-Guo reported Peter's two three-qubit counterexamples to the ordinary-Petz conditional-mutual-information bound. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/53}{Pull request \\#53}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/53#issuecomment-5643033429}{Naixu-Guo, 2026-09-12}; \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/53#issuecomment-5644285156}{bikunli, 2026-09-12}.",
+          "text": "Historical GitHub report (2026-09-12): Naixu-Guo reported Peter's two three-qubit counterexamples to the ordinary-Petz conditional-mutual-information bound. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/53}{Pull request \\#53}.",
           "requiredSourceUrls": [
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/53",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/53#issuecomment-5643033429",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/53#issuecomment-5644285156"
+            "https://github.com/Naixu-Guo/quantum-open-problems/pull/53"
           ]
         }
       ]
@@ -2106,7 +2207,9 @@
           "bodySha256": "3eafabb75dc4f017c0159b4f3b12ec599d57729f755dcf62e404f93be65b7d19",
           "substantive": false,
           "mappedProblemIds": [],
-          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry"
+          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": []
@@ -2154,7 +2257,9 @@
           "bodySha256": "ad04055e6a69dfe752094908dd9ed97c495de2b0d5097c28c471b7c31346033e",
           "substantive": false,
           "mappedProblemIds": [],
-          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry"
+          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [
@@ -2177,11 +2282,9 @@
       "updatedAt": "2026-09-17T14:59:35Z",
       "state": "closed",
       "bodySha256": "08a5f58b1eca73f6ce9d0f64da5e66e5c08e1f25688a304b8e82a131a58dacdf",
-      "mappedProblemIds": [
-        "op_2a6fc2b70a85f846"
-      ],
-      "disposition": "documented",
-      "classification": "historical-progress",
+      "mappedProblemIds": [],
+      "disposition": "excluded-from-progress",
+      "classification": "internal-catalog-work",
       "summary": "reported the deduction of odd-alphabet stabilizer-QMDS length bounds from orthogonal-array bounds",
       "comments": [
         {
@@ -2195,19 +2298,24 @@
           "mappedProblemIds": [
             "op_2a6fc2b70a85f846"
           ],
-          "summary": "described the odd-alphabet QMDS deduction and the resulting scope of the remaining parameter windows"
+          "summary": "described the odd-alphabet QMDS deduction and the resulting scope of the remaining parameter windows",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
-      "progressEntries": [
+      "progressEntries": [],
+      "excludedProgressEntries": [
         {
           "problemId": "op_2a6fc2b70a85f846",
           "text": "Historical GitHub report (2026-09-13): bikunli reported the deduction of odd-alphabet stabilizer-QMDS length bounds from orthogonal-array bounds. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/58}{Pull request \\#58}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/58#issuecomment-5669683576}{bikunli, 2026-09-14}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/58",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/58#issuecomment-5669683576"
-          ]
+          ],
+          "reason": "Initial problem proposal and internal correction of parameter ranges."
         }
-      ]
+      ],
+      "scopeDecision": "Only actual research reports belong in Progress. Internal catalog review, integration, and engineering discussion stays on GitHub."
     },
     {
       "kind": "pull_request",
@@ -2301,7 +2409,9 @@
           "bodySha256": "9a866cbc8c6b75e81db241227eb11f2412678a8a606666e20da693b2a369ad8d",
           "substantive": false,
           "mappedProblemIds": [],
-          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry"
+          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": []
@@ -2334,7 +2444,8 @@
           "mappedProblemIds": [
             "op_b0666933a3d77eba"
           ],
-          "summary": "provided the manuscript and submission-package attachments omitted from the initial report"
+          "summary": "provided the manuscript and submission-package attachments omitted from the initial report",
+          "progressReport": true
         }
       ],
       "progressEntries": [
@@ -2372,7 +2483,9 @@
           "bodySha256": "8243368795b5559e286810a513db250e92c9e539a60e56b2ad3a3d166d2e9434",
           "substantive": true,
           "mappedProblemIds": [],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -2383,7 +2496,9 @@
           "bodySha256": "15c2df7930295650ec49d4337abe139e669681a27fb33f041e8404ac5233956e",
           "substantive": true,
           "mappedProblemIds": [],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -2394,7 +2509,9 @@
           "bodySha256": "1070dc52f981fdc33aea36de5d8e03b0717119098e9d650640087e4194598084",
           "substantive": true,
           "mappedProblemIds": [],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -2405,7 +2522,9 @@
           "bodySha256": "f021aa00e0cc247491b6b0be3472caf37ea42cbfcf1f19bebfce21c6ad1052a7",
           "substantive": true,
           "mappedProblemIds": [],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -2416,7 +2535,9 @@
           "bodySha256": "2a3425a9f935d119c0ff8b26239a70510d2c995c94bfb561f242a0f97e094b77",
           "substantive": true,
           "mappedProblemIds": [],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -2427,7 +2548,9 @@
           "bodySha256": "d4a29ebf2d5fb45f1f351baa9c25e4a2ecde4726bb65e2dbb5ec79ced28d3a08",
           "substantive": true,
           "mappedProblemIds": [],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [],
@@ -2446,11 +2569,9 @@
       "updatedAt": "2026-09-18T05:13:38Z",
       "state": "closed",
       "bodySha256": "826528eb506583d1f53700c6ff16435cc58b88056c3567f6d4f581d35d5da08f",
-      "mappedProblemIds": [
-        "op_74c4ffb5b042baf2"
-      ],
-      "disposition": "documented",
-      "classification": "historical-progress",
+      "mappedProblemIds": [],
+      "disposition": "excluded-from-progress",
+      "classification": "internal-catalog-work",
       "summary": "discussed the equivalence of a proposed strict-superactivation question to this NPT-bound-entanglement question, and withdrew the duplicate proposal",
       "comments": [
         {
@@ -2464,7 +2585,9 @@
           "mappedProblemIds": [
             "op_74c4ffb5b042baf2"
           ],
-          "summary": "identified the duplicate NPT-bound-entanglement formulation in the proposed additions"
+          "summary": "identified the duplicate NPT-bound-entanglement formulation in the proposed additions",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -2477,10 +2600,13 @@
           "mappedProblemIds": [
             "op_74c4ffb5b042baf2"
           ],
-          "summary": "recorded withdrawal of the duplicate proposal without changing the canonical NPT-bound-entanglement problem"
+          "summary": "recorded withdrawal of the duplicate proposal without changing the canonical NPT-bound-entanglement problem",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
-      "progressEntries": [
+      "progressEntries": [],
+      "excludedProgressEntries": [
         {
           "problemId": "op_74c4ffb5b042baf2",
           "text": "Historical GitHub report (2026-09-15): bikunli discussed the equivalence of a proposed strict-superactivation question to this NPT-bound-entanglement question, and withdrew the duplicate proposal. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/66}{Pull request \\#66}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/66#issuecomment-5696115161}{Naixu-Guo, 2026-09-16}; \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/66#issuecomment-5703016104}{bikunli, 2026-09-16}.",
@@ -2488,9 +2614,11 @@
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/66",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/66#issuecomment-5696115161",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/66#issuecomment-5703016104"
-          ]
+          ],
+          "reason": "Duplicate-proposal and equivalence discussion."
         }
-      ]
+      ],
+      "scopeDecision": "Only actual research reports belong in Progress. Internal catalog review, integration, and engineering discussion stays on GitHub."
     },
     {
       "kind": "pull_request",
@@ -2512,7 +2640,7 @@
       "progressEntries": [
         {
           "problemId": "op_b08ad9d4371ed0cb",
-          "text": "Historical GitHub report (2026-09-15): bikunli documented the equivalence between the eight-ququart AME question and the seven-ququart MDS-code formulation. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/67}{Pull request \\#67}.",
+          "text": "Historical GitHub report (2026-09-15): bikunli reported the Ball--Moreno--Simoens stabilizer-code nonexistence result relevant to the eight-ququart AME problem. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/67}{Pull request \\#67}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/67"
           ]
@@ -2548,7 +2676,9 @@
           "mappedProblemIds": [
             "op_d754e0d170c01f86"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -2562,25 +2692,24 @@
             "op_d754e0d170c01f86",
             "op_08387c140f552732"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [
         {
           "problemId": "op_d754e0d170c01f86",
-          "text": "Historical GitHub report (2026-09-16): Naixu-Guo reported a CPTP-smoothed channel-AEP counterexample and related Stein-limit implications, distinguishing the reported identity failure from remaining limit questions. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/68}{Pull request \\#68}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/68#issuecomment-5696115558}{Naixu-Guo, 2026-09-16}; \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/68#issuecomment-5725551512}{Naixu-Guo, 2026-09-18}.",
+          "text": "Historical GitHub report (2026-09-16): Naixu-Guo reported a CPTP-smoothed channel-AEP counterexample and related Stein-limit implications, distinguishing the reported identity failure from remaining limit questions. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/68}{Pull request \\#68}.",
           "requiredSourceUrls": [
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/68",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/68#issuecomment-5696115558",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/68#issuecomment-5725551512"
+            "https://github.com/Naixu-Guo/quantum-open-problems/pull/68"
           ]
         },
         {
           "problemId": "op_08387c140f552732",
-          "text": "Historical GitHub report (2026-09-16): Naixu-Guo reported a CPTP-smoothed channel-AEP counterexample and related Stein-limit implications, distinguishing the reported identity failure from remaining limit questions. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/68}{Pull request \\#68}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/68#issuecomment-5725551512}{Naixu-Guo, 2026-09-18}.",
+          "text": "Historical GitHub report (2026-09-16): Naixu-Guo reported a CPTP-smoothed channel-AEP counterexample and related Stein-limit implications, distinguishing the reported identity failure from remaining limit questions. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/68}{Pull request \\#68}.",
           "requiredSourceUrls": [
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/68",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/68#issuecomment-5725551512"
+            "https://github.com/Naixu-Guo/quantum-open-problems/pull/68"
           ]
         }
       ]
@@ -2649,46 +2778,47 @@
       "updatedAt": "2026-09-16T10:30:00Z",
       "state": "closed",
       "bodySha256": "4af33624f9441d14d3615f73671fb15aca009095a9d842861e257865210636fb",
-      "mappedProblemIds": [
-        "op_0c17d9fef967858d",
-        "op_37f7b003ec78a028",
-        "op_94fc1874fe23df16",
-        "op_a11fdfadc84e4379"
-      ],
-      "disposition": "documented",
-      "classification": "historical-progress",
+      "mappedProblemIds": [],
+      "disposition": "excluded-from-progress",
+      "classification": "internal-catalog-work",
       "summary": "reported additional literature context for triangle queries, stabilizer rank, random-circuit hardness, and the influence conjecture",
       "comments": [],
-      "progressEntries": [
+      "progressEntries": [],
+      "excludedProgressEntries": [
         {
           "problemId": "op_0c17d9fef967858d",
           "text": "Historical GitHub report (2026-09-16): bikunli reported the triangle-listing and sparsification context while retaining the separate adjacency-matrix query gap. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/71}{Pull request \\#71}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/71"
-          ]
+          ],
+          "reason": "Catalog import and clarification of existing literature and formulations."
         },
         {
           "problemId": "op_37f7b003ec78a028",
           "text": "Historical GitHub report (2026-09-16): bikunli updated the stabilizer-rank literature context and the small-copy frontier. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/71}{Pull request \\#71}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/71"
-          ]
+          ],
+          "reason": "Catalog import and clarification of existing literature and formulations."
         },
         {
           "problemId": "op_94fc1874fe23df16",
           "text": "Historical GitHub report (2026-09-16): bikunli updated the distinction between random-circuit average-case hardness formulations and known results. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/71}{Pull request \\#71}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/71"
-          ]
+          ],
+          "reason": "Catalog import and clarification of existing literature and formulations."
         },
         {
           "problemId": "op_a11fdfadc84e4379",
           "text": "Historical GitHub report (2026-09-16): bikunli updated the bounded-round simulation context for the influence conjecture. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/71}{Pull request \\#71}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/71"
-          ]
+          ],
+          "reason": "Catalog import and clarification of existing literature and formulations."
         }
-      ]
+      ],
+      "scopeDecision": "Only actual research reports belong in Progress. Internal catalog review, integration, and engineering discussion stays on GitHub."
     },
     {
       "kind": "pull_request",
@@ -2802,7 +2932,9 @@
           "bodySha256": "737f52314f069e824a34646256e59285e35a228feb4e4eb26a5510835b431442",
           "substantive": false,
           "mappedProblemIds": [],
-          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry"
+          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -2813,7 +2945,9 @@
           "bodySha256": "b324e792b7ecd2e30426cf0a95ac513905daa8f87d4030c9a881fb22de2ba967",
           "substantive": false,
           "mappedProblemIds": [],
-          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry"
+          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": []
@@ -2846,16 +2980,17 @@
           "mappedProblemIds": [
             "op_2e43f525333b67c0"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [
         {
           "problemId": "op_2e43f525333b67c0",
-          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported a counterexample to second-level PPT-cost hierarchy collapse from the Brinster and collaborators preprint. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/77}{Pull request \\#77}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/77#issuecomment-5770752345}{Naixu-Guo, 2026-09-22}.",
+          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported a counterexample to second-level PPT-cost hierarchy collapse from the Brinster and collaborators preprint. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/77}{Pull request \\#77}.",
           "requiredSourceUrls": [
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/77",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/77#issuecomment-5770752345"
+            "https://github.com/Naixu-Guo/quantum-open-problems/pull/77"
           ]
         }
       ]
@@ -2888,7 +3023,9 @@
           "mappedProblemIds": [
             "op_17bba2d8f41697f6"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -2901,7 +3038,9 @@
           "mappedProblemIds": [
             "op_17bba2d8f41697f6"
           ],
-          "summary": "discussed the significance and exact distributional scope of the welded-tree lower bound"
+          "summary": "discussed the significance and exact distributional scope of the welded-tree lower bound",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         },
         {
           "kind": "issue-comment",
@@ -2914,18 +3053,17 @@
           "mappedProblemIds": [
             "op_17bba2d8f41697f6"
           ],
-          "summary": "requested that the colored-model result and the remaining distribution-transfer question be stated separately"
+          "summary": "requested that the colored-model result and the remaining distribution-transfer question be stated separately",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [
         {
           "problemId": "op_17bba2d8f41697f6",
-          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported a welded-tree pathfinding lower bound and discussed the distinction between the cited colored distribution and the catalog's alternating-cycle distribution. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/78}{Pull request \\#78}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/78#issuecomment-5728726464}{Naixu-Guo, 2026-09-18}; \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/78#issuecomment-5749070120}{MinboGaoTHU, 2026-09-20}; \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/78#issuecomment-5770753265}{Naixu-Guo, 2026-09-22}.",
+          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported a welded-tree pathfinding lower bound and discussed the distinction between the cited colored distribution and the catalog's alternating-cycle distribution. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/78}{Pull request \\#78}.",
           "requiredSourceUrls": [
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/78",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/78#issuecomment-5728726464",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/78#issuecomment-5749070120",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/78#issuecomment-5770753265"
+            "https://github.com/Naixu-Guo/quantum-open-problems/pull/78"
           ]
         }
       ]
@@ -2958,16 +3096,17 @@
           "mappedProblemIds": [
             "op_903c729ed6eb9ce6"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [
         {
           "problemId": "op_903c729ed6eb9ce6",
-          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported complex-Gaussian hafnian hiding and conditional sampling-to-estimation results, without claiming a hardness proof. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/79}{Pull request \\#79}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/79#issuecomment-5770754018}{Naixu-Guo, 2026-09-22}.",
+          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported complex-Gaussian hafnian hiding and conditional sampling-to-estimation results, without claiming a hardness proof. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/79}{Pull request \\#79}.",
           "requiredSourceUrls": [
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/79",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/79#issuecomment-5770754018"
+            "https://github.com/Naixu-Guo/quantum-open-problems/pull/79"
           ]
         }
       ]
@@ -3000,16 +3139,17 @@
           "mappedProblemIds": [
             "op_d3e38bc5b5b35af3"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [
         {
           "problemId": "op_d3e38bc5b5b35af3",
-          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported matching diamond-norm channel-tomography bounds from the cited preprints. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/80}{Pull request \\#80}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/80#issuecomment-5770754882}{Naixu-Guo, 2026-09-22}.",
+          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported matching diamond-norm channel-tomography bounds from the cited preprints. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/80}{Pull request \\#80}.",
           "requiredSourceUrls": [
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/80",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/80#issuecomment-5770754882"
+            "https://github.com/Naixu-Guo/quantum-open-problems/pull/80"
           ]
         }
       ]
@@ -3042,16 +3182,17 @@
           "mappedProblemIds": [
             "op_a4600b38b94042a8"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [
         {
           "problemId": "op_a4600b38b94042a8",
-          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported that a CPTP-smoothed AEP premise of a conditional superchannel argument fails, without claiming to settle the superchannel equality. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/81}{Pull request \\#81}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/81#issuecomment-5770755889}{Naixu-Guo, 2026-09-22}.",
+          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported that a CPTP-smoothed AEP premise of a conditional superchannel argument fails, without claiming to settle the superchannel equality. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/81}{Pull request \\#81}.",
           "requiredSourceUrls": [
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/81",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/81#issuecomment-5770755889"
+            "https://github.com/Naixu-Guo/quantum-open-problems/pull/81"
           ]
         }
       ]
@@ -3084,16 +3225,17 @@
           "mappedProblemIds": [
             "op_e8307b66d76af92a"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [
         {
           "problemId": "op_e8307b66d76af92a",
-          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported an implication from the Search HPS assumption to quantum-secure classical one-way functions. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/82}{Pull request \\#82}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/82#issuecomment-5770756615}{Naixu-Guo, 2026-09-22}.",
+          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported an implication from the Search HPS assumption to quantum-secure classical one-way functions. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/82}{Pull request \\#82}.",
           "requiredSourceUrls": [
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/82",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/82#issuecomment-5770756615"
+            "https://github.com/Naixu-Guo/quantum-open-problems/pull/82"
           ]
         }
       ]
@@ -3126,16 +3268,17 @@
           "mappedProblemIds": [
             "op_a64dc63d6ae49127"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [
         {
           "problemId": "op_a64dc63d6ae49127",
-          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported two-copy universal-purification resource bounds from the He--Xiong--Wang preprint. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/83}{Pull request \\#83}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/83#issuecomment-5770757333}{Naixu-Guo, 2026-09-22}.",
+          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported two-copy universal-purification resource bounds from the He--Xiong--Wang preprint. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/83}{Pull request \\#83}.",
           "requiredSourceUrls": [
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/83",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/83#issuecomment-5770757333"
+            "https://github.com/Naixu-Guo/quantum-open-problems/pull/83"
           ]
         }
       ]
@@ -3168,16 +3311,17 @@
           "mappedProblemIds": [
             "op_7e7e4a25fef5c994"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [
         {
           "problemId": "op_7e7e4a25fef5c994",
-          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported strict transpose-degradable channel constructions from two September preprints. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/84}{Pull request \\#84}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/84#issuecomment-5770758321}{Naixu-Guo, 2026-09-22}.",
+          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported strict transpose-degradable channel constructions from two September preprints. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/84}{Pull request \\#84}.",
           "requiredSourceUrls": [
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/84",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/84#issuecomment-5770758321"
+            "https://github.com/Naixu-Guo/quantum-open-problems/pull/84"
           ]
         }
       ]
@@ -3210,16 +3354,17 @@
           "mappedProblemIds": [
             "op_b315f0d0b6ddbdee"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [
         {
           "problemId": "op_b315f0d0b6ddbdee",
-          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported a feasible dimension triple for strict transpose degradability, with minimality left as a separate question. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/85}{Pull request \\#85}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/85#issuecomment-5770759167}{Naixu-Guo, 2026-09-22}.",
+          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported a feasible dimension triple for strict transpose degradability, with minimality left as a separate question. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/85}{Pull request \\#85}.",
           "requiredSourceUrls": [
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/85",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/85#issuecomment-5770759167"
+            "https://github.com/Naixu-Guo/quantum-open-problems/pull/85"
           ]
         }
       ]
@@ -3252,16 +3397,17 @@
           "mappedProblemIds": [
             "op_c45752aeb9a106bc"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [
         {
           "problemId": "op_c45752aeb9a106bc",
-          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported Pauli-channel examples of capacity superactivation and their helper-channel qualifications. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/86}{Pull request \\#86}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/86#issuecomment-5770759995}{Naixu-Guo, 2026-09-22}.",
+          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported Pauli-channel examples of capacity superactivation and their helper-channel qualifications. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/86}{Pull request \\#86}.",
           "requiredSourceUrls": [
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/86",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/86#issuecomment-5770759995"
+            "https://github.com/Naixu-Guo/quantum-open-problems/pull/86"
           ]
         }
       ]
@@ -3294,16 +3440,17 @@
           "mappedProblemIds": [
             "op_96cf7aa1c1be9be2"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [
         {
           "problemId": "op_96cf7aa1c1be9be2",
-          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported a mixed-state entanglement lower bound for quantum routing. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/87}{Pull request \\#87}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/87#issuecomment-5770760909}{Naixu-Guo, 2026-09-22}.",
+          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported a mixed-state entanglement lower bound for quantum routing. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/87}{Pull request \\#87}.",
           "requiredSourceUrls": [
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/87",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/87#issuecomment-5770760909"
+            "https://github.com/Naixu-Guo/quantum-open-problems/pull/87"
           ]
         }
       ]
@@ -3336,16 +3483,17 @@
           "mappedProblemIds": [
             "op_25e23d6e92ebce9d"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [
         {
           "problemId": "op_25e23d6e92ebce9d",
-          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported September nonadditivity results and their limits as explicit finite-dimensional constructions. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/88}{Pull request \\#88}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/88#issuecomment-5770761950}{Naixu-Guo, 2026-09-22}.",
+          "text": "Historical GitHub report (2026-09-18): Naixu-Guo reported September nonadditivity results and their limits as explicit finite-dimensional constructions. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/88}{Pull request \\#88}.",
           "requiredSourceUrls": [
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/88",
-            "https://github.com/Naixu-Guo/quantum-open-problems/pull/88#issuecomment-5770761950"
+            "https://github.com/Naixu-Guo/quantum-open-problems/pull/88"
           ]
         }
       ]
@@ -3476,7 +3624,8 @@
           "mappedProblemIds": [
             "op_64046727b81b4024"
           ],
-          "summary": "described a revision of the manuscript's domain argument, with the theorem and hypotheses stated to be unchanged"
+          "summary": "described a revision of the manuscript's domain argument, with the theorem and hypotheses stated to be unchanged",
+          "progressReport": true
         }
       ],
       "progressEntries": [
@@ -3514,7 +3663,9 @@
           "bodySha256": "776d415808857b78d613bba7231f3d0ccd6caa0e462c47f4111778ac9ac78eb3",
           "substantive": false,
           "mappedProblemIds": [],
-          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry"
+          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": []
@@ -3529,12 +3680,9 @@
       "updatedAt": "2026-09-22T03:25:01Z",
       "state": "open",
       "bodySha256": "1f755b52b3062cb135fa75151ce60b6cf4254477ffeb4b34584aa652572996f6",
-      "mappedProblemIds": [
-        "op_aa21ac5ebca8b888",
-        "op_b93eb7197c926d9e"
-      ],
-      "disposition": "documented",
-      "classification": "historical-progress",
+      "mappedProblemIds": [],
+      "disposition": "excluded-from-progress",
+      "classification": "internal-catalog-work",
       "summary": "discussed the LOCC scope of Bell-diagonal distillation and entanglement-cost results, including the rank-two cost case",
       "comments": [
         {
@@ -3548,26 +3696,32 @@
           "mappedProblemIds": [
             "op_aa21ac5ebca8b888"
           ],
-          "summary": "discussed the reported result, its assumptions, or its source details"
+          "summary": "discussed the reported result, its assumptions, or its source details",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
-      "progressEntries": [
+      "progressEntries": [],
+      "excludedProgressEntries": [
         {
           "problemId": "op_aa21ac5ebca8b888",
           "text": "Historical GitHub report (2026-09-21): bikunli discussed LOCC entanglement cost for Bell-diagonal states, including the rank-two case and the higher-rank question. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/95}{Pull request \\#95}. Follow-up: \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/95#issuecomment-5770763712}{Naixu-Guo, 2026-09-22}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/95",
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/95#issuecomment-5770763712"
-          ]
+          ],
+          "reason": "Catalog formulation, equivalence, and duplicate-record clarification."
         },
         {
           "problemId": "op_b93eb7197c926d9e",
           "text": "Historical GitHub report (2026-09-21): bikunli clarified the LOCC scope of the Bell-diagonal distillation question. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/95}{Pull request \\#95}.",
           "requiredSourceUrls": [
             "https://github.com/Naixu-Guo/quantum-open-problems/pull/95"
-          ]
+          ],
+          "reason": "Catalog formulation, equivalence, and duplicate-record clarification."
         }
-      ]
+      ],
+      "scopeDecision": "Only actual research reports belong in Progress. Internal catalog review, integration, and engineering discussion stays on GitHub."
     },
     {
       "kind": "issue",
@@ -3668,7 +3822,9 @@
           "bodySha256": "6e97f6800b426ccf9c9d2b30a45bf164310ed86733fb0baa2479ac93d01357bb",
           "substantive": false,
           "mappedProblemIds": [],
-          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry"
+          "summary": "repository administration, integration, attribution, or software discussion; no separate catalog progress entry",
+          "progressReport": false,
+          "progressDisposition": "Source discussion retained in GitHub history; not a separate Progress-panel report."
         }
       ],
       "progressEntries": [
@@ -4005,5 +4161,19 @@
         }
       ]
     }
-  ]
+  ],
+  "scopeCorrection": {
+    "previousCounts": {
+      "issues": 27,
+      "pullRequests": 84,
+      "issueComments": 73,
+      "reviewComments": 7,
+      "documentedThreads": 62,
+      "documentedIssues": 23,
+      "affectedProblems": 71,
+      "progressEntries": 104,
+      "unmappedThreads": 4
+    },
+    "reason": "Corrected an overbroad initial import that treated internal catalog discussion as reported research progress. Existing literature content and all problem statuses remain unchanged."
+  }
 }

@@ -18,7 +18,12 @@ people who write the record themselves.
 
 For an existing problem, use [Submit a progress report](https://qiqc-op.com/contribute/progress/).
 Every new research report requires an archival manuscript or paper link.
-Existing GitHub reports remain directly linked in the affected problem pages.
+Existing GitHub research-progress reports remain directly linked in affected
+problem pages using short links; detailed discussion stays in the original thread.
+Internal review arguments, scope or citation fixes, editorial work, and engineering
+or integration changes do not become Progress entries. A report of a manuscript,
+counterexample, partial result, or computational finding can qualify regardless
+of whether its reporter is an external contributor or a maintainer.
 The site documents reports without refereeing their proofs; only the maintainer
 team determines Solved/Unsolved. See the [research progress policy](docs/RESEARCH_PROGRESS_POLICY.md)
 for eligible sources, historical reports, and ordinary correction requests.
@@ -72,7 +77,7 @@ breaks are written as `\n`.
 | `topics` | One to five names from the `topics` list of `database/tags.json`, spelled exactly: the specific objects, techniques, and settings it concerns. |
 | `statement` | The self-contained statement. |
 | `source` | The paper that posed the problem, or the papers in which it is implicit, cited with `\\sourcecite{ref:...}{KEY}`. For an original contribution, write `Contributor: Full Name.` only with permission for named credit on this problem; otherwise use `unknown`. |
-| `progress` | An array of accurately scoped reports, one TeX item each, with archival sources for new research and direct GitHub links for documented historical reports. Inclusion is not correctness certification. |
+| `progress` | Research-progress reports, one TeX item each, with archival sources for new research and compact direct links for historical GitHub reports. Internal review, editorial, and engineering work is excluded. Inclusion is not correctness certification. |
 | `references` | An array of `{ "key": "KEY", "label": "ref:...", "tex": "..." }`, each `tex` giving the full entry with DOI and arXiv links. |
 | `comment` | The precise remaining gap and relations to other problems. |
 
@@ -183,10 +188,12 @@ exports in the same change.
   hypotheses, parameter ranges, and quantifier order explicitly.
 - Number every displayed equation with `\begin{equation}...\label{eq:...}`
   and cite it with `\eqref`. Unlabeled displays fail the build.
-- Describe what each source reports, its scope, and any stated remaining gap.
-  Preserve dated, attributed historical GitHub reports with direct hyperlinks,
-  including partial, disputed, closed, or withdrawn reports with factual context.
-  Do not present their inclusion as verification of the mathematics.
+- Document actual research-progress reports with their relevant sources.
+  Use compact direct hyperlinks for historical GitHub reports, including partial,
+  disputed, closed, or withdrawn reports; add only a brief qualifier when needed.
+  Preserve provenance in the linked thread and inventory without repeating dates,
+  author details, or review discussion in the panel. Do not present inclusion as
+  verification of the mathematics or import internal editorial or engineering work.
 - Use alpha-style keys such as `[BDSW96]` and cite every reference at least
   once with `\sourcecite`. Every citation must point to an entry in the same
   record.
@@ -235,7 +242,9 @@ shared downloads, and attachments alone do not meet the source requirement.
 
 Use *Report a correction* for ordinary wording, source, or status concerns
 without a new research claim. Use *Link an earlier GitHub report* to identify
-an omitted historical report; it needs the original link, not a new paper.
+an omitted historical research-progress report; it needs the original link, not
+a new paper. Ordinary corrections and internal review or integration threads
+do not belong in the Progress panel merely because they concern a problem.
 These requests supplement the maintainers' inventory of existing reports.
 
 For new progress in catalog PRs, run `npm run check-progress -- --base origin/main`

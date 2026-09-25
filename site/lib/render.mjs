@@ -273,6 +273,48 @@ export function problemRow(record, root) {
 </li>`;
 }
 
+// Keep imported GitHub history compact on problem pages. The full documentary
+// text remains in the authored records and historical audit; every source link
+// stays visible, with follow-up comments numbered beside their original thread.
+function progressList(items, repositoryUrl) {
+  const reports = new Map();
+  const rows = [];
+  let reportRow = -1;
+  for (const item of items) {
+    const historical = /^Historical GitHub report \(\d{4}-\d{2}-\d{2}\):/u.test(item.tex ?? "");
+    const links = historical ? [...item.tex.matchAll(/\\href\{([^}]+)\}/gu)].map((match) => {
+      const prefix = `${repositoryUrl.replace(/\/$/u, "")}/`;
+      if (!match[1].startsWith(prefix)) return null;
+      const thread = match[1].slice(prefix.length).match(/^(issues|pull)\/([1-9]\d*)(#(?:issuecomment-\d+|discussion_r\d+|pullrequestreview-\d+))?$/u);
+      return thread ? {
+        url: match[1], threadUrl: `${prefix}${thread[1]}/${thread[2]}`,
+        label: `${thread[1] === "issues" ? "Issue" : "PR"} #${thread[2]}`, comment: Boolean(thread[3])
+      } : null;
+    }) : [];
+    if (!links.length || links.some((link) => !link)) {
+      rows.push(`<li>${item.html}</li>`);
+      continue;
+    }
+    if (reportRow < 0) { reportRow = rows.length; rows.push(""); }
+    for (const link of links) {
+      const report = reports.get(link.threadUrl) ?? { url: link.threadUrl, label: link.label, comments: new Set(), withdrawn: false };
+      report.withdrawn ||= item.tex.includes("this link records the withdrawal only.");
+      if (link.comment) report.comments.add(link.url);
+      reports.set(link.threadUrl, report);
+    }
+  }
+  if (reportRow >= 0) {
+    const links = [...reports.values()].map(({ url, label, withdrawn, comments }) => {
+      const followups = [...comments].map((href, index) =>
+        `<a href="${escape(href)}" rel="noreferrer" aria-label="Follow-up ${index + 1} on ${escape(label)}">${index + 1}</a>`);
+      return `<a href="${escape(url)}" rel="noreferrer">${escape(label)}</a>${withdrawn ? " (withdrawn)" : ""}`
+        + (followups.length ? ` (follow-up${followups.length === 1 ? "" : "s"} ${followups.join(", ")})` : "");
+    });
+    rows[reportRow] = `<li>Reported progress: ${links.join(" · ")}.</li>`;
+  }
+  return rows.join("\n            ");
+}
+
 export function renderProblemPage({ record, config, root, related, dates }) {
   const editUrl = `${config.repositoryUrl}/edit/${config.branch}/${config.databasePath}/${record.id}.json`;
   const historyUrl = `${config.repositoryUrl}/commits/${config.branch}/${config.databasePath}/${record.id}.json`;
@@ -337,9 +379,9 @@ export function renderProblemPage({ record, config, root, related, dates }) {
 
         <section class="problem-section" id="progress">
           <h2>Progress</h2>
-          <p class="progress-notice no-math">These entries document reported progress. The maintainers do not review proofs or certify correctness. The maintainer team retains the final right to interpret and determine Solved/Unsolved status; reports do not change it automatically. <a href="${root}about/#report-progress">Progress policy</a>.</p>
+          <p class="progress-notice no-math">Reports do not certify correctness or automatically change the problem's status. <a href="${root}about/#report-progress">Progress policy</a>.</p>
           <ul class="progress-list">
-            ${record.progress.map((item) => `<li>${item.html}</li>`).join("\n            ")}
+            ${progressList(record.progress, config.repositoryUrl)}
           </ul>
         </section>
 
@@ -698,7 +740,7 @@ export function renderAbout({ config, root, dates }) {
           <div class="prose-body">
             <p>Every new progress submission requires an archival link to the manuscript or paper reporting the result: <a href="https://arxiv.org/" rel="noreferrer">arXiv</a>, a <a href="https://zenodo.org/" rel="noreferrer">Zenodo</a> manuscript, another supported preprint repository, a stable journal or publisher paper record, or a paper DOI. Use <a href="${root}contribute/progress/">Submit a progress report</a> for resolutions, partial results, computational findings, and new research in corrections or follow-ups. Personal pages, GitHub posts, shared files, and attachments alone are insufficient. A source must identify the actual research document, not an unrelated paper or a DOI for software or data alone.</p>
             <p>Preprints need not have passed peer review. Inclusion records what the source reports and does not certify correctness. No expert endorsement or proof-review report is required. Publication and peer-review information, where recorded, describe the source rather than grade its correctness.</p>
-            <p>Existing GitHub progress reports, including issues raised by external contributors, are linked directly in the Progress panel of every affected problem page, even without an archival manuscript. <a href="${root}contribute/progress/?kind=historical">Point out an earlier GitHub report</a> if a link is missing. This historical exception applies to pre-policy content; a new claim added to an old issue still requires an archival source. All reports stay in one Progress panel, independently of the team's current status designation.</p>
+            <p>Research progress reported through the portal or GitHub appears in the affected problem's Progress panel. Existing GitHub research reports, including external contributors' issues, are shown as concise direct links even without an archival manuscript. Internal maintainer discussions, catalog reviews, and engineering changes stay on GitHub and are not progress entries. <a href="${root}contribute/progress/?kind=historical">Point out an earlier research report</a> if a link is missing. This historical exception applies to pre-policy content; a new claim added to an old issue still requires an archival source.</p>
             <p>The <a href="${config.repositoryUrl}/blob/${config.branch}/docs/RESEARCH_PROGRESS_POLICY.md" rel="noreferrer">research progress policy</a> explains supported sources, historical documentation, attribution, and status authority. AI tools are welcome, including through the <a href="#mcp">MCP server</a>; their use does not replace the source requirement.</p>
           </div>
         </div>
@@ -842,29 +884,34 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
     <div class="contribute-layout">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><span>Contribute</span></nav>
       <div class="section-heading">
-        <div><p class="section-index">Contribute</p><h1>Propose an open problem</h1></div>
-        <p>${online ? "Send a proposal without an account." : "Prepare a proposal here, then submit it through GitHub with an account."} The maintainers review proposals and publish accepted records with credit to contributors${allowAnonymous ? ", unless they choose to remain anonymous" : ""}.</p>
+        <div><h1>Contribute</h1></div>
+        <p>Propose a problem, share reported research progress, or help improve an existing record. Choose the route that fits your contribution.</p>
       </div>
       <div class="contribute-routes no-math">
         <div class="route-card">
+          <h2><a href="#proposal-form">Propose a new problem</a></h2>
+          <p>Use the form below to describe an open problem, where it was posed, and what is known. The maintainers prepare accepted proposals for publication.</p>
+        </div>
+        <div class="route-card">
           <h2><a href="${root}contribute/progress/">Submit a progress report</a></h2>
-          <p>For an existing problem, provide a required archival manuscript or paper link and a short summary. You can also <a href="${root}contribute/progress/?kind=historical">link an earlier GitHub report</a>.</p>
+          <p>Share an archival manuscript or paper link and a short summary for an existing problem, or <a href="${root}contribute/progress/?kind=historical">link an earlier GitHub report</a>. New reports require archival sources.</p>
         </div>
         <div class="route-card">
           <h2><a href="${config.repositoryUrl}/issues/new?template=correction.yml" rel="noreferrer">Report a correction</a></h2>
-          <p>Point out a typo, citation problem, or status concern using the existing record. New research claims require an archival source.</p>
+          <p>Point out a typo, citation problem, or status concern in an existing record. Include the problem link and a short explanation of the proposed correction.</p>
         </div>
         <div class="route-card">
-          <h2>${online ? "Use this form" : "Prepare a proposal"}</h2>
-          <p>Describe the problem, where it was posed, and what is known. ${online ? "The maintainers may email you about the details." : "Copy the completed text into a GitHub issue; the copied text omits your email."} Nothing appears on the site until the maintainers have checked the information for publication.</p>
-        </div>
-        <div class="route-card">
-          <h2>Or write the record yourself</h2>
-          <p>Comfortable with Git and TeX? Follow the <a href="${root}about/#contribute">contribution guide</a> and open a pull request, or <a href="${issueUrl}" rel="noreferrer">open a new-problem issue</a>. New progress entries must include archival sources; recording a report does not set a problem's status.</p>
+          <h2><a href="${root}about/#contribute">Contribute through GitHub</a></h2>
+          <p>Follow the contribution guide to prepare a record and open a pull request, or <a href="${issueUrl}" rel="noreferrer">open a new-problem issue</a>. The same source requirements apply.</p>
         </div>
       </div>
+      <p class="contribute-policy-note no-math">Recording a progress report does not certify correctness or set a problem's status. <a href="${root}contribute/progress/#sources">Read the progress source requirements</a>.</p>
 
-      <form class="proposal-form no-math" id="proposal-form" novalidate data-content-license="CC-BY-4.0" data-submit-url="${escape(submissionUrl)}" data-captcha-provider="${usesCaptcha ? providerKey : ""}" data-captcha-response="${usesCaptcha ? widget.responseField : ""}" data-allow-anonymous="${allowAnonymous}" data-limits='${escape(JSON.stringify(L))}'>
+      <form class="proposal-form no-math" id="proposal-form" aria-labelledby="proposal-form-heading" novalidate data-content-license="CC-BY-4.0" data-submit-url="${escape(submissionUrl)}" data-captcha-provider="${usesCaptcha ? providerKey : ""}" data-captcha-response="${usesCaptcha ? widget.responseField : ""}" data-allow-anonymous="${allowAnonymous}" data-limits='${escape(JSON.stringify(L))}'>
+        <div class="proposal-intro">
+          <h2 id="proposal-form-heading">Propose a new problem</h2>
+          <p>${online ? "Send a proposal without an account." : "Prepare a proposal here, then submit it through GitHub with an account. The copied text omits your email."} The maintainers review proposals and publish accepted records with credit to contributors${allowAnonymous ? ", unless they choose to remain anonymous" : ""}.</p>
+        </div>
         <fieldset>
           <legend>The problem</legend>
           ${field("proposal-title", "Title", input("proposal-title", "title", `required minlength="${L.title.min}" maxlength="${L.title.max}" autocomplete="off"`), "A short descriptive title, as it would head the problem page.")}
@@ -942,8 +989,8 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
     </div>`;
   return layout({
     config, root, path: "contribute/", current: "contribute",
-    title: "Propose an open problem",
-    description: `Propose an open problem for the ${config.shortName}: statement, fields and topics, sources, progress, and how to reach you. Proposals are reviewed and rewritten by the maintainers before publication.`,
+    title: "Contribute",
+    description: `Contribute to the ${config.shortName}: propose an open problem, report research progress with archival sources, suggest a correction, or prepare a record through GitHub.`,
     body, bodyClass: "page-contribute",
     extraHead: usesCaptcha ? `<script src="${widget.script}" async defer></script>` : ""
   });
@@ -951,6 +998,7 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
 
 export function renderProgressContribute({ config, root, records }) {
   const settings = config.contribute ?? {};
+  const problemCatalog = JSON.stringify(records.map(record => ({ id: record.id, title: record.title.text }))).replace(/</gu, "\\u003c").replace(/&/gu, "\\u0026");
   const online = progressSubmissionsOnline(config);
   const allowAnonymous = anonymousSubmissionsAllowed(config);
   const providerKey = settings.captcha?.provider ?? "turnstile";
@@ -970,16 +1018,21 @@ export function renderProgressContribute({ config, root, records }) {
       <div class="section-heading"><div><p class="section-index">Contribute</p><h1>Submit a progress report</h1></div></div>
       <div class="prose-body progress-intro">
         <p>An archival manuscript or published-paper link is required for every new progress report. Add the source and a short description of what it reports. Listing a report does not certify correctness or automatically change the problem's status; the maintainer team retains the final right to interpret and determine Solved/Unsolved.</p>
-        <p>The maintainers document sources, context, and attribution. They do not review proofs. Preprints need not have passed peer review. Earlier GitHub reports remain linked in the existing Progress panel. <a href="${policyUrl}" rel="noreferrer">Read the research progress policy</a>.</p>
+        <p>The maintainers document sources, context, and attribution. They do not review proofs. Preprints need not have passed peer review. Earlier GitHub research reports remain linked in the existing Progress panel. <a href="${policyUrl}" rel="noreferrer">Read the research progress policy</a>.</p>
       </div>
       ${online ? "" : `<div class="form-notice" id="progress-offline">Direct progress sending is not enabled on this deployment. Complete this worksheet, then use <strong>Copy report for GitHub</strong> and <strong>Open GitHub submission</strong>. A GitHub account is required. These actions check the required source and omit your email; the issue and your GitHub identity will be public. No report is sent until you submit it on GitHub.</div>`}
       <noscript><p>JavaScript is required for this worksheet's source checks. You can use the <a href="${config.repositoryUrl}/issues/new?template=research-update.yml" rel="noreferrer">GitHub research-update form</a>, which also requires an archival manuscript or paper link. For an earlier report, use the <a href="${config.repositoryUrl}/issues/new?template=historical-progress.yml" rel="noreferrer">historical-listing form</a>.</p></noscript>
       <p class="form-hint" id="progress-loading">Loading the source checks. If the worksheet does not become available, reload or use the <a href="${config.repositoryUrl}/issues/new?template=research-update.yml" rel="noreferrer">GitHub research-update form</a> with the required archival link.</p>
       <form class="proposal-form progress-form no-math" id="progress-form" novalidate data-submit-url="${online ? escape(settings.progressSubmissionUrl) : ""}" data-repository-url="${escape(config.repositoryUrl)}" data-allow-anonymous="${allowAnonymous}" data-content-license="CC-BY-4.0" data-captcha-provider="${usesCaptcha ? providerKey : ""}" data-captcha-response="${usesCaptcha ? widget.responseField : ""}">
         <fieldset><legend>Problem</legend>
-          <div class="form-row"><label for="progress-problemId">Problem (required)</label>
-            <select id="progress-problemId" name="problemId" required aria-describedby="progress-problemId-error"><option value="">Choose a problem</option>${records.map(record => `<option value="${escape(record.id)}">${escape(record.id)} — ${escape(record.title.text)}</option>`).join("")}</select>
+          <div class="form-row progress-problem-lookup"><label for="progress-problemSearch">Problem (required)</label>
+            <input id="progress-problemSearch" name="problemSearch" type="text" role="combobox" required maxlength="500" autocomplete="off" spellcheck="false" aria-autocomplete="list" aria-haspopup="listbox" aria-expanded="false" aria-controls="progress-problem-options" aria-describedby="progress-problem-hint progress-problem-matches progress-problemId-error" placeholder="Type a problem ID or title">
+            <input id="progress-problemId" name="problemId" type="hidden" value="">
+            <p class="form-hint" id="progress-problem-hint">Type an ID or title, then choose a matching problem. Use the arrow keys and Enter to select.</p>
+            <ul class="progress-problem-options" id="progress-problem-options" role="listbox" aria-label="Matching problems" hidden></ul>
+            <p class="form-hint" id="progress-problem-matches" role="status" aria-live="polite">Type a problem ID or words from its title to find a match.</p>
             <p class="form-error" id="progress-problemId-error" hidden></p>
+            <script type="application/json" id="progress-problem-catalog">${problemCatalog}</script>
           </div>
           <div class="form-row"><label for="progress-kind">What would you like to document?</label>
             <select id="progress-kind" name="kind"><option value="research">New research progress</option><option value="historical">Link an earlier GitHub report</option></select>
@@ -998,7 +1051,7 @@ export function renderProgressContribute({ config, root, records }) {
             ${input("relatedReportUrl", "Earlier related GitHub report (optional)", "A direct link to an issue or comment in this project's repository; it supplements the archival source.", 'maxlength="2048"')}
           </div>
           <div id="progress-historical-fields" hidden>
-            ${input("historicalUrl", "Original GitHub issue, comment, or PR link (required)", "Identify the existing report in this project's repository. An archival paper is not required for historical documentation.", 'maxlength="2048"')}
+            ${input("historicalUrl", "Original GitHub issue, comment, or PR link (required)", "Identify an actual research-progress report, not an internal review or engineering discussion. An archival paper is not required for historical documentation.", 'maxlength="2048"')}
             <p class="form-hint">This route identifies pre-policy content. Maintainers check its original date and context before listing it; selecting this option does not make a new claim historical. A new claim added to an old issue requires an archival source.</p>
           </div>
           <details class="source-guidance"><summary>Supported sources and source-support requests</summary>
@@ -1021,7 +1074,7 @@ export function renderProgressContribute({ config, root, records }) {
           <div class="hp" aria-hidden="true"><label for="progress-extra">Leave this field empty</label><input id="progress-extra" name="extra" type="text" tabindex="-1" autocomplete="off"></div>
         </fieldset>
         ${usesCaptcha ? `<div class="captcha-slot"><div class="${widget.className}" data-sitekey="${escape(settings.captcha.siteKey)}" data-theme="auto"></div><p class="form-hint">Human verification keeps automated submissions out of the inbox.</p></div>` : ""}
-        <p class="form-hint">An unsent draft, including contact details, is saved in this browser. Use Clear form to remove it, especially on a shared computer.</p>
+        <p class="form-hint">When browser storage is available, an unsent draft, including contact details, is saved in this browser. Use Clear form to remove it, especially on a shared computer.</p>
         <div class="form-actions">
           ${online ? `<button class="button button-primary" type="submit" id="progress-submit" disabled>Submit progress report</button>` : `<button class="button button-primary" type="submit" id="progress-submit" disabled>Copy report for GitHub</button><button class="button button-ghost" type="button" id="progress-open">Open GitHub submission</button>`}
           ${online ? `<button class="button button-ghost" type="button" id="progress-copy">Copy report for GitHub</button>` : ""}
@@ -1030,7 +1083,7 @@ export function renderProgressContribute({ config, root, records }) {
         <p class="form-status" id="progress-status" role="status" aria-live="polite" tabindex="-1"></p>
         <div id="progress-copy-fallback" hidden><label for="progress-copy-text">Select and copy the public report</label><textarea id="progress-copy-text" readonly rows="10"></textarea></div>
       </form>
-      <div class="proposal-done no-math" id="progress-done" hidden tabindex="-1"><h2>Your report has been received for documentation</h2><p>Receipt <code id="progress-receipt"></code>. Submission does not publish the report or change the problem's status. The maintainers may ask for citation, attribution, or historical-context details.</p><p><a href="${root}contribute/progress/">Prepare another report</a> · <a href="${root}problems/">Browse the catalog</a></p></div>
+      <div class="proposal-done no-math" id="progress-done" hidden tabindex="-1"><h2>Your report has been received for documentation</h2><p>Receipt <code id="progress-receipt"></code>. Submission does not publish the report or change the problem's status. The maintainers may ask for citation, attribution, or historical-context details.</p><p class="form-error" id="progress-draft-warning" hidden>The browser's saved draft could not be checked or removed. It may still contain your contact details. Clear this site's browser data to remove it, especially on a shared computer.</p><p><a href="${root}contribute/progress/">Prepare another report</a> · <a href="${root}problems/">Browse the catalog</a></p></div>
     </div>`;
   return layout({ config, root, path: "contribute/progress/", current: "contribute", title: "Submit a progress report", description: "Document research progress with an archival manuscript or paper link, or identify an earlier GitHub report.", body, bodyClass: "page-contribute", withMath: false,
     extraHead: usesCaptcha ? `<script src="${widget.script}" async defer></script>` : "",

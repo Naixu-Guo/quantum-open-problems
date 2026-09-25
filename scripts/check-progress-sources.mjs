@@ -72,11 +72,15 @@ export function historicalEntriesFrom(audit) {
   return entries;
 }
 
-export function checkHistoricalCoverage(entries, readRecord) {
+export function checkHistoricalCoverage(entries, readRecord, excludedEntries = []) {
   const problems = [];
   for (const entry of entries) {
     const record = readRecord(entry.problemId);
     if (!record?.progress.some((text) => canonical(text) === canonical(entry.text))) problems.push(`${entry.problemId}: documented historical entry or original links are missing from Progress.`);
+  }
+  for (const entry of excludedEntries) {
+    const record = readRecord(entry.problemId);
+    if (record?.progress.some((text) => canonical(text) === canonical(entry.text))) problems.push(`${entry.problemId}: internal GitHub review or catalog work must not be imported as research progress.`);
   }
   return problems;
 }
@@ -92,12 +96,14 @@ function main() {
     ...git("ls-files", "--others", "--exclude-standard", "--", "database/problems_json").split("\n"),
   ].filter((name) => /^database\/problems_json\/op_[a-zA-Z0-9]{16}\.json$/u.test(name)));
   const audits = fs.readdirSync(path.join(root, "docs/audits")).filter((name) => /^github-progress-\d{4}-\d{2}-\d{2}\.json$/u.test(name));
-  const entries = audits.flatMap((name) => historicalEntriesFrom(JSON.parse(fs.readFileSync(path.join(root, "docs/audits", name), "utf8"))));
+  const inventories = audits.map((name) => JSON.parse(fs.readFileSync(path.join(root, "docs/audits", name), "utf8")));
+  const entries = inventories.flatMap(historicalEntriesFrom);
+  const excludedEntries = inventories.flatMap((audit) => audit.records.flatMap((report) => report.excludedProgressEntries ?? []));
   const read = (id) => {
     const filename = path.join(root, "database/problems_json", `${id}.json`);
     return fs.existsSync(filename) ? JSON.parse(fs.readFileSync(filename, "utf8")) : null;
   };
-  const problems = checkHistoricalCoverage(entries, read);
+  const problems = checkHistoricalCoverage(entries, read, excludedEntries);
   for (const filename of changed) {
     let previous = null;
     try { previous = JSON.parse(git("show", `${baseHash}:${filename}`)); } catch { /* New catalog record. */ }

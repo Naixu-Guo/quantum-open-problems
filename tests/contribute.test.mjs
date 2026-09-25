@@ -73,8 +73,9 @@ test("the page offers every field and topic in a dropdown with an Other option a
   assert.ok(html.includes('data-content-license="CC-BY-4.0"'));
   assert.ok(html.includes('I license my original text under <a href="https://creativecommons.org/licenses/by/4.0/"'));
   assert.ok(html.includes('<a href="../contribute/" aria-current="page">Contribute</a>'), "the nav marks the page");
-  assert.ok(html.includes('<a href="../contribute/">Contribute</a>'), "the footer links the page");
-  assert.ok(!html.includes('about/#contribute">Contribute'), "the footer no longer sends contributors to the guide first");
+  const footer = html.match(/<footer class="site-footer">[\s\S]*?<\/footer>/u)?.[0] ?? "";
+  assert.ok(footer.includes('<a href="../contribute/">Contribute</a>'), "the footer links the page");
+  assert.ok(!footer.includes('about/#contribute">Contribute'), "the footer no longer sends contributors to the guide first");
 });
 
 test("with a submission URL and a site key the page loads the widget and enables sending", () => {
