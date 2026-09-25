@@ -16,6 +16,18 @@ draft is restored while that option is unavailable, the form keeps the draft
 and prevents sending it with named credit. The rest of this guide is for
 people who write the record themselves.
 
+For an existing problem, use [Submit a progress report](https://qiqc-op.com/contribute/progress/).
+Every new research report requires an archival manuscript or paper link.
+Existing GitHub research-progress reports remain directly linked in affected
+problem pages using short links; detailed discussion stays in the original thread.
+Internal review arguments, scope or citation fixes, editorial work, and engineering
+or integration changes do not become Progress entries. A report of a manuscript,
+counterexample, partial result, or computational finding can qualify regardless
+of whether its reporter is an external contributor or a maintainer.
+The site documents reports without refereeing their proofs; only the maintainer
+team determines Solved/Unsolved. See the [research progress policy](docs/RESEARCH_PROGRESS_POLICY.md)
+for eligible sources, historical reports, and ordinary correction requests.
+
 For agent-assisted additions and revisions, follow the repository's
 [writing-open-problems skill](.claude/skills/writing-open-problems/SKILL.md).
 It covers primary-source verification, semantic duplicate checks, the current
@@ -65,7 +77,7 @@ breaks are written as `\n`.
 | `topics` | One to five names from the `topics` list of `database/tags.json`, spelled exactly: the specific objects, techniques, and settings it concerns. |
 | `statement` | The self-contained statement. |
 | `source` | The paper that posed the problem, or the papers in which it is implicit, cited with `\\sourcecite{ref:...}{KEY}`. For an original contribution, write `Contributor: Full Name.` only with permission for named credit on this problem; otherwise use `unknown`. |
-| `progress` | An array of accurately scoped results, one TeX item each. |
+| `progress` | Research-progress reports, one TeX item each, with archival sources for new research and compact direct links for historical GitHub reports. Internal review, editorial, and engineering work is excluded. Inclusion is not correctness certification. |
 | `references` | An array of `{ "key": "KEY", "label": "ref:...", "tex": "..." }`, each `tex` giving the full entry with DOI and arXiv links. |
 | `comment` | The precise remaining gap and relations to other problems. |
 
@@ -176,8 +188,12 @@ exports in the same change.
   hypotheses, parameter ranges, and quantifier order explicitly.
 - Number every displayed equation with `\begin{equation}...\label{eq:...}`
   and cite it with `\eqref`. Unlabeled displays fail the build.
-- Report only results that materially delimit the problem. Say exactly what
-  each result proves, in which regime, and why it falls short.
+- Document actual research-progress reports with their relevant sources.
+  Use compact direct hyperlinks for historical GitHub reports, including partial,
+  disputed, closed, or withdrawn reports; add only a brief qualifier when needed.
+  Preserve provenance in the linked thread and inventory without repeating dates,
+  author details, or review discussion in the panel. Do not present inclusion as
+  verification of the mathematics or import internal editorial or engineering work.
 - Use alpha-style keys such as `[BDSW96]` and cite every reference at least
   once with `\sourcecite`. Every citation must point to an entry in the same
   record.
@@ -191,13 +207,17 @@ The zoo has exactly two statuses. Do not introduce a third one (no "partially
 solved", "conditionally solved", or similar): the build rejects it, and the
 site's filters, statistics, and colours are designed for two.
 
-- **Unsolved**: no complete answer to the archived question, even when
-  substantial subcases are settled; say in Progress and Comment what is known
-  and what remains.
-- **Solved**: a complete proof or counterexample for the archived statement.
-  Say in Comment whether the resolving result is peer-reviewed.
+- **Unsolved**: the maintainer team retains the problem as open. Reports of
+  resolutions or partial progress may still appear in its Progress panel.
+- **Solved**: the maintainer team designates the archived question resolved.
+  Record its chosen context or reason; a submitted manuscript or DOI alone
+  does not make this decision.
 
-Progress on a nearby variant does not change a status.
+The maintainer team reserves the final right to interpret and set these
+designations. Neither submission, publication, source validation, nor absence
+of peer review changes a status automatically. The team does not undertake
+proof refereeing as part of documenting reports. A status revision preserves
+existing progress entries. Progress on a nearby variant does not set a status.
 
 ## Supported TeX
 
@@ -214,8 +234,23 @@ genuinely needed.
 
 ## Reporting progress without a pull request
 
-Open an issue with the *Report progress or a correction* template, quoting the
-problem ID, the exact claim, and the primary sources.
+Use the [progress form](https://qiqc-op.com/contribute/progress/), which collects
+the problem ID, archival manuscript or paper links, and a short summary. Until
+direct sending is enabled, it prepares a public *Report research progress*
+issue without private contact details. Personal pages, GitHub-only new claims,
+shared downloads, and attachments alone do not meet the source requirement.
+
+Use *Report a correction* for ordinary wording, source, or status concerns
+without a new research claim. Use *Link an earlier GitHub report* to identify
+an omitted historical research-progress report; it needs the original link, not
+a new paper. Ordinary corrections and internal review or integration threads
+do not belong in the Progress panel merely because they concern a problem.
+These requests supplement the maintainers' inventory of existing reports.
+
+For new progress in catalog PRs, run `npm run check-progress -- --base origin/main`
+before committing. Source links may appear in the progress item or the specific
+reference it cites. Historical entries must match their documented source
+version in the inventory. The check concerns sources, not proof correctness.
 
 ## Required reviews and checks
 

@@ -22,6 +22,7 @@ body:
     id: status
     attributes:
       label: Status
+      description: Suggested designation only; the maintainer team determines the catalog status.
       options:
         - Unsolved
         - Solved
@@ -41,9 +42,23 @@ body:
     id: progress
     attributes:
       label: Known progress
-      description: One to three accurately scoped results, each with its source and one sentence on why it falls short of the full question.
+      description: Optional reported results with their scope. If you include research progress, add the corresponding archival manuscript or paper links below. Do not submit unsupported new claims here.
     validations:
-      required: true
+      required: false
+
+  - type: textarea
+    id: archival_links
+    attributes:
+      label: Archival links for reported progress
+      description: Required when reporting research progress above. Use arXiv, a Zenodo manuscript, supported preprint, journal article, or paper DOI. An ordinary new-problem proposal needs no paper resolving the proposed problem.
+
+  - type: checkboxes
+    id: progress_sources
+    attributes:
+      label: Progress sources
+      options:
+        - label: I supplied archival manuscript or paper links for every research-progress report included above, or I am not reporting research progress.
+          required: true
 
   - type: textarea
     id: references
