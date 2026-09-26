@@ -706,3 +706,8 @@ fieldset > .form-row + .form-row, .form-grid-2 + .form-row { margin-top: 16px; }
   background: var(--highlight-bg); color: var(--ink);
   outline: 2px solid var(--accent-solid); outline-offset: -2px;
 }
+
+.math-preview-body { white-space: pre-wrap; overflow-wrap: anywhere; }
+.statement-preview h3 { margin: 12px 0 6px; }
+.statement-preview h3:first-child { margin-top: 0; }
+.statement-preview .form-error { white-space: pre-wrap; }

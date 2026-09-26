@@ -36,8 +36,8 @@ const legacy = JSON.parse(fs.readFileSync(path.join(repoRoot, "database", "legac
 
 // Short content hashes so browsers refetch changed assets (favicons are cached aggressively).
 const assetVersion = (name) => createHash("sha256").update(fs.readFileSync(path.join(siteDir, "assets", name))).digest("hex").slice(0, 8);
-config.assetVersions = { favicon: assetVersion("favicon.svg"), styles: assetVersion("styles.css"), app: assetVersion("app.js") };
-config.assetVersions.progress = createHash("sha256").update(fs.readFileSync(path.join(siteDir, "assets/progress-form.mjs"))).update(fs.readFileSync(path.join(repoRoot, "shared/progress-sources.mjs"))).digest("hex").slice(0, 8);
+config.assetVersions = { favicon: assetVersion("favicon.svg"), styles: assetVersion("styles.css"), app: assetVersion("app.js"), formMath: assetVersion("form-math.js") };
+config.assetVersions.progress = createHash("sha256").update(fs.readFileSync(path.join(siteDir, "assets/progress-form.mjs"))).update(fs.readFileSync(path.join(repoRoot, "shared/progress-sources.mjs"))).update(fs.readFileSync(path.join(siteDir, "assets/form-math.js"))).digest("hex").slice(0, 8);
 
 const args = process.argv.slice(2);
 const outIndex = args.indexOf("--out");
@@ -290,7 +290,7 @@ for (const [pool, label] of [["unsolved", "unsolved"], ["solved", "solved"]]) {
 // Assets
 for (const asset of fs.readdirSync(path.join(siteDir, "assets"))) {
   const content = fs.readFileSync(path.join(siteDir, "assets", asset));
-  write(`assets/${asset}`, asset === "progress-form.mjs" ? content.toString().replace('"../../shared/progress-sources.mjs"', '"./progress-sources.mjs"') : content);
+  write(`assets/${asset}`, asset === "progress-form.mjs" ? content.toString().replace('"../../shared/progress-sources.mjs"', '"./progress-sources.mjs"').replace('"./form-math.js"', `"./form-math.js?v=${config.assetVersions.formMath}"`) : content);
 }
 write("assets/progress-sources.mjs", fs.readFileSync(path.join(repoRoot, "shared/progress-sources.mjs")));
 write(".nojekyll", "");
