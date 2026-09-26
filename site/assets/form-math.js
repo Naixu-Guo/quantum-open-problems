@@ -78,11 +78,47 @@
     return { tokens, diagnostics: diagnostics.map(item => ({ ...item, location: position(text, item.start) })) };
   }
 
+  // GitHub's browser renderer can reject \operatorname even after its Markdown
+  // API has recognized the formula. Adapt this command only inside exported math;
+  // keep an operator atom, upright letters, and the starred limit placement.
+  function githubTex(tex) {
+    let result = "";
+    for (let index = 0; index < tex.length;) {
+      if (tex[index] === "%" && !escaped(tex, index)) {
+        const end = tex.indexOf("\n", index);
+        if (end < 0) return result + tex.slice(index);
+        result += tex.slice(index, end + 1); index = end + 1; continue;
+      }
+      const command = !escaped(tex, index) && tex.slice(index).match(/^\\operatorname(?![A-Za-z])(\s*\*)?\s*\{/u);
+      if (!command) { result += tex[index++]; continue; }
+      const start = index + command[0].length;
+      let depth = 1, end = start;
+      for (; end < tex.length && depth; end++) {
+        if (escaped(tex, end)) continue;
+        if (tex[end] === "%") {
+          const newline = tex.indexOf("\n", end);
+          end = newline < 0 ? tex.length : newline;
+        } else if (tex[end] === "{") depth++;
+        else if (tex[end] === "}") depth--;
+      }
+      if (depth) { result += tex[index++]; continue; }
+      const argument = githubTex(tex.slice(start, end - 1));
+      // A mathop already has movable limits, as operatorname* does. An ordinary
+      // operator needs nolimits, followed by a space so adjacent letters cannot
+      // turn the control word into e.g. "nolimitsA".
+      result += `\\mathop{\\mathrm{${argument}}}${command[1] ? "" : "\\nolimits "}`;
+      index = end;
+    }
+    return result;
+  }
+
   function githubMath(input) {
     return parseMath(input).tokens.map(token => {
-      if (token.type !== "math" || token.protected) return token.raw;
-      if (token.display) return `\n\n\`\`\`math\n${token.tex}\n\`\`\`\n\n`;
-      return `$\`${token.tex}\`$`;
+      if (token.type !== "math") return token.raw;
+      const tex = githubTex(token.tex);
+      if (token.protected) return tex === token.tex ? token.raw : token.raw.replace(token.tex, tex);
+      if (token.display) return `\n\n\`\`\`math\n${tex}\n\`\`\`\n\n`;
+      return `$\`${tex}\`$`;
     }).join("");
   }
 
@@ -133,7 +169,7 @@
           for (const { part, token, field, text } of jobs) {
             if (current !== revision) return;
             try {
-              const rendered = await math.tex2svgPromise(token.tex, { display: token.display });
+              const rendered = await math.tex2svgPromise(githubTex(token.tex), { display: token.display });
               if (current !== revision) return;
               const error = rendered.querySelector("[data-mjx-error]");
               if (error) throw new Error(error.getAttribute("data-mjx-error"));
@@ -143,7 +179,7 @@
               append("p", `${field}, ${position(text, token.start)} (${token.raw}): ${error.message}. Check the command spelling and braces; your source is unchanged.`, "form-error");
             }
           }
-          if (current === revision) append("p", "Preview checks formula formatting only. GitHub copy adds math delimiters; your draft and submitted TeX stay unchanged.", "form-hint");
+          if (current === revision) append("p", "Preview checks formula formatting only. GitHub copy protects delimiters and adapts operator names; your draft and submitted TeX stay unchanged.", "form-hint");
         }
       } catch {
         if (current === revision) append("p", "The math renderer could not load. Your source is shown above and your draft is unchanged. Reload and try Preview again; you can still copy or submit the text.", "form-error");
@@ -154,5 +190,5 @@
     return { invalidate };
   }
 
-  globalThis.QIQCOPFormMath = { parseMath, githubMath, bindMathPreview };
+  globalThis.QIQCOPFormMath = { parseMath, githubTex, githubMath, bindMathPreview };
 })();

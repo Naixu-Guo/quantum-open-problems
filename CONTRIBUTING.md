@@ -52,7 +52,12 @@ not the correctness of a research claim.
 Draft saving and direct inbox submission preserve the original TeX. Copying for
 GitHub and prefilling a GitHub report protect inline math with GitHub's
 ``$`…`$`` syntax and use `math` fences for display expressions. These are export
-formats only: do not insert the inner backticks into canonical JSON/TeX records.
+formats only. GitHub's browser renderer can also reject `\operatorname` even
+when its Markdown API recognizes the formula. Export therefore converts it to
+an upright `\mathop` with `\nolimits` (or its default movable limits for the
+starred form), preserving its role as an operator. The preview uses that equivalent
+expression. Original textarea values and canonical records retain
+`\operatorname`; do not insert export backticks or substitutions into them.
 Check GitHub's own **Preview** before posting. Unlike a form textarea, a JSON
 string must escape its backslashes (`\\operatorname` in the JSON source).
 Historical GitHub reports are not rewritten by this formatting change.

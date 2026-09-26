@@ -429,7 +429,7 @@ test("math copy, URL prefill, draft reload, and direct inbox sending preserve th
   restored.click("open");
   const url = new URL(restored.navigations[0]);
   assert.equal((url.searchParams.get("summary").match(/\$`/gu) ?? []).length, 7);
-  assert.match(url.searchParams.get("citation"), /\$`\\operatorname/u);
+  assert.match(url.searchParams.get("citation"), /\$`\\mathop/u);
   await c.submit();
   assert.equal(c.sent[0].body.summary, summary, "GitHub markup never enters the inbox payload");
   assert.equal(c.sent[0].body.citation, String.raw`A paper on $\operatorname{Tr}(A)$`);

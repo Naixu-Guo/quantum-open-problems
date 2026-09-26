@@ -4,16 +4,18 @@ import fs from "node:fs";
 import "../site/assets/form-math.js";
 import { texToHtml } from "../site/lib/tex.mjs";
 
-const { parseMath, githubMath, bindMathPreview } = globalThis.QIQCOPFormMath;
+const { parseMath, githubTex, githubMath, bindMathPreview } = globalThis.QIQCOPFormMath;
 const paragraph = fs.readFileSync(new URL("fixtures/issue-41-math.txt", import.meta.url), "utf8");
 const expressions = source => parseMath(source).tokens.filter(token => token.type === "math").map(token => token.tex);
 
-test("issue 41's seven expressions keep their exact TeX through GitHub export and website rendering", () => {
+test("issue 41's seven expressions keep canonical TeX while GitHub receives equivalent operators", () => {
   const original = expressions(paragraph);
   assert.equal(original.length, 7);
   const exported = githubMath(paragraph);
   assert.equal((exported.match(/\$`/gu) ?? []).length, 7);
-  assert.deepEqual(expressions(exported), original);
+  assert.deepEqual(expressions(exported), original.map(githubTex));
+  assert.match(paragraph, /\\operatorname\{Tr\}/u);
+  assert.doesNotMatch(exported, /\\operatorname/u);
   assert.equal(githubMath(exported), exported, "already protected math is not wrapped twice");
   assert.deepEqual(parseMath(paragraph).diagnostics, []);
   const html = texToHtml(paragraph);
@@ -37,7 +39,7 @@ $$
   assert.equal(saved, source);
   assert.deepEqual(parseMath(source).diagnostics, []);
   // Math fences append only a separating newline, never escape/strip commands.
-  assert.deepEqual(expressions(githubMath(saved)).map(s => s.trim()), expressions(source).map(s => s.trim()));
+  assert.deepEqual(expressions(githubMath(saved)).map(s => s.trim()), expressions(source).map(s => githubTex(s).trim()));
   assert.equal(githubMath(githubMath(saved)), githubMath(saved));
   const windowsFence = "```math\r\nx_1=y_2\r\n```\r\n";
   assert.deepEqual(expressions(windowsFence), ["x_1=y_2\r\n"]);
@@ -106,4 +108,19 @@ test("editing or clearing a preview prevents an in-flight rendering result from 
   assert.equal(c.output.childNodes.length, 0);
   assert.equal(c.button.disabled, false);
   assert.equal(c.control.value, "An updated draft");
+});
+
+
+test("operator adaptation preserves groups, stars, comments, and code examples", () => {
+  assert.equal(githubTex(String.raw`\operatorname*{arg\,max}_{x}`), String.raw`\mathop{\mathrm{arg\,max}}_{x}`);
+  assert.equal(githubTex(String.raw`\operatorname{Tr}_{A}`), String.raw`\mathop{\mathrm{Tr}}\nolimits _{A}`);
+  assert.equal(githubTex(String.raw`\operatorname{a_{b}}`), String.raw`\mathop{\mathrm{a_{b}}}\nolimits `);
+  assert.equal(githubTex(String.raw`\operatorname{Tr}A`), String.raw`\mathop{\mathrm{Tr}}\nolimits A`);
+  assert.equal(githubTex(String.raw`\operatorname{broken`), String.raw`\operatorname{broken`);
+  assert.equal(githubTex(String.raw`% \operatorname{comment}`), String.raw`% \operatorname{comment}`);
+  const protectedSource = '$`\\operatorname{Tr}(A)`$';
+  assert.equal(githubMath(githubMath(protectedSource)), githubMath(protectedSource));
+  assert.match(githubMath(protectedSource), /\\mathop/u);
+  const example = '`\\operatorname{Tr}`';
+  assert.equal(githubMath(example), example);
 });

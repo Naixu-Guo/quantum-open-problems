@@ -840,7 +840,7 @@ export const CAPTCHA_WIDGETS = {
   hcaptcha: { name: "hCaptcha", script: "https://js.hcaptcha.com/1/api.js", className: "h-captcha", responseField: "h-captcha-response", privacyUrl: "https://www.hcaptcha.com/privacy" }
 };
 
-const FORM_MATH_HELP = `<p class="form-hint">Use <code>$\\operatorname{Tr}(\\rho)=1$</code> for inline math and <code>$$</code> on separate lines for display math. Prefer explicit norms: <code>$\\lVert A\\rVert_\\infty$</code>. Type one backslash per command; drafts and inbox submissions keep your TeX. Copy for GitHub protects formulas from Markdown. Put code examples inside backticks or fenced code blocks.</p>`;
+const FORM_MATH_HELP = `<p class="form-hint">Use <code>$\\operatorname{Tr}(\\rho)=1$</code> for inline math and <code>$$</code> on separate lines for display math. Prefer explicit norms: <code>$\\lVert A\\rVert_\\infty$</code>. Type one backslash per command; drafts and inbox submissions keep your TeX. Copy for GitHub protects formulas from Markdown and adapts operator names. Put code examples inside backticks or fenced code blocks.</p>`;
 
 export function renderContribute({ config, root, taxonomy, fieldCounts, topicCounts }) {
   const settings = config.contribute ?? {};
