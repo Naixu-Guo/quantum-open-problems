@@ -37,6 +37,7 @@ const legacy = JSON.parse(fs.readFileSync(path.join(repoRoot, "database", "legac
 // Short content hashes so browsers refetch changed assets (favicons are cached aggressively).
 const assetVersion = (name) => createHash("sha256").update(fs.readFileSync(path.join(siteDir, "assets", name))).digest("hex").slice(0, 8);
 config.assetVersions = { favicon: assetVersion("favicon.svg"), styles: assetVersion("styles.css"), app: assetVersion("app.js") };
+config.stylesheet = fs.readFileSync(path.join(siteDir, "assets/styles.css"), "utf8");
 
 const args = process.argv.slice(2);
 const outIndex = args.indexOf("--out");

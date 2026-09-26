@@ -2,6 +2,7 @@
 import { createHash } from "node:crypto";
 import { gzipSync } from "node:zlib";
 import { slug } from "./tex.mjs";
+import { styleHead } from "./styles.mjs";
 const escape = (text) => String(text).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const json = (value) => `${JSON.stringify(value, null, 2)}\n`;
 export function redirect(target, title) {
@@ -34,7 +35,7 @@ export function buildCompatibility({ write, records, payloads, apiIndex, legacy,
     // An unconfirmed mapping must not send a citation to a different question.
     const notice = { schema: "qiqcop-zoo/archived-entry/1", id, title: entry.title, archived: true, archive: entry.archive, catalog: `${siteUrl}/problems/` };
     write(`api/v1/problems/${id}.json`, json(notice));
-    write(`problems/${id}/index.html`, `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>${escape(entry.title)}</title><link rel="stylesheet" href="../../assets/styles.css"><main class="container"><h1>${escape(entry.title)}</h1><p>This historical entry has not been mapped to the maintained catalog. Its original statement remains available in the repository archive.</p><p><a href="${escape(entry.archive)}">Read the archived record</a></p><p><a href="../">Browse the current catalog</a></p></main></html>\n`);
+    write(`problems/${id}/index.html`, `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>${escape(entry.title)}</title>${styleHead(config, "../../")}<main class="container"><h1>${escape(entry.title)}</h1><p>This historical entry has not been mapped to the maintained catalog. Its original statement remains available in the repository archive.</p><p><a href="${escape(entry.archive)}">Read the archived record</a></p><p><a href="../">Browse the current catalog</a></p></main></html>\n`);
     write(`packets/${id}.md`, `# ${entry.title}\n\nHistorical entry; no confirmed current mapping.\n\n[Archived source record](${entry.archive})\n`);
   }
   const snapshot = records.map((record) => payloads.get(record.id));
