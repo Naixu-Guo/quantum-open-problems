@@ -5,6 +5,7 @@ import { submissionsOnline as acceptsSubmissions, anonymousSubmissionsAllowed } 
 import { STATUSES, slug } from "./tex.mjs";
 import { distinctQuestionCounts } from "./metadata.mjs";
 import { TAG_KINDS } from "./taxonomy.mjs";
+import { styleHead } from "./styles.mjs";
 
 const escape = (value = "") => String(value)
   .replaceAll("&", "&amp;")
@@ -109,10 +110,10 @@ export function layout({ config, root, title, description, path, body, current =
     <meta property="og:url" content="${canonical}">
     <meta name="twitter:card" content="summary">
     <link rel="icon" href="${root}assets/favicon.svg?v=${config.assetVersions?.favicon ?? ""}" type="image/svg+xml">
+    ${styleHead(config, root)}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
-    <link rel="stylesheet" href="${root}assets/styles.css?v=${config.assetVersions?.styles ?? ""}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" media="print" onload="this.media='all'">
     <link rel="alternate" type="application/json" href="${root}api/index.json" title="${escape(config.shortName)} API">
     ${THEME_BOOT}
     ${withMath ? MATHJAX : ""}

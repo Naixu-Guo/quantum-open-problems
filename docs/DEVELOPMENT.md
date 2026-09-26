@@ -203,6 +203,12 @@ the `npm run handoff-catalog` authoring handoff.
 Mathematics is typeset in the browser by MathJax 4 (SVG output), so equations
 scale with zoom and render the same across browsers. Fonts come from Google
 Fonts with system fallbacks; the logo uses Jost, whose letter O is a circle.
+The build embeds `site/assets/styles.css` into each rendered page, so layout
+does not depend on a separate stylesheet request succeeding. The standalone
+copy remains available for cached older pages. Google Fonts loads as an optional,
+non-blocking enhancement; system fonts keep the page readable if that service
+is unavailable or JavaScript is disabled. Keep stylesheet asset URLs self-contained
+(for example, data URLs), since embedded CSS resolves URLs relative to each page.
 
 ## Deployment
 
