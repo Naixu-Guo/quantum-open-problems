@@ -84,6 +84,7 @@ export function submissionsDefaults(config: Config): SubmissionsConfig {
     ...inboxLimits(given),
     dbPath: given.dbPath ?? besideAuth,
     mode,
+    researchUpdatesEnabled: given.researchUpdatesEnabled === true,
     inboxKeyHash,
     monitorKeyHash,
     captcha: captcha ? { provider: captcha.provider, secret: captcha.secret, verifyUrl: captcha.verifyUrl || CAPTCHA_PROVIDERS[captcha.provider].verifyUrl } : null,
@@ -119,6 +120,7 @@ export function configFromEnv(env: NodeJS.ProcessEnv = process.env): Config {
   const captchaSecret = env["QOP_CAPTCHA_SECRET"];
   return {
     submissions: {
+      researchUpdatesEnabled: env["QOP_RESEARCH_UPDATES_ENABLED"] === "true",
       ...(env["QOP_SUBMISSIONS_MODE"] ? { mode: env["QOP_SUBMISSIONS_MODE"] as SubmissionsConfig["mode"] } : {}),
       inboxKeyHash: env["QOP_INBOX_KEY_HASH"] || null,
       monitorKeyHash: env["QOP_INBOX_MONITOR_KEY_HASH"] || null,
