@@ -1,0 +1,97 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_27b7826ed57e893a",
+  "ulid": "01M2JDG8GMD6A9Z88MC2195VA6",
+  "aliases": [
+    "op_27b7826ed57e893a",
+    "01M2JDG8GMD6A9Z88MC2195VA6",
+    "op-27b7826ed57e893a"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-15T11:33:43.060Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-resource-theory"
+    ],
+    "topicIds": [
+      "entanglement-cost",
+      "local-operations-and-classical-communication"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": [
+      "01M1HME780JH0D9Y0RQ750ZZPY",
+      "01M2JDG8A02AY84NNNVZ52DD61"
+    ]
+  },
+  "title": "LOCC entanglement cost of isotropic states",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum Resource Theory"
+  ],
+  "topics": [
+    "Entanglement cost",
+    "Local operations and classical communication"
+  ],
+  "statement": "What is the entanglement cost of the isotropic state $\\sigma_{d,F}$ for every\ninteger $d\\geq2$ and every fidelity $1/d<F<1$?  On\n$\\mathbb C^d\\otimes\\mathbb C^d$, let\n$\\lvert\\Phi_d\\rangle:=d^{-1/2}\\sum_{j=0}^{d-1}\\lvert jj\\rangle$ and\n$\\Phi_d:=\\lvert\\Phi_d\\rangle\\!\\langle\\Phi_d\\rvert$.  For $F\\in[0,1]$, the\nisotropic state with fidelity $F$ is\n\\begin{equation}\n  \\sigma_{d,F}:=F\\,\\Phi_d+(1-F)\\,\\frac{I-\\Phi_d}{d^2-1}.\n  \\label{eq:27b7-isotropic-state}\n\\end{equation}\nThe state in Eq.~\\eqref{eq:27b7-isotropic-state} is invariant under\n$U\\otimes\\overline U$ for every unitary $U$ on $\\mathbb C^d$, is separable for\n$F\\leq1/d$, and is entangled for $F>1/d$.  The entanglement cost $E_C(\\rho)$\nof a bipartite state $\\rho$ is the infimum of the rates $R$ for which local\noperations and classical communication (LOCC) transform $\\lceil nR\\rceil$\nebits into states whose trace distance from $\\rho^{\\otimes n}$ tends to zero\nas $n\\to\\infty$.  Determine $E_C(\\sigma_{d,F})$ for all integers $d\\geq2$ and\nall $1/d<F<1$, including the qubit case $d=2$.",
+  "source": "Wilde notes that the entanglement cost of an isotropic state, the Choi state\nof a depolarizing channel, is not known (Section~IV)\n\\sourcecite{ref:27b7-wilde}{Wil18}, and Fang, Fawzi, and Fawzi state that, to\nthe best of their knowledge, the entanglement costs of isotropic and Werner\nstates under LOCC ``remain unresolved'' (Section~4.2 of the arXiv version)\n\\sourcecite{ref:27b7-fang-fawzi-fawzi}{FFF26}.",
+  "progress": [
+    "For $F\\leq1/d$, the state is separable and $E_C(\\sigma_{d,F})=0$\n  \\sourcecite{ref:27b7-terhal-vollbrecht}{TV00}.  At $F=1$, it is maximally\n  entangled, and the cost of a pure state is its entanglement entropy, so\n  $E_C(\\sigma_{d,1})=\\log_2d$\n  \\sourcecite{ref:27b7-hayden-horodecki-terhal}{HHT01}.  For $d=2$, the open\n  interval is $1/2<F<1$.",
+    "Rains, in Theorem~7 of the arXiv version~2, evaluates the relative\n  entropy of entanglement with respect to\n  states with positive partial transpose for isotropic states with\n  $F\\geq1/d$, with the separable isotropic state of fidelity $1/d$ as an\n  optimizer, and proves it additive on tensor powers\n  \\sourcecite{ref:27b7-rains}{Rai99}.  Rubboli and Tomamichel prove the same\n  value for the relative entropy of entanglement with respect to separable\n  states, and its additivity whenever one factor is isotropic (Proposition~12\n  and Section~6.3) \\sourcecite{ref:27b7-rubboli-tomamichel}{RT24}.  Hence the\n  regularized separable relative entropy of entanglement is\n  \\begin{equation}\n    E_R^\\infty(\\sigma_{d,F})\n    =\\log_2d+F\\log_2F+(1-F)\\log_2\\frac{1-F}{d-1}\n    \\qquad\\left(\\frac1d\\leq F\\leq1\\right),\n    \\label{eq:27b7-ree}\n  \\end{equation}\n  with $0\\log_20:=0$.  Donald, Horodecki, and Rudolph show that\n  $E_R^\\infty\\leq E_C$ (Proposition~20)\n  \\sourcecite{ref:27b7-donald-horodecki-rudolph}{DHR02}, so\n  Eq.~\\eqref{eq:27b7-ree} is a lower bound on the cost for every $d\\geq2$.",
+    "Fang, Fawzi, and Fawzi note that the efficiently computable lower bounds\n  of Wang and Duan and of Lami and Regula vanish on full-rank states\n  (Proposition~24 and Section~4.2), which include $\\sigma_{d,F}$ for\n  $0<F<1$.  In their numerical comparison for $d=3$ (Example~1 and Figure~2),\n  their first-level bound coincides with Eq.~\\eqref{eq:27b7-ree} and improves\n  the bound of Wang, Jing, and Zhu\n  \\sourcecite{ref:27b7-fang-fawzi-fawzi}{FFF26},\n  \\sourcecite{ref:27b7-wang-jing-zhu}{WJZ25}.  These are lower bounds and do\n  not identify an optimal LOCC preparation rate.",
+    "The depolarizing channel\n  $\\mathcal D_{d,p}(X):=(1-p)X+p\\operatorname{Tr}(X)I/d$, with\n  $0\\leq p\\leq d^2/(d^2-1)$, has normalized Choi state $\\sigma_{d,F}$, where\n  \\begin{equation}\n    F=1-p+\\frac{p}{d^2},\n    \\qquad\n    0<p<\\frac{d}{d+1}\\iff\\frac1d<F<1 .\n    \\label{eq:27b7-depolarizing}\n  \\end{equation}\n  Since $\\mathcal D_{d,p}(UXU^\\dagger)=U\\,\\mathcal D_{d,p}(X)\\,U^\\dagger$ for\n  every unitary $U$, the channel is covariant in Wilde's sense, and his\n  Theorem~1 gives equal sequential and parallel costs,\n  $E_C(\\mathcal D_{d,p})=E_C^{(p)}(\\mathcal D_{d,p})=E_C(\\sigma_{d,1-p+p/d^2})$\n  \\sourcecite{ref:27b7-wilde}{Wil18}.  The correspondence in\n  Eq.~\\eqref{eq:27b7-depolarizing} was checked directly for this entry."
+  ],
+  "references": [
+    {
+      "key": "Wil18",
+      "label": "ref:27b7-wilde",
+      "tex": "M. M. Wilde,\n  ``Entanglement Cost and Quantum Channel Simulation,''\n  \\emph{Physical Review A} \\textbf{98}, 042338 (2018).\n  \\href{https://doi.org/10.1103/PhysRevA.98.042338}{doi:10.1103/PhysRevA.98.042338};\n  \\href{https://arxiv.org/abs/1807.11939}{arXiv:1807.11939}."
+    },
+    {
+      "key": "FFF26",
+      "label": "ref:27b7-fang-fawzi-fawzi",
+      "tex": "K. Fang, H. Fawzi, and O. Fawzi,\n  ``Efficient Approximation of Regularized Relative Entropies and\n  Applications,''\n  \\emph{IEEE Transactions on Information Theory} \\textbf{72}, 2330--2342 (2026).\n  \\href{https://doi.org/10.1109/TIT.2026.3661603}{doi:10.1109/TIT.2026.3661603};\n  \\href{https://arxiv.org/abs/2502.15659}{arXiv:2502.15659}."
+    },
+    {
+      "key": "TV00",
+      "label": "ref:27b7-terhal-vollbrecht",
+      "tex": "B. M. Terhal and K. G. H. Vollbrecht,\n  ``Entanglement of Formation for Isotropic States,''\n  \\emph{Physical Review Letters} \\textbf{85}, 2625--2628 (2000).\n  \\href{https://doi.org/10.1103/PhysRevLett.85.2625}{doi:10.1103/PhysRevLett.85.2625};\n  \\href{https://arxiv.org/abs/quant-ph/0005062}{arXiv:quant-ph/0005062}."
+    },
+    {
+      "key": "HHT01",
+      "label": "ref:27b7-hayden-horodecki-terhal",
+      "tex": "P. M. Hayden, M. Horodecki, and B. M. Terhal,\n  ``The Asymptotic Entanglement Cost of Preparing a Quantum State,''\n  \\emph{Journal of Physics A: Mathematical and General} \\textbf{34},\n  6891--6898 (2001).\n  \\href{https://doi.org/10.1088/0305-4470/34/35/314}{doi:10.1088/0305-4470/34/35/314};\n  \\href{https://arxiv.org/abs/quant-ph/0008134}{arXiv:quant-ph/0008134}."
+    },
+    {
+      "key": "Rai99",
+      "label": "ref:27b7-rains",
+      "tex": "E. M. Rains,\n  ``Bound on Distillable Entanglement,''\n  \\emph{Physical Review A} \\textbf{60}, 179--184 (1999); Erratum,\n  \\emph{Physical Review A} \\textbf{63}, 019902 (2000).\n  \\href{https://doi.org/10.1103/PhysRevA.60.179}{doi:10.1103/PhysRevA.60.179};\n  \\href{https://doi.org/10.1103/PhysRevA.63.019902}{doi:10.1103/PhysRevA.63.019902};\n  \\href{https://arxiv.org/abs/quant-ph/9809082}{arXiv:quant-ph/9809082}."
+    },
+    {
+      "key": "RT24",
+      "label": "ref:27b7-rubboli-tomamichel",
+      "tex": "R. Rubboli and M. Tomamichel,\n  ``New Additivity Properties of the Relative Entropy of Entanglement and Its\n  Generalizations,''\n  \\emph{Communications in Mathematical Physics} \\textbf{405}, 162 (2024).\n  \\href{https://doi.org/10.1007/s00220-024-05025-3}{doi:10.1007/s00220-024-05025-3};\n  \\href{https://arxiv.org/abs/2211.12804}{arXiv:2211.12804}."
+    },
+    {
+      "key": "DHR02",
+      "label": "ref:27b7-donald-horodecki-rudolph",
+      "tex": "M. J. Donald, M. Horodecki, and O. Rudolph,\n  ``The Uniqueness Theorem for Entanglement Measures,''\n  \\emph{Journal of Mathematical Physics} \\textbf{43}, 4252--4272 (2002).\n  \\href{https://doi.org/10.1063/1.1495917}{doi:10.1063/1.1495917};\n  \\href{https://arxiv.org/abs/quant-ph/0105017}{arXiv:quant-ph/0105017}."
+    },
+    {
+      "key": "WJZ25",
+      "label": "ref:27b7-wang-jing-zhu",
+      "tex": "X. Wang, M. Jing, and C. Zhu,\n  ``Computable and Faithful Lower Bound on Entanglement Cost,''\n  \\emph{Physical Review Letters} \\textbf{134}, 190202 (2025).\n  \\href{https://doi.org/10.1103/PhysRevLett.134.190202}{doi:10.1103/PhysRevLett.134.190202};\n  \\href{https://arxiv.org/abs/2311.10649}{arXiv:2311.10649}."
+    }
+  ],
+  "comment": "Literature checked through 15 September 2026.  No exact LOCC entanglement\ncost of an isotropic state with $1/d<F<1$ was located for any $d\\geq2$, and\nno LOCC preparation rate matching the lower bound in Eq.~\\eqref{eq:27b7-ree}\nis known.  For $d=2$, $\\sigma_{2,F}$ is the Bell-diagonal state with weight $F$\non $\\lvert\\Phi_2\\rangle$ and $(1-F)/3$ on each other Bell state, the isotropic\nline singled out in the\n\\href{https://qiqc-op.com/problem/op_aa21ac5ebca8b888/}{entanglement-cost problem for qubit Bell-diagonal states};\nup to a local unitary it is the two-qubit Werner state with antisymmetric\nweight $F$.  The qubit case therefore coincides with the $d=2$ case of the\n\\href{https://qiqc-op.com/problem/op_0c23167deb384894/}{LOCC entanglement cost of Werner states},\nwhile for $d\\geq3$ the $U\\otimes\\overline U$-invariant and\n$U\\otimes U$-invariant families differ.",
+  "contributors": []
+}

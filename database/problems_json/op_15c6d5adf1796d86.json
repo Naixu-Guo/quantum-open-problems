@@ -1,0 +1,76 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_15c6d5adf1796d86",
+  "ulid": "01M2JD0QDEDZ78QV24WQ3VS9BN",
+  "aliases": [
+    "op_15c6d5adf1796d86",
+    "01M2JD0QDEDZ78QV24WQ3VS9BN",
+    "op-15c6d5adf1796d86"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-15T11:25:14.030Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-error-correction"
+    ],
+    "topicIds": [
+      "quantum-ldpc-codes",
+      "quantum-coding-theory"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": [
+      "01M2JD0QAYZMS56Z6TAHM15ERA"
+    ]
+  },
+  "title": "Good quantum LDPC codes with a non-Clifford transversal CCZ gate",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum Error Correction"
+  ],
+  "topics": [
+    "Quantum LDPC codes",
+    "Quantum coding theory"
+  ],
+  "statement": "Do there exist triples of qubit CSS LDPC codes with linear combined rate and\nlinear distance on which the transversal CCZ gate induces a non-Clifford\nlogical operation?  Precisely, do there exist constants $r,\\delta>0$ and\n$w\\in\\mathbb N$, and triples, with $n\\to\\infty$, of qubit CSS codes $\\mathcal Q_{a,n}$ with parameters\n$[[n,k_{a,n},d_{a,n}]]$, indexed by $a\\in\\{1,2,3\\}$, such that each code has\n$k_{a,n}\\ge1$ and $X$- and $Z$-check matrices whose row weights (check\nweights) and column weights (qubit degrees) are at most $w$,\n\\begin{equation}\n  \\sum_{a=1}^{3}k_{a,n}\\ge rn,\\qquad\n  \\min_{a\\in\\{1,2,3\\}}d_{a,n}\\ge\\delta n,\n  \\label{eq:15c6-good}\n\\end{equation}\nand the transversal gate\n\\begin{equation}\n  U_n:=\\prod_{j=1}^{n}\\operatorname{CCZ}_{(1,j),(2,j),(3,j)},\n  \\qquad\n  \\operatorname{CCZ}|x,y,z\\rangle=(-1)^{xyz}|x,y,z\\rangle\n  \\quad\\text{for }x,y,z\\in\\{0,1\\},\n  \\label{eq:15c6-transversal}\n\\end{equation}\npreserves $\\mathcal Q_{1,n}\\otimes\\mathcal Q_{2,n}\\otimes\\mathcal Q_{3,n}$\nand induces a logical unitary that does not normalize its encoded Pauli group?\nHere $(a,j)$ denotes physical qubit $j$ of block $a$, so\nEq.~\\eqref{eq:15c6-transversal} applies one CCZ gate to each aligned triple of\nphysical qubits.",
+  "source": "Golowich and Guruswami pose the construction of LDPC codes with asymptotically\noptimal dimension and distance and transversal non-Clifford gates as an open\nproblem \\sourcecite{ref:15c6-gg-stoc}{GG25a}, Section~1.1.  The formulation\nhere specializes it to qubit CSS code triples with linear combined rate,\nlinear distance, bounded check weights and qubit degrees, and a non-Clifford\nlogical action of the full transversal CCZ product in\nEq.~\\eqref{eq:15c6-transversal}.",
+  "progress": [
+    "Li, Li, and Liu construct quantum LDPC codes supporting nontrivial\ntransversal logical CCZ gates with parameters\n\\begin{equation}\n  [[N,\\Theta(N),\\Theta(N/(\\log N)^2)]]\n  \\label{eq:15c6-almost-good}\n\\end{equation}\n\\sourcecite{ref:15c6-lll}{LLL26}, Theorem~1.1 with $r=3$ and\nCorollary~5.7.  A constant-depth logical CCZ circuit is made transversal at a\nconstant-factor loss in parameters (Lemma~5.6).  At least one of the three\nblocks is only known to have a constant number of logical qubits, so linear\nrate is established for the combined blocks rather than for each block\n(Section~5.3 and Section~6); the combined-rate condition in\nEq.~\\eqref{eq:15c6-good} accommodates this.  The distance in\nEq.~\\eqref{eq:15c6-almost-good} is a factor $(\\log N)^2$ short of linear.\nThe revision of 2 July 2026 replaces the argument of the first version, whose\ncap product did not satisfy the Leibniz rule required for the gate argument,\nby one based on cup products and two-way product-expanding punctured\nReed--Solomon local codes; the results cited here are those of the revised\nversion.",
+    "Golowich and Guruswami construct, for every fixed prime power $q$\nincluding $q=2$, CSS codes with dimension and distance linear in the block\nlength that support a transversal CCZ gate\n\\sourcecite{ref:15c6-gg-stoc}{GG25a}, Theorem~1.1.  Their stabilizers have\nhigh weight, so these codes are not LDPC (Section~1.1).",
+    "An intermediate locality regime is reached by subsystem codes supporting\ntransversal CCZ with dimension and distance $\\Theta(N)$ and locality\n$O(\\sqrt N)$ over alphabets of size $O(\\sqrt N)$; reducing to qubits gives\n$[[N,\\tilde\\Theta(N),\\tilde\\Theta(N)]]_2$ codes of locality\n$\\tilde O(\\sqrt N)$, where the tilde hides polylogarithmic factors\n\\sourcecite{ref:15c6-gg-focs}{GG25b}, Theorem~1.1.  Neither the locality nor,\nover qubits, the distance meets Eq.~\\eqref{eq:15c6-good}.",
+    "Golowich, Tamo, and Zhu construct, for every $0<\\varepsilon<1$ and every\nprime power alphabet size including qubits, subsystem codes with\nconstant-weight stabilizers whose depth-one transversal CCZ circuit induces\nlogical CCZ gates on at least $N^{1-\\varepsilon}$ disjoint triples of logical\nqubits, with distance at least $N^{(1-\\varepsilon)/3}$\n\\sourcecite{ref:15c6-gtz}{GTZ26}, Theorem~1.1 with $r=3$ (informal statement\nof Corollary~5.1).  Appendix~A extends this to addressable gates.  These\nresults increase the number and addressability of logical CCZ gates at\nconstant stabilizer weight, but the distance is polynomially sublinear."
+  ],
+  "references": [
+    {
+      "key": "LLL26",
+      "label": "ref:15c6-lll",
+      "tex": "Y. Li, Z. Li, and Z.-W. Liu, ``Transversal Non-Clifford Gates on\nAlmost-Good Quantum LDPC and Quantum Locally Testable Codes,''\narXiv:2604.01874 (2026).\n\\href{https://doi.org/10.48550/arXiv.2604.01874}{doi:10.48550/arXiv.2604.01874};\n\\href{https://arxiv.org/abs/2604.01874}{arXiv:2604.01874}."
+    },
+    {
+      "key": "GG25a",
+      "label": "ref:15c6-gg-stoc",
+      "tex": "L. Golowich and V. Guruswami, ``Asymptotically Good Quantum Codes with\nTransversal Non-Clifford Gates,'' in \\emph{Proceedings of the 57th Annual ACM\nSymposium on Theory of Computing (STOC 2025)}, 707--717 (2025).\n\\href{https://doi.org/10.1145/3717823.3718234}{doi:10.1145/3717823.3718234};\n\\href{https://arxiv.org/abs/2408.09254}{arXiv:2408.09254}."
+    },
+    {
+      "key": "GG25b",
+      "label": "ref:15c6-gg-focs",
+      "tex": "L. Golowich and V. Guruswami, ``Near-Asymptotically-Good Quantum Codes\nwith Transversal CCZ Gates and Sublinear-Weight Parity-Checks,'' in\n\\emph{2025 IEEE 66th Annual Symposium on Foundations of Computer Science\n(FOCS)}, 1561--1569 (2025).\n\\href{https://doi.org/10.1109/FOCS63196.2025.00082}{doi:10.1109/FOCS63196.2025.00082};\n\\href{https://arxiv.org/abs/2510.06798}{arXiv:2510.06798}."
+    },
+    {
+      "key": "GTZ26",
+      "label": "ref:15c6-gtz",
+      "tex": "L. Golowich, I. Tamo, and G. Zhu, ``Improved Transversal Non-Clifford\nGates from Cup Products,'' Electronic Colloquium on Computational Complexity\n(2026).\n\\href{https://eccc.weizmann.ac.il/report/2026/160/}{ECCC TR26-160}."
+    }
+  ],
+  "comment": "Literature checked through 15 September 2026: no family meeting\nEq.~\\eqref{eq:15c6-good} with bounded check weights and qubit degrees and a\nnon-Clifford logical action of Eq.~\\eqref{eq:15c6-transversal} was found.\nDistance $\\Theta(N/(\\log N)^2)$ as in Eq.~\\eqref{eq:15c6-almost-good} is not\na resolution.\n\nThe combined code has $N=3n$ physical qubits.  Only the total number of\nlogical qubits must be linear, which makes the rate accounting explicit\nwithout requiring linearly many logical qubits in every block; each block must\nstill encode at least one qubit and have linear distance.  The question asks\nonly for a non-Clifford logical action, not for linearly many independent or\naddressable logical CCZ gates.  A physical gate that preserves the code space\nbut acts trivially or as a logical Clifford operation does not qualify.  The\nstatement fixes the full product $U_n$; some cited constructions use more\ngeneral transversal circuits, such as constant-depth circuits or gates on\nselected physical triples, which would need an additional argument to meet\nEq.~\\eqref{eq:15c6-transversal}.\n\nThe locally testable analogue for good quantum LDPC codes is\n\\href{https://qiqc-op.com/problem/op_0c091a6b5a55a8fd/}{asymptotically good\nquantum locally testable codes}; the construction of\n\\sourcecite{ref:15c6-lll}{LLL26} also gives almost-good quantum locally\ntestable codes with transversal non-Clifford gates.",
+  "contributors": []
+}

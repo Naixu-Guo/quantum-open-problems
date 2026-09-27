@@ -25,7 +25,7 @@ export function createService(config: Config): Service {
     systemActorId: system.id,
     artifactStoreDir: path.join(repo.activityRoot, "artifact-store"),
     web: webDefaults(config),
-    submissions: new SubmissionStore(submissionsConfig.dbPath),
+    submissions: new SubmissionStore(submissionsConfig.dbPath, submissionsConfig),
     submissionsConfig,
     syncIntervalMs: syncIntervalMs(config.git?.pollIntervalMs),
   };

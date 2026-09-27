@@ -58,6 +58,7 @@ const proposal = (extra: Record<string, unknown> = {}) => ({
   topics: ["Additivity and regularization", "Bosonic channels"],
   newTopics: [],
   source: "Posed in [Doe2024], Section 5.",
+  archivalLinks: ["https://arxiv.org/abs/2401.00001"],
   progress: "Known for $n = 2$ copies [Roe2023].",
   references: "[Doe2024] J. Doe, Some paper, arXiv:2401.00001.\n[Roe2023] R. Roe, Another paper, doi:10.1000/xyz.",
   comment: "Related to problem op_0000000000000001.",

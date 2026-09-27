@@ -86,7 +86,9 @@ test("Petz CMI preserves the submission date, exact counterexamples and local ve
   assert.match(detail.research.progress[0]!.text, /10 September 2026/u);
   assert.match(detail.research.progress[0]!.text, /-0\.004412/u);
   assert.deepEqual(detail.research.progress[0]!.citationKeys, ["Pet26"]);
-  assert.match(detail.research.comment[0]!.text, /no external peer review, proof-assistant kernel check,/u);
+  assert.match(detail.research.comment[0]!.text, /neither result has external peer review or a\s+proof-assistant kernel check/u);
+  assert.match(detail.research.comment[0]!.text, /no historical-priority claim is asserted/u);
+  assert.deepEqual(detail.research.comment[0]!.citationKeys, ["Pet26", "QOP26"]);
   assert.match(detail.research.references.find((reference) => reference.key === "Pet26")!.text, /12 September 2026/u);
   assert.deepEqual(frontier(ledger, problem.id)!.acceptedClaims, []);
   for (const invented of ["solvedAt", "submittedAt", "verifiedAt", "reviewedAt"]) {

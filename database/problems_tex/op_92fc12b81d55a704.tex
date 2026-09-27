@@ -1,0 +1,84 @@
+% Problem record op_92fc12b81d55a704. This TeX file is derived from
+% database/problems_json/op_92fc12b81d55a704.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Uniform modified log-Sobolev constant for one-dimensional Gibbs samplers}
+\label{sec:op_92fc12b81d55a704}
+
+\paragraph{Problem.}
+Do normalized one-dimensional Chen--Kastoryano--Gily\'en Gibbs samplers have a positive modified log-Sobolev constant uniformly in system size at every fixed finite temperature?
+
+Fix $\beta>0$, a finite on-site dimension, and a class of one-dimensional finite-range Hamiltonians with bounded local strength. Let $\rho_\beta(H)=e^{-\beta H}/\operatorname{Tr}(e^{-\beta H})$, and let $\mathcal L_{H,\beta}$ be the Chen--Kastoryano--Gily\'en generator using all single-site Pauli jumps, Gaussian-filter width $\beta^{-1}$, and the unrescaled sum of local terms.
+
+Does a constant $\alpha_\beta>0$ exist, independent of chain length and of $H$ in this class, such that for every state $\sigma$ and every $t\geq0$
+
+\begin{equation}
+D\!\left(e^{t\mathcal L_{H,\beta,*}}(\sigma)\middle\|\rho_\beta(H)\right)
+\leq e^{-2\alpha_\beta t}D\!\left(\sigma\middle\|\rho_\beta(H)\right)?
+\label{eq:92fc-1}
+\end{equation}
+
+Relative entropy in Eq.~\eqref{eq:92fc-1} uses natural logarithms; constants may depend on $\beta$ but not on system size.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Bergamaschi and Chen explicitly leave the uniform modified log-Sobolev question open for this one-dimensional sampler family \sourcecite{ref:92fc-bergamaschi25}{Bergamaschi25}. The statement fixes a normalization and rewrites the question self-containedly.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Published provenance and progress. Bergamaschi and Chen prove a system-size-independent spectral gap for the relevant one-dimensional noncommuting family, and obtain polylogarithmic-depth Gibbs preparation by a different, quasi-adiabatic route \sourcecite{ref:92fc-bergamaschi25}{Bergamaschi25}, revised January 23, 2026. Their discussion explicitly leaves the corresponding log-Sobolev implication open. High-temperature rapid-mixing results such as \sourcecite{ref:92fc-rouz26}{Rouz26} do not cover arbitrary fixed finite temperature.
+
+  \item Critical update: Gao and Guo’s September 14, 2026 preprint establishes positive complete MLSI for finite-dimensional CKG samplers through a coercivity criterion \sourcecite{ref:92fc-gao26}{Gao26}. Therefore, mere positivity for each fixed finite system is no longer the question retained here.
+
+  \item Why the September result does not close this formulation. The comparison in \sourcecite{ref:92fc-gao26}{Gao26} includes an index of the asymptotic conditional expectation. For a primitive semigroup with stationary state $\rho$, the order constant
+
+\begin{equation}
+C(E)=\inf\{C:\sigma\leq C\rho\ \text{for every density matrix }\sigma\}
+\label{eq:92fc-5}
+\end{equation}
+
+satisfies, directly,
+
+\begin{equation}
+C(E)=\lambda_{\min}(\rho)^{-1}\geq d^n.
+\label{eq:92fc-6}
+\end{equation}
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:92fc-5}, \eqref{eq:92fc-6}.
+
+  \item Thus a lower bound divided by this quantity does not establish a uniform many-body constant. Moreover, an ancillary-dimension-independent “complete” inequality is not automatically independent of the physical system size.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Bergamaschi25]}]\label{ref:92fc-bergamaschi25}
+  Thiago Bergamaschi and Chi-Fang Chen, \emph{Fast Mixing of Quantum Spin Chains at All Temperatures}. \href{https://arxiv.org/abs/2510.08533}{arXiv:2510.08533}, first submitted October 9, 2025; checked version v2, January 23, 2026. Locate: Theorem I.1, preparation corollary, and the discussion “Mixing times beyond spectral gaps.”
+
+  \item[\textup{[Rouz26]}]\label{ref:92fc-rouz26}
+  Cambyse Rouzé, Daniel Stilck França, and Álvaro M. Alhambra, \emph{Optimal quantum algorithm for Gibbs state preparation}. \href{https://arxiv.org/abs/2411.04885}{arXiv:2411.04885}, checked version v2, February 10, 2026; \href{https://doi.org/10.1103/lhht-svmn}{Physical Review Letters 136, 060601 (2026)}. Use: high-temperature algorithmic progress, not an all-temperature uniform-MLSI theorem.
+
+  \item[\textup{[Gao26]}]\label{ref:92fc-gao26}
+  Li Gao and Jingyu Guo, \emph{Relative Entropy Decay via BKM coercivity for Quantum Markov Semigroups}. \href{https://arxiv.org/abs/2609.15902v1}{arXiv:2609.15902v1}, September 14, 2026. Locate: main coercivity/index comparisons and Section 7, “Application to the CKG Gibbs sampler.” This is the latest dated research development cited here.
+\end{enumerate}
+
+\subsection*{Comment}
+
+Status: Retained as open only in the uniform-in-$n$ form. A global reset channel is not an admissible substitute for the specified quasi-local dynamics. The distinction between spectral gap, entropy contraction, and circuit preparation is essential.
+
+\subsection*{Field}
+
+Quantum Resource Theory; Quantum algorithm
+
+\subsection*{Topic}
+
+Quantum thermodynamics; Quantum state preparation; Quantum relative entropy
+
+\subsection*{ID}
+
+\texttt{op\_92fc12b81d55a704}

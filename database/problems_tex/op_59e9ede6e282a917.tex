@@ -1,0 +1,203 @@
+% Problem record op_59e9ede6e282a917. This TeX file is derived from
+% database/problems_json/op_59e9ede6e282a917.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Superactivation of two-way secret-key capacity}
+\label{sec:op_59e9ede6e282a917}
+
+\paragraph{Problem.}
+Can two quantum channels with zero two-way-assisted secret-key capacity
+have positive secret-key capacity when used jointly?  Let
+$\mathcal N:A_0\to B_0$ and $\mathcal M:A_1\to B_1$ be independent
+finite-dimensional memoryless quantum channels.  For a channel $\mathcal C$,
+let $K_{\leftrightarrow}(\mathcal C)$ denote its secret-key capacity, in secret
+bits per channel use, when arbitrary adaptive local operations and unlimited
+authenticated two-way public communication are allowed between channel uses.
+Alice and Bob start without shared entanglement or secret key of positive
+rate.  Eve receives every complementary-channel output and the full public
+transcript; the probability that Alice's and Bob's keys differ, and the trace
+distance between the key and a uniform key independent of Eve, must vanish
+asymptotically.  One use of $\mathcal N\otimes\mathcal M$ means one use of
+each channel, with independent environments and ordinary causal ordering.  The
+question is whether there is a pair satisfying
+\begin{equation}
+  K_{\leftrightarrow}(\mathcal N)=K_{\leftrightarrow}(\mathcal M)=0,
+  \qquad
+  K_{\leftrightarrow}(\mathcal N\otimes\mathcal M)>0.
+  \label{eq:59e9-superactivation}
+\end{equation}
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+This formulation is derived.  It combines the two-way-assisted capacity
+framework of \sourcecite{ref:59e9-plob}{PLOB17} with the open existence
+question for entangled zero-key states stated in Sec.~1 of
+\sourcecite{ref:59e9-hsdw}{HSDW26}.  The unassisted private-capacity
+counterpart is described as a longstanding open problem, and resolved, in
+\sourcecite{ref:59e9-zw}{ZW26}; the two-way-assisted question in
+Eq.~\eqref{eq:59e9-superactivation} is not stated as a separate problem in
+the cited papers.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item A channel is entanglement breaking when it outputs a separable state
+  whenever it acts on one part of any input state; equivalently, its Choi
+  state is separable \sourcecite{ref:59e9-hsr}{HSR03}.  Such channels have
+  $K_{\leftrightarrow}=0$: the two-way-assisted private capacity of every
+  channel is bounded by its squashed entanglement
+  \sourcecite{ref:59e9-tgw}{TGW14}, which vanishes when every output is
+  separable.  Tensor products of entanglement-breaking channels remain
+  entanglement breaking, hence
+  \begin{equation}
+    K_{\leftrightarrow}(\mathcal N\otimes\mathcal M)=0
+    \label{eq:59e9-eb-product}
+  \end{equation}
+  when both factors are entanglement breaking.  By
+  Eq.~\eqref{eq:59e9-eb-product}, any pair satisfying
+  Eq.~\eqref{eq:59e9-superactivation} needs at least one zero-key channel
+  outside this class.
+
+  \item For the $d$-dimensional erasure channel
+  \begin{equation}
+    \mathcal E_{d,p}(\rho):=(1-p)\rho\oplus p\operatorname{Tr}(\rho)|e\rangle\langle e|,
+    \qquad d\geq2,\quad0\leq p\leq1,
+    \label{eq:59e9-erasure}
+  \end{equation}
+  with erasure flag $|e\rangle$ orthogonal to the input space, Pirandola,
+  Laurenza, Ottaviani, and Banchi determine the exact capacity
+  \sourcecite{ref:59e9-plob}{PLOB17}
+  \begin{equation}
+    K_{\leftrightarrow}(\mathcal E_{d,p})=(1-p)\log_2d.
+    \label{eq:59e9-erasure-key}
+  \end{equation}
+  In particular, the qubit erasure
+  channel with $p=1/2$, which is antidegradable
+  \sourcecite{ref:59e9-zw}{ZW26}, has $K_{\leftrightarrow}=1/2$, not zero.
+  Antidegradability therefore does not certify the vanishing two-way key
+  capacity required in Eq.~\eqref{eq:59e9-superactivation}.
+
+  \item Let $J_{\mathcal N}:=(\operatorname{id}\otimes\mathcal N)(|\Phi_d\rangle\langle\Phi_d|)$
+  be the normalized Choi state, where $d:=\dim A_0$ and
+  $|\Phi_d\rangle:=d^{-1/2}\sum_{j=0}^{d-1}|jj\rangle$.  Sending halves of
+  $|\Phi_d\rangle$ through the channel and then distilling key from the
+  resulting copies of $J_{\mathcal N}$ gives
+  \begin{equation}
+    K_{\leftrightarrow}(\mathcal N)\geq K_D(J_{\mathcal N}),
+    \label{eq:59e9-choi-bound}
+  \end{equation}
+  where $K_D$ is the distillable key of a state against an adversary holding
+  a purification; the same Choi-state distribution underlies the lower bounds
+  of \sourcecite{ref:59e9-plob}{PLOB17}.  The Choi state of a channel that is
+  not entanglement breaking is entangled \sourcecite{ref:59e9-hsr}{HSR03}, so
+  by Eq.~\eqref{eq:59e9-choi-bound} such a channel with
+  $K_{\leftrightarrow}=0$ would give an entangled state with zero
+  distillable key.  The existence of such states is explicitly unresolved in
+  \sourcecite{ref:59e9-hsdw}{HSDW26}.
+
+  \item Consequently, faithfulness of state distillable key, meaning that every
+  entangled state has $K_D>0$, would imply
+  \begin{equation}
+    K_{\leftrightarrow}(\mathcal N)=0
+    \quad\Longrightarrow\quad
+    J_{\mathcal N}\in\mathrm{SEP}
+    \quad\Longrightarrow\quad
+    \mathcal N\ \text{is entanglement breaking},
+    \label{eq:59e9-conditional}
+  \end{equation}
+  where $\mathrm{SEP}$ denotes separable states.  Together with
+  Eq.~\eqref{eq:59e9-eb-product}, Eq.~\eqref{eq:59e9-conditional} would
+  exclude Eq.~\eqref{eq:59e9-superactivation}.  This is a conditional
+  deduction, not an established characterization of zero key capacity
+  \sourcecite{ref:59e9-hsr}{HSR03}, \sourcecite{ref:59e9-hsdw}{HSDW26}.
+
+  \item Zhu and Wang's September 2026 preprint instead constructs a four-level
+  channel and a qubit erasure channel with $1/2\leq p<1$, each with zero
+  unassisted private capacity $P$, whose joint use has positive $P$
+  (Theorem~1 of \sourcecite{ref:59e9-zw}{ZW26}).  At half erasure, its helper
+  obeys
+  \begin{equation}
+    P(\mathcal E_{2,1/2})=0
+    \quad\text{but}\quad
+    K_{\leftrightarrow}(\mathcal E_{2,1/2})=\frac12
+    \label{eq:59e9-private-helper}
+  \end{equation}
+  by Eq.~\eqref{eq:59e9-erasure-key}.  That construction therefore does not
+  provide a pair satisfying Eq.~\eqref{eq:59e9-superactivation} under
+  two-way public communication.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[PLOB17]}]\label{ref:59e9-plob}
+  S. Pirandola, R. Laurenza, C. Ottaviani, and L. Banchi, ``Fundamental
+  Limits of Repeaterless Quantum Communications,'' \emph{Nature
+  Communications} \textbf{8}, 15043 (2017).
+  \href{https://doi.org/10.1038/ncomms15043}{doi:10.1038/ncomms15043};
+  \href{https://arxiv.org/abs/1510.08863}{arXiv:1510.08863}.
+
+  \item[\textup{[HSR03]}]\label{ref:59e9-hsr}
+  M. Horodecki, P. W. Shor, and M. B. Ruskai, ``Entanglement Breaking
+  Channels,'' \emph{Reviews in Mathematical Physics} \textbf{15}, 629--641
+  (2003).
+  \href{https://doi.org/10.1142/S0129055X03001709}{doi:10.1142/S0129055X03001709};
+  \href{https://arxiv.org/abs/quant-ph/0302031}{arXiv:quant-ph/0302031}.
+
+  \item[\textup{[TGW14]}]\label{ref:59e9-tgw}
+  M. Takeoka, S. Guha, and M. M. Wilde, ``The Squashed Entanglement of a
+  Quantum Channel,'' \emph{IEEE Transactions on Information Theory}
+  \textbf{60}, 4987--4998 (2014).
+  \href{https://doi.org/10.1109/TIT.2014.2330313}{doi:10.1109/TIT.2014.2330313};
+  \href{https://arxiv.org/abs/1310.0129}{arXiv:1310.0129}.
+
+  \item[\textup{[HSDW26]}]\label{ref:59e9-hsdw}
+  K. Horodecki, L. Sikorski, S. Das, and M. M. Wilde,
+  ``Cost of Quantum Secret Key,'' \emph{Quantum} \textbf{10}, 2098 (2026).
+  \href{https://doi.org/10.22331/q-2026-05-06-2098}{doi:10.22331/q-2026-05-06-2098};
+  \href{https://arxiv.org/abs/2402.17007}{arXiv:2402.17007}.
+
+  \item[\textup{[ZW26]}]\label{ref:59e9-zw}
+  C. Zhu and X. Wang, ``Private Communication via Zero-Private-Capacity
+  Quantum Channels,'' arXiv preprint, version 1, 9 September 2026.
+  \href{https://arxiv.org/abs/2609.10520}{arXiv:2609.10520}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+No pair satisfying Eq.~\eqref{eq:59e9-superactivation}, and no proof that
+the set of channels with $K_{\leftrightarrow}=0$ is closed under tensor
+products, is known.  Zero unassisted private capacity, or a zero rate for a
+chosen key-distribution protocol, is insufficient.
+
+The record \href{https://qiqc-op.com/problem/op_b952ec2dd8246a10/}{Secret key
+from every entangled state} asks whether every entangled state has positive
+distillable key.  An affirmative answer there would settle this question
+negatively through Eqs.~\eqref{eq:59e9-eb-product}
+and~\eqref{eq:59e9-conditional}.  Conversely, by
+Eq.~\eqref{eq:59e9-eb-product}, a pair satisfying
+Eq.~\eqref{eq:59e9-superactivation} would contain a zero-key channel that is
+not entanglement breaking, and its Choi state would answer that record
+negatively.  The two questions are not claimed to be equivalent.  The record
+\href{https://qiqc-op.com/problem/op_3be0df761e83d438/}{Superactivation of
+distillable secret key} asks the corresponding question for states; no
+implication between the state and channel versions is claimed.  Superactivation of the unassisted quantum and private capacities with
+antidegradable helpers is the subject of the record on
+\href{https://qiqc-op.com/problem/op_c45752aeb9a106bc/}{channels superactivated by antidegradable helpers}.
+Literature checked through 15 September 2026.
+
+\subsection*{Field}
+
+Quantum Cryptography; Quantum Communication
+
+\subsection*{Topic}
+
+Superactivation; Secret-key distillation
+
+\subsection*{ID}
+
+\texttt{op\_59e9ede6e282a917}

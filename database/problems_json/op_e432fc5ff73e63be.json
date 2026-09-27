@@ -1,0 +1,86 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_e432fc5ff73e63be",
+  "ulid": "01M2JDGWJBGZDXKT6QJ1D9HZWX",
+  "aliases": [
+    "op_e432fc5ff73e63be",
+    "01M2JDGWJBGZDXKT6QJ1D9HZWX",
+    "op-e432fc5ff73e63be"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-15T11:34:03.595Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-algorithm"
+    ],
+    "topicIds": [
+      "clifford-hierarchy"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": [
+      "01M2JDGWMK4NYJB3K261A4ZCFK"
+    ]
+  },
+  "title": "Highest Clifford-hierarchy level of controlled gates with higher-level targets",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum algorithm"
+  ],
+  "topics": [
+    "Clifford hierarchy"
+  ],
+  "statement": "What is the highest Clifford-hierarchy level that a controlled gate can\nreach when its target lies in a given level $k\\geq3$ and has a given Pauli\nperiodicity, and is that level bounded independently of the number of target\nqubits?  Let $n\\geq1$, and let $\\mathcal P_n$ be the $n$-qubit Pauli group,\nconsisting of the operators $\\omega P_1\\otimes\\cdots\\otimes P_n$ with\n$\\omega\\in\\{\\pm1,\\pm i\\}$ and $P_j\\in\\{I,X,Y,Z\\}$.  The Clifford hierarchy is\ndefined by\n\\begin{equation}\n  \\mathcal C_1(n):=\\mathcal P_n,\n  \\qquad\n  \\mathcal C_{k+1}(n):=\\bigl\\{U\\in U(2^n):UPU^\\dagger\\in\\mathcal C_k(n)\n    \\ \\text{for every}\\ P\\in\\mathcal P_n\\bigr\\},\n  \\qquad k\\geq1.\n  \\label{eq:e432-hierarchy}\n\\end{equation}\nWrite $\\mathcal C_\\infty(n):=\\bigcup_{k\\geq1}\\mathcal C_k(n)$, and let\n$\\ell_n(V):=\\min\\{k\\geq1:V\\in\\mathcal C_k(n)\\}$ be the exact level of\n$V\\in\\mathcal C_\\infty(n)$.  For $U\\in U(2^n)$, define the controlled gate and\nthe Pauli periodicity\n\\begin{equation}\n  CU:=|0\\rangle\\langle0|\\otimes I+|1\\rangle\\langle1|\\otimes U\\in U(2^{n+1}),\n  \\qquad\n  m(U):=\\min\\bigl\\{t\\in\\mathbb Z_{\\geq0}:U^{2^t}\\in\\mathcal P_n\\bigr\\},\n  \\label{eq:e432-periodicity}\n\\end{equation}\nwith $m(U):=\\infty$ when no such $t$ exists.  Only the four phases\n$\\pm1,\\pm i$ count as Pauli phases in Eqs.~\\eqref{eq:e432-hierarchy}\nand~\\eqref{eq:e432-periodicity}.  This convention is essential: replacing $U$\nby $e^{i\\theta}U$ multiplies $CU$ by a phase gate on the control qubit, and it\ncan change both $m(U)$ and the level of $CU$.\n\nFor integers $k\\geq2$ and $m\\geq0$, the highest level reachable by controlling\na $k$th-level target with Pauli periodicity $m$ is\n\\begin{equation}\n  L(n,k,m):=\\max\\bigl\\{\\ell_{n+1}(CU):\n    U\\in\\mathcal C_k(n),\\ m(U)=m,\\ CU\\in\\mathcal C_\\infty(n+1)\\bigr\\}.\n  \\label{eq:e432-max-level}\n\\end{equation}\nThe set in Eq.~\\eqref{eq:e432-max-level} is nonempty because\n$U=e^{i\\pi/2^{m+1}}I$ qualifies, and the maximum is attained because\n$\\mathcal C_k(n)$ is finite modulo global phase while fixing $m(U)$ leaves\nfinitely many admissible phases.  Membership $U\\in\\mathcal C_k(n)$ includes the\nlower levels, so $L(n,k,m)$ is nondecreasing in $k$.  Determine $L(n,k,m)$ for\nall $n\\geq1$, $k\\geq3$, and $m\\geq0$.  In particular, is $L(n,k,m)$ bounded by\na function of $k$ and $m$ alone, independently of the number $n$ of target\nqubits?",
+  "source": "Xu and Wang pose the question explicitly as Open Problem~1 in Section~5:\namong all $n$-qubit unitaries in the $k$th level of the hierarchy with Pauli\nperiodicity $m$, what is the highest level that the controlled gate can reach?\nThey note that the answer can depend simultaneously on $m$, $n$, and $k$, and\nthat controlling non-Clifford targets could potentially bypass the exponential\nqubit overhead inherent to Clifford targets\n\\sourcecite{ref:e432-xu-wang}{XW26}.  This record makes the discrete phase\nconvention of their Definition~4 and the requirement\n$CU\\in\\mathcal C_\\infty(n+1)$ explicit, and states the dependence on $n$ as a\nboundedness question.",
+  "progress": [
+    "Clifford targets are settled.  Xu and Wang proved the controlled-jump\n  criterion (Theorem~3): every Clifford gate $U\\notin\\{\\pm I\\}$ with\n  $m(U)<\\infty$ satisfies\n  \\begin{equation}\n    CU\\in\\mathcal C_{m(U)+2}(n+1)\\setminus\\mathcal C_{m(U)+1}(n+1)\n    \\label{eq:e432-clifford-jump}\n  \\end{equation}\n  \\sourcecite{ref:e432-xu-wang}{XW26}.  Their theorem is stated for all\n  Clifford targets; the two excluded gates, for which $CU$ is a Pauli\n  operator, matter only when $m(U)=0$.  For non-Pauli targets, Lemma~1 of\n  Surti, Daguerre, and Kim had characterized the third level:\n  $CU\\in\\mathcal C_3(n+1)$ exactly when $U$ is a Clifford gate with\n  $U^2\\in\\mathcal P_n$ \\sourcecite{ref:e432-surti-daguerre-kim}{SDK26}.\n  Because $e^{i\\pi/2^{m+1}}I$ is a Clifford gate with Pauli periodicity $m$,\n  Eq.~\\eqref{eq:e432-clifford-jump} gives $L(n,2,m)=m+2$ for all $n\\geq1$ and\n  $m\\geq0$.",
+    "The qubit count enters only after the global phase is discarded.\n  Theorem~4 of Xu and Wang bounds the Pauli periodicity of an $n$-qubit\n  Clifford gate by $\\lceil\\log_2(2n)\\rceil$, and their Corollary~1 converts\n  this into the requirement $n\\geq2^{k-4}+1$ for a Clifford target whose\n  controlled gate lies exactly in level $k\\geq4$\n  \\sourcecite{ref:e432-xu-wang}{XW26}.  The proof bounds the order of the\n  binary symplectic matrix of $U$, which ignores the global phase, whereas\n  their Definition~4 of Pauli periodicity, like\n  Eq.~\\eqref{eq:e432-periodicity}, admits only the phases $\\pm1,\\pm i$.  Under\n  that convention the bound fails as literally stated: $U=e^{i\\pi/16}I$ is a\n  one-qubit Clifford gate with $m(U)=3>\\lceil\\log_2 2\\rceil$, and\n  $CU=\\operatorname{diag}(1,e^{i\\pi/16})\\otimes I$ lies exactly in level $5$\n  on two qubits, in agreement with Eq.~\\eqref{eq:e432-clifford-jump}.  The\n  qubit-count bounds therefore hold for phase-normalized Clifford targets,\n  whose global phase is chosen to minimize $m(U)$.  This caveat is a deduction\n  made for this record, not a statement of the source.",
+    "Every target obeys three lower bounds.  The repeated-commutator argument\n  of Anderson and Weippert (Theorem~2.4 and Corollary~2.4.1), reproduced as the\n  proof of Theorem~1 by Xu and Wang, uses no Clifford assumption:\n  $CU\\in\\mathcal C_r(n+1)$ with $r\\geq2$ forces $U^{2^{r-2}}\\in\\mathcal P_n$\n  \\sourcecite{ref:e432-anderson-weippert}{AW24},\n  \\sourcecite{ref:e432-xu-wang}{XW26}.  Separately, a direct calculation gives\n  \\begin{equation}\n    CU\\,(X\\otimes I)\\,CU^\\dagger\n    =(X\\otimes I)\\bigl(|0\\rangle\\langle0|\\otimes U\n      +|1\\rangle\\langle1|\\otimes U^\\dagger\\bigr),\n    \\label{eq:e432-x-conjugation}\n  \\end{equation}\n  and the block-diagonal lemma of Xu and Wang (Lemma~2) then places both $U$\n  and $U^\\dagger$ one level below $CU$.  Consequently, whenever\n  $U\\notin\\{\\pm I\\}$ and $CU\\in\\mathcal C_\\infty(n+1)$, the gates $U$ and\n  $U^\\dagger$ lie in the hierarchy and\n  \\begin{equation}\n    \\ell_{n+1}(CU)\\geq\\max\\bigl\\{m(U)+2,\\ \\ell_n(U)+1,\\\n      \\ell_n(U^\\dagger)+1\\bigr\\}.\n    \\label{eq:e432-lower-bound}\n  \\end{equation}\n  The first term is the source argument; the second and third, obtained from\n  Eq.~\\eqref{eq:e432-x-conjugation}, are deductions made for this record.",
+    "Non-Clifford targets already break the Clifford formula.  The\n  classification of diagonal gates in the hierarchy (Theorem~3 of Cui,\n  Gottesman, and Krishna), together with Eq.~\\eqref{eq:e432-lower-bound},\n  gives the exact levels, for $k\\geq2$,\n  \\begin{equation}\n    \\begin{aligned}\n      &U=C^{k-1}Z: && \\ell_k(U)=k, && m(U)=1, && \\ell_{k+1}(CU)=k+1;\\\\\n      &U=\\operatorname{diag}\\bigl(1,e^{i\\pi/2^{k-1}}\\bigr): && \\ell_1(U)=k,\n        && m(U)=k-1, && \\ell_2(CU)=k+1,\n    \\end{aligned}\n    \\label{eq:e432-diagonal-families}\n  \\end{equation}\n  where $C^{k-1}Z$ is the $k$-qubit multi-controlled $Z$ gate\n  \\sourcecite{ref:e432-cui-gottesman-krishna}{CGK17}.  The first family in\n  Eq.~\\eqref{eq:e432-diagonal-families} exceeds $m(U)+2$ when $k\\geq3$, and in\n  both families the control raises the level by exactly one.  Anderson and\n  Weippert (Section~3) ask whether this always happens, that is, whether\n  $U\\in\\mathcal C_k\\setminus\\mathcal C_{k-1}$ implies\n  $CU\\in\\mathcal C_{k+1}\\setminus\\mathcal C_k$\n  \\sourcecite{ref:e432-anderson-weippert}{AW24}.  Clifford targets already\n  answer negatively: the three-qubit CNOT string whose linear part is a single\n  Jordan block is a Clifford permutation with $m(U)=2$ by Corollary~2 of Xu and\n  Wang, so $\\ell_3(U)=2$ while $\\ell_4(CU)=4$ by\n  Eq.~\\eqref{eq:e432-clifford-jump} \\sourcecite{ref:e432-xu-wang}{XW26}.",
+    "Third-level targets either leave the hierarchy under control or gain at\n  least $k-1$ levels.  He, Robitaille, and Tan construct, for every $k\\geq3$, a\n  permutation gate $U_k$ on $2^k-1$ qubits with\n  \\begin{equation}\n    U_k\\in\\mathcal C_3(2^k-1),\n    \\qquad\n    U_k^{-1}\\notin\\mathcal C_k(2^k-1)\n    \\label{eq:e432-hrt-family}\n  \\end{equation}\n  (Theorem~5.4 of the arXiv version, Theorem~42 of the proceedings version)\n  \\sourcecite{ref:e432-he-robitaille-tan}{HRT26}.  By\n  Eqs.~\\eqref{eq:e432-lower-bound} and~\\eqref{eq:e432-hrt-family}, either\n  $CU_k\\notin\\mathcal C_\\infty(2^k)$ or $\\ell_{2^k}(CU_k)\\geq k+2$; neither\n  alternative is established in the sources located.  If the second\n  alternative holds for infinitely many $k$ along which $m(U_k)$ stays\n  bounded, then $L(n,3,m)$ is unbounded in $n$ for some $m$, which answers the\n  second question negatively.  The sources do not determine $m(U_k)$.  A\n  direct computation for this record from the Toffoli-circuit form of $U_k$\n  (Proposition~5.2 of the arXiv version) gives $m(U_3)=m(U_4)=2$, whereas\n  $U_6^4$ is a nonidentity permutation fixing $|0\\cdots0\\rangle$, hence not a\n  Pauli operator, so $m(U_6)\\geq3$.  The dichotomy and these values are\n  deductions made for this record.",
+    "The condition $CU\\in\\mathcal C_\\infty(n+1)$ in\n  Eq.~\\eqref{eq:e432-max-level} cannot be dropped.  Anderson and Weippert\n  (Corollary~2.4.1) show that $CU\\in\\mathcal C_\\infty(n+1)$ requires\n  $U\\in\\mathcal C_\\infty(n)$ and $m(U)<\\infty$, and their Section~3 leaves\n  sufficiency open \\sourcecite{ref:e432-anderson-weippert}{AW24}.  De Silva\n  and Lautsch give the explicit five-qubit gate\n  $U=\\operatorname{ctrl}_c(B)\\operatorname{ctrl}_d(A)$, with control qubits\n  $c,d$ and three-qubit Clifford targets $A=CX_{2\\to3}CZ_{2,3}$ and\n  $B=CX_{2\\to3}CX_{1\\to2}H_1$, and prove\n  \\begin{equation}\n    U\\in\\mathcal C_5(5)\\setminus\\mathcal C_4(5),\n    \\qquad\n    U^\\dagger\\notin\\mathcal C_\\infty(5)\n    \\label{eq:e432-dsl-gate}\n  \\end{equation}\n  (Theorems~8.1 and~8.2 of their September 2026 preliminary preprint; their\n  first level admits all global phases, which leaves every level $k\\geq2$\n  unchanged) \\sourcecite{ref:e432-de-silva-lautsch}{dSL26}.  A direct matrix\n  computation for this record gives $U^8=I$ and $U^4\\notin\\mathcal P_5$, so\n  $m(U)=3$; Eqs.~\\eqref{eq:e432-lower-bound} and~\\eqref{eq:e432-dsl-gate} then\n  give $CU\\notin\\mathcal C_\\infty(6)$.  Thus hierarchy membership and finite\n  Pauli periodicity of the target do not suffice."
+  ],
+  "references": [
+    {
+      "key": "XW26",
+      "label": "ref:e432-xu-wang",
+      "tex": "Y. Xu and X. Wang, ``Controlled jump in the Clifford hierarchy,''\n  arXiv:2602.22201 (2026).\n  \\href{https://doi.org/10.48550/arXiv.2602.22201}{doi:10.48550/arXiv.2602.22201};\n  \\href{https://arxiv.org/abs/2602.22201}{arXiv:2602.22201}."
+    },
+    {
+      "key": "AW24",
+      "label": "ref:e432-anderson-weippert",
+      "tex": "J. T. Anderson and M. Weippert, ``Controlled gates in the Clifford\n  hierarchy,'' arXiv:2410.04711 (2024), version 3 (2025).\n  \\href{https://doi.org/10.48550/arXiv.2410.04711}{doi:10.48550/arXiv.2410.04711};\n  \\href{https://arxiv.org/abs/2410.04711}{arXiv:2410.04711}."
+    },
+    {
+      "key": "SDK26",
+      "label": "ref:e432-surti-daguerre-kim",
+      "tex": "S. Surti, L. Daguerre, and I. H. Kim, ``Efficient Simulation of Logical\n  Magic State Preparation Protocols,'' \\emph{PRX Quantum} \\textbf{7}, 020329\n  (2026).\n  \\href{https://doi.org/10.1103/fby6-xjbm}{doi:10.1103/fby6-xjbm};\n  \\href{https://arxiv.org/abs/2512.23799}{arXiv:2512.23799}."
+    },
+    {
+      "key": "CGK17",
+      "label": "ref:e432-cui-gottesman-krishna",
+      "tex": "S. X. Cui, D. Gottesman, and A. Krishna, ``Diagonal gates in the Clifford\n  hierarchy,'' \\emph{Physical Review A} \\textbf{95}, 012329 (2017).\n  \\href{https://doi.org/10.1103/PhysRevA.95.012329}{doi:10.1103/PhysRevA.95.012329};\n  \\href{https://arxiv.org/abs/1608.06596}{arXiv:1608.06596}."
+    },
+    {
+      "key": "HRT26",
+      "label": "ref:e432-he-robitaille-tan",
+      "tex": "Z. He, L. Robitaille, and X. Tan, ``Characterization of Permutation Gates\n  in the Third Level of the Clifford Hierarchy,'' in \\emph{21st Conference on\n  the Theory of Quantum Computation, Communication and Cryptography (TQC\n  2026)}, LIPIcs \\textbf{389}, 2:1--2:17 (2026).\n  \\href{https://doi.org/10.4230/LIPIcs.TQC.2026.2}{doi:10.4230/LIPIcs.TQC.2026.2};\n  \\href{https://arxiv.org/abs/2510.04993}{arXiv:2510.04993}."
+    },
+    {
+      "key": "dSL26",
+      "label": "ref:e432-de-silva-lautsch",
+      "tex": "N. de Silva and O. Lautsch, ``The generalised semi-Clifford conjecture is\n  false,'' arXiv:2609.11903 (2026), preliminary draft.\n  \\href{https://doi.org/10.48550/arXiv.2609.11903}{doi:10.48550/arXiv.2609.11903};\n  \\href{https://arxiv.org/abs/2609.11903}{arXiv:2609.11903}."
+    }
+  ],
+  "comment": "This is Open Problem~1 of Xu and Wang, with the phase convention and the\nhierarchy-membership condition made explicit \\sourcecite{ref:e432-xu-wang}{XW26}.\nNo determination of $L(n,k,m)$ for $k\\geq3$ and no upper bound on the level of\na controlled gate with a non-Clifford target was located, and the works\nlocated that cite Xu and Wang do not address it.  The Clifford rule in\nEq.~\\eqref{eq:e432-clifford-jump}, the diagonal families in\nEq.~\\eqref{eq:e432-diagonal-families}, and the lower bounds in\nEq.~\\eqref{eq:e432-lower-bound} constrain $L(n,k,m)$ only from below.  A\ncomplete answer requires matching upper bounds on $\\ell_{n+1}(CU)$ for targets\nin $\\mathcal C_k(n)$ with $k\\geq3$; a negative answer to the boundedness\nquestion requires targets with fixed $k$ and $m$ whose controlled gates lie in\nthe hierarchy at levels unbounded in $n$.  Literature checked through 15 September 2026.",
+  "contributors": []
+}

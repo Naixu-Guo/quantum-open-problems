@@ -1,0 +1,208 @@
+% Problem record op_422d240a5f2cb7da. This TeX file is derived from
+% database/problems_json/op_422d240a5f2cb7da.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Efficient determination of the Clifford-hierarchy level of bounded-degree permutation gates}
+\label{sec:op_422d240a5f2cb7da}
+
+\paragraph{Problem.}
+For each fixed degree bound $d\geq2$, is there a deterministic
+polynomial-time algorithm that computes the Clifford-hierarchy level of an
+$n$-qubit permutation gate from degree-at-most-$d$ algebraic normal forms of
+the permutation and its inverse, or reports that the gate lies outside the
+hierarchy?  Let $n\geq1$, and let $\mathcal P_n$ be the $n$-qubit Pauli group,
+consisting of the operators $\omega P_1\otimes\cdots\otimes P_n$ with
+$\omega\in\{\pm1,\pm i\}$ and $P_j\in\{I,X,Y,Z\}$.  The Clifford hierarchy is
+defined by
+\begin{equation}
+  \mathcal C_1(n):=\mathcal P_n,
+  \qquad
+  \mathcal C_{k+1}(n):=\bigl\{U\in U(2^n):UPU^\dagger\in\mathcal C_k(n)
+    \ \text{for every}\ P\in\mathcal P_n\bigr\},
+  \qquad k\geq1,
+  \label{eq:422d-hierarchy}
+\end{equation}
+and write $\mathcal C_\infty(n):=\bigcup_{k\geq1}\mathcal C_k(n)$ and
+$\ell_n(U):=\min\{k\geq1:U\in\mathcal C_k(n)\}$ for
+$U\in\mathcal C_\infty(n)$.
+
+For a bijection $\pi:\mathbb F_2^n\to\mathbb F_2^n$, let
+$U_\pi|x\rangle:=|\pi(x)\rangle$ be its permutation gate.  Each coordinate
+$\pi_i:\mathbb F_2^n\to\mathbb F_2$ has a unique algebraic normal form, a
+multilinear polynomial over $\mathbb F_2$.  Fix an integer $d\geq2$.  An input
+consists of the algebraic normal forms of all coordinates of both $\pi$ and
+$\pi^{-1}$, each of total degree at most $d$, so it lists at most
+\begin{equation}
+  2n\sum_{j=0}^{d}\binom{n}{j}
+  \label{eq:422d-input-size}
+\end{equation}
+monomials.  The required output is $\ell_n(U_\pi)$, for the levels of
+Eq.~\eqref{eq:422d-hierarchy}, if $U_\pi\in\mathcal C_\infty(n)$, and a report
+that $U_\pi$ lies outside the hierarchy otherwise.  No ancillary qubits are
+allowed.  For each fixed $d$, in particular $d=2$, is there a deterministic
+algorithm that produces this output in time polynomial in $n$, and hence
+polynomial in the input length bounded by Eq.~\eqref{eq:422d-input-size}?
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Xu and Wang pose the question explicitly as Open Problem~3 in Section~5,
+motivated by the quadratic coordinate maps of controlled Clifford
+permutations \sourcecite{ref:422d-xu-wang}{XW26}.  This record fixes the input
+as the degree-at-most-$d$ normal forms of both $\pi$ and $\pi^{-1}$ and
+requires the algorithm to recognize permutation gates outside the
+hierarchy.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Levels up to three are decidable in polynomial time.  He, Robitaille, and
+  Tan show that a permutation gate is Clifford exactly when $\pi$ is affine
+  (Proposition~2.15 of the arXiv version, Proposition~19 of the proceedings
+  version), and that a sign gate
+  $D_f:=\sum_x(-1)^{f(x)}|x\rangle\langle x|$ lies in $\mathcal C_k(n)$
+  exactly when $\deg f\leq k$ (Lemma~2.11, Lemma~15 of the proceedings
+  version) \sourcecite{ref:422d-he-robitaille-tan}{HRT26}.  With $e_i$ the
+  $i$th standard basis vector,
+  \begin{equation}
+    U_\pi Z_iU_\pi^\dagger=D_{(\pi^{-1})_i},
+    \qquad
+    U_\pi X_iU_\pi^\dagger=U_{\tau_i},
+    \qquad
+    \tau_i(y):=\pi\bigl(\pi^{-1}(y)+e_i\bigr).
+    \label{eq:422d-conjugates}
+  \end{equation}
+  Since the Clifford group is a group, it suffices to test the conjugates in
+  Eq.~\eqref{eq:422d-conjugates}, as in the proof of their Proposition~4.3
+  (Proposition~35 of the proceedings version).  Hence
+  $U_\pi\in\mathcal C_3(n)$ exactly when every coordinate of $\pi^{-1}$ has
+  degree at most two and every $\tau_i$ is affine; $U_\pi\in\mathcal C_2(n)$
+  exactly when $\pi$ is affine; and $U_\pi\in\mathcal C_1(n)$ exactly when
+  $\pi$ is a translation.  For fixed $d$, composing and expanding the given
+  normal forms tests these conditions in time polynomial in $n$.  This
+  criterion is a deduction from the cited results.
+
+  \item Low degree does not bound the level.  Lemma~2.13 of He, Robitaille, and
+  Tan (Lemma~17 of the proceedings version) gives only the necessary condition
+  \begin{equation}
+    U_\pi\in\mathcal C_{k+1}(n)
+    \quad\Longrightarrow\quad
+    \deg(\pi^{-1})_i\leq k\ \text{for every}\ i
+    \label{eq:422d-degree-necessary}
+  \end{equation}
+  \sourcecite{ref:422d-he-robitaille-tan}{HRT26}.  Conversely, Proposition~8
+  of Xu and Wang shows that controlled Clifford permutations have quadratic
+  coordinates, and their inverses are of the same form
+  \sourcecite{ref:422d-xu-wang}{XW26}.  For $n\geq3$, the $(n-1)$-qubit CNOT
+  string whose linear part is a single Jordan block has Pauli periodicity
+  $\lceil\log_2(n-1)\rceil$, the least $t$ for which its $2^t$th power is a
+  Pauli operator (Corollary~2 of Xu and Wang).  Their Theorem~3 then gives a
+  permutation gate on $n$ qubits with quadratic $\pi$ and $\pi^{-1}$ and exact
+  level
+  \begin{equation}
+    \ell_n(U_\pi)=\lceil\log_2(n-1)\rceil+2.
+    \label{eq:422d-growing-level}
+  \end{equation}
+  Thus the output grows with $n$ even for $d=2$, and neither
+  Eq.~\eqref{eq:422d-degree-necessary} nor a polynomial-time test for each
+  fixed level answers the question.
+
+  \item Quadratic permutations can lie outside the hierarchy.  On three bits
+  $(c,a,b)$, consider
+  \begin{equation}
+    \pi(c,a,b):=(c,\ a+cb,\ b+ca+cb),
+    \qquad
+    \pi^{-1}(c,a,b)=(c,\ a+ca+cb,\ b+ca).
+    \label{eq:422d-toffoli-pair}
+  \end{equation}
+  The permutation in Eq.~\eqref{eq:422d-toffoli-pair} is the controlled version
+  of the linear map $V:(a,b)\mapsto(a+b,a)$, a product of two CNOT gates of
+  order three.  Every power $V^{2^t}$ equals $V$ or $V^2$, and neither is a
+  Pauli operator, so Corollary~2.4.1 of Anderson and Weippert excludes $U_\pi$
+  from every level \sourcecite{ref:422d-anderson-weippert}{AW24}.  The gate
+  $U_\pi$ is the product $\mathrm{TOF}_{1,2,3}\mathrm{TOF}_{1,3,2}$ of two
+  Toffoli gates, which He, Robitaille, and Tan note lies outside the hierarchy
+  (their footnote~1), citing Eq.~(E.2) of Anderson
+  \sourcecite{ref:422d-he-robitaille-tan}{HRT26},
+  \sourcecite{ref:422d-anderson}{And24}.  An algorithm must therefore also
+  recognize non-membership.
+
+  \item General-purpose procedures are exponential.  Appendix~D of Anderson counts
+  the conjugation checks implied by the recursive definition: a black-box
+  membership test at level $k$ uses $4^{n(k-3)}\cdot2n$ queries in general and,
+  because only Pauli $X$ strings need to be checked for permutation gates,
+  $2^{n(k-3)}\cdot n$ queries for permutations, which he notes is still
+  exponential.  He also remarks that, because deciding whether a reversible
+  circuit implements the identity is NP-hard, an efficient algorithm
+  determining the level of a general permutation is highly unlikely
+  \sourcecite{ref:422d-anderson}{And24}.  That remark concerns permutations
+  specified by general reversible circuits; it gives no hardness result for
+  bounded-degree algebraic normal forms.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[XW26]}]\label{ref:422d-xu-wang}
+  Y. Xu and X. Wang, ``Controlled jump in the Clifford hierarchy,''
+  arXiv:2602.22201 (2026).
+  \href{https://doi.org/10.48550/arXiv.2602.22201}{doi:10.48550/arXiv.2602.22201};
+  \href{https://arxiv.org/abs/2602.22201}{arXiv:2602.22201}.
+
+  \item[\textup{[HRT26]}]\label{ref:422d-he-robitaille-tan}
+  Z. He, L. Robitaille, and X. Tan, ``Characterization of Permutation Gates
+  in the Third Level of the Clifford Hierarchy,'' in \emph{21st Conference on
+  the Theory of Quantum Computation, Communication and Cryptography (TQC
+  2026)}, LIPIcs \textbf{389}, 2:1--2:17 (2026).
+  \href{https://doi.org/10.4230/LIPIcs.TQC.2026.2}{doi:10.4230/LIPIcs.TQC.2026.2};
+  \href{https://arxiv.org/abs/2510.04993}{arXiv:2510.04993}.
+
+  \item[\textup{[AW24]}]\label{ref:422d-anderson-weippert}
+  J. T. Anderson and M. Weippert, ``Controlled gates in the Clifford
+  hierarchy,'' arXiv:2410.04711 (2024), version 3 (2025).
+  \href{https://doi.org/10.48550/arXiv.2410.04711}{doi:10.48550/arXiv.2410.04711};
+  \href{https://arxiv.org/abs/2410.04711}{arXiv:2410.04711}.
+
+  \item[\textup{[And24]}]\label{ref:422d-anderson}
+  J. T. Anderson, ``On Groups in the Qubit Clifford Hierarchy,''
+  \emph{Quantum} \textbf{8}, 1370 (2024).
+  \href{https://doi.org/10.22331/q-2024-06-13-1370}{doi:10.22331/q-2024-06-13-1370};
+  \href{https://arxiv.org/abs/2212.05398}{arXiv:2212.05398}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+This is Open Problem~3 of Xu and Wang \sourcecite{ref:422d-xu-wang}{XW26}.
+The source assumes that ``both $\pi$ and/or $\pi^{-1}$'' admit coordinatewise
+polynomial representations of total degree at most $2$, or of a fixed degree,
+and asks for an efficient algorithm that computes the smallest $k$ with
+$U_\pi\in\mathcal C_k(n)$ from such a description of $\pi$.  This record
+supplies both descriptions, which gives an algorithm the most generous input,
+and requires efficiency uniformly in the output level, including recognition
+of non-membership.  No such algorithm and no hardness result for
+bounded-degree descriptions was located.  The polynomial-time criterion for
+levels at most three rests on the group property of the Clifford group, which
+fails at higher levels, and Eq.~\eqref{eq:422d-growing-level} shows that
+bounded degree does not bound the level.  The question also differs from
+whether every $n$-qubit permutation gate in the hierarchy lies in
+$\mathcal C_n(n)$: such a universal height bound would not yield an efficient
+algorithm, and an efficient algorithm would not by itself prove the bound.
+Open Problem~1 of the same paper is the record on
+\href{https://qiqc-op.com/problem/op_e432fc5ff73e63be/}{the highest Clifford-hierarchy level of controlled gates with
+higher-level targets}.
+Literature checked through 15 September 2026.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Clifford hierarchy; Computational complexity and computability
+
+\subsection*{ID}
+
+\texttt{op\_422d240a5f2cb7da}

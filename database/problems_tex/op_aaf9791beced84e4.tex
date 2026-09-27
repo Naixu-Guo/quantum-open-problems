@@ -1,0 +1,84 @@
+% Problem record op_aaf9791beced84e4. This TeX file is derived from
+% database/problems_json/op_aaf9791beced84e4.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Exact spectral gap of random Pauli rotations}
+\label{sec:op_aaf9791beced84e4}
+
+\paragraph{Problem.}
+Is the exact Haar-mixing spectral gap of uniformly random Pauli rotations equal to $2^n(2^n-3)/(8(4^n-1))$ for every $n\geq4$?
+
+Let $\mathcal P_n=\{I,X,Y,Z\}^{\otimes n}\setminus\{I^{\otimes n}\}$. One step chooses $P\in\mathcal P_n$ and $\theta\in[0,2\pi)$ uniformly and applies $e^{i\theta P}$. On $L^2(\mathrm{SU}(2^n),\mathrm{Haar})$, define
+
+\begin{equation}
+(K_nf)(U)=\mathbb E_{P,\theta}f(e^{i\theta P}U),
+\qquad
+\Delta_n=1-\|K_n|_{L^2_0}\|_{2\to2},
+\label{eq:aaf9-1}
+\end{equation}
+
+where $L^2_0$ is the zero-Haar-mean subspace. The conjectured value of the gap in Eq.~\eqref{eq:aaf9-1} is
+
+\begin{equation}
+\Delta_n=\frac{2^n(2^n-3)}{8(4^n-1)}
+\label{eq:aaf9-2}
+\end{equation}
+
+Does Eq.~\eqref{eq:aaf9-2} hold for every $n\geq4$?
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+The question is explicitly posed or retained as open in the cited primary literature \sourcecite{ref:aaf9-baer26}{Baer26}.  The statement is rewritten here to make its hypotheses and success criterion self-contained.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Baer and Haah prove the bounds
+  \begin{equation}
+\frac{4^n+16}{16(4^n-1)}
+  \leq\Delta_n
+  \leq\frac{2^n(2^n-3)}{8(4^n-1)}.
+\label{eq:aaf9-3}
+\end{equation}
+  The upper bound comes from the fourth-moment representation $U^{\otimes4}\otimes\overline U^{\otimes4}$; see Theorem 3.16 and Proposition 3.17. \sourcecite{ref:aaf9-baer26}{Baer26}
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:aaf9-3}.
+
+  \item Proposition 3.17 settles $n\leq3$. In particular, $\Delta_3=5/63$, whereas the first unresolved instance has
+  \begin{equation}
+\frac1{15}\leq\Delta_4\leq\frac{26}{255}.
+\label{eq:aaf9-4}
+\end{equation}
+  Conjecture 3.48 asserts that the upper bound is always attained. \sourcecite{ref:aaf9-baer26}{Baer26}
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:aaf9-4}.
+
+  \item The 23 July 2026 preprint proves a constant gap, but explicitly leaves this exact formula conjectural. No subsequent resolution of Conjecture 3.48 was located. \sourcecite{ref:aaf9-baer26}{Baer26}
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Baer26]}]\label{ref:aaf9-baer26}
+  T. Baer and J. Haah, "Random unitary circuits with constant spectral gap," arXiv preprint (2026), version 1, 23 July 2026. \href{https://arxiv.org/abs/2607.20919}{arXiv:2607.20919}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The unresolved issue is whether any higher representation mixes more slowly than the identified fourth-moment mode. This would determine the exact spectral bottleneck across all moment orders, not merely establish convergence to Haar randomness.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Random circuit sampling; Quantum circuit complexity
+
+\subsection*{ID}
+
+\texttt{op\_aaf9791beced84e4}

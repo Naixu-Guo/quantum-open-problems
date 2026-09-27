@@ -10,7 +10,7 @@
   "metadata": {
     "type": "Problem",
     "schemaVersion": "1.0",
-    "revision": 1,
+    "revision": 2,
     "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
     "createdAt": "2026-09-08T12:04:51.771Z",
     "role": "primary",
@@ -42,7 +42,8 @@
   "progress": [
     "Le Gall obtained a bounded-error quantum algorithm with query complexity\n$\\widetilde O(n^{5/4})$, using combinatorial properties specific to\nunweighted triangle finding together with quantum-search and quantum-walk\ntechniques\n\\sourcecite{ref:0c17-le-gall}{LG14}.",
     "Carette, Lauri\\`ere, and Magniez introduced extended learning graphs,\nremoving the polylogarithmic overhead from the above bound and establishing\nthe current best general upper bound $O(n^{5/4})$; their framework also\nyields improved bounds in several sparse-graph regimes\n\\sourcecite{ref:0c17-carette}{CLM17}.",
-    "Belovs and Rosmanis proved an $\\Omega(n^{9/7}/\\sqrt{\\log n})$ quantum\nquery lower bound for the related edge-weighted triangle-sum problem and\nshowed that the $O(n^{9/7})$ non-adaptive learning-graph approach to\nTriangle Finding is essentially optimal within that framework\n\\sourcecite{ref:0c17-belovs}{BR14}."
+    "Belovs and Rosmanis proved an $\\Omega(n^{9/7}/\\sqrt{\\log n})$ quantum\nquery lower bound for the related edge-weighted triangle-sum problem and\nshowed that the $O(n^{9/7})$ non-adaptive learning-graph approach to\nTriangle Finding is essentially optimal within that framework\n\\sourcecite{ref:0c17-belovs}{BR14}.",
+    "Jiang and Peng's 2026 work on triangle cut sparsification gives advances for triangle listing and sparsification but explicitly leaves the adjacency-matrix gap between the $\\Omega(n)$ lower bound and the $O(n^{5/4})$ upper bound unresolved. \\sourcecite{ref:0c17-jiang-peng}{JP26}"
   ],
   "references": [
     {
@@ -64,6 +65,11 @@
       "key": "LL25",
       "label": "ref:0c17-li-li",
       "tex": "Guanzhong Li and Lvzhou Li, ``Derandomization of Quantum Algorithm for\nTriangle Finding,'' \\emph{Information and Computation} \\textbf{304}, 105295\n(2025).\n\\href{https://doi.org/10.1016/j.ic.2025.105295}{doi:10.1016/j.ic.2025.105295};\n\\href{https://arxiv.org/abs/2309.13268}{arXiv:2309.13268}."
+    },
+    {
+      "key": "JP26",
+      "label": "ref:0c17-jiang-peng",
+      "tex": "Shan Jiang and Pan Peng, \\emph{Quantum Algorithms for Triangle Cut Sparsification}, arXiv:2606.06287v2 (5 June 2026), listed as ICML 2026. \\href{https://arxiv.org/abs/2606.06287}{arXiv:2606.06287}."
     }
   ],
   "comment": "The open question is to determine the asymptotic behavior of\n$Q_{\\triangle}(n)$: either an algorithm using $O(n^{5/4-\\varepsilon})$\nqueries for some constant $\\varepsilon>0$, or a lower bound of\n$\\Omega(n^{1+\\varepsilon})$ for unrestricted bounded-error quantum\nalgorithms; neither is known for general unweighted graphs in the\nadjacency-matrix oracle model.  The distinction between unweighted Triangle\nFinding and edge-weighted Triangle Sum is essential: the stronger lower\nbounds known for Triangle Sum (Progress above) must not be recorded as lower\nbounds for this problem.  Li and Li, who identify the gap as open, study a\ndifferent question, namely derandomizing related triangle-finding algorithms\nunder an additional uniqueness promise, and do not close this gap\n\\sourcecite{ref:0c17-li-li}{LL25}."

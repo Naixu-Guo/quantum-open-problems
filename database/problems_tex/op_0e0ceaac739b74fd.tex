@@ -1,0 +1,181 @@
+% Problem record op_0e0ceaac739b74fd. This TeX file is derived from
+% database/problems_json/op_0e0ceaac739b74fd.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Many-copy Bell nonlocality of every entangled state}
+\label{sec:op_0e0ceaac739b74fd}
+
+\paragraph{Problem.}
+Does every entangled bipartite state become Bell nonlocal under collective
+local measurements on some finite number of copies?  Fix an integer $d\geq2$
+and a state $\rho$ on $\mathbb C^d\otimes\mathbb C^d$.  At blocklength $n$,
+Alice and Bob choose arbitrary collective positive operator-valued measurements
+$\{M_{a|x}\}_a$ and $\{N_{b|y}\}_b$ on their respective $n$ subsystems.
+Settings $x,y$ and outcomes $a,b$ range over finite sets, and
+\begin{equation}
+  p_\rho^{(n)}(a,b\mid x,y)
+  :=\operatorname{Tr}\!\left[\rho^{\otimes n}(M_{a|x}\otimes N_{b|y})\right].
+  \label{eq:0e0c-behavior}
+\end{equation}
+A behavior is Bell local when it admits a local hidden-variable decomposition
+\begin{equation}
+  p(a,b\mid x,y)=\int\mu(d\lambda)\,p_A(a\mid x,\lambda)\,p_B(b\mid y,\lambda),
+  \label{eq:0e0c-local}
+\end{equation}
+where $\mu$ is a probability measure independent of the settings and
+$p_A,p_B$ are local response distributions.  For $s\geq2$, let
+$\mathsf L^{(s)}$ be the set of states on $\mathbb C^s\otimes\mathbb C^s$ all
+of whose behaviors, for all finite setting and outcome sets and all local
+positive operator-valued measurements, are Bell local.  Let
+$\mathsf L_\infty^{(d)}$ be the set of states $\rho$ for which every behavior
+in Eq.~\eqref{eq:0e0c-behavior} admits a decomposition as in
+Eq.~\eqref{eq:0e0c-local} for every finite $n$; equivalently,
+$\rho^{\otimes n}\in\mathsf L^{(d^n)}$ for all $n\geq1$, with Alice's $n$
+subsystems grouped against Bob's.  Let $\mathrm{SEP}_d$ denote the separable
+states on $\mathbb C^d\otimes\mathbb C^d$.  No communication, auxiliary
+entangled state, or postselection is allowed, and every measurement outcome is
+retained.  The question is whether
+\begin{equation}
+  \mathsf L_\infty^{(d)}=\mathrm{SEP}_d
+  \qquad\text{for every finite }d\geq2.
+  \label{eq:0e0c-question}
+\end{equation}
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Cavalcanti, Ac\'in, Brunner, and V\'ertesi explicitly ask, in the discussion
+of their results, whether every entangled state is a nonlocal resource when a
+sufficient number of copies is considered \sourcecite{ref:0e0c-cabv}{CABV13}.
+\v{S}upi\'c, Skrzypczyk, and Cavalcanti state in Sec.~I that whether every
+entangled state can be superactivated in this way is open
+\sourcecite{ref:0e0c-ssc}{SSC17}.  Eq.~\eqref{eq:0e0c-question} is a precise
+formulation of that question.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Palazuelos proves that Bell nonlocality can be superactivated by tensor
+  powers without local preprocessing: certain isotropic states that admit a
+  local hidden-variable model for all local positive operator-valued
+  measurements have tensor powers violating a Bell inequality based on the
+  Khot--Vishnoi game \sourcecite{ref:0e0c-pal}{Pal12}.  Thus
+  \begin{equation}
+    \rho\in\mathsf L^{(d)},
+    \qquad
+    \rho^{\otimes n}\notin\mathsf L^{(d^n)}
+    \label{eq:0e0c-superactivation}
+  \end{equation}
+  is possible for some states $\rho$ and finite $n$.  Existence of the effect
+  in Eq.~\eqref{eq:0e0c-superactivation} is settled; its universality over
+  entangled states is the question.
+
+  \item Cavalcanti, Ac\'in, Brunner, and V\'ertesi prove the sufficient condition
+  \begin{equation}
+    F_d(\rho)>\frac1d
+    \quad\Longrightarrow\quad
+    \rho\notin\mathsf L_\infty^{(d)},
+    \label{eq:0e0c-fraction-criterion}
+  \end{equation}
+  where
+  \begin{equation}
+    F_d(\rho):=\max_{U\in\mathrm U(d)}
+    \langle\Phi_d|(I_d\otimes U)\rho(I_d\otimes U^\dagger)|\Phi_d\rangle,
+    \qquad
+    |\Phi_d\rangle:=\frac1{\sqrt d}\sum_{j=0}^{d-1}|jj\rangle,
+    \label{eq:0e0c-fraction}
+  \end{equation}
+  is the fully entangled fraction and $\mathrm U(d)$ is the unitary group
+  \sourcecite{ref:0e0c-cabv}{CABV13}.  Their proof twirls $\rho$ into an
+  isotropic state with the same value of Eq.~\eqref{eq:0e0c-fraction} and
+  applies Khot--Vishnoi Bell inequalities to collective local measurements on
+  $\rho^{\otimes k}$; the twirling unitaries are absorbed into the local
+  measurements, so no filtering, auxiliary state, or postselection is used.
+  Eq.~\eqref{eq:0e0c-fraction-criterion} covers every entangled isotropic
+  state, but not every entangled state: the authors note that it does not
+  apply to some distillable states.
+
+  \item \v{S}upi\'c, Skrzypczyk, and Cavalcanti distinguish the many-copy scenario
+  from quantum networks, hidden nonlocality with local preprocessing, and
+  Bell tests with quantum inputs, in which every entangled state can be
+  detected \sourcecite{ref:0e0c-ssc}{SSC17}.  The unresolved implication is
+  \begin{equation}
+    \rho\notin\mathrm{SEP}_d
+    \quad\Longrightarrow\quad
+    \exists\,n\geq1:\ \rho^{\otimes n}\notin\mathsf L^{(d^n)},
+    \label{eq:0e0c-implication}
+  \end{equation}
+  not a scenario in which a referee supplies additional quantum inputs.
+
+  \item Renner, Lobo, Konderak, Augusiak, and Ac\'in prove a stronger many-copy
+  statement for pure states: for every pure entangled state $|\psi\rangle$
+  there is an integer $k$ such that suitable local measurements on
+  $|\psi\rangle^{\otimes k}$ give a behavior with zero local content (Result~2
+  in Sec.~V of \sourcecite{ref:0e0c-rlkaa}{RLKAA26}).  The local content of a
+  nonsignaling behavior $p$ is
+  \begin{equation}
+    \operatorname{LC}(p):=\max\left\{q\in[0,1]:\
+    p=q\,p_L+(1-q)\,p_{\mathrm{NS}},\
+    p_L\ \text{Bell local},\ p_{\mathrm{NS}}\ \text{nonsignaling}\right\}.
+    \label{eq:0e0c-local-content}
+  \end{equation}
+  Pure entangled states are already Bell nonlocal for a single copy, as
+  recalled in \sourcecite{ref:0e0c-pal}{Pal12}; the conclusion
+  $\operatorname{LC}(p)=0$ in Eq.~\eqref{eq:0e0c-local-content} strengthens
+  the pure-state case and does not address mixed states.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Pal12]}]\label{ref:0e0c-pal}
+  C. Palazuelos, ``Superactivation of Quantum Nonlocality,''
+  \emph{Physical Review Letters} \textbf{109}, 190401 (2012).
+  \href{https://doi.org/10.1103/PhysRevLett.109.190401}{doi:10.1103/PhysRevLett.109.190401};
+  \href{https://arxiv.org/abs/1205.3118}{arXiv:1205.3118}.
+
+  \item[\textup{[CABV13]}]\label{ref:0e0c-cabv}
+  D. Cavalcanti, A. Ac\'in, N. Brunner, and T. V\'ertesi, ``All Quantum
+  States Useful for Teleportation Are Nonlocal Resources,'' \emph{Physical
+  Review A} \textbf{87}, 042104 (2013).
+  \href{https://doi.org/10.1103/PhysRevA.87.042104}{doi:10.1103/PhysRevA.87.042104};
+  \href{https://arxiv.org/abs/1207.5485}{arXiv:1207.5485}.
+
+  \item[\textup{[SSC17]}]\label{ref:0e0c-ssc}
+  I. \v{S}upi\'c, P. Skrzypczyk, and D. Cavalcanti,
+  ``Measurement-Device-Independent Entanglement and Randomness Estimation in
+  Quantum Networks,'' \emph{Physical Review A} \textbf{95}, 042340 (2017).
+  \href{https://doi.org/10.1103/PhysRevA.95.042340}{doi:10.1103/PhysRevA.95.042340};
+  \href{https://arxiv.org/abs/1702.04752}{arXiv:1702.04752}.
+
+  \item[\textup{[RLKAA26]}]\label{ref:0e0c-rlkaa}
+  M. J. Renner, E. P. Lobo, A. Konderak, R. Augusiak, and A. Ac\'in, ``All
+  Pure Entangled States Can Lead to Fully Nonlocal Correlations,'' arXiv
+  preprint, version 1, 29 April 2026.
+  \href{https://arxiv.org/abs/2604.26605}{arXiv:2604.26605}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+No proof or counterexample to Eq.~\eqref{eq:0e0c-question} is known.  A
+counterexample must be an entangled state with a local hidden-variable model
+for every finite tensor power and all collective local measurements, not
+merely a state that passes finitely many Bell tests.  This many-copy property
+is not a regularized rate, so activation by copies of the same state is
+meaningful here.  Activation with auxiliary states, local filtering, networks,
+or quantum inputs concerns different scenarios.  Literature checked through 15 September 2026.
+
+\subsection*{Field}
+
+Quantum Resource Theory
+
+\subsection*{Topic}
+
+Superactivation; Bell nonlocality; Quantum separability
+
+\subsection*{ID}
+
+\texttt{op\_0e0ceaac739b74fd}

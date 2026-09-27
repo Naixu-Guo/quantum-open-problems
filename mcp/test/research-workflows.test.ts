@@ -158,13 +158,24 @@ test("maintained catalog research workflows through the official HTTP SDK", { ti
   });
 
   await t.test("the fixture reads the complete maintained catalog without inventing difficulty ratings", async () => {
-    const page = await call<SearchPage>("search_problems", { limit: 200 });
-    assert.equal(page.total, records.length);
-    assert.equal(page.count, records.length);
-    assert.equal(page.nextCursor, null);
-    assert.equal(new Set(ids(page)).size, records.length);
-    assert.ok(page.catalogVersion.length > 0);
-    for (const problem of page.problems) assert.equal(problem.difficulty, records.find(record => record.ulid === problem.id)!.metadata.difficulty);
+    let page = await call<SearchPage>("search_problems", { limit: 200 });
+    const version = page.catalogVersion;
+    const seen: string[] = [];
+    assert.ok(version.length > 0);
+    while (true) {
+      assert.equal(page.total, records.length);
+      assert.equal(page.count, page.problems.length);
+      assert.equal(page.catalogVersion, version);
+      for (const problem of page.problems) {
+        assert.ok(!seen.includes(problem.id), "Each catalog record occurs once across pages");
+        seen.push(problem.id);
+        assert.equal(problem.difficulty, records.find(record => record.ulid === problem.id)!.metadata.difficulty);
+      }
+      if (page.nextCursor === null) break;
+      assert.ok(page.count > 0, "A continuing page must make progress");
+      page = await call<SearchPage>("search_problems", { limit: 200, cursor: page.nextCursor });
+    }
+    assert.deepEqual(new Set(seen), new Set(records.map(record => record.ulid)));
   });
 
   await t.test("scientific search excludes opaque-ID substrings while complete identities still resolve", async () => {
@@ -244,7 +255,11 @@ test("maintained catalog research workflows through the official HTTP SDK", { ti
       assert.equal(entry.provenance.section, "progress");
       assert.equal(entry.provenance.index, index);
       assert.equal(entry.provenance.locator, `progress:${index}`);
-      assert.ok(entry.citationKeys.length > 0);
+      if (entry.citationKeys.length === 0) {
+        assert.match(entry.text, /^Historical GitHub report \(\d{4}-\d{2}-\d{2}\):/u);
+        assert.match(entry.text, /\\href\{https:\/\/github\.com\/Naixu-Guo\/quantum-open-problems\/(?:issues|pull)\/\d+(?:#[^}]+)?\}/u,
+          "A historical report keeps its original source link without inventing a paper citation");
+      }
       assert.ok(entry.citationKeys.every(key => keys.has(key)));
     }
     const front = await call<{ acceptedClaims: unknown[] }>("get_frontier", { id: qma.id });
@@ -481,7 +496,8 @@ test("maintained catalog research workflows through the official HTTP SDK", { ti
     assert.ok(recent.statement.clauses.some(clause => clause.id === "main" && clause.text.includes("squared")));
     const authored = recent.authoredCatalog!.record!;
     assert.match(authored.progress[0]!, /inbox\s+on 10 September 2026/u);
-    assert.match(authored.comment, /no external peer review/u);
+    assert.match(authored.comment, /neither result has external peer review or a\s+proof-assistant kernel check/u);
+    assert.match(authored.comment, /no historical-priority claim is asserted/u);
     const citation = authored.references.find(reference => reference.label === "ref:p70-peter-counterexamples");
     assert.ok(citation);
     assert.match(citation.tex, /submissions \(10 September 2026\)/u);

@@ -1,0 +1,158 @@
+% Problem record op_2778126c209a3d49. This TeX file is derived from
+% database/problems_json/op_2778126c209a3d49.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Superactivation of bipartite classical secret-key rates}
+\label{sec:op_2778126c209a3d49}
+
+\paragraph{Problem.}
+Can two classical sources, each with zero secret-key rate between two
+honest parties, yield a positive secret-key rate when used jointly?  Let
+$p_{ABE}$ and $q_{A'B'E'}$ be probability distributions on finite classical
+alphabets.  For such a source $p$, let $K_{\mathrm{cl}}(p)$ denote its
+asymptotic secret-key rate, in bits per independent sample, under arbitrary
+local random processing and unlimited authenticated interactive public
+discussion.  Eve holds exactly the specified classical variables and the entire
+public transcript; she is not supplied a quantum purification.  Keys must
+become uniform, shared correctly, and independent of Eve's information in
+total variation distance.  The combined source is the independent product
+$p\otimes q:=p_{ABE}\,q_{A'B'E'}$, with Alice holding $AA'$, Bob holding
+$BB'$, and Eve holding $EE'$.  The question is whether there is a pair
+satisfying
+\begin{equation}
+  K_{\mathrm{cl}}(p)=K_{\mathrm{cl}}(q)=0,
+  \qquad
+  K_{\mathrm{cl}}(p\otimes q)>0.
+  \label{eq:2778-superactivation}
+\end{equation}
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Prettico and Ac\'in explicitly ask whether bipartite classical information
+resources can be activated, and give evidence that the classical secret-key
+rate may be non-additive \sourcecite{ref:2778-pa}{PA13}.  Pauwels, Gisin, and
+Renner restate this activation question in the outlook of their bipartite
+bound-information preprint \sourcecite{ref:2778-pgr}{PGR26}.  The strict
+condition in Eq.~\eqref{eq:2778-superactivation} isolates the superactivation
+form of that question.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Ac\'in, Cirac, and Masanes prove that bound information exists and can be
+  activated with three honest parties: they give tripartite distributions
+  from which no pair of honest parties can distill secret key, even with help
+  from the third, but whose equal mixture yields a common secret key
+  \sourcecite{ref:2778-acm}{ACM04}.  Such multipartite non-distillability
+  arguments group honest parties across bipartitions, which is impossible
+  with only two honest parties \sourcecite{ref:2778-pgr}{PGR26}, so they do
+  not settle Eq.~\eqref{eq:2778-superactivation}.
+
+  \item Prettico and Ac\'in construct two classical distributions, modeled on a
+  quantum activation example, from which the advantage-distillation protocols
+  they analyze extract no key individually, while a combined protocol yields
+  positive key in part of the parameter range
+  \sourcecite{ref:2778-pa}{PA13}.  The individual zero-key rates remain
+  conjectural, and the authors note that one or both distributions might be
+  key-distillable.  Failure of the tested protocols is not a converse against
+  all public-discussion protocols, so this construction does not establish
+  Eq.~\eqref{eq:2778-superactivation}.
+
+  \item Pauwels, Gisin, and Renner's July 2026 preprint, revised on 8 September
+  2026, gives an explicit bipartite bound-information source $p_\star$ with
+  $A,B\in\{0,1\}$ and $E\in\{0,1,\perp\}$.  Its probability matrices
+  $M_e:=[p_\star(a,b,e)]_{a,b=0}^{1}$ are
+  \begin{equation}
+    M_0=\frac1{36}\begin{pmatrix}5&2\\2&0\end{pmatrix},\qquad
+    M_1=\frac1{36}\begin{pmatrix}0&2\\2&5\end{pmatrix},\qquad
+    M_\perp=\frac1{36}\begin{pmatrix}5&4\\4&5\end{pmatrix}.
+    \label{eq:2778-source}
+  \end{equation}
+  For the source in Eq.~\eqref{eq:2778-source}, Theorem~1 of the preprint
+  proves
+  \begin{equation}
+    K_{\mathrm{cl}}(p_\star)=0
+    <I(A:B\downarrow E)_{p_\star}
+    \leq I_{\mathrm{form}}(p_\star).
+    \label{eq:2778-bound-information}
+  \end{equation}
+  Here $I(A:B\downarrow E):=\inf_{E\to\bar E}I(A:B\mid\bar E)$ is the intrinsic
+  information, minimized over classical stochastic maps, and
+  $I_{\mathrm{form}}$ is the formation cost: the minimal rate of preshared
+  secret bits needed to generate the source by public discussion whose
+  transcript can be simulated from Eve's variable
+  \sourcecite{ref:2778-pgr}{PGR26}.
+
+  \item In its outlook, the revised preprint notes that bipartite activation had
+  been asked but could not be settled without a proven example, and proposes
+  its sources as explicit resources on which to investigate activation
+  \sourcecite{ref:2778-pgr}{PGR26}.  It supplies a candidate factor, not a
+  pair with
+  \begin{equation}
+    K_{\mathrm{cl}}(p_\star)=K_{\mathrm{cl}}(q)=0<K_{\mathrm{cl}}(p_\star\otimes q).
+    \label{eq:2778-candidate}
+  \end{equation}
+  The strict condition in Eq.~\eqref{eq:2778-candidate} is stronger than
+  increasing the rate of a source that already has positive key.
+
+  \item Grouping independent samples cannot activate a zero rate:
+  \begin{equation}
+    K_{\mathrm{cl}}(p^{\otimes k})=k\,K_{\mathrm{cl}}(p)
+    \qquad(k\geq1),
+    \label{eq:2778-regrouping}
+  \end{equation}
+  since protocols on blocks of $k$ samples and protocols on individual
+  samples convert into each other with rates rescaled by $k$.  By
+  Eq.~\eqref{eq:2778-regrouping}, a pair satisfying
+  Eq.~\eqref{eq:2778-superactivation} must combine genuinely different
+  sources, not finite blocks of one zero-key source.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[ACM04]}]\label{ref:2778-acm}
+  A. Ac\'in, J. I. Cirac, and Ll. Masanes, ``Multipartite Bound Information
+  Exists and Can Be Activated,'' \emph{Physical Review Letters} \textbf{92},
+  107903 (2004).
+  \href{https://doi.org/10.1103/PhysRevLett.92.107903}{doi:10.1103/PhysRevLett.92.107903};
+  \href{https://arxiv.org/abs/quant-ph/0311064}{arXiv:quant-ph/0311064}.
+
+  \item[\textup{[PA13]}]\label{ref:2778-pa}
+  G. Prettico and A. Ac\'in, ``Can Bipartite Classical Information
+  Resources Be Activated?,'' \emph{Quantum Information and Computation}
+  \textbf{13}, 245--265 (2013).
+  \href{https://doi.org/10.26421/QIC13.3-4-6}{doi:10.26421/QIC13.3-4-6};
+  \href{https://arxiv.org/abs/1203.1445}{arXiv:1203.1445}.
+
+  \item[\textup{[PGR26]}]\label{ref:2778-pgr}
+  J. Pauwels, N. Gisin, and R. Renner, ``Bipartite Bound Information
+  Exists,'' arXiv preprint, version 2, 8 September 2026.
+  \href{https://arxiv.org/abs/2607.25838}{arXiv:2607.25838}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+Bipartite bound information has an affirmative preprint result, while
+strict bipartite superactivation of the classical secret-key rate remains
+unresolved.  The unresolved target is a pair satisfying
+Eq.~\eqref{eq:2778-superactivation} or a theorem that the full set of sources
+with $K_{\mathrm{cl}}=0$ is closed under independent products.  A classical
+bound-information source is not a quantum bound-key example, because the
+adversary and the allowed resources differ.  Literature checked through 15 September 2026.
+
+\subsection*{Field}
+
+Quantum Cryptography
+
+\subsection*{Topic}
+
+Superactivation; Secret-key distillation
+
+\subsection*{ID}
+
+\texttt{op\_2778126c209a3d49}

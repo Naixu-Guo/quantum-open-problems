@@ -1,0 +1,77 @@
+---
+id: "01M2M9FC22Z4C4YCDYT9XZCB59"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 2
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-16T06:50:03.694Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "editor-formulated"
+posed: null
+areaIds: ["quantum-metrology","quantum-algorithm"]
+topicIds: ["quantum-estimation","computational-complexity-and-computability","quantum-thermodynamics"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Unknown-structure Hamiltonian learning from Gibbs states at all temperatures"
+aliases: ["op-845158213592821f","op_845158213592821f","01M2M9FC22Z4C4YCDYT9XZCB59"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_845158213592821f.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_845158213592821f","ulid":"01M2M9FC22Z4C4YCDYT9XZCB59","aliases":["op_845158213592821f","01M2M9FC22Z4C4YCDYT9XZCB59","op-845158213592821f"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":2,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-16T05:01:48.482Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"editor-formulated","posed":null,"areaIds":["quantum-metrology","quantum-algorithm"],"topicIds":["quantum-estimation","computational-complexity-and-computability","quantum-thermodynamics"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Unknown-structure Hamiltonian learning from Gibbs states at all temperatures","status":"Unsolved","fields":["Quantum metrology","Quantum algorithm"],"topics":["Quantum estimation","Computational complexity and computability","Quantum thermodynamics"],"statement":"Can every bounded-degree local Hamiltonian with unknown interaction support be learned efficiently from copies of its Gibbs state at any fixed inverse temperature?\n\nFix constants $k$ and $g$. Let $\\mathcal P_{n,k}$ be the nonidentity $n$-qubit Pauli strings of weight at most $k$, and consider\n\n\\begin{equation}\nH=\\sum_{P\\in\\mathcal P_{n,k}}a_PP,\n\\quad |a_P|\\leq1,\n\\quad \\max_j|\\{P:a_P\\neq0,\\ j\\in\\operatorname{supp}(P)\\}|\\leq g,\n\\qquad\n\\rho_\\beta=\\frac{e^{-\\beta H}}{\\operatorname{Tr}(e^{-\\beta H})}.\n\\label{eq:8451-1}\n\\end{equation}\n\nThe nonzero Pauli terms are unknown, while $\\beta>0$ is known and fixed independently of $n$. Can independent copies of $\\rho_\\beta$ in Eq.~\\eqref{eq:8451-1} be used to output coefficients satisfying $\\max_P|\\widehat a_P-a_P|\\leq\\varepsilon$ with probability at least $2/3$, using $\\operatorname{poly}(n,1/\\varepsilon)$ copies and classical time for every fixed $\\beta$?","source":"This precise formulation is editor wording based on the unresolved direction and limitations documented in the cited primary literature \\sourcecite{ref:8451-narayanan25}{Narayanan25}\\sourcecite{ref:8451-lewis26}{Lewis26}; it is not presented as a verbatim conjecture of those authors.","progress":["With a supplied bounded-degree list of $r$ Pauli terms, learning at every fixed temperature is possible. Narayanan's Theorem 1.6 gives\n  \\begin{equation}\nN=O\\!\\left(r^6(1/\\varepsilon)^{O(\\beta^2)}\n  +\\frac{\\log r}{\\beta^2\\varepsilon^2}\\right)\n\\label{eq:8451-3}\n\\end{equation}\n  copies and polynomial computational time for fixed locality, interaction degree, and $\\beta$. The supplied list is essential to this theorem; it is parameter learning rather than unknown-structure learning. \\sourcecite{ref:8451-narayanan25}{Narayanan25}\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:8451-3}.","For geometrically local Hamiltonians with a known interaction dictionary, Chen, Anshu, and Nguyen obtain the sharper lattice sample bound\n  \\begin{equation}\nN=\\widetilde O\\!\\left(\\frac{e^{\\operatorname{poly}(\\beta)}}{\\beta^2\\varepsilon^2}\\right)\\log(n/\\delta),\n\\label{eq:8451-4}\n\\end{equation}\n  where $\\delta$ is the failure probability and the tilde suppresses logarithmic factors. Their all-temperature results do not remove the supplied-structure assumption. \\sourcecite{ref:8451-chen25}{Chen25}\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:8451-4}.","Unknown-structure learning is now solved at sufficiently high temperature. Lewis, Tang, and Wright's Theorem 5.18 proves, under the normalization above,\n  \\begin{equation}\n\\beta\\leq\\frac{1}{1000e^6(2kg+1)^8}\n  \\quad\\Longrightarrow\\quad\n  N=O\\!\\left(\\frac{\\log(n/\\delta)}{\\beta^2\\varepsilon^2}\\right),\n\\label{eq:8451-5}\n\\end{equation}\n  with classical runtime $O(n^k\\operatorname{poly}(g)\\log(n/\\delta)/(\\beta^2\\varepsilon^2))$. Thus neither high-temperature structure learning nor all-temperature known-structure learning should be listed as open. \\sourcecite{ref:8451-lewis26}{Lewis26}\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:8451-5}.","Section 1.4 of the 29 June 2026 preprint explicitly leaves all-temperature structure learning open. Supplying all $O(n^k)$ candidate Pauli terms to \\sourcecite{ref:8451-narayanan25}{Narayanan25} does not immediately solve the problem: their candidate interaction graph no longer has bounded degree. \\sourcecite{ref:8451-narayanan25}{Narayanan25}\\sourcecite{ref:8451-lewis26}{Lewis26}"],"references":[{"key":"Narayanan25","label":"ref:8451-narayanan25","tex":"S. Narayanan, \"Improved algorithms for learning quantum Hamiltonians, via flat polynomials,\" in \\emph{Proceedings of the Thirty Eighth Conference on Learning Theory}, Proceedings of Machine Learning Research 291, 4360–4385 (2025). \\href{https://proceedings.mlr.press/v291/narayanan25a.html}{Proceedings}; \\href{https://arxiv.org/abs/2407.04540}{arXiv:2407.04540}."},{"key":"Chen25","label":"ref:8451-chen25","tex":"C.-F. Chen, A. Anshu, and Q. T. Nguyen, \"Learning quantum Gibbs states locally and efficiently,\" arXiv preprint (2025), version 1, 3 April 2025. \\href{https://arxiv.org/abs/2504.02706}{arXiv:2504.02706}."},{"key":"Lewis26","label":"ref:8451-lewis26","tex":"L. Lewis, E. Tang, and J. Wright, \"Learning the structure of open quantum systems,\" arXiv preprint (2026), version 1, 29 June 2026. \\href{https://arxiv.org/abs/2606.30358}{arXiv:2606.30358}."}],"comment":"The unresolved conjunction is unknown interaction support, arbitrary fixed positive temperature, and polynomial resources. Constants and polynomial exponents may depend on $k$, $g$, and $\\beta$; this question does not demand efficient scaling as the temperature approaches zero with system size. Lewis, Tang, and Wright explicitly leave all-temperature Gibbs-state structure learning open in Section 1.4; no impossibility result is asserted here.","contributors":[]}}
+---
+## Source
+
+This precise formulation is editor wording based on the unresolved direction and limitations documented in the cited primary literature [Narayanan25](https://arxiv.org/abs/2407.04540)[Lewis26](https://arxiv.org/abs/2606.30358); it is not presented as a verbatim conjecture of those authors.
+
+## Progress
+
+With a supplied bounded-degree list of $r$ Pauli terms, learning at every fixed temperature is possible. Narayanan’s Theorem 1.6 gives
+
+$$
+N=O\!\left(r^6(1/\varepsilon)^{O(\beta^2)}
+ +\frac{\log r}{\beta^2\varepsilon^2}\right)
+\tag{2}
+$$
+
+copies and polynomial computational time for fixed locality, interaction degree, and $\beta$. The supplied list is essential to this theorem; it is parameter learning rather than unknown-structure learning. [Narayanan25](https://arxiv.org/abs/2407.04540)
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs. (2).
+
+For geometrically local Hamiltonians with a known interaction dictionary, Chen, Anshu, and Nguyen obtain the sharper lattice sample bound
+
+$$
+N=\widetilde O\!\left(\frac{e^{\operatorname{poly}(\beta)}}{\beta^2\varepsilon^2}\right)\log(n/\delta),
+\tag{3}
+$$
+
+where $\delta$ is the failure probability and the tilde suppresses logarithmic factors. Their all-temperature results do not remove the supplied-structure assumption. [Chen25](https://arxiv.org/abs/2504.02706)
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs. (3).
+
+Unknown-structure learning is now solved at sufficiently high temperature. Lewis, Tang, and Wright’s Theorem 5.18 proves, under the normalization above,
+
+$$
+\beta\leq\frac{1}{1000e^6(2kg+1)^8}
+ \quad\Longrightarrow\quad
+ N=O\!\left(\frac{\log(n/\delta)}{\beta^2\varepsilon^2}\right),
+\tag{4}
+$$
+
+with classical runtime $O(n^k\operatorname{poly}(g)\log(n/\delta)/(\beta^2\varepsilon^2))$. Thus neither high-temperature structure learning nor all-temperature known-structure learning should be listed as open. [Lewis26](https://arxiv.org/abs/2606.30358)
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs. (4).
+
+Section 1.4 of the 29 June 2026 preprint explicitly leaves all-temperature structure learning open. Supplying all $O(n^k)$ candidate Pauli terms to [Narayanan25](https://arxiv.org/abs/2407.04540) does not immediately solve the problem: their candidate interaction graph no longer has bounded degree. [Narayanan25](https://arxiv.org/abs/2407.04540)[Lewis26](https://arxiv.org/abs/2606.30358)
+
+## Comment
+
+The unresolved conjunction is unknown interaction support, arbitrary fixed positive temperature, and polynomial resources. Constants and polynomial exponents may depend on $k$, $g$, and $\beta$; this question does not demand efficient scaling as the temperature approaches zero with system size. Lewis, Tang, and Wright explicitly leave all-temperature Gibbs-state structure learning open in Section 1.4; no impossibility result is asserted here.
+
+## References
+
+**Narayanan25** S. Narayanan, "Improved algorithms for learning quantum Hamiltonians, via flat polynomials," in *Proceedings of the Thirty Eighth Conference on Learning Theory*, Proceedings of Machine Learning Research 291, 4360–4385 (2025). [Proceedings](https://proceedings.mlr.press/v291/narayanan25a.html); [arXiv:2407.04540](https://arxiv.org/abs/2407.04540).
+
+**Chen25** C.-F. Chen, A. Anshu, and Q. T. Nguyen, "Learning quantum Gibbs states locally and efficiently," arXiv preprint (2025), version 1, 3 April 2025. [arXiv:2504.02706](https://arxiv.org/abs/2504.02706).
+
+**Lewis26** L. Lewis, E. Tang, and J. Wright, "Learning the structure of open quantum systems," arXiv preprint (2026), version 1, 29 June 2026. [arXiv:2606.30358](https://arxiv.org/abs/2606.30358).

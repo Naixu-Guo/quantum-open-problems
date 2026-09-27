@@ -1,0 +1,53 @@
+---
+id: "01M2M9FARQFKAC8QQ5V36DHYP7"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-16T05:53:34.975Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "editor-formulated"
+posed: null
+areaIds: ["quantum-metrology","quantum-algorithm"]
+topicIds: ["quantum-hypothesis-testing","one-shot-and-finite-blocklength-bounds","quantum-thermodynamics"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Single-copy identity testing of local Gibbs states"
+aliases: ["op-b17234613637b07e","op_b17234613637b07e","01M2M9FARQFKAC8QQ5V36DHYP7"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_b17234613637b07e.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_b17234613637b07e","ulid":"01M2M9FARQFKAC8QQ5V36DHYP7","aliases":["op_b17234613637b07e","01M2M9FARQFKAC8QQ5V36DHYP7","op-b17234613637b07e"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":1,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-16T05:01:47.159Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"editor-formulated","posed":null,"areaIds":["quantum-metrology","quantum-algorithm"],"topicIds":["quantum-hypothesis-testing","one-shot-and-finite-blocklength-bounds","quantum-thermodynamics"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Single-copy identity testing of local Gibbs states","status":"Unsolved","fields":["Quantum metrology","Quantum algorithm"],"topics":["Quantum hypothesis testing","One-shot and finite-blocklength bounds","Quantum thermodynamics"],"statement":"What is the minimax copy complexity of identity testing two unknown $k$-local Gibbs states using only measurements on individual copies?\n\nFor a finite-dimensional Hamiltonian $H$, write\n\n\\begin{equation}\n\\rho_\\beta(H)=\\frac{e^{-\\beta H}}{Z_H(\\beta)},\\qquad\nZ_H(z)=\\operatorname{Tr}(e^{-zH}),\\qquad \\beta>0.\n\\label{eq:b172-1}\n\\end{equation}\n\nThe temperature is $T=1/\\beta$, in units with Boltzmann’s constant equal to one. Accuracy parameters satisfy $0<\\varepsilon<1$ and, where used, $0<\\delta<1$. Trace-norm error means $\\|\\rho-\\sigma\\|_1$, without a factor of $1/2$.\n\n“Fixed finite temperature” allows constants to depend badly on $\\beta$ but not on the number of sites. In contrast, “polynomial in all parameters” treats $\\beta$ as an input parameter. A $k$-local Hamiltonian has interactions supported on at most $k$ sites.\n\nLearning from supplied copies does not include the cost of preparing those copies. Unless explicitly stated otherwise, it does not grant real-time evolution under the unknown Hamiltonian, its inverse, or an oracle preparing a coherent purification.\n\nFor fixed $k$, define\n\n\\begin{equation}\n\\mathcal H_{n,k}=\n\\left\\{H=\\sum_{P:\\,1\\leq|P|\\leq k}h_PP:\\ |h_P|\\leq1,\\ P\\text{ an }n\\text{-qubit Pauli string}\\right\\},\n\\qquad\n\\mathcal G_{n,k,\\beta}=\n\\{\\rho_\\beta(H):H\\in\\mathcal H_{n,k}\\}.\n\\label{eq:b172-2}\n\\end{equation}\n\nNo bounded-degree or geometric promise is imposed here. Both unknown states $\\rho,\\sigma$ are promised to belong to this class, and independent copies of each are available. Consider the promise test\n\n\\begin{equation}\n\\rho=\\sigma\n\\qquad\\text{versus}\\qquad\n\\|\\rho-\\sigma\\|_1\\geq\\varepsilon.\n\\label{eq:b172-3}\n\\end{equation}\n\nLet $N^*_{\\mathrm{sc}}(n,k,\\beta,\\varepsilon)$ be the least worst-case total number of copies required for success probability at least $2/3$, allowing adaptive measurements on individual copies but no coherent measurement across copies.\n\nDetermine the asymptotic minimax complexity, through upper and lower bounds matching up to logarithmic factors. In particular, determine the necessary dependence on $n$, $\\beta$, and $\\varepsilon$ for fixed $k\\geq2$.\n\nOne can separately define $N^*_{\\mathrm{coll}}$ allowing joint measurements across copies. The inequality\n\n\\begin{equation}\nN^*_{\\mathrm{coll}}\\leq N^*_{\\mathrm{sc}}\n\\label{eq:b172-4}\n\\end{equation}\n\nis immediate, but equality is not assumed in the formulation.\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:b172-1}, \\eqref{eq:b172-2}, \\eqref{eq:b172-3}, \\eqref{eq:b172-4}.","source":"This precise formulation is editor wording based on the unresolved direction and limitations documented in the cited primary literature \\sourcecite{ref:b172-bluhm26}{Bluhm26}; it is not presented as a verbatim conjecture of those authors.","progress":["Published provenance and progress. Theorem 17 of \\sourcecite{ref:b172-bluhm26}{Bluhm26} supplies a polynomial-time, single-copy protocol; it includes the case where both states are unknown. After harmless constant rescaling of the promise gap, its upper bound gives\n\n\\begin{equation}\nN^*_{\\mathrm{sc}}\n\\leq\\widetilde O\\!\\left(\n3^k k\\beta^2n^{2k}\\varepsilon^{-4}\n\\right).\n\\label{eq:b172-5}\n\\end{equation}\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:b172-5}.","The same paper explicitly identifies the absence of a matching lower bound as an open question in Section 1.3. \\sourcecite{ref:b172-bluhm26}{Bluhm26}"],"references":[{"key":"Bluhm26","label":"ref:b172-bluhm26","tex":"Andreas Bluhm, Matthias C. Caro, Francisco Escudero Gutiérrez, Junseo Lee, Aadil Oufkir, Cambyse Rouzé, and Myeongjin Shin, \\emph{Certifying and learning local quantum Hamiltonians}. \\href{https://arxiv.org/abs/2603.29809}{arXiv:2603.29809}, March 31, 2026. Locate: Theorems 16 and 17; Section 1.3, “Time-efficient Gibbs state learning” and “Optimal Gibbs state certification.”"}],"comment":"Retained as an explicit quantitative open problem. The precise minimax function is the research target; the displayed upper bound is not claimed to be optimal.\n\nThe Gibbs promise applies to both states. Removing that promise from the device state produces a different certification problem. Likewise, a theorem with a known reference Hamiltonian should not silently be substituted for two-unknown-state comparison; the two-unknown extension is expressly included in the source used here.\n\nAs a simple baseline, a one-qubit classical subfamily already exhibits ordinary statistical estimation/testing costs in the error parameter. Such a baseline does not constitute a matching many-body lower bound. Establishing a genuinely many-body hard family is a natural first step.","contributors":[]}}
+---
+## Source
+
+This precise formulation is editor wording based on the unresolved direction and limitations documented in the cited primary literature [Bluhm26](https://arxiv.org/abs/2603.29809); it is not presented as a verbatim conjecture of those authors.
+
+## Progress
+
+Published provenance and progress. Theorem 17 of [Bluhm26](https://arxiv.org/abs/2603.29809) supplies a polynomial-time, single-copy protocol; it includes the case where both states are unknown. After harmless constant rescaling of the promise gap, its upper bound gives
+
+$$
+N^*_{\mathrm{sc}}
+\leq\widetilde O\!\left(
+3^k k\beta^2n^{2k}\varepsilon^{-4}
+\right).
+\tag{5}
+$$
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs. (5).
+
+The same paper explicitly identifies the absence of a matching lower bound as an open question in Section 1.3. [Bluhm26](https://arxiv.org/abs/2603.29809)
+
+## Comment
+
+Retained as an explicit quantitative open problem. The precise minimax function is the research target; the displayed upper bound is not claimed to be optimal.
+
+The Gibbs promise applies to both states. Removing that promise from the device state produces a different certification problem. Likewise, a theorem with a known reference Hamiltonian should not silently be substituted for two-unknown-state comparison; the two-unknown extension is expressly included in the source used here.
+
+As a simple baseline, a one-qubit classical subfamily already exhibits ordinary statistical estimation/testing costs in the error parameter. Such a baseline does not constitute a matching many-body lower bound. Establishing a genuinely many-body hard family is a natural first step.
+
+## References
+
+**Bluhm26** Andreas Bluhm, Matthias C. Caro, Francisco Escudero Gutiérrez, Junseo Lee, Aadil Oufkir, Cambyse Rouzé, and Myeongjin Shin, *Certifying and learning local quantum Hamiltonians*. [arXiv:2603.29809](https://arxiv.org/abs/2603.29809), March 31, 2026. Locate: Theorems 16 and 17; Section 1.3, “Time-efficient Gibbs state learning” and “Optimal Gibbs state certification.”

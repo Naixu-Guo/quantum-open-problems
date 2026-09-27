@@ -1,8 +1,9 @@
 /**
- * The proposal inbox: problem proposals sent by the public form on the static site. A proposal
+ * The private submission inbox holds problem proposals and documentary progress reports. A proposal
  * is not a ledger record. It waits here until a maintainer reads it, rewrites it as an authored
  * record in `database/problems_json/`, and publishes it through the ordinary catalog workflow,
- * or marks it rejected or spam. The inbox lives in its own SQLite file so the disposable index
+ * or marks it rejected or spam. Progress reports use separate administrative states and never
+ * publish content or assign problem status. The inbox lives in its own SQLite file so the disposable index
  * and the auth store can be rebuilt or lost without losing a proposal.
  *
  * Public sending requires explicit basic or CAPTCHA mode. Both enforce the per-address
@@ -14,8 +15,13 @@ import { createHash } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
 import { HttpError } from "./errors.ts";
 import { newId, nowIso } from "./ids.ts";
+import { SubmissionCapacity, type InboxLimits } from "./submission-capacity.ts";
+import { parseArchivalLinks } from "./archival-sources.ts";
+import type { ResearchUpdate } from "./research-updates.ts";
 
-export const SUBMISSION_STATES = ["new", "in-review", "accepted", "rejected", "spam"] as const;
+export const PROPOSAL_STATES = ["new", "in-review", "accepted", "rejected", "spam"] as const;
+export const PROGRESS_STATES = ["received", "needs-details", "documented", "duplicate", "outside-scope"] as const;
+export const SUBMISSION_STATES = [...PROPOSAL_STATES, ...PROGRESS_STATES] as const;
 export type SubmissionState = (typeof SUBMISSION_STATES)[number];
 
 export const CAPTCHA_PROVIDERS = {
@@ -31,15 +37,19 @@ export interface CaptchaConfig {
   verifyUrl: string;
 }
 
-export interface SubmissionsConfig {
+export interface SubmissionsConfig extends InboxLimits {
   /** The inbox database: beside the auth store unless configured, `:memory:` when the auth store is. */
   dbPath: string;
   /** Explicit opt-in; missing configuration keeps public submissions closed. */
   mode: "disabled" | "basic" | "captcha";
+  /** Independent deployment opt-in for the progress portal; never enables catalog writes. */
+  researchUpdatesEnabled: boolean;
   /** Required in captcha mode, optional in basic mode. */
   captcha: CaptchaConfig | null;
   /** SHA-256 of a randomly generated inbox-only access key. Never a human-chosen password. */
   inboxKeyHash: string | null;
+  /** A separate read-only key for aggregate capacity monitoring; cannot read proposals. */
+  monitorKeyHash: string | null;
   /** Origins of the pages that post proposals, for CORS: the static site, plus the service's own origin. */
   allowedOrigins: string[];
   /** Proposals one address may send per hour, counting attempts that fail verification. */
@@ -90,6 +100,10 @@ export interface SubmissionPayload {
   references: string;
   comment: string;
   contributor: Contributor;
+  /** Required for new known-progress text; absent on older stored proposals. */
+  archivalLinks?: string[];
+  /** Present only for privately filed progress reports or historical-link requests. */
+  researchUpdate?: ResearchUpdate;
   /** Present only when the submitter explicitly agreed to this content license. */
   contentLicense?: "CC-BY-4.0";
 }
@@ -110,6 +124,7 @@ export interface SubmissionRow {
   contributor: Contributor;
   fields: string[];
   topics: string[];
+  kind?: "research" | "historical";
 }
 
 export interface Submission extends SubmissionRow {
@@ -195,6 +210,9 @@ export function parseSubmission(raw: unknown, requireCaptcha = true): ParsedSubm
   const newTopics = names(raw["newTopics"], "newTopics", LIMITS.topics.max, issues).filter((name) => topics.includes(name) || (issues.push(`newTopics: ${name} is not among the topics`), false));
   const source = text("source");
   const progress = text("progress");
+  let archivalLinks: string[] = [];
+  try { archivalLinks = parseArchivalLinks(raw["archivalLinks"], progress.length > 0); }
+  catch (error) { issues.push(error instanceof Error ? error.message : "supply an archival link for known progress"); }
   const references = text("references");
   const comment = text("comment");
 
@@ -210,7 +228,7 @@ export function parseSubmission(raw: unknown, requireCaptcha = true): ParsedSubm
   if (affiliation.length > LIMITS.affiliation.max) issues.push(`the affiliation is longer than ${LIMITS.affiliation.max} characters`);
   if (person["anonymous"] !== undefined && typeof person["anonymous"] !== "boolean") issues.push("the anonymity preference must be a boolean");
   const anonymous = person["anonymous"] === true;
-  if (raw["consent"] !== true) issues.push("consent to storing your contact details for the review is required");
+  if (raw["consent"] !== true) issues.push("consent to storing your contact details for handling the submission is required");
   if (raw["contentLicense"] !== undefined && raw["contentLicense"] !== "CC-BY-4.0") issues.push("contentLicense must be CC-BY-4.0 when supplied");
 
   const captchaToken = clean(raw["captchaToken"]);
@@ -219,7 +237,7 @@ export function parseSubmission(raw: unknown, requireCaptcha = true): ParsedSubm
 
   if (issues.length > 0) throw new HttpError(422, issues.join("; "));
   return {
-    payload: { title, statement, fields, newFields, topics, newTopics, source, progress, references, comment, contributor: { name, email, affiliation, anonymous }, ...(raw["contentLicense"] === "CC-BY-4.0" ? { contentLicense: "CC-BY-4.0" as const } : {}) },
+    payload: { title, statement, fields, newFields, topics, newTopics, source, progress, references, comment, contributor: { name, email, affiliation, anonymous }, ...(archivalLinks.length ? { archivalLinks } : {}), ...(raw["contentLicense"] === "CC-BY-4.0" ? { contentLicense: "CC-BY-4.0" as const } : {}) },
     captchaToken,
   };
 }
@@ -241,6 +259,7 @@ export async function verifyCaptcha(captcha: CaptchaConfig, token: string, remot
 }
 
 export function contentHash(payload: SubmissionPayload): string {
+  if (payload.researchUpdate) return createHash("sha256").update(JSON.stringify([payload.researchUpdate, payload.contributor.email.toLowerCase()])).digest("hex");
   const content = [payload.title.toLowerCase(), payload.statement, payload.contributor.email.toLowerCase()];
   // Keep historical lookup hashes; accept also compares the complete contact details.
   if (payload.contributor.anonymous) content.push("anonymous");
@@ -265,12 +284,18 @@ function storedPayload(row: StoredRow): SubmissionPayload {
 
 export class SubmissionStore {
   readonly db: DatabaseSync;
+  readonly capacity: SubmissionCapacity;
 
-  constructor(dbPath: string) {
+  constructor(dbPath: string, limits: Partial<InboxLimits> = {}) {
     if (dbPath !== ":memory:") fs.mkdirSync(path.dirname(dbPath), { recursive: true });
     this.db = new DatabaseSync(dbPath);
+    this.db.exec("PRAGMA busy_timeout = 5000");
     this.db.exec("PRAGMA journal_mode = WAL");
     this.db.exec(SCHEMA);
+    this.capacity = new SubmissionCapacity(this.db, limits);
+    this.db.exec("BEGIN IMMEDIATE");
+    try { this.capacity.observe(); this.db.exec("COMMIT"); }
+    catch (error) { try { this.db.exec("ROLLBACK"); } catch { /* already rolled back */ } this.db.close(); throw error; }
   }
 
   /**
@@ -279,24 +304,44 @@ export class SubmissionStore {
    * contact details receive a new receipt, preserving both the correction and the original.
    */
   accept(payload: SubmissionPayload, meta: { address: string; userAgent: string; captchaProvider: string }, now: number = Date.now()): { id: string; receivedAt: string; duplicate: boolean } {
-    const hash = contentHash(payload);
-    const since = new Date(now - DUPLICATE_WINDOW_MS).toISOString();
-    const candidates = this.db.prepare(`SELECT ${ROW_COLUMNS} FROM submissions WHERE content_hash = ? AND received_at >= ? ORDER BY received_at DESC`).all(hash, since) as unknown as StoredRow[];
-    const existing = candidates.find((row) => {
-      const previousPayload = storedPayload(row);
-      const previous = previousPayload.contributor;
-      const current = payload.contributor;
-      return previous.name === current.name && previous.email === current.email
-        && previous.affiliation === current.affiliation && previous.anonymous === current.anonymous
-        && previousPayload.contentLicense === payload.contentLicense;
-    });
-    if (existing) return { id: existing.id, receivedAt: existing.received_at, duplicate: true };
-    const id = newId(now);
-    const receivedAt = new Date(now).toISOString();
-    this.db.prepare(`INSERT INTO submissions (${ROW_COLUMNS}) VALUES (?, ?, 'new', ?, NULL, '', ?, ?, ?, ?, ?, ?, ?, ?)`).run(
-      id, receivedAt, receivedAt, payload.title, payload.contributor.name, payload.contributor.email, JSON.stringify(payload), hash, hashAddress(meta.address), meta.userAgent.slice(0, 512), meta.captchaProvider,
-    );
-    return { id, receivedAt, duplicate: false };
+    this.db.exec("BEGIN IMMEDIATE");
+    try {
+      const hash = contentHash(payload);
+      const since = new Date(now - DUPLICATE_WINDOW_MS).toISOString();
+      const candidates = this.db.prepare(`SELECT ${ROW_COLUMNS} FROM submissions WHERE content_hash = ? AND received_at >= ? ORDER BY received_at DESC`).all(hash, since) as unknown as StoredRow[];
+      const existing = candidates.find((row) => {
+        const previousPayload = storedPayload(row);
+        const previous = previousPayload.contributor;
+        const current = payload.contributor;
+        return previous.name === current.name && previous.email === current.email
+          && previous.affiliation === current.affiliation && previous.anonymous === current.anonymous
+          && JSON.stringify(previousPayload.archivalLinks ?? []) === JSON.stringify(payload.archivalLinks ?? [])
+          && previousPayload.contentLicense === payload.contentLicense;
+      });
+      if (existing) { this.db.exec("COMMIT"); return { id: existing.id, receivedAt: existing.received_at, duplicate: true }; }
+      const id = newId(now);
+      const receivedAt = new Date(now).toISOString();
+      this.db.prepare(`INSERT INTO submissions (${ROW_COLUMNS}) VALUES (?, ?, ?, ?, NULL, '', ?, ?, ?, ?, ?, ?, ?, ?)`).run(
+        id, receivedAt, payload.researchUpdate ? "received" : "new", receivedAt, payload.title, payload.contributor.name, payload.contributor.email, JSON.stringify(payload), hash, hashAddress(meta.address), meta.userAgent.slice(0, 512), meta.captchaProvider,
+      );
+      this.capacity.checkInsert(now);
+      this.capacity.observe(now);
+      this.db.exec("COMMIT");
+      return { id, receivedAt, duplicate: false };
+    } catch (error) {
+      // SQLITE_FULL can roll a transaction back itself.
+      try { this.db.exec("ROLLBACK"); } catch { /* SQLite already rolled back after SQLITE_FULL. */ }
+      const full = error instanceof Error && "errcode" in error && error.errcode === 13;
+      if (full || (error instanceof HttpError && error.status === 503)) {
+        this.db.exec("BEGIN IMMEDIATE");
+        try {
+          this.capacity.observe(now, full || (error instanceof Error && /storage/.test(error.message)) ? "storage" : "rows");
+          this.db.exec("COMMIT");
+        } catch (alertError) { try { this.db.exec("ROLLBACK"); } catch { /* already rolled back */ } throw alertError; }
+        if (full) throw new HttpError(503, "the proposal inbox storage is full; existing proposals are preserved. Please use the GitHub contribution route");
+      }
+      throw error;
+    }
   }
 
   get(id: string): Submission | null {
@@ -319,9 +364,12 @@ export class SubmissionStore {
     return counts;
   }
 
-  /** Move a proposal to another state, recording who did it and why. */
+  /** Record administrative handling, with state vocabularies specific to the submission kind. */
   setState(id: string, state: SubmissionState, note: string, by: string | null, now: string = nowIso()): Submission | null {
-    if (!SUBMISSION_STATES.includes(state)) throw new HttpError(400, `state must be one of ${SUBMISSION_STATES.join(", ")}`);
+    const current = this.get(id);
+    if (!current) return null;
+    const allowed: readonly string[] = current.payload.researchUpdate ? PROGRESS_STATES : PROPOSAL_STATES;
+    if (!allowed.includes(state)) throw new HttpError(422, `state for this submission must be one of ${allowed.join(", ")}`);
     const result = this.db.prepare("UPDATE submissions SET state = ?, state_at = ?, state_by = ?, state_note = ? WHERE id = ?").run(state, now, by, note, id);
     return Number(result.changes) > 0 ? this.get(id) : null;
   }
@@ -335,6 +383,7 @@ export class SubmissionStore {
     return {
       id: row.id, receivedAt: row.received_at, state: row.state as SubmissionState, stateAt: row.state_at, stateBy: row.state_by, stateNote: row.state_note,
       title: row.title, contributor: payload.contributor, fields: payload.fields, topics: payload.topics,
+      ...(payload.researchUpdate ? { kind: payload.researchUpdate.kind } : {}),
     };
   }
 
@@ -349,7 +398,7 @@ export function submissionText(submission: Submission): string {
   const section = (heading: string, body: string): string => (body ? `## ${heading}\n\n${body}\n\n` : "");
   const marked = (all: string[], own: string[]): string => all.map((name) => (own.includes(name) ? `${name} (new)` : name)).join("; ") || "none";
   return `# ${p.title}\n\n`
-    + `Proposal ${submission.id}, received ${submission.receivedAt}, state ${submission.state}.\n`
+    + `${p.researchUpdate ? "Progress report" : "Proposal"} ${submission.id}, received ${submission.receivedAt}, state ${submission.state}.\n`
     + `Contributor: ${p.contributor.name} <${p.contributor.email}>${p.contributor.affiliation ? ` (${p.contributor.affiliation})` : ""}\n`
     + `Public attribution: ${p.contributor.anonymous ? "Anonymous requested; do not publish the contributor’s name, email, or affiliation." : "Contributor may be named; email remains private."}\n`
     + `Content license: ${p.contentLicense === "CC-BY-4.0" ? "CC BY 4.0 for the contributor's original text; third-party material excluded." : "Not recorded; confirm permission before publishing under CC BY 4.0."}\n`
@@ -357,6 +406,8 @@ export function submissionText(submission: Submission): string {
     + `Topics: ${marked(p.topics, p.newTopics)}\n\n`
     + section("Statement", p.statement)
     + section("Source", p.source)
+    + section("Archival manuscript or paper links", (p.archivalLinks ?? []).join("\n"))
+    + (p.researchUpdate ? section("Progress documentation", JSON.stringify(p.researchUpdate, null, 2)) : "")
     + section("Progress", p.progress)
     + section("References", p.references)
     + section("Comment", p.comment);

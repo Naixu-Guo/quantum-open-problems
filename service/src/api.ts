@@ -26,6 +26,8 @@ import { parseSubmission, verifyCaptcha, submissionText, SUBMISSION_STATES, type
 import { handleInbox, INBOX_COOKIE } from "./inbox.ts";
 import { researchSearchPage, RESEARCH_SEARCH_DEFAULT_BYTES, RESEARCH_SEARCH_MIN_BYTES, RESEARCH_SEARCH_MAX_BYTES } from "./research-search.ts";
 import { ProblemReader, ProblemReadError } from "./problem-read.ts";
+import { parseResearchUpdate } from "./research-updates.ts";
+import { verifyArchivalDocuments } from "./archival-sources.ts";
 
 interface Call {
   inboxSession: boolean;
@@ -289,15 +291,34 @@ function routes(service: Service): Route[] {
       const rules = service.submissionsConfig;
       if (rules.mode === "disabled") throw new HttpError(503, "online proposals are not enabled on this service; use the GitHub route described on the contribute page");
       if (auth.bump(`submissions:${call.address}`, HOUR) > rules.perAddressPerHour) throw new HttpError(429, `more than ${rules.perAddressPerHour} proposals from this address within an hour; try again later`);
+      service.submissions.capacity.takeAttempt();
       const parsed = parseSubmission(parseJson(call), rules.mode === "captcha");
       if (rules.mode === "captcha") {
         if (!rules.captcha) throw new HttpError(503, "the proposal verifier is not configured");
         const verdict = await verifyCaptcha(rules.captcha, parsed.captchaToken, call.address);
         if (!verdict.ok) throw new HttpError(403, "the human verification did not pass; complete it again and resubmit");
       }
+      await verifyArchivalDocuments(parsed.payload.archivalLinks ?? []);
       const userAgent = Array.isArray(call.headers["user-agent"]) ? call.headers["user-agent"][0] ?? "" : call.headers["user-agent"] ?? "";
       const receipt = service.submissions.accept(parsed.payload, { address: call.address, userAgent, captchaProvider: rules.mode === "captcha" ? rules.captcha!.provider : "basic" });
       return { status: receipt.duplicate ? 200 : 201, body: { accepted: true, ...receipt } };
+    } },
+    { method: "POST", pattern: /^\/api\/v1\/research-updates$/u, auth: false, cors: true, handler: async (call) => {
+      const rules = service.submissionsConfig;
+      if (!rules.researchUpdatesEnabled || rules.mode === "disabled") throw new HttpError(503, "online progress submissions are not enabled; keep your draft and use the source-backed GitHub form linked from the progress portal");
+      if (auth.bump(`submissions:${call.address}`, HOUR) > rules.perAddressPerHour) throw new HttpError(429, `more than ${rules.perAddressPerHour} submissions from this address within an hour; try again later`);
+      service.submissions.capacity.takeAttempt();
+      const parsed = parseResearchUpdate(parseJson(call), rules.mode === "captcha");
+      parsed.payload.researchUpdate!.catalogProblemId = resolveProblem(parsed.payload.researchUpdate!.problemId);
+      if (rules.mode === "captcha") {
+        if (!rules.captcha) throw new HttpError(503, "the human verification service is not configured");
+        const verdict = await verifyCaptcha(rules.captcha, parsed.captchaToken, call.address);
+        if (!verdict.ok) throw new HttpError(403, "the human verification did not pass; complete it again and resubmit");
+      }
+      await verifyArchivalDocuments(parsed.payload.archivalLinks ?? []);
+      const userAgent = Array.isArray(call.headers["user-agent"]) ? call.headers["user-agent"][0] ?? "" : call.headers["user-agent"] ?? "";
+      const receipt = service.submissions.accept(parsed.payload, { address: call.address, userAgent, captchaProvider: rules.mode === "captcha" ? rules.captcha!.provider : "basic" });
+      return { status: receipt.duplicate ? 200 : 201, body: { received: true, ...receipt } };
     } },
     { method: "GET", pattern: /^\/api\/v1\/submissions$/u, auth: true, inboxAccess: true, callerSpecific: true, handler: (call) => {
       if (!call.inboxSession) editor(call);
@@ -308,7 +329,7 @@ function routes(service: Service): Route[] {
       const counts = service.submissions.counts();
       const total = state ? counts[state as SubmissionState] : Object.values(counts).reduce((a, b) => a + b, 0);
       const proposals = service.submissions.list({ state: (state as SubmissionState | null) ?? undefined, limit, offset });
-      return ok({ counts, count: proposals.length, total, offset, limit, nextOffset: offset + proposals.length < total ? offset + proposals.length : null, submissions: proposals });
+      return ok({ counts, capacity: service.submissions.capacity.usage(), count: proposals.length, total, offset, limit, nextOffset: offset + proposals.length < total ? offset + proposals.length : null, submissions: proposals });
     } },
     { method: "GET", pattern: /^\/api\/v1\/submissions\/([^/]+)$/u, auth: true, inboxAccess: true, callerSpecific: true, handler: (call) => {
       if (!call.inboxSession) editor(call);

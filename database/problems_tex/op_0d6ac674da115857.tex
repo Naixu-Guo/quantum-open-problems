@@ -1,0 +1,118 @@
+% Problem record op_0d6ac674da115857. This TeX file is derived from
+% database/problems_json/op_0d6ac674da115857.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Optimal dimension of nine-qubit distance-three codes}
+\label{sec:op_0d6ac674da115857}
+
+\paragraph{Problem.}
+Is the known non-additive $((9,12,3))_2$ code of largest possible dimension,
+or does a nine-qubit code of dimension thirteen and distance three exist?  Let
+$\mathcal P_9:=\{I,X,Y,Z\}^{\otimes9}$ be the Pauli basis, where the weight
+$\operatorname{wt}(E)$ counts nonidentity tensor factors, and define
+\begin{equation}
+  K_{\max}^{(2)}(9,3):=\max\Bigl\{\operatorname{Tr}P:\
+  P=P^\dagger=P^2\ \text{on}\ (\mathbb C^2)^{\otimes9},\
+  PEP=c_EP\ \text{for every}\ E\in\mathcal P_9\ \text{with}\
+  \operatorname{wt}(E)<3\Bigr\},
+  \label{eq:0d6a-kmax}
+\end{equation}
+where each $c_E$ is a scalar depending only on $E$.  The error condition is
+imposed for the full tensor-product Pauli basis, without an additivity,
+codeword-stabilized, or purity assumption.  Since a $((9,12,3))_2$ code is known
+and no code of dimension fourteen or more exists,
+$K_{\max}^{(2)}(9,3)\in\{12,13\}$.  The question is whether some projector with
+$\operatorname{Tr}P=13$ satisfies the constraints in
+Eq.~\eqref{eq:0d6a-kmax}, which would give a $((9,13,3))_2$ code correcting an
+arbitrary single-qubit error.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Derived from the gap between the lower and upper bounds for nine qubits and
+distance three recorded in Table~III of \sourcecite{ref:0d6a-roj}{ROJ19} and
+Table~1 of \sourcecite{ref:0d6a-amh}{AMH26}, whose lower bound is the
+non-additive code of \sourcecite{ref:0d6a-yclo}{YCLO08}.  These sources record
+the gap but do not pose the existence of a $((9,13,3))_2$ code as a named
+question or conjecture.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Yu, Chen, Lai, and Oh constructed a twelve-dimensional nine-qubit code,
+  spanned by twelve $Z$-type translates of the nine-vertex cycle graph state,
+  that corrects an arbitrary single-qubit error.  The best nine-qubit
+  distance-three stabilizer code, $[[9,3,3]]$, has dimension eight, so
+  non-additivity already increases the dimension at these parameters; the
+  question is whether this advantage is the largest possible
+  \sourcecite{ref:0d6a-yclo}{YCLO08}.
+
+  \item The linear-programming bound gives dimension at most $13$ (Table~III of
+  \sourcecite{ref:0d6a-roj}{ROJ19}).  The table of Angl\`es Munn\'e and Huber,
+  whose upper bounds all carry exact rational semidefinite-programming
+  certificates, still lists $12$--$13$ for block length $9$ and distance $3$
+  (Table~1, called Table~4.1 in the text of Section~4.2).  Ruling out dimension
+  thirteen would therefore determine $K_{\max}^{(2)}(9,3)$ completely
+  \sourcecite{ref:0d6a-amh}{AMH26}.
+
+  \item Rigby, Olivier, and Jarvis report an exhaustive search over nine-vertex
+  graphs up to local complementation and isomorphism: eight classes yield
+  twelve-dimensional distance-three codeword-stabilized (CWS) codes, and none
+  yields a thirteen-dimensional one (Section~III-B).  A $((9,13,3))_2$ code
+  would therefore lie outside the CWS framework, and since local unitaries
+  preserve the code parameters, it could not be local-unitary equivalent to a
+  CWS code either \sourcecite{ref:0d6a-roj}{ROJ19}.
+
+  \item The neighboring eight-qubit case is settled.  Angl\`es Munn\'e and Huber give
+  an exact rational certificate that no $((8,9,3))_2$ code exists, CWS or not, so
+  the largest dimension for eight qubits and distance three is $8$
+  (Section~4.2 and Table~1).  This does not by itself settle the nine-qubit
+  question: transferring it would require a puncturing or shortening argument
+  that preserves the required dimension and distance
+  \sourcecite{ref:0d6a-amh}{AMH26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[YCLO08]}]\label{ref:0d6a-yclo}
+  S. Yu, Q. Chen, C. H. Lai, and C. H. Oh, ``Nonadditive Quantum Error-Correcting Code,'' \emph{Physical Review Letters} \textbf{101}, 090501 (2008). \href{https://doi.org/10.1103/PhysRevLett.101.090501}{doi:10.1103/PhysRevLett.101.090501}; \href{https://arxiv.org/abs/0704.2122}{arXiv:0704.2122}.
+
+  \item[\textup{[AMH26]}]\label{ref:0d6a-amh}
+  G. Angl\`es Munn\'e and F. Huber, ``SDP bounds on quantum codes: rational certificates,'' arXiv:2603.19901 (2026). \href{https://doi.org/10.48550/arXiv.2603.19901}{doi:10.48550/arXiv.2603.19901}; \href{https://arxiv.org/abs/2603.19901}{arXiv:2603.19901}.
+
+  \item[\textup{[ROJ19]}]\label{ref:0d6a-roj}
+  A. Rigby, J. C. Olivier, and P. Jarvis, ``Heuristic construction of codeword stabilized codes,'' \emph{Physical Review A} \textbf{100}, 062303 (2019). \href{https://doi.org/10.1103/PhysRevA.100.062303}{doi:10.1103/PhysRevA.100.062303}; \href{https://arxiv.org/abs/1907.04537}{arXiv:1907.04537}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+Literature checked through 15 September 2026: no construction and no general
+exclusion of a $((9,13,3))_2$ code was located, so the alternative
+$K_{\max}^{(2)}(9,3)\in\{12,13\}$ remains open.  This is an optimality problem for
+an existing non-additive code, not a named conjecture.  Both outcomes are
+informative: a thirteen-dimensional code would improve a longstanding
+finite-length benchmark and necessarily lie outside the CWS framework, while a
+nonexistence proof would certify that the code of
+\sourcecite{ref:0d6a-yclo}{YCLO08} has optimal dimension.  The exhaustive CWS
+search implies neither outcome, since it is conclusive only within the class it
+enumerates.  Likewise, a feasible weight-enumerator vector or a feasible
+finite-level semidefinite relaxation is only a necessary condition, not a code.
+The analogous question for seven qubits and distance two is
+\href{https://qiqc-op.com/problem/op_5ea7cb9abb281829/}{the optimal dimension of
+seven-qubit distance-two codes}.
+
+\subsection*{Field}
+
+Quantum Error Correction
+
+\subsection*{Topic}
+
+Quantum coding theory
+
+\subsection*{ID}
+
+\texttt{op\_0d6ac674da115857}

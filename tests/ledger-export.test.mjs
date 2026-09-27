@@ -179,7 +179,7 @@ test("DOI source reuse preserves an earlier arXiv-only identity without creating
   const desired = buildLedger(fixture);
   assert.ok(desired.files.has(`ledger/sources/${canonical}.r1.md`));
   assert.ok(!desired.files.has(`ledger/sources/${legacy}.r1.md`));
-  await exportLedger(fixture);
+  await exportLedger({ root: fixture });
   for (const [file, content] of before) assert.equal(fs.readFileSync(file, "utf8"), content);
-  await exportLedger(fixture, { check: true });
+  await exportLedger({ root: fixture, check: true });
 });

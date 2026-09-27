@@ -1,0 +1,61 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_b17234613637b07e",
+  "ulid": "01M2M9FARQFKAC8QQ5V36DHYP7",
+  "aliases": [
+    "op_b17234613637b07e",
+    "01M2M9FARQFKAC8QQ5V36DHYP7",
+    "op-b17234613637b07e"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 2,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-09-16T05:01:47.159Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "editor-formulated",
+    "posed": null,
+    "areaIds": [
+      "quantum-metrology",
+      "quantum-algorithm"
+    ],
+    "topicIds": [
+      "quantum-hypothesis-testing",
+      "one-shot-and-finite-blocklength-bounds",
+      "quantum-thermodynamics"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": []
+  },
+  "title": "Single-copy identity testing of local Gibbs states",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum metrology",
+    "Quantum algorithm"
+  ],
+  "topics": [
+    "Quantum hypothesis testing",
+    "One-shot and finite-blocklength bounds",
+    "Quantum thermodynamics"
+  ],
+  "statement": "What is the minimax copy complexity of identity testing two unknown $k$-local Gibbs states using only measurements on individual copies?\n\nFor fixed $k\\geq2$, let\n\n\\begin{equation}\n\\mathcal H_{n,k}=\\left\\{\\sum_{P:\\,1\\leq|P|\\leq k}h_PP:|h_P|\\leq1\\right\\},\n\\qquad\n\\mathcal G_{n,k,\\beta}=\\left\\{\\frac{e^{-\\beta H}}{\\operatorname{Tr}(e^{-\\beta H})}:H\\in\\mathcal H_{n,k}\\right\\},\n\\label{eq:b172-1}\n\\end{equation}\n\nwhere $P$ ranges over nonidentity $n$-qubit Pauli strings and $|P|$ is Pauli weight. No bounded-degree or geometric promise is imposed. Independent copies of unknown $\\rho,\\sigma\\in\\mathcal G_{n,k,\\beta}$ are supplied under the promise\n\n\\begin{equation}\n\\rho=\\sigma\n\\qquad\\text{or}\\qquad\n\\|\\rho-\\sigma\\|_1\\geq\\varepsilon.\n\\label{eq:b172-2}\n\\end{equation}\n\nLet $N^*_{\\mathrm{sc}}(n,k,\\beta,\\varepsilon)$ be the least worst-case total copy count for success probability at least $2/3$, allowing adaptive measurements on individual copies but no joint measurement across copies. Determine $N^*_{\\mathrm{sc}}$ up to logarithmic factors, including its dependence on $n$, $\\beta$, and $\\varepsilon$, for the class in Eq.~\\eqref{eq:b172-1} and the test in Eq.~\\eqref{eq:b172-2}.",
+  "source": "This precise formulation is editor wording based on the unresolved direction and limitations documented in the cited primary literature \\sourcecite{ref:b172-bluhm26}{Bluhm26}; it is not presented as a verbatim conjecture of those authors.",
+  "progress": [
+    "Published provenance and progress. Theorem 17 of \\sourcecite{ref:b172-bluhm26}{Bluhm26} supplies a polynomial-time, single-copy protocol; it includes the case where both states are unknown. After harmless constant rescaling of the promise gap, its upper bound gives\n\n\\begin{equation}\nN^*_{\\mathrm{sc}}\n\\leq\\widetilde O\\!\\left(\n3^k k\\beta^2n^{2k}\\varepsilon^{-4}\n\\right).\n\\label{eq:b172-5}\n\\end{equation}\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:b172-5}.",
+    "The same paper explicitly identifies the absence of a matching lower bound as an open question in Section 1.3. \\sourcecite{ref:b172-bluhm26}{Bluhm26}"
+  ],
+  "references": [
+    {
+      "key": "Bluhm26",
+      "label": "ref:b172-bluhm26",
+      "tex": "Andreas Bluhm, Matthias C. Caro, Francisco Escudero Gutiérrez, Junseo Lee, Aadil Oufkir, Cambyse Rouzé, and Myeongjin Shin, \\emph{Certifying and learning local quantum Hamiltonians}. \\href{https://arxiv.org/abs/2603.29809}{arXiv:2603.29809}, March 31, 2026. Locate: Theorems 16 and 17; Section 1.3, “Time-efficient Gibbs state learning” and “Optimal Gibbs state certification.”"
+    }
+  ],
+  "comment": "Retained as an explicit quantitative open problem. The precise minimax function is the research target; the displayed upper bound is not claimed to be optimal.\n\nThe Gibbs promise applies to both states. Removing that promise from the device state produces a different certification problem. Likewise, a theorem with a known reference Hamiltonian should not silently be substituted for two-unknown-state comparison; the two-unknown extension is expressly included in the source used here.\n\nAs a simple baseline, a one-qubit classical subfamily already exhibits ordinary statistical estimation/testing costs in the error parameter. Such a baseline does not constitute a matching many-body lower bound. Establishing a genuinely many-body hard family is a natural first step.",
+  "contributors": []
+}

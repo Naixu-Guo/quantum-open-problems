@@ -1,0 +1,295 @@
+% Problem record op_0c23167deb384894. This TeX file is derived from
+% database/problems_json/op_0c23167deb384894.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{LOCC entanglement cost of Werner states}
+\label{sec:op_0c23167deb384894}
+
+\paragraph{Problem.}
+What is the entanglement cost of the Werner state $\rho_{d,p}$ for every
+integer $d\geq2$ and every antisymmetric weight $1/2<p\leq1$, and in
+particular, does it equal the entanglement of formation?  On
+$\mathbb C^d\otimes\mathbb C^d$, let $\mathbb F$ be the swap operator,
+$\mathbb F\lvert x\rangle\lvert y\rangle=\lvert y\rangle\lvert x\rangle$, and
+let $P_{\mathrm s}:=(I+\mathbb F)/2$ and $P_{\mathrm a}:=(I-\mathbb F)/2$ be the
+projectors onto the symmetric and antisymmetric subspaces.  For $p\in[0,1]$,
+the Werner state with antisymmetric weight $p$ is
+\begin{equation}
+  \rho_{d,p}:=p\,\frac{2P_{\mathrm a}}{d(d-1)}
+    +(1-p)\,\frac{2P_{\mathrm s}}{d(d+1)}.
+  \label{eq:0c23-werner-state}
+\end{equation}
+The state in Eq.~\eqref{eq:0c23-werner-state} is invariant under $U\otimes U$
+for every unitary $U$ on $\mathbb C^d$, satisfies
+$\operatorname{Tr}(\rho_{d,p}\mathbb F)=1-2p$, and is entangled exactly when
+$p>1/2$.  The entanglement cost $E_C(\rho)$ of a bipartite state $\rho$ is the
+infimum of the rates $R$ for which local operations and classical
+communication (LOCC) transform $\lceil nR\rceil$ ebits into states whose trace
+distance from $\rho^{\otimes n}$ tends to zero as $n\to\infty$.  Write $E_F$
+for the entanglement of formation and
+$h_2(x):=-x\log_2x-(1-x)\log_2(1-x)$.  For $1/2<p\leq1$, the one-copy value of
+$E_F$ gives the upper bound
+\begin{equation}
+  E_C(\rho_{d,p})\leq E_F(\rho_{d,p})
+  =h_2\!\left(\frac12-\sqrt{p(1-p)}\right),
+  \label{eq:0c23-eof}
+\end{equation}
+whose right-hand side does not depend on $d$.  Determine $E_C(\rho_{d,p})$
+for all $d\geq2$ and $1/2<p\leq1$, and decide in particular whether equality
+holds in Eq.~\eqref{eq:0c23-eof}.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Fang, Fawzi, and Fawzi state that, to the best of their knowledge, the
+entanglement costs of Werner and isotropic states under LOCC ``remain
+unresolved'' (Section~4.2 of the arXiv version) \sourcecite{ref:0c23-fang-fawzi-fawzi}{FFF26}.  For the antisymmetric
+endpoint $p=1$, Christandl, Schuch, and Winter explicitly leave open whether
+the cost equals one ebit (Section~VI)
+\sourcecite{ref:0c23-christandl-schuch-winter}{CSW12}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Vollbrecht and Werner, Section~IV~C, prove that a $U\otimes U$-invariant
+  state with $f:=\operatorname{Tr}(\rho\mathbb F)\leq0$ has entanglement of
+  formation $h_2\bigl(\tfrac12(1-\sqrt{1-f^2})\bigr)$ in every dimension, and
+  that the state is separable when $f\geq0$
+  \sourcecite{ref:0c23-vollbrecht-werner}{VW01}.  Since $f=1-2p$ for the state
+  in Eq.~\eqref{eq:0c23-werner-state}, this gives the value in
+  Eq.~\eqref{eq:0c23-eof}, and $E_C(\rho_{d,p})=0$ for $p\leq1/2$.
+
+  \item Hayden, Horodecki, and Terhal prove that the entanglement cost is the
+  regularized entanglement of formation (Theorem~1),
+  \begin{equation}
+    E_C(\rho)=\lim_{n\to\infty}\frac1n\,E_F\bigl(\rho^{\otimes n}\bigr)
+    \label{eq:0c23-regularization}
+  \end{equation}
+  \sourcecite{ref:0c23-hayden-horodecki-terhal}{HHT01}.  Because $E_F$ is
+  subadditive, the limit in Eq.~\eqref{eq:0c23-regularization} is an infimum
+  over $n$; hence equality holds in Eq.~\eqref{eq:0c23-eof} exactly when
+  $E_F(\rho_{d,p}^{\otimes n})=nE_F(\rho_{d,p})$ for every $n\geq1$.  This
+  equivalence is a direct deduction.
+
+  \item Two entangled parameter points have known cost.  At $(d,p)=(2,1)$ the
+  state is a singlet, whose cost is its entanglement entropy, one ebit
+  \sourcecite{ref:0c23-hayden-horodecki-terhal}{HHT01}.  Yura proves that every
+  state $\rho$ supported on the antisymmetric subspace of
+  $\mathbb C^3\otimes\mathbb C^3$ satisfies $E_F(\rho^{\otimes n})=n$ for all
+  $n$ (Theorem~1 and Corollary~3), so $E_C(\rho_{3,1})=1$
+  \sourcecite{ref:0c23-yura}{Yur03}.  Matsumoto and Yura generalize this to
+  antisymmetric states of $d-1$ qudits divided as
+  $\mathbb C^d\otimes(\mathbb C^d)^{\otimes(d-2)}$; for $d\geq4$ these are not
+  the bipartite states $\rho_{d,1}$
+  \sourcecite{ref:0c23-matsumoto-yura}{MY04}.
+
+  \item For the antisymmetric state $\rho_{d,1}$, Christandl, Schuch, and Winter
+  prove a dimension-independent lower bound (Theorem~2), so that, with
+  Eq.~\eqref{eq:0c23-eof},
+  \begin{equation}
+    \log_2\frac43\leq E_C(\rho_{d,1})\leq E_F(\rho_{d,1})=1 .
+    \label{eq:0c23-antisymmetric}
+  \end{equation}
+  Their Section~VI leaves open whether $E_C(\rho_{d,1})=1$ and notes that
+  $E_C(\rho_{d,1})<1$ would give the first explicit counterexample to the
+  additivity of the entanglement of formation
+  \sourcecite{ref:0c23-christandl-schuch-winter}{CSW12}.
+
+  \item Audenaert, Eisert, Jan\'e, Plenio, Virmani, and De Moor compute the
+  regularized relative entropy of entanglement with respect to states with
+  positive partial transpose (PPT) in the same parameterization,
+  \begin{equation}
+    E_{R,\mathrm{PPT}}^\infty(\rho_{d,p})=
+    \begin{cases}
+      1-h_2(p), & \frac12<p\leq\frac{d+2}{2d},\\[4pt]
+      \log_2\frac{d+2}{d}+(1-p)\log_2\frac{d-2}{d+2},
+        & \frac{d+2}{2d}<p\leq1,
+    \end{cases}
+    \label{eq:0c23-ppt-ree}
+  \end{equation}
+  where only the first branch occurs for $d=2$
+  \sourcecite{ref:0c23-audenaert-et-al}{AEJ+01}.  Since every separable state is
+  PPT, Eq.~\eqref{eq:0c23-ppt-ree} is at most the separable regularized
+  relative entropy of entanglement, which Donald, Horodecki, and Rudolph show
+  is at most $E_C$ (Proposition~20)
+  \sourcecite{ref:0c23-donald-horodecki-rudolph}{DHR02}.  At $p=1$ this lower
+  bound equals $\log_2(1+2/d)$ and vanishes as $d\to\infty$, whereas the bound
+  $\log_2(4/3)$ in Eq.~\eqref{eq:0c23-antisymmetric} is available only at
+  $p=1$.
+
+  \item Audenaert, Plenio, and Eisert, and Wang and Wilde, show that the exact
+  (zero-error) entanglement cost of Werner states under PPT-preserving
+  operations is the logarithmic negativity,
+  \begin{equation}
+    E_{\mathrm{PPT}}^{\mathrm{exact}}(\rho_{d,p})
+    =\log_2\!\left(1+\frac{2(2p-1)}{d}\right)
+    \qquad\left(\tfrac12<p\leq1\right)
+    \label{eq:0c23-ppt-cost}
+  \end{equation}
+  \sourcecite{ref:0c23-audenaert-plenio-eisert}{APE03},
+  \sourcecite{ref:0c23-wang-wilde}{WW23}.  Since LOCC operations are
+  PPT-preserving, any lower bound on $E_C$ that also bounds the vanishing-error
+  cost under PPT-preserving operations is at most
+  Eq.~\eqref{eq:0c23-ppt-cost}, which decays like $1/d$.  Fang, Fawzi, and
+  Fawzi also note that the efficiently computable lower bounds of Wang and
+  Duan and of Lami and Regula vanish on full-rank states, which include
+  $\rho_{d,p}$ for $0<p<1$ \sourcecite{ref:0c23-fang-fawzi-fawzi}{FFF26}.  The
+  comparison of these bounds is a deduction made for this entry.
+
+  \item Define
+  \begin{equation}
+    \mathcal N_{d,p}(X):=p\,\frac{\operatorname{Tr}(X)I-X^{\mathsf T}}{d-1}
+      +(1-p)\,\frac{\operatorname{Tr}(X)I+X^{\mathsf T}}{d+1}.
+    \label{eq:0c23-channel}
+  \end{equation}
+  The map in Eq.~\eqref{eq:0c23-channel} is a channel whose normalized Choi
+  state $(\operatorname{id}\otimes\mathcal N_{d,p})(\Phi_d)$, with $\Phi_d$ the
+  maximally entangled state, is $\rho_{d,p}$, and
+  $\mathcal N_{d,p}(UXU^\dagger)=\overline U\,\mathcal N_{d,p}(X)\,U^{\mathsf T}$
+  for every unitary $U$.  Restricting $U$ to the Heisenberg--Weyl group, a
+  unitary one-design, shows that $\mathcal N_{d,p}$ is covariant in Wilde's
+  sense, so his Theorem~1 gives equal sequential and parallel entanglement
+  costs, $E_C(\mathcal N_{d,p})=E_C^{(p)}(\mathcal N_{d,p})=E_C(\rho_{d,p})$
+  \sourcecite{ref:0c23-wilde}{Wil18}.  Wilde's Section~IV~C treats only the
+  Werner--Holevo channel $\mathcal N_{d,1}$, recording
+  Eq.~\eqref{eq:0c23-antisymmetric} and the exact value one for $d=2$ and
+  $d=3$.  The Choi-state and covariance identities were checked directly for
+  this entry.
+
+  \item At fixed $p$, the cost is nonincreasing in the dimension:
+  $E_C(\rho_{d',p})\leq E_C(\rho_{d,p})$ for $d'\geq d$.  An isometric embedding
+  of $\mathbb C^d$ into $\mathbb C^{d'}$ on both sides, followed by the
+  $U\otimes U$ twirl, is an LOCC operation mapping $\rho_{d,p}$ to
+  $\rho_{d',p}$, because both steps preserve
+  $\operatorname{Tr}(\rho\mathbb F)=1-2p$ and a $U\otimes U$-invariant state is
+  determined by this value \sourcecite{ref:0c23-vollbrecht-werner}{VW01}.  With
+  Eq.~\eqref{eq:0c23-eof}, this gives
+  $E_C(\rho_{d,p})\leq E_C(\rho_{2,p})\leq E_F(\rho_{2,p})=E_F(\rho_{d,p})$.
+  Hence equality in Eq.~\eqref{eq:0c23-eof} at $(d,p)$ implies equality at
+  $(d',p)$ for all $2\leq d'\leq d$, and a strict inequality at $(d,p)$ implies
+  a strict inequality for all $d'\geq d$; in particular, a two-qubit gap would
+  give a gap in every dimension.  This monotonicity is a deduction made for
+  this entry.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[FFF26]}]\label{ref:0c23-fang-fawzi-fawzi}
+  K. Fang, H. Fawzi, and O. Fawzi,
+  ``Efficient Approximation of Regularized Relative Entropies and
+  Applications,''
+  \emph{IEEE Transactions on Information Theory} \textbf{72}, 2330--2342 (2026).
+  \href{https://doi.org/10.1109/TIT.2026.3661603}{doi:10.1109/TIT.2026.3661603};
+  \href{https://arxiv.org/abs/2502.15659}{arXiv:2502.15659}.
+
+  \item[\textup{[CSW12]}]\label{ref:0c23-christandl-schuch-winter}
+  M. Christandl, N. Schuch, and A. Winter,
+  ``Entanglement of the Antisymmetric State,''
+  \emph{Communications in Mathematical Physics} \textbf{311}, 397--422 (2012).
+  \href{https://doi.org/10.1007/s00220-012-1446-7}{doi:10.1007/s00220-012-1446-7};
+  \href{https://arxiv.org/abs/0910.4151}{arXiv:0910.4151}.
+
+  \item[\textup{[VW01]}]\label{ref:0c23-vollbrecht-werner}
+  K. G. H. Vollbrecht and R. F. Werner,
+  ``Entanglement Measures under Symmetry,''
+  \emph{Physical Review A} \textbf{64}, 062307 (2001).
+  \href{https://doi.org/10.1103/PhysRevA.64.062307}{doi:10.1103/PhysRevA.64.062307};
+  \href{https://arxiv.org/abs/quant-ph/0010095}{arXiv:quant-ph/0010095}.
+
+  \item[\textup{[HHT01]}]\label{ref:0c23-hayden-horodecki-terhal}
+  P. M. Hayden, M. Horodecki, and B. M. Terhal,
+  ``The Asymptotic Entanglement Cost of Preparing a Quantum State,''
+  \emph{Journal of Physics A: Mathematical and General} \textbf{34},
+  6891--6898 (2001).
+  \href{https://doi.org/10.1088/0305-4470/34/35/314}{doi:10.1088/0305-4470/34/35/314};
+  \href{https://arxiv.org/abs/quant-ph/0008134}{arXiv:quant-ph/0008134}.
+
+  \item[\textup{[Yur03]}]\label{ref:0c23-yura}
+  F. Yura,
+  ``Entanglement Cost of Three-Level Antisymmetric States,''
+  \emph{Journal of Physics A: Mathematical and General} \textbf{36},
+  L237--L242 (2003).
+  \href{https://doi.org/10.1088/0305-4470/36/15/104}{doi:10.1088/0305-4470/36/15/104};
+  \href{https://arxiv.org/abs/quant-ph/0302163}{arXiv:quant-ph/0302163}.
+
+  \item[\textup{[MY04]}]\label{ref:0c23-matsumoto-yura}
+  K. Matsumoto and F. Yura,
+  ``Entanglement Cost of Antisymmetric States and Additivity of Capacity of
+  Some Quantum Channels,''
+  \emph{Journal of Physics A: Mathematical and General} \textbf{37},
+  L167--L171 (2004).
+  \href{https://doi.org/10.1088/0305-4470/37/15/L03}{doi:10.1088/0305-4470/37/15/L03};
+  \href{https://arxiv.org/abs/quant-ph/0306009}{arXiv:quant-ph/0306009}.
+
+  \item[\textup{[AEJ+01]}]\label{ref:0c23-audenaert-et-al}
+  K. Audenaert, J. Eisert, E. Jan\'e, M. B. Plenio, S. Virmani, and
+  B. De Moor,
+  ``Asymptotic Relative Entropy of Entanglement,''
+  \emph{Physical Review Letters} \textbf{87}, 217902 (2001).
+  \href{https://doi.org/10.1103/PhysRevLett.87.217902}{doi:10.1103/PhysRevLett.87.217902};
+  \href{https://arxiv.org/abs/quant-ph/0103096}{arXiv:quant-ph/0103096}.
+
+  \item[\textup{[DHR02]}]\label{ref:0c23-donald-horodecki-rudolph}
+  M. J. Donald, M. Horodecki, and O. Rudolph,
+  ``The Uniqueness Theorem for Entanglement Measures,''
+  \emph{Journal of Mathematical Physics} \textbf{43}, 4252--4272 (2002).
+  \href{https://doi.org/10.1063/1.1495917}{doi:10.1063/1.1495917};
+  \href{https://arxiv.org/abs/quant-ph/0105017}{arXiv:quant-ph/0105017}.
+
+  \item[\textup{[APE03]}]\label{ref:0c23-audenaert-plenio-eisert}
+  K. Audenaert, M. B. Plenio, and J. Eisert,
+  ``Entanglement Cost under Positive-Partial-Transpose-Preserving Operations,''
+  \emph{Physical Review Letters} \textbf{90}, 027901 (2003).
+  \href{https://doi.org/10.1103/PhysRevLett.90.027901}{doi:10.1103/PhysRevLett.90.027901};
+  \href{https://arxiv.org/abs/quant-ph/0207146}{arXiv:quant-ph/0207146}.
+
+  \item[\textup{[WW23]}]\label{ref:0c23-wang-wilde}
+  X. Wang and M. M. Wilde,
+  ``Exact Entanglement Cost of Quantum States and Channels under
+  Positive-Partial-Transpose-Preserving Operations,''
+  \emph{Physical Review A} \textbf{107}, 012429 (2023).
+  \href{https://doi.org/10.1103/PhysRevA.107.012429}{doi:10.1103/PhysRevA.107.012429};
+  \href{https://arxiv.org/abs/1809.09592}{arXiv:1809.09592}.
+
+  \item[\textup{[Wil18]}]\label{ref:0c23-wilde}
+  M. M. Wilde,
+  ``Entanglement Cost and Quantum Channel Simulation,''
+  \emph{Physical Review A} \textbf{98}, 042338 (2018).
+  \href{https://doi.org/10.1103/PhysRevA.98.042338}{doi:10.1103/PhysRevA.98.042338};
+  \href{https://arxiv.org/abs/1807.11939}{arXiv:1807.11939}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+Literature checked through 15 September 2026.  Apart from the separable
+range and the parameter points $(d,p)=(2,1)$ and $(3,1)$, no exact LOCC
+entanglement cost of a Werner state was located, and no Werner state with
+$E_C<E_F$ was found.  Elsewhere on the range, the lower bounds recorded in
+Eqs.~\eqref{eq:0c23-antisymmetric} and \eqref{eq:0c23-ppt-ree} stay strictly
+below Eq.~\eqref{eq:0c23-eof}, so the open task is to evaluate the
+regularization in Eq.~\eqref{eq:0c23-regularization} or to prove a strict
+gap.  For $d=2$, $\rho_{2,p}$ is the Bell-diagonal state with weight $p$ on
+the singlet and $(1-p)/3$ on each other Bell state, so this qubit line lies
+inside the
+\href{https://qiqc-op.com/problem/op_aa21ac5ebca8b888/}{entanglement-cost problem for qubit Bell-diagonal states};
+up to a local unitary it is the two-qubit isotropic state with fidelity $p$.
+The
+\href{https://qiqc-op.com/problem/op_27b7826ed57e893a/}{LOCC entanglement cost of isotropic states}
+asks the analogous question for the $U\otimes\overline U$-invariant family;
+the two questions coincide at $d=2$ and differ for $d\geq3$.
+
+\subsection*{Field}
+
+Quantum Resource Theory
+
+\subsection*{Topic}
+
+Entanglement cost; Local operations and classical communication
+
+\subsection*{ID}
+
+\texttt{op\_0c23167deb384894}

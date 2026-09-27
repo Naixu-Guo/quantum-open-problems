@@ -1,0 +1,80 @@
+% Problem record op_3a7c93378a832c01. This TeX file is derived from
+% database/problems_json/op_3a7c93378a832c01.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Sampling weakly depolarized constant-depth random circuits}
+\label{sec:op_3a7c93378a832c01}
+
+\paragraph{Problem.}
+Can weak final-layer depolarizing noise make constant-depth two-dimensional Haar-random circuits classically samplable to inverse-polynomial total-variation error?
+
+Let $n=L^2$ qubits occupy an even-sided square grid. Apply a fixed-depth nearest-neighbor brickwork circuit $U$ of independent Haar-random two-qubit gates to $|0^n\rangle$, followed on every qubit by
+
+\begin{equation}
+\mathcal D_\gamma(X)=(1-\gamma)X+\gamma\operatorname{Tr}(X)I/2.
+\label{eq:3a7c-1}
+\end{equation}
+
+Let $P_{U,\gamma}$ be the computational-basis output distribution. For fixed $a>0$, set $\varepsilon=n^{-a}$ and $\gamma=K\log(n/\varepsilon)/n$. Is there a constant $d_0$ such that, for every fixed depth $d>d_0$, some constant $K>0$ permits a polynomial-time classical sampler with output distribution $Q_U$ satisfying
+
+\begin{equation}
+\mathbb E_U\|Q_U-P_{U,\gamma}\|_{\mathrm{TV}}\leq\varepsilon,
+\qquad
+\|P-Q\|_{\mathrm{TV}}=\frac12\sum_x|P(x)-Q(x)|?
+\label{eq:3a7c-2}
+\end{equation}
+
+Equation~\eqref{eq:3a7c-2} is the target for the noise channel in Eq.~\eqref{eq:3a7c-1}.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+This precise formulation is editor wording based on the unresolved direction and limitations documented in the cited primary literature \sourcecite{ref:3a7c-liu26}{Liu26}\sourcecite{ref:3a7c-go26}{Go26}; it is not presented as a verbatim conjecture of those authors.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Liu, McGinley, Schuster, and Gosset prove this sampling guarantee conditional on their Scrooge hypothesis. Theorem 1 states the threshold
+  \begin{equation}
+\gamma=\Omega\!\left(\frac{\log(n/\varepsilon)}n\right).
+\label{eq:3a7c-3}
+\end{equation}
+  Its end-matter proof establishes the stronger final-layer-only noise formulation used here; intermediate depolarizing noise can then be absorbed into randomly modified gates. \sourcecite{ref:3a7c-liu26}{Liu26}
+
+The displayed definitions, constraints, and target bounds are recorded in Eqs.~\eqref{eq:3a7c-3}.
+
+  \item The hypothesis concerns conditional ensembles produced by measuring a region, not the global circuit becoming Haar random. The paper supplies statistical-mechanical and Clifford-circuit numerical evidence, but does not prove the required Haar-circuit hypothesis. \sourcecite{ref:3a7c-liu26}{Liu26}
+
+  \item The July 2026 noisy-RCS hardness result does not settle this question: its hardness assumption concerns ideal probability estimation at $2^{-n}/\operatorname{poly}(n)$ precision and is expressly inapplicable to generic sublogarithmic-depth parallel architectures. Constant depth is precisely such a different regime. \sourcecite{ref:3a7c-go26}{Go26}
+
+  \item The 12 August 2026 paper retains the Scrooge hypothesis as a conjecture. No unconditional proof of this vanishing-noise sampling guarantee was located. \sourcecite{ref:3a7c-liu26}{Liu26}\sourcecite{ref:3a7c-go26}{Go26}
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Liu26]}]\label{ref:3a7c-liu26}
+  Y. Liu, M. McGinley, T. Schuster, and D. Gosset, "Conditional dependence and Scrooge ensembles in shallow random quantum circuits," arXiv preprint (2026), version 1, 12 August 2026. \href{https://arxiv.org/abs/2608.12255}{arXiv:2608.12255}.
+
+  \item[\textup{[Go26]}]\label{ref:3a7c-go26}
+  B. Go, C. Oh, and H. Jeong, "Hardness and Complexity Transition of Noisy Random Circuit Sampling," arXiv preprint (2026), version 1, 23 July 2026. \href{https://arxiv.org/abs/2607.20804}{arXiv:2607.20804}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+This asks for an unconditional algorithmic consequence of a published conjecture, not for the full Scrooge hypothesis itself. In the replacement interpretation of depolarizing noise, the target uses only $n\gamma=O(\log n)$ expected final-layer replacements, making it a sharp test of the noise fragility of shallow-circuit sampling.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Random circuit sampling; Computational complexity and computability; Quantum supremacy
+
+\subsection*{ID}
+
+\texttt{op\_3a7c93378a832c01}
