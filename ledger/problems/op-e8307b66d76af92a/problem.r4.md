@@ -1,0 +1,49 @@
+---
+id: "01M2M9FBPVQVBEGZT5RKD2QNNZ"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 4
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-09-25T07:18:08.197Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "editor-formulated"
+posed: null
+areaIds: ["quantum-cryptography"]
+topicIds: ["computational-complexity-and-computability","quantum-state-preparation"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "One-way state generation from private Hamiltonian phase states"
+aliases: ["op-e8307b66d76af92a","op_e8307b66d76af92a","01M2M9FBPVQVBEGZT5RKD2QNNZ"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_e8307b66d76af92a.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_e8307b66d76af92a","ulid":"01M2M9FBPVQVBEGZT5RKD2QNNZ","aliases":["op_e8307b66d76af92a","01M2M9FBPVQVBEGZT5RKD2QNNZ","op-e8307b66d76af92a"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":2,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-16T05:01:48.123Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"editor-formulated","posed":null,"areaIds":["quantum-cryptography"],"topicIds":["computational-complexity-and-computability","quantum-state-preparation"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"One-way state generation from private Hamiltonian phase states","status":"Unsolved","fields":["Quantum Cryptography"],"topics":["Computational complexity and computability","Quantum state preparation"],"statement":"Do private-architecture Hamiltonian phase states yield a one-way state generator for explicit polynomial parameters?\n\nFor uniformly random $A\\in\\mathbb F_2^{m\\times n}$ and independent uniform phases $\\theta_i\\in\\{2\\pi j/q:0\\leq j<q\\}$, define\n\n\\begin{equation}\n|\\phi_{A,\\theta}\\rangle\n=\\exp\\!\\left(i\\sum_{i=1}^m\\theta_iZ^{A_i}\\right)|+\\rangle^{\\otimes n},\n\\qquad\nZ^{A_i}=\\bigotimes_{j=1}^n Z^{A_{ij}}.\n\\label{eq:e830-1}\n\\end{equation}\n\nDo explicit polynomially bounded $m(n)$ and growing $q(n)$ exist such that, for every polynomial $t$ and every quantum polynomial-time inverter $\\mathcal I$,\n\n\\begin{equation}\n\\mathbb E\\!\\left[\n\\left|\\langle\\phi_{A',\\theta'}|\\phi_{A,\\theta}\\rangle\\right|^2\n\\right]\\leq\\operatorname{negl}(n),\n\\qquad\n(A',\\theta')\\leftarrow\\mathcal I(1^n,|\\phi_{A,\\theta}\\rangle^{\\otimes t(n)})?\n\\label{eq:e830-2}\n\\end{equation}\n\nHere $\\operatorname{negl}(n)<n^{-a}$ eventually for every constant $a>0$, and the architecture $A$ in Eq.~\\eqref{eq:e830-1} is hidden. In Eq.~\\eqref{eq:e830-2}, the inverter must output a valid description in the same parameter space; invalid outputs fail verification.","source":"This precise formulation is editor wording based on the unresolved direction and limitations documented in the cited primary literature \\sourcecite{ref:e830-bostanci25}{Bostanci25}; it is not presented as a verbatim conjecture of those authors.","progress":["Status: an unresolved quantum cryptographic hardness assumption. The originating work gives restricted worst-to-average-case reductions and bounded-copy design evidence, but not a proof of general search hardness. It also explains that polynomially many copies suffice information-theoretically: the conjectured obstacle is computation, not an absence of information. \\sourcecite{ref:e830-bostanci25}{Bostanci25}, Sections~5.1–5.3","Later work develops measurement-assisted shallow preparation of these states and analyzes statistical properties. These are advances in realizing the ensemble, not proofs that polynomial-time quantum inversion is impossible. \\sourcecite{ref:e830-cao26}{Cao26}","The cited work leaves both general inversion and security unresolved. The original paper separately proposes decision HPS, concerning indistinguishability from Haar states; that different security task is not identified here with search HPS. \\sourcecite{ref:e830-bostanci25}{Bostanci25}, Sections~4.2","Historical GitHub report (2026-09-18): Naixu-Guo reported an implication from the Search HPS assumption to quantum-secure classical one-way functions. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/82}{Pull request \\#82}."],"references":[{"key":"Bostanci25","label":"ref:e830-bostanci25","tex":"John Bostanci, Jonas Haferkamp, Dominik Hangleiter, and Alexander Poremba, \\emph{Efficient Quantum Pseudorandomness from Hamiltonian Phase States}. \\href{https://arxiv.org/html/2410.08073}{arXiv:2410.08073}; \\href{https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.TQC.2025.9}{TQC 2025, LIPIcs 350, article 9}. Pinpoints refer to the arXiv full text: §4.1, §4.2, and §§5.1–5.3."},{"key":"Cao26","label":"ref:e830-cao26","tex":"Chenfeng Cao and Jens Eisert, \\emph{Measurement-Driven Quantum Advantages in Shallow Circuits}. \\href{https://arxiv.org/html/2505.04705}{arXiv:2505.04705}; Physical Review Letters 136, 080601 (2026). See “Measurement-prepared Hamiltonian phase states” and the discussion."}],"comment":"This is the closest match to a quantum-information version of a one-way function: a short classical description prepares a state, but copies allegedly do not permit efficient reverse engineering.\n\nThe fidelity verifier matters. Recovering a different description of almost the same state is a successful attack; merely showing that the original labels are nonunique is not evidence of security. Conversely, tomography with an exponentially expensive reconstruction stage does not refute a polynomial-time hardness claim.\n\nScope caution: the security parameter regime is part of the research problem. The statement does not endorse an arbitrary choice such as $m=n$, nor a version in which the architecture is public. The cited results establish partial evidence rather than security for an explicit general parameter regime.","contributors":[]}}
+---
+## Source
+
+This precise formulation is editor wording based on the unresolved direction and limitations documented in the cited primary literature [Bostanci25](https://doi.org/10.4230/LIPIcs.TQC.2025.9); it is not presented as a verbatim conjecture of those authors.
+
+## Progress
+
+Status: an unresolved quantum cryptographic hardness assumption. The originating work gives restricted worst-to-average-case reductions and bounded-copy design evidence, but not a proof of general search hardness. It also explains that polynomially many copies suffice information-theoretically: the conjectured obstacle is computation, not an absence of information. [Bostanci25](https://doi.org/10.4230/LIPIcs.TQC.2025.9), Sections 5.1–5.3
+
+Later work develops measurement-assisted shallow preparation of these states and analyzes statistical properties. These are advances in realizing the ensemble, not proofs that polynomial-time quantum inversion is impossible. [Cao26](https://arxiv.org/abs/2505.04705)
+
+The cited work leaves both general inversion and security unresolved. The original paper separately proposes decision HPS, concerning indistinguishability from Haar states; that different security task is not identified here with search HPS. [Bostanci25](https://doi.org/10.4230/LIPIcs.TQC.2025.9), Sections 4.2
+
+Historical GitHub report (2026-09-18): Naixu-Guo reported an implication from the Search HPS assumption to quantum-secure classical one-way functions. [Pull request #82](https://github.com/Naixu-Guo/quantum-open-problems/pull/82).
+
+## Comment
+
+This is the closest match to a quantum-information version of a one-way function: a short classical description prepares a state, but copies allegedly do not permit efficient reverse engineering.
+
+The fidelity verifier matters. Recovering a different description of almost the same state is a successful attack; merely showing that the original labels are nonunique is not evidence of security. Conversely, tomography with an exponentially expensive reconstruction stage does not refute a polynomial-time hardness claim.
+
+Scope caution: the security parameter regime is part of the research problem. The statement does not endorse an arbitrary choice such as $m=n$, nor a version in which the architecture is public. The cited results establish partial evidence rather than security for an explicit general parameter regime.
+
+## References
+
+**Bostanci25** John Bostanci, Jonas Haferkamp, Dominik Hangleiter, and Alexander Poremba, *Efficient Quantum Pseudorandomness from Hamiltonian Phase States*. [arXiv:2410.08073](https://arxiv.org/html/2410.08073); [TQC 2025, LIPIcs 350, article 9](https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.TQC.2025.9). Pinpoints refer to the arXiv full text: §4.1, §4.2, and §§5.1–5.3.
+
+**Cao26** Chenfeng Cao and Jens Eisert, *Measurement-Driven Quantum Advantages in Shallow Circuits*. [arXiv:2505.04705](https://arxiv.org/html/2505.04705); Physical Review Letters 136, 080601 (2026). See “Measurement-prepared Hamiltonian phase states” and the discussion.
