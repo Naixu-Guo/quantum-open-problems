@@ -161,8 +161,8 @@
   const escapeHtml = (value) => String(value).replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
   const slugify = (value) => String(value).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
   const statusMeta = {
-    unsolved: { label: "Unsolved", title: "No complete solution is known." },
-    solved: { label: "Solved", title: "A complete solution is known; see Progress and Comment." }
+    unsolved: { label: "Unsolved", title: "Unsolved is the maintainer team's catalog designation; reports do not change it automatically." },
+    solved: { label: "Solved", title: "Solved is the maintainer team's catalog designation; see Progress and Comment." }
   };
   // Match the title-case field labels rendered by the static templates.
   const tagLabel = (name, kind) => kind === "field"
@@ -482,6 +482,7 @@
       newTopics: topics.custom(),
       source: value("source"),
       progress: value("progress"),
+      ...(value("progress") || value("archivalLinks") ? { archivalLinks: value("archivalLinks").split(/\r?\n/).map(line => line.trim()).filter(Boolean) } : {}),
       references: value("references"),
       comment: value("comment"),
       contributor: { name: value("name"), email: value("email"), affiliation: value("affiliation"), ...(allowAnonymous ? { anonymous: anonymousRequested() } : {}) },
@@ -511,9 +512,23 @@
       return list;
     };
 
+    const sourceProblems = async (p) => {
+      if (!p.progress && !p.archivalLinks?.length) return [];
+      const sourceField = control("archivalLinks") ?? control("progress");
+      if (!p.archivalLinks?.length) return [{ message: "Known progress requires at least one archival manuscript or paper link. Leave Known progress empty for an ordinary new-problem proposal without research updates.", control: sourceField }];
+      if (p.archivalLinks.length > 10) return [{ message: "Provide at most 10 archival links, one per line.", control: sourceField }];
+      try {
+        const { normalizeArchivalLink } = await import("./progress-sources.mjs");
+        p.archivalLinks = [...new Set(p.archivalLinks.map(link => normalizeArchivalLink(link).url))];
+        return [];
+      } catch (error) {
+        return [{ message: error instanceof TypeError ? "The source checker could not load. Your draft is kept; reload the page and retry." : error.message, control: sourceField }];
+      }
+    };
+
     // Drafts.
     const DRAFT_KEY = "qiqcop-proposal-draft";
-    const textNames = ["title", "statement", "source", "progress", "references", "comment", "name", "email", "affiliation"];
+    const textNames = ["title", "statement", "source", "progress", "archivalLinks", "references", "comment", "name", "email", "affiliation"];
     let saveTimer = 0;
     const saveDraft = () => {
       window.clearTimeout(saveTimer);
@@ -571,14 +586,18 @@
       const section = (heading, body) => (body ? `## ${heading}\n\n${body}\n\n` : "");
       const marked = (all, own) => all.map((name) => (own.includes(name) ? `${name} (new)` : name)).join("; ") || "none";
       return `# ${p.title || "(untitled)"}\n\n`
-        + (anonymousRequested() ? "Contributor: Anonymous\n" : `Contributor: ${p.contributor.name}${p.contributor.email ? ` <${p.contributor.email}>` : ""}${p.contributor.affiliation ? ` (${p.contributor.affiliation})` : ""}\n`)
+        + (anonymousRequested() ? "Contributor: Anonymous\n" : `Contributor: ${p.contributor.name}${p.contributor.affiliation ? ` (${p.contributor.affiliation})` : ""}\n`)
         + `Public credit: ${anonymousRequested() ? "Remain anonymous" : "Use contributor name"}\n`
         + (p.contentLicense ? "Content license: CC BY 4.0 for my original text; third-party material excluded.\n" : "")
         + `Fields: ${marked(p.fields, p.newFields)}\nTopics: ${marked(p.topics, p.newTopics)}\n\n`
-        + section("Statement", p.statement) + section("Source", p.source) + section("Progress", p.progress) + section("References", p.references) + section("Comment", p.comment);
+        + section("Statement", p.statement) + section("Source", p.source) + section("Progress", p.progress) + section("Archival progress sources", p.archivalLinks?.join("\n")) + section("References", p.references) + section("Comment", p.comment);
     };
     $("#proposal-copy")?.addEventListener("click", async () => {
-      const ok = await copyText(`${asText(proposal()).trimEnd()}\n`);
+      saveDraft();
+      const p = proposal();
+      const issues = await sourceProblems(p);
+      if (issues.length) { say(issues.map(issue => issue.message).join(" "), "error"); issues[0].control?.focus?.(); return; }
+      const ok = await copyText(`${asText(p).trimEnd()}\n`);
       notify(ok ? "Proposal copied as text" : "Copy failed; select the text manually");
     });
     $("#proposal-clear")?.addEventListener("click", () => {
@@ -611,7 +630,7 @@
       event.preventDefault();
       saveDraft();
       const p = proposal();
-      const issues = problems(p);
+      const issues = [...problems(p), ...await sourceProblems(p)];
       if (issues.length) {
         say(issues.map((issue) => issue.message).join(" "), "error");
         issues[0].control?.focus?.();

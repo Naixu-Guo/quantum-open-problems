@@ -1,0 +1,23 @@
+name: Request archival source support
+description: Request support for an archival manuscript or publisher record not yet recognized by the form.
+title: "[Source support] "
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        This request concerns source support only. It does not submit a research claim, certify
+        a paper, or change a problem's status. After the archival source is supported, new progress
+        must use the progress form with the required manuscript or paper link.
+  - type: input
+    id: source_url
+    attributes:
+      label: Archival manuscript or publisher record URL
+    validations:
+      required: true
+  - type: textarea
+    id: citation
+    attributes:
+      label: Complete citation and repository information
+      description: Title, authors, date, version, and why this is an archival research document. Include a DOI if available.
+    validations:
+      required: true
