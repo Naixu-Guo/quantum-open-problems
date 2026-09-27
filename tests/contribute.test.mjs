@@ -9,7 +9,7 @@ import { LIMITS } from "../service/src/submissions.ts";
 
 const config = JSON.parse(fs.readFileSync(new URL("../site/config.json", import.meta.url), "utf8"));
 const taxonomy = loadTaxonomy(fileURLToPath(new URL("../database/tags.json", import.meta.url)));
-const clientScript = fs.readFileSync(new URL("../site/assets/app.js", import.meta.url), "utf8");
+const clientScript = fs.readFileSync(new URL("../site/assets/form-math.js", import.meta.url), "utf8") + "\n" + fs.readFileSync(new URL("../site/assets/app.js", import.meta.url), "utf8");
 const counts = { fieldCounts: new Map([[taxonomy.fields[0], 3]]), topicCounts: new Map([[taxonomy.topics[0], 2]]) };
 const online = { ...config, contribute: { submissionUrl: "https://inbox.example.org/api/v1/submissions", allowAnonymous: true, captcha: { provider: "turnstile", siteKey: "1x00000000000000000000AA" } } };
 const offline = { ...config, contribute: { submissionUrl: "", captcha: { provider: "turnstile", siteKey: "" } } };
@@ -505,4 +505,19 @@ test("the statement example disappears on focus, click, or input and clear resto
   statement.value = "Text entered without a preceding focus event.";
   statement.listeners.input();
   assert.equal(placeholder.hidden, true, "input also hides the example");
+});
+
+test("proposal copy protects GitHub math while saved drafts and inbox payloads keep canonical TeX", async () => {
+  const statement = fs.readFileSync(new URL("fixtures/issue-41-math.txt", import.meta.url), "utf8").trim();
+  const c = createClientForm({ values: { statement } });
+  c.choose(c.fieldPicker, "Quantum algorithm");
+  c.choose(c.topicPicker, "Bell nonlocality");
+  await c.ids.get("#proposal-copy").listeners.click();
+  assert.equal((c.copied[0].match(/\$`/gu) ?? []).length, 7);
+  const draft = JSON.parse(c.storage.get("qiqcop-proposal-draft"));
+  assert.equal(draft.values.statement, statement);
+  const restored = createClientForm({ draft });
+  assert.equal(restored.controls.get("statement").value, statement);
+  await c.form.listeners.submit({ preventDefault() {} });
+  assert.equal(c.fetched[0].body.statement, statement);
 });

@@ -34,6 +34,37 @@ It covers primary-source verification, semantic duplicate checks, the current
 JSON format, and synchronization of derived outputs. Use the supplied sources
 and ask only for information needed to make the question or attribution precise.
 
+## Mathematics in submission forms
+
+Type ordinary TeX with one backslash per command: `$\operatorname{Tr}(\rho)=1$`
+for inline math, or `$$` on separate lines for a multiline display. Standard
+commands such as `\operatorname` are supported; use explicit norm delimiters
+such as `$\lVert A\rVert_\infty$`. The preview also understands `\(...\)`,
+`\[...\]`, and equation/alignment environments. Inline backticks, ordinary
+fenced code blocks, and indented code examples remain literal.
+
+Use **Preview formulas** in either form before sending. It names the field,
+line, and expression for unmatched delimiters, unknown commands, or likely
+accidental double escaping. If the math renderer cannot load, the source stays
+visible and you can retry; drafts are retained. Preview checks formatting only,
+not the correctness of a research claim.
+
+Draft saving and direct inbox submission preserve the original TeX. Copying for
+GitHub and prefilling a GitHub report protect inline math with GitHub's
+``$`…`$`` syntax and use `math` fences for display expressions. These are export
+formats only. GitHub's browser renderer can also reject `\operatorname` even
+when its Markdown API recognizes the formula. Export therefore converts it to
+an upright `\mathop` with `\nolimits` (or its default movable limits for the
+starred form), preserving its role as an operator. The preview uses that equivalent
+expression. Original textarea values and canonical records retain
+`\operatorname`; do not insert export backticks or substitutions into them.
+Check GitHub's own **Preview** before posting. Unlike a form textarea, a JSON
+string must escape its backslashes (`\\operatorname` in the JSON source).
+Historical GitHub reports are not rewritten by this formatting change.
+
+See [GitHub's math syntax](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions)
+and [MathJax's supported commands](https://docs.mathjax.org/en/latest/input/tex/macros/index.html).
+
 ## Contribution licensing
 
 By intentionally submitting new material for inclusion under this policy,

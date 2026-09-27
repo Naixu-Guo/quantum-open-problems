@@ -570,22 +570,17 @@
     control("statement")?.addEventListener("input", hideStatementPlaceholder);
     if (value("statement")) hideStatementPlaceholder();
 
-    // Mathematics preview of the statement. $…$ and $…$ become the delimiters MathJax is configured with.
-    $("#statement-preview-button")?.addEventListener("click", () => {
-      if (!preview) return;
-      const text = value("statement");
-      preview.hidden = false;
-      preview.textContent = text
-        ? text.replace(/\$\$([\s\S]+?)\$\$/g, "\\[$1\\]").replace(/(^|[^\\$])\$([^$\n]+?)\$/g, "$1\\($2\\)")
-        : "Nothing to preview yet.";
-      typeset(preview);
+    const mathPreview = globalThis.QIQCOPFormMath?.bindMathPreview({
+      document, button: $("#statement-preview-button"), output: preview,
+      fields: [["title", "Title"], ["statement", "Statement"], ["source", "Source"], ["progress", "Known progress"], ["references", "References"], ["comment", "Comment"]].map(([name, label]) => ({ label, control: control(name) })),
+      getMathJax: () => window.MathJax
     });
 
     // The proposal as text, the same shape the maintainers see in the inbox.
     const asText = (p) => {
-      const section = (heading, body) => (body ? `## ${heading}\n\n${body}\n\n` : "");
+      const section = (heading, body) => (body ? `## ${heading}\n\n${globalThis.QIQCOPFormMath.githubMath(body)}\n\n` : "");
       const marked = (all, own) => all.map((name) => (own.includes(name) ? `${name} (new)` : name)).join("; ") || "none";
-      return `# ${p.title || "(untitled)"}\n\n`
+      return `# ${globalThis.QIQCOPFormMath.githubMath(p.title) || "(untitled)"}\n\n`
         + (anonymousRequested() ? "Contributor: Anonymous\n" : `Contributor: ${p.contributor.name}${p.contributor.affiliation ? ` (${p.contributor.affiliation})` : ""}\n`)
         + `Public credit: ${anonymousRequested() ? "Remain anonymous" : "Use contributor name"}\n`
         + (p.contentLicense ? "Content license: CC BY 4.0 for my original text; third-party material excluded.\n" : "")
@@ -597,6 +592,7 @@
       const p = proposal();
       const issues = await sourceProblems(p);
       if (issues.length) { say(issues.map(issue => issue.message).join(" "), "error"); issues[0].control?.focus?.(); return; }
+      if (!globalThis.QIQCOPFormMath) { say("The math export helper could not load. Your draft is saved; reload and try again.", "error"); return; }
       const ok = await copyText(`${asText(p).trimEnd()}\n`);
       notify(ok ? "Proposal copied as text" : "Copy failed; select the text manually");
     });
@@ -605,6 +601,7 @@
       restoredAnonymous = false;
       fields.set([], []);
       topics.set([], []);
+      mathPreview?.invalidate();
       if (preview) { preview.hidden = true; preview.textContent = ""; }
       if (statementPlaceholder) statementPlaceholder.hidden = false;
       clearDraft();

@@ -413,3 +413,24 @@ test("timeout preserves the draft and a successful response cannot erase a newer
   await pending;
   assert.equal(c.values.get("qiqcop-progress-draft"), newer);
 });
+
+test("math copy, URL prefill, draft reload, and direct inbox sending preserve the same TeX", async () => {
+  const summary = fs.readFileSync(new URL("fixtures/issue-41-math.txt", import.meta.url), "utf8").trim();
+  const c = client({ online: true });
+  c.controls.get("summary").value = summary;
+  c.controls.get("citation").value = String.raw`A paper on $\operatorname{Tr}(A)$`;
+  await c.click("copy");
+  assert.equal((c.copied[0].match(/\$`/gu) ?? []).length, 8);
+  const saved = JSON.parse(c.values.get("qiqcop-progress-draft"));
+  assert.equal(saved.values.summary, summary);
+  const restored = client({ draft: saved });
+  assert.equal(restored.controls.get("summary").value, summary);
+  restored.controls.get("consent").checked = true;
+  restored.click("open");
+  const url = new URL(restored.navigations[0]);
+  assert.equal((url.searchParams.get("summary").match(/\$`/gu) ?? []).length, 7);
+  assert.match(url.searchParams.get("citation"), /\$`\\mathop/u);
+  await c.submit();
+  assert.equal(c.sent[0].body.summary, summary, "GitHub markup never enters the inbox payload");
+  assert.equal(c.sent[0].body.citation, String.raw`A paper on $\operatorname{Tr}(A)$`);
+});

@@ -31,10 +31,11 @@ export const displayDateTime = (iso) => {
   return `${new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false, timeZone: "UTC" }).format(date)} UTC`;
 };
 
-const MATHJAX = `<script>
+const MATHJAX = (formMath = false) => `<script>
       window.MathJax = {
         loader: { load: ["ui/safe"] },
         tex: {
+          ${formMath ? 'packages: { "[-]": ["noundefined"] },' : ""}
           macros: { ket: ["\\\\lvert #1\\\\rangle", 1] },
           inlineMath: [["\\\\(", "\\\\)"]],
           displayMath: [["\\\\[", "\\\\]"]],
@@ -91,7 +92,7 @@ export const tagItems = (record, root) => [
   ...record.topics.map((name) => `<li>${tagLink(name, root, "topic")}</li>`)
 ].join("");
 
-export function layout({ config, root, title, description, path, body, current = "", extraHead = "", bodyClass = "", withMath = true, extraScripts = "" }) {
+export function layout({ config, root, title, description, path, body, current = "", extraHead = "", bodyClass = "", withMath = true, formMath = false, extraScripts = "" }) {
   const canonical = `${config.siteUrl.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
   const pageTitle = title ? `${title} · ${config.shortName}` : `${config.shortName} · ${config.fullName}`;
   const nav = (href, label, key) => `<a href="${root}${href}"${current === key ? ' aria-current="page"' : ""}>${label}</a>`;
@@ -117,7 +118,7 @@ export function layout({ config, root, title, description, path, body, current =
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" media="print" onload="this.media='all'">
     <link rel="alternate" type="application/json" href="${root}api/index.json" title="${escape(config.shortName)} API">
     ${THEME_BOOT}
-    ${withMath ? MATHJAX : ""}
+    ${withMath ? MATHJAX(formMath) : ""}
     ${extraHead}
   </head>
   <body class="${bodyClass}" id="top" data-root="${root}">
@@ -840,6 +841,8 @@ export const CAPTCHA_WIDGETS = {
   hcaptcha: { name: "hCaptcha", script: "https://js.hcaptcha.com/1/api.js", className: "h-captcha", responseField: "h-captcha-response", privacyUrl: "https://www.hcaptcha.com/privacy" }
 };
 
+const FORM_MATH_HELP = `<p class="form-hint">Use <code>$\\operatorname{Tr}(\\rho)=1$</code> for inline math and <code>$$</code> on separate lines for display math. Prefer explicit norms: <code>$\\lVert A\\rVert_\\infty$</code>. Type one backslash per command; drafts and inbox submissions keep your TeX. Copy for GitHub protects formulas from Markdown and adapts operator names. Put code examples inside backticks or fenced code blocks.</p>`;
+
 export function renderContribute({ config, root, taxonomy, fieldCounts, topicCounts }) {
   const settings = config.contribute ?? {};
   const submissionUrl = String(settings.submissionUrl ?? "").trim();
@@ -916,11 +919,7 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
         <fieldset>
           <legend>The problem</legend>
           ${field("proposal-title", "Title", input("proposal-title", "title", `required minlength="${L.title.min}" maxlength="${L.title.max}" autocomplete="off"`), "A short descriptive title, as it would head the problem page.")}
-          ${field("proposal-statement", "Statement", `<div class="statement-input">${textarea("proposal-statement", "statement", 12, `required minlength="${L.statement.min}" maxlength="${L.statement.max}" spellcheck="false"`)}<span class="statement-placeholder no-math" id="statement-placeholder" aria-hidden="true">$\\ket{\\psi}$</span></div>`, `Self-contained, with the definitions, hypotheses, and quantifiers a reader needs, and a checkable resolution criterion. Write mathematics as in TeX: <code>$\\ldots$</code> inline, <code>\\[ \\ldots \\]</code> or an <code>equation</code> environment for display. Up to ${L.statement.max.toLocaleString("en")} characters.`)}
-          <div class="form-row form-row-inline">
-            <button class="button button-ghost button-small" type="button" id="statement-preview-button">Preview</button>
-            <div class="statement-preview math-ready" id="statement-preview" hidden aria-live="polite"></div>
-          </div>
+          ${field("proposal-statement", "Statement", `<div class="statement-input">${textarea("proposal-statement", "statement", 12, `required minlength="${L.statement.min}" maxlength="${L.statement.max}" spellcheck="false"`)}<span class="statement-placeholder no-math" id="statement-placeholder" aria-hidden="true">$\\ket{\\psi}$</span></div>`, `Self-contained, with the definitions, hypotheses, and quantifiers a reader needs, and a checkable resolution criterion. Use <code>$…$</code> for inline mathematics and <code>$$</code> on separate lines for display mathematics. The formula preview below also supports TeX delimiters and equation environments. Up to ${L.statement.max.toLocaleString("en")} characters.`)}
         </fieldset>
 
         <fieldset>
@@ -949,6 +948,12 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
           <legend>Anything else</legend>
           ${field("proposal-comment", "Comment (optional)", textarea("proposal-comment", "comment", 4, `maxlength="${L.comment.max}"`), "The remaining gap, relations to problems already in the zoo (give their IDs), naming conventions, or notes for the maintainers, such as how you would like to be credited.")}
         </fieldset>
+
+        <div class="form-row">
+          ${FORM_MATH_HELP}
+          <button class="button button-ghost button-small" type="button" id="statement-preview-button">Preview formulas</button>
+          <div class="statement-preview no-math" id="statement-preview" hidden aria-live="polite"></div>
+        </div>
 
         <fieldset>
           <legend>About you</legend>
@@ -992,8 +997,8 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
     config, root, path: "contribute/", current: "contribute",
     title: "Contribute",
     description: `Contribute to the ${config.shortName}: propose an open problem, report research progress with archival sources, suggest a correction, or prepare a record through GitHub.`,
-    body, bodyClass: "page-contribute",
-    extraHead: usesCaptcha ? `<script src="${widget.script}" async defer></script>` : ""
+    body, bodyClass: "page-contribute", formMath: true,
+    extraHead: `<script src="${root}assets/form-math.js?v=${config.assetVersions?.formMath ?? ""}" defer></script>` + (usesCaptcha ? `<script src="${widget.script}" async defer></script>` : "")
   });
 }
 
@@ -1063,6 +1068,11 @@ export function renderProgressContribute({ config, root, records }) {
         <fieldset><legend>Report summary</legend>
           ${input("summary", "Brief summary (required)", "Up to 1,500 characters. Describe what the source reports and how it concerns this problem, or explain the relevance of the earlier GitHub report. Do not paste a proof.", 'required maxlength="1500"', "textarea")}
         </fieldset>
+        <div class="form-row">
+          ${FORM_MATH_HELP}
+          <button class="button button-ghost button-small" type="button" id="progress-preview-button">Preview formulas</button>
+          <div class="statement-preview no-math" id="progress-preview" hidden aria-live="polite"></div>
+        </div>
         <fieldset><legend>Contact and consent</legend>
           <div class="form-grid-2">
             ${input("name", "Your name (required)", "For attribution and any questions about the report.", 'required maxlength="200" autocomplete="name"')}
@@ -1086,7 +1096,7 @@ export function renderProgressContribute({ config, root, records }) {
       </form>
       <div class="proposal-done no-math" id="progress-done" hidden tabindex="-1"><h2>Your report has been received for documentation</h2><p>Receipt <code id="progress-receipt"></code>. Submission does not publish the report or change the problem's status. The maintainers may ask for citation, attribution, or historical-context details.</p><p class="form-error" id="progress-draft-warning" hidden>The browser's saved draft could not be checked or removed. It may still contain your contact details. Clear this site's browser data to remove it, especially on a shared computer.</p><p><a href="${root}contribute/progress/">Prepare another report</a> · <a href="${root}problems/">Browse the catalog</a></p></div>
     </div>`;
-  return layout({ config, root, path: "contribute/progress/", current: "contribute", title: "Submit a progress report", description: "Document research progress with an archival manuscript or paper link, or identify an earlier GitHub report.", body, bodyClass: "page-contribute", withMath: false,
+  return layout({ config, root, path: "contribute/progress/", current: "contribute", title: "Submit a progress report", description: "Document research progress with an archival manuscript or paper link, or identify an earlier GitHub report.", body, bodyClass: "page-contribute", formMath: true,
     extraHead: usesCaptcha ? `<script src="${widget.script}" async defer></script>` : "",
     extraScripts: `<script type="module" src="${root}assets/progress-form.mjs?v=${config.assetVersions?.progress ?? ""}"></script>` });
 }

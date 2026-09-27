@@ -1,4 +1,7 @@
+import "./form-math.js";
 import { normalizeArchivalLink, normalizeHistoricalLink } from "../../shared/progress-sources.mjs";
+
+const { githubMath, bindMathPreview } = globalThis.QIQCOPFormMath;
 
 export const parseSourceLines = text => String(text ?? "").split(/\r?\n/u).map(line => line.trim()).filter(Boolean);
 
@@ -42,7 +45,7 @@ export function prepareProgressReport(raw, { requireEmail = true, allowAnonymous
 
 /** Public handoff deliberately excludes the private email and anonymous identity. */
 export function publicProgressText(report) {
-  const section = (heading, value) => value ? `## ${heading}\n\n${value}\n\n` : "";
+  const section = (heading, value) => value ? `## ${heading}\n\n${githubMath(value)}\n\n` : "";
   const credit = report.contributor.anonymous ? "Anonymous" : `${report.contributor.name}${report.contributor.affiliation ? ` (${report.contributor.affiliation})` : ""}`;
   return `# ${report.kind === "historical" ? "Historical progress listing" : "Reported research progress"}: ${report.problemId}\n\n`
     + section("Type of report", report.kind === "historical" ? "Historical GitHub report" : report.updateType)
@@ -72,7 +75,7 @@ export function githubReportUrl(report, repositoryUrl) {
   // Preserve every field. A long report must use an explicit manual handoff, never silent truncation.
   for (const [key, value] of Object.entries(fields)) {
     if (!value) continue;
-    url.searchParams.set(key, value);
+    url.searchParams.set(key, ["summary", "citation", "result_locator"].includes(key) ? githubMath(value) : value);
   }
   if (url.href.length > 7500) throw new Error("This report is too long to prefill GitHub safely. Your entries remain in this form. Use Copy report for GitHub, then open the matching form from the repository’s issue chooser and paste the complete public report. No fields were dropped and no GitHub page was opened.");
   return url.href;
@@ -134,6 +137,11 @@ export function initProgressForm({ document, window, storage, fetch, clipboard, 
     if (exact) control("problemId").value = exact.id;
     else if (!selected || !sameText(labelFor(selected), search.value)) control("problemId").value = "";
   };
+  const mathPreview = bindMathPreview({
+    document, button: node("preview-button"), output: node("preview"),
+    fields: [["summary", "Summary"], ["citation", "Citation"], ["resultLocator", "Result locator"]].map(([name, label]) => ({ label, control: control(name) })),
+    getMathJax: () => window.MathJax
+  });
   let busy = false;
   let restoredAnonymous = false;
   const anonymous = () => allowAnonymous ? Boolean(control("anonymous")?.checked) : restoredAnonymous;
@@ -253,6 +261,7 @@ export function initProgressForm({ document, window, storage, fetch, clipboard, 
   if (restored && query.get("problem") && query.get("problem") !== value("problemId")) say("Restored your saved draft for " + (value("problemId") || "an unselected problem") + "; the linked problem " + query.get("problem") + " did not replace it. Check the problem field or clear the saved draft.");
   if (!allowAnonymous && restoredAnonymous) say("Your saved draft requests anonymous credit, which is not enabled here. Keep it for later or use Clear form to start a named report.", "error");
   const switchKind = () => {
+    mathPreview?.invalidate();
     const historical = value("kind") === "historical";
     node("research-fields").hidden = historical;
     node("historical-fields").hidden = !historical;
