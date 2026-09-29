@@ -46,3 +46,7 @@ We thank [GaugeForge](https://gauge-forge.com/) for its financial support of thi
 
 For local setup, backend services, maintenance, and deployment, see the
 [development guide](docs/DEVELOPMENT.md).
+
+For a separate ChatGPT cloud task that reviews new literature and prepares
+catalog pull requests, see the private [research-monitor MCP package](plugins/qop-research-monitor/README.md)
+and its [ChatGPT setup guide](plugins/qop-research-monitor/CHATGPT_SETUP.zh-CN.md).
