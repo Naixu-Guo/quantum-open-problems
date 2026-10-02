@@ -88,6 +88,21 @@ The grant covers only bikunli's original catalog text. Existing and third-party
 material retain their own terms; this does not extend to other contributors'
 text or to cited papers.
 
+### PR #21: original two problem records
+
+On 27 September 2026, Chengkai-Zhu [explicitly confirmed](https://github.com/Naixu-Guo/quantum-open-problems/pull/21#issuecomment-5853450783)
+that they hold the rights to their original catalog text in the following
+records and may contribute it under CC BY 4.0:
+
+- `database/problems_json/op_09dc815c8a194fb7.json`
+- `database/problems_json/op_55869a5fec880498.json`
+
+The confirmation covers their original contributions in PR #21 through
+reviewed commit `c07cfe88dd878156a8ff90611328c36f3960cda2`, including
+the corresponding TeX mirrors and derived catalog representations. It covers
+only Chengkai-Zhu's original text; cited papers, third-party material, and
+other contributors' text retain their own terms.
+
 ## Contributions
 
 New code contributions use Apache-2.0; new original catalog text uses CC BY 4.0.

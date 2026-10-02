@@ -66,25 +66,44 @@ copies \sourcecite{ref:a64d-he-et-al}{HZY+26}.
   simulable processing improves the Haar-averaged fidelity
   \sourcecite{ref:a64d-he-et-al}{HZY+26}.
 
-  \item Semidefinite programs return the same value, and hence no
-  improvement, for
+  \item Numerical scans for
   \begin{equation}
-    (d,n)\in\{(2,3),(2,4),(3,3),(3,4)\},
+    (d,n)\in\{(2,3),(2,4),(3,3),(3,4)\}
     \label{eq:a64d-numerics}
   \end{equation}
-  but the finite cases in Eq.~\eqref{eq:a64d-numerics} do not prove the
-  statement for all $n$ and all admissible $d$
+  agree with the single-copy fidelity to within $10^{-6}$ at the sampled
+  noise strengths and success probabilities. The final journal supplement,
+  Appendix F, restricts its qubit scans to
+  $0<\delta<1-1/\sqrt3$, with noise and success-probability steps of $0.01$.
+  These sampled cases in Eq.~\eqref{eq:a64d-numerics} do not establish a
+  no-go theorem for the full noise interval or arbitrary copy number
   \sourcecite{ref:a64d-he-et-al}{HZY+26}.
 
   \item Without the restriction to classically simulable maps, projecting
   the $n$ copies of a depolarized qubit onto their symmetric subspace is
   the optimal universal purifier and raises the fidelity above the
-  single-copy value.  A proof of Eq.~\eqref{eq:a64d-no-go} would therefore
-  isolate dynamical non-stabilizer resources as necessary for purification
-  rather than establish an unrestricted impossibility
+  single-copy value. This unrestricted result does not determine what is
+  attainable with classically simulable maps
   \sourcecite{ref:a64d-cirac-ekert-macchiavello}{CEM99}.
 
-  \item He, Xiong, and Wang quantify the two-copy obstruction at a prescribed feasible success probability and Haar-averaged target fidelity: Theorem 1 gives an exact linear law for exponentiated purification mana in odd dimensions, and Theorem 2 gives linear bounds for the success-normalized Choi robustness in multiqubit dimension, with equality for a single qubit (Appendix D, Eq. (S81)). These are resource costs of the successful trace-nonincreasing map under depolarizing noise. They sharpen the two-copy picture but do not prove Eq.~\eqref{eq:a64d-no-go} for arbitrary $n$ \sourcecite{ref:a64d-resource-law}{HXW26}.
+  \item He, Xiong, and Wang report two-copy resource laws for a feasible
+  Haar-averaged fidelity and success-probability pair $(f,s)$ in the
+  purification regime $f\geq\lambda_0=1-(d-1)\delta/d$. Theorem 1 gives an
+  exact linear law in $f-\lambda_0$ for exponentiated purification mana in
+  odd dimensions; the logarithmic mana includes the normalization
+  $-\log_2 s$. Theorem 2 bounds the minimum of
+  $s^{-1}\mathcal R(J^{\mathcal E}/d^2)$ over feasible successful
+  trace-nonincreasing maps by two linear functions of $f-\lambda_0$ for
+  $d=2^m$. Here $J^{\mathcal E}$ is the unnormalized Choi operator and
+  $\mathcal R$ is stabilizer robustness. The bounds coincide for $d=2$
+  (Appendix D, Eqs. (S79)--(S81)). These preprint results concern depolarizing
+  noise and two input copies; they do not prove
+  Eq.~\eqref{eq:a64d-no-go} for arbitrary $n$
+  \sourcecite{ref:a64d-resource-law}{HXW26}.
+
+  \item Historical GitHub report (2026-09-18): Naixu-Guo reported two-copy universal-purification resource bounds from the He--Xiong--Wang preprint. \href{https://github.com/Naixu-Guo/quantum-open-problems/pull/83}{Pull request \#83}.
+
+  \item Historical GitHub report (2026-09-24): Yuxuan Zhang (GitHub: yuxuanzhang1995) reported a candidate five-copy stabilizer-purification counterexample and a separate four-copy postselection example. \href{https://github.com/Naixu-Guo/quantum-open-problems/issues/108}{Issue \#108}.
 \end{itemize}
 
 \subsection*{References}
@@ -97,6 +116,8 @@ copies \sourcecite{ref:a64d-he-et-al}{HZY+26}.
   Operations,'' \emph{Physical Review Letters} \textbf{136}, 090204 (2026).
   \href{https://doi.org/10.1103/bdw8-k91v}{doi:10.1103/bdw8-k91v};
   \href{https://arxiv.org/abs/2504.10516}{arXiv:2504.10516}.
+  Final Supplemental Material, Appendix F:
+  \href{https://journals.aps.org/prl/supplemental/10.1103/bdw8-k91v/Supplemental-Material_.pdf}{numerical parameter ranges}.
 
   \item[\textup{[CEM99]}]\label{ref:a64d-cirac-ekert-macchiavello}
   J. I. Cirac, A. K. Ekert, and C. Macchiavello, ``Optimal Purification of
@@ -107,15 +128,31 @@ copies \sourcecite{ref:a64d-he-et-al}{HZY+26}.
 
   \item[\textup{[HXW26]}]\label{ref:a64d-resource-law}
   K. He, E. Xiong, and X. Wang, ``A Nonstabilizerness Resource Law for Universal Quantum State Purification,'' arXiv:2607.08626v1 (2026), Theorems 1--2 and Appendices C--D. \href{https://doi.org/10.48550/arXiv.2607.08626}{doi:10.48550/arXiv.2607.08626}; \href{https://arxiv.org/abs/2607.08626v1}{arXiv:2607.08626v1}.
+
+  \item[\textup{[Zha26]}]\label{ref:a64d-zhang-counterexample}
+  Y. Zhang, ``Purifying an unknown qubit with stabilizer operations,''
+  unrefereed manuscript dated 24 September 2026, in
+  \emph{Agentic Proofs for QIQC: Collected Manuscripts}, version 1.0
+  (26 September 2026).
+  \href{https://doi.org/10.5281/zenodo.22969546}{doi:10.5281/zenodo.22969546};
+  \href{https://zenodo.org/records/22969546/files/stabilizer-purification.pdf}{purification manuscript}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-Only the two-copy case is proved.  The three- and four-copy evidence is
-numerical and cannot exclude a genuinely many-copy classically simulable
-protocol, and the completely positive-Wigner-preserving class in
+The two-copy theorems and resource laws do not settle the archived
+equality for arbitrary $n$. Zhang's unrefereed manuscript reports a
+deterministic five-copy stabilizer protocol with Haar fidelity
+$325/486>2/3$ at $d=2$, $\delta=2/3$, and $s=1$, as well as strict
+improvement for every pure target. This reported counterexample is
+compatible with the two-copy results and lies outside the final
+supplement's sampled qubit noise range
+\sourcecite{ref:a64d-zhang-counterexample}{Zha26}.
+The catalog's Unsolved designation is retained here; its interpretation
+and any change remain a separate maintainer-team decision. The
+completely positive-Wigner-preserving class in
 Eq.~\eqref{eq:a64d-fidelity} is defined only for odd $d$, so even
-dimensions above two are outside the present formulation.
+dimensions above two remain outside the archived formulation.
 
 \subsection*{Field}
 
