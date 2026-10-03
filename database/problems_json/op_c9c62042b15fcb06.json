@@ -12,13 +12,13 @@
   "metadata": {
     "type": "Problem",
     "schemaVersion": "1.0",
-    "revision": 2,
+    "revision": 3,
     "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
     "createdAt": "2026-09-04T22:04:59Z",
     "role": "primary",
     "parentProblemId": null,
     "parentClauseId": null,
-    "origin": "source-stated",
+    "origin": "derived",
     "posed": null,
     "areaIds": [
       "quantum-metrology"
@@ -39,8 +39,8 @@
   "topics": [
     "Mutually unbiased bases"
   ],
-  "statement": "For each integer $d\\geq2$, determine the maximum number $\\mu(d)$ of pairwise\nmutually unbiased orthonormal bases of $\\mathbb C^d$.  Two orthonormal bases\n$\\mathcal B_r=\\{|e_i^{(r)}\\rangle\\}_{i=1}^{d}$ and\n$\\mathcal B_s=\\{|e_j^{(s)}\\rangle\\}_{j=1}^{d}$ are mutually unbiased when\n\\begin{equation}\n  \\bigl|\\langle e_i^{(r)}|e_j^{(s)}\\rangle\\bigr|^2=\\frac1d\n  \\qquad\\text{for every }i,j\\in\\{1,\\ldots,d\\}.\n  \\label{eq:p44-mutual-unbiasedness}\n\\end{equation}\nThus the extremal quantity defined by Eq.~\\eqref{eq:p44-mutual-unbiasedness}\nis\n\\begin{equation}\n  \\mu(d):=\\max\\left\\{m:\\text{there exist $m$ orthonormal bases of\n  $\\mathbb C^d$ that are pairwise mutually unbiased}\\right\\}.\n  \\label{eq:p44-maximum-mubs}\n\\end{equation}\nDetermine Eq.~\\eqref{eq:p44-maximum-mubs} in the non-prime-power regime, in\nparticular for $d\\in\\{6,10,12,14,15\\}$.",
-  "source": "Kr\\\"uger and Werner explicitly pose determination of the maximum number of\nmutually unbiased bases in arbitrary dimension; McNulty and Weigert retain\nthe composite-dimensional cases as open\n\\sourcecite{ref:p44-krueger-werner}{KW05},\n\\sourcecite{ref:p44-mcnulty-weigert}{MW26}.",
+  "statement": "Determine the exact maximum number $\\mu(d)$ of pairwise mutually unbiased\northonormal bases of $\\mathbb C^d$ for at least one integer $d\\geq2$ that is\nnot a prime power, for example $d=6,10,12,\\ldots$.  Two orthonormal bases\n$\\mathcal B_r=\\{|e_i^{(r)}\\rangle\\}_{i=1}^{d}$ and\n$\\mathcal B_s=\\{|e_j^{(s)}\\rangle\\}_{j=1}^{d}$ are mutually unbiased when\n\\begin{equation}\n  \\bigl|\\langle e_i^{(r)}|e_j^{(s)}\\rangle\\bigr|^2=\\frac1d\n  \\qquad\\text{for every }i,j\\in\\{1,\\ldots,d\\}.\n  \\label{eq:p44-mutual-unbiasedness}\n\\end{equation}\nThus the extremal quantity defined by Eq.~\\eqref{eq:p44-mutual-unbiasedness}\nis\n\\begin{equation}\n  \\mu(d):=\\max\\left\\{m:\\text{there exist $m$ orthonormal bases of\n  $\\mathbb C^d$ that are pairwise mutually unbiased}\\right\\}.\n  \\label{eq:p44-maximum-mubs}\n\\end{equation}\nIt suffices to determine Eq.~\\eqref{eq:p44-maximum-mubs} exactly for any one\nsuch dimension.",
+  "source": "Kr\\\"uger and Werner explicitly pose determination of the maximum number of\nmutually unbiased bases in arbitrary dimension; McNulty and Weigert retain\nthe composite-dimensional cases as open\n\\sourcecite{ref:p44-krueger-werner}{KW05},\n\\sourcecite{ref:p44-mcnulty-weigert}{MW26}.  This item narrows the general question to\ndetermining an exact value in any one non-prime-power dimension.",
   "progress": [
     "The universal dimension bound is $\\mu(d)\\leq d+1$, and finite-field\n  constructions attain it whenever $d$ is a prime power.  Hence\n  $\\mu(d)=d+1$ throughout the prime-power regime\n  \\sourcecite{ref:p44-wootters-fields}{WF89},\n  \\sourcecite{ref:p44-klappenecker-roetteler}{KR04}.",
     "If $d=\\prod_r p_r^{a_r}$ is the prime-power factorization, tensor\n  products give $\\mu(d)\\geq1+\\min_r p_r^{a_r}$.  Moreover, any family of $d$\n  mutually unbiased bases extends to $d+1$ bases.  Consequently\n  $\\mu(6)\\in\\{3,4,5,7\\}$; in particular, six bases cannot be maximal\n  \\sourcecite{ref:p44-klappenecker-roetteler}{KR04},\n  \\sourcecite{ref:p44-weiner}{Wei13}.",
@@ -88,5 +88,5 @@
       "tex": "P. Horodecki, \\L. Rudnicki, and K. \\.{Z}yczkowski,\n  ``Five Open Problems in Quantum Information Theory,''\n  \\emph{PRX Quantum} \\textbf{3}, 010101 (2022).\n  \\href{https://doi.org/10.1103/PRXQuantum.3.010101}{doi:10.1103/PRXQuantum.3.010101};\n  \\href{https://arxiv.org/abs/2002.03233}{arXiv:2002.03233}."
     }
   ],
-  "comment": "Determining the exact value in Eq.~\\eqref{eq:p44-maximum-mubs} subsumes the\ndimension-six milestone of constructing four bases or excluding seven: these\ngive only $\\mu(6)\\geq4$ or $\\mu(6)\\leq5$, respectively.  The milestone is\ntherefore recorded here rather than maintained separately\n\\sourcecite{ref:p44-horodecki-et-al}{HRZ22}."
+  "comment": "For the choice $d=6$, determining the exact value in\nEq.~\\eqref{eq:p44-maximum-mubs} subsumes the\ndimension-six milestone of constructing four bases or excluding seven: these\ngive only $\\mu(6)\\geq4$ or $\\mu(6)\\leq5$, respectively.  The milestone is\ntherefore recorded here rather than maintained separately\n\\sourcecite{ref:p44-horodecki-et-al}{HRZ22}."
 }
