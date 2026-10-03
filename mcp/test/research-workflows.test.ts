@@ -255,7 +255,11 @@ test("maintained catalog research workflows through the official HTTP SDK", { ti
       assert.equal(entry.provenance.section, "progress");
       assert.equal(entry.provenance.index, index);
       assert.equal(entry.provenance.locator, `progress:${index}`);
-      assert.ok(entry.citationKeys.length > 0);
+      if (entry.citationKeys.length === 0) {
+        assert.match(entry.text, /^Historical GitHub report \(\d{4}-\d{2}-\d{2}\):/u);
+        assert.match(entry.text, /\\href\{https:\/\/github\.com\/Naixu-Guo\/quantum-open-problems\/(?:issues|pull)\/\d+(?:#[^}]+)?\}/u,
+          "A historical report keeps its original source link without inventing a paper citation");
+      }
       assert.ok(entry.citationKeys.every(key => keys.has(key)));
     }
     const front = await call<{ acceptedClaims: unknown[] }>("get_frontier", { id: qma.id });
