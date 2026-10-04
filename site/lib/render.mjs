@@ -782,6 +782,7 @@ export function renderAbout({ config, root, dates }) {
         <h2 id="contributions"><span id="credits">Contributions</span></h2>
         <div class="prose-body">
           <p>This project is developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Zhong-Xia Shang, Bin Cheng, Shihao Ru, and Naixu Guo.</p>
+          <p>We thank <a href="https://github.com/yujie4phy" rel="noreferrer">Yujie Zhang</a> (University of Waterloo) for proposing the Quantum Foundations field and the field and topic refinements in <a href="${config.repositoryUrl}/issues/125" rel="noreferrer">issue #125</a>.</p>
           <p>We thank <a href="https://gauge-forge.com/" rel="noreferrer">GaugeForge</a> for its financial support of this project.</p>
           <p>Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
         </div>`;
