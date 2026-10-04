@@ -1,0 +1,41 @@
+---
+id: "01M44DVG3V8GP7330Z1DS0ZPS5"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-10-04T21:44:31.350Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-metrology"]
+topicIds: ["quantum-estimation","gaussian-quantum-information","one-shot-and-finite-blocklength-bounds"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: ["01M2M9FC6H8290J9PJ3S9MH1SW"]
+title: "Uniform cubic single-copy tomography of fermionic Gaussian states"
+aliases: ["op-789fc3ddd1f40636","op_789fc3ddd1f40636","01M44DVG3V8GP7330Z1DS0ZPS5"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_789fc3ddd1f40636.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_789fc3ddd1f40636","ulid":"01M44DVG3V8GP7330Z1DS0ZPS5","aliases":["op_789fc3ddd1f40636","01M44DVG3V8GP7330Z1DS0ZPS5","op-789fc3ddd1f40636"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":1,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-10-04T21:41:52.891Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-metrology"],"topicIds":["quantum-estimation","gaussian-quantum-information","one-shot-and-finite-blocklength-bounds"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":["01M2M9FC6H8290J9PJ3S9MH1SW"]},"title":"Uniform cubic single-copy tomography of fermionic Gaussian states","status":"Unsolved","fields":["Quantum metrology"],"topics":["Quantum estimation","Gaussian quantum information","One-shot and finite-blocklength bounds"],"statement":"Can every mixed fermionic Gaussian state on $m$ modes be learned with $\\widetilde O(m^3/\\varepsilon^2)$ single-copy measurements, uniformly up to the pure-state boundary?\n\nLet $c_1,\\ldots,c_{2m}$ be Majorana operators with $c_ac_b+c_bc_a=2\\delta_{ab}I$. Define the Gaussian family by the trace-norm closure in Eq.~\\eqref{eq:789f-family}, so no lower bound on mixedness is promised:\n\\begin{equation}\n\\mathcal G_m=\\overline{\\left\\{\\frac{e^{-K(A)}}{\\operatorname{Tr}e^{-K(A)}}:A\\in\\mathbb R^{2m\\times2m},\\ A^T=-A\\right\\}},\n\\qquad K(A)=\\frac{i}{4}\\sum_{a,b=1}^{2m}A_{ab}c_ac_b.\n\\label{eq:789f-family}\n\\end{equation}\nCopies of an unknown $\\rho\\in\\mathcal G_m$ are independent and identically prepared. A protocol may apply an arbitrary POVM to one copy and fresh ancillas, adapt to all earlier classical outcomes, and retain classical data, but may not retain quantum memory between copies or measure different copies jointly. Circuit depth and classical computation are not charged.\n\nLet $N_1(m,\\varepsilon)$ be the least worst-case copy count for outputting $\\widehat\\rho\\in\\mathcal G_m$ satisfying Eq.~\\eqref{eq:789f-success} for every input:\n\\begin{equation}\n\\Pr\\!\\left[\\tfrac12\\|\\widehat\\rho-\\rho\\|_1\\leq\\varepsilon\\right]\\geq\\tfrac23.\n\\label{eq:789f-success}\n\\end{equation}\nDo there exist universal constants $C>0$ and $a\\geq0$ such that Eq.~\\eqref{eq:789f-target} holds for all integers $m\\geq2$ and $0<\\varepsilon\\leq1/3600$?\n\\begin{equation}\nN_1(m,\\varepsilon)\\leq\\left\\lceil C\\frac{m^3}{\\varepsilon^2}\\bigl[\\log(2m/\\varepsilon)\\bigr]^a\\right\\rceil.\n\\label{eq:789f-target}\n\\end{equation}\nThis spells out the polylogarithmic factors in $\\widetilde O$; neither constant may depend on the input state's covariance spectrum.","source":"Rubin explicitly poses the uniform single-copy upper bound in Section 10, Conjecture 10.1 \\sourcecite{ref:789f-rubin}{Rub26}. The statement makes its measurement model, constant-success convention, and polylogarithmic target explicit. Requiring a Gaussian estimate changes achievable trace-distance errors by at most a factor of two: one may choose a nearest Gaussian state to any density-matrix estimate, without a computational-efficiency requirement.","progress":["Theorem 1.1 reports $N_1(m,\\varepsilon)=\\Omega(m^3/\\varepsilon^2)$ for $0<\\varepsilon\\leq1/3600$, even with arbitrary density-matrix outputs \\sourcecite{ref:789f-rubin}{Rub26}.","Remark 7.7 reports a spectrum-uniform $O(m^4/\\varepsilon^2)$ upper bound using covariance projection \\sourcecite{ref:789f-rubin}{Rub26}.","Theorem 7.6 attains $O(m^3/(c\\varepsilon^2))$ on the promised class $\\|\\Gamma\\|_{\\rm op}\\leq1-c$, with $0<c<1$, where $\\Gamma_{ab}=\\operatorname{Tr}(\\rho\\,ic_ac_b)$ for $a\\ne b$ and $\\Gamma_{aa}=0$. Its trace-norm convention differs by a factor of two from Eq.~\\eqref{eq:789f-success} \\sourcecite{ref:789f-rubin}{Rub26}."],"references":[{"key":"Rub26","label":"ref:789f-rubin","tex":"R. Rubin, \"Entangled measurements are necessary for optimal tomography of mixed fermionic Gaussian states and of bosonic Gaussian states near the vacuum,\" arXiv preprint, version 1, 19 September 2026. \\href{https://arxiv.org/abs/2609.23189v1}{arXiv:2609.23189v1}."}],"comment":"The open target removes the fixed mixedness promise without losing the cubic mode scaling beyond polylogarithmic factors. This is a follow-up, not an equivalent reformulation, of \\href{https://qiqc-op.com/problem/op_91c81ca77b99eebf/}{Optimal single-copy tomography of fermionic Gaussian states}, which asks for a quadratic rate. Both records cite a reported preprint result; source documentation does not certify its proof.","contributors":[]}}
+---
+## Source
+
+Rubin explicitly poses the uniform single-copy upper bound in Section 10, Conjecture 10.1 [Rub26](https://arxiv.org/abs/2609.23189v1). The statement makes its measurement model, constant-success convention, and polylogarithmic target explicit. Requiring a Gaussian estimate changes achievable trace-distance errors by at most a factor of two: one may choose a nearest Gaussian state to any density-matrix estimate, without a computational-efficiency requirement.
+
+## Progress
+
+Theorem 1.1 reports $N_1(m,\varepsilon)=\Omega(m^3/\varepsilon^2)$ for $0<\varepsilon\leq1/3600$, even with arbitrary density-matrix outputs [Rub26](https://arxiv.org/abs/2609.23189v1).
+
+Remark 7.7 reports a spectrum-uniform $O(m^4/\varepsilon^2)$ upper bound using covariance projection [Rub26](https://arxiv.org/abs/2609.23189v1).
+
+Theorem 7.6 attains $O(m^3/(c\varepsilon^2))$ on the promised class $\|\Gamma\|_{\rm op}\leq1-c$, with $0<c<1$, where $\Gamma_{ab}=\operatorname{Tr}(\rho\,ic_ac_b)$ for $a\ne b$ and $\Gamma_{aa}=0$. Its trace-norm convention differs by a factor of two from Eq. (2) [Rub26](https://arxiv.org/abs/2609.23189v1).
+
+## Comment
+
+The open target removes the fixed mixedness promise without losing the cubic mode scaling beyond polylogarithmic factors. This is a follow-up, not an equivalent reformulation, of [Optimal single-copy tomography of fermionic Gaussian states](https://qiqc-op.com/problem/op_91c81ca77b99eebf/), which asks for a quadratic rate. Both records cite a reported preprint result; source documentation does not certify its proof.
+
+## References
+
+**Rub26** R. Rubin, "Entangled measurements are necessary for optimal tomography of mixed fermionic Gaussian states and of bosonic Gaussian states near the vacuum," arXiv preprint, version 1, 19 September 2026. [arXiv:2609.23189v1](https://arxiv.org/abs/2609.23189v1).
