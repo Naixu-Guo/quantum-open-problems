@@ -1,0 +1,14 @@
+---
+id: "01M4BEPR13ZBNJCZ8PR29ZNQ7Y"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-10-07T15:11:29.352Z"
+type: "Reference"
+sourceId: "01M4BEPR136BMT3FZCZ0HRYKMG"
+targetType: "problem"
+targetId: "01M1HME780FM4P69SQZX74G5NE"
+role: "related"
+locator: "OAI26"
+---
+OpenAI, “Entanglement with zero distillable secret key in local dimension ten,” OpenAI Math Release preprint, 27 September 2026. [manuscript (release version)](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Entanglement-with-zero-distillable-secret-key-in-local-dimension-ten-September-27-2026/paper.pdf).

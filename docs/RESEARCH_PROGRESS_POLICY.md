@@ -29,6 +29,11 @@ the manuscript or paper reporting that result. An eligible source is:
 - An arXiv manuscript, including a specific version where available.
 - A Zenodo record containing a research manuscript.
 - A manuscript in another supported preprint repository.
+- A manuscript PDF in the official `openai/math` repository, linked as
+  `https://github.com/openai/math/blob/<40-character-commit-hash>/preprints/<manuscript-directory>/<filename>.pdf`.
+  The link must use a full hexadecimal commit hash, with one manuscript directory
+  and no query or fragment; branch, tag, repository, README, and discussion links
+  do not qualify.
 - A journal or publisher paper record, or a DOI identifying that research paper.
 
 The link must identify the actual research document. A repository home page,
@@ -47,6 +52,10 @@ supported yet, request source support with the record link through the
 source-support route; the request does not itself submit new research progress.
 
 Source checks identify the document and its bibliographic information.
+The service checks DOI and Zenodo document types through their registries;
+other supported sources, including the pinned OpenAI PDFs, receive URL checks
+without fetching the document. URL acceptance alone does not establish that a
+file exists or contains the cited manuscript.
 Maintainers confirm that the summary describes the cited report and concerns
 the indicated problem. This is documentation work, not a correctness review.
 An unavailable source lookup prompts a retry when it is needed for validation;

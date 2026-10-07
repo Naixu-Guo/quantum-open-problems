@@ -4,6 +4,7 @@ export const SOURCE_GUIDANCE = "Use an arXiv or Zenodo manuscript, a supported p
 export const SUPPORTED_SOURCE_NAMES = Object.freeze([
   "arXiv", "Zenodo manuscripts", "IACR ePrint", "HAL", "OSF Preprints",
   "bioRxiv", "medRxiv", "Preprints.org", "paper DOIs",
+  "OpenAI math manuscript PDFs pinned to a full commit hash",
   "APS", "IOP", "Springer", "Nature", "Science", "ACM", "SIAM", "Wiley",
   "ScienceDirect", "Oxford Academic", "Quantum", "PMLR", "Project Euclid",
 ]);
@@ -59,6 +60,13 @@ export function normalizeArchivalLink(value) {
   }
   if (host === "eprint.iacr.org" && /^\/\d{4}\/\d+(?:\.pdf)?\/?$/u.test(pathname)) {
     return { url: `https://${host}${pathname.replace(/\.pdf$/u, "").replace(/\/$/u, "")}`, type: "preprint" };
+  }
+  // Only immutable manuscript PDFs in this specific repository qualify.
+  // Match the encoded path so encoded separators cannot broaden its scope.
+  const openaiManuscript = /^\/openai\/math\/blob\/([a-fA-F0-9]{40})\/preprints\/([A-Za-z0-9][A-Za-z0-9._-]*)\/([A-Za-z0-9][A-Za-z0-9._-]*\.pdf)$/u.exec(url.pathname);
+  if (url.hostname === "github.com" && !url.search && !url.hash
+      && openaiManuscript && !/^readme\./iu.test(openaiManuscript[3])) {
+    return { url: `https://github.com/openai/math/blob/${openaiManuscript[1].toLowerCase()}/preprints/${openaiManuscript[2]}/${openaiManuscript[3]}`, type: "preprint" };
   }
   const preprint = (
     (host === "hal.science" && /^\/(?:hal|tel)-\d+(?:v\d+)?(?:\/document)?\/?$/u.test(pathname)) ||
