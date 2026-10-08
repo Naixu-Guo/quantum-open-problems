@@ -19,6 +19,39 @@ test("new progress cannot substitute arbitrary links, home pages, credentials, o
     assert.throws(() => normalizeArchivalLink(value), undefined, String(value));
 });
 
+test("OpenAI math sources require an immutable manuscript PDF in the official repository", () => {
+  const commit = "0123456789abcdef0123456789abcdef01234567";
+  const prefix = `https://github.com/openai/math/blob/${commit}`;
+  const manuscript = `${prefix}/preprints/The-entropy-photon-number-inequality-September-24-2026/paper.pdf`;
+  assert.deepEqual(normalizeArchivalLink(manuscript), { url: manuscript, type: "preprint" });
+  assert.deepEqual(normalizeArchivalLink(manuscript.replace(commit, commit.toUpperCase())), { url: manuscript, type: "preprint" });
+  for (const value of [
+    "https://github.com/openai/math",
+    "https://github.com/openai/math/issues/1",
+    `${prefix}/README.md`,
+    `${prefix}/preprints/paper.pdf`,
+    `${prefix}/preprints/Example/README.md`,
+    `${prefix}/preprints/Example/README.pdf`,
+    `${prefix}/preprints/Example/paper.tex`,
+    `${prefix}/preprints/Example/supplement/paper.pdf`,
+    `${prefix}/preprints/Example%2fsupplement/paper.pdf`,
+    `${prefix}/preprints/Example/paper%2epdf`,
+    manuscript.replace(commit, "main"),
+    manuscript.replace(commit, "v1.0.0"),
+    manuscript.replace(commit, commit.slice(0, 7)),
+    manuscript.replace(commit, `${commit}0`),
+    manuscript.replace(commit, `${commit.slice(0, -1)}g`),
+    manuscript.replace("openai/math", "another/math"),
+    manuscript.replace("openai/math", "openai/other"),
+    manuscript.replace("/blob/", "/raw/"),
+    manuscript.replace("github.com", "github.com.example.org"),
+    manuscript.replace("github.com", "www.github.com"),
+    manuscript.replace("github.com", "raw.githubusercontent.com"),
+    `${manuscript}?raw=true`,
+    `${manuscript}#page=1`,
+  ]) assert.throws(() => normalizeArchivalLink(value), undefined, value);
+});
+
 test("historical links identify the original project report or comment without claiming eligibility", () => {
   assert.equal(normalizeHistoricalLink("https://github.com/Naixu-Guo/quantum-open-problems/issues/12#issuecomment-1234"), "https://github.com/Naixu-Guo/quantum-open-problems/issues/12#issuecomment-1234");
   assert.equal(normalizeHistoricalLink("https://github.com/naixu-guo/quantum-open-problems/pull/42"), "https://github.com/Naixu-Guo/quantum-open-problems/pull/42");

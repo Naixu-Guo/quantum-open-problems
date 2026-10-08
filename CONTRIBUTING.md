@@ -18,6 +18,9 @@ people who write the record themselves.
 
 For an existing problem, use [Submit a progress report](https://qiqc-op.com/contribute/progress/).
 Every new research report requires an archival manuscript or paper link.
+Catalog PRs additionally recognize only the exact source exception documented
+in the [research progress policy](docs/RESEARCH_PROGRESS_POLICY.md#scoped-catalog-source-exception);
+this does not change the public submission requirement.
 Existing GitHub research-progress reports remain directly linked in affected
 problem pages using short links; detailed discussion stays in the original thread.
 Internal review arguments, scope or citation fixes, editorial work, and engineering
@@ -108,7 +111,7 @@ breaks are written as `\n`.
 | `topics` | One to five names from the `topics` list of `database/tags.json`, spelled exactly: the specific objects, techniques, and settings it concerns. |
 | `statement` | The self-contained statement. |
 | `source` | The paper that posed the problem, or the papers in which it is implicit, cited with `\\sourcecite{ref:...}{KEY}`. For an original contribution, write `Contributor: Full Name.` only with permission for named credit on this problem; otherwise use `unknown`. |
-| `progress` | Research-progress reports, one TeX item each, with archival sources for new research and compact direct links for historical GitHub reports. Internal review, editorial, and engineering work is excluded. Inclusion is not correctness certification. |
+| `progress` | Research-progress reports, one TeX item each, with archival sources for new research (or the exact documented catalog source exception) and compact direct links for historical GitHub reports. Internal review, editorial, and engineering work is excluded. Inclusion is not correctness certification. |
 | `references` | An array of `{ "key": "KEY", "label": "ref:...", "tex": "..." }`, each `tex` giving the full entry with DOI and arXiv links. |
 | `comment` | The precise remaining gap and relations to other problems. |
 
@@ -196,7 +199,7 @@ API/MCP counts. Deleting the active JSON alone is incomplete.
 
 ## Fields and topics
 
-A **field** is one of the six research areas in `database/tags.json`;
+A **field** is one of the seven research areas in `database/tags.json`;
 a **topic** names the central question, resource, or operational task.
 Use [the taxonomy guide](database/TAXONOMY.md) for field boundaries and
 examples. Give a problem one primary field and a second only when its
@@ -207,7 +210,7 @@ or system mentioned in its progress notes. Topics are independent of fields.
 Reuse the controlled vocabulary. Avoid dimension-only tags, generic labels
 such as "Quantum channels", and overlapping descriptions of the same setting.
 A new topic should express a useful distinction absent from the registry and
-arrive with its first problem in the same pull request. Keep the six fields
+arrive with its first problem in the same pull request. Keep the registered fields
 fixed unless a maintainer requests a taxonomy revision. Every renamed or
 removed tag must be reconciled across all records, metadata, TeX, and ledger
 exports in the same change.
@@ -282,6 +285,8 @@ For new progress in catalog PRs, run `npm run check-progress -- --base origin/ma
 before committing. Source links may appear in the progress item or the specific
 reference it cites. Historical entries must match their documented source
 version in the inventory. The check concerns sources, not proof correctness.
+The scoped catalog exception also binds the exact problem, progress text, cited
+references, and source URL; it does not classify author-hosted PDFs as archival.
 
 ## Required reviews and checks
 

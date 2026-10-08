@@ -92,6 +92,17 @@ test("metadata checks allow unreviewed manuscripts and reject non-paper deposits
   await assert.rejects(verifyArchivalDocuments(["https://doi.org/10.1234/paper"], (async () => { throw new Error("offline"); }) as typeof fetch), /keep your draft and retry/);
 });
 
+test("pinned OpenAI manuscripts use document URL checks without a registry or arbitrary URL fetch", async () => {
+  const manuscript = "https://github.com/openai/math/blob/0123456789abcdef0123456789abcdef01234567/preprints/Example/paper.pdf";
+  const parsed = parseResearchUpdate(report({ archivalLinks: [manuscript] }), false);
+  assert.deepEqual(parsed.payload.archivalLinks, [manuscript]);
+  const noFetch: typeof fetch = async () => { assert.fail("pinned manuscript links do not trigger a metadata lookup"); };
+  await verifyArchivalDocuments([manuscript], noFetch);
+  const mutable = manuscript.replace("0123456789abcdef0123456789abcdef01234567", "main");
+  assert.throws(() => parseResearchUpdate(report({ archivalLinks: [mutable] }), false), /supported document source/);
+  await assert.rejects(verifyArchivalDocuments([mutable], noFetch), /supported document source/);
+});
+
 test("HTTP progress filing is opt-in, source-gated, private, rate-limited, and never changes the catalog", async t => {
   const contractDir = path.resolve(import.meta.dirname, "../../contract");
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "qop-progress-"));

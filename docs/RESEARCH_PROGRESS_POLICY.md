@@ -22,13 +22,19 @@ the associated progress history.
 
 ## Sources required for new reports
 
-Every new report of a resolution, partial result, computational finding, or new
-research claim in a correction or follow-up must include an archival link to
+Except for the scoped catalog exception documented below, every new report of
+a resolution, partial result, computational finding, or new research claim in
+a correction or follow-up must include an archival link to
 the manuscript or paper reporting that result. An eligible source is:
 
 - An arXiv manuscript, including a specific version where available.
 - A Zenodo record containing a research manuscript.
 - A manuscript in another supported preprint repository.
+- A manuscript PDF in the official `openai/math` repository, linked as
+  `https://github.com/openai/math/blob/<40-character-commit-hash>/preprints/<manuscript-directory>/<filename>.pdf`.
+  The link must use a full hexadecimal commit hash, with one manuscript directory
+  and no query or fragment; branch, tag, repository, README, and discussion links
+  do not qualify.
 - A journal or publisher paper record, or a DOI identifying that research paper.
 
 The link must identify the actual research document. A repository home page,
@@ -41,16 +47,51 @@ to document an eligible preprint.
 
 The form lists supported sources. The shared source parser in
 [progress-sources.mjs](../shared/progress-sources.mjs) supplies the same URL
-rules to the browser, service, and catalog checks. A paper without a DOI may
-use a supported stable publisher record. If its archival repository is not
+rules to the browser, service, and catalog archival checks. The catalog-only
+exception below does not change that parser or the public intake rules. A paper
+without a DOI may use a supported stable publisher record. If its archival repository is not
 supported yet, request source support with the record link through the
 source-support route; the request does not itself submit new research progress.
 
 Source checks identify the document and its bibliographic information.
+The service checks DOI and Zenodo document types through their registries;
+other supported sources, including the pinned OpenAI PDFs, receive URL checks
+without fetching the document. URL acceptance alone does not establish that a
+file exists or contains the cited manuscript.
 Maintainers confirm that the summary describes the cited report and concerns
 the indicated problem. This is documentation work, not a correctness review.
 An unavailable source lookup prompts a retry when it is needed for validation;
 it does not waive the required link or imply that a mathematical claim is false.
+
+## Scoped catalog source exception
+
+The SIC update in [PR #134](https://github.com/Naixu-Guo/quantum-open-problems/pull/134)
+includes one explicit exception: *Stark units for real quadratic fields and
+reciprocity laws*, manuscript dated 4 October 2026, available as an
+[author-hosted PDF](https://www.danrad.net/papers/stark-reciprocity.pdf) linked
+from [Danylo Radchenko's listing](https://www.danrad.net/ai-math.html).
+No archival identifier has been verified for this document. The exception
+allows the three specified SIC progress entries to document its reported
+results and their relevance while retaining the peer-review qualification
+and all three Unsolved designations. It does not make the PDF an archival
+source, certify its arguments, or assign another paper's DOI to it.
+
+The [exception inventory](audits/catalog-source-exceptions.json) records the
+exact source URL, provenance URL, manuscript date, retrieval date, PDF SHA-256,
+reason, and the three problem IDs. Each permitted entry is bound to SHA-256
+hashes of its progress text and the text of all its cited bibliography entries,
+in catalog order, after trimming and collapsing whitespace. A new claim,
+different problem, altered citation, or changed URL does not inherit the exception.
+The check also rejects stale inventory entries, including when the corresponding
+catalog record is unchanged relative to the PR base.
+
+The PDF fingerprint identifies the retrieved version; CI does not download
+the mutable author URL or verify that its current bytes still match. A later
+document version requires a fresh provenance check and a reviewed inventory
+update. When an archival copy becomes available, cite it and retire the exception.
+Changes to this exception follow the ordinary code-owner review and merge
+process. There is no domain-wide allowlist or automatic exception for other
+author-hosted documents, and public submissions still require archival links.
 
 ## Submit an update
 
@@ -130,7 +171,8 @@ sans-serif font, and source requirements and validation errors are explicit.
 For a catalog PR, add eligible source links directly to each new progress item
 or to the bibliographic entry it cites. The progress-source check compares
 changed entries with the base branch and permits documented historical entries
-from the inventory. It does not validate mathematical arguments or turn a
+and exact scoped catalog exceptions from their respective inventories.
+It does not validate mathematical arguments or turn a
 source-presence check into approval. Ordinary wording corrections to a
 historical entry should update its inventory text while retaining the original
 source version and explaining the correction; new claims need archival links.

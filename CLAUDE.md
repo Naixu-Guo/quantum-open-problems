@@ -16,7 +16,8 @@ each mirrored by a TeX file (`database/problems_tex/`).
    a report, validating its source, or importing historical GitHub links must
    not change it automatically. Follow `docs/RESEARCH_PROGRESS_POLICY.md`:
    document attributed reports without proof refereeing, require archival
-   manuscript links for new research, and preserve visible direct links to
+   manuscript links for new research except the explicitly documented scoped
+   catalog source exception, and preserve visible direct links to
    existing GitHub research-progress reports even when no later manuscript exists.
    Use compact report links; keep detailed discussion, dates, and reporter metadata
    in GitHub and the provenance inventory. Exclude internal maintainer arguments,
