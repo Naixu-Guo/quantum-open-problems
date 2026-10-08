@@ -110,12 +110,28 @@ copies \sourcecite{ref:a64d-he-et-al}{HZY+26}.
   pp.~3--4. These numerical claims do not affect the analytical two-copy
   theorem or the five-copy counterexample.
 
+The final journal supplement, Appendix F, restricts its qubit scans to $0<\delta<1-1/\sqrt3$, with noise and success-probability steps of $0.01$. Zhang's four-copy example at $\delta=1/2$ and five-copy example at $\delta=2/3$ lie outside that sampled noise range \sourcecite{ref:a64d-he-et-al}{HZY+26}.
+
   \item Without the restriction to classically simulable maps, projecting
   the $n$ copies of a depolarized qubit onto their symmetric subspace is
   the optimal universal purifier and raises the fidelity above the
   single-copy value. This unrestricted result does not determine the
   optimal fidelity attainable with classically simulable maps
   \sourcecite{ref:a64d-cirac-ekert-macchiavello}{CEM99}.
+
+  \item He, Xiong, and Wang report two-copy resource laws for a feasible
+  Haar-averaged fidelity and success-probability pair $(f,s)$ in the
+  purification regime $f\geq\lambda_0=1-(d-1)\delta/d$. Theorem 1 gives an
+  exact linear law in $f-\lambda_0$ for exponentiated purification mana in
+  odd dimensions; the logarithmic mana includes the normalization
+  $-\log_2 s$. Theorem 2 bounds the minimum of
+  $s^{-1}\mathcal R(J^{\mathcal E}/d^2)$ over feasible successful
+  trace-nonincreasing maps by two linear functions of $f-\lambda_0$ for
+  $d=2^m$. Here $J^{\mathcal E}$ is the unnormalized Choi operator and
+  $\mathcal R$ is stabilizer robustness. The bounds coincide for $d=2$
+  (Appendix D, Eqs. (S79)--(S81)). These preprint results concern depolarizing
+  noise and two input copies; they do not determine the attainable fidelity for arbitrary $n$
+  \sourcecite{ref:a64d-resource-law}{HXW26}.
 
   \item Historical GitHub report (2026-09-18): Naixu-Guo reported two-copy universal-purification resource bounds from the He--Xiong--Wang preprint. \href{https://github.com/Naixu-Guo/quantum-open-problems/pull/83}{Pull request \#83}.
 
@@ -132,6 +148,8 @@ copies \sourcecite{ref:a64d-he-et-al}{HZY+26}.
   Operations,'' \emph{Physical Review Letters} \textbf{136}, 090204 (2026).
   \href{https://doi.org/10.1103/bdw8-k91v}{doi:10.1103/bdw8-k91v};
   \href{https://arxiv.org/abs/2504.10516v2}{arXiv:2504.10516v2}.
+  Final Supplemental Material, Appendix F:
+  \href{https://journals.aps.org/prl/supplemental/10.1103/bdw8-k91v/Supplemental-Material_.pdf}{numerical parameter ranges}.
 
   \item[\textup{[CEM99]}]\label{ref:a64d-cirac-ekert-macchiavello}
   J. I. Cirac, A. K. Ekert, and C. Macchiavello, ``Optimal Purification of
@@ -147,6 +165,9 @@ copies \sourcecite{ref:a64d-he-et-al}{HZY+26}.
   (26 September 2026).
   \href{https://zenodo.org/records/22969546/files/stabilizer-purification.pdf}{archived purification manuscript};
   \href{https://doi.org/10.5281/zenodo.22969546}{collection doi:10.5281/zenodo.22969546}.
+
+  \item[\textup{[HXW26]}]\label{ref:a64d-resource-law}
+  K. He, E. Xiong, and X. Wang, ``A Nonstabilizerness Resource Law for Universal Quantum State Purification,'' arXiv:2607.08626v1 (2026), Theorems 1--2 and Appendices C--D. \href{https://doi.org/10.48550/arXiv.2607.08626}{doi:10.48550/arXiv.2607.08626}; \href{https://arxiv.org/abs/2607.08626v1}{arXiv:2607.08626v1}.
 \end{enumerate}
 
 \subsection*{Comment}

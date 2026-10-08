@@ -3,7 +3,7 @@ id: "01M41FAWAZCQQCGZC788NKB8X4"
 schemaVersion: "1.0"
 revision: 2
 createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
-createdAt: "2026-10-08T04:57:24.811Z"
+createdAt: "2026-10-08T04:57:52.074Z"
 type: "Source"
 title: "Y. Zhang, \"Anticoncentration of Independent Complex Gaussian Hafnians,\" research preprint (September 20, 2026), Theorem 1. Archived in Agentic Proofs for QIQC: Collected Manuscripts, version 1.0 (September 26, 2026), archived manuscript."
 kind: "paper"
