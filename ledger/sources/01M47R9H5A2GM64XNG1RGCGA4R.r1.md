@@ -3,7 +3,7 @@ id: "01M47R9H5A2GM64XNG1RGCGA4R"
 schemaVersion: "1.0"
 revision: 1
 createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
-createdAt: "2026-10-06T04:42:02.578Z"
+createdAt: "2026-10-08T04:45:34.721Z"
 type: "Source"
 title: "Classical Capacity and Entanglement Cost of the Amplitude Damping Channel"
 kind: "preprint"

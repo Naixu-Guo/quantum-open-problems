@@ -25,8 +25,7 @@
     ],
     "topicIds": [
       "quantum-ldpc-codes",
-      "quantum-coding-theory",
-      "decoding-algorithms"
+      "quantum-coding-theory"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -40,8 +39,7 @@
   ],
   "topics": [
     "Quantum LDPC codes",
-    "Quantum coding theory",
-    "Decoding algorithms"
+    "Quantum coding theory"
   ],
   "statement": "For which probability vectors $\\mathbf p=(p_I,p_X,p_Y,p_Z)$ can quantum\nlow-density parity-check (LDPC) stabilizer codes reliably attain the exact\nhashing rate over the Pauli channel?\n\nThe channel and target rate are\n\\begin{equation}\n  \\Lambda_{\\mathbf p}(\\rho)\n  :=\\sum_{P\\in\\{I,X,Y,Z\\}}p_P P\\rho P,\n  \\label{eq:p6-pauli-channel}\n\\end{equation}\n\\begin{equation}\n  R_{\\mathrm{hash}}(\\mathbf p):=\\max\\{0,1-H(\\mathbf p)\\},\n  \\qquad H(\\mathbf p):=-\\sum_{P\\in\\{I,X,Y,Z\\}}p_P\\log_2p_P,\n  \\qquad 0\\log_2 0:=0.\n  \\label{eq:p6-hashing-bound}\n\\end{equation}\nFor Eq.~\\eqref{eq:p6-pauli-channel}, seek a family of $[[n,k_n]]$ stabilizer\ncodes with generator weight and qubit degree bounded independently of $n$,\nisometric encoding channels $\\mathcal E_n$ into the code spaces, and CPTP\ndecoders $\\mathcal D_n$ back to the logical registers, such that\n\\begin{equation}\n  \\liminf_{n\\to\\infty}\\frac{k_n}{n}\\ge R_{\\mathrm{hash}}(\\mathbf p),\n  \\qquad\n  F_e\\!\\left(2^{-k_n}I,\n    \\mathcal D_n\\circ\\Lambda_{\\mathbf p}^{\\otimes n}\\circ\\mathcal E_n\n  \\right)\\longrightarrow1.\n  \\label{eq:p6-reliable-rate}\n\\end{equation}\nHere $F_e$ is entanglement fidelity for the maximally mixed logical input;\nEq.~\\eqref{eq:p6-reliable-rate} requires reliable transmission at the rate\nin Eq.~\\eqref{eq:p6-hashing-bound}.  Transmission is unassisted, and the\ncodes, decoders, and LDPC bounds may depend on $\\mathbf p$.  A zero hashing\nrate permits $k_n=0$.\nNo CSS restriction is imposed. The question is parameter-dependent: a\nnegative answer for one noise subfamily does not classify all Pauli channels.",
   "source": "Contributor: Bikun Li.",
