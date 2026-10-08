@@ -27,7 +27,7 @@ One polynomial must satisfy Eq.~\eqref{eq:hac-conjecture} for every $n$ and $\de
 
 \subsection*{Status}
 
-Unsolved
+Solved
 
 \subsection*{Source}
 
@@ -50,6 +50,33 @@ If $S$ is real symmetric with independent standard real Gaussian entries above t
 \end{equation}
 Equation~\eqref{eq:hac-real-result} settles the real symmetric analogue.
 It does not state a theorem for the circular complex ensemble in Eq.~\eqref{eq:hac-hafnian} \sourcecite{ref:hac-zhao}{Zha26}.
+
+  \item Hongru Zhao resolves the independent circular complex Gaussian lower-tail question in Theorem~2.3 and Corollary~2.5 of arXiv:2610.00112v1; the corresponding locators in the September 20 Zenodo manuscript v1.0.0 are Theorem~2.2 and Corollary~2.4 \sourcecite{ref:hac-zhao-complex}{Zhao26}.
+For the ensemble in Eq.~\eqref{eq:hac-hafnian}, every $n\geq1$, $z\in\mathbb C$, and $\varepsilon\geq0$ satisfy
+\begin{equation}
+ \Pr\!\left[\lvert\operatorname{Haf}X-z\rvert\leq\varepsilon\sqrt{h_n}\right]
+ \leq\min\{1,b_n\varepsilon^2\},
+ \qquad b_n=\frac{(2n-1)!!}{(2n-2)!!}\leq2\sqrt{n/\pi},
+ \label{eq:hac-complex-result}
+\end{equation}
+with $0!!=1$.
+Taking $z=0$ and $\varepsilon=\delta/(2n)$ in Eq.~\eqref{eq:hac-complex-result} gives
+\begin{equation}
+ \Pr\!\left[\lvert\operatorname{Haf}X\rvert<\frac{\delta\sqrt{h_n}}{2n}\right]
+ \leq\frac{b_n\delta^2}{4n^2}\leq\frac{\delta^2}{2n}<\delta
+ \qquad(n\geq1,\ 0<\delta<1).
+ \label{eq:hac-polynomial-witness}
+\end{equation}
+Thus the single polynomial $p(n,u)=2nu$, positive on $[1,\infty)^2$, satisfies the exact strict inequality in Eq.~\eqref{eq:hac-conjecture} by Eq.~\eqref{eq:hac-polynomial-witness}.
+The prose proof obtains the independent ensemble as a fixed-dimension limit of finite transpose-Gram hafnians; diagonal entries do not affect the hafnian.
+\href{https://github.com/Naixu-Guo/quantum-open-problems/issues/123}{GitHub \#123}.
+
+  \item Yuxuan Zhang subsequently gives a direct proof of the same bound in Eq.~\eqref{eq:hac-complex-result}, with the same coefficient $b_n$ and polynomial $p(n,u)=2nu$; see Theorem~1 of his September 20 preprint, preserved in the September 26 Zenodo archive \sourcecite{ref:hac-zhang}{Zhang26}.
+The proof bounds the expected reciprocal of the conditional variance obtained by conditioning on all edges not incident to one vertex, using Gaussian kernels and coordinate compression without assuming independence of overlapping hafnian minors.
+His \href{https://yuxuanzhang1995.github.io/agentic-research/complex-gaussian-hafnian/}{revised research note} acknowledges Zhao's earlier resolution.
+Both derivations build on the Gaussian interpolation and compression method of Koehler and Leung for Ginibre permanents \sourcecite{ref:hac-koehler-leung}{KL26}.
+
+  \item Historical GitHub report (2026-09-21): Yuxuan Zhang (GitHub: yuxuanzhang1995) reported a candidate anticoncentration bound for independent complex-Gaussian hafnians. \href{https://github.com/Naixu-Guo/quantum-open-problems/issues/92}{Issue \#92}.
 \end{itemize}
 
 \subsection*{References}
@@ -61,14 +88,30 @@ It does not state a theorem for the circular complex ensemble in Eq.~\eqref{eq:h
 
   \item[\textup{[Zha26]}]\label{ref:hac-zhao}
   H. Zhao, "Shifted Anticoncentration for Real Gram Hafnians and Symmetric Gaussian Hafnians," arXiv preprint (September 2026). \href{https://arxiv.org/abs/2609.06526v1}{arXiv:2609.06526v1}.
+
+  \item[\textup{[Zhao26]}]\label{ref:hac-zhao-complex}
+  H. Zhao, "Local Anticoncentration for Gaussian Boson Sampling via Conditional Wishart Geometry," preprint (2026). \href{https://arxiv.org/abs/2610.00112v1}{arXiv:2610.00112v1}; Zenodo manuscript v1.0.0 with proof supplement (September 20, 2026), \href{https://doi.org/10.5281/zenodo.22856033}{doi:10.5281/zenodo.22856033}.
+
+  \item[\textup{[Zhang26]}]\label{ref:hac-zhang}
+  Y. Zhang, "Anticoncentration of Independent Complex Gaussian Hafnians," research preprint (September 20, 2026), Theorem~1. Archived in \emph{Agentic Proofs for QIQC: Collected Manuscripts}, version~1.0 (September 26, 2026), \href{https://doi.org/10.5281/zenodo.22969546}{doi:10.5281/zenodo.22969546}; \href{https://zenodo.org/records/22969546/files/complex-gaussian-hafnian.pdf}{archived manuscript}.
+
+  \item[\textup{[KL26]}]\label{ref:hac-koehler-leung}
+  F. Koehler and P. K. Leung, "Anticoncentration of the Permanent in Ginibre Ensembles," arXiv preprint (2026). \href{https://arxiv.org/abs/2607.20329v1}{arXiv:2607.20329v1}.
+
+  \item[\textup{[Zhao26H]}]\label{ref:hac-zhao-hiding}
+  H. Zhao, "Uniform Hiding and Two Routes to Relative Accuracy in Gaussian Boson Sampling," arXiv preprint, version~2 (September 11, 2026), Eq.~(3.4). \href{https://arxiv.org/abs/2609.01008v2}{arXiv:2609.01008v2}.
+
+  \item[\textup{[Zhao26L]}]\label{ref:hac-zhao-lean}
+  H. Zhao, \emph{Lean Verification for "Shifted Anticoncentration of Complex Gaussian Gram Hafnians via Conditional Wishart Geometry"}, software archive, version~1.0.0 (publicly released September 1, 2026). \href{https://doi.org/10.5281/zenodo.22102635}{doi:10.5281/zenodo.22102635}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-The complex independent-entry lower tail remains the archived gap.
-Real symmetric matrices, finite-rank Gaussian products $YY^T$, and the permanent's special bipartite block ensemble have different laws.
-Their results cannot be transferred by substituting the matrix name.
-Average-case computational hardness is also a separate question.
+The archived independent complex Gaussian lower-tail question is solved by Eq.~\eqref{eq:hac-complex-result}; the resolving manuscripts are preprints, and peer review is not established by the cited sources.
+Earlier-resolution credit belongs to Hongru Zhao: the bound was already stated in Eq.~(3.4) of his September 11 arXiv revision \sourcecite{ref:hac-zhao-hiding}{Zhao26H}, and his work is accompanied by archived Lean formalization and recorded verification, with a public archive dating to September 1 \sourcecite{ref:hac-zhao-lean}{Zhao26L}.
+Yuxuan Zhang's later direct proof supplies a concise derivation for the exact independent-entry ensemble.
+Finite transpose-Gram matrices have a different law and their theorem has additional hypotheses; the independent-ensemble resolution does not assert a bound for every Gaussian boson-sampling ensemble.
+Average-case computational hardness remains a separate question.
 
 \subsection*{Field}
 

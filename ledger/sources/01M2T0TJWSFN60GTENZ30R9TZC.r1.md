@@ -3,7 +3,7 @@ id: "01M2T0TJWSFN60GTENZ30R9TZC"
 schemaVersion: "1.0"
 revision: 1
 createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
-createdAt: "2026-09-18T10:26:06.178Z"
+createdAt: "2026-10-08T05:22:21.235Z"
 type: "Source"
 title: "Quantum channel tomography: optimal bounds and a Heisenberg-to-classical phase transition"
 kind: "preprint"

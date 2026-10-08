@@ -10,10 +10,10 @@
  *   node --experimental-strip-types src/cli.ts key revoke <token>
  *   node --experimental-strip-types src/cli.ts identity link github <github-user-id> <actorId>   bind a GitHub account to an existing actor
  *   node --experimental-strip-types src/cli.ts bootstrap-editor <github-user-id> <name>   provision and link the first human editor
- *   node --experimental-strip-types src/cli.ts proposals list [state] [limit]   the inbox of proposals from the contribution form, newest first
- *   node --experimental-strip-types src/cli.ts proposals show <id>              one proposal as text
- *   node --experimental-strip-types src/cli.ts proposals export <id> [file]     one proposal as JSON, to stdout or a file
- *   node --experimental-strip-types src/cli.ts proposals set <id> <state> [note]   move a proposal to new, in-review, accepted, rejected, or spam
+ *   node --experimental-strip-types src/cli.ts proposals list [state] [limit]   private proposals and progress reports, newest first
+ *   node --experimental-strip-types src/cli.ts proposals show <id>              one submission as text
+ *   node --experimental-strip-types src/cli.ts proposals export <id> [file]     one submission as JSON, to stdout or a file
+ *   node --experimental-strip-types src/cli.ts proposals set <id> <state> [note]   set a proposal or progress-documentation state
  */
 import fs from "node:fs";
 import { configFromEnv } from "./config.ts";
@@ -123,16 +123,16 @@ switch (command) {
       }
     } else if (action === "show" && first) {
       const found = inbox.get(first);
-      if (!found) { console.error(`no proposal ${first}`); process.exit(1); }
+      if (!found) { console.error(`no submission ${first}`); process.exit(1); }
       console.log(submissionText(found));
     } else if (action === "export" && first) {
       const found = inbox.get(first);
-      if (!found) { console.error(`no proposal ${first}`); process.exit(1); }
+      if (!found) { console.error(`no submission ${first}`); process.exit(1); }
       const json = `${JSON.stringify(found, null, 2)}\n`;
       if (second) { fs.writeFileSync(second, json); console.log(`wrote ${second}`); } else process.stdout.write(json);
     } else if (action === "set" && first && isState(second)) {
       const updated = inbox.setState(first, second, rest.join(" "), null);
-      if (!updated) { console.error(`no proposal ${first}`); process.exit(1); }
+      if (!updated) { console.error(`no submission ${first}`); process.exit(1); }
       console.log(`${updated.id} is now ${updated.state}`);
     } else {
       console.error("usage: proposals list [state] [limit] | proposals show <id> | proposals export <id> [file] | proposals set <id> <state> [note]");

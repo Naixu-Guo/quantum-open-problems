@@ -45,7 +45,9 @@
   "source": "The entropy photon-number conjecture is stated explicitly in De Palma, Mari, and Giovannetti, Sec.~II.3, Eq.~(34), with attribution there to the earlier Guha--Shapiro--Erkmen work \\sourcecite{ref:epni-qepi}{DMG14}.",
   "progress": [
     "The quantum entropy power inequality proves $e^{S(\\rho_C)/n}\\geq\\eta e^{S(\\rho_A)/n}+(1-\\eta)e^{S(\\rho_B)/n}$. This is weaker than Eq.~\\eqref{eq:epni-conjecture}. The same paper bounds the possible deficit in Eq.~\\eqref{eq:epni-conjecture} by $1/2-1/e$; see Eqs.~(5) and (35) \\sourcecite{ref:epni-qepi}{DMG14}.",
-    "For $n=1$ and a thermal second input with mean photon number $b\\geq0$, Theorem~4, Eq.~(24), proves $S(\\rho_C)\\geq g(\\eta g^{-1}(S(\\rho_A))+(1-\\eta)b)$. Thermal first inputs attain equality. This permits arbitrary first inputs but does not permit an arbitrary nonthermal second input \\sourcecite{ref:epni-one-mode}{DTG17}."
+    "For $n=1$ and a thermal second input with mean photon number $b\\geq0$, Theorem~4, Eq.~(24), proves $S(\\rho_C)\\geq g(\\eta g^{-1}(S(\\rho_A))+(1-\\eta)b)$. Thermal first inputs attain equality. This permits arbitrary first inputs but does not permit an arbitrary nonthermal second input \\sourcecite{ref:epni-one-mode}{DTG17}.",
+    "Historical GitHub report (2026-09-24): Yuxuan Zhang (GitHub: yuxuanzhang1995) withdrew an earlier partial-result submission and asked that it not be treated as a current result; this link records the withdrawal only. \\href{https://github.com/Naixu-Guo/quantum-open-problems/issues/103}{Issue \\#103}.",
+    "OpenAI reports a proof of Eq.~\\eqref{eq:epni-conjecture} for two\n  independent finite-energy bosonic inputs and any finite number of modes\n  (Theorem~1.1, p.~2) \\sourcecite{ref:epni-openai}{OAI26}. Arbitrary\n  entanglement among modes within either input is allowed. Product thermal\n  inputs attain equality, including when the two input entropies differ."
   ],
   "references": [
     {
@@ -57,7 +59,12 @@
       "key": "DTG17",
       "label": "ref:epni-one-mode",
       "tex": "G. De Palma, D. Trevisan, and V. Giovannetti, ``Gaussian States Minimize the Output Entropy of One-Mode Quantum Gaussian Channels,'' \\emph{Physical Review Letters} \\textbf{118}, 160503 (2017). \\href{https://doi.org/10.1103/PhysRevLett.118.160503}{doi:10.1103/PhysRevLett.118.160503}; \\href{https://arxiv.org/abs/1610.09970}{arXiv:1610.09970}."
+    },
+    {
+      "key": "OAI26",
+      "label": "ref:epni-openai",
+      "tex": "OpenAI, ``The entropy photon-number inequality,'' OpenAI Math Release preprint, 24 September 2026.\n\\href{https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-entropy-photon-number-inequality-September-24-2026/paper.pdf}{manuscript (release version)}."
     }
   ],
-  "comment": "The independence of the two input systems is essential. The arbitrary-input inequality remains unresolved. The catalog's multimode constrained pure-loss output-entropy question is the vacuum-port special case; it does not cover two arbitrary input states."
+  "comment": "The preprint \\sourcecite{ref:epni-openai}{OAI26} reports a proof in the\n  full finite-energy domain stated above; the catalog retains the Unsolved\n  designation while documenting this report. Independence of the two input\n  systems is essential. Taking one input to be vacuum yields the\n  finite-energy case of the catalog's multimode constrained pure-loss\n  output-entropy question."
 }

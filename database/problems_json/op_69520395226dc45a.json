@@ -34,7 +34,7 @@
     "relatedProblemIds": []
   },
   "title": "The PPT-squared conjecture",
-  "status": "Unsolved",
+  "status": "Solved",
   "fields": [
     "Quantum Resource Theory",
     "Quantum Communication"
@@ -48,11 +48,13 @@
   "progress": [
     "The conjecture was recorded in the Banff workshop report on operator\n  structures in quantum information\n  \\sourcecite{ref:p32-birs}{BIRS12}.",
     "Christandl, M\\\"uller--Hermes, and Wolf formulated the two-map\n  statement above, proved its equivalence to the self-composition version,\n  and established it in equal dimension $d=2$, for Gaussian channels, and\n  for several further special classes.  Their eventual\n  entanglement-breaking results for repeated composition do not imply the\n  two-composition claim \\sourcecite{ref:p32-christandl}{CMW19}.",
-    "The equal-dimension conjecture holds for $d=3$\n  \\sourcecite{ref:p32-chen}{CYT19}.  Consequently, equal dimension $d\\geq4$\n  is the first unresolved regime.",
+    "The equal-dimension conjecture holds for $d=3$\n  \\sourcecite{ref:p32-chen}{CYT19}. Together with the $d=2$ result, this\n  excludes equal-dimension counterexamples below dimension four.",
     "The conjecture holds for diagonal-unitary-covariant maps, a class\n  containing Choi-type, depolarizing, dephasing, and amplitude-damping\n  examples \\sourcecite{ref:p32-singh}{SN22}.  This covariance restriction\n  does not cover arbitrary PPT maps.",
     "Other repeated-composition theorems prove eventual entanglement\n  breaking for broad PPT families, but not after exactly two maps\n  \\sourcecite{ref:p32-kennedy}{KMP18}.",
-    "A 2026 qutrit theorem proves a stronger statement for cones larger\n  than the PPT cone: the composition of any completely positive map whose\n  Choi matrix is $1$-undistillable with any map whose Choi matrix has\n  Schmidt number at most two is entanglement breaking in either order, and\n  the $1$-undistillable cone is exactly the largest qutrit cone with this\n  property.  The result also extends to arbitrary selective measurements\n  on the intermediate systems, but its dimension-specific hypothesis\n  leaves higher dimensions open \\sourcecite{ref:p32-an-lee}{AL26}.",
-    "Nechita and Park introduced random covariant channels, including random\n  diagonal-orthogonal-covariant channels, and proved that the composition of\n  two random diagonal-orthogonal-covariant channels is generically\n  entanglement breaking, giving higher-dimensional generic evidence without\n  resolving the unrestricted conjecture\n  \\sourcecite{ref:p32-nechita-park}{NP26}."
+    "A 2026 qutrit theorem proves a stronger statement for cones larger\n  than the PPT cone: the composition of any completely positive map whose\n  Choi matrix is $1$-undistillable with any map whose Choi matrix has\n  Schmidt number at most two is entanglement breaking in either order, and\n  the $1$-undistillable cone is exactly the largest qutrit cone with this\n  property.  The result also extends to arbitrary selective measurements\n  on the intermediate systems, but its dimension-specific hypothesis\n  does not cover higher dimensions \\sourcecite{ref:p32-an-lee}{AL26}.",
+    "Nechita and Park introduced random covariant channels, including random\n  diagonal-orthogonal-covariant channels, and proved that the composition of\n  two random diagonal-orthogonal-covariant channels is generically\n  entanglement breaking, giving higher-dimensional generic evidence without\n  resolving the unrestricted conjecture\n  \\sourcecite{ref:p32-nechita-park}{NP26}.",
+    "Historical GitHub report (2026-09-08): MinboGaoTHU reported random-covariant-channel evidence and a qutrit result for the PPT-squared conjecture. \\href{https://github.com/Naixu-Guo/quantum-open-problems/pull/23}{Pull request \\#23}.",
+    "OpenAI reports a trace-preserving PPT channel\n  $\\Theta:M_{21}(\\mathbb C)\\to M_{21}(\\mathbb C)$ whose square\n  $\\Theta\\circ\\Theta$ is not entanglement breaking\n  (Theorem~1.3, p.~2) \\sourcecite{ref:p32-openai-counterexample}{OAI26}.\n  Taking both maps to be $\\Theta$ gives a counterexample to the\n  unrestricted two-composition conjecture."
   ],
   "references": [
     {
@@ -89,7 +91,12 @@
       "key": "NP26",
       "label": "ref:p32-nechita-park",
       "tex": "I. Nechita and S.-J. Park, ``Random Covariant Quantum Channels,'' \\emph{Annales\n  Henri Poincar\\'e} \\textbf{27}, 847--907 (2026).\n  \\href{https://doi.org/10.1007/s00023-025-01558-y}{doi:10.1007/s00023-025-01558-y};\n  \\href{https://arxiv.org/abs/2403.03667}{arXiv:2403.03667}."
+    },
+    {
+      "key": "OAI26",
+      "label": "ref:p32-openai-counterexample",
+      "tex": "OpenAI, ``Entanglement with zero distillable secret key in local dimension ten,'' OpenAI Math Release preprint, 27 September 2026.\n\\href{https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Entanglement-with-zero-distillable-secret-key-in-local-dimension-ten-September-27-2026/paper.pdf}{manuscript (release version)}."
     }
   ],
-  "comment": "The two-composition claim is settled in equal dimensions two and three,\nfor several structured families, and generically for random covariant\nchannels (Progress above).  No proof or counterexample is known for\narbitrary compatible finite-dimensional PPT maps, with equal dimension four\nbeing the first open square case."
+  "comment": "The catalog designates the unrestricted conjecture Solved by the reported\n  counterexample in \\sourcecite{ref:p32-openai-counterexample}{OAI26}, a\n  preprint. The positive results in dimensions two and three and for the\n  structured families listed in Progress remain valid. The construction\n  uses dimension $21$ and does not determine the smallest counterexample\n  dimension."
 }

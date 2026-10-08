@@ -12,6 +12,19 @@ each mirrored by a TeX file (`database/problems_tex/`).
    the filters, or the documentation. Settled subcases do not change the
    status; describe them in Progress and Comment. The build fails on any other
    value on purpose.
+   The maintainer team retains final authority over the designation. Recording
+   a report, validating its source, or importing historical GitHub links must
+   not change it automatically. Follow `docs/RESEARCH_PROGRESS_POLICY.md`:
+   document attributed reports without proof refereeing, require archival
+   manuscript links for new research except the explicitly documented scoped
+   catalog source exception, and preserve visible direct links to
+   existing GitHub research-progress reports even when no later manuscript exists.
+   Use compact report links; keep detailed discussion, dates, and reporter metadata
+   in GitHub and the provenance inventory. Exclude internal maintainer arguments,
+   review discussion, scope/citation fixes, editorial work, and engineering or
+   integration changes from Progress. Classify the report's content, not the
+   reporter: an actual paper, counterexample, partial result, or computation
+   reported by a maintainer can still qualify.
 2. **Stable IDs.** The `op_` identifier of a record is permanent: never edit,
    regenerate, or reuse one. New IDs come from `node scripts/new-problem-id.mjs`.
    Use `--create` to write a new record scaffold with fresh identifiers;
@@ -77,7 +90,9 @@ each mirrored by a TeX file (`database/problems_tex/`).
 - Status colours: unsolved is red, solved is cyan; the logo O is light cyan
   and the P light red. Keep the status bar, tags, accents, and favicon in step.
 - Content first: no hero banners or marketing strips. Problem pages are a
-  single centered column; the only sidebar is the catalog's filter column.
+  single centered column; the only sidebars are the catalog's filter column
+  and the About page's table of contents, which is read from the page's
+  section headings and becomes a card above the text below 960 px.
 - Fields are solid pills and topics outlined pills everywhere; the problem
   page labels the two rows Field and Topic. Fields come before topics.
 - Search lives in the large box of the home overview panel and in the
