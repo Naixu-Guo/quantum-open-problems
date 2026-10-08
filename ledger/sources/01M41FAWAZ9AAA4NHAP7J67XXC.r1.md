@@ -3,7 +3,7 @@ id: "01M41FAWAZ9AAA4NHAP7J67XXC"
 schemaVersion: "1.0"
 revision: 1
 createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
-createdAt: "2026-10-03T18:10:03.782Z"
+createdAt: "2026-10-08T04:48:42.020Z"
 type: "Source"
 title: "H. Zhao, \"Local Anticoncentration for Gaussian Boson Sampling via Conditional Wishart Geometry,\" preprint (2026). Zenodo manuscript v1.0.0 with proof supplement (September 20, 2026),"
 kind: "paper"
