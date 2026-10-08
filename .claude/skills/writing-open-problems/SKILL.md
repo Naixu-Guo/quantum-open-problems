@@ -93,7 +93,7 @@ for substantial TeX edits so backslashes and newlines are escaped correctly.
 - Choose one or two fields and one to five topics, spelled exactly as in
   `database/tags.json`. Classify the statement, not every technique cited in
   Progress. Reuse existing topics; add a genuinely needed topic with its
-  first record and synchronized taxonomy outputs. Keep the six fields unless
+  first record and synchronized taxonomy outputs. Keep the registered fields unless
   the maintainer requests a taxonomy revision.
 - Begin `statement` with the actual question. Define all required notation
   locally and make the success criterion checkable. Do not force an
