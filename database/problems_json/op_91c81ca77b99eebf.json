@@ -29,7 +29,9 @@
     "keywords": [],
     "difficulty": "unrated",
     "verificationCost": "unrated",
-    "relatedProblemIds": []
+    "relatedProblemIds": [
+      "01M44DVG3V8GP7330Z1DS0ZPS5"
+    ]
   },
   "title": "Optimal single-copy tomography of fermionic Gaussian states",
   "status": "Unsolved",
@@ -46,7 +48,8 @@
   "progress": [
     "Bittel, Mele, Eisert, and Leone give an efficient single-copy covariance-learning protocol with\n  \\begin{equation}\nN_1(m,\\varepsilon)\n  =O\\!\\left(\\frac{m^4\\log m}{\\varepsilon^2}\\right)\n\\label{eq:91c8-3}\n\\end{equation}\n  at constant success probability. Their mixed-state guarantee, rather than their stronger pure-state guarantee, is the applicable upper bound here. See Theorems 5 and 21 of the arXiv version. \\sourcecite{ref:91c8-bittel25}{Bittel25}\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:91c8-3}.",
     "The July 2026 result of Chen and coauthors settles the unrestricted problem. If arbitrary collective measurements are allowed, its optimal copy count is\n  \\begin{equation}\nN_{\\mathrm{coll}}(m,\\varepsilon,\\delta)\n  =\\Theta\\!\\left(\\frac{m^2+\\log(1/\\delta)}{\\varepsilon^2}\\right),\n\\label{eq:91c8-4}\n\\end{equation}\n  where $\\delta$ is the failure probability. The lower bound already holds for pure Gaussian states, and therefore implies $N_1(m,\\varepsilon)=\\Omega(m^2/\\varepsilon^2)$. The upper construction uses operations across copies. \\sourcecite{ref:91c8-chen26}{Chen26}\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:91c8-4}.",
-    "Chen et al. explicitly leave the necessity of entangled measurements open in Section 6. Together, the established bounds for the stated model leave\n  \\begin{equation}\n\\Omega(m^2/\\varepsilon^2)\n  \\leq N_1(m,\\varepsilon)\n  \\leq O(m^4\\log m/\\varepsilon^2).\n\\label{eq:91c8-5}\n\\end{equation}\n  The unrestricted Gaussian-state tomography problem should not itself be retained as open. \\sourcecite{ref:91c8-bittel25}{Bittel25}\\sourcecite{ref:91c8-chen26}{Chen26}\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:91c8-5}."
+    "In July 2026, Chen et al. left the necessity of entangled measurements open in Section 6. At that time, the bounds for the stated model were\n  \\begin{equation}\n\\Omega(m^2/\\varepsilon^2)\n  \\leq N_1(m,\\varepsilon)\n  \\leq O(m^4\\log m/\\varepsilon^2).\n\\label{eq:91c8-5}\n\\end{equation}\n  The unrestricted Gaussian-state tomography problem should not itself be retained as open. \\sourcecite{ref:91c8-bittel25}{Bittel25}\\sourcecite{ref:91c8-chen26}{Chen26}\n\nThe displayed definitions, constraints, and target bounds are recorded in Eqs.~\\eqref{eq:91c8-5}.",
+    "Rubin's September 2026 preprint reports a negative answer to the stated quadratic-rate question. Theorem 1.1 applies to arbitrary adaptive single-copy POVMs with fresh ancillas and no quantum memory between copies, even allowing a non-Gaussian output. Together with Remark 7.7, it gives the updated bracket in Eq.~\\eqref{eq:91c8-6} for $0<\\varepsilon\\leq1/3600$ and success probability $2/3$:\n\\begin{equation}\n\\Omega(m^3/\\varepsilon^2)\\leq N_1(m,\\varepsilon)\\leq O(m^4/\\varepsilon^2).\n\\label{eq:91c8-6}\n\\end{equation}\n\\sourcecite{ref:91c8-rubin}{Rub26}"
   ],
   "references": [
     {
@@ -58,8 +61,13 @@
       "key": "Chen26",
       "label": "ref:91c8-chen26",
       "tex": "S. Chen, M. Fanizza, F. Girardi, L. Lami, F. A. Mele, M. Walter, and F. Witteveen, \"Optimal tomography of bosonic and fermionic Gaussian states,\" arXiv preprint (2026), version 1, 13 July 2026. \\href{https://arxiv.org/abs/2607.11847}{arXiv:2607.11847}."
+    },
+    {
+      "key": "Rub26",
+      "label": "ref:91c8-rubin",
+      "tex": "R. Rubin, \"Entangled measurements are necessary for optimal tomography of mixed fermionic Gaussian states and of bosonic Gaussian states near the vacuum,\" arXiv preprint, version 1, 19 September 2026. \\href{https://arxiv.org/abs/2609.23189v1}{arXiv:2609.23189v1}."
     }
   ],
-  "comment": "The unresolved issue is whether prohibiting measurements across copies increases the optimal sample complexity for mixed fermionic Gaussian states. Restricting each measurement to Gaussian operations would be a different, stronger restriction, and is not assumed here. The collective algorithm establishes achievability only after removing the single-copy constraint.",
+  "comment": "The original quadratic-rate question and its identity are retained. Rubin reports a negative resolution, not an exact worst-case single-copy rate \\sourcecite{ref:91c8-rubin}{Rub26}. The remaining uniform cubic-upper-bound conjecture is recorded separately as \\href{https://qiqc-op.com/problem/op_789fc3ddd1f40636/}{Uniform cubic single-copy tomography of fermionic Gaussian states}. Gaussian-only measurements would impose an additional restriction that is not assumed here.",
   "contributors": []
 }

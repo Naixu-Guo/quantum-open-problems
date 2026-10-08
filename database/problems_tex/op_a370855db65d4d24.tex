@@ -21,16 +21,19 @@ To avoid assuming convergence, define lower and upper exponents as in Eq.~\eqref
 \overline\xi_{\mathcal C}(\rho,\sigma):=\limsup_{n\to\infty}-\frac1n\log p_e^{\mathcal C}(n).
 \label{eq:copych-exponents}
 \end{equation}
-All logarithms are natural. For a finite-outcome single-copy POVM $M=\{M_\omega\}_\omega$, put $P^M_\rho(\omega):=\operatorname{Tr}(\rho M_\omega)$ and define the fixed-measurement Chernoff exponent in Eq.~\eqref{eq:copych-measured}:
+All logarithms are natural. For a finite-outcome single-copy POVM $M=\{M_\omega\}_\omega$, put $P^M_\rho(\omega):=\operatorname{Tr}(\rho M_\omega)$ and define the fixed-measurement exponent and its optimization over such POVMs in Eq.~\eqref{eq:copych-measured}:
 \begin{equation}
-C_M(\rho,\sigma):=\sup_M\max_{0\leq s\leq1}\left[-\log\sum_\omega P^M_\rho(\omega)^{1-s}P^M_\sigma(\omega)^s\right].
+\begin{aligned}
+C(M;\rho,\sigma)&:=\max_{0\leq s\leq1}\left[-\log\sum_\omega P^M_\rho(\omega)^{1-s}P^M_\sigma(\omega)^s\right],\\
+C_{\mathrm{meas}}(\rho,\sigma)&:=\sup_M C(M;\rho,\sigma).
+\end{aligned}
 \label{eq:copych-measured}
 \end{equation}
 The question is whether Eq.~\eqref{eq:copych-target} holds for every such pair, and, if it fails, what the correct exponents are:
 \begin{equation}
 \underline\xi_{\mathrm{LOCC}}=\overline\xi_{\mathrm{LOCC}}
 =\underline\xi_{\mathrm{SEP}}=\overline\xi_{\mathrm{SEP}}
-=C_M(\rho,\sigma).
+=C_{\mathrm{meas}}(\rho,\sigma).
 \label{eq:copych-target}
 \end{equation}
 
@@ -45,7 +48,7 @@ Hayashi explicitly identifies the two-way LOCC and separable-measurement exponen
 \subsection*{Progress}
 
 \begin{itemize}
-  \item For faithful states, Hayashi's Section V, p.~9, reduces one-way adaptive single-copy measurements to classical channel discrimination. The optimal Chernoff exponent equals $C_M(\rho,\sigma)$, so adaptation in this one-way model does not improve the best fixed-measurement exponent. Section IX leaves the corresponding two-way and separable cases open \sourcecite{ref:copych-hayashi}{Hay09}.
+  \item For faithful states, Hayashi's Section V, p.~9, reduces one-way adaptive single-copy measurements to classical channel discrimination. The optimal Chernoff exponent equals $C_{\mathrm{meas}}(\rho,\sigma)$, so adaptation in this one-way model does not improve the best fixed-measurement exponent. Section IX leaves the corresponding two-way and separable cases open \sourcecite{ref:copych-hayashi}{Hay09}.
 
   \item With unrestricted collective measurements, the quantum Chernoff theorem gives Eq.~\eqref{eq:copych-collective}:
 \begin{equation}
