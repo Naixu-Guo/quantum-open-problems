@@ -35,7 +35,7 @@
     "relatedProblemIds": []
   },
   "title": "Secret key from every entangled state",
-  "status": "Unsolved",
+  "status": "Solved",
   "fields": [
     "Quantum Cryptography",
     "Quantum Resource Theory"
@@ -49,7 +49,8 @@
   "source": "Horodecki, Sikorski, Das, and Wilde explicitly identify the question whether\nevery entangled state has positive distillable key\n\\sourcecite{ref:p20-key-cost}{HSDW26}.",
   "progress": [
     "Horodecki, Horodecki, Horodecki, and Oppenheim constructed\n  bound-entangled states with positive distillable key.  Thus zero\n  distillable entanglement does not provide a counterexample to\n  Eq.~\\eqref{eq:p20-entanglement-implies-key}\n  \\sourcecite{ref:p20-bound-key}{HHHO05}.",
-    "Horodecki, Sikorski, Das, and Wilde explicitly state that the\n  existence of an entangled state with zero distillable key remains open.\n  Their 2026 result therefore confirms the unresolved scope of\n  Eq.~\\eqref{eq:p20-entanglement-implies-key} close to the present cutoff\n  \\sourcecite{ref:p20-key-cost}{HSDW26}."
+    "Horodecki, Sikorski, Das, and Wilde identified the existence of an\n  entangled state with zero distillable key as an open question in their\n  2026 paper \\sourcecite{ref:p20-key-cost}{HSDW26}.",
+    "OpenAI reports an explicit entangled state on\n  $\\mathbb C^{10}\\otimes\\mathbb C^{10}$ with $K_D=0$\n  (Theorem~1.1, p.~2) \\sourcecite{ref:p20-openai-zero-key}{OAI26}.\n  The local-instrument protocols in Definition~4.1 include ordinary finite two-way\n  protocols and the specified countable protocols that complete almost\n  surely, with joint local\n  processing of all copies and authenticated public communication. The\n  input is the only shared private resource, and the eavesdropper holds\n  its purification and the full public transcript."
   ],
   "references": [
     {
@@ -61,7 +62,12 @@
       "key": "HSDW26",
       "label": "ref:p20-key-cost",
       "tex": "K. Horodecki, L. Sikorski, S. Das, and M. M. Wilde,\n  ``Cost of Quantum Secret Key,'' \\emph{Quantum} \\textbf{10}, 2098 (2026).\n  \\href{https://doi.org/10.22331/q-2026-05-06-2098}{doi:10.22331/q-2026-05-06-2098};\n  \\href{https://arxiv.org/abs/2402.17007}{arXiv:2402.17007}."
+    },
+    {
+      "key": "OAI26",
+      "label": "ref:p20-openai-zero-key",
+      "tex": "OpenAI, ``Entanglement with zero distillable secret key in local dimension ten,'' OpenAI Math Release preprint, 27 September 2026.\n\\href{https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Entanglement-with-zero-distillable-secret-key-in-local-dimension-ten-September-27-2026/paper.pdf}{manuscript (release version)}."
     }
   ],
-  "comment": "The unresolved alternative is either to prove\nEq.~\\eqref{eq:p20-entanglement-implies-key} or to construct an entangled state\nwith $K_D=0$.  The question concerns the asymptotic key rate, not one-shot key\nextraction or distillable entanglement."
+  "comment": "The catalog designates this question Solved on the basis of the reported\n  counterexample in \\sourcecite{ref:p20-openai-zero-key}{OAI26}, a preprint.\n  It gives a negative answer to Eq.~\\eqref{eq:p20-entanglement-implies-key}\n  under the protocol convention stated in Progress. Measuring the key registers of asymptotically\n  distilled private states would yield secret key, so the obstruction also\n  excludes the private-state formulation above. No minimal local dimension\n  is claimed."
 }

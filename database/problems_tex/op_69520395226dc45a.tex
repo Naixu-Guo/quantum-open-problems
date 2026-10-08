@@ -31,7 +31,7 @@ states always leave a separable state on the two outer systems?
 
 \subsection*{Status}
 
-Unsolved
+Solved
 
 \subsection*{Source}
 
@@ -54,8 +54,8 @@ an explicit conjecture about compositions of PPT maps
   two-composition claim \sourcecite{ref:p32-christandl}{CMW19}.
 
   \item The equal-dimension conjecture holds for $d=3$
-  \sourcecite{ref:p32-chen}{CYT19}.  Consequently, equal dimension $d\geq4$
-  is the first unresolved regime.
+  \sourcecite{ref:p32-chen}{CYT19}. Together with the $d=2$ result, this
+  excludes equal-dimension counterexamples below dimension four.
 
   \item The conjecture holds for diagonal-unitary-covariant maps, a class
   containing Choi-type, depolarizing, dephasing, and amplitude-damping
@@ -73,7 +73,7 @@ an explicit conjecture about compositions of PPT maps
   the $1$-undistillable cone is exactly the largest qutrit cone with this
   property.  The result also extends to arbitrary selective measurements
   on the intermediate systems, but its dimension-specific hypothesis
-  leaves higher dimensions open \sourcecite{ref:p32-an-lee}{AL26}.
+  does not cover higher dimensions \sourcecite{ref:p32-an-lee}{AL26}.
 
   \item Nechita and Park introduced random covariant channels, including random
   diagonal-orthogonal-covariant channels, and proved that the composition of
@@ -83,6 +83,13 @@ an explicit conjecture about compositions of PPT maps
   \sourcecite{ref:p32-nechita-park}{NP26}.
 
   \item Historical GitHub report (2026-09-08): MinboGaoTHU reported random-covariant-channel evidence and a qutrit result for the PPT-squared conjecture. \href{https://github.com/Naixu-Guo/quantum-open-problems/pull/23}{Pull request \#23}.
+
+  \item OpenAI reports a trace-preserving PPT channel
+  $\Theta:M_{21}(\mathbb C)\to M_{21}(\mathbb C)$ whose square
+  $\Theta\circ\Theta$ is not entanglement breaking
+  (Theorem~1.3, p.~2) \sourcecite{ref:p32-openai-counterexample}{OAI26}.
+  Taking both maps to be $\Theta$ gives a counterexample to the
+  unrestricted two-composition conjecture.
 \end{itemize}
 
 \subsection*{References}
@@ -130,15 +137,20 @@ an explicit conjecture about compositions of PPT maps
   Henri Poincar\'e} \textbf{27}, 847--907 (2026).
   \href{https://doi.org/10.1007/s00023-025-01558-y}{doi:10.1007/s00023-025-01558-y};
   \href{https://arxiv.org/abs/2403.03667}{arXiv:2403.03667}.
+
+  \item[\textup{[OAI26]}]\label{ref:p32-openai-counterexample}
+  OpenAI, ``Entanglement with zero distillable secret key in local dimension ten,'' OpenAI Math Release preprint, 27 September 2026.
+\href{https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Entanglement-with-zero-distillable-secret-key-in-local-dimension-ten-September-27-2026/paper.pdf}{manuscript (release version)}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-The two-composition claim is settled in equal dimensions two and three,
-for several structured families, and generically for random covariant
-channels (Progress above).  No proof or counterexample is known for
-arbitrary compatible finite-dimensional PPT maps, with equal dimension four
-being the first open square case.
+The catalog designates the unrestricted conjecture Solved by the reported
+  counterexample in \sourcecite{ref:p32-openai-counterexample}{OAI26}, a
+  preprint. The positive results in dimensions two and three and for the
+  structured families listed in Progress remain valid. The construction
+  uses dimension $21$ and does not determine the smallest counterexample
+  dimension.
 
 \subsection*{Field}
 

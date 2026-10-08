@@ -59,7 +59,7 @@ parity belongs to $\mathsf{QAC}^0$
   \item Rosenthal established strong lower bounds for depth-two $\mathsf{QAC}^0$
 circuits approximating parity and gave the principal known constant-depth
 upper bound for approximating parity with superpolynomially many resources;
-polynomial-size arbitrary-constant-depth circuits remain unresolved
+that result does not settle the polynomial-size arbitrary-constant-depth case
 \sourcecite{ref:95fc-rosenthal}{Ros21}.
 
   \item Nadimpalli, Parham, Vasconcelos, and Yuen defined the Pauli spectrum of a
@@ -99,6 +99,15 @@ approximation lower bounds at these thresholds can therefore contribute
 directly to resolving the exact conjecture
 \sourcecite{ref:95fc-jtvw}{JTVW26},
 \sourcecite{ref:95fc-ggj}{GGJ26}.
+
+  \item OpenAI reports a proof of $\mathrm{PARITY}\notin\mathsf{QAC}^0$
+  (Theorem~1, p.~1) \sourcecite{ref:95fc-openai-parity}{OAI26}. For every
+  fixed depth, polynomial bound on the total number of qubits, and fixed
+  $0<\varepsilon\leq1/2$, the theorem excludes circuits with success
+  probability at least $1/2+\varepsilon$ on every input for all sufficiently
+  large input lengths. Zero-initialized ancillas and arbitrary discarded
+  garbage are allowed; the claim therefore implies the exact-computation
+  separation stated above.
 \end{itemize}
 
 \subsection*{References}
@@ -145,19 +154,21 @@ $\notin$ QAC0 $\Longleftrightarrow$ QAC0 is Fourier-Concentrated,'' in
 \emph{67th Annual IEEE Symposium on Foundations of Computer Science (FOCS
 2026)} (2026).
 \href{https://arxiv.org/abs/2604.02793}{arXiv:2604.02793}.
+
+  \item[\textup{[OAI26]}]\label{ref:95fc-openai-parity}
+  OpenAI, ``Product-projection localization and the $\mathrm{QAC}^0$ parity lower bound,'' OpenAI Math Release preprint, 24 September 2026.
+\href{https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Product-projection-localization-and-the-QAC0-parity-lower-bound-September-24-2026/paper.pdf}{manuscript (release version)}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-The conjecture remains open for every sufficiently large constant depth
-and in the regime of arbitrary polynomial ancilla count.  Known techniques
-separate parity from $\mathsf{QAC}^0$ only in restricted regimes: depth at
-most three, bounded ancilla, or approximation.  In particular, the
-depth-dependent ancilla lower bound (Progress above) does not rule out
-polynomial ancillae, and no Fourier-concentration lower bound is known for
-$\mathsf{QAC}^0$ circuits with unrestricted ancilla.  The equivalence of
-Gretta, Gupta, and Joshi (Progress above) shows that the conjecture is not
-merely one algorithmic route but a precisely equivalent open question.
+The catalog retains the Unsolved designation while documenting the
+  reported full separation in \sourcecite{ref:95fc-openai-parity}{OAI26}.
+  Unlike the earlier depth- or ancilla-restricted results, this preprint
+  claims a lower bound for arbitrary fixed depth and polynomially many
+  ancillas, even with bounded error. The equivalence of Gretta, Gupta, and
+  Joshi relates the exact separation to Fourier concentration
+  \sourcecite{ref:95fc-ggj}{GGJ26}.
 
 \subsection*{Field}
 
