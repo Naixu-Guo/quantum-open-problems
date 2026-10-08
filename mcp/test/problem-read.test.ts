@@ -247,9 +247,12 @@ test("official SDK reads complete semantic research categories", { timeout: 180_
     const solvedStatement = solved["statement"] as Json;
     assert.ok((solvedStatement["clauses"] as Json[]).some(clause => clause["status"] === "open"),
       "Exercise the real authored-status versus service-evidence distinction");
-    const unsolved = documents.get("01M1Q787QRD6APNHX659G4CTEF")!;
-    assert.equal(unsolved["status"], "Unsolved", "The purification countercase remains unsolved");
-    for (const document of [solved, unsolved]) for (const section of sections) {
+    const purification = documents.get("01M1Q787QRD6APNHX659G4CTEF")!;
+    assert.equal(purification["status"], "Solved", "The purification equality is resolved by a counterexample");
+    const unsolved = [...documents.values()].find(document => document["status"] === "Unsolved"
+      && bytes(project(document, "statement")) > 2048);
+    assert.ok(unsolved, "Also exercise an unsolved problem with a continued statement");
+    for (const document of [solved, purification, unsolved]) for (const section of sections) {
       const id = String(document["id"]);
       const native = await call<Page>(client, "read_problem", { id, section, maxBytes: 32768 });
       checkPage(native, 32768);
