@@ -24,7 +24,11 @@ in the original thread and provenance inventory. Internal maintainer arguments,
 review or scope/citation fixes, editorial changes, and engineering or integration
 work are not Progress entries. Actual manuscripts, counterexamples, partial
 results, and computational reports may qualify regardless of the reporter's role.
-New research requires an archival manuscript or paper link. Only the maintainer team sets
+New research requires an archival manuscript or paper link, except for the
+exact catalog entries covered by the scoped source exception in
+`docs/RESEARCH_PROGRESS_POLICY.md` and `docs/audits/catalog-source-exceptions.json`.
+Do not extend that exception to new claims, URLs, or problems without an explicit
+policy and inventory update in the reviewed PR. Only the maintainer team sets
 Solved/Unsolved; a source check or historical import cannot set it automatically.
 
 ## Establish the question and its evidence
