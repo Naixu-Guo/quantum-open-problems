@@ -30,11 +30,11 @@ Unsolved
 
 \subsection*{Source}
 
-Wilde notes that the entanglement cost of an isotropic state, the Choi state
-of a depolarizing channel, is not known (Section~IV)
-\sourcecite{ref:27b7-wilde}{Wil18}, and Fang, Fawzi, and Fawzi state that, to
-the best of their knowledge, the entanglement costs of isotropic and Werner
-states under LOCC ``remain unresolved'' (Section~4.2 of the arXiv version)
+Wilde identified the entanglement cost of an isotropic state, the Choi state
+of a depolarizing channel, as unknown (Section~IV)
+\sourcecite{ref:27b7-wilde}{Wil18}, and Fang, Fawzi, and Fawzi likewise identified the general LOCC
+entanglement-cost questions for isotropic and Werner states as unresolved
+(Section~4.2 of the arXiv version)
 \sourcecite{ref:27b7-fang-fawzi-fawzi}{FFF26}.
 
 \subsection*{Progress}
@@ -44,8 +44,7 @@ states under LOCC ``remain unresolved'' (Section~4.2 of the arXiv version)
   \sourcecite{ref:27b7-terhal-vollbrecht}{TV00}.  At $F=1$, it is maximally
   entangled, and the cost of a pure state is its entanglement entropy, so
   $E_C(\sigma_{d,1})=\log_2d$
-  \sourcecite{ref:27b7-hayden-horodecki-terhal}{HHT01}.  For $d=2$, the open
-  interval is $1/2<F<1$.
+  \sourcecite{ref:27b7-hayden-horodecki-terhal}{HHT01}.
 
   \item Rains, in Theorem~7 of the arXiv version~2, evaluates the relative
   entropy of entanglement with respect to
@@ -93,6 +92,46 @@ states under LOCC ``remain unresolved'' (Section~4.2 of the arXiv version)
   $E_C(\mathcal D_{d,p})=E_C^{(p)}(\mathcal D_{d,p})=E_C(\sigma_{d,1-p+p/d^2})$
   \sourcecite{ref:27b7-wilde}{Wil18}.  The correspondence in
   Eq.~\eqref{eq:27b7-depolarizing} was checked directly for this entry.
+
+  \item Fang's preprint, Theorem~7, Eqs.~(39)--(40), settles the qubit case:
+  \begin{equation}
+    E_C(\sigma_{2,F})=E_F(\sigma_{2,F})=
+    \begin{cases}
+      0, & 0\leq F\leq\tfrac12,\\
+      h_2\!\left(\tfrac12+\sqrt{F(1-F)}\right), & \tfrac12<F\leq1,
+    \end{cases}
+    \label{eq:27b7-qubit-cost}
+  \end{equation}
+  where $h_2(x):=-x\log_2x-(1-x)\log_2(1-x)$, with $0\log_20:=0$.
+  Equation~\eqref{eq:27b7-qubit-cost} is the isotropic specialization of the
+  Bell-diagonal result \sourcecite{ref:27b7-fang}{Fan26}.
+
+  \item For $d\geq3$, Fang's Theorem~8 and Lemma~10 give an additional lower
+  bound.  In the fidelity parameterization of Eq.~\eqref{eq:27b7-isotropic-state},
+  define
+  \begin{equation}
+    \begin{aligned}
+      K_d(r)^3&:=\max_{0\leq z\leq\sqrt{d-1}}
+        \frac{1+3r^2z^2+\dfrac{d-2}{\sqrt{d-1}}r^3z^3}{(1+z^2)^{3/2}},\\
+      \mathcal B_d(F)&:=\sup_{0<r\leq1}
+        \left[\log_2d+6(1-F)\log_2r-6\log_2K_d(r)\right].
+    \end{aligned}
+    \label{eq:27b7-cubic-bound}
+  \end{equation}
+  Combining Eq.~\eqref{eq:27b7-cubic-bound} with the earlier lower bound and
+  the one-copy entanglement of formation $E_F$ gives
+  \begin{equation}
+    \max\{E_R^\infty(\sigma_{d,F}),\mathcal B_d(F)\}
+      \leq E_C(\sigma_{d,F})\leq E_F(\sigma_{d,F}),
+    \qquad \frac1d<F<1.
+    \label{eq:27b7-cost-interval}
+  \end{equation}
+  Proposition~12 explicitly evaluates $\mathcal B_d(F)$ as the paper's
+  $B_d(2F-1)$.  Corollary~13 proves
+  $\max_{1/d\leq F\leq1}[E_F(\sigma_{d,F})-\mathcal B_d(F)]=O(d^{-2/3})$.
+  Figure~2 reports a gap below $2\%$ of $\log_2d$ for the scanned dimensions
+  $3\leq d\leq10^4$; the exact cost in Eq.~\eqref{eq:27b7-cost-interval}
+  remains unresolved \sourcecite{ref:27b7-fang}{Fan26}.
 \end{itemize}
 
 \subsection*{References}
@@ -159,22 +198,27 @@ states under LOCC ``remain unresolved'' (Section~4.2 of the arXiv version)
   \emph{Physical Review Letters} \textbf{134}, 190202 (2025).
   \href{https://doi.org/10.1103/PhysRevLett.134.190202}{doi:10.1103/PhysRevLett.134.190202};
   \href{https://arxiv.org/abs/2311.10649}{arXiv:2311.10649}.
+
+  \item[\textup{[Fan26]}]\label{ref:27b7-fang}
+  K. Fang, ``Entanglement cost of quantum depolarization,''
+  preprint (2026).
+  \href{https://arxiv.org/abs/2610.00187v1}{arXiv:2610.00187v1}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-Literature checked through 15 September 2026.  No exact LOCC entanglement
-cost of an isotropic state with $1/d<F<1$ was located for any $d\geq2$, and
-no LOCC preparation rate matching the lower bound in Eq.~\eqref{eq:27b7-ree}
-is known.  For $d=2$, $\sigma_{2,F}$ is the Bell-diagonal state with weight $F$
-on $\lvert\Phi_2\rangle$ and $(1-F)/3$ on each other Bell state, the isotropic
-line singled out in the
-\href{https://qiqc-op.com/problem/op_aa21ac5ebca8b888/}{entanglement-cost problem for qubit Bell-diagonal states};
-up to a local unitary it is the two-qubit Werner state with antisymmetric
-weight $F$.  The qubit case therefore coincides with the $d=2$ case of the
-\href{https://qiqc-op.com/problem/op_0c23167deb384894/}{LOCC entanglement cost of Werner states},
-while for $d\geq3$ the $U\otimes\overline U$-invariant and
-$U\otimes U$-invariant families differ.
+The qubit case is settled by Eq.~\eqref{eq:27b7-qubit-cost}; the
+remaining task is to determine $E_C(\sigma_{d,F})$ exactly for $d\geq3$ and
+$1/d<F<1$.  Equation~\eqref{eq:27b7-cost-interval} narrows the gap without
+closing it, so the full problem retains Unsolved status.
+For $d=2$, $\sigma_{2,F}$ has Bell weights $F$ and three copies of $(1-F)/3$
+and belongs to the \href{https://qiqc-op.com/problem/op_aa21ac5ebca8b888/}{resolved qubit Bell-diagonal entanglement-cost problem}.
+It is locally unitarily equivalent to the $d=2$ state with antisymmetric
+weight $F$ in the \href{https://qiqc-op.com/problem/op_0c23167deb384894/}{Werner-state entanglement-cost problem};
+the $U\otimes\overline U$-invariant and $U\otimes U$-invariant families differ
+for $d\geq3$.  The channel correspondence in Eq.~\eqref{eq:27b7-depolarizing}
+transfers the same exact qubit values and higher-dimensional bounds to
+parallel and sequential depolarizing-channel simulation costs.
 
 \subsection*{Field}
 

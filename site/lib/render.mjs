@@ -1,10 +1,12 @@
-import { submissionsOnline as acceptsSubmissions, anonymousSubmissionsAllowed } from "./submission-settings.mjs";
+import { submissionsOnline as acceptsSubmissions, anonymousSubmissionsAllowed, progressSubmissionsOnline } from "./submission-settings.mjs";
 // HTML templates for every page of the zoo. Pure functions: records in,
 // strings out. No runtime dependencies.
 
 import { STATUSES, slug } from "./tex.mjs";
 import { distinctQuestionCounts } from "./metadata.mjs";
 import { TAG_KINDS } from "./taxonomy.mjs";
+import { SOURCE_GUIDANCE, SUPPORTED_SOURCE_NAMES } from "../../shared/progress-sources.mjs";
+import { styleHead } from "./styles.mjs";
 
 const escape = (value = "") => String(value)
   .replaceAll("&", "&amp;")
@@ -29,10 +31,11 @@ export const displayDateTime = (iso) => {
   return `${new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false, timeZone: "UTC" }).format(date)} UTC`;
 };
 
-const MATHJAX = `<script>
+const MATHJAX = (formMath = false) => `<script>
       window.MathJax = {
         loader: { load: ["ui/safe"] },
         tex: {
+          ${formMath ? 'packages: { "[-]": ["noundefined"] },' : ""}
           macros: { ket: ["\\\\lvert #1\\\\rangle", 1] },
           inlineMath: [["\\\\(", "\\\\)"]],
           displayMath: [["\\\\[", "\\\\]"]],
@@ -73,8 +76,8 @@ export const logo = (extraClass = "") => `<span class="logo ${extraClass}" aria-
 export const statusTag = (status, extraClass = "") => {
   const meta = STATUSES[status];
   const titles = {
-    unsolved: "No complete solution is known.",
-    solved: "A complete solution is known; see Progress and Comment."
+    unsolved: "Unsolved is the maintainer team's catalog designation; reports do not change it automatically.",
+    solved: "Solved is the maintainer team's catalog designation; see Progress and Comment."
   };
   return `<span class="status-tag status-${meta.slug} ${extraClass}" title="${titles[meta.slug]}">${meta.label}</span>`;
 };
@@ -89,7 +92,7 @@ export const tagItems = (record, root) => [
   ...record.topics.map((name) => `<li>${tagLink(name, root, "topic")}</li>`)
 ].join("");
 
-export function layout({ config, root, title, description, path, body, current = "", extraHead = "", bodyClass = "", withMath = true, extraScripts = "" }) {
+export function layout({ config, root, title, description, path, body, current = "", extraHead = "", bodyClass = "", withMath = true, formMath = false, extraScripts = "" }) {
   const canonical = `${config.siteUrl.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
   const pageTitle = title ? `${title} · ${config.shortName}` : `${config.shortName} · ${config.fullName}`;
   const nav = (href, label, key) => `<a href="${root}${href}"${current === key ? ' aria-current="page"' : ""}>${label}</a>`;
@@ -109,13 +112,13 @@ export function layout({ config, root, title, description, path, body, current =
     <meta property="og:url" content="${canonical}">
     <meta name="twitter:card" content="summary">
     <link rel="icon" href="${root}assets/favicon.svg?v=${config.assetVersions?.favicon ?? ""}" type="image/svg+xml">
+    ${styleHead(config, root)}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
-    <link rel="stylesheet" href="${root}assets/styles.css?v=${config.assetVersions?.styles ?? ""}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" media="print" onload="this.media='all'">
     <link rel="alternate" type="application/json" href="${root}api/index.json" title="${escape(config.shortName)} API">
     ${THEME_BOOT}
-    ${withMath ? MATHJAX : ""}
+    ${withMath ? MATHJAX(formMath) : ""}
     ${extraHead}
   </head>
   <body class="${bodyClass}" id="top" data-root="${root}">
@@ -272,10 +275,52 @@ export function problemRow(record, root) {
 </li>`;
 }
 
+// Keep imported GitHub history compact on problem pages. The full documentary
+// text remains in the authored records and historical audit; every source link
+// stays visible, with follow-up comments numbered beside their original thread.
+function progressList(items, repositoryUrl) {
+  const reports = new Map();
+  const rows = [];
+  let reportRow = -1;
+  for (const item of items) {
+    const historical = /^Historical GitHub report \(\d{4}-\d{2}-\d{2}\):/u.test(item.tex ?? "");
+    const links = historical ? [...item.tex.matchAll(/\\href\{([^}]+)\}/gu)].map((match) => {
+      const prefix = `${repositoryUrl.replace(/\/$/u, "")}/`;
+      if (!match[1].startsWith(prefix)) return null;
+      const thread = match[1].slice(prefix.length).match(/^(issues|pull)\/([1-9]\d*)(#(?:issuecomment-\d+|discussion_r\d+|pullrequestreview-\d+))?$/u);
+      return thread ? {
+        url: match[1], threadUrl: `${prefix}${thread[1]}/${thread[2]}`,
+        label: `${thread[1] === "issues" ? "Issue" : "PR"} #${thread[2]}`, comment: Boolean(thread[3])
+      } : null;
+    }) : [];
+    if (!links.length || links.some((link) => !link)) {
+      rows.push(`<li>${item.html}</li>`);
+      continue;
+    }
+    if (reportRow < 0) { reportRow = rows.length; rows.push(""); }
+    for (const link of links) {
+      const report = reports.get(link.threadUrl) ?? { url: link.threadUrl, label: link.label, comments: new Set(), withdrawn: false };
+      report.withdrawn ||= item.tex.includes("this link records the withdrawal only.");
+      if (link.comment) report.comments.add(link.url);
+      reports.set(link.threadUrl, report);
+    }
+  }
+  if (reportRow >= 0) {
+    const links = [...reports.values()].map(({ url, label, withdrawn, comments }) => {
+      const followups = [...comments].map((href, index) =>
+        `<a href="${escape(href)}" rel="noreferrer" aria-label="Follow-up ${index + 1} on ${escape(label)}">${index + 1}</a>`);
+      return `<a href="${escape(url)}" rel="noreferrer">${escape(label)}</a>${withdrawn ? " (withdrawn)" : ""}`
+        + (followups.length ? ` (follow-up${followups.length === 1 ? "" : "s"} ${followups.join(", ")})` : "");
+    });
+    rows[reportRow] = `<li>Reported progress: ${links.join(" · ")}.</li>`;
+  }
+  return rows.join("\n            ");
+}
+
 export function renderProblemPage({ record, config, root, related, dates }) {
   const editUrl = `${config.repositoryUrl}/edit/${config.branch}/${config.databasePath}/${record.id}.json`;
   const historyUrl = `${config.repositoryUrl}/commits/${config.branch}/${config.databasePath}/${record.id}.json`;
-  const issueUrl = `${config.repositoryUrl}/issues/new?template=research-update.yml&title=${encodeURIComponent(`[Update] ${record.title.text} (${record.id})`)}`;
+  const issueUrl = `${config.repositoryUrl}/issues/new?template=correction.yml&title=${encodeURIComponent(`[Correction] ${record.title.text} (${record.id})`)}`;
   const permalink = problemUrl(config, record.id);
   const bib = bibtex(record, config, dates);
   const plain = textCitation(record, config, dates);
@@ -336,8 +381,9 @@ export function renderProblemPage({ record, config, root, related, dates }) {
 
         <section class="problem-section" id="progress">
           <h2>Progress</h2>
+          <p class="progress-notice no-math">Reports do not certify correctness or automatically change the problem's status. <a href="${root}about/#report-progress">Progress policy</a>.</p>
           <ul class="progress-list">
-            ${record.progress.map((item) => `<li>${item.html}</li>`).join("\n            ")}
+            ${progressList(record.progress, config.repositoryUrl)}
           </ul>
         </section>
 
@@ -370,7 +416,7 @@ ${contributorSection}
           </div>
           <div class="contribute-box">
             <h2>Your contribution is welcome!</h2>
-            <p>Found progress, a correction, or a resolution? <a href="${editUrl}" rel="noreferrer">Edit this record on GitHub</a> and open a pull request, or <a href="${issueUrl}" rel="noreferrer">report an update</a> with the primary sources. The <a href="${root}contribute/">proposal page</a> explains the available submission route; see the <a href="${root}about/#contribute">contribution guide</a> for details.</p>
+            <p><a href="${root}contribute/progress/?problem=${encodeURIComponent(record.id)}">Submit a progress report</a> with an archival manuscript or paper link, or <a href="${root}contribute/progress/?problem=${encodeURIComponent(record.id)}&amp;kind=historical">link an earlier GitHub report</a>. For a correction, <a href="${issueUrl}" rel="noreferrer">describe the correction on GitHub</a> or <a href="${editUrl}" rel="noreferrer">edit this record</a> and open a pull request. See the <a href="${root}about/#contribute">contribution guide</a>.</p>
           </div>
           <div class="cite-box">
             <h2>Cite this page</h2>
@@ -647,66 +693,122 @@ export function renderAbout({ config, root, dates }) {
   year = {${dates.updated.slice(0, 4)}},
   note = {Accessed ${dates.today}}
 }`;
+  // Each section's text sits in a .prose-body, which indents it under its heading;
+  // a subsection's body is nested, so it is indented once more.
+  const prose = `
+        <h2 id="what">What the zoo is</h2>
+        <div class="prose-body">
+          <p>The ${escape(config.shortName)} is a place to explore research problems in quantum information and quantum computation. Each problem page brings together a clear statement, the background needed to understand it, key references, and what is known so far.</p>
+          <p>Browse by field or topic, follow the sources, or share a problem you think belongs here. The collection grows through contributions from the community and review by the maintainers. Problem pages keep permanent links, so you can return to them as the research develops.</p>
+          <p>A problem page may be out of date or contain errors in its statement, status, progress, or references. Please treat each page as a guide to the literature and check the primary sources and recent work before relying on it or investing effort in a problem. If you find something to correct, <a href="#github">tell us</a>.</p>
+          <p><strong>We would also like to highlight the following projects in the research community:</strong></p>
+          <ul>
+            <li><strong><a href="https://oqp.iqoqi.oeaw.ac.at/" rel="noreferrer">Open Quantum Problems</a></strong></li>
+            <li><strong><a href="https://prove2.me/" rel="noreferrer">Prove2Me</a></strong></li>
+          </ul>
+        </div>
+
+        <h2 id="what-will-be-collected">What will be collected</h2>
+        <div class="prose-body">
+          <p>We collect meaningful, significant unsolved problems in quantum information and quantum computation. Each problem should be formulated precisely in mathematical language, with clear assumptions and an unambiguous criterion for a solution.</p>
+          <p>Solved and Unsolved are the maintainer team's catalog designations. The team reserves the final right to interpret and determine each problem's status, and may revise it while retaining the reports and their history. A preprint, DOI, publication, or reported resolution does not automatically mark a problem Solved. The maintainers document reported progress; they do not peer-review manuscripts, verify proofs, or certify correctness.</p>
+        </div>
+
+        <h2 id="contribute">How to contribute</h2>
+        <div class="prose-body">
+          <p>You can propose a problem, submit a progress report, or report a correction. The maintainers check the information needed to document contributions, including sources and attribution, before publication. This does not include reviewing the correctness of proofs.</p>
+
+          <h3 id="propose">Propose a problem</h3>
+          <div class="prose-body">
+            <p>${submissionsOnline
+              ? `Use the <a href="${root}contribute/">proposal form</a> to send a problem, its sources, and what is known. No account is needed.`
+              : `Propose a problem through a <a href="${config.repositoryUrl}/issues/new?template=new-problem.yml">GitHub issue</a> (a GitHub account is required). The <a href="${root}contribute/">proposal worksheet</a> helps you prepare and copy the text while online sending is not yet enabled.`} State the problem as precisely as you can and name the papers in which it appears.</p>
+            <p>The maintainers check each proposal against the literature and publish accepted proposals as records with credit to contributors${anonymousSubmissionsAllowed(config) ? ", respecting requests to remain anonymous" : ""}.</p>
+          </div>
+
+          <h3 id="github">Contribute through GitHub</h3>
+          <div class="prose-body">
+            <p>If you are comfortable with Git and TeX, you can add a record yourself in four steps.</p>
+            <ol>
+              <li>Fork the <a href="${config.repositoryUrl}" rel="noreferrer">repository</a> and run <code>node scripts/new-problem-id.mjs --create</code> to create a problem template with permanent identifiers.</li>
+              <li>Write the statement, status, source, progress, references, and comment as TeX fragments in the record's fields, following the <a href="${config.repositoryUrl}/blob/${config.branch}/CONTRIBUTING.md" rel="noreferrer">contribution guide</a>, and choose one or two fields and one to five topics from <code>database/tags.json</code>. Run <code>node scripts/migrate-metadata.mjs</code> after changing the classifications.</li>
+              <li>Run <code>node scripts/sync-tex.mjs</code> to write the record's TeX form, then <code>node site/build.mjs</code>. The build rejects records with missing fields, unknown or miscounted fields and topics, unresolved citations, or unlabeled equations.</li>
+              <li>Open a pull request.</li>
+            </ol>
+            <p>To correct an existing record or add a reference to it, use the Edit button on the problem's page or open a <a href="${config.repositoryUrl}/issues/new?template=correction.yml" rel="noreferrer">correction issue</a>. Ordinary typo, citation, and status-reconsideration requests can cite the existing record. A correction introducing new research must include an archival source for that result.</p>
+          </div>
+
+          <h3 id="report-progress">Submit a progress report</h3>
+          <div class="prose-body">
+            <p>Every new progress submission requires an archival link to the manuscript or paper reporting the result: <a href="https://arxiv.org/" rel="noreferrer">arXiv</a>, a <a href="https://zenodo.org/" rel="noreferrer">Zenodo</a> manuscript, another supported preprint repository, a stable journal or publisher paper record, or a paper DOI. Use <a href="${root}contribute/progress/">Submit a progress report</a> for resolutions, partial results, computational findings, and new research in corrections or follow-ups. Personal pages, GitHub posts, shared files, and attachments alone are insufficient. A source must identify the actual research document, not an unrelated paper or a DOI for software or data alone.</p>
+            <p>Preprints need not have passed peer review. Inclusion records what the source reports and does not certify correctness. No expert endorsement or proof-review report is required. Publication and peer-review information, where recorded, describe the source rather than grade its correctness.</p>
+            <p>Research progress reported through the portal or GitHub appears in the affected problem's Progress panel. Existing GitHub research reports, including external contributors' issues, are shown as concise direct links even without an archival manuscript. Internal maintainer discussions, catalog reviews, and engineering changes stay on GitHub and are not progress entries. <a href="${root}contribute/progress/?kind=historical">Point out an earlier research report</a> if a link is missing. This historical exception applies to pre-policy content; a new claim added to an old issue still requires an archival source.</p>
+            <p>The <a href="${config.repositoryUrl}/blob/${config.branch}/docs/RESEARCH_PROGRESS_POLICY.md" rel="noreferrer">research progress policy</a> explains supported sources, historical documentation, attribution, and status authority. AI tools are welcome, including through the <a href="#mcp">MCP server</a>; their use does not replace the source requirement.</p>
+          </div>
+        </div>
+
+        <h2 id="cite">How to cite</h2>
+        <div class="prose-body">
+          <p>Cite the primary sources for any mathematical claim. To cite a problem page for its statement, status, or stable identifier, use the Cite button on that page. To cite the zoo as a whole:</p>
+          <div class="copy-block no-math"><pre id="zoo-bibtex">${escape(zooBib)}</pre><button class="copy-button" type="button" data-copy="zoo-bibtex">Copy</button></div>
+        </div>
+
+        <h2 id="mcp"><span id="api">Use the MCP server</span></h2>
+        <div class="prose-body">
+          <p>Connect your AI assistant through the Model Context Protocol (MCP) to search the zoo, read problem statements and references, and gather the known results and remaining questions for a research session.</p>
+          <p>Use a client that supports remote MCP servers over Streamable HTTP. Connect with the address below; no download, local setup, or API key is needed to read the catalog.</p>
+          <ol>
+            <li><strong>Add the server.</strong> In your client's MCP or connector settings, add a remote server named <code>quantum-open-problems</code>. Paste this server URL and choose <strong>Streamable HTTP</strong> if a transport is requested:
+              <div class="copy-block no-math"><pre id="mcp-url">${escape(mcpUrl)}</pre><button class="copy-button" type="button" data-copy="mcp-url" aria-label="Copy MCP server URL">Copy</button></div>
+            </li>
+            <li><strong>Connect your assistant.</strong> Save or enable the connection. For clients that accept URL entries in an <code>mcpServers</code> configuration:
+              <details>
+                <summary>JSON configuration for clients using <code>mcpServers</code></summary>
+                <p>Add this entry to your existing configuration, then reload the client's MCP connection. Some clients use a settings form instead.</p>
+                <div class="copy-block no-math"><pre id="mcp-config">${escape(mcpConfig)}</pre><button class="copy-button" type="button" data-copy="mcp-config" aria-label="Copy MCP client configuration">Copy</button></div>
+              </details>
+            </li>
+            <li><strong>Ask a research question.</strong> For example: “Use the quantum-open-problems MCP to find unsolved problems about quantum channel capacity, then summarize one problem's known progress and references.” The assistant can use <code>search_problems</code>, <code>get_problem</code>, <code>read_problem</code>, <code>list_references</code>, and <code>build_context</code>.</li>
+          </ol>
+          <p>The connection reads the current hosted catalog, including newly published problems. If it fails, check the <a href="${escape(mcpServiceUrl)}/api/v1/status" rel="noreferrer">catalog service status</a> and confirm that your client supports remote MCP. The <a href="${config.repositoryUrl}/blob/${config.branch}/mcp/README.md" rel="noreferrer">MCP setup and tool guide</a> also covers local clients and, for collaborators with an API key, authenticated research contributions. For direct downloads, the <a href="${root}api/index.json">JSON catalog</a>, <a href="${root}api/tags.json">taxonomy</a>, and <a href="${root}llms.txt">agent guide</a> are available.</p>
+        </div>
+
+        <h2 id="licensing">Licensing and reuse</h2>
+        <div class="prose-body">
+          <p>The software uses <a href="${root}licenses/Apache-2.0.txt">Apache-2.0</a>. New original catalog contributions use <a href="https://creativecommons.org/licenses/by/4.0/" rel="noreferrer">CC BY 4.0</a>, allowing sharing, adaptation, and commercial use with attribution, license information, and an indication of changes. Contributors retain their copyright.</p>
+          <p>Cited papers and other third-party material retain their own terms. See the <a href="${root}licenses/scope.txt">licensing scope and permissions</a>, <a href="${root}licenses/CC-BY-4.0.txt">content license</a>, and <a href="${root}licenses/NOTICE.txt">retained copyright notices</a>. Cite the primary sources for mathematical results and preserve the supplied contributor credits when reusing licensed text.</p>
+        </div>
+
+        <h2 id="contributions"><span id="credits">Contributions</span></h2>
+        <div class="prose-body">
+          <p>This project is developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Zhong-Xia Shang, Bin Cheng, Shihao Ru, and Naixu Guo.</p>
+          <p>We thank <a href="https://github.com/yujie4phy" rel="noreferrer">Yujie Zhang</a> (University of Waterloo) for proposing the Quantum Foundations field and the field and topic refinements in <a href="${config.repositoryUrl}/issues/125" rel="noreferrer">issue #125</a>.</p>
+          <p>We thank <a href="https://gauge-forge.com/" rel="noreferrer">GaugeForge</a> for its financial support of this project.</p>
+          <p>Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
+        </div>`;
+  // The table of contents is read from the section headings, so the two cannot disagree.
+  const sections = [];
+  for (const [, level, id, heading] of prose.matchAll(/<h([23]) id="([^"]+)">(.*?)<\/h\1>/g)) {
+    const entry = { id, title: heading.replace(/<[^>]+>/g, ""), subsections: [] };
+    if (level === "2" || !sections.length) sections.push(entry);
+    else sections.at(-1).subsections.push(entry);
+  }
+  const tocEntry = (entry) => `<li><a href="#${entry.id}">${entry.title}</a>${entry.subsections.length ? `<ol>${entry.subsections.map(tocEntry).join("")}</ol>` : ""}</li>`;
   const body = `
     <section class="section-shell about">
       <div class="section-heading">
         <div><p class="section-index">About</p><h1>${escape(config.fullName)}</h1></div>
         <p>${escape(config.tagline)}</p>
       </div>
-      <div class="prose">
-        <h2 id="what">What the zoo is</h2>
-        <p>The ${escape(config.shortName)} is a place to explore research problems in quantum information and quantum computation. Each problem page brings together a clear statement, the background needed to understand it, key references, and what is known so far.</p>
-        <p>Browse by field or topic, follow the sources, or share a problem you think belongs here. The collection grows through contributions from the community and review by the maintainers. Problem pages keep permanent links, so you can return to them as the research develops.</p>
-        <p><strong>We would also like to highlight the following projects in the research community:</strong></p>
-        <ul>
-          <li><strong><a href="https://oqp.iqoqi.oeaw.ac.at/" rel="noreferrer">Open Quantum Problems</a></strong></li>
-          <li><strong><a href="https://prove2.me/" rel="noreferrer">Prove2Me</a></strong></li>
-        </ul>
-
-        <h2 id="what-will-be-collected">What will be collected</h2>
-        <p>We collect meaningful, significant unsolved problems in quantum information and quantum computation. Each problem should be formulated precisely in mathematical language, with clear assumptions and an unambiguous criterion for a solution. When a problem is solved, its page stays in the zoo and is updated with the resolution and supporting references.</p>
-
-        <h2 id="contribute">How to contribute</h2>
-        <p>${submissionsOnline
-          ? `Use the <a href="${root}contribute/">proposal form</a> to send a problem, its sources, and what is known. No account is needed.`
-          : `Propose a problem through a <a href="${config.repositoryUrl}/issues/new?template=new-problem.yml">GitHub issue</a> (a GitHub account is required). The <a href="${root}contribute/">proposal worksheet</a> helps you prepare and copy the text; online sending is not enabled yet.`} The maintainers check proposals against the literature and publish reviewed records with credit to contributors${anonymousSubmissionsAllowed(config) ? ", respecting requests to remain anonymous" : ""}. To add a record yourself through GitHub:</p>
-        <ol>
-          <li>Fork the <a href="${config.repositoryUrl}" rel="noreferrer">repository</a> and run <code>node scripts/new-problem-id.mjs --create</code> to create a problem template with permanent identifiers.</li>
-          <li>Write the statement, status, source, progress, references, and comment as TeX fragments in the record's fields, following the contribution guide, and choose one or two fields and one to five topics from <code>database/tags.json</code>. Run <code>node scripts/migrate-metadata.mjs</code> after changing the classifications.</li>
-          <li>Run <code>node scripts/sync-tex.mjs</code> to write the record's TeX form, then <code>node site/build.mjs</code>. The build rejects records with missing fields, unknown or miscounted fields and topics, unresolved citations, or unlabeled equations.</li>
-          <li>Open a pull request. To report progress on an existing problem, use the Edit button on its page or open an issue with the primary sources.</li>
-        </ol>
-
-        <h2 id="cite">How to cite</h2>
-        <p>Cite the primary sources for any mathematical claim. To cite a problem page for its statement, status, or stable identifier, use the Cite button on that page. To cite the zoo as a whole:</p>
-        <div class="copy-block no-math"><pre id="zoo-bibtex">${escape(zooBib)}</pre><button class="copy-button" type="button" data-copy="zoo-bibtex">Copy</button></div>
-
-        <h2 id="mcp"><span id="api">Use the MCP server</span></h2>
-        <p>Connect your AI assistant through the Model Context Protocol (MCP) to search the zoo, read problem statements and references, and gather the known results and remaining questions for a research session.</p>
-        <p>Use a client that supports remote MCP servers over Streamable HTTP. Connect with the address below; no download, local setup, or API key is needed to read the catalog.</p>
-        <ol>
-          <li><strong>Add the server.</strong> In your client's MCP or connector settings, add a remote server named <code>quantum-open-problems</code>. Paste this server URL and choose <strong>Streamable HTTP</strong> if a transport is requested:
-            <div class="copy-block no-math"><pre id="mcp-url">${escape(mcpUrl)}</pre><button class="copy-button" type="button" data-copy="mcp-url" aria-label="Copy MCP server URL">Copy</button></div>
-          </li>
-          <li><strong>Connect your assistant.</strong> Save or enable the connection. For clients that accept URL entries in an <code>mcpServers</code> configuration:
-            <details>
-              <summary>JSON configuration for clients using <code>mcpServers</code></summary>
-              <p>Add this entry to your existing configuration, then reload the client's MCP connection. Some clients use a settings form instead.</p>
-              <div class="copy-block no-math"><pre id="mcp-config">${escape(mcpConfig)}</pre><button class="copy-button" type="button" data-copy="mcp-config" aria-label="Copy MCP client configuration">Copy</button></div>
-            </details>
-          </li>
-          <li><strong>Ask a research question.</strong> For example: “Use the quantum-open-problems MCP to find unsolved problems about quantum channel capacity, then summarize one problem's known progress and references.” The assistant can use <code>search_problems</code>, <code>get_problem</code>, <code>read_problem</code>, <code>list_references</code>, and <code>build_context</code>.</li>
-        </ol>
-        <p>The connection reads the current hosted catalog, including newly published problems. If it fails, check the <a href="${escape(mcpServiceUrl)}/api/v1/status" rel="noreferrer">catalog service status</a> and confirm that your client supports remote MCP. The <a href="${config.repositoryUrl}/blob/${config.branch}/mcp/README.md" rel="noreferrer">MCP setup and tool guide</a> also covers local clients and authenticated research contributions. For direct downloads, the <a href="${root}api/index.json">JSON catalog</a>, <a href="${root}api/tags.json">taxonomy</a>, and <a href="${root}llms.txt">agent guide</a> are available.</p>
-
-        <h2 id="licensing">Licensing and reuse</h2>
-        <p>The software uses <a href="${root}licenses/Apache-2.0.txt">Apache-2.0</a>. New original catalog contributions use <a href="https://creativecommons.org/licenses/by/4.0/" rel="noreferrer">CC BY 4.0</a>, allowing sharing, adaptation, and commercial use with attribution, license information, and an indication of changes. Contributors retain their copyright.</p>
-        <p>Cited papers and other third-party material retain their own terms. See the <a href="${root}licenses/scope.txt">licensing scope and permissions</a>, <a href="${root}licenses/CC-BY-4.0.txt">content license</a>, and <a href="${root}licenses/NOTICE.txt">retained copyright notices</a>. Cite the primary sources for mathematical results and preserve the supplied contributor credits when reusing licensed text.</p>
-
-        <h2 id="contributions"><span id="credits">Contributions</span></h2>
-        <p>This project is developed and maintained by Bikun Li, Qicheng Tang, Changhao Li, Chengkai Zhu, Minbo Gao, Zhong-Xia Shang, Bin Cheng, Shihao Ru, and Naixu Guo.</p>
-        <p>We thank <a href="https://gauge-forge.com/" rel="noreferrer">GaugeForge</a> for its financial support of this project.</p>
-        <p>Mathematics is typeset with <a href="https://www.mathjax.org/" rel="noreferrer">MathJax</a>.</p>
+      <div class="about-layout">
+        <nav class="about-toc" id="about-toc" aria-labelledby="about-toc-title">
+          <p class="about-toc-title" id="about-toc-title">On this page</p>
+          <ol>
+            ${sections.map(tocEntry).join("\n            ")}
+          </ol>
+        </nav>
+        <div class="prose">${prose}
+        </div>
       </div>
     </section>`;
   return layout({
@@ -739,6 +841,8 @@ export const CAPTCHA_WIDGETS = {
   turnstile: { name: "Cloudflare Turnstile", script: "https://challenges.cloudflare.com/turnstile/v0/api.js", className: "cf-turnstile", responseField: "cf-turnstile-response", privacyUrl: "https://www.cloudflare.com/privacypolicy/" },
   hcaptcha: { name: "hCaptcha", script: "https://js.hcaptcha.com/1/api.js", className: "h-captcha", responseField: "h-captcha-response", privacyUrl: "https://www.hcaptcha.com/privacy" }
 };
+
+const FORM_MATH_HELP = `<p class="form-hint">Use <code>$\\operatorname{Tr}(\\rho)=1$</code> for inline math and <code>$$</code> on separate lines for display math. Prefer explicit norms: <code>$\\lVert A\\rVert_\\infty$</code>. Type one backslash per command; drafts and inbox submissions keep your TeX. Copy for GitHub protects formulas from Markdown and adapts operator names. Put code examples inside backticks or fenced code blocks.</p>`;
 
 export function renderContribute({ config, root, taxonomy, fieldCounts, topicCounts }) {
   const settings = config.contribute ?? {};
@@ -785,29 +889,38 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
     <div class="contribute-layout">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><span>Contribute</span></nav>
       <div class="section-heading">
-        <div><p class="section-index">Contribute</p><h1>Propose an open problem</h1></div>
-        <p>${online ? "Send a proposal without an account." : "Prepare a proposal here, then submit it through GitHub with an account."} The maintainers review proposals and publish accepted records with credit to contributors${allowAnonymous ? ", unless they choose to remain anonymous" : ""}.</p>
+        <div><h1>Contribute</h1></div>
+        <p>Propose a problem, share reported research progress, or help improve an existing record. Choose the route that fits your contribution.</p>
       </div>
       <div class="contribute-routes no-math">
         <div class="route-card">
-          <h2>${online ? "Use this form" : "Prepare a proposal"}</h2>
-          <p>Describe the problem, where it was posed, and what is known. ${online ? "The maintainers may email you about the details." : "Copy the completed text into a GitHub issue and remove contact details you do not want to publish."} Nothing appears on the site until it has been reviewed.</p>
+          <h2><a href="#proposal-form">Propose a new problem</a></h2>
+          <p>Use the form below to describe an open problem, where it was posed, and what is known. The maintainers prepare accepted proposals for publication.</p>
         </div>
         <div class="route-card">
-          <h2>Or write the record yourself</h2>
-          <p>Comfortable with Git and TeX? Follow the <a href="${root}about/#contribute">contribution guide</a> and open a pull request, or <a href="${issueUrl}" rel="noreferrer">open a GitHub issue</a>. Updates to an existing problem go through the Edit button on its page.</p>
+          <h2><a href="${root}contribute/progress/">Submit a progress report</a></h2>
+          <p>Share an archival manuscript or paper link and a short summary for an existing problem, or <a href="${root}contribute/progress/?kind=historical">link an earlier GitHub report</a>. New reports require archival sources.</p>
+        </div>
+        <div class="route-card">
+          <h2><a href="${config.repositoryUrl}/issues/new?template=correction.yml" rel="noreferrer">Report a correction</a></h2>
+          <p>Point out a typo, citation problem, or status concern in an existing record. Include the problem link and a short explanation of the proposed correction.</p>
+        </div>
+        <div class="route-card">
+          <h2><a href="${root}about/#contribute">Contribute through GitHub</a></h2>
+          <p>Follow the contribution guide to prepare a record and open a pull request, or <a href="${issueUrl}" rel="noreferrer">open a new-problem issue</a>. The same source requirements apply.</p>
         </div>
       </div>
+      <p class="contribute-policy-note no-math">Recording a progress report does not certify correctness or set a problem's status. <a href="${root}contribute/progress/#sources">Read the progress source requirements</a>.</p>
 
-      <form class="proposal-form no-math" id="proposal-form" novalidate data-content-license="CC-BY-4.0" data-submit-url="${escape(submissionUrl)}" data-captcha-provider="${usesCaptcha ? providerKey : ""}" data-captcha-response="${usesCaptcha ? widget.responseField : ""}" data-allow-anonymous="${allowAnonymous}" data-limits='${escape(JSON.stringify(L))}'>
+      <form class="proposal-form no-math" id="proposal-form" aria-labelledby="proposal-form-heading" novalidate data-content-license="CC-BY-4.0" data-submit-url="${escape(submissionUrl)}" data-captcha-provider="${usesCaptcha ? providerKey : ""}" data-captcha-response="${usesCaptcha ? widget.responseField : ""}" data-allow-anonymous="${allowAnonymous}" data-limits='${escape(JSON.stringify(L))}'>
+        <div class="proposal-intro">
+          <h2 id="proposal-form-heading">Propose a new problem</h2>
+          <p>${online ? "Send a proposal without an account." : "Prepare a proposal here, then submit it through GitHub with an account. The copied text omits your email."} The maintainers review proposals and publish accepted records with credit to contributors${allowAnonymous ? ", unless they choose to remain anonymous" : ""}.</p>
+        </div>
         <fieldset>
           <legend>The problem</legend>
           ${field("proposal-title", "Title", input("proposal-title", "title", `required minlength="${L.title.min}" maxlength="${L.title.max}" autocomplete="off"`), "A short descriptive title, as it would head the problem page.")}
-          ${field("proposal-statement", "Statement", `<div class="statement-input">${textarea("proposal-statement", "statement", 12, `required minlength="${L.statement.min}" maxlength="${L.statement.max}" spellcheck="false"`)}<span class="statement-placeholder math-ready" id="statement-placeholder" aria-hidden="true">\\(\\ket{\\psi}\\)</span></div>`, `Self-contained, with the definitions, hypotheses, and quantifiers a reader needs, and a checkable resolution criterion. Write mathematics as in TeX: <code>$\\ldots$</code> inline, <code>\\[ \\ldots \\]</code> or an <code>equation</code> environment for display. Up to ${L.statement.max.toLocaleString("en")} characters.`)}
-          <div class="form-row form-row-inline">
-            <button class="button button-ghost button-small" type="button" id="statement-preview-button">Preview</button>
-            <div class="statement-preview math-ready" id="statement-preview" hidden aria-live="polite"></div>
-          </div>
+          ${field("proposal-statement", "Statement", `<div class="statement-input">${textarea("proposal-statement", "statement", 12, `required minlength="${L.statement.min}" maxlength="${L.statement.max}" spellcheck="false"`)}<span class="statement-placeholder no-math" id="statement-placeholder" aria-hidden="true">$\\ket{\\psi}$</span></div>`, `Self-contained, with the definitions, hypotheses, and quantifiers a reader needs, and a checkable resolution criterion. Use <code>$…$</code> for inline mathematics and <code>$$</code> on separate lines for display mathematics. The formula preview below also supports TeX delimiters and equation environments. Up to ${L.statement.max.toLocaleString("en")} characters.`)}
         </fieldset>
 
         <fieldset>
@@ -827,7 +940,8 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
         <fieldset>
           <legend>Sources and progress</legend>
           ${field("proposal-source", "Source", textarea("proposal-source", "source", 3, `maxlength="${L.source.max}"`), `The paper or preprint that posed the problem, or the papers in which it is implicit. If it has no literature source, write “Contributor: your name”${allowAnonymous ? " for named credit, or “unknown” to remain anonymous" : ""}.`)}
-          ${field("proposal-progress", "Known progress", textarea("proposal-progress", "progress", 6, `maxlength="${L.progress.max}"`), "Results that delimit the problem, each with its source and a sentence on why it falls short of the full question.")}
+          ${field("proposal-progress", "Known progress (optional)", textarea("proposal-progress", "progress", 6, `maxlength="${L.progress.max}"`), "Describe reported results and their scope. If you include research progress, add the archival manuscript or paper links below. An ordinary new-problem proposal need not include a resolving paper; leave this section empty if there is no research update to report.")}
+          ${field("proposal-archivalLinks", "Archival manuscript or paper links (required when reporting progress)", textarea("proposal-archivalLinks", "archivalLinks", 3, `maxlength="20000"`), `One link per line, up to 10: arXiv, a Zenodo manuscript, a supported preprint, a journal paper, or a paper DOI. Personal pages, GitHub posts, and shared files alone do not qualify. <a href="${root}contribute/progress/#sources">Supported sources</a>.`)}
           ${field("proposal-references", "References", textarea("proposal-references", "references", 6, `maxlength="${L.references.max}"`), "Full bibliographic entries with DOI and arXiv identifiers, one per line. BibTeX is welcome.")}
         </fieldset>
 
@@ -835,6 +949,12 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
           <legend>Anything else</legend>
           ${field("proposal-comment", "Comment (optional)", textarea("proposal-comment", "comment", 4, `maxlength="${L.comment.max}"`), "The remaining gap, relations to problems already in the zoo (give their IDs), naming conventions, or notes for the maintainers, such as how you would like to be credited.")}
         </fieldset>
+
+        <div class="form-row">
+          ${FORM_MATH_HELP}
+          <button class="button button-ghost button-small" type="button" id="statement-preview-button">Preview formulas</button>
+          <div class="statement-preview no-math" id="statement-preview" hidden aria-live="polite"></div>
+        </div>
 
         <fieldset>
           <legend>About you</legend>
@@ -876,11 +996,110 @@ export function renderContribute({ config, root, taxonomy, fieldCounts, topicCou
     </div>`;
   return layout({
     config, root, path: "contribute/", current: "contribute",
-    title: "Propose an open problem",
-    description: `Propose an open problem for the ${config.shortName}: statement, fields and topics, sources, progress, and how to reach you. Proposals are reviewed and rewritten by the maintainers before publication.`,
-    body, bodyClass: "page-contribute",
-    extraHead: usesCaptcha ? `<script src="${widget.script}" async defer></script>` : ""
+    title: "Contribute",
+    description: `Contribute to the ${config.shortName}: propose an open problem, report research progress with archival sources, suggest a correction, or prepare a record through GitHub.`,
+    body, bodyClass: "page-contribute", formMath: true,
+    extraHead: `<script src="${root}assets/form-math.js?v=${config.assetVersions?.formMath ?? ""}" defer></script>` + (usesCaptcha ? `<script src="${widget.script}" async defer></script>` : "")
   });
+}
+
+export function renderProgressContribute({ config, root, records }) {
+  const settings = config.contribute ?? {};
+  const problemCatalog = JSON.stringify(records.map(record => ({ id: record.id, title: record.title.text }))).replace(/</gu, "\\u003c").replace(/&/gu, "\\u0026");
+  const online = progressSubmissionsOnline(config);
+  const allowAnonymous = anonymousSubmissionsAllowed(config);
+  const providerKey = settings.captcha?.provider ?? "turnstile";
+  const widget = CAPTCHA_WIDGETS[providerKey];
+  if (!widget) throw new Error("site/config.json: unsupported contribute.captcha.provider");
+  const usesCaptcha = online && settings.spamProtection !== "basic";
+  const policyUrl = `${config.repositoryUrl}/blob/${config.branch}/docs/RESEARCH_PROGRESS_POLICY.md`;
+  const input = (name, label, hint = "", attrs = "", tag = "input") => `<div class="form-row">
+            <label for="progress-${name}">${label}</label>
+            ${tag === "textarea" ? `<textarea id="progress-${name}" name="${name}" rows="${name === "summary" ? 6 : 3}" ${attrs} aria-describedby="progress-${name}-hint progress-${name}-error"></textarea>` : `<input id="progress-${name}" name="${name}" type="${name === "email" ? "email" : "text"}" ${attrs} aria-describedby="progress-${name}-hint progress-${name}-error">`}
+            <p class="form-hint" id="progress-${name}-hint">${hint}</p>
+            <p class="form-error" id="progress-${name}-error" hidden></p>
+          </div>`;
+  const body = `
+    <div class="contribute-layout">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="${root}">Zoo</a><span aria-hidden="true">›</span><a href="${root}contribute/">Contribute</a><span aria-hidden="true">›</span><span>Progress</span></nav>
+      <div class="section-heading"><div><p class="section-index">Contribute</p><h1>Submit a progress report</h1></div></div>
+      <div class="prose-body progress-intro">
+        <p>An archival manuscript or published-paper link is required for every new progress report. Add the source and a short description of what it reports. Listing a report does not certify correctness or automatically change the problem's status; the maintainer team retains the final right to interpret and determine Solved/Unsolved.</p>
+        <p>The maintainers document sources, context, and attribution. They do not review proofs. Preprints need not have passed peer review. Earlier GitHub research reports remain linked in the existing Progress panel. <a href="${policyUrl}" rel="noreferrer">Read the research progress policy</a>.</p>
+      </div>
+      ${online ? "" : `<div class="form-notice" id="progress-offline">Direct progress sending is not enabled on this deployment. Complete this worksheet, then use <strong>Copy report for GitHub</strong> and <strong>Open GitHub submission</strong>. A GitHub account is required. These actions check the required source and omit your email; the issue and your GitHub identity will be public. No report is sent until you submit it on GitHub.</div>`}
+      <noscript><p>JavaScript is required for this worksheet's source checks. You can use the <a href="${config.repositoryUrl}/issues/new?template=research-update.yml" rel="noreferrer">GitHub research-update form</a>, which also requires an archival manuscript or paper link. For an earlier report, use the <a href="${config.repositoryUrl}/issues/new?template=historical-progress.yml" rel="noreferrer">historical-listing form</a>.</p></noscript>
+      <p class="form-hint" id="progress-loading">Loading the source checks. If the worksheet does not become available, reload or use the <a href="${config.repositoryUrl}/issues/new?template=research-update.yml" rel="noreferrer">GitHub research-update form</a> with the required archival link.</p>
+      <form class="proposal-form progress-form no-math" id="progress-form" novalidate data-submit-url="${online ? escape(settings.progressSubmissionUrl) : ""}" data-repository-url="${escape(config.repositoryUrl)}" data-allow-anonymous="${allowAnonymous}" data-content-license="CC-BY-4.0" data-captcha-provider="${usesCaptcha ? providerKey : ""}" data-captcha-response="${usesCaptcha ? widget.responseField : ""}">
+        <fieldset><legend>Problem</legend>
+          <div class="form-row progress-problem-lookup"><label for="progress-problemSearch">Problem (required)</label>
+            <input id="progress-problemSearch" name="problemSearch" type="text" role="combobox" required maxlength="500" autocomplete="off" spellcheck="false" aria-autocomplete="list" aria-haspopup="listbox" aria-expanded="false" aria-controls="progress-problem-options" aria-describedby="progress-problem-hint progress-problem-matches progress-problemId-error" placeholder="Type a problem ID or title">
+            <input id="progress-problemId" name="problemId" type="hidden" value="">
+            <p class="form-hint" id="progress-problem-hint">Type an ID or title, then choose a matching problem. Use the arrow keys and Enter to select.</p>
+            <ul class="progress-problem-options" id="progress-problem-options" role="listbox" aria-label="Matching problems" hidden></ul>
+            <p class="form-hint" id="progress-problem-matches" role="status" aria-live="polite">Type a problem ID or words from its title to find a match.</p>
+            <p class="form-error" id="progress-problemId-error" hidden></p>
+            <script type="application/json" id="progress-problem-catalog">${problemCatalog}</script>
+          </div>
+          <div class="form-row"><label for="progress-kind">What would you like to document?</label>
+            <select id="progress-kind" name="kind"><option value="research">New research progress</option><option value="historical">Link an earlier GitHub report</option></select>
+          </div>
+          <div class="form-row" id="progress-updateType-row"><label for="progress-updateType">Type of report</label>
+            <select id="progress-updateType" name="updateType"><option value="partial">Reported partial progress</option><option value="resolution">Reported resolution</option><option value="computation">Computational finding</option><option value="correction">Research correction</option><option value="follow-up">Follow-up publication</option></select>
+            <p class="form-hint">This describes the report and does not set the problem's status. For an ordinary typo or citation correction, <a href="${config.repositoryUrl}/issues/new?template=correction.yml" rel="noreferrer">report a correction</a>.</p>
+          </div>
+        </fieldset>
+        <fieldset id="sources"><legend>Source</legend>
+          <div id="progress-research-fields">
+            ${input("archivalLinks", "Archival manuscript or paper link (required)", `${escape(SOURCE_GUIDANCE)} One link per line, up to 10. arXiv identifiers and DOIs are also accepted.`, 'required maxlength="20000"', "textarea")}
+            <p class="form-hint">The source must contain the research described in your summary. A DOI for software or data alone, an unrelated paper, or a repository home page does not qualify.</p>
+            ${input("citation", "Citation (optional)", "Title, manuscript authors, date, and version where available. Distinguish the authors from yourself if you are reporting someone else's work.", 'maxlength="2000"', "textarea")}
+            ${input("resultLocator", "Result locator (optional)", "The theorem, section, or page containing the reported result.", 'maxlength="500"')}
+            ${input("relatedReportUrl", "Earlier related GitHub report (optional)", "A direct link to an issue or comment in this project's repository; it supplements the archival source.", 'maxlength="2048"')}
+          </div>
+          <div id="progress-historical-fields" hidden>
+            ${input("historicalUrl", "Original GitHub issue, comment, or PR link (required)", "Identify an actual research-progress report, not an internal review or engineering discussion. An archival paper is not required for historical documentation.", 'maxlength="2048"')}
+            <p class="form-hint">This route identifies pre-policy content. Maintainers check its original date and context before listing it; selecting this option does not make a new claim historical. A new claim added to an old issue requires an archival source.</p>
+          </div>
+          <details class="source-guidance"><summary>Supported sources and source-support requests</summary>
+            <p>${escape(SUPPORTED_SOURCE_NAMES.join(", "))}.</p>
+            <p>Use the specific manuscript or paper record, not a home page. For a legitimate archive or publisher not yet supported, <a href="${config.repositoryUrl}/issues/new?template=source-support.yml" rel="noreferrer">request source support</a> with the paper link and citation. A support request does not submit the research report.</p>
+          </details>
+        </fieldset>
+        <fieldset><legend>Report summary</legend>
+          ${input("summary", "Brief summary (required)", "Up to 1,500 characters. Describe what the source reports and how it concerns this problem, or explain the relevance of the earlier GitHub report. Do not paste a proof.", 'required maxlength="1500"', "textarea")}
+        </fieldset>
+        <div class="form-row">
+          ${FORM_MATH_HELP}
+          <button class="button button-ghost button-small" type="button" id="progress-preview-button">Preview formulas</button>
+          <div class="statement-preview no-math" id="progress-preview" hidden aria-live="polite"></div>
+        </div>
+        <fieldset><legend>Contact and consent</legend>
+          <div class="form-grid-2">
+            ${input("name", "Your name (required)", "For attribution and any questions about the report.", 'required maxlength="200" autocomplete="name"')}
+            ${input("email", online ? "Email (required; private)" : "Email (optional; not copied to GitHub)", online ? "Used privately for questions about the report; never published." : "Kept only in this browser draft. GitHub handoff excludes this field.", `${online ? "required " : ""}maxlength="254" autocomplete="email"`)}
+          </div>
+          ${input("affiliation", "Affiliation (optional)", "Published with your name when you choose named credit.", 'maxlength="300" autocomplete="organization"')}
+          ${allowAnonymous ? `<label class="consent"><input type="checkbox" name="anonymous" id="progress-anonymous"><span>Keep my name and affiliation out of public website credit. GitHub submissions and their account identity remain public.</span></label>` : `<p class="form-hint">This deployment supports named website credit. Anonymous credit is not enabled.</p>`}
+          <label class="consent"><input type="checkbox" name="consent" id="progress-consent" required aria-describedby="progress-consent-error"><span>I license my original submitted text under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noreferrer">CC BY 4.0</a> and confirm I have the right to do so. Third-party and earlier GitHub material retain their own terms. I agree that the maintainers may store my report and contact details and edit and publish the report, respecting my supported attribution choice. My email stays private. <a href="${root}about/#licensing">Licensing details</a>.</span></label>
+          <p class="form-error" id="progress-consent-error" hidden></p>
+          <div class="hp" aria-hidden="true"><label for="progress-extra">Leave this field empty</label><input id="progress-extra" name="extra" type="text" tabindex="-1" autocomplete="off"></div>
+        </fieldset>
+        ${usesCaptcha ? `<div class="captcha-slot"><div class="${widget.className}" data-sitekey="${escape(settings.captcha.siteKey)}" data-theme="auto"></div><p class="form-hint">Human verification keeps automated submissions out of the inbox.</p></div>` : ""}
+        <p class="form-hint">When browser storage is available, an unsent draft, including contact details, is saved in this browser. Use Clear form to remove it, especially on a shared computer.</p>
+        <div class="form-actions">
+          ${online ? `<button class="button button-primary" type="submit" id="progress-submit" disabled>Submit progress report</button>` : `<button class="button button-primary" type="submit" id="progress-submit" disabled>Copy report for GitHub</button><button class="button button-ghost" type="button" id="progress-open">Open GitHub submission</button>`}
+          ${online ? `<button class="button button-ghost" type="button" id="progress-copy">Copy report for GitHub</button>` : ""}
+          <button class="button button-ghost" type="button" id="progress-clear">Clear form</button>
+        </div>
+        <p class="form-status" id="progress-status" role="status" aria-live="polite" tabindex="-1"></p>
+        <div id="progress-copy-fallback" hidden><label for="progress-copy-text">Select and copy the public report</label><textarea id="progress-copy-text" readonly rows="10"></textarea></div>
+      </form>
+      <div class="proposal-done no-math" id="progress-done" hidden tabindex="-1"><h2>Your report has been received for documentation</h2><p>Receipt <code id="progress-receipt"></code>. Submission does not publish the report or change the problem's status. The maintainers may ask for citation, attribution, or historical-context details.</p><p class="form-error" id="progress-draft-warning" hidden>The browser's saved draft could not be checked or removed. It may still contain your contact details. Clear this site's browser data to remove it, especially on a shared computer.</p><p><a href="${root}contribute/progress/">Prepare another report</a> · <a href="${root}problems/">Browse the catalog</a></p></div>
+    </div>`;
+  return layout({ config, root, path: "contribute/progress/", current: "contribute", title: "Submit a progress report", description: "Document research progress with an archival manuscript or paper link, or identify an earlier GitHub report.", body, bodyClass: "page-contribute", formMath: true,
+    extraHead: usesCaptcha ? `<script src="${widget.script}" async defer></script>` : "",
+    extraScripts: `<script type="module" src="${root}assets/progress-form.mjs?v=${config.assetVersions?.progress ?? ""}"></script>` });
 }
 
 export function renderRandomPage({ config, root, pool, ids, label }) {

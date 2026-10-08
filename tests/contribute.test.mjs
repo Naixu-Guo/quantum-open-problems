@@ -9,7 +9,7 @@ import { LIMITS } from "../service/src/submissions.ts";
 
 const config = JSON.parse(fs.readFileSync(new URL("../site/config.json", import.meta.url), "utf8"));
 const taxonomy = loadTaxonomy(fileURLToPath(new URL("../database/tags.json", import.meta.url)));
-const clientScript = fs.readFileSync(new URL("../site/assets/app.js", import.meta.url), "utf8");
+const clientScript = fs.readFileSync(new URL("../site/assets/form-math.js", import.meta.url), "utf8") + "\n" + fs.readFileSync(new URL("../site/assets/app.js", import.meta.url), "utf8");
 const counts = { fieldCounts: new Map([[taxonomy.fields[0], 3]]), topicCounts: new Map([[taxonomy.topics[0], 2]]) };
 const online = { ...config, contribute: { submissionUrl: "https://inbox.example.org/api/v1/submissions", allowAnonymous: true, captcha: { provider: "turnstile", siteKey: "1x00000000000000000000AA" } } };
 const offline = { ...config, contribute: { submissionUrl: "", captcha: { provider: "turnstile", siteKey: "" } } };
@@ -73,8 +73,9 @@ test("the page offers every field and topic in a dropdown with an Other option a
   assert.ok(html.includes('data-content-license="CC-BY-4.0"'));
   assert.ok(html.includes('I license my original text under <a href="https://creativecommons.org/licenses/by/4.0/"'));
   assert.ok(html.includes('<a href="../contribute/" aria-current="page">Contribute</a>'), "the nav marks the page");
-  assert.ok(html.includes('<a href="../contribute/">Contribute</a>'), "the footer links the page");
-  assert.ok(!html.includes('about/#contribute">Contribute'), "the footer no longer sends contributors to the guide first");
+  const footer = html.match(/<footer class="site-footer">[\s\S]*?<\/footer>/u)?.[0] ?? "";
+  assert.ok(footer.includes('<a href="../contribute/">Contribute</a>'), "the footer links the page");
+  assert.ok(!footer.includes('about/#contribute">Contribute'), "the footer no longer sends contributors to the guide first");
 });
 
 test("with a submission URL and a site key the page loads the widget and enables sending", () => {
@@ -115,6 +116,31 @@ test("the about page advertises account-free sending only when the form is confi
   assert.ok(on.includes("No account is needed"));
 });
 
+test("the about page's table of contents lists every section once, in order", () => {
+  const html = renderAbout({ config: offline, root: "../", dates: { today: "2026-09-08", updated: "2026-09-08" } });
+  const toc = html.slice(html.indexOf('<nav class="about-toc"'), html.indexOf("</nav>", html.indexOf('<nav class="about-toc"')));
+  const linked = [...toc.matchAll(/<a href="#([^"]+)">([^<]+)<\/a>/gu)].map(([, id, title]) => `${id}: ${title}`);
+  const headings = [...html.matchAll(/<h[23] id="([^"]+)">(.*?)<\/h[23]>/gu)].map(([, id, heading]) => `${id}: ${heading.replace(/<[^>]+>/gu, "")}`);
+  assert.ok(headings.length >= 5, "the page has its sections");
+  assert.deepEqual(linked, headings);
+  assert.ok(linked.includes("contribute: How to contribute") && linked.includes("mcp: Use the MCP server"), "permanent anchors are kept");
+  const nested = toc.slice(toc.indexOf('href="#contribute"'), toc.indexOf('href="#cite"'));
+  assert.deepEqual([...nested.matchAll(/<ol>|href="#([^"]+)"/gu)].map(([match, id]) => id ?? match), ["contribute", "<ol>", "propose", "github", "report-progress"], "the ways to contribute are nested under their section");
+});
+
+test("the about page asks for solutions and substantial progress to be reported through a preprint or paper", () => {
+  const html = renderAbout({ config: offline, root: "../", dates: { today: "2026-09-08", updated: "2026-09-08" } });
+  const section = html.slice(html.indexOf('<h3 id="report-progress">'), html.indexOf('<h2 id="cite">'));
+  assert.match(section, /preprint/u);
+  assert.match(section, /href="https:\/\/arxiv\.org\/"/u);
+  assert.match(section, /href="..\/contribute\/progress\/"/u);
+  assert.doesNotMatch(section, /Partially solved/iu, "only the two statuses are named");
+  assert.match(section, /does not certify correctness/u, "a listed result is not endorsed");
+  assert.match(section, /AI tools are welcome/u);
+  assert.match(html, /reserves the final right to interpret and determine each problem/u);
+  assert.doesNotMatch(html, /is marked Solved when/u, "a source never automatically sets the status");
+});
+
 // Run the shipped script with form controls, storage, clipboard, and timers that tests
 // can drive directly, without making network requests or depending on a browser.
 function createClientForm({ values = {}, draft, anonymous = false, allowAnonymous = true, contentLicense = "CC-BY-4.0", respond = () => ({ ok: true, status: 201, json: async () => ({ accepted: true, id: "01TEST" }) }) } = {}) {
@@ -126,7 +152,7 @@ function createClientForm({ values = {}, draft, anonymous = false, allowAnonymou
   });
   const controls = new Map();
   const text = (name, value) => controls.set(name, element({ name, value }));
-  text("title", "A proposal title"); text("statement", "A statement long enough to pass the minimum length."); text("source", "Src"); text("progress", ""); text("references", "Ref"); text("comment", ""); text("name", "Ada"); text("email", "ada@example.org"); text("affiliation", ""); text("extra", ""); text("cf-turnstile-response", "tok");
+  text("title", "A proposal title"); text("statement", "A statement long enough to pass the minimum length."); text("source", "Src"); text("progress", ""); text("archivalLinks", ""); text("references", "Ref"); text("comment", ""); text("name", "Ada"); text("email", "ada@example.org"); text("affiliation", ""); text("extra", ""); text("cf-turnstile-response", "tok");
   controls.set("consent", element({ name: "consent", checked: true }));
   if (allowAnonymous) controls.set("anonymous", element({ name: "anonymous", checked: anonymous }));
   for (const [name, value] of Object.entries(values)) controls.get(name).value = value;
@@ -192,6 +218,19 @@ test("license consent is never inferred from cached forms or unchecked copy expo
   current.controls.get("consent").checked = true;
   await current.ids.get("#proposal-copy").listeners.click();
   assert.match(current.copied[1], /Content license: CC BY 4.0/u);
+});
+
+test("proposal progress cannot bypass the required archival source through sending or copying", async () => {
+  const client = createClientForm({ values: { progress: "A newly reported partial result.", archivalLinks: "" } });
+  client.choose(client.fieldPicker, "Quantum algorithm");
+  client.choose(client.topicPicker, "Bell nonlocality");
+  await client.form.listeners.submit({ preventDefault() {} });
+  await client.ids.get("#proposal-copy").listeners.click();
+  assert.equal(client.fetched.length, 0);
+  assert.equal(client.copied.length, 0);
+  assert.equal(client.controls.get("archivalLinks").focused, true);
+  assert.match(client.statusLine.textContent, /requires at least one archival manuscript or paper link/u);
+  assert.equal(JSON.parse(client.storage.get("qiqcop-proposal-draft")).values.progress, "A newly reported partial result.");
 });
 
 test("the client script assembles a proposal from the form and checks it before sending", () => {
@@ -411,7 +450,8 @@ test("a successful submission displays its receipt and pending saves cannot rest
 test("copied anonymous proposals omit contact details and record the public credit preference", async () => {
   const { controls, ids, copied } = createClientForm({ values: { affiliation: "Example University" } });
   await ids.get("#proposal-copy").listeners.click();
-  assert.match(copied[0], /^Contributor: Ada <ada@example\.org> \(Example University\)$/mu);
+  assert.match(copied[0], /^Contributor: Ada \(Example University\)$/mu);
+  assert.doesNotMatch(copied[0], /ada@example\.org/u, "public handoff never includes the private email");
   assert.match(copied[0], /^Public credit: Use contributor name$/mu);
   controls.get("anonymous").checked = true;
   await ids.get("#proposal-copy").listeners.click();
@@ -465,4 +505,19 @@ test("the statement example disappears on focus, click, or input and clear resto
   statement.value = "Text entered without a preceding focus event.";
   statement.listeners.input();
   assert.equal(placeholder.hidden, true, "input also hides the example");
+});
+
+test("proposal copy protects GitHub math while saved drafts and inbox payloads keep canonical TeX", async () => {
+  const statement = fs.readFileSync(new URL("fixtures/issue-41-math.txt", import.meta.url), "utf8").trim();
+  const c = createClientForm({ values: { statement } });
+  c.choose(c.fieldPicker, "Quantum algorithm");
+  c.choose(c.topicPicker, "Bell nonlocality");
+  await c.ids.get("#proposal-copy").listeners.click();
+  assert.equal((c.copied[0].match(/\$`/gu) ?? []).length, 7);
+  const draft = JSON.parse(c.storage.get("qiqcop-proposal-draft"));
+  assert.equal(draft.values.statement, statement);
+  const restored = createClientForm({ draft });
+  assert.equal(restored.controls.get("statement").value, statement);
+  await c.form.listeners.submit({ preventDefault() {} });
+  assert.equal(c.fetched[0].body.statement, statement);
 });

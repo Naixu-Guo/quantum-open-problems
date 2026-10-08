@@ -3,3 +3,6 @@ export const submissionsOnline = config => Boolean(config.contribute?.submission
 
 /** Enable only after the independently deployed inbox preserves the credit preference. */
 export const anonymousSubmissionsAllowed = config => config.contribute?.allowAnonymous === true;
+
+/** Progress intake has an independent deployment gate from new-problem proposals. */
+export const progressSubmissionsOnline = config => Boolean(config.contribute?.progressSubmissionUrl && (config.contribute?.spamProtection === "basic" || config.contribute?.captcha?.siteKey));
