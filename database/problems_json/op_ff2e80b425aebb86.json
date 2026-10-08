@@ -21,7 +21,7 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-metrology"
+      "quantum-foundations"
     ],
     "topicIds": [
       "symmetric-informationally-complete-measurements"
@@ -34,7 +34,7 @@
   "title": "Zauner-symmetric Weyl--Heisenberg SIC fiducials",
   "status": "Unsolved",
   "fields": [
-    "Quantum metrology"
+    "Quantum Foundations"
   ],
   "topics": [
     "Symmetric informationally complete measurements"
@@ -44,7 +44,9 @@
   "progress": [
     "Appleby stated Eq.~\\eqref{eq:p19-zauner-sic-condition} as\n  Conjecture~B and verified it for the numerical fiducials then known, through\n  $d=45$ \\sourcecite{ref:p19-appleby-clifford}{App05}.",
     "Larger exact and numerical data sets continue to exhibit the Zauner\n  symmetry, including Weyl--Heisenberg SIC solutions in every dimension\n  through $d=181$.  Finite computations do not prove the universal\n  quantifier in Eq.~\\eqref{eq:p19-zauner-sic-condition}\n  \\sourcecite{ref:p19-appleby-data}{ABFG19}.",
-    "Appleby, Flammia, and Kopp construct Zauner-symmetric SICs for all\n  $d>3$ under two number-theoretic conjectures.  Those unproved assumptions\n  leave the unconditional problem open\n  \\sourcecite{ref:p19-appleby-stark}{AFK25}."
+    "In $2025$, Appleby, Flammia, and Kopp gave a construction of\n  Zauner-symmetric SICs for every $d>3$, conditional on the order-one abelian\n  Stark conjecture for real quadratic fields and a special-value identity\n  for the Shintani--Faddeev modular cocycle\n  \\sourcecite{ref:p19-appleby-stark}{AFK25}.",
+    "In September $2026$, Radchenko and Wheeler proved algebraicity of\n  real-quadratic Stark--Shintani invariants and the rank-one\n  twisted-convolution identity (Theorems~1 and~7)\n  \\sourcecite{ref:p19-radchenko-wheeler}{RW26}.\n  Appleby, Flammia, and Kopp extended the identity to all admissible tuples\n  and constructed Weyl--Heisenberg-covariant ghost SICs for every $d>3$\n  (Theorems~1.2--1.3) \\sourcecite{ref:p19-twisted-convolution}{AFK26}.\n  This supplies the special-value identity in the earlier conditional\n  construction; converting the ghost SICs to Hermitian SIC projectors\n  requires the appropriate Galois conjugation.",
+    "The manuscript dated 4 October $2026$, prepared and edited by Danylo\n  Radchenko and Campbell Wheeler, reports Stark reciprocity and unitary\n  Galois conjugates (Theorem~3 and Proposition~7). Section~9.2 claims the existence part of Zauner's conjecture,\n  providing proposed arithmetic input for the Zauner-symmetric construction.\n  \\sourcecite{ref:p19-stark-reciprocity}{SU26}.\n  The manuscript has not yet passed peer review. This is recorded as\n  significant reported progress; the catalog status remains Unsolved."
   ],
   "references": [
     {
@@ -60,8 +62,23 @@
     {
       "key": "AFK25",
       "label": "ref:p19-appleby-stark",
-      "tex": "M. Appleby, S. T. Flammia, and G. S. Kopp,\n  ``A Constructive Approach to Zauner's Conjecture via the Stark\n  Conjectures,'' arXiv:2501.03970 (2025).\n  \\href{https://arxiv.org/abs/2501.03970}{arXiv:2501.03970}."
+      "tex": "M. Appleby, S. T. Flammia, and G. S. Kopp,\n  ``A Constructive Approach to Zauner's Conjecture via the Stark\n  Conjectures,'' preprint, arXiv:2501.03970v2 (2025).\n  \\href{https://doi.org/10.48550/arXiv.2501.03970}{doi:10.48550/arXiv.2501.03970};\n  \\href{https://arxiv.org/abs/2501.03970v2}{arXiv:2501.03970v2}."
+    },
+    {
+      "key": "RW26",
+      "label": "ref:p19-radchenko-wheeler",
+      "tex": "D. Radchenko and C. Wheeler,\n  ``Real Quadratic Fields and Finite Quantum Dilogarithms I,''\n  preprint, arXiv:2609.21892v2 (2026).\n  \\href{https://doi.org/10.48550/arXiv.2609.21892}{doi:10.48550/arXiv.2609.21892};\n  \\href{https://arxiv.org/abs/2609.21892v2}{arXiv:2609.21892v2}."
+    },
+    {
+      "key": "AFK26",
+      "label": "ref:p19-twisted-convolution",
+      "tex": "M. Appleby, S. T. Flammia, and G. S. Kopp,\n  ``The Twisted Convolution Identity and Ghost $r$-SICs from Finite\n  Quantum Dilogarithms,'' preprint, arXiv:2609.39192v1 (2026).\n  \\href{https://arxiv.org/abs/2609.39192v1}{arXiv:2609.39192v1}."
+    },
+    {
+      "key": "SU26",
+      "label": "ref:p19-stark-reciprocity",
+      "tex": "``Stark Units for Real Quadratic Fields and Reciprocity Laws,''\n  manuscript dated 4 October 2026. Cited by title, date, and URL as requested\n  in the manuscript.\n  \\href{https://www.danrad.net/papers/stark-reciprocity.pdf}{Manuscript PDF}."
     }
   ],
-  "comment": "The open problem is the unconditional all-dimensional existence of a fiducial\nsatisfying both conditions in Eq.~\\eqref{eq:p19-zauner-sic-condition}.  It is\nstrictly stronger than \\href{https://qiqc-op.com/problem/op_6ba929179cc40c0a/}{Weyl--Heisenberg-covariant SIC existence in every dimension}."
+  "comment": "This record requires both the SIC overlap equations and the specified\n  Zauner Clifford symmetry in Eq.~\\eqref{eq:p19-zauner-sic-condition} for\n  every $d\\ge2$. The catalog retains Unsolved while documenting the reported\n  arithmetic progress; a status change requires a separate maintainer\n  decision. The symmetry requirement is stronger than\n  \\href{https://qiqc-op.com/problem/op_6ba929179cc40c0a/}{Weyl--Heisenberg-covariant SIC existence in every dimension}."
 }

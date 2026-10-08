@@ -51,7 +51,7 @@ classical communication.
 
 \subsection*{Status}
 
-Unsolved
+Solved
 
 \subsection*{Source}
 
@@ -89,6 +89,30 @@ formula applied to this Choi state
   Eq.~\eqref{eq:p8-regularized-entanglement-of-formation} reduces the problem
   to evaluating the regularization for this particular family of Choi
   states.
+
+  \item Tang, Zhu, Bai, and Wang determine the entanglement cost for the full
+  damping range in their preprint of 23 September 2026
+  \sourcecite{ref:p8-tang-zhu-bai-wang}{TZBW26}, Theorem~6.3,
+  Eqs.~(6.12)--(6.13).  In the notation of Eq.~\eqref{eq:p8-choi-state},
+  their result is
+  \begin{equation}
+    \begin{aligned}
+      E_C(\omega_p)&=E_F(\omega_p)
+        =h_2\!\left(\frac{1+\sqrt p}{2}\right),
+        &&0\le p\le1,\\
+      E_F(\omega_p^{\otimes n})&=nE_F(\omega_p),
+        &&n\ge1.
+    \end{aligned}
+    \label{eq:p8-exact-entanglement-cost}
+  \end{equation}
+  Here $n$ is an integer, and the cost is measured in ebits per copy under
+  LOCC with vanishing preparation error.  Equation~\eqref{eq:p8-exact-entanglement-cost}
+  shows that regularization in Eq.~\eqref{eq:p8-regularized-entanglement-of-formation}
+  does not lower the single-copy value.  The proof uses their strong
+  superadditivity criterion (Theorem~4.1 and Corollary~4.4): a two-qubit
+  state with a product vector in its kernel has additive entanglement of
+  formation with every finite-dimensional bipartite partner.  The Choi
+  state here satisfies $\omega_p\lvert01\rangle=0$.
 \end{itemize}
 
 \subsection*{References}
@@ -109,14 +133,23 @@ formula applied to this Choi state
   6891--6898 (2001).
   \href{https://doi.org/10.1088/0305-4470/34/35/314}{doi:10.1088/0305-4470/34/35/314};
   \href{https://arxiv.org/abs/quant-ph/0008134}{arXiv:quant-ph/0008134}.
+
+  \item[\textup{[TZBW26]}]\label{ref:p8-tang-zhu-bai-wang}
+  Z. Tang, C. Zhu, G. Bai, and X. Wang,
+  ``Classical Capacity and Entanglement Cost of the Amplitude Damping Channel,''
+  arXiv preprint (2026), version 1, 23 September 2026.
+  \href{https://arxiv.org/abs/2609.28592v1}{arXiv:2609.28592v1}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-The unresolved step is to decide whether regularization lowers the
-single-copy value in Eq.~\eqref{eq:p8-entanglement-of-formation}; equivalently,
-one must evaluate the entanglement of formation on tensor powers of this Choi
-state.  The problems of
+Solved by the Choi-state entanglement-cost result reported in
+\sourcecite{ref:p8-tang-zhu-bai-wang}{TZBW26}, Theorem~6.3, as summarized
+in Eq.~\eqref{eq:p8-exact-entanglement-cost}.  The cited source is a
+preprint.  The former regularization gap is closed for every $0\le p\le1$;
+the endpoint costs are $E_C(\omega_0)=1$ and $E_C(\omega_1)=0$ ebits per copy.
+
+The problems of
 \href{https://qiqc-op.com/problem/op_fcd21a1a5021e464/}{capacity-achieving codes for amplitude damping}
 and \href{https://qiqc-op.com/problem/op_e490c9462b37a548/}{two-way quantum capacity of the amplitude-damping channel}
 concern the same channel family but ask about channel capacities, whereas the present problem asks about the entanglement cost of a

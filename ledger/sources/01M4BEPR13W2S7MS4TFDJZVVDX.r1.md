@@ -3,7 +3,7 @@ id: "01M4BEPR13W2S7MS4TFDJZVVDX"
 schemaVersion: "1.0"
 revision: 1
 createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
-createdAt: "2026-10-07T15:11:29.352Z"
+createdAt: "2026-10-08T05:04:13.442Z"
 type: "Source"
 title: "The entropy photon-number inequality"
 kind: "web-record"
