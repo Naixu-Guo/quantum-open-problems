@@ -18,7 +18,7 @@
     "role": "primary",
     "parentProblemId": null,
     "parentClauseId": null,
-    "origin": "source-stated",
+    "origin": "derived",
     "posed": null,
     "areaIds": [
       "quantum-resource-theory"
@@ -33,7 +33,7 @@
     "verificationCost": "unrated",
     "relatedProblemIds": []
   },
-  "title": "Entanglement cost of a qubit Bell-diagonal state",
+  "title": "LOCC entanglement cost of entangled qubit Bell-diagonal states",
   "status": "Solved",
   "fields": [
     "Quantum Resource Theory"
@@ -43,8 +43,8 @@
     "Bell-diagonal states",
     "Local operations and classical communication"
   ],
-  "statement": "What is the entanglement cost of a qubit Bell-diagonal state for an arbitrary\nprobability vector $\\mathbf p=(p_I,p_X,p_Y,p_Z)$?  Let\n$\\lvert\\Phi^+\\rangle=(\\lvert00\\rangle+\\lvert11\\rangle)/\\sqrt2$ and\n$\\lvert\\Phi_P\\rangle=(I\\otimes P)\\lvert\\Phi^+\\rangle$ for\n$P\\in\\{I,X,Y,Z\\}$.  The state is\n\\begin{equation}\n  \\rho_{\\mathbf p}\n  :=\\sum_{P\\in\\{I,X,Y,Z\\}}p_P\n      \\lvert\\Phi_P\\rangle\\!\\langle\\Phi_P\\rvert,\n  \\qquad p_P\\geq0,\n  \\qquad \\sum_{P\\in\\{I,X,Y,Z\\}}p_P=1.\n  \\label{eq:p7-bell-diagonal-state}\n\\end{equation}\nFor the state in Eq.~\\eqref{eq:p7-bell-diagonal-state}, determine\n$E_C(\\rho_{\\mathbf p})$ for every $\\mathbf p$ in the probability simplex,\nwhere $E_C$ is the infimum asymptotic rate of ebits consumed by LOCC protocols\nthat prepare $\\rho_{\\mathbf p}^{\\otimes n}$ with trace-norm error tending to\nzero.",
-  "source": "The problem is implicit in the regularized-entanglement-of-formation\ncharacterization of entanglement cost and Wootters' one-copy formula for\ntwo-qubit states \\sourcecite{ref:p7-hayden-horodecki-terhal}{HHT01},\n\\sourcecite{ref:p7-wootters}{Woo98}.",
+  "statement": "What is the LOCC entanglement cost of an entangled qubit Bell-diagonal state?\nLet $\\mathbf p=(p_I,p_X,p_Y,p_Z)$ be a probability vector, and let\n$\\lvert\\Phi^+\\rangle=(\\lvert00\\rangle+\\lvert11\\rangle)/\\sqrt2$ and\n$\\lvert\\Phi_P\\rangle=(I\\otimes P)\\lvert\\Phi^+\\rangle$ for\n$P\\in\\{I,X,Y,Z\\}$.  The state is\n\\begin{equation}\n  \\rho_{\\mathbf p}\n  :=\\sum_{P\\in\\{I,X,Y,Z\\}}p_P\n      \\lvert\\Phi_P\\rangle\\!\\langle\\Phi_P\\rvert,\n  \\qquad p_P\\geq0,\n  \\qquad \\sum_{P\\in\\{I,X,Y,Z\\}}p_P=1.\n  \\label{eq:p7-bell-diagonal-state}\n\\end{equation}\nThe state in Eq.~\\eqref{eq:p7-bell-diagonal-state} is entangled exactly when\n$p_\\star:=\\max\\{p_I,p_X,p_Y,p_Z\\}>1/2$\n\\sourcecite{ref:p7-zhu-chen-hayashi}{ZCH10}.  Determine\n$E_C(\\rho_{\\mathbf p})$ for every probability vector satisfying\n$p_\\star>1/2$, where $E_C$ is the infimum asymptotic rate of ebits consumed\nby protocols using local operations and classical communication (LOCC)\nthat prepare $\\rho_{\\mathbf p}^{\\otimes n}$ with trace-norm error tending to\nzero.",
+  "source": "The question for entangled qubit Bell-diagonal states is derived from the\nregularized-entanglement-of-formation characterization of LOCC entanglement\ncost and Wootters' one-copy formula for two-qubit states \\sourcecite{ref:p7-hayden-horodecki-terhal}{HHT01},\n\\sourcecite{ref:p7-wootters}{Woo98}.",
   "progress": [
     "Let $p_\\star:=\\max\\{p_I,p_X,p_Y,p_Z\\}$,\n  $C_{\\mathbf p}:=\\max\\{0,2p_\\star-1\\}$, and\n  $h_2(x):=-x\\log_2x-(1-x)\\log_2(1-x)$, with $0\\log_2 0:=0$.  Regularized relative entropy of\n  entanglement, entanglement cost, and Wootters' one-copy entanglement of\n  formation give the rigorous bounds\n  \\begin{equation}\n    L(p_\\star)=E_R^\\infty(\\rho_{\\mathbf p})\n    \\leq E_C(\\rho_{\\mathbf p})\n    \\leq E_F(\\rho_{\\mathbf p})\n    =h_2\\!\\left(\\frac{1+\\sqrt{1-C_{\\mathbf p}^{2}}}{2}\\right),\n    \\qquad\n    L(t):=\n    \\begin{cases}\n      0, & 0\\leq t\\leq\\tfrac12,\\\\\n      1-h_2(t), & \\tfrac12<t\\leq1.\n    \\end{cases}\n    \\label{eq:p7-cost-bounds}\n  \\end{equation}\n  Here $E_C=E_F^\\infty$\n  \\sourcecite{ref:p7-hayden-horodecki-terhal}{HHT01}; Wootters gives the\n  right endpoint \\sourcecite{ref:p7-wootters}{Woo98}; and additivity of the\n  relative entropy of entanglement gives\n  $E_R^\\infty(\\rho_{\\mathbf p})=L(p_\\star)$\n  \\sourcecite{ref:p7-zhu-chen-hayashi}{ZCH10}.  By themselves,\n  the bounds in Eq.~\\eqref{eq:p7-cost-bounds} determine the cost for\n  $p_\\star\\leq1/2$ but leave a gap for $1/2<p_\\star<1$.\n  A 2025 semidefinite-programming construction gives a faithful,\n  efficiently computable lower bound on $E_C(\\rho_{\\mathbf p})$ for every\n  entangled two-qubit Bell-diagonal state, without determining the exact cost\n  \\sourcecite{ref:p7-wang-jing-zhu}{WJZ25}.",
     "If at most two Bell probabilities are nonzero, say $q$ and\n  $1-q$, then the entanglement of formation is strongly additive and\n  \\begin{equation}\n    E_C(\\rho_{\\mathbf p})=E_F(\\rho_{\\mathbf p})\n    =h_2\\!\\left(\\frac12+\\sqrt{q(1-q)}\\right).\n    \\label{eq:p7-two-bell-cost}\n  \\end{equation}\n  Vidal, D\\\"ur, and Cirac proved Eq.~\\eqref{eq:p7-two-bell-cost} for a\n  mixture of $\\lvert\\Phi^+\\rangle$ and $\\lvert\\Phi^-\\rangle$; local\n  unitaries extend it to any pair of Bell states\n  \\sourcecite{ref:p7-vidal-dur-cirac}{VDC02}.  This earlier result settled the rank-at-most-two\n  boundary of the family.",

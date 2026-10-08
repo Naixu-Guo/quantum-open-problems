@@ -1,12 +1,12 @@
 % Problem record op_aa21ac5ebca8b888. This TeX file is derived from
 % database/problems_json/op_aa21ac5ebca8b888.json by scripts/sync-tex.mjs; edit the JSON record
 % and rerun the script rather than editing this file.
-\section{Entanglement cost of a qubit Bell-diagonal state}
+\section{LOCC entanglement cost of entangled qubit Bell-diagonal states}
 \label{sec:op_aa21ac5ebca8b888}
 
 \paragraph{Problem.}
-What is the entanglement cost of a qubit Bell-diagonal state for an arbitrary
-probability vector $\mathbf p=(p_I,p_X,p_Y,p_Z)$?  Let
+What is the LOCC entanglement cost of an entangled qubit Bell-diagonal state?
+Let $\mathbf p=(p_I,p_X,p_Y,p_Z)$ be a probability vector, and let
 $\lvert\Phi^+\rangle=(\lvert00\rangle+\lvert11\rangle)/\sqrt2$ and
 $\lvert\Phi_P\rangle=(I\otimes P)\lvert\Phi^+\rangle$ for
 $P\in\{I,X,Y,Z\}$.  The state is
@@ -18,9 +18,12 @@ $P\in\{I,X,Y,Z\}$.  The state is
   \qquad \sum_{P\in\{I,X,Y,Z\}}p_P=1.
   \label{eq:p7-bell-diagonal-state}
 \end{equation}
-For the state in Eq.~\eqref{eq:p7-bell-diagonal-state}, determine
-$E_C(\rho_{\mathbf p})$ for every $\mathbf p$ in the probability simplex,
-where $E_C$ is the infimum asymptotic rate of ebits consumed by LOCC protocols
+The state in Eq.~\eqref{eq:p7-bell-diagonal-state} is entangled exactly when
+$p_\star:=\max\{p_I,p_X,p_Y,p_Z\}>1/2$
+\sourcecite{ref:p7-zhu-chen-hayashi}{ZCH10}.  Determine
+$E_C(\rho_{\mathbf p})$ for every probability vector satisfying
+$p_\star>1/2$, where $E_C$ is the infimum asymptotic rate of ebits consumed
+by protocols using local operations and classical communication (LOCC)
 that prepare $\rho_{\mathbf p}^{\otimes n}$ with trace-norm error tending to
 zero.
 
@@ -30,9 +33,9 @@ Solved
 
 \subsection*{Source}
 
-The problem is implicit in the regularized-entanglement-of-formation
-characterization of entanglement cost and Wootters' one-copy formula for
-two-qubit states \sourcecite{ref:p7-hayden-horodecki-terhal}{HHT01},
+The question for entangled qubit Bell-diagonal states is derived from the
+regularized-entanglement-of-formation characterization of LOCC entanglement
+cost and Wootters' one-copy formula for two-qubit states \sourcecite{ref:p7-hayden-horodecki-terhal}{HHT01},
 \sourcecite{ref:p7-wootters}{Woo98}.
 
 \subsection*{Progress}

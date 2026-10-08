@@ -3,7 +3,7 @@ id: "01M47A83XS5TD8VRD2RJ3AGRDM"
 schemaVersion: "1.0"
 revision: 1
 createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
-createdAt: "2026-10-08T04:52:26.378Z"
+createdAt: "2026-10-08T04:54:06.870Z"
 type: "Source"
 title: "Entanglement cost of quantum depolarization"
 kind: "preprint"
