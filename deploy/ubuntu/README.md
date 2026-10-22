@@ -190,8 +190,9 @@ certificate is required.
 
 The public process never loads a service API key or forwards client credentials.
 Its advertised tools and upstream requests are limited to reads. Host and Origin
-guards, a 64 KiB request limit, and a per-address limit of 240 requests per minute
-apply. Enable `QOP_MCP_TRUST_PROXY` only with the nginx configuration that replaces
+guards, a 64 KiB request limit, a limit of 1,024 array elements and object keys
+per tool call, and a per-address limit of 240 requests per minute apply. Enable
+`QOP_MCP_TRUST_PROXY` only with the nginx configuration that replaces
 `X-Forwarded-For`. Allowed Origin values in the environment are hostnames.
 
 For upgrades, install the new MCP release and its dependencies, deploy and restart

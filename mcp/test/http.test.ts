@@ -180,6 +180,19 @@ test("remote calls validate arguments and cannot invoke research writes", async 
   assert.ok(value(await client.callTool({ name: "get_status" })).lastSequence > 0);
 });
 
+test("remote tool arguments are bounded by element count before validation", async t => {
+  const { connect } = await fixture(t);
+  const client = await connect();
+  const id = "example-conformance-problem";
+  // Small enough for the 4096-byte fixture body limit, so only the element bound applies.
+  const flood = await client.callTool({ name: "build_context", arguments: { id, clauseIds: Array(1_100).fill(0) } });
+  assert.equal(flood.isError, true);
+  const text = flood.content.find(item => item.type === "text");
+  assert.ok(text && text.type === "text");
+  assert.match(text.text, /maximum of 1024 elements/u);
+  assert.match(value(await client.callTool({ name: "build_context", arguments: { id } })).bundleId, /^sha256:/u);
+});
+
 test("HTTP rejects untrusted hosts/origins, malformed JSON, and oversized fixed or chunked bodies", async t => {
   const { url } = await fixture(t);
   for (const [headers, body, status] of [
