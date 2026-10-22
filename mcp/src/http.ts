@@ -57,7 +57,9 @@ function bodyOf(request: http.IncomingMessage, limit: number): Promise<unknown> 
 export function createHttpMcpServer(options: HttpMcpOptions): http.Server {
   // Public HTTP never receives an operator's API key or forwards caller credentials.
   const adapter = createAdapter(options.serviceUrl, null, true);
-  const factory = () => createMcpServer(adapter);
+  // Public read tools take a few keys and at most one clause-id list. Bound SDK
+  // argument validation so one request cannot exhaust memory (GHSA-46jr-4wx8-v453).
+  const factory = () => createMcpServer(adapter, { maxToolInputElements: 1_024 });
   const handler = createMcpHandler(factory, { legacy: "reject", maxSubscriptions: 0 });
   const sessionLimit = options.maxLegacySessions ?? 256;
   const sessionIdleMs = options.legacySessionIdleTimeoutMs ?? 15 * 60_000;
