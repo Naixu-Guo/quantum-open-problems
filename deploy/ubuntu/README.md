@@ -33,6 +33,12 @@ Both HTTPS API hosts apply nginx per-client limits of 10 requests/second with a
 burst of 40 and return 429 on excess. These directives belong in the nginx
 HTTP context, as in the supplied site configuration files.
 
+Each server block sets `server_tokens off` so headers and error pages omit
+the nginx version. It is set per server, not in the HTTP context, because
+both site files are installed together and a repeated HTTP-level directive
+fails `nginx -t`. To also cover the default server, uncomment
+`server_tokens off;` in `/etc/nginx/nginx.conf`.
+
 Remote catalog polling defaults to 60 seconds (`QOP_SYNC_INTERVAL_MS=60000`).
 Each interval starts after the previous fetch completes. Local commits remain
 visible on the next API read. Deployment changes must update an existing env
