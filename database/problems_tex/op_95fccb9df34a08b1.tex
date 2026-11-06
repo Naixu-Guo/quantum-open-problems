@@ -5,9 +5,7 @@
 \label{sec:op_95fccb9df34a08b1}
 
 \paragraph{Problem.}
-Can polynomial-size constant-depth $\mathsf{QAC}^0$ circuits compute the
-parity function, or equivalently, is
-$\mathrm{PARITY}\notin\mathsf{QAC}^0$?
+Is $\mathrm{PARITY}\notin\mathsf{QAC}^0$?
 
 For $x=(x_1,\ldots,x_n)\in\{0,1\}^n$, define
 \begin{equation}
@@ -34,7 +32,7 @@ constant-depth $\mathsf{QAC}^0$ family satisfies
 
 \subsection*{Status}
 
-Unsolved
+Solved
 
 \subsection*{Source}
 
@@ -108,6 +106,17 @@ directly to resolving the exact conjecture
   large input lengths. Zero-initialized ancillas and arbitrary discarded
   garbage are allowed; the claim therefore implies the exact-computation
   separation stated above.
+
+  \item Gao, Ji, and Liu give a self-contained simplification of OpenAI's proof in
+ECCC preprint TR26-258, Theorem~1 \sourcecite{ref:95fc-gjl}{GJL26}.
+For every fixed depth $d$, exponent $c\geq1$, and $0<\varepsilon\leq1/2$,
+every such circuit on $n\leq N\leq n^c$ qubits fails to achieve success
+probability $1/2+\varepsilon$ on at least one input for all sufficiently
+large $n$.
+The theorem allows zero-initialized ancillas and unrestricted final garbage.
+Any fixed computational-basis initialization in the statement can be prepared
+from zeros by one layer of single-qubit gates, so the theorem also excludes
+exact computation in the stated model.
 \end{itemize}
 
 \subsection*{References}
@@ -158,17 +167,24 @@ $\notin$ QAC0 $\Longleftrightarrow$ QAC0 is Fourier-Concentrated,'' in
   \item[\textup{[OAI26]}]\label{ref:95fc-openai-parity}
   OpenAI, ``Product-projection localization and the $\mathrm{QAC}^0$ parity lower bound,'' OpenAI Math Release preprint, 24 September 2026.
 \href{https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Product-projection-localization-and-the-QAC0-parity-lower-bound-September-24-2026/paper.pdf}{manuscript (release version)}.
+
+  \item[\textup{[GJL26]}]\label{ref:95fc-gjl}
+  Minbo Gao, Zhengfeng Ji, and Chenghua Liu,
+``A simplified proof of $\mathrm{PARITY}\notin\mathsf{QAC}^0$,''
+Electronic Colloquium on Computational Complexity, TR26-258, preprint
+(18 October 2026).
+\href{https://eccc.weizmann.ac.il/report/2026/258/}{ECCC TR26-258}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-The catalog retains the Unsolved designation while documenting the
-  reported full separation in \sourcecite{ref:95fc-openai-parity}{OAI26}.
-  Unlike the earlier depth- or ancilla-restricted results, this preprint
-  claims a lower bound for arbitrary fixed depth and polynomially many
-  ancillas, even with bounded error. The equivalence of Gretta, Gupta, and
-  Joshi relates the exact separation to Fourier concentration
-  \sourcecite{ref:95fc-ggj}{GGJ26}.
+The separation is established by the parity lower bound in
+\sourcecite{ref:95fc-openai-parity}{OAI26} and its self-contained
+simplification \sourcecite{ref:95fc-gjl}{GJL26}, both preprints.
+The Solved designation concerns the full exact-computation question above,
+not merely a restriction on depth or ancillary space.
+The theorem also rules out any fixed positive worst-case advantage over
+random guessing with polynomially many qubits.
 
 \subsection*{Field}
 

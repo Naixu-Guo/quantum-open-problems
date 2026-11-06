@@ -2,7 +2,7 @@
 export const SOURCE_GUIDANCE = "Use an arXiv or Zenodo manuscript, a supported preprint repository, a journal article, or a paper DOI. GitHub posts, personal pages, shared files, and attachments alone are insufficient for new progress.";
 
 export const SUPPORTED_SOURCE_NAMES = Object.freeze([
-  "arXiv", "Zenodo manuscripts", "IACR ePrint", "HAL", "OSF Preprints",
+  "arXiv", "Zenodo manuscripts", "IACR ePrint", "ECCC reports", "HAL", "OSF Preprints",
   "bioRxiv", "medRxiv", "Preprints.org", "paper DOIs",
   "OpenAI math manuscript PDFs pinned to a full commit hash",
   "APS", "IOP", "Springer", "Nature", "Science", "ACM", "SIAM", "Wiley",
@@ -60,6 +60,13 @@ export function normalizeArchivalLink(value) {
   }
   if (host === "eprint.iacr.org" && /^\/\d{4}\/\d+(?:\.pdf)?\/?$/u.test(pathname)) {
     return { url: `https://${host}${pathname.replace(/\.pdf$/u, "").replace(/\/$/u, "")}`, type: "preprint" };
+  }
+  // ECCC report pages and manuscript downloads, preserving a pinned revision.
+  // Match the raw path so encoded separators cannot identify another resource.
+  const eccc = /^\/report\/(\d{4})\/((?!000)\d{3})(?:\/?|\/download\/?|\/revision\/([1-9]\d*)\/download\/?)$/u.exec(url.pathname);
+  if (url.hostname === "eccc.weizmann.ac.il" && !url.search && !url.hash && eccc) {
+    const revision = eccc[3] ? `revision/${eccc[3]}/download` : "";
+    return { url: `https://eccc.weizmann.ac.il/report/${eccc[1]}/${eccc[2]}/${revision}`, type: "preprint" };
   }
   // Only immutable manuscript PDFs in this specific repository qualify.
   // Match the encoded path so encoded separators cannot broaden its scope.
