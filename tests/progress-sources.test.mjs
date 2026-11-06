@@ -19,6 +19,30 @@ test("new progress cannot substitute arbitrary links, home pages, credentials, o
     assert.throws(() => normalizeArchivalLink(value), undefined, String(value));
 });
 
+test("ECCC accepts report manuscripts and preserves explicit revision downloads", () => {
+  for (const [input, url] of [
+    ["http://eccc.weizmann.ac.il/report/2026/258", "https://eccc.weizmann.ac.il/report/2026/258/"],
+    ["https://eccc.weizmann.ac.il/report/2026/258/", "https://eccc.weizmann.ac.il/report/2026/258/"],
+    ["https://eccc.weizmann.ac.il/report/2026/258/download/", "https://eccc.weizmann.ac.il/report/2026/258/"],
+    ["https://eccc.weizmann.ac.il/report/2026/170/revision/1/download", "https://eccc.weizmann.ac.il/report/2026/170/revision/1/download"],
+    ["https://eccc.weizmann.ac.il/report/2026/170/revision/1/download/", "https://eccc.weizmann.ac.il/report/2026/170/revision/1/download"],
+  ]) assert.deepEqual(normalizeArchivalLink(input), { url, type: "preprint" });
+  for (const value of [
+    "https://eccc.weizmann.ac.il/",
+    "https://eccc.weizmann.ac.il/report/2026/",
+    "https://eccc.weizmann.ac.il/author/1/",
+    "https://eccc.weizmann.ac.il/report/2026/000/",
+    "https://eccc.weizmann.ac.il/report/2026/258/comment/1/",
+    "https://eccc.weizmann.ac.il/report/2026/170/revision/0/download",
+    "https://eccc.weizmann.ac.il/report/2026/258%2fdownload",
+    "https://eccc.weizmann.ac.il/report/2026/258/download?source=elsewhere",
+    "https://eccc.weizmann.ac.il/report/2026/258/#comment",
+    "https://eccc.weizmann.ac.il.example.org/report/2026/258/",
+    "https://user:password@eccc.weizmann.ac.il/report/2026/258/",
+    "https://eccc.weizmann.ac.il:9000/report/2026/258/",
+  ]) assert.throws(() => normalizeArchivalLink(value), undefined, value);
+});
+
 test("OpenAI math sources require an immutable manuscript PDF in the official repository", () => {
   const commit = "0123456789abcdef0123456789abcdef01234567";
   const prefix = `https://github.com/openai/math/blob/${commit}`;

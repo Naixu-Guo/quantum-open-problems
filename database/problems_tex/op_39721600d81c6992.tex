@@ -1,0 +1,99 @@
+% Problem record op_39721600d81c6992. This TeX file is derived from
+% database/problems_json/op_39721600d81c6992.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Quantum query complexity of Graph Collision}
+\label{sec:op_39721600d81c6992}
+
+\paragraph{Problem.}
+Does Graph Collision on every known $n$-vertex graph admit a bounded-error
+quantum algorithm using $\widetilde O(\sqrt n)$ queries to the marked-vertex bits?
+Let $G=([n],E)$ be a simple undirected graph given in full, and let
+$x\in\{0,1\}^n$ be accessible through the quantum oracle
+$O_x|v,b\rangle=|v,b\oplus x_v\rangle$.
+The task is to compute
+\begin{equation}
+  f_G(x)=\bigvee_{\{u,v\}\in E}(x_u\wedge x_v).
+  \label{eq:3972-collision}
+\end{equation}
+Only calls to $O_x$ are counted.
+All computation involving the known graph
+is free, and the algorithm must return the value in
+\eqref{eq:3972-collision} with probability at least $2/3$ for every $x$.
+
+Let $Q_2(f_G)$ be the minimum worst-case query count under this guarantee,
+and let $Q_{\mathrm{GC}}(n)=\max_{G:\,|V(G)|=n}Q_2(f_G)$.
+The question is whether
+\begin{equation}
+  Q_{\mathrm{GC}}(n)=\widetilde O(\sqrt n).
+  \label{eq:3972-target}
+\end{equation}
+In \eqref{eq:3972-target}, $\widetilde O$ hides only factors polynomial in
+$\log n$ as $n\to\infty$.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Gavinsky and Ito explicitly ask for a $\widetilde O(\sqrt n)$ query algorithm
+for all graphs in Section~6 of \sourcecite{ref:3972-gi}{GI12}.
+Their Definition~1 fixes the known-graph, marked-vertex oracle model.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Gavinsky and Ito give an
+$O(\sqrt n+\sqrt{\alpha^*(G)})$ query algorithm, where
+$\alpha^*(G)$ is the maximum sum of vertex degrees over an independent set
+(Theorem~1) \sourcecite{ref:3972-gi}{GI12}.
+Their Corollary~2 gives $O(\sqrt{n\log n})$ queries with high probability
+over a random graph with independently sampled edges, for any choice of edge probability.
+This result for typical graphs does not give the target bound for every graph.
+
+  \item Cornelissen, Gilani, Kintali, Le Gall, Patro, and Zhou report an algorithm
+using $\widetilde O(n^{11/17})$ queries for arbitrary graphs and a lower bound
+of $\Omega(\sqrt{n\log n})$ for a family of graphs
+(Theorems~1.1 and~6.1, preprint version~1)
+\sourcecite{ref:3972-cgklpz}{CGKLPZ26}.
+Both bounds concern queries to marked-vertex bits, with the graph known for free.
+The lower bound excludes $O(\sqrt n)$ queries in general, but is compatible
+with the polylogarithmic factors allowed in \eqref{eq:3972-target}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[GI12]}]\label{ref:3972-gi}
+  Dmitry Gavinsky and Tsuyoshi Ito,
+``A quantum query algorithm for the graph collision problem,'' preprint (2012).
+\href{https://arxiv.org/abs/1204.1527v1}{arXiv:1204.1527v1}.
+
+  \item[\textup{[CGKLPZ26]}]\label{ref:3972-cgklpz}
+  Arjan Cornelissen, Amin Shiraz Gilani, Shiva Kintali, Fran\c{c}ois Le Gall,
+Subhasree Patro, and Xingyu Zhou,
+``Breaking the quantum barriers for Graph Collision,'' preprint (2026).
+\href{https://arxiv.org/abs/2611.05356v1}{arXiv:2611.05356v1}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The remaining question is whether the upper bound can be reduced to
+$\widetilde O(\sqrt n)$, or whether some graph family requires more than
+$\sqrt n$ times every fixed power of $\log n$ queries.
+Graph Collision here is a query problem with a known graph.
+It is distinct from triangle finding with oracle access to unknown edges,
+and its query bound does not assert a matching running time.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Computational complexity and computability
+
+\subsection*{ID}
+
+\texttt{op\_39721600d81c6992}

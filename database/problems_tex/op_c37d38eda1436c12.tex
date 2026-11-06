@@ -1,0 +1,122 @@
+% Problem record op_c37d38eda1436c12. This TeX file is derived from
+% database/problems_json/op_c37d38eda1436c12.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Information causality for almost-quantum correlations}
+\label{sec:op_c37d38eda1436c12}
+
+\paragraph{Problem.}
+Do all almost-quantum correlations satisfy information causality?
+A bipartite conditional distribution $p(a,b\mid x,y)$ with finite input and
+output sets is almost quantum if there are a Hilbert space $\mathcal H$,
+a unit vector $|\psi\rangle$, and projective measurements
+$\{P_a^x\}_a$, $\{Q_b^y\}_b$ on $\mathcal H$ such that
+\begin{equation}
+  P_a^x Q_b^y|\psi\rangle=Q_b^y P_a^x|\psi\rangle,
+  \qquad p(a,b\mid x,y)=\langle\psi|P_a^x Q_b^y|\psi\rangle.
+  \label{eq:c37d-aq}
+\end{equation}
+Each measurement consists of orthogonal projections summing to the identity.
+The commutation condition in \eqref{eq:c37d-aq} is imposed only on the shared
+state, not as an operator identity.
+
+Alice receives $L$ independent uniform bits $Z_1,\ldots,Z_L$.
+Bob receives an independent uniform index $J\in\{1,\ldots,L\}$.
+They may use shared randomness and almost-quantum boxes independent of these
+inputs.
+Alice sends Bob an $m$-bit classical message, with no communication
+from Bob to Alice, and Bob outputs a binary guess $G$ for $Z_J$.
+Information causality requires
+\begin{equation}
+  \sum_{j=1}^{L} I(Z_j:G\mid J=j)\leq m,
+  \label{eq:c37d-ic}
+\end{equation}
+where $I$ is Shannon mutual information in bits.
+Must \eqref{eq:c37d-ic} hold for every finite protocol of this form and all
+integers $L\geq1$ and $m\geq0$?
+
+\subsection*{Status}
+
+Solved
+
+\subsection*{Source}
+
+Navascu\'es, Guryanova, Hoban, and Ac\'in define almost-quantum correlations
+and leave their compatibility with information causality unresolved
+(Definition~1 and Sections~9--10 of the arXiv version)
+\sourcecite{ref:c37d-ngha}{NGHA15}.
+The information-causality task and inequality originate with
+Paw\l{}owski et al.\ \sourcecite{ref:c37d-ic-original}{PPKSWZ09}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Navascu\'es et al.\ verify several consequences of information causality
+for almost-quantum correlations and report supporting numerical evidence,
+while explicitly leaving the full principle unproved
+\sourcecite{ref:c37d-ngha}{NGHA15}.
+
+  \item Das Bhowmik and Banik give a negative answer in preprint version~1,
+Corollary~1 \sourcecite{ref:c37d-bb}{BB26}.
+Their Lemma~1 supplies a finite-dimensional almost-quantum box with $N$
+settings and two outcomes per party.
+A single use of this box and one
+classical bit yield, for $L=kN$ independent data bits, the information score
+\begin{equation}
+  \sum_{j=1}^{kN} I(Z_j:G\mid J=j)
+  \geq \frac{k}{17}\left(1-(1-2^{-k})^N\right).
+  \label{eq:c37d-violation}
+\end{equation}
+For $k=18$ and $N=757693$, the right-hand side of
+\eqref{eq:c37d-violation} exceeds $1.00000018$, contradicting
+\eqref{eq:c37d-ic} with $m=1$.
+Taking $N=k2^k$ instead gives the unbounded lower bound
+$k(1-e^{-k})/17$.
+The family uses increasing numbers of settings and data
+bits. The claim is not an unbounded violation by one fixed finite box.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[NGHA15]}]\label{ref:c37d-ngha}
+  Miguel Navascu\'es, Yelena Guryanova, Matty J. Hoban, and Antonio Ac\'in,
+``Almost quantum correlations,'' \emph{Nature Communications} \textbf{6},
+6288 (2015).
+\href{https://doi.org/10.1038/ncomms7288}{doi:10.1038/ncomms7288};
+\href{https://arxiv.org/abs/1403.4621v1}{arXiv:1403.4621v1}.
+
+  \item[\textup{[PPKSWZ09]}]\label{ref:c37d-ic-original}
+  Marcin Paw\l{}owski, Tomasz Paterek, Dagomir Kaszlikowski, Valerio Scarani,
+Andreas Winter, and Marek Żukowski,
+``Information causality as a physical principle,'' \emph{Nature}
+\textbf{461}, 1101--1104 (2009).
+\href{https://doi.org/10.1038/nature08400}{doi:10.1038/nature08400};
+\href{https://arxiv.org/abs/0905.2292v3}{arXiv:0905.2292v3}.
+
+  \item[\textup{[BB26]}]\label{ref:c37d-bb}
+  Anandamay Das Bhowmik and Manik Banik,
+``Almost-Quantum Correlations Violate Information Causality,'' preprint (2026).
+\href{https://arxiv.org/abs/2610.41444v1}{arXiv:2610.41444v1}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The universal information-causality claim is false by the finite
+counterexample in \sourcecite{ref:c37d-bb}{BB26}.
+The Solved designation records this negative resolution and its preprint source.
+The score includes every trial.
+Bob always supplies a binary guess, so the
+violation does not arise from conditioning on successful certificates.
+
+\subsection*{Field}
+
+Quantum Foundations; Quantum Communication
+
+\subsection*{Topic}
+
+Bell nonlocality; Quantum communication complexity
+
+\subsection*{ID}
+
+\texttt{op\_c37d38eda1436c12}
