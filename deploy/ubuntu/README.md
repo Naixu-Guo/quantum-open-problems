@@ -33,6 +33,12 @@ Both HTTPS API hosts apply nginx per-client limits of 10 requests/second with a
 burst of 40 and return 429 on excess. These directives belong in the nginx
 HTTP context, as in the supplied site configuration files.
 
+Each server block sets `server_tokens off` so headers and error pages omit
+the nginx version. It is set per server, not in the HTTP context, because
+both site files are installed together and a repeated HTTP-level directive
+fails `nginx -t`. To also cover the default server, uncomment
+`server_tokens off;` in `/etc/nginx/nginx.conf`.
+
 Remote catalog polling defaults to 60 seconds (`QOP_SYNC_INTERVAL_MS=60000`).
 Each interval starts after the previous fetch completes. Local commits remain
 visible on the next API read. Deployment changes must update an existing env
@@ -184,8 +190,9 @@ certificate is required.
 
 The public process never loads a service API key or forwards client credentials.
 Its advertised tools and upstream requests are limited to reads. Host and Origin
-guards, a 64 KiB request limit, and a per-address limit of 240 requests per minute
-apply. Enable `QOP_MCP_TRUST_PROXY` only with the nginx configuration that replaces
+guards, a 64 KiB request limit, a limit of 1,024 array elements and object keys
+per tool call, and a per-address limit of 240 requests per minute apply. Enable
+`QOP_MCP_TRUST_PROXY` only with the nginx configuration that replaces
 `X-Forwarded-For`. Allowed Origin values in the environment are hostnames.
 
 For upgrades, install the new MCP release and its dependencies, deploy and restart
