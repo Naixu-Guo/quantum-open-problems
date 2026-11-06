@@ -236,7 +236,8 @@ If connecting fails, check the [catalog status](https://api.qiqc-op.com/api/v1/s
 confirm remote MCP support, and use the full URL ending in `/mcp`. A browser GET
 may return 405 because an MCP client must negotiate the protocol. HTTP 429 asks
 the client to wait for the `Retry-After` interval; the public limit is 240 requests
-per minute per address.
+per minute per address. A public tool call whose arguments exceed 1,024 array
+elements and object keys returns a tool error.
 
 ## Optional local adapter
 
