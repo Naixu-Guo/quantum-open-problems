@@ -1,0 +1,26 @@
+[project]
+name = "qop-research-monitor"
+version = "0.1.0"
+description = "Authenticated ChatGPT MCP for evidence-backed Quantum Open Problems PRs"
+requires-python = ">=3.11"
+dependencies = [
+  "fastmcp==3.4.7",
+  "py-key-value-aio[disk]==0.4.5",
+  "beautifulsoup4==4.15.0",
+  "pypdf==6.19.0",
+]
+
+[dependency-groups]
+dev = ["pytest==9.1.1", "pytest-asyncio==1.4.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.setuptools.packages.find]
+include = ["qop_monitor*"]
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
