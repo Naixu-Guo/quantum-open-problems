@@ -31,11 +31,15 @@ The site documents reports without refereeing their proofs; only the maintainer
 team determines Solved/Unsolved. See the [research progress policy](docs/RESEARCH_PROGRESS_POLICY.md)
 for eligible sources, historical reports, and ordinary correction requests.
 
-For agent-assisted additions and revisions, follow the repository's
-[writing-open-problems skill](.claude/skills/writing-open-problems/SKILL.md).
-It covers primary-source verification, semantic duplicate checks, the current
-JSON format, and synchronization of derived outputs. Use the supplied sources
-and ask only for information needed to make the question or attribution precise.
+Before creating a record, search the catalog by title, alternate terminology,
+and source identifiers. Compare the hypotheses and the requested result for
+each close match. If the same question already has a record, update it under
+its existing ID.
+
+Check the attribution and scope of each reported result against its primary
+source. Cite a section, theorem, or equation when available. In the Source
+field, distinguish a question posed by the authors from one inferred from a
+limitation in their paper or formulated by a contributor.
 
 ## Mathematics in submission forms
 
@@ -289,6 +293,8 @@ The scoped catalog exception also binds the exact problem, progress text, cited
 references, and source URL; it does not classify author-hosted PDFs as archival.
 
 ## Required reviews and checks
+
+Use your own Git identity for commits and credit human contributors in the PR.
 
 Changes to main require a PR, resolved review threads, and all four CI checks
 against the latest main. `@Naixu-Guo` is the sole code owner and the only account

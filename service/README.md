@@ -277,8 +277,9 @@ process, which keeps the validators and policy it started with until it
 restarts. Uploaded artifact blobs under `activity/artifact-store/` are an
 object store the service serves; they are not committed or mirrored.
 
-Catalog pull requests commit their generated `ledger/` revisions and export
-manifest, as required by CLAUDE.md. Such PRs need the `ledger-change` label.
+Catalog pull requests include their generated `ledger/` revisions and export
+manifest. Apply the `ledger-change` label as described in the
+[catalog contribution guide](../CONTRIBUTING.md#metadata-and-main-exports).
 Other code PRs ordinarily leave `ledger/` and `activity/` untouched; CI requires
 the same label for deliberate changes to either root. Keep scientific edits
 separate from exporter/schema migrations so their source checks are reviewable.
