@@ -20,6 +20,7 @@ import { validateRecordShape, canonicalJson, recordDifferences, RecordError } fr
 import { loadTaxonomy } from "./lib/taxonomy.mjs";
 import { distinctQuestionCounts, validateRecordIdentities, metadataToMainProblem, ULID_PATTERN } from "./lib/metadata.mjs";
 import { buildCompatibility, legacyTagIndex, redirect } from "./lib/compatibility.mjs";
+import fieldAliases from "../shared/field-aliases.json" with { type: "json" };
 import { loadMergedProblems } from "./lib/merged-problems.mjs";
 import {
   renderHome, renderProblemPage, renderDirectory, renderTagsIndex, renderTagPage, byRecentEdit,
@@ -208,21 +209,31 @@ const dates = {
 };
 if (dates.updated === "0000-00-00") dates.updated = today;
 
-// Related problems share fields or topics. A shared topic counts twice as
-// much as a shared field, because fields are broad and topics specific.
-const relatedFor = (record) => records
-  .filter((other) => other.id !== record.id)
-  .map((other) => {
+// Show authored relationships in their recorded order. Fill up to six slots
+// with topic matches, using field overlap to refine the score.
+const recordsByUlid = new Map(records.map((record) => [record.ulid, record]));
+const relatedFor = (record) => {
+  const curated = record.metadata.relatedProblemIds.map((id) => recordsByUlid.get(id));
+  const describe = (other) => {
     const sharedFields = record.fields.filter((name) => other.fields.includes(name));
     const sharedTopics = record.topics.filter((name) => other.topics.includes(name));
     const fieldUnion = new Set([...record.fields, ...other.fields]).size;
     const topicUnion = new Set([...record.topics, ...other.topics]).size;
     const score = (2 * sharedTopics.length + sharedFields.length) / (2 * topicUnion + fieldUnion);
-    return { record: other, sharedFields, sharedTopics, shared: [...sharedFields, ...sharedTopics], score };
-  })
-  .filter((item) => item.shared.length > 0)
-  .sort((a, b) => b.score - a.score || b.sharedTopics.length - a.sharedTopics.length || a.record.title.text.localeCompare(b.record.title.text))
-  .slice(0, 6);
+    return { record: other, sharedFields, sharedTopics, score };
+  };
+  const available = 6 - curated.length;
+  if (available <= 0) return curated.map(describe);
+  const excluded = new Set([record, ...curated]);
+  const suggestions = records
+    .filter((other) => !excluded.has(other))
+    .map(describe)
+    .filter((item) => item.sharedTopics.length > 0)
+    .sort((a, b) => b.score - a.score || b.sharedTopics.length - a.sharedTopics.length || a.record.title.text.localeCompare(b.record.title.text))
+    .slice(0, available);
+  return [...curated.map(describe), ...suggestions];
+};
+const relatedById = new Map(records.map((record) => [record.id, relatedFor(record)]));
 
 const pools = {
   unsolved: records.filter((record) => record.statusSlug !== "solved"),
@@ -259,7 +270,7 @@ fs.cpSync(path.join(repoRoot, "contract/schema"), path.join(outDir, "contract/v1
 
 for (const record of records) {
   const root = "../../";
-  write(`problem/${record.id}/index.html`, renderProblemPage({ record, config, root, related: relatedFor(record), dates }));
+  write(`problem/${record.id}/index.html`, renderProblemPage({ record, config, root, related: relatedById.get(record.id), dates }));
   write(`problem/${record.id}/${record.id}.tex`, record.sourceTex);
   for (const alias of record.aliases) {
     if (alias === record.id) continue;
@@ -316,9 +327,15 @@ const indexEntries = records.map((record) => ({
 }));
 write("data/index.js", `window.QIQCOP_INDEX = ${JSON.stringify({ generated: today, updated: dates.updated, problems: indexEntries })};\n`);
 const historicalTags = legacyTagIndex(legacy);
-write("data/legacy-tags.js", `window.QIQCOP_LEGACY_TAGS = ${JSON.stringify(historicalTags)};\n`);
+write("data/legacy-tags.js", `window.QIQCOP_LEGACY_TAGS = ${JSON.stringify(historicalTags)};\nwindow.QIQCOP_FIELD_ALIASES = ${JSON.stringify(fieldAliases)};\n`);
 const directoryPath = path.join(outDir, "problems/index.html");
 fs.writeFileSync(directoryPath, fs.readFileSync(directoryPath, "utf8").replace("</head>", '<script src="../data/legacy-tags.js"></script></head>'));
+for (const [oldSlug, newSlug] of Object.entries(fieldAliases)) {
+  const field = taxonomy.fields.find((name) => slug(name) === newSlug);
+  if (fieldCounts.has(field) && !fs.existsSync(path.join(outDir, `tag/${oldSlug}/index.html`))) {
+    write(`tag/${oldSlug}/index.html`, redirect(`../${newSlug}/`, field));
+  }
+}
 for (const [key, entry] of Object.entries(historicalTags)) {
   if (fs.existsSync(path.join(outDir, `tag/${key}/index.html`))) continue;
   const tagged = records.filter((record) => entry.ids.includes(record.id));
@@ -400,7 +417,7 @@ for (const record of records) {
     ...(record.contributors === undefined ? {} : { contributors: record.contributors.filter((person) => person.anonymous === false) }),
     equations: record.equations,
     equivalentRecords: record.equivalentRecords,
-    related: relatedFor(record).map((item) => ({ id: item.record.id, title: item.record.title.text, sharedFields: item.sharedFields, sharedTopics: item.sharedTopics })),
+    related: relatedById.get(record.id).map((item) => ({ id: item.record.id, title: item.record.title.text, sharedFields: item.sharedFields, sharedTopics: item.sharedTopics })),
     sha256: record.sha256,
     sourceTex: record.sourceTex
   };

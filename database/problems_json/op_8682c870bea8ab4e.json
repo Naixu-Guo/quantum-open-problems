@@ -23,7 +23,7 @@
     ],
     "topicIds": [
       "matrix-and-entropy-inequalities",
-      "gaussian-quantum-information"
+      "wigner-functions"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -37,7 +37,7 @@
   ],
   "topics": [
     "Matrix and entropy inequalities",
-    "Gaussian quantum information"
+    "Wigner functions"
   ],
   "statement": "Does every finite-energy single-mode state with a nonnegative Wigner function have Wigner entropy at least $1+\\ln\\pi$?\nLet $\\rho$ be a density operator with $\\operatorname{Tr}(\\rho a^\\dagger a)<\\infty$, where $a=(q+ip)/\\sqrt2$ and $[q,p]=i$. Require $W_\\rho(q,p)\\geq0$. Use the normalization $\\int_{\\mathbb R^2}W_\\rho(q,p)\\,dq\\,dp=1$ and vacuum convention $W_{|0\\rangle}(q,p)=\\pi^{-1}e^{-q^2-p^2}$. With natural logarithms and $0\\ln0=0$, the proposed bound is\n\\begin{equation}\n h_W(\\rho):=-\\int_{\\mathbb R^2}W_\\rho(q,p)\\ln W_\\rho(q,p)\\,dq\\,dp\n \\geq1+\\ln\\pi.\n \\label{eq:wigner-entropy}\n\\end{equation}\nProve Eq.~\\eqref{eq:wigner-entropy} for all such physical states, or exhibit a density operator violating it.",
   "source": "Van Herstraeten and Cerf state the conjecture in Eq.~(10) of ``Quantum Wigner Entropy'' \\sourcecite{ref:wigner-original}{VHC21}. The finite-energy restriction makes the moments and entropies used here finite.",

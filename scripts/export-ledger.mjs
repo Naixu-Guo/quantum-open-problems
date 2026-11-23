@@ -186,7 +186,11 @@ export function buildLedger(root = ROOT) {
     put(`${dir}/problem.r1.md`, {
       id: record.ulid, ...record.metadata, revision: 1, title: record.title,
       aliases: unique([metadataSlug(record.id), ...record.aliases]),
-      ...(merge ? { equivalentToProblemId: merge.target.ulid } : {}),
+      ...(merge ? {
+        equivalentToProblemId: merge.target.ulid,
+        areaIds: merge.target.metadata.areaIds,
+        topicIds: merge.target.metadata.topicIds,
+      } : {}),
       authoredCatalog: { status: merge?.target.status ?? record.status, sourcePath: `database/${merge ? "merged_problems_json" : "problems_json"}/${record.id}.json`, record,
         ...(merge ? { mergedIntoProblemId: merge.target.ulid, mergeReason: merge.reason } : {}) }, body
     });

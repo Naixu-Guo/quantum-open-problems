@@ -19,10 +19,11 @@
     "origin": "derived",
     "posed": null,
     "areaIds": [
-      "quantum-resource-theory"
+      "quantum-dynamics-and-many-body-theory"
     ],
     "topicIds": [
-      "gaussian-quantum-information"
+      "gaussian-quantum-information",
+      "open-quantum-systems"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -32,10 +33,11 @@
   "title": "Strict stationary squeezing limit for one-mode thermal diffusion",
   "status": "Solved",
   "fields": [
-    "Quantum Resource Theory"
+    "Quantum Dynamics and Many-Body Theory"
   ],
   "topics": [
-    "Gaussian quantum information"
+    "Gaussian quantum information",
+    "Open quantum systems"
   ],
   "statement": "Does every stable one-mode thermal Gaussian diffusion obey the sharp stationary squeezing bound $\\lambda_{\\min}(V_\\infty)>\\nu/2$?\nUse $R=(q,p)^{\\mathsf T}$, $[q,p]=i$, and covariance $V_{jk}=\\langle\\{R_j-\\langle R_j\\rangle,R_k-\\langle R_k\\rangle\\}\\rangle$.\nLet $G$ be any real symmetric $2\\times2$ matrix, $\\kappa>0$, and $\\nu=2\\bar n+1$ with $\\bar n\\geq0$.\nDefine the drift and diffusion in Eq.~\\eqref{eq:sr51-drift}.\n\\begin{equation}\nA=\\Omega G-\\frac\\kappa2I_2,\\qquad D=\\kappa\\nu I_2,\\qquad \\Omega=\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}.\n\\label{eq:sr51-drift}\n\\end{equation}\nAssume $A$ is Hurwitz stable: both eigenvalues have negative real part.\nThe stationary covariance $V_\\infty$ solves Eq.~\\eqref{eq:sr51-lyapunov}.\n\\begin{equation}\nAV_\\infty+V_\\infty A^{\\mathsf T}+D=0.\n\\label{eq:sr51-lyapunov}\n\\end{equation}\nSharpness means that the infimum of $\\lambda_{\\min}(V_\\infty)$ over stable choices of $G$ is $\\nu/2$.",
   "source": "This is the single-mode isotropic-diffusion form of the stationary squeezing limit in Harwood and Serafini, Eq.~(15) \\sourcecite{ref:sr51-harwood}{HS20}. Their physical setting is passive interferometric coherent feedback with rotating-wave coupling to equal-temperature Markov baths.",

@@ -21,12 +21,13 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-metrology",
+      "quantum-statistical-inference",
       "quantum-resource-theory"
     ],
     "topicIds": [
       "quantum-estimation",
-      "indefinite-causal-order"
+      "indefinite-causal-order",
+      "quantum-sensing-and-metrology"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -36,12 +37,13 @@
   "title": "Asymptotic metrology with quantum-controlled causal order",
   "status": "Solved",
   "fields": [
-    "Quantum metrology",
+    "Quantum Statistical Inference",
     "Quantum Resource Theory"
   ],
   "topics": [
     "Quantum estimation",
-    "Indefinite causal order"
+    "Indefinite causal order",
+    "Quantum sensing and metrology"
   ],
   "statement": "Does quantum control of causal order yield a persistent asymptotic\nmetrological advantage over parallel access for some regular,\nfinite-dimensional channel family? Let\n$\\Lambda_\\theta:\\mathcal L(A)\\to\\mathcal L(B)$ be a smooth one-parameter\nfamily on an open interval. A parameter value $\\theta$ is regular here if\nthe Choi rank is constant in a neighborhood of $\\theta$; the family then\nadmits a differentiable minimal Kraus representation locally.\nLet $\\mathcal F_{\\mathrm{PAR}}^{(N)}(\\theta)$ and\n$\\mathcal F_{\\mathrm{QCQC}}^{(N)}(\\theta)$ be the largest output-state\nsymmetric-logarithmic-derivative quantum Fisher information attainable from\n$N$ black-box uses by, respectively, a parallel strategy and a quantum\ncircuit with quantum control of causal order (QC-QC). Both classes allow\narbitrary finite noiseless ancillary systems. In a QC-QC strategy, a\ncoherent control can dynamically select which unused black-box call occurs\nnext; this is more general than coherently superposing fixed causal\norders. At every regular parameter value with\n$\\mathcal F_{\\mathrm{PAR}}^{(1)}(\\theta)>0$, decide whether every such family\nsatisfies\n\\begin{equation}\n  \\limsup_{N\\to\\infty}\n  \\frac{\\mathcal F_{\\mathrm{QCQC}}^{(N)}(\\theta)}\n       {\\mathcal F_{\\mathrm{PAR}}^{(N)}(\\theta)}\n  =1.\n  \\label{eq:p61-asymptotic-qcqc-ratio}\n\\end{equation}\nEquivalently, either prove Eq.~\\eqref{eq:p61-asymptotic-qcqc-ratio} or\nconstruct a noisy family in this regular domain and physical QC-QC\nstrategies with a persistent constant-factor advantage or a larger\nscaling exponent.",
   "source": "Mothe, Branciard, and Abbott explicitly ask whether the finite-use QC-QC\nadvantage that they establish can persist asymptotically\n\\sourcecite{ref:p61-mothe}{MBA24}.",

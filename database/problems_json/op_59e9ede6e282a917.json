@@ -20,11 +20,11 @@
     "posed": null,
     "areaIds": [
       "quantum-cryptography",
-      "quantum-communication"
+      "quantum-information-theory"
     ],
     "topicIds": [
       "superactivation",
-      "secret-key-distillation"
+      "secret-key-capacity"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -39,11 +39,11 @@
   "status": "Unsolved",
   "fields": [
     "Quantum Cryptography",
-    "Quantum Communication"
+    "Quantum Information Theory"
   ],
   "topics": [
     "Superactivation",
-    "Secret-key distillation"
+    "Secret-key capacity"
   ],
   "statement": "Can two quantum channels with zero two-way-assisted secret-key capacity\nhave positive secret-key capacity when used jointly?  Let\n$\\mathcal N:A_0\\to B_0$ and $\\mathcal M:A_1\\to B_1$ be independent\nfinite-dimensional memoryless quantum channels.  For a channel $\\mathcal C$,\nlet $K_{\\leftrightarrow}(\\mathcal C)$ denote its secret-key capacity, in secret\nbits per channel use, when arbitrary adaptive local operations and unlimited\nauthenticated two-way public communication are allowed between channel uses.\nAlice and Bob start without shared entanglement or secret key of positive\nrate.  Eve receives every complementary-channel output and the full public\ntranscript; the probability that Alice's and Bob's keys differ, and the trace\ndistance between the key and a uniform key independent of Eve, must vanish\nasymptotically.  One use of $\\mathcal N\\otimes\\mathcal M$ means one use of\neach channel, with independent environments and ordinary causal ordering.  The\nquestion is whether there is a pair satisfying\n\\begin{equation}\n  K_{\\leftrightarrow}(\\mathcal N)=K_{\\leftrightarrow}(\\mathcal M)=0,\n  \\qquad\n  K_{\\leftrightarrow}(\\mathcal N\\otimes\\mathcal M)>0.\n  \\label{eq:59e9-superactivation}\n\\end{equation}",
   "source": "This formulation is derived.  It combines the two-way-assisted capacity\nframework of \\sourcecite{ref:59e9-plob}{PLOB17} with the open existence\nquestion for entangled zero-key states stated in Sec.~1 of\n\\sourcecite{ref:59e9-hsdw}{HSDW26}.  The unassisted private-capacity\ncounterpart is described as a longstanding open problem, and resolved, in\n\\sourcecite{ref:59e9-zw}{ZW26}; the two-way-assisted question in\nEq.~\\eqref{eq:59e9-superactivation} is not stated as a separate problem in\nthe cited papers.",

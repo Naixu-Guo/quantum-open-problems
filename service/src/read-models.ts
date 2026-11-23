@@ -1,6 +1,7 @@
 /**
  * Read models the API serves. Computed from the ledger and the index; nothing stored.
  */
+import fieldAliases from "../../shared/field-aliases.json" with { type: "json" };
 import type { Ledger, LoadedRecord } from "../../contract/src/ledger.ts";
 import { revisionOf } from "../../contract/src/ledger.ts";
 import { currentDecisions, acceptedClaims, clauseStatus, problemStatus, catalogState, isIndexed, contributionState, verificationLevel, statementIsCurrent, lineageOf, lastActivity, lastHumanReview } from "../../contract/src/derive.ts";
@@ -371,8 +372,13 @@ export function taxonomyView(ledger: Ledger) {
 export function taxonomyId(ledger: Ledger, kind: "areas" | "topics", value: string): string | null {
   const fold = (text: string) => text.trim().replace(/\s+/gu, " ").toLowerCase();
   const entries = taxonomyView(ledger)?.[kind] as { id: string; label: string }[] | undefined;
-  const found = entries?.find(entry => fold(entry.id) === fold(value) || fold(entry.label) === fold(value));
-  return found?.id ?? null;
+  const key = fold(value);
+  const found = entries?.find(entry => fold(entry.id) === key || fold(entry.label) === key);
+  if (found) return found.id;
+  const previousSlug = key.replaceAll(" ", "-");
+  if (kind !== "areas" || !Object.hasOwn(fieldAliases, previousSlug)) return null;
+  const currentSlug = fieldAliases[previousSlug as keyof typeof fieldAliases];
+  return entries?.find(entry => entry.id === currentSlug)?.id ?? null;
 }
 
 /** Every current actor, so pages can name who wrote a record. Keys and identities stay in the auth store. */

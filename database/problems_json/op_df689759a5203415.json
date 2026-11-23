@@ -19,10 +19,10 @@
     "origin": "derived",
     "posed": "2025",
     "areaIds": [
-      "quantum-metrology"
+      "quantum-statistical-inference"
     ],
     "topicIds": [
-      "quantum-estimation"
+      "quantum-tomography"
     ],
     "keywords": [
       "quantum state tomography",
@@ -38,10 +38,10 @@
   "title": "Sample complexity of low-rank tomography with Pauli measurements",
   "status": "Unsolved",
   "fields": [
-    "Quantum metrology"
+    "Quantum Statistical Inference"
   ],
   "topics": [
-    "Quantum estimation"
+    "Quantum tomography"
   ],
   "statement": "How many copies of an unknown low-rank $N$-qubit state does tomography with Pauli measurements need?\n\nLet $d=2^N$ and let $\\rho$ be a density operator on $(\\mathbb{C}^2)^{\\otimes N}$ with $\\operatorname{rank}(\\rho)\\leq r$, where $1\\leq r\\leq d$ is known to the algorithm. A Pauli measurement is labeled by a string $s\\in\\{X,Y,Z\\}^N$. It measures every qubit $j$ in the eigenbasis of the Pauli operator $\\sigma_{s_j}$ and records all $N$ outcomes $x\\in\\{-1,1\\}^N$, so its POVM elements are\n\\begin{equation}\n  M^{s}_{x}=\\bigotimes_{j=1}^{N}\\frac{I+x_j\\,\\sigma_{s_j}}{2},\n  \\qquad\n  \\sigma_X=X,\\quad\\sigma_Y=Y,\\quad\\sigma_Z=Z.\n  \\label{eq:df68-pauli-povm}\n\\end{equation}\nAn algorithm consumes one fresh copy of $\\rho$ per measurement, and the string $s$ used on a copy may depend on the outcomes recorded on all earlier copies. After $n$ copies it outputs a density operator $\\hat\\rho$. It succeeds on $\\rho$ if\n\\begin{equation}\n  \\tfrac12\\lVert\\hat\\rho-\\rho\\rVert_1\\leq\\epsilon\n  \\label{eq:df68-error}\n\\end{equation}\nholds with probability at least $2/3$. Let $n_{\\mathrm{P}}(N,r,\\epsilon)$ be the least $n$ for which some algorithm using only measurements of the form \\eqref{eq:df68-pauli-povm} satisfies \\eqref{eq:df68-error} on every state of rank at most $r$. The success probability is fixed at $2/3$. Comparisons below with bounds stated at other constant success probabilities allow a constant rescaling of $\\epsilon$.\n\nDetermine how $n_{\\mathrm{P}}(N,r,\\epsilon)$ grows with $N$ and $r$. In exponent form, fix a sufficiently small constant $\\epsilon>0$ and for $0\\leq\\alpha\\leq1$ set\n\\begin{equation}\n  c(\\alpha):=\\lim_{N\\to\\infty}\\frac{1}{N}\\log_2 n_{\\mathrm{P}}\\bigl(N,\\lceil2^{\\alpha N}\\rceil,\\epsilon\\bigr),\n  \\label{eq:df68-exponent}\n\\end{equation}\nwith the limit inferior and the limit superior taken separately if the limit does not exist. The endpoints are known, $c(0)=1$ and $c(1)=\\log_2 10$. For $0<\\alpha<1$ the known bounds are\n\\begin{equation}\n  \\max\\{1+\\alpha,\\ \\alpha\\log_2 10\\}\\leq c(\\alpha)\\leq\\min\\{\\log_2 3+2\\alpha,\\ \\log_2 10\\},\n  \\label{eq:df68-known-bounds}\n\\end{equation}\nand the lower bound improves to $\\max\\{1+2\\alpha,\\alpha\\log_2 10\\}$ for nonadaptive algorithms, those whose strings $s$ are all fixed before the first copy is measured. Determine $c(\\alpha)$ for every $\\alpha\\in(0,1)$, both for the adaptive algorithms defined above and for nonadaptive algorithms. Upper and lower bounds on $n_{\\mathrm{P}}(N,r,\\epsilon)$ that agree up to a factor polynomial in $N$ for every $r$ would settle the question.",
   "source": "Acharya, Dharmavarapu, Liu, and Yu, in Section~1.2 of the arXiv version of their STOC~2025 paper, name the extension of Pauli-measurement tomography to low-rank states as a direction for future work and collect the bounds available for intermediate rank \\sourcecite{ref:df68-acharya-stoc}{ADLY25}. The exponent \\eqref{eq:df68-exponent} and the bounds \\eqref{eq:df68-known-bounds} are formulated here from those bounds together with the pure-state result of Grewal, Gupta, He, Sen, and Singhal \\sourcecite{ref:df68-grewal}{GGH+26} and the full-rank lower bound of Acharya, Dharmavarapu, Liu, and Yu \\sourcecite{ref:df68-acharya-single-qubit}{ADLY25b}. No source states the question in this form.",

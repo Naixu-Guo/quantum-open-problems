@@ -294,10 +294,10 @@ test("maintained catalog research workflows through the official HTTP SDK", { ti
     if (!researchById.has(id)) researchById.set(id, await call<ResearchProblem>("get_problem", { id, view: "research" }));
     return researchById.get(id)!;
   };
-  await t.test("research search traverses every algorithm and every unsolved problem with complete individual-reader equivalence", async () => {
+  await t.test("research search traverses the computation field and all unsolved problems with complete individual-reader equivalence", async () => {
     let oversizedDefaults = 0;
     for (const filters of [
-      { area: "Quantum algorithm", status: "Unsolved", sort: "title" },
+      { area: "Quantum Computation", status: "Unsolved", sort: "title" },
       { status: "Unsolved", sort: "title" },
     ]) {
       const summary = await call<SearchPage>("search_problems", { ...filters, limit: 200 });

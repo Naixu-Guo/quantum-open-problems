@@ -19,10 +19,10 @@
     "origin": "editor-formulated",
     "posed": null,
     "areaIds": [
-      "quantum-metrology"
+      "quantum-statistical-inference"
     ],
     "topicIds": [
-      "quantum-estimation",
+      "quantum-tomography",
       "one-shot-and-finite-blocklength-bounds"
     ],
     "keywords": [],
@@ -33,10 +33,10 @@
   "title": "Optimal precision dependence of diamond-norm channel tomography",
   "status": "Solved",
   "fields": [
-    "Quantum metrology"
+    "Quantum Statistical Inference"
   ],
   "topics": [
-    "Quantum estimation",
+    "Quantum tomography",
     "One-shot and finite-blocklength bounds"
   ],
   "statement": "Does tomography of an arbitrary $d$-dimensional quantum channel in diamond norm require and suffice with $\\Theta(d^4/\\varepsilon^2)$ channel uses?\n\nFor $d\\geq2$, let $\\Lambda:\\mathcal L(\\mathbb C^d)\\to\\mathcal L(\\mathbb C^d)$ be an unknown completely positive, trace-preserving channel with no Kraus-rank promise. Let $Q_\\diamond(d,\\varepsilon)$ be the minimum worst-case number of ordinary channel uses needed to output $\\widehat\\Lambda$ such that\n\n\\begin{equation}\n\\Pr[\\|\\widehat\\Lambda-\\Lambda\\|_\\diamond\\leq\\varepsilon]\\geq\\frac23,\n\\qquad\n\\|\\Phi\\|_\\diamond=\\sup_\\omega\\| (\\Phi\\otimes\\operatorname{id}_d)(\\omega)\\|_1.\n\\label{eq:d3e3-1}\n\\end{equation}\n\nThe supremum in Eq.~\\eqref{eq:d3e3-1} is over states on $\\mathbb C^d\\otimes\\mathbb C^d$. Adaptive inputs, ancillas, quantum memory, and collective measurements are allowed, but no purification of the channel environment is supplied. Is $Q_\\diamond(d,\\varepsilon)=\\Theta(d^4/\\varepsilon^2)$ uniformly in $d$ and sufficiently small $\\varepsilon$?",
