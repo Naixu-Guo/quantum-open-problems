@@ -22,7 +22,7 @@
       "quantum-cryptography"
     ],
     "topicIds": [
-      "secret-key-distillation",
+      "secret-key-capacity",
       "bosonic-channels"
     ],
     "keywords": [],
@@ -40,7 +40,7 @@
     "Quantum Cryptography"
   ],
   "topics": [
-    "Secret-key distillation",
+    "Secret-key capacity",
     "Bosonic channels"
   ],
   "statement": "What is the secret-key capacity of a thermal attenuator for every transmissivity and thermal noise level?\nFix a transmissivity $0<\\eta<1$ and $b\\geq0$. The single-mode thermal attenuator $\\mathcal L_{\\eta,b}$ is realized by a beam splitter with output annihilation operator\n\\begin{equation}\n a_{\\mathrm{out}}=\\sqrt\\eta\\,a+\\sqrt{1-\\eta}\\,e.\n \\label{eq:sc-attenuator}\n\\end{equation}\nThe independent input and environment modes obey $[a,a^\\dagger]=[e,e^\\dagger]=1$. The environment is a fresh independent thermal mode at each use, with mean photon number $b$ and density operator\n\\begin{equation}\n \\tau_b=\\frac1{b+1}\\sum_{n=0}^{\\infty}\\left(\\frac b{b+1}\\right)^n|n\\rangle\\langle n|\\quad(b>0),\\qquad \\tau_0=|0\\rangle\\langle0|.\n \\label{eq:sc-thermal}\n\\end{equation}\nHere $|n\\rangle$ is the $n$-photon Fock state. The unused output mode is discarded.\nEquations~\\eqref{eq:sc-attenuator} and \\eqref{eq:sc-thermal} specify the channel on arbitrary input states.\nProtocols may use arbitrary adaptive local quantum operations and unlimited two-way public classical communication. The parties initially share no entanglement or secret key. There is no input-energy bound; the capacity is the supremum over finite mean input-energy budgets.\nThe secret-key capacity $K$ is the supremum of asymptotic secret bits per channel use. Correctness and secrecy errors must vanish. Secrecy is against an adversary holding a purification of the channel environment and the public transcript.\nAn equivalent formulation asks for the secret-key capacity of a thermal amplifier. With the same thermal environment, define\n\\begin{equation}\n\\begin{aligned}\n a_{\\mathrm{out}}&=\\sqrt\\kappa\\,a+\\sqrt{\\kappa-1}\\,e^\\dagger,\n \\qquad \\kappa>1,\\\\\n K(\\mathcal A_{\\kappa,b})&=K(\\mathcal L_{1/\\kappa,b}).\n\\end{aligned}\n\\label{eq:sc-reciprocal-key}\n\\end{equation}\nThus Eq.~\\eqref{eq:sc-reciprocal-key} identifies the two capacity functions after changing parameters. This identity uses unlimited two-way communication and the supremum over finite energy budgets.",

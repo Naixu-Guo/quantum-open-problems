@@ -47,7 +47,7 @@ are not enabled on the public deployment. The optional local adapter supports
 them on a deployment whose operator has provisioned editors, keys, and Git sync.
 
 `get_taxonomy` lists available labels and slugs. `search_problems` accepts either
-case-insensitively, for example `area: "Quantum Communication"` and
+case-insensitively, for example `area: "Quantum Information Theory"` and
 `topic: "Private capacity"`. An unknown taxonomy name returns an error.
 Search returns `total` matching records, `count` rows on this page (50 by default),
 `catalogVersion`, `nextCursor`, and legacy `nextOffset`. Prefer repeating the same
@@ -61,7 +61,7 @@ research details for a filtered set without first collecting IDs and issuing
 individual detail calls:
 
 ```json
-{"area":"quantum-algorithm","status":"Unsolved","view":"research"}
+{"area":"quantum-computation","status":"Unsolved","view":"research"}
 ```
 
 Research search returns `qop-search-research/1`. Every result has the same complete

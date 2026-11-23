@@ -19,6 +19,15 @@ const write = (root, relative, value) => {
 };
 const archived = `database/merged_problems_json/${entry.record.id}.json`;
 const original = `database/problems_json/${entry.record.id}.json`;
+const registry = "database/tags.json";
+function seedUnmerged(root, record) {
+  const taxonomy = JSON.parse(fs.readFileSync(path.join(root, registry), "utf8"));
+  write(root, registry, { ...taxonomy, fields: [...new Set([...taxonomy.fields, ...record.fields])] });
+  write(root, original, record);
+}
+function restoreCurrentTaxonomy(root) {
+  fs.copyFileSync(path.join(repo, registry), path.join(root, registry));
+}
 function fixture(t) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "qop-catalog-merge-"));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
@@ -30,7 +39,7 @@ function fixture(t) {
 
 test("catalog merge appends authority, preserves every historical byte and remains exportable", async t => {
   const root = fixture(t);
-  write(root, original, entry.record);
+  seedUnmerged(root, entry.record);
   await exportLedger({ root });
   const before = validateLedger([path.join(root, "ledger"), path.join(root, "activity")]);
   assert.deepEqual(before.issues, []);
@@ -44,6 +53,7 @@ test("catalog merge appends authority, preserves every historical byte and remai
   const history = new Map([...before.ledger.records.map(r => r.path), commentPath].map(file => [file, fs.readFileSync(file)]));
   write(root, archived, entry);
   fs.rmSync(path.join(root, original));
+  restoreCurrentTaxonomy(root);
   await assert.rejects(exportLedger({ root, check: true }), /Ledger export drift/);
   const result = await exportLedger({ root });
   assert.equal(result.activeProblemCount, 1);
@@ -53,7 +63,10 @@ test("catalog merge appends authority, preserves every historical byte and remai
   assert.equal(catalogState(ledger, entry.record.ulid), "merged");
   assert.equal(isIndexed(ledger, entry.record.ulid), false);
   assert.equal(isIndexed(ledger, canonical.ulid), true);
-  assert.deepEqual(ledger.find("Problem", entry.record.ulid).fields.authoredCatalog.record, entry.record);
+  const merged = ledger.find("Problem", entry.record.ulid).fields;
+  assert.deepEqual(merged.areaIds, canonical.metadata.areaIds);
+  assert.deepEqual(merged.topicIds, canonical.metadata.topicIds);
+  assert.deepEqual(merged.authoredCatalog.record, entry.record);
   for (const [file, bytes] of history) assert.deepEqual(fs.readFileSync(file), bytes);
   await exportLedger({ root, check: true });
   assert.equal((await exportLedger({ root })).changed, 0);
@@ -80,10 +93,11 @@ test("a later canonical resolution updates effective status without rewriting th
   const root = fixture(t);
   const unresolved = { ...entry, record: { ...entry.record, status: "Unsolved" } };
   write(root, `database/problems_json/${canonical.id}.json`, { ...canonical, status: "Unsolved" });
-  write(root, original, unresolved.record);
+  seedUnmerged(root, unresolved.record);
   await exportLedger({ root });
   write(root, archived, unresolved);
   fs.rmSync(path.join(root, original));
+  restoreCurrentTaxonomy(root);
   await exportLedger({ root });
   const archivedBytes = fs.readFileSync(path.join(root, archived));
   write(root, `database/problems_json/${canonical.id}.json`, canonical);

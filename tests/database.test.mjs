@@ -11,6 +11,7 @@ import { parseProblem } from "../site/lib/tex.mjs";
 import { loadTaxonomy } from "../site/lib/taxonomy.mjs";
 import { metadataSlug, validateRecordIdentities, distinctQuestionCounts } from "../site/lib/metadata.mjs";
 import { loadMergedProblems } from "../site/lib/merged-problems.mjs";
+import fieldAliases from "../shared/field-aliases.json" with { type: "json" };
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (file) => JSON.parse(fs.readFileSync(file, "utf8"));
@@ -203,8 +204,15 @@ test("built aliases and main adapter preserve every authored record and binary s
   assert.ok(home.includes(`<strong>${expectedQuestionCounts.solved}</strong><span>Solved</span>`));
   const catalog = fs.readFileSync(path.join(output, "problems/index.html"), "utf8");
   assert.equal(identities.problems.length, records.length);
+  const idsByUlid = new Map(records.map((record) => [record.ulid, record.id]));
   for (const record of records) {
     const canonical = fs.readFileSync(path.join(output, `api/problems/${record.id}.json`), "utf8");
+    const curated = record.metadata.relatedProblemIds.map((id) => idsByUlid.get(id));
+    const related = JSON.parse(canonical).related;
+    const relatedIds = related.map(({ id }) => id);
+    assert.deepEqual(relatedIds.slice(0, curated.length), curated);
+    assert.equal(new Set(relatedIds).size, related.length);
+    assert.ok(related.slice(curated.length).every(({ sharedTopics }) => sharedTopics.length > 0));
     for (const alias of record.aliases) {
       assert.equal(identities.aliases[alias].ulid, record.ulid);
       assert.equal(fs.readFileSync(path.join(output, `api/problems/${alias}.json`), "utf8"), canonical);
@@ -246,6 +254,14 @@ test("built aliases and main adapter preserve every authored record and binary s
       assert.ok(fs.readFileSync(path.join(output, `packets/${alias}.md`), "utf8").includes(`/packets/${target.id}.md`));
     }
     assert.equal(read(path.join(output, `api/main/problems/${record.ulid}.json`)).problem.id, target.ulid);
+  }
+  const visibleCompression = fs.readFileSync(path.join(output, "problem/op_1ab8b10386bddd66/index.html"), "utf8");
+  const relatedPanel = visibleCompression.match(/<section[^>]+id="related">[\s\S]*?<\/section>/u)?.[0];
+  assert.equal(relatedPanel?.match(/href="[^"]*problem\/(op_[a-f0-9]+)\//u)?.[1], "op_ac5fa4581b04f4c2");
+  for (const [oldSlug, currentSlug] of Object.entries(fieldAliases)) {
+    const page = fs.readFileSync(path.join(output, `tag/${oldSlug}/index.html`), "utf8");
+    assert.ok(page.includes(`href="../${currentSlug}/"`));
+    assert.ok(fs.existsSync(path.join(output, `tag/${currentSlug}/index.html`)));
   }
   for (const dir of fs.readdirSync(path.join(output, "tag"))) {
     const page = fs.readFileSync(path.join(output, "tag", dir, "index.html"), "utf8");

@@ -199,8 +199,8 @@ API/MCP counts. Deleting the active JSON alone is incomplete.
 
 ## Fields and topics
 
-A **field** is one of the seven research areas in `database/tags.json`;
-a **topic** names the central question, resource, or operational task.
+A **field** is a broad research area listed in `database/tags.json`.
+A **topic** names the central question, resource, or operational task.
 Use [the taxonomy guide](database/TAXONOMY.md) for field boundaries and
 examples. Give a problem one primary field and a second only when its
 statement materially spans both, then one to five topics that help a reader
@@ -213,7 +213,9 @@ A new topic should express a useful distinction absent from the registry and
 arrive with its first problem in the same pull request. Keep the registered fields
 fixed unless a maintainer requests a taxonomy revision. Every renamed or
 removed tag must be reconciled across all records, metadata, TeX, and ledger
-exports in the same change.
+exports in the same change. Add renamed field slugs to
+[`shared/field-aliases.json`](shared/field-aliases.json) to preserve existing
+links and filters.
 
 ## Writing rules
 

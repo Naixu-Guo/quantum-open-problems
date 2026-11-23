@@ -16,7 +16,7 @@ const escape = (value = "") => String(value)
 
 // Field labels use title case; stored taxonomy names remain stable keys.
 const tagLabel = (name, kind) => kind === "field"
-  ? name.replace(/\b[a-z]/g, (letter) => letter.toUpperCase())
+  ? name.replace(/\b(?!and\b)[a-z]/g, (letter) => letter.toUpperCase())
   : name;
 
 export const displayDate = (iso) => {
@@ -336,12 +336,15 @@ export function renderProblemPage({ record, config, root, related, dates }) {
         <dd>${entry.html}${entry.links.length ? `<span class="reference-links">${entry.links.map((link) => `<a href="${escape(link.url)}" rel="noreferrer" class="ref-link ref-${link.kind}">${link.kind === "arxiv" ? "arXiv" : link.kind === "doi" ? "DOI" : "link"}</a>`).join("")}</span>` : ""}</dd>
       </div>`).join("\n");
   const relatedList = related.length
-    ? `<ul class="related-list">${related.map((item) => `<li>
+    ? `<ul class="related-list">${related.map((item) => {
+        const tags = [...item.sharedFields.map((tag) => tagLabel(tag, "field")), ...item.sharedTopics];
+        return `<li>
         <a href="${root}problem/${item.record.id}/">${item.record.title.html}</a>
         ${statusTag(item.record.status, "status-tag-small")}
-        <span class="related-tags">${item.shared.map((tag) => escape(tagLabel(tag, item.record.fields.includes(tag) ? "field" : "topic"))).join(" · ")}</span>
-      </li>`).join("")}</ul>`
-    : `<p class="muted">No other problem shares a field or topic with this one yet.</p>`;
+        ${tags.length ? `<span class="related-tags">${tags.map(escape).join(" · ")}</span>` : ""}
+      </li>`;
+      }).join("")}</ul>`
+    : `<p class="muted">No related problems yet.</p>`;
   const taxonomyRow = (kind, names) => `<div class="taxonomy-row">
             <dt>${names.length === 1 ? TAG_KINDS[kind].label : TAG_KINDS[kind].plural}</dt>
             <dd><ul class="tag-list">${names.map((name) => `<li>${tagLink(name, root, kind)}</li>`).join("")}</ul></dd>
@@ -661,7 +664,7 @@ export function renderTagPage({ config, root, kind, tag, tagSlug = slug(tag), hi
         <p>${records.length} record${records.length === 1 ? "" : "s"}: ${counts.unsolved} unsolved, ${counts.solved} solved. <a class="text-link" href="${root}problems/?${historical ? "legacyTag" : kind}=${encodeURIComponent(tagSlug)}">Filter the catalog by this ${historical ? "historical classification" : kind} →</a></p>
       </div>
       ${relatedEntries.length ? `<div class="top-tags tag-page-related">
-        <span class="top-tags-label">${kind === "field" ? "Topics in this field" : "Fields of these problems"}</span>
+        <span class="top-tags-label">${kind === "field" ? "Topics on these records" : "Fields of these problems"}</span>
         <ul class="tag-list">${relatedEntries.map(([name, count]) => `<li>${tagLink(name, root, otherKind, count)}</li>`).join("")}</ul>
       </div>` : ""}
       <ul class="problem-list">

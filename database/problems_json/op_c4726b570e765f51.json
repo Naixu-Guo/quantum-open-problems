@@ -20,10 +20,10 @@
     "posed": null,
     "areaIds": [
       "quantum-cryptography",
-      "quantum-communication"
+      "quantum-information-theory"
     ],
     "topicIds": [
-      "secret-key-distillation",
+      "secret-key-capacity",
       "local-operations-and-classical-communication"
     ],
     "keywords": [
@@ -41,10 +41,10 @@
   "status": "Unsolved",
   "fields": [
     "Quantum Cryptography",
-    "Quantum Communication"
+    "Quantum Information Theory"
   ],
   "topics": [
-    "Secret-key distillation",
+    "Secret-key capacity",
     "Local operations and classical communication"
   ],
   "statement": "What is the exact secret-key capacity $K(\\mathcal A_p)$ of the qubit amplitude-damping channel for every damping probability $p\\in[0,1]$? Define the channel by\n\\begin{equation}\n  \\begin{aligned}\n    \\mathcal A_p(\\rho)&=A_0\\rho A_0^\\dagger+A_1\\rho A_1^\\dagger,\\\\\n    A_0&=\\lvert0\\rangle\\!\\langle0\\rvert+\\sqrt{1-p}\\,\\lvert1\\rangle\\!\\langle1\\rvert,\n    \\qquad A_1=\\sqrt p\\,\\lvert0\\rangle\\!\\langle1\\rvert.\n  \\end{aligned}\n  \\label{eq:adkey-channel}\n\\end{equation}\nIn Eq.~\\eqref{eq:adkey-channel}, $\\rho$ is a qubit density operator and $p$ is the excited-state decay probability. Alice may send systems to Bob through arbitrarily many independent uses of this channel. They may interleave these uses with arbitrary adaptive local quantum operations and unlimited authenticated two-way public classical communication. No preshared entanglement or secret key is available, apart from a vanishing-rate authentication seed. Eve holds the channel environments and the entire public transcript. The capacity is the supremum of asymptotic rates $\\liminf_{n\\to\\infty}\\log_2 M_n/n$ attainable by protocols producing keys in an alphabet of size $M_n$, with disagreement probability tending to zero and trace-distance secrecy from a uniform key independent of Eve tending to zero. Determine this capacity in secret bits per channel use, with matching achievability and converse bounds.",

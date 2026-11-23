@@ -169,7 +169,9 @@ write schema is explicitly retired; clients use service schemas or catalog PRs.
 historical commits. Unmapped old records receive an explicit archive link,
 never an unverified identity redirect. Removed tag pages and query filters
 show their historical problem cohort with current content and statuses.
-Current taxonomy pages continue to use only `database/tags.json`.
+Current taxonomy pages use `database/tags.json`. Renamed field URLs redirect
+to the current field. Catalog and service filters accept the former field
+slugs listed in `shared/field-aliases.json`.
 
 
 ## Merging duplicate records
@@ -192,9 +194,8 @@ then synchronize and export normally. The archive is a reproducible migration
 input, excluded from website lists, downloads, random selection and question
 counts. It retains the old IDs, aliases and original statement. The target
 must be a current canonical problem; self-merges, chains,
-alias collisions and accidental reintroduction fail the build. The archived
-record retains its historical status; effective status follows the canonical
-question, including later resolutions.
+alias collisions and accidental reintroduction fail the build. The archive retains its historical status and classification. The ledger
+projection follows the canonical question’s current status and classification.
 
 The exporter appends a Problem revision with
 `authoredCatalog.mergedIntoProblemId` and `mergeReason`. It retains historical

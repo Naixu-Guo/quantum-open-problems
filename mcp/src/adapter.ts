@@ -151,7 +151,7 @@ export function createAdapter(serviceUrl: string, apiKey: string | null = null, 
   };
 
   const problemFilters = {
-    area: { type: "string", description: "Field label or slug; get_taxonomy lists canonical values, e.g. Quantum Algorithm." },
+    area: { type: "string", description: "Field label or slug; get_taxonomy lists canonical values, e.g. Quantum Computation." },
     topic: { type: "string", description: "Topic label or slug from get_taxonomy." },
     status: { enum: ["Unsolved", "Solved"] }, difficulty: { type: "string" }, text: { type: "string", maxLength: 2048, description: "Up to 32 normalized whitespace-delimited terms; use taxonomy filters for fields/topics." },
     includeCandidates: { type: "boolean", description: "Include active unpublished candidates. Merged and retired identities stay excluded." },

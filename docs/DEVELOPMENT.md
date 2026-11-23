@@ -195,10 +195,9 @@ the `npm run handoff-catalog` authoring handoff.
 3. `site/lib/render.mjs` produces the pages from those records.
 4. `site/build.mjs` checks the set (unique IDs, file names matching IDs,
    canonical fields and topics in the right numbers, JSON and TeX in step),
-   computes related problems from shared topics and fields (a shared topic
-   counts twice as much as a shared field), reads edit dates from git history,
-   appends content hashes to asset links so browsers refetch changed files,
-   and writes everything under `dist/`.
+   lists authored problem links before suggestions based on shared topics,
+   reads edit dates from git history, appends content hashes to asset links
+   so browsers refetch changed files, and writes everything under `dist/`.
 
 Mathematics is typeset in the browser by MathJax 4 (SVG output), so equations
 scale with zoom and render the same across browsers. Fonts come from Google

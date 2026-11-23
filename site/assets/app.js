@@ -166,7 +166,7 @@
   };
   // Match the title-case field labels rendered by the static templates.
   const tagLabel = (name, kind) => kind === "field"
-    ? name.replace(/\b[a-z]/g, (letter) => letter.toUpperCase())
+    ? name.replace(/\b(?!and\b)[a-z]/g, (letter) => letter.toUpperCase())
     : name;
   const tagHtml = (name, kind) => `<li><a class="tag tag-${kind}" href="${root}tag/${slugify(name)}/" title="${kind === "field" ? "Field" : "Topic"}: ${escapeHtml(tagLabel(name, kind))}">${escapeHtml(tagLabel(name, kind))}</a></li>`;
   const cardHtml = (problem) => {
@@ -240,18 +240,26 @@
     const params = new URLSearchParams(location.search);
     const fieldSlugs = new Set(fieldButtons.map((button) => button.dataset.field));
     const topicSlugs = new Set(topicSelect ? [...topicSelect.options].map((option) => option.value) : []);
+    const fieldAliases = window.QIQCOP_FIELD_ALIASES || {};
+    const resolveField = (key) => {
+      if (!key || fieldSlugs.has(key) || !Object.hasOwn(fieldAliases, key)) return key;
+      const current = fieldAliases[key];
+      return fieldSlugs.has(current) ? current : key;
+    };
     const state = {
       q: (params.get("q") || "").trim().toLowerCase(),
       status: params.get("status") || "all",
-      field: params.get("field") || "all",
+      field: resolveField(params.get("field")) || "all",
       topic: params.get("topic") || "all",
       sort: params.get("sort") || "updated"
     };
     const historicalTags = window.QIQCOP_LEGACY_TAGS || {};
-    state.legacyTag = [params.get("legacyTag"), params.get("tag"), params.get("field"), params.get("topic")]
-      .find((key) => key && Object.hasOwn(historicalTags, key) && Array.isArray(historicalTags[key]?.ids) && !fieldSlugs.has(key) && !topicSlugs.has(key)) || "";
+    const legacyTag = resolveField(params.get("tag"));
+    const historicalTag = params.get("legacyTag");
+    state.legacyTag = [historicalTag, legacyTag, state.field, params.get("topic")]
+      .find((key) => key && Object.hasOwn(historicalTags, key) && Array.isArray(historicalTags[key]?.ids)
+        && (key === historicalTag || (!fieldSlugs.has(key) && !topicSlugs.has(key)))) || "";
     // Links written before the taxonomy was split use ?tag=; honour them.
-    const legacyTag = params.get("tag");
     if (legacyTag) {
       if (fieldSlugs.has(legacyTag) && state.field === "all") state.field = legacyTag;
       else if (topicSlugs.has(legacyTag) && state.topic === "all") state.topic = legacyTag;

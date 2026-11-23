@@ -30,9 +30,15 @@ after(async () => {
 });
 
 test("catalog area/topic labels match slugs regardless of case and extra spaces", async () => {
-  const expected = records.filter(r => r.fields.includes("Quantum Communication") && r.topics.includes("Private capacity")).map(r => r.ulid).sort();
+  const expected = records.filter(r => r.fields.includes("Quantum Information Theory") && r.topics.includes("Private capacity")).map(r => r.ulid).sort();
   assert.ok(expected.length);
-  for (const [area, topic] of [["Quantum Communication", "Private capacity"], [" QUANTUM   communication ", "PRIVATE CAPACITY"], [metadataSlug("Quantum Communication"), metadataSlug("Private capacity")]]) {
+  for (const [area, topic] of [
+    ["Quantum Information Theory", "Private capacity"],
+    [" QUANTUM   information theory ", "PRIVATE CAPACITY"],
+    [metadataSlug("Quantum Information Theory"), metadataSlug("Private capacity")],
+    [" QUANTUM   communication ", "Private capacity"],
+    ["quantum-communication", "Private capacity"],
+  ]) {
     const { response, body } = await get(`/api/v1/problems?${new URLSearchParams({ area, topic, limit: "200" })}`);
     assert.equal(response.status, 200);
     assert.deepEqual(body.problems.map(p => p.id).sort(), expected);

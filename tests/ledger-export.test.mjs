@@ -34,8 +34,9 @@ test("the authoritative export round-trips every authored record and both public
     assert.equal(problem.id, original.ulid);
     assert.equal(problem.aliases[0], metadataSlug(original.id));
     for (const alias of original.aliases) assert.ok(problem.aliases.includes(alias));
-    assert.deepEqual(problem.areaIds, original.metadata.areaIds);
-    assert.deepEqual(problem.topicIds, original.metadata.topicIds);
+    const classification = (canonical ?? original).metadata;
+    assert.deepEqual(problem.areaIds, classification.areaIds);
+    assert.deepEqual(problem.topicIds, classification.topicIds);
     assert.equal(problem.revision, 1);
     assert.equal(statement.clauses[0].text, original.statement);
     assert.equal(statement.digest, statementDigest(statement.body));

@@ -19,10 +19,10 @@
     "origin": "derived",
     "posed": null,
     "areaIds": [
-      "quantum-algorithm"
+      "quantum-dynamics-and-many-body-theory"
     ],
     "topicIds": [
-      "hamiltonian-simulation"
+      "rotating-wave-approximation"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -32,10 +32,10 @@
   "title": "Compact-time validity of the rotating wave approximation",
   "status": "Solved",
   "fields": [
-    "Quantum algorithm"
+    "Quantum Dynamics and Many-Body Theory"
   ],
   "topics": [
-    "Hamiltonian simulation"
+    "Rotating-wave approximation"
   ],
   "statement": "Does the Jaynes--Cummings evolution approximate the Rabi evolution strongly and uniformly on each compact time interval in the high-frequency limit?\nWork on $\\mathbb C^2\\otimes L^2(\\mathbb R)$.\nLet $a,a^\\dagger$ be oscillator operators with $[a,a^\\dagger]=1$ and $N=a^\\dagger a$.\nWrite $\\sigma_x,\\sigma_y,\\sigma_z$ for the Pauli matrices and $\\sigma_\\pm=(\\sigma_x\\pm i\\sigma_y)/2$.\nFix $\\lambda>0$ and $\\Delta\\in\\mathbb R$.\nFor $\\omega>\\max\\{0,-\\Delta\\}$, define\n\\begin{equation}\n \\begin{aligned}\n H_\\omega&=\\frac{\\omega+\\Delta}{2}\\sigma_z+\\omega N+\n                \\lambda\\sigma_x(a+a^\\dagger),\\\\\n J_\\omega&=\\frac{\\omega+\\Delta}{2}\\sigma_z+\\omega N+\n                \\lambda(\\sigma_+a+\\sigma_-a^\\dagger).\n \\end{aligned}\n \\label{eq:rwa-hamiltonians}\n\\end{equation}\nTensor factors of the identity are implicit.\nUse the self-adjoint closures of Eq.~\\eqref{eq:rwa-hamiltonians} from $\\mathbb C^2\\otimes\\mathcal S(\\mathbb R)$.\nHere $\\mathcal S(\\mathbb R)$ is the Schwartz space.\nIs it true that every normalized $\\psi\\in\\mathbb C^2\\otimes L^2(\\mathbb R)$ and every finite $T>0$ satisfy\n\\begin{equation}\n \\lim_{\\omega\\to\\infty}\\sup_{|t|\\leq T}\n \\|(e^{-itH_\\omega}-e^{-itJ_\\omega})\\psi\\|=0?\n \\label{eq:rwa-convergence}\n\\end{equation}\nThe vector, time horizon, coupling, and detuning in Eq.~\\eqref{eq:rwa-convergence} are fixed as $\\omega$ grows.",
   "source": "This compact-time formulation follows from the rotating-wave question resolved by Burgarth, Facchi, Hillier, and Ligabò, Theorem~2.1 \\sourcecite{ref:rwa-bfhl}{BFHL24}.\nIt makes explicit the uniformity that follows from their time-dependent estimate.",

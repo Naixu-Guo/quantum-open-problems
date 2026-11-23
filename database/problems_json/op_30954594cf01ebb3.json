@@ -19,12 +19,13 @@
     "origin": "source-stated",
     "posed": null,
     "areaIds": [
-      "quantum-metrology",
-      "quantum-algorithm"
+      "quantum-statistical-inference",
+      "quantum-computation"
     ],
     "topicIds": [
-      "quantum-estimation",
-      "computational-complexity-and-computability"
+      "hamiltonian-learning",
+      "computational-complexity-and-computability",
+      "quantum-sensing-and-metrology"
     ],
     "keywords": [],
     "difficulty": "unrated",
@@ -34,12 +35,13 @@
   "title": "Sparse Hamiltonian learning without short-time control",
   "status": "Unsolved",
   "fields": [
-    "Quantum metrology",
-    "Quantum algorithm"
+    "Quantum Statistical Inference",
+    "Quantum Computation"
   ],
   "topics": [
-    "Quantum estimation",
-    "Computational complexity and computability"
+    "Hamiltonian learning",
+    "Computational complexity and computability",
+    "Quantum sensing and metrology"
   ],
   "statement": "Can every polynomially sparse Hamiltonian be learned with Heisenberg-limited total evolution time when every oracle call has a fixed minimum duration?\n\nLet\n\n\\begin{equation}\nH=\\sum_{P\\neq I^{\\otimes n}}a_PP,\n\\qquad\n|\\{P:a_P\\neq0\\}|\\leq m\\leq n^c,\n\\qquad\n\\|H\\|_{\\mathrm{op}}\\leq1,\n\\label{eq:3095-1}\n\\end{equation}\n\nwhere $c>0$ is fixed, the sum ranges over nonidentity $n$-qubit Pauli strings, and the nonzero coefficients and their supports are unknown. An oracle supplies only forward evolution $e^{-iHt}$ for chosen times $t\\geq T$, where $T>0$ is fixed independently of $n,m,$ and $\\varepsilon$. Known controls and ancillas may be used between calls.\n\nCan a learner output $\\widehat a_P$ with $\\max_P|\\widehat a_P-a_P|\\leq\\varepsilon$ and success probability at least $2/3$, using total evolution time $\\widetilde O(\\operatorname{poly}(n,m)/\\varepsilon)$ and polynomial query, circuit, and classical-processing costs for every Hamiltonian in Eq.~\\eqref{eq:3095-1}?",
   "source": "Shin, Lee, and Oh explicitly pose the polynomial-sparsity, fixed-minimum-duration question in the discussion following their Theorem 2 \\sourcecite{ref:3095-shin26}{Shin26}. The statement is rewritten here to make its hypotheses and success criterion self-contained.",

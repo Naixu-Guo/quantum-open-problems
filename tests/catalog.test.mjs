@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import vm from "node:vm";
 import { renderDirectory, renderTagPage } from "../site/lib/render.mjs";
+import fieldAliases from "../shared/field-aliases.json" with { type: "json" };
 
 const config = JSON.parse(fs.readFileSync(new URL("../site/config.json", import.meta.url), "utf8"));
 const clientScript = fs.readFileSync(new URL("../site/assets/app.js", import.meta.url), "utf8");
@@ -18,6 +19,7 @@ const records = [
   record("op_002", "Yankee newer batch entry", "01", "02"),
   record("op_003", "Zulu latest edit", "02", "00")
 ];
+for (const entry of records.filter(({ id }) => id === "op_001" || id === "op_002")) entry.fields.push("Quantum Information Theory");
 const expected = ["op_003", "op_002", "op_004", "op_001", "op_005"];
 const html = renderDirectory({ config, root: "../", records, fieldCounts: new Map(), topicCounts: new Map() });
 
@@ -47,17 +49,17 @@ function loadCatalog(search = "", historicalTags = {}) {
   });
   const sort = element({ options: ["updated", "title", "status"].map((value) => ({ value })) });
   const clear = element();
-  const field = element({ dataset: { field: "all" } });
+  const fields = ["all", "quantum-information-theory"].map((field) => element({ dataset: { field } }));
   const topic = element({ options: [{ value: "all" }] });
   const elements = new Map([["#problem-list", list], ["#sort-filter", sort], ["#clear-filters", clear], ["#topic-filter", topic]]);
   const location = { search, pathname: "/problems/", hash: "" };
   const document = element({
     body: { dataset: { root: "../" } }, documentElement: { dataset: { theme: "light" } },
     querySelector: (selector) => elements.get(selector) ?? null,
-    querySelectorAll: (selector) => selector === ".filter-panel [data-field]" ? [field] : []
+    querySelectorAll: (selector) => selector === ".filter-panel [data-field]" ? fields : []
   });
   vm.runInNewContext(clientScript, {
-    document, window: { QIQCOP_LEGACY_TAGS: historicalTags }, location, URLSearchParams,
+    document, window: { QIQCOP_LEGACY_TAGS: historicalTags, QIQCOP_FIELD_ALIASES: fieldAliases }, location, URLSearchParams,
     history: { replaceState(_state, _title, url) { location.search = new URL(url, "https://example.test").search; } }
   });
   return { ids: () => rows.map((row) => row.dataset.id), visibleIds: () => rows.filter((row) => !row.hidden).map((row) => row.dataset.id), sort, clear, location };
@@ -70,6 +72,19 @@ test("retired taxonomy bookmarks retain their cohort until the filters are clear
   catalog.clear.listeners.click();
   assert.deepEqual(catalog.visibleIds(), expected);
   assert.equal(catalog.location.search, "");
+});
+
+test("renamed field bookmarks select the current field and explicit archive links retain their cohort", () => {
+  const archive = {
+    "quantum-communication": { name: "Quantum Communication", ids: ["op_004"] },
+    "quantum-information-theory": { name: "Quantum information theory", ids: ["op_005"] }
+  };
+  for (const param of ["field", "tag"]) {
+    const catalog = loadCatalog(`?${param}=quantum-communication`, archive);
+    assert.deepEqual(catalog.visibleIds(), ["op_002", "op_001"]);
+    assert.equal(catalog.location.search, "?field=quantum-information-theory");
+  }
+  assert.deepEqual(loadCatalog("?legacyTag=quantum-information-theory", archive).visibleIds(), ["op_005"]);
 });
 
 test("browser initialization and filter reset preserve newest-first ordering at second precision", () => {
