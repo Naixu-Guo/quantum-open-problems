@@ -4,13 +4,12 @@
 
 **Independent implementation audit:** 13 September 2026.
 
-**Content license:** [CC BY 4.0](../../LICENSE-CONTENT). The accompanying
-verification software is contributed under Apache-2.0.
+**Content license:** [CC BY 4.0](../../LICENSE-CONTENT).
 
 This note gives a three-qubit counterexample to the universal inequality in
 [op_87c77263c8bab523](https://qiqc-op.com/problem/op_87c77263c8bab523/).
 It is structurally distinct from the two counterexamples already recorded in
-the catalog: system B is a classical flag, and the calculation reduces to two
+the catalog. System $B$ is a classical flag, and the calculation reduces to two
 qubit branches. No claim of novelty, priority, or external peer review is made.
 All logarithms have base two.
 
@@ -45,7 +44,7 @@ $$
 \det\sigma=\frac{11591}{36000000}>0.
 $$
 
-Thus both matrices are density operators. In canonical ABC order, set
+Thus both matrices are density operators. In canonical $ABC$ order, set
 
 $$
 \omega_{ABC}
@@ -178,11 +177,10 @@ $$
 F(X,Y)=\mathrm{Tr}(XY)+2\sqrt{\det X\det Y}.
 $$
 
-The script
-[`verify-petz-flagged-counterexample.py`](../../scripts/verify-petz-flagged-counterexample.py)
-evaluates these formulas with Arb real-ball arithmetic. Every input is built
-from integers, rational operations, or an Arb enclosure of $\sqrt3$. At
-256-bit precision, the enclosing balls have midpoints
+The certificate evaluates these formulas with Arb real-ball arithmetic.
+Construct the inputs from integers and rational operations and use a ball
+square root to enclose $\sqrt3$. At $256$ bits of precision, the enclosing
+balls have midpoints
 
 $$
 \begin{aligned}
@@ -214,46 +212,37 @@ The first chain disproves the proposed universal inequality.
 
 ## Independent full-matrix audit
 
-[`audit-petz-flagged-counterexample.py`](../../scripts/audit-petz-flagged-counterexample.py)
-starts only from the six printed entries of the sparse $8\times8$ state. It
-recomputes the partial traces by basis-index summation, constructs the Petz
-map through its Kraus operators, evaluates all four entropy spectra, and
-computes fidelity by a full-matrix singular-value decomposition. It does not
-import the scalar reduction or the Arb verifier.
+Start from the six printed entries of the sparse $8\times8$ state.
+Recompute the partial traces by basis-index summation and construct the Petz
+map through its Kraus operators. Evaluate all four entropy spectra, then use
+a full-matrix singular-value decomposition of the product of the positive
+state square roots to compute squared fidelity.
 
-At 100 decimal digits this second path gives
+At $100$ decimal digits this independent calculation gives
 
 | Quantity | Value |
 | --- | --- |
-| $S(AC)$ | 0.00702607711029351956847675589876 bits |
-| $S(BC)$ | 0.0108021120495461350935661858495 bits |
-| $S(C)$ | 0.00886463762889149345850112849133 bits |
-| $S(ABC)$ | 0.00852914829526468749890220751171 bits |
-| $I(A;B\mid C)$ | 0.000434403235683473704639605745229 bits |
-| $-\log_2F$ | 0.000466235886176388152023897780517 bits |
-| gap | -0.0000318326504929144473842920352884 bits |
+| $S(AC)$ | $0.00702607711029351956847675589876$ bits |
+| $S(BC)$ | $0.0108021120495461350935661858495$ bits |
+| $S(C)$ | $0.00886463762889149345850112849133$ bits |
+| $S(ABC)$ | $0.00852914829526468749890220751171$ bits |
+| $I(A;B\mid C)$ | $0.000434403235683473704639605745229$ bits |
+| $-\log_2F$ | $0.000466235886176388152023897780517$ bits |
+| gap | $-0.0000318326504929144473842920352884$ bits |
 
 The Kraus completeness residual is below $1.5\times10^{-101}$, and the
-largest discarded null-space eigenvalue is below $2.7\times10^{-105}$. These
-are high-precision diagnostics, not interval proofs; the strict sign is
-supplied by the Arb calculation.
+largest discarded null-space eigenvalue is below $2.7\times10^{-105}$.
+The full-matrix calculation supplies high-precision diagnostics. The Arb
+calculation certifies the strict sign.
 
 ## Reproduction and scope
 
-The recorded runs used Python 3.11 and the pinned packages in
-[`requirements-petz-flagged.txt`](../../scripts/requirements-petz-flagged.txt).
-From the repository root, run
-
-```sh
-python3 -m pip install -r scripts/requirements-petz-flagged.txt
-python3 scripts/verify-petz-flagged-counterexample.py
-python3 scripts/audit-petz-flagged-counterexample.py
-python3 scripts/verify-petz-counterexamples.py
-```
-
-The certificate is relative to the displayed analytic reduction, Python, and
-the `python-flint` bindings to Arb. The independent matrix calculation reduces
-the risk of a shared implementation error, but neither calculation is a
-proof-assistant kernel verification or external peer review. The result only
-concerns the ordinary, unrotated Petz map; established bounds using rotated,
-averaged, pinched, universal, or optimized recovery maps are unaffected.
+The scalar calculation used Python 3.11 and `python-flint` 0.9.0. The
+independent matrix check used `mpmath` 1.3.0. Evaluate the displayed entropy
+and fidelity expressions with outward rounding and use $0\log_2 0=0$ for
+zero eigenvalues. Compare the full balls against the exact rational
+thresholds to reproduce the strict bounds. The certificate rests on the
+displayed reduction and Arb's outward-rounding implementation. The
+counterexample applies to the ordinary, unrotated Petz map. Established bounds
+using rotated, averaged, pinched, universal, or optimized recovery maps remain
+valid.

@@ -2,7 +2,7 @@
 
 **Counterexamples submitted by:** Peter, 10 September 2026 (UTC).  
 **Editorial verification:** 12 September 2026.  
-**Content license:** [CC BY 4.0](../../LICENSE-CONTENT), as explicitly selected with both project-inbox submissions. The note consolidates and edits those submissions and adds an independent verifier. No claim of historical priority or external peer review is made. The verifier is independently written project software under Apache-2.0.
+**Content license:** [CC BY 4.0](../../LICENSE-CONTENT), as explicitly selected with both project-inbox submissions. The note consolidates and edits those submissions and documents their independent verification. No claim of historical priority or external peer review is made. The verifier is independently written project software under Apache-2.0.
 
 This note resolves the universal inequality in
 [op_87c77263c8bab523](https://qiqc-op.com/problem/op_87c77263c8bab523/).
@@ -143,26 +143,19 @@ example independently from its two displayed vectors.
 
 ## Reproducing the certificate
 
-Run [the independent verifier](../../scripts/verify-petz-counterexamples.py):
-
-```sh
-python3 scripts/verify-petz-counterexamples.py
-```
-
-It requires SymPy; the recorded verification used version 1.14.0. Run without
-Python's `-O` option so assertions remain enabled; the script refuses optimized
-execution. The script starts only from the five vectors above. It recomputes
-partial traces, positive square roots, canonical tensor ordering, the recovered
-state, spectra and fidelity matrices. It checks normalization and positive
-marginal spectra. The recovered state is positive because it is explicitly a
-congruence of $I_A\otimes\rho_{BC}$, and the script checks its trace is one.
+Start from the five displayed vectors. Recompute the partial traces,
+the positive square roots, the recovered state in $ABC$ order, the spectra,
+and the fidelity matrices. Check normalization and the positive marginal
+spectra. Check that the recovered state has trace one. Its positivity follows
+from its expression as a congruence of $I_A\otimes\rho_{BC}$. The recorded
+symbolic calculation used SymPy 1.14.0.
 
 For each positive $2\times2$ block $M$, the square root is derived using
 $(M+\sqrt{\det M}\thinspace I)/\sqrt{\mathrm{Tr}\thinspace M+2\sqrt{\det M}}$.
 Its square and positive leading principal minors are checked exactly.
 
-All final enclosures use `Fraction` arithmetic, with no floating-point sign
-decision. For a positive rational $x$, integer square root supplies a bracket
+Use exact rational interval arithmetic for the final enclosures. For a positive
+rational $x$, integer square root supplies a bracket
 $n/10^{40}\leq\sqrt{x}<(n+1)/10^{40}$; both inequalities are checked.
 For logarithms, write $x=2^e y$ with $1\leq y<2$, and use
 
@@ -189,7 +182,7 @@ recoverability*, Physical Review A **92**, 042321 (2015),
 and (1.7) in the arXiv version. Its title there includes “geometric”.
 
 The counterexamples and rank-three symbolic reduction were supplied by Peter;
-this note consolidates the submissions, corrects formatting, and supplies a
-fresh verifier that also derives the rank-two reduction. Attribution identifies
+this note consolidates the submissions, corrects formatting, and documents
+the independently derived rank-two reduction. Attribution identifies
 the contributor as requested and does not assert novelty. The cited papers
 retain their own rights and are not relicensed by this note.
