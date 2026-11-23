@@ -87,28 +87,18 @@ for example, [Codex supports per-tool output token limits](https://learn.chatgpt
 Choose a page budget compatible with the client, and lower it if the client reports
 truncated tool output.
 
-The default was reduced to 32 KiB after a real Codex direct-tool readback test lost
-middle-of-page markers at 64 KiB. This reduces the chance of host truncation; it
-does not establish a universal host limit. A large single problem can use
-`read_problem` without increasing the page budget. A visible `count`, problem title
-or final reference does not prove the middle of a displayed response survived.
-
-Codex direct tool presentation and Code Mode have separate output controls. For a
-direct connection named `qop`, a tested large-page configuration is:
+For a Codex connection named `qop`, you can set the direct tool's output
+limit in the client configuration.
 
 ```toml
 [mcp_servers.qop.tools.search_problems]
 output_token_limit = 100000
 ```
 
-This restored all diagnostic markers for the tested 200,000-byte research page;
-it is not a requirement for every client or a guarantee for arbitrary page sizes.
-In Code Mode, the full tool object is available to the program, while the cell's
-`max_output_tokens` controls what gets displayed to the model. Printing only
-`result.structuredContent` avoids repeating the same data from `content`. Raising
-the direct MCP limit does not raise the Code Mode cell limit. See the
-[official configuration reference](https://learn.chatgpt.com/docs/config-file/config-reference)
-and the [reproducible host-output audit](../reviews/mcp-information-access-2026-09-14.md).
+In Code Mode, the program can read the full tool result. The cell's
+`max_output_tokens` controls how much it displays. Print
+`result.structuredContent` to display the payload once. See the
+[client configuration reference](https://learn.chatgpt.com/docs/config-file/config-reference).
 
 `research.comment` contains authored catalog commentary; `comments` contains service
 discussion threads. Empty discussion threads do not mean that authored commentary
@@ -213,8 +203,8 @@ Changed material returns HTTP 409 `document_changed`, requiring a fresh read.
 Cursors expire after one hour and API restarts invalidate them. They do not retain
 historical content. Unknown, empty, duplicate and invalid parameters are rejected.
 
-The reader covers maintained catalog material; it does not fetch cited papers'
-full text. See the [section-read acceptance report](../reviews/mcp-problem-read-2026-09-15.md).
+The reader covers maintained catalog material. Follow a reference's DOI or
+arXiv link to read the cited paper.
 
 Selected-problem answers should explain known results, the remaining gap and key
 references. Empty service comments, accepted claims or routes do not imply absence
@@ -484,46 +474,6 @@ npm run typecheck
 
 ## Research workflow verification
 
-`npm --prefix mcp test` includes official-SDK HTTP calls through the real API against
-an isolated copy of the maintained catalog. It checks search variants and identity,
-complete research history, cursor continuation, full-population sampling and date evidence.
-These scripted integration checks do not measure whether a model selects the right tools.
-
-For an opt-in model-driven run, use an authenticated Codex CLI:
-
-```sh
-python3 mcp/eval/run-research.py --codex /path/to/codex --model MODEL --effort ultra --output /tmp/qop-research-eval
-```
-
-The harness starts a loopback read-only MCP/API with memory stores, disables model
-shell/web/multi-agent tools, and asks the three original Chinese scenarios without
-prescribing calls. It records tool activity, answers, usage and elapsed time, excluding
-reasoning events. Cases 2 and 3 receive prior user/assistant text in fresh ephemeral
-sessions, not a replay of tool state. `--holdouts` adds three independent paraphrases.
-The model receives catalog content through your configured Codex provider; use only
-a dataset authorized for that destination. Script completion is not a passing score:
-review answer accuracy, evidence, scope and tool choice independently.
-
-Each retained event now includes a host observation timestamp. Separate
-`case-N.timings.jsonl` files record arrival times for every JSON event without
-reasoning text. `runs.json` reports first/last tool events and per-call observed
-durations. These include CLI buffering, scheduling and transport; they are not
-isolated API execution times, and overlapping calls must not be summed as wall time.
-To repeat only the selection case with the original preceding answer:
-
-```sh
-python3 mcp/eval/run-research.py --codex /path/to/codex --model MODEL --effort ultra --case 2 --history-from /tmp/qop-research-eval --output /tmp/qop-selection-repeat
-```
-
-For local service/transport measurements without invoking a model:
-
-```sh
-node --experimental-strip-types --no-warnings mcp/eval/measure-reads.mjs --output /tmp/qop-read-latency.json
-```
-
-The probe starts an in-memory API/MCP, measures three sequential and pooled batches
-of complete algorithm-problem research reads, and reports startup time, elapsed time,
-JSON bytes, MCP response bytes and duplicated metadata. Optional
-`--model-events /tmp/qop-research-eval` also summarizes the original three traces'
-call overlap. It rejects an empty catalog or an algorithm listing exceeding its
-200-record discovery page. Local timings do not predict a remote client's model latency.
+Run `npm --prefix mcp test` from the repository root. The integration tests
+use the official SDK and a local copy of the catalog to check search, problem
+identities, research history, pagination, sampling, and catalog edit dates.

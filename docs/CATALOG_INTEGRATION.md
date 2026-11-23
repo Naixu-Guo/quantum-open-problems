@@ -123,10 +123,9 @@ exports into a running instance.
 
 ## Accepted service contributions to the static catalog
 
-The publication boundary is explicit: acceptance alone does not synthesize
-a scientific JSON record. Prepare the authored TeX fields using the
-[writing skill](../.claude/skills/writing-open-problems/SKILL.md), preserving
-the exact accepted statement, its evidence, and binary research status.
+After acceptance, prepare the authored TeX fields for the catalog record.
+Preserve the exact accepted statement, its evidence, and binary research
+status. Follow the [catalog record format](../CONTRIBUTING.md#record-format).
 Then, in a checkout containing the accepted service history, run:
 
 ```sh

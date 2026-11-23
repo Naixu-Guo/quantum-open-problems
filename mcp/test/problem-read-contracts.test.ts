@@ -3,6 +3,7 @@ import test, { type TestContext } from "node:test";
 import assert from "node:assert/strict";
 import { Client } from "@modelcontextprotocol/client";
 import { InMemoryTransport } from "@modelcontextprotocol/server";
+import { ProblemReader } from "../../service/src/problem-read.ts";
 import { createAdapter, REQUIRED_PROBLEM_READ_VERSION, type Json } from "../src/adapter.ts";
 import { createMcpServer } from "../src/shared-server.ts";
 
@@ -125,6 +126,21 @@ test("read_problem preserves explicit empty query arguments and encodes the prob
       assert.equal(url.searchParams.get(key), value);
     }
   }
+});
+
+test("read_problem delivers a real page at the maximum response size through the SDK", async t => {
+  const maxBytes = 65_536;
+  const detail = { id: "fixture", ...authority, body: "x".repeat(100_000) };
+  const query = new URLSearchParams({ section: "statement", maxBytes: String(maxBytes) });
+  const { body } = new ProblemReader().read(detail.id, detail, query);
+  assert.equal(body.responseBytes, maxBytes);
+  assert.equal(Buffer.byteLength(JSON.stringify(body)), maxBytes);
+
+  t.mock.method(globalThis, "fetch", async () => Response.json(body));
+  const client = await clientFor(t, createAdapter("http://localhost:8787", null, true));
+  const result = await client.callTool({ name: "read_problem", arguments: { id: detail.id, section: "statement", maxBytes } });
+  assert.equal(result.isError, false);
+  assert.deepEqual(result.structuredContent, body);
 });
 
 test("read_problem output distinguishes native categories from ordered JSON continuation", async t => {

@@ -48,7 +48,6 @@ dist/                Generated site. Ignored by git; rebuilt by the build.
 ```
 
 See [CONTRIBUTING.md](../CONTRIBUTING.md) for writing problem records.
-[CLAUDE.md](../CLAUDE.md) lists the conventions that every change must respect.
 Backend and component documentation lives in the [service guide](../service/README.md),
 [web app guide](../web/README.md), [contract guide](../contract/README.md), and
 [MCP adapter guide](../mcp/README.md).
@@ -68,6 +67,8 @@ Backend and component documentation lives in the [service guide](../service/READ
 - **JSON is the source of truth.** `database/problems_json/` is what the site
   is built from; `database/problems_tex/` is derived from it and must agree.
 - **Generated output is never edited.** `dist/` is rebuilt from `database/`.
+- Problem pages use a single centered column. Use red for Unsolved and cyan
+  for Solved. Display fields first as solid pills, followed by outlined topics.
 
 ## Build and preview
 
@@ -227,10 +228,10 @@ contribution form's endpoint and CAPTCHA keys.
 
 ### Contribution form
 
-`/contribute/` accepts proposals without a GitHub account. The static form posts
-to the [project inbox](../service/README.md#proposal-inbox); submissions wait for
-maintainer review and the normal catalog publication workflow. No email account
-is connected, and no record appears automatically.
+`/contribute/` accepts proposals without a GitHub account. The form sends
+them to the [project inbox](../service/README.md#proposal-and-progress-inbox)
+for maintainer review. Maintainers publish accepted proposals through the
+catalog workflow. The inbox operates independently of email.
 
 To connect a deployment:
 
