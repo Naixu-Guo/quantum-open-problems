@@ -1,7 +1,7 @@
 % Problem record op_74c4ffb5b042baf2. This TeX file is derived from
 % database/problems_json/op_74c4ffb5b042baf2.json by scripts/sync-tex.mjs; edit the JSON record
 % and rerun the script rather than editing this file.
-\section{NPT bound entanglement and the rank-five frontier}
+\section{Existence of NPT bound entanglement}
 \label{sec:op_74c4ffb5b042baf2}
 
 \paragraph{Problem.}
@@ -30,18 +30,9 @@ entangled; equivalently, the question is whether every NPT state instead has
 a negative expectation on some Schmidt-rank-at-most-two vector at some finite
 copy number.
 
-The nested low-rank frontier asks whether the counterexample in
-Eq.~\eqref{eq:p10-npt-undistillability} can additionally satisfy
-\begin{equation}
-  \operatorname{rank}(\rho_{AB})=5.
-  \label{eq:p10-rank-five-frontier}
-\end{equation}
-Thus Eq.~\eqref{eq:p10-rank-five-frontier} asks for the lowest rank not already
-excluded by known one-copy results.
-
 \subsection*{Status}
 
-Unsolved
+Solved
 
 \subsection*{Source}
 
@@ -125,6 +116,41 @@ frontier after proving all rank-at-most-four NPT states distillable
   results do not control all tensor powers
   \sourcecite{ref:p10-fraser-et-al}{FHPV26},
   \sourcecite{ref:p10-bharti-et-al}{BGH26}.
+
+  \item Simon earlier claimed all one-copy-undistillable NPT Werner states
+were undistillable for every number of copies
+\sourcecite{ref:p10-simon}{Sim06}. Pankowski, Piani, Horodecki, and
+Horodecki subsequently reported gaps in that proof
+\sourcecite{ref:p10-pankowski}{PPH+10}, Introduction.
+That claim is not the basis for the resolution recorded here.
+
+  \item Faisal's Theorem 1, in the arXiv preprint version 1 submitted on
+25 November 2026, establishes that the fixed Werner state
+\begin{equation}
+  \rho_* = \frac{23I-3F}{1448}
+  \quad\text{on}\quad \mathbb C^8\otimes\mathbb C^8,
+  \qquad \alpha=-\frac{3}{23},
+  \label{eq:p10-faisal-state}
+\end{equation}
+is NPT and undistillable under two-way LOCC
+\sourcecite{ref:p10-faisal}{Fai26}.
+Here $F$ is the swap operator from Eq.~\eqref{eq:p10-werner-candidates}.
+More precisely, for every $n\geq1$, every normalized two-qubit output
+$\tau$ obtained from $\rho_*^{\otimes n}$ by a separable operation
+with nonzero success probability satisfies
+\begin{equation}
+  \langle\Phi\rvert\tau\lvert\Phi\rangle
+  \leq \frac{1+\sqrt2}{4}<1
+  \quad\text{for every Bell state }\lvert\Phi\rangle.
+  \label{eq:p10-faisal-fidelity}
+\end{equation}
+The uniform bound in Eq.~\eqref{eq:p10-faisal-fidelity} excludes
+distillation from any number of copies of the single state in
+Eq.~\eqref{eq:p10-faisal-state}, and hence resolves
+Eq.~\eqref{eq:p10-npt-undistillability}.
+Lemmas 3--4 and Appendix A supply an explicit matrix certificate and
+an argument extending its conditions to all tensor powers; the result
+is not merely a check of finitely many copy numbers.
 \end{itemize}
 
 \subsection*{References}
@@ -188,18 +214,59 @@ frontier after proving all rank-at-most-four NPT states distillable
   arXiv:quant-ph/0504166 (2005).
   \href{https://doi.org/10.48550/arXiv.quant-ph/0504166}{doi:10.48550/arXiv.quant-ph/0504166};
   \href{https://arxiv.org/abs/quant-ph/0504166}{arXiv:quant-ph/0504166}.
+
+  \item[\textup{[Sim06]}]\label{ref:p10-simon}
+  R. Simon,
+  “NPPT Bound Entanglement Exists,” arXiv:quant-ph/0608250v1 (2006).
+  \href{https://doi.org/10.48550/arXiv.quant-ph/0608250}{doi:10.48550/arXiv.quant-ph/0608250};
+  \href{https://arxiv.org/abs/quant-ph/0608250v1}{arXiv:quant-ph/0608250v1}.
+
+  \item[\textup{[PPH+10]}]\label{ref:p10-pankowski}
+  \L. Pankowski, M. Piani, M. Horodecki, and P. Horodecki,
+  “A Few Steps More Towards NPT Bound Entanglement,”
+  \emph{IEEE Transactions on Information Theory} \textbf{56}, 4085--4100 (2010).
+  \href{https://doi.org/10.1109/TIT.2010.2050810}{doi:10.1109/TIT.2010.2050810};
+  \href{https://arxiv.org/abs/0711.2613v2}{arXiv:0711.2613v2}.
+
+  \item[\textup{[Fai26]}]\label{ref:p10-faisal}
+  I. Faisal,
+  “Bound Entanglement with Negative Partial Transpose Exists,”
+  arXiv:2611.34921v1 (2026), preprint, version 1, submitted 25 November 2026.
+  \href{https://doi.org/10.48550/arXiv.2611.34921}{doi:10.48550/arXiv.2611.34921};
+  \href{https://arxiv.org/abs/2611.34921v1}{arXiv:2611.34921v1}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-The unrestricted question is posed explicitly in the source collection
-\sourcecite{ref:p10-krueger-werner}{KW05}.  The rank-five formulation is a
-nested but stronger route to a counterexample: a rank-five example would
-settle the general problem, whereas excluding rank five would leave higher
-ranks open.  The decisive quantifier is the existence of one fixed state that
-is $n$-undistillable for every $n$; separately choosing a state or parameter
-for each $n$, as on the left of Eq.~\eqref{eq:p10-quantifier-gap}, is
-insufficient.
+The Solved designation records the affirmative resolution of the
+unrestricted existence question in Eq.~\eqref{eq:p10-npt-undistillability}
+by Theorem 1 of Faisal's arXiv preprint
+\sourcecite{ref:p10-faisal}{Fai26}, version 1.
+The rank-five refinement in Eq.~\eqref{eq:p10-rank-five-frontier}
+remains open.
+
+The symmetric and antisymmetric subspaces of
+$\mathbb C^8\otimes\mathbb C^8$ have dimensions $36$ and $28$.
+The state in Eq.~\eqref{eq:p10-faisal-state} has eigenvalues
+$20/1448$ and $26/1448$ on these subspaces, respectively, and is therefore
+of full rank $64$. Its partial transpose has eigenvalue $-1/1448$
+on $\sum_{i=1}^8\lvert ii\rangle$.
+
+The nested low-rank frontier asks whether the counterexample in
+Eq.~\eqref{eq:p10-npt-undistillability} can additionally satisfy
+\begin{equation}
+  \operatorname{rank}(\rho_{AB})=5.
+  \label{eq:p10-rank-five-frontier}
+\end{equation}
+
+Rank five remains the lowest rank not excluded by
+Eq.~\eqref{eq:p10-rank-four-result}. The rank-$64$ construction neither
+supplies nor excludes a rank-five example. For the rank-five family of
+\sourcecite{ref:p10-chen-djokovic}{CD16}, the quantifier gap in
+Eq.~\eqref{eq:p10-quantifier-gap} remains: one fixed parameter must work
+for every copy number. The all-copy distillability boundary across the
+entire Werner interval in Eq.~\eqref{eq:p10-werner-candidates} is also
+not determined by this single example.
 
 \subsection*{Field}
 
