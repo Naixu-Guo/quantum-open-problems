@@ -1,0 +1,168 @@
+% Problem record op_8418fbac4739a7b6. This TeX file is derived from
+% database/problems_json/op_8418fbac4739a7b6.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Minimum rank of NPT bound-entangled states}
+\label{sec:op_8418fbac4739a7b6}
+
+\paragraph{Problem.}
+What is the smallest rank of a finite-dimensional bipartite state with negative
+partial transpose (NPT) that is undistillable under two-way local operations and classical communication
+(LOCC)? Let $\rho_{AB}$ be a density operator on
+$\mathbb C^{d_A}\otimes\mathbb C^{d_B}$, with finite integers $d_A,d_B\geq2$,
+$\rho_{AB}\succeq0$, and $\operatorname{Tr}\rho_{AB}=1$.
+Write $\rho_{AB}^{T_B}=(\operatorname{id}_A\otimes T_B)(\rho_{AB})$ for
+partial transposition on $B$. The state is NPT when
+$\rho_{AB}^{T_B}\not\succeq0$.
+
+A fixed state is undistillable precisely when, for every integer $n\geq1$
+and every unit vector $\lvert\psi_n\rangle$ of Schmidt rank at most two
+across the bipartition $A^n:B^n$, it satisfies
+\begin{equation}
+  \langle\psi_n\rvert(\rho_{AB}^{T_B})^{\otimes n}\lvert\psi_n\rangle\geq0.
+  \label{eq:a7b6-all-copy}
+\end{equation}
+Determine the exact minimum
+\begin{equation}
+  r_{\min}:=\min_{\rho_{AB}}\operatorname{rank}(\rho_{AB}),
+  \label{eq:a7b6-minimum-rank}
+\end{equation}
+where the minimization ranges over all NPT density operators satisfying
+Eq.~\eqref{eq:a7b6-all-copy}, allowing arbitrary finite local dimensions.
+The rank in Eq.~\eqref{eq:a7b6-minimum-rank} is the operator rank of the
+joint density matrix. A complete solution must exhibit a state attaining
+the proposed minimum and prove that every NPT state of smaller rank is
+distillable, in every finite-dimensional bipartite system.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+This minimum-rank formulation is derived from the low-rank obstruction and
+rank-five conjecture of Chen and \DJ okovi\'c
+\sourcecite{ref:a7b6-chen-djokovic}{CD16}, Theorem 5, Corollary 6, and
+Conjecture 9, together with the NPT bound-entangled construction in
+Faisal's Theorem 1 \sourcecite{ref:a7b6-faisal}{Fai26}.
+The criterion in Eq.~\eqref{eq:a7b6-all-copy} is the finite-copy
+distillability criterion of Horodecki, Horodecki, and Horodecki
+\sourcecite{ref:a7b6-horodecki}{HHH98}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Chen and \DJ okovi\'c proved that every rank-four NPT state is
+one-copy distillable; together with the lower-rank cases, this gives
+\begin{equation}
+  \operatorname{rank}(\rho_{AB})\leq4,\quad
+  \rho_{AB}^{T_B}\not\succeq0
+  \quad\Longrightarrow\quad
+  \rho_{AB}\text{ is one-copy distillable}.
+  \label{eq:a7b6-low-rank}
+\end{equation}
+Thus Eq.~\eqref{eq:a7b6-low-rank} implies $r_{\min}\geq5$
+\sourcecite{ref:a7b6-chen-djokovic}{CD16}, Theorem 5 and Corollary 6.
+
+  \item Chen and \DJ okovi\'c also constructed rank-five two-qutrit NPT
+states $\rho_\epsilon$ in Section III. Their Lemma 8 establishes
+\begin{equation}
+  \forall\,n\geq1\ \exists\,\delta_n>0\ \forall\,\epsilon\in(0,\delta_n]:
+  \quad\rho_\epsilon\text{ is }n\text{-undistillable}.
+  \label{eq:a7b6-fixed-copy}
+\end{equation}
+Equation~\eqref{eq:a7b6-fixed-copy} permits the parameter to depend on
+the copy number. Their Conjecture 9 asks for a fixed positive parameter
+that gives undistillability for every copy number; such a state would
+attain $r_{\min}=5$
+\sourcecite{ref:a7b6-chen-djokovic}{CD16}.
+
+  \item For a different family of symmetric rank-five two-qutrit states,
+Lei, Song, Chen, and Liu proved one-copy undistillability on the NPT
+parameter interval $[(24\sqrt2-33)/7,(33-12\sqrt6)/25)$ in Proposition 7.
+Proposition 8 restricts possible two-copy negative-expectation witnesses:
+a Schmidt-rank-at-most-two witness must have a component outside a
+specified $17$-dimensional subspace. These results establish neither
+two-copy nor all-copy undistillability
+\sourcecite{ref:a7b6-lei-et-al}{LSC+26}.
+
+  \item Faisal's Theorem 1, in arXiv preprint version 1 submitted on
+25 November 2026, supplies the fixed NPT state
+\begin{equation}
+  \rho_* = \frac{23I-3F}{1448}
+  \quad\text{on }\mathbb C^8\otimes\mathbb C^8,
+  \qquad F\lvert x\rangle\lvert y\rangle=\lvert y\rangle\lvert x\rangle,
+  \label{eq:a7b6-upper-example}
+\end{equation}
+and proves its undistillability under two-way LOCC for all copy numbers
+\sourcecite{ref:a7b6-faisal}{Fai26}.
+The state in Eq.~\eqref{eq:a7b6-upper-example} has eigenvalues $20/1448$
+and $26/1448$ on the symmetric and antisymmetric subspaces, of dimensions
+$36$ and $28$, respectively. It therefore has rank $64$ and yields
+$r_{\min}\leq64$. Its partial transpose has a negative eigenvalue
+$-1/1448$.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[HHH98]}]\label{ref:a7b6-horodecki}
+  M. Horodecki, P. Horodecki, and R. Horodecki,
+  ``Mixed-State Entanglement and Distillation: Is There a ``Bound''
+  Entanglement in Nature?''
+  \emph{Physical Review Letters} \textbf{80}, 5239--5242 (1998).
+  \href{https://doi.org/10.1103/PhysRevLett.80.5239}{doi:10.1103/PhysRevLett.80.5239};
+  \href{https://arxiv.org/abs/quant-ph/9801069}{arXiv:quant-ph/9801069}.
+
+  \item[\textup{[CD16]}]\label{ref:a7b6-chen-djokovic}
+  L. Chen and D. \v{Z}. \DJ okovi\'c,
+  ``Distillability of Non-Positive-Partial-Transpose Bipartite Quantum States
+  of Rank Four,'' \emph{Physical Review A} \textbf{94}, 052318 (2016).
+  \href{https://doi.org/10.1103/PhysRevA.94.052318}{doi:10.1103/PhysRevA.94.052318};
+  \href{https://arxiv.org/abs/1602.04416}{arXiv:1602.04416}.
+
+  \item[\textup{[LSC+26]}]\label{ref:a7b6-lei-et-al}
+  Y. Lei, Z. Song, L. Chen, and M. Liu,
+  ``Entanglement Distillation of Some Rank-Five Symmetric NPT States in
+  Two-Qutrit Systems,'' arXiv:2608.03710 (2026).
+  \href{https://doi.org/10.48550/arXiv.2608.03710}{doi:10.48550/arXiv.2608.03710};
+  \href{https://arxiv.org/abs/2608.03710}{arXiv:2608.03710}.
+
+  \item[\textup{[Fai26]}]\label{ref:a7b6-faisal}
+  I. Faisal,
+  “Bound Entanglement with Negative Partial Transpose Exists,”
+  arXiv:2611.34921v1 (2026), preprint, version 1, submitted 25 November 2026.
+  \href{https://doi.org/10.48550/arXiv.2611.34921}{doi:10.48550/arXiv.2611.34921};
+  \href{https://arxiv.org/abs/2611.34921v1}{arXiv:2611.34921v1}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The cited lower-rank theorem and explicit construction give
+\begin{equation}
+  5\leq r_{\min}\leq64.
+  \label{eq:a7b6-bounds}
+\end{equation}
+The exact value within Eq.~\eqref{eq:a7b6-bounds} remains unresolved.
+In particular, the existence of a rank-five NPT bound-entangled state
+would attain the lower bound; excluding rank five alone would still leave
+the higher ranks to determine.
+
+The related \href{https://qiqc-op.com/problem/op_74c4ffb5b042baf2/}{existence
+of NPT bound entanglement} problem asks whether any such state exists.
+The present question asks for the least possible rank. It imposes no
+Werner symmetry or fixed local dimension. Proving a minimum within a
+particular family or dimension, or verifying only finitely many tensor
+powers, does not settle this unrestricted minimum.
+
+\subsection*{Field}
+
+Quantum Resource Theory
+
+\subsection*{Topic}
+
+Entanglement distillation; Bound entanglement; Local operations and classical communication
+
+\subsection*{ID}
+
+\texttt{op\_8418fbac4739a7b6}
