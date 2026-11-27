@@ -1,0 +1,48 @@
+---
+id: "01M8FM932Q711CQPKNSAX9KGT0"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-11-27T23:25:09.597Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "derived"
+posed: null
+areaIds: ["quantum-resource-theory"]
+topicIds: ["entanglement-cost","local-operations-and-classical-communication","entanglement-distillation"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Distillation rate of W states from a Bell triangle"
+aliases: ["op-da0450f40da1eea8","op_da0450f40da1eea8","01M8FM932Q711CQPKNSAX9KGT0"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_da0450f40da1eea8.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_da0450f40da1eea8","ulid":"01M8FM932Q711CQPKNSAX9KGT0","aliases":["op_da0450f40da1eea8","01M8FM932Q711CQPKNSAX9KGT0","op-da0450f40da1eea8"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":1,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-11-27T23:08:35.799Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"derived","posed":null,"areaIds":["quantum-resource-theory"],"topicIds":["entanglement-cost","local-operations-and-classical-communication","entanglement-distillation"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Distillation rate of W states from a Bell triangle","status":"Unsolved","fields":["Quantum Resource Theory"],"topics":["Entanglement cost","Local operations and classical communication","Entanglement distillation"],"statement":"Alice, Bob, and Charlie share $n$ perfect Bell pairs on each of the edges $AB$, $BC$, and $CA$. Let $\\Phi_2$ be the projector onto $(\\ket{00}+\\ket{11})/\\sqrt{2}$. The state of one triangle is $\\tau_\\triangle=\\Phi_2^{AB}\\otimes\\Phi_2^{BC}\\otimes\\Phi_2^{CA}$.\n\nFor a proposed rate $r$, the parties aim to distill $\\lfloor rn\\rfloor$ copies of the tripartite W state with vanishing trace-distance error on the full target. Let $\\mathrm{W}_3$ be the projector onto $(\\ket{100}+\\ket{010}+\\ket{001})/\\sqrt{3}$.\n\nWhat is the optimal LOCC distillation rate $R_{\\triangle\\to\\mathrm{W}}$? The rate is defined by\n\\begin{equation}\n  R_{\\triangle\\to\\mathrm{W}}=\\sup\\left\\{r\\geq 0:\\lim_{n\\to\\infty}\\inf_{\\Lambda_n\\in\\mathrm{LOCC}}\n  \\tfrac12\\left\\lVert\\Lambda_n\\bigl(\\tau_\\triangle^{\\otimes n}\\bigr)\n  -\\mathrm{W}_3^{\\otimes\\lfloor rn\\rfloor}\\right\\rVert_1=0\\right\\}.\n  \\label{eq:triangle-w-rate}\n\\end{equation}\nIn Eq.~\\eqref{eq:triangle-w-rate}, the infimum is over LOCC channels with $\\lfloor rn\\rfloor$ output qubits per party.\n\nGive an achievable rate and a matching converse for arbitrary LOCC, counting W states per triangle.","source":"Eisert asks for the minimum total Bell-pair cost of forming W states asymptotically \\sourcecite{ref:a1eea8-eisert01}{Eisert01} (Example 2.28). For this permutation-invariant target, the cost and the equal-edge rate ask the same question. A protocol using unequal numbers of pairs can be run on three blocks with cyclically permuted party roles, balancing the total consumption across the edges.","progress":["Let $h=h_2(1/3)$, where $h_2$ is the binary entropy in bits. Each one-qubit W marginal has entropy $h$. The bounds are given in Eq.~\\eqref{eq:triangle-w-bounds}.\n\\begin{equation}\n  \\frac{3}{2h}\\;\\leq\\; R_{\\triangle\\to\\mathrm{W}}\\;\\leq\\;\\frac{2}{h}.\n  \\label{eq:triangle-w-bounds}\n\\end{equation}\nFor the lower bound, one party prepares a block locally, applies Schumacher compression separately to the two remote shares, and teleports them at a cost approaching $h$ Bell pairs per output on each incident edge. Using the three choices of preparing party on equal-size blocks balances the edge costs \\sourcecite{ref:a1eea8-streltsovmeignanteisert20}{StreltsovMeignantEisert20} (Appendix B).\n\nFor the upper bound, group Bob and Charlie into one laboratory. The input has two ebits per triangle across this cut and each output W state has $h$ ebits. The bipartite pure-state conversion converse applies to the enlarged class of protocols \\sourcecite{ref:a1eea8-streltsovmeignanteisert20}{StreltsovMeignantEisert20} (Eq.~(3))."],"references":[{"key":"Eisert01","label":"ref:a1eea8-eisert01","tex":"Jens Eisert, “Entanglement in quantum information theory”, \\emph{University of Potsdam}, 2001.\n\\href{https://arxiv.org/abs/quant-ph/0610253}{arXiv:quant-ph/0610253}"},{"key":"StreltsovMeignantEisert20","label":"ref:a1eea8-streltsovmeignanteisert20","tex":"Alexander Streltsov, Cl{\\'e}ment Meignant, Jens Eisert, “Rates of Multipartite Entanglement Transformations and Applications in Quantum Networks”, \\emph{Physical Review Letters}, vol. 125, pp. 080502, 2020.\n\\href{https://arxiv.org/abs/1709.09693v2}{arXiv:1709.09693v2}"}],"comment":"The bounds leave open whether using all three links jointly can improve on the lower-bound protocol.","contributors":[]}}
+---
+## Source
+
+Eisert asks for the minimum total Bell-pair cost of forming W states asymptotically [Eisert01](https://arxiv.org/abs/quant-ph/0610253) (Example 2.28). For this permutation-invariant target, the cost and the equal-edge rate ask the same question. A protocol using unequal numbers of pairs can be run on three blocks with cyclically permuted party roles, balancing the total consumption across the edges.
+
+## Progress
+
+Let $h=h_2(1/3)$, where $h_2$ is the binary entropy in bits. Each one-qubit W marginal has entropy $h$. The bounds are given in Eq. (2).
+
+$$
+\frac{3}{2h}\;\leq\; R_{\triangle\to\mathrm{W}}\;\leq\;\frac{2}{h}.
+\tag{2}
+$$
+
+For the lower bound, one party prepares a block locally, applies Schumacher compression separately to the two remote shares, and teleports them at a cost approaching $h$ Bell pairs per output on each incident edge. Using the three choices of preparing party on equal-size blocks balances the edge costs [StreltsovMeignantEisert20](https://arxiv.org/abs/1709.09693v2) (Appendix B).
+
+For the upper bound, group Bob and Charlie into one laboratory. The input has two ebits per triangle across this cut and each output W state has $h$ ebits. The bipartite pure-state conversion converse applies to the enlarged class of protocols [StreltsovMeignantEisert20](https://arxiv.org/abs/1709.09693v2) (Eq. (3)).
+
+## Comment
+
+The bounds leave open whether using all three links jointly can improve on the lower-bound protocol.
+
+## References
+
+**Eisert01** Jens Eisert, “Entanglement in quantum information theory”, *University of Potsdam*, 2001. [arXiv:quant-ph/0610253](https://arxiv.org/abs/quant-ph/0610253)
+
+**StreltsovMeignantEisert20** Alexander Streltsov, Clément Meignant, Jens Eisert, “Rates of Multipartite Entanglement Transformations and Applications in Quantum Networks”, *Physical Review Letters*, vol. 125, pp. 080502, 2020. [arXiv:1709.09693v2](https://arxiv.org/abs/1709.09693v2)

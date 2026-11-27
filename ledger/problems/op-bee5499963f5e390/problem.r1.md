@@ -1,0 +1,45 @@
+---
+id: "01M8FM93598Z2XG5XYNWBVR3SX"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-11-27T23:25:09.597Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "derived"
+posed: null
+areaIds: ["quantum-algorithm"]
+topicIds: ["computational-complexity-and-computability"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Minimum number of messages for quantum interactive proofs"
+aliases: ["op-bee5499963f5e390","op_bee5499963f5e390","01M8FM93598Z2XG5XYNWBVR3SX"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_bee5499963f5e390.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_bee5499963f5e390","ulid":"01M8FM93598Z2XG5XYNWBVR3SX","aliases":["op_bee5499963f5e390","01M8FM93598Z2XG5XYNWBVR3SX","op-bee5499963f5e390"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":1,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-11-27T23:08:35.881Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"derived","posed":null,"areaIds":["quantum-algorithm"],"topicIds":["computational-complexity-and-computability"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Minimum number of messages for quantum interactive proofs","status":"Unsolved","fields":["Quantum algorithm"],"topics":["Computational complexity and computability"],"statement":"What is the smallest integer $k\\geq 0$ for which $\\mathsf{QIP}(k)=\\mathsf{QIP}$?\nUse the standard bounded-error, single-prover model and the promise-problem convention for complexity classes. Count individual messages in both directions. When messages are exchanged, the prover sends the last one.\n\nDetermine the minimum $k$ by proving that $k$ messages suffice and that every smaller number is insufficient.","source":"unknown","progress":["In a November 2026 preprint, Yupan Liu proves $\\mathsf{QIP}(2)=\\mathsf{QIP}=\\mathsf{PSPACE}$. The verifier can send halves of EPR pairs and decide after a single reply from the prover \\sourcecite{ref:f5e390-liu26}{Liu26} (Theorem~1.1).","Kitaev and Watrous previously proved $\\mathsf{QIP}(3)=\\mathsf{QIP}$ by parallelizing polynomial-message protocols to three messages. Jain, Ji, Upadhyay, and Watrous subsequently proved $\\mathsf{QIP}=\\mathsf{PSPACE}$ \\sourcecite{ref:f5e390-kw00}{KW00} (Corollary~8), \\sourcecite{ref:f5e390-jjuw11}{JJUW11}."],"references":[{"key":"Liu26","label":"ref:f5e390-liu26","tex":"Yupan Liu, “Two messages suffice for quantum interactive proof systems”, 2026.\n\\href{https://arxiv.org/abs/2611.31236v1}{arXiv:2611.31236v1}"},{"key":"KW00","label":"ref:f5e390-kw00","tex":"Alexei Kitaev, John Watrous, “Parallelization, amplification, and exponential time simulation of quantum interactive proof systems”, \\emph{Proceedings of the 32nd Annual ACM Symposium on Theory of Computing}, pp. 608--617, 2000.\n\\href{https://doi.org/10.1145/335305.335387}{DOI}\n\\href{https://cs.uwaterloo.ca/~watrous/Papers/QuantumInteractiveProofs.pdf#page=8}{Author copy}"},{"key":"JJUW11","label":"ref:f5e390-jjuw11","tex":"Rahul Jain, Zhengfeng Ji, Sarvagya Upadhyay, John Watrous, “QIP = PSPACE”, \\emph{Journal of the ACM}, vol. 58, no. 6, pp. 30:1--30:27, 2011.\n\\href{https://arxiv.org/abs/0907.4737}{arXiv:0907.4737}"},{"key":"JUW09","label":"ref:f5e390-juw09","tex":"Rahul Jain, Sarvagya Upadhyay, John Watrous, “Two-message quantum interactive proofs are in PSPACE”, \\emph{Proceedings of the 50th Annual IEEE Symposium on Foundations of Computer Science}, pp. 534--543, 2009.\n\\href{https://arxiv.org/abs/0905.1300}{arXiv:0905.1300}"}],"comment":"With one message, the prover sends a quantum witness, giving $\\mathsf{QIP}(1)=\\mathsf{QMA}$. With zero messages, the verifier runs alone, giving $\\mathsf{QIP}(0)=\\mathsf{BQP}$ \\sourcecite{ref:f5e390-juw09}{JUW09} (Introduction).\nThe minimum is $0$ if $\\mathsf{BQP}=\\mathsf{PSPACE}$, $1$ if $\\mathsf{QMA}=\\mathsf{PSPACE}$ and $\\mathsf{BQP}\\ne\\mathsf{PSPACE}$, and $2$ if $\\mathsf{QMA}\\ne\\mathsf{PSPACE}$.","contributors":[]}}
+---
+## Source
+
+unknown
+
+## Progress
+
+In a November 2026 preprint, Yupan Liu proves $\mathsf{QIP}(2)=\mathsf{QIP}=\mathsf{PSPACE}$. The verifier can send halves of EPR pairs and decide after a single reply from the prover [Liu26](https://arxiv.org/abs/2611.31236v1) (Theorem 1.1).
+
+Kitaev and Watrous previously proved $\mathsf{QIP}(3)=\mathsf{QIP}$ by parallelizing polynomial-message protocols to three messages. Jain, Ji, Upadhyay, and Watrous subsequently proved $\mathsf{QIP}=\mathsf{PSPACE}$ [KW00](https://doi.org/10.1145/335305.335387) (Corollary 8), [JJUW11](https://arxiv.org/abs/0907.4737).
+
+## Comment
+
+With one message, the prover sends a quantum witness, giving $\mathsf{QIP}(1)=\mathsf{QMA}$. With zero messages, the verifier runs alone, giving $\mathsf{QIP}(0)=\mathsf{BQP}$ [JUW09](https://arxiv.org/abs/0905.1300) (Introduction). The minimum is $0$ if $\mathsf{BQP}=\mathsf{PSPACE}$, $1$ if $\mathsf{QMA}=\mathsf{PSPACE}$ and $\mathsf{BQP}\ne\mathsf{PSPACE}$, and $2$ if $\mathsf{QMA}\ne\mathsf{PSPACE}$.
+
+## References
+
+**Liu26** Yupan Liu, “Two messages suffice for quantum interactive proof systems”, 2026. [arXiv:2611.31236v1](https://arxiv.org/abs/2611.31236v1)
+
+**KW00** Alexei Kitaev, John Watrous, “Parallelization, amplification, and exponential time simulation of quantum interactive proof systems”, *Proceedings of the 32nd Annual ACM Symposium on Theory of Computing*, pp. 608–617, 2000. [DOI](https://doi.org/10.1145/335305.335387) [Author copy](https://cs.uwaterloo.ca/~watrous/Papers/QuantumInteractiveProofs.pdf#page=8)
+
+**JJUW11** Rahul Jain, Zhengfeng Ji, Sarvagya Upadhyay, John Watrous, “QIP = PSPACE”, *Journal of the ACM*, vol. 58, no. 6, pp. 30:1–30:27, 2011. [arXiv:0907.4737](https://arxiv.org/abs/0907.4737)
+
+**JUW09** Rahul Jain, Sarvagya Upadhyay, John Watrous, “Two-message quantum interactive proofs are in PSPACE”, *Proceedings of the 50th Annual IEEE Symposium on Foundations of Computer Science*, pp. 534–543, 2009. [arXiv:0905.1300](https://arxiv.org/abs/0905.1300)

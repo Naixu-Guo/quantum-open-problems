@@ -1,0 +1,50 @@
+---
+id: "01M8FM933K1X27A09VC2ZD17F8"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-11-27T23:25:09.597Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "derived"
+posed: null
+areaIds: ["quantum-resource-theory"]
+topicIds: ["entanglement-cost","local-operations-and-classical-communication","entanglement-distillation"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Distillable tripartite W states from tripartite GHZ states by LOCC"
+aliases: ["op-fcdb7b87c7c5a06d","op_fcdb7b87c7c5a06d","01M8FM933K1X27A09VC2ZD17F8"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_fcdb7b87c7c5a06d.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_fcdb7b87c7c5a06d","ulid":"01M8FM933K1X27A09VC2ZD17F8","aliases":["op_fcdb7b87c7c5a06d","01M8FM933K1X27A09VC2ZD17F8","op-fcdb7b87c7c5a06d"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":1,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-11-27T23:08:35.827Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"derived","posed":null,"areaIds":["quantum-resource-theory"],"topicIds":["entanglement-cost","local-operations-and-classical-communication","entanglement-distillation"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Distillable tripartite W states from tripartite GHZ states by LOCC","status":"Unsolved","fields":["Quantum Resource Theory"],"topics":["Entanglement cost","Local operations and classical communication","Entanglement distillation"],"statement":"Alice, Bob, and Charlie share $n$ copies of the standard tripartite GHZ state. Let $\\mathrm{GHZ}_3$ be the projector onto $(\\ket{000}+\\ket{111})/\\sqrt{2}$.\n\nFor a proposed rate $r$, the parties aim to distill $\\lfloor rn\\rfloor$ copies of the tripartite W state with vanishing trace-distance error on the full target. Let $\\mathrm{W}_3$ be the projector onto $(\\ket{100}+\\ket{010}+\\ket{001})/\\sqrt{3}$.\n\nWhat is the optimal LOCC distillation rate $R_{\\mathrm{GHZ}\\to\\mathrm{W}}$? The rate is defined by\n\\begin{equation}\n  R_{\\mathrm{GHZ}\\to\\mathrm{W}}=\\sup\\left\\{r\\geq 0:\\lim_{n\\to\\infty}\\inf_{\\Lambda_n\\in\\mathrm{LOCC}}\n  \\tfrac12\\left\\lVert\\Lambda_n\\bigl(\\mathrm{GHZ}_3^{\\otimes n}\\bigr)\n  -\\mathrm{W}_3^{\\otimes\\lfloor rn\\rfloor}\\right\\rVert_1=0\\right\\}.\n  \\label{eq:ghz-w-rate}\n\\end{equation}\nIn Eq.~\\eqref{eq:ghz-w-rate}, the infimum is over LOCC channels with $\\lfloor rn\\rfloor$ output qubits per party.\n\nGive an achievable rate and a matching converse for arbitrary LOCC, counting W states per GHZ state supplied.","source":"Yang and Jeong give bounds on the GHZ entanglement cost of the W state in Section~IV~A. The rate $R_{\\mathrm{GHZ}\\to\\mathrm{W}}$ is the reciprocal of this cost \\sourcecite{ref:c5a06d-yj15}{YJ15}.","progress":["The bounds are given in Eq.~\\eqref{eq:ghz-w-bounds}.\n\\begin{equation}\n  \\frac{1}{\\log_2 3}\\leq R_{\\mathrm{GHZ}\\to\\mathrm{W}}\\leq\\frac{1}{\\log_2(9/4)}.\n  \\label{eq:ghz-w-bounds}\n\\end{equation}\nFor the lower bound, the preparation protocol of Yang and Jeong consumes GHZ states at a rate bounded above by the entropy of the three equally likely computational-basis terms of the W state \\sourcecite{ref:c5a06d-yj15}{YJ15} (Sections III and IV A).\n\nFor the upper bound, the fully separable relative entropy of entanglement is additive on GHZ and W tensor powers grouped by party, with respective single-copy values $1$ and $\\log_2(9/4)$ \\sourcecite{ref:c5a06d-yj15}{YJ15} (Section IV A), \\sourcecite{ref:c5a06d-zch10}{ZCH10} (Proposition 12)."],"references":[{"key":"YJ15","label":"ref:c5a06d-yj15","tex":"Seungho Yang, Hyunseok Jeong, “Relation between the Greenberger--Horne--Zeilinger entanglement cost of preparing a multipartite pure state and its quantum discord”, \\emph{Physical Review A}, vol. 92, pp. 022322, 2015.\n\\href{https://doi.org/10.1103/PhysRevA.92.022322}{DOI}\n\\href{https://arxiv.org/abs/1504.03604}{arXiv:1504.03604}"},{"key":"ZCH10","label":"ref:c5a06d-zch10","tex":"Huangjun Zhu, Lin Chen, Masahito Hayashi, “Additivity and non-additivity of multipartite entanglement measures”, \\emph{New Journal of Physics}, vol. 12, pp. 083002, 2010.\n\\href{https://doi.org/10.1088/1367-2630/12/8/083002}{DOI}\n\\href{https://arxiv.org/abs/1002.2511}{arXiv:1002.2511}"},{"key":"VC15","label":"ref:c5a06d-vc15","tex":"P{\\'e}ter Vrana, Matthias Christandl, “Asymptotic entanglement transformation between W and GHZ states”, \\emph{Journal of Mathematical Physics}, vol. 56, pp. 022204, 2015.\n\\href{https://doi.org/10.1063/1.4908106}{DOI}\n\\href{https://arxiv.org/abs/1310.3244}{arXiv:1310.3244}"}],"comment":"The rate $1$ shown by Vrana and Christandl concerns stochastic LOCC conditioned on a successful measurement outcome \\sourcecite{ref:c5a06d-vc15}{VC15} (Sections II and III).","contributors":[]}}
+---
+## Source
+
+Yang and Jeong give bounds on the GHZ entanglement cost of the W state in Section IV A. The rate $R_{\mathrm{GHZ}\to\mathrm{W}}$ is the reciprocal of this cost [YJ15](https://doi.org/10.1103/PhysRevA.92.022322).
+
+## Progress
+
+The bounds are given in Eq. (2).
+
+$$
+\frac{1}{\log_2 3}\leq R_{\mathrm{GHZ}\to\mathrm{W}}\leq\frac{1}{\log_2(9/4)}.
+\tag{2}
+$$
+
+For the lower bound, the preparation protocol of Yang and Jeong consumes GHZ states at a rate bounded above by the entropy of the three equally likely computational-basis terms of the W state [YJ15](https://doi.org/10.1103/PhysRevA.92.022322) (Sections III and IV A).
+
+For the upper bound, the fully separable relative entropy of entanglement is additive on GHZ and W tensor powers grouped by party, with respective single-copy values $1$ and $\log_2(9/4)$ [YJ15](https://doi.org/10.1103/PhysRevA.92.022322) (Section IV A), [ZCH10](https://doi.org/10.1088/1367-2630/12/8/083002) (Proposition 12).
+
+## Comment
+
+The rate $1$ shown by Vrana and Christandl concerns stochastic LOCC conditioned on a successful measurement outcome [VC15](https://doi.org/10.1063/1.4908106) (Sections II and III).
+
+## References
+
+**YJ15** Seungho Yang, Hyunseok Jeong, “Relation between the Greenberger–Horne–Zeilinger entanglement cost of preparing a multipartite pure state and its quantum discord”, *Physical Review A*, vol. 92, pp. 022322, 2015. [DOI](https://doi.org/10.1103/PhysRevA.92.022322) [arXiv:1504.03604](https://arxiv.org/abs/1504.03604)
+
+**ZCH10** Huangjun Zhu, Lin Chen, Masahito Hayashi, “Additivity and non-additivity of multipartite entanglement measures”, *New Journal of Physics*, vol. 12, pp. 083002, 2010. [DOI](https://doi.org/10.1088/1367-2630/12/8/083002) [arXiv:1002.2511](https://arxiv.org/abs/1002.2511)
+
+**VC15** Péter Vrana, Matthias Christandl, “Asymptotic entanglement transformation between W and GHZ states”, *Journal of Mathematical Physics*, vol. 56, pp. 022204, 2015. [DOI](https://doi.org/10.1063/1.4908106) [arXiv:1310.3244](https://arxiv.org/abs/1310.3244)
