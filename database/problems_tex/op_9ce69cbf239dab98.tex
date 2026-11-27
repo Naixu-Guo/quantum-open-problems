@@ -1,0 +1,56 @@
+% Problem record op_9ce69cbf239dab98. This TeX file is derived from
+% database/problems_json/op_9ce69cbf239dab98.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Linear-query quantum detection of a four-cycle}
+\label{sec:op_9ce69cbf239dab98}
+
+\paragraph{Problem.}
+An unknown simple undirected graph on $n$ vertices is supplied through its adjacency bits $A_{uv}$. A quantum query acts as $\lvert u,v,z\rangle\mapsto\lvert u,v,z\oplus A_{uv}\rangle$, where $\oplus$ is addition modulo two. The algorithm must decide whether there are four distinct vertices $u,v,w,x$ with $A_{uv}=A_{vw}=A_{wx}=A_{xu}=1$. Additional edges among these vertices are allowed. The algorithm must succeed with probability at least $2/3$ for every graph, and only oracle calls are counted.
+
+Is there a quantum algorithm that solves this task with $O(n)$ queries in the worst case?
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Gilani and Zhou single out the four-cycle among the open small complete bipartite patterns and ask which fixed subgraphs admit linear-query detection, in Sec.~1.4 under \emph{Triangles and small bipartite subgraphs} \sourcecite{ref:fourcycle-gz}{GZ26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Childs and Kothari give a $\widetilde O(n^{5/4})$-query algorithm in Theorem~4.12, with $\widetilde O$ hiding polylogarithmic factors. Their Theorem~3.3 gives a linear lower bound for the complementary property of being four-cycle-free, which is closed under taking subgraphs \sourcecite{ref:fourcycle-ck}{CK12}.
+
+  \item A linear-query algorithm is known if the input is promised to be either a forest or to contain a four-cycle. Theorem~3.24 of Cornelissen et al.\ treats this promise for any fixed cycle length \sourcecite{ref:fourcycle-cgp}{CGP26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[GZ26]}]\label{ref:fourcycle-gz}
+  A. S. Gilani and X. Zhou, \emph{Superlinear Quantum Query Lower Bounds for Subgraph Detection}, preprint (2026). \href{https://arxiv.org/abs/2609.40263v2}{arXiv:2609.40263v2}.
+
+  \item[\textup{[CK12]}]\label{ref:fourcycle-ck}
+  A. M. Childs and R. Kothari, \emph{Quantum Query Complexity of Minor-Closed Graph Properties}, SIAM Journal on Computing \textbf{41}, 1426--1450 (2012). \href{https://doi.org/10.1137/110833026}{doi:10.1137/110833026}. \href{https://arxiv.org/abs/1011.1443v2}{arXiv:1011.1443v2}.
+
+  \item[\textup{[CGP26]}]\label{ref:fourcycle-cgp}
+  A. Cornelissen, A. S. Gilani, and S. Patro, \emph{Quantum Algorithms for Path and Cycle Containment Problems}, in APPROX/RANDOM 2026, LIPIcs \textbf{392}, Article 72 (2026). \href{https://doi.org/10.4230/LIPIcs.APPROX/RANDOM.2026.72}{doi:10.4230/LIPIcs.APPROX/RANDOM.2026.72}. \href{https://arxiv.org/abs/2605.09017v2}{arXiv:2605.09017v2}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The \href{https://qiqc-op.com/problem/op_0c17d9fef967858d/}{triangle-finding problem} asks for a cycle on three vertices. Here the four-cycle may occur in a graph that also contains triangles or longer cycles. The catalog and literature were checked through November 26, 2026.
+
+\subsection*{Field}
+
+Quantum Computation
+
+\subsection*{Topic}
+
+Computational complexity and computability
+
+\subsection*{ID}
+
+\texttt{op\_9ce69cbf239dab98}

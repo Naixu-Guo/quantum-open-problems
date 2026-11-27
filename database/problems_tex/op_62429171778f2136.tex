@@ -1,0 +1,65 @@
+% Problem record op_62429171778f2136. This TeX file is derived from
+% database/problems_json/op_62429171778f2136.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Exact error exponent for quantum state exclusion}
+\label{sec:op_62429171778f2136}
+
+\paragraph{Problem.}
+Fix $m\geq 3$ distinct full-rank density matrices $\rho_1,\ldots,\rho_m$ on a space of dimension $d$. A source chooses a label $j$ uniformly and sends $n$ copies of $\rho_j$. The receiver must name one label to rule out. An error occurs precisely when the receiver rules out the label the source chose.
+
+For each $n$, the receiver may measure all $n$ copies jointly. Let $M_i$ be the measurement operator for ruling out label $i$. These operators are positive semidefinite and sum to the identity on the $d^n$-dimensional input space. When the source chooses $j$, the probability of error is $\operatorname{Tr}(M_j\rho_j^{\otimes n})$. The minimum average error over all such measurements is $\varepsilon_n$, as defined in Eq.~\eqref{eq:d10-02-error}.
+\begin{equation}
+ \varepsilon_n=\min_{\{M_i\}_{i=1}^{m}}\frac{1}{m}\sum_{j=1}^{m}\operatorname{Tr}(M_j\rho_j^{\otimes n}).
+ \label{eq:d10-02-error}
+\end{equation}
+
+How fast does this optimal error decay as the number of copies grows? Give and prove an exact formula, in terms of the original density matrices, for the lower asymptotic exclusion exponent $E_{\mathrm{excl}}$ in Eq.~\eqref{eq:d10-02-exponent}.
+\begin{equation}
+ E_{\mathrm{excl}}(\rho_1,\ldots,\rho_m)=\liminf_{n\to\infty}\frac{-\ln\varepsilon_n}{n}.
+ \label{eq:d10-02-exponent}
+\end{equation}
+
+The formula may itself involve a minimization or maximization. Once $m$ and $d$ are given, the number and dimensions of its variables must stay fixed as $n$ grows.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Mishra, Nussbaum, and Wilde ask for the general quantum exclusion exponent \sourcecite{ref:d10-02-mnw24}{MNW24}. Ji et al. restate the question in Sec.~VI.B \sourcecite{ref:d10-02-jmmw26}{JMMW26}. The statement fixes full-rank inputs and uniform priors.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item For commuting states the exact exponent is the classical multivariate Chernoff divergence. The general quantum lower bound in Mishra et al. includes the largest pairwise quantum Chernoff divergence, since the tester may output only that pair's labels \sourcecite{ref:d10-02-mnw24}{MNW24}.
+
+  \item Ji et al. bound the upper exponent by a one-copy quantity, the multivariate log-Euclidean Chernoff divergence (Theorem~15). For two states this upper bound can be loose. The exact binary exponent is $-\ln\min_{0\leq s\leq 1}\operatorname{Tr}(\rho_1^s\rho_2^{1-s})$. The only optimization variable in this asymptotic formula is the scalar $s$ \sourcecite{ref:d10-02-jmmw26}{JMMW26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[MNW24]}]\label{ref:d10-02-mnw24}
+  H. K. Mishra, M. Nussbaum, and M. M. Wilde, ``On the optimal error exponents for classical and quantum antidistinguishability,'' (2024). \href{https://arxiv.org/abs/2309.03723}{arXiv:2309.03723}.
+
+  \item[\textup{[JMMW26]}]\label{ref:d10-02-jmmw26}
+  K. Ji, H. K. Mishra, M. Mosonyi, and M. M. Wilde, ``Barycentric bounds on the error exponents of quantum hypothesis exclusion,'' (2026). \href{https://arxiv.org/abs/2407.13728v4}{arXiv:2407.13728v4}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+Positive definiteness gives a positive exclusion error at every finite copy count. The related problem of \href{https://qiqc-op.com/problem/op_a370855db65d4d24/}{Chernoff exponents under restricted tests} concerns binary identification with restrictions on measurements across copies. The catalog and literature were checked through November 26, 2026.
+
+\subsection*{Field}
+
+Quantum Statistical Inference
+
+\subsection*{Topic}
+
+Quantum hypothesis testing
+
+\subsection*{ID}
+
+\texttt{op\_62429171778f2136}

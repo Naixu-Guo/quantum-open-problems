@@ -1,0 +1,72 @@
+% Problem record op_dfb4aa012543d43a. This TeX file is derived from
+% database/problems_json/op_dfb4aa012543d43a.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Quantum capacity of the symmetric platypus channel}
+\label{sec:op_dfb4aa012543d43a}
+
+\paragraph{Problem.}
+Define an isometry $V:A\to B\otimes E$, where $A$ and $B$ are qutrits and $E$ is a qubit, by
+\begin{equation}
+  V\ket{0}=(\ket{00}+\ket{11})/\sqrt2,\qquad
+  V\ket{1}=\ket{20},\qquad V\ket{2}=\ket{21}.
+  \label{eq:spq-isometry}
+\end{equation}
+For $V$ in Eq.~\eqref{eq:spq-isometry}, set $\mathcal{N}(\rho)=\operatorname{Tr}_E(V\rho V^\dagger)$ and $\mathcal{N}^c(\rho)=\operatorname{Tr}_B(V\rho V^\dagger)$. For $m\geq1$ let
+\begin{equation}
+ q_m=\max_{\rho}\Big[
+ S\bigl(\mathcal{N}^{\otimes m}(\rho)\bigr)-
+ S\bigl((\mathcal{N}^c)^{\otimes m}(\rho)\bigr)\Big],
+ \label{eq:spq-coherent}
+\end{equation}
+where $\rho$ ranges over all $m$-qutrit states and $S$ denotes von Neumann entropy in bits. Here $q_m$ in Eq.~\eqref{eq:spq-coherent} is the largest coherent information attainable using $m$ copies of the channel jointly. What is the exact value of the unassisted quantum capacity $\mathcal{Q}(\mathcal{N})=\sup_{m\geq1}q_m/m$, in qubits per channel use?
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+This is the symmetric member $s=1/2$ of the platypus channels in Section~3.1, Eq.~(20), of Leditzky et al. Their Section~5, Eq.~(70), shows that the spin alignment conjecture would give $\mathcal{Q}(\mathcal{N})=q_1$ \sourcecite{ref:spq-leditzky}{LLSSS23}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item For the channel in Eq.~\eqref{eq:spq-isometry}, Section~4.1 gives $q_1=\max_{0\leq u\leq1}[h_2(u)+(1-u)-h_2((1-u)/2)]$, with $h_2$ the binary entropy. Section~6.2 proves the two-spin entropy inequality in this symmetric case, which with the reduction in Section~5 yields $q_2=2q_1$. Theorem~3 gives the unconditional capacity upper bound $\log_2(1+1/\sqrt{2})$ \sourcecite{ref:spq-leditzky}{LLSSS23}.
+
+  \item Smith and Wu prove additivity for some generalized platypus channels. In Section~V after Proposition~V.5 they discuss the original $t=0$ family, for which the spin-alignment argument remains conditional \sourcecite{ref:spq-smith-wu}{SW25}.
+
+  \item Song and Chen's three-qubit example violates a stronger spin-alignment majorization conjecture. Their Section~II Remark checks that the example does not violate the original von Neumann entropy inequality. Guo et al. observe a coherent-information gain using the symmetric platypus with a different assisting channel \sourcecite{ref:spq-song-chen}{SC26} \sourcecite{ref:spq-guo}{Guo26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[LLSSS23]}]\label{ref:spq-leditzky}
+  F. Leditzky, D. Leung, V. Siddhu, G. Smith, and J. A. Smolin, ``The platypus of the quantum channel zoo,'' \emph{IEEE Transactions on Information Theory} \textbf{69}, 3825--3849 (2023). \href{https://arxiv.org/abs/2202.08380v2}{arXiv:2202.08380v2}.
+
+  \item[\textup{[SW25]}]\label{ref:spq-smith-wu}
+  G. Smith and P. Wu, ``Additivity of quantum capacities in simple non-degradable quantum channels,'' preprint, version 4 (2025). \href{https://arxiv.org/abs/2409.03927v4}{arXiv:2409.03927v4}.
+
+  \item[\textup{[SC26]}]\label{ref:spq-song-chen}
+  Z. Song and L. Chen, ``A counterexample to the strong spin alignment conjecture,'' preprint (2026). \href{https://arxiv.org/abs/2603.25410}{arXiv:2603.25410}.
+
+  \item[\textup{[Guo26]}]\label{ref:spq-guo}
+  Y. Guo, B.-X. Wang, X.-M. Hu, Y.-F. Huang, C.-F. Li, G.-C. Guo, and B.-H. Liu, ``Experimental observation of entropic-singularity-induced nonadditive quantum communication in a qutrit platypus channel,'' preprint (2026). \href{https://arxiv.org/abs/2605.17418}{arXiv:2605.17418}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The target concerns self-tensor powers of one fixed channel. The \href{https://qiqc-op.com/problem/op_a59d7cc1c843edb5/}{exactly solvable nondegradable channel problem} allows the channel to be chosen, while the \href{https://qiqc-op.com/problem/op_3ea0de34a1fe6e0b/}{finite truncation problem} quantifies over all channels. The catalog and literature were checked through November 26, 2026.
+
+\subsection*{Field}
+
+Quantum Information Theory
+
+\subsection*{Topic}
+
+Quantum capacity; Additivity and regularization
+
+\subsection*{ID}
+
+\texttt{op\_dfb4aa012543d43a}

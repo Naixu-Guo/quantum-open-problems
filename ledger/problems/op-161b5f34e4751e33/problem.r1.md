@@ -1,0 +1,41 @@
+---
+id: "01M87VW427BQPT9MF59FZV6YXA"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-11-27T01:42:25.991Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-statistical-inference"]
+topicIds: ["quantum-tomography"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: ["01M2M9FAM8V4XN25WJB1Q8H13Y","01M2JMFAPYEDSSTG9R7CWHJGQ4"]
+title: "Polynomial fractional coloring for Pauli shadow tomography"
+aliases: ["op-161b5f34e4751e33","op_161b5f34e4751e33","01M87VW427BQPT9MF59FZV6YXA"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_161b5f34e4751e33.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_161b5f34e4751e33","ulid":"01M87VW427BQPT9MF59FZV6YXA","aliases":["op_161b5f34e4751e33","01M87VW427BQPT9MF59FZV6YXA","op-161b5f34e4751e33"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":1,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-11-24T22:47:23.975Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-statistical-inference"],"topicIds":["quantum-tomography"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":["01M2M9FAM8V4XN25WJB1Q8H13Y","01M2JMFAPYEDSSTG9R7CWHJGQ4"]},"title":"Polynomial fractional coloring for Pauli shadow tomography","status":"Unsolved","fields":["Quantum Statistical Inference"],"topics":["Quantum tomography"],"statement":"Shadow tomography asks how to estimate many expectation values using copies of an unknown state. On $n$ qubits, a Pauli observable is a tensor product $P\\in\\{I,X,Y,Z\\}^{\\otimes n}$. Its expectation on a state $\\rho$ is $\\operatorname{Tr}(\\rho P)$. For an accuracy scale $0<\\varepsilon<1$, let $B_\\varepsilon(\\rho)$ be the set of Paulis with $\\lvert\\operatorname{Tr}(\\rho P)\\rvert\\geq\\varepsilon$. The question is how economically these observables can be grouped for measurement.\n\nBuild a graph with vertex set $B_\\varepsilon(\\rho)$ and join $P$ to $Q$ when they anticommute, meaning $PQ=-QP$. An independent set $S$ is a group of pairwise commuting Paulis. The observables in one such group have a common eigenbasis, so a single joint measurement yields an outcome for each of them.\n\nA fractional coloring assigns a weight $w_S\\geq0$ to each independent set. Every vertex $P$ must be covered to total weight at least one, meaning $\\sum_{S\\ni P}w_S\\geq1$. Write $\\chi_f$ for the minimum total weight $\\sum_S w_S$ of such a cover. A cover of weight $W$ can be used as a measurement schedule. Choosing $S$ with probability $w_S/W$ includes each retained Pauli with probability at least $1/W$.\n\nDo universal constants $C,\\kappa>0$ exist such that $\\chi_f\\leq C\\varepsilon^{-\\kappa}$ for every number of qubits $n$, every state $\\rho$, and every $0<\\varepsilon<1$? The weights may depend on the state. The question asks for the existence of the cover.","source":"Stempin, Llorens, and Huber pose the polynomial bound in Sec.~7 after disproving the quadratic conjecture \\sourcecite{ref:pauli-coloring}{SLH26}.","progress":["The anti-heptagon construction in Sec.~5 and its generalization in Sec.~6 give families with unbounded $\\varepsilon^2\\chi_f$. The polynomial-bound question allows a larger exponent \\sourcecite{ref:pauli-coloring}{SLH26}.","King et al.\\ relate fractional colorings to protocols for estimating Pauli expectations using pairs of copies. Efficient construction or sampling of the coloring is an additional computational requirement \\sourcecite{ref:triply-efficient}{KGKB25}."],"references":[{"key":"SLH26","label":"ref:pauli-coloring","tex":"J. Stempin, S. Llorens, and F. Huber, \\emph{Counterexamples to the fractional coloring conjecture for triply efficient shadow tomography} (2026). \\href{https://arxiv.org/abs/2608.20113v1}{arXiv:2608.20113v1}."},{"key":"KGKB25","label":"ref:triply-efficient","tex":"R. King, D. Gosset, R. Kothari, and R. Babbush, \\emph{Triply Efficient Shadow Tomography}, PRX Quantum \\textbf{6}, 010336 (2025). \\href{https://doi.org/10.1103/PRXQuantum.6.010336}{DOI:10.1103/PRXQuantum.6.010336}."}],"comment":"The polynomial bound would give a dimension-independent cover cost for the relevant commuting measurement groups. Computing the cover is a separate question. The catalog and literature were checked through November 26, 2026.","contributors":[]}}
+---
+## Source
+
+Stempin, Llorens, and Huber pose the polynomial bound in Sec. 7 after disproving the quadratic conjecture [SLH26](https://arxiv.org/abs/2608.20113v1).
+
+## Progress
+
+The anti-heptagon construction in Sec. 5 and its generalization in Sec. 6 give families with unbounded $\varepsilon^2\chi_f$. The polynomial-bound question allows a larger exponent [SLH26](https://arxiv.org/abs/2608.20113v1).
+
+King et al. relate fractional colorings to protocols for estimating Pauli expectations using pairs of copies. Efficient construction or sampling of the coloring is an additional computational requirement [KGKB25](https://doi.org/10.1103/PRXQuantum.6.010336).
+
+## Comment
+
+The polynomial bound would give a dimension-independent cover cost for the relevant commuting measurement groups. Computing the cover is a separate question. The catalog and literature were checked through November 26, 2026.
+
+## References
+
+**SLH26** J. Stempin, S. Llorens, and F. Huber, *Counterexamples to the fractional coloring conjecture for triply efficient shadow tomography* (2026). [arXiv:2608.20113v1](https://arxiv.org/abs/2608.20113v1).
+
+**KGKB25** R. King, D. Gosset, R. Kothari, and R. Babbush, *Triply Efficient Shadow Tomography*, PRX Quantum **6**, 010336 (2025). [DOI:10.1103/PRXQuantum.6.010336](https://doi.org/10.1103/PRXQuantum.6.010336).

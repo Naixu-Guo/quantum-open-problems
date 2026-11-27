@@ -1,0 +1,76 @@
+% Problem record op_f481af11654b3f28. This TeX file is derived from
+% database/problems_json/op_f481af11654b3f28.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Projective Bell-locality threshold of two-qubit Werner states}
+\label{sec:op_f481af11654b3f28}
+
+\paragraph{Problem.}
+What is the largest visibility at which a two-qubit Werner state admits a local model for every Bell test with projective measurements?
+
+The Werner state $\rho_v=v\ket{\psi^-}\!\langle\psi^-\rvert+(1-v)I_4/4$ mixes the singlet $\ket{\psi^-}=(\ket{01}-\ket{10})/\sqrt2$ with the maximally mixed state $I_4/4$, which acts as white noise. The visibility $v\in[0,1]$ is the weight of the singlet. At $v=0$ the pair is pure noise, and at $v=1$ it is a pure singlet.
+
+In one trial, a source prepares one fresh pair in $\rho_v$ and sends the first qubit to Alice and the second to Bob. Before the experiment, Alice and Bob each specify a finite menu of directions along which to measure their own qubit. Alice picks one menu entry $x$, called her setting, and measures along that direction. Bob independently picks a setting $y$ from his own menu and measures along his chosen direction. They work without communicating during the trial. Alice records her outcome $a$ and Bob records his outcome $b$, each $+1$ or $-1$. For example, a projective measurement along the $Z$ axis returns $+1$ for $\ket{0}$ and $-1$ for $\ket{1}$.
+
+By repeating the trial on fresh pairs and keeping every outcome, they can estimate a table of probabilities. Its entry $p(a,b\mid x,y)$ is the probability that Alice records $a$ and Bob records $b$ among the trials that used settings $x$ and $y$. Write $\vec{u}_x$ and $\vec{w}_y$ for the unit vectors along their chosen directions. Quantum theory predicts
+\begin{equation}
+p(a,b\mid x,y)=\frac{1-ab\,v\,\vec{u}_x\cdot\vec{w}_y}{4}.
+\label{eq:werner-table}
+\end{equation}
+For example, among trials in which both parties measure along $Z$, Eq.~\eqref{eq:werner-table} gives probability $(1+v)/4$ for Alice to record $+1$ and Bob to record $-1$.
+
+For one fixed pair of menus, the table is Bell-local if one shared random variable $\lambda$ reproduces all its entries as
+\begin{equation}
+p(a,b\mid x,y)=\sum_{\lambda}q(\lambda)\,p_A(a\mid x,\lambda)\,p_B(b\mid y,\lambda).
+\label{eq:werner-local-model}
+\end{equation}
+The parties share $\lambda$ before choosing their settings. Its probabilities $q(\lambda)\geq0$ sum to one and are independent of the settings. Alice's response uses only $x$ and $\lambda$, and Bob's uses only $y$ and $\lambda$.
+
+The threshold $v_c$ is the largest visibility at which every finite pair of menus gives a table of the form in Eq.~\eqref{eq:werner-local-model}. Extra noise preserves a local model, so every $v\le v_c$ qualifies. For each $v>v_c$, some finite pair of menus yields a table violating a Bell inequality, a linear inequality that every Bell-local table for those menus obeys.
+
+Determine the exact value of $v_c$.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Acín, Gisin, and Toner prove in Theorem~1 that $v_c=1/K_G(3)$, where $K_G(3)$ is the real Grothendieck constant of order three. Determining that constant would give the exact visibility threshold \sourcecite{ref:d8-03-agt06}{AGT06}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Designolle et al. construct a local model for all projective measurement directions up to a visibility of approximately $0.6875$. Their Eq.~(4) gives a certified lower bound on $v_c$ \sourcecite{ref:d8-03-dib-23}{DIB+23}.
+
+  \item Márton et al. certify the classical bound of a Bell inequality and report a three-dimensional quantum-to-classical ratio of approximately $1.438746$ in Table~4. The reciprocal gives an upper bound of approximately $0.69505$ on $v_c$ \sourcecite{ref:d8-03-mbdv26}{MBDV26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[AGT06]}]\label{ref:d8-03-agt06}
+  A. Acín, N. Gisin, and B. Toner, ``Grothendieck's constant and local models for noisy entangled quantum states,'' (2006). \href{https://arxiv.org/abs/quant-ph/0606138}{arXiv:quant-ph/0606138}.
+
+  \item[\textup{[DIB+23]}]\label{ref:d8-03-dib-23}
+  S. Designolle, G. Iommazzo, M. Besançon, S. Knebel, P. Gelß, and S. Pokutta, ``Improved local models and new Bell inequalities via Frank-Wolfe algorithms,'' (2023). \href{https://arxiv.org/abs/2302.04721v4}{arXiv:2302.04721v4}.
+
+  \item[\textup{[MBDV26]}]\label{ref:d8-03-mbdv26}
+  I. Márton, E. Bene, P. Diviánszky, and T. Vértesi, ``Exact classical bounds of bipartite correlation Bell inequalities using improved branch-and-bound,'' (2026). \href{https://arxiv.org/abs/2611.22893v1}{arXiv:2611.22893v1}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The related \href{https://qiqc-op.com/problem/op_2982ddd94453b5b6/}{Werner-state steering threshold} concerns one-sided steering with arbitrary measurements in higher dimensions. The catalog and literature were checked through November 26, 2026.
+
+\subsection*{Field}
+
+Quantum Foundations
+
+\subsection*{Topic}
+
+Bell nonlocality
+
+\subsection*{ID}
+
+\texttt{op\_f481af11654b3f28}

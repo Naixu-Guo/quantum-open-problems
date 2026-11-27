@@ -1,0 +1,76 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_dfb4aa012543d43a",
+  "ulid": "01M87VW3H33W3BY9DFJF5502W7",
+  "aliases": [
+    "op_dfb4aa012543d43a",
+    "01M87VW3H33W3BY9DFJF5502W7",
+    "op-dfb4aa012543d43a"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-11-24T22:47:23.427Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "derived",
+    "posed": null,
+    "areaIds": [
+      "quantum-information-theory"
+    ],
+    "topicIds": [
+      "quantum-capacity",
+      "additivity-and-regularization"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": [
+      "01M1Q787QRJWENG45M2E70WZXW",
+      "01M1Q787QR8FTR00QF4PMHHWPE"
+    ]
+  },
+  "title": "Quantum capacity of the symmetric platypus channel",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum Information Theory"
+  ],
+  "topics": [
+    "Quantum capacity",
+    "Additivity and regularization"
+  ],
+  "statement": "Define an isometry $V:A\\to B\\otimes E$, where $A$ and $B$ are qutrits and $E$ is a qubit, by\n\\begin{equation}\n  V\\ket{0}=(\\ket{00}+\\ket{11})/\\sqrt2,\\qquad\n  V\\ket{1}=\\ket{20},\\qquad V\\ket{2}=\\ket{21}.\n  \\label{eq:spq-isometry}\n\\end{equation}\nFor $V$ in Eq.~\\eqref{eq:spq-isometry}, set $\\mathcal{N}(\\rho)=\\operatorname{Tr}_E(V\\rho V^\\dagger)$ and $\\mathcal{N}^c(\\rho)=\\operatorname{Tr}_B(V\\rho V^\\dagger)$. For $m\\geq1$ let\n\\begin{equation}\n q_m=\\max_{\\rho}\\Big[\n S\\bigl(\\mathcal{N}^{\\otimes m}(\\rho)\\bigr)-\n S\\bigl((\\mathcal{N}^c)^{\\otimes m}(\\rho)\\bigr)\\Big],\n \\label{eq:spq-coherent}\n\\end{equation}\nwhere $\\rho$ ranges over all $m$-qutrit states and $S$ denotes von Neumann entropy in bits. Here $q_m$ in Eq.~\\eqref{eq:spq-coherent} is the largest coherent information attainable using $m$ copies of the channel jointly. What is the exact value of the unassisted quantum capacity $\\mathcal{Q}(\\mathcal{N})=\\sup_{m\\geq1}q_m/m$, in qubits per channel use?",
+  "source": "This is the symmetric member $s=1/2$ of the platypus channels in Section~3.1, Eq.~(20), of Leditzky et al. Their Section~5, Eq.~(70), shows that the spin alignment conjecture would give $\\mathcal{Q}(\\mathcal{N})=q_1$ \\sourcecite{ref:spq-leditzky}{LLSSS23}.",
+  "progress": [
+    "For the channel in Eq.~\\eqref{eq:spq-isometry}, Section~4.1 gives $q_1=\\max_{0\\leq u\\leq1}[h_2(u)+(1-u)-h_2((1-u)/2)]$, with $h_2$ the binary entropy. Section~6.2 proves the two-spin entropy inequality in this symmetric case, which with the reduction in Section~5 yields $q_2=2q_1$. Theorem~3 gives the unconditional capacity upper bound $\\log_2(1+1/\\sqrt{2})$ \\sourcecite{ref:spq-leditzky}{LLSSS23}.",
+    "Smith and Wu prove additivity for some generalized platypus channels. In Section~V after Proposition~V.5 they discuss the original $t=0$ family, for which the spin-alignment argument remains conditional \\sourcecite{ref:spq-smith-wu}{SW25}.",
+    "Song and Chen's three-qubit example violates a stronger spin-alignment majorization conjecture. Their Section~II Remark checks that the example does not violate the original von Neumann entropy inequality. Guo et al. observe a coherent-information gain using the symmetric platypus with a different assisting channel \\sourcecite{ref:spq-song-chen}{SC26} \\sourcecite{ref:spq-guo}{Guo26}."
+  ],
+  "references": [
+    {
+      "key": "LLSSS23",
+      "label": "ref:spq-leditzky",
+      "tex": "F. Leditzky, D. Leung, V. Siddhu, G. Smith, and J. A. Smolin, ``The platypus of the quantum channel zoo,'' \\emph{IEEE Transactions on Information Theory} \\textbf{69}, 3825--3849 (2023). \\href{https://arxiv.org/abs/2202.08380v2}{arXiv:2202.08380v2}."
+    },
+    {
+      "key": "SW25",
+      "label": "ref:spq-smith-wu",
+      "tex": "G. Smith and P. Wu, ``Additivity of quantum capacities in simple non-degradable quantum channels,'' preprint, version 4 (2025). \\href{https://arxiv.org/abs/2409.03927v4}{arXiv:2409.03927v4}."
+    },
+    {
+      "key": "SC26",
+      "label": "ref:spq-song-chen",
+      "tex": "Z. Song and L. Chen, ``A counterexample to the strong spin alignment conjecture,'' preprint (2026). \\href{https://arxiv.org/abs/2603.25410}{arXiv:2603.25410}."
+    },
+    {
+      "key": "Guo26",
+      "label": "ref:spq-guo",
+      "tex": "Y. Guo, B.-X. Wang, X.-M. Hu, Y.-F. Huang, C.-F. Li, G.-C. Guo, and B.-H. Liu, ``Experimental observation of entropic-singularity-induced nonadditive quantum communication in a qutrit platypus channel,'' preprint (2026). \\href{https://arxiv.org/abs/2605.17418}{arXiv:2605.17418}."
+    }
+  ],
+  "comment": "The target concerns self-tensor powers of one fixed channel. The \\href{https://qiqc-op.com/problem/op_a59d7cc1c843edb5/}{exactly solvable nondegradable channel problem} allows the channel to be chosen, while the \\href{https://qiqc-op.com/problem/op_3ea0de34a1fe6e0b/}{finite truncation problem} quantifies over all channels. The catalog and literature were checked through November 26, 2026.",
+  "contributors": []
+}

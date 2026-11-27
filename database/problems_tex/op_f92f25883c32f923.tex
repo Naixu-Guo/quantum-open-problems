@@ -1,0 +1,52 @@
+% Problem record op_f92f25883c32f923. This TeX file is derived from
+% database/problems_json/op_f92f25883c32f923.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Exact two-copy value of the quantum cloning game}
+\label{sec:op_f92f25883c32f923}
+
+\paragraph{Problem.}
+A referee holds two qubits $R_1,R_2$ and shares an arbitrary initial state with two players, Alice and Bob. The players' initial systems may have any finite dimension, and the referee's marginal is unrestricted. The referee chooses independent uniform bits $x_1,x_2$ and announces both to both players. Without communicating, each player applies any local channel depending on the two bits and returns two qubits, one for each coordinate.
+
+For $j=1,2$, the referee pairs $R_j$ with Alice's returned qubit if $x_j=0$ and with Bob's if $x_j=1$. The referee projects each pair onto $\lvert\Phi^+\rangle=(\lvert00\rangle+\lvert11\rangle)/\sqrt{2}$. The players win if both projections succeed.
+
+What is the supremum of the average winning probability over all such strategies?
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Naig and Fenner define the unrestricted strategy in Sec.~2 and leave the exact two-copy value open in Sec.~6 \sourcecite{ref:cloning}{NF26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Theorem~4.1 gives a strategy winning with probability $(5+\sqrt{17})/16$. Corollary~5.1 bounds the optimum above by $(11+\sqrt{65})/32$ \sourcecite{ref:cloning}{NF26}.
+
+  \item Proposition~4.5 gives the value $9/16$ when the players' response channels are independent of the challenge \sourcecite{ref:cloning}{NF26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[NF26]}]\label{ref:cloning}
+  E. C. Naig and S. A. Fenner, \emph{Parallel Repetition in the Two-Player Quantum Cloning Game} (2026). \href{https://arxiv.org/abs/2608.00930v1}{arXiv:2608.00930v1}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+A strategy may couple the two coordinates, and each player learns both challenge bits before returning quantum systems. In the related \href{https://qiqc-op.com/problem/op_96cf7aa1c1be9be2/}{routing problem}, the task is to deliver an input qubit to a prescribed location. The catalog and literature were checked through November 26, 2026.
+
+\subsection*{Field}
+
+Quantum Foundations
+
+\subsection*{Topic}
+
+Bell nonlocality; Position-based quantum cryptography
+
+\subsection*{ID}
+
+\texttt{op\_f92f25883c32f923}

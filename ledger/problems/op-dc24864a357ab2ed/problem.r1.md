@@ -1,0 +1,41 @@
+---
+id: "01M87VW40J5JTT2Y1TQ7VYW0E7"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-11-27T01:42:25.991Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "derived"
+posed: null
+areaIds: ["quantum-statistical-inference"]
+topicIds: ["quantum-tomography"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: ["01M2M9FC6H8290J9PJ3S9MH1SW","01M2M9FAM8V4XN25WJB1Q8H13Y"]
+title: "A quadratic copy lower bound for Majorana correlations with persistent memory"
+aliases: ["op-dc24864a357ab2ed","op_dc24864a357ab2ed","01M87VW40J5JTT2Y1TQ7VYW0E7"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_dc24864a357ab2ed.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_dc24864a357ab2ed","ulid":"01M87VW40J5JTT2Y1TQ7VYW0E7","aliases":["op_dc24864a357ab2ed","01M87VW40J5JTT2Y1TQ7VYW0E7","op-dc24864a357ab2ed"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":1,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-11-24T22:47:23.922Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"derived","posed":null,"areaIds":["quantum-statistical-inference"],"topicIds":["quantum-tomography"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":["01M2M9FC6H8290J9PJ3S9MH1SW","01M2M9FAM8V4XN25WJB1Q8H13Y"]},"title":"A quadratic copy lower bound for Majorana correlations with persistent memory","status":"Unsolved","fields":["Quantum Statistical Inference"],"topics":["Quantum tomography"],"statement":"A source supplies independent copies of an arbitrary state $\\rho$ on two $n$-qubit registers $A,B$. Fix $2n$ known Majorana operators on each register, denoted by $a_j$ on $A$ and $b_j$ on $B$. These are Hermitian matrices satisfying $c_jc_k+c_kc_j=2\\delta_{jk}I$ within each register, where $c$ denotes either family and $\\delta_{jk}$ is the Kronecker delta.\n\nA learner receives one whole copy at a time. In each round it may apply any joint quantum operation with classical outcomes to the copy and its retained memory, chosen using the full classical transcript. It may keep unlimited classical data and a quantum register of dimension at most $n^3$ between rounds. The initial memory is independent of $\\rho$.\n\nFor every $j<k$ and $\\ell<m$ in $\\{1,\\ldots,2n\\}$, the learner must estimate $\\operatorname{Tr}[\\rho((i a_j a_k)\\otimes(i b_\\ell b_m))]$ to additive error $1/8$, with probability at least $2/3$ that all estimates are correct to this accuracy. Is the worst-case number of copies required $\\Omega(n^2)$?","source":"Tao and Shen identify dimension $K=n^3$ as an open case in Sec.~9.3, in the paragraph after Eq.~(124). The question here fixes the accuracy at the endpoint $1/8$ allowed in their model of Sec.~5.3 \\sourcecite{ref:d12-majorana-memory}{TS26}.","progress":["At $K=n^3$, the bound following Eq.~(124) gives $\\Omega(n)$ copies at this accuracy. Proposition~9.3 and Eq.~(124) give an $O(n^2\\log n)$ upper bound using commuting measurements and classical storage alone. The nearly quadratic lower bound of Theorem~2.7 at $K=\\lfloor\\sqrt n\\rfloor$ applies to a smaller register \\sourcecite{ref:d12-majorana-memory}{TS26}.","In a Pauli representation of the Majoranas these products are Pauli observables. Theorem~6 of arXiv:2404.19211v1 gives $O(\\log n)$ two-copy measurements at the stated fixed accuracy. Its Bell-measurement step acts on two complete copies together \\sourcecite{ref:d12-two-copy}{KGKB25}."],"references":[{"key":"TS26","label":"ref:d12-majorana-memory","tex":"Y. Tao and H. Shen, \\emph{Structural Lower Bounds for Quantum Property Estimation with Persistent Memory} (2026). \\href{https://arxiv.org/abs/2611.05792v1}{arXiv:2611.05792v1}."},{"key":"KGKB25","label":"ref:d12-two-copy","tex":"R. King, D. Gosset, R. Kothari, and R. Babbush, \\emph{Triply Efficient Shadow Tomography}, PRX Quantum \\textbf{6}, 010336 (2025). \\href{https://doi.org/10.1103/PRXQuantum.6.010336}{doi:10.1103/PRXQuantum.6.010336}. \\href{https://arxiv.org/abs/2404.19211v1}{arXiv:2404.19211v1}."}],"comment":"The promise is on the observables and the learner's storage. The input may be mixed, entangled, or non-Gaussian. The catalog's \\href{https://qiqc-op.com/problem/op_91c81ca77b99eebf/}{Gaussian tomography problem} instead promises a Gaussian input and asks for full trace-distance reconstruction. The catalog and literature were checked through November 26, 2026.","contributors":[]}}
+---
+## Source
+
+Tao and Shen identify dimension $K=n^3$ as an open case in Sec. 9.3, in the paragraph after Eq. (124). The question here fixes the accuracy at the endpoint $1/8$ allowed in their model of Sec. 5.3 [TS26](https://arxiv.org/abs/2611.05792v1).
+
+## Progress
+
+At $K=n^3$, the bound following Eq. (124) gives $\Omega(n)$ copies at this accuracy. Proposition 9.3 and Eq. (124) give an $O(n^2\log n)$ upper bound using commuting measurements and classical storage alone. The nearly quadratic lower bound of Theorem 2.7 at $K=\lfloor\sqrt n\rfloor$ applies to a smaller register [TS26](https://arxiv.org/abs/2611.05792v1).
+
+In a Pauli representation of the Majoranas these products are Pauli observables. Theorem 6 of arXiv:2404.19211v1 gives $O(\log n)$ two-copy measurements at the stated fixed accuracy. Its Bell-measurement step acts on two complete copies together [KGKB25](https://doi.org/10.1103/PRXQuantum.6.010336).
+
+## Comment
+
+The promise is on the observables and the learner’s storage. The input may be mixed, entangled, or non-Gaussian. The catalog’s [Gaussian tomography problem](https://qiqc-op.com/problem/op_91c81ca77b99eebf/) instead promises a Gaussian input and asks for full trace-distance reconstruction. The catalog and literature were checked through November 26, 2026.
+
+## References
+
+**TS26** Y. Tao and H. Shen, *Structural Lower Bounds for Quantum Property Estimation with Persistent Memory* (2026). [arXiv:2611.05792v1](https://arxiv.org/abs/2611.05792v1).
+
+**KGKB25** R. King, D. Gosset, R. Kothari, and R. Babbush, *Triply Efficient Shadow Tomography*, PRX Quantum **6**, 010336 (2025). [doi:10.1103/PRXQuantum.6.010336](https://doi.org/10.1103/PRXQuantum.6.010336). [arXiv:2404.19211v1](https://arxiv.org/abs/2404.19211v1).

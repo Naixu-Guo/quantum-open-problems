@@ -1,0 +1,59 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_f92f25883c32f923",
+  "ulid": "01M87VW41DNY8XC0D47W7NZA4E",
+  "aliases": [
+    "op_f92f25883c32f923",
+    "01M87VW41DNY8XC0D47W7NZA4E",
+    "op-f92f25883c32f923"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-11-24T22:47:23.949Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-foundations"
+    ],
+    "topicIds": [
+      "bell-nonlocality",
+      "position-based-quantum-cryptography"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": [
+      "01M1HME780TJ3Z7X332QY1GWFR"
+    ]
+  },
+  "title": "Exact two-copy value of the quantum cloning game",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum Foundations"
+  ],
+  "topics": [
+    "Bell nonlocality",
+    "Position-based quantum cryptography"
+  ],
+  "statement": "A referee holds two qubits $R_1,R_2$ and shares an arbitrary initial state with two players, Alice and Bob. The players' initial systems may have any finite dimension, and the referee's marginal is unrestricted. The referee chooses independent uniform bits $x_1,x_2$ and announces both to both players. Without communicating, each player applies any local channel depending on the two bits and returns two qubits, one for each coordinate.\n\nFor $j=1,2$, the referee pairs $R_j$ with Alice's returned qubit if $x_j=0$ and with Bob's if $x_j=1$. The referee projects each pair onto $\\lvert\\Phi^+\\rangle=(\\lvert00\\rangle+\\lvert11\\rangle)/\\sqrt{2}$. The players win if both projections succeed.\n\nWhat is the supremum of the average winning probability over all such strategies?",
+  "source": "Naig and Fenner define the unrestricted strategy in Sec.~2 and leave the exact two-copy value open in Sec.~6 \\sourcecite{ref:cloning}{NF26}.",
+  "progress": [
+    "Theorem~4.1 gives a strategy winning with probability $(5+\\sqrt{17})/16$. Corollary~5.1 bounds the optimum above by $(11+\\sqrt{65})/32$ \\sourcecite{ref:cloning}{NF26}.",
+    "Proposition~4.5 gives the value $9/16$ when the players' response channels are independent of the challenge \\sourcecite{ref:cloning}{NF26}."
+  ],
+  "references": [
+    {
+      "key": "NF26",
+      "label": "ref:cloning",
+      "tex": "E. C. Naig and S. A. Fenner, \\emph{Parallel Repetition in the Two-Player Quantum Cloning Game} (2026). \\href{https://arxiv.org/abs/2608.00930v1}{arXiv:2608.00930v1}."
+    }
+  ],
+  "comment": "A strategy may couple the two coordinates, and each player learns both challenge bits before returning quantum systems. In the related \\href{https://qiqc-op.com/problem/op_96cf7aa1c1be9be2/}{routing problem}, the task is to deliver an input qubit to a prescribed location. The catalog and literature were checked through November 26, 2026.",
+  "contributors": []
+}

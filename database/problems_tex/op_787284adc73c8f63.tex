@@ -1,0 +1,59 @@
+% Problem record op_787284adc73c8f63. This TeX file is derived from
+% database/problems_json/op_787284adc73c8f63.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Exact Gilbert--Varshamov distance for rate-one-half quantum LDPC codes}
+\label{sec:op_787284adc73c8f63}
+
+\paragraph{Problem.}
+Can qubit stabilizer codes with uniformly sparse checks attain the quantum Gilbert--Varshamov relative distance at rate $1/2$? Let $\delta_*$ be the unique root in $(0,1/2)$ of $h_2(\delta_*)+\delta_*\log_2 3=1/2$, where $h_2$ is binary entropy. For a code $[[n,k_n,d_n]]$, the distance $d_n$ is the smallest weight of a Pauli that preserves the codespace and acts nontrivially on it.
+
+Seek a family with $n\to\infty$ and
+\begin{equation}
+\liminf_n k_n/n\geq 1/2,\qquad
+\liminf_n d_n/n\geq \delta_*.
+\label{eq:gvq-rate-distance}
+\end{equation}
+There must be one constant $w$ for the whole family such that each code has stabilizer generators acting on at most $w$ qubits, with each qubit in at most $w$ of those generators. Does a family satisfying Eq.~\eqref{eq:gvq-rate-distance} exist?
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Mittal, Srivastava, Tulsiani and Wootters ask in Section~1 whether quantum LDPC codes can reach the quantum Gilbert--Varshamov bound. Equation~\eqref{eq:gvq-rate-distance} specializes their question to binary codes and rate $1/2$ with one fixed bound on generator weight and incidence \sourcecite{ref:gvq-mstw}{MSTW26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Mittal, Srivastava, Tulsiani and Wootters show that for each fixed $\varepsilon>0$, sparse qubit stabilizer codes of rate $1/2$ can have normalized distance at least $\delta_*-\varepsilon$. The required check-weight bound depends on $\varepsilon$, so choosing successively smaller $\varepsilon$ gives no single bound for the endpoint \sourcecite{ref:gvq-mstw}{MSTW26}.
+
+  \item Kasai's Corollary~5.2 attains the CSS Gilbert--Varshamov benchmark for a collection of finite-degree ensembles. Section~2.4 explains that sparsity of the extended system does not establish bounded-weight measurements of the compressed physical syndromes \sourcecite{ref:gvq-kasai}{Kas26}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[MSTW26]}]\label{ref:gvq-mstw}
+  T. Mittal, S. Srivastava, M. Tulsiani, and M. Wootters, ``Random Quantum LDPC Codes Approaching the Gilbert--Varshamov Bound,'' arXiv preprint (2026). \href{https://arxiv.org/abs/2610.02648v1}{arXiv:2610.02648v1}.
+
+  \item[\textup{[Kas26]}]\label{ref:gvq-kasai}
+  K. Kasai, ``Finite-Degree Quantum LDPC Codes Reaching the Gilbert--Varshamov Bound,'' arXiv preprint (2026). \href{https://arxiv.org/abs/2603.24588v3}{arXiv:2603.24588v3}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The locality constant must stay fixed as $n$ grows, including at exact asymptotic equality. The related \href{https://qiqc-op.com/problem/op_4830398d0c2feb5f/}{Pauli hashing-bound question} uses stochastic errors. The \href{https://qiqc-op.com/problem/op_edcb345719181830/}{qubit distance-bound question} asks for tightness of an upper bound across rates. The catalog and literature were checked through November 26, 2026.
+
+\subsection*{Field}
+
+Quantum Error Correction
+
+\subsection*{Topic}
+
+Quantum LDPC codes; Quantum coding theory
+
+\subsection*{ID}
+
+\texttt{op\_787284adc73c8f63}
