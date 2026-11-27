@@ -61,7 +61,7 @@ mixed-state counterexample and characterize its limiting behavior.
 
 \subsection*{Status}
 
-Unsolved
+Solved
 
 \subsection*{Source}
 
@@ -104,6 +104,10 @@ ensembles open \sourcecite{ref:p63-lu-dong}{LD26}.
   arbitrary mixed states \sourcecite{ref:p63-lu-dong}{LD26}.
 
   \item Historical GitHub report (2026-09-16): Yuxuan Zhang (GitHub: yuxuanzhang1995) reported a candidate global-convergence proof for the uniformly initialized JRF iteration. \href{https://github.com/Naixu-Guo/quantum-open-problems/issues/74}{Issue \#74}.
+
+  \item Zhang proves that the uniformly initialized JRF iteration is well defined on the signal support and converges to a globally optimal minimum-error POVM for every finite-dimensional ensemble, including mixed states with individual rank deficiency and overlapping supports. Both limits in Eq.~\eqref{eq:p63-global-convergence} follow. The result is Theorem 1 of the archived preprint \sourcecite{ref:p63-zhang}{Zha26}, associated with \href{https://github.com/Naixu-Guo/quantum-open-problems/issues/74}{GitHub \#74}.
+
+  \item Ru, Li, Gao, and Jiang obtain a more general result in \sourcecite{ref:p63-ru-li-gao-jiang}{RLGJ26}, Theorem 7 and Corollary 9. On $\mathcal H_0$, the JRF iteration converges to an optimal POVM for any positive semidefinite initial operators satisfying $\ker\Pi_i^{(0)}\cap\operatorname{supp}(\rho_i)=\{0\}$ for every $i$, including all positive definite initializations. Their generalized Reimpell--Werner iteration also handles arbitrary Hermitian cost matrices under partial-trace inequality constraints, with the stated shift and support conditions. For each fixed problem, iteration parameters, and admissible initialization, $o(1/\varepsilon)$ iterations suffice asymptotically for objective error at most $\varepsilon$; this is not a uniform complexity bound over problem instances (Section V).
 \end{itemize}
 
 \subsection*{References}
@@ -132,16 +136,17 @@ ensembles open \sourcecite{ref:p63-lu-dong}{LD26}.
   Convergence for Pure-State Ensembles,''
   \emph{Physical Review A} \textbf{113}, 022451 (2026).
   \href{https://doi.org/10.1103/q7wq-ygm9}{doi:10.1103/q7wq-ygm9}.
+
+  \item[\textup{[Zha26]}]\label{ref:p63-zhang}
+  Y. Zhang, ``Convergence of the Uniformly Initialized Je\v{z}ek--\v{R}eh\'{a}\v{c}ek--Fiur\'{a}\v{s}ek Iteration,'' preprint dated 19 September 2026, in \emph{Agentic Proofs for QIQC: Collected Manuscripts}, version 1.0 (26 September 2026). \href{https://zenodo.org/records/22969546/files/jrf-convergence.pdf}{Manuscript PDF}.
+
+  \item[\textup{[RLGJ26]}]\label{ref:p63-ru-li-gao-jiang}
+  S. Ru, B. Li, W. Gao, and L. Jiang, ``Generalized Reimpell--Werner Iteration,'' preprint (2026). \href{https://arxiv.org/abs/2609.40203v1}{arXiv:2609.40203v1}, version 1, 30 September 2026.
 \end{enumerate}
 
 \subsection*{Comment}
 
-The pure-state case is solved.  The remaining issue is whether the uniform
-initialization prevents nonoptimal accumulation points or nonconvergent
-last-iterate behavior for arbitrary mixed-state ensembles.  The existence of
-convergent semidefinite-programming methods for
-Eq.~\eqref{eq:p63-optimal-guessing-probability} does not establish convergence
-of the specific nonlinear map in Eq.~\eqref{eq:p63-jrf-iteration}.
+The archived question is resolved: the uniformly initialized JRF iteration converges to a globally optimal POVM and its success probability tends to $P_{\mathrm{opt}}$, establishing both limits in Eq.~\eqref{eq:p63-global-convergence} \sourcecite{ref:p63-zhang}{Zha26}, \sourcecite{ref:p63-ru-li-gao-jiang}{RLGJ26}. The statement is retained as the original question; the broader initialization and optimization results are described in Progress.
 
 \subsection*{Field}
 
