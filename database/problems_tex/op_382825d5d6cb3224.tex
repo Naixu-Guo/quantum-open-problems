@@ -1,0 +1,77 @@
+% Problem record op_382825d5d6cb3224. This TeX file is derived from
+% database/problems_json/op_382825d5d6cb3224.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Additivity of unassisted classical capacity}
+\label{sec:op_382825d5d6cb3224}
+
+\paragraph{Problem.}
+Let $\Phi$ and $\Psi$ be finite-dimensional quantum channels. Write $S(\rho)=-\operatorname{Tr}(\rho\log_2\rho)$, and define the Holevo information of a channel $\mathcal N$ by
+\begin{equation}
+  \chi(\mathcal N)=\sup_{\{p_x,\rho_x\}}\left[
+    S\!\left(\sum_x p_x\mathcal N(\rho_x)\right)
+    -\sum_xp_x S\bigl(\mathcal N(\rho_x)\bigr)\right].
+  \label{eq:rca-holevo}
+\end{equation}
+The supremum is over finite ensembles of channel input states. Its unassisted classical capacity is $C(\mathcal N)=\sup_{n\geq1}\chi(\mathcal N^{\otimes n})/n$, using Eq.~\eqref{eq:rca-holevo} with arbitrary ensembles on the joint input. Does
+\begin{equation}
+ C(\Phi\otimes\Psi)=C(\Phi)+C(\Psi)
+ \label{eq:rca-additivity}
+\end{equation}
+hold for every pair of such channels? For the product channel in Eq.~\eqref{eq:rca-additivity}, one use consists of one use of each factor.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Lovitz and Wu, Section~1.3, Eq.~(33), and the outlook of Zhu and Wang explicitly ask whether the fully regularized classical capacity can be superadditive \sourcecite{ref:rca-lovitz-wu}{LW26} \sourcecite{ref:rca-zhu-wang}{ZW26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Using independent encodings establishes $C(\Phi\otimes\Psi)\geq C(\Phi)+C(\Psi)$. Shor's additivity theorem gives equality when one channel is entanglement breaking, meaning its output is separable from every reference system, because the same theorem applies to every tensor power of the channel pair \sourcecite{ref:rca-shor}{Sho02}.
+
+  \item Hastings exhibited a strict Holevo information violation for a pair at one use of each factor. Lovitz and Wu provide further deterministic and random examples and leave Eq.~\eqref{eq:rca-additivity} open \sourcecite{ref:rca-hastings}{Has09} \sourcecite{ref:rca-lovitz-wu}{LW26}.
+
+  \item Collins and Youn show nonadditivity of regularized minimum output entropy in an infinite-dimensional commuting-operator model. Kalantar and Shobeiri extend this line of examples within the same model. Equation~\eqref{eq:rca-additivity} concerns finite-dimensional channels \sourcecite{ref:rca-collins-youn}{CY22} \sourcecite{ref:rca-kalantar-shobeiri}{KS25}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[LW26]}]\label{ref:rca-lovitz-wu}
+  B. Lovitz and P. Wu, ``Superadditivity of classical communication over quantum channels via random and deterministic permutations,'' preprint (2026). \href{https://arxiv.org/abs/2608.25961v2}{arXiv:2608.25961v2}.
+
+  \item[\textup{[ZW26]}]\label{ref:rca-zhu-wang}
+  C. Zhu and X. Wang, ``Private communication via zero-private-capacity quantum channels,'' preprint (2026). \href{https://arxiv.org/abs/2609.10520}{arXiv:2609.10520}.
+
+  \item[\textup{[Sho02]}]\label{ref:rca-shor}
+  P. W. Shor, ``Additivity of the Classical Capacity of Entanglement-Breaking Quantum Channels,'' \emph{Journal of Mathematical Physics} \textbf{43}, 4334--4340 (2002). \href{https://doi.org/10.1063/1.1498000}{doi:10.1063/1.1498000}. \href{https://arxiv.org/abs/quant-ph/0201149}{arXiv:quant-ph/0201149}.
+
+  \item[\textup{[Has09]}]\label{ref:rca-hastings}
+  M. B. Hastings, ``Superadditivity of communication capacity using entangled inputs,'' \emph{Nature Physics} \textbf{5}, 255--257 (2009). \href{https://doi.org/10.1038/nphys1224}{doi:10.1038/nphys1224}. \href{https://arxiv.org/abs/0809.3972}{arXiv:0809.3972}.
+
+  \item[\textup{[CY22]}]\label{ref:rca-collins-youn}
+  B. Collins and S.-G. Youn, ``Additivity violation of the regularized Minimum Output Entropy,'' \emph{Documenta Mathematica} \textbf{27}, 1299--1320 (2022). \href{https://doi.org/10.4171/dm/898}{doi:10.4171/dm/898}. \href{https://arxiv.org/abs/1907.07856}{arXiv:1907.07856}.
+
+  \item[\textup{[KS25]}]\label{ref:rca-kalantar-shobeiri}
+  M. Kalantar and H. Shobeiri, ``More examples of additivity violation of the regularized minimum output entropy in the commuting-operator setup,'' preprint (2025). \href{https://arxiv.org/abs/2501.15462}{arXiv:2501.15462}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+A strict inequality for Eq.~\eqref{eq:rca-additivity} must compare the joint capacity with the separately regularized capacities. The catalog's \href{https://qiqc-op.com/problem/op_25e23d6e92ebce9d/}{closed-form witness question} uses the one-use quantity in Eq.~\eqref{eq:rca-holevo}. The catalog and literature were checked through November 26, 2026.
+
+\subsection*{Field}
+
+Quantum Information Theory
+
+\subsection*{Topic}
+
+Classical capacity; Additivity and regularization
+
+\subsection*{ID}
+
+\texttt{op\_382825d5d6cb3224}

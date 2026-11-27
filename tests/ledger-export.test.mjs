@@ -78,7 +78,9 @@ test("catalog updates append versions while preserving pinned research history",
   try {
     fs.mkdirSync(path.join(fixture, "database/problems_json"), { recursive: true });
     for (const name of ["metadata.json", "actors.json", "tags.json"]) fs.copyFileSync(path.join(root, "database", name), path.join(fixture, "database", name));
-    const original = projection.records[0];
+    // This fixture exports one primary problem in isolation.
+    const original = structuredClone(projection.records.find(({ metadata }) => metadata.role === "primary" && !metadata.equivalentToProblemId));
+    original.metadata.relatedProblemIds = [];
     const sourcePath = path.join(fixture, "database/problems_json", `${original.id}.json`);
     fs.writeFileSync(sourcePath, JSON.stringify(original));
     for (const dir of ["ledger", "activity"]) {

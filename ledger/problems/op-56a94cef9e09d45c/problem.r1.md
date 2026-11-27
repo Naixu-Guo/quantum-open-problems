@@ -1,0 +1,39 @@
+---
+id: "01M87VW3ZN6PQ5EN9HXVY7HN9C"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 1
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-11-27T01:42:25.991Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-computation"]
+topicIds: ["computational-complexity-and-computability","verification-of-quantum-computation"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: ["01M1HME780BM029QANMMXSYJXR"]
+title: "Constant-round interactive synthesis from one input state"
+aliases: ["op-56a94cef9e09d45c","op_56a94cef9e09d45c","01M87VW3ZN6PQ5EN9HXVY7HN9C"]
+authoredCatalog: {"status":"Unsolved","sourcePath":"database/problems_json/op_56a94cef9e09d45c.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_56a94cef9e09d45c","ulid":"01M87VW3ZN6PQ5EN9HXVY7HN9C","aliases":["op_56a94cef9e09d45c","01M87VW3ZN6PQ5EN9HXVY7HN9C","op-56a94cef9e09d45c"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":1,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-11-24T22:47:23.893Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-computation"],"topicIds":["computational-complexity-and-computability","verification-of-quantum-computation"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":["01M1HME780BM029QANMMXSYJXR"]},"title":"Constant-round interactive synthesis from one input state","status":"Unsolved","fields":["Quantum Computation"],"topics":["Computational complexity and computability","Verification of quantum computation"],"statement":"A polynomial-time quantum verifier receives one unknown pure $n$-qubit state $\\lvert\\psi\\rangle$ and exchanges quantum messages with a computationally unbounded prover. The verifier eventually outputs an accept bit and an $n$-qubit state. Require the verifier family to be uniform. One classical algorithm generates its circuits on input $1^n$ in time polynomial in $n$.\n\nLet $U_n$ be an $n$-qubit unitary for each $n$. Suppose there is such a protocol with polynomially many rounds for every inverse-polynomial target error $\\varepsilon(n)=1/p(n)$, where $p$ is a positive polynomial. In each protocol there is one honest prover per $n$ that makes the verifier accept with certainty for every $\\lvert\\psi\\rangle$. For every prover and every $\\lvert\\psi\\rangle$ on which the verifier accepts with probability greater than $1/2$, the conditional output state on acceptance is within trace distance $\\varepsilon(n)$ of $U_n\\lvert\\psi\\rangle$.\n\nMust every such family $U_n$ also admit protocols with the same guarantees and one input state using a number of rounds bounded independently of the input length $n$ for each fixed accuracy polynomial $p$?","source":"He, Ou, and Zhao pose the constant-round single-input question in Sec.~1.3, second item. Definition~2.10 gives the pure-input and acceptance guarantees \\sourcecite{ref:d11-interactive-unitary}{HOZ26}.","progress":["Theorem~1.3 identifies the polynomial-round synthesis class with the class that can approximate unitaries in polynomial space. Lemma~5.1 gives a three-round single-copy protocol with perfect completeness and a soundness threshold of $1-1/\\operatorname{poly}(n)$ \\sourcecite{ref:d11-interactive-unitary}{HOZ26}.","Theorem~1.4 gives a three-round protocol with threshold $1/2$ for the stated inverse-polynomial accuracy regime when it receives polynomially many identical copies of the unknown input \\sourcecite{ref:d11-interactive-unitary}{HOZ26}."],"references":[{"key":"HOZ26","label":"ref:d11-interactive-unitary","tex":"E. He, F. Ou, and M. Zhao, \\emph{unitaryQIP = unitaryPSPACE} (2026). \\href{https://arxiv.org/abs/2611.02819v1}{arXiv:2611.02819v1}."}],"comment":"The constant-round verifier must preserve the fixed acceptance threshold on one copy of an unknown input. The state guarantee is measured on pure inputs of the verifier. The catalog and literature were checked through November 26, 2026.","contributors":[]}}
+---
+## Source
+
+He, Ou, and Zhao pose the constant-round single-input question in Sec. 1.3, second item. Definition 2.10 gives the pure-input and acceptance guarantees [HOZ26](https://arxiv.org/abs/2611.02819v1).
+
+## Progress
+
+Theorem 1.3 identifies the polynomial-round synthesis class with the class that can approximate unitaries in polynomial space. Lemma 5.1 gives a three-round single-copy protocol with perfect completeness and a soundness threshold of $1-1/\operatorname{poly}(n)$ [HOZ26](https://arxiv.org/abs/2611.02819v1).
+
+Theorem 1.4 gives a three-round protocol with threshold $1/2$ for the stated inverse-polynomial accuracy regime when it receives polynomially many identical copies of the unknown input [HOZ26](https://arxiv.org/abs/2611.02819v1).
+
+## Comment
+
+The constant-round verifier must preserve the fixed acceptance threshold on one copy of an unknown input. The state guarantee is measured on pure inputs of the verifier. The catalog and literature were checked through November 26, 2026.
+
+## References
+
+**HOZ26** E. He, F. Ou, and M. Zhao, *unitaryQIP = unitaryPSPACE* (2026). [arXiv:2611.02819v1](https://arxiv.org/abs/2611.02819v1).

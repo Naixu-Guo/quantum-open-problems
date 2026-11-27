@@ -1,0 +1,81 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_f8345db004d2e958",
+  "ulid": "01M87VW3MGTE6T9DZJAQ0AJCYP",
+  "aliases": [
+    "op_f8345db004d2e958",
+    "01M87VW3MGTE6T9DZJAQ0AJCYP",
+    "op-f8345db004d2e958"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-11-24T22:47:23.536Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "source-stated",
+    "posed": null,
+    "areaIds": [
+      "quantum-error-correction"
+    ],
+    "topicIds": [
+      "quantum-ldpc-codes",
+      "quantum-coding-theory"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": [
+      "01M2JD0QDEDZ78QV24WQ3VS9BN",
+      "01M2JD6CZP7FXP1FE70S72FA9J"
+    ]
+  },
+  "title": "Addressable transversal T gates on good quantum LDPC codes",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum Error Correction"
+  ],
+  "topics": [
+    "Quantum LDPC codes",
+    "Quantum coding theory"
+  ],
+  "statement": "Can an asymptotically good qubit stabilizer code family apply a logical $T$ gate to any individual logical qubit using physical powers of $T$? Seek a family $[[n,k_n,d_n]]$ with $n\\to\\infty$, $\\liminf_n k_n/n>0$ and $\\liminf_n d_n/n>0$. The code distance $d_n$ is the least weight of a Pauli that preserves the codespace and acts nontrivially on it. Each code must have a stabilizer generating set whose maximum check weight and maximum number of checks containing a qubit are bounded by a constant independent of $n$.\n\nLet $T=\\operatorname{diag}(1,e^{i\\pi/4})$. For each code, fix one encoding isometry $V_n$ for all gate choices. For every logical index $j$, require integers $b_{j,i}$ and a phase $\\theta_j$ satisfying\n\\begin{equation}\n\\left(\\bigotimes_{i=1}^n T^{b_{j,i}}\\right)V_n\n=e^{i\\theta_j}V_nT_j,\n\\label{eq:atq-addressability}\n\\end{equation}\nwhere $T_j$ acts only on logical qubit $j$. Equation~\\eqref{eq:atq-addressability} specifies the entire physical gate as one tensor product.",
+  "source": "Lin, Wu and Cheng pose this question in Section~6, item~2, with a fixed encoding and bounded weight and participation. Meiburg asks for the same combination of addressability, sparsity, rate and distance in Section~6 \\sourcecite{ref:atq-lwc}{LWC26}, \\sourcecite{ref:atq-meiburg}{Mei26}.",
+  "progress": [
+    "Lin, Wu and Cheng, Theorem~4.5, construct asymptotically good binary CSS codes with fully addressable logical $T$ implemented by physical powers of $T$. The construction has no uniformly bounded check-weight and participation guarantee \\sourcecite{ref:atq-lwc}{LWC26}. Wu, Lin, and Cheng improve the guaranteed rate and relative distance in Theorems~1 and~2. Uniform sparsity of Pauli checks remains open for these constructions \\sourcecite{ref:atq-wlc}{WLC26}.",
+    "Meiburg, Sections~4--5, obtains sparse Pauli checks with transversal $T$ at vanishing rate and a separate protected-subsystem construction with constant protected rate, distance $\\Omega(\\sqrt n)$, and sparse, generally non-Pauli checks \\sourcecite{ref:atq-meiburg}{Mei26}.",
+    "Li, Li, Han and Liu, Theorem~1.1 and Section~3.4, construct good binary quantum LDPC codes with addressable transversal logical controlled-phase gates across code blocks \\sourcecite{ref:atq-llhl}{LLHL26}. Under a product-expansion hypothesis, Tan and Zhu obtain individually addressable logical CCZ gates on disjoint triples, with distance $\\Omega_\\epsilon(n/\\log^2 n)$ in Theorem~1.2 \\sourcecite{ref:atq-tz}{TZ26}."
+  ],
+  "references": [
+    {
+      "key": "LWC26",
+      "label": "ref:atq-lwc",
+      "tex": "T. Lin, B. Wu, and B. Cheng, ``Asymptotically Good Quantum Codes with Addressable Transversal T Gates,'' arXiv preprint (2026). \\href{https://arxiv.org/abs/2609.35129v1}{arXiv:2609.35129v1}."
+    },
+    {
+      "key": "Mei26",
+      "label": "ref:atq-meiburg",
+      "tex": "A. Meiburg, ``Constant Rate Codes with Fully Addressable Transversal T: Good Codes, Sparse Checks,'' arXiv preprint (2026). \\href{https://arxiv.org/abs/2609.38996v1}{arXiv:2609.38996v1}."
+    },
+    {
+      "key": "LLHL26",
+      "label": "ref:atq-llhl",
+      "tex": "Y. Li, Z. Li, Z. Han, and Z.-W. Liu, ``Parallelizable and addressable transversal non-Clifford gates on good quantum LDPC codes,'' arXiv preprint (2026). \\href{https://arxiv.org/abs/2609.26691v3}{arXiv:2609.26691v3}."
+    },
+    {
+      "key": "WLC26",
+      "label": "ref:atq-wlc",
+      "tex": "B. Wu, T. Lin, and B. Cheng, \\emph{Substantially Improved Rate and Distance for Addressable Transversal Phase Gates} (2026). \\href{https://arxiv.org/abs/2611.04964v1}{arXiv:2611.04964v1}."
+    },
+    {
+      "key": "TZ26",
+      "label": "ref:atq-tz",
+      "tex": "S. J. S. Tan and G. Zhu, \\emph{Addressable transversal CCZ gates on almost good quantum LDPC codes and nearly optimal magic state protocols} (2026). \\href{https://arxiv.org/abs/2611.23762v1}{arXiv:2611.23762v1}."
+    }
+  ],
+  "comment": "The target is a diagonal one-qubit action on a chosen logical index of one block. The related \\href{https://qiqc-op.com/problem/op_15c6d5adf1796d86/}{transversal CCZ question} uses three blocks, and the \\href{https://qiqc-op.com/problem/op_ddfbbe7ca0ead0c8/}{six-qubit transversal $T$ question} concerns one fixed code size. The catalog and literature were checked through November 26, 2026.",
+  "contributors": []
+}

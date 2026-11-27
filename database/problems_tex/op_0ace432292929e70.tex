@@ -1,0 +1,55 @@
+% Problem record op_0ace432292929e70. This TeX file is derived from
+% database/problems_json/op_0ace432292929e70.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{A 33-dimensional code correcting one error on 11 qubits}
+\label{sec:op_0ace432292929e70}
+
+\paragraph{Problem.}
+Can thirty-three quantum levels be encoded in eleven qubits and exactly recovered after an arbitrary error on one unknown qubit? Let $\mathcal P_{11}=\{I,X,Y,Z\}^{\otimes 11}$, where the weight of a Pauli string counts its nonidentity factors. Seek a rank-$33$ orthogonal projector $P$ on $(\mathbb C^2)^{\otimes 11}$ such that
+\begin{equation}
+PEP=\frac{\operatorname{Tr}(PE)}{33}P
+\qquad(E\in\mathcal P_{11},\ 1\leq\operatorname{wt}(E)\leq 2).
+\label{eq:ec33-detection}
+\end{equation}
+Equation~\eqref{eq:ec33-detection} is the Knill--Laflamme condition for exact correction of one arbitrary single-qubit error. The projector may be any complex code subspace, and the protocol starts without shared entanglement.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Anglès Munné and Huber record a gap at eleven qubits and distance three in Section~4.2, Table~1. The target rank is the smallest one above the known construction \sourcecite{ref:ec33-amh}{AMH26}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item The known lower bound on the maximum code dimension is $32$, and the rational certificate in Table~1 gives an unrestricted upper bound of $42$. The pure-code bound in Eq.~(40) of the same paper is $41$ \sourcecite{ref:ec33-roj}{ROJ19}, \sourcecite{ref:ec33-amh}{AMH26}. Stabilizer code dimensions are powers of two. Together with the upper bound, this makes dimension $32$ optimal among stabilizer codes. Any larger exact code contains a subcode of rank $33$ satisfying Eq.~\eqref{eq:ec33-detection}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[AMH26]}]\label{ref:ec33-amh}
+  G. Anglès Munné and F. Huber, ``SDP bounds on quantum codes: rational certificates,'' arXiv preprint (2026). \href{https://arxiv.org/abs/2603.19901v1}{arXiv:2603.19901v1}.
+
+  \item[\textup{[ROJ19]}]\label{ref:ec33-roj}
+  A. Rigby, J. C. Olivier, and P. Jarvis, ``Heuristic construction of codeword stabilized codes,'' \emph{Physical Review A} \textbf{100}, 062303 (2019). \href{https://doi.org/10.1103/PhysRevA.100.062303}{doi:10.1103/PhysRevA.100.062303}; \href{https://arxiv.org/abs/1907.04537}{arXiv:1907.04537}.
+\end{enumerate}
+
+\subsection*{Comment}
+
+The \href{https://qiqc-op.com/problem/op_0d6ac674da115857/}{nine-qubit distance-three problem} has a different block length. The \href{https://qiqc-op.com/problem/op_458e9e86ccbddccb/}{eleven-qubit stabilizer problem} fixes dimension $8$ and bounds the weights of stabilizer generators. The catalog and literature were checked through November 26, 2026.
+
+\subsection*{Field}
+
+Quantum Error Correction
+
+\subsection*{Topic}
+
+Quantum coding theory
+
+\subsection*{ID}
+
+\texttt{op\_0ace432292929e70}

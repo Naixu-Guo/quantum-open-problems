@@ -1,0 +1,63 @@
+{
+  "schema": "qiqcop-zoo/record/3",
+  "id": "op_0ace432292929e70",
+  "ulid": "01M87VW3P77TAQ8YWV6A03DTQE",
+  "aliases": [
+    "op_0ace432292929e70",
+    "01M87VW3P77TAQ8YWV6A03DTQE",
+    "op-0ace432292929e70"
+  ],
+  "metadata": {
+    "type": "Problem",
+    "schemaVersion": "1.0",
+    "revision": 1,
+    "createdBy": "01M1Q787QRVXGPCXG6KEQTF7N1",
+    "createdAt": "2026-11-24T22:47:23.591Z",
+    "role": "primary",
+    "parentProblemId": null,
+    "parentClauseId": null,
+    "origin": "derived",
+    "posed": null,
+    "areaIds": [
+      "quantum-error-correction"
+    ],
+    "topicIds": [
+      "quantum-coding-theory"
+    ],
+    "keywords": [],
+    "difficulty": "unrated",
+    "verificationCost": "unrated",
+    "relatedProblemIds": [
+      "01M87VW3Q24QM6WF98A8BVR9R1",
+      "01M2JD6D1YCESPTHQZDT5TZB77",
+      "01M2JD5FZC48CVYJ6FT6X31QKM"
+    ]
+  },
+  "title": "A 33-dimensional code correcting one error on 11 qubits",
+  "status": "Unsolved",
+  "fields": [
+    "Quantum Error Correction"
+  ],
+  "topics": [
+    "Quantum coding theory"
+  ],
+  "statement": "Can thirty-three quantum levels be encoded in eleven qubits and exactly recovered after an arbitrary error on one unknown qubit? Let $\\mathcal P_{11}=\\{I,X,Y,Z\\}^{\\otimes 11}$, where the weight of a Pauli string counts its nonidentity factors. Seek a rank-$33$ orthogonal projector $P$ on $(\\mathbb C^2)^{\\otimes 11}$ such that\n\\begin{equation}\nPEP=\\frac{\\operatorname{Tr}(PE)}{33}P\n\\qquad(E\\in\\mathcal P_{11},\\ 1\\leq\\operatorname{wt}(E)\\leq 2).\n\\label{eq:ec33-detection}\n\\end{equation}\nEquation~\\eqref{eq:ec33-detection} is the Knill--Laflamme condition for exact correction of one arbitrary single-qubit error. The projector may be any complex code subspace, and the protocol starts without shared entanglement.",
+  "source": "Anglès Munné and Huber record a gap at eleven qubits and distance three in Section~4.2, Table~1. The target rank is the smallest one above the known construction \\sourcecite{ref:ec33-amh}{AMH26}.",
+  "progress": [
+    "The known lower bound on the maximum code dimension is $32$, and the rational certificate in Table~1 gives an unrestricted upper bound of $42$. The pure-code bound in Eq.~(40) of the same paper is $41$ \\sourcecite{ref:ec33-roj}{ROJ19}, \\sourcecite{ref:ec33-amh}{AMH26}. Stabilizer code dimensions are powers of two. Together with the upper bound, this makes dimension $32$ optimal among stabilizer codes. Any larger exact code contains a subcode of rank $33$ satisfying Eq.~\\eqref{eq:ec33-detection}."
+  ],
+  "references": [
+    {
+      "key": "AMH26",
+      "label": "ref:ec33-amh",
+      "tex": "G. Anglès Munné and F. Huber, ``SDP bounds on quantum codes: rational certificates,'' arXiv preprint (2026). \\href{https://arxiv.org/abs/2603.19901v1}{arXiv:2603.19901v1}."
+    },
+    {
+      "key": "ROJ19",
+      "label": "ref:ec33-roj",
+      "tex": "A. Rigby, J. C. Olivier, and P. Jarvis, ``Heuristic construction of codeword stabilized codes,'' \\emph{Physical Review A} \\textbf{100}, 062303 (2019). \\href{https://doi.org/10.1103/PhysRevA.100.062303}{doi:10.1103/PhysRevA.100.062303}; \\href{https://arxiv.org/abs/1907.04537}{arXiv:1907.04537}."
+    }
+  ],
+  "comment": "The \\href{https://qiqc-op.com/problem/op_0d6ac674da115857/}{nine-qubit distance-three problem} has a different block length. The \\href{https://qiqc-op.com/problem/op_458e9e86ccbddccb/}{eleven-qubit stabilizer problem} fixes dimension $8$ and bounds the weights of stabilizer generators. The catalog and literature were checked through November 26, 2026.",
+  "contributors": []
+}
