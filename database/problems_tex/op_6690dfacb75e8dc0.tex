@@ -43,6 +43,8 @@ where $h_2(q)=-q\log_2q-(1-q)\log_2(1-q)$. These bounds in Eq.~\eqref{eq:h14-bou
   \item Kianvash, Fanizza, and Giovannetti construct degradable flagged extensions giving improved upper bounds for qudit depolarizing channels. Their Section~5.4 and Figure~2 include a nontrivial dimension-four comparison; optimizing these extension bounds does not supply matching transmission codes \sourcecite{ref:h14-kfg}{KFG22}.
 
   \item In the limit of increasing dimension, the no-cloning and hashing bounds meet after division by $\log_2 d$: for fixed $p$, the normalized capacity tends to $\max\{0,1-2p\}$. Theorem~1 and Corollary~1 analyze this normalized gap. This asymptotic statement neither evaluates the capacity for a fixed finite $d\geq3$ nor proves that the absolute gap in qubits vanishes \sourcecite{ref:h14-emc}{EMC23}.
+
+  \item Harish Santhanalakshmi Ganesan evaluated one use of the qutrit channel on $\sigma_2=P_2/2$, where $P_2$ projects onto a two-dimensional subspace. At replacement probability $p=1-\lambda=0.2910672$, this input has coherent information $9.2409\times10^{-8}$ bits per use, while the maximally mixed input $I_3/3$ gives approximately $-0.0160351$ bits. The coding theorem in Eq.~\eqref{eq:h14-capacity} therefore gives strictly positive unassisted quantum capacity at this noise level. The rank-two input remains positive for $0\leq p<p_2(3)$, where its coherent information vanishes at $p_2(3)\approx0.2910672360$. The maximally mixed input reaches zero at $p_{\mathrm h}(3)\approx0.2870866652$. The note also reports that the rank-two input beats the hashing bound on a noise interval for every $3\leq d\leq64$. \sourcecite{ref:h14-ganesan}{Gan26} (\href{https://github.com/Naixu-Guo/quantum-open-problems/issues/140}{GitHub \#140}).
 \end{itemize}
 
 \subsection*{References}
@@ -54,11 +56,14 @@ where $h_2(q)=-q\log_2q-(1-q)\log_2(1-q)$. These bounds in Eq.~\eqref{eq:h14-bou
 
   \item[\textup{[KFG22]}]\label{ref:h14-kfg}
   F. Kianvash, M. Fanizza, and V. Giovannetti, ``Bounding the quantum capacity with flagged extensions,'' \emph{Quantum} \textbf{6}, 647 (2022). \href{https://doi.org/10.22331/q-2022-02-09-647}{doi:10.22331/q-2022-02-09-647}; \href{https://arxiv.org/abs/2008.02461}{arXiv:2008.02461}.
+
+  \item[\textup{[Gan26]}]\label{ref:h14-ganesan}
+  H. Santhanalakshmi Ganesan, “A two-dimensional-subspace input beats the hashing point of the qudit depolarizing channel: positive single-letter coherent information at $p=0.2910672$ for $d=3$,” version 1.0, 20 October 2026, Theorem 1, Corollary 2, and Proposition 3. \href{https://doi.org/10.5281/zenodo.23492159}{doi:10.5281/zenodo.23492159}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-Audited on 2026-09-09 against the full cited papers and subsequent capacity literature. The existing qubit Pauli-capacity record already contains the dimension-two depolarizing problem and its July--August~2026 coding progress; the present record retains only the higher-dimensional remainder. No existing general qudit-Pauli-capacity statement was found. The depolarizing channel's additive classical Holevo capacity is a different quantity and does not remove the coherent-information regularization in Eq.~\eqref{eq:h14-capacity}. The large-dimension result is in qudits per channel use, obtained by normalizing rates by $\log_2 d$, and supplies no fixed-dimension solution.
+For qutrits, let $p_{\mathrm c}(3)$ be the supremum of replacement probabilities with positive unassisted quantum capacity. The rank-two input gives $p_{\mathrm c}(3)\geq p_2(3)$, and antidegradability gives $p_{\mathrm c}(3)\leq3/8$. The exact threshold within those bounds and the regularized capacity in Eq.~\eqref{eq:h14-capacity} for finite $d\geq3$ remain open. Optimizing one use would still leave open what encodings across multiple uses can achieve. \sourcecite{ref:h14-ganesan}{Gan26} \sourcecite{ref:h14-emc}{EMC23}
 
 \subsection*{Field}
 
