@@ -1,0 +1,80 @@
+---
+id: "01M1Q787QRTZXCRVQWGE6DXEKN"
+type: "Problem"
+schemaVersion: "1.0"
+revision: 5
+createdBy: "01M1VDQX7KEACQQ8KY2HZ5DTFK"
+createdAt: "2026-11-27T23:16:56.269Z"
+role: "primary"
+parentProblemId: null
+parentClauseId: null
+origin: "source-stated"
+posed: null
+areaIds: ["quantum-metrology","quantum-communication"]
+topicIds: ["channel-discrimination","quantum-relative-entropy","superchannels-and-quantum-combs"]
+keywords: []
+difficulty: "unrated"
+verificationCost: "unrated"
+relatedProblemIds: []
+title: "Amortization collapse for superchannel divergences"
+aliases: ["op-1482756b02794495","op_1482756b02794495","01M1Q787QRTZXCRVQWGE6DXEKN"]
+authoredCatalog: {"status":"Solved","sourcePath":"database/problems_json/op_1482756b02794495.json","record":{"schema":"qiqcop-zoo/record/3","id":"op_1482756b02794495","ulid":"01M1Q787QRTZXCRVQWGE6DXEKN","aliases":["op_1482756b02794495","01M1Q787QRTZXCRVQWGE6DXEKN","op-1482756b02794495"],"metadata":{"type":"Problem","schemaVersion":"1.0","revision":1,"createdBy":"01M1Q787QRVXGPCXG6KEQTF7N1","createdAt":"2026-09-04T22:04:59Z","role":"primary","parentProblemId":null,"parentClauseId":null,"origin":"source-stated","posed":null,"areaIds":["quantum-metrology","quantum-communication"],"topicIds":["channel-discrimination","quantum-relative-entropy","superchannels-and-quantum-combs"],"keywords":[],"difficulty":"unrated","verificationCost":"unrated","relatedProblemIds":[]},"title":"Amortization collapse for superchannel divergences","status":"Solved","fields":["Quantum metrology","Quantum Communication"],"topics":["Channel discrimination","Quantum relative entropy","Superchannels and quantum combs"],"statement":"Does amortization collapse for the geometric R\\'enyi divergence of\narbitrary finite-dimensional quantum superchannels?\nFor compatible states, let\n\\begin{equation}\n  \\begin{aligned}\n  D_{\\max}(\\rho\\|\\sigma)\n    &:=\\inf\\{\\lambda:\\rho\\leq2^\\lambda\\sigma\\},\\\\\n  \\widehat D_\\alpha(\\rho\\|\\sigma)\n    &:=\\frac1{\\alpha-1}\\log_2\\operatorname{Tr}\\!\\left[\n      \\sigma\\bigl(\\sigma^{-1/2}\\rho\\sigma^{-1/2}\\bigr)^\\alpha\n      \\right],\\qquad 1<\\alpha\\leq2,\n  \\end{aligned}\n  \\label{eq:p68-state-divergences}\n\\end{equation}\nwith the standard support conventions.  For either divergence\n$\\mathbf D\\in\\{D_{\\max},\\widehat D_\\alpha\\}$, define its channel extension\nand channel-amortized extension by\n\\begin{equation}\n  \\begin{aligned}\n  \\mathbf D_{\\rm ch}(\\mathcal N\\|\\mathcal M)\n    &:=\\sup_{\\rho_{RA}}\n       \\mathbf D(\\mathcal N(\\rho)\\|\\mathcal M(\\rho)),\\\\\n  \\mathbf D_{\\rm ch}^{A}(\\mathcal N\\|\\mathcal M)\n    &:=\\sup_{\\rho_{RA},\\sigma_{RA}}\n       \\{\\mathbf D(\\mathcal N(\\rho)\\|\\mathcal M(\\sigma))\n         -\\mathbf D(\\rho\\|\\sigma)\\},\n  \\end{aligned}\n  \\label{eq:p68-channel-amortization}\n\\end{equation}\nIn Eq.~\\eqref{eq:p68-channel-amortization}, identity maps on $R$ are implicit,\nand the optimizations allow an arbitrary reference of sufficient finite\ndimension.  For superchannels\n$\\Theta_1,\\Theta_2$, set\n\\begin{equation}\n  \\begin{aligned}\n  \\mathbf D_{\\rm sc}(\\Theta_1\\|\\Theta_2)\n    &:=\\sup_{\\mathcal N}\n      \\mathbf D_{\\rm ch}(\\Theta_1(\\mathcal N)\\|\\Theta_2(\\mathcal N)),\\\\\n  \\mathbf D_{\\rm sc}^{A}(\\Theta_1\\|\\Theta_2)\n    &:=\\sup_{\\mathcal N,\\mathcal M}\n      \\{\\mathbf D_{\\rm ch}^{A}\n          (\\Theta_1(\\mathcal N)\\|\\Theta_2(\\mathcal M))\n        -\\mathbf D_{\\rm ch}^{A}(\\mathcal N\\|\\mathcal M)\\}.\n  \\end{aligned}\n  \\label{eq:p68-superchannel-amortization}\n\\end{equation}\nIs\n\\begin{equation}\n  \\mathbf D_{\\rm sc}^{A}(\\Theta_1\\|\\Theta_2)\n  =\\mathbf D_{\\rm sc}(\\Theta_1\\|\\Theta_2)\n  \\label{eq:p68-superchannel-collapse}\n\\end{equation}\nfor $\\mathbf D=\\widehat D_\\alpha$ in Eq.~\\eqref{eq:p68-state-divergences},\n$1<\\alpha\\leq2$, and all superchannel pairs? The definitions also include $D_{\\max}$ to state its settled\nsubcase below. The amortized suprema use pairs with finite subtracted\ndivergence; other infinite values have the standard support convention.","source":"Hirche's Remark 5.4, after Eqs.~(75)--(77), asked about amortization\ncollapse in general superchannel discrimination settings. His\nEqs.~(33) and (39) define the ordinary and nested amortized quantities\nwith a reference passing through the inserted channel\n\\sourcecite{ref:p68-hirche}{Hir23}.","progress":["For point-to-point channels, amortization of the max-relative entropy\n  collapses:\n  \\begin{equation}\n    D_{\\max,{\\rm ch}}^{A}(\\mathcal N\\|\\mathcal M)\n    =D_{\\max,{\\rm ch}}(\\mathcal N\\|\\mathcal M).\n    \\label{eq:p68-channel-max-collapse}\n  \\end{equation}\n  The proof of Eq.~\\eqref{eq:p68-channel-max-collapse} uses the CP-order\n  structure of channel max-relative entropy\n  \\sourcecite{ref:p68-wilde-berta-hirche-kaur}{WBHK20}.","Fang and Fawzi proved the analogous point-to-point channel collapse\n  \\begin{equation}\n    \\widehat D_{\\alpha,{\\rm ch}}^{A}(\\mathcal N\\|\\mathcal M)\n    =\\widehat D_{\\alpha,{\\rm ch}}(\\mathcal N\\|\\mathcal M),\n    \\qquad 1<\\alpha\\leq2,\n    \\label{eq:p68-channel-geometric-collapse}\n  \\end{equation}\n  from a chain rule for the geometric R\\'enyi divergence\n  \\sourcecite{ref:p68-fang-fawzi}{FF21}.\nEquation~\\eqref{eq:p68-channel-geometric-collapse} concerns point-to-point\nchannels; it does not settle the superchannel claim.","For the nested superchannel definition, the max-relative-entropy\nsubcase also collapses. Indeed, let\n$t=2^{D_{\\max,\\mathrm{ch}}(\\mathcal N\\|\\mathcal M)}$ and\n$s=2^{D_{\\max,\\mathrm{sc}}(\\Theta_1\\|\\Theta_2)}$ be finite.\nChannel max-relative entropy is characterized by CP order, and physical\nsuperchannels preserve that order. Thus\n\\begin{equation}\n  \\mathcal N\\leq_{\\mathrm{CP}}t\\mathcal M\n  \\quad\\Longrightarrow\\quad\n  \\Theta_1(\\mathcal N)\\leq_{\\mathrm{CP}}t\\Theta_1(\\mathcal M)\n    \\leq_{\\mathrm{CP}}ts\\Theta_2(\\mathcal M),\n  \\label{eq:p68-nested-max-order}\n\\end{equation}\nwhere $\\mathcal A\\leq_{\\mathrm{CP}}\\mathcal B$ means\n$\\mathcal B-\\mathcal A$ is completely positive.\nTaking logarithms in Eq.~\\eqref{eq:p68-nested-max-order} and using\nEq.~\\eqref{eq:p68-channel-max-collapse} bounds each term of the amortized\nsupremum by $\\log_2s$. Choosing $\\mathcal N=\\mathcal M$ gives the reverse\ninequality, proving Eq.~\\eqref{eq:p68-superchannel-collapse} for\n$\\mathbf D=D_{\\max}$. If the unamortized divergence is infinite, the same\nreverse inequality already proves equality in the extended sense.\nThis is a direct consequence of the cited channel CP-order characterization\n\\sourcecite{ref:p68-wilde-berta-hirche-kaur}{WBHK20}; it does not prove\ncollapse of Hirche's larger fully amortized quantities\n\\sourcecite{ref:p68-hirche}{Hir23}.","With slot assistance, nested amortization collapses for every pair of\nfinite-dimensional deterministic physical superchannels and every\n$1<\\alpha\\leq2$. Mohr's Theorem~1 allows arbitrary joint insertions\n$AR\\to BR$ and an independent reference for the state tests. The equality\nincludes singular supports and infinite divergences. An inserted\nreference of dimension $\\dim(C)\\dim(A)\\dim(B)$ suffices for the ordinary\nsupremum, where $C$ is the input of the output channel\n\\sourcecite{ref:p68-mohr26}{Moh26}\n(\\href{https://github.com/Naixu-Guo/quantum-open-problems/issues/137}{GitHub \\#137}).","With insertions restricted to $A\\to B$, nested amortization can\nstrictly increase the divergence for every $1<\\alpha\\leq2$.\nSavadatti's Theorem~1 uses two superchannels that prepare different\ndiagonal qutrit states, apply the inserted qutrit-to-qubit channel,\nand dephase the output. At $\\alpha=2$ the shared-channel optimum is\n$\\log_2(3/2)$, while a pair of distinct insertions achieves\n$\\log_2(183/116)>\\log_2(3/2)$ after subtracting its channel divergence.\nOn the same example, an assisted insertion can retain all three input\nlabels in $R$, giving ordinary and nested amortized values of\n$\\log_2(5/3)$ at $\\alpha=2$\n\\sourcecite{ref:p68-savadatti26}{Sav26}\n(\\href{https://github.com/Naixu-Guo/quantum-open-problems/issues/155}{GitHub \\#155})."],"references":[{"key":"WBHK20","label":"ref:p68-wilde-berta-hirche-kaur","tex":"M. M. Wilde, M. Berta, C. Hirche, and E. Kaur,\n  ``Amortized Channel Divergence for Asymptotic Quantum Channel\n  Discrimination,'' \\emph{Letters in Mathematical Physics} \\textbf{110},\n  2277--2336 (2020).\n  \\href{https://doi.org/10.1007/s11005-020-01297-7}{doi:10.1007/s11005-020-01297-7};\n  \\href{https://arxiv.org/abs/1808.01498}{arXiv:1808.01498}."},{"key":"FF21","label":"ref:p68-fang-fawzi","tex":"K. Fang and H. Fawzi,\n  ``Geometric R\\'enyi Divergence and its Applications in Quantum Channel\n  Capacities,'' \\emph{Communications in Mathematical Physics} \\textbf{384},\n  1615--1677 (2021).\n  \\href{https://doi.org/10.1007/s00220-021-04064-4}{doi:10.1007/s00220-021-04064-4};\n  \\href{https://arxiv.org/abs/1909.05758}{arXiv:1909.05758}."},{"key":"Hir23","label":"ref:p68-hirche","tex":"C. Hirche, ``Quantum Network Discrimination,''\n  \\emph{Quantum} \\textbf{7}, 1064 (2023).\n  \\href{https://doi.org/10.22331/q-2023-07-25-1064}{doi:10.22331/q-2023-07-25-1064};\n  \\href{https://arxiv.org/abs/2103.02404}{arXiv:2103.02404}."},{"key":"Moh26","label":"ref:p68-mohr26","tex":"V. Mohr, ``Amortization collapse for reference stabilized geometric\n  R\\'enyi superchannel divergences,'' Zenodo preprint (2026).\n  \\href{https://doi.org/10.5281/zenodo.23215121}{doi:10.5281/zenodo.23215121}."},{"key":"Sav26","label":"ref:p68-savadatti26","tex":"S. Savadatti, ``Failure of Geometric R\\'enyi Amortization Collapse\n  Without Slot Assistance,'' Zenodo preprint (2026).\n  \\href{https://doi.org/10.5281/zenodo.24266097}{doi:10.5281/zenodo.24266097}."}],"comment":"The reference in the channel state tests of\nEq.~\\eqref{eq:p68-channel-amortization} can be used under either slot\nconvention. Slot assistance also lets a register pass through the\ninserted channel. Hirche's fully amortized divergence in Eq.~(40)\nintroduces an additional optimization, and its collapse remains a\nseparate question \\sourcecite{ref:p68-hirche}{Hir23}."}}
+---
+## Source
+
+Hirche’s Remark 5.4, after Eqs. (75)–(77), asked about amortization collapse in general superchannel discrimination settings. His Eqs. (33) and (39) define the ordinary and nested amortized quantities with a reference passing through the inserted channel [Hir23](https://doi.org/10.22331/q-2023-07-25-1064).
+
+## Progress
+
+For point-to-point channels, amortization of the max-relative entropy collapses:
+
+$$
+D_{\max,{\rm ch}}^{A}(\mathcal N\|\mathcal M)
+ =D_{\max,{\rm ch}}(\mathcal N\|\mathcal M).
+ \tag{5}
+$$
+
+The proof of Eq. (5) uses the CP-order structure of channel max-relative entropy [WBHK20](https://doi.org/10.1007/s11005-020-01297-7).
+
+Fang and Fawzi proved the analogous point-to-point channel collapse
+
+$$
+\widehat D_{\alpha,{\rm ch}}^{A}(\mathcal N\|\mathcal M)
+ =\widehat D_{\alpha,{\rm ch}}(\mathcal N\|\mathcal M),
+ \qquad 1<\alpha\leq2,
+ \tag{6}
+$$
+
+from a chain rule for the geometric Rényi divergence [FF21](https://doi.org/10.1007/s00220-021-04064-4). Equation (6) concerns point-to-point channels; it does not settle the superchannel claim.
+
+For the nested superchannel definition, the max-relative-entropy subcase also collapses. Indeed, let $t=2^{D_{\max,\mathrm{ch}}(\mathcal N\|\mathcal M)}$ and $s=2^{D_{\max,\mathrm{sc}}(\Theta_1\|\Theta_2)}$ be finite. Channel max-relative entropy is characterized by CP order, and physical superchannels preserve that order. Thus
+
+$$
+\mathcal N\leq_{\mathrm{CP}}t\mathcal M
+ \quad\Longrightarrow\quad
+ \Theta_1(\mathcal N)\leq_{\mathrm{CP}}t\Theta_1(\mathcal M)
+ \leq_{\mathrm{CP}}ts\Theta_2(\mathcal M),
+\tag{7}
+$$
+
+where $\mathcal A\leq_{\mathrm{CP}}\mathcal B$ means $\mathcal B-\mathcal A$ is completely positive. Taking logarithms in Eq. (7) and using Eq. (5) bounds each term of the amortized supremum by $\log_2s$. Choosing $\mathcal N=\mathcal M$ gives the reverse inequality, proving Eq. (4) for $\mathbf D=D_{\max}$. If the unamortized divergence is infinite, the same reverse inequality already proves equality in the extended sense. This is a direct consequence of the cited channel CP-order characterization [WBHK20](https://doi.org/10.1007/s11005-020-01297-7); it does not prove collapse of Hirche’s larger fully amortized quantities [Hir23](https://doi.org/10.22331/q-2023-07-25-1064).
+
+With slot assistance, nested amortization collapses for every pair of finite-dimensional deterministic physical superchannels and every $1<\alpha\leq2$. Mohr’s Theorem 1 allows arbitrary joint insertions $AR\to BR$ and an independent reference for the state tests. The equality includes singular supports and infinite divergences. An inserted reference of dimension $\dim(C)\dim(A)\dim(B)$ suffices for the ordinary supremum, where $C$ is the input of the output channel [Moh26](https://doi.org/10.5281/zenodo.23215121) ([GitHub #137](https://github.com/Naixu-Guo/quantum-open-problems/issues/137)).
+
+With insertions restricted to $A\to B$, nested amortization can strictly increase the divergence for every $1<\alpha\leq2$. Savadatti’s Theorem 1 uses two superchannels that prepare different diagonal qutrit states, apply the inserted qutrit-to-qubit channel, and dephase the output. At $\alpha=2$ the shared-channel optimum is $\log_2(3/2)$, while a pair of distinct insertions achieves $\log_2(183/116)>\log_2(3/2)$ after subtracting its channel divergence. On the same example, an assisted insertion can retain all three input labels in $R$, giving ordinary and nested amortized values of $\log_2(5/3)$ at $\alpha=2$ [Sav26](https://doi.org/10.5281/zenodo.24266097) ([GitHub #155](https://github.com/Naixu-Guo/quantum-open-problems/issues/155)).
+
+## Comment
+
+The reference in the channel state tests of Eq. (2) can be used under either slot convention. Slot assistance also lets a register pass through the inserted channel. Hirche’s fully amortized divergence in Eq. (40) introduces an additional optimization, and its collapse remains a separate question [Hir23](https://doi.org/10.22331/q-2023-07-25-1064).
+
+## References
+
+**WBHK20** M. M. Wilde, M. Berta, C. Hirche, and E. Kaur, “Amortized Channel Divergence for Asymptotic Quantum Channel Discrimination,” *Letters in Mathematical Physics* **110**, 2277–2336 (2020). [doi:10.1007/s11005-020-01297-7](https://doi.org/10.1007/s11005-020-01297-7); [arXiv:1808.01498](https://arxiv.org/abs/1808.01498).
+
+**FF21** K. Fang and H. Fawzi, “Geometric Rényi Divergence and its Applications in Quantum Channel Capacities,” *Communications in Mathematical Physics* **384**, 1615–1677 (2021). [doi:10.1007/s00220-021-04064-4](https://doi.org/10.1007/s00220-021-04064-4); [arXiv:1909.05758](https://arxiv.org/abs/1909.05758).
+
+**Hir23** C. Hirche, “Quantum Network Discrimination,” *Quantum* **7**, 1064 (2023). [doi:10.22331/q-2023-07-25-1064](https://doi.org/10.22331/q-2023-07-25-1064); [arXiv:2103.02404](https://arxiv.org/abs/2103.02404).
+
+**Moh26** V. Mohr, “Amortization collapse for reference stabilized geometric Rényi superchannel divergences,” Zenodo preprint (2026). [doi:10.5281/zenodo.23215121](https://doi.org/10.5281/zenodo.23215121).
+
+**Sav26** S. Savadatti, “Failure of Geometric Rényi Amortization Collapse Without Slot Assistance,” Zenodo preprint (2026). [doi:10.5281/zenodo.24266097](https://doi.org/10.5281/zenodo.24266097).

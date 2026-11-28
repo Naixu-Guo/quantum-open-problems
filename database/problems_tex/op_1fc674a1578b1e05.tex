@@ -27,7 +27,7 @@ The states in Eq.~\eqref{eq:ps-holevo} may be entangled across uses. Continuous 
 
 \subsection*{Status}
 
-Unsolved
+Solved
 
 \subsection*{Source}
 
@@ -41,6 +41,10 @@ This is the squeezed-attenuator specialization of the low-energy additivity gap 
   \item Ji's September 2026 preprint, version~2, Theorem~2, claims $\chi_1(E)=\chi_1^{\mathrm G}(E)$ at every energy. Here the Gaussian restriction uses displaced pure Gaussian letters with Gaussian modulation. The theorem is explicitly one-use and does not establish the equality for $m>1$ \sourcecite{ref:ps-ji}{Ji26}.
 
   \item The entanglement-breaking regime $b\geq\eta/(1-\eta)$ is additive at every energy. Squeezing equivalence preserves entanglement breaking, and the energy-constrained additivity theorem applies to the resulting Gaussian channel. See Sec.~3, Eqs.~(20)--(24), of Giovannetti, Holevo, and Garc\'ia-Patr\'on \sourcecite{ref:ps-optimizer}{GHG15}.
+
+  \item Zixuan He's Theorem~1, Eq.~(7), gives $\chi_m(E)=m\chi_1(E)$ for every $m\geq1$ under the total mean photon budget $mE$, including $0<E<E_{\mathrm{thr}}$. Theorem~2 and Appendices~B--E bound the output entropy of each joint input state and apply this bound to arbitrary block ensembles, including continuous ensembles with entangled or non-Gaussian letters. Appendix~F extends the result to a pure squeezed environment ($b=0$) by continuity, and Appendix~G proves additivity across repeated uses \sourcecite{ref:ps-he}{He26}. \href{https://github.com/Naixu-Guo/quantum-open-problems/issues/138}{Issue \#138}.
+
+  \item Adesso, Lami, and Giovannetti independently obtain the same equality for every single-mode Gaussian channel at every energy. Their proof uses Adesso's many-pair entanglement inequality (Theorem~2) to bound the joint output entropy of a block, including entangled inputs \sourcecite{ref:ps-adesso-epr}{Ade26}. Corollary~3(i) gives $\chi(\Phi^{\otimes m},mE)=m\chi_{\mathrm G}(\Phi,E)$. Setting $m=1$ identifies the Gaussian value on the right with the unrestricted one-use Holevo information \sourcecite{ref:ps-alg}{ALG26}.
 \end{itemize}
 
 \subsection*{References}
@@ -55,11 +59,20 @@ This is the squeezed-attenuator specialization of the low-energy additivity gap 
 
   \item[\textup{[Ji26]}]\label{ref:ps-ji}
   S.-W. Ji, ``Gaussian Optimality of Energy-Constrained One-Shot Communication through Single-Mode Bosonic Gaussian Channels,'' arXiv preprint, version~2 (8 September 2026). \href{https://arxiv.org/abs/2608.17239v2}{arXiv:2608.17239v2}.
+
+  \item[\textup{[He26]}]\label{ref:ps-he}
+  Z. He, ``Classical capacity of squeezed-noise channels: optimal photon allocation without entangled encoding,'' preprint, version~1.0 (13 October 2026). \href{https://doi.org/10.5281/zenodo.23334447}{doi:10.5281/zenodo.23334447}.
+
+  \item[\textup{[ALG26]}]\label{ref:ps-alg}
+  G. Adesso, L. Lami, and V. Giovannetti, ``Classical Capacity of Single-Mode Bosonic Gaussian Channels,'' arXiv preprint, version~1 (15 October 2026). \href{https://arxiv.org/abs/2610.22308v1}{arXiv:2610.22308v1}.
+
+  \item[\textup{[Ade26]}]\label{ref:ps-adesso-epr}
+  G. Adesso, ``Optimality of Gaussian Entanglement of Formation,'' arXiv preprint, version~3 (2026). \href{https://arxiv.org/abs/2608.01909v3}{arXiv:2608.01909v3}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-The question allows arbitrary block ensembles and fixes the average photon budget per use. The unsettled regime is below threshold and outside the entanglement-breaking region. One-use Gaussian optimality does not settle regularization. The cited 2026 claim is a preprint result. Squeezing the channel into phase-insensitive form changes the input cost, so phase-insensitive capacity additivity alone does not resolve this question.
+Below threshold, an optimal ensemble uses independent Gaussian displacements of pure squeezed states along the less noisy quadrature. Both the seed squeezing and the displacement modulation count toward the physical input photon budget \sourcecite{ref:ps-he}{He26}.
 
 \subsection*{Field}
 

@@ -2,7 +2,7 @@ import { submissionsOnline as acceptsSubmissions, anonymousSubmissionsAllowed, p
 // HTML templates for every page of the zoo. Pure functions: records in,
 // strings out. No runtime dependencies.
 
-import { STATUSES, slug } from "./tex.mjs";
+import { STATUSES, slug, texToInlineHtml } from "./tex.mjs";
 import { distinctQuestionCounts } from "./metadata.mjs";
 import { TAG_KINDS } from "./taxonomy.mjs";
 import { SOURCE_GUIDANCE, SUPPORTED_SOURCE_NAMES } from "../../shared/progress-sources.mjs";
@@ -317,6 +317,119 @@ function progressList(items, repositoryUrl) {
   return rows.join("\n            ");
 }
 
+const arxivIdPattern = String.raw`(?:\d{4}\.\d{4,5}|[a-z][a-z.-]*\/\d{7})(?:v\d+)?`;
+const arxivPaperUrl = new RegExp(
+  String.raw`^https?://(?:(?:(?:www|export)\.)?arxiv\.org/(?:abs|html|pdf)/|(?:dx\.)?doi\.org/10\.48550/arxiv\.)(${arxivIdPattern})(?:\.pdf)?/?(?:[?#].*)?$`, "iu"
+);
+const printedArxivIds = new RegExp(`\\b${arxivIdPattern}\\b`, "giu");
+const citedArxivLabels = new RegExp(String.raw`\\href\{([^}]+)\}\{arxiv:(${arxivIdPattern})\}`, "giu");
+const zenodoDoiUrl = /^https?:\/\/(?:dx\.)?doi\.org\/10\.5281\/zenodo\.([1-9]\d*)\/?(?:[?#].*)?$/iu;
+const zenodoRecordUrl = /^https?:\/\/(?:www\.)?zenodo\.org\/records?\/([1-9]\d*)(?:\/files\/[^/?#]+)?\/?(?:[?#].*)?$/iu;
+const printedZenodoIds = /\bzenodo(?:\.org\/records?\/|\.|(?:\s+(?:record|preprint|manuscript))?[\s:#]+)([1-9]\d*)\b/giu;
+const zenodoDoiText = /\b(?:https?:\/\/(?:dx\.)?doi\.org\/|doi:\s*)?10\.5281\/zenodo\.([1-9]\d*)\b/giu;
+const arxivBase = (id) => id.toLowerCase().replace(/v\d+$/, "");
+const zenodoDoiLabel = (id) => `10.5281/zenodo.${id}`;
+
+function formatArchiveVenue(text, doiIds, revision) {
+  return text.replace(/(^|[,.;][”"]?\s+)(?:(arXiv|Zenodo)\s+)?(research preprint|preprint|manuscript)(?:\s+([1-9]\d*))?(?=\s*(?:[(,.;]|v(?:\d|ersion\b)|arXiv:|$))/giu,
+    (match, lead, archive, type, number, offset) => {
+      if ((!archive && !doiIds.size) || (number && !doiIds.has(number))) return match;
+      const before = text.slice(0, offset + lead.length);
+      if (before.lastIndexOf("“") > before.lastIndexOf("”") || (before.match(/"/gu) ?? []).length % 2) return match;
+      const sentence = lead.replace(/^[,;]/u, ".");
+      return sentence + type[0].toUpperCase() + type.slice(1);
+    }).replace(/\b(Preprint(?:\s*\([^)]*\))?),\s*version(?:&nbsp;|\s)+(\d+)(?![\d.]?\d)(?=\s*[(,.;]|$)/giu,
+      (match, venue, version) => !doiIds.size && version === revision ? venue : match);
+}
+
+// Keep each DOI at its authored position, including beside a supplement or a collection.
+function formatZenodoCitation(entry, equations, doiIds, linked) {
+  const equationNumbers = new Map(equations.map(({ label, number }) => [label, number]));
+  const html = texToInlineHtml(entry.tex, { equationNumbers, dropNewline: true });
+  const linkDoi = (match, id) => {
+    if (!doiIds.has(id)) return match;
+    if (linked.has(id)) return "";
+    linked.add(id);
+    return zenodoDoiLabel(id);
+  };
+  return html.replace(/<a href="([^"]+)" rel="noreferrer">([\s\S]*?)<\/a>|<[^>]+>|[^<]+/gu, (part, url, label) => {
+    if (url) {
+      const id = zenodoDoiUrl.exec(url)?.[1];
+      if (!id || !label.toLowerCase().includes(`10.5281/zenodo.${id}`)) return part;
+      return label.replace(/\bcollection doi:\s*/iu, "collection DOI ").replace(zenodoDoiText, linkDoi);
+    }
+    if (part.startsWith("<")) return part;
+    return part.replace(zenodoDoiText, linkDoi);
+  });
+}
+
+function renderReferenceBody(entry, equations = []) {
+  const doiIds = new Set(Array.from(entry.text.matchAll(zenodoDoiText), (match) => match[1]));
+  for (const link of entry.links) {
+    const id = zenodoDoiUrl.exec(link.url)?.[1];
+    if (id) doiIds.add(id);
+  }
+  if (!entry.links.length && !doiIds.size) return entry.html;
+  const cited = new Map(Array.from(entry.tex.matchAll(citedArxivLabels), ([, url, id]) => [url, id]));
+  const links = entry.links.map((link) => {
+    const urlId = arxivPaperUrl.exec(link.url)?.[1];
+    const labelId = cited.get(link.url);
+    // Some authors pin a revision in the label of an unversioned abstract link.
+    const arxivId = labelId && labelId.replace(/v\d+$/i, "") === urlId ? labelId : urlId;
+    const zenodoId = (zenodoDoiUrl.exec(link.url) ?? zenodoRecordUrl.exec(link.url))?.[1];
+    return { ...link, arxivId, zenodoId };
+  });
+  const pinnedIds = links.map((link) => link.arxivId).filter((id) => id && /v\d+$/i.test(id));
+  const versions = Map.groupBy(new Set(pinnedIds), arxivBase);
+  const revision = new Set(pinnedIds).size === 1 ? pinnedIds[0].match(/v(\d+)$/i)[1] : undefined;
+  const printed = new Set();
+  const printedZenodo = new Set(Array.from(entry.text.matchAll(printedZenodoIds), (match) => match[1]));
+  const linked = new Set();
+  const source = doiIds.size ? formatZenodoCitation(entry, equations, doiIds, linked) : entry.html;
+  const hasArchive = doiIds.size || links.some((link) => link.arxivId);
+  const venueHtml = hasArchive ? source.replace(/<(a|em|strong|code|span)\b[^>]*>[\s\S]*?<\/\1>|<[^>]+>|[^<]+/gu,
+    (part) => part.startsWith("<") ? part : formatArchiveVenue(part, doiIds, revision)) : source;
+  const citation = venueHtml
+    .replace(/<a href="([^"]+)" rel="noreferrer">([^<]*)<\/a>/gu, (anchor, url, label) => {
+      return links.some((link) => escape(link.url) === url) ? label : anchor;
+    })
+    // Upgrade an existing number in the prose only when the cited revision is unambiguous.
+    .replace(/<[^>]+>|[^<]+/gu, (part) => part.startsWith("<") ? part : part.replace(printedArxivIds, (id) => {
+      const base = arxivBase(id);
+      const pinned = versions.get(base);
+      const display = id.toLowerCase() === base && pinned?.length === 1 ? pinned[0] : id;
+      printed.add(base);
+      printed.add(display.toLowerCase());
+      return display;
+    }));
+  const identifiers = [];
+  const badges = [];
+  const zenodoRecords = new Set(doiIds);
+  for (const { kind, url, arxivId, zenodoId } of links) {
+    const id = arxivId?.toLowerCase();
+    if (id && !printed.has(id) && !versions.has(id)) {
+      identifiers.push(escape(`arXiv:${arxivId}`));
+      printed.add(id);
+    }
+    if (zenodoId) {
+      zenodoRecords.add(zenodoId);
+      if (!doiIds.has(zenodoId) && !printedZenodo.has(zenodoId)) {
+        identifiers.push(`Zenodo:${zenodoId}`);
+        printedZenodo.add(zenodoId);
+      }
+      if (!url.includes("/files/")) continue;
+    }
+    const label = zenodoId ? "file" : kind === "doi" ? "DOI" : arxivId ? "arXiv" : "link";
+    badges.push(`<a href="${escape(url)}" rel="noreferrer" class="ref-link ref-${kind}">${label}</a>`);
+  }
+  for (const id of zenodoRecords) {
+    if (doiIds.has(id) && !linked.has(id)) identifiers.push(zenodoDoiLabel(id));
+    badges.push(`<a href="https://zenodo.org/records/${id}" rel="noreferrer" class="ref-link ref-zenodo">Zenodo</a>`);
+  }
+  const numbers = identifiers.length ? `${identifiers.join(", ")}.` : "";
+  return `${[citation, numbers].filter(Boolean).join(" ")}<span class="reference-links">${badges.join("")}</span>`;
+}
+
 export function renderProblemPage({ record, config, root, related, dates }) {
   const editUrl = `${config.repositoryUrl}/edit/${config.branch}/${config.databasePath}/${record.id}.json`;
   const historyUrl = `${config.repositoryUrl}/commits/${config.branch}/${config.databasePath}/${record.id}.json`;
@@ -333,7 +446,7 @@ export function renderProblemPage({ record, config, root, related, dates }) {
 ` : "";
   const references = record.references.map((entry) => `<div class="reference" id="${entry.anchor}">
         <dt><a href="#${entry.anchor}">[${escape(entry.key)}]</a></dt>
-        <dd>${entry.html}${entry.links.length ? `<span class="reference-links">${entry.links.map((link) => `<a href="${escape(link.url)}" rel="noreferrer" class="ref-link ref-${link.kind}">${link.kind === "arxiv" ? "arXiv" : link.kind === "doi" ? "DOI" : "link"}</a>`).join("")}</span>` : ""}</dd>
+        <dd>${renderReferenceBody(entry, record.equations)}</dd>
       </div>`).join("\n");
   const relatedList = related.length
     ? `<ul class="related-list">${related.map((item) => `<li>

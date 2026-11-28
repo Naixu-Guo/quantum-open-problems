@@ -638,12 +638,15 @@ every problem a human looked at and the backlog stays honest.
 
 The legacy repository supplied the seed: 58 problems with statements and
 evidence from `open_prob/` and `site/data/problems.js`, and 55 candidates
-from `open_problem_v2/`. The migration (`tools/migrate-legacy/`) is a
-one-time `ingestion` trajectory run by a pipeline actor; it produces
+from `open_problem_v2/`. The retired legacy migration was a
+one-time `ingestion` trajectory run by a pipeline actor; it produced
 `problem-proposal` and `evidence-import` contributions, reviews that record
 the original audit, and the decisions that make the seed `published`, all
 under policy 0. Nothing is invented: a value the legacy record lacks stays
-empty. The table records the rules the tool applies.
+empty. The table records the historical mapping rules. The migration tool
+and its obsolete input catalogs have been removed; Git history retains them.
+Use `npm run export-ledger` for current catalog updates, as described in
+[Catalog integration](CATALOG_INTEGRATION.md).
 
 | Legacy field | Destination | Rule |
 | --- | --- | --- |

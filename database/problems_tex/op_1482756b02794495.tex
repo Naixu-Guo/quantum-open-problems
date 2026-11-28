@@ -64,16 +64,15 @@ divergence; other infinite values have the standard support convention.
 
 \subsection*{Status}
 
-Unsolved
+Solved
 
 \subsection*{Source}
 
-Hirche's Remark 5.4, after Eqs.~(75)--(77), leaves amortization collapse
-open in general superchannel discrimination settings
-\sourcecite{ref:p68-hirche}{Hir23}. For the nested definition in
-Eq.~\eqref{eq:p68-superchannel-amortization}, the max-relative-entropy
-case follows directly from CP order, as shown below; the remaining target
-here is the geometric R\'enyi case.
+Hirche's Remark 5.4, after Eqs.~(75)--(77), asked about amortization
+collapse in general superchannel discrimination settings. His
+Eqs.~(33) and (39) define the ordinary and nested amortized quantities
+with a reference passing through the inserted channel
+\sourcecite{ref:p68-hirche}{Hir23}.
 
 \subsection*{Progress}
 
@@ -126,6 +125,29 @@ This is a direct consequence of the cited channel CP-order characterization
 \sourcecite{ref:p68-wilde-berta-hirche-kaur}{WBHK20}; it does not prove
 collapse of Hirche's larger fully amortized quantities
 \sourcecite{ref:p68-hirche}{Hir23}.
+
+  \item With slot assistance, nested amortization collapses for every pair of
+finite-dimensional deterministic physical superchannels and every
+$1<\alpha\leq2$. Mohr's Theorem~1 allows arbitrary joint insertions
+$AR\to BR$ and an independent reference for the state tests. The equality
+includes singular supports and infinite divergences. An inserted
+reference of dimension $\dim(C)\dim(A)\dim(B)$ suffices for the ordinary
+supremum, where $C$ is the input of the output channel
+\sourcecite{ref:p68-mohr26}{Moh26}
+(\href{https://github.com/Naixu-Guo/quantum-open-problems/issues/137}{GitHub \#137}).
+
+  \item With insertions restricted to $A\to B$, nested amortization can
+strictly increase the divergence for every $1<\alpha\leq2$.
+Savadatti's Theorem~1 uses two superchannels that prepare different
+diagonal qutrit states, apply the inserted qutrit-to-qubit channel,
+and dephase the output. At $\alpha=2$ the shared-channel optimum is
+$\log_2(3/2)$, while a pair of distinct insertions achieves
+$\log_2(183/116)>\log_2(3/2)$ after subtracting its channel divergence.
+On the same example, an assisted insertion can retain all three input
+labels in $R$, giving ordinary and nested amortized values of
+$\log_2(5/3)$ at $\alpha=2$
+\sourcecite{ref:p68-savadatti26}{Sav26}
+(\href{https://github.com/Naixu-Guo/quantum-open-problems/issues/155}{GitHub \#155}).
 \end{itemize}
 
 \subsection*{References}
@@ -153,16 +175,26 @@ collapse of Hirche's larger fully amortized quantities
   \emph{Quantum} \textbf{7}, 1064 (2023).
   \href{https://doi.org/10.22331/q-2023-07-25-1064}{doi:10.22331/q-2023-07-25-1064};
   \href{https://arxiv.org/abs/2103.02404}{arXiv:2103.02404}.
+
+  \item[\textup{[Moh26]}]\label{ref:p68-mohr26}
+  V. Mohr, ``Amortization collapse for reference stabilized geometric
+  R\'enyi superchannel divergences,'' Zenodo preprint (2026).
+  \href{https://doi.org/10.5281/zenodo.23215121}{doi:10.5281/zenodo.23215121}.
+
+  \item[\textup{[Sav26]}]\label{ref:p68-savadatti26}
+  S. Savadatti, ``Failure of Geometric R\'enyi Amortization Collapse
+  Without Slot Assistance,'' Zenodo preprint (2026).
+  \href{https://doi.org/10.5281/zenodo.24266097}{doi:10.5281/zenodo.24266097}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-The remaining displayed question is geometric R\'enyi amortization
-collapse for nested-adaptive superchannel discrimination. The
-max-relative-entropy subcase is settled by
-Eq.~\eqref{eq:p68-nested-max-order}. Whether the larger fully amortized
-divergences controlling braided and fully general strategies collapse is a
-further, stronger question.
+The reference in the channel state tests of
+Eq.~\eqref{eq:p68-channel-amortization} can be used under either slot
+convention. Slot assistance also lets a register pass through the
+inserted channel. Hirche's fully amortized divergence in Eq.~(40)
+introduces an additional optimization, and its collapse remains a
+separate question \sourcecite{ref:p68-hirche}{Hir23}.
 
 \subsection*{Field}
 

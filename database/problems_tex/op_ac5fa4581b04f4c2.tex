@@ -59,7 +59,7 @@ remains open.
 
 \subsection*{Status}
 
-Unsolved
+Solved
 
 \subsection*{Source}
 
@@ -86,9 +86,8 @@ $E_P^\infty(\rho)$; they also reported numerics on Werner states
 \sourcecite{ref:epur-terhal}{THLD02}.
 
   \item Chen and Winter proved that $E_P^\infty(\rho)-S(\rho)$ is convex, via a new
-asymptotic preparation protocol, but their evidence for the failure of
-Eq.~\eqref{eq:epur-additivity} is numerical, from two-qubit Werner states;
-no rigorous witness of Eq.~\eqref{eq:epur-strict-subadditivity} is known
+asymptotic preparation protocol, and gave numerical evidence for the failure of
+Eq.~\eqref{eq:epur-additivity} on two-qubit Werner states
 \sourcecite{ref:epur-chen-winter}{CW12}.
 
   \item Bagchi and Pati confirmed that $E_P$ is subadditive on tensor products, so
@@ -123,6 +122,14 @@ for every $\alpha\in[2,\infty]$; they state that the interval
 $\alpha\in[1,2)$, including the von Neumann case $\alpha=1$ of
 Eq.~\eqref{eq:epur-additivity}, remains open, with additivity conjectured
 there \sourcecite{ref:epur-negari}{NBK26}.
+
+  \item Baghali Khanian and Negari disprove Eq.~\eqref{eq:epur-additivity} using the two-qubit Werner state $W(f)$ with singlet weight $f$ and equal weight $(1-f)/3$ on each triplet. Proposition~IV.3 identifies its one-copy optimum with the entanglement $C(f)$ of the canonical purification across $AA':BB'$ for $1/64\leq f\leq 1/4$. Proposition~III.1 gives $E_P^\infty(W(f))<C(f)$ for $0<f<f_*$, where $f_*\approx 0.01708596$ is the root of Eq.~(B.3). At $f=1/64$, Eq.~(9) of the paper applies the Chen--Winter ensemble bound to $W(f)=p W(0)+(1-p)W(t)$ with $p=9/256$ and $t=f/(1-p)=4/247$. The resulting upper bound $V_f(p)$ gives, in bits,
+\begin{equation}
+  E_P^\infty(W(f))\leq V_f(p)<0.848959<0.849252<E_P(W(f)).
+  \label{eq:epur-werner-gap}
+\end{equation}
+The positive gap persists for every $1/64\leq f<f_*$ \sourcecite{ref:epur-werner-nonadditivity}{BKN26}, \sourcecite{ref:epur-chen-winter}{CW12}
+(\href{https://github.com/Naixu-Guo/quantum-open-problems/issues/132}{GitHub \#132}).
 \end{itemize}
 
 \subsection*{References}
@@ -171,28 +178,16 @@ there \sourcecite{ref:epur-negari}{NBK26}.
   \emph{IEEE Transactions on Information Theory} \textbf{51}(9), 3159--3165
   (2005).
   \href{https://arxiv.org/abs/quant-ph/0501090}{arXiv:quant-ph/0501090}.
+
+  \item[\textup{[BKN26]}]\label{ref:epur-werner-nonadditivity}
+  Z. Baghali Khanian and A.-R. Negari,
+  ``Entanglement of Purification for Werner States: Canonical Purification and Nonadditivity,'' arXiv preprint, version~1 (2026).
+  \href{https://arxiv.org/abs/2610.03630v1}{arXiv:2610.03630v1}.
 \end{enumerate}
 
 \subsection*{Comment}
 
-No rigorous witness of Eq.~\eqref{eq:epur-strict-subadditivity} is known: the
-two-qubit Werner-state evidence is numerical
-\sourcecite{ref:epur-chen-winter}{CW12}, and additivity in
-Eq.~\eqref{eq:epur-additivity} is proved only for restricted families ---
-pure states, Werner states at the parameter values
-$t\in\{0,\,1/(1-d),\,1/(1+d)\}$ \sourcecite{ref:epur-terhal}{THLD02},
-\sourcecite{ref:epur-christandl-winter}{CW05}, a variation of extendible
-states \sourcecite{ref:epur-khanian}{KB25}, and the R\'enyi-2 cases tied to
-output-2-norm multiplicativity \sourcecite{ref:epur-faraji}{FBK26} --- while
-the R\'enyi orders $\alpha\in[1,2)$, including $\alpha=1$, remain open even
-for two-qubit classical states, with additivity conjectured there
-\sourcecite{ref:epur-negari}{NBK26}.  A resolution would single-letter the
-operational rates controlled by Eq.~\eqref{eq:epur-regularization}: the
-entanglement cost with negligible communication
-\sourcecite{ref:epur-terhal}{THLD02} and the optimal visible-compression
-rate \sourcecite{ref:epur-khanian}{KB25}.  The \href{https://qiqc-op.com/problem/op_c9b532d3a7389c77/}{strong-converse problem for general mixed-state quantum compression} uses a regularized R\'enyi
-entanglement of purification as its converse bound, so its threshold
-inherits this open regularization.
+The regularized gap proves strict subadditivity for a finite block. Set $W=W(1/64)$ and $a_n=E_P(W^{\otimes n})$. If $a_{2^{j+1}}=2a_{2^j}$ for every $j\geq 0$, then $a_{2^j}/2^j=a_1$ for every $j$. Equation~\eqref{eq:epur-regularization} makes these ratios converge to $E_P^\infty(W)<a_1$. Hence Eq.~\eqref{eq:epur-strict-subadditivity} holds for some finite-dimensional $\rho=W^{\otimes 2^j}$. Whether $j=0$ suffices, giving a violation on two copies of the original Werner state, remains open. The Werner witnesses are separable and have correlations that cannot be diagonalized in a local product basis. The von Neumann question for classical two-qubit states also remains open \sourcecite{ref:epur-werner-nonadditivity}{BKN26}, Sec.~V, \sourcecite{ref:epur-negari}{NBK26}.
 
 \subsection*{Field}
 
