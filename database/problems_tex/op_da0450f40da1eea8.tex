@@ -1,0 +1,71 @@
+% Problem record op_da0450f40da1eea8. This TeX file is derived from
+% database/problems_json/op_da0450f40da1eea8.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Distillation rate of W states from a Bell triangle}
+\label{sec:op_da0450f40da1eea8}
+
+\paragraph{Problem.}
+Alice, Bob, and Charlie share $n$ perfect Bell pairs on each of the edges $AB$, $BC$, and $CA$. Let $\Phi_2$ be the projector onto $(\ket{00}+\ket{11})/\sqrt{2}$. The state of one triangle is $\tau_\triangle=\Phi_2^{AB}\otimes\Phi_2^{BC}\otimes\Phi_2^{CA}$.
+
+For a proposed rate $r$, the parties aim to distill $\lfloor rn\rfloor$ copies of the tripartite W state with vanishing trace-distance error on the full target. Let $\mathrm{W}_3$ be the projector onto $(\ket{100}+\ket{010}+\ket{001})/\sqrt{3}$.
+
+What is the optimal LOCC distillation rate $R_{\triangle\to\mathrm{W}}$? The rate is defined by
+\begin{equation}
+  R_{\triangle\to\mathrm{W}}=\sup\left\{r\geq 0:\lim_{n\to\infty}\inf_{\Lambda_n\in\mathrm{LOCC}}
+  \tfrac12\left\lVert\Lambda_n\bigl(\tau_\triangle^{\otimes n}\bigr)
+  -\mathrm{W}_3^{\otimes\lfloor rn\rfloor}\right\rVert_1=0\right\}.
+  \label{eq:triangle-w-rate}
+\end{equation}
+In Eq.~\eqref{eq:triangle-w-rate}, the infimum is over LOCC channels with $\lfloor rn\rfloor$ output qubits per party.
+
+Give an achievable rate and a matching converse for arbitrary LOCC, counting W states per triangle.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Eisert asks for the minimum total Bell-pair cost of forming W states asymptotically \sourcecite{ref:a1eea8-eisert01}{Eisert01} (Example 2.28). For this permutation-invariant target, the cost and the equal-edge rate ask the same question. A protocol using unequal numbers of pairs can be run on three blocks with cyclically permuted party roles, balancing the total consumption across the edges.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Let $h=h_2(1/3)$, where $h_2$ is the binary entropy in bits. Each one-qubit W marginal has entropy $h$. The bounds are given in Eq.~\eqref{eq:triangle-w-bounds}.
+\begin{equation}
+  \frac{3}{2h}\;\leq\; R_{\triangle\to\mathrm{W}}\;\leq\;\frac{2}{h}.
+  \label{eq:triangle-w-bounds}
+\end{equation}
+For the lower bound, one party prepares a block locally, applies Schumacher compression separately to the two remote shares, and teleports them at a cost approaching $h$ Bell pairs per output on each incident edge. Using the three choices of preparing party on equal-size blocks balances the edge costs \sourcecite{ref:a1eea8-streltsovmeignanteisert20}{StreltsovMeignantEisert20} (Appendix B).
+
+For the upper bound, group Bob and Charlie into one laboratory. The input has two ebits per triangle across this cut and each output W state has $h$ ebits. The bipartite pure-state conversion converse applies to the enlarged class of protocols \sourcecite{ref:a1eea8-streltsovmeignanteisert20}{StreltsovMeignantEisert20} (Eq.~(3)).
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Eisert01]}]\label{ref:a1eea8-eisert01}
+  Jens Eisert, “Entanglement in quantum information theory”, \emph{University of Potsdam}, 2001.
+\href{https://arxiv.org/abs/quant-ph/0610253}{arXiv:quant-ph/0610253}
+
+  \item[\textup{[StreltsovMeignantEisert20]}]\label{ref:a1eea8-streltsovmeignanteisert20}
+  Alexander Streltsov, Cl{\'e}ment Meignant, Jens Eisert, “Rates of Multipartite Entanglement Transformations and Applications in Quantum Networks”, \emph{Physical Review Letters}, vol. 125, pp. 080502, 2020.
+\href{https://arxiv.org/abs/1709.09693v2}{arXiv:1709.09693v2}
+\end{enumerate}
+
+\subsection*{Comment}
+
+The bounds leave open whether using all three links jointly can improve on the lower-bound protocol.
+
+\subsection*{Field}
+
+Quantum Resource Theory
+
+\subsection*{Topic}
+
+Entanglement cost; Local operations and classical communication; Entanglement distillation
+
+\subsection*{ID}
+
+\texttt{op\_da0450f40da1eea8}

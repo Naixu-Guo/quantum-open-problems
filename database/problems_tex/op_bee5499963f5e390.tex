@@ -1,0 +1,66 @@
+% Problem record op_bee5499963f5e390. This TeX file is derived from
+% database/problems_json/op_bee5499963f5e390.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Minimum number of messages for quantum interactive proofs}
+\label{sec:op_bee5499963f5e390}
+
+\paragraph{Problem.}
+What is the smallest integer $k\geq 0$ for which $\mathsf{QIP}(k)=\mathsf{QIP}$?
+Use the standard bounded-error, single-prover model and the promise-problem convention for complexity classes. Count individual messages in both directions. When messages are exchanged, the prover sends the last one.
+
+Determine the minimum $k$ by proving that $k$ messages suffice and that every smaller number is insufficient.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+unknown
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item In a November 2026 preprint, Yupan Liu proves $\mathsf{QIP}(2)=\mathsf{QIP}=\mathsf{PSPACE}$. The verifier can send halves of EPR pairs and decide after a single reply from the prover \sourcecite{ref:f5e390-liu26}{Liu26} (Theorem~1.1).
+
+  \item Kitaev and Watrous previously proved $\mathsf{QIP}(3)=\mathsf{QIP}$ by parallelizing polynomial-message protocols to three messages. Jain, Ji, Upadhyay, and Watrous subsequently proved $\mathsf{QIP}=\mathsf{PSPACE}$ \sourcecite{ref:f5e390-kw00}{KW00} (Corollary~8), \sourcecite{ref:f5e390-jjuw11}{JJUW11}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[Liu26]}]\label{ref:f5e390-liu26}
+  Yupan Liu, “Two messages suffice for quantum interactive proof systems”, 2026.
+\href{https://arxiv.org/abs/2611.31236v1}{arXiv:2611.31236v1}
+
+  \item[\textup{[KW00]}]\label{ref:f5e390-kw00}
+  Alexei Kitaev, John Watrous, “Parallelization, amplification, and exponential time simulation of quantum interactive proof systems”, \emph{Proceedings of the 32nd Annual ACM Symposium on Theory of Computing}, pp. 608--617, 2000.
+\href{https://doi.org/10.1145/335305.335387}{DOI}
+\href{https://cs.uwaterloo.ca/~watrous/Papers/QuantumInteractiveProofs.pdf#page=8}{Author copy}
+
+  \item[\textup{[JJUW11]}]\label{ref:f5e390-jjuw11}
+  Rahul Jain, Zhengfeng Ji, Sarvagya Upadhyay, John Watrous, “QIP = PSPACE”, \emph{Journal of the ACM}, vol. 58, no. 6, pp. 30:1--30:27, 2011.
+\href{https://arxiv.org/abs/0907.4737}{arXiv:0907.4737}
+
+  \item[\textup{[JUW09]}]\label{ref:f5e390-juw09}
+  Rahul Jain, Sarvagya Upadhyay, John Watrous, “Two-message quantum interactive proofs are in PSPACE”, \emph{Proceedings of the 50th Annual IEEE Symposium on Foundations of Computer Science}, pp. 534--543, 2009.
+\href{https://arxiv.org/abs/0905.1300}{arXiv:0905.1300}
+\end{enumerate}
+
+\subsection*{Comment}
+
+With one message, the prover sends a quantum witness, giving $\mathsf{QIP}(1)=\mathsf{QMA}$. With zero messages, the verifier runs alone, giving $\mathsf{QIP}(0)=\mathsf{BQP}$ \sourcecite{ref:f5e390-juw09}{JUW09} (Introduction).
+The minimum is $0$ if $\mathsf{BQP}=\mathsf{PSPACE}$, $1$ if $\mathsf{QMA}=\mathsf{PSPACE}$ and $\mathsf{BQP}\ne\mathsf{PSPACE}$, and $2$ if $\mathsf{QMA}\ne\mathsf{PSPACE}$.
+
+\subsection*{Field}
+
+Quantum algorithm
+
+\subsection*{Topic}
+
+Computational complexity and computability
+
+\subsection*{ID}
+
+\texttt{op\_bee5499963f5e390}

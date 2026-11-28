@@ -1,0 +1,85 @@
+% Problem record op_89a8760b846e58b1. This TeX file is derived from
+% database/problems_json/op_89a8760b846e58b1.json by scripts/sync-tex.mjs; edit the JSON record
+% and rerun the script rather than editing this file.
+\section{Distillable tripartite GHZ states from tripartite W states by LOCC}
+\label{sec:op_89a8760b846e58b1}
+
+\paragraph{Problem.}
+Alice, Bob, and Charlie share $n$ copies of the standard tripartite W state. Let $\mathrm{W}_3$ be the projector onto $(\ket{100}+\ket{010}+\ket{001})/\sqrt{3}$.
+
+For a proposed rate $r$, the parties aim to distill $\lfloor rn\rfloor$ copies of the tripartite GHZ state with vanishing trace-distance error on the full target. Let $\mathrm{GHZ}_3$ be the projector onto $(\ket{000}+\ket{111})/\sqrt{2}$.
+
+What is the optimal LOCC distillation rate $R_{\mathrm{W}\to\mathrm{GHZ}}$? The rate is defined by
+\begin{equation}
+  R_{\mathrm{W}\to\mathrm{GHZ}}=\sup\left\{r\geq 0:\lim_{n\to\infty}\inf_{\Lambda_n\in\mathrm{LOCC}}
+  \tfrac12\left\lVert\Lambda_n\bigl(\mathrm{W}_3^{\otimes n}\bigr)
+  -\mathrm{GHZ}_3^{\otimes\lfloor rn\rfloor}\right\rVert_1=0\right\}.
+  \label{eq:w-ghz-rate}
+\end{equation}
+In Eq.~\eqref{eq:w-ghz-rate}, the infimum is over LOCC channels with $\lfloor rn\rfloor$ output qubits per party.
+
+Give an achievable rate and a matching converse for arbitrary LOCC, counting GHZ states per W state supplied.
+
+\subsection*{Status}
+
+Unsolved
+
+\subsection*{Source}
+
+Vrana and Christandl identify the unknown LOCC distillation rate in Example~4.8 \sourcecite{ref:6e58b1-vc19}{VC19}.
+
+\subsection*{Progress}
+
+\begin{itemize}
+  \item Let $h_2$ denote the binary entropy in bits. The bounds are given in Eq.~\eqref{eq:w-ghz-bounds}.
+\begin{equation}
+  h_2(1/3)-\tfrac12 h_2\bigl((3-\sqrt{5})/6\bigr)
+  \ \leq\ R_{\mathrm{W}\to\mathrm{GHZ}}\ \leq\ h_2(1/3).
+  \label{eq:w-ghz-bounds}
+\end{equation}
+For the lower bound, Smolin, Verstraete, and Winter obtain both GHZ states
+and Bell pairs, then combine the Bell pairs to obtain more GHZ states \sourcecite{ref:6e58b1-svw05}{SVW05} (Example~11). The resulting rate is about $0.64327$.
+
+For the upper bound, group Bob and Charlie into one laboratory. A W state has
+entanglement entropy $h_2(1/3)$ across this cut and a GHZ state has one ebit. The
+pure-state bipartite distillation converse therefore gives the upper bound \sourcecite{ref:6e58b1-bbps96}{BBPS96}.
+\end{itemize}
+
+\subsection*{References}
+
+\begin{enumerate}[label={},leftmargin=4.8em,labelsep=0.5em]
+  \footnotesize
+  \item[\textup{[BBPS96]}]\label{ref:6e58b1-bbps96}
+  Charles H. Bennett, Herbert J. Bernstein, Sandu Popescu, Benjamin Schumacher, “Concentrating Partial Entanglement by Local Operations”, 1996.
+\href{https://arxiv.org/abs/quant-ph/9511030}{arXiv:quant-ph/9511030}
+
+  \item[\textup{[SVW05]}]\label{ref:6e58b1-svw05}
+  John A. Smolin, Frank Verstraete, Andreas Winter, “Entanglement of Assistance and Multipartite State Distillation”, 2005.
+\href{https://arxiv.org/abs/quant-ph/0505038}{arXiv:quant-ph/0505038}
+
+  \item[\textup{[VC15]}]\label{ref:6e58b1-vc15}
+  P{\'e}ter Vrana, Matthias Christandl, “Asymptotic Entanglement Transformation Between W and GHZ States”, 2015.
+\href{https://arxiv.org/abs/1310.3244v2}{arXiv:1310.3244v2}
+
+  \item[\textup{[VC19]}]\label{ref:6e58b1-vc19}
+  P{\'e}ter Vrana, Matthias Christandl, “Distillation of Greenberger--Horne--Zeilinger States by Combinatorial Methods”, 2019.
+\href{https://arxiv.org/abs/1805.09096v2}{arXiv:1805.09096v2}
+\end{enumerate}
+
+\subsection*{Comment}
+
+The stochastic conversion rate is $h_2(1/3)$ in the model allowing postselection
+with arbitrarily small nonzero success probability \sourcecite{ref:6e58b1-vc15}{VC15} (Theorem~11).
+Equation~\eqref{eq:w-ghz-rate} uses the full output of a trace-preserving LOCC channel.
+
+\subsection*{Field}
+
+Quantum Resource Theory
+
+\subsection*{Topic}
+
+Entanglement cost; Local operations and classical communication; Entanglement distillation
+
+\subsection*{ID}
+
+\texttt{op\_89a8760b846e58b1}
